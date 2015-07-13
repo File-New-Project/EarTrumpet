@@ -13,6 +13,7 @@
         PreviewKeyDown="Window_PreviewKeyDown"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
+		ResizeMode="NoResize"
         x:Name="VolumeWindow">
     <Window.Resources>
         <SolidColorBrush x:Key="WindowForeground"
