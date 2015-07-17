@@ -90,7 +90,8 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
 	FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
 	FAST_FAIL(simpleAudioVolume->GetMasterVolume(&etAudioSession->Volume));
 
-	if (IsImmersiveProcess(pid))
+	HRESULT hr = IsImmersiveProcess(pid);
+	if (hr == S_OK)
 	{
 		PWSTR appUserModelId;
 		FAST_FAIL(GetAppUserModelIdFromPid(pid, &appUserModelId));
@@ -99,7 +100,7 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
 
 		etAudioSession->IsDesktopApp = false;
 	}
-	else
+	else if (hr == S_FALSE)
 	{
         bool isSystemSoundsSession = (S_OK == audioSessionControl2->IsSystemSoundsSession());
 
@@ -163,12 +164,19 @@ HRESULT AudioSessionService::GetAudioSessions(void** audioSessions)
 	return S_OK;
 }
 
-BOOL AudioSessionService::IsImmersiveProcess(DWORD pid)
+HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
 {
-	shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid), CloseHandle);
+	shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
 	FAST_FAIL_HANDLE(processHandle.get());
 
-	return ::IsImmersiveProcess(processHandle.get());
+	if (::IsImmersiveProcess(processHandle.get()))
+	{
+		return S_OK;
+	}
+	else
+	{
+		return S_FALSE;
+	}
 }
 
 HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelIdPtr)
