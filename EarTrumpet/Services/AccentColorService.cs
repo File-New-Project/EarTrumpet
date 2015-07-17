@@ -5,37 +5,37 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Services
 {
-	public static class AccentColorService
-	{
-		static class Interop
-		{
-			// Thanks, Quppa! -RR
+    public static class AccentColorService
+    {
+        static class Interop
+        {
+            // Thanks, Quppa! -RR
 
-			[DllImport("uxtheme.dll", EntryPoint = "#94", CharSet = CharSet.Unicode)]
-			internal static extern int GetImmersiveColorSetCount();
+            [DllImport("uxtheme.dll", EntryPoint = "#94", CharSet = CharSet.Unicode)]
+            internal static extern int GetImmersiveColorSetCount();
 
-			[DllImport("uxtheme.dll", EntryPoint = "#95", CharSet = CharSet.Unicode)]
-			internal static extern uint GetImmersiveColorFromColorSetEx(uint dwImmersiveColorSet, uint dwImmersiveColorType, bool bIgnoreHighContrast, uint dwHighContrastCacheMode);
+            [DllImport("uxtheme.dll", EntryPoint = "#95", CharSet = CharSet.Unicode)]
+            internal static extern uint GetImmersiveColorFromColorSetEx(uint dwImmersiveColorSet, uint dwImmersiveColorType, bool bIgnoreHighContrast, uint dwHighContrastCacheMode);
 
-			[DllImport("uxtheme.dll", EntryPoint = "#96", CharSet = CharSet.Unicode)]
-			internal static extern uint GetImmersiveColorTypeFromName(string name);
+            [DllImport("uxtheme.dll", EntryPoint = "#96", CharSet = CharSet.Unicode)]
+            internal static extern uint GetImmersiveColorTypeFromName(string name);
 
-			[DllImport("uxtheme.dll", EntryPoint = "#98", CharSet = CharSet.Unicode)]
-			internal static extern uint GetImmersiveUserColorSetPreference(bool bForceCheckRegistry, bool bSkipCheckOnFail);
+            [DllImport("uxtheme.dll", EntryPoint = "#98", CharSet = CharSet.Unicode)]
+            internal static extern uint GetImmersiveUserColorSetPreference(bool bForceCheckRegistry, bool bSkipCheckOnFail);
 
-			[DllImport("uxtheme.dll", EntryPoint = "#100", CharSet = CharSet.Unicode)]
-			internal static extern IntPtr GetImmersiveColorNamedTypeByIndex(uint dwIndex);
-		}
+            [DllImport("uxtheme.dll", EntryPoint = "#100", CharSet = CharSet.Unicode)]
+            internal static extern IntPtr GetImmersiveColorNamedTypeByIndex(uint dwIndex);
+        }
 
-		public static Color GetColorByTypeName(string name)
-		{
-			var colorSet = Interop.GetImmersiveUserColorSetPreference(false, false);
-			var colorType = Interop.GetImmersiveColorTypeFromName(name);
-			
-			uint rawColor = Interop.GetImmersiveColorFromColorSetEx(colorSet, colorType, false, 0);
+        public static Color GetColorByTypeName(string name)
+        {
+            var colorSet = Interop.GetImmersiveUserColorSetPreference(false, false);
+            var colorType = Interop.GetImmersiveColorTypeFromName(name);
+            
+            uint rawColor = Interop.GetImmersiveColorFromColorSetEx(colorSet, colorType, false, 0);
 
             return FromABGR(rawColor);
-		}
+        }
 
         public static Color FromABGR(uint abgrValue)
         {
@@ -47,5 +47,5 @@ namespace EarTrumpet.Services
 
             return Color.FromArgb(colorBytes[0], colorBytes[3], colorBytes[2], colorBytes[1]);
         }
-	}
+    }
 }
