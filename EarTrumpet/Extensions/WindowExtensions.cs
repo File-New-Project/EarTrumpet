@@ -34,23 +34,24 @@ namespace EarTrumpet.Extensions
             switch (taskbarPosition)
             {
                 case TaskbarPosition.Top:
-                case TaskbarPosition.Bottom: 
-                    window.BeginAnimation(Window.TopProperty, hideAnimation); 
+                case TaskbarPosition.Bottom:
+                    window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
                     break;
                 case TaskbarPosition.Left: 
-                case TaskbarPosition.Right: 
-                    window.BeginAnimation(Window.LeftProperty, hideAnimation); 
+                case TaskbarPosition.Right:
+                    window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
                     break;
-                default: 
-                    window.BeginAnimation(Window.TopProperty, hideAnimation); 
+                default:
+                    window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
                     break;
             }
         }
 
         public static void ShowwithAnimation(this Window window)
-        {
+        {            
             window.Visibility = Visibility.Visible;
-            window.Topmost = false;            
+            window.Topmost = false;
+            window.Activate();
             TimeSpan slidetime = TimeSpan.FromSeconds(0.3);
             DoubleAnimation showAnimation = new DoubleAnimation();
             showAnimation.Duration = new Duration(slidetime);
@@ -68,11 +69,7 @@ namespace EarTrumpet.Extensions
             showAnimation.Completed += (s, e) =>
             {
                 window.Topmost = true;
-                // Set the final position again. This covers a case where frames are dropped.
-                // and the window ends up over the taskbar instead.
-                //window.Top = (double)showAnimation.To;
-                window.Activate();
-                window.Focus();
+                window.Focus();                
             };
             var easing = new QuinticEase();
             easing.EasingMode = EasingMode.EaseOut;
@@ -80,15 +77,15 @@ namespace EarTrumpet.Extensions
             switch (taskbarPosition)
             {
                 case TaskbarPosition.Top:
-                case TaskbarPosition.Bottom: 
-                    window.BeginAnimation(Window.TopProperty, showAnimation); 
+                case TaskbarPosition.Bottom:
+                    window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
                     break;
                 case TaskbarPosition.Left: 
-                case TaskbarPosition.Right: 
-                    window.BeginAnimation(Window.LeftProperty, showAnimation); 
+                case TaskbarPosition.Right:
+                    window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
                     break;
-                default: 
-                    window.BeginAnimation(Window.TopProperty, showAnimation); 
+                default:
+                    window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
                     break;
             }
         }
