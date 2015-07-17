@@ -20,6 +20,8 @@ AllowUNCPath=no
 DisableReadyPage=yes
 DisableStartupPrompt=yes
 DisableWelcomePage=yes
+MinVersion=10.0
+SetupMutex=EarTrumpetSetup
 
 [Files]
 Source: "EarTrumpet.exe"; DestDir: "{app}"; Flags: replacesameversion
