@@ -63,6 +63,7 @@
     <Compile Include="Extensions\SliderExtensions.cs" />
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
+    <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserPreferencesService.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
