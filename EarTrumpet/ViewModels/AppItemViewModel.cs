@@ -42,7 +42,7 @@ namespace EarTrumpet.ViewModels
                 }
             }
         }
-        public Color Background { get; set; }
+        public SolidColorBrush Background { get; set; }
         public bool IsDesktop { get; set; }
 
         public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
@@ -75,7 +75,7 @@ namespace EarTrumpet.ViewModels
                 }
                 catch { }
 
-                Background = Colors.Transparent;
+                Background = new SolidColorBrush(Colors.Transparent);
 
                 try
                 {
@@ -90,7 +90,7 @@ namespace EarTrumpet.ViewModels
             else
             {
                 Icon = new BitmapImage(new Uri(session.IconPath));
-                Background = AccentColorService.FromABGR(session.BackgroundColor);
+                Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
             }
         }
 

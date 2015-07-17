@@ -190,14 +190,11 @@
 
                             <Border Grid.Column="0"
                                     ToolTip="{Binding DisplayName, Mode=OneTime}"
+                                    Background="{Binding Background, Mode=OneTime}"
                                     HorizontalAlignment="Center"
                                     Height="32"
                                     Width="32"
                                     Margin="4,0">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding Background, Mode=OneTime}" />
-                                </Border.Background>
-
                                 <Image Source="{Binding Icon, Mode=OneTime, IsAsync=True}"
                                        Stretch="Fill"
                                        Height="{Binding IconHeight, Mode=OneTime}"
