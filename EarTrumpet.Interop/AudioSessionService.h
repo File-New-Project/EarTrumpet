@@ -25,7 +25,7 @@ namespace EarTrumpet
             HRESULT CreateEtAudioSessionFromAudioSession(CComPtr<IAudioSessionEnumerator> sessionEnumerator, int sessionCount, EarTrumpetAudioSession* etAudioSession);
             HRESULT GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, PWSTR* ppszIcon, ULONG *background);
             HRESULT GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelIdPtr);
-            BOOL IsImmersiveProcess(DWORD pid);
+            HRESULT IsImmersiveProcess(DWORD pid);
 
             std::vector<EarTrumpetAudioSession> _sessions;
             std::map<int, CComPtr<IAudioSessionControl2>> _sessionMap;

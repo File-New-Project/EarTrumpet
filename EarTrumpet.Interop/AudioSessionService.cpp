@@ -168,15 +168,7 @@ HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
 {
     shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
     FAST_FAIL_HANDLE(processHandle.get());
-
-    if (::IsImmersiveProcess(processHandle.get()))
-    {
-        return S_OK;
-    }
-    else
-    {
-        return S_FALSE;
-    }
+	return (::IsImmersiveProcess(processHandle.get()) ? S_OK : S_FALSE);
 }
 
 HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelIdPtr)
