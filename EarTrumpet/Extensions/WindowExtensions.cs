@@ -23,7 +23,7 @@ namespace EarTrumpet.Extensions
             }
             hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
             hideAnimation.FillBehavior = FillBehavior.Stop;
-            var easing = new QuinticEase(); 
+            var easing = new ExponentialEase(); 
             easing.EasingMode = EasingMode.EaseIn;
             hideAnimation.EasingFunction = easing;
             hideAnimation.Completed += (s, e) =>
@@ -71,7 +71,7 @@ namespace EarTrumpet.Extensions
                 window.Topmost = true;
                 window.Focus();                
             };
-            var easing = new QuinticEase();
+            var easing = new ExponentialEase();
             easing.EasingMode = EasingMode.EaseOut;
             showAnimation.EasingFunction = easing;
             switch (taskbarPosition)
