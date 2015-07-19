@@ -61,6 +61,7 @@
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
     <Compile Include="Services\ThemeService.cs" />
