@@ -7,6 +7,13 @@ namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
+        private static bool _windowVisible;
+
+        public static bool IsWindowVisible(this Window window)
+        {
+            return _windowVisible;
+        }
+
         public static void HideWithAnimation(this Window window)
         {
             TimeSpan slidetime = TimeSpan.FromSeconds(0.2);
@@ -45,6 +52,7 @@ namespace EarTrumpet.Extensions
                     window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
                     break;
             }
+            _windowVisible = false;
         }
 
         public static void ShowwithAnimation(this Window window)
@@ -88,6 +96,7 @@ namespace EarTrumpet.Extensions
                     window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
                     break;
             }
+            _windowVisible = true;
         }
     }
 }
