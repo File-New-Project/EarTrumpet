@@ -1,6 +1,6 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace EarTrumpet.Services
 {
@@ -12,7 +12,7 @@ namespace EarTrumpet.Services
             {
                 try
                 {
-                    return 1 == (int)Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet").GetValue("ShowDesktopApps");
+                    return 1 == (int) Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet").GetValue("ShowDesktopApps");
                 }
                 catch (Exception e)
                 {

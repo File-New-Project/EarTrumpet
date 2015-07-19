@@ -7,7 +7,7 @@ namespace EarTrumpet.Extensions
     {
         public static void AddRange<T>(this ICollection<T> destination, IEnumerable<T> source)
         {
-            foreach (T item in source)
+            foreach (var item in source)
             {
                 destination.Add(item);
             }
@@ -15,7 +15,7 @@ namespace EarTrumpet.Extensions
 
         public static void AddSorted<T>(this ObservableCollection<T> collection, T item, IComparer<T> comparer)
         {
-            int i = 0;
+            var i = 0;
             while ((i < collection.Count) && (comparer.Compare(collection[i], item) < 0))
             {
                 i++;

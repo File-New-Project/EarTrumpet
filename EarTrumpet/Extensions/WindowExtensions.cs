@@ -16,23 +16,24 @@ namespace EarTrumpet.Extensions
 
         public static void HideWithAnimation(this Window window)
         {
-            TimeSpan slidetime = TimeSpan.FromSeconds(0.2);
-            DoubleAnimation hideAnimation = new DoubleAnimation();
-            hideAnimation.Duration = new Duration(slidetime);
+            var hideAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase {EasingMode = EasingMode.EaseIn}
+            };
             var taskbarPosition = TaskbarService.TaskbarPosition;
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Top: hideAnimation.From = window.Top; break;
-                case TaskbarPosition.Bottom: hideAnimation.From = window.Top; break;
-                case TaskbarPosition.Left: hideAnimation.From = window.Left; break;
-                case TaskbarPosition.Right: hideAnimation.From = window.Left; break;
-                default: hideAnimation.From = window.Top; break;
+                case TaskbarPosition.Left:
+                case TaskbarPosition.Right: 
+                    hideAnimation.From = window.Left; 
+                    break;
+                default: 
+                    hideAnimation.From = window.Top; 
+                    break;
             }
             hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
-            hideAnimation.FillBehavior = FillBehavior.Stop;
-            var easing = new ExponentialEase(); 
-            easing.EasingMode = EasingMode.EaseIn;
-            hideAnimation.EasingFunction = easing;
             hideAnimation.Completed += (s, e) =>
             {
                 window.Visibility = Visibility.Hidden;
@@ -40,10 +41,6 @@ namespace EarTrumpet.Extensions
 
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Top:
-                case TaskbarPosition.Bottom:
-                    window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
-                    break;
                 case TaskbarPosition.Left: 
                 case TaskbarPosition.Right:
                     window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
@@ -60,34 +57,31 @@ namespace EarTrumpet.Extensions
             window.Visibility = Visibility.Visible;
             window.Topmost = false;
             window.Activate();
-            TimeSpan slidetime = TimeSpan.FromSeconds(0.3);
-            DoubleAnimation showAnimation = new DoubleAnimation();
-            showAnimation.Duration = new Duration(slidetime);
+            var showAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+            };
             var taskbarPosition = TaskbarService.TaskbarPosition;
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Top: showAnimation.To = window.Top; break;
-                case TaskbarPosition.Bottom: showAnimation.To = window.Top; break;
-                case TaskbarPosition.Left: showAnimation.To = window.Left; break; // + window.Width
-                case TaskbarPosition.Right: showAnimation.To = window.Left; break;
-                default: showAnimation.To = window.Top; break;
-            }           
+                case TaskbarPosition.Left:
+                case TaskbarPosition.Right:
+                    showAnimation.To = window.Left;
+                    break;
+                default:
+                    showAnimation.To = window.Top;
+                    break;
+            }
             showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;            
-            showAnimation.FillBehavior = FillBehavior.Stop;
             showAnimation.Completed += (s, e) =>
             {
                 window.Topmost = true;
                 window.Focus();                
             };
-            var easing = new ExponentialEase();
-            easing.EasingMode = EasingMode.EaseOut;
-            showAnimation.EasingFunction = easing;
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Top:
-                case TaskbarPosition.Bottom:
-                    window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
-                    break;
                 case TaskbarPosition.Left: 
                 case TaskbarPosition.Right:
                     window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());

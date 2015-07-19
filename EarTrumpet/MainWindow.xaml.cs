@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly AudioMixerViewModel _viewModel;
 
@@ -51,9 +51,9 @@ namespace EarTrumpet
             this.HideWithAnimation();
         }
         
-        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Escape)
+            if (e.Key == Key.Escape)
             {
                 this.HideWithAnimation();
             }
@@ -69,7 +69,7 @@ namespace EarTrumpet
             e.Handled = true;
         }
 
-        private void Slider_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Slider_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
@@ -91,7 +91,7 @@ namespace EarTrumpet
             e.Handled = true;
         }
 
-        private void Slider_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Slider_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var slider = (Slider)sender;
             if (slider.IsMouseCaptured)
@@ -118,7 +118,7 @@ namespace EarTrumpet
             }
         }
 
-        private void Slider_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Slider_MouseMove(object sender, MouseEventArgs e)
         {
             var slider = (Slider)sender;
             if (slider.IsMouseCaptured)
@@ -143,9 +143,9 @@ namespace EarTrumpet
 
         private void UpdateWindowPosition()
         {
-            this.LayoutRoot.UpdateLayout();
-            this.LayoutRoot.Measure(new Size(Double.PositiveInfinity, this.MaxHeight));
-            this.Height = this.LayoutRoot.DesiredSize.Height;
+            LayoutRoot.UpdateLayout();
+            LayoutRoot.Measure(new Size(double.PositiveInfinity, MaxHeight));
+            Height = LayoutRoot.DesiredSize.Height;
 
             var desktopWorkingArea = SystemParameters.WorkArea;
             var taskbarPosition = TaskbarService.TaskbarPosition;            

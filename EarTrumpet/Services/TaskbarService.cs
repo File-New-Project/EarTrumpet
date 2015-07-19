@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace EarTrumpet.Services
 {
@@ -16,9 +13,9 @@ namespace EarTrumpet.Services
         {
             get
             {
-                IntPtr taskbarHandle = User32.FindWindow(TaskbarService.ClassName, null);
+                var taskbarHandle = User32.FindWindow(ClassName, null);
 
-                RECT r = new RECT();
+                var r = new RECT();
                 User32.GetWindowRect(taskbarHandle, ref r);
 
                 return Rectangle.FromLTRB(r.left, r.top, r.right, r.bottom);
@@ -30,14 +27,14 @@ namespace EarTrumpet.Services
             get
             {
                 var rect = TaskbarPostionRect;
-                if (rect.Bottom == System.Windows.SystemParameters.PrimaryScreenHeight && rect.Top == 0)
+                if (rect.Bottom == SystemParameters.PrimaryScreenHeight && rect.Top == 0)
                 {
                     return (rect.Left == 0) ? TaskbarPosition.Left : TaskbarPosition.Right;
                 }
-                if (rect.Right == System.Windows.SystemParameters.PrimaryScreenWidth && rect.Left == 0)
+                if (rect.Right == SystemParameters.PrimaryScreenWidth && rect.Left == 0)
                 {
                     return (rect.Top == 0) ? TaskbarPosition.Top : TaskbarPosition.Bottom;
-                }                
+                }
                 return TaskbarPosition.Bottom;
             }
         }
@@ -61,7 +58,7 @@ namespace EarTrumpet.Services
         public int right;
         public int bottom;
     }
-    
+
     public enum TaskbarPosition
     {
         Top,

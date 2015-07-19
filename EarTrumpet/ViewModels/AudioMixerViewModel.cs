@@ -48,22 +48,15 @@ namespace EarTrumpet.ViewModels
 
             var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
 
-            List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
+            List<AppItemViewModel> staleSessionsToRemove = Apps.Where(app => !sessions.Any(x => (x.IsSame(app) && (!app.IsDesktop || UserPreferencesService.ShowDesktopApps)))).ToList();
 
             // remove stale apps
-            foreach (var app in Apps)
-            {
-                if (!sessions.Where(x => (x.IsSame(app) && (!app.IsDesktop || UserPreferencesService.ShowDesktopApps))).Any())
-                {
-                    staleSessionsToRemove.Add(app);
-                }
-            }
             foreach (var app in staleSessionsToRemove) { Apps.Remove(app); }
 
             // add new apps
             foreach (var session in sessions)
             {
-                var findApp = Apps.Where(x => x.IsSame(session)).FirstOrDefault();
+                var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
                 if (findApp == null)
                 {
                     if (!session.IsDesktop || UserPreferencesService.ShowDesktopApps)

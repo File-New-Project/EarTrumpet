@@ -22,8 +22,8 @@ namespace EarTrumpet.Extensions
 
         public static ImageSource ToImageSource(this Icon icon)
         {
-            Bitmap bitmap = icon.ToBitmap();
-            IntPtr hBitmap = bitmap.GetHbitmap();
+            var bitmap = icon.ToBitmap();
+            var hBitmap = bitmap.GetHbitmap();
 
             ImageSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
                 hBitmap,

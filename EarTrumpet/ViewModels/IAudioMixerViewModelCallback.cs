@@ -1,5 +1,4 @@
-﻿
-using EarTrumpet.Models;
+﻿using EarTrumpet.Models;
 
 namespace EarTrumpet.ViewModels
 {

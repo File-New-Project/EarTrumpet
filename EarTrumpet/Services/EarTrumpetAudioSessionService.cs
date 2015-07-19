@@ -30,11 +30,11 @@ namespace EarTrumpet.Services
             var sessionCount = Interop.GetAudioSessionCount();
             var sessions = new List<EarTrumpetAudioSessionModel>();
 
-            IntPtr rawSessionsPtr = IntPtr.Zero;
+            var rawSessionsPtr = IntPtr.Zero;
             Interop.GetAudioSessions(ref rawSessionsPtr);
 
             var sizeOfAudioSessionStruct = Marshal.SizeOf(typeof(EarTrumpetAudioSessionModel));
-            for(int i = 0; i < sessionCount; i++)
+            for(var i = 0; i < sessionCount; i++)
             {
                 var window = new IntPtr(rawSessionsPtr.ToInt64() + (sizeOfAudioSessionStruct * i));
                 
