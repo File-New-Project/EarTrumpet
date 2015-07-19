@@ -222,6 +222,7 @@
                                     TouchMove="Slider_TouchMove"
                                     PreviewMouseDown="Slider_MouseDown"
                                     PreviewMouseUp="Slider_MouseUp"
+                                    MouseWheel="MouseWheel_Manipulation"
                                     MouseMove="Slider_MouseMove" />
                             <TextBlock Grid.Column="2"
                                        Text="{Binding Volume, Mode=OneWay}"

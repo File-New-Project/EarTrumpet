@@ -151,5 +151,12 @@ namespace EarTrumpet
             this.Left = desktopWorkingArea.Right - this.Width;
             this.Top = desktopWorkingArea.Bottom - this.Height;      
         }
+
+        private void MouseWheel_Manipulation(object sender, MouseWheelEventArgs e) {
+            var slider = (Slider)sender;
+            double increase = Math.Sign(e.Delta)*2;
+            slider.Value = (slider.Value + increase).Bound(0, 100);
+            e.Handled = true;
+        }
     }
 }
