@@ -9,7 +9,12 @@ namespace EarTrumpet.Extensions
         {
             var percent = point.X / slider.ActualWidth;
             var newValue = (slider.Maximum - slider.Minimum) * percent;
-            slider.Value = (newValue > slider.Maximum ? slider.Maximum : (newValue < slider.Minimum ? slider.Minimum : newValue));
+            slider.Value = newValue.Bound(slider.Minimum,slider.Maximum);
+        }
+
+        public static void ChangePositionByAmount(this Slider slider, double amount)
+        {
+            slider.Value = (slider.Value + amount).Bound(slider.Minimum, slider.Maximum);
         }
     }
 }
