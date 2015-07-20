@@ -147,10 +147,10 @@ namespace EarTrumpet
             LayoutRoot.Measure(new Size(double.PositiveInfinity, MaxHeight));
             Height = LayoutRoot.DesiredSize.Height;
 
-            var desktopWorkingArea = SystemParameters.WorkArea;
+            var taskbarScreenWorkArea = TaskbarService.TaskbarScreen.WorkingArea;
             var taskbarPosition = TaskbarService.TaskbarPosition;            
-            Left = (taskbarPosition == TaskbarPosition.Left) ? desktopWorkingArea.Left : desktopWorkingArea.Right - Width;
-            Top = (taskbarPosition == TaskbarPosition.Top) ? desktopWorkingArea.Top : desktopWorkingArea.Bottom - Height;
+            Left = (taskbarPosition == TaskbarPosition.Left) ? taskbarScreenWorkArea.Left : taskbarScreenWorkArea.Right - Width;
+            Top = (taskbarPosition == TaskbarPosition.Top) ? taskbarScreenWorkArea.Top : taskbarScreenWorkArea.Bottom - Height;
         }
     }
 }

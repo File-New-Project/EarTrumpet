@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace EarTrumpet.Services
 {
@@ -27,15 +29,27 @@ namespace EarTrumpet.Services
             get
             {
                 var rect = TaskbarPostionRect;
-                if (rect.Bottom == SystemParameters.PrimaryScreenHeight && rect.Top == 0)
+                var screen = TaskbarScreen;
+                if (screen == null) return TaskbarPosition.Bottom;
+
+                if (rect.Bottom == screen.Bounds.Bottom && rect.Top == screen.Bounds.Top)
                 {
-                    return (rect.Left == 0) ? TaskbarPosition.Left : TaskbarPosition.Right;
+                    return (rect.Left == screen.Bounds.Left) ? TaskbarPosition.Left : TaskbarPosition.Right;
                 }
-                if (rect.Right == SystemParameters.PrimaryScreenWidth && rect.Left == 0)
+                if (rect.Right == screen.Bounds.Right && rect.Left == screen.Bounds.Left)
                 {
-                    return (rect.Top == 0) ? TaskbarPosition.Top : TaskbarPosition.Bottom;
+                    return (rect.Top == screen.Bounds.Top) ? TaskbarPosition.Top : TaskbarPosition.Bottom;
                 }
                 return TaskbarPosition.Bottom;
+            }
+        }
+
+        public static Screen TaskbarScreen
+        {
+            get
+            {
+                var rect = TaskbarPostionRect;
+                return Screen.AllScreens.FirstOrDefault(x => x.Bounds.Contains(rect));
             }
         }
     }
