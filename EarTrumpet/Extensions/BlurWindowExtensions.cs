@@ -25,22 +25,22 @@ namespace EarTrumpet.Extensions
             internal struct AccentPolicy
             {
                 public AccentState AccentState;
-				public AccentFlags AccentFlags;
+                public AccentFlags AccentFlags;
                 public int GradientColor;
                 public int AnimationId;
             }
 
-			[Flags]
-			internal enum AccentFlags
-			{
-				// ...
-				DrawLeftBorder = 0x20,
-				DrawTopBorder = 0x40,
-				DrawRightBorder = 0x80,
-				DrawBottomBorder = 0x100,
-				DrawAllBorders = (DrawLeftBorder | DrawTopBorder | DrawRightBorder | DrawBottomBorder)
-				// ...
-			}
+            [Flags]
+            internal enum AccentFlags
+            {
+                // ...
+                DrawLeftBorder = 0x20,
+                DrawTopBorder = 0x40,
+                DrawRightBorder = 0x80,
+                DrawBottomBorder = 0x100,
+                DrawAllBorders = (DrawLeftBorder | DrawTopBorder | DrawRightBorder | DrawBottomBorder)
+                // ...
+            }
 
             internal enum WindowCompositionAttribute
             {
@@ -80,7 +80,7 @@ namespace EarTrumpet.Extensions
 
             var accent = new Interop.AccentPolicy();
             accent.AccentState = accentState;
-			accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
+            accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
 
             var accentStructSize = Marshal.SizeOf(accent);
 
@@ -97,30 +97,30 @@ namespace EarTrumpet.Extensions
             Marshal.FreeHGlobal(accentPtr);
         }
 
-		private static Interop.AccentFlags GetAccentFlagsForTaskbarPosition()
-		{
-			var flags = Interop.AccentFlags.DrawAllBorders;
+        private static Interop.AccentFlags GetAccentFlagsForTaskbarPosition()
+        {
+            var flags = Interop.AccentFlags.DrawAllBorders;
 
-			switch(TaskbarService.TaskbarPosition)
-			{
-				case TaskbarPosition.Top:
-					flags &= ~Interop.AccentFlags.DrawTopBorder;
-					break;
+            switch(TaskbarService.TaskbarPosition)
+            {
+                case TaskbarPosition.Top:
+                    flags &= ~Interop.AccentFlags.DrawTopBorder;
+                    break;
 
-				case TaskbarPosition.Bottom:
-					flags &= ~Interop.AccentFlags.DrawBottomBorder;
-					break;
+                case TaskbarPosition.Bottom:
+                    flags &= ~Interop.AccentFlags.DrawBottomBorder;
+                    break;
 
-				case TaskbarPosition.Left:
-					flags &= ~Interop.AccentFlags.DrawLeftBorder;
-					break;
+                case TaskbarPosition.Left:
+                    flags &= ~Interop.AccentFlags.DrawLeftBorder;
+                    break;
 
-				case TaskbarPosition.Right:
-					flags &= ~Interop.AccentFlags.DrawRightBorder;
-					break;
-			}
+                case TaskbarPosition.Right:
+                    flags &= ~Interop.AccentFlags.DrawRightBorder;
+                    break;
+            }
 
-			return flags;
-		}
+            return flags;
+        }
     }
 }
