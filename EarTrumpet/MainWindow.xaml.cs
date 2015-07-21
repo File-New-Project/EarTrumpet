@@ -127,9 +127,10 @@ namespace EarTrumpet
             }
         }
 
-        private void MouseWheel_Manipulation(object sender, MouseWheelEventArgs e) {
+        private void Slider_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
             var slider = (Slider)sender;
-            var amount = Math.Sign(e.Delta)*2.0;
+            var amount = Math.Sign(e.Delta) * 2.0;
             slider.ChangePositionByAmount(amount);
             e.Handled = true;
         }
