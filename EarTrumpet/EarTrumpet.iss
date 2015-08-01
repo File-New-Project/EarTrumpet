@@ -3,6 +3,7 @@
 [Setup]
 AppName=Ear Trumpet
 AppVersion={#AppVer}
+AppId=BA8684A3-9834-4D78-A666-04E88FF0EC82
 VersionInfoVersion={#AppVer}
 DefaultDirName={pf}\Ear Trumpet
 DefaultGroupName=Ear Trumpet
