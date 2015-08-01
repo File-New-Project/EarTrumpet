@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EarTrumpet.ViewModels
 {
@@ -8,7 +9,7 @@ namespace EarTrumpet.ViewModels
 
         public int Compare(AppItemViewModel one, AppItemViewModel two)
         {
-            return one.DisplayName.CompareTo(two.DisplayName);
+            return string.Compare(one.DisplayName, two.DisplayName, StringComparison.Ordinal);
         }
     }
 }

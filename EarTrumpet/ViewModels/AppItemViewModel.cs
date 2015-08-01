@@ -21,7 +21,7 @@ namespace EarTrumpet.ViewModels
         public double IconHeight { get; set; }
         public double IconWidth { get; set; }
 
-        private int _volume = 0;
+        private int _volume;
         public int Volume
         {
             get
@@ -36,13 +36,13 @@ namespace EarTrumpet.ViewModels
 
                     foreach (var session in _sessions.Sessions)
                     {
-                        _callback.SetVolume(session, (float)_volume / 100.0f);
+                        _callback.SetVolume(session, _volume / 100.0f);
                     }
                     RaisePropertyChanged("Volume");
                 }
             }
         }
-        public Color Background { get; set; }
+        public SolidColorBrush Background { get; set; }
         public bool IsDesktop { get; set; }
 
         public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
@@ -64,18 +64,14 @@ namespace EarTrumpet.ViewModels
             {                
                 try
                 {
-                    if (Path.GetExtension(session.IconPath) == ".dll")
-                    {
-                        Icon = IconExtensions.ExtractIconFromDll(session.IconPath);
-                    }
-                    else
-                    {
-                        Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-                    }
+                    Icon = Path.GetExtension(session.IconPath) == ".dll" ? IconExtensions.ExtractIconFromDll(session.IconPath) : System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
 
-                Background = Colors.Transparent;
+                Background = new SolidColorBrush(Colors.Transparent);
 
                 try
                 {
@@ -89,31 +85,25 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                Icon = new BitmapImage(new Uri(session.IconPath));
-                Background = AccentColorService.FromABGR(session.BackgroundColor);
+                if (File.Exists(session.IconPath)) //hack until we invoke the resource manager correctly.
+                {                    
+                    Icon = new BitmapImage(new Uri(session.IconPath));
+                }
+                Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
             }
         }
 
         public void UpdateFromOther(AppItemViewModel other)
         {
-            if (_volume != other.Volume)
-            {
-                _sessions = other._sessions;
-                _volume = other.Volume;
-                RaisePropertyChanged("Volume");
-            }
+            if (_volume == other.Volume) return;
+            _sessions = other._sessions;
+            _volume = other.Volume;
+            RaisePropertyChanged("Volume");
         }
 
         public bool IsSame(AppItemViewModel other)
         {
-            foreach (var session in other._sessions.Sessions)
-            {
-                if (_sessions.Sessions.Where(x => x.SessionId == session.SessionId).Any())
-                {
-                    return true;
-                }
-            }
-            return false;
+            return other._sessions.Sessions.Any(session => _sessions.Sessions.Any(x => x.SessionId == session.SessionId));
         }
     }
 }

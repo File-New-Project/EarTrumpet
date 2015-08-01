@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.Services
@@ -8,10 +7,7 @@ namespace EarTrumpet.Services
     {
         public static bool IsWindowTransparencyEnabled
         {
-            get
-            {
-                return !SystemParameters.HighContrast && UserSystemPreferencesService.IsTransparencyEnabled;
-            }
+            get { return !SystemParameters.HighContrast && UserSystemPreferencesService.IsTransparencyEnabled; }
         }
 
         public static void UpdateThemeResources(ResourceDictionary dictionary)
@@ -37,23 +33,23 @@ namespace EarTrumpet.Services
             }
             else if (UserSystemPreferencesService.UseAccentColor)
             {
-                resource = ThemeService.IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark1";
+                resource = IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark1";
             }
             else
             {
                 resource = "ImmersiveDarkChromeMedium";
             }
 
-            Color color = AccentColorService.GetColorByTypeName(resource);
-            color.A = (byte)(ThemeService.IsWindowTransparencyEnabled ? 190 : 255);
+            var color = AccentColorService.GetColorByTypeName(resource);
+            color.A = (byte) (IsWindowTransparencyEnabled ? 190 : 255);
             return color;
         }
 
         private static void SetBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
         {
-            Color color = AccentColorService.GetColorByTypeName(immersiveAccentName);
-            color.A = (byte)(opacity * 255);
-            ((SolidColorBrush)dictionary[name]).Color = color;
+            var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
+            color.A = (byte) (opacity*255);
+            ((SolidColorBrush) dictionary[name]).Color = color;
         }
 
         private static void SetBrush(ResourceDictionary dictionary, string name, string immersiveAccentName)

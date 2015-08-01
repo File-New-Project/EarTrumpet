@@ -63,7 +63,7 @@ namespace EarTrumpet.ViewModels
             // add new apps
             foreach (var session in sessions)
             {
-                var findApp = Apps.Where(x => x.IsSame(session)).FirstOrDefault();
+                var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
                 if (findApp == null)
                 {
                     if (!session.IsDesktop || UserPreferencesService.ShowDesktopApps)

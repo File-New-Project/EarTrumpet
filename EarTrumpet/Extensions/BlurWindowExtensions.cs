@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using EarTrumpet.Services;
 
 namespace EarTrumpet.Extensions
 {
@@ -24,9 +25,21 @@ namespace EarTrumpet.Extensions
             internal struct AccentPolicy
             {
                 public AccentState AccentState;
-                public int AccentFlags;
+                public AccentFlags AccentFlags;
                 public int GradientColor;
                 public int AnimationId;
+            }
+
+            [Flags]
+            internal enum AccentFlags
+            {
+                // ...
+                DrawLeftBorder = 0x20,
+                DrawTopBorder = 0x40,
+                DrawRightBorder = 0x80,
+                DrawBottomBorder = 0x100,
+                DrawAllBorders = (DrawLeftBorder | DrawTopBorder | DrawRightBorder | DrawBottomBorder)
+                // ...
             }
 
             internal enum WindowCompositionAttribute
@@ -67,6 +80,7 @@ namespace EarTrumpet.Extensions
 
             var accent = new Interop.AccentPolicy();
             accent.AccentState = accentState;
+            accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
 
             var accentStructSize = Marshal.SizeOf(accent);
 
@@ -81,6 +95,32 @@ namespace EarTrumpet.Extensions
             Interop.SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
             Marshal.FreeHGlobal(accentPtr);
+        }
+
+        private static Interop.AccentFlags GetAccentFlagsForTaskbarPosition()
+        {
+            var flags = Interop.AccentFlags.DrawAllBorders;
+
+            switch(TaskbarService.TaskbarPosition)
+            {
+                case TaskbarPosition.Top:
+                    flags &= ~Interop.AccentFlags.DrawTopBorder;
+                    break;
+
+                case TaskbarPosition.Bottom:
+                    flags &= ~Interop.AccentFlags.DrawBottomBorder;
+                    break;
+
+                case TaskbarPosition.Left:
+                    flags &= ~Interop.AccentFlags.DrawLeftBorder;
+                    break;
+
+                case TaskbarPosition.Right:
+                    flags &= ~Interop.AccentFlags.DrawRightBorder;
+                    break;
+            }
+
+            return flags;
         }
     }
 }

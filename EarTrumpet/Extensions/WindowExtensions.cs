@@ -7,48 +7,90 @@ namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
+        private static bool _windowVisible;
+
+        public static bool IsWindowVisible(this Window window)
+        {
+            return _windowVisible;
+        }
+
         public static void HideWithAnimation(this Window window)
         {
-            TimeSpan slidetime = TimeSpan.FromSeconds(0.2);
-            DoubleAnimation topAnimation = new DoubleAnimation();
-            topAnimation.Duration = new Duration(slidetime);
-            topAnimation.From = window.Top;
-            topAnimation.To = window.Top + 10;
-            topAnimation.FillBehavior = FillBehavior.Stop;
-            var easing = new QuinticEase(); 
-            easing.EasingMode = EasingMode.EaseIn;
-            topAnimation.EasingFunction = easing;
-            topAnimation.Completed += (s, e) =>
+            var hideAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase {EasingMode = EasingMode.EaseIn}
+            };
+            var taskbarPosition = TaskbarService.TaskbarPosition;
+            switch (taskbarPosition)
+            {
+                case TaskbarPosition.Left:
+                case TaskbarPosition.Right: 
+                    hideAnimation.From = window.Left; 
+                    break;
+                default: 
+                    hideAnimation.From = window.Top; 
+                    break;
+            }
+            hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
+            hideAnimation.Completed += (s, e) =>
             {
                 window.Visibility = Visibility.Hidden;
             };
-            window.BeginAnimation(Window.TopProperty, topAnimation); 
+
+            switch (taskbarPosition)
+            {
+                case TaskbarPosition.Left: 
+                case TaskbarPosition.Right:
+                    window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
+                    break;
+                default:
+                    window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
+                    break;
+            }
+            _windowVisible = false;
         }
 
         public static void ShowwithAnimation(this Window window)
-        {
+        {            
             window.Visibility = Visibility.Visible;
-            window.Topmost = false;            
-            TimeSpan slidetime = TimeSpan.FromSeconds(0.3);
-            DoubleAnimation bottomAnimation = new DoubleAnimation();
-            bottomAnimation.Duration = new Duration(slidetime);
-            double top = window.Top;
-            bottomAnimation.From = window.Top + 25;
-            bottomAnimation.To = window.Top;
-            bottomAnimation.FillBehavior = FillBehavior.Stop;
-            bottomAnimation.Completed += (s, e) =>
+            window.Topmost = false;
+            window.Activate();
+            var showAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+            };
+            var taskbarPosition = TaskbarService.TaskbarPosition;
+            switch (taskbarPosition)
+            {
+                case TaskbarPosition.Left:
+                case TaskbarPosition.Right:
+                    showAnimation.To = window.Left;
+                    break;
+                default:
+                    showAnimation.To = window.Top;
+                    break;
+            }
+            showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;            
+            showAnimation.Completed += (s, e) =>
             {
                 window.Topmost = true;
-                // Set the final position again. This covers a case where frames are dropped.
-                // and the window ends up over the taskbar instead.
-                window.Top = top;
-                window.Activate();
-                window.Focus();
+                window.Focus();                
             };
-            var easing = new QuinticEase();
-            easing.EasingMode = EasingMode.EaseOut;
-            bottomAnimation.EasingFunction = easing;
-            window.BeginAnimation(Window.TopProperty, bottomAnimation);
+            switch (taskbarPosition)
+            {
+                case TaskbarPosition.Left: 
+                case TaskbarPosition.Right:
+                    window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
+                    break;
+                default:
+                    window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
+                    break;
+            }
+            _windowVisible = true;
         }
     }
 }

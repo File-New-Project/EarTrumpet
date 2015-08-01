@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EarTrumpet.Models
 {
