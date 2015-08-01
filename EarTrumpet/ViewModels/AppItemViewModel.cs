@@ -85,7 +85,10 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                Icon = new BitmapImage(new Uri(session.IconPath));
+                if (File.Exists(session.IconPath)) //hack until we invoke the resource manager correctly.
+                {                    
+                    Icon = new BitmapImage(new Uri(session.IconPath));
+                }
                 Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
             }
         }
