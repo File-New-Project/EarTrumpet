@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Services;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Extensions
@@ -91,6 +92,24 @@ namespace EarTrumpet.Extensions
                     break;
             }
             _windowVisible = true;
+        }
+
+        public static Matrix CalculateDpiFactors(this Window window)
+        {
+            var mainWindowPresentationSource = PresentationSource.FromVisual(window);
+            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1} : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
+        }
+
+        public static double DpiHeightFactor(this Window window)
+        {
+            var m = CalculateDpiFactors(window);
+            return m.M22;
+        }
+
+        public static double DpiWidthFactor(this Window window)
+        {
+            var m = CalculateDpiFactors(window);
+            return m.M11;
         }
     }
 }

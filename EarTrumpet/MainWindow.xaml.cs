@@ -24,11 +24,22 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
+            CreateAndHideWindow();
+
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
             // visuals are preferrable.
             // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
 
             SourceInitialized += (s, e) => UpdateTheme();
+        }
+       
+        private void CreateAndHideWindow()
+        {
+            // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
+            Opacity = 0;
+            Show();
+            Hide();
+            Opacity = 1;
         }
 
         void TrayIcon_Invoked()
@@ -156,9 +167,9 @@ namespace EarTrumpet
             Height = LayoutRoot.DesiredSize.Height;
 
             var taskbarScreenWorkArea = TaskbarService.TaskbarScreen.WorkingArea;
-            var taskbarPosition = TaskbarService.TaskbarPosition;            
-            Left = (taskbarPosition == TaskbarPosition.Left) ? taskbarScreenWorkArea.Left : taskbarScreenWorkArea.Right - Width;
-            Top = (taskbarPosition == TaskbarPosition.Top) ? taskbarScreenWorkArea.Top : taskbarScreenWorkArea.Bottom - Height;
+            var taskbarPosition = TaskbarService.TaskbarPosition;
+            Left = (taskbarPosition == TaskbarPosition.Left) ? (taskbarScreenWorkArea.Left / this.DpiWidthFactor()) : (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - Width;
+            Top = (taskbarPosition == TaskbarPosition.Top) ? (taskbarScreenWorkArea.Top / this.DpiHeightFactor()) : (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
         }
     }
 }
