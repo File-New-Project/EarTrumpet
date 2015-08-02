@@ -7,6 +7,7 @@
 #include <PathCch.h>
 #include "AudioSessionService.h"
 #include "ShellProperties.h"
+#include "MrtResourceManager.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -168,7 +169,7 @@ HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
 {
     shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
     FAST_FAIL_HANDLE(processHandle.get());
-	return (::IsImmersiveProcess(processHandle.get()) ? S_OK : S_FALSE);
+    return (::IsImmersiveProcess(processHandle.get()) ? S_OK : S_FALSE);
 }
 
 HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelIdPtr)
@@ -229,17 +230,20 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
     CComHeapPtr<wchar_t> iconPath;
     FAST_FAIL(item->GetString(PKEY_AppUserModel_Icon, &iconPath));
 
-    wchar_t fullPath[MAX_PATH] = {};
-    FAST_FAIL(PathCchCombine(fullPath, ARRAYSIZE(fullPath), installPath, iconPath));
+    CComHeapPtr<wchar_t> fullPackagePath;
+    FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackagePath));
 
-    CStringW path(fullPath);
+    CComPtr<IMrtResourceManager> mrtResMgr;
+    FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&mrtResMgr)));
+    FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackagePath));
 
-    if (!PathFileExists(path))
-    {
-        path.Replace(L".png", L".scale-100.png");
-    }
+    CComPtr<IResourceMap> resourceMap;
+    FAST_FAIL(mrtResMgr->GetMainResourceMap(IID_PPV_ARGS(&resourceMap)));
 
-    FAST_FAIL(SHStrDup(path, ppszIcon));
+    CComHeapPtr<wchar_t> resolvedIconPath;
+    FAST_FAIL(resourceMap->GetFilePath(iconPath, &resolvedIconPath));
+
+    *ppszIcon = resolvedIconPath.Detach();
     *ppszName = itemName.Detach();
     return S_OK;
 }
