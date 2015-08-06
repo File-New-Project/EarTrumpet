@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Services;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 
@@ -16,16 +17,18 @@ namespace EarTrumpet
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
 
-            _trayIcon.ContextMenu.MenuItems.Add("&About Ear Trumpet...");
+            var aboutString = EarTrumpet.Properties.Resources.ContextMenuAboutTitle;
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+            _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} Ear Trumpet {1} ...", aboutString, version));
             _trayIcon.ContextMenu.MenuItems[0].Click += About_Click;
 
-            _trayIcon.ContextMenu.MenuItems.Add("&Show Desktop Apps");
+            _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuShowDesktopAppsTitle);
             _trayIcon.ContextMenu.MenuItems[1].Checked = UserPreferencesService.ShowDesktopApps;
             _trayIcon.ContextMenu.MenuItems[1].Click += ShowDesktopApps_Click;
                 
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
-            _trayIcon.ContextMenu.MenuItems.Add("E&xit");
+            _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
             _trayIcon.ContextMenu.MenuItems[3].Click += Exit_Click;
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
@@ -44,8 +47,7 @@ namespace EarTrumpet
 
         void About_Click(object sender, EventArgs e)
         {
-            var version = Assembly.GetEntryAssembly().GetName().Version;
-            MessageBox.Show(String.Concat("Ear Trumpet\n", version, "\n\nUpdates and source at http://github.com/File-New-Project/EarTrumpet"), "Ear Trumpet", MessageBoxButton.OK, MessageBoxImage.Information);
+            Process.Start("http://github.com/File-New-Project/EarTrumpet");
         }
 
         void ShowDesktopApps_Click(object sender, EventArgs e)

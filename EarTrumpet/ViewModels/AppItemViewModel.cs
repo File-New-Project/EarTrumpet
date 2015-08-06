@@ -30,16 +30,14 @@ namespace EarTrumpet.ViewModels
             }
             set
             {
-                if (_volume != value)
-                {
-                    _volume = value;
+                if (_volume == value) return;
+                _volume = value;
 
-                    foreach (var session in _sessions.Sessions)
-                    {
-                        _callback.SetVolume(session, _volume / 100.0f);
-                    }
-                    RaisePropertyChanged("Volume");
+                foreach (var session in _sessions.Sessions)
+                {
+                    _callback.SetVolume(session, _volume / 100.0f);
                 }
+                RaisePropertyChanged("Volume");
             }
         }
         public SolidColorBrush Background { get; set; }
@@ -53,7 +51,7 @@ namespace EarTrumpet.ViewModels
 
             IconHeight = IconWidth = 32;
             SessionId = session.SessionId;
-            DisplayName = session.DisplayName;
+            DisplayName = session.DisplayName.Equals("System Sounds") ? EarTrumpet.Properties.Resources.SystemSoundsDisplayName : session.DisplayName;
             IsDesktop = session.IsDesktop;
 
             _volume = Convert.ToInt32(Math.Round((session.Volume * 100),

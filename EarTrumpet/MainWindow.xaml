@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:EarTrumpet.Properties"
         xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
         Title="Ear Trumpet"
         MaxHeight="600"
@@ -237,7 +238,7 @@
         <Grid x:Name="NoAppsPanel"
               Height="50"
               Visibility="{Binding NoAppsPaneVisibility}">
-            <TextBlock Text="It doesn't look like you have any apps open."
+            <TextBlock Text="{x:Static p:Resources.NoAppsPanelContent}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
