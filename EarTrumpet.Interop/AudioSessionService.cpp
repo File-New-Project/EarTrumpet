@@ -15,6 +15,16 @@ using namespace EarTrumpet::Interop;
 
 AudioSessionService* AudioSessionService::__instance = nullptr;
 
+struct PackageInfoReferenceDeleter
+{
+    void operator()(PACKAGE_INFO_REFERENCE* reference)
+    {
+        ClosePackageInfo(*reference);
+    }
+};
+
+typedef unique_ptr<PACKAGE_INFO_REFERENCE, PackageInfoReferenceDeleter> PackageInfoReference;
+
 void AudioSessionService::CleanUpAudioSessions()
 {
     for (auto session = _sessions.begin(); session != _sessions.end(); session++)
@@ -172,13 +182,19 @@ HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
     return (::IsImmersiveProcess(processHandle.get()) ? S_OK : S_FALSE);
 }
 
-HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelIdPtr)
+HRESULT AudioSessionService::CanResolveAppByApplicationUserModelId(LPCWSTR applicationUserModelId)
+{
+    CComPtr<IShellItem2> item;
+    return SUCCEEDED(SHCreateItemInKnownFolder(FOLDERID_AppsFolder, KF_FLAG_DONT_VERIFY, applicationUserModelId, IID_PPV_ARGS(&item)));
+}
+
+HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelId)
 {
     shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
     FAST_FAIL_HANDLE(processHandle.get());
 
     unsigned int appUserModelIdLength = 0;
-    long returnCode = GetApplicationUserModelId(processHandle.get(), &appUserModelIdLength, NULL);
+    long returnCode = GetApplicationUserModelId(processHandle.get(), &appUserModelIdLength, nullptr);
     if (returnCode != ERROR_INSUFFICIENT_BUFFER)
     {
         return HRESULT_FROM_WIN32(returnCode);
@@ -191,8 +207,53 @@ HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applica
         return HRESULT_FROM_WIN32(returnCode);
     }
 
-    FAST_FAIL(SHStrDup(appUserModelId.get(), applicationUserModelIdPtr));
+    if (CanResolveAppByApplicationUserModelId(appUserModelId.get()))
+    {
+        FAST_FAIL(SHStrDup(appUserModelId.get(), applicationUserModelId));
+    }
+    else
+    {
+        wchar_t packageFamilyName[PACKAGE_FAMILY_NAME_MAX_LENGTH];
+        UINT32 packageFamilyNameLength = ARRAYSIZE(packageFamilyName);
+        wchar_t packageRelativeAppId[PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH];
+        UINT32 packageRelativeAppIdLength = ARRAYSIZE(packageRelativeAppId);
 
+        FAST_FAIL_WIN32(ParseApplicationUserModelId(appUserModelId.get(), &packageFamilyNameLength, packageFamilyName, &packageRelativeAppIdLength, packageRelativeAppId));
+
+        UINT32 packageCount = 0;
+        UINT32 packageNamesBufferLength = 0;
+        FAST_FAIL_BUFFER(FindPackagesByPackageFamily(packageFamilyName, PACKAGE_FILTER_HEAD | PACKAGE_INFORMATION_BASIC, &packageCount, nullptr, &packageNamesBufferLength, nullptr, nullptr));
+
+        if (packageCount <= 0)
+        {
+            return E_NOTFOUND;
+        }
+
+        unique_ptr<PWSTR[]> packageNames(new PWSTR[packageCount]);
+        unique_ptr<wchar_t[]> buffer(new wchar_t[packageNamesBufferLength]);
+        FAST_FAIL_WIN32(FindPackagesByPackageFamily(packageFamilyName, PACKAGE_FILTER_HEAD | PACKAGE_INFORMATION_BASIC, &packageCount, packageNames.get(), &packageNamesBufferLength, buffer.get(), nullptr));
+
+        PackageInfoReference packageInfoRef;
+        PACKAGE_INFO_REFERENCE rawPackageInfoRef;
+        FAST_FAIL_WIN32(OpenPackageInfoByFullName(packageNames[0], 0, &rawPackageInfoRef));
+        packageInfoRef.reset(&rawPackageInfoRef);
+
+        UINT32 packageIdsLength = 0;
+        UINT32 packageIdCount = 0;
+        FAST_FAIL_BUFFER(GetPackageApplicationIds(*packageInfoRef.get(), &packageIdsLength, nullptr, &packageIdCount));
+
+        if (packageIdCount <= 0)
+        {
+            return E_NOTFOUND;
+        }
+
+        unique_ptr<BYTE[]> packageIdsRaw(new BYTE[packageIdsLength]);
+        FAST_FAIL_WIN32(GetPackageApplicationIds(*packageInfoRef.get(), &packageIdsLength, packageIdsRaw.get(), &packageIdCount));
+
+        PCWSTR* packageIds = reinterpret_cast<PCWSTR*>(packageIdsRaw.get());
+        FAST_FAIL(SHStrDup(packageIds[0], applicationUserModelId));
+    }
+    
     return S_OK;
 }
 
