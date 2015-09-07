@@ -132,4 +132,7 @@
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>Systemlyder</value>
   </data>
+  <data name="TrayIconTooltipText" xml:space="preserve">
+    <value>Volumkontroll for Windows</value>
+  </data>
 </root>
