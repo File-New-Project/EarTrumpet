@@ -104,5 +104,14 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume Control for Windows.
+        /// </summary>
+        public static string TrayIconTooltipText {
+            get {
+                return ResourceManager.GetString("TrayIconTooltipText", resourceCulture);
+            }
+        }
     }
 }
