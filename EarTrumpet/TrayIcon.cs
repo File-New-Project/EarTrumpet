@@ -33,7 +33,7 @@ namespace EarTrumpet
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
-            _trayIcon.Text = "Ear Trumpet - Volume Control for Windows";
+            _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
             _trayIcon.Visible = true;
         }
 
