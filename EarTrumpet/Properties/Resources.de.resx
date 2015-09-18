@@ -127,10 +127,10 @@
     <value>Desktop Apps anzeigen</value>
   </data>
   <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>Es sieht so aus als währen keine Apps offen</value>
+    <value>Es sieht so aus als sind keine Apps geöffnet</value>
   </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>Sytemklänge</value>
+    <value>Systemklänge</value>
   </data>
   <data name="TrayIconTooltipText" xml:space="preserve">
     <value>Lautstärkesteuerung für Windows</value>
