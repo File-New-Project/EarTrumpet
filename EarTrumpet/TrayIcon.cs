@@ -25,16 +25,24 @@ namespace EarTrumpet
             _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuShowDesktopAppsTitle);
             _trayIcon.ContextMenu.MenuItems[1].Checked = UserPreferencesService.ShowDesktopApps;
             _trayIcon.ContextMenu.MenuItems[1].Click += ShowDesktopApps_Click;
-                
+
+            _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.PlayBackDevices);
+            _trayIcon.ContextMenu.MenuItems[2].Click += Devices_Click;
+
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
             _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
-            _trayIcon.ContextMenu.MenuItems[3].Click += Exit_Click;
+            _trayIcon.ContextMenu.MenuItems[4].Click += Exit_Click;
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
             _trayIcon.Text = "Ear Trumpet - Volume Control for Windows";
             _trayIcon.Visible = true;
+        }
+
+        private void Devices_Click(object sender, EventArgs e)
+        {
+            Process.Start("control", "mmsys.cpl");
         }
 
         void TrayIcon_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)

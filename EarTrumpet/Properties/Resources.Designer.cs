@@ -97,6 +97,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PlaybackDevices.
+        /// </summary>
+        public static string PlayBackDevices {
+            get {
+                return ResourceManager.GetString("PlayBackDevices", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to System Sounds.
         /// </summary>
         public static string SystemSoundsDisplayName {
