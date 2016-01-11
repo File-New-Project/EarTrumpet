@@ -88,6 +88,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Volume Control for Windows.
+        /// </summary>
+        public static string ContextMenuTooltip {
+            get {
+                return ResourceManager.GetString("ContextMenuTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It doesn&apos;t look like you have any apps open..
         /// </summary>
         public static string NoAppsPanelContent {
