@@ -88,6 +88,7 @@
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserPreferencesService.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
+    <Compile Include="Services\ProcessTitleProviderFactoryService.cs" />
     <Compile Include="TrayIcon.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />

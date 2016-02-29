@@ -43,7 +43,8 @@ namespace EarTrumpet.ViewModels
         public SolidColorBrush Background { get; set; }
         public bool IsDesktop { get; set; }
 
-        public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
+        public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions,
+            ProcessTitleProvider titleProvider)
         {
             _sessions = sessions;
             // select a session at random as sndvol does.
@@ -73,10 +74,10 @@ namespace EarTrumpet.ViewModels
 
                 try
                 {
-                    var proc = Process.GetProcessById((int)session.ProcessId);
-                    if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                    string gotTitle;
+                    if (titleProvider.TryGetTitleForProcess(session.ProcessId, out gotTitle))
                     {
-                        DisplayName = proc.MainWindowTitle;
+                        DisplayName = gotTitle;
                     }
                 }
                 catch { } // we fallback to exe name if DisplayName is not set in the try above.
