@@ -46,7 +46,8 @@ namespace EarTrumpet.ViewModels
         {
             bool hasApps = Apps.Count > 0;
 
-            var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
+            var titleProvider = ProcessTitleProviderFactoryService.CreateProvider();
+            var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x, titleProvider));
 
             List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
 
