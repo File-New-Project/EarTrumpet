@@ -168,8 +168,26 @@ namespace EarTrumpet
 
             var taskbarScreenWorkArea = TaskbarService.TaskbarScreen.WorkingArea;
             var taskbarPosition = TaskbarService.TaskbarPosition;
-            Left = (taskbarPosition == TaskbarPosition.Left) ? (taskbarScreenWorkArea.Left / this.DpiWidthFactor()) : (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - Width;
-            Top = (taskbarPosition == TaskbarPosition.Top) ? (taskbarScreenWorkArea.Top / this.DpiHeightFactor()) : (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+            var taskbarRect = TaskbarService.TaskbarPostionRect;
+            switch(taskbarPosition)
+            {
+                case TaskbarPosition.Left:
+                    Left = (taskbarScreenWorkArea.Left / this.DpiWidthFactor()) + taskbarRect.Width;
+                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+                    break;
+                case TaskbarPosition.Right:
+                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - taskbarRect.Width - Width;
+                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+                    break;
+                case TaskbarPosition.Top:
+                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarScreenWorkArea.Top / this.DpiHeightFactor()) + taskbarRect.Height;
+                    break;
+                case TaskbarPosition.Bottom:
+                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor())- Width;
+                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - taskbarRect.Height - Height;
+                    break;
+            }            
         }
     }
 }
