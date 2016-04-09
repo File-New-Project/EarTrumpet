@@ -92,7 +92,23 @@ namespace EarTrumpet.ViewModels
             {                
                 try
                 {
-                    Icon = Path.GetExtension(session.IconPath) == ".dll" ? IconExtensions.ExtractIconFromDll(session.IconPath) : System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                    if (Path.GetExtension(session.IconPath) == ".dll")
+                    {
+                        Icon = IconExtensions.ExtractIconFromDll(session.IconPath);
+                    }
+                    else
+                    {
+                        // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
+                        if (session.IconPath.ToLowerInvariant().Contains("speechruntime.exe"))
+                        {
+                            var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
+                            Icon = IconExtensions.ExtractIconFromDll(Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe"), 0);
+                        }
+                        else
+                        {
+                            Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                        }
+                    }
                 }
                 catch
                 {
