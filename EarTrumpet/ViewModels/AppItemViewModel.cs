@@ -81,7 +81,7 @@ namespace EarTrumpet.ViewModels
             IconHeight = IconWidth = 32;
             SessionId = session.SessionId;
             ProcessId = session.ProcessId;
-            ExeName = session.DisplayName.Equals("System Sounds") ? EarTrumpet.Properties.Resources.SystemSoundsDisplayName : session.DisplayName;
+            ExeName = GetExeName(session.DisplayName);
             IsDesktop = session.IsDesktop;
 
             _volume = Convert.ToInt32(Math.Round((session.Volume * 100),
@@ -107,6 +107,16 @@ namespace EarTrumpet.ViewModels
                     Icon = new BitmapImage(new Uri(session.IconPath));
                 }
                 Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
+            }
+        }
+
+        private string GetExeName(string displayName)
+        {
+            switch (displayName.ToLowerInvariant())
+            {
+                case "system sounds": return Properties.Resources.SystemSoundsDisplayName;
+                case "speechruntime.exe": return Properties.Resources.SpeechRuntimeDisplayName;
+                default: return displayName;
             }
         }
 
