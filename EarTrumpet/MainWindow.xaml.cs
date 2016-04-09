@@ -166,26 +166,24 @@ namespace EarTrumpet
             LayoutRoot.Measure(new Size(double.PositiveInfinity, MaxHeight));
             Height = LayoutRoot.DesiredSize.Height;
 
-            var taskbarScreenWorkArea = TaskbarService.TaskbarScreen.WorkingArea;
-            var taskbarPosition = TaskbarService.TaskbarPosition;
-            var taskbarRect = TaskbarService.TaskbarPostionRect;
-            switch(taskbarPosition)
+            var taskbarState = TaskbarService.GetWinTaskbarState();
+            switch(taskbarState.TaskbarPosition)
             {
                 case TaskbarPosition.Left:
-                    Left = (taskbarScreenWorkArea.Left / this.DpiWidthFactor()) + taskbarRect.Width;
-                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor());
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - Height;
                     break;
                 case TaskbarPosition.Right:
-                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - taskbarRect.Width - Width;
-                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+                    Left = (taskbarState.TaskbarSize.left / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - Height;
                     break;
                 case TaskbarPosition.Top:
-                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - Width;
-                    Top = (taskbarScreenWorkArea.Top / this.DpiHeightFactor()) + taskbarRect.Height;
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor());
                     break;
                 case TaskbarPosition.Bottom:
-                    Left = (taskbarScreenWorkArea.Right / this.DpiWidthFactor())- Width;
-                    Top = (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - taskbarRect.Height - Height;
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.top / this.DpiHeightFactor()) - Height;
                     break;
             }            
         }

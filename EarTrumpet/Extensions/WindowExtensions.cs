@@ -23,7 +23,7 @@ namespace EarTrumpet.Extensions
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase {EasingMode = EasingMode.EaseIn}
             };
-            var taskbarPosition = TaskbarService.TaskbarPosition;
+            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
             switch (taskbarPosition)
             {
                 case TaskbarPosition.Left:
@@ -64,7 +64,7 @@ namespace EarTrumpet.Extensions
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
             };
-            var taskbarPosition = TaskbarService.TaskbarPosition;
+            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
             switch (taskbarPosition)
             {
                 case TaskbarPosition.Left:
