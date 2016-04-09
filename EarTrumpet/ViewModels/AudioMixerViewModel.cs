@@ -53,7 +53,7 @@ namespace EarTrumpet.ViewModels
             // remove stale apps
             foreach (var app in Apps)
             {
-                if (!sessions.Where(x => (x.IsSame(app) && (!app.IsDesktop || UserPreferencesService.ShowDesktopApps))).Any())
+                if (!sessions.Where(x => (x.IsSame(app))).Any())
                 {
                     staleSessionsToRemove.Add(app);
                 }
@@ -66,10 +66,7 @@ namespace EarTrumpet.ViewModels
                 var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
                 if (findApp == null)
                 {
-                    if (!session.IsDesktop || UserPreferencesService.ShowDesktopApps)
-                    {
-                        Apps.AddSorted(session, AppItemViewModelComparer.Instance);
-                    }
+                    Apps.AddSorted(session, AppItemViewModelComparer.Instance);
                 }
                 else
                 {
