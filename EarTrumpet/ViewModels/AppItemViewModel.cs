@@ -5,8 +5,11 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace EarTrumpet.ViewModels
 {
@@ -15,8 +18,34 @@ namespace EarTrumpet.ViewModels
         private readonly IAudioMixerViewModelCallback _callback;
         private EarTrumpetAudioSessionModelGroup _sessions;
 
-        public string DisplayName { get; set; }
-        public uint SessionId { get; set; }
+        private string displayName;
+        public string DisplayName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(displayName))
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        try
+                        {
+                            var proc = Process.GetProcessById((int)ProcessId);
+                            if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                            {
+                                displayName = proc.MainWindowTitle;
+                                App.Current.Dispatcher.BeginInvoke((Action)delegate { RaisePropertyChanged("DisplayName"); }, DispatcherPriority.Background);
+                            }
+                        }
+                        catch { } // we fallback to exe name if DisplayName is not set in the try above.                 
+                    });
+                    return ExeName;
+                }
+                return displayName;
+            }            
+        }
+        public string ExeName { get; private set; }
+        public uint SessionId { get; private set; }
+        public uint ProcessId { get; set; }
         public ImageSource Icon { get; set; }
         public double IconHeight { get; set; }
         public double IconWidth { get; set; }
@@ -51,7 +80,8 @@ namespace EarTrumpet.ViewModels
 
             IconHeight = IconWidth = 32;
             SessionId = session.SessionId;
-            DisplayName = session.DisplayName.Equals("System Sounds") ? EarTrumpet.Properties.Resources.SystemSoundsDisplayName : session.DisplayName;
+            ProcessId = session.ProcessId;
+            ExeName = GetExeName(session.DisplayName);
             IsDesktop = session.IsDesktop;
 
             _volume = Convert.ToInt32(Math.Round((session.Volume * 100),
@@ -68,18 +98,7 @@ namespace EarTrumpet.ViewModels
                 {
                     // ignored
                 }
-
                 Background = new SolidColorBrush(Colors.Transparent);
-
-                try
-                {
-                    var proc = Process.GetProcessById((int)session.ProcessId);
-                    if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
-                    {
-                        DisplayName = proc.MainWindowTitle;
-                    }
-                }
-                catch { } // we fallback to exe name if DisplayName is not set in the try above.
             }
             else
             {
@@ -88,6 +107,16 @@ namespace EarTrumpet.ViewModels
                     Icon = new BitmapImage(new Uri(session.IconPath));
                 }
                 Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
+            }
+        }
+
+        private string GetExeName(string displayName)
+        {
+            switch (displayName.ToLowerInvariant())
+            {
+                case "system sounds": return Properties.Resources.SystemSoundsDisplayName;
+                case "speechruntime.exe": return Properties.Resources.SpeechRuntimeDisplayName;
+                default: return displayName;
             }
         }
 

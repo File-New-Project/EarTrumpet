@@ -129,6 +129,9 @@
   <data name="NoAppsPanelContent" xml:space="preserve">
     <value>Det ser ikke ut som du har noen applikasjoner åpne.</value>
   </data>
+  <data name="SpeechRuntimeDisplayName" xml:space="preserve">
+    <value>Speech Runtime</value>
+  </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>Systemlyder</value>
   </data>
