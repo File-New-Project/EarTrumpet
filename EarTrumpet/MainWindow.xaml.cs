@@ -77,6 +77,9 @@ namespace EarTrumpet
             var slider = (Slider)sender;
             slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
             slider.CaptureTouch(e.TouchDevice);
+
+            ChangeMuteState(sender);
+
             e.Handled = true;
         }
 
@@ -89,6 +92,9 @@ namespace EarTrumpet
                 var slider = (Slider)sender;
                 slider.SetPositionByControlPoint(e.GetPosition(slider));
                 slider.CaptureMouse();
+
+                ChangeMuteState(sender);                
+
                 e.Handled = true;
             }
         }
@@ -186,6 +192,33 @@ namespace EarTrumpet
                     Top = (taskbarState.TaskbarSize.top / this.DpiHeightFactor()) - Height;
                     break;
             }            
+        }
+
+        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                ChangeMuteState(sender);
+                e.Handled = true;
+            }
+        }
+
+        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                ChangeMuteState(sender, true);
+                e.Handled = true;
+            }
+        }
+
+        private void ChangeMuteState(object sender, bool mute = false)
+        {
+            var element = (FrameworkElement)sender;
+            var grid = (FrameworkElement)element.Parent;
+            VisualStateManager.GoToElementState(grid, mute ? "Mute" : "Unmute", true);
+            var itemVM = (AppItemViewModel)element.DataContext;
+            itemVM.IsMuted = mute;
         }
     }
 }

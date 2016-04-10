@@ -23,3 +23,8 @@ extern "C" __declspec(dllexport) HRESULT SetAudioSessionVolume(unsigned long ses
 {
     return AudioSessionService::instance()->SetAudioSessionVolume(sessionId, volume);
 }
+
+extern "C" __declspec(dllexport) HRESULT SetAudioSessionMute(unsigned long sessionId, bool isMuted)
+{
+	return AudioSessionService::instance()->SetAudioSessionMute(sessionId, isMuted);
+}

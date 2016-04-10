@@ -25,9 +25,14 @@ namespace EarTrumpet.ViewModels
             {
                 _service.SetAudioSessionVolume(item.SessionId, volume);
             }
-        }
 
-        public ObservableCollection<AppItemViewModel> Apps { get; private set; }
+            public void SetMute(EarTrumpetAudioSessionModel item, bool isMuted)
+            {
+                _service.SetAudioSessionMute(item.SessionId, isMuted);
+            }
+    }
+
+    public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
         public Visibility ListVisibility { get; private set; }
         public Visibility NoAppsPaneVisibility { get; private set; }

@@ -14,6 +14,7 @@ namespace EarTrumpet
             unsigned long BackgroundColor;
             float Volume;
             bool IsDesktopApp;
+			bool IsMuted;
         };
 
         class AudioSessionService
@@ -45,6 +46,7 @@ namespace EarTrumpet
             HRESULT GetAudioSessions(void** audioSessions);
             HRESULT RefreshAudioSessions();
             HRESULT SetAudioSessionVolume(unsigned long sessionId, float volume);
+			HRESULT SetAudioSessionMute(unsigned long sessionId, bool isMuted);
         };
     }
 }

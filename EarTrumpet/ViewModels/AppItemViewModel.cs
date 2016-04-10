@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -72,6 +73,28 @@ namespace EarTrumpet.ViewModels
         public SolidColorBrush Background { get; set; }
         public bool IsDesktop { get; set; }
 
+        private bool _isMuted = false;
+        public bool IsMuted
+        {
+            get
+            {
+                return _isMuted;
+            }
+            set
+            {
+                if (_isMuted != value)
+                {
+                    _isMuted = value;
+
+                    foreach (var session in _sessions.Sessions)
+                    {
+                        _callback.SetMute(session, _isMuted);
+                    }
+                    RaisePropertyChanged("IsMuted");
+                }
+            }
+        }
+
         public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
         {
             _sessions = sessions;
@@ -86,6 +109,7 @@ namespace EarTrumpet.ViewModels
 
             _volume = Convert.ToInt32(Math.Round((session.Volume * 100),
                                      MidpointRounding.AwayFromZero));
+            _isMuted = session.IsMuted;
             _callback = callback;
 
             if (session.IsDesktop)
@@ -141,7 +165,9 @@ namespace EarTrumpet.ViewModels
             if (_volume == other.Volume) return;
             _sessions = other._sessions;
             _volume = other.Volume;
+            _isMuted = other.IsMuted;
             RaisePropertyChanged("Volume");
+            RaisePropertyChanged("IsMuted");
         }
 
         public bool IsSame(AppItemViewModel other)
