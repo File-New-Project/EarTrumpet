@@ -44,7 +44,7 @@ namespace EarTrumpet
 
         void TrayIcon_Invoked()
         {
-            if (this.IsWindowVisible())
+            if (this.Visibility == Visibility.Visible)
             {
                 this.HideWithAnimation();
             }
