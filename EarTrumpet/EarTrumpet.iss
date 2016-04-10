@@ -23,6 +23,7 @@ DisableStartupPrompt=yes
 DisableWelcomePage=yes
 MinVersion=10.0
 SetupMutex=EarTrumpetSetup
+AppMutex="Local\{{02639d71-0935-35e8-9d1b-9dd1a2a34627}{{EarTrumpet}"
 
 [Files]
 Source: "EarTrumpet.exe"; DestDir: "{app}"; Flags: replacesameversion
