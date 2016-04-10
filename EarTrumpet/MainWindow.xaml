@@ -23,11 +23,7 @@
         <SolidColorBrush x:Key="WindowBackground"
                          Color="White" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#FF888888" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackBackgroundHover"
-                         Color="#FF717171" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackBackgroundPressed"
-                         Color="#FF6A6A6A" />
+                         Color="#39FFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumb"
                          Color="#FF339933" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
@@ -120,11 +116,6 @@
                                     <DiscreteObjectKeyFrame KeyTime="0"
                                                             Value="{StaticResource CottonSwabSliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderRight">
-                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderTrackBackgroundHover}" />
-                                </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
@@ -133,11 +124,6 @@
                                                                Storyboard.TargetName="SliderThumb">
                                     <DiscreteObjectKeyFrame KeyTime="0"
                                                             Value="{StaticResource CottonSwabSliderThumbPressed}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderRight">
-                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderTrackBackgroundPressed}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
