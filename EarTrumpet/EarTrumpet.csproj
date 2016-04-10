@@ -61,6 +61,7 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
+    <Compile Include="Extensions\OpacityConverter.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
     <Compile Include="Properties\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>

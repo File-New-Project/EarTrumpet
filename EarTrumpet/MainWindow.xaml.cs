@@ -215,8 +215,6 @@ namespace EarTrumpet
         private void ChangeMuteState(object sender, bool mute = false)
         {
             var element = (FrameworkElement)sender;
-            var grid = (FrameworkElement)element.Parent;
-            VisualStateManager.GoToElementState(grid, mute ? "Mute" : "Unmute", true);
             var itemVM = (AppItemViewModel)element.DataContext;
             itemVM.IsMuted = mute;
         }

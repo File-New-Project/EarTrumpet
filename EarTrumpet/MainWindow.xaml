@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:p="clr-namespace:EarTrumpet.Properties"
         xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
+        xmlns:ext="clr-namespace:EarTrumpet.Extensions"
         Title="Ear Trumpet"
         MaxHeight="600"
         Width="360"
@@ -32,6 +33,8 @@
                          Color="Yellow" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
+        <ext:OpacityConverter x:Key="opacityConverter" />
+        <BooleanToVisibilityConverter x:Key="visConverter" />
 
         <Style x:Key="SliderButtonStyle"
                TargetType="{x:Type RepeatButton}">
@@ -169,34 +172,6 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
                         <Grid Margin="12,6">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualStateGroup.Transitions>
-                                        <VisualTransition To="Unmute"
-                                              GeneratedDuration="0" />
-                                    </VisualStateGroup.Transitions>
-                                    <VisualState x:Name="Mute">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="AppIcon">
-                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0.4" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="MuteIcon">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unmute">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="AppIcon">
-                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="MuteIcon">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -209,7 +184,8 @@
                                     Height="32"
                                     Width="32"
                                     Margin="4,0"
-                                    MouseDown="Icon_MouseDown" x:Name="AppIcon">
+                                    MouseDown="Icon_MouseDown"
+                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
                                 <Grid>
                                     <Image Source="{Binding Icon, Mode=OneTime}"
                                            Stretch="Fill"
@@ -220,8 +196,7 @@
                             </Border>
                             <TextBlock Grid.Column="0" 
                                        MouseDown="Mute_MouseDown" 
-                                       x:Name="MuteIcon" 
-                                       Visibility="Collapsed" 
+                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
                                        Text="&#x1F6AB;" 
                                        FontFamily="Segoe UI Symbol" 
                                        FontSize="24" 
