@@ -164,7 +164,7 @@
                       PanningMode="VerticalOnly"
                       Focusable="False"
                       Visibility="{Binding ListVisibility}"
-                      Margin="0,4,0,0">
+                      Margin="0,12">
             <ItemsControl ItemsSource="{Binding Apps, Mode=OneWay}"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           HorizontalContentAlignment="Stretch"
@@ -223,14 +223,16 @@
                                     PreviewMouseDown="Slider_MouseDown"
                                     PreviewMouseUp="Slider_MouseUp"
                                     MouseWheel="Slider_MouseWheel"
-                                    MouseMove="Slider_MouseMove" />
+                                    MouseMove="Slider_MouseMove"
+                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                             <TextBlock Grid.Column="2"
                                        Text="{Binding Volume, Mode=OneWay}"
                                        FontSize="23"
                                        FontFamily="Segoe UI"
                                        FontWeight="Normal"
                                        HorizontalAlignment="Center"
-                                       TextAlignment="Center" />
+                                       TextAlignment="Center"
+                                       Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
