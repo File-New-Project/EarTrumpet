@@ -30,7 +30,13 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
     FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
     CComPtr<IMMDeviceCollection> deviceCollection;
-    FAST_FAIL(deviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, ERole::eConsole, &deviceCollection));
+    FAST_FAIL(deviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, ERole::eMultimedia, &deviceCollection));
+
+	CComPtr<IMMDevice> defaultDevice;
+	FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
+
+	CComHeapPtr<wchar_t> defaultDeviceId;
+	FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
 
     UINT numDevices;
     FAST_FAIL(deviceCollection->GetCount(&numDevices));
@@ -56,6 +62,7 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
 		EarTrumpetAudioDevice audioDevice = {};
 		FAST_FAIL(SHStrDup(friendlyName.pwszVal, &audioDevice.DisplayName));
 		FAST_FAIL(SHStrDup(deviceId, &audioDevice.Id));
+		audioDevice.IsDefault = (wcscmp(defaultDeviceId, deviceId) == 0);
 		
 		_devices.push_back(audioDevice);
 
@@ -69,7 +76,6 @@ HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
 {
 	CComPtr<IPolicyConfig> policyConfig;
 	FAST_FAIL(CoCreateInstance(__uuidof(CPolicyConfigClient), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&policyConfig)));
-	FAST_FAIL(policyConfig->SetDefaultEndpoint(deviceId, ERole::eConsole));
 	return policyConfig->SetDefaultEndpoint(deviceId, ERole::eMultimedia);
 }
 

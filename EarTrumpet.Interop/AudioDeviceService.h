@@ -8,6 +8,7 @@ namespace EarTrumpet
         {
 			LPWSTR Id;
 			LPWSTR DisplayName;
+			bool IsDefault;
         };
 
         class AudioDeviceService

@@ -50,7 +50,7 @@ HRESULT AudioSessionService::RefreshAudioSessions()
     FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
     CComPtr<IMMDevice> device;
-    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eConsole, &device));
+    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
 
     CComPtr<IAudioSessionManager2> audioSessionManager;
     FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC, nullptr, (void**)&audioSessionManager));

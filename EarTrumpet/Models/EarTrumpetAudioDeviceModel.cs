@@ -7,5 +7,6 @@ namespace EarTrumpet.Models
     {
         public string Id;
         public string DisplayName;
+        public bool IsDefault;
     }
 }
