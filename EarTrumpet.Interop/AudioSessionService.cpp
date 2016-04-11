@@ -49,9 +49,8 @@ HRESULT AudioSessionService::RefreshAudioSessions()
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
     FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
-    // TIP: Role parameter is not actually used https://msdn.microsoft.com/en-us/library/windows/desktop/dd371401.aspx
     CComPtr<IMMDevice> device;
-    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
+    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eConsole, &device));
 
     CComPtr<IAudioSessionManager2> audioSessionManager;
     FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC, nullptr, (void**)&audioSessionManager));
@@ -118,7 +117,6 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     else if (hr == S_FALSE)
     {
         bool isSystemSoundsSession = (S_OK == audioSessionControl2->IsSystemSoundsSession());
-
         AudioSessionState state;
         FAST_FAIL(audioSessionControl2->GetState(&state));
         if (!isSystemSoundsSession && (state == AudioSessionState::AudioSessionStateExpired))
@@ -156,7 +154,6 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
             wchar_t imagePath[MAX_PATH] = {};
             DWORD dwCch = ARRAYSIZE(imagePath);
             FAST_FAIL(QueryFullProcessImageName(processHandle.get(), 0, imagePath, &dwCch) == 0 ? E_FAIL : S_OK);
-
             FAST_FAIL(SHStrDup(imagePath, &etAudioSession->IconPath));
             FAST_FAIL(SHStrDup(PathFindFileName(imagePath), &etAudioSession->DisplayName));
         }
@@ -324,5 +321,6 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
 
     *ppszIcon = resolvedIconPath.Detach();
     *ppszName = itemName.Detach();
+
     return S_OK;
 }

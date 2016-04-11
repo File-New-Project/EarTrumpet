@@ -63,6 +63,7 @@
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="Extensions\OpacityConverter.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
+    <Compile Include="Models\EarTrumpetAudioDeviceModel.cs" />
     <Compile Include="Properties\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -85,6 +86,7 @@
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
+    <Compile Include="Services\EarTrumpetAudioDeviceService.cs" />
     <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserPreferencesService.cs" />

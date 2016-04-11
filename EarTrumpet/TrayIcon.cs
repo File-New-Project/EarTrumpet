@@ -18,13 +18,14 @@ namespace EarTrumpet
 
             var aboutString = EarTrumpet.Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
-            _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} Ear Trumpet {1} ...", aboutString, version));
-            _trayIcon.ContextMenu.MenuItems[0].Click += About_Click;
-              
+
+            var aboutItem = _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} Ear Trumpet {1} ...", aboutString, version));
+            aboutItem.Click += About_Click;
+
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
-            _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
-            _trayIcon.ContextMenu.MenuItems[2].Click += Exit_Click;
+            var exitItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
+            exitItem.Click += Exit_Click;
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);

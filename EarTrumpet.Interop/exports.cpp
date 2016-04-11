@@ -1,8 +1,11 @@
 #include "common.h"
 #include <Audiopolicy.h>
 #include "AudioSessionService.h"
+#include "AudioDeviceService.h"
 
 using namespace EarTrumpet::Interop;
+
+// Sessions
 
 extern "C" __declspec(dllexport) HRESULT RefreshAudioSessions()
 {
@@ -26,5 +29,27 @@ extern "C" __declspec(dllexport) HRESULT SetAudioSessionVolume(unsigned long ses
 
 extern "C" __declspec(dllexport) HRESULT SetAudioSessionMute(unsigned long sessionId, bool isMuted)
 {
-	return AudioSessionService::instance()->SetAudioSessionMute(sessionId, isMuted);
+    return AudioSessionService::instance()->SetAudioSessionMute(sessionId, isMuted);
+}
+
+// Devices
+
+extern "C" __declspec(dllexport) HRESULT GetAudioDevices(void** audioDevices)
+{
+	return AudioDeviceService::instance()->GetAudioDevices(audioDevices);
+}
+
+extern "C" __declspec(dllexport) HRESULT SetDefaultAudioDevice(LPWSTR deviceId)
+{
+	return AudioDeviceService::instance()->SetDefaultAudioDevice(deviceId);
+}
+
+extern "C" __declspec(dllexport) HRESULT RefreshAudioDevices()
+{
+	return AudioDeviceService::instance()->RefreshAudioDevices();
+}
+
+extern "C" __declspec(dllexport) int GetAudioDeviceCount()
+{
+	return AudioDeviceService::instance()->GetAudioDeviceCount();
 }

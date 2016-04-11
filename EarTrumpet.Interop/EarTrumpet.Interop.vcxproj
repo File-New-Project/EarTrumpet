@@ -101,11 +101,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AudioDeviceService.h" />
     <ClInclude Include="AudioSessionService.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="PolicyConfig.h" />
     <ClInclude Include="ShellProperties.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioDeviceService.cpp" />
     <ClCompile Include="exports.cpp" />
     <ClCompile Include="AudioSessionService.cpp" />
   </ItemGroup>
