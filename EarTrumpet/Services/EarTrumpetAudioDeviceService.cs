@@ -19,7 +19,7 @@ namespace EarTrumpet.Services
             public static extern int GetAudioDeviceCount();
 
             [DllImport("EarTrumpet.Interop.dll")]
-            public static extern int SetDefaultAudioDevice(string deviceId);
+            public static extern int SetDefaultAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
         }
 
         public IEnumerable<EarTrumpetAudioDeviceModel> GetAudioDevices()
@@ -43,9 +43,9 @@ namespace EarTrumpet.Services
             return devices;
         }
 
-        public void SetDefaultAudioDevice(EarTrumpetAudioDeviceModel device)
+        public void SetDefaultAudioDevice(string deviceId)
         {
-            Interop.SetDefaultAudioDevice(device.Id);
+            Interop.SetDefaultAudioDevice(deviceId);
         }
     }
 }
