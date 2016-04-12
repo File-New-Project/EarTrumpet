@@ -26,6 +26,12 @@ namespace EarTrumpet.Services
 
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int SetAudioDeviceVolume([MarshalAs(UnmanagedType.LPWStr)] string deviceId, float volume);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int MuteAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int UnmuteAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
         }
 
         public IEnumerable<EarTrumpetAudioDeviceModel> GetAudioDevices()
@@ -64,6 +70,16 @@ namespace EarTrumpet.Services
         public void SetAudioDeviceVolume(string deviceId, float volume)
         {
             Interop.SetAudioDeviceVolume(deviceId, volume);
+        }
+
+        public void MuteAudioDevice(string deviceId)
+        {
+            Interop.MuteAudioDevice(deviceId);
+        }
+
+        public void UnmuteAudioDevice(string deviceId)
+        {
+            Interop.UnmuteAudioDevice(deviceId);
         }
     }
 }

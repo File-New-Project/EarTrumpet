@@ -16,8 +16,8 @@ void AudioDeviceService::CleanUpAudioDevices()
 {
     for (auto device = _devices.begin(); device != _devices.end(); device++)
     {
-		CoTaskMemFree(device->Id);
-		CoTaskMemFree(device->DisplayName);
+        CoTaskMemFree(device->Id);
+        CoTaskMemFree(device->DisplayName);
     }
 
     _devices.clear();
@@ -33,11 +33,11 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
     CComPtr<IMMDeviceCollection> deviceCollection;
     FAST_FAIL(deviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, ERole::eMultimedia, &deviceCollection));
 
-	CComPtr<IMMDevice> defaultDevice;
-	FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
+    CComPtr<IMMDevice> defaultDevice;
+    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
 
-	CComHeapPtr<wchar_t> defaultDeviceId;
-	FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
+    CComHeapPtr<wchar_t> defaultDeviceId;
+    FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
 
     UINT numDevices;
     FAST_FAIL(deviceCollection->GetCount(&numDevices));
@@ -50,24 +50,30 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
             continue;
         }
 
-		CComHeapPtr<wchar_t> deviceId;
-		FAST_FAIL(device->GetId(&deviceId));
+        CComHeapPtr<wchar_t> deviceId;
+        FAST_FAIL(device->GetId(&deviceId));
 
-		CComPtr<IPropertyStore> propertyStore;
-		FAST_FAIL(device->OpenPropertyStore(STGM_READ, &propertyStore));
+        CComPtr<IPropertyStore> propertyStore;
+        FAST_FAIL(device->OpenPropertyStore(STGM_READ, &propertyStore));
 
-		PROPVARIANT friendlyName;
-		PropVariantInit(&friendlyName);
-		FAST_FAIL(propertyStore->GetValue(PKEY_Device_FriendlyName, &friendlyName));
-		
-		EarTrumpetAudioDevice audioDevice = {};
-		FAST_FAIL(SHStrDup(friendlyName.pwszVal, &audioDevice.DisplayName));
-		FAST_FAIL(SHStrDup(deviceId, &audioDevice.Id));
-		audioDevice.IsDefault = (wcscmp(defaultDeviceId, deviceId) == 0);
-		
-		_devices.push_back(audioDevice);
+        PROPVARIANT friendlyName;
+        PropVariantInit(&friendlyName);
+        FAST_FAIL(propertyStore->GetValue(PKEY_Device_FriendlyName, &friendlyName));
+        
+        CComPtr<IAudioEndpointVolume> audioEndpointVol;
+        FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
 
-		PropVariantClear(&friendlyName);
+        BOOL isMuted;
+        FAST_FAIL(audioEndpointVol->GetMute(&isMuted));
+
+        EarTrumpetAudioDevice audioDevice = {};
+        FAST_FAIL(SHStrDup(friendlyName.pwszVal, &audioDevice.DisplayName));
+        FAST_FAIL(SHStrDup(deviceId, &audioDevice.Id));
+        audioDevice.IsDefault = (wcscmp(defaultDeviceId, deviceId) == 0);
+        audioDevice.IsMuted = !!isMuted;
+        _devices.push_back(audioDevice);
+
+        PropVariantClear(&friendlyName);
     }
 
     return S_OK;
@@ -75,9 +81,9 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
 
 HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
 {
-	CComPtr<IPolicyConfig> policyConfig;
-	FAST_FAIL(CoCreateInstance(__uuidof(CPolicyConfigClient), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&policyConfig)));
-	return policyConfig->SetDefaultEndpoint(deviceId, ERole::eMultimedia);
+    CComPtr<IPolicyConfig> policyConfig;
+    FAST_FAIL(CoCreateInstance(__uuidof(CPolicyConfigClient), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&policyConfig)));
+    return policyConfig->SetDefaultEndpoint(deviceId, ERole::eMultimedia);
 }
 
 HRESULT AudioDeviceService::GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device)
@@ -112,16 +118,37 @@ HRESULT AudioDeviceService::SetAudioDeviceVolume(LPWSTR deviceId, float volume)
 
 HRESULT AudioDeviceService::GetAudioDevices(void** audioDevices)
 {
-	if (_devices.size() == 0)
-	{
-		return HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS);
-	}
+    if (_devices.size() == 0)
+    {
+        return HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS);
+    }
 
-	*audioDevices = &_devices[0];
-	return S_OK;
+    *audioDevices = &_devices[0];
+    return S_OK;
+}
+
+HRESULT AudioDeviceService::SetMuteBoolForDevice(LPWSTR deviceId, BOOL value)
+{
+    CComPtr<IMMDevice> device;
+    FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
+
+    CComPtr<IAudioEndpointVolume> audioEndpointVol;
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+
+    return audioEndpointVol->SetMute(value, nullptr);
+}
+
+HRESULT AudioDeviceService::MuteAudioDevice(LPWSTR deviceId)
+{
+    return SetMuteBoolForDevice(deviceId, TRUE);
+}
+
+HRESULT AudioDeviceService::UnmuteAudioDevice(LPWSTR deviceId)
+{
+    return SetMuteBoolForDevice(deviceId, FALSE);
 }
 
 int AudioDeviceService::GetAudioDeviceCount()
 {
-	return _devices.size();
+    return _devices.size();
 }

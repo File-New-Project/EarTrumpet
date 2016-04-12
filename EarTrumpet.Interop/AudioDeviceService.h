@@ -6,9 +6,10 @@ namespace EarTrumpet
     {
         struct EarTrumpetAudioDevice
         {
-			LPWSTR Id;
-			LPWSTR DisplayName;
-			bool IsDefault;
+            LPWSTR Id;
+            LPWSTR DisplayName;
+            bool IsDefault;
+            bool IsMuted;
         };
 
         class AudioDeviceService
@@ -19,6 +20,7 @@ namespace EarTrumpet
             
             void CleanUpAudioDevices();
             HRESULT GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device);
+            HRESULT SetMuteBoolForDevice(LPWSTR deviceId, BOOL value);
 
         public:
             static AudioDeviceService* instance()
@@ -33,9 +35,11 @@ namespace EarTrumpet
             HRESULT GetAudioDevices(void** audioDevices);
             HRESULT GetAudioDeviceVolume(LPWSTR deviceId, float* volume);
             HRESULT SetAudioDeviceVolume(LPWSTR deviceId, float volume);
-			HRESULT SetDefaultAudioDevice(LPWSTR deviceId);
+            HRESULT SetDefaultAudioDevice(LPWSTR deviceId);
+            HRESULT MuteAudioDevice(LPWSTR deviceId);
+            HRESULT UnmuteAudioDevice(LPWSTR deviceId);
             HRESULT RefreshAudioDevices();
-			int GetAudioDeviceCount();
+            int GetAudioDeviceCount();
         };
     }
 }
