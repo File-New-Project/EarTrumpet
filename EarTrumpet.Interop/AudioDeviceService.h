@@ -18,6 +18,7 @@ namespace EarTrumpet
             std::vector<EarTrumpetAudioDevice> _devices;
             
             void CleanUpAudioDevices();
+            HRESULT GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device);
 
         public:
             static AudioDeviceService* instance()
@@ -30,6 +31,8 @@ namespace EarTrumpet
             }
 
             HRESULT GetAudioDevices(void** audioDevices);
+            HRESULT GetAudioDeviceVolume(LPWSTR deviceId, float* volume);
+            HRESULT SetAudioDeviceVolume(LPWSTR deviceId, float volume);
 			HRESULT SetDefaultAudioDevice(LPWSTR deviceId);
             HRESULT RefreshAudioDevices();
 			int GetAudioDeviceCount();

@@ -20,12 +20,18 @@ namespace EarTrumpet.Services
 
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int SetDefaultAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int GetAudioDeviceVolume([MarshalAs(UnmanagedType.LPWStr)] string deviceId, out float volume);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int SetAudioDeviceVolume([MarshalAs(UnmanagedType.LPWStr)] string deviceId, float volume);
         }
 
         public IEnumerable<EarTrumpetAudioDeviceModel> GetAudioDevices()
         {
             Interop.RefreshAudioDevices();
-            
+
             var deviceCount = Interop.GetAudioDeviceCount();
             var devices = new List<EarTrumpetAudioDeviceModel>();
 
@@ -33,10 +39,10 @@ namespace EarTrumpet.Services
             Interop.GetAudioDevices(ref rawDevicesPtr);
 
             var sizeOfAudioDeviceStruct = Marshal.SizeOf(typeof(EarTrumpetAudioDeviceModel));
-            for(var i = 0; i < deviceCount; i++)
+            for (var i = 0; i < deviceCount; i++)
             {
                 var window = new IntPtr(rawDevicesPtr.ToInt64() + (sizeOfAudioDeviceStruct * i));
-                
+
                 var device = (EarTrumpetAudioDeviceModel)Marshal.PtrToStructure(window, typeof(EarTrumpetAudioDeviceModel));
                 devices.Add(device);
             }
@@ -46,6 +52,18 @@ namespace EarTrumpet.Services
         public void SetDefaultAudioDevice(string deviceId)
         {
             Interop.SetDefaultAudioDevice(deviceId);
+        }
+
+        public float GetAudioDeviceVolume(string deviceId)
+        {
+            float volume;
+            Interop.GetAudioDeviceVolume(deviceId, out volume);
+
+            return volume;
+        }
+        public void SetAudioDeviceVolume(string deviceId, float volume)
+        {
+            Interop.SetAudioDeviceVolume(deviceId, volume);
         }
     }
 }

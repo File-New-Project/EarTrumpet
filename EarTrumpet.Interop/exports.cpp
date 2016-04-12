@@ -1,5 +1,6 @@
 #include "common.h"
 #include <Audiopolicy.h>
+#include <Mmdeviceapi.h>
 #include "AudioSessionService.h"
 #include "AudioDeviceService.h"
 
@@ -52,4 +53,14 @@ extern "C" __declspec(dllexport) HRESULT RefreshAudioDevices()
 extern "C" __declspec(dllexport) int GetAudioDeviceCount()
 {
 	return AudioDeviceService::instance()->GetAudioDeviceCount();
+}
+
+extern "C" __declspec(dllexport) HRESULT GetAudioDeviceVolume(LPWSTR deviceId, float* volume)
+{
+    return AudioDeviceService::instance()->GetAudioDeviceVolume(deviceId, volume);
+}
+
+extern "C" __declspec(dllexport) HRESULT SetAudioDeviceVolume(LPWSTR deviceId, float volume)
+{
+    return AudioDeviceService::instance()->SetAudioDeviceVolume(deviceId, volume);
 }

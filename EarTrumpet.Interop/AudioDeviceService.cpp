@@ -4,6 +4,7 @@
 #include "Functiondiscoverykeys_devpkey.h"
 #include "PolicyConfig.h"
 #include "Propidl.h"
+#include "Endpointvolume.h"
 
 using namespace std;
 using namespace std::tr1;
@@ -77,6 +78,36 @@ HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
 	CComPtr<IPolicyConfig> policyConfig;
 	FAST_FAIL(CoCreateInstance(__uuidof(CPolicyConfigClient), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&policyConfig)));
 	return policyConfig->SetDefaultEndpoint(deviceId, ERole::eMultimedia);
+}
+
+HRESULT AudioDeviceService::GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device)
+{
+    CComPtr<IMMDeviceEnumerator> deviceEnumerator;
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
+
+    return deviceEnumerator->GetDevice(deviceId, device);
+}
+
+HRESULT AudioDeviceService::GetAudioDeviceVolume(LPWSTR deviceId, float* volume)
+{
+    CComPtr<IMMDevice> device;
+    FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
+
+    CComPtr<IAudioEndpointVolume> audioEndpointVol;
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+
+    return audioEndpointVol->GetMasterVolumeLevelScalar(volume);
+}
+
+HRESULT AudioDeviceService::SetAudioDeviceVolume(LPWSTR deviceId, float volume)
+{
+    CComPtr<IMMDevice> device;
+    FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
+
+    CComPtr<IAudioEndpointVolume> audioEndpointVol;
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+
+    return audioEndpointVol->SetMasterVolumeLevelScalar(volume, nullptr);
 }
 
 HRESULT AudioDeviceService::GetAudioDevices(void** audioDevices)
