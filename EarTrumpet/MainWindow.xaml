@@ -204,14 +204,14 @@
                                     Margin="4,0"
                                     MouseDown="Icon_MouseDown"
                                     Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
-                                <TextBlock Text="&#xE995;" FontFamily="Segoe MDL2 Assets" FontSize="23" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{Binding DisplayName}" />
+                                    <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="23" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{Binding DisplayName}" />
                             </Border>
                             <TextBlock Grid.Row="1"  Grid.Column="0" 
                                        MouseDown="Mute_MouseDown" 
                                        Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
-                                       Text="&#xEA39;" 
+                                       Text="&#xE74F;" 
                                        FontFamily="Segoe MDL2 Assets" 
-                                       FontSize="24" 
+                                       FontSize="23" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"
                                        ToolTip="{Binding DisplayName}" />
@@ -279,9 +279,9 @@
                             <TextBlock Grid.Column="0" 
                                        MouseDown="Mute_MouseDown" 
                                        Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
-                                       Text="&#xEA39;" 
+                                       Text="&#xE74F;" 
                                        FontFamily="Segoe MDL2 Assets" 
-                                       FontSize="24" 
+                                       FontSize="23" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"
                                        ToolTip="{Binding DisplayName}" />
