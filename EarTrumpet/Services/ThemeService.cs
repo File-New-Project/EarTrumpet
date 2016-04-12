@@ -16,6 +16,7 @@ namespace EarTrumpet.Services
 
             SetBrush(dictionary, "WindowForeground", "ImmersiveApplicationTextDarkTheme");
             ReplaceBrush(dictionary, "CottonSwabSliderThumb", "ImmersiveSystemAccent");
+            ReplaceBrushWithOpacity(dictionary, "HeaderBackground", "ImmersiveSystemAccent", 0.4);
             ReplaceBrush(dictionary, "CottonSwabSliderTrackFill", "ImmersiveSystemAccentLight1");
             SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");
             SetBrush(dictionary, "CottonSwabSliderThumbPressed", "ImmersiveControlDarkSliderThumbHover");
@@ -57,6 +58,12 @@ namespace EarTrumpet.Services
         private static void ReplaceBrush(ResourceDictionary dictionary, string name, string immersiveAccentName)
         {
             dictionary[name] = new SolidColorBrush(AccentColorService.GetColorByTypeName(immersiveAccentName));
+        }
+        private static void ReplaceBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
+        {
+            var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
+            color.A = (byte)(opacity * 255);
+            dictionary[name] = new SolidColorBrush(color);
         }
     }
 }

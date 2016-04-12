@@ -215,8 +215,16 @@ namespace EarTrumpet
         private void ChangeMuteState(object sender, bool mute = false)
         {
             var element = (FrameworkElement)sender;
-            var itemVM = (AppItemViewModel)element.DataContext;
-            itemVM.IsMuted = mute;
+            if (element.DataContext is AppItemViewModel)
+            {
+                var itemVM = (AppItemViewModel)element.DataContext;
+                itemVM.IsMuted = mute;
+            }
+            else
+            {
+                var itemVM = (DeviceAppItemViewModel)element.DataContext;
+                itemVM.IsMuted = mute;
+            }
         }
     }
 }

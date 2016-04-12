@@ -27,6 +27,8 @@
                          Color="#39FFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumb"
                          Color="#FF339933" />
+        <SolidColorBrush x:Key="HeaderBackground"
+                         Color="#FFFFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
                          Color="Red" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbPressed"
@@ -164,11 +166,90 @@
                       PanningMode="VerticalOnly"
                       Focusable="False"
                       Visibility="{Binding ListVisibility}"
-                      Margin="0,12">
-            <ItemsControl ItemsSource="{Binding Apps, Mode=OneWay}"
+                      Margin="0">
+            <HeaderedItemsControl ItemsSource="{Binding Apps, Mode=OneWay}"
+                          Header="{Binding Device}"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           HorizontalContentAlignment="Stretch"
                           Focusable="False">
+                <HeaderedItemsControl.Template>
+                    <ControlTemplate TargetType="HeaderedItemsControl">
+                        <Grid x:Name="Root">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ContentPresenter x:Name="HeaderContent" Content="{TemplateBinding Header}"  ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" />
+                            <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" />
+                        </Grid>
+                    </ControlTemplate>
+                </HeaderedItemsControl.Template>
+                <HeaderedItemsControl.HeaderTemplate>
+                    <DataTemplate DataType="viewModels:DeviceAppItemViewModel">
+                        <Border Background="{DynamicResource HeaderBackground}" BorderThickness="0,0,0,12">
+                        <Grid Margin="12" HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="42" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Row="1" Grid.Column="0"                                                                                                            
+                                    HorizontalAlignment="Center"
+                                    Height="32"
+                                    Width="32"
+                                    Margin="4,0"
+                                    MouseDown="Icon_MouseDown"
+                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
+                                <TextBlock Text="&#xE995;" FontFamily="Segoe MDL2 Assets" FontSize="23" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{Binding DisplayName}" />
+                            </Border>
+                            <TextBlock Grid.Row="1"  Grid.Column="0" 
+                                       MouseDown="Mute_MouseDown" 
+                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
+                                       Text="&#x1F6AB;" 
+                                       FontFamily="Segoe UI Symbol" 
+                                       FontSize="24" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" />
+
+                            <Slider Grid.Row="1" Grid.Column="1"
+                                    Value="{Binding Volume,Mode=TwoWay}"
+                                    AutomationProperties.Name="{Binding DisplayName, Mode=OneTime}"
+                                    Minimum="0"
+                                    Maximum="100"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    Margin="12,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Interval="1"
+                                    SnapsToDevicePixels="True"
+                                    SmallChange="1"
+                                    LargeChange="10"
+                                    IsManipulationEnabled="True"
+                                    TouchDown="Slider_TouchDown"
+                                    TouchUp="Slider_TouchUp"
+                                    TouchMove="Slider_TouchMove"
+                                    PreviewMouseDown="Slider_MouseDown"
+                                    PreviewMouseUp="Slider_MouseUp"
+                                    MouseWheel="Slider_MouseWheel"
+                                    MouseMove="Slider_MouseMove"
+                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
+                            <TextBlock Grid.Row="1" Grid.Column="2"
+                                       Text="{Binding Volume, Mode=OneWay}"
+                                       FontSize="23"
+                                       FontFamily="Segoe UI"
+                                       FontWeight="Normal"
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
+                        </Grid>
+                        </Border>
+                    </DataTemplate>
+                </HeaderedItemsControl.HeaderTemplate>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
                         <Grid Margin="12,6">
@@ -236,7 +317,7 @@
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </HeaderedItemsControl>
         </ScrollViewer>
         <Grid x:Name="NoAppsPanel"
               Height="50"

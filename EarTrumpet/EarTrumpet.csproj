@@ -100,6 +100,7 @@
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\AudioMixerViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
     <Compile Include="ViewModels\IAudioMixerViewModelCallback.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

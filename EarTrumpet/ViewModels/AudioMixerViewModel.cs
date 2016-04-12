@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System;
 
 namespace EarTrumpet.ViewModels
 {
@@ -15,9 +16,11 @@ namespace EarTrumpet.ViewModels
         public class AudioMixerViewModelCallbackProxy : IAudioMixerViewModelCallback
         {
             private readonly EarTrumpetAudioSessionService _service;   
-            public AudioMixerViewModelCallbackProxy(EarTrumpetAudioSessionService service)
+            private readonly EarTrumpetAudioDeviceService _deviceService;   
+            public AudioMixerViewModelCallbackProxy(EarTrumpetAudioSessionService service, EarTrumpetAudioDeviceService deviceService)
             {
                 _service = service;
+                _deviceService = deviceService;
             }
 
             // IAudioMixerViewModelCallback
@@ -30,25 +33,58 @@ namespace EarTrumpet.ViewModels
             {
                 _service.SetAudioSessionMute(item.SessionId, isMuted);
             }
-    }
 
-    public ObservableCollection<AppItemViewModel> Apps { get; private set; }
+            public void SetDeviceVolume(EarTrumpetAudioDeviceModel device, float volume)
+            {
+                _deviceService.SetAudioDeviceVolume(device.Id, volume);
+            }
+
+            public void SetDeviceMute(EarTrumpetAudioDeviceModel device, bool isMuted)
+            {
+                if (isMuted)
+                {
+                    _deviceService.MuteAudioDevice(device.Id);
+                }
+                else
+                {
+                    _deviceService.UnmuteAudioDevice(device.Id);
+                }
+            }
+        }
+
+        public ObservableCollection<AppItemViewModel> Apps { get; private set; }
+        public DeviceAppItemViewModel Device { get; private set; }
 
         public Visibility ListVisibility { get; private set; }
         public Visibility NoAppsPaneVisibility { get; private set; }
 
         private readonly EarTrumpetAudioSessionService _audioService;
+        private readonly EarTrumpetAudioDeviceService _deviceService;
         private readonly AudioMixerViewModelCallbackProxy _proxy;
 
         public AudioMixerViewModel()
         {
             Apps = new ObservableCollection<AppItemViewModel>();
             _audioService = new EarTrumpetAudioSessionService();
-            _proxy = new AudioMixerViewModelCallbackProxy(_audioService);
+            _deviceService = new EarTrumpetAudioDeviceService();
+            _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);
         }
 
         public void Refresh()
         {
+            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+            var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
+            var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
+            if (Device != null && Device.IsSame(newDevice))
+            {
+                Device.UpdateFromOther(newDevice);
+            }
+            else
+            {
+                Device = newDevice;
+            }
+            RaisePropertyChanged("Device");
+
             bool hasApps = Apps.Count > 0;
 
             var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
