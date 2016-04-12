@@ -179,7 +179,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter x:Name="HeaderContent" Content="{TemplateBinding Header}"  ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" />
+                            <ContentPresenter x:Name="HeaderContent" Content="{TemplateBinding Header}"  ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
                             <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" />
                         </Grid>
                     </ControlTemplate>
@@ -213,7 +213,8 @@
                                        FontFamily="Segoe UI Symbol" 
                                        FontSize="24" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" />
+                                       VerticalAlignment="Center"
+                                       ToolTip="{Binding DisplayName}" />
 
                             <Slider Grid.Row="1" Grid.Column="1"
                                     Value="{Binding Volume,Mode=TwoWay}"
@@ -282,7 +283,8 @@
                                        FontFamily="Segoe UI Symbol" 
                                        FontSize="24" 
                                        HorizontalAlignment="Center" 
-                                       VerticalAlignment="Center" />
+                                       VerticalAlignment="Center"
+                                       ToolTip="{Binding DisplayName}" />
 
                             <Slider Grid.Column="1"
                                     Value="{Binding Volume,Mode=TwoWay}"
