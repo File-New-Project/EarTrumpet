@@ -36,7 +36,7 @@ namespace EarTrumpet.ViewModels
             {
                 if (_volume == value) return;
                 _volume = value;
-
+                System.Media.SystemSounds.Beep.Play();
                 _callback.SetDeviceVolume(_device, _volume / 100.0f);
                 RaisePropertyChanged("Volume");
             }
@@ -71,44 +71,7 @@ namespace EarTrumpet.ViewModels
             _isMuted = device.IsMuted;
             _callback = callback;
             DisplayName = device.DisplayName;
-            Id = device.Id;
-
-            //if (session.IsDesktop)
-            //{                
-            //    try
-            //    {
-            //        if (Path.GetExtension(session.IconPath) == ".dll")
-            //        {
-            //            Icon = IconExtensions.ExtractIconFromDll(session.IconPath);
-            //        }
-            //        else
-            //        {
-            //            // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
-            //            if (session.IconPath.ToLowerInvariant().Contains("speechruntime.exe"))
-            //            {
-            //                var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
-            //                Icon = IconExtensions.ExtractIconFromDll(Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe"), 0);
-            //            }
-            //            else
-            //            {
-            //                Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-            //            }
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        // ignored
-            //    }
-            //    Background = new SolidColorBrush(Colors.Transparent);
-            //}
-            //else
-            //{
-            //    if (File.Exists(session.IconPath)) //hack until we invoke the resource manager correctly.
-            //    {                    
-            //        Icon = new BitmapImage(new Uri(session.IconPath));
-            //    }
-            //    Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
-            //}
+            Id = device.Id;            
         }
 
         public void UpdateFromOther(DeviceAppItemViewModel other)
