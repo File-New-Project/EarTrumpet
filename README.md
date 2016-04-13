@@ -1,6 +1,6 @@
 # EarTrumpet
 
-![Ear Trumpet Screenshot](https://pbs.twimg.com/media/CJoDCsjUMAAeWq7.png:large)
+![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/dev/Graphics/screenshot.png)
 
 ## Supported operating systems ##
 - Windows 10
