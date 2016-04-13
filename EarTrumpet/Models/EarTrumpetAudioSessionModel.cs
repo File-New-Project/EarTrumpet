@@ -16,5 +16,8 @@ namespace EarTrumpet.Models
         
         [MarshalAs(UnmanagedType.I1)]
         public bool IsDesktop;
+
+        [MarshalAs(UnmanagedType.I1)]
+        public bool IsMuted;
     }
 }

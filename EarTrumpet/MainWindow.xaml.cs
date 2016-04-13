@@ -44,7 +44,7 @@ namespace EarTrumpet
 
         void TrayIcon_Invoked()
         {
-            if (this.IsWindowVisible())
+            if (this.Visibility == Visibility.Visible)
             {
                 this.HideWithAnimation();
             }
@@ -77,6 +77,9 @@ namespace EarTrumpet
             var slider = (Slider)sender;
             slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
             slider.CaptureTouch(e.TouchDevice);
+
+            ChangeMuteState(sender);
+
             e.Handled = true;
         }
 
@@ -89,6 +92,9 @@ namespace EarTrumpet
                 var slider = (Slider)sender;
                 slider.SetPositionByControlPoint(e.GetPosition(slider));
                 slider.CaptureMouse();
+
+                ChangeMuteState(sender);                
+
                 e.Handled = true;
             }
         }
@@ -166,10 +172,71 @@ namespace EarTrumpet
             LayoutRoot.Measure(new Size(double.PositiveInfinity, MaxHeight));
             Height = LayoutRoot.DesiredSize.Height;
 
-            var taskbarScreenWorkArea = TaskbarService.TaskbarScreen.WorkingArea;
-            var taskbarPosition = TaskbarService.TaskbarPosition;
-            Left = (taskbarPosition == TaskbarPosition.Left) ? (taskbarScreenWorkArea.Left / this.DpiWidthFactor()) : (taskbarScreenWorkArea.Right / this.DpiWidthFactor()) - Width;
-            Top = (taskbarPosition == TaskbarPosition.Top) ? (taskbarScreenWorkArea.Top / this.DpiHeightFactor()) : (taskbarScreenWorkArea.Bottom / this.DpiHeightFactor()) - Height;
+            var taskbarState = TaskbarService.GetWinTaskbarState();
+            switch(taskbarState.TaskbarPosition)
+            {
+                case TaskbarPosition.Left:
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor());
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - Height;
+                    break;
+                case TaskbarPosition.Right:
+                    Left = (taskbarState.TaskbarSize.left / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - Height;
+                    break;
+                case TaskbarPosition.Top:
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor());
+                    break;
+                case TaskbarPosition.Bottom:
+                    Left = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
+                    Top = (taskbarState.TaskbarSize.top / this.DpiHeightFactor()) - Height;
+                    break;
+            }            
+        }
+
+        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                ChangeMuteState(sender);
+                e.Handled = true;
+            }
+        }
+
+        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                ChangeMuteState(sender, true);
+                e.Handled = true;
+            }
+        }
+
+        private void ChangeMuteState(object sender, bool mute = false)
+        {
+            var element = (FrameworkElement)sender;
+            if (element.DataContext is AppItemViewModel)
+            {
+                var itemVM = (AppItemViewModel)element.DataContext;
+                itemVM.IsMuted = mute;
+            }
+            else
+            {
+                var itemVM = (DeviceAppItemViewModel)element.DataContext;
+                itemVM.IsMuted = mute;
+            }
+        }
+
+        private void Slider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+            Slider_MouseUp(sender, e);
+        }
+
+        private void Slider_TouchUp_1(object sender, TouchEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+            Slider_TouchUp(sender, e);
         }
     }
 }

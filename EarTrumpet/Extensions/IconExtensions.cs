@@ -35,9 +35,9 @@ namespace EarTrumpet.Extensions
             return bitmapSource;
         }
 
-        public static ImageSource ExtractIconFromDll(this string path)
+        public static ImageSource ExtractIconFromDll(this string path, int iconIndex = 0)
         {
-            var iconPtr = ExtractIcon(Process.GetCurrentProcess().Handle, path, 0);
+            var iconPtr = ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
             var image = Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             DestroyIcon(iconPtr);
             return image;

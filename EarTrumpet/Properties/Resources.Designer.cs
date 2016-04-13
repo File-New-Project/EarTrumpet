@@ -97,11 +97,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Speech Runtime.
+        /// </summary>
+        public static string SpeechRuntimeDisplayName {
+            get {
+                return ResourceManager.GetString("SpeechRuntimeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System Sounds.
         /// </summary>
         public static string SystemSoundsDisplayName {
             get {
                 return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume Control for Windows.
+        /// </summary>
+        public static string TrayIconTooltipText {
+            get {
+                return ResourceManager.GetString("TrayIconTooltipText", resourceCulture);
             }
         }
     }

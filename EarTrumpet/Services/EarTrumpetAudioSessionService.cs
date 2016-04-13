@@ -21,12 +21,16 @@ namespace EarTrumpet.Services
 
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int SetAudioSessionVolume(uint sessionId, float volume);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int SetAudioSessionMute(uint sessionId, [MarshalAs(UnmanagedType.I1)] bool isMuted);
+
         }
 
         public IEnumerable<EarTrumpetAudioSessionModel> GetAudioSessions()
         {
             Interop.RefreshAudioSessions();
-            
+
             var sessionCount = Interop.GetAudioSessionCount();
             var sessions = new List<EarTrumpetAudioSessionModel>();
 
@@ -34,10 +38,10 @@ namespace EarTrumpet.Services
             Interop.GetAudioSessions(ref rawSessionsPtr);
 
             var sizeOfAudioSessionStruct = Marshal.SizeOf(typeof(EarTrumpetAudioSessionModel));
-            for(var i = 0; i < sessionCount; i++)
+            for (var i = 0; i < sessionCount; i++)
             {
                 var window = new IntPtr(rawSessionsPtr.ToInt64() + (sizeOfAudioSessionStruct * i));
-                
+
                 var session = (EarTrumpetAudioSessionModel)Marshal.PtrToStructure(window, typeof(EarTrumpetAudioSessionModel));
                 sessions.Add(session);
             }
@@ -47,13 +51,18 @@ namespace EarTrumpet.Services
         public IEnumerable<EarTrumpetAudioSessionModelGroup> GetAudioSessionGroups()
         {
             return GetAudioSessions().GroupBy(
-                x => x.GroupingId, 
+                x => x.GroupingId,
                 x => x, (key, result) => new EarTrumpetAudioSessionModelGroup(result.ToList()));
         }
 
         public void SetAudioSessionVolume(uint sessionId, float volume)
         {
             Interop.SetAudioSessionVolume(sessionId, volume);
+        }
+
+        public void SetAudioSessionMute(uint sessionId, bool isMuted)
+        {
+            Interop.SetAudioSessionMute(sessionId, isMuted);
         }
     }
 }

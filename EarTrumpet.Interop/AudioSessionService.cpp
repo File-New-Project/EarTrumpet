@@ -49,7 +49,6 @@ HRESULT AudioSessionService::RefreshAudioSessions()
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
     FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
-    // TIP: Role parameter is not actually used https://msdn.microsoft.com/en-us/library/windows/desktop/dd371401.aspx
     CComPtr<IMMDevice> device;
     FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
 
@@ -101,6 +100,10 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
     FAST_FAIL(simpleAudioVolume->GetMasterVolume(&etAudioSession->Volume));
 
+	BOOL isMuted;
+	FAST_FAIL(simpleAudioVolume->GetMute(&isMuted));
+	etAudioSession->IsMuted = !!isMuted;
+
     HRESULT hr = IsImmersiveProcess(pid);
     if (hr == S_OK)
     {
@@ -114,7 +117,6 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     else if (hr == S_FALSE)
     {
         bool isSystemSoundsSession = (S_OK == audioSessionControl2->IsSystemSoundsSession());
-
         AudioSessionState state;
         FAST_FAIL(audioSessionControl2->GetState(&state));
         if (!isSystemSoundsSession && (state == AudioSessionState::AudioSessionStateExpired))
@@ -152,7 +154,6 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
             wchar_t imagePath[MAX_PATH] = {};
             DWORD dwCch = ARRAYSIZE(imagePath);
             FAST_FAIL(QueryFullProcessImageName(processHandle.get(), 0, imagePath, &dwCch) == 0 ? E_FAIL : S_OK);
-
             FAST_FAIL(SHStrDup(imagePath, &etAudioSession->IconPath));
             FAST_FAIL(SHStrDup(PathFindFileName(imagePath), &etAudioSession->DisplayName));
         }
@@ -272,6 +273,20 @@ HRESULT AudioSessionService::SetAudioSessionVolume(unsigned long sessionId, floa
     return S_OK;
 }
 
+HRESULT AudioSessionService::SetAudioSessionMute(unsigned long sessionId, bool isMuted)
+{
+	if (!_sessionMap[sessionId])
+	{
+		return E_INVALIDARG;
+	}
+
+	CComPtr<ISimpleAudioVolume> simpleAudioVolume;
+	FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
+
+	FAST_FAIL(simpleAudioVolume->SetMute(isMuted, nullptr));
+	return S_OK;
+}
+
 HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, PWSTR* ppszIcon, ULONG *background)
 {
     *ppszIcon = nullptr;
@@ -306,5 +321,6 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
 
     *ppszIcon = resolvedIconPath.Detach();
     *ppszName = itemName.Detach();
+
     return S_OK;
 }

@@ -9,7 +9,7 @@ namespace EarTrumpet.ViewModels
 
         public int Compare(AppItemViewModel one, AppItemViewModel two)
         {
-            return string.Compare(one.DisplayName, two.DisplayName, StringComparison.Ordinal);
+            return string.Compare(one.ExeName, two.ExeName, StringComparison.Ordinal);
         }
     }
 }

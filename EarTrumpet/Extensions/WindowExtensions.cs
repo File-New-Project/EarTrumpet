@@ -8,90 +8,106 @@ namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
-        private static bool _windowVisible;
-
-        public static bool IsWindowVisible(this Window window)
-        {
-            return _windowVisible;
-        }
-
+        private static bool hideAnimationInProgress = false;
         public static void HideWithAnimation(this Window window)
         {
-            var hideAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase {EasingMode = EasingMode.EaseIn}
-            };
-            var taskbarPosition = TaskbarService.TaskbarPosition;
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                case TaskbarPosition.Right: 
-                    hideAnimation.From = window.Left; 
-                    break;
-                default: 
-                    hideAnimation.From = window.Top; 
-                    break;
-            }
-            hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
-            hideAnimation.Completed += (s, e) =>
-            {
-                window.Visibility = Visibility.Hidden;
-            };
+            if (hideAnimationInProgress) return;
 
-            switch (taskbarPosition)
+            try
             {
-                case TaskbarPosition.Left: 
-                case TaskbarPosition.Right:
-                    window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
-                    break;
-                default:
-                    window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
-                    break;
+                hideAnimationInProgress = true;
+            
+                var hideAnimation = new DoubleAnimation
+                {
+                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                    FillBehavior = FillBehavior.Stop,
+                    EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseIn }
+                };
+                var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
+                switch (taskbarPosition)
+                {
+                    case TaskbarPosition.Left:
+                    case TaskbarPosition.Right: 
+                        hideAnimation.From = window.Left; 
+                        break;
+                    default: 
+                        hideAnimation.From = window.Top; 
+                        break;
+                }
+                hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
+                hideAnimation.Completed += (s, e) =>
+                {
+                    window.Visibility = Visibility.Hidden;
+                    hideAnimationInProgress = false;
+                };
+
+                switch (taskbarPosition)
+                {
+                    case TaskbarPosition.Left: 
+                    case TaskbarPosition.Right:
+                        window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
+                        break;
+                    default:
+                        window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
+                        break;
+                }
             }
-            _windowVisible = false;
+            catch
+            {
+                hideAnimationInProgress = false;
+            }
         }
 
+        private static bool showAnimationInProgress = false;
         public static void ShowwithAnimation(this Window window)
-        {            
-            window.Visibility = Visibility.Visible;
-            window.Topmost = false;
-            window.Activate();
-            var showAnimation = new DoubleAnimation
+        {
+            if (showAnimationInProgress) return;
+
+            try
             {
-                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
-            };
-            var taskbarPosition = TaskbarService.TaskbarPosition;
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                case TaskbarPosition.Right:
-                    showAnimation.To = window.Left;
-                    break;
-                default:
-                    showAnimation.To = window.Top;
-                    break;
+                showAnimationInProgress = true;
+                window.Visibility = Visibility.Visible;
+                window.Topmost = false;
+                window.Activate();
+                var showAnimation = new DoubleAnimation
+                {
+                    Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                    FillBehavior = FillBehavior.Stop,
+                    EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+                };
+                var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
+                switch (taskbarPosition)
+                {
+                    case TaskbarPosition.Left:
+                    case TaskbarPosition.Right:
+                        showAnimation.To = window.Left;
+                        break;
+                    default:
+                        showAnimation.To = window.Top;
+                        break;
+                }
+                showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;            
+                showAnimation.Completed += (s, e) =>
+                {
+                    window.Topmost = true;
+                    showAnimationInProgress = false;
+                    window.Focus();                
+                };
+                switch (taskbarPosition)
+                {
+                    case TaskbarPosition.Left: 
+                    case TaskbarPosition.Right:
+                        window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
+                        break;
+                    default:
+                        window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
+                        break;
+                }
             }
-            showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;            
-            showAnimation.Completed += (s, e) =>
+            catch
             {
-                window.Topmost = true;
-                window.Focus();                
-            };
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left: 
-                case TaskbarPosition.Right:
-                    window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
-                    break;
-                default:
-                    window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
-                    break;
+                showAnimationInProgress = false;
             }
-            _windowVisible = true;
         }
 
         public static Matrix CalculateDpiFactors(this Window window)

@@ -101,7 +101,7 @@ namespace EarTrumpet.Extensions
         {
             var flags = Interop.AccentFlags.DrawAllBorders;
 
-            switch(TaskbarService.TaskbarPosition)
+            switch(TaskbarService.GetWinTaskbarState().TaskbarPosition)
             {
                 case TaskbarPosition.Top:
                     flags &= ~Interop.AccentFlags.DrawTopBorder;
