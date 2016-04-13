@@ -226,5 +226,17 @@ namespace EarTrumpet
                 itemVM.IsMuted = mute;
             }
         }
+
+        private void Slider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+            Slider_MouseUp(sender, e);
+        }
+
+        private void Slider_TouchUp_1(object sender, TouchEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+            Slider_TouchUp(sender, e);
+        }
     }
 }

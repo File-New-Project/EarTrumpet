@@ -36,7 +36,6 @@ namespace EarTrumpet.ViewModels
             {
                 if (_volume == value) return;
                 _volume = value;
-                System.Media.SystemSounds.Beep.Play();
                 _callback.SetDeviceVolume(_device, _volume / 100.0f);
                 RaisePropertyChanged("Volume");
             }

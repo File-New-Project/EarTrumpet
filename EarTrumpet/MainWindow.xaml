@@ -36,7 +36,7 @@
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
         <ext:OpacityConverter x:Key="opacityConverter" />
-        <BooleanToVisibilityConverter x:Key="visConverter" />
+        <ext:InvertableVisibilityConverter x:Key="visConverter" />
 
         <Style x:Key="SliderButtonStyle"
                TargetType="{x:Type RepeatButton}">
@@ -203,12 +203,12 @@
                                     Width="32"
                                     Margin="4,0"
                                     MouseDown="Icon_MouseDown"
-                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
+                                    Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
                                     <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="23" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{Binding DisplayName}" />
                             </Border>
                             <TextBlock Grid.Row="1"  Grid.Column="0" 
                                        MouseDown="Mute_MouseDown" 
-                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
+                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
                                        Text="&#xE74F;" 
                                        FontFamily="Segoe MDL2 Assets" 
                                        FontSize="23" 
@@ -232,10 +232,10 @@
                                     LargeChange="10"
                                     IsManipulationEnabled="True"
                                     TouchDown="Slider_TouchDown"
-                                    TouchUp="Slider_TouchUp"
+                                    TouchUp="Slider_TouchUp_1"
                                     TouchMove="Slider_TouchMove"
                                     PreviewMouseDown="Slider_MouseDown"
-                                    PreviewMouseUp="Slider_MouseUp"
+                                    PreviewMouseUp="Slider_PreviewMouseUp"
                                     MouseWheel="Slider_MouseWheel"
                                     MouseMove="Slider_MouseMove"
                                     Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
@@ -278,7 +278,7 @@
                             </Border>
                             <TextBlock Grid.Column="0" 
                                        MouseDown="Mute_MouseDown" 
-                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}}" 
+                                       Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
                                        Text="&#xE74F;" 
                                        FontFamily="Segoe MDL2 Assets" 
                                        FontSize="23" 
