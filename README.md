@@ -13,5 +13,5 @@
 
 ## Credits ##
 - David Golden (@GoldenTao)
-- Rafael Rivera (@riverar)
+- Rafael Rivera (@WithinRafael)
 - Artjom Kormanfrom (*Ear Trumpet* icon via Noun Project)
