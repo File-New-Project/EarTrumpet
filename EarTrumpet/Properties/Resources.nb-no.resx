@@ -123,11 +123,17 @@
   <data name="ContextMenuExitTitle" xml:space="preserve">
     <value>Avslutt</value>
   </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>No devices found</value>
+  </data>
   <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
     <value>Vis skrivebordsapplikasjoner</value>
   </data>
   <data name="NoAppsPanelContent" xml:space="preserve">
     <value>Det ser ikke ut som du har noen applikasjoner åpne.</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>It doesn't look like you have any audio devices.</value>
   </data>
   <data name="SpeechRuntimeDisplayName" xml:space="preserve">
     <value>Speech Runtime</value>

@@ -84,6 +84,13 @@ namespace EarTrumpet
             }
 
             var audioDevices = _audioDeviceService.GetAudioDevices().ToList();
+            if (audioDevices.Count == 0)
+            {
+                var newItem = new System.Windows.Forms.MenuItem(EarTrumpet.Properties.Resources.ContextMenuNoDevices);
+                newItem.Name = $"{_deviceItemPrefix}";
+                newItem.Enabled = false;
+                _trayIcon.ContextMenu.MenuItems.Add(0, newItem);
+            }
             for (int j = 0; j < audioDevices.Count; j++)
             {
                 var device = audioDevices[j];

@@ -79,6 +79,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No devices found.
+        /// </summary>
+        public static string ContextMenuNoDevices {
+            get {
+                return ResourceManager.GetString("ContextMenuNoDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Desktop Apps.
         /// </summary>
         public static string ContextMenuShowDesktopAppsTitle {
@@ -93,6 +102,15 @@ namespace EarTrumpet.Properties {
         public static string NoAppsPanelContent {
             get {
                 return ResourceManager.GetString("NoAppsPanelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It doesn&apos;t look like you have any audio devices..
+        /// </summary>
+        public static string NoDevicesPanelContent {
+            get {
+                return ResourceManager.GetString("NoDevicesPanelContent", resourceCulture);
             }
         }
         

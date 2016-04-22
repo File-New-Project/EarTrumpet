@@ -57,6 +57,9 @@ namespace EarTrumpet.ViewModels
 
         public Visibility ListVisibility { get; private set; }
         public Visibility NoAppsPaneVisibility { get; private set; }
+        public Visibility DeviceVisibility { get; private set; }
+
+        public string NoItemsContent { get; private set; }
 
         private readonly EarTrumpetAudioSessionService _audioService;
         private readonly EarTrumpetAudioDeviceService _deviceService;
@@ -72,25 +75,28 @@ namespace EarTrumpet.ViewModels
 
         public void Refresh()
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
-            var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
-            if (Device != null && Device.IsSame(newDevice))
+            var devices = _deviceService.GetAudioDevices();
+            if (devices.Any())
             {
-                Device.UpdateFromOther(newDevice);
+                var defaultDevice = devices.FirstOrDefault(x => x.IsDefault);
+                var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
+                var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
+                if (Device != null && Device.IsSame(newDevice))
+                {
+                    Device.UpdateFromOther(newDevice);
+                }
+                else
+                {
+                    Device = newDevice;
+                }
+                RaisePropertyChanged("Device");
             }
-            else
-            {
-                Device = newDevice;
-            }
-            RaisePropertyChanged("Device");
-
+            
             bool hasApps = Apps.Count > 0;
-
             var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
 
             List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
-
+            
             // remove stale apps
             foreach (var app in Apps)
             {
@@ -115,15 +121,16 @@ namespace EarTrumpet.ViewModels
                     findApp.UpdateFromOther(session);
                 }
             }
+            
+            ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoItemsContent = Device == null ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
+            DeviceVisibility = Device != null ? Visibility.Visible : Visibility.Collapsed;
 
-            ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Hidden;
-            NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Hidden;
-
-            if (hasApps != (Apps.Count > 0))
-            {
-                RaisePropertyChanged("ListVisibility");
-                RaisePropertyChanged("NoAppsPaneVisibility");
-            }
+            RaisePropertyChanged("ListVisibility");
+            RaisePropertyChanged("NoAppsPaneVisibility");
+            RaisePropertyChanged("NoItemsContent");
+            RaisePropertyChanged("DeviceVisibility");
         }
     }
 }
