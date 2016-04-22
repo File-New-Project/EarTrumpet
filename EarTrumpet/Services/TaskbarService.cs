@@ -14,14 +14,25 @@ namespace EarTrumpet.Services
         {
             APPBARDATA ABD = new APPBARDATA();
             TaskbarState retState = new TaskbarState();
+            var hwnd = User32.FindWindow(ClassName, null);
 
             ABD.cbSize = Marshal.SizeOf(ABD);
             ABD.uEdge = 0;
-            ABD.hWnd = User32.FindWindow(ClassName, null);
+            ABD.hWnd = hwnd;
             ABD.lParam = 1;
 
-            var tsize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref ABD);
-            retState.TaskbarSize = ABD.rc;
+            RECT scaledTaskbarRect;
+            User32.GetWindowRect(hwnd, out scaledTaskbarRect);            
+
+            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref ABD);
+
+            var scalingAmount = (double)(scaledTaskbarRect.bottom - scaledTaskbarRect.top) / (ABD.rc.bottom - ABD.rc.top);
+
+            retState.TaskbarSize = default(RECT);
+            retState.TaskbarSize.top = (int)(ABD.rc.top * scalingAmount);
+            retState.TaskbarSize.bottom = (int)(ABD.rc.bottom * scalingAmount);
+            retState.TaskbarSize.left = (int)(ABD.rc.left * scalingAmount);
+            retState.TaskbarSize.right = (int)(ABD.rc.right * scalingAmount);
 
             var screen = Screen.AllScreens.FirstOrDefault(x => x.Bounds.Contains(
                             new Rectangle(
@@ -46,13 +57,16 @@ namespace EarTrumpet.Services
             }               
 
             return retState;
-        }
+        }        
     }
 
     public static class User32
     {
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
     }
 
     [StructLayout(LayoutKind.Sequential)]
