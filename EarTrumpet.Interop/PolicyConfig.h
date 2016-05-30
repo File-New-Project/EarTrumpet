@@ -1,7 +1,13 @@
 #pragma once
 
-interface DECLSPEC_UUID("f8679f50-850a-41cf-9c72-430f290290c8") IPolicyConfig;
-class DECLSPEC_UUID("870af99c-171d-4f9e-af0d-e63df40c2bc9") CPolicyConfigClient;
+// 870AF99C-171D-4F9E-AF0D-E63DF40C2BC9
+const CLSID CLSID_PolicyConfigClient    = { 0x870AF99C, 0x171D, 0x4F9E, { 0xAF, 0x0D, 0xE6, 0x3D, 0xF4, 0x0C, 0x2B, 0xC9 } };
+
+// CA286FC3-91FD-42C3-8E9B-CAAFA66242E3
+const GUID IID_IPolicyConfig_TH1        = { 0xCA286FC3, 0x91FD, 0x42C3, { 0x8E, 0x9B, 0xCA, 0xAF, 0xA6, 0x62, 0x42, 0xE3 } };
+
+// 6BE54BE8-A068-4875-A49D-0C2966473B11
+const GUID IID_IPolicyConfig_TH2        = { 0x6BE54BE8, 0xA068, 0x4875, { 0xA4, 0x9D, 0x0C, 0x29, 0x66, 0x47, 0x3B, 0x11 } };
 
 interface IPolicyConfig : public IUnknown
 {
