@@ -1,6 +1,7 @@
 #include "common.h"
 #include <Audiopolicy.h>
 #include <Mmdeviceapi.h>
+#include "PolicyConfig.h"
 #include "AudioSessionService.h"
 #include "AudioDeviceService.h"
 

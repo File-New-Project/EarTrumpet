@@ -21,6 +21,7 @@ namespace EarTrumpet
             void CleanUpAudioDevices();
             HRESULT GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device);
             HRESULT SetMuteBoolForDevice(LPWSTR deviceId, BOOL value);
+            HRESULT GetPolicyConfigClient(IPolicyConfig** client);
 
         public:
             static AudioDeviceService* instance()

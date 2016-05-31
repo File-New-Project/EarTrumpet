@@ -89,7 +89,7 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     FAST_FAIL(audioSessionControl2->GetGroupingParam(&etAudioSession->GroupingId));
 
     CComHeapPtr<wchar_t> sessionIdString;
-    FAST_FAIL(audioSessionControl2->GetSessionIdentifier(&sessionIdString));
+    FAST_FAIL(audioSessionControl2->GetSessionInstanceIdentifier(&sessionIdString));
 
     hash<wstring> stringHash;
     etAudioSession->SessionId = stringHash(static_cast<PWSTR>(sessionIdString));
@@ -100,9 +100,9 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
     FAST_FAIL(simpleAudioVolume->GetMasterVolume(&etAudioSession->Volume));
 
-	BOOL isMuted;
-	FAST_FAIL(simpleAudioVolume->GetMute(&isMuted));
-	etAudioSession->IsMuted = !!isMuted;
+    BOOL isMuted;
+    FAST_FAIL(simpleAudioVolume->GetMute(&isMuted));
+    etAudioSession->IsMuted = !!isMuted;
 
     HRESULT hr = IsImmersiveProcess(pid);
     if (hr == S_OK)
@@ -275,16 +275,16 @@ HRESULT AudioSessionService::SetAudioSessionVolume(unsigned long sessionId, floa
 
 HRESULT AudioSessionService::SetAudioSessionMute(unsigned long sessionId, bool isMuted)
 {
-	if (!_sessionMap[sessionId])
-	{
-		return E_INVALIDARG;
-	}
+    if (!_sessionMap[sessionId])
+    {
+        return E_INVALIDARG;
+    }
 
-	CComPtr<ISimpleAudioVolume> simpleAudioVolume;
-	FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
+    CComPtr<ISimpleAudioVolume> simpleAudioVolume;
+    FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
 
-	FAST_FAIL(simpleAudioVolume->SetMute(isMuted, nullptr));
-	return S_OK;
+    FAST_FAIL(simpleAudioVolume->SetMute(isMuted, nullptr));
+    return S_OK;
 }
 
 HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, PWSTR* ppszIcon, ULONG *background)

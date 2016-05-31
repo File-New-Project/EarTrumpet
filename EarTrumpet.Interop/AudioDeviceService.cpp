@@ -1,8 +1,8 @@
 #include "common.h"
 #include "Mmdeviceapi.h"
+#include "PolicyConfig.h"
 #include "AudioDeviceService.h"
 #include "Functiondiscoverykeys_devpkey.h"
-#include "PolicyConfig.h"
 #include "Propidl.h"
 #include "Endpointvolume.h"
 
@@ -82,8 +82,23 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
 HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
 {
     CComPtr<IPolicyConfig> policyConfig;
-    FAST_FAIL(CoCreateInstance(__uuidof(CPolicyConfigClient), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&policyConfig)));
+    FAST_FAIL(GetPolicyConfigClient(&policyConfig));
     return policyConfig->SetDefaultEndpoint(deviceId, ERole::eMultimedia);
+}
+
+HRESULT AudioDeviceService::GetPolicyConfigClient(IPolicyConfig** client)
+{
+    //
+    // The IPolicyConfig interface GUID changed multiple times between Windows 10 TH1 and RS1
+    // breaking app compat along the way. We attempt CoCreateInstance twice with known valid GUIDs
+    // to cover all Windows 10 scenarios.
+    //
+    if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH2, reinterpret_cast<LPVOID*>(client))))
+    {
+        FAST_FAIL(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH1, reinterpret_cast<LPVOID*>(client)));
+    }
+
+    return S_OK;
 }
 
 HRESULT AudioDeviceService::GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device)
