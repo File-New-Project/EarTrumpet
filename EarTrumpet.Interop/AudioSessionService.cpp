@@ -89,7 +89,7 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
     FAST_FAIL(audioSessionControl2->GetGroupingParam(&etAudioSession->GroupingId));
 
     CComHeapPtr<wchar_t> sessionIdString;
-    FAST_FAIL(audioSessionControl2->GetSessionInstanceIdentifier(&sessionIdString));
+    FAST_FAIL(audioSessionControl2->GetSessionIdentifier(&sessionIdString));
 
     hash<wstring> stringHash;
     etAudioSession->SessionId = stringHash(static_cast<PWSTR>(sessionIdString));
