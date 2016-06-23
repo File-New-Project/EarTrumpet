@@ -89,13 +89,19 @@ HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
 HRESULT AudioDeviceService::GetPolicyConfigClient(IPolicyConfig** client)
 {
     //
-    // The IPolicyConfig interface GUID changed multiple times between Windows 10 TH1 and RS1
-    // breaking app compat along the way. We attempt CoCreateInstance twice with known valid GUIDs
-    // to cover all Windows 10 scenarios.
+    // The IPolicyConfig interface GUID keeps changing in Windows 10 for unknown reasons.
+    // We attempt CoCreateInstance with known IIDs cover all Windows 10 scenarios.
     //
-    if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH2, reinterpret_cast<LPVOID*>(client))))
+    // Pulled out of _ATL_INTMAP_ENTRYs found in AudioSes.dll
+    // (i.e. AudioSes!ATL::CComObject<CPolicyConfigClient>::QueryInterface)
+    //
+
+    if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH1, reinterpret_cast<LPVOID*>(client))))
     {
-        FAST_FAIL(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH1, reinterpret_cast<LPVOID*>(client)));
+        if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH2, reinterpret_cast<LPVOID*>(client))))
+        {
+            FAST_FAIL(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_RS1, reinterpret_cast<LPVOID*>(client)));
+        }
     }
 
     return S_OK;
