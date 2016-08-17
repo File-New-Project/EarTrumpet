@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.25302.0
+VisualStudioVersion = 15.0.25428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet", "EarTrumpet\EarTrumpet.csproj", "{BA3C7B42-84B0-468C-8640-217E2A24CF81}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet", "EarTrumpet\Ea
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EarTrumpet.Interop", "EarTrumpet.Interop\EarTrumpet.Interop.vcxproj", "{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}"
 EndProject
-Project("{365BE41E-7993-430D-A5E6-1381A54BC077}") = "EarTrumpet.Appx", "EarTrumpet.Appx\EarTrumpet.Appx.vsdproj", "{BE490222-8C79-425D-AE44-701C24B2C593}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.Appx", "EarTrumpet.Appx\EarTrumpet.Appx.vsdproj", "{BE490222-8C79-425D-AE44-701C24B2C593}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BA3C7B42-84B0-468C-8640-217E2A24CF81} = {BA3C7B42-84B0-468C-8640-217E2A24CF81}
 		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778} = {73FA0BF9-96FE-4C5B-89B2-00B861F3F778}
