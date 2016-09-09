@@ -88,6 +88,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send Feedback....
+        /// </summary>
+        public static string ContextMenuSendFeedback {
+            get {
+                return ResourceManager.GetString("ContextMenuSendFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Desktop Apps.
         /// </summary>
         public static string ContextMenuShowDesktopAppsTitle {

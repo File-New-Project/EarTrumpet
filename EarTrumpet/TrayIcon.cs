@@ -3,7 +3,11 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.AppService;
+using Windows.Foundation;
 
 namespace EarTrumpet
 {
@@ -15,6 +19,7 @@ namespace EarTrumpet
         private const string _deviceSeparatorName = "DeviceSeparator";
         private const string _deviceItemPrefix = "Device_";
         private readonly EarTrumpetAudioDeviceService _audioDeviceService;
+        private readonly AppServiceConnection _appServiceConnection;
 
         public TrayIcon()
         {
@@ -28,8 +33,11 @@ namespace EarTrumpet
             var deviceSep = _trayIcon.ContextMenu.MenuItems.Add("-");
             deviceSep.Name = _deviceSeparatorName;
 
+            var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
+            feedbackItem.Click += Feedback_Click;
+
             var aboutItem = _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} Ear Trumpet {1} ...", aboutString, version));
-            aboutItem.Click += About_Click;            
+            aboutItem.Click += About_Click;
 
             var exitItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
             exitItem.Click += Exit_Click;
@@ -39,6 +47,8 @@ namespace EarTrumpet
             _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
             _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
             _trayIcon.Visible = true;
+
+            _appServiceConnection = new AppServiceConnection();
         }
 
         private void ContextMenu_Popup(object sender, EventArgs e)
@@ -51,7 +61,23 @@ namespace EarTrumpet
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 Invoked.Invoke();
-            }            
+            }
+        }
+
+        void Feedback_Click(object sender, EventArgs e)
+        {
+            _appServiceConnection.AppServiceName = "SendFeedback";
+            _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
+            _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
+        }
+
+        void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
+        {
+            var status = operation.GetResults();
+            if (status == AppServiceConnectionStatus.Success)
+            {
+                var _ = _appServiceConnection.SendMessageAsync(null);
+            }
         }
 
         void About_Click(object sender, EventArgs e)
@@ -63,6 +89,7 @@ namespace EarTrumpet
         {
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
+            _appServiceConnection.Dispose();
             Application.Current.Shutdown();
         }
 

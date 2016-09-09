@@ -11,6 +11,9 @@
   </Resources>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14342.0" MaxVersionTested="10.0.14342.0" />
+    <PackageDependency Name="Microsoft.Services.Store.Engagement" MinVersion="10.0.1606.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.24123.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.24217.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
   </Dependencies>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
@@ -29,7 +32,18 @@
         <desktop:Extension Category="windows.startupTask" Executable="EarTrumpet.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="EarTrumpet" Enabled="true" DisplayName="EarTrumpet" />
         </desktop:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="EarTrumpet.BackgroundTasks.FeedbackTask">
+          <uap:AppService Name="SendFeedback"/>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
+  <Extensions>
+    <Extension Category="windows.activatableClass.inProcessServer">
+      <InProcessServer>
+        <Path>CLRHost.dll</Path>
+        <ActivatableClass ActivatableClassId="EarTrumpet.BackgroundTasks.FeedbackTask" ThreadingModel="both" />
+      </InProcessServer>
+    </Extension>
+  </Extensions>
 </Package>

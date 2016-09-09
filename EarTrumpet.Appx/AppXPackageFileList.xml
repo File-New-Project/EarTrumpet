@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <EarTrumpetBuildDirectory>$(MSBuildProjectDirectory)\..\Build</EarTrumpetBuildDirectory>
+    <RuntimeComponentBuildRoot>$(MSBuildProjectDirectory)\..\EarTrumpet.BackgroundTasks\bin\$(Platform)\$(Configuration)</RuntimeComponentBuildRoot>
   </PropertyGroup>
   
   <ItemGroup>
@@ -20,6 +21,12 @@
     </LayoutFile>
     <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.Interop.dll">
       <PackagePath>$(PackageLayout)\EarTrumpet.Interop.dll</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.pri">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.pri</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.winmd">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.winmd</PackagePath>
     </LayoutFile>
     <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\de">
       <PackagePath>$(PackageLayout)\de</PackagePath>
