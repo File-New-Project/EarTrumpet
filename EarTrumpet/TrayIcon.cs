@@ -19,7 +19,7 @@ namespace EarTrumpet
         private const string _deviceSeparatorName = "DeviceSeparator";
         private const string _deviceItemPrefix = "Device_";
         private readonly EarTrumpetAudioDeviceService _audioDeviceService;
-        private readonly AppServiceConnection _appServiceConnection;
+        private AppServiceConnection _appServiceConnection;
 
         public TrayIcon()
         {
@@ -47,8 +47,6 @@ namespace EarTrumpet
             _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
             _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
             _trayIcon.Visible = true;
-
-            _appServiceConnection = new AppServiceConnection();
         }
 
         private void ContextMenu_Popup(object sender, EventArgs e)
@@ -66,6 +64,11 @@ namespace EarTrumpet
 
         void Feedback_Click(object sender, EventArgs e)
         {
+            if (_appServiceConnection == null)
+            {
+                _appServiceConnection = new AppServiceConnection();
+            }
+
             _appServiceConnection.AppServiceName = "SendFeedback";
             _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
             _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
@@ -76,7 +79,12 @@ namespace EarTrumpet
             var status = operation.GetResults();
             if (status == AppServiceConnectionStatus.Success)
             {
-                var _ = _appServiceConnection.SendMessageAsync(null);
+                var secondOperation = _appServiceConnection.SendMessageAsync(null);
+                secondOperation.Completed = (_, __) =>
+                {
+                    _appServiceConnection.Dispose();
+                    _appServiceConnection = null;
+                };
             }
         }
 
@@ -89,7 +97,12 @@ namespace EarTrumpet
         {
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
-            _appServiceConnection.Dispose();
+
+            if (_appServiceConnection != null)
+            {
+                _appServiceConnection.Dispose();
+            }
+            
             Application.Current.Shutdown();
         }
 
