@@ -71,6 +71,7 @@ namespace EarTrumpet.ViewModels
             _audioService = new EarTrumpetAudioSessionService();
             _deviceService = new EarTrumpetAudioDeviceService();
             _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);
+            Refresh();
         }
 
         public void Refresh()

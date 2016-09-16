@@ -42,5 +42,12 @@ namespace EarTrumpet.Extensions
             DestroyIcon(iconPtr);
             return image;
         }
+
+        public static Icon ExtractIconFromDllAndReturnIcon(this string path, int iconIndex = 0)
+        {
+            var iconPtr = ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
+            var icon = Icon.FromHandle(iconPtr);
+            return icon;
+        }
     }
 }

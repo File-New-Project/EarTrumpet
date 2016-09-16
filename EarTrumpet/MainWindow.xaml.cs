@@ -25,6 +25,7 @@ namespace EarTrumpet
             DataContext = _viewModel;
 
             CreateAndHideWindow();
+            CheckandUpdateTray();
 
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
             // visuals are preferrable.
@@ -81,6 +82,7 @@ namespace EarTrumpet
             ChangeMuteState(sender);
 
             e.Handled = true;
+            CheckandUpdateTray();
         }
 
         private void Slider_MouseDown(object sender, MouseButtonEventArgs e)
@@ -96,6 +98,7 @@ namespace EarTrumpet
                 ChangeMuteState(sender);                
 
                 e.Handled = true;
+                CheckandUpdateTray();
             }
         }
 
@@ -132,6 +135,7 @@ namespace EarTrumpet
             {
                 slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
                 e.Handled = true;
+                CheckandUpdateTray();
             }
         }
 
@@ -141,6 +145,8 @@ namespace EarTrumpet
             if (slider.IsMouseCaptured)
             {
                 slider.SetPositionByControlPoint(e.GetPosition(slider));
+                CheckandUpdateTray();
+                
             }
         }
 
@@ -150,6 +156,7 @@ namespace EarTrumpet
             var amount = Math.Sign(e.Delta) * 2.0;
             slider.ChangePositionByAmount(amount);
             e.Handled = true;
+            CheckandUpdateTray();
         }
 
         private void UpdateTheme()
@@ -225,6 +232,7 @@ namespace EarTrumpet
                 var itemVM = (DeviceAppItemViewModel)element.DataContext;
                 itemVM.IsMuted = mute;
             }
+            CheckandUpdateTray();
         }
 
         private void Slider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -237,6 +245,19 @@ namespace EarTrumpet
         {
             System.Media.SystemSounds.Beep.Play();
             Slider_TouchUp(sender, e);
+        }
+
+        private void CheckandUpdateTray()
+        {
+            var viewModel = (AudioMixerViewModel)DataContext;
+            if (viewModel.Device == null)
+            { 
+                _trayIcon.UpdateTrayIcon(true);
+            }
+            else
+            {
+                _trayIcon.UpdateTrayIcon(false, viewModel.Device.IsMuted, viewModel.Device.Volume);
+            }
         }
     }
 }

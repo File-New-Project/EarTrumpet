@@ -1,9 +1,9 @@
-﻿using EarTrumpet.Services;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
@@ -44,9 +44,47 @@ namespace EarTrumpet
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
-            _trayIcon.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
+
+            _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-124); // DG: Default Icon until our MainWindow kicks in with an update.
             _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
+
             _trayIcon.Visible = true;
+        }
+
+        private const string IconPath = "%windir%\\system32\\SndVolSSO.dll";
+
+        public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
+        {
+            if (noDevice)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-125);
+                return;
+            }
+            if (isMuted)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-120);
+                return;
+            }
+            if (currentVolume == 0)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-121);
+                return;
+            }
+            if (currentVolume >= 1 && currentVolume <= 33)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-122);
+                return;
+            }
+            if (currentVolume >= 34 && currentVolume <= 66)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-123);
+                return;
+            }
+            if (currentVolume >= 67 && currentVolume <= 100)
+            {
+                _trayIcon.Icon = IconPath.ExtractIconFromDllAndReturnIcon(-124);
+                return;
+            }
         }
 
         private void ContextMenu_Popup(object sender, EventArgs e)
