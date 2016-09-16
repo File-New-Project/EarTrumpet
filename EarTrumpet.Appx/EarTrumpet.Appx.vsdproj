@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTarget="CopyFilesToLayout" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x86</Platform>
+    <ProjectGuid>{BE490222-8C79-425D-AE44-701C24B2C593}</ProjectGuid>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <OutputPath>bin\AnyCPU\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\AnyCPU\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageLayout>$(MSBuildProjectDirectory)\layout</PackageLayout>
+    <StartupTile>EarTrumpet</StartupTile>
+    <CreateCleanLayout>false</CreateCleanLayout>
+    <DebugEngines>{449ec4cc-30d2-4032-9256-ee18eb41b62b}</DebugEngines>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="AppXPackageFileList.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="layout\AppxManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>EarTrumpet.Appx</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')" />
+  <Import Project="$(MSBuildProjectDirectory)\AppXPackageFileList.xml" />
+  <PropertyGroup>
+    <BuildDependsOn>
+      _CopyAppXFilesToPackageLayout;
+    </BuildDependsOn>
+  </PropertyGroup>
+  <Target Name="_CopyAppXFilesToPackageLayout">
+    <Copy Condition="Exists(%(LayoutFile.Identity))" SourceFiles="@(LayoutFile)" DestinationFiles="@(LayoutFile->'%(PackagePath)')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+  <Target Name="Rebuild" DependsOnTargets="$(Build)" />
+  <Target Name="Clean" />
+</Project>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <EarTrumpetBuildDirectory>$(MSBuildProjectDirectory)\..\Build</EarTrumpetBuildDirectory>
+    <RuntimeComponentBuildRoot>$(MSBuildProjectDirectory)\..\EarTrumpet.BackgroundTasks\bin\$(Platform)\$(Configuration)</RuntimeComponentBuildRoot>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.exe">
+      <PackagePath>$(PackageLayout)\EarTrumpet.exe</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.pdb" Condition="'$(Configuration)' == 'Debug'">
+      <PackagePath>$(PackageLayout)\EarTrumpet.pdb</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.Interop.pdb" Condition="'$(Configuration)' == 'Debug'">
+      <PackagePath>$(PackageLayout)\EarTrumpet.Interop.pdb</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.exe.config">
+      <PackagePath>$(PackageLayout)\EarTrumpet.exe.config</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.Interop.dll">
+      <PackagePath>$(PackageLayout)\EarTrumpet.Interop.dll</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.pri">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.pri</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.winmd">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.winmd</PackagePath>
+    </LayoutFile>
+    <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\de">
+      <PackagePath>$(PackageLayout)\de</PackagePath>
+    </LayoutFolder>
+    <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\fr">
+      <PackagePath>$(PackageLayout)\fr</PackagePath>
+    </LayoutFolder>
+    <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\nb-no">
+      <PackagePath>$(PackageLayout)\nb-no</PackagePath>
+    </LayoutFolder>
+    <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\nn-no">
+      <PackagePath>$(PackageLayout)\nn-no</PackagePath>
+    </LayoutFolder>
+  </ItemGroup>
+
+</Project>
