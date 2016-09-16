@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="External\Microsoft.Services.Store.Engagement.winmd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Application.ico" />
@@ -153,10 +152,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="External\Microsoft.Services.Store.Engagement.dll" />
-    <Content Include="External\Microsoft.Services.Store.Engagement.Proxies.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
