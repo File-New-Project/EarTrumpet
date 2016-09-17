@@ -194,5 +194,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-/EarTrumpet.VC.VC.opendb
-/EarTrumpet.VC.db
+
+# Visual Studio databases
+EarTrumpet.VC.db
+EarTrumpet.VC.VC.opendb
+EarTrumpet.vs15.VC.db
+EarTrumpet.vs15.VC.VC.opendb
