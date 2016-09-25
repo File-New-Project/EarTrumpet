@@ -14,6 +14,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.BackgroundTasks", "EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj", "{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.Appx", "EarTrumpet.Appx\EarTrumpet.Appx.vsdproj", "{BE490222-8C79-425D-AE44-701C24B2C593}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BA3C7B42-84B0-468C-8640-217E2A24CF81} = {BA3C7B42-84B0-468C-8640-217E2A24CF81}
+		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A} = {B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}
+		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778} = {73FA0BF9-96FE-4C5B-89B2-00B861F3F778}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

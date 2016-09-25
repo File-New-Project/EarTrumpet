@@ -95,13 +95,13 @@ namespace EarTrumpet
 
         void Exit_Click(object sender, EventArgs e)
         {
-            _trayIcon.Visible = false;
-            _trayIcon.Dispose();
-
             if (_appServiceConnection != null)
             {
                 _appServiceConnection.Dispose();
             }
+
+            _trayIcon.Visible = false;
+            _trayIcon.Dispose();
             
             Application.Current.Shutdown();
         }
