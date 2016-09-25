@@ -3,6 +3,7 @@
 #include <Mmdeviceapi.h>
 #include <Appmodel.h>
 #include <ShlObj.h>
+#include <Shlwapi.h>
 #include <propkey.h>
 #include <PathCch.h>
 #include "AudioSessionService.h"
@@ -306,20 +307,26 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
     CComHeapPtr<wchar_t> iconPath;
     FAST_FAIL(item->GetString(PKEY_AppUserModel_Icon, &iconPath));
 
-    CComHeapPtr<wchar_t> fullPackagePath;
-    FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackagePath));
+    LPWSTR resolvedIconPath;
+    if (UrlIsFileUrl(iconPath))
+    {
+        FAST_FAIL(PathCreateFromUrlAlloc(iconPath, &resolvedIconPath, 0));
+    }
+    else
+    {
+        CComHeapPtr<wchar_t> fullPackagePath;
+        FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackagePath));
 
-    CComPtr<IMrtResourceManager> mrtResMgr;
-    FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&mrtResMgr)));
-    FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackagePath));
+        CComPtr<IMrtResourceManager> mrtResMgr;
+        FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&mrtResMgr)));
+        FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackagePath));
 
-    CComPtr<IResourceMap> resourceMap;
-    FAST_FAIL(mrtResMgr->GetMainResourceMap(IID_PPV_ARGS(&resourceMap)));
+        CComPtr<IResourceMap> resourceMap;
+        FAST_FAIL(mrtResMgr->GetMainResourceMap(IID_PPV_ARGS(&resourceMap)));
+        FAST_FAIL(resourceMap->GetFilePath(iconPath, &resolvedIconPath));
+    }
 
-    CComHeapPtr<wchar_t> resolvedIconPath;
-    FAST_FAIL(resourceMap->GetFilePath(iconPath, &resolvedIconPath));
-
-    *ppszIcon = resolvedIconPath.Detach();
+    *ppszIcon = resolvedIconPath;
     *ppszName = itemName.Detach();
 
     return S_OK;
