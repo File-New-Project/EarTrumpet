@@ -1,5 +1,7 @@
 # EarTrumpet
 
+[![Join the chat at https://gitter.im/ear-trumpet/Lobby](https://badges.gitter.im/ear-trumpet/Lobby.svg)](https://gitter.im/ear-trumpet/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/dev/Graphics/screenshot.png)
 
 ## Supported operating systems ##
