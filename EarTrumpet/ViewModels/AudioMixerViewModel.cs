@@ -64,6 +64,7 @@ namespace EarTrumpet.ViewModels
         private readonly EarTrumpetAudioSessionService _audioService;
         private readonly EarTrumpetAudioDeviceService _deviceService;
         private readonly AudioMixerViewModelCallbackProxy _proxy;
+        private object _refreshLock = new object();
 
         public AudioMixerViewModel()
         {
@@ -76,62 +77,68 @@ namespace EarTrumpet.ViewModels
 
         public void Refresh()
         {
-            var devices = _deviceService.GetAudioDevices();
-            if (devices.Any())
+            lock (_refreshLock)
             {
-                var defaultDevice = devices.FirstOrDefault(x => x.IsDefault);
-                var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
-                var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
-                if (Device != null && Device.IsSame(newDevice))
+                var devices = _deviceService.GetAudioDevices();
+                if (devices.Any())
                 {
-                    Device.UpdateFromOther(newDevice);
+                    var defaultDevice = devices.FirstOrDefault(x => x.IsDefault);
+                    var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
+                    var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
+                    if (Device != null && Device.IsSame(newDevice))
+                    {
+                        Device.UpdateFromOther(newDevice);
+                    }
+                    else
+                    {
+                        Device = newDevice;
+                    }
+                    RaisePropertyChanged("Device");
                 }
-                else
-                {
-                    Device = newDevice;
-                }
-                RaisePropertyChanged("Device");
-            }
-            
-            bool hasApps = Apps.Count > 0;
-            var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
 
-            List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
-            
-            // remove stale apps
-            foreach (var app in Apps)
-            {
-                if (!sessions.Where(x => (x.IsSame(app))).Any())
-                {
-                    staleSessionsToRemove.Add(app);
-                }
-            }
-            foreach (var app in staleSessionsToRemove) { Apps.Remove(app); }
+                bool hasApps = Apps.Count > 0;
+                var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
 
-            // add new apps
-            foreach (var session in sessions)
-            {
-                var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
-                if (findApp == null)
-                {
-                    Apps.AddSorted(session, AppItemViewModelComparer.Instance);
-                }
-                else
-                {
-                    // update existing apps
-                    findApp.UpdateFromOther(session);
-                }
-            }
-            
-            ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-            NoItemsContent = Device == null ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
-            DeviceVisibility = Device != null ? Visibility.Visible : Visibility.Collapsed;
+                List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
 
-            RaisePropertyChanged("ListVisibility");
-            RaisePropertyChanged("NoAppsPaneVisibility");
-            RaisePropertyChanged("NoItemsContent");
-            RaisePropertyChanged("DeviceVisibility");
+                // remove stale apps
+                foreach (var app in Apps)
+                {
+                    if (!sessions.Where(x => (x.IsSame(app))).Any())
+                    {
+                        staleSessionsToRemove.Add(app);
+                    }
+                }
+                foreach (var app in staleSessionsToRemove)
+                {
+                    Apps.Remove(app);
+                }
+
+                // add new apps
+                foreach (var session in sessions)
+                {
+                    var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
+                    if (findApp == null)
+                    {
+                        Apps.AddSorted(session, AppItemViewModelComparer.Instance);
+                    }
+                    else
+                    {
+                        // update existing apps
+                        findApp.UpdateFromOther(session);
+                    }
+                }
+
+                ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+                NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                NoItemsContent = Device == null ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
+                DeviceVisibility = Device != null ? Visibility.Visible : Visibility.Collapsed;
+
+                RaisePropertyChanged("ListVisibility");
+                RaisePropertyChanged("NoAppsPaneVisibility");
+                RaisePropertyChanged("NoItemsContent");
+                RaisePropertyChanged("DeviceVisibility");
+            }
         }
     }
 }
