@@ -118,7 +118,7 @@ namespace EarTrumpet.ViewModels
                 {
                     if (Path.GetExtension(session.IconPath) == ".dll")
                     {
-                        Icon = IconExtensions.ExtractIconFromDll(session.IconPath);
+                        Icon = IconService.GetIconFromFileAsImageSource(session.IconPath);
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace EarTrumpet.ViewModels
                         if (session.IconPath.ToLowerInvariant().Contains("speechruntime.exe"))
                         {
                             var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
-                            Icon = IconExtensions.ExtractIconFromDll(Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe"), 0);
+                            Icon = IconService.GetIconFromFileAsImageSource(Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe"), 0);
                         }
                         else
                         {
