@@ -15,9 +15,9 @@ namespace EarTrumpet.ViewModels
         // and thus interact with the audio session service.
         public class AudioMixerViewModelCallbackProxy : IAudioMixerViewModelCallback
         {
-            private readonly EarTrumpetAudioSessionService _service;   
+            private readonly IAudioSessionService _service;   
             private readonly EarTrumpetAudioDeviceService _deviceService;   
-            public AudioMixerViewModelCallbackProxy(EarTrumpetAudioSessionService service, EarTrumpetAudioDeviceService deviceService)
+            public AudioMixerViewModelCallbackProxy(IAudioSessionService service, EarTrumpetAudioDeviceService deviceService)
             {
                 _service = service;
                 _deviceService = deviceService;
@@ -61,7 +61,7 @@ namespace EarTrumpet.ViewModels
 
         public string NoItemsContent { get; private set; }
 
-        private readonly EarTrumpetAudioSessionService _audioService;
+        private readonly IAudioSessionService _audioService;
         private readonly EarTrumpetAudioDeviceService _deviceService;
         private readonly AudioMixerViewModelCallbackProxy _proxy;
         private object _refreshLock = new object();
@@ -69,7 +69,7 @@ namespace EarTrumpet.ViewModels
         public AudioMixerViewModel()
         {
             Apps = new ObservableCollection<AppItemViewModel>();
-            _audioService = new EarTrumpetAudioSessionService();
+            _audioService = new DummyAudioSessionService();
             _deviceService = new EarTrumpetAudioDeviceService();
             _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);
             Refresh();

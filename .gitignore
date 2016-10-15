@@ -196,3 +196,6 @@ FakesAssemblies/
 *.opt
 /EarTrumpet.VC.VC.opendb
 /EarTrumpet.VC.db
+
+# Nuget packages
+/packages

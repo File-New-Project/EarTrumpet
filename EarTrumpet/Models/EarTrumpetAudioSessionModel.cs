@@ -3,8 +3,10 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Models
 {
-    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
-    public struct EarTrumpetAudioSessionModel
+    // [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    // public struct EarTrumpetAudioSessionModel
+
+    public class EarTrumpetAudioSessionModel
     {
         public string DisplayName;
         public string IconPath;

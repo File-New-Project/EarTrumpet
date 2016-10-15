@@ -96,7 +96,10 @@
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
+    <Compile Include="Services\DummyAudioSessionService.cs" />
+    <Compile Include="Services\EventArgs.cs" />
     <Compile Include="Services\EarTrumpetAudioDeviceService.cs" />
+    <Compile Include="Services\IAudioSessionService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
