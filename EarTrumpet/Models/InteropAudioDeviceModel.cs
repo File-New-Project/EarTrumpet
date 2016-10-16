@@ -3,7 +3,7 @@
 namespace EarTrumpet.Models
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    public struct EarTrumpetAudioDeviceModel
+    public struct InteropAudioDeviceModel
     {
         public string Id;
         public string DisplayName;

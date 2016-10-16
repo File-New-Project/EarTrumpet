@@ -1,12 +1,12 @@
-﻿using EarTrumpet.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using EarTrumpet.Models;
 
 namespace EarTrumpet.Services
 {
-    public class EarTrumpetAudioSessionService
+    public class AudioSessionService : IAudioSessionService
     {
         static class Interop
         {
@@ -27,23 +27,35 @@ namespace EarTrumpet.Services
 
         }
 
-        public IEnumerable<EarTrumpetAudioSessionModel> GetAudioSessions()
+        public IEnumerable<AudioSessionModel> GetAudioSessions()
         {
             Interop.RefreshAudioSessions();
 
             var sessionCount = Interop.GetAudioSessionCount();
-            var sessions = new List<EarTrumpetAudioSessionModel>();
+            var sessions = new List<AudioSessionModel>();
 
             var rawSessionsPtr = IntPtr.Zero;
             Interop.GetAudioSessions(ref rawSessionsPtr);
 
-            var sizeOfAudioSessionStruct = Marshal.SizeOf(typeof(EarTrumpetAudioSessionModel));
+            var sizeOfAudioSessionStruct = Marshal.SizeOf(typeof(InteropAudioSessionModel));
             for (var i = 0; i < sessionCount; i++)
             {
                 var window = new IntPtr(rawSessionsPtr.ToInt64() + (sizeOfAudioSessionStruct * i));
 
-                var session = (EarTrumpetAudioSessionModel)Marshal.PtrToStructure(window, typeof(EarTrumpetAudioSessionModel));
-                sessions.Add(session);
+                var session = (InteropAudioSessionModel)Marshal.PtrToStructure(window, typeof(InteropAudioSessionModel));
+                sessions.Add(new AudioSessionModel()
+                {
+                    DeviceId = session.DeviceId,
+                    BackgroundColor = session.BackgroundColor,
+                    DisplayName = session.DisplayName,
+                    GroupingId = session.GroupingId,
+                    IconPath = session.IconPath,
+                    IsDesktop = session.IsDesktop,
+                    IsMuted = session.IsMuted,
+                    ProcessId = session.ProcessId,
+                    SessionId = session.SessionId,
+                    Volume = session.Volume
+                });
             }
             return sessions;
         }

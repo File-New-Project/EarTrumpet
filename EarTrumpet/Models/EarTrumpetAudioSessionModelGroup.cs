@@ -4,10 +4,10 @@ namespace EarTrumpet.Models
 {
     public class EarTrumpetAudioSessionModelGroup
     {
-        public EarTrumpetAudioSessionModelGroup(IEnumerable<EarTrumpetAudioSessionModel> sessions)
+        public EarTrumpetAudioSessionModelGroup(IEnumerable<AudioSessionModel> sessions)
         {
             Sessions = sessions;
         }
-        public IEnumerable<EarTrumpetAudioSessionModel> Sessions { get; private set; }
+        public IEnumerable<AudioSessionModel> Sessions { get; private set; }
     }
 }

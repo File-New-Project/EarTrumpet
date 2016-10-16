@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
 {
-    public class EarTrumpetAudioDeviceService
+    public class AudioDeviceService : IAudioDeviceService
     {
-        static class Interop
+        private static class Interop
         {
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int RefreshAudioDevices();
@@ -34,24 +34,31 @@ namespace EarTrumpet.Services
             public static extern int UnmuteAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
         }
 
-        public IEnumerable<EarTrumpetAudioDeviceModel> GetAudioDevices()
+        public IEnumerable<AudioDeviceModel> GetAudioDevices()
         {
             Interop.RefreshAudioDevices();
 
             var deviceCount = Interop.GetAudioDeviceCount();
-            var devices = new List<EarTrumpetAudioDeviceModel>();
+            var devices = new List<AudioDeviceModel>();
 
             var rawDevicesPtr = IntPtr.Zero;
             Interop.GetAudioDevices(ref rawDevicesPtr);
 
-            var sizeOfAudioDeviceStruct = Marshal.SizeOf(typeof(EarTrumpetAudioDeviceModel));
+            var sizeOfAudioDeviceStruct = Marshal.SizeOf(typeof(InteropAudioDeviceModel));
             for (var i = 0; i < deviceCount; i++)
             {
                 var window = new IntPtr(rawDevicesPtr.ToInt64() + (sizeOfAudioDeviceStruct * i));
 
-                var device = (EarTrumpetAudioDeviceModel)Marshal.PtrToStructure(window, typeof(EarTrumpetAudioDeviceModel));
-                devices.Add(device);
+                var device = (InteropAudioDeviceModel)Marshal.PtrToStructure(window, typeof(InteropAudioDeviceModel));
+                devices.Add(new AudioDeviceModel()
+                {
+                    Id = device.Id,
+                    DisplayName = device.DisplayName,
+                    IsDefault = device.IsDefault,
+                    IsMuted = device.IsMuted
+                });
             }
+
             return devices;
         }
 

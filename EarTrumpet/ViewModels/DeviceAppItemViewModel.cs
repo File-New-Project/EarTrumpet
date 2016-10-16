@@ -17,7 +17,7 @@ namespace EarTrumpet.ViewModels
     public class DeviceAppItemViewModel : BindableBase
     {
         private readonly IAudioMixerViewModelCallback _callback;
-        private readonly EarTrumpetAudioDeviceModel _device;
+        private readonly AudioDeviceModel _device;
 
         public string Id { get; set; }
         public string DisplayName { get; set; }
@@ -61,7 +61,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public DeviceAppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioDeviceModel device, float volume)
+        public DeviceAppItemViewModel(IAudioMixerViewModelCallback callback, AudioDeviceModel device, float volume)
         {
             IconHeight = IconWidth = 32;
 

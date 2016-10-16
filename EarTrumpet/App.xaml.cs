@@ -1,38 +1,54 @@
-﻿using System.Globalization;
-using System.Reflection;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
 
 namespace EarTrumpet
 {
     public partial class App
     {
-        private Mutex _mMutex;
+        private Mutex _mutex;
+        private WindsorContainer _container;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            bool mutexCreated;
-            var mutexName = string.Format(CultureInfo.InvariantCulture, "Local\\{{{0}}}{{{1}}}", assembly.GetType().GUID, assembly.GetName().Name);
-
-            _mMutex = new Mutex(true, mutexName, out mutexCreated);
-            
-            if (!mutexCreated)
+            if (CreateMutex())
             {
-                _mMutex = null;
-                Current.Shutdown();
-                return;
+                InitializeWindsor();
+                _container.Resolve<MainWindow>();
             }
+            else
+            {
+                Current.Shutdown();
+            }
+        }
 
-            new MainWindow();
+        private void InitializeWindsor()
+        {
+            _container = new WindsorContainer();
+            _container.Install(FromAssembly.This());
+        }
+
+        private bool CreateMutex()
+        {
+            bool mutexCreated;
+
+            #if DEBUG
+            _mutex = new Mutex(true, @"Local\EarTrumpet_Debug", out mutexCreated);
+            #else
+            _mutex = new Mutex(true, @"Local\EarTrumpet", out mutexCreated);
+            #endif
+
+            return mutexCreated;
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            if (_mMutex == null) return;
-            _mMutex.ReleaseMutex();
-            _mMutex.Close();
-            _mMutex = null;
+            if (_mutex != null)
+            {
+                _mutex.ReleaseMutex();
+                _mutex.Close();
+            }
         }
     }
 }

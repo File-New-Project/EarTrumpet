@@ -47,6 +47,14 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -54,6 +62,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
@@ -73,7 +82,13 @@
     <Compile Include="Extensions\InvertableVisibilityConverter.cs" />
     <Compile Include="Extensions\OpacityConverter.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
-    <Compile Include="Models\EarTrumpetAudioDeviceModel.cs" />
+    <Compile Include="Installers\ViewModelsInstaller.cs" />
+    <Compile Include="Installers\ViewsInstaller.cs" />
+    <Compile Include="Installers\ServicesInstaller.cs" />
+    <Compile Include="Models\AudioDeviceAndSessionsModel.cs" />
+    <Compile Include="Models\AudioDeviceModel.cs" />
+    <Compile Include="Models\InteropAudioDeviceModel.cs" />
+    <Compile Include="Models\InteropAudioSessionModel.cs" />
     <Compile Include="Properties\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -96,9 +111,11 @@
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
-    <Compile Include="Services\DummyAudioSessionService.cs" />
+    <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\EventArgs.cs" />
-    <Compile Include="Services\EarTrumpetAudioDeviceService.cs" />
+    <Compile Include="Services\AudioDeviceService.cs" />
+    <Compile Include="Services\IAudioDeviceService.cs" />
+    <Compile Include="Services\IAudioService.cs" />
     <Compile Include="Services\IAudioSessionService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Services\TaskbarService.cs" />
@@ -108,13 +125,14 @@
     <Compile Include="TrayIcon.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Models\EarTrumpetAudioSessionModel.cs" />
-    <Compile Include="Services\EarTrumpetAudioSessionService.cs" />
+    <Compile Include="Models\AudioSessionModel.cs" />
+    <Compile Include="Services\AudioSessionService.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\AudioMixerViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
+    <Compile Include="ViewModels\IAudioMixerViewModel.cs" />
     <Compile Include="ViewModels\IAudioMixerViewModelCallback.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +157,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Application.ico" />

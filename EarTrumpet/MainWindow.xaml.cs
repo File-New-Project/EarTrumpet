@@ -10,15 +10,14 @@ namespace EarTrumpet
 {
     public partial class MainWindow
     {
-        private readonly AudioMixerViewModel _viewModel;
-
-		private readonly TrayIcon _trayIcon;
-
-        public MainWindow()
+        private readonly IAudioMixerViewModel _viewModel;
+        private readonly TrayIcon _trayIcon;
+        public MainWindow(IAudioMixerViewModel viewModel)
         {
             InitializeComponent();
 
-            _viewModel = new AudioMixerViewModel();
+            _viewModel = viewModel;
+
             _trayIcon = new TrayIcon();
             _trayIcon.Invoked += TrayIcon_Invoked;
 

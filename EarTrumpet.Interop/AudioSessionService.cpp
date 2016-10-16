@@ -29,6 +29,7 @@ void AudioSessionService::CleanUpAudioSessions()
 {
     for (auto session = _sessions.begin(); session != _sessions.end(); session++)
     {
+        CoTaskMemFree(session->DeviceId);
         CoTaskMemFree(session->DisplayName);
         CoTaskMemFree(session->IconPath);
     }
@@ -49,32 +50,43 @@ HRESULT AudioSessionService::RefreshAudioSessions()
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
     FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
-    CComPtr<IMMDevice> device;
-    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
+    CComPtr<IMMDeviceCollection> deviceCollection;
+    FAST_FAIL(deviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, DEVICE_STATE_ACTIVE, &deviceCollection));
 
-    CComPtr<IAudioSessionManager2> audioSessionManager;
-    FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC, nullptr, (void**)&audioSessionManager));
+    unsigned int deviceCount;
+    FAST_FAIL(deviceCollection->GetCount(&deviceCount));
 
-    CComPtr<IAudioSessionEnumerator> audioSessionEnumerator;
-    FAST_FAIL(audioSessionManager->GetSessionEnumerator(&audioSessionEnumerator));
-
-    int sessionCount;
-    FAST_FAIL(audioSessionEnumerator->GetCount(&sessionCount));
-
-    for (int i = 0; i < sessionCount; i++)
+    for (unsigned int i = 0; i < deviceCount; i++)
     {
-        EarTrumpetAudioSession audioSession;
-        if (SUCCEEDED(CreateEtAudioSessionFromAudioSession(audioSessionEnumerator, i, &audioSession)))
+        CComPtr<IMMDevice> device;
+        FAST_FAIL(deviceCollection->Item(i, &device));
+
+        CComPtr<IAudioSessionManager2> audioSessionManager;
+        FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC, nullptr, (void**)&audioSessionManager));
+
+        CComPtr<IAudioSessionEnumerator> audioSessionEnumerator;
+        FAST_FAIL(audioSessionManager->GetSessionEnumerator(&audioSessionEnumerator));
+
+        int sessionCount;
+        FAST_FAIL(audioSessionEnumerator->GetCount(&sessionCount));
+
+        for (int j = 0; j < sessionCount; j++)
         {
-            _sessions.push_back(audioSession);
+            EarTrumpetAudioSession audioSession;
+            if (SUCCEEDED(CreateEtAudioSessionFromAudioSession(device, audioSessionEnumerator, j, &audioSession)))
+            {
+                _sessions.push_back(audioSession);
+            }
         }
     }
 
     return S_OK;
 }
 
-HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudioSessionEnumerator> audioSessionEnumerator, int sessionCount, EarTrumpetAudioSession* etAudioSession)
+HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IMMDevice> device, CComPtr<IAudioSessionEnumerator> audioSessionEnumerator, int sessionCount, EarTrumpetAudioSession* etAudioSession)
 {
+    FAST_FAIL(device->GetId(&etAudioSession->DeviceId));
+
     CComPtr<IAudioSessionControl> audioSessionControl;
     FAST_FAIL(audioSessionEnumerator->GetSession(sessionCount, &audioSessionControl));
 

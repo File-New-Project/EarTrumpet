@@ -4,9 +4,9 @@ namespace EarTrumpet.ViewModels
 {
     public interface IAudioMixerViewModelCallback
     {
-        void SetVolume(EarTrumpetAudioSessionModel session, float volume);
-        void SetMute(EarTrumpetAudioSessionModel session, bool isMuted);
-        void SetDeviceVolume(EarTrumpetAudioDeviceModel device, float volume);
-        void SetDeviceMute(EarTrumpetAudioDeviceModel device, bool isMuted);
+        void SetVolume(AudioSessionModel session, float volume);
+        void SetMute(AudioSessionModel session, bool isMuted);
+        void SetDeviceVolume(AudioDeviceModel device, float volume);
+        void SetDeviceMute(AudioDeviceModel device, bool isMuted);
     }
 }

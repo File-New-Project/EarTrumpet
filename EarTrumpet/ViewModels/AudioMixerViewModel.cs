@@ -5,41 +5,40 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System;
 
 namespace EarTrumpet.ViewModels
 {
-    public class AudioMixerViewModel : BindableBase
+    public class AudioMixerViewModel : BindableBase, IAudioMixerViewModel
     {
         // This encapsulates the functionality used for AppItemViewModels to call back to AudioMixerViewModel
         // and thus interact with the audio session service.
         public class AudioMixerViewModelCallbackProxy : IAudioMixerViewModelCallback
         {
             private readonly IAudioSessionService _service;   
-            private readonly EarTrumpetAudioDeviceService _deviceService;   
-            public AudioMixerViewModelCallbackProxy(IAudioSessionService service, EarTrumpetAudioDeviceService deviceService)
+            private readonly IAudioDeviceService _deviceService;   
+            public AudioMixerViewModelCallbackProxy(IAudioSessionService service, IAudioDeviceService deviceService)
             {
                 _service = service;
                 _deviceService = deviceService;
             }
 
             // IAudioMixerViewModelCallback
-            public void SetVolume(EarTrumpetAudioSessionModel item, float volume)
+            public void SetVolume(AudioSessionModel item, float volume)
             {
                 _service.SetAudioSessionVolume(item.SessionId, volume);
             }
 
-            public void SetMute(EarTrumpetAudioSessionModel item, bool isMuted)
+            public void SetMute(AudioSessionModel item, bool isMuted)
             {
                 _service.SetAudioSessionMute(item.SessionId, isMuted);
             }
 
-            public void SetDeviceVolume(EarTrumpetAudioDeviceModel device, float volume)
+            public void SetDeviceVolume(AudioDeviceModel device, float volume)
             {
                 _deviceService.SetAudioDeviceVolume(device.Id, volume);
             }
 
-            public void SetDeviceMute(EarTrumpetAudioDeviceModel device, bool isMuted)
+            public void SetDeviceMute(AudioDeviceModel device, bool isMuted)
             {
                 if (isMuted)
                 {
@@ -62,16 +61,18 @@ namespace EarTrumpet.ViewModels
         public string NoItemsContent { get; private set; }
 
         private readonly IAudioSessionService _audioService;
-        private readonly EarTrumpetAudioDeviceService _deviceService;
+        private readonly IAudioDeviceService _deviceService;
         private readonly AudioMixerViewModelCallbackProxy _proxy;
         private object _refreshLock = new object();
 
-        public AudioMixerViewModel()
+        public AudioMixerViewModel(IAudioDeviceService audioDeviceService, IAudioSessionService audioSessionService, IAudioService audioDeviceAndSessionsService)
         {
+            _audioService = audioSessionService;
+            _deviceService = audioDeviceService;
+
             Apps = new ObservableCollection<AppItemViewModel>();
-            _audioService = new DummyAudioSessionService();
-            _deviceService = new EarTrumpetAudioDeviceService();
             _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);
+
             Refresh();
         }
 

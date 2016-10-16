@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Models
 {
-    // [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    // public struct EarTrumpetAudioSessionModel
-
-    public class EarTrumpetAudioSessionModel
+    public class AudioSessionModel
     {
+        public string DeviceId;
         public string DisplayName;
         public string IconPath;
         public Guid GroupingId;
@@ -15,11 +12,7 @@ namespace EarTrumpet.Models
         public uint ProcessId;
         public uint BackgroundColor;
         public float Volume;
-        
-        [MarshalAs(UnmanagedType.I1)]
         public bool IsDesktop;
-
-        [MarshalAs(UnmanagedType.I1)]
         public bool IsMuted;
     }
 }

@@ -29,14 +29,14 @@ namespace EarTrumpet
         private const string _deviceSeparatorName = "DeviceSeparator";
         private const string _deviceItemPrefix = "Device_";
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private readonly EarTrumpetAudioDeviceService _audioDeviceService;
+        private readonly AudioDeviceService _audioDeviceService;
         private AppServiceConnection _appServiceConnection;
 
         public TrayIcon()
         {
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
-            _audioDeviceService = new EarTrumpetAudioDeviceService();
+            _audioDeviceService = new AudioDeviceService();
 
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
