@@ -23,15 +23,15 @@
         x:Name="VolumeWindow">
     <Window.Resources>
         <SolidColorBrush x:Key="WindowForeground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="WindowBackground"
                          Color="White" />
+        <SolidColorBrush x:Key="WindowBackground"
+                         Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
                          Color="#39FFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumb"
                          Color="#FF339933" />
         <SolidColorBrush x:Key="HeaderBackground"
-                         Color="#FFFFFFFF" />
+                         Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
                          Color="Red" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbPressed"
@@ -278,9 +278,9 @@
                                 ToolTip="{Binding DisplayName}"
                                 Background="{Binding Background, Mode=OneTime}"
                                 HorizontalAlignment="Center"
-                                Height="32"
-                                Width="32"
-                                Margin="4,0"
+                                Height="24"
+                                Width="24"
+                                Margin="8,0"
                                 MouseDown="Icon_MouseDown"
                                 Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
                             <Grid>
@@ -288,7 +288,21 @@
                                         Stretch="Fill"
                                         Height="{Binding IconHeight, Mode=OneTime}"
                                         Width="{Binding IconWidth, Mode=OneTime}" />
-                                    
+                                <TextBlock FontSize="16" 
+                                                       HorizontalAlignment="Center" 
+                                                       VerticalAlignment="Center"
+                                                       Text="{Binding IconText}" FontWeight="Bold" Margin="0,-1,0,0">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
+                                                    <Setter Property="TextBlock.Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Border>
                         <TextBlock Grid.Column="0" 
@@ -296,11 +310,11 @@
                                     Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
                                     Text="&#xE74F;" 
                                     FontFamily="Segoe MDL2 Assets" 
-                                    FontSize="24" 
+                                    FontSize="18" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding DisplayName}" 
-                                    Margin="0,-2,0,0" />
+                                    Margin="1,0,0,0" />
 
                         <Slider Grid.Column="1"
                                 Value="{Binding Volume,Mode=TwoWay}"
@@ -326,7 +340,7 @@
                                 Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                         <TextBlock Grid.Column="2"
                                     Text="{Binding Volume, Mode=OneWay}"
-                                    FontSize="24"
+                                    FontSize="18"
                                     FontFamily="Segoe UI"
                                     FontWeight="Normal"
                                     HorizontalAlignment="Center"
