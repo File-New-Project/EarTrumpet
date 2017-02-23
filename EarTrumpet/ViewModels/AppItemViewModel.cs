@@ -95,13 +95,21 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        public char IconText
+        {
+            get
+            {
+                return DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
+            }
+        }
+
         public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
         {
             _sessions = sessions;
             // select a session at random as sndvol does.
             var session = _sessions.Sessions.First();
 
-            IconHeight = IconWidth = 32;
+            IconHeight = IconWidth = 24;
             SessionId = session.SessionId;
             ProcessId = session.ProcessId;
             ExeName = GetExeName(session.DisplayName);
@@ -138,7 +146,14 @@ namespace EarTrumpet.ViewModels
                 {
                     // ignored
                 }
-                Background = new SolidColorBrush(Colors.Transparent);
+                if (Icon == null)
+                {
+                    Background = new SolidColorBrush(AccentColorService.GetColorByTypeName("ImmersiveSystemAccent"));
+                }
+                else
+                {
+                    Background = new SolidColorBrush(Colors.Transparent);
+                }
             }
             else
             {
