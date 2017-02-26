@@ -9,7 +9,7 @@
 
 ## Known issues ##
 - Skype appears to have multiple audio sessions but only one is active ([#42](https://github.com/File-New-Project/EarTrumpet/issues/42))
-- Netflix audio control is inconsistent ([#34](https://github.com/File-New-Project/EarTrumpet/issues/42))
+- Netflix audio control is inconsistent ([#34](https://github.com/File-New-Project/EarTrumpet/issues/34))
 
 ## Credits ##
 - David Golden (@GoldenTao)
