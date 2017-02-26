@@ -135,6 +135,8 @@
     <None Include="Color Types.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.zh-Hans.resx" />
+    <EmbeddedResource Include="Properties\Resource.zh-Hant.resx" />
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
