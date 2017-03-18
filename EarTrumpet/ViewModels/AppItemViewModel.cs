@@ -177,7 +177,7 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateFromOther(AppItemViewModel other)
         {
-            if (_volume == other.Volume) return;
+            if (_volume == other.Volume && _isMuted == other.IsMuted) return;
             _sessions = other._sessions;
             _volume = other.Volume;
             _isMuted = other.IsMuted;
