@@ -19,6 +19,7 @@
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
 		ResizeMode="NoResize"
+        TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
         <SolidColorBrush x:Key="WindowForeground"
