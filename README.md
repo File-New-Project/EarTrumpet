@@ -6,6 +6,8 @@
 - Windows 10
 - Windows 10 November Update
 - Windows 10 Anniversary Update
+- Windows 10 Creators Update
+- Windows 10 Fall Creators Update
 
 ## Known issues ##
 - Skype appears to have multiple audio sessions but only one is active ([#42](https://github.com/File-New-Project/EarTrumpet/issues/42))
@@ -14,5 +16,4 @@
 ## Credits ##
 - David Golden (@GoldenTao)
 - Rafael Rivera (@WithinRafael)
-- Artjom Kormanfrom (*Ear Trumpet* icon via Noun Project)
-- [More](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
+- [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
