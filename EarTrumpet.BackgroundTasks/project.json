@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "Microsoft.Services.Store.Engagement": "10.1706.16001"
   },
   "frameworks": {
     "uap10.0": {}
