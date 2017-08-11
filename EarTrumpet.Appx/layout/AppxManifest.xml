@@ -37,6 +37,24 @@
         </uap:Extension>
       </Extensions>
     </Application>
+    <Application Id="EarTrumpet.UWP" Executable="UWP\EarTrumpet.UWP.exe" EntryPoint="EarTrumpet.UWP.App">
+      <uap:VisualElements
+        DisplayName="EarTrumpet"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="EarTrumpet.UWP"
+        BackgroundColor="transparent"
+        AppListEntry="none">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="eartrumpet">            
+            <uap:DisplayName>EarTrumpet</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
   </Applications>
   <Extensions>
     <Extension Category="windows.activatableClass.inProcessServer">
