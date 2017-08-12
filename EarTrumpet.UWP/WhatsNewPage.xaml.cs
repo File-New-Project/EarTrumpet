@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Resources;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,10 +13,6 @@ namespace EarTrumpet.UWP
         public WhatsNewPage()
         {
             this.InitializeComponent();
-
-            ApplicationView.PreferredLaunchViewSize = new Size(600, 500);
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(600, 500));
             
             LoadWhatsNew();
         }
@@ -47,17 +41,13 @@ namespace EarTrumpet.UWP
             _whatsNewItems.Add(item5, null);
         }
 
-        
-
         private string GetAppVersion()
         {
-
             Package package = Package.Current;
             PackageId packageId = package.Id;
             PackageVersion version = packageId.Version;
 
             return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
-
         }
 
         private void Close_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

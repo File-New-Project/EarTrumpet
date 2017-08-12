@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -45,10 +46,15 @@ namespace EarTrumpet.UWP
             {
                 if (isWelcome)
                 {
+                    ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(400, 250));
+                    ApplicationView.PreferredLaunchViewSize = new Size(400, 250);
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
                     rootFrame.Navigate(typeof(WelcomePage));
                 }
                 else
                 {
+                    ApplicationView.PreferredLaunchViewSize = new Size(600, 500);
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
                     rootFrame.Navigate(typeof(WhatsNewPage));
                 }
             }
