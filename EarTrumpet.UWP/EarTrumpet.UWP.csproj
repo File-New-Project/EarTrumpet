@@ -135,14 +135,17 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\de-DE\resources.resw" />
-    <PRIResource Include="Strings\en-US\resources.resw" />
-    <PRIResource Include="Strings\fr-FR\resources.resw" />
-    <PRIResource Include="Strings\nb-NO\resources.resw" />
-    <PRIResource Include="Strings\nn-NO\resources.resw" />
-    <PRIResource Include="Strings\zh-CHS\resources.resw" />
+    <PRIResource Include="Strings\de-de\resources.resw" />
+    <PRIResource Include="Strings\en-us\resources.resw" />
+    <PRIResource Include="Strings\fr-fr\resources.resw" />
+    <PRIResource Include="Strings\nb-no\resources.resw" />
+    <PRIResource Include="Strings\nn-no\resources.resw" />
+    <PRIResource Include="Strings\zh-cn\resources.resw" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <PRIResource Include="Strings\zh-hk\resources.resw" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
