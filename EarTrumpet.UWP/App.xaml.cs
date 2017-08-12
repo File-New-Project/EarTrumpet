@@ -75,11 +75,11 @@ namespace EarTrumpet.UWP
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
-        private void UiSettings_ColorValuesChanged(UISettings sender, object args)
+        private async void UiSettings_ColorValuesChanged(UISettings sender, object args)
         {
             var backgroundColor = sender.GetColorValue(UIColorType.Background);
             var isDarkMode = backgroundColor == Colors.Black;
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
