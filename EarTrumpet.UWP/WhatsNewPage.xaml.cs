@@ -26,7 +26,7 @@ namespace EarTrumpet.UWP
             WhatsNew.Text = string.Format(title, GetAppVersion());
 
             var item1 = resources.GetString("NewItem1/Text");
-            _whatsNewItems.Add(item1, null);
+            _whatsNewItems.Add(item1, "Assets\\welcome.gif");
 
             var item2 = resources.GetString("NewItem2/Text");
             _whatsNewItems.Add(item2, null);
