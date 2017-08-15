@@ -8,7 +8,7 @@
     >
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid MaxWidth="600" MaxHeight="520" Margin="20">
+        <Grid MaxWidth="490" MaxHeight="620" Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -29,7 +29,7 @@
                             </Grid.RowDefinitions>
                             <Ellipse Grid.Column="0" Grid.Row="0" Height="5" Width="5" Fill="{ThemeResource TextControlForeground}" VerticalAlignment="Top" Margin="5,9,20,0" HorizontalAlignment="Left" />
                             <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Key}" Foreground="{ThemeResource TextControlForeground}" TextWrapping="Wrap" Margin="0,0,0,10" VerticalAlignment="Top" />
-                            <Image Grid.Column="1" Grid.Row="1" Source="{Binding Value}" Margin="0,0,0,10" HorizontalAlignment="Center" />
+                            <Image Grid.Column="1" Grid.Row="1" Source="{Binding Value}" Margin="0,0,0,10" HorizontalAlignment="Left" MaxHeight="241" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
