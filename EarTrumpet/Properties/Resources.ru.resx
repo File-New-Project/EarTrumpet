@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>About</value>
+    <value>О программе</value>
   </data>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Exit</value>
+    <value>Выход</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>No devices found</value>
+    <value>Не найдено устройство</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Send Feedback...</value>
+    <value>Отправить отзыв...</value>
   </data>
   <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Show Desktop Apps</value>
+    <value>Показать обычные приложения</value>
   </data>
   <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>It doesn't look like you have any apps open.</value>
+    <value>Не обнаружено открытых приложений.</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>It doesn't look like you have any audio devices.</value>
+    <value>Не обнаружено аудио-устройств.</value>
   </data>
   <data name="SpeechRuntimeDisplayName" xml:space="preserve">
-    <value>Speech Runtime</value>
+    <value>Голосовой движок</value>
   </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>System Sounds</value>
+    <value>Системные звуки</value>
   </data>
   <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Volume Control for Windows</value>
+    <value>Управление звуками Windows</value>
   </data>
 </root>
