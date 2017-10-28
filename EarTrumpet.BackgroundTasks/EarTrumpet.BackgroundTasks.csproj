@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="FeedbackTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">

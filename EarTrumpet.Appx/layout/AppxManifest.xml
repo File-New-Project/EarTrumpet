@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10">
-  <Identity Name="40459File-New-Project.EarTrumpet" ProcessorArchitecture="x86" Publisher="CN=6099D0EF-9374-47ED-BDFE-A82136831235" Version="1.4.3.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+         IgnorableNamespaces="uap rescap desktop">
+  <Identity Name="40459File-New-Project.EarTrumpet" ProcessorArchitecture="x86" Publisher="CN=6099D0EF-9374-47ED-BDFE-A82136831235" Version="1.4.5.0" />
   <Properties>
     <DisplayName>EarTrumpet</DisplayName>
     <PublisherDisplayName>File-New-Project</PublisherDisplayName>
@@ -15,7 +19,7 @@
     <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.24123.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
     <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.24217.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
   </Dependencies>
-  <Capabilities>
+  <Capabilities>    
     <rescap:Capability Name="runFullTrust" />
   </Capabilities>
   <Applications>
@@ -35,21 +39,23 @@
         <uap:Extension Category="windows.appService" EntryPoint="EarTrumpet.BackgroundTasks.FeedbackTask">
           <uap:AppService Name="SendFeedback"/>
         </uap:Extension>
+        <Extension Category="windows.updateTask"  EntryPoint="EarTrumpet.BackgroundTasks.UpdateTask">
+        </Extension>
       </Extensions>
     </Application>
     <Application Id="EarTrumpet.UWP" Executable="UWP\EarTrumpet.UWP.exe" EntryPoint="EarTrumpet.UWP.App">
       <uap:VisualElements
         DisplayName="EarTrumpet"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
+        Square150x150Logo="UWP\Assets\Square150x150Logo.png"
+        Square44x44Logo="UWP\Assets\Square44x44Logo.png"
         Description="EarTrumpet"
         BackgroundColor="transparent"
-        AppListEntry="none">        
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        AppListEntry="none">
+        <uap:SplashScreen Image="UWP\Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="eartrumpet">            
+          <uap:Protocol Name="eartrumpet">
             <uap:DisplayName>EarTrumpet</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>

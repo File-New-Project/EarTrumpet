@@ -86,10 +86,7 @@ namespace EarTrumpet.ViewModels
                 {
                     _isMuted = value;
 
-                    foreach (var session in _sessions.Sessions)
-                    {
-                        _callback.SetMute(session, _isMuted);
-                    }
+                    SetMute(_isMuted);
                     RaisePropertyChanged("IsMuted");
                 }
             }
@@ -117,8 +114,10 @@ namespace EarTrumpet.ViewModels
 
             _volume = Convert.ToInt32(Math.Round((session.Volume * 100),
                                      MidpointRounding.AwayFromZero));
-            _isMuted = session.IsMuted;
+            _isMuted = _sessions.Sessions.Any(x => x.IsMuted);
             _callback = callback;
+
+            SetMute(_isMuted);
 
             if (session.IsDesktop)
             {                
@@ -188,6 +187,14 @@ namespace EarTrumpet.ViewModels
         public bool IsSame(AppItemViewModel other)
         {
             return other._sessions.Sessions.Any(session => _sessions.Sessions.Any(x => x.SessionId == session.SessionId));
+        }
+
+        private void SetMute(bool isMuted)
+        {
+            foreach (var session in _sessions.Sessions)
+            {
+                _callback.SetMute(session, isMuted);
+            }
         }
     }
 }

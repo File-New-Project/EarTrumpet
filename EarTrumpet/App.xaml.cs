@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using EarTrumpet.Services;
+using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -23,6 +24,9 @@ namespace EarTrumpet
                 Current.Shutdown();
                 return;
             }
+
+            WhatsNewDisplayService.ShowIfAppropriate();
+            FirstRunDisplayService.ShowIfAppropriate();
 
             new MainWindow();
         }

@@ -44,22 +44,19 @@ namespace EarTrumpet.UWP
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
+            if (isWelcome)
             {
-                if (isWelcome)
-                {
-                    ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 400)); // min 192x48 max 500x500
-                    ApplicationView.PreferredLaunchViewSize = new Size(500, 400); //min 500x320
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
-                    rootFrame.Navigate(typeof(WelcomePage));
-                }
-                else
-                {
-                    ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(530, 500));
-                    ApplicationView.PreferredLaunchViewSize = new Size(530, 660);
-                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-                    rootFrame.Navigate(typeof(WhatsNewPage));
-                }
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 400)); // min 192x48 max 500x500
+                ApplicationView.PreferredLaunchViewSize = new Size(500, 400); //min 500x320
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
+                rootFrame.Navigate(typeof(WelcomePage));
+            }
+            else
+            {
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(530, 500));
+                ApplicationView.PreferredLaunchViewSize = new Size(530, 660);
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+                rootFrame.Navigate(typeof(WhatsNewPage));
             }
 
             Window.Current.Activate();

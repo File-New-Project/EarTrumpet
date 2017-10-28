@@ -14,7 +14,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" x:Name="WhatsNew" x:Uid="WhatsNew" Foreground="{ThemeResource TextControlForeground}" FontSize="18" Margin="0,20,0,30">What's new in EarTrumpet</TextBlock>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Image Source="ms-appx:///Assets/Square44x44Logo.png" Width="32" Height="32" Margin="0"/>
+                <TextBlock x:Name="WhatsNew" x:Uid="WhatsNew" Foreground="{ThemeResource TextControlForeground}" FontSize="18" Margin="20,30,0,30">What's new in EarTrumpet</TextBlock>
+            </StackPanel>
             <ItemsControl Grid.Row="1" Foreground="{ThemeResource TextControlForeground}" ItemsSource="{x:Bind _whatsNewItems}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
