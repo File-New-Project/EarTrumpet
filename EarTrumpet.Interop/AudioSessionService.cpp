@@ -305,7 +305,7 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
     FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageInstallPath, &installPath));
 
     CComHeapPtr<wchar_t> iconPath;
-    FAST_FAIL(item->GetString(PKEY_AppUserModel_Icon, &iconPath));
+    FAST_FAIL(item->GetString(PKEY_Tile_SmallLogoPath, &iconPath));
 
     LPWSTR resolvedIconPath;
     if (UrlIsFileUrl(iconPath))
@@ -314,16 +314,19 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
     }
     else
     {
-        CComHeapPtr<wchar_t> fullPackagePath;
-        FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackagePath));
+        CComHeapPtr<wchar_t> fullPackageName;
+        FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackageName));
 
         CComPtr<IMrtResourceManager> mrtResMgr;
         FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&mrtResMgr)));
-        FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackagePath));
+        FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackageName));
 
         CComPtr<IResourceMap> resourceMap;
         FAST_FAIL(mrtResMgr->GetMainResourceMap(IID_PPV_ARGS(&resourceMap)));
-        FAST_FAIL(resourceMap->GetFilePath(iconPath, &resolvedIconPath));
+		if (FAILED(resourceMap->GetFilePath(iconPath, &resolvedIconPath)))
+		{
+			FAST_FAIL(PathAllocCombine(installPath, iconPath, 0, &resolvedIconPath));
+		}
     }
 
     *ppszIcon = resolvedIconPath;
