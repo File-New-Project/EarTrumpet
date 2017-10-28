@@ -4,9 +4,11 @@
   <PropertyGroup>
     <EarTrumpetBuildDirectory>$(MSBuildProjectDirectory)\..\Build</EarTrumpetBuildDirectory>
     <RuntimeComponentBuildRoot>$(MSBuildProjectDirectory)\..\EarTrumpet.BackgroundTasks\bin\$(Platform)\$(Configuration)</RuntimeComponentBuildRoot>
+    <UwpComponentBuildRoot>$(MSBuildProjectDirectory)\..\EarTrumpet.UWP\bin\$(Platform)\$(Configuration)\AppX</UwpComponentBuildRoot>
   </PropertyGroup>
   
   <ItemGroup>
+    <!-- EarTrumpet -->
     <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.exe">
       <PackagePath>$(PackageLayout)\EarTrumpet.exe</PackagePath>
     </LayoutFile>
@@ -22,12 +24,6 @@
     <LayoutFile Include="$(EarTrumpetBuildDirectory)\$(Configuration)\EarTrumpet.Interop.dll">
       <PackagePath>$(PackageLayout)\EarTrumpet.Interop.dll</PackagePath>
     </LayoutFile>
-    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.pri">
-      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.pri</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.winmd">
-      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.winmd</PackagePath>
-    </LayoutFile>
     <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\de">
       <PackagePath>$(PackageLayout)\de</PackagePath>
     </LayoutFolder>
@@ -40,6 +36,37 @@
     <LayoutFolder Include="$(EarTrumpetBuildDirectory)\$(Configuration)\nn-no">
       <PackagePath>$(PackageLayout)\nn-no</PackagePath>
     </LayoutFolder>
+    
+    <!-- Runtime Component -->
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.pri">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.pri</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(RuntimeComponentBuildRoot)\EarTrumpet.BackgroundTasks.winmd">
+      <PackagePath>$(PackageLayout)\EarTrumpet.BackgroundTasks.winmd</PackagePath>
+    </LayoutFile>
+
+    <!-- UWP Component -->
+    <LayoutFolder Include="$(UwpComponentBuildRoot)\Assets">
+      <PackagePath>$(PackageLayout)\UWP\Assets</PackagePath>
+    </LayoutFolder>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\AppxManifest.xml">
+      <PackagePath>$(PackageLayout)\UWP\AppxManifest.xml</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\clrcompression.dll">
+      <PackagePath>$(PackageLayout)\UWP\clrcompression.dll</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\EarTrumpet.UWP.dll">
+      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.dll</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\EarTrumpet.UWP.exe">
+      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.exe</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\EarTrumpet.UWP.pdb" Condition="'$(Configuration)' == 'Debug'">
+      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.pdb</PackagePath>
+    </LayoutFile>
+    <LayoutFile Include="$(UwpComponentBuildRoot)\resources.pri">
+      <PackagePath>$(PackageLayout)\UWP\resources.pri</PackagePath>
+    </LayoutFile>
   </ItemGroup>
 
 </Project>
