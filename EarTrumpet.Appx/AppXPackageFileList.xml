@@ -48,38 +48,35 @@
 
     <!-- UWP Component -->
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\SplashScreen.scale-200.png">
-      <PackagePath>$(PackageLayout)\UWP\Assets\SplashScreen.scale-200.png</PackagePath>
+      <PackagePath>$(PackageLayout)\Assets\SplashScreen.scale-200.png</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\Square44x44Logo.scale-200.png">
-      <PackagePath>$(PackageLayout)\UWP\Assets\Square44x44Logo.scale-200.png</PackagePath>
+      <PackagePath>$(PackageLayout)\Assets\Square44x44Logo.scale-200.png</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
-      <PackagePath>$(PackageLayout)\UWP\Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <PackagePath>$(PackageLayout)\Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\Square150x150Logo.scale-200.png">
-      <PackagePath>$(PackageLayout)\UWP\Assets\Square150x150Logo.scale-200.png</PackagePath>
+      <PackagePath>$(PackageLayout)\Assets\Square150x150Logo.scale-200.png</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\welcome.gif">
-      <PackagePath>$(PackageLayout)\UWP\Assets\welcome.gif</PackagePath>
+      <PackagePath>$(PackageLayout)\Assets\welcome.gif</PackagePath>
     </LayoutFile>
        
-    <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\AppxManifest.xml">
-      <PackagePath>$(PackageLayout)\UWP\AppxManifest.xml</PackagePath>
-    </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\clrcompression.dll">
-      <PackagePath>$(PackageLayout)\UWP\clrcompression.dll</PackagePath>
+      <PackagePath>$(PackageLayout)\clrcompression.dll</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\EarTrumpet.UWP.dll">
-      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.dll</PackagePath>
+      <PackagePath>$(PackageLayout)\EarTrumpet.UWP.dll</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\EarTrumpet.UWP.exe">
-      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.exe</PackagePath>
+      <PackagePath>$(PackageLayout)\EarTrumpet.UWP.exe</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\EarTrumpet.UWP.pdb" Condition="'$(Configuration)' == 'Debug'">
-      <PackagePath>$(PackageLayout)\UWP\EarTrumpet.UWP.pdb</PackagePath>
+      <PackagePath>$(PackageLayout)\EarTrumpet.UWP.pdb</PackagePath>
     </LayoutFile>
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\resources.pri">
-      <PackagePath>$(PackageLayout)\UWP\resources.pri</PackagePath>
+      <PackagePath>$(PackageLayout)\resources.pri</PackagePath>
     </LayoutFile>
   </ItemGroup>
 
