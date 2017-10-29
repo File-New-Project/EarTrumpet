@@ -62,29 +62,7 @@
     <LayoutFile Include="$(UwpComponentBuildRoot)\Assets\welcome.gif">
       <PackagePath>$(PackageLayout)\UWP\Assets\welcome.gif</PackagePath>
     </LayoutFile>
-    
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\de-de\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\de-de\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\en-us\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\en-us\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\fr-fr\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\fr-fr\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\nb-no\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\nb-no\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\nn-no\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\nn-no\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\zh-cn\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\zh-cn\resources.resw</PackagePath>
-    </LayoutFile>
-    <LayoutFile Include="$(UwpComponentBuildRoot)\Strings\zh-hk\resources.resw">
-      <PackagePath>$(PackageLayout)\UWP\Strings\zh-hk\resources.resw</PackagePath>
-    </LayoutFile>
-    
+       
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\AppxManifest.xml">
       <PackagePath>$(PackageLayout)\UWP\AppxManifest.xml</PackagePath>
     </LayoutFile>
@@ -103,8 +81,6 @@
     <LayoutFile Include="$(UwpComponentBuildRoot)\$(UwpComponentAppxRoot)\resources.pri">
       <PackagePath>$(PackageLayout)\UWP\resources.pri</PackagePath>
     </LayoutFile>
-  
-
-</ItemGroup>
+  </ItemGroup>
 
 </Project>
