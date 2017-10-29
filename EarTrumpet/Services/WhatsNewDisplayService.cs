@@ -10,14 +10,20 @@ namespace EarTrumpet.Services
         internal static void ShowIfAppropriate()
         {
             var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
-
-            var lastVersion = Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)];
-
-            if (lastVersion == null || currentVersion != (string)lastVersion)
+            var hasShownFirstRun = false;
+            var lastVersion = Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)];            
+            if ((lastVersion == null || currentVersion != (string)lastVersion))
             {
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
 
-                System.Diagnostics.Process.Start("eartrumpet:welcome");
+                if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
+                {
+                    try
+                    { 
+                        System.Diagnostics.Process.Start("eartrumpet:");
+                    }
+                    catch { }
+                }
             }            
         }
 

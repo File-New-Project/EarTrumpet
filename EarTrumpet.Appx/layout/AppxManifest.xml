@@ -11,7 +11,13 @@
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Resources>
-    <Resource Language="en-US" />
+    <Resource Language="EN-US" />
+    <Resource Language="DE-DE" />
+    <Resource Language="FR-FR" />
+    <Resource Language="NB-NO" />
+    <Resource Language="NN-NO" />
+    <Resource Language="ZH-CN" />
+    <Resource Language="ZH-HK" />
   </Resources>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14342.0" MaxVersionTested="10.0.14342.0" />

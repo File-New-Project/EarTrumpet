@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="679f1c56-46b0-412c-a33f-c8fca8c55b2b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>EarTrumpet</DisplayName>
-    <PublisherDisplayName>taoca</PublisherDisplayName>
+    <PublisherDisplayName>File-New-Project</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

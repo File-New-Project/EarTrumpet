@@ -10,9 +10,13 @@ namespace EarTrumpet.Services
         {
             bool hasShownFirstRun = false;
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
-            {                
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;                
-                System.Diagnostics.Process.Start("eartrumpet:");
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
+                try
+                {
+                    System.Diagnostics.Process.Start("eartrumpet://welcome");
+                }
+                catch { }
             }
         }
     }
