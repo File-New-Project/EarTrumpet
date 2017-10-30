@@ -203,3 +203,17 @@ EarTrumpet.vs15.VC.VC.opendb
 
 EarTrumpet.Appx/layout/UWP/
 EarTrumpet.BackgroundTasks/project.lock.json
+EarTrumpet.UWP/nn-no/EarTrumpet.resources.dll
+EarTrumpet.UWP/de/EarTrumpet.resources.dll
+EarTrumpet.UWP/Windows.winmd
+EarTrumpet.UWP/Registry.dat
+EarTrumpet.UWP/EarTrumpet.exe.config
+EarTrumpet.UWP/EarTrumpet.exe
+EarTrumpet.UWP/EarTrumpet.Interop.lib
+EarTrumpet.UWP/EarTrumpet.Interop.exp
+EarTrumpet.UWP/EarTrumpet.Interop.dll
+EarTrumpet.UWP/nb-no/EarTrumpet.resources.dll
+EarTrumpet.UWP/fr/EarTrumpet.resources.dll
+EarTrumpet.UWP/VFS/
+EarTrumpet.UWP/zh-Hant/EarTrumpet.resources.dll
+EarTrumpet.UWP/zh-Hans/EarTrumpet.resources.dll
