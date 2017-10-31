@@ -200,9 +200,9 @@
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
     <ItemGroup>
-      <EarTrumpet Include="$(ProjectDir)..\Build\$(Configuration)\*.*" />
+      <EarTrumpet Include="$(ProjectDir)..\Build\$(Configuration)\**\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(EarTrumpet)" DestinationFolder="$(ProjectDir)" />
+    <Copy SourceFiles="@(EarTrumpet)" DestinationFiles="@(EarTrumpet->'$(ProjectDir)%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(ProjectDir)..\Build\$(Configuration)\EarTrumpet.exe" DestinationFiles="$(ProjectDir)$(OutputPath)EarTrumpet.exe" />
