@@ -56,6 +56,7 @@ namespace EarTrumpet
                 UpdateWindowPosition();
                 this.ShowwithAnimation();
             }
+            CheckandUpdateTray();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)

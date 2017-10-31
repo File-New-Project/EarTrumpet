@@ -206,5 +206,6 @@
   </Target>
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(ProjectDir)..\Build\$(Configuration)\EarTrumpet.exe" DestinationFiles="$(ProjectDir)$(OutputPath)EarTrumpet.exe" />
+    <Copy SourceFiles="$(ProjectDir)..\Build\$(Configuration)\EarTrumpet.exe" DestinationFiles="$(ProjectDir)$(OutputPath)\Appx\EarTrumpet.exe" />
   </Target>
 </Project>
