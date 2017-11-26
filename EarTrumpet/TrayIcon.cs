@@ -37,6 +37,7 @@ namespace EarTrumpet
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
             _audioDeviceService = new EarTrumpetAudioDeviceService();
+            _audioDeviceService.MasterVolumeChanged += _audioDeviceService_MasterVolumeChanged;
 
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
@@ -60,6 +61,12 @@ namespace EarTrumpet
             _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
 
             _trayIcon.Visible = true;
+        }
+
+        private void _audioDeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        {
+            var defaultDevice = _audioDeviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+            UpdateTrayIcon(false, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
         }
 
         public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)

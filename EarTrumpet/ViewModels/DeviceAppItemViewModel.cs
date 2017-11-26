@@ -66,7 +66,7 @@ namespace EarTrumpet.ViewModels
             IconHeight = IconWidth = 32;
 
             _device = device;
-            _volume = Convert.ToInt32(Math.Round((volume * 100), MidpointRounding.AwayFromZero));
+            _volume = volume.ToVolumeInt();
             _isMuted = device.IsMuted;
             _callback = callback;
             DisplayName = device.DisplayName;

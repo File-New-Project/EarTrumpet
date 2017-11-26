@@ -71,8 +71,15 @@ namespace EarTrumpet.ViewModels
             Apps = new ObservableCollection<AppItemViewModel>();
             _audioService = new EarTrumpetAudioSessionService();
             _deviceService = new EarTrumpetAudioDeviceService();
-            _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);
+            _deviceService.MasterVolumeChanged += _deviceService_MasterVolumeChanged;
+            _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);            
             Refresh();
+        }
+
+        private void _deviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        {
+            Device.Volume = e.Volume.ToVolumeInt();
+            RaisePropertyChanged("Device");
         }
 
         public void Refresh()

@@ -112,8 +112,7 @@ namespace EarTrumpet.ViewModels
             ExeName = GetExeName(session.DisplayName);
             IsDesktop = session.IsDesktop;
 
-            _volume = Convert.ToInt32(Math.Round((session.Volume * 100),
-                                     MidpointRounding.AwayFromZero));
+            _volume = session.Volume.ToVolumeInt();
             _isMuted = _sessions.Sessions.Any(x => x.IsMuted);
             _callback = callback;
 

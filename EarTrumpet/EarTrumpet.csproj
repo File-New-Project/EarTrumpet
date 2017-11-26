@@ -69,6 +69,7 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
+    <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="Extensions\InvertableVisibilityConverter.cs" />
     <Compile Include="Extensions\OpacityConverter.cs" />

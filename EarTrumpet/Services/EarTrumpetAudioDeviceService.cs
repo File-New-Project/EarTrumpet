@@ -37,6 +37,13 @@ namespace EarTrumpet.Services
             public static extern int RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback callback);
         }
 
+        public sealed class MasterVolumeChangedArgs
+        {
+            public float Volume { get; set; }
+        }
+
+        public event EventHandler<MasterVolumeChangedArgs> MasterVolumeChanged;
+
         public EarTrumpetAudioDeviceService()
         {
             Interop.RegisterVolumeChangeCallback(this);
@@ -93,7 +100,12 @@ namespace EarTrumpet.Services
 
         public void OnVolumeChanged(float volume)
         {
-            throw new NotImplementedException();
+            OnMasterVolumeChanged(new MasterVolumeChangedArgs() { Volume = volume });
+        }
+
+        protected virtual void OnMasterVolumeChanged(MasterVolumeChangedArgs args)
+        {
+            MasterVolumeChanged?.Invoke(this, args);
         }
     }
 }
