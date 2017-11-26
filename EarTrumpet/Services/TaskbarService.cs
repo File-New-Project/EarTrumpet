@@ -21,8 +21,7 @@ namespace EarTrumpet.Services
             ABD.hWnd = hwnd;
             ABD.lParam = 1;
 
-            RECT scaledTaskbarRect;
-            User32.GetWindowRect(hwnd, out scaledTaskbarRect);            
+            User32.GetWindowRect(hwnd, out RECT scaledTaskbarRect);
 
             var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref ABD);
 

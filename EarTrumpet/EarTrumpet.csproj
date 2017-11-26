@@ -99,6 +99,7 @@
     <Compile Include="Services\EarTrumpetAudioDeviceService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Services\IconService.cs" />
+    <Compile Include="Services\IEarTrumpetVolumeCallback.cs" />
     <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserPreferencesService.cs" />

@@ -9,22 +9,22 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
-            var hasShownFirstRun = false;
-            var lastVersion = Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)];            
-            if ((lastVersion == null || currentVersion != (string)lastVersion))
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
+            //var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
+            //var hasShownFirstRun = false;
+            //var lastVersion = Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)];            
+            //if ((lastVersion == null || currentVersion != (string)lastVersion))
+            //{
+            //    Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
 
-                if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
-                {
-                    try
-                    { 
-                        System.Diagnostics.Process.Start("eartrumpet:");
-                    }
-                    catch { }
-                }
-            }            
+            //    if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
+            //    {
+            //        try
+            //        { 
+            //            System.Diagnostics.Process.Start("eartrumpet:");
+            //        }
+            //        catch { }
+            //    }
+            //}            
         }
 
         private static string PackageVersionToReadableString(PackageVersion packageVersion)

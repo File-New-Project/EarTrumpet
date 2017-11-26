@@ -8,16 +8,16 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            bool hasShownFirstRun = false;
-            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
-            {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
-                try
-                {
-                    System.Diagnostics.Process.Start("eartrumpet://welcome");
-                }
-                catch { }
-            }
+            //bool hasShownFirstRun = false;
+            //if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
+            //{
+            //    Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
+            //    try
+            //    {
+            //        System.Diagnostics.Process.Start("eartrumpet://welcome");
+            //    }
+            //    catch { }
+            //}
         }
     }
 }

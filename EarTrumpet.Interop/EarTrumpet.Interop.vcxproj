@@ -101,16 +101,48 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ControlChangeHandler.h" />
+    <ClInclude Include="EndpointNotificationHandler.h" />
     <ClInclude Include="AudioDeviceService.h" />
     <ClInclude Include="AudioSessionService.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="IControlChangeCallback.h" />
+    <ClInclude Include="IControlChangeHandler.h" />
+    <ClInclude Include="IEarTrumpetVolumeCallback.h" />
+    <ClInclude Include="IEndpointNotificationCallback.h" />
+    <ClInclude Include="IEndpointNotificationHandler.h" />
     <ClInclude Include="PolicyConfig.h" />
     <ClInclude Include="ShellProperties.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ControlChangeHandler.cpp" />
+    <ClCompile Include="EndpointNotificationHandler.cpp" />
     <ClCompile Include="AudioDeviceService.cpp" />
     <ClCompile Include="exports.cpp" />
     <ClCompile Include="AudioSessionService.cpp" />
+    <ClCompile Include="module.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="IControlChangeCallback.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl Include="IControlChangeHandler.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl Include="IEarTrumpetVolumeCallback.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl Include="IEndpointNotificationCallback.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl Include="IEndpointNotificationHandler.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

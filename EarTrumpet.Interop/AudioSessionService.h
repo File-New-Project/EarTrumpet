@@ -31,7 +31,7 @@ namespace EarTrumpet
 
             std::vector<EarTrumpetAudioSession> _sessions;
             std::map<int, CComPtr<IAudioSessionControl2>> _sessionMap;
-            
+
         public:
             static AudioSessionService* instance()
             {

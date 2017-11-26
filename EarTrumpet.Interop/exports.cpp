@@ -1,7 +1,19 @@
 #include "common.h"
 #include <Audiopolicy.h>
 #include <Mmdeviceapi.h>
+#include <endpointvolume.h>
 #include "PolicyConfig.h"
+
+#include "IControlChangeCallback.h"
+#include "IControlChangeHandler.h"
+#include "ControlChangeHandler.h"
+
+#include "IEndpointNotificationHandler.h"
+#include "IEndpointNotificationCallback.h"
+#include "EndpointNotificationHandler.h"
+
+#include "IEarTrumpetVolumeCallback.h"
+
 #include "AudioSessionService.h"
 #include "AudioDeviceService.h"
 
@@ -74,4 +86,11 @@ extern "C" __declspec(dllexport) HRESULT MuteAudioDevice(LPWSTR deviceId)
 extern "C" __declspec(dllexport) HRESULT UnmuteAudioDevice(LPWSTR deviceId)
 {
     return AudioDeviceService::instance()->UnmuteAudioDevice(deviceId);
+}
+
+// Event registration/unregistration
+
+extern "C" __declspec(dllexport) HRESULT RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback* callback)
+{
+    return AudioDeviceService::instance()->RegisterVolumeChangeCallback(callback);
 }

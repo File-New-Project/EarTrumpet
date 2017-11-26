@@ -1,11 +1,13 @@
 #include "common.h"
 #include <Audiopolicy.h>
+#include <Endpointvolume.h>
 #include <Mmdeviceapi.h>
 #include <Appmodel.h>
 #include <ShlObj.h>
 #include <Shlwapi.h>
 #include <propkey.h>
 #include <PathCch.h>
+
 #include "AudioSessionService.h"
 #include "ShellProperties.h"
 #include "MrtResourceManager.h"
@@ -78,6 +80,7 @@ HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudio
 {
     CComPtr<IAudioSessionControl> audioSessionControl;
     FAST_FAIL(audioSessionEnumerator->GetSession(sessionCount, &audioSessionControl));
+
 
     CComPtr<IAudioSessionControl2> audioSessionControl2;
     FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&audioSessionControl2)));
@@ -187,7 +190,7 @@ HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
 HRESULT AudioSessionService::CanResolveAppByApplicationUserModelId(LPCWSTR applicationUserModelId)
 {
     CComPtr<IShellItem2> item;
-    return SUCCEEDED(SHCreateItemInKnownFolder(FOLDERID_AppsFolder, KF_FLAG_DONT_VERIFY, applicationUserModelId, IID_PPV_ARGS(&item)));
+    return SHCreateItemInKnownFolder(FOLDERID_AppsFolder, KF_FLAG_DONT_VERIFY, applicationUserModelId, IID_PPV_ARGS(&item));
 }
 
 HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applicationUserModelId)
@@ -209,7 +212,7 @@ HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applica
         return HRESULT_FROM_WIN32(returnCode);
     }
 
-    if (CanResolveAppByApplicationUserModelId(appUserModelId.get()))
+    if (SUCCEEDED(CanResolveAppByApplicationUserModelId(appUserModelId.get())))
     {
         FAST_FAIL(SHStrDup(appUserModelId.get(), applicationUserModelId));
     }

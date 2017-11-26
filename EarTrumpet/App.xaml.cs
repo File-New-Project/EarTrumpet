@@ -13,11 +13,9 @@ namespace EarTrumpet
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            bool mutexCreated;
             var mutexName = string.Format(CultureInfo.InvariantCulture, "Local\\{{{0}}}{{{1}}}", assembly.GetType().GUID, assembly.GetName().Name);
 
-            _mMutex = new Mutex(true, mutexName, out mutexCreated);
-            
+            _mMutex = new Mutex(true, mutexName, out bool mutexCreated);
             if (!mutexCreated)
             {
                 _mMutex = null;

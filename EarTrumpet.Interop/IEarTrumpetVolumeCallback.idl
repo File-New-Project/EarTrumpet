@@ -1,0 +1,12 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(68CDB936-6903-48E5-BB36-7EF434F28B61),
+    pointer_default(unique)
+]
+interface IEarTrumpetVolumeCallback : IUnknown
+{
+    HRESULT OnVolumeChanged(float volume);
+};

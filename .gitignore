@@ -215,3 +215,7 @@ EarTrumpet.UWP/nb-no/EarTrumpet.resources.dll
 EarTrumpet.UWP/fr/EarTrumpet.resources.dll
 EarTrumpet.UWP/zh-Hant/EarTrumpet.resources.dll
 EarTrumpet.UWP/zh-Hans/EarTrumpet.resources.dll
+EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
+*.lastcodeanalysissucceeded
+*.CodeAnalysisLog.xml
+*.filters

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
 {
-    public class EarTrumpetAudioDeviceService
+    public class EarTrumpetAudioDeviceService : IEarTrumpetVolumeCallback
     {
         static class Interop
         {
@@ -32,12 +32,20 @@ namespace EarTrumpet.Services
 
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int UnmuteAudioDevice([MarshalAs(UnmanagedType.LPWStr)] string deviceId);
+
+            [DllImport("EarTrumpet.Interop.dll")]
+            public static extern int RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback callback);
+        }
+
+        public EarTrumpetAudioDeviceService()
+        {
+            Interop.RegisterVolumeChangeCallback(this);
         }
 
         public IEnumerable<EarTrumpetAudioDeviceModel> GetAudioDevices()
         {
             Interop.RefreshAudioDevices();
-
+            
             var deviceCount = Interop.GetAudioDeviceCount();
             var devices = new List<EarTrumpetAudioDeviceModel>();
 
@@ -52,6 +60,7 @@ namespace EarTrumpet.Services
                 var device = (EarTrumpetAudioDeviceModel)Marshal.PtrToStructure(window, typeof(EarTrumpetAudioDeviceModel));
                 devices.Add(device);
             }
+
             return devices;
         }
 
@@ -80,6 +89,11 @@ namespace EarTrumpet.Services
         public void UnmuteAudioDevice(string deviceId)
         {
             Interop.UnmuteAudioDevice(deviceId);
+        }
+
+        public void OnVolumeChanged(float volume)
+        {
+            throw new NotImplementedException();
         }
     }
 }

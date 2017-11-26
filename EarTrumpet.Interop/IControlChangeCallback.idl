@@ -1,0 +1,12 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(0AC96DA4-337E-4975-ACD7-082E0B85B3C6),
+    pointer_default(unique)
+]
+interface IControlChangeCallback : IUnknown
+{
+    HRESULT OnVolumeChanged(LPCWSTR deviceId, float volume);
+};

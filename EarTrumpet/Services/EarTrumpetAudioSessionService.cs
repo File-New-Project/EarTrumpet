@@ -24,7 +24,6 @@ namespace EarTrumpet.Services
 
             [DllImport("EarTrumpet.Interop.dll")]
             public static extern int SetAudioSessionMute(uint sessionId, [MarshalAs(UnmanagedType.I1)] bool isMuted);
-
         }
 
         public IEnumerable<EarTrumpetAudioSessionModel> GetAudioSessions()

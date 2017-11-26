@@ -1,16 +1,62 @@
 #include "common.h"
 #include "Mmdeviceapi.h"
+#include "Endpointvolume.h"
 #include "PolicyConfig.h"
+
+#include "IControlChangeCallback.h"
+#include "IControlChangeHandler.h"
+#include "ControlChangeHandler.h"
+
+#include "IEndpointNotificationHandler.h"
+#include "IEndpointNotificationCallback.h"
+#include "EndpointNotificationHandler.h"
+
+#include "IEarTrumpetVolumeCallback.h"
+
 #include "AudioDeviceService.h"
 #include "Functiondiscoverykeys_devpkey.h"
 #include "Propidl.h"
-#include "Endpointvolume.h"
 
 using namespace std;
 using namespace std::tr1;
 using namespace EarTrumpet::Interop;
 
-AudioDeviceService* AudioDeviceService::__instance = nullptr;
+CComObject<AudioDeviceService>* AudioDeviceService::__instance = nullptr;
+
+HRESULT AudioDeviceService::RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback* callback)
+{
+    if (_deviceNotificationClient != nullptr)
+    {
+        return S_FALSE;
+    }
+
+    _earTrumpetVolumeCallback = callback;
+
+    CComPtr<IMMDeviceEnumerator> deviceEnumerator;
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
+
+    CComObject<EndpointNotificationHandler>* endpointNotificationHandler;
+    FAST_FAIL(CComObject<EndpointNotificationHandler>::CreateInstance(&endpointNotificationHandler));
+    endpointNotificationHandler->AddRef();
+
+    FAST_FAIL(deviceEnumerator->RegisterEndpointNotificationCallback(endpointNotificationHandler));
+    FAST_FAIL(endpointNotificationHandler->RegisterVolumeChangeHandler(this));
+
+    //
+    // The endpoint notification handler doesn't have a clean way of attaching to the current
+    // default device for our spin up here. So we change the default device to existing default
+    // device. This will generate an event we'll handle.
+    //
+
+    CComPtr<IMMDevice> defaultDevice;
+    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
+    
+    CComHeapPtr<wchar_t> defaultDeviceId;
+    FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
+    FAST_FAIL(SetDefaultAudioDevice(defaultDeviceId));
+
+    return S_OK;
+}
 
 void AudioDeviceService::CleanUpAudioDevices()
 {
@@ -122,7 +168,7 @@ HRESULT AudioDeviceService::GetAudioDeviceVolume(LPWSTR deviceId, float* volume)
 
     CComPtr<IAudioEndpointVolume> audioEndpointVol;
     FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
-
+    
     return audioEndpointVol->GetMasterVolumeLevelScalar(volume);
 }
 
@@ -172,4 +218,9 @@ HRESULT AudioDeviceService::UnmuteAudioDevice(LPWSTR deviceId)
 int AudioDeviceService::GetAudioDeviceCount()
 {
     return _devices.size();
+}
+
+HRESULT AudioDeviceService::OnVolumeChanged(float volume)
+{
+    return _earTrumpetVolumeCallback->OnVolumeChanged(volume);
 }
