@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System;
 
 namespace EarTrumpet.ViewModels
 {
@@ -66,11 +65,11 @@ namespace EarTrumpet.ViewModels
         private readonly AudioMixerViewModelCallbackProxy _proxy;
         private object _refreshLock = new object();
 
-        public AudioMixerViewModel()
+        public AudioMixerViewModel(EarTrumpetAudioSessionService audioService, EarTrumpetAudioDeviceService deviceService)
         {
             Apps = new ObservableCollection<AppItemViewModel>();
-            _audioService = new EarTrumpetAudioSessionService();
-            _deviceService = new EarTrumpetAudioDeviceService();
+            _audioService = audioService;
+            _deviceService = deviceService;
             _deviceService.MasterVolumeChanged += _deviceService_MasterVolumeChanged;
             _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);            
             Refresh();
@@ -78,8 +77,17 @@ namespace EarTrumpet.ViewModels
 
         private void _deviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
-            Device.Volume = e.Volume.ToVolumeInt();
-            RaisePropertyChanged("Device");
+            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+            if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
+            {
+                var updatedDefaultDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, e.Volume);
+                Device.UpdateFromOther(updatedDefaultDevice);
+                RaisePropertyChanged("Device");
+            }
+            else
+            {
+                Refresh();
+            }
         }
 
         public void Refresh()

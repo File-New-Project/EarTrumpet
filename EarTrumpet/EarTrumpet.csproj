@@ -117,6 +117,7 @@
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
     <Compile Include="ViewModels\IAudioMixerViewModelCallback.cs" />
+    <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

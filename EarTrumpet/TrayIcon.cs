@@ -1,26 +1,11 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Services;
+﻿using EarTrumpet.ViewModels;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.AppService;
-using Windows.Foundation;
 
 namespace EarTrumpet
 {
-    public enum IconId
-    {
-        Muted = 120,
-        SpeakerZeroBars = 121,
-        SpeakerOneBar = 122,
-        SpeakerTwoBars = 123,
-        SpeakerThreeBars = 124,
-        NoDevice = 125,
-    }
-
     class TrayIcon
     {
         public event Action Invoked = delegate { };
@@ -28,16 +13,14 @@ namespace EarTrumpet
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private const string _deviceSeparatorName = "DeviceSeparator";
         private const string _deviceItemPrefix = "Device_";
-        private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private readonly EarTrumpetAudioDeviceService _audioDeviceService;
-        private AppServiceConnection _appServiceConnection;
+        private readonly TrayViewModel _trayViewModel;
 
-        public TrayIcon()
+        public TrayIcon(TrayViewModel trayViewModel)
         {
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
-            _audioDeviceService = new EarTrumpetAudioDeviceService();
-            _audioDeviceService.MasterVolumeChanged += _audioDeviceService_MasterVolumeChanged;
+            _trayViewModel = trayViewModel;
+            _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
@@ -57,49 +40,17 @@ namespace EarTrumpet
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
 
-            _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars);
+            _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
 
             _trayIcon.Visible = true;
         }
 
-        private void _audioDeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var defaultDevice = _audioDeviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            UpdateTrayIcon(false, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
-        }
-
-        public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
-        {
-            if (noDevice)
+            if (e.PropertyName == "TrayIcon")
             {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice);
-                return;
-            }
-            if (isMuted)
-            {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.Muted);
-                return;
-            }
-            if (currentVolume == 0)
-            {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars);
-                return;
-            }
-            if (currentVolume >= 1 && currentVolume <= 33)
-            {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar);
-                return;
-            }
-            if (currentVolume >= 34 && currentVolume <= 66)
-            {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars);
-                return;
-            }
-            if (currentVolume >= 67 && currentVolume <= 100)
-            {
-                _trayIcon.Icon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars);
-                return;
+                _trayIcon.Icon = _trayViewModel?.TrayIcon;
             }
         }
 
@@ -118,28 +69,7 @@ namespace EarTrumpet
 
         void Feedback_Click(object sender, EventArgs e)
         {
-            if (_appServiceConnection == null)
-            {
-                _appServiceConnection = new AppServiceConnection();
-            }
-
-            _appServiceConnection.AppServiceName = "SendFeedback";
-            _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
-            _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
-        }
-
-        void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
-        {
-            var status = operation.GetResults();
-            if (status == AppServiceConnectionStatus.Success)
-            {
-                var secondOperation = _appServiceConnection.SendMessageAsync(null);
-                secondOperation.Completed = (_, __) =>
-                {
-                    _appServiceConnection.Dispose();
-                    _appServiceConnection = null;
-                };
-            }
+            _trayViewModel.StartAppServiceAndFeedbackHub();
         }
 
         void About_Click(object sender, EventArgs e)
@@ -149,21 +79,16 @@ namespace EarTrumpet
 
         void Exit_Click(object sender, EventArgs e)
         {
-            if (_appServiceConnection != null)
-            {
-                _appServiceConnection.Dispose();
-            }
-
+            _trayViewModel.CloseAppService();
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
-            
             Application.Current.Shutdown();
         }
 
         void Device_Click(object sender, EventArgs e)
         {
             var id = ((System.Windows.Forms.MenuItem)sender).Name.Substring(_deviceItemPrefix.Length);
-            _audioDeviceService.SetDefaultAudioDevice(id);            
+            _trayViewModel.SetDefaultAudioDevice(id);            
         }
 
         private void SetupDeviceMenuItems()
@@ -177,7 +102,7 @@ namespace EarTrumpet
                 }
             }
 
-            var audioDevices = _audioDeviceService.GetAudioDevices().ToList();
+            var audioDevices = _trayViewModel.GetAudioDevices();
             if (audioDevices.Count == 0)
             {
                 var newItem = new System.Windows.Forms.MenuItem(EarTrumpet.Properties.Resources.ContextMenuNoDevices);
