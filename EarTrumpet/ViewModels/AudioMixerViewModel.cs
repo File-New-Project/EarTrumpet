@@ -70,12 +70,12 @@ namespace EarTrumpet.ViewModels
             Apps = new ObservableCollection<AppItemViewModel>();
             _audioService = audioService;
             _deviceService = deviceService;
-            _deviceService.MasterVolumeChanged += _deviceService_MasterVolumeChanged;
+            _deviceService.MasterVolumeChanged += DeviceService_MasterVolumeChanged;
             _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);            
             Refresh();
         }
 
-        private void _deviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
             var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
             if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
