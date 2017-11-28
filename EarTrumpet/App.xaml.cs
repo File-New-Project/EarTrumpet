@@ -1,8 +1,10 @@
 ﻿using EarTrumpet.Services;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using Windows.ApplicationModel;
 
 namespace EarTrumpet
 {
@@ -35,6 +37,18 @@ namespace EarTrumpet
             _mMutex.ReleaseMutex();
             _mMutex.Close();
             _mMutex = null;
+        }
+
+        internal static bool HasIdentity()
+        {
+            try
+            {
+                return (Package.Current.Id != null);
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
         }
     }
 }

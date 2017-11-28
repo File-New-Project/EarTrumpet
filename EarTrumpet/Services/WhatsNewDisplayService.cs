@@ -9,7 +9,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Package", 1, 0))
+            if (App.HasIdentity())
             {
                 var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
                 var hasShownFirstRun = false;

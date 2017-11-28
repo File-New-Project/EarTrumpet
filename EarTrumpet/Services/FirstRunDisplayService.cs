@@ -8,7 +8,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Storage.ApplicationData", 1, 0))
+            if (App.HasIdentity())
             {
                 bool hasShownFirstRun = false;
                 if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
