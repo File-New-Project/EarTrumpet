@@ -1,0 +1,24 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "callbacks.idl";
+import "mmdeviceapi.idl";
+
+[
+    object,
+    uuid(AAFE7CFC-E840-4C59-B055-9F1D2D01C68F),
+    pointer_default(unique)
+]
+interface IEndpointNotificationHandler : IUnknown
+{
+    HRESULT RegisterVolumeChangeHandler(IMMDeviceEnumerator*, IEndpointNotificationCallback*);
+};
+
+[
+    object,
+    uuid(265E0961-8265-46F0-A062-173B8CB3CDC6),
+    pointer_default(unique)
+]
+interface IControlChangeHandler : IUnknown
+{
+    HRESULT RegisterVolumeChangedCallback(LPCWSTR deviceId, IControlChangeCallback* callback);
+};
