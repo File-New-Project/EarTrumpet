@@ -97,17 +97,17 @@ namespace EarTrumpet.ViewModels
                 TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars);
                 return;
             }
-            if (currentVolume >= 1 && currentVolume <= 33)
+            if (currentVolume >= 1 && currentVolume < 33)
             {
                 TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar);
                 return;
             }
-            if (currentVolume >= 34 && currentVolume <= 66)
+            if (currentVolume >= 33 && currentVolume < 66)
             {
                 TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars);
                 return;
             }
-            if (currentVolume >= 67 && currentVolume <= 100)
+            if (currentVolume >= 66 && currentVolume <= 100)
             {
                 TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars);
                 return;

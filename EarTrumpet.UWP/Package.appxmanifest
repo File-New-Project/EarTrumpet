@@ -39,7 +39,7 @@
         </Extension>
       </Extensions>
     </Application>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="EarTrumpet.UWP.App">
+    <Application Id="EarTrumpet.UWP" Executable="$targetnametoken$.exe" EntryPoint="EarTrumpet.UWP.App">
       <uap3:VisualElements DisplayName="EarTrumpet" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="EarTrumpet" BackgroundColor="transparent" AppListEntry="none">
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap3:VisualElements>
