@@ -15,16 +15,15 @@ namespace EarTrumpet
             END_COM_MAP()
 
         private:
+            std::wstring _deviceId;
             CComPtr<IControlChangeCallback> _callback;
 
         public:
-            std::wstring DeviceId;
-
             // IControlChangeHandler
-            HRESULT __stdcall RegisterVolumeChangedCallback(IControlChangeCallback* obj);
+            STDMETHODIMP RegisterVolumeChangedCallback(PCWSTR deviceId, IControlChangeCallback* callback);
 
             // IAudioEndpointVolumeCallback
-            HRESULT __stdcall OnNotify(PAUDIO_VOLUME_NOTIFICATION_DATA pNotify);
+            STDMETHODIMP OnNotify(PAUDIO_VOLUME_NOTIFICATION_DATA pNotify);
         };
     }
 }

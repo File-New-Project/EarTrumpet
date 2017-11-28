@@ -1,13 +1,20 @@
 #pragma once
-#define _ATL_DEBUG_INTERFACES
-#define _ATL_DEBUG_QI
-
 #include <windows.h>
+
+//
+// Silence buffer overrun warnings for SDK content
+// https://wpdev.uservoice.com/forums/110705/suggestions/20550229
+//
+
+#pragma warning(push)
+#pragma warning(disable: 6386)
 
 #include <atlbase.h>
 #include <atlstr.h>
 #include <atlcom.h>
 #include <strsafe.h>
+
+#pragma warning(pop)
 
 #include <string>
 #include <memory>

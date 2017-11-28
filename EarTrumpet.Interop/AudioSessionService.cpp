@@ -50,13 +50,13 @@ HRESULT AudioSessionService::RefreshAudioSessions()
     CleanUpAudioSessions();
 
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator)));
 
     CComPtr<IMMDevice> device;
     FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
 
     CComPtr<IAudioSessionManager2> audioSessionManager;
-    FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC, nullptr, (void**)&audioSessionManager));
+    FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC_SERVER, nullptr, (void**)&audioSessionManager));
 
     CComPtr<IAudioSessionEnumerator> audioSessionEnumerator;
     FAST_FAIL(audioSessionManager->GetSessionEnumerator(&audioSessionEnumerator));
@@ -272,9 +272,7 @@ HRESULT AudioSessionService::SetAudioSessionVolume(unsigned long sessionId, floa
     CComPtr<ISimpleAudioVolume> simpleAudioVolume;
     FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
 
-    FAST_FAIL(simpleAudioVolume->SetMasterVolume(volume, nullptr));
-    
-    return S_OK;
+    return simpleAudioVolume->SetMasterVolume(volume, nullptr);
 }
 
 HRESULT AudioSessionService::SetAudioSessionMute(unsigned long sessionId, bool isMuted)
@@ -287,8 +285,7 @@ HRESULT AudioSessionService::SetAudioSessionMute(unsigned long sessionId, bool i
     CComPtr<ISimpleAudioVolume> simpleAudioVolume;
     FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
 
-    FAST_FAIL(simpleAudioVolume->SetMute(isMuted, nullptr));
-    return S_OK;
+    return simpleAudioVolume->SetMute(isMuted, nullptr);
 }
 
 HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, PWSTR* ppszIcon, ULONG *background)
@@ -321,7 +318,7 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
         FAST_FAIL(item->GetString(PKEY_AppUserModel_PackageFullName, &fullPackageName));
 
         CComPtr<IMrtResourceManager> mrtResMgr;
-        FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&mrtResMgr)));
+        FAST_FAIL(CoCreateInstance(__uuidof(MrtResourceManager), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&mrtResMgr)));
         FAST_FAIL(mrtResMgr->InitializeForPackage(fullPackageName));
 
         CComPtr<IResourceMap> resourceMap;

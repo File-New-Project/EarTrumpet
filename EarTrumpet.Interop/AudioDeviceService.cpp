@@ -3,15 +3,10 @@
 #include "Endpointvolume.h"
 #include "PolicyConfig.h"
 
-#include "IControlChangeCallback.h"
-#include "IControlChangeHandler.h"
+#include "callbacks.h"
+#include "handlers.h"
 #include "ControlChangeHandler.h"
-
-#include "IEndpointNotificationHandler.h"
-#include "IEndpointNotificationCallback.h"
 #include "EndpointNotificationHandler.h"
-
-#include "IEarTrumpetVolumeCallback.h"
 
 #include "AudioDeviceService.h"
 #include "Functiondiscoverykeys_devpkey.h"
@@ -25,35 +20,16 @@ CComObject<AudioDeviceService>* AudioDeviceService::__instance = nullptr;
 
 HRESULT AudioDeviceService::RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback* callback)
 {
-    if (_deviceNotificationClient != nullptr)
-    {
-        return S_FALSE;
-    }
-
     _earTrumpetVolumeCallback = callback;
-
-    CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
 
     CComObject<EndpointNotificationHandler>* endpointNotificationHandler;
     FAST_FAIL(CComObject<EndpointNotificationHandler>::CreateInstance(&endpointNotificationHandler));
     endpointNotificationHandler->AddRef();
 
+    CComPtr<IMMDeviceEnumerator> deviceEnumerator;
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator)));
     FAST_FAIL(deviceEnumerator->RegisterEndpointNotificationCallback(endpointNotificationHandler));
-    FAST_FAIL(endpointNotificationHandler->RegisterVolumeChangeHandler(this));
-
-    //
-    // The endpoint notification handler doesn't have a clean way of attaching to the current
-    // default device for our spin up here. So we change the default device to existing default
-    // device. This will generate an event we'll handle.
-    //
-
-    CComPtr<IMMDevice> defaultDevice;
-    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
-    
-    CComHeapPtr<wchar_t> defaultDeviceId;
-    FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
-    FAST_FAIL(SetDefaultAudioDevice(defaultDeviceId));
+    FAST_FAIL(endpointNotificationHandler->RegisterVolumeChangeHandler(deviceEnumerator, this));
 
     return S_OK;
 }
@@ -74,7 +50,7 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
     CleanUpAudioDevices();
 
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator)));
 
     CComPtr<IMMDeviceCollection> deviceCollection;
     FAST_FAIL(deviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, ERole::eMultimedia, &deviceCollection));
@@ -107,7 +83,7 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
         FAST_FAIL(propertyStore->GetValue(PKEY_Device_FriendlyName, &friendlyName));
         
         CComPtr<IAudioEndpointVolume> audioEndpointVol;
-        FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+        FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
 
         BOOL isMuted;
         FAST_FAIL(audioEndpointVol->GetMute(&isMuted));
@@ -125,7 +101,7 @@ HRESULT AudioDeviceService::RefreshAudioDevices()
     return S_OK;
 }
 
-HRESULT AudioDeviceService::SetDefaultAudioDevice(LPWSTR deviceId)
+HRESULT AudioDeviceService::SetDefaultAudioDevice(PCWSTR deviceId)
 {
     CComPtr<IPolicyConfig> policyConfig;
     FAST_FAIL(GetPolicyConfigClient(&policyConfig));
@@ -142,43 +118,43 @@ HRESULT AudioDeviceService::GetPolicyConfigClient(IPolicyConfig** client)
     // (i.e. AudioSes!ATL::CComObject<CPolicyConfigClient>::QueryInterface)
     //
 
-    if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH1, reinterpret_cast<LPVOID*>(client))))
+    if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC_SERVER, IID_IPolicyConfig_TH1, reinterpret_cast<LPVOID*>(client))))
     {
-        if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_TH2, reinterpret_cast<LPVOID*>(client))))
+        if (FAILED(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC_SERVER, IID_IPolicyConfig_TH2, reinterpret_cast<LPVOID*>(client))))
         {
-            FAST_FAIL(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC, IID_IPolicyConfig_RS1, reinterpret_cast<LPVOID*>(client)));
+            FAST_FAIL(CoCreateInstance(CLSID_PolicyConfigClient, nullptr, CLSCTX_INPROC_SERVER, IID_IPolicyConfig_RS1, reinterpret_cast<LPVOID*>(client)));
         }
     }
 
     return S_OK;
 }
 
-HRESULT AudioDeviceService::GetDeviceByDeviceId(PWSTR deviceId, IMMDevice** device)
+HRESULT AudioDeviceService::GetDeviceByDeviceId(PCWSTR deviceId, IMMDevice** device)
 {
     CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
+    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator)));
 
     return deviceEnumerator->GetDevice(deviceId, device);
 }
 
-HRESULT AudioDeviceService::GetAudioDeviceVolume(LPWSTR deviceId, float* volume)
+HRESULT AudioDeviceService::GetAudioDeviceVolume(PCWSTR deviceId, float* volume)
 {
     CComPtr<IMMDevice> device;
     FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
 
     CComPtr<IAudioEndpointVolume> audioEndpointVol;
-    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
     
     return audioEndpointVol->GetMasterVolumeLevelScalar(volume);
 }
 
-HRESULT AudioDeviceService::SetAudioDeviceVolume(LPWSTR deviceId, float volume)
+HRESULT AudioDeviceService::SetAudioDeviceVolume(PCWSTR deviceId, float volume)
 {
     CComPtr<IMMDevice> device;
     FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
 
     CComPtr<IAudioEndpointVolume> audioEndpointVol;
-    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
 
     return audioEndpointVol->SetMasterVolumeLevelScalar(volume, nullptr);
 }
@@ -194,23 +170,23 @@ HRESULT AudioDeviceService::GetAudioDevices(void** audioDevices)
     return S_OK;
 }
 
-HRESULT AudioDeviceService::SetMuteBoolForDevice(LPWSTR deviceId, BOOL value)
+HRESULT AudioDeviceService::SetMuteBoolForDevice(PCWSTR deviceId, BOOL value)
 {
     CComPtr<IMMDevice> device;
     FAST_FAIL(this->GetDeviceByDeviceId(deviceId, &device));
 
     CComPtr<IAudioEndpointVolume> audioEndpointVol;
-    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
+    FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER, nullptr, reinterpret_cast<void**>(&audioEndpointVol)));
 
     return audioEndpointVol->SetMute(value, nullptr);
 }
 
-HRESULT AudioDeviceService::MuteAudioDevice(LPWSTR deviceId)
+HRESULT AudioDeviceService::MuteAudioDevice(PCWSTR deviceId)
 {
     return SetMuteBoolForDevice(deviceId, TRUE);
 }
 
-HRESULT AudioDeviceService::UnmuteAudioDevice(LPWSTR deviceId)
+HRESULT AudioDeviceService::UnmuteAudioDevice(PCWSTR deviceId)
 {
     return SetMuteBoolForDevice(deviceId, FALSE);
 }

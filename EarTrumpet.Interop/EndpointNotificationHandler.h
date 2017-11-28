@@ -17,31 +17,32 @@ namespace EarTrumpet
             END_COM_MAP()
 
         public:
-            ~EndpointNotificationHandler();
-
             // IEndpointNotificationHandler
-            HRESULT __stdcall RegisterVolumeChangeHandler(IEndpointNotificationCallback* callback);
+            STDMETHODIMP RegisterVolumeChangeHandler(IMMDeviceEnumerator* deviceEnumerator, IEndpointNotificationCallback* callback);
 
             // IMMNotificationClient
-            HRESULT __stdcall OnDeviceStateChanged(PCWSTR pwstrDeviceId, DWORD dwNewState);
-            HRESULT __stdcall OnDeviceAdded(PCWSTR pwstrDeviceId);
-            HRESULT __stdcall OnDeviceRemoved(PCWSTR pwstrDeviceId);
-            HRESULT __stdcall OnDefaultDeviceChanged(EDataFlow flow, ERole role, PCWSTR pwstrDefaultDeviceId);
-            HRESULT __stdcall OnPropertyValueChanged(PCWSTR pwstrDeviceId, const PROPERTYKEY key);
+            STDMETHODIMP OnDeviceStateChanged(PCWSTR pwstrDeviceId, DWORD dwNewState);
+            STDMETHODIMP OnDeviceAdded(PCWSTR pwstrDeviceId);
+            STDMETHODIMP OnDeviceRemoved(PCWSTR pwstrDeviceId);
+            STDMETHODIMP OnDefaultDeviceChanged(EDataFlow flow, ERole role, PCWSTR pwstrDefaultDeviceId);
+            STDMETHODIMP OnPropertyValueChanged(PCWSTR pwstrDeviceId, const PROPERTYKEY key);
 
             // IControlChangeCallback
-            HRESULT __stdcall OnVolumeChanged(PCWSTR deviceId, float volume);
+            STDMETHODIMP OnVolumeChanged(PCWSTR deviceId, float volume);
 
         private:
-            std::map<size_t, IMMDevice*> _cachedDevices;
-            std::map<size_t, IAudioEndpointVolume*> _cachedEndpoints;
-            std::map<size_t, CComObject<ControlChangeHandler>*> _controlChangeHandlers;
-            size_t _currentDefaultDeviceHash = 0;
+            std::map<std::wstring, CComPtr<IMMDevice>> _cachedDevices;
+            std::map<std::wstring, CComPtr<IAudioEndpointVolume>> _cachedEndpoints;
+            std::map<std::wstring, CComObject<ControlChangeHandler>*> _controlChangeHandlers;
+            
+            std::wstring _lastSeenDeviceId;
             CComPtr<IEndpointNotificationCallback> _endpointCallback;
+            CComPtr<IMMDeviceEnumerator> _deviceEnumerator;
 
-            HRESULT GetCachedDeviceByDeviceId(PCWSTR deviceId, IMMDevice** device);
-            HRESULT GetCachedAudioEndpointVolumeByDeviceId(PCWSTR deviceId, IAudioEndpointVolume** audioEndpointVolume);
-            HRESULT GetCachedControlChangeHandlerByDeviceId(PCWSTR deviceId, CComObject<ControlChangeHandler>** controlChangeHandler);
+            HRESULT GetCachedDeviceByDeviceId(std::wstring const& deviceId, IMMDevice** device);
+            HRESULT GetCachedAudioEndpointVolumeByDeviceId(std::wstring const& deviceId, IAudioEndpointVolume** audioEndpointVolume);
+            HRESULT GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, CComObject<ControlChangeHandler>** controlChangeHandler);
+            HRESULT GetDefaultDeviceVolume(float* volume);
         };
     }
 }

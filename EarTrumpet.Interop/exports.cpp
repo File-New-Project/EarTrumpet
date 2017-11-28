@@ -4,15 +4,10 @@
 #include <endpointvolume.h>
 #include "PolicyConfig.h"
 
-#include "IControlChangeCallback.h"
-#include "IControlChangeHandler.h"
+#include "callbacks.h"
+#include "handlers.h"
 #include "ControlChangeHandler.h"
-
-#include "IEndpointNotificationHandler.h"
-#include "IEndpointNotificationCallback.h"
 #include "EndpointNotificationHandler.h"
-
-#include "IEarTrumpetVolumeCallback.h"
 
 #include "AudioSessionService.h"
 #include "AudioDeviceService.h"

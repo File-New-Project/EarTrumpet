@@ -106,11 +106,6 @@
     <ClInclude Include="AudioDeviceService.h" />
     <ClInclude Include="AudioSessionService.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="IControlChangeCallback.h" />
-    <ClInclude Include="IControlChangeHandler.h" />
-    <ClInclude Include="IEarTrumpetVolumeCallback.h" />
-    <ClInclude Include="IEndpointNotificationCallback.h" />
-    <ClInclude Include="IEndpointNotificationHandler.h" />
     <ClInclude Include="PolicyConfig.h" />
     <ClInclude Include="ShellProperties.h" />
   </ItemGroup>
@@ -123,23 +118,11 @@
     <ClCompile Include="module.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="IControlChangeCallback.idl">
+    <Midl Include="callbacks.idl">
       <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
       <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
     </Midl>
-    <Midl Include="IControlChangeHandler.idl">
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
-    </Midl>
-    <Midl Include="IEarTrumpetVolumeCallback.idl">
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
-    </Midl>
-    <Midl Include="IEndpointNotificationCallback.idl">
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
-    </Midl>
-    <Midl Include="IEndpointNotificationHandler.idl">
+    <Midl Include="handlers.idl">
       <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
       <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
     </Midl>

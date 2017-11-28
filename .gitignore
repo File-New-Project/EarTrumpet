@@ -219,3 +219,7 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 *.lastcodeanalysissucceeded
 *.CodeAnalysisLog.xml
 *.filters
+
+# Auto-generated headers
+EarTrumpet.Interop/callbacks.h
+EarTrumpet.Interop/handlers.h

@@ -2,20 +2,20 @@
 #include "Mmdeviceapi.h"
 #include "endpointvolume.h"
 
-#include "IControlChangeCallback.h"
-#include "IControlChangeHandler.h"
+#include "callbacks.h"
+#include "handlers.h"
 #include "ControlChangeHandler.h"
 
 using namespace EarTrumpet::Interop;
 
 HRESULT ControlChangeHandler::OnNotify(PAUDIO_VOLUME_NOTIFICATION_DATA pNotify)
 {
-    FAST_FAIL(_callback->OnVolumeChanged(this->DeviceId.c_str(), pNotify->fMasterVolume));
-    return S_OK;
+    return _callback->OnVolumeChanged(_deviceId.c_str(), pNotify->fMasterVolume);
 }
 
-HRESULT ControlChangeHandler::RegisterVolumeChangedCallback(IControlChangeCallback* callback)
+HRESULT ControlChangeHandler::RegisterVolumeChangedCallback(PCWSTR deviceId, IControlChangeCallback* callback)
 {
+    _deviceId = deviceId;
     _callback = callback;
     return S_OK;
 }

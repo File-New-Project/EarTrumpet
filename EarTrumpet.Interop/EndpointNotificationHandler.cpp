@@ -2,54 +2,55 @@
 #include "Mmdeviceapi.h"
 #include "endpointvolume.h"
 
-#include "IControlChangeCallback.h"
-#include "IControlChangeHandler.h"
+#include "callbacks.h"
+#include "handlers.h"
 #include "ControlChangeHandler.h"
-
-#include "IEndpointNotificationHandler.h"
-#include "IEndpointNotificationCallback.h"
 #include "EndpointNotificationHandler.h"
 
 using namespace EarTrumpet::Interop;
 
-EndpointNotificationHandler::~EndpointNotificationHandler()
-{
-    // TODO: Cleanup
-}
-
-HRESULT EndpointNotificationHandler::OnDefaultDeviceChanged(EDataFlow dataFlow, ERole role, PCWSTR deviceId)
+HRESULT EndpointNotificationHandler::OnDefaultDeviceChanged(EDataFlow dataFlow, ERole role, PCWSTR rawDeviceId)
 {
     if (dataFlow == EDataFlow::eRender && role != ERole::eCommunications)
     {
-        _currentDefaultDeviceHash = std::hash<std::wstring>()(deviceId);
-        if (!_controlChangeHandlers.count(_currentDefaultDeviceHash))
+        std::wstring deviceId(rawDeviceId);
+        _lastSeenDeviceId = deviceId;
+        if (_controlChangeHandlers.find(deviceId) == _controlChangeHandlers.end())
         {
-            IAudioEndpointVolume* audioEndpointVolume;
-            FAST_FAIL(GetCachedAudioEndpointVolumeByDeviceId(deviceId, &audioEndpointVolume));
-
             CComObject<ControlChangeHandler>* controlChangeHandler;
             FAST_FAIL(GetCachedControlChangeHandlerByDeviceId(deviceId, &controlChangeHandler));
-            controlChangeHandler->DeviceId = deviceId;
-            controlChangeHandler->RegisterVolumeChangedCallback(this);
+            controlChangeHandler->RegisterVolumeChangedCallback(deviceId.c_str(), this);
+
+            IAudioEndpointVolume* audioEndpointVolume;
+            FAST_FAIL(GetCachedAudioEndpointVolumeByDeviceId(deviceId, &audioEndpointVolume));
             FAST_FAIL(audioEndpointVolume->RegisterControlChangeNotify(controlChangeHandler));
         }
+
+        float volume;
+        FAST_FAIL(GetDefaultDeviceVolume(&volume));
+        FAST_FAIL(OnVolumeChanged(_lastSeenDeviceId.c_str(), volume));
     }
 
     return S_OK;
 }
 
-HRESULT EndpointNotificationHandler::RegisterVolumeChangeHandler(IEndpointNotificationCallback* callback)
+HRESULT EndpointNotificationHandler::RegisterVolumeChangeHandler(IMMDeviceEnumerator* deviceEnumerator, IEndpointNotificationCallback* callback)
 {
+    _deviceEnumerator = deviceEnumerator;
     _endpointCallback = callback;
-    return S_OK;
+
+    CComPtr<IMMDevice> defaultDevice;
+    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &defaultDevice));
+    
+    CComHeapPtr<wchar_t> defaultDeviceId;
+    FAST_FAIL(defaultDevice->GetId(&defaultDeviceId));
+
+    return OnDefaultDeviceChanged(EDataFlow::eRender, ERole::eMultimedia, defaultDeviceId);
 }
 
 HRESULT EndpointNotificationHandler::OnVolumeChanged(PCWSTR deviceId, float volume)
 {
-    // FIXME: Replace hashing
-
-    auto deviceHash = std::hash<std::wstring>()(deviceId);
-    if (deviceHash == _currentDefaultDeviceHash)
+    if (_lastSeenDeviceId == deviceId)
     {
         FAST_FAIL(_endpointCallback->OnVolumeChanged(volume));
     }
@@ -57,45 +58,48 @@ HRESULT EndpointNotificationHandler::OnVolumeChanged(PCWSTR deviceId, float volu
     return S_OK;
 }
 
-HRESULT EndpointNotificationHandler::GetCachedDeviceByDeviceId(PCWSTR deviceId, IMMDevice** device)
+HRESULT EndpointNotificationHandler::GetDefaultDeviceVolume(float* volume)
 {
-    auto deviceIdHash = std::hash<std::wstring>()(deviceId);
-    if (!_cachedDevices.count(deviceIdHash))
+    IAudioEndpointVolume* endpointVolume;
+    FAST_FAIL(GetCachedAudioEndpointVolumeByDeviceId(_lastSeenDeviceId, &endpointVolume));
+    return endpointVolume->GetMasterVolumeLevelScalar(volume);
+}
+
+HRESULT EndpointNotificationHandler::GetCachedDeviceByDeviceId(std::wstring const& deviceId, IMMDevice** device)
+{
+    if (_cachedDevices.find(deviceId) == _cachedDevices.end())
     {
-        CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-        FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC, IID_PPV_ARGS(&deviceEnumerator)));
-        FAST_FAIL(deviceEnumerator->GetDevice(deviceId, &_cachedDevices[deviceIdHash]));
+        FAST_FAIL(_deviceEnumerator->GetDevice(deviceId.c_str(), &_cachedDevices[deviceId]));
     }
 
-    *device = _cachedDevices[deviceIdHash];
+    *device = _cachedDevices[deviceId].p;
     return S_OK;
 }
 
-HRESULT EndpointNotificationHandler::GetCachedAudioEndpointVolumeByDeviceId(PCWSTR deviceId, IAudioEndpointVolume** audioEndpointVolume)
+HRESULT EndpointNotificationHandler::GetCachedAudioEndpointVolumeByDeviceId(std::wstring const& deviceId, IAudioEndpointVolume** audioEndpointVolume)
 {
     IMMDevice* device;
     FAST_FAIL(GetCachedDeviceByDeviceId(deviceId, &device));
 
-    auto deviceIdHash = std::hash<std::wstring>()(deviceId);
-    if (!_cachedEndpoints.count(deviceIdHash))
+    if (_cachedEndpoints.find(deviceId) == _cachedEndpoints.end())
     {
-        FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC, nullptr, reinterpret_cast<void**>(&_cachedEndpoints[deviceIdHash])));
+        FAST_FAIL(device->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_INPROC_SERVER,
+            nullptr, reinterpret_cast<void**>(&_cachedEndpoints[deviceId])));
     }
 
-    *audioEndpointVolume = _cachedEndpoints[deviceIdHash];
+    *audioEndpointVolume = _cachedEndpoints[deviceId].p;
     return S_OK;
 }
 
-HRESULT EndpointNotificationHandler::GetCachedControlChangeHandlerByDeviceId(PCWSTR deviceId, CComObject<ControlChangeHandler>** controlChangeHandler)
+HRESULT EndpointNotificationHandler::GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, CComObject<ControlChangeHandler>** controlChangeHandler)
 {
-    auto deviceIdHash = std::hash<std::wstring>()(deviceId);
-    if (!_controlChangeHandlers.count(deviceIdHash))
+    if (_controlChangeHandlers.find(deviceId) == _controlChangeHandlers.end())
     {
-        FAST_FAIL(CComObject<ControlChangeHandler>::CreateInstance(&_controlChangeHandlers[deviceIdHash]));
-        _controlChangeHandlers[deviceIdHash]->AddRef();
+        FAST_FAIL(CComObject<ControlChangeHandler>::CreateInstance(&_controlChangeHandlers[deviceId]));
+        _controlChangeHandlers[deviceId]->AddRef();
     }
 
-    *controlChangeHandler = _controlChangeHandlers[deviceIdHash];
+    *controlChangeHandler = _controlChangeHandlers[deviceId];
     return S_OK;
 }
 
