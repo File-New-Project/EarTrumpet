@@ -79,6 +79,17 @@ namespace EarTrumpet
 
         void Exit_Click(object sender, EventArgs e)
         {
+            try
+            {
+                foreach(var proc in Process.GetProcessesByName("EarTrumpet.UWP"))
+                {
+                    proc.Kill();
+                }
+            }
+            catch
+            {
+                // We're shutting down, ignore all
+            }
             _trayViewModel.CloseAppService();
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
