@@ -223,3 +223,4 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 # Auto-generated headers
 EarTrumpet.Interop/callbacks.h
 EarTrumpet.Interop/handlers.h
+EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
