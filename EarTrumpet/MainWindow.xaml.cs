@@ -10,16 +10,19 @@ namespace EarTrumpet
 {
     public partial class MainWindow
     {
+        private readonly EarTrumpetAudioDeviceService _deviceService;
         private readonly AudioMixerViewModel _viewModel;
-
-		private readonly TrayIcon _trayIcon;
+        private readonly TrayViewModel _trayViewModel;
+        private readonly TrayIcon _trayIcon;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _viewModel = new AudioMixerViewModel();
-            _trayIcon = new TrayIcon();
+            _deviceService = new EarTrumpetAudioDeviceService();
+            _viewModel = new AudioMixerViewModel(new EarTrumpetAudioSessionService(), _deviceService);
+            _trayViewModel = new TrayViewModel(_deviceService);
+            _trayIcon = new TrayIcon(_trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
 
             DataContext = _viewModel;
@@ -253,11 +256,11 @@ namespace EarTrumpet
             var viewModel = (AudioMixerViewModel)DataContext;
             if (viewModel.Device == null)
             { 
-                _trayIcon.UpdateTrayIcon(true);
+                _trayViewModel.UpdateTrayIcon(true);
             }
             else
             {
-                _trayIcon.UpdateTrayIcon(false, viewModel.Device.IsMuted, viewModel.Device.Volume);
+                _trayViewModel.UpdateTrayIcon(false, viewModel.Device.IsMuted, viewModel.Device.Volume);
             }
         }
     }
