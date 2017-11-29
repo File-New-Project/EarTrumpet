@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
@@ -21,12 +22,15 @@ namespace EarTrumpet.ViewModels
             SpeakerTwoBars = 123,
             SpeakerThreeBars = 124,
             NoDevice = 125,
+            OriginalIcon
         }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private Icon _trayIcon;
-        private EarTrumpetAudioDeviceService _deviceService;
+        private readonly EarTrumpetAudioDeviceService _deviceService;
         private AppServiceConnection _appServiceConnection;
+        private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
+        private IconId _currentIcon = IconId.OriginalIcon;
 
 
         public Icon TrayIcon
@@ -42,8 +46,29 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public TrayViewModel(EarTrumpetAudioDeviceService deviceService) {
-            
+        public TrayViewModel(EarTrumpetAudioDeviceService deviceService)
+        {
+            var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
+            _icons.Add(IconId.OriginalIcon, originalIcon);
+            try
+            {
+                _icons.Add(IconId.NoDevice, IconService.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
+                _icons.Add(IconId.Muted, IconService.GetIconFromFile(_trayIconPath, (int)IconId.Muted));
+                _icons.Add(IconId.SpeakerZeroBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
+                _icons.Add(IconId.SpeakerOneBar, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
+                _icons.Add(IconId.SpeakerTwoBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
+                _icons.Add(IconId.SpeakerThreeBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+            }
+            catch
+            {
+                _icons.Add(IconId.NoDevice, originalIcon);
+                _icons.Add(IconId.Muted, originalIcon);
+                _icons.Add(IconId.SpeakerZeroBars, originalIcon);
+                _icons.Add(IconId.SpeakerOneBar, originalIcon);
+                _icons.Add(IconId.SpeakerTwoBars, originalIcon);
+                _icons.Add(IconId.SpeakerThreeBars, originalIcon);
+            }
+
             _deviceService = deviceService;
             _deviceService.MasterVolumeChanged += DeviceService_MasterVolumeChanged;
 
@@ -82,35 +107,47 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
         {
-            if (noDevice)
+            if (noDevice && _currentIcon != IconId.NoDevice)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice);
+                TrayIcon = _icons[IconId.NoDevice];
+                _currentIcon = IconId.NoDevice;
                 return;
             }
-            if (isMuted)
+            if (isMuted && _currentIcon != IconId.Muted)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.Muted);
+                TrayIcon = _icons[IconId.Muted];
+                _currentIcon = IconId.Muted;
                 return;
             }
-            if (currentVolume == 0)
+            if (currentVolume == 0 && _currentIcon != IconId.SpeakerZeroBars)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars);
+                TrayIcon = _icons[IconId.SpeakerZeroBars];
+                _currentIcon = IconId.SpeakerZeroBars;
                 return;
             }
-            if (currentVolume >= 1 && currentVolume < 33)
+            if (currentVolume >= 1 && currentVolume < 33 && _currentIcon != IconId.SpeakerOneBar)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar);
+                TrayIcon = _icons[IconId.SpeakerOneBar];
+                _currentIcon = IconId.SpeakerOneBar;
                 return;
             }
-            if (currentVolume >= 33 && currentVolume < 66)
+            if (currentVolume >= 33 && currentVolume < 66 && _currentIcon != IconId.SpeakerTwoBars)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars);
+                TrayIcon = _icons[IconId.SpeakerTwoBars];
+                _currentIcon = IconId.SpeakerTwoBars;
                 return;
             }
-            if (currentVolume >= 66 && currentVolume <= 100)
+            if (currentVolume >= 66 && currentVolume <= 100 && _currentIcon != IconId.SpeakerThreeBars)
             {
-                TrayIcon = IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars);
+                TrayIcon = _icons[IconId.SpeakerThreeBars];
+                _currentIcon = IconId.SpeakerThreeBars;
                 return;
+            }
+
+            if (_currentIcon == IconId.OriginalIcon)
+            {
+                TrayIcon = _icons[IconId.OriginalIcon];
+                _currentIcon = IconId.OriginalIcon;
             }
         }
 
