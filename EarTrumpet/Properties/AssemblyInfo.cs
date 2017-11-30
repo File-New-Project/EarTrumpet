@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 
-[assembly: AssemblyTitle("Ear Trumpet")]
+[assembly: AssemblyTitle("EarTrumpet")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("File-New-Project")]
-[assembly: AssemblyProduct("Ear Trumpet")]
+[assembly: AssemblyProduct("EarTrumpet")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

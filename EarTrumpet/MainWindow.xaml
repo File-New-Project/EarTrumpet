@@ -4,7 +4,7 @@
         xmlns:p="clr-namespace:EarTrumpet.Properties"
         xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
         xmlns:ext="clr-namespace:EarTrumpet.Extensions"
-        Title="Ear Trumpet"
+        Title="EarTrumpet"
         MaxHeight="600"
         Width="360"
         Icon="Application.ico"
@@ -180,7 +180,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}"  ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" Visibility="{Binding DeviceVisibility}" />
+                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" Visibility="{Binding DeviceVisibility}" />
                         <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" Visibility="{Binding ListVisibility}" />
                         <Grid x:Name="NoAppsPanel"
                                 Margin="0,8"

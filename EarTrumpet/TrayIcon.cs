@@ -31,7 +31,7 @@ namespace EarTrumpet
             var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
             feedbackItem.Click += Feedback_Click;
 
-            var aboutItem = _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} Ear Trumpet {1} ...", aboutString, version));
+            var aboutItem = _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} EarTrumpet {1} ...", aboutString, version));
             aboutItem.Click += About_Click;
 
             var exitItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
@@ -41,7 +41,7 @@ namespace EarTrumpet
             _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
 
             _trayIcon.Icon = _trayViewModel.TrayIcon;
-            _trayIcon.Text = string.Concat("Ear Trumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
+            _trayIcon.Text = string.Concat("EarTrumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
 
             _trayIcon.Visible = true;
         }
