@@ -15,7 +15,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Image Source="ms-appx:///Assets/Square44x44Logo.png" Width="32" Height="32" Margin="0"/>
+                <Image Style="{ThemeResource AppIcon}" Width="32" Height="32" Margin="0"/>
                 <TextBlock x:Name="Welcome" Foreground="{ThemeResource TextControlForeground}" FontSize="18" Margin="20,20,0,20">Welcome to EarTrumpet</TextBlock>
             </StackPanel>
             <Image Grid.Row="1" HorizontalAlignment="Left" Height="241" Source="Assets\welcome.gif" />

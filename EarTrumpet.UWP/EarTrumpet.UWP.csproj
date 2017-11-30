@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square44x44LogoDark.scale-200.png" />
     <Content Include="Assets\welcome.gif" />
     <AppxSystemBinary Include="EarTrumpet.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
