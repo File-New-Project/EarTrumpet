@@ -61,12 +61,15 @@ namespace EarTrumpet.ViewModels
             }
             catch
             {
+                _icons.Clear();
                 _icons.Add(IconId.NoDevice, originalIcon);
                 _icons.Add(IconId.Muted, originalIcon);
                 _icons.Add(IconId.SpeakerZeroBars, originalIcon);
                 _icons.Add(IconId.SpeakerOneBar, originalIcon);
                 _icons.Add(IconId.SpeakerTwoBars, originalIcon);
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
+
+                _icons.Add(IconId.OriginalIcon, originalIcon);
             }
 
             _deviceService = deviceService;
