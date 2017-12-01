@@ -66,12 +66,29 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>pathcch.lib;kernel32.lib;ntdll.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+			pathcch.lib;
+			kernel32.lib;
+			ntdll.lib;
+			user32.lib;
+			gdi32.lib;
+			winspool.lib;
+			comdlg32.lib;
+			advapi32.lib;
+			shell32.lib;
+			ole32.lib;
+			oleaut32.lib;
+			uuid.lib;
+			odbc32.lib;
+			odbccp32.lib;
+			%(AdditionalDependencies)
+		</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(VS140COMNTOOLS)vsvars32.bat" 
-tlbimp.exe /nologo "$(ProjectDir)mmdeviceapi.tlb" /out:"$(ProjectDir)MMDeviceAPI_Interop.dll"
-tlbimp.exe /nologo "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundControlAPI_Interop.dll"</Command>
+      <Command>
+      call "$(VS140COMNTOOLS)vsvars32.bat" 
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)mmdeviceapi.tlb" /out:"$(ProjectDir)MMDeviceAPI_Interop.dll"
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundControlAPI_Interop.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,13 +110,24 @@ tlbimp.exe /nologo "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundCo
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
-      <AdditionalDependencies>pathcch.lib;kernel32.lib;ntdll.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>
+	  pathcch.lib;
+	  kernel32.lib;
+	  ntdll.lib;
+	  user32.lib;
+	  gdi32.lib;
+	  winspool.lib;
+	  comdlg32.lib;
+	  advapi32.lib;
+	  shell32.lib;
+	  ole32.lib;
+	  oleaut32.lib;
+	  uuid.lib;
+	  odbc32.lib;
+	  odbccp32.lib;
+	  %(AdditionalDependencies)</AdditionalDependencies>
       <SetChecksum>true</SetChecksum>
     </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AudioSessionService.h" />
@@ -113,10 +141,10 @@ tlbimp.exe /nologo "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundCo
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(WindowsSDKDir_10)Include\10.0.16299.0\um\mmdeviceapi.idl">
-      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)MMDeviceAPI.tlb</TypeLibraryName>
+      <TypeLibraryName>$(ProjectDir)MMDeviceAPI.tlb</TypeLibraryName>
     </Midl>
     <Midl Include="SoundControlAPI.idl">
-      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)SoundControlAPI.tlb</TypeLibraryName>
+      <TypeLibraryName>$(ProjectDir)SoundControlAPI.tlb</TypeLibraryName>
     </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
