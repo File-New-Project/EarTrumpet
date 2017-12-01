@@ -48,11 +48,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MMDeviceAPI_Interop">
-      <HintPath>..\EarTrumpet.Interop\MMDeviceAPI_Interop.dll</HintPath>
+      <HintPath>..\Build\$(Configuration)\MMDeviceAPI_Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="SoundControlAPI_Interop">
-      <HintPath>..\EarTrumpet.Interop\SoundControlAPI_Interop.dll</HintPath>
+      <HintPath>..\Build\$(Configuration)\SoundControlAPI_Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -64,7 +64,7 @@
     </Reference>
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+      <HintPath>$(WindowsSDKDir_10)UnionMetadata\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

@@ -87,8 +87,8 @@
     <PostBuildEvent>
       <Command>
       call "$(VS140COMNTOOLS)vsvars32.bat" 
-      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)mmdeviceapi.tlb" /out:"$(ProjectDir)MMDeviceAPI_Interop.dll"
-      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundControlAPI_Interop.dll"</Command>
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)mmdeviceapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\MMDeviceAPI_Interop.dll"
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)soundcontrolapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\SoundControlAPI_Interop.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
