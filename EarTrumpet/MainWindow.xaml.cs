@@ -13,7 +13,7 @@ namespace EarTrumpet
     public partial class MainWindow
     {
         private readonly AudioDeviceManager _deviceService;
-        private readonly AudioMixerViewModel _viewModel;
+        private readonly MainViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
         private readonly Timer _peakMeterTimer;
@@ -22,7 +22,7 @@ namespace EarTrumpet
         {
             InitializeComponent();
             _deviceService = new AudioDeviceManager(Dispatcher);
-            _viewModel = new AudioMixerViewModel(_deviceService);
+            _viewModel = new MainViewModel(_deviceService);
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -41,8 +41,6 @@ namespace EarTrumpet
             // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
 
             SourceInitialized += (s, e) => UpdateTheme();
-
-
         }
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)

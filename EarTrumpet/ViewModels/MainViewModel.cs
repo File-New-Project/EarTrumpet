@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace EarTrumpet.ViewModels
 {
-    public class AudioMixerViewModel : BindableBase
+    public class MainViewModel : BindableBase
     {
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
         public DeviceAppItemViewModel Device { get; private set; }
@@ -21,7 +21,7 @@ namespace EarTrumpet.ViewModels
 
         private readonly AudioDeviceManager _deviceService;
 
-        public AudioMixerViewModel(AudioDeviceManager deviceService)
+        public MainViewModel(AudioDeviceManager deviceService)
         {
             Apps = new ObservableCollection<AppItemViewModel>();
 

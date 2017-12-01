@@ -133,7 +133,7 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
-    <Compile Include="ViewModels\AudioMixerViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
