@@ -87,8 +87,8 @@
     <PostBuildEvent>
       <Command>
       call "$(VS140COMNTOOLS)vsvars32.bat" 
-      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)mmdeviceapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\MMDeviceAPI_Interop.dll"
-      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(ProjectDir)soundcontrolapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\SoundControlAPI_Interop.dll"</Command>
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(SolutionDir)Build\$(Configuration)\mmdeviceapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\MMDeviceAPI_Interop.dll"
+      tlbimp.exe /nologo /silence:3016 /silence:3015 "$(SolutionDir)Build\$(Configuration)\soundcontrolapi.tlb" /out:"$(SolutionDir)\Build\$(Configuration)\SoundControlAPI_Interop.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,10 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(WindowsSDKDir_10)Include\10.0.16299.0\um\mmdeviceapi.idl">
-      <TypeLibraryName>$(ProjectDir)MMDeviceAPI.tlb</TypeLibraryName>
+      <TypeLibraryName>$(SolutionDir)Build\$(Configuration)\MMDeviceAPI.tlb</TypeLibraryName>
+      <HeaderFileName />
     </Midl>
     <Midl Include="SoundControlAPI.idl">
-      <TypeLibraryName>$(ProjectDir)SoundControlAPI.tlb</TypeLibraryName>
+      <TypeLibraryName>$(SolutionDir)Build\$(Configuration)\SoundControlAPI.tlb</TypeLibraryName>
+      <HeaderFileName />
     </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

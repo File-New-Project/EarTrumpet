@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
@@ -38,17 +39,22 @@ namespace EarTrumpet.DataModel
             }
 
             // Trigger default logic to register for volume change
-            IMMDevice device;
-            // TODO: SEE HOW THIA FAILS FOR NO DEVICE 
-            m_enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
-            if (device != null)
+            try
             {
-                var id = device.GetId();
-                ((IMMNotificationClient)this).OnDeviceAdded(id);
+                IMMDevice device;
+                m_enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
+                if (device != null)
+                {
+                    var id = device.GetId();
+                    ((IMMNotificationClient)this).OnDeviceAdded(id);
 
-                m_defaultDevice = FindDevice(id);
+                    m_defaultDevice = FindDevice(id);
+                }
             }
-
+            catch (COMException)
+            {
+                // No default device.
+            }
 
             m_virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }

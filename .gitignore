@@ -211,6 +211,8 @@ EarTrumpet.UWP/EarTrumpet.exe
 EarTrumpet.UWP/EarTrumpet.Interop.lib
 EarTrumpet.UWP/EarTrumpet.Interop.exp
 EarTrumpet.UWP/EarTrumpet.Interop.dll
+EarTrumpet.UWP/MMDeviceAPI_Interop.dll
+EarTrumpet.UWP/SoundControlAPI_Interop.dll
 EarTrumpet.UWP/nb-no/EarTrumpet.resources.dll
 EarTrumpet.UWP/fr/EarTrumpet.resources.dll
 EarTrumpet.UWP/zh-Hant/EarTrumpet.resources.dll
@@ -222,6 +224,4 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 
 # Auto-generated files
 EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
-EarTrumpet.Interop/SoundControlAPI_h.h
-EarTrumpet.Interop/mmdeviceapi_h.h
-*.dll
+EarTrumpet.Interop/mmdeviceapi.h
