@@ -220,7 +220,8 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 *.CodeAnalysisLog.xml
 *.filters
 
-# Auto-generated headers
-EarTrumpet.Interop/callbacks.h
-EarTrumpet.Interop/handlers.h
+# Auto-generated files
 EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
+EarTrumpet.Interop/SoundControlAPI_h.h
+EarTrumpet.Interop/mmdeviceapi_h.h
+*.dll
