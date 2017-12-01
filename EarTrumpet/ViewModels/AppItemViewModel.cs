@@ -1,5 +1,5 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Models;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
 using System.Diagnostics;
@@ -14,8 +14,7 @@ namespace EarTrumpet.ViewModels
 {
     public class AppItemViewModel : BindableBase
     {
-        private readonly IAudioMixerViewModelCallback _callback;
-        private EarTrumpetAudioSessionModelGroup _sessions;
+        private IAudioDeviceSession _session;
 
         private string displayName;
         public string DisplayName
@@ -43,48 +42,38 @@ namespace EarTrumpet.ViewModels
             }            
         }
         public string ExeName { get; private set; }
-        public uint SessionId { get; private set; }
+        public string SessionId { get; private set; }
         public uint ProcessId { get; set; }
         public ImageSource Icon { get; set; }
         public double IconHeight { get; set; }
         public double IconWidth { get; set; }
 
-        private int _volume;
         public int Volume
         {
             get
             {
-                return _volume;
+                return _session.Volume.ToVolumeInt();
             }
             set
             {
-                if (_volume == value) return;
-                _volume = value;
-
-                foreach (var session in _sessions.Sessions)
-                {
-                    _callback.SetVolume(session, _volume / 100.0f);
-                }
+                _session.Volume = value / 100f;
                 RaisePropertyChanged("Volume");
             }
         }
         public SolidColorBrush Background { get; set; }
         public bool IsDesktop { get; set; }
 
-        private bool _isMuted = false;
         public bool IsMuted
         {
             get
             {
-                return _isMuted;
+                return _session.IsMuted;
             }
             set
             {
-                if (_isMuted != value)
+                if (IsMuted != value)
                 {
-                    _isMuted = value;
-
-                    SetMute(_isMuted);
+                    _session.IsMuted = value;
                     RaisePropertyChanged("IsMuted");
                 }
             }
@@ -98,25 +87,34 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public AppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioSessionModelGroup sessions)
+        public float PeakValue => _session.PeakValue;
+
+        public void TriggerPeakCheck()
         {
-            _sessions = sessions;
-            // select a session at random as sndvol does.
-            var session = _sessions.Sessions.First();
+            RaisePropertyChanged("PeakValue");
+        }
+
+        public AppItemViewModel(IAudioDeviceSession session)
+        {
+            _session = session;
+            _session.PropertyChanged += Session_PropertyChanged;
 
             IconHeight = IconWidth = 24;
-            SessionId = session.SessionId;
-            ProcessId = session.ProcessId;
-            ExeName = GetExeName(session.DisplayName);
-            IsDesktop = session.IsDesktop;
+            SessionId = session.Id;
+            ProcessId = (uint)session.ProcessId;
+            IsDesktop = session.IsDesktopApp;
+            ExeName = session.DisplayName;
 
-            _volume = session.Volume.ToVolumeInt();
-            _isMuted = _sessions.Sessions.Any(x => x.IsMuted);
-            _callback = callback;
+            if (session.DisplayName.ToLowerInvariant() == "speechruntime.exe")
+            {
+                ExeName = Properties.Resources.SpeechRuntimeDisplayName;
+            }
+            else if (session.IsSystemSoundsSession)
+            {
+                ExeName = Properties.Resources.SystemSoundsDisplayName;
+            }
 
-            SetMute(_isMuted);
-
-            if (session.IsDesktop)
+            if (session.IsDesktopApp)
             {                
                 try
                 {
@@ -161,36 +159,12 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        private string GetExeName(string displayName)
+        private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            switch (displayName.ToLowerInvariant())
+            if (e.PropertyName == "Volume" ||
+                e.PropertyName == "IsMuted")
             {
-                case "system sounds": return Properties.Resources.SystemSoundsDisplayName;
-                case "speechruntime.exe": return Properties.Resources.SpeechRuntimeDisplayName;
-                default: return displayName;
-            }
-        }
-
-        public void UpdateFromOther(AppItemViewModel other)
-        {
-            if (_volume == other.Volume && _isMuted == other.IsMuted) return;
-            _sessions = other._sessions;
-            _volume = other.Volume;
-            _isMuted = other.IsMuted;
-            RaisePropertyChanged("Volume");
-            RaisePropertyChanged("IsMuted");
-        }
-
-        public bool IsSame(AppItemViewModel other)
-        {
-            return other._sessions.Sessions.Any(session => _sessions.Sessions.Any(x => x.SessionId == session.SessionId));
-        }
-
-        private void SetMute(bool isMuted)
-        {
-            foreach (var session in _sessions.Sessions)
-            {
-                _callback.SetMute(session, isMuted);
+                RaisePropertyChanged(e.PropertyName);
             }
         }
     }

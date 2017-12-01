@@ -1,10 +1,9 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Models;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
@@ -27,11 +26,10 @@ namespace EarTrumpet.ViewModels
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private Icon _trayIcon;
-        private readonly EarTrumpetAudioDeviceService _deviceService;
+        private readonly AudioDeviceManager _deviceService;
         private AppServiceConnection _appServiceConnection;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.OriginalIcon;
-
 
         public Icon TrayIcon
         {
@@ -46,7 +44,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public TrayViewModel(EarTrumpetAudioDeviceService deviceService)
+        public TrayViewModel(AudioDeviceManager deviceService)
         {
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
             _icons.Add(IconId.OriginalIcon, originalIcon);
@@ -73,25 +71,14 @@ namespace EarTrumpet.ViewModels
             }
 
             _deviceService = deviceService;
-            _deviceService.MasterVolumeChanged += DeviceService_MasterVolumeChanged;
+            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
-            {
-                var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
-                UpdateTrayIcon(false, defaultDevice.IsMuted, volume.ToVolumeInt());
-            }
-            else
-            {
-                UpdateTrayIcon(true);
-            }
+            UpdateTrayIcon();
         }
 
-        private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
-            UpdateTrayIcon(noDevice, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
+            UpdateTrayIcon();
         }
 
         private void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
@@ -108,8 +95,12 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
+        void UpdateTrayIcon()
         {
+            bool noDevice = !_deviceService.VirtualDefaultDevice.IsDevicePresent;
+            bool isMuted = _deviceService.VirtualDefaultDevice.IsMuted;
+            int currentVolume = _deviceService.VirtualDefaultDevice.Volume.ToVolumeInt();
+
             if (noDevice && _currentIcon != IconId.NoDevice)
             {
                 TrayIcon = _icons[IconId.NoDevice];
@@ -172,16 +163,6 @@ namespace EarTrumpet.ViewModels
             {
                 _appServiceConnection.Dispose();
             }
-        }
-
-        public void SetDefaultAudioDevice(string id)
-        {
-            _deviceService.SetDefaultAudioDevice(id);
-        }
-
-        public List<EarTrumpetAudioDeviceModel> GetAudioDevices()
-        {
-            return _deviceService.GetAudioDevices().ToList();
         }
     }
 }

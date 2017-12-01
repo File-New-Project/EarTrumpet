@@ -1,7 +1,9 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,33 +12,44 @@ namespace EarTrumpet
 {
     public partial class MainWindow
     {
-        private readonly EarTrumpetAudioDeviceService _deviceService;
+        private readonly AudioDeviceManager _deviceService;
         private readonly AudioMixerViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
+        private readonly Timer _peakMeterTimer;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            _deviceService = new EarTrumpetAudioDeviceService();
-            _viewModel = new AudioMixerViewModel(new EarTrumpetAudioSessionService(), _deviceService);
+            _deviceService = new AudioDeviceManager(Dispatcher);
+            _viewModel = new AudioMixerViewModel(_deviceService);
             _trayViewModel = new TrayViewModel(_deviceService);
-            _trayIcon = new TrayIcon(_trayViewModel);
+            _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
 
             DataContext = _viewModel;
 
+            _peakMeterTimer = new Timer(20);
+            _peakMeterTimer.AutoReset = true;
+            _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
+            _peakMeterTimer.Start();
+
             CreateAndHideWindow();
-            CheckandUpdateTray();
 
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
             // visuals are preferrable.
             // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
 
             SourceInitialized += (s, e) => UpdateTheme();
+
+
         }
-       
+
+        private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            _viewModel.TriggerPeakCheck();
+        }
+
         private void CreateAndHideWindow()
         {
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
@@ -51,20 +64,22 @@ namespace EarTrumpet
             if (this.Visibility == Visibility.Visible)
             {
                 this.HideWithAnimation();
+                _peakMeterTimer.Stop();
             }
             else
             {
-                _viewModel.Refresh();
+                _viewModel.UpdateInterfaceState();
                 UpdateTheme();
                 UpdateWindowPosition();
                 this.ShowwithAnimation();
+                _peakMeterTimer.Start();
             }
-            CheckandUpdateTray();
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
             this.HideWithAnimation();
+            _peakMeterTimer.Stop();
         }
         
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -72,6 +87,7 @@ namespace EarTrumpet
             if (e.Key == Key.Escape)
             {
                 this.HideWithAnimation();
+                _peakMeterTimer.Stop();
             }
         }
 
@@ -86,7 +102,6 @@ namespace EarTrumpet
             ChangeMuteState(sender);
 
             e.Handled = true;
-            CheckandUpdateTray();
         }
 
         private void Slider_MouseDown(object sender, MouseButtonEventArgs e)
@@ -102,7 +117,6 @@ namespace EarTrumpet
                 ChangeMuteState(sender);                
 
                 e.Handled = true;
-                CheckandUpdateTray();
             }
         }
 
@@ -139,7 +153,6 @@ namespace EarTrumpet
             {
                 slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
                 e.Handled = true;
-                CheckandUpdateTray();
             }
         }
 
@@ -149,8 +162,6 @@ namespace EarTrumpet
             if (slider.IsMouseCaptured)
             {
                 slider.SetPositionByControlPoint(e.GetPosition(slider));
-                CheckandUpdateTray();
-                
             }
         }
 
@@ -160,7 +171,6 @@ namespace EarTrumpet
             var amount = Math.Sign(e.Delta) * 2.0;
             slider.ChangePositionByAmount(amount);
             e.Handled = true;
-            CheckandUpdateTray();
         }
 
         private void UpdateTheme()
@@ -236,7 +246,6 @@ namespace EarTrumpet
                 var itemVM = (DeviceAppItemViewModel)element.DataContext;
                 itemVM.IsMuted = mute;
             }
-            CheckandUpdateTray();
         }
 
         private void Slider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -249,19 +258,6 @@ namespace EarTrumpet
         {
             System.Media.SystemSounds.Beep.Play();
             Slider_TouchUp(sender, e);
-        }
-
-        private void CheckandUpdateTray()
-        {
-            var viewModel = (AudioMixerViewModel)DataContext;
-            if (viewModel.Device == null)
-            { 
-                _trayViewModel.UpdateTrayIcon(true);
-            }
-            else
-            {
-                _trayViewModel.UpdateTrayIcon(false, viewModel.Device.IsMuted, viewModel.Device.Volume);
-            }
         }
     }
 }

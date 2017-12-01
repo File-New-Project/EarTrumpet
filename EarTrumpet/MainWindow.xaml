@@ -4,6 +4,7 @@
         xmlns:p="clr-namespace:EarTrumpet.Properties"
         xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
         xmlns:ext="clr-namespace:EarTrumpet.Extensions"
+        xmlns:local="clr-namespace:EarTrumpet"
         Title="EarTrumpet"
         MaxHeight="600"
         Width="360"
@@ -230,7 +231,11 @@
                                     ToolTip="{Binding DisplayName}" 
                                     Margin="0,-2,0,0" />
 
-                        <Slider Grid.Column="1"
+                            <local:AudioPeakMeter 
+                                Grid.Column="1"
+                                PeakValue="{Binding PeakValue}" />
+
+                            <Slider Grid.Column="1"
                                 Value="{Binding Volume,Mode=TwoWay}"
                                 AutomationProperties.Name="{Binding DisplayName, Mode=OneTime}"
                                 Minimum="0"
@@ -315,6 +320,10 @@
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding DisplayName}" 
                                     Margin="1,0,0,0" />
+
+                        <local:AudioPeakMeter 
+                            Grid.Column="1"
+                            PeakValue="{Binding PeakValue}" />
 
                         <Slider Grid.Column="1"
                                 Value="{Binding Volume,Mode=TwoWay}"

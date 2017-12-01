@@ -1,0 +1,20 @@
+import "oaidl.idl";
+import "ocidl.idl";
+import "endpointvolume.idl";
+import "audiopolicy.idl";
+
+
+[
+	uuid(2FDAAFA3-FFFF-FFFF-9957-9D5E7FE698F6), // rev
+	version(1.0),
+	helpstring("Sound Control API Type Library 1.0")
+]
+library SoundControlAPILib
+{
+	interface IAudioSessionManager2;
+	interface IAudioEndpointVolume;
+	interface IAudioMeterInformation;
+	interface IAudioSessionControl2;
+};
+
+// IAudioSessionManager2

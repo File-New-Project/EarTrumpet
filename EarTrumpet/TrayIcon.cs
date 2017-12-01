@@ -1,6 +1,9 @@
-﻿using EarTrumpet.ViewModels;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
+using EarTrumpet.ViewModels;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -11,12 +14,13 @@ namespace EarTrumpet
         public event Action Invoked = delegate { };
 
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
-        private const string _deviceSeparatorName = "DeviceSeparator";
-        private const string _deviceItemPrefix = "Device_";
         private readonly TrayViewModel _trayViewModel;
+        private AudioDeviceManager _deviceService;
 
-        public TrayIcon(TrayViewModel trayViewModel)
+        public TrayIcon(AudioDeviceManager deviceService, TrayViewModel trayViewModel)
         {
+            _deviceService = deviceService;
+            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
             _trayViewModel = trayViewModel;
@@ -25,8 +29,7 @@ namespace EarTrumpet
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
 
-            var deviceSep = _trayIcon.ContextMenu.MenuItems.Add("-");
-            deviceSep.Name = _deviceSeparatorName;
+            _trayIcon.ContextMenu.MenuItems.Add("-");
 
             var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
             feedbackItem.Click += Feedback_Click;
@@ -41,9 +44,23 @@ namespace EarTrumpet
             _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
 
             _trayIcon.Icon = _trayViewModel.TrayIcon;
-            _trayIcon.Text = string.Concat("EarTrumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
+
+            UpdateToolTip();
 
             _trayIcon.Visible = true;
+        }
+
+        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            UpdateToolTip();
+        }
+
+        void UpdateToolTip()
+        {
+            var otherText = "EarTrumpet: 100% ()";
+            var dev = _deviceService.VirtualDefaultDevice.DisplayName;
+            dev = dev.Substring(0, Math.Min(64 - otherText.Length, dev.Length));
+            _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% ({dev})";
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -98,8 +115,8 @@ namespace EarTrumpet
 
         void Device_Click(object sender, EventArgs e)
         {
-            var id = ((System.Windows.Forms.MenuItem)sender).Name.Substring(_deviceItemPrefix.Length);
-            _trayViewModel.SetDefaultAudioDevice(id);            
+            var device = (AudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
+            _deviceService.DefaultDevice = device;      
         }
 
         private void SetupDeviceMenuItems()
@@ -107,27 +124,27 @@ namespace EarTrumpet
             for (int i = _trayIcon.ContextMenu.MenuItems.Count - 1; i >= 0; i--)
             {
                 var item = _trayIcon.ContextMenu.MenuItems[i];
-                if (item.Name.StartsWith(_deviceItemPrefix))
+                if (item.Tag != null)
                 {
                     _trayIcon.ContextMenu.MenuItems.Remove(item);
                 }
             }
 
-            var audioDevices = _trayViewModel.GetAudioDevices();
-            if (audioDevices.Count == 0)
+            var audioDevices = _deviceService.Devices.OrderBy(x => x.DisplayName);
+            if (audioDevices.Count() == 0)
             {
                 var newItem = new System.Windows.Forms.MenuItem(EarTrumpet.Properties.Resources.ContextMenuNoDevices);
-                newItem.Name = $"{_deviceItemPrefix}";
                 newItem.Enabled = false;
                 _trayIcon.ContextMenu.MenuItems.Add(0, newItem);
             }
-            for (int j = 0; j < audioDevices.Count; j++)
+
+            int iPos = 0;
+            foreach(var device in audioDevices)
             {
-                var device = audioDevices[j];
                 var newItem = new System.Windows.Forms.MenuItem(device.DisplayName, Device_Click);
-                newItem.Name = $"{_deviceItemPrefix}{device.Id}";
-                newItem.Checked = device.IsDefault;
-                _trayIcon.ContextMenu.MenuItems.Add(j, newItem);
+                newItem.Tag = device;
+                newItem.Checked = device == _deviceService.DefaultDevice;
+                _trayIcon.ContextMenu.MenuItems.Add(iPos++, newItem);
             }
         }
     }

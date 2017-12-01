@@ -1,8 +1,8 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Models;
-using EarTrumpet.Services;
-using System.Collections.Generic;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 
@@ -10,47 +10,6 @@ namespace EarTrumpet.ViewModels
 {
     public class AudioMixerViewModel : BindableBase
     {
-        // This encapsulates the functionality used for AppItemViewModels to call back to AudioMixerViewModel
-        // and thus interact with the audio session service.
-        public class AudioMixerViewModelCallbackProxy : IAudioMixerViewModelCallback
-        {
-            private readonly EarTrumpetAudioSessionService _service;   
-            private readonly EarTrumpetAudioDeviceService _deviceService;   
-            public AudioMixerViewModelCallbackProxy(EarTrumpetAudioSessionService service, EarTrumpetAudioDeviceService deviceService)
-            {
-                _service = service;
-                _deviceService = deviceService;
-            }
-
-            // IAudioMixerViewModelCallback
-            public void SetVolume(EarTrumpetAudioSessionModel item, float volume)
-            {
-                _service.SetAudioSessionVolume(item.SessionId, volume);
-            }
-
-            public void SetMute(EarTrumpetAudioSessionModel item, bool isMuted)
-            {
-                _service.SetAudioSessionMute(item.SessionId, isMuted);
-            }
-
-            public void SetDeviceVolume(EarTrumpetAudioDeviceModel device, float volume)
-            {
-                _deviceService.SetAudioDeviceVolume(device.Id, volume);
-            }
-
-            public void SetDeviceMute(EarTrumpetAudioDeviceModel device, bool isMuted)
-            {
-                if (isMuted)
-                {
-                    _deviceService.MuteAudioDevice(device.Id);
-                }
-                else
-                {
-                    _deviceService.UnmuteAudioDevice(device.Id);
-                }
-            }
-        }
-
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
         public DeviceAppItemViewModel Device { get; private set; }
 
@@ -60,100 +19,87 @@ namespace EarTrumpet.ViewModels
 
         public string NoItemsContent { get; private set; }
 
-        private readonly EarTrumpetAudioSessionService _audioService;
-        private readonly EarTrumpetAudioDeviceService _deviceService;
-        private readonly AudioMixerViewModelCallbackProxy _proxy;
-        private object _refreshLock = new object();
+        private readonly AudioDeviceManager _deviceService;
 
-        public AudioMixerViewModel(EarTrumpetAudioSessionService audioService, EarTrumpetAudioDeviceService deviceService)
+        public AudioMixerViewModel(AudioDeviceManager deviceService)
         {
             Apps = new ObservableCollection<AppItemViewModel>();
-            _audioService = audioService;
+
             _deviceService = deviceService;
-            _deviceService.MasterVolumeChanged += DeviceService_MasterVolumeChanged;
-            _proxy = new AudioMixerViewModelCallbackProxy(_audioService, _deviceService);            
-            Refresh();
+            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
+            _deviceService.VirtualDefaultDevice.CollectionChanged += VirtualDefaultDevice_CollectionChanged;
+
+            Device = new DeviceAppItemViewModel(_deviceService.VirtualDefaultDevice);
+
+            PopulateAppSessions();
+
+            UpdateInterfaceState();
         }
 
-        private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
+        private void VirtualDefaultDevice_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
+            switch(e.Action)
             {
-                var updatedDefaultDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, e.Volume);
-                Device.UpdateFromOther(updatedDefaultDevice);
-                RaisePropertyChanged("Device");
-            }
-            else
-            {
-                Refresh();
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Debug.Assert(e.NewItems.Count == 1);
+                    Apps.AddSorted(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]), AppItemViewModelComparer.Instance);
+                    break;
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    Debug.Assert(e.OldItems.Count == 1);
+                    Apps.Remove(Apps.First(x => x.SessionId == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    break;
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    Apps.Clear();
+                    PopulateAppSessions();
+                    break;
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    throw new NotImplementedException();
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    throw new NotImplementedException();
             }
         }
 
-        public void Refresh()
+        internal void TriggerPeakCheck()
         {
-            lock (_refreshLock)
+            foreach(var app in Apps)
             {
-                var devices = _deviceService.GetAudioDevices();
-                if (devices.Any())
-                {
-                    var defaultDevice = devices.FirstOrDefault(x => x.IsDefault);
-                    var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
-                    var newDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, volume);
-                    if (Device != null && Device.IsSame(newDevice))
-                    {
-                        Device.UpdateFromOther(newDevice);
-                    }
-                    else
-                    {
-                        Device = newDevice;
-                    }
-                    RaisePropertyChanged("Device");
-                }
-
-                bool hasApps = Apps.Count > 0;
-                var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
-
-                List<AppItemViewModel> staleSessionsToRemove = new List<AppItemViewModel>();
-
-                // remove stale apps
-                foreach (var app in Apps)
-                {
-                    if (!sessions.Where(x => (x.IsSame(app))).Any())
-                    {
-                        staleSessionsToRemove.Add(app);
-                    }
-                }
-                foreach (var app in staleSessionsToRemove)
-                {
-                    Apps.Remove(app);
-                }
-
-                // add new apps
-                foreach (var session in sessions)
-                {
-                    var findApp = Apps.FirstOrDefault(x => x.IsSame(session));
-                    if (findApp == null)
-                    {
-                        Apps.AddSorted(session, AppItemViewModelComparer.Instance);
-                    }
-                    else
-                    {
-                        // update existing apps
-                        findApp.UpdateFromOther(session);
-                    }
-                }
-
-                ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-                NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-                NoItemsContent = Device == null ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
-                DeviceVisibility = Device != null ? Visibility.Visible : Visibility.Collapsed;
-
-                RaisePropertyChanged("ListVisibility");
-                RaisePropertyChanged("NoAppsPaneVisibility");
-                RaisePropertyChanged("NoItemsContent");
-                RaisePropertyChanged("DeviceVisibility");
+                app.TriggerPeakCheck();
             }
+
+            Device.TriggerPeakCheck();
+        }
+
+        private void PopulateAppSessions()
+        {
+            foreach(var session in _deviceService.VirtualDefaultDevice.Sessions.Sessions)
+            {
+                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
+            }
+        }
+
+        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsDevicePresent")
+            {
+                UpdateInterfaceState();
+            }
+        }
+
+        public void UpdateInterfaceState()
+        {
+            ListVisibility = Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoAppsPaneVisibility = Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoItemsContent = !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
+            DeviceVisibility = _deviceService.VirtualDefaultDevice.IsDevicePresent ? Visibility.Visible : Visibility.Collapsed;
+
+            RaisePropertyChanged("ListVisibility");
+            RaisePropertyChanged("NoAppsPaneVisibility");
+            RaisePropertyChanged("NoItemsContent");
+            RaisePropertyChanged("DeviceVisibility");
         }
     }
 }

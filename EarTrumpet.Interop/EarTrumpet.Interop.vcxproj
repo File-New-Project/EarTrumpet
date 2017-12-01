@@ -69,8 +69,9 @@
       <AdditionalDependencies>pathcch.lib;kernel32.lib;ntdll.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>call "$(VS140COMNTOOLS)vsvars32.bat" 
+tlbimp.exe /nologo "$(ProjectDir)mmdeviceapi.tlb" /out:"$(ProjectDir)MMDeviceAPI_Interop.dll"
+tlbimp.exe /nologo "$(ProjectDir)soundcontrolapi.tlb" /out:"$(ProjectDir)SoundControlAPI_Interop.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,30 +102,21 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ControlChangeHandler.h" />
-    <ClInclude Include="EndpointNotificationHandler.h" />
-    <ClInclude Include="AudioDeviceService.h" />
     <ClInclude Include="AudioSessionService.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="PolicyConfig.h" />
     <ClInclude Include="ShellProperties.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ControlChangeHandler.cpp" />
-    <ClCompile Include="EndpointNotificationHandler.cpp" />
-    <ClCompile Include="AudioDeviceService.cpp" />
     <ClCompile Include="exports.cpp" />
     <ClCompile Include="AudioSessionService.cpp" />
     <ClCompile Include="module.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="callbacks.idl">
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    <Midl Include="$(WindowsSDKDir_10)Include\10.0.16299.0\um\mmdeviceapi.idl">
+      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)MMDeviceAPI.tlb</TypeLibraryName>
     </Midl>
-    <Midl Include="handlers.idl">
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
-      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+    <Midl Include="SoundControlAPI.idl">
+      <TypeLibraryName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)SoundControlAPI.tlb</TypeLibraryName>
     </Midl>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

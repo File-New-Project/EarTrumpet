@@ -28,158 +28,6 @@ struct PackageInfoReferenceDeleter
 
 typedef unique_ptr<PACKAGE_INFO_REFERENCE, PackageInfoReferenceDeleter> PackageInfoReference;
 
-void AudioSessionService::CleanUpAudioSessions()
-{
-    for (auto session = _sessions.begin(); session != _sessions.end(); session++)
-    {
-        CoTaskMemFree(session->DisplayName);
-        CoTaskMemFree(session->IconPath);
-    }
-
-    _sessions.clear();
-    _sessionMap.clear();
-}
-
-int AudioSessionService::GetAudioSessionCount()
-{
-    return _sessions.size();
-}
-
-HRESULT AudioSessionService::RefreshAudioSessions()
-{
-    CleanUpAudioSessions();
-
-    CComPtr<IMMDeviceEnumerator> deviceEnumerator;
-    FAST_FAIL(CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator)));
-
-    CComPtr<IMMDevice> device;
-    FAST_FAIL(deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device));
-
-    CComPtr<IAudioSessionManager2> audioSessionManager;
-    FAST_FAIL(device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC_SERVER, nullptr, (void**)&audioSessionManager));
-
-    CComPtr<IAudioSessionEnumerator> audioSessionEnumerator;
-    FAST_FAIL(audioSessionManager->GetSessionEnumerator(&audioSessionEnumerator));
-
-    int sessionCount;
-    FAST_FAIL(audioSessionEnumerator->GetCount(&sessionCount));
-
-    for (int i = 0; i < sessionCount; i++)
-    {
-        EarTrumpetAudioSession audioSession;
-        if (SUCCEEDED(CreateEtAudioSessionFromAudioSession(audioSessionEnumerator, i, &audioSession)))
-        {
-            _sessions.push_back(audioSession);
-        }
-    }
-
-    return S_OK;
-}
-
-HRESULT AudioSessionService::CreateEtAudioSessionFromAudioSession(CComPtr<IAudioSessionEnumerator> audioSessionEnumerator, int sessionCount, EarTrumpetAudioSession* etAudioSession)
-{
-    CComPtr<IAudioSessionControl> audioSessionControl;
-    FAST_FAIL(audioSessionEnumerator->GetSession(sessionCount, &audioSessionControl));
-
-
-    CComPtr<IAudioSessionControl2> audioSessionControl2;
-    FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&audioSessionControl2)));
-
-    DWORD pid;
-    FAST_FAIL(audioSessionControl2->GetProcessId(&pid));
-
-    etAudioSession->ProcessId = pid;
-
-    FAST_FAIL(audioSessionControl2->GetGroupingParam(&etAudioSession->GroupingId));
-
-    CComHeapPtr<wchar_t> sessionIdString;
-    FAST_FAIL(audioSessionControl2->GetSessionInstanceIdentifier(&sessionIdString));
-
-    hash<wstring> stringHash;
-    etAudioSession->SessionId = stringHash(static_cast<PWSTR>(sessionIdString));
-
-    _sessionMap[etAudioSession->SessionId] = audioSessionControl2;
-
-    CComPtr<ISimpleAudioVolume> simpleAudioVolume;
-    FAST_FAIL(audioSessionControl->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
-    FAST_FAIL(simpleAudioVolume->GetMasterVolume(&etAudioSession->Volume));
-
-    BOOL isMuted;
-    FAST_FAIL(simpleAudioVolume->GetMute(&isMuted));
-    etAudioSession->IsMuted = !!isMuted;
-
-    HRESULT hr = IsImmersiveProcess(pid);
-    if (hr == S_OK)
-    {
-        PWSTR appUserModelId;
-        FAST_FAIL(GetAppUserModelIdFromPid(pid, &appUserModelId));
-
-        FAST_FAIL(GetAppProperties(appUserModelId, &etAudioSession->DisplayName, &etAudioSession->IconPath, &etAudioSession->BackgroundColor));
-
-        etAudioSession->IsDesktopApp = false;
-    }
-    else if (hr == S_FALSE)
-    {
-        bool isSystemSoundsSession = (S_OK == audioSessionControl2->IsSystemSoundsSession());
-        AudioSessionState state;
-        FAST_FAIL(audioSessionControl2->GetState(&state));
-        if (!isSystemSoundsSession && (state == AudioSessionState::AudioSessionStateExpired))
-        {
-            return E_NOT_VALID_STATE;
-        }
-        
-        if (isSystemSoundsSession)
-        {
-            PCWSTR pszDllPath;
-            BOOL isWow64Process;
-            if (!IsWow64Process(GetCurrentProcess(), &isWow64Process) || isWow64Process)
-            {
-                pszDllPath = L"%windir%\\sysnative\\audiosrv.dll";
-            }
-            else
-            {
-                pszDllPath = L"%windir%\\system32\\audiosrv.dll";
-            }
-
-            wchar_t szPath[MAX_PATH] = {};
-            if (0 == ExpandEnvironmentStrings(pszDllPath, szPath, ARRAYSIZE(szPath)))
-            {
-                return E_FAIL;
-            }
-
-            FAST_FAIL(SHStrDup(pszDllPath, &etAudioSession->IconPath));
-            FAST_FAIL(SHStrDup(L"System Sounds", &etAudioSession->DisplayName));
-        }
-        else
-        {
-            shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
-            FAST_FAIL_HANDLE(processHandle.get());
-
-            wchar_t imagePath[MAX_PATH] = {};
-            DWORD dwCch = ARRAYSIZE(imagePath);
-            FAST_FAIL(QueryFullProcessImageName(processHandle.get(), 0, imagePath, &dwCch) == 0 ? E_FAIL : S_OK);
-            FAST_FAIL(SHStrDup(imagePath, &etAudioSession->IconPath));
-            FAST_FAIL(SHStrDup(PathFindFileName(imagePath), &etAudioSession->DisplayName));
-        }
-
-        etAudioSession->IsDesktopApp = true;
-        etAudioSession->BackgroundColor = 0x00000000;
-    }
-
-    return S_OK;
-}
-
-HRESULT AudioSessionService::GetAudioSessions(void** audioSessions)
-{
-    if (_sessions.size() == 0)
-    {
-        return HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS);
-    }
-
-    *audioSessions = &_sessions[0];
-    return S_OK;
-}
-
 HRESULT AudioSessionService::IsImmersiveProcess(DWORD pid)
 {
     shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid), CloseHandle);
@@ -262,32 +110,6 @@ HRESULT AudioSessionService::GetAppUserModelIdFromPid(DWORD pid, LPWSTR* applica
     return S_OK;
 }
 
-HRESULT AudioSessionService::SetAudioSessionVolume(unsigned long sessionId, float volume)
-{
-    if (!_sessionMap[sessionId])
-    {
-        return E_INVALIDARG;
-    }
-
-    CComPtr<ISimpleAudioVolume> simpleAudioVolume;
-    FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
-
-    return simpleAudioVolume->SetMasterVolume(volume, nullptr);
-}
-
-HRESULT AudioSessionService::SetAudioSessionMute(unsigned long sessionId, bool isMuted)
-{
-    if (!_sessionMap[sessionId])
-    {
-        return E_INVALIDARG;
-    }
-
-    CComPtr<ISimpleAudioVolume> simpleAudioVolume;
-    FAST_FAIL(_sessionMap[sessionId]->QueryInterface(IID_PPV_ARGS(&simpleAudioVolume)));
-
-    return simpleAudioVolume->SetMute(isMuted, nullptr);
-}
-
 HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, PWSTR* ppszIcon, ULONG *background)
 {
     *ppszIcon = nullptr;
@@ -331,6 +153,34 @@ HRESULT AudioSessionService::GetAppProperties(PCWSTR pszAppId, PWSTR* ppszName, 
 
     *ppszIcon = resolvedIconPath;
     *ppszName = itemName.Detach();
-
     return S_OK;
+}
+
+HRESULT AudioSessionService::GetProcessProperties(DWORD processId, PWSTR* displayName, PWSTR* iconPath, BOOL* isDesktopApp, ULONG* backgroundColor)
+{
+	HRESULT hr = IsImmersiveProcess(processId);
+	if (hr == S_OK)
+	{
+		PWSTR appUserModelId;
+		FAST_FAIL(GetAppUserModelIdFromPid(processId, &appUserModelId));
+
+		FAST_FAIL(GetAppProperties(appUserModelId, displayName, iconPath, backgroundColor));
+
+		*isDesktopApp = FALSE;
+	}
+	else if (hr == S_FALSE)
+	{
+		shared_ptr<void> processHandle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, processId), CloseHandle);
+		FAST_FAIL_HANDLE(processHandle.get());
+
+		wchar_t imagePath[MAX_PATH] = {};
+		DWORD dwCch = ARRAYSIZE(imagePath);
+		FAST_FAIL(QueryFullProcessImageName(processHandle.get(), 0, imagePath, &dwCch) == 0 ? E_FAIL : S_OK);
+		FAST_FAIL(SHStrDup(imagePath, iconPath));
+		FAST_FAIL(SHStrDup(PathFindFileName(imagePath), displayName));
+
+		*isDesktopApp = TRUE;
+		*backgroundColor = 0x00000000;
+	}
+	return S_OK;
 }

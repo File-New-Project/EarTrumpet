@@ -1,90 +1,70 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Models;
-using EarTrumpet.Services;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+﻿using System;
+using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 
 namespace EarTrumpet.ViewModels
 {
     public class DeviceAppItemViewModel : BindableBase
     {
-        private readonly IAudioMixerViewModelCallback _callback;
-        private readonly EarTrumpetAudioDeviceModel _device;
+        private readonly VirtualDefaultAudioDevice _device;
 
-        public string Id { get; set; }
-        public string DisplayName { get; set; }
-        public ImageSource Icon { get; set; }
+        public string Id => _device.Id;
+        public float PeakValue => _device.PeakValue;
         public double IconHeight { get; set; }
         public double IconWidth { get; set; }
 
-        private int _volume;
         public int Volume
         {
             get
             {
-                return _volume;
+                return _device.Volume.ToVolumeInt();
             }
             set
             {
-                if (_volume == value) return;
-                _volume = value;
-                _callback.SetDeviceVolume(_device, _volume / 100.0f);
+                _device.Volume = value/100f;
                 RaisePropertyChanged("Volume");
             }
         }
-        public SolidColorBrush Background { get; set; }
 
-        private bool _isMuted = false;
         public bool IsMuted
         {
             get
             {
-                return _isMuted;
+                return _device.IsMuted;
             }
             set
             {
-                if (_isMuted != value)
+                if (_device.IsMuted != value)
                 {
-                    _isMuted = value;
-
-                    _callback.SetDeviceMute(_device, _isMuted);
+                    _device.IsMuted = value;
                     RaisePropertyChanged("IsMuted");
                 }
             }
         }
 
-        public DeviceAppItemViewModel(IAudioMixerViewModelCallback callback, EarTrumpetAudioDeviceModel device, float volume)
+        public DeviceAppItemViewModel(VirtualDefaultAudioDevice device)
         {
             IconHeight = IconWidth = 32;
 
             _device = device;
-            _volume = volume.ToVolumeInt();
-            _isMuted = device.IsMuted;
-            _callback = callback;
-            DisplayName = device.DisplayName;
-            Id = device.Id;            
-        }
-
-        public void UpdateFromOther(DeviceAppItemViewModel other)
-        {
-            if (_volume == other.Volume && _isMuted == other.IsMuted) return;
-            _volume = other.Volume;
-            _isMuted = other.IsMuted;
-            RaisePropertyChanged("Volume");
-            RaisePropertyChanged("IsMuted");
+            _device.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName == "IsMuted" ||
+                    e.PropertyName == "Volume")
+                {
+                    RaisePropertyChanged(e.PropertyName);
+                }
+            };
         }
 
         public bool IsSame(DeviceAppItemViewModel other)
         {
             return other.Id == Id;
+        }
+
+        internal void TriggerPeakCheck()
+        {
+            RaisePropertyChanged("PeakValue");
         }
     }
 }
