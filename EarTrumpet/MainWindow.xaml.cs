@@ -29,7 +29,7 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
-            _peakMeterTimer = new Timer(20);
+            _peakMeterTimer = new Timer(1000 / 30);
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
             _peakMeterTimer.Start();

@@ -11,8 +11,6 @@ namespace EarTrumpet.Extensions
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         public interface IAudioSessionControl2_Shim
         {
-            // TODO cleanup combine with parent iface
-
             void GetState(out _AudioSessionState pRetVal);
             void GetDisplayName(out string pRetVal);
             void SetDisplayName(string Value, ref Guid EventContext);

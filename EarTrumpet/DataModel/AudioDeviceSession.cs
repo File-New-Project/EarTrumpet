@@ -8,8 +8,6 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
-
-
     public class AudioDeviceSession : IAudioSessionEvents, IAudioDeviceSession
     {
         static class Interop
@@ -34,20 +32,16 @@ namespace EarTrumpet.DataModel
         uint m_backgroundColor;
         bool m_isHidden;
 
-        static readonly int AUDCLNT_SESSIONFLAGS_DISPLAY_HIDE = 0x20000000;
 
         public AudioDeviceSession(IAudioSessionControl session, Dispatcher dispatcher)
         {
             m_dispatcher = dispatcher;
             m_session = session;
+            m_isHidden = m_session.IsHidden();
             m_meter = (IAudioMeterInformation)m_session;
             m_simpleVolume = (ISimpleAudioVolume)session;
 
             m_session.RegisterAudioSessionNotification(this);
-
-            ((IAudioSessionControlInternal)m_session).GetStreamFlags(out int flags);
-
-            m_isHidden = (flags & AUDCLNT_SESSIONFLAGS_DISPLAY_HIDE) == AUDCLNT_SESSIONFLAGS_DISPLAY_HIDE;
 
             Interop.GetProcessProperties(ProcessId, out m_processDisplayName, out m_processIconPath, ref m_isDesktopApp, ref m_backgroundColor);
 
@@ -55,6 +49,8 @@ namespace EarTrumpet.DataModel
             {
                 m_isDesktopApp = true;
             }
+
+            if (m_processDisplayName == null) m_processDisplayName = "";
         }
 
         public float Volume
@@ -85,28 +81,9 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public bool IsHidden
-        {
-            get
-            {
-                return m_isHidden;
-            }
-        }
+        public bool IsHidden => m_isHidden;
 
-        public string DisplayName
-        {
-            get
-            {
-                if (IsSystemSoundsSession)
-                {
-                    return "System sounds"; // TODO factor out of upper stack
-                }
-                else
-                {
-                    return m_processDisplayName;
-                }
-            }
-        }
+        public string DisplayName => m_processDisplayName;
 
         public string IconPath
         {
@@ -137,8 +114,6 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_meter.GetMeteringChannelCount(out uint count);
-
                 m_meter.GetPeakValue(out float ret);
                 return ret;
             }

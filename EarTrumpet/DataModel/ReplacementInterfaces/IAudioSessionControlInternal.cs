@@ -7,6 +7,8 @@ namespace EarTrumpet.DataModel.Interfaces
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioSessionControlInternal
     {
+        void Unused1();
+        void Unused2();
         void Unused3();
         void Unused4();
         void Unused5();
@@ -21,8 +23,6 @@ namespace EarTrumpet.DataModel.Interfaces
         void Unused14();
         void Unused15();
         void Unused16();
-        void Unused17();
-        void Unused18();
         void GetStreamFlags(out int flags);
     }
 }

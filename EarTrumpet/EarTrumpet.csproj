@@ -81,6 +81,7 @@
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\ComInterop.cs" />
     <Compile Include="DataModel\DefaultEndPoint.cs" />
+    <Compile Include="DataModel\Extensions\IAudioSessionControlExtensions.cs" />
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IAudioSessionControlInternal.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
     <Compile Include="Extensions\FloatExtensions.cs" />
-    <Compile Include="DataModel\Extensions\GuidExtensions.cs" />
     <Compile Include="DataModel\Extensions\IAudioSessionControl2Extensons.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="DataModel\Extensions\IMMDeviceExtensions.cs" />

@@ -8,7 +8,7 @@ namespace EarTrumpet.DataModel
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        AudioDevice m_device;
+        IAudioDevice m_device;
         AudioDeviceManager m_manager;
 
         public VirtualDefaultAudioDevice(AudioDeviceManager manager)
@@ -69,6 +69,7 @@ namespace EarTrumpet.DataModel
         public AudioDeviceSessionCollection Sessions => m_device != null ? m_device.Sessions : null;
 
         public float Volume { get => m_device != null ? m_device.Volume : 0; set => m_device.Volume = value; }
+
         public float PeakValue { get => m_device != null ? m_device.PeakValue : 0; }
 
         public event PropertyChangedEventHandler PropertyChanged;

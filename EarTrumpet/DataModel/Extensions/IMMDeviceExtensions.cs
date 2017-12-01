@@ -1,10 +1,7 @@
-﻿using MMDeviceAPI_Interop;
+﻿using EarTrumpet.DataModel;
+using MMDeviceAPI_Interop;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet.Extensions
 {
@@ -14,7 +11,7 @@ namespace EarTrumpet.Extensions
         {
             tag_inner_PROPVARIANT unused = default(tag_inner_PROPVARIANT);
             IntPtr ret;
-            device.Activate(typeof(T).GUID, 1 /* inproc server*/, ref unused, out ret);
+            device.Activate(typeof(T).GUID, (uint)CLSCTX.CLSCTX_INPROC_SERVER, ref unused, out ret);
             return (T)Marshal.GetObjectForIUnknown(ret);
         }
 

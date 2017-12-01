@@ -10,11 +10,11 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceManager : IMMNotificationClient
     {
-        public event EventHandler<AudioDevice> DefaultDeviceChanged;
+        public event EventHandler<IAudioDevice> DefaultDeviceChanged;
 
         MMDeviceEnumerator m_enumerator;
-        AudioDevice m_defaultDevice;
-        ObservableCollection<AudioDevice> m_devices = new ObservableCollection<AudioDevice>();
+        IAudioDevice m_defaultDevice;
+        ObservableCollection<IAudioDevice> m_devices = new ObservableCollection<IAudioDevice>();
         VirtualDefaultAudioDevice m_virtualDefaultDevice;
         Dispatcher m_dispatcher;
 
@@ -55,7 +55,7 @@ namespace EarTrumpet.DataModel
 
         public VirtualDefaultAudioDevice VirtualDefaultDevice => m_virtualDefaultDevice;
 
-        public AudioDevice DefaultDevice
+        public IAudioDevice DefaultDevice
         {
             get
             {
@@ -71,20 +71,14 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public IEnumerable<AudioDevice> Devices
-        {
-            get
-            {
-                return m_devices;
-            }
-        }
+        public IEnumerable<IAudioDevice> Devices => m_devices;
 
         bool HasDevice(string deviceId)
         {
             return m_devices.Any(d => d.Id == deviceId);
         }
 
-        AudioDevice FindDevice(string deviceId)
+        IAudioDevice FindDevice(string deviceId)
         {
             return m_devices.First(d => d.Id == deviceId);
         }

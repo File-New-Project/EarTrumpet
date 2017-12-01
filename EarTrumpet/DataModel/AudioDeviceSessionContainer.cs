@@ -5,6 +5,7 @@ using System.ComponentModel;
 
 namespace EarTrumpet.DataModel
 {
+    // Session multiplexing container (for grouping)
     public class AudioDeviceSessionContainer : IAudioDeviceSession
     {
         List<IAudioDeviceSession> _sessions = new List<IAudioDeviceSession>();

@@ -115,7 +115,7 @@ namespace EarTrumpet
 
         void Device_Click(object sender, EventArgs e)
         {
-            var device = (AudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
+            var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
             _deviceService.DefaultDevice = device;      
         }
 

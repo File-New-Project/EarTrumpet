@@ -72,7 +72,7 @@ namespace EarTrumpet.DataModel
                     container.RemoveSession(session);
                     session.PropertyChanged -= Session_PropertyChanged;
 
-                    // Delete empty container.
+                    // Delete the now-empty container.
                     if (!container.Sessions.Any())
                     {
                         m_sessions.Remove(container);

@@ -80,14 +80,12 @@ namespace EarTrumpet.DataModel
                     return (T)ret;
                 }
             }
-            catch(COMException)
-            {
-            }
+            catch(COMException) { }
 
             return default(T);
         }
 
-        public static void SetDefaultDevice(AudioDevice device)
+        public static void SetDefaultDevice(IAudioDevice device)
         {
             var policy_th1 = CoCreatePolicyObject<IPolicyConfig_TH1>();
             if (policy_th1 != null)

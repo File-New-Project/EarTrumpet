@@ -87,17 +87,15 @@ namespace EarTrumpet.DataModel
             get
             {
                 IPropertyStore propStore;
-                m_device.OpenPropertyStore(0 /*STGM_READ*/, out propStore);
+                m_device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
 
-                var propStoreShim = (IPropertyStore_Shim)propStore;
-
-                PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = GuidExtensions.FromLongFormat(0xa45c254e, 0xdf1c, 0x4efd, 0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0), pid = new UIntPtr(14) };
+                PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
                 PropVariant pv;
-                propStoreShim.GetValue(ref PKEY_Device_FriendlyName, out  pv);
+                ((IPropertyStore_Shim)propStore).GetValue(ref PKEY_Device_FriendlyName, out  pv);
 
-                return Marshal.PtrToStringUni(pv.pointerValue);
-
-                // TODO PropVariantClear
+                var ret = Marshal.PtrToStringUni(pv.pointerValue);
+                PropertyStoreInterop.PropVariantClear(ref pv);
+                return ret;
             }
         }
     }
