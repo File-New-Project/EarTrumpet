@@ -2,13 +2,10 @@
 
 namespace EarTrumpet.DataModel
 {
-    public interface IAudioDevice : INotifyPropertyChanged
+    public interface IAudioDevice : IStreamWithVolumeControl
     {
-        string DisplayName { get; }
-        string Id { get; }
-        bool IsMuted { get; set; }
+
+
         AudioDeviceSessionCollection Sessions { get; }
-        float Volume { get; set; }
-        float PeakValue { get; }
     }
 }

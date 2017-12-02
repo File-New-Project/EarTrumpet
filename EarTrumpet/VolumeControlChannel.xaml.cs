@@ -1,30 +1,26 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Services;
+using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
+
 namespace EarTrumpet
 {
     public partial class VolumeControlChannel : UserControl
     {
-        public bool IsMuted { get { return (bool)GetValue(IsMutedProperty); } set { SetValue(IsMutedProperty, value); } }
-        public static readonly DependencyProperty IsMutedProperty =
-            DependencyProperty.Register("IsMuted", typeof(bool), typeof(VolumeControlChannel), new PropertyMetadata(false));
+
+
+        public VolumeControlChannelViewModel Stream { get { return (VolumeControlChannelViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
+        public static readonly DependencyProperty StreamProperty =
+            DependencyProperty.Register("Stream", typeof(VolumeControlChannelViewModel), typeof(VolumeControlChannel), new PropertyMetadata(null));
 
         public ImageSource IconSource { get { return (ImageSource)GetValue(IconUriProperty); } set { SetValue(IconUriProperty, value); } }
         public static readonly DependencyProperty IconUriProperty =
             DependencyProperty.Register("IconSource", typeof(ImageSource), typeof(VolumeControlChannel), new PropertyMetadata(null));
-
-        public int Volume { get { return (int)GetValue(VolumeProperty); } set { SetValue(VolumeProperty, value); } }
-        public static readonly DependencyProperty VolumeProperty =
-            DependencyProperty.Register("Volume", typeof(int), typeof(VolumeControlChannel), new PropertyMetadata(0));
-
-        public string DisplayName { get { return (string)GetValue(DisplayNameProperty); } set { SetValue(DisplayNameProperty, value); } }
-        public static readonly DependencyProperty DisplayNameProperty =
-            DependencyProperty.Register("DisplayName", typeof(string), typeof(VolumeControlChannel), new PropertyMetadata(""));
 
         public int IconWidth { get { return (int)GetValue(IconWidthProperty); } set { SetValue(IconWidthProperty, value); } }
         public static readonly DependencyProperty IconWidthProperty =
@@ -41,10 +37,6 @@ namespace EarTrumpet
         public string IconText { get { return (string)GetValue(IconTextProperty); } set { SetValue(IconTextProperty, value); } }
         public static readonly DependencyProperty IconTextProperty =
             DependencyProperty.Register("IconText", typeof(string), typeof(VolumeControlChannel), new PropertyMetadata(""));
-
-        public float PeakValue { get { return (float)GetValue(PeakValueProperty); } set { SetValue(PeakValueProperty, value); } }
-        public static readonly DependencyProperty PeakValueProperty =
-            DependencyProperty.Register("PeakValue", typeof(float), typeof(VolumeControlChannel), new PropertyMetadata(0f));
 
         public bool BeepOnPointerUp { get { return (bool)GetValue(BeepOnPointerUpProperty); } set { SetValue(BeepOnPointerUpProperty, value); } }
         public static readonly DependencyProperty BeepOnPointerUpProperty =
@@ -82,7 +74,7 @@ namespace EarTrumpet
             slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
             slider.CaptureTouch(e.TouchDevice);
 
-            IsMuted = false;
+            Stream.IsMuted = false;
 
             e.Handled = true;
         }
@@ -97,7 +89,7 @@ namespace EarTrumpet
                 slider.SetPositionByControlPoint(e.GetPosition(slider));
                 slider.CaptureMouse();
 
-                IsMuted = false;
+                Stream.IsMuted = false;
 
                 e.Handled = true;
             }
@@ -164,7 +156,7 @@ namespace EarTrumpet
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                IsMuted = !IsMuted;
+                Stream.IsMuted = !Stream.IsMuted;
                 e.Handled = true;
             }
         }
@@ -173,7 +165,7 @@ namespace EarTrumpet
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                IsMuted = !IsMuted;
+                Stream.IsMuted = !Stream.IsMuted;
                 e.Handled = true;
             }
         }

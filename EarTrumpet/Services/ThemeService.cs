@@ -45,6 +45,8 @@ namespace EarTrumpet.Services
 
         private static void SetBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
         {
+            if (!dictionary.Contains(name)) return;
+
             var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
             color.A = (byte) (opacity*255);
             ((SolidColorBrush) dictionary[name]).Color = color;
@@ -57,10 +59,14 @@ namespace EarTrumpet.Services
 
         private static void ReplaceBrush(ResourceDictionary dictionary, string name, string immersiveAccentName)
         {
+            if (!dictionary.Contains(name)) return;
+
             dictionary[name] = new SolidColorBrush(AccentColorService.GetColorByTypeName(immersiveAccentName));
         }
         private static void ReplaceBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
         {
+            if (!dictionary.Contains(name)) return;
+
             var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
             color.A = (byte)(opacity * 255);
             dictionary[name] = new SolidColorBrush(color);

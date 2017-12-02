@@ -11,7 +11,7 @@ namespace EarTrumpet.ViewModels
     public class MainViewModel : BindableBase
     {
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
-        public DeviceAppItemViewModel Device { get; private set; }
+        public VolumeControlChannelViewModel Device { get; private set; }
 
         public Visibility ListVisibility { get; private set; }
         public Visibility NoAppsPaneVisibility { get; private set; }
@@ -29,7 +29,7 @@ namespace EarTrumpet.ViewModels
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
             _deviceService.VirtualDefaultDevice.CollectionChanged += VirtualDefaultDevice_CollectionChanged;
 
-            Device = new DeviceAppItemViewModel(_deviceService.VirtualDefaultDevice);
+            Device = new VolumeControlChannelViewModel(_deviceService.VirtualDefaultDevice);
 
             PopulateAppSessions();
 
@@ -47,7 +47,7 @@ namespace EarTrumpet.ViewModels
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     Debug.Assert(e.OldItems.Count == 1);
-                    Apps.Remove(Apps.First(x => x.SessionId == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    Apps.Remove(Apps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:

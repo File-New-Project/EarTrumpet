@@ -13,17 +13,10 @@
         <ext:OpacityConverter x:Key="opacityConverter" />
         <ext:InvertableVisibilityConverter x:Key="visConverter" />
 
-
-        <SolidColorBrush x:Key="WindowForeground"
-                         Color="White" />
-        <SolidColorBrush x:Key="WindowBackground"
-                         Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
                          Color="#39FFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumb"
                          Color="#FF339933" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
                          Color="Red" />
         <SolidColorBrush x:Key="CottonSwabSliderThumbPressed"
@@ -160,14 +153,14 @@
             <ColumnDefinition Width="42" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"                                    
-                                ToolTip="{Binding DisplayName}"
+                                ToolTip="{Binding Stream.DisplayName}"
                                 Background="{Binding Background, Mode=OneTime}"
                                 HorizontalAlignment="Center"
                                 Height="24"
                                 Width="24"
                                 Margin="8,0"
                                 MouseDown="Icon_MouseDown"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
+                                Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}">
             <Grid>
                 <Image Source="{Binding IconSource, Mode=OneTime}"
                                         Stretch="Fill"
@@ -195,22 +188,22 @@
         </Border>
         <TextBlock Grid.Column="0" 
                                     MouseDown="Mute_MouseDown" 
-                                    Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
+                                    Visibility="{Binding Stream.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
                                     Text="&#xE74F;" 
                                     FontFamily="Segoe MDL2 Assets" 
                                     FontSize="18" 
                                     HorizontalAlignment="Center" 
                                     VerticalAlignment="Center"
-                                    ToolTip="{Binding DisplayName}" 
+                                    ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
 
         <local:AudioPeakMeter 
                             Grid.Column="1"
-                            PeakValue="{Binding PeakValue}" />
+                            PeakValue="{Binding Stream.PeakValue}" />
 
         <Slider Grid.Column="1"
-                                Value="{Binding Volume,Mode=TwoWay}"
-                                AutomationProperties.Name="{Binding DisplayName, Mode=OneTime}"
+                                Value="{Binding Stream.Volume,Mode=TwoWay}"
+                                AutomationProperties.Name="{Binding Stream.DisplayName, Mode=OneTime}"
                                 Minimum="0"
                                 Maximum="100"
                                 VerticalContentAlignment="Center"
@@ -229,16 +222,16 @@
                                 PreviewMouseUp="Slider_MouseUp"
                                 MouseWheel="Slider_MouseWheel"
                                 MouseMove="Slider_MouseMove"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
+                                Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}" />
         <TextBlock Grid.Column="2"
-                                    Text="{Binding Volume, Mode=OneWay}"
+                                    Text="{Binding Stream.Volume, Mode=OneWay}"
                                     FontSize="{Binding VolumeTextFontSize}"
                                     FontFamily="Segoe UI"
                                     FontWeight="{Binding VolumeTextFontWeight}"
                                     HorizontalAlignment="Center"
                                     TextAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" 
+                                    Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}" 
                                     Margin="0,-3,0,0" />
     </Grid>
 </UserControl>

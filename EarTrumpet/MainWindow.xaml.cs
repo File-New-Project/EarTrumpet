@@ -5,7 +5,6 @@ using EarTrumpet.ViewModels;
 using System;
 using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace EarTrumpet
@@ -89,92 +88,11 @@ namespace EarTrumpet
             }
         }
 
-        private void Slider_TouchDown(object sender, TouchEventArgs e)
-        {
-            VisualStateManager.GoToState((FrameworkElement)sender, "Pressed", true);
-
-            var slider = (Slider)sender;
-            slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
-            slider.CaptureTouch(e.TouchDevice);
-
-            ChangeMuteState(sender);
-
-            e.Handled = true;
-        }
-
-        private void Slider_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                VisualStateManager.GoToState((FrameworkElement)sender, "Pressed", true);
-
-                var slider = (Slider)sender;
-                slider.SetPositionByControlPoint(e.GetPosition(slider));
-                slider.CaptureMouse();
-
-                ChangeMuteState(sender);                
-
-                e.Handled = true;
-            }
-        }
-
-        private void Slider_TouchUp(object sender, TouchEventArgs e)
-        {
-            VisualStateManager.GoToState((FrameworkElement)sender, "Normal", true);
-
-            var slider = (Slider)sender;
-            slider.ReleaseTouchCapture(e.TouchDevice);
-            e.Handled = true;
-        }
-
-        private void Slider_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var slider = (Slider)sender;
-            if (slider.IsMouseCaptured)
-            {
-                // If the point is outside of the control, clear the hover state.
-                Rect rcSlider = new Rect(0, 0, slider.ActualWidth, slider.ActualHeight);
-                if (!rcSlider.Contains(e.GetPosition(slider)))
-                {
-                    VisualStateManager.GoToState((FrameworkElement)sender, "Normal", true);
-                }
-
-                ((Slider)sender).ReleaseMouseCapture();
-                e.Handled = true;
-            }
-        }
-
-        private void Slider_TouchMove(object sender, TouchEventArgs e)
-        {
-            var slider = (Slider)sender;
-            if (slider.AreAnyTouchesCaptured)
-            {
-                slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
-                e.Handled = true;
-            }
-        }
-
-        private void Slider_MouseMove(object sender, MouseEventArgs e)
-        {
-            var slider = (Slider)sender;
-            if (slider.IsMouseCaptured)
-            {
-                slider.SetPositionByControlPoint(e.GetPosition(slider));
-            }
-        }
-
-        private void Slider_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var slider = (Slider)sender;
-            var amount = Math.Sign(e.Delta) * 2.0;
-            slider.ChangePositionByAmount(amount);
-            e.Handled = true;
-        }
-
         private void UpdateTheme()
         {
             // Call UpdateTheme before UpdateWindowPosition in case sizes change with the theme.
             ThemeService.UpdateThemeResources(Resources);
+
             if (ThemeService.IsWindowTransparencyEnabled)
             {
                 this.EnableBlur();
@@ -211,51 +129,6 @@ namespace EarTrumpet
                     Top = (taskbarState.TaskbarSize.top / this.DpiHeightFactor()) - Height;
                     break;
             }            
-        }
-
-        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                ChangeMuteState(sender);
-                e.Handled = true;
-            }
-        }
-
-        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                ChangeMuteState(sender, true);
-                e.Handled = true;
-            }
-        }
-
-        private void ChangeMuteState(object sender, bool mute = false)
-        {
-            var element = (FrameworkElement)sender;
-            if (element.DataContext is AppItemViewModel)
-            {
-                var itemVM = (AppItemViewModel)element.DataContext;
-                itemVM.IsMuted = mute;
-            }
-            else
-            {
-                var itemVM = (DeviceAppItemViewModel)element.DataContext;
-                itemVM.IsMuted = mute;
-            }
-        }
-
-        private void Slider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            System.Media.SystemSounds.Beep.Play();
-            Slider_MouseUp(sender, e);
-        }
-
-        private void Slider_TouchUp_1(object sender, TouchEventArgs e)
-        {
-            System.Media.SystemSounds.Beep.Play();
-            Slider_TouchUp(sender, e);
         }
     }
 }

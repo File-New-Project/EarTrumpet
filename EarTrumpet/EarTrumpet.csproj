@@ -84,6 +84,7 @@
     <Compile Include="DataModel\Extensions\IAudioSessionControlExtensions.cs" />
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
+    <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IAudioSessionControlInternal.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IPropertyStore.cs" />
     <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
@@ -135,8 +136,8 @@
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
-    <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
+    <Compile Include="ViewModels\VolumeControlChannelViewModel.cs" />
     <Compile Include="VolumeControlChannel.xaml.cs">
       <DependentUpon>VolumeControlChannel.xaml</DependentUpon>
     </Compile>

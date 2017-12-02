@@ -1,9 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:p="clr-namespace:EarTrumpet.Properties"
         xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
-        xmlns:ext="clr-namespace:EarTrumpet.Extensions"
         xmlns:local="clr-namespace:EarTrumpet"
         Title="EarTrumpet"
         MaxHeight="600"
@@ -23,27 +21,12 @@
         TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
-
-        <ext:OpacityConverter x:Key="opacityConverter" />
-        <ext:InvertableVisibilityConverter x:Key="visConverter" />
-
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
                          Color="Black" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#39FFFFFF" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumb"
-                         Color="#FF339933" />
         <SolidColorBrush x:Key="HeaderBackground"
                          Color="Black" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
-                         Color="Red" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumbPressed"
-                         Color="Yellow" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
-                         Color="#FF339933" />
-
     </Window.Resources>
 
     <ScrollViewer x:Name="LayoutRoot"
@@ -81,13 +64,11 @@
                 </ControlTemplate>
             </HeaderedItemsControl.Template>
             <HeaderedItemsControl.HeaderTemplate>
-                <DataTemplate DataType="viewModels:DeviceAppItemViewModel">
+                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
                     <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
                         <local:VolumeControlChannel 
-                            DisplayName="{Binding DisplayName}"
-                            IsMuted="{Binding IsMuted,Mode=TwoWay}"
-                            Volume="{Binding Volume,Mode=TwoWay}"
+                            Stream="{Binding}"
                             IconHeight="32"
                             IconWidth="32"
                             VolumeTextFontSize="24"
@@ -95,7 +76,6 @@
                             IconTextSize="24"
                             IconTextFontFamily="Segoe MDL2 Assets"
                             Background="{Binding Background}"
-                            PeakValue="{Binding PeakValue}"
                             BeepOnPointerUp="True"
                             Padding="0,4,0,4"
                         />
@@ -103,11 +83,9 @@
                 </DataTemplate>
             </HeaderedItemsControl.HeaderTemplate>
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="viewModels:AppItemViewModel">
+                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
                     <local:VolumeControlChannel 
-                        DisplayName="{Binding DisplayName}"
-                        IsMuted="{Binding IsMuted,Mode=TwoWay}"
-                        Volume="{Binding Volume,Mode=TwoWay}"
+                        Stream="{Binding}"
                         IconHeight="24"
                         IconWidth="24"
                         VolumeTextFontSize="18"
@@ -117,7 +95,6 @@
                         IconTextFontWeight="Bold"
                         IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
                         Background="{Binding Background}"
-                        PeakValue="{Binding PeakValue}"
                         />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
