@@ -23,6 +23,9 @@ namespace EarTrumpet.ViewModels
 
         public char IconText => DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
+        string _displayName;
+        public override string DisplayName => _displayName;
+
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {
             _session = session;

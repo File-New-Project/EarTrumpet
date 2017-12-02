@@ -24,14 +24,48 @@
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
                          Color="Black" />
+        <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
+                         Color="#FF339933" />
     </Window.Resources>
 
-    <ScrollViewer x:Name="LayoutRoot"
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}"
+                   VerticalAlignment="Center"
+                   Margin="4"/>
+
+        <Button HorizontalAlignment="Right" 
+                Grid.Column="1"
+                Width="25"
+                Height="25"
+                FontSize="20"
+                BorderThickness="0"
+                Background="Transparent"
+                Foreground="{DynamicResource CottonSwabSliderTrackFill}"
+                Content="&#xe2ae;" 
+                FontFamily="Segoe MDL2 Assets"
+                Click="PopOutButton_Click"
+                Margin="2" />
+
+        <ScrollViewer 
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
                     VerticalScrollBarVisibility="Auto"
                     CanContentScroll="True"
                     PanningMode="VerticalOnly"
                     Focusable="False"                      
                     Margin="0">
-        <local:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
-    </ScrollViewer>
+            <local:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
+        </ScrollViewer>
+    </Grid>
+    
+
 </Window>

@@ -119,5 +119,11 @@ namespace EarTrumpet
                     break;
             }            
         }
+
+        private void PopOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fullWindow = new FullWindow(_deviceService);
+            fullWindow.Show();
+        }
     }
 }

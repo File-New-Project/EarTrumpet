@@ -105,6 +105,9 @@
     <Compile Include="DataModel\AudioDeviceManager.cs" />
     <Compile Include="DataModel\AudioDeviceSession.cs" />
     <Compile Include="DataModel\AudioDeviceSessionCollection.cs" />
+    <Compile Include="FullWindow.xaml.cs">
+      <DependentUpon>FullWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -138,6 +141,8 @@
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\DeviceViewModelComparer.cs" />
+    <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
@@ -150,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeviceAndAppsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FullWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

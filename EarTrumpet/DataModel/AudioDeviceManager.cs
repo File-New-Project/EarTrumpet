@@ -77,7 +77,7 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public IEnumerable<IAudioDevice> Devices => m_devices;
+        public ObservableCollection<IAudioDevice> Devices => m_devices;
 
         bool HasDevice(string deviceId)
         {

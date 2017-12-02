@@ -34,6 +34,7 @@ namespace EarTrumpet.DataModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DisplayName"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Id"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Sessions"));
             };
         }
 

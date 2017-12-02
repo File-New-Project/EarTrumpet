@@ -38,6 +38,7 @@ namespace EarTrumpet.ViewModels
             if (e.PropertyName == "Sessions")
             {
                 _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+                Sessions_CollectionChanged(this, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
             }
         }
 

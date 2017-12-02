@@ -12,19 +12,17 @@ namespace EarTrumpet.ViewModels
     public class VolumeControlChannelViewModel : BindableBase
     {
         IStreamWithVolumeControl _stream;
-        protected string _displayName;
 
         public VolumeControlChannelViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
-            _displayName = _stream.DisplayName;
             _stream.PropertyChanged += (_, e) =>
             {
                 RaisePropertyChanged(e.PropertyName);
             };
         }
 
-        public string DisplayName => _displayName;
+        public virtual string DisplayName => _stream.DisplayName;
         public string Id => _stream.Id;
         public bool IsMuted
         {
