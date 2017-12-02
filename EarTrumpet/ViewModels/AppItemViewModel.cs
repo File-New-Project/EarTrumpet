@@ -37,7 +37,8 @@ namespace EarTrumpet.ViewModels
             {
                 _displayName = Properties.Resources.SystemSoundsDisplayName;
             }
-            else if (session.IsDesktopApp)
+
+            if (session.IsDesktopApp)
             {                
                 try
                 {

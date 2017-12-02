@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="EarTrumpet.DeviceAndAppsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EarTrumpet"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="HeaderBackground"
+                         Color="Black" />
+    </UserControl.Resources>
+    <Grid Name="GridRoot">
+        <HeaderedItemsControl ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                        Header="{Binding Device.Device}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        HorizontalContentAlignment="Stretch"
+                        Focusable="False">
+            <HeaderedItemsControl.Template>
+                <ControlTemplate TargetType="HeaderedItemsControl">
+                    <Grid x:Name="Root">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" Visibility="{Binding DeviceVisibility}" />
+                        <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" Visibility="{Binding ListVisibility}" />
+                        <Grid x:Name="NoAppsPanel"
+                                Margin="0,8"
+                                Grid.Row="1" 
+                                Height="50"
+                                Visibility="{Binding NoAppsPaneVisibility}">
+                            <TextBlock Text="{Binding NoItemsContent}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                                    TextWrapping="Wrap" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </HeaderedItemsControl.Template>
+            <HeaderedItemsControl.HeaderTemplate>
+                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
+                    <Border Background="{DynamicResource HeaderBackground}"
+                            BorderThickness="0,0,0,12">
+                        <local:VolumeControlChannel 
+                            Stream="{Binding}"
+                            IconHeight="32"
+                            IconWidth="32"
+                            VolumeTextFontSize="24"
+                            IconText="&#xE767;"
+                            IconTextSize="24"
+                            IconTextFontFamily="Segoe MDL2 Assets"
+                            Background="{Binding Background}"
+                            BeepOnPointerUp="True"
+                            Padding="0,4,0,4"
+                        />
+                    </Border>
+                </DataTemplate>
+            </HeaderedItemsControl.HeaderTemplate>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
+                    <local:VolumeControlChannel 
+                        Stream="{Binding}"
+                        IconHeight="24"
+                        IconWidth="24"
+                        VolumeTextFontSize="18"
+                        IconSource="{Binding Icon}"
+                        IconText="{Binding IconText}"
+                        IconTextSize="16"
+                        IconTextFontWeight="Bold"
+                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                        Background="{Binding Background}"
+                        />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </HeaderedItemsControl>
+    </Grid>
+</UserControl>

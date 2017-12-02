@@ -1,7 +1,6 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:viewModels="clr-namespace:EarTrumpet.ViewModels"
         xmlns:local="clr-namespace:EarTrumpet"
         Title="EarTrumpet"
         MaxHeight="600"
@@ -25,8 +24,6 @@
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
                          Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
     </Window.Resources>
 
     <ScrollViewer x:Name="LayoutRoot"
@@ -35,69 +32,6 @@
                     PanningMode="VerticalOnly"
                     Focusable="False"                      
                     Margin="0">
-        <HeaderedItemsControl ItemsSource="{Binding Apps, Mode=OneWay}"
-                        Header="{Binding Device}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        HorizontalContentAlignment="Stretch"
-                        Focusable="False">
-            <HeaderedItemsControl.Template>
-                <ControlTemplate TargetType="HeaderedItemsControl">
-                    <Grid x:Name="Root">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" Visibility="{Binding DeviceVisibility}" />
-                        <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" Visibility="{Binding ListVisibility}" />
-                        <Grid x:Name="NoAppsPanel"
-                                Margin="0,8"
-                                Grid.Row="1" 
-                                Height="50"
-                                Visibility="{Binding NoAppsPaneVisibility}">
-                            <TextBlock Text="{Binding NoItemsContent}"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                                    TextWrapping="Wrap" />
-                        </Grid>
-                    </Grid>
-                </ControlTemplate>
-            </HeaderedItemsControl.Template>
-            <HeaderedItemsControl.HeaderTemplate>
-                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
-                    <Border Background="{DynamicResource HeaderBackground}"
-                            BorderThickness="0,0,0,12">
-                        <local:VolumeControlChannel 
-                            Stream="{Binding}"
-                            IconHeight="32"
-                            IconWidth="32"
-                            VolumeTextFontSize="24"
-                            IconText="&#xE767;"
-                            IconTextSize="24"
-                            IconTextFontFamily="Segoe MDL2 Assets"
-                            Background="{Binding Background}"
-                            BeepOnPointerUp="True"
-                            Padding="0,4,0,4"
-                        />
-                    </Border>
-                </DataTemplate>
-            </HeaderedItemsControl.HeaderTemplate>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
-                    <local:VolumeControlChannel 
-                        Stream="{Binding}"
-                        IconHeight="24"
-                        IconWidth="24"
-                        VolumeTextFontSize="18"
-                        IconSource="{Binding Icon}"
-                        IconText="{Binding IconText}"
-                        IconTextSize="16"
-                        IconTextFontWeight="Bold"
-                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                        Background="{Binding Background}"
-                        />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </HeaderedItemsControl>
+        <local:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
     </ScrollViewer>
 </Window>

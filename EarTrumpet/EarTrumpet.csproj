@@ -88,6 +88,9 @@
     <Compile Include="DataModel\ReplacementInterfaces\IAudioSessionControlInternal.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IPropertyStore.cs" />
     <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
+    <Compile Include="DeviceAndAppsControl.xaml.cs">
+      <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\DispatcherExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
@@ -142,6 +146,10 @@
       <DependentUpon>VolumeControlChannel.xaml</DependentUpon>
     </Compile>
     <Page Include="AudioPeakMeter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeviceAndAppsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

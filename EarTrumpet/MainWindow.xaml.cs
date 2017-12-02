@@ -15,7 +15,6 @@ namespace EarTrumpet
         private readonly MainViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
-        private readonly Timer _peakMeterTimer;
 
         public MainWindow()
         {
@@ -28,11 +27,6 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
-            _peakMeterTimer = new Timer(1000 / 30);
-            _peakMeterTimer.AutoReset = true;
-            _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
-            _peakMeterTimer.Start();
-
             CreateAndHideWindow();
 
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
@@ -40,11 +34,6 @@ namespace EarTrumpet
             // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
 
             SourceInitialized += (s, e) => UpdateTheme();
-        }
-
-        private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            _viewModel.TriggerPeakCheck();
         }
 
         private void CreateAndHideWindow()
@@ -61,7 +50,7 @@ namespace EarTrumpet
             if (this.Visibility == Visibility.Visible)
             {
                 this.HideWithAnimation();
-                _peakMeterTimer.Stop();
+                _viewModel.IsVisible = false;
             }
             else
             {
@@ -69,14 +58,14 @@ namespace EarTrumpet
                 UpdateTheme();
                 UpdateWindowPosition();
                 this.ShowwithAnimation();
-                _peakMeterTimer.Start();
+                _viewModel.IsVisible = true;
             }
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
             this.HideWithAnimation();
-            _peakMeterTimer.Stop();
+            _viewModel.IsVisible = false;
         }
         
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -84,7 +73,7 @@ namespace EarTrumpet
             if (e.Key == Key.Escape)
             {
                 this.HideWithAnimation();
-                _peakMeterTimer.Stop();
+                _viewModel.IsVisible = false;
             }
         }
 
