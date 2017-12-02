@@ -5,24 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EarTrumpet"
         mc:Ignorable="d"
+        Foreground="{DynamicResource WindowForeground}"
+        Background="{DynamicResource WindowBackground}"
         Title="FullWindow" Height="500" Width="900">
-    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto">
-        <ItemsControl ItemsSource="{Binding Devices}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <ItemContainerTemplate>
-                    <StackPanel Orientation="Vertical"  Width="250">
-                        <TextBlock Text="{Binding Device.DisplayName}" />
-                        <local:DeviceAndAppsControl Device="{Binding}" />
-                    </StackPanel>
-                    
-                    
-                </ItemContainerTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowForeground"
+                         Color="White" />
+        <SolidColorBrush x:Key="WindowBackground"
+                         Color="Black" />
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"
+              Background="{DynamicResource WindowBackground}"
+              Foreground="{DynamicResource WindowForeground}">
+            <!-- TODO: localize menu items -->
+            <MenuItem Header="_Options">
+                <MenuItem Header="Show Empty Devices" Foreground="Black" IsChecked="{Binding ShowEmptyDevices, Mode=TwoWay}" Click="ToggleMenuItem_Click"/>
+                <Separator />
+                <!-- some ideas ... -->
+                <MenuItem IsEnabled="False" Header="Show Hidden Channels"/>
+                <MenuItem IsEnabled="False" Header="Show Expired Channels"/>
+                <MenuItem IsEnabled="False" Header="Ungroup Channels"/>
+            </MenuItem>
+        </Menu>
+
+        <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Devices}"
+                          Margin="4">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <StackPanel Orientation="Vertical"
+                                Width="300">
+                            <TextBlock Text="{Binding Device.DisplayName}"
+                                       Margin="4"/>
+                            <local:DeviceAndAppsControl Device="{Binding}" />
+                        </StackPanel>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+
+
 </Window>

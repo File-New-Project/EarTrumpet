@@ -31,6 +31,14 @@ namespace EarTrumpet
 
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
+            var openlegacyVolumeMixer = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.LegacyVolumeMixerText);
+            openlegacyVolumeMixer.Click += OpenlegacyVolumeMixer_Click;
+
+            var playbackDevices = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.SoundsControlPanelText);
+            playbackDevices.Click += PlaybackDevices_Click;
+
+            _trayIcon.ContextMenu.MenuItems.Add("-");
+
             var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
             feedbackItem.Click += Feedback_Click;
 
@@ -48,6 +56,16 @@ namespace EarTrumpet
             UpdateToolTip();
 
             _trayIcon.Visible = true;
+        }
+
+        private void PlaybackDevices_Click(object sender, EventArgs e)
+        {
+            Process.Start("mmsys.cpl");
+        }
+
+        private void OpenlegacyVolumeMixer_Click(object sender, EventArgs e)
+        {
+            Process.Start("sndvol.exe");
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

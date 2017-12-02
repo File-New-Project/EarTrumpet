@@ -129,8 +129,8 @@
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Send Feedback...</value>
   </data>
-  <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Show Desktop Apps</value>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Legacy Volume Mixer</value>
   </data>
   <data name="NoAppsPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any apps open.</value>
@@ -138,13 +138,13 @@
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any audio devices.</value>
   </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Playback devices | Recording devices | Sounds control panel</value>
+  </data>
   <data name="SpeechRuntimeDisplayName" xml:space="preserve">
     <value>Speech Runtime</value>
   </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>System Sounds</value>
-  </data>
-  <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Volume Control for Windows</value>
   </data>
 </root>

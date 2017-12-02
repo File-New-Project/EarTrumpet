@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,14 @@ namespace EarTrumpet
 
             _viewModel = new FullWindowViewModel(manager);
             DataContext = _viewModel;
+
+            ThemeService.UpdateThemeResources(Resources);
+        }
+
+        private void ToggleMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var item = (MenuItem)sender;
+            item.IsChecked = !item.IsChecked;
         }
     }
 }

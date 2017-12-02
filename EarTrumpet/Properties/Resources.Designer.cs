@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -97,11 +97,11 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Desktop Apps.
+        ///   Looks up a localized string similar to Legacy Volume Mixer.
         /// </summary>
-        public static string ContextMenuShowDesktopAppsTitle {
+        public static string LegacyVolumeMixerText {
             get {
-                return ResourceManager.GetString("ContextMenuShowDesktopAppsTitle", resourceCulture);
+                return ResourceManager.GetString("LegacyVolumeMixerText", resourceCulture);
             }
         }
         
@@ -124,6 +124,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Playback devices | Recording devices | Sounds control panel.
+        /// </summary>
+        public static string SoundsControlPanelText {
+            get {
+                return ResourceManager.GetString("SoundsControlPanelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speech Runtime.
         /// </summary>
         public static string SpeechRuntimeDisplayName {
@@ -138,15 +147,6 @@ namespace EarTrumpet.Properties {
         public static string SystemSoundsDisplayName {
             get {
                 return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volume Control for Windows.
-        /// </summary>
-        public static string TrayIconTooltipText {
-            get {
-                return ResourceManager.GetString("TrayIconTooltipText", resourceCulture);
             }
         }
     }

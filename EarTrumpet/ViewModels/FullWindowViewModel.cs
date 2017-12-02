@@ -7,30 +7,70 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace EarTrumpet.ViewModels
 {
-    public class FullWindowViewModel
+    public class FullWindowViewModel : BindableBase
     {
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
+        bool _showEmptyDevices;
+        public bool ShowEmptyDevices
+        {
+            get => _showEmptyDevices;
+            set
+            {
+                if (_showEmptyDevices != value)
+                {
+                    _showEmptyDevices = value;
+                    RaisePropertyChanged("ShowEmptyDevices");
+                    Devices_CollectionChanged(this, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+                }
+            }
+        }
+
         AudioDeviceManager _manager;
+        Timer _peakMeterTimer;
 
         public FullWindowViewModel(AudioDeviceManager manager)
         {
+            // TODO configuration store
+            ShowEmptyDevices = false;
+
             _manager = manager;
             Devices = new ObservableCollection<DeviceViewModel>();
 
             _manager.Devices.CollectionChanged += Devices_CollectionChanged;
             PopuldateDevices();
+
+            _peakMeterTimer = new Timer(1000 / 30);
+            _peakMeterTimer.AutoReset = true;
+            _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
+            _peakMeterTimer.Start();
+        }
+
+        private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            foreach(var device in Devices)
+            {
+                device.TriggerPeakCheck();
+            }
         }
 
         void PopuldateDevices()
         {
-            foreach(var device in _manager.Devices)
+            foreach(var device in _manager.Devices) AddDeviceIfApplicable(device);
+        }
+
+        void AddDeviceIfApplicable(IAudioDevice device)
+        {
+            if (!ShowEmptyDevices)
             {
-                Devices.AddSorted(new DeviceViewModel(device), DeviceViewModelComparer.Instance);
+                if (device.Sessions.Sessions.Count == 1) return; // System sounds session
             }
+
+            Devices.AddSorted(new DeviceViewModel(device), DeviceViewModelComparer.Instance);
         }
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -39,7 +79,7 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    Devices.AddSorted(new DeviceViewModel((IAudioDevice)e.NewItems[0]), DeviceViewModelComparer.Instance);
+                    AddDeviceIfApplicable((IAudioDevice)e.NewItems[0]);
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
