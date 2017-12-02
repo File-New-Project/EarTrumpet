@@ -82,6 +82,10 @@ namespace EarTrumpet
             {
                 Invoked.Invoke();
             }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+            {
+                _deviceService.VirtualDefaultDevice.IsMuted = !_deviceService.VirtualDefaultDevice.IsMuted;
+            }
         }
 
         void Feedback_Click(object sender, EventArgs e)

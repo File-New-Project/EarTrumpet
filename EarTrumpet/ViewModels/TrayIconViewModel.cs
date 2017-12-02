@@ -39,8 +39,11 @@ namespace EarTrumpet.ViewModels
             }
             set
             {
-                _trayIcon = value;
-                RaisePropertyChanged("TrayIcon");
+                if (_trayIcon != value)
+                {
+                    _trayIcon = value;
+                    RaisePropertyChanged("TrayIcon");
+                }
             }
         }
 
@@ -101,40 +104,40 @@ namespace EarTrumpet.ViewModels
             bool isMuted = _deviceService.VirtualDefaultDevice.IsMuted;
             int currentVolume = _deviceService.VirtualDefaultDevice.Volume.ToVolumeInt();
 
-            if (noDevice && _currentIcon != IconId.NoDevice)
+            if (noDevice)
             {
-                TrayIcon = _icons[IconId.NoDevice];
                 _currentIcon = IconId.NoDevice;
+                TrayIcon = _icons[IconId.NoDevice];
                 return;
             }
-            if (isMuted && _currentIcon != IconId.Muted)
+            else if (isMuted)
             {
-                TrayIcon = _icons[IconId.Muted];
                 _currentIcon = IconId.Muted;
+                TrayIcon = _icons[IconId.Muted];
                 return;
             }
-            if (currentVolume == 0 && _currentIcon != IconId.SpeakerZeroBars)
+            else if (currentVolume == 0)
             {
-                TrayIcon = _icons[IconId.SpeakerZeroBars];
                 _currentIcon = IconId.SpeakerZeroBars;
+                TrayIcon = _icons[IconId.SpeakerZeroBars];
                 return;
             }
-            if (currentVolume >= 1 && currentVolume < 33 && _currentIcon != IconId.SpeakerOneBar)
+            else if (currentVolume >= 1 && currentVolume < 33)
             {
-                TrayIcon = _icons[IconId.SpeakerOneBar];
                 _currentIcon = IconId.SpeakerOneBar;
+                TrayIcon = _icons[IconId.SpeakerOneBar];
                 return;
             }
-            if (currentVolume >= 33 && currentVolume < 66 && _currentIcon != IconId.SpeakerTwoBars)
+            else if (currentVolume >= 33 && currentVolume < 66)
             {
-                TrayIcon = _icons[IconId.SpeakerTwoBars];
                 _currentIcon = IconId.SpeakerTwoBars;
+                TrayIcon = _icons[IconId.SpeakerTwoBars];
                 return;
             }
-            if (currentVolume >= 66 && currentVolume <= 100 && _currentIcon != IconId.SpeakerThreeBars)
+            else if (currentVolume >= 66 && currentVolume <= 100)
             {
-                TrayIcon = _icons[IconId.SpeakerThreeBars];
                 _currentIcon = IconId.SpeakerThreeBars;
+                TrayIcon = _icons[IconId.SpeakerThreeBars];
                 return;
             }
 
