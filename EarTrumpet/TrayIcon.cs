@@ -16,6 +16,7 @@ namespace EarTrumpet
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
         private AudioDeviceManager _deviceService;
+        private KeyboardHook _hotkey;
 
         public TrayIcon(AudioDeviceManager deviceService, TrayViewModel trayViewModel)
         {
@@ -25,6 +26,10 @@ namespace EarTrumpet
             _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
+
+            _hotkey = new KeyboardHook();
+            _hotkey.RegisterHotKey(KBModifierKeys.Shift | KBModifierKeys.Control, System.Windows.Forms.Keys.Q);
+            _hotkey.KeyPressed += Hotkey_KeyPressed;
 
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
@@ -56,6 +61,11 @@ namespace EarTrumpet
             UpdateToolTip();
 
             _trayIcon.Visible = true;
+        }
+
+        private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            Invoked.Invoke();
         }
 
         private void PlaybackDevices_Click(object sender, EventArgs e)
