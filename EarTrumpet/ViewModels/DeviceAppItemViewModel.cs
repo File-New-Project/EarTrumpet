@@ -10,8 +10,6 @@ namespace EarTrumpet.ViewModels
 
         public string Id => _device.Id;
         public float PeakValue => _device.PeakValue;
-        public double IconHeight { get; set; }
-        public double IconWidth { get; set; }
 
         public int Volume
         {
@@ -44,22 +42,14 @@ namespace EarTrumpet.ViewModels
 
         public DeviceAppItemViewModel(VirtualDefaultAudioDevice device)
         {
-            IconHeight = IconWidth = 32;
-
             _device = device;
             _device.PropertyChanged += (_, e) =>
             {
-                if (e.PropertyName == "IsMuted" ||
-                    e.PropertyName == "Volume")
+                if (e.PropertyName == "IsMuted" || e.PropertyName == "Volume")
                 {
                     RaisePropertyChanged(e.PropertyName);
                 }
             };
-        }
-
-        public bool IsSame(DeviceAppItemViewModel other)
-        {
-            return other.Id == Id;
         }
 
         internal void TriggerPeakCheck()

@@ -45,8 +45,6 @@ namespace EarTrumpet.ViewModels
         public string SessionId { get; private set; }
         public uint ProcessId { get; set; }
         public ImageSource Icon { get; set; }
-        public double IconHeight { get; set; }
-        public double IconWidth { get; set; }
 
         public int Volume
         {
@@ -99,7 +97,6 @@ namespace EarTrumpet.ViewModels
             _session = session;
             _session.PropertyChanged += Session_PropertyChanged;
 
-            IconHeight = IconWidth = 24;
             SessionId = session.Id;
             ProcessId = (uint)session.ProcessId;
             IsDesktop = session.IsDesktopApp;
@@ -161,8 +158,7 @@ namespace EarTrumpet.ViewModels
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Volume" ||
-                e.PropertyName == "IsMuted")
+            if (e.PropertyName == "Volume" || e.PropertyName == "IsMuted")
             {
                 RaisePropertyChanged(e.PropertyName);
             }

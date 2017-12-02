@@ -23,6 +23,10 @@
         TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
+
+        <ext:OpacityConverter x:Key="opacityConverter" />
+        <ext:InvertableVisibilityConverter x:Key="visConverter" />
+
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
@@ -39,128 +43,7 @@
                          Color="Yellow" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
-        <ext:OpacityConverter x:Key="opacityConverter" />
-        <ext:InvertableVisibilityConverter x:Key="visConverter" />
 
-        <Style x:Key="SliderButtonStyle"
-               TargetType="{x:Type RepeatButton}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Setter Property="IsTabStop"
-                    Value="false" />
-            <Setter Property="Focusable"
-                    Value="false" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
-                        <Border Background="Transparent">
-                            <Border Background="{TemplateBinding Foreground}"
-                                    Height="2">
-                            </Border>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="SliderThumbStyle"
-               TargetType="{x:Type Thumb}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Setter Property="Height"
-                    Value="24" />
-            <Setter Property="Width"
-                    Value="8" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Thumb}">
-                        <Border Name="Thumb"
-                                Background="{TemplateBinding Foreground}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0"
-                                CornerRadius="5">
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <ControlTemplate x:Key="HorizontalSlider"
-                         TargetType="{x:Type Slider}">
-            <Grid>
-                <Border Name="TrackBackground"
-                        Margin="0"
-                        Height="2"
-                        Background="{DynamicResource CottonSwabSliderTrackBackground}" />
-                <Track Name="PART_Track">
-                    <Track.DecreaseRepeatButton>
-                        <RepeatButton Name="SliderLeft"
-                                      Foreground="{DynamicResource CottonSwabSliderTrackFill}"
-                                      Style="{StaticResource SliderButtonStyle}"
-                                      Command="Slider.DecreaseLarge" />
-                    </Track.DecreaseRepeatButton>
-                    <Track.Thumb>
-                        <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource CottonSwabSliderThumb}"
-                               Style="{StaticResource SliderThumbStyle}" />
-                    </Track.Thumb>
-                    <Track.IncreaseRepeatButton>
-                        <RepeatButton Name="SliderRight"
-                                      Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
-                                      Style="{StaticResource SliderButtonStyle}"
-                                      Command="Slider.IncreaseLarge" />
-                    </Track.IncreaseRepeatButton>
-                </Track>
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualStateGroup.Transitions>
-                            <VisualTransition To="Normal"
-                                              GeneratedDuration="0" />
-                        </VisualStateGroup.Transitions>
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderThumb">
-                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderThumbHover}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderThumb">
-                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderThumbPressed}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled"
-                         Value="False">
-                    <Setter Property="Opacity"
-                            Value="0.5" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style TargetType="{x:Type Slider}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Style.Triggers>
-                <Trigger Property="Orientation"
-                         Value="Horizontal">
-                    <Setter Property="Height"
-                            Value="32" />
-                    <Setter Property="Template"
-                            Value="{StaticResource HorizontalSlider}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
 
     <ScrollViewer x:Name="LayoutRoot"
@@ -199,165 +82,43 @@
             </HeaderedItemsControl.Template>
             <HeaderedItemsControl.HeaderTemplate>
                 <DataTemplate DataType="viewModels:DeviceAppItemViewModel">
-                    <Border Background="{DynamicResource HeaderBackground}" BorderThickness="0,0,0,12">
-                    <Grid Margin="12" HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="42" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"                                                                                                            
-                                HorizontalAlignment="Center"
-                                Height="32"
-                                Width="32"
-                                Margin="4,-2,4,0"
-                                MouseDown="Icon_MouseDown"
-                                Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
-                                <TextBlock Text="&#xE767;" 
-                                            FontFamily="Segoe MDL2 Assets" 
-                                            FontSize="24" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center" 
-                                            ToolTip="{Binding DisplayName}" />
-                        </Border>
-                        <TextBlock Grid.Column="0" 
-                                    MouseDown="Mute_MouseDown" 
-                                    Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
-                                    Text="&#xE74F;" 
-                                    FontFamily="Segoe MDL2 Assets" 
-                                    FontSize="24" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    ToolTip="{Binding DisplayName}" 
-                                    Margin="0,-2,0,0" />
-
-                            <local:AudioPeakMeter 
-                                Grid.Column="1"
-                                PeakValue="{Binding PeakValue}" />
-
-                            <Slider Grid.Column="1"
-                                Value="{Binding Volume,Mode=TwoWay}"
-                                AutomationProperties.Name="{Binding DisplayName, Mode=OneTime}"
-                                Minimum="0"
-                                Maximum="100"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Stretch"
-                                Margin="12,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                Interval="1"
-                                SnapsToDevicePixels="True"
-                                SmallChange="1"
-                                LargeChange="10"
-                                IsManipulationEnabled="True"
-                                TouchDown="Slider_TouchDown"
-                                TouchUp="Slider_TouchUp_1"
-                                TouchMove="Slider_TouchMove"
-                                PreviewMouseDown="Slider_MouseDown"
-                                PreviewMouseUp="Slider_PreviewMouseUp"
-                                MouseWheel="Slider_MouseWheel"
-                                MouseMove="Slider_MouseMove"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
-                        <TextBlock Grid.Column="2"
-                                    Text="{Binding Volume, Mode=OneWay}"
-                                    FontSize="24"
-                                    FontFamily="Segoe UI"
-                                    FontWeight="Normal"
-                                    HorizontalAlignment="Center"
-                                    TextAlignment="Center"
-                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" 
-                                    Margin="0,-3,0,0" />
-                    </Grid>
+                    <Border Background="{DynamicResource HeaderBackground}"
+                            BorderThickness="0,0,0,12">
+                        <local:VolumeControlChannel 
+                            DisplayName="{Binding DisplayName}"
+                            IsMuted="{Binding IsMuted,Mode=TwoWay}"
+                            Volume="{Binding Volume,Mode=TwoWay}"
+                            IconHeight="32"
+                            IconWidth="32"
+                            VolumeTextFontSize="24"
+                            IconText="&#xE767;"
+                            IconTextSize="24"
+                            IconTextFontFamily="Segoe MDL2 Assets"
+                            Background="{Binding Background}"
+                            PeakValue="{Binding PeakValue}"
+                            BeepOnPointerUp="True"
+                            Padding="0,4,0,4"
+                        />
                     </Border>
                 </DataTemplate>
             </HeaderedItemsControl.HeaderTemplate>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <Grid Margin="12,6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="42" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"                                    
-                                ToolTip="{Binding DisplayName}"
-                                Background="{Binding Background, Mode=OneTime}"
-                                HorizontalAlignment="Center"
-                                Height="24"
-                                Width="24"
-                                Margin="8,0"
-                                MouseDown="Icon_MouseDown"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
-                            <Grid>
-                                <Image Source="{Binding Icon, Mode=OneTime}"
-                                        Stretch="Fill"
-                                        Height="{Binding IconHeight, Mode=OneTime}"
-                                        Width="{Binding IconWidth, Mode=OneTime}" />
-                                <TextBlock FontSize="16" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"
-                                                       Text="{Binding IconText}" FontWeight="Bold" Margin="0,-1,0,0">
-                                    <TextBlock.Style>
-                                        <Style>
-                                            <Setter Property="TextBlock.Visibility" Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
-                                                    <Setter Property="TextBlock.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Grid>
-                        </Border>
-                        <TextBlock Grid.Column="0" 
-                                    MouseDown="Mute_MouseDown" 
-                                    Visibility="{Binding IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
-                                    Text="&#xE74F;" 
-                                    FontFamily="Segoe MDL2 Assets" 
-                                    FontSize="18" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    ToolTip="{Binding DisplayName}" 
-                                    Margin="1,0,0,0" />
-
-                        <local:AudioPeakMeter 
-                            Grid.Column="1"
-                            PeakValue="{Binding PeakValue}" />
-
-                        <Slider Grid.Column="1"
-                                Value="{Binding Volume,Mode=TwoWay}"
-                                AutomationProperties.Name="{Binding DisplayName, Mode=OneTime}"
-                                Minimum="0"
-                                Maximum="100"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Stretch"
-                                Margin="12,0"
-                                VerticalAlignment="Center"
-                                Interval="1"
-                                SnapsToDevicePixels="True"
-                                SmallChange="1"
-                                LargeChange="10"
-                                IsManipulationEnabled="True"
-                                TouchDown="Slider_TouchDown"
-                                TouchUp="Slider_TouchUp"
-                                TouchMove="Slider_TouchMove"
-                                PreviewMouseDown="Slider_MouseDown"
-                                PreviewMouseUp="Slider_MouseUp"
-                                MouseWheel="Slider_MouseWheel"
-                                MouseMove="Slider_MouseMove"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
-                        <TextBlock Grid.Column="2"
-                                    Text="{Binding Volume, Mode=OneWay}"
-                                    FontSize="18"
-                                    FontFamily="Segoe UI"
-                                    FontWeight="Normal"
-                                    HorizontalAlignment="Center"
-                                    TextAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" 
-                                    Margin="0,-3,0,0" />
-                    </Grid>
+                    <local:VolumeControlChannel 
+                        DisplayName="{Binding DisplayName}"
+                        IsMuted="{Binding IsMuted,Mode=TwoWay}"
+                        Volume="{Binding Volume,Mode=TwoWay}"
+                        IconHeight="24"
+                        IconWidth="24"
+                        VolumeTextFontSize="18"
+                        IconSource="{Binding Icon}"
+                        IconText="{Binding IconText}"
+                        IconTextSize="16"
+                        IconTextFontWeight="Bold"
+                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                        Background="{Binding Background}"
+                        PeakValue="{Binding PeakValue}"
+                        />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </HeaderedItemsControl>
