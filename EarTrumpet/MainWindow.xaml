@@ -63,9 +63,22 @@
                     PanningMode="VerticalOnly"
                     Focusable="False"                      
                     Margin="0">
-            <local:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
+            <Grid>
+                <Grid x:Name="NoAppsPanel"
+                                Margin="0,8"
+                                Grid.Row="1" 
+                                Height="50"
+                                Visibility="{Binding NoAppsPaneVisibility}">
+                    <TextBlock Text="{Binding NoItemsContent}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                                    TextWrapping="Wrap" />
+                </Grid>
+
+                <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
+                                                Visibility="{Binding DeviceVisibility}"/>
+            </Grid>
         </ScrollViewer>
     </Grid>
-    
-
 </Window>

@@ -21,7 +21,7 @@ namespace EarTrumpet.ViewModels
 
         public SolidColorBrush Background { get; private set; }
 
-        public char IconText => DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
+        public char IconText => DisplayName != null ? DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x)) : 'X';
 
         string _displayName;
         public override string DisplayName => _displayName;

@@ -154,7 +154,7 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"                                    
                                 ToolTip="{Binding Stream.DisplayName}"
-                                Background="{Binding Background, Mode=OneTime}"
+                                Background="{Binding IconBackground, Mode=OneTime}"
                                 HorizontalAlignment="Center"
                                 Height="24"
                                 Width="24"
@@ -197,11 +197,8 @@
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
 
-
-
         <Slider Grid.Column="1"
                                 Value="{Binding Stream.Volume,Mode=TwoWay}"
-                                AutomationProperties.Name="{Binding Stream.DisplayName, Mode=OneTime}"
                                 Minimum="0"
                                 Maximum="100"
                                 VerticalContentAlignment="Center"

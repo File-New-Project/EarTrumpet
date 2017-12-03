@@ -114,6 +114,7 @@ namespace EarTrumpet.DataModel
                     if (m_defaultDevice == device)
                     {
                         m_defaultDevice = null;
+                        DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
                     }
                 }
             });

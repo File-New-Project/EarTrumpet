@@ -120,7 +120,8 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    Apps.AddSorted(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]), AppItemViewModelComparer.Instance);
+                    var newSession = new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]);
+                    Apps.AddSorted(newSession, AppItemViewModelComparer.Instance);
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.DataModel.Extensions;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -25,7 +26,7 @@ namespace EarTrumpet.DataModel
         {
             foreach (var item in _collection.Sessions)
             {
-                AddRemoveIfApplicable(item);
+                AddIfApplicable(item);
             }
         }
 
@@ -35,7 +36,8 @@ namespace EarTrumpet.DataModel
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    AddRemoveIfApplicable((IAudioDeviceSession)e.NewItems[0]);
+
+                    AddIfApplicable((IAudioDeviceSession)e.NewItems[0]);
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
@@ -56,28 +58,30 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        void AddRemoveIfApplicable(IAudioDeviceSession session)
+        void AddIfApplicable(IAudioDeviceSession session)
         {
-            if (Sessions.Contains(session)) return;
-
-            if (_applicabilityCheckCallback(session))
+            if (Sessions.ContainsById(session))
             {
-                Sessions.Add(session);
-                session.PropertyChanged += Session_PropertyChanged;
+                if (!_applicabilityCheckCallback(session))
+                {
+                    Sessions.RemoveById(session);
+                    session.PropertyChanged += Session_PropertyChanged;
+                }
             }
             else
             {
-                if (Sessions.Contains(session))
+                session.PropertyChanged += Session_PropertyChanged;
+
+                if (_applicabilityCheckCallback(session))
                 {
-                    Sessions.Remove(session);
-                    session.PropertyChanged += Session_PropertyChanged;
+                    Sessions.Add(session);
                 }
             }
         }
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            AddRemoveIfApplicable((IAudioDeviceSession)sender);
+            AddIfApplicable((IAudioDeviceSession)sender);
         }
     }
 }

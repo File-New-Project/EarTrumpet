@@ -7,13 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-
 namespace EarTrumpet
 {
     public partial class VolumeControlChannel : UserControl
     {
-
-
         public VolumeControlChannelViewModel Stream { get { return (VolumeControlChannelViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
         public static readonly DependencyProperty StreamProperty =
             DependencyProperty.Register("Stream", typeof(VolumeControlChannelViewModel), typeof(VolumeControlChannel), new PropertyMetadata(null));
@@ -37,6 +34,10 @@ namespace EarTrumpet
         public string IconText { get { return (string)GetValue(IconTextProperty); } set { SetValue(IconTextProperty, value); } }
         public static readonly DependencyProperty IconTextProperty =
             DependencyProperty.Register("IconText", typeof(string), typeof(VolumeControlChannel), new PropertyMetadata(""));
+
+        public Brush IconBackground { get { return (Brush)GetValue(IconBackgroundProperty); } set { SetValue(IconBackgroundProperty, value); } }
+        public static readonly DependencyProperty IconBackgroundProperty =
+            DependencyProperty.Register("IconBackground", typeof(Brush), typeof(VolumeControlChannel), new PropertyMetadata(null));
 
         public bool BeepOnPointerUp { get { return (bool)GetValue(BeepOnPointerUpProperty); } set { SetValue(BeepOnPointerUpProperty, value); } }
         public static readonly DependencyProperty BeepOnPointerUpProperty =

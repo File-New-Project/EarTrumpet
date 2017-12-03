@@ -23,19 +23,8 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" Visibility="{Binding DeviceVisibility}" />
-                        <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" Visibility="{Binding ListVisibility}" />
-                        <Grid x:Name="NoAppsPanel"
-                                Margin="0,8"
-                                Grid.Row="1" 
-                                Height="50"
-                                Visibility="{Binding NoAppsPaneVisibility}">
-                            <TextBlock Text="{Binding NoItemsContent}"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                                    TextWrapping="Wrap" />
-                        </Grid>
+                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" />
+                        <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" />
                     </Grid>
                 </ControlTemplate>
             </HeaderedItemsControl.Template>
@@ -51,7 +40,7 @@
                             IconText="&#xE767;"
                             IconTextSize="24"
                             IconTextFontFamily="Segoe MDL2 Assets"
-                            Background="{Binding Background}"
+                            IconBackground="Transparent"
                             BeepOnPointerUp="True"
                             Padding="0,4,0,4"
                         />
@@ -59,7 +48,7 @@
                 </DataTemplate>
             </HeaderedItemsControl.HeaderTemplate>
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
+                <DataTemplate DataType="viewModels:AppItemViewModel">
                     <local:VolumeControlChannel 
                         Stream="{Binding}"
                         IconHeight="24"
@@ -70,7 +59,7 @@
                         IconTextSize="16"
                         IconTextFontWeight="Bold"
                         IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                        Background="{Binding Background}"
+                        IconBackground="{Binding Background}"
                         />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
