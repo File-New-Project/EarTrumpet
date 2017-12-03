@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using EarTrumpet.Services;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace EarTrumpet
@@ -13,11 +14,22 @@ namespace EarTrumpet
         public static readonly DependencyProperty PeakValueProperty = DependencyProperty.Register(
           "PeakValue", typeof(float), typeof(AudioPeakMeter), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
 
+        public int Volume
+        {
+            get { return (int)this.GetValue(VolumeValueProperty); }
+            set { this.SetValue(VolumeValueProperty, value); }
+        }
+        public static readonly DependencyProperty VolumeValueProperty = DependencyProperty.Register(
+          "Volume", typeof(int), typeof(AudioPeakMeter), new PropertyMetadata(0, new PropertyChangedCallback(VolumeChanged)));
+
+
         public AudioPeakMeter()
         {
             InitializeComponent();
 
             peakBorder.Width = 0;
+
+            ThemeService.UpdateThemeResources(Resources);
         }
 
         private static void PeakValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -26,7 +38,12 @@ namespace EarTrumpet
         }
         private void PeakValueChanged()
         {
-            peakBorder.Width = mainGrid.ActualWidth * PeakValue;
+            peakBorder.Width = mainGrid.ActualWidth * PeakValue * (Volume/100f);
+        }
+
+        private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((AudioPeakMeter)d).PeakValueChanged();
         }
     }
 }

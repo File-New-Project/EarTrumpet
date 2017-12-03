@@ -197,9 +197,7 @@
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
 
-        <local:AudioPeakMeter 
-                            Grid.Column="1"
-                            PeakValue="{Binding Stream.PeakValue}" />
+
 
         <Slider Grid.Column="1"
                                 Value="{Binding Stream.Volume,Mode=TwoWay}"
@@ -223,6 +221,14 @@
                                 MouseWheel="Slider_MouseWheel"
                                 MouseMove="Slider_MouseMove"
                                 Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}" />
+
+        <local:AudioPeakMeter 
+            Grid.Column="1"
+            Margin="12,0,20,0"
+            IsHitTestVisible="False"
+            PeakValue="{Binding Stream.PeakValue}"
+            Volume="{Binding Stream.Volume}" />
+        
         <TextBlock Grid.Column="2"
                                     Text="{Binding Stream.Volume, Mode=OneWay}"
                                     FontSize="{Binding VolumeTextFontSize}"

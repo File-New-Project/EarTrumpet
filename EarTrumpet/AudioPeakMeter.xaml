@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:EarTrumpet"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="PeakMeterHotColor"
+                         Color="Red" />
+    </UserControl.Resources>
     <Grid Name="mainGrid">
-        <Border Margin="12,0,0,0" HorizontalAlignment="Left" Height="4" Name="peakBorder" Background="LawnGreen" />
+        <Border HorizontalAlignment="Left" Height="2" Name="peakBorder" Background="{DynamicResource PeakMeterHotColor}" />
     </Grid>
 </UserControl>

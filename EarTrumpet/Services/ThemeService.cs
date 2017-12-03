@@ -20,6 +20,7 @@ namespace EarTrumpet.Services
             ReplaceBrush(dictionary, "CottonSwabSliderTrackFill", "ImmersiveSystemAccentLight1");
             SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");
             SetBrush(dictionary, "CottonSwabSliderThumbPressed", "ImmersiveControlDarkSliderThumbHover");
+            SetBrush(dictionary, "PeakMeterHotColor", "ImmersiveSystemAccentDark3");
         }
 
         private static Color GetWindowBackgroundColor()
