@@ -21,7 +21,7 @@ namespace EarTrumpet.ViewModels
 
         public SolidColorBrush Background { get; private set; }
 
-        public char IconText => DisplayName != null ? DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x)) : 'X';
+        public char IconText =>DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
         string _displayName;
         public override string DisplayName => _displayName;
@@ -31,6 +31,7 @@ namespace EarTrumpet.ViewModels
             _session = session;
 
             ExeName = session.DisplayName;
+            _displayName = ExeName;
 
             if (session.DisplayName.ToLowerInvariant() == "speechruntime.exe")
             {
