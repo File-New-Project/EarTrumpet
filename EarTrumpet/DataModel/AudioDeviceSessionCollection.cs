@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
-    public class AudioDeviceSessionCollection : IAudioSessionNotification
+    public class AudioDeviceSessionCollection : IAudioSessionNotification, IAudioDeviceSessionCollection
     {
         Dispatcher m_dispatcher;
         ObservableCollection<IAudioDeviceSession> m_sessions = new ObservableCollection<IAudioDeviceSession>();
@@ -45,11 +45,6 @@ namespace EarTrumpet.DataModel
 
         void AddSession(IAudioDeviceSession session)
         {
-            if (session.State == _AudioSessionState.AudioSessionStateExpired || session.IsHidden)
-            {
-                return;
-            }
-
             foreach(AudioDeviceSessionContainer container in m_sessions)
             {
                 if (container.GroupingParam == session.GroupingParam)
@@ -88,17 +83,7 @@ namespace EarTrumpet.DataModel
         {
             var session = (AudioDeviceSession)sender;
 
-            if (e.PropertyName == "State")
-            {
-                if (session.State == _AudioSessionState.AudioSessionStateExpired)
-                {
-                    if (m_sessions.Contains(session))
-                    {
-                        RemoveSession(session);
-                    }
-                }
-            }
-            else if (e.PropertyName == "GroupingParam")
+            if (e.PropertyName == "GroupingParam")
             {
                 RemoveSession(session);
                 AddSession(session);

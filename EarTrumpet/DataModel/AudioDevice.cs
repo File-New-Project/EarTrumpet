@@ -80,7 +80,7 @@ namespace EarTrumpet.DataModel
 
         public string Id => m_id;
 
-        public AudioDeviceSessionCollection Sessions => m_sessions;
+        public IAudioDeviceSessionCollection Sessions => m_sessions;
 
         public string DisplayName
         {

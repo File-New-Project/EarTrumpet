@@ -67,7 +67,7 @@ namespace EarTrumpet.DataModel
 
         public bool IsMuted { get => m_device != null ? m_device.IsMuted : false; set => m_device.IsMuted = value; }
 
-        public AudioDeviceSessionCollection Sessions => m_device != null ? m_device.Sessions : null;
+        public IAudioDeviceSessionCollection Sessions => m_device != null ? m_device.Sessions : null;
 
         public float Volume { get => m_device != null ? m_device.Volume : 0; set => m_device.Volume = value; }
 

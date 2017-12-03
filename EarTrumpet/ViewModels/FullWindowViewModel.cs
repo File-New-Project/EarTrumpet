@@ -30,13 +30,50 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        bool _isShowingHiddenChannels = false;
+        public bool IsShowingHiddenChannels
+        {
+            get => _isShowingHiddenChannels;
+            set
+            {
+                _isShowingHiddenChannels = value;
+                RaisePropertyChanged(nameof(IsShowingHiddenChannels));
+                UpdateAllDeviceSettings();
+            }
+        }
+
+        bool _isShowingExpiredChannels = false;
+        public bool IsShowingExpiredChannels
+        {
+            get => _isShowingExpiredChannels;
+            set
+            {
+                _isShowingExpiredChannels = value;
+                RaisePropertyChanged(nameof(IsShowingExpiredChannels));
+                UpdateAllDeviceSettings();
+            }
+        }
+
+        bool _isShowingInactiveChannels = false;
+        public bool IsShowingInactiveChannels
+        {
+            get => _isShowingInactiveChannels;
+            set
+            {
+                _isShowingInactiveChannels = value;
+                RaisePropertyChanged(nameof(IsShowingInactiveChannels));
+                UpdateAllDeviceSettings();
+            }
+        }
+
         AudioDeviceManager _manager;
         Timer _peakMeterTimer;
 
         public FullWindowViewModel(AudioDeviceManager manager)
         {
             // TODO configuration store
-            ShowEmptyDevices = false;
+            _showEmptyDevices = false;
+            _isShowingInactiveChannels = true;
 
             _manager = manager;
             Devices = new ObservableCollection<DeviceViewModel>();
@@ -70,7 +107,22 @@ namespace EarTrumpet.ViewModels
                 if (device.Sessions.Sessions.Count == 1) return; // System sounds session
             }
 
-            Devices.AddSorted(new DeviceViewModel(device), DeviceViewModelComparer.Instance);
+            var newDevice = new DeviceViewModel(device);
+            Devices.AddSorted(newDevice, DeviceViewModelComparer.Instance);
+
+            UpdateDeviceSettings(newDevice);
+        }
+
+        void UpdateAllDeviceSettings()
+        {
+            foreach (var device in Devices) UpdateDeviceSettings(device);
+        }
+
+        void UpdateDeviceSettings(DeviceViewModel device)
+        {
+            device.IsShowingExpiredChannels = IsShowingExpiredChannels;
+            device.IsShowingHiddenChannels = IsShowingHiddenChannels;
+            device.IsShowingInactiveChannels = IsShowingInactiveChannels;
         }
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

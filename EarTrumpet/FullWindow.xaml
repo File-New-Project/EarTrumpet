@@ -22,9 +22,11 @@
             <MenuItem Header="_Options">
                 <MenuItem Header="Show Empty Devices" Foreground="Black" IsChecked="{Binding ShowEmptyDevices, Mode=TwoWay}" Click="ToggleMenuItem_Click"/>
                 <Separator />
+                <MenuItem Header="Show Hidden Channels" Foreground="Black" IsChecked="{Binding IsShowingHiddenChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
+                <MenuItem Header="Show Inactive Channels" Foreground="Black" IsChecked="{Binding IsShowingInactiveChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
+                <MenuItem Header="Show Expired Channels" Foreground="Black" IsChecked="{Binding IsShowingExpiredChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
+
                 <!-- some ideas ... -->
-                <MenuItem IsEnabled="False" Header="Show Hidden Channels"/>
-                <MenuItem IsEnabled="False" Header="Show Expired Channels"/>
                 <MenuItem IsEnabled="False" Header="Ungroup Channels"/>
             </MenuItem>
         </Menu>

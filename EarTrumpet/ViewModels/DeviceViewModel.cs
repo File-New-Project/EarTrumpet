@@ -7,23 +7,96 @@ using System.Linq;
 
 namespace EarTrumpet.ViewModels
 {
-    public class DeviceViewModel
+    public class DeviceViewModel : BindableBase
     {
         public VolumeControlChannelViewModel Device { get; private set; }
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
+        bool _isShowingHiddenChannels = false;
+        public bool IsShowingHiddenChannels
+        {
+            get => _isShowingHiddenChannels;
+            set
+            {
+                _isShowingHiddenChannels = value;
+                RaisePropertyChanged(nameof(IsShowingHiddenChannels));
+                UpdateFilterAndEnumerateAppSessions();
+            }
+        }
+
+        bool _isShowingExpiredChannels = false;
+        public bool IsShowingExpiredChannels
+        {
+            get => _isShowingExpiredChannels;
+            set
+            {
+                _isShowingExpiredChannels = value;
+                RaisePropertyChanged(nameof(IsShowingExpiredChannels));
+                UpdateFilterAndEnumerateAppSessions();
+            }
+        }
+
+        bool _isShowingInactiveChannels = false;
+        public bool IsShowingInactiveChannels
+        {
+            get => _isShowingInactiveChannels;
+            set
+            {
+                _isShowingInactiveChannels = value;
+                RaisePropertyChanged(nameof(IsShowingInactiveChannels));
+                UpdateFilterAndEnumerateAppSessions();
+            }
+        }
+
         IAudioDevice _device;
+        FilteredAudioDeviceSessionCollection _sessions;
 
         public DeviceViewModel(IAudioDevice device)
         {
             _device = device;
+            _device.PropertyChanged += Device_PropertyChanged;
+
             Device = new VolumeControlChannelViewModel(device);
             Apps = new ObservableCollection<AppItemViewModel>();
 
-            PopulateAppSessions();
+            UpdateFilterAndEnumerateAppSessions();
+        }
 
+        void UpdateFilterAndEnumerateAppSessions()
+        {
+            if (_sessions != null)
+            {
+                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+            }
+
+            _sessions = new FilteredAudioDeviceSessionCollection(_device.Sessions, IsApplicableCheck);
             _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
-            _device.PropertyChanged += Device_PropertyChanged;
+
+            Apps.Clear();
+            foreach (var session in _sessions.Sessions)
+            {
+                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
+            }
+        }
+
+        bool IsApplicableCheck(IAudioDeviceSession session)
+        {
+            if (session.State == SoundControlAPI_Interop._AudioSessionState.AudioSessionStateExpired)
+            {
+                if (!IsShowingExpiredChannels) return false;
+            }
+
+            if (session.IsHidden)
+            {
+                if (!IsShowingHiddenChannels) return false;
+            }
+
+            if (session.State == SoundControlAPI_Interop._AudioSessionState.AudioSessionStateInactive)
+            {
+                if (!IsShowingInactiveChannels) return false;
+            }
+
+            return true;
         }
 
         public void TriggerPeakCheck()
@@ -37,16 +110,7 @@ namespace EarTrumpet.ViewModels
         {
             if (e.PropertyName == "Sessions")
             {
-                _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
-                Sessions_CollectionChanged(this, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
-            }
-        }
-
-        private void PopulateAppSessions()
-        {
-            foreach (var session in _device.Sessions.Sessions)
-            {
-                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
+                UpdateFilterAndEnumerateAppSessions();
             }
         }
 
@@ -65,8 +129,7 @@ namespace EarTrumpet.ViewModels
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
-                    Apps.Clear();
-                    PopulateAppSessions();
+                    UpdateFilterAndEnumerateAppSessions();
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
