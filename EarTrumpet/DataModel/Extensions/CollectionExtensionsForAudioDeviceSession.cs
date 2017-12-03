@@ -7,12 +7,12 @@ namespace EarTrumpet.DataModel.Extensions
     {
         public static bool ContainsById(this Collection<IAudioDeviceSession> collection, IAudioDeviceSession session)
         {
-            return collection.Any(c => c.Id == session.Id);
+            return collection.Any(c => c.GroupingParam == session.GroupingParam);
         }
 
         public static void RemoveById(this Collection<IAudioDeviceSession> collection, IAudioDeviceSession session)
         {
-            var ret = collection.First(c => c.Id == session.Id);
+            var ret = collection.First(c => c.GroupingParam == session.GroupingParam);
             collection.Remove(ret);
         }
     }

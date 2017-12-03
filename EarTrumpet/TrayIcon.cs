@@ -3,8 +3,10 @@ using EarTrumpet.Extensions;
 using EarTrumpet.ViewModels;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows;
 
 namespace EarTrumpet
@@ -44,6 +46,9 @@ namespace EarTrumpet
 
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
+            var diagnosticsItem = _trayIcon.ContextMenu.MenuItems.Add("Troubleshoot EarTrumpet...");
+            diagnosticsItem.Click += DiagnosticsItem_Click;
+
             var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
             feedbackItem.Click += Feedback_Click;
 
@@ -61,6 +66,57 @@ namespace EarTrumpet
             UpdateToolTip();
 
             _trayIcon.Visible = true;
+        }
+
+        string DumpSession(IAudioDeviceSession session)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Display Name: {session.DisplayName}");
+            sb.AppendLine($"Id: {session.Id}");
+            sb.AppendLine($"GroupingParam: {session.GroupingParam}");
+            sb.AppendLine($"IconPath: {session.IconPath}");
+            sb.AppendLine($"IsDesktopApp: {session.IsDesktopApp}");
+            sb.AppendLine($"IsHidden: {session.IsHidden}");
+            sb.AppendLine($"IsSystemSoundsSession: {session.IsSystemSoundsSession}");
+            sb.AppendLine($"ProcessId: {session.ProcessId}");
+            sb.AppendLine($"Volume: {session.Volume}");
+            sb.AppendLine($"IsMute: {session.IsMuted}");
+
+            return sb.ToString();
+        }
+
+        string DumpDevice(IAudioDevice device)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Display Name: {device.DisplayName}");
+            sb.AppendLine($"Id: {device.Id}");
+            sb.AppendLine($"Volume: {device.Volume}");
+            sb.AppendLine($"IsMuted: {device.IsMuted}");
+            sb.AppendLine("---------------");
+            foreach(var session in device.Sessions.Sessions)
+            {
+                sb.AppendLine(DumpSession(session));
+            }
+            return sb.ToString();
+        }
+
+        string DumpDevices()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Default Device: {_deviceService.DefaultDevice.DisplayName} {_deviceService.DefaultDevice.Id}");
+            sb.AppendLine("-------------");
+            foreach(var device in _deviceService.Devices)
+            {
+                sb.AppendLine(DumpDevice(device));
+            }
+            return sb.ToString();
+        }
+
+        private void DiagnosticsItem_Click(object sender, EventArgs e)
+        {
+            var fileName = Path.GetTempFileName();
+            File.WriteAllText(fileName, DumpDevices());
+            Process.Start("notepad", fileName);
         }
 
         private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
