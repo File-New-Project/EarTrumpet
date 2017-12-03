@@ -20,9 +20,9 @@ namespace EarTrumpet
     public partial class FullWindow : Window
     {
         FullWindowViewModel _viewModel;
-        AudioDeviceManager _manager;
+        IAudioDeviceManager _manager;
 
-        public FullWindow(AudioDeviceManager manager)
+        public FullWindow(IAudioDeviceManager manager)
         {
             _manager = manager;
             InitializeComponent();

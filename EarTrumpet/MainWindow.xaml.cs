@@ -11,7 +11,7 @@ namespace EarTrumpet
 {
     public partial class MainWindow
     {
-        private readonly AudioDeviceManager _deviceService;
+        private readonly IAudioDeviceManager _deviceService;
         private readonly MainViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;

@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using SoundControlAPI_Interop;
+﻿using SoundControlAPI_Interop;
+using System;
 
 namespace EarTrumpet.DataModel
 {

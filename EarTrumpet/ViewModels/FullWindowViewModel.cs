@@ -66,10 +66,10 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        AudioDeviceManager _manager;
+        IAudioDeviceManager _manager;
         Timer _peakMeterTimer;
 
-        public FullWindowViewModel(AudioDeviceManager manager)
+        public FullWindowViewModel(IAudioDeviceManager manager)
         {
             // TODO configuration store
             _showEmptyDevices = false;

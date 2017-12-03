@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using MMDeviceAPI_Interop;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,14 +8,14 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
-    public class AudioDeviceManager : IMMNotificationClient
+    public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
         public event EventHandler<IAudioDevice> DefaultDeviceChanged;
 
         MMDeviceEnumerator m_enumerator;
         IAudioDevice m_defaultDevice;
         ObservableCollection<IAudioDevice> m_devices = new ObservableCollection<IAudioDevice>();
-        VirtualDefaultAudioDevice m_virtualDefaultDevice;
+        IVirtualDefaultAudioDevice m_virtualDefaultDevice;
         Dispatcher m_dispatcher;
 
         public AudioDeviceManager(Dispatcher dispatcher)
@@ -59,7 +58,7 @@ namespace EarTrumpet.DataModel
             m_virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }
 
-        public VirtualDefaultAudioDevice VirtualDefaultDevice => m_virtualDefaultDevice;
+        public IVirtualDefaultAudioDevice VirtualDefaultDevice => m_virtualDefaultDevice;
 
         public IAudioDevice DefaultDevice
         {

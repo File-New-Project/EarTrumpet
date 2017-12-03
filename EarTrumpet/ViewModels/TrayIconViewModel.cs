@@ -26,7 +26,7 @@ namespace EarTrumpet.ViewModels
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private Icon _trayIcon;
-        private readonly AudioDeviceManager _deviceService;
+        private readonly IAudioDeviceManager _deviceService;
         private AppServiceConnection _appServiceConnection;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.OriginalIcon;
@@ -47,7 +47,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public TrayViewModel(AudioDeviceManager deviceService)
+        public TrayViewModel(IAudioDeviceManager deviceService)
         {
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
             _icons.Add(IconId.OriginalIcon, originalIcon);

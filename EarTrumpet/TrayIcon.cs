@@ -17,10 +17,10 @@ namespace EarTrumpet
 
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
-        private AudioDeviceManager _deviceService;
+        private IAudioDeviceManager _deviceService;
         private KeyboardHook _hotkey;
 
-        public TrayIcon(AudioDeviceManager deviceService, TrayViewModel trayViewModel)
+        public TrayIcon(IAudioDeviceManager deviceService, TrayViewModel trayViewModel)
         {
             _deviceService = deviceService;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;

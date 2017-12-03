@@ -35,10 +35,10 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        private readonly AudioDeviceManager _deviceService;
+        private readonly IAudioDeviceManager _deviceService;
         Timer _peakMeterTimer;
 
-        public MainViewModel(AudioDeviceManager deviceService)
+        public MainViewModel(IAudioDeviceManager deviceService)
         {
             _deviceService = deviceService;
             DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
