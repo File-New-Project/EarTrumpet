@@ -70,7 +70,7 @@ namespace EarTrumpet.ViewModels
             }
 
             _sessions = new FilteredAudioDeviceSessionCollection(_device.Sessions, IsApplicableCheck);
-            _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+            _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
 
             Apps.Clear();
             foreach (var session in _sessions.Sessions)
