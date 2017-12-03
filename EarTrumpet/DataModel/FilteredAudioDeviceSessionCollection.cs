@@ -81,7 +81,10 @@ namespace EarTrumpet.DataModel
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            AddIfApplicable((IAudioDeviceSession)sender);
+            if (e.PropertyName == "State")
+            {
+                AddIfApplicable((IAudioDeviceSession)sender);
+            }
         }
     }
 }
