@@ -55,7 +55,21 @@ namespace EarTrumpet.DataModel
                 }
             }
 
-            m_sessions.Add(new AudioDeviceSessionContainer(session));
+            var newSession = new AudioDeviceSessionContainer(session);
+
+            // If there is a session in the same process, inherit.
+            // (Avoids a minesweeper ad playing at max volume when app should be muted)
+            foreach (AudioDeviceSessionContainer container in m_sessions)
+            {
+                if (container.ProcessId == newSession.ProcessId)
+                {
+                    newSession.Volume = container.Volume;
+                    newSession.IsMuted = container.IsMuted;
+                    break;
+                }
+            }
+
+            m_sessions.Add(newSession);
         }
 
         void RemoveSession(IAudioDeviceSession session)
