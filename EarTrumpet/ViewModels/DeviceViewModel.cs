@@ -25,30 +25,6 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        bool _isShowingExpiredChannels = false;
-        public bool IsShowingExpiredChannels
-        {
-            get => _isShowingExpiredChannels;
-            set
-            {
-                _isShowingExpiredChannels = value;
-                RaisePropertyChanged(nameof(IsShowingExpiredChannels));
-                UpdateFilterAndEnumerateAppSessions();
-            }
-        }
-
-        bool _isShowingInactiveChannels = false;
-        public bool IsShowingInactiveChannels
-        {
-            get => _isShowingInactiveChannels;
-            set
-            {
-                _isShowingInactiveChannels = value;
-                RaisePropertyChanged(nameof(IsShowingInactiveChannels));
-                UpdateFilterAndEnumerateAppSessions();
-            }
-        }
-
         IAudioDevice _device;
         FilteredAudioDeviceSessionCollection _sessions;
 
@@ -86,17 +62,12 @@ namespace EarTrumpet.ViewModels
         {
             if (session.State == _AudioSessionState.AudioSessionStateExpired)
             {
-                if (!IsShowingExpiredChannels) return false;
+                return false;
             }
 
             if (session.IsHidden)
             {
                 if (!IsShowingHiddenChannels) return false;
-            }
-
-            if (session.State == _AudioSessionState.AudioSessionStateInactive)
-            {
-                if (!IsShowingInactiveChannels) return false;
             }
 
             return true;

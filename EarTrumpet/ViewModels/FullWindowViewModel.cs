@@ -42,30 +42,6 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        bool _isShowingExpiredChannels = false;
-        public bool IsShowingExpiredChannels
-        {
-            get => _isShowingExpiredChannels;
-            set
-            {
-                _isShowingExpiredChannels = value;
-                RaisePropertyChanged(nameof(IsShowingExpiredChannels));
-                UpdateAllDeviceSettings();
-            }
-        }
-
-        bool _isShowingInactiveChannels = false;
-        public bool IsShowingInactiveChannels
-        {
-            get => _isShowingInactiveChannels;
-            set
-            {
-                _isShowingInactiveChannels = value;
-                RaisePropertyChanged(nameof(IsShowingInactiveChannels));
-                UpdateAllDeviceSettings();
-            }
-        }
-
         IAudioDeviceManager _manager;
         Timer _peakMeterTimer;
 
@@ -73,7 +49,6 @@ namespace EarTrumpet.ViewModels
         {
             // TODO configuration store
             _showEmptyDevices = false;
-            _isShowingInactiveChannels = true;
 
             _manager = manager;
             Devices = new ObservableCollection<DeviceViewModel>();
@@ -120,9 +95,7 @@ namespace EarTrumpet.ViewModels
 
         void UpdateDeviceSettings(DeviceViewModel device)
         {
-            device.IsShowingExpiredChannels = IsShowingExpiredChannels;
             device.IsShowingHiddenChannels = IsShowingHiddenChannels;
-            device.IsShowingInactiveChannels = IsShowingInactiveChannels;
         }
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

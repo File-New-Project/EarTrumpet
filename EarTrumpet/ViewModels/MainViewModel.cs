@@ -42,7 +42,6 @@ namespace EarTrumpet.ViewModels
         {
             _deviceService = deviceService;
             DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
-            DefaultDevice.IsShowingInactiveChannels = true;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
             UpdateInterfaceState();
