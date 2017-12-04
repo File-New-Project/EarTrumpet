@@ -65,14 +65,14 @@ namespace EarTrumpet.DataModel
 
             var newSession = new AudioDeviceSessionContainer(session);
 
-            // If there is a session in the same process, inherit.
+            // If there is a session in the same process, inherit safely.
             // (Avoids a minesweeper ad playing at max volume when app should be muted)
             foreach (AudioDeviceSessionContainer container in m_sessions)
             {
                 if (container.ProcessId == newSession.ProcessId)
                 {
-                    newSession.Volume = container.Volume;
-                    newSession.IsMuted = container.IsMuted;
+                    newSession.IsMuted = newSession.IsMuted || container.IsMuted;
+                    newSession.Volume = Math.Min(newSession.Volume, container.Volume);
                     break;
                 }
             }

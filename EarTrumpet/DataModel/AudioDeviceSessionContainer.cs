@@ -39,9 +39,9 @@ namespace EarTrumpet.DataModel
 
             session.PropertyChanged += Session_PropertyChanged;
 
-            // Inherit properties from existing streams
-            session.IsMuted = _sessions[0].IsMuted;
-            session.Volume = _sessions[0].Volume;
+            // Inherit properties (safely) from existing streams
+            session.IsMuted = _sessions[0].IsMuted || session.IsMuted;
+            session.Volume = Math.Min(_sessions[0].Volume, session.Volume);
         }
 
         public void RemoveSession(IAudioDeviceSession session)
