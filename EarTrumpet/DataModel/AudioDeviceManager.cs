@@ -23,20 +23,20 @@ namespace EarTrumpet.DataModel
 
         public event EventHandler<IAudioDevice> DefaultDeviceChanged;
 
-        MMDeviceEnumerator m_enumerator;
-        IAudioDevice m_defaultDevice;
-        ObservableCollection<IAudioDevice> m_devices = new ObservableCollection<IAudioDevice>();
-        IVirtualDefaultAudioDevice m_virtualDefaultDevice;
-        Dispatcher m_dispatcher;
+        MMDeviceEnumerator _enumerator;
+        IAudioDevice _defaultDevice;
+        ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
+        IVirtualDefaultAudioDevice _virtualDefaultDevice;
+        Dispatcher _dispatcher;
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
-            m_dispatcher = dispatcher;
-            m_enumerator = new MMDeviceEnumerator();
-            m_enumerator.RegisterEndpointNotificationCallback(this);
+            _dispatcher = dispatcher;
+            _enumerator = new MMDeviceEnumerator();
+            _enumerator.RegisterEndpointNotificationCallback(this);
 
             IMMDeviceCollection devices;
-            m_enumerator.EnumAudioEndpoints(EDataFlow.eRender, (uint)ERole.eMultimedia, out devices);
+            _enumerator.EnumAudioEndpoints(EDataFlow.eRender, (uint)ERole.eMultimedia, out devices);
 
             uint deviceCount;
             devices.GetCount(out deviceCount);
@@ -51,7 +51,7 @@ namespace EarTrumpet.DataModel
             // Trigger default logic to register for volume change
             SetDefaultDevice();
 
-            m_virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
+            _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }
 
         void SetDefaultDevice()
@@ -59,7 +59,7 @@ namespace EarTrumpet.DataModel
             IMMDevice device = null;
             try
             {
-                m_enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
+                _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
             }
             catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
             {
@@ -73,73 +73,73 @@ namespace EarTrumpet.DataModel
                 newDeviceId = device.GetId();
             }
 
-            var currentDeviceId = m_defaultDevice != null ? m_defaultDevice.Id : null;
+            var currentDeviceId = _defaultDevice != null ? _defaultDevice.Id : null;
 
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null) m_defaultDevice = null;
-                else m_defaultDevice = FindDevice(newDeviceId);
+                if (newDeviceId == null) _defaultDevice = null;
+                else _defaultDevice = FindDevice(newDeviceId);
 
-                DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
+                DefaultDeviceChanged?.Invoke(this, _defaultDevice);
             }
         }
 
-        public IVirtualDefaultAudioDevice VirtualDefaultDevice => m_virtualDefaultDevice;
+        public IVirtualDefaultAudioDevice VirtualDefaultDevice => _virtualDefaultDevice;
 
         public IAudioDevice DefaultDevice
         {
-            get => m_defaultDevice;
+            get => _defaultDevice;
             set
             {
-                if (m_defaultDevice == null ||
-                    value.Id != m_defaultDevice.Id)
+                if (_defaultDevice == null ||
+                    value.Id != _defaultDevice.Id)
                 {
                     DefaultEndPoint.SetDefaultDevice(value);
                 }
             }
         }
 
-        public ObservableCollection<IAudioDevice> Devices => m_devices;
+        public ObservableCollection<IAudioDevice> Devices => _devices;
 
         bool HasDevice(string deviceId)
         {
-            return m_devices.Any(d => d.Id == deviceId);
+            return _devices.Any(d => d.Id == deviceId);
         }
 
         IAudioDevice FindDevice(string deviceId)
         {
-            return m_devices.First(d => d.Id == deviceId);
+            return _devices.First(d => d.Id == deviceId);
         }
 
         void IMMNotificationClient.OnDeviceAdded(string pwstrDeviceId)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 if (!HasDevice(pwstrDeviceId))
                 {
                     IMMDevice device;
-                    m_enumerator.GetDevice(pwstrDeviceId, out device);
+                    _enumerator.GetDevice(pwstrDeviceId, out device);
 
-                    m_devices.Add(new SafeAudioDevice(new AudioDevice(device, m_dispatcher)));
+                    _devices.Add(new SafeAudioDevice(new AudioDevice(device, _dispatcher)));
                 }
             });
         }
 
         void IMMNotificationClient.OnDeviceRemoved(string pwstrDeviceId)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 if (HasDevice(pwstrDeviceId))
                 {
                     var device = FindDevice(pwstrDeviceId);
-                    m_devices.Remove(device);
+                    _devices.Remove(device);
                 }
             });
         }
 
         void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, string pwstrDefaultDeviceId)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 SetDefaultDevice();
             });

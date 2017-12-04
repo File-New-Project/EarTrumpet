@@ -10,12 +10,12 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceSessionCollection : IAudioSessionNotification, IAudioDeviceSessionCollection
     {
-        Dispatcher m_dispatcher;
-        ObservableCollection<IAudioDeviceSession> m_sessions = new ObservableCollection<IAudioDeviceSession>();
+        Dispatcher _dispatcher;
+        ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
 
         public AudioDeviceSessionCollection(IMMDevice device, Dispatcher dispatcher)
         {
-            m_dispatcher = dispatcher;
+            _dispatcher = dispatcher;
 
             var sessionManager = device.Activate<IAudioSessionManager2>();
             sessionManager.RegisterSessionNotification(this);
@@ -28,23 +28,23 @@ namespace EarTrumpet.DataModel
             {
                 IAudioSessionControl session;
                 enumerator.GetSession(i, out session);
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, m_dispatcher)));
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _dispatcher)));
             }
         }
 
-        public ObservableCollection<IAudioDeviceSession> Sessions => m_sessions;
+        public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
 
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, m_dispatcher)));
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _dispatcher)));
             });
         }
 
         void AddSession(IAudioDeviceSession session)
         {
-            foreach(AudioDeviceSessionContainer container in m_sessions)
+            foreach(AudioDeviceSessionContainer container in _sessions)
             {
                 if (container.GroupingParam == session.GroupingParam)
                 {
@@ -58,7 +58,7 @@ namespace EarTrumpet.DataModel
 
             // If there is a session in the same process, inherit safely.
             // (Avoids a minesweeper ad playing at max volume when app should be muted)
-            foreach (AudioDeviceSessionContainer container in m_sessions)
+            foreach (AudioDeviceSessionContainer container in _sessions)
             {
                 if (container.ProcessId == newSession.ProcessId)
                 {
@@ -68,12 +68,12 @@ namespace EarTrumpet.DataModel
                 }
             }
 
-            m_sessions.Add(newSession);
+            _sessions.Add(newSession);
         }
 
         void RemoveSession(IAudioDeviceSession session)
         {
-            foreach (AudioDeviceSessionContainer container in m_sessions)
+            foreach (AudioDeviceSessionContainer container in _sessions)
             {
                 if (container.Sessions.Contains(session))
                 {
@@ -83,7 +83,7 @@ namespace EarTrumpet.DataModel
                     // Delete the now-empty container.
                     if (!container.Sessions.Any())
                     {
-                        m_sessions.Remove(container);
+                        _sessions.Remove(container);
                     }
 
                     return;

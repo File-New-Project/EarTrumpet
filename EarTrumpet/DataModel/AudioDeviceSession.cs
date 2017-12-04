@@ -21,47 +21,47 @@ namespace EarTrumpet.DataModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        IAudioSessionControl m_session;
-        ISimpleAudioVolume m_simpleVolume;
-        IAudioMeterInformation m_meter;
-        Dispatcher m_dispatcher;
-        string m_processDisplayName;
-        string m_processIconPath;
-        bool m_isDesktopApp;
-        uint m_backgroundColor;
-        bool m_isHidden;
+        IAudioSessionControl _session;
+        ISimpleAudioVolume _simpleVolume;
+        IAudioMeterInformation _meter;
+        Dispatcher _dispatcher;
+        string _processDisplayName;
+        string _processIconPath;
+        bool _isDesktopApp;
+        uint _backgroundColor;
+        bool _isHidden;
 
         public AudioDeviceSession(IAudioSessionControl session, Dispatcher dispatcher)
         {
-            m_dispatcher = dispatcher;
-            m_session = session;
-            m_isHidden = m_session.IsHidden();
-            m_meter = (IAudioMeterInformation)m_session;
-            m_simpleVolume = (ISimpleAudioVolume)session;
+            _dispatcher = dispatcher;
+            _session = session;
+            _isHidden = _session.IsHidden();
+            _meter = (IAudioMeterInformation)_session;
+            _simpleVolume = (ISimpleAudioVolume)session;
 
-            m_session.RegisterAudioSessionNotification(this);
+            _session.RegisterAudioSessionNotification(this);
 
-            Interop.GetProcessProperties(ProcessId, out m_processDisplayName, out m_processIconPath, ref m_isDesktopApp, ref m_backgroundColor);
+            Interop.GetProcessProperties(ProcessId, out _processDisplayName, out _processIconPath, ref _isDesktopApp, ref _backgroundColor);
 
             if (IsSystemSoundsSession)
             {
-                m_isDesktopApp = true;
+                _isDesktopApp = true;
             }
 
-            if (m_processDisplayName == null) m_processDisplayName = "";
+            if (_processDisplayName == null) _processDisplayName = "";
         }
 
         public float Volume
         {
             get
             {
-                m_simpleVolume.GetMasterVolume(out float level);
+                _simpleVolume.GetMasterVolume(out float level);
                 return level;
             }
             set
             {
                 Guid dummy = Guid.Empty;
-                m_simpleVolume.SetMasterVolume(value, ref dummy);
+                _simpleVolume.SetMasterVolume(value, ref dummy);
             }
         }
 
@@ -69,19 +69,19 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_simpleVolume.GetMute(out int muted);
+                _simpleVolume.GetMute(out int muted);
                 return muted != 0;
             }
             set
             {
                 Guid dummy = Guid.Empty;
-                m_simpleVolume.SetMute(value ? 1 : 0, ref dummy);
+                _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
             }
         }
 
-        public bool IsHidden => m_isHidden;
+        public bool IsHidden => _isHidden;
 
-        public string DisplayName => m_processDisplayName;
+        public string DisplayName => _processDisplayName;
 
         public string IconPath
         {
@@ -94,7 +94,7 @@ namespace EarTrumpet.DataModel
                 }
                 else
                 {
-                    return m_processIconPath;
+                    return _processIconPath;
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_session.GetGroupingParam(out Guid ret);
+                _session.GetGroupingParam(out Guid ret);
                 return ret;
             }
         }
@@ -112,20 +112,20 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_meter.GetPeakValue(out float ret);
+                _meter.GetPeakValue(out float ret);
                 return ret;
             }
         }
 
-        public uint BackgroundColor => m_backgroundColor;
+        public uint BackgroundColor => _backgroundColor;
 
-        public bool IsDesktopApp => m_isDesktopApp;
+        public bool IsDesktopApp => _isDesktopApp;
 
         public _AudioSessionState State
         {
             get
             {
-                m_session.GetState(out _AudioSessionState ret);
+                _session.GetState(out _AudioSessionState ret);
                 return ret;
             }
         }
@@ -134,7 +134,7 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                ((IAudioSessionControl2)m_session).GetProcessId(out uint ret);
+                ((IAudioSessionControl2)_session).GetProcessId(out uint ret);
                 return (int)ret;
             }
         }
@@ -143,16 +143,16 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                ((IAudioSessionControl2)m_session).GetSessionInstanceIdentifier(out string ret);
+                ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out string ret);
                 return ret;
             }
         }
 
-        public bool IsSystemSoundsSession => ((IAudioSessionControl2)m_session).GetIsSystemSoundsSession();
+        public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).GetIsSystemSoundsSession();
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
@@ -161,7 +161,7 @@ namespace EarTrumpet.DataModel
 
         void IAudioSessionEvents.OnGroupingParamChanged(ref Guid NewGroupingParam, ref Guid EventContext)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingParam"));
             });
@@ -169,7 +169,7 @@ namespace EarTrumpet.DataModel
 
         void IAudioSessionEvents.OnStateChanged(_AudioSessionState NewState)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));
             });

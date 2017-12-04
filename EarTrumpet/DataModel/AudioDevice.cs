@@ -13,28 +13,28 @@ namespace EarTrumpet.DataModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        IMMDevice m_device;
-        Dispatcher m_dispatcher;
-        IAudioEndpointVolume m_deviceVolume;
-        AudioDeviceSessionCollection m_sessions;
-        IAudioMeterInformation m_meter;
-        string m_id;
+        IMMDevice _device;
+        Dispatcher _dispatcher;
+        IAudioEndpointVolume _deviceVolume;
+        AudioDeviceSessionCollection _sessions;
+        IAudioMeterInformation _meter;
+        string _id;
 
         public AudioDevice(IMMDevice device, Dispatcher dispatcher)
         {
-            m_device = device;
-            m_dispatcher = dispatcher;
-            m_id = device.GetId();
-            m_deviceVolume = device.Activate<IAudioEndpointVolume>();
+            _device = device;
+            _dispatcher = dispatcher;
+            _id = device.GetId();
+            _deviceVolume = device.Activate<IAudioEndpointVolume>();
 
-            m_deviceVolume.RegisterControlChangeNotify(this);
-            m_meter = device.Activate<IAudioMeterInformation>();
-            m_sessions = new AudioDeviceSessionCollection(m_device, dispatcher);
+            _deviceVolume.RegisterControlChangeNotify(this);
+            _meter = device.Activate<IAudioMeterInformation>();
+            _sessions = new AudioDeviceSessionCollection(_device, dispatcher);
         }
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
         {
-            m_dispatcher.SafeInvoke(() =>
+            _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
@@ -45,13 +45,13 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_deviceVolume.GetMasterVolumeLevelScalar(out float level);
+                _deviceVolume.GetMasterVolumeLevelScalar(out float level);
                 return level;
             }
             set
             {
                 Guid dummy = Guid.Empty;
-                m_deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+                _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
             }
         }
 
@@ -59,7 +59,7 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_meter.GetPeakValue(out float ret);
+                _meter.GetPeakValue(out float ret);
                 return ret;
             }
         }
@@ -68,26 +68,26 @@ namespace EarTrumpet.DataModel
         {
             get
             {
-                m_deviceVolume.GetMute(out int muted);
+                _deviceVolume.GetMute(out int muted);
                 return muted != 0;
             }
             set
             {
                 Guid dummy = Guid.Empty;
-                m_deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
             }
         }
 
-        public string Id => m_id;
+        public string Id => _id;
 
-        public IAudioDeviceSessionCollection Sessions => m_sessions;
+        public IAudioDeviceSessionCollection Sessions => _sessions;
 
         public string DisplayName
         {
             get
             {
                 IPropertyStore propStore;
-                m_device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
+                _device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
 
                 PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
                 PropVariant pv;

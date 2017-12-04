@@ -8,21 +8,21 @@ namespace EarTrumpet.DataModel
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        IAudioDevice m_device;
-        IAudioDeviceManager m_manager;
+        IAudioDevice _device;
+        IAudioDeviceManager _manager;
 
         public VirtualDefaultAudioDevice(IAudioDeviceManager manager)
         {
-            m_manager = manager;
+            _manager = manager;
 
             Setup();
 
             manager.DefaultDeviceChanged += (_, __) =>
             {
-                if (m_device != null)
+                if (_device != null)
                 {
-                    m_device.Sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
-                    m_device.PropertyChanged -= Device_PropertyChanged;
+                    _device.Sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+                    _device.PropertyChanged -= Device_PropertyChanged;
                 }
 
                 Setup();
@@ -40,12 +40,12 @@ namespace EarTrumpet.DataModel
 
         private void Setup()
         {
-            m_device = m_manager.DefaultDevice;
+            _device = _manager.DefaultDevice;
 
-            if (m_device != null)
+            if (_device != null)
             {
-                m_device.PropertyChanged += Device_PropertyChanged;
-                m_device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+                _device.PropertyChanged += Device_PropertyChanged;
+                _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
             }
         }
 
@@ -59,19 +59,19 @@ namespace EarTrumpet.DataModel
             PropertyChanged?.Invoke(sender, e);
         }
 
-        public bool IsDevicePresent => m_device != null;
+        public bool IsDevicePresent => _device != null;
 
-        public string DisplayName => m_device != null ? m_device.DisplayName : null;
+        public string DisplayName => _device != null ? _device.DisplayName : null;
 
-        public string Id => m_device != null ? m_device.Id : null;
+        public string Id => _device != null ? _device.Id : null;
 
-        public bool IsMuted { get => m_device != null ? m_device.IsMuted : false; set => m_device.IsMuted = value; }
+        public bool IsMuted { get => _device != null ? _device.IsMuted : false; set => _device.IsMuted = value; }
 
-        public IAudioDeviceSessionCollection Sessions => m_device != null ? m_device.Sessions : null;
+        public IAudioDeviceSessionCollection Sessions => _device != null ? _device.Sessions : null;
 
-        public float Volume { get => m_device != null ? m_device.Volume : 0; set => m_device.Volume = value; }
+        public float Volume { get => _device != null ? _device.Volume : 0; set => _device.Volume = value; }
 
-        public float PeakValue { get => m_device != null ? m_device.PeakValue : 0; }
+        public float PeakValue { get => _device != null ? _device.PeakValue : 0; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
