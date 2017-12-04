@@ -1,4 +1,4 @@
-﻿using Interop.MMDeviceAPI;
+﻿using EarTrumpet.DataModel.Com;
 using System;
 using System.Runtime.InteropServices;
 

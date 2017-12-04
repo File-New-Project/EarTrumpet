@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.DataModel.Interfaces
+namespace EarTrumpet.DataModel.Com
 {
-
     [StructLayout(LayoutKind.Sequential)]
     public struct PROPERTYKEY
     {
@@ -11,11 +10,10 @@ namespace EarTrumpet.DataModel.Interfaces
         public UIntPtr pid;
     }
 
-
     [ComImport]
     [Guid("886D8EEB-8CF2-4446-8D02-CDBA1DBDCF99")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IPropertyStore_Shim
+    public interface IPropertyStore
     {
         [PreserveSig]
         int GetCount([Out] out uint cProps);

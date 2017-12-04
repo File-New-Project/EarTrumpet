@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using Interop.SoundControlAPI;
+using EarTrumpet.DataModel.Com;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -60,7 +60,7 @@ namespace EarTrumpet.ViewModels
 
         bool IsApplicableCheck(IAudioDeviceSession session)
         {
-            if (session.State == _AudioSessionState.AudioSessionStateExpired)
+            if (session.State == AudioSessionState.Expired)
             {
                 return false;
             }

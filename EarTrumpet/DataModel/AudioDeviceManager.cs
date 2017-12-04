@@ -1,5 +1,5 @@
-﻿using EarTrumpet.Extensions;
-using Interop.MMDeviceAPI;
+﻿using EarTrumpet.DataModel.Com;
+using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,19 +11,9 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
-        // From mmdeviceapi.idl.
-        enum DEVICE_STATE
-        {
-            ACTIVE    = 0x00000001,
-            DISABLED  = 0x00000002,
-            NOTPRESENT= 0x00000004,
-            UNPLUGGED = 0x00000008,
-            MASK_ALL  = 0x0000000f
-        }
-
         public event EventHandler<IAudioDevice> DefaultDeviceChanged;
 
-        MMDeviceEnumerator _enumerator;
+        IMMDeviceEnumerator _enumerator;
         IAudioDevice _defaultDevice;
         ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
         IVirtualDefaultAudioDevice _virtualDefaultDevice;
@@ -32,7 +22,7 @@ namespace EarTrumpet.DataModel
         public AudioDeviceManager(Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            _enumerator = new MMDeviceEnumerator();
+            _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             _enumerator.RegisterEndpointNotificationCallback(this);
 
             IMMDeviceCollection devices;
@@ -145,9 +135,9 @@ namespace EarTrumpet.DataModel
             });
         }
 
-        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, uint dwNewState)
+        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DEVICE_STATE dwNewState)
         {
-            switch ((DEVICE_STATE)dwNewState)
+            switch (dwNewState)
             {
                 case DEVICE_STATE.ACTIVE:
                     ((IMMNotificationClient)this).OnDeviceAdded(pwstrDeviceId);
@@ -163,6 +153,6 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, _tagpropertykey key) { }
+        void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key) { }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Extensions;
-using Interop.SoundControlAPI;
+using EarTrumpet.DataModel.Com;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -121,11 +121,11 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => _isDesktopApp;
 
-        public _AudioSessionState State
+        public AudioSessionState State
         {
             get
             {
-                _session.GetState(out _AudioSessionState ret);
+                _session.GetState(out AudioSessionState ret);
                 return ret;
             }
         }
@@ -148,7 +148,13 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).GetIsSystemSoundsSession();
+        public bool IsSystemSoundsSession
+        {
+            get
+            {
+                return ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            }
+        }
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
@@ -167,7 +173,7 @@ namespace EarTrumpet.DataModel
             });
         }
 
-        void IAudioSessionEvents.OnStateChanged(_AudioSessionState NewState)
+        void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
             _dispatcher.SafeInvoke(() =>
             {

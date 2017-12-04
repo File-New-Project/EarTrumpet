@@ -1,4 +1,4 @@
-﻿using Interop.SoundControlAPI;
+﻿using EarTrumpet.DataModel.Com;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,7 +64,7 @@ namespace EarTrumpet.DataModel
 
         public int ProcessId => _sessions[0].ProcessId;
 
-        public _AudioSessionState State => _sessions[0].State;
+        public AudioSessionState State => _sessions[0].State;
 
         public float Volume { get => _sessions[0].Volume; set => _sessions.ForEach(s => s.Volume = value); }
 

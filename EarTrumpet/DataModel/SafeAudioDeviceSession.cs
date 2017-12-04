@@ -1,4 +1,4 @@
-﻿using Interop.SoundControlAPI;
+﻿using EarTrumpet.DataModel.Com;
 using System;
 using System.ComponentModel;
 
@@ -34,7 +34,7 @@ namespace EarTrumpet.DataModel
 
         public int ProcessId => SafeCallHelper.GetValue(() => _session.ProcessId);
 
-        public _AudioSessionState State => SafeCallHelper.GetValue(() => _session.State);
+        public AudioSessionState State => SafeCallHelper.GetValue(() => _session.State);
 
         public string DisplayName => SafeCallHelper.GetValue(() => _session.DisplayName);
 

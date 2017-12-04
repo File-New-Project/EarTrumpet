@@ -1,7 +1,5 @@
-﻿using EarTrumpet.DataModel.Interfaces;
-using EarTrumpet.Extensions;
-using Interop.MMDeviceAPI;
-using Interop.SoundControlAPI;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.DataModel.Com;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -91,7 +89,7 @@ namespace EarTrumpet.DataModel
 
                 PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
                 PropVariant pv;
-                ((IPropertyStore_Shim)propStore).GetValue(ref PKEY_Device_FriendlyName, out  pv);
+                ((IPropertyStore)propStore).GetValue(ref PKEY_Device_FriendlyName, out  pv);
 
                 var ret = Marshal.PtrToStringUni(pv.pointerValue);
                 PropertyStoreInterop.PropVariantClear(ref pv);

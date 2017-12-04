@@ -1,4 +1,4 @@
-﻿using Interop.SoundControlAPI;
+﻿using EarTrumpet.DataModel.Com;
 using System;
 
 namespace EarTrumpet.DataModel
@@ -12,6 +12,6 @@ namespace EarTrumpet.DataModel
         bool IsHidden { get; }
         bool IsSystemSoundsSession { get; }
         int ProcessId { get; }
-        _AudioSessionState State { get; }
+        AudioSessionState State { get; }
     }
 }

@@ -47,14 +47,6 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Interop.MMDeviceAPI">
-      <HintPath>..\Build\$(Configuration)\Interop.MMDeviceAPI.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Interop.SoundControlAPI">
-      <HintPath>..\Build\$(Configuration)\Interop.SoundControlAPI.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -80,6 +72,29 @@
     </Compile>
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\ComInterop.cs" />
+    <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
+    <Compile Include="DataModel\Com\AudioSessionState.cs" />
+    <Compile Include="DataModel\Com\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
+    <Compile Include="DataModel\Com\DEVICE_STATE.cs" />
+    <Compile Include="DataModel\Com\EDataFlow.cs" />
+    <Compile Include="DataModel\Com\ERole.cs" />
+    <Compile Include="DataModel\Com\IAudioEndpointVolume.cs" />
+    <Compile Include="DataModel\Com\IAudioEndpointVolumeCallback.cs" />
+    <Compile Include="DataModel\Com\IAudioMeterInformation.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionControl.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionControl2.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionEnumerator.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionEvents.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionManager.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionManager2.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionNotification.cs" />
+    <Compile Include="DataModel\Com\IAudioVolumeDuckNotification.cs" />
+    <Compile Include="DataModel\Com\IMMDevice.cs" />
+    <Compile Include="DataModel\Com\IMMDeviceCollection.cs" />
+    <Compile Include="DataModel\Com\IMMDeviceEnumerator.cs" />
+    <Compile Include="DataModel\Com\IMMNotificationClient.cs" />
+    <Compile Include="DataModel\Com\ISimpleAudioVolume.cs" />
+    <Compile Include="DataModel\Com\MMDeviceEnumerator.cs" />
     <Compile Include="DataModel\DefaultEndPoint.cs" />
     <Compile Include="DataModel\Extensions\CollectionExtensionsForAudioDeviceSession.cs" />
     <Compile Include="DataModel\Extensions\IAudioSessionControlExtensions.cs" />
@@ -90,8 +105,8 @@
     <Compile Include="DataModel\IAudioDeviceSessionCollection.cs" />
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="DataModel\IVirtualDefaultAudioDevice.cs" />
-    <Compile Include="DataModel\ReplacementInterfaces\IAudioSessionControlInternal.cs" />
-    <Compile Include="DataModel\ReplacementInterfaces\IPropertyStore.cs" />
+    <Compile Include="DataModel\Com\IAudioSessionControlInternal.cs" />
+    <Compile Include="DataModel\Com\IPropertyStore.cs" />
     <Compile Include="DataModel\SafeAudioDevice.cs" />
     <Compile Include="DataModel\SafeAudioDeviceSession.cs" />
     <Compile Include="DataModel\SafeCallHelper.cs" />
@@ -103,7 +118,6 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\BlurWindowExtensions.cs" />
     <Compile Include="Extensions\FloatExtensions.cs" />
-    <Compile Include="DataModel\Extensions\IAudioSessionControl2Extensons.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="DataModel\Extensions\IMMDeviceExtensions.cs" />
     <Compile Include="Extensions\InvertableVisibilityConverter.cs" />
@@ -228,6 +242,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

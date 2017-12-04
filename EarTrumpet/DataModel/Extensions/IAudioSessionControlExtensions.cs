@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.DataModel.Interfaces;
-using Interop.SoundControlAPI;
+using EarTrumpet.DataModel.Com;
 
 namespace EarTrumpet.Extensions
 {
