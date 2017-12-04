@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Com;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.DataModel
@@ -65,22 +66,23 @@ namespace EarTrumpet.DataModel
                 CLSCTX ctx,
                 ref Guid riid,
                 [MarshalAs(UnmanagedType.Interface)] out object ret);
+
+            public static bool Succeeded(int hr)
+            {
+                return hr == 0 || hr == 1;
+            }
         }
 
        static Guid CLSID_PolicyConfigClient = new Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9");
 
         static T CoCreatePolicyObject<T>()
         {
-            try
+            Guid iid = typeof(T).GUID;
+            object ret;
+            if (Interop.Succeeded(Interop.CoCreateInstance(ref CLSID_PolicyConfigClient, null, CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out ret)))
             {
-                Guid iid = typeof(T).GUID;
-                object ret;
-                if (ComInterop.Succeeded(Interop.CoCreateInstance(ref CLSID_PolicyConfigClient, null, CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out ret)))
-                {
-                    return (T)ret;
-                }
+                return (T)ret;
             }
-            catch(COMException) { }
 
             return default(T);
         }

@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Com;
+﻿using EarTrumpet.DataModel.Com;
 using System;
 using System.Runtime.InteropServices;
 
@@ -9,10 +8,8 @@ namespace EarTrumpet.Extensions
     {
         public static T Activate<T>(this IMMDevice device)
         {
-            IntPtr activationParams = IntPtr.Zero;
-            IntPtr ret;
             Guid iid = typeof(T).GUID;
-            device.Activate(ref iid, (uint)CLSCTX.CLSCTX_INPROC_SERVER, ref activationParams, out ret);
+            device.Activate(ref iid, (uint)CLSCTX.CLSCTX_INPROC_SERVER, IntPtr.Zero, out IntPtr ret);
             return (T)Marshal.GetObjectForIUnknown(ret);
         }
 

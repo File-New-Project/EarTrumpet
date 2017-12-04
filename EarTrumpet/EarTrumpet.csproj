@@ -71,10 +71,10 @@
       <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
-    <Compile Include="DataModel\ComInterop.cs" />
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
     <Compile Include="DataModel\Com\AudioSessionState.cs" />
     <Compile Include="DataModel\Com\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
+    <Compile Include="DataModel\Com\CLSCTX.cs" />
     <Compile Include="DataModel\Com\DEVICE_STATE.cs" />
     <Compile Include="DataModel\Com\EDataFlow.cs" />
     <Compile Include="DataModel\Com\ERole.cs" />
