@@ -113,7 +113,7 @@ namespace EarTrumpet.DataModel
                     IMMDevice device;
                     m_enumerator.GetDevice(pwstrDeviceId, out device);
 
-                    m_devices.Add(new AudioDevice(device, m_dispatcher));
+                    m_devices.Add(new SafeAudioDevice(new AudioDevice(device, m_dispatcher)));
                 }
             });
         }
@@ -126,7 +126,6 @@ namespace EarTrumpet.DataModel
                 {
                     var device = FindDevice(pwstrDeviceId);
                     m_devices.Remove(device);
-                    ((AudioDevice)device).DeviceDestroyed();
                 }
             });
         }

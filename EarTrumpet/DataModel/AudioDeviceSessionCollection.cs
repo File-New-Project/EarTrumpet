@@ -28,15 +28,7 @@ namespace EarTrumpet.DataModel
             {
                 IAudioSessionControl session;
                 enumerator.GetSession(i, out session);
-                AddSession(new AudioDeviceSession(session, m_dispatcher));
-            }
-        }
-
-        public void DeviceDestroyed()
-        {
-            foreach(var session in m_sessions)
-            {
-                ((AudioDeviceSessionContainer)session).DeviceDestroyed();
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, m_dispatcher)));
             }
         }
 
@@ -46,8 +38,7 @@ namespace EarTrumpet.DataModel
         {
             m_dispatcher.SafeInvoke(() =>
             {
-                var sess = new AudioDeviceSession(NewSession, m_dispatcher);
-                AddSession(sess);
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, m_dispatcher)));
             });
         }
 
@@ -103,7 +94,7 @@ namespace EarTrumpet.DataModel
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var session = (AudioDeviceSession)sender;
+            var session = (IAudioDeviceSession)sender;
 
             if (e.PropertyName == "GroupingParam")
             {

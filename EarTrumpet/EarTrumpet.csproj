@@ -92,6 +92,9 @@
     <Compile Include="DataModel\IVirtualDefaultAudioDevice.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IAudioSessionControlInternal.cs" />
     <Compile Include="DataModel\ReplacementInterfaces\IPropertyStore.cs" />
+    <Compile Include="DataModel\SafeAudioDevice.cs" />
+    <Compile Include="DataModel\SafeAudioDeviceSession.cs" />
+    <Compile Include="DataModel\SafeCallHelper.cs" />
     <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
     <Compile Include="DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
