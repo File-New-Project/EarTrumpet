@@ -1,7 +1,9 @@
-﻿namespace EarTrumpet.DataModel
+﻿using System.Collections.ObjectModel;
+
+namespace EarTrumpet.DataModel
 {
     public interface IAudioDevice : IStreamWithVolumeControl
     {
-        IAudioDeviceSessionCollection Sessions { get; }
+        ObservableCollection<IAudioDeviceSession> Sessions { get; }
     }
 }

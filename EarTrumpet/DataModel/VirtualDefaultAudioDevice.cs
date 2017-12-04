@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace EarTrumpet.DataModel
@@ -21,7 +22,7 @@ namespace EarTrumpet.DataModel
             {
                 if (_device != null)
                 {
-                    _device.Sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+                    _device.Sessions.CollectionChanged -= Sessions_CollectionChanged;
                     _device.PropertyChanged -= Device_PropertyChanged;
                 }
 
@@ -45,7 +46,7 @@ namespace EarTrumpet.DataModel
             if (_device != null)
             {
                 _device.PropertyChanged += Device_PropertyChanged;
-                _device.Sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+                _device.Sessions.CollectionChanged += Sessions_CollectionChanged;
             }
         }
 
@@ -67,7 +68,7 @@ namespace EarTrumpet.DataModel
 
         public bool IsMuted { get => _device != null ? _device.IsMuted : false; set => _device.IsMuted = value; }
 
-        public IAudioDeviceSessionCollection Sessions => _device != null ? _device.Sessions : null;
+        public ObservableCollection<IAudioDeviceSession> Sessions => _device != null ? _device.Sessions : null;
 
         public float Volume { get => _device != null ? _device.Volume : 0; set => _device.Volume = value; }
 

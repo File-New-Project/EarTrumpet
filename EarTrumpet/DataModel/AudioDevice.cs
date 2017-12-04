@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
@@ -78,7 +79,7 @@ namespace EarTrumpet.DataModel
 
         public string Id => _id;
 
-        public IAudioDeviceSessionCollection Sessions => _sessions;
+        public ObservableCollection<IAudioDeviceSession> Sessions => _sessions.Sessions;
 
         public string DisplayName
         {

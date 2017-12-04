@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace EarTrumpet.DataModel
 {
@@ -18,7 +19,7 @@ namespace EarTrumpet.DataModel
             PropertyChanged?.Invoke(this, e);
         }
 
-        public IAudioDeviceSessionCollection Sessions => SafeCallHelper.GetValue(() => _device.Sessions);
+        public ObservableCollection<IAudioDeviceSession> Sessions => SafeCallHelper.GetValue(() => _device.Sessions);
 
         public string DisplayName => SafeCallHelper.GetValue(() => _device.DisplayName);
 

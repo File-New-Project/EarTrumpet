@@ -81,6 +81,7 @@ namespace EarTrumpet
             sb.AppendLine($"ProcessId: {session.ProcessId}");
             sb.AppendLine($"Volume: {session.Volume}");
             sb.AppendLine($"IsMute: {session.IsMuted}");
+            sb.AppendLine($"State: {session.State}");
 
             return sb.ToString();
         }
@@ -93,7 +94,7 @@ namespace EarTrumpet
             sb.AppendLine($"Volume: {device.Volume}");
             sb.AppendLine($"IsMuted: {device.IsMuted}");
             sb.AppendLine("---------------");
-            foreach(var session in device.Sessions.Sessions)
+            foreach(var session in device.Sessions)
             {
                 sb.AppendLine(DumpSession(session));
             }

@@ -5,18 +5,18 @@ using System.Diagnostics;
 
 namespace EarTrumpet.DataModel
 {
-    public class FilteredAudioDeviceSessionCollection : IAudioDeviceSessionCollection
+    public class FilteredAudioDeviceSessionCollection
     {
-        IAudioDeviceSessionCollection _collection;
+        ObservableCollection<IAudioDeviceSession> _collection;
         Func<IAudioDeviceSession, bool> _applicabilityCheckCallback;
 
         public ObservableCollection<IAudioDeviceSession> Sessions { get; private set; }
 
-        public FilteredAudioDeviceSessionCollection(IAudioDeviceSessionCollection collection, Func<IAudioDeviceSession,bool> isApplicableCallback)
+        public FilteredAudioDeviceSessionCollection(ObservableCollection<IAudioDeviceSession> collection, Func<IAudioDeviceSession,bool> isApplicableCallback)
         {
             _applicabilityCheckCallback = isApplicableCallback;
             _collection = collection;
-            _collection.Sessions.CollectionChanged += Sessions_CollectionChanged;
+            _collection.CollectionChanged += Sessions_CollectionChanged;
 
             Sessions = new ObservableCollection<IAudioDeviceSession>();
             PopulateSessions();
@@ -24,7 +24,7 @@ namespace EarTrumpet.DataModel
 
         void PopulateSessions()
         {
-            foreach (var item in _collection.Sessions)
+            foreach (var item in _collection)
             {
                 AddIfApplicable(item);
             }

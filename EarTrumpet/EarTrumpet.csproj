@@ -102,7 +102,6 @@
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceManager.cs" />
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
-    <Compile Include="DataModel\IAudioDeviceSessionCollection.cs" />
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="DataModel\IVirtualDefaultAudioDevice.cs" />
     <Compile Include="DataModel\Com\IAudioSessionControlInternal.cs" />

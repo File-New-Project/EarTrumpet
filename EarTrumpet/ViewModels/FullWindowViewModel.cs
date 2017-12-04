@@ -79,7 +79,7 @@ namespace EarTrumpet.ViewModels
         {
             if (!ShowEmptyDevices)
             {
-                if (device.Sessions.Sessions.Count == 1) return; // System sounds session
+                if (device.Sessions.Count == 1) return; // System sounds session
             }
 
             var newDevice = new DeviceViewModel(device);
