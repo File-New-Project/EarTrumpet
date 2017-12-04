@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel.Com;
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.DataModel
@@ -58,52 +57,29 @@ namespace EarTrumpet.DataModel
             void SetDefaultEndpoint(string wszDeviceId, uint eRole);
         }
 
-        static class Interop
-        {
-            [DllImport("ole32.Dll")]
-            public static extern int CoCreateInstance(ref Guid clsid,
-                [MarshalAs(UnmanagedType.IUnknown)] object inner,
-                CLSCTX ctx,
-                ref Guid riid,
-                [MarshalAs(UnmanagedType.Interface)] out object ret);
-
-            public static bool Succeeded(int hr)
-            {
-                return hr == 0 || hr == 1;
-            }
-        }
-
-       static Guid CLSID_PolicyConfigClient = new Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9");
-
-        static T CoCreatePolicyObject<T>()
-        {
-            Guid iid = typeof(T).GUID;
-            object ret;
-            if (Interop.Succeeded(Interop.CoCreateInstance(ref CLSID_PolicyConfigClient, null, CLSCTX.CLSCTX_INPROC_SERVER, ref iid, out ret)))
-            {
-                return (T)ret;
-            }
-
-            return default(T);
-        }
+        [ComImport]
+        [Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9")]
+        public class PolicyConfigClient { }
 
         public static void SetDefaultDevice(IAudioDevice device)
         {
-            var policy_th1 = CoCreatePolicyObject<IPolicyConfig_TH1>();
+            var policyClient = new PolicyConfigClient();
+
+            var policy_th1 = policyClient as IPolicyConfig_TH1;
             if (policy_th1 != null)
             {
                 policy_th1.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
                 return;
             }
 
-            var policy_th2 = CoCreatePolicyObject<IPolicyConfig_TH2>();
+            var policy_th2 = policyClient as IPolicyConfig_TH2;
             if (policy_th2 != null)
             {
                 policy_th2.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
                 return;
             }
 
-            var policy_rs1 = CoCreatePolicyObject<IPolicyConfig_RS1>();
+            var policy_rs1 = policyClient as IPolicyConfig_RS1;
             if (policy_rs1 != null)
             {
                 policy_rs1.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
