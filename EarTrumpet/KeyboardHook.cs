@@ -47,10 +47,9 @@ namespace EarTrumpet
 
         public KeyboardHook()
         {
-            _window.KeyPressed += delegate (object sender, KeyPressedEventArgs args)
+            _window.KeyPressed += (s, e) =>
             {
-                if (KeyPressed != null)
-                    KeyPressed(this, args);
+                    KeyPressed?.Invoke(this, e);
             };
         }
 
@@ -59,7 +58,7 @@ namespace EarTrumpet
             _currentId = _currentId + 1;
 
             if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new InvalidOperationException("Couldn’t register the hot key.");
+                throw new Exception("Couldn’t register hotkey.");
         }
 
         public event EventHandler<KeyPressedEventArgs> KeyPressed;

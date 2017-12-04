@@ -1,11 +1,5 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet.ViewModels
 {
@@ -38,7 +32,7 @@ namespace EarTrumpet.ViewModels
 
         public void TriggerPeakCheck()
         {
-            RaisePropertyChanged("PeakValue");
+            RaisePropertyChanged(nameof(PeakValue));
         }
     }
 }

@@ -161,9 +161,9 @@ namespace EarTrumpet
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "TrayIcon")
+            if (e.PropertyName == nameof(_trayViewModel.TrayIcon))
             {
-                _trayIcon.Icon = _trayViewModel?.TrayIcon;
+                _trayIcon.Icon = _trayViewModel.TrayIcon;
             }
         }
 

@@ -93,7 +93,7 @@ namespace EarTrumpet.ViewModels
                         App.Current.Dispatcher.SafeInvoke(() =>
                         {
                             _displayName = displayName;
-                            RaisePropertyChanged("DisplayName");
+                            RaisePropertyChanged(nameof(DisplayName));
                         });
                     }
                 }

@@ -42,7 +42,7 @@ namespace EarTrumpet.ViewModels
                 if (_trayIcon != value)
                 {
                     _trayIcon = value;
-                    RaisePropertyChanged("TrayIcon");
+                    RaisePropertyChanged(nameof(TrayIcon));
                 }
             }
         }

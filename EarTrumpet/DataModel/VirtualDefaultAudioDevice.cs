@@ -30,12 +30,12 @@ namespace EarTrumpet.DataModel
 
                 CollectionChanged?.Invoke(null, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsDevicePresent"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DisplayName"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Id"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Sessions"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDevicePresent)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Sessions)));
             };
         }
 

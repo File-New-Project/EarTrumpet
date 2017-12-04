@@ -160,8 +160,8 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
             });
         }
 
@@ -169,7 +169,7 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GroupingParam"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroupingParam)));
             });
         }
 
@@ -177,7 +177,7 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
             });
         }
 

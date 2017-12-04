@@ -35,8 +35,8 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsMuted"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
             });
         }
 

@@ -95,7 +95,7 @@ namespace EarTrumpet.DataModel
         {
             var session = (IAudioDeviceSession)sender;
 
-            if (e.PropertyName == "GroupingParam")
+            if (e.PropertyName == nameof(session.GroupingParam))
             {
                 RemoveSession(session);
                 AddSession(session);

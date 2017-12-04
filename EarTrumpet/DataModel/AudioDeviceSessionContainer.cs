@@ -20,7 +20,7 @@ namespace EarTrumpet.DataModel
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(sender, e);
+            PropertyChanged?.Invoke(this, e);
         }
 
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;

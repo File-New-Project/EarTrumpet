@@ -24,7 +24,7 @@ namespace EarTrumpet.ViewModels
                 if (_showEmptyDevices != value)
                 {
                     _showEmptyDevices = value;
-                    RaisePropertyChanged("ShowEmptyDevices");
+                    RaisePropertyChanged(nameof(ShowEmptyDevices));
                     Devices_CollectionChanged(this, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
                 }
             }

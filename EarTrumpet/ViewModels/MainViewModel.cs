@@ -58,7 +58,7 @@ namespace EarTrumpet.ViewModels
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "IsDevicePresent")
+            if (e.PropertyName == nameof(_deviceService.VirtualDefaultDevice.IsDevicePresent))
             {
                 UpdateInterfaceState();
             }
@@ -71,10 +71,10 @@ namespace EarTrumpet.ViewModels
             NoItemsContent = !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
             DeviceVisibility = _deviceService.VirtualDefaultDevice.IsDevicePresent ? Visibility.Visible : Visibility.Collapsed;
 
-            RaisePropertyChanged("ListVisibility");
-            RaisePropertyChanged("NoAppsPaneVisibility");
-            RaisePropertyChanged("NoItemsContent");
-            RaisePropertyChanged("DeviceVisibility");
+            RaisePropertyChanged(nameof(ListVisibility));
+            RaisePropertyChanged(nameof(NoAppsPaneVisibility));
+            RaisePropertyChanged(nameof(NoItemsContent));
+            RaisePropertyChanged(nameof(DeviceVisibility));
         }
     }
 }

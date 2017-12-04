@@ -82,7 +82,7 @@ namespace EarTrumpet.ViewModels
 
         private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Sessions")
+            if (e.PropertyName == nameof(_device.Sessions))
             {
                 UpdateFilterAndEnumerateAppSessions();
             }
