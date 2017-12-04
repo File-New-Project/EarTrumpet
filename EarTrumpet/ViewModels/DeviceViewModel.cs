@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using Interop.SoundControlAPI;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -83,7 +84,7 @@ namespace EarTrumpet.ViewModels
 
         bool IsApplicableCheck(IAudioDeviceSession session)
         {
-            if (session.State == SoundControlAPI_Interop._AudioSessionState.AudioSessionStateExpired)
+            if (session.State == _AudioSessionState.AudioSessionStateExpired)
             {
                 if (!IsShowingExpiredChannels) return false;
             }
@@ -93,7 +94,7 @@ namespace EarTrumpet.ViewModels
                 if (!IsShowingHiddenChannels) return false;
             }
 
-            if (session.State == SoundControlAPI_Interop._AudioSessionState.AudioSessionStateInactive)
+            if (session.State == _AudioSessionState.AudioSessionStateInactive)
             {
                 if (!IsShowingInactiveChannels) return false;
             }

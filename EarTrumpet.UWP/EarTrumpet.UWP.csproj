@@ -127,10 +127,10 @@
     <Content Include="EarTrumpet.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MMDeviceAPI_Interop.dll">
+    <Content Include="Interop.MMDeviceAPI.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SoundControlAPI_Interop.dll">
+    <Content Include="Interop.SoundControlAPI.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="fr\EarTrumpet.resources.dll">

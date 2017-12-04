@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.DataModel.Interfaces;
 using EarTrumpet.Extensions;
-using MMDeviceAPI_Interop;
-using SoundControlAPI_Interop;
+using Interop.MMDeviceAPI;
+using Interop.SoundControlAPI;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;

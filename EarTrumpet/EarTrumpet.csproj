@@ -47,12 +47,12 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MMDeviceAPI_Interop">
-      <HintPath>..\Build\$(Configuration)\MMDeviceAPI_Interop.dll</HintPath>
+    <Reference Include="Interop.MMDeviceAPI">
+      <HintPath>..\Build\$(Configuration)\Interop.MMDeviceAPI.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="SoundControlAPI_Interop">
-      <HintPath>..\Build\$(Configuration)\SoundControlAPI_Interop.dll</HintPath>
+    <Reference Include="Interop.SoundControlAPI">
+      <HintPath>..\Build\$(Configuration)\Interop.SoundControlAPI.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

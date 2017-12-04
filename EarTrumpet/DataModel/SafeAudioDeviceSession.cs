@@ -1,4 +1,4 @@
-﻿using SoundControlAPI_Interop;
+﻿using Interop.SoundControlAPI;
 using System;
 using System.ComponentModel;
 

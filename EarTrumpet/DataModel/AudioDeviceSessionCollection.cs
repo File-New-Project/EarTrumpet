@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Extensions;
-using MMDeviceAPI_Interop;
-using SoundControlAPI_Interop;
+using Interop.MMDeviceAPI;
+using Interop.SoundControlAPI;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
