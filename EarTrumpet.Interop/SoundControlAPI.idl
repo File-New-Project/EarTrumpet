@@ -3,9 +3,11 @@ import "ocidl.idl";
 import "endpointvolume.idl";
 import "audiopolicy.idl";
 
+// We use the below library statement to enable the MIDL compiler to output a TLB with 
+// arbitrary interfaces that don't appear in mmdeviceapi.idl's library statement.
 
 [
-	uuid(2FDAAFA3-FFFF-FFFF-9957-9D5E7FE698F6), // rev
+	uuid(BA5C648E-F969-4D61-BCE7-1262B9B73775),
 	version(1.0),
 	helpstring("Sound Control API Type Library 1.0")
 ]
@@ -16,5 +18,3 @@ library SoundControlAPILib
 	interface IAudioMeterInformation;
 	interface IAudioSessionControl2;
 };
-
-// IAudioSessionManager2
