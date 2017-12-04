@@ -41,6 +41,11 @@ namespace EarTrumpet.DataModel
             });
         }
 
+        public void DeviceDestroyed()
+        {
+            m_sessions.DeviceDestroyed();
+        }
+
         public float Volume
         {
             get

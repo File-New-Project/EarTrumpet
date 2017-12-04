@@ -141,10 +141,21 @@ namespace EarTrumpet
 
         void UpdateToolTip()
         {
-            var otherText = "EarTrumpet: 100% ()";
-            var dev = _deviceService.VirtualDefaultDevice.DisplayName;
-            dev = dev.Substring(0, Math.Min(64 - otherText.Length, dev.Length));
-            _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% ({dev})";
+            var device = _deviceService.VirtualDefaultDevice;
+
+            if (device.IsDevicePresent)
+            {
+                var otherText = "EarTrumpet: 100% ()";
+                var dev = _deviceService.VirtualDefaultDevice.DisplayName;
+                // API Limitation: "less than 64 chars" for the tooltip.
+                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
+                _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% ({dev})";
+            }
+            else
+            {
+                // TODO: localizae
+                _trayIcon.Text = "EarTrumpet: No Device";
+            }
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

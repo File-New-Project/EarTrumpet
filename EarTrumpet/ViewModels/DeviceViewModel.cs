@@ -69,6 +69,8 @@ namespace EarTrumpet.ViewModels
                 _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
             }
 
+            if (_device.Sessions == null) return;
+
             _sessions = new FilteredAudioDeviceSessionCollection(_device.Sessions, IsApplicableCheck);
             _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
 

@@ -32,6 +32,14 @@ namespace EarTrumpet.DataModel
             }
         }
 
+        public void DeviceDestroyed()
+        {
+            foreach(var session in m_sessions)
+            {
+                ((AudioDeviceSessionContainer)session).DeviceDestroyed();
+            }
+        }
+
         public ObservableCollection<IAudioDeviceSession> Sessions => m_sessions;
 
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)

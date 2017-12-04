@@ -136,7 +136,11 @@ namespace EarTrumpet.ViewModels
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     Debug.Assert(e.OldItems.Count == 1);
-                    Devices.Remove(Devices.First(x => x.Device.Id == ((IAudioDevice)e.OldItems[0]).Id));
+                    var device = Devices.FirstOrDefault(x => x.Device.Id == ((IAudioDevice)e.OldItems[0]).Id);
+                    if (device != null)
+                    {
+                        Devices.Remove(device);
+                    }
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:

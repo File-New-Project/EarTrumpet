@@ -2,6 +2,7 @@
 using MMDeviceAPI_Interop;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
@@ -10,6 +11,16 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
+        // From mmdeviceapi.idl.
+        enum DEVICE_STATE
+        {
+            ACTIVE    = 0x00000001,
+            DISABLED  = 0x00000002,
+            NOTPRESENT= 0x00000004,
+            UNPLUGGED = 0x00000008,
+            MASK_ALL  = 0x0000000f
+        }
+
         public event EventHandler<IAudioDevice> DefaultDeviceChanged;
 
         MMDeviceEnumerator m_enumerator;
@@ -38,6 +49,13 @@ namespace EarTrumpet.DataModel
             }
 
             // Trigger default logic to register for volume change
+            SetDefaultDevice();
+
+            m_virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
+        }
+
+        void SetDefaultDevice()
+        {
             try
             {
                 IMMDevice device;
@@ -45,27 +63,25 @@ namespace EarTrumpet.DataModel
                 if (device != null)
                 {
                     var id = device.GetId();
-                    ((IMMNotificationClient)this).OnDeviceAdded(id);
 
-                    m_defaultDevice = FindDevice(id);
+                    if (m_defaultDevice == null || m_defaultDevice.Id != id)
+                    {
+                        m_defaultDevice = FindDevice(id);
+                        DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
+                    }
                 }
             }
             catch (COMException)
             {
-                // No default device.
+                m_defaultDevice = null;
             }
-
-            m_virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }
 
         public IVirtualDefaultAudioDevice VirtualDefaultDevice => m_virtualDefaultDevice;
 
         public IAudioDevice DefaultDevice
         {
-            get
-            {
-                return m_defaultDevice;
-            }
+            get => m_defaultDevice;
             set
             {
                 if (m_defaultDevice == null ||
@@ -110,31 +126,37 @@ namespace EarTrumpet.DataModel
                 {
                     var device = FindDevice(pwstrDeviceId);
                     m_devices.Remove(device);
-                    if (m_defaultDevice == device)
-                    {
-                        m_defaultDevice = null;
-                        DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
-                    }
+                    ((AudioDevice)device).DeviceDestroyed();
                 }
             });
         }
 
         void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, string pwstrDefaultDeviceId)
         {
-            if (flow == EDataFlow.eRender && role != ERole.eCommunications)
+            m_dispatcher.SafeInvoke(() =>
             {
-                m_dispatcher.SafeInvoke(() =>
-                {
-                    // Ensure the device is known.
-                    ((IMMNotificationClient)this).OnDeviceAdded(pwstrDefaultDeviceId);
+                SetDefaultDevice();
+            });
+        }
 
-                    m_defaultDevice = FindDevice(pwstrDefaultDeviceId);
-                    DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
-                });
+        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, uint dwNewState)
+        {
+            switch ((DEVICE_STATE)dwNewState)
+            {
+                case DEVICE_STATE.ACTIVE:
+                    ((IMMNotificationClient)this).OnDeviceAdded(pwstrDeviceId);
+                    break;
+                case DEVICE_STATE.DISABLED:
+                case DEVICE_STATE.NOTPRESENT:
+                case DEVICE_STATE.UNPLUGGED:
+                    ((IMMNotificationClient)this).OnDeviceRemoved(pwstrDeviceId);
+                    break;
+                default:
+                    Debug.WriteLine($"Unknown DEVICE_STATE: {dwNewState}");
+                    break;
             }
         }
 
-        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, uint dwNewState) { }
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, _tagpropertykey key) { }
     }
 }

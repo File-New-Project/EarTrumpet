@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Interfaces;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using SoundControlAPI_Interop;
 using System;
 using System.ComponentModel;
@@ -31,6 +30,7 @@ namespace EarTrumpet.DataModel
         bool m_isDesktopApp;
         uint m_backgroundColor;
         bool m_isHidden;
+        bool m_isDestroyed;
 
 
         public AudioDeviceSession(IAudioSessionControl session, Dispatcher dispatcher)
@@ -53,10 +53,17 @@ namespace EarTrumpet.DataModel
             if (m_processDisplayName == null) m_processDisplayName = "";
         }
 
+        public void DeviceDestroyed()
+        {
+            m_isDestroyed = true;
+        }
+
         public float Volume
         {
             get
             {
+                if (m_isDestroyed) return 0;
+
                 m_simpleVolume.GetMasterVolume(out float level);
                 return level;
             }
@@ -71,6 +78,8 @@ namespace EarTrumpet.DataModel
         {
             get
             {
+                if (m_isDestroyed) return false;
+
                 m_simpleVolume.GetMute(out int muted);
                 return muted != 0;
             }
@@ -114,6 +123,8 @@ namespace EarTrumpet.DataModel
         {
             get
             {
+                if (m_isDestroyed) return 0;
+
                 m_meter.GetPeakValue(out float ret);
                 return ret;
             }
@@ -127,6 +138,8 @@ namespace EarTrumpet.DataModel
         {
             get
             {
+                if (m_isDestroyed) return _AudioSessionState.AudioSessionStateExpired;
+
                 m_session.GetState(out _AudioSessionState ret);
                 return ret;
             }
@@ -171,6 +184,8 @@ namespace EarTrumpet.DataModel
 
         void IAudioSessionEvents.OnStateChanged(_AudioSessionState NewState)
         {
+            if (m_isDestroyed) return;
+
             m_dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));

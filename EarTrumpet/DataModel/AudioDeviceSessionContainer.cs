@@ -12,9 +12,18 @@ namespace EarTrumpet.DataModel
 
         public AudioDeviceSessionContainer(IAudioDeviceSession session)
         {
-            GroupingParam = session.GroupingParam; // can change at runtime.
+            // GroupingParam can change at runtime, so we can't trust session[0].
+            GroupingParam = session.GroupingParam;
 
             AddSession(session);
+        }
+
+        public void DeviceDestroyed()
+        {
+            foreach (var session in _sessions)
+            {
+                ((AudioDeviceSession)session).DeviceDestroyed();
+            }
         }
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
