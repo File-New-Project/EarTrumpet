@@ -56,24 +56,31 @@ namespace EarTrumpet.DataModel
 
         void SetDefaultDevice()
         {
+            IMMDevice device = null;
             try
             {
-                IMMDevice device;
                 m_enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
-                if (device != null)
-                {
-                    var id = device.GetId();
-
-                    if (m_defaultDevice == null || m_defaultDevice.Id != id)
-                    {
-                        m_defaultDevice = FindDevice(id);
-                        DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
-                    }
-                }
             }
-            catch (COMException)
+            catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
             {
-                m_defaultDevice = null;
+                // Element not found.
+            }
+
+            string newDeviceId = null;
+
+            if (device != null)
+            {
+                newDeviceId = device.GetId();
+            }
+
+            var currentDeviceId = m_defaultDevice != null ? m_defaultDevice.Id : null;
+
+            if (currentDeviceId != newDeviceId)
+            {
+                if (newDeviceId == null) m_defaultDevice = null;
+                else m_defaultDevice = FindDevice(newDeviceId);
+
+                DefaultDeviceChanged?.Invoke(this, m_defaultDevice);
             }
         }
 
