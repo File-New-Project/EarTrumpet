@@ -8,10 +8,10 @@ namespace EarTrumpet.DataModel.Com
     public interface IAudioSessionControl
     {
         void GetState(out AudioSessionState pRetVal);
-        void GetDisplayName(out string pRetVal);
-        void SetDisplayName(string Value, ref Guid EventContext);
-        void GetIconPath(out string pRetVal);
-        void SetIconPath(string Value, ref Guid EventContext);
+        void GetDisplayName([MarshalAs(UnmanagedType.LPWStr)] out string pRetVal);
+        void SetDisplayName([MarshalAs(UnmanagedType.LPWStr)]string Value, ref Guid EventContext);
+        void GetIconPath([MarshalAs(UnmanagedType.LPWStr)]out string pRetVal);
+        void SetIconPath([MarshalAs(UnmanagedType.LPWStr)]string Value, ref Guid EventContext);
         void GetGroupingParam(out Guid pRetVal);
         void SetGroupingParam(ref Guid Override, ref Guid EventContext);
         void RegisterAudioSessionNotification(IAudioSessionEvents NewNotifications);

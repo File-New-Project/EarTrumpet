@@ -12,7 +12,7 @@ namespace EarTrumpet.DataModel.Com
         IAudioSessionEnumerator GetSessionEnumerator();
         void RegisterSessionNotification(IAudioSessionNotification SessionNotification);
         void UnregisterSessionNotification(IAudioSessionNotification SessionNotification);
-        void RegisterDuckNotification(string sessionID, IAudioVolumeDuckNotification duckNotification);
+        void RegisterDuckNotification([MarshalAs(UnmanagedType.LPWStr)]string sessionID, IAudioVolumeDuckNotification duckNotification);
         void UnregisterDuckNotification(IAudioVolumeDuckNotification duckNotification);
     }
 }

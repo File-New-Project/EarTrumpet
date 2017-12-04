@@ -8,7 +8,7 @@ namespace EarTrumpet.DataModel.Com
     {
         void EnumAudioEndpoints(EDataFlow dataFlow, uint dwStateMask, out IMMDeviceCollection ppDevices);
         void GetDefaultAudioEndpoint(EDataFlow dataFlow, ERole role, out IMMDevice ppEndpoint);
-        void GetDevice(string pwstrId, out IMMDevice ppDevice);
+        void GetDevice([MarshalAs(UnmanagedType.LPWStr)]string pwstrId, out IMMDevice ppDevice);
         void RegisterEndpointNotificationCallback(IMMNotificationClient pClient);
         void UnregisterEndpointNotificationCallback(IMMNotificationClient pClient);
     }

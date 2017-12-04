@@ -6,7 +6,7 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioVolumeDuckNotification
     {
-        void OnVolumeDuckNotification(string sessionID, uint countCommunicationSessions);
-        void OnVolumeUnduckNotification(string sessionID);
+        void OnVolumeDuckNotification([MarshalAs(UnmanagedType.LPWStr)]string sessionID, uint countCommunicationSessions);
+        void OnVolumeUnduckNotification([MarshalAs(UnmanagedType.LPWStr)]string sessionID);
     }
 }
