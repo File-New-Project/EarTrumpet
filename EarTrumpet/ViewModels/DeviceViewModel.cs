@@ -10,7 +10,7 @@ namespace EarTrumpet.ViewModels
 {
     public class DeviceViewModel : BindableBase
     {
-        public VolumeControlChannelViewModel Device { get; private set; }
+        public AudioSessionControlViewModel Device { get; private set; }
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
         bool _isShowingHiddenChannels = false;
@@ -33,7 +33,7 @@ namespace EarTrumpet.ViewModels
             _device = device;
             _device.PropertyChanged += Device_PropertyChanged;
 
-            Device = new VolumeControlChannelViewModel(device);
+            Device = new AudioSessionControlViewModel(device);
             Apps = new ObservableCollection<AppItemViewModel>();
 
             UpdateFilterAndEnumerateAppSessions();

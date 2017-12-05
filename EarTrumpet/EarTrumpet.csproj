@@ -175,8 +175,8 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\VolumeControlChannelViewModel.cs" />
-    <Compile Include="UserControls\VolumeControlChannel.xaml.cs">
-      <DependentUpon>VolumeControlChannel.xaml</DependentUpon>
+    <Compile Include="UserControls\AudioSessionControl.xaml.cs">
+      <DependentUpon>AudioSessionControl.xaml</DependentUpon>
     </Compile>
     <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
@@ -206,7 +206,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\VolumeControlChannel.xaml">
+    <Page Include="UserControls\AudioSessionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

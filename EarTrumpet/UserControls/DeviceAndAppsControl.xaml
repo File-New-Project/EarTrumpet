@@ -29,10 +29,10 @@
                 </ControlTemplate>
             </HeaderedItemsControl.Template>
             <HeaderedItemsControl.HeaderTemplate>
-                <DataTemplate DataType="viewModels:VolumeControlChannelViewModel">
+                <DataTemplate DataType="viewModels:AudioSessionControlViewModel">
                     <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
-                        <local:VolumeControlChannel 
+                        <local:AudioSessionControl 
                             Stream="{Binding}"
                             IconHeight="32"
                             IconWidth="32"
@@ -49,7 +49,7 @@
             </HeaderedItemsControl.HeaderTemplate>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <local:VolumeControlChannel 
+                    <local:AudioSessionControl 
                         Stream="{Binding}"
                         IconHeight="24"
                         IconWidth="24"
