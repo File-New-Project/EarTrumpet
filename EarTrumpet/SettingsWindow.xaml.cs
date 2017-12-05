@@ -3,6 +3,7 @@ using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System.Windows;
 using System;
+using System.Windows.Controls;
 
 namespace EarTrumpet
 {
@@ -40,6 +41,38 @@ namespace EarTrumpet
             Topmost = true;
             Activate();
             Topmost = false;
+        }
+
+        private void AddDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var cm = new ContextMenu();
+
+            foreach(var dev in _viewModel.EnumerateDevices())
+            {
+                var cmItem = new MenuItem { Header = dev.DisplayName };
+                cmItem.Click += (s, _) => _viewModel.AddDevice(dev);
+                cm.Items.Add(cmItem);
+            }
+
+            cm.PlacementTarget = (UIElement)sender;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
+        }
+
+        private void AddApp_Click(object sender, RoutedEventArgs e)
+        {
+            var cm = new ContextMenu();
+
+            foreach (var app in _viewModel.EnumerateApps())
+            {
+                var cmItem = new MenuItem { Header = app.DisplayName };
+                cmItem.Click += (s, _) => _viewModel.AddApp(app);
+                cm.Items.Add(cmItem);
+            }
+
+            cm.PlacementTarget = (UIElement)sender;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
         }
     }
 }

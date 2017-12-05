@@ -4,10 +4,109 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
         Height="300" 
         Width="300">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="4,1,4,1" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="4">
+
+        <DockPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Bottom">
+                <Button>Cancel</Button>
+                <Button>Save</Button>
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Vertical">
+
+                <GroupBox Header="Device Defaults">
+                    <StackPanel Orientation="Vertical">
+                        <Button Click="AddDevice_Click">Add Device</Button>
+                        <ItemsControl ItemsSource="{Binding DefaultDevices}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding DisplayName}" />
+                                        <uc:AudioSessionControl 
+                            Stream="{Binding}"
+                            IconHeight="32"
+                            IconWidth="32"
+                            VolumeTextFontSize="24"
+                            IconText="&#xE767;"
+                            IconTextSize="24"
+                            IconTextFontFamily="Segoe MDL2 Assets"
+                            IconBackground="Transparent"
+                            BeepOnPointerUp="True"
+                            Padding="0,4,0,4"
+                        />
+                                    </StackPanel>
+                                    
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="App Defaults">
+                    <StackPanel Orientation="Vertical">
+                        <Button Click="AddApp_Click">Add App</Button>
+                        <ItemsControl ItemsSource="{Binding DefaultApps}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding DisplayName}" />
+                                        <uc:AudioSessionControl 
+                        Stream="{Binding}"
+                        IconHeight="24"
+                        IconWidth="24"
+                        VolumeTextFontSize="18"
+                        IconSource="{Binding Icon}"
+                        IconText="{Binding IconText}"
+                        IconTextSize="16"
+                        IconTextFontWeight="Bold"
+                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                        IconBackground="{Binding Background}"
+                        />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- TODO localization -->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Hotkey:</TextBlock>
+                    <Button>Ctrl+Shift+Q</Button>
+                </StackPanel>
+
+                <CheckBox Content="Show hidden audio streams in volume mixer" />
+
+                <GroupBox Header="Default device change options">
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton Content="Set only the playback device" />
+                        <RadioButton Content="Set playback and communications device" />
+                    </StackPanel>
+                </GroupBox>
+                
+            </StackPanel>
+
+
+        </DockPanel>
         
+
     </Grid>
 </Window>
