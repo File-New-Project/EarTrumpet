@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.ViewModels
 {
-    public class AppItemViewModel : AudioSessionControlViewModel
+    public class AppItemViewModel : AudioSessionViewModel
     {
         private IAudioDeviceSession _session;
 

@@ -11,9 +11,9 @@ namespace EarTrumpet.UserControls
 {
     public partial class AudioSessionControl : UserControl
     {
-        public AudioSessionControlViewModel Stream { get { return (AudioSessionControlViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
+        public AudioSessionViewModel Stream { get { return (AudioSessionViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
         public static readonly DependencyProperty StreamProperty =
-            DependencyProperty.Register("Stream", typeof(AudioSessionControlViewModel), typeof(AudioSessionControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Stream", typeof(AudioSessionViewModel), typeof(AudioSessionControl), new PropertyMetadata(null));
 
         public ImageSource IconSource { get { return (ImageSource)GetValue(IconUriProperty); } set { SetValue(IconUriProperty, value); } }
         public static readonly DependencyProperty IconUriProperty =

@@ -174,7 +174,7 @@
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
-    <Compile Include="ViewModels\VolumeControlChannelViewModel.cs" />
+    <Compile Include="ViewModels\AudioSessionViewModel.cs" />
     <Compile Include="UserControls\AudioSessionControl.xaml.cs">
       <DependentUpon>AudioSessionControl.xaml</DependentUpon>
     </Compile>

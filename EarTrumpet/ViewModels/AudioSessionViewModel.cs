@@ -3,11 +3,11 @@ using EarTrumpet.Extensions;
 
 namespace EarTrumpet.ViewModels
 {
-    public class AudioSessionControlViewModel : BindableBase
+    public class AudioSessionViewModel : BindableBase
     {
         IStreamWithVolumeControl _stream;
 
-        public AudioSessionControlViewModel(IStreamWithVolumeControl stream)
+        public AudioSessionViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
             _stream.PropertyChanged += (_, e) =>
