@@ -7,6 +7,6 @@ namespace EarTrumpet.DataModel.Com
     public interface IAudioSessionEnumerator
     {
         void GetCount(out int SessionCount);
-        void GetSession(int SessionCount, out IAudioSessionControl Session);
+        void GetSession(int SessionCount, [MarshalAs(UnmanagedType.Interface)] out IAudioSessionControl Session);
     }
 }

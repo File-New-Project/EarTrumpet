@@ -7,8 +7,8 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDevice
     {
-        void Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, out IntPtr ppInterface);
-        void OpenPropertyStore(uint stgmAccess, out IPropertyStore ppProperties);
+        void Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
+        void OpenPropertyStore(uint stgmAccess, [MarshalAs(UnmanagedType.Interface)] out IPropertyStore ppProperties);
         void GetId([MarshalAs(UnmanagedType.LPWStr)] out string ppstrId);
         void GetState(out uint pdwState);
     }

@@ -7,6 +7,6 @@ namespace EarTrumpet.DataModel.Com
     public interface IMMDeviceCollection
     {
         void GetCount(out uint pcDevices);
-        void Item(uint nDevice, out IMMDevice ppDevice);
+        void Item(uint nDevice, [MarshalAs(UnmanagedType.Interface)] out IMMDevice ppDevice);
     }
 }

@@ -7,8 +7,8 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioEndpointVolume
     {
-        void RegisterControlChangeNotify(IAudioEndpointVolumeCallback pNotify);
-        void UnregisterControlChangeNotify(IAudioEndpointVolumeCallback pNotify);
+        void RegisterControlChangeNotify([MarshalAs(UnmanagedType.Interface)] IAudioEndpointVolumeCallback pNotify);
+        void UnregisterControlChangeNotify([MarshalAs(UnmanagedType.Interface)] IAudioEndpointVolumeCallback pNotify);
         void GetChannelCount(out uint pnChannelCount);
         void SetMasterVolumeLevel(float fLevelDB, ref Guid pguidEventContext);
         void SetMasterVolumeLevelScalar(float fLevel, ref Guid pguidEventContext);

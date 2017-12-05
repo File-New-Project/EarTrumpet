@@ -14,7 +14,7 @@ namespace EarTrumpet.DataModel.Com
         void SetIconPath([MarshalAs(UnmanagedType.LPWStr)]string Value, ref Guid EventContext);
         void GetGroupingParam(out Guid pRetVal);
         void SetGroupingParam(ref Guid Override, ref Guid EventContext);
-        void RegisterAudioSessionNotification(IAudioSessionEvents NewNotifications);
-        void UnregisterAudioSessionNotification(IAudioSessionEvents NewNotifications);
+        void RegisterAudioSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionEvents NewNotifications);
+        void UnregisterAudioSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionEvents NewNotifications);
     }
 }

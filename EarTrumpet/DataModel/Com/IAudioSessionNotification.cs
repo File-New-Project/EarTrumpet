@@ -6,6 +6,6 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioSessionNotification
     {
-        void OnSessionCreated(IAudioSessionControl NewSession);
+        void OnSessionCreated([MarshalAs(UnmanagedType.Interface)] IAudioSessionControl NewSession);
     }
 }

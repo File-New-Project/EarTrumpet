@@ -7,12 +7,13 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioSessionManager2
     {
-        void GetAudioSessionControl(ref Guid AudioSessionGuid, uint StreamFlags, out IAudioSessionControl SessionControl);
-        void GetSimpleAudioVolume(ref Guid AudioSessionGuid, uint StreamFlags, out ISimpleAudioVolume AudioVolume);
+        void GetAudioSessionControl(ref Guid AudioSessionGuid, uint StreamFlags, [MarshalAs(UnmanagedType.Interface)] out IAudioSessionControl SessionControl);
+        void GetSimpleAudioVolume(ref Guid AudioSessionGuid, uint StreamFlags, [MarshalAs(UnmanagedType.Interface)] out ISimpleAudioVolume AudioVolume);
+        [return: MarshalAs(UnmanagedType.Interface)]
         IAudioSessionEnumerator GetSessionEnumerator();
-        void RegisterSessionNotification(IAudioSessionNotification SessionNotification);
-        void UnregisterSessionNotification(IAudioSessionNotification SessionNotification);
-        void RegisterDuckNotification([MarshalAs(UnmanagedType.LPWStr)]string sessionID, IAudioVolumeDuckNotification duckNotification);
-        void UnregisterDuckNotification(IAudioVolumeDuckNotification duckNotification);
+        void RegisterSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionNotification SessionNotification);
+        void UnregisterSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionNotification SessionNotification);
+        void RegisterDuckNotification([MarshalAs(UnmanagedType.LPWStr)]string sessionID, [MarshalAs(UnmanagedType.Interface)] IAudioVolumeDuckNotification duckNotification);
+        void UnregisterDuckNotification([MarshalAs(UnmanagedType.Interface)] IAudioVolumeDuckNotification duckNotification);
     }
 }
