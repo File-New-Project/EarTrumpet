@@ -50,6 +50,7 @@ namespace EarTrumpet
 
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
+            AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
             AddItem(Properties.Resources.TroubleshootEarTrumpetText, DiagnosticsItem_Click);
             AddItem(Properties.Resources.ContextMenuSendFeedback, Feedback_Click);
             AddItem($"{aboutString} EarTrumpet {version} ...", About_Click);
@@ -69,6 +70,20 @@ namespace EarTrumpet
         {
             var item = _trayIcon.ContextMenu.MenuItems.Add(text);
             item.Click += clickHandler;
+        }
+
+        private void SettingsItem_Click(object sender, EventArgs e)
+        {
+            if (SettingsWindow.Instance == null)
+            {
+
+                var window = new SettingsWindow(_deviceService);
+                window.Show();
+            }
+            else
+            {
+                SettingsWindow.Instance.RaiseWindow();
+            }
         }
 
         private void EtVolumeMixer_Click(object sender, EventArgs e)

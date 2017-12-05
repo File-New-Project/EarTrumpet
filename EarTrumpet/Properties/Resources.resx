@@ -150,6 +150,9 @@
   <data name="RecordingDevicesText" xml:space="preserve">
     <value>Recording devices</value>
   </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet Settings</value>
+  </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
   </data>

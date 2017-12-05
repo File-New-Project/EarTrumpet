@@ -68,6 +68,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Services\DiagnosticsService.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
       <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
     </Compile>
@@ -169,11 +172,16 @@
     <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\VolumeControlChannelViewModel.cs" />
     <Compile Include="UserControls\VolumeControlChannel.xaml.cs">
       <DependentUpon>VolumeControlChannel.xaml</DependentUpon>
     </Compile>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AudioPeakMeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

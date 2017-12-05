@@ -160,6 +160,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Settings.
+        /// </summary>
+        public static string SettingsWindowText {
+            get {
+                return ResourceManager.GetString("SettingsWindowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sounds.
         /// </summary>
         public static string SoundsControlPanelText {
