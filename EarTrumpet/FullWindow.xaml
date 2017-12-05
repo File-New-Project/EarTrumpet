@@ -3,18 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:local="clr-namespace:EarTrumpet.UserControls"
         mc:Ignorable="d"
+        WindowStyle="None"
+        Icon="Tray.ico"
+        ShowInTaskbar="True"
+        AllowsTransparency="True"
+        SizeToContent="WidthAndHeight"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
-        Title="FullWindow" Height="500" Width="900">
+        Title="EarTrumpet Pro" Height="500" Width="900" MinWidth="300" MinHeight="300">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
                          Color="Black" />
+        <SolidColorBrush x:Key="HeaderBackground"
+                         Color="Black" />
+        <Style x:Key="CloseButtonStyle" TargetType="Button">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            <Setter Property="Content" Value="&#xE8BB;" />
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="Height" Value="31"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel x:Name="ContentRoot">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock TextAlignment="Left" Padding="20, 8, 20, 8">EarTrumpet Pro</TextBlock>
+            <Button x:Name="CloseButton" Grid.Column="1" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click">
+            </Button>
+        </Grid>
         <Menu DockPanel.Dock="Top"
               Background="{DynamicResource WindowBackground}"
               Foreground="{DynamicResource WindowForeground}">
@@ -28,8 +58,7 @@
 
         <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Devices}"
-                          Margin="4">
+            <ItemsControl ItemsSource="{Binding Devices}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -37,10 +66,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
-                        <StackPanel Orientation="Vertical"
-                                Width="300">
-                            <TextBlock Text="{Binding Device.DisplayName}"
-                                       Margin="4"/>
+                        <StackPanel Orientation="Vertical" Width="300">
+                            <TextBlock Text="{Binding Device.DisplayName}" Padding="20,8,8,8" FontSize="15" Background="{DynamicResource HeaderBackground}" TextTrimming="CharacterEllipsis" />
                             <local:DeviceAndAppsControl Device="{Binding}" />
                         </StackPanel>
                     </ItemContainerTemplate>

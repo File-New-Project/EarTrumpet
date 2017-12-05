@@ -3,7 +3,7 @@ using EarTrumpet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EarTrumpet
+namespace EarTrumpet.UserControls
 {
     public partial class DeviceAndAppsControl : UserControl
     {

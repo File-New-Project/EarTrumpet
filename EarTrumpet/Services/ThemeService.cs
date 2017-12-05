@@ -24,7 +24,7 @@ namespace EarTrumpet.Services
             ReplaceBrush(dictionary, "CottonSwabSliderTrackFill", "ImmersiveSystemAccentLight1");
             SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");
             SetBrush(dictionary, "CottonSwabSliderThumbPressed", "ImmersiveControlDarkSliderThumbHover");
-            SetBrush(dictionary, "PeakMeterHotColor", "ImmersiveSystemAccentDark3");
+            SetBrush(dictionary, "PeakMeterHotColor", "ImmersiveSystemAccentDark2");
         }
 
         public static void RegisterForThemeChanges(IntPtr hwnd)

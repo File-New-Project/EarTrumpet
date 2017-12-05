@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace EarTrumpet
+namespace EarTrumpet.UserControls
 {
     public partial class VolumeControlChannel : UserControl
     {

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:local="clr-namespace:EarTrumpet.UserControls"
         Title="EarTrumpet"
         MaxHeight="600"
         Width="360"
@@ -24,6 +24,8 @@
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
                          Color="Black" />
+        <SolidColorBrush x:Key="HeaderBackground"
+                         Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
     </Window.Resources>
@@ -33,28 +35,27 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+        <Grid Background="{DynamicResource HeaderBackground}"> 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}"
-                   VerticalAlignment="Center"
-                   Margin="4"/>
+            <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" Padding="20,8,8,8" FontSize="15" TextTrimming="CharacterEllipsis" />
 
-        <Button HorizontalAlignment="Right" 
-                Grid.Column="1"
-                Width="25"
-                Height="25"
-                FontSize="20"
-                BorderThickness="0"
-                Background="Transparent"
-                Foreground="{DynamicResource CottonSwabSliderTrackFill}"
-                Content="&#xe2ae;" 
-                FontFamily="Segoe MDL2 Assets"
-                Click="PopOutButton_Click"
-                Margin="2" />
-
+            <Button HorizontalAlignment="Right" 
+                    Grid.Column="1"
+                    Width="25"
+                    Height="25"
+                    FontSize="20"
+                    BorderThickness="0"
+                    Background="Transparent"
+                    Foreground="{DynamicResource CottonSwabSliderTrackFill}"
+                    Content="&#xe2ae;" 
+                    FontFamily="Segoe MDL2 Assets"
+                    Click="PopOutButton_Click"
+                    Margin="0,0,20,0" />
+        </Grid>
         <ScrollViewer 
                     Grid.Row="1"
                     Grid.ColumnSpan="2"

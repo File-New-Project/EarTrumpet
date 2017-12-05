@@ -67,7 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudioPeakMeter.xaml.cs">
+    <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
       <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="DataModel\SafeAudioDeviceSession.cs" />
     <Compile Include="DataModel\SafeCallHelper.cs" />
     <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
-    <Compile Include="DeviceAndAppsControl.xaml.cs">
+    <Compile Include="UserControls\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DispatcherExtensions.cs" />
@@ -170,14 +170,14 @@
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\VolumeControlChannelViewModel.cs" />
-    <Compile Include="VolumeControlChannel.xaml.cs">
+    <Compile Include="UserControls\VolumeControlChannel.xaml.cs">
       <DependentUpon>VolumeControlChannel.xaml</DependentUpon>
     </Compile>
-    <Page Include="AudioPeakMeter.xaml">
+    <Page Include="UserControls\AudioPeakMeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeviceAndAppsControl.xaml">
+    <Page Include="UserControls\DeviceAndAppsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,7 +197,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="VolumeControlChannel.xaml">
+    <Page Include="UserControls\VolumeControlChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

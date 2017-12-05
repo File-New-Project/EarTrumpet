@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EarTrumpet
+namespace EarTrumpet.UserControls
 {
     public partial class AudioPeakMeter : UserControl
     {
@@ -29,6 +29,12 @@ namespace EarTrumpet
 
             peakBorder.Width = 0;
 
+            UpdateTheme();
+            ThemeService.ThemeChanged += UpdateTheme;
+        }
+
+        void UpdateTheme()
+        {
             ThemeService.UpdateThemeResources(Resources);
         }
 
