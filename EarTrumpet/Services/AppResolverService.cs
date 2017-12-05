@@ -33,6 +33,11 @@ namespace EarTrumpet.Services
 
         public static string GetAppIdForProcess(uint processId)
         {
+            if (processId == 0)
+            {
+                return "GeneratedId.SystemSoundsSession";
+            }
+
             _appResolver.GetAppIDForProcess(processId, out string appid, out bool u1, out bool u2, out bool u3);
             return appid;   
         }

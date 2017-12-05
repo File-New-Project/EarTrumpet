@@ -15,21 +15,6 @@ namespace EarTrumpet.ViewModels
     {
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
-        bool _showEmptyDevices;
-        public bool ShowEmptyDevices
-        {
-            get => _showEmptyDevices;
-            set
-            {
-                if (_showEmptyDevices != value)
-                {
-                    _showEmptyDevices = value;
-                    RaisePropertyChanged(nameof(ShowEmptyDevices));
-                    Devices_CollectionChanged(this, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
-                }
-            }
-        }
-
         bool _isShowingHiddenChannels = false;
         public bool IsShowingHiddenChannels
         {
@@ -47,9 +32,6 @@ namespace EarTrumpet.ViewModels
 
         public FullWindowViewModel(IAudioDeviceManager manager)
         {
-            // TODO configuration store
-            _showEmptyDevices = false;
-
             _manager = manager;
             Devices = new ObservableCollection<DeviceViewModel>();
 
@@ -72,16 +54,11 @@ namespace EarTrumpet.ViewModels
 
         void PopuldateDevices()
         {
-            foreach(var device in _manager.Devices) AddDeviceIfApplicable(device);
+            foreach(var device in _manager.Devices) AddDevice(device);
         }
 
-        void AddDeviceIfApplicable(IAudioDevice device)
+        void AddDevice(IAudioDevice device)
         {
-            if (!ShowEmptyDevices)
-            {
-                if (device.Sessions.Count == 1) return; // System sounds session
-            }
-
             var newDevice = new DeviceViewModel(device);
             Devices.AddSorted(newDevice, DeviceViewModelComparer.Instance);
 
@@ -104,7 +81,7 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    AddDeviceIfApplicable((IAudioDevice)e.NewItems[0]);
+                    AddDevice((IAudioDevice)e.NewItems[0]);
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:

@@ -17,6 +17,7 @@ namespace EarTrumpet
             _manager = manager;
             InitializeComponent();
 
+            Title = Properties.Resources.FullWindowTitleText;
             _viewModel = new FullWindowViewModel(manager);
             DataContext = _viewModel;
 

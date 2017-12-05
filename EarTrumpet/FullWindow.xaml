@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EarTrumpet.UserControls"
         mc:Ignorable="d"
+        Name="WindowRoot"
         WindowStyle="None"
         Icon="Tray.ico"
         ShowInTaskbar="True"
@@ -12,7 +13,10 @@
         SizeToContent="WidthAndHeight"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
-        Title="EarTrumpet Pro" Height="500" Width="900" MinWidth="300" MinHeight="300">
+        Height="500"
+        Width="900" 
+        MinWidth="300" 
+        MinHeight="300">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
@@ -41,21 +45,11 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock TextAlignment="Left" Padding="20, 8, 20, 8">EarTrumpet Pro</TextBlock>
+            <TextBlock TextAlignment="Left" Padding="20, 8, 20, 8" Text="{Binding ElementName=WindowRoot,Path=Title}" />
             <Button x:Name="CloseButton" Grid.Column="1" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click">
             </Button>
         </Grid>
-        <Menu DockPanel.Dock="Top"
-              Background="{DynamicResource WindowBackground}"
-              Foreground="{DynamicResource WindowForeground}">
-            <!-- TODO: localize menu items -->
-            <MenuItem Header="_Options">
-                <MenuItem Header="Show Empty Devices" Foreground="Black" IsChecked="{Binding ShowEmptyDevices, Mode=TwoWay}" Click="ToggleMenuItem_Click"/>
-                <Separator />
-                <MenuItem Header="Show Hidden Channels" Foreground="Black" IsChecked="{Binding IsShowingHiddenChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
-            </MenuItem>
-        </Menu>
-
+        
         <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Devices}">

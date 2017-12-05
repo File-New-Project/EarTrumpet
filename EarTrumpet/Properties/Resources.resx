@@ -129,6 +129,9 @@
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Send Feedback...</value>
   </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet Volume Mixer</value>
+  </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy Volume Mixer</value>
   </data>
@@ -138,13 +141,25 @@
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any audio devices.</value>
   </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: No Device</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Playback devices</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Recording devices</value>
+  </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Playback devices | Recording devices | Sounds control panel</value>
+    <value>Sounds</value>
   </data>
   <data name="SpeechRuntimeDisplayName" xml:space="preserve">
     <value>Speech Runtime</value>
   </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>System Sounds</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Troubleshoot EarTrumpet</value>
   </data>
 </root>

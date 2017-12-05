@@ -97,6 +97,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
+        /// </summary>
+        public static string FullWindowTitleText {
+            get {
+                return ResourceManager.GetString("FullWindowTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Legacy Volume Mixer.
         /// </summary>
         public static string LegacyVolumeMixerText {
@@ -124,7 +133,34 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Playback devices | Recording devices | Sounds control panel.
+        ///   Looks up a localized string similar to EarTrumpet: No Device.
+        /// </summary>
+        public static string NoDeviceTrayText {
+            get {
+                return ResourceManager.GetString("NoDeviceTrayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playback devices.
+        /// </summary>
+        public static string PlaybackDevicesText {
+            get {
+                return ResourceManager.GetString("PlaybackDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording devices.
+        /// </summary>
+        public static string RecordingDevicesText {
+            get {
+                return ResourceManager.GetString("RecordingDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sounds.
         /// </summary>
         public static string SoundsControlPanelText {
             get {
@@ -147,6 +183,15 @@ namespace EarTrumpet.Properties {
         public static string SystemSoundsDisplayName {
             get {
                 return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Troubleshoot EarTrumpet.
+        /// </summary>
+        public static string TroubleshootEarTrumpetText {
+            get {
+                return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
             }
         }
     }

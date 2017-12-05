@@ -44,7 +44,7 @@ namespace EarTrumpet.UserControls
         }
         private void PeakValueChanged()
         {
-            peakBorder.Width = mainGrid.ActualWidth * PeakValue * (Volume/100f);
+            peakBorder.Width = MainGrid.ActualWidth * PeakValue * (Volume/100f);
         }
 
         private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

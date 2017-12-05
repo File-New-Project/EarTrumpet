@@ -9,7 +9,7 @@
         <SolidColorBrush x:Key="PeakMeterHotColor"
                          Color="Red" />
     </UserControl.Resources>
-    <Grid Name="mainGrid">
+    <Grid Name="MainGrid">
         <Border HorizontalAlignment="Left" Height="2" Name="peakBorder" Background="{DynamicResource PeakMeterHotColor}" />
     </Grid>
 </UserControl>

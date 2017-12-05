@@ -1,12 +1,11 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows;
 
 namespace EarTrumpet
@@ -36,27 +35,25 @@ namespace EarTrumpet
             var aboutString = Properties.Resources.ContextMenuAboutTitle;
             var version = Assembly.GetEntryAssembly().GetName().Version;
 
-            _trayIcon.ContextMenu.MenuItems.Add("-");
-
-            var openlegacyVolumeMixer = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.LegacyVolumeMixerText);
-            openlegacyVolumeMixer.Click += OpenlegacyVolumeMixer_Click;
-
-            var playbackDevices = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.SoundsControlPanelText);
-            playbackDevices.Click += PlaybackDevices_Click;
+            // (Devices added here later in ContextMenu_Popup)
 
             _trayIcon.ContextMenu.MenuItems.Add("-");
 
-            var diagnosticsItem = _trayIcon.ContextMenu.MenuItems.Add("Troubleshoot EarTrumpet...");
-            diagnosticsItem.Click += DiagnosticsItem_Click;
+            AddItem(Properties.Resources.FullWindowTitleText, EtVolumeMixer_Click);
+            AddItem(Properties.Resources.LegacyVolumeMixerText, OpenlegacyVolumeMixer_Click);
 
-            var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
-            feedbackItem.Click += Feedback_Click;
+            _trayIcon.ContextMenu.MenuItems.Add("-");
 
-            var aboutItem = _trayIcon.ContextMenu.MenuItems.Add(String.Format("{0} EarTrumpet {1} ...", aboutString, version));
-            aboutItem.Click += About_Click;
+            AddItem(Properties.Resources.PlaybackDevicesText, PlaybackDevices_Click);
+            AddItem(Properties.Resources.RecordingDevicesText, RecordingDevices_Click);
+            AddItem(Properties.Resources.SoundsControlPanelText, SoundsControlPanel_Click);
 
-            var exitItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuExitTitle);
-            exitItem.Click += Exit_Click;
+            _trayIcon.ContextMenu.MenuItems.Add("-");
+
+            AddItem(Properties.Resources.TroubleshootEarTrumpetText, DiagnosticsItem_Click);
+            AddItem(Properties.Resources.ContextMenuSendFeedback, Feedback_Click);
+            AddItem($"{aboutString} EarTrumpet {version} ...", About_Click);
+            AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
@@ -68,57 +65,21 @@ namespace EarTrumpet
             _trayIcon.Visible = true;
         }
 
-        string DumpSession(IAudioDeviceSession session)
+        private void AddItem(string text, EventHandler clickHandler)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Display Name: {session.DisplayName}");
-            sb.AppendLine($"Id: {session.Id}");
-            sb.AppendLine($"Persist ID: {(session.ProcessId > 0 ? Services.AppResolverService.GetAppIdForProcess((uint)session.ProcessId) : "None")}");
-            sb.AppendLine($"GroupingParam: {session.GroupingParam}");
-            sb.AppendLine($"IconPath: {session.IconPath}");
-            sb.AppendLine($"IsDesktopApp: {session.IsDesktopApp}");
-            sb.AppendLine($"IsHidden: {session.IsHidden}");
-            sb.AppendLine($"IsSystemSoundsSession: {session.IsSystemSoundsSession}");
-            sb.AppendLine($"ProcessId: {session.ProcessId}");
-            sb.AppendLine($"Volume: {session.Volume}");
-            sb.AppendLine($"IsMute: {session.IsMuted}");
-            sb.AppendLine($"State: {session.State}");
-
-            return sb.ToString();
+            var item = _trayIcon.ContextMenu.MenuItems.Add(text);
+            item.Click += clickHandler;
         }
 
-        string DumpDevice(IAudioDevice device)
+        private void EtVolumeMixer_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Display Name: {device.DisplayName}");
-            sb.AppendLine($"Id: {device.Id}");
-            sb.AppendLine($"Volume: {device.Volume}");
-            sb.AppendLine($"IsMuted: {device.IsMuted}");
-            sb.AppendLine("---------------");
-            foreach(var session in device.Sessions)
-            {
-                sb.AppendLine(DumpSession(session));
-            }
-            return sb.ToString();
-        }
-
-        string DumpDevices()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Default Device: {_deviceService.DefaultDevice.DisplayName} {_deviceService.DefaultDevice.Id}");
-            sb.AppendLine("-------------");
-            foreach(var device in _deviceService.Devices)
-            {
-                sb.AppendLine(DumpDevice(device));
-            }
-            return sb.ToString();
+            var window = new FullWindow(_deviceService);
+            window.Show();
         }
 
         private void DiagnosticsItem_Click(object sender, EventArgs e)
         {
-            var fileName = Path.GetTempFileName();
-            File.WriteAllText(fileName, DumpDevices());
-            Process.Start("notepad", fileName);
+            DiagnosticsService.DumpAndShowData(_deviceService);
         }
 
         private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -128,7 +89,17 @@ namespace EarTrumpet
 
         private void PlaybackDevices_Click(object sender, EventArgs e)
         {
-            Process.Start("mmsys.cpl");
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,playback");
+        }
+
+        private void RecordingDevices_Click(object sender, EventArgs e)
+        {
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,recording");
+        }
+
+        private void SoundsControlPanel_Click(object sender, EventArgs e)
+        {
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,sounds");
         }
 
         private void OpenlegacyVolumeMixer_Click(object sender, EventArgs e)
@@ -147,16 +118,15 @@ namespace EarTrumpet
 
             if (device.IsDevicePresent)
             {
-                var otherText = "EarTrumpet: 100% ()";
+                var otherText = "EarTrumpet: 100% - ";
                 var dev = _deviceService.VirtualDefaultDevice.DisplayName;
                 // API Limitation: "less than 64 chars" for the tooltip.
                 dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% ({dev})";
+                _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% - {dev}";
             }
             else
             {
-                // TODO: localizae
-                _trayIcon.Text = "EarTrumpet: No Device";
+                _trayIcon.Text = Properties.Resources.NoDeviceTrayText;
             }
         }
 

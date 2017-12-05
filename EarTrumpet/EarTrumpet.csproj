@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
       <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
     </Compile>
