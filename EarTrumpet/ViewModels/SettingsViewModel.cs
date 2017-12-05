@@ -62,7 +62,7 @@ namespace EarTrumpet.ViewModels
 
         internal void AddApp(IAudioDeviceSession app)
         {
-            DefaultApps.Add(new AudioSessionViewModel(app));
+            DefaultApps.Add(new AppItemViewModel(app));
 
         }
     }

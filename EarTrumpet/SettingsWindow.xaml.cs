@@ -4,6 +4,7 @@ using EarTrumpet.ViewModels;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using EarTrumpet.Extensions;
 
 namespace EarTrumpet
 {
@@ -29,11 +30,17 @@ namespace EarTrumpet
             Closing += (s, e) => Instance = null;
         }
 
-        
-
         void UpdateTheme()
         {
-
+            ThemeService.UpdateThemeResources(Resources);
+            if (ThemeService.IsWindowTransparencyEnabled)
+            {
+                this.EnableBlur();
+            }
+            else
+            {
+                this.DisableBlur();
+            }
         }
 
         internal void RaiseWindow()
@@ -73,6 +80,11 @@ namespace EarTrumpet
             cm.PlacementTarget = (UIElement)sender;
             cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             cm.IsOpen = true;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
