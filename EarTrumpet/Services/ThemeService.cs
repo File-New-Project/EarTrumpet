@@ -1,10 +1,14 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace EarTrumpet.Services
 {
     public class ThemeService
     {
+        public static event Action ThemeChanged;
+
         public static bool IsWindowTransparencyEnabled
         {
             get { return !SystemParameters.HighContrast && UserSystemPreferencesService.IsTransparencyEnabled; }
@@ -21,6 +25,31 @@ namespace EarTrumpet.Services
             SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");
             SetBrush(dictionary, "CottonSwabSliderThumbPressed", "ImmersiveControlDarkSliderThumbHover");
             SetBrush(dictionary, "PeakMeterHotColor", "ImmersiveSystemAccentDark3");
+        }
+
+        public static void RegisterForThemeChanges(IntPtr hwnd)
+        {
+            var src = HwndSource.FromHwnd(hwnd);
+            src.AddHook(WndProc);
+        }
+
+        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x320;
+            const int WM_DWMCOMPOSITIONCHANGED = 0x31E;
+            const int WM_THEMECHANGED = 0x031A;
+
+            switch (msg)
+            {
+                case WM_DWMCOLORIZATIONCOLORCHANGED:
+                case WM_DWMCOMPOSITIONCHANGED:
+                case WM_THEMECHANGED:
+                    ThemeChanged?.Invoke();
+                    break;
+                default:
+                    break;
+            }
+            return IntPtr.Zero;
         }
 
         private static Color GetWindowBackgroundColor()

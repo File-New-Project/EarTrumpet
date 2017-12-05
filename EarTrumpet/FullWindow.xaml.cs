@@ -19,6 +19,13 @@ namespace EarTrumpet
             _viewModel = new FullWindowViewModel(manager);
             DataContext = _viewModel;
 
+            ThemeService.ThemeChanged += UpdateTheme;
+
+            UpdateTheme();
+        }
+
+        private void UpdateTheme()
+        {
             ThemeService.UpdateThemeResources(Resources);
         }
 

@@ -64,6 +64,12 @@ namespace EarTrumpet
             InitializeComponent();
             GridRoot.DataContext = this;
 
+            UpdateTheme();
+            ThemeService.ThemeChanged += UpdateTheme;
+        }
+
+        void UpdateTheme()
+        {
             ThemeService.UpdateThemeResources(Resources);
         }
 

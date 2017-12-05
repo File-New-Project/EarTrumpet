@@ -6,6 +6,7 @@ using System;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace EarTrumpet
 {
@@ -27,13 +28,19 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
-            CreateAndHideWindow();
-
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
             // visuals are preferrable.
             // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
 
-            SourceInitialized += (s, e) => UpdateTheme();
+            SourceInitialized += (s, e) =>
+            {
+                UpdateTheme();
+                ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+            };
+
+            ThemeService.ThemeChanged += () => UpdateTheme();
+
+            CreateAndHideWindow();
         }
 
         private void CreateAndHideWindow()
