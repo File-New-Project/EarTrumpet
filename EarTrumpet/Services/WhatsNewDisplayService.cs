@@ -14,19 +14,29 @@ namespace EarTrumpet.Services
                 var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
                 var hasShownFirstRun = false;
                 var lastVersion = Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)];
-                if ((lastVersion == null || currentVersion != (string)lastVersion))
+                if ((lastVersion != null && currentVersion == (string)lastVersion))
                 {
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
-
-                    if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start("eartrumpet:");
-                        }
-                        catch { }
-                    }
+                    return; 
                 }
+
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
+
+                Version.TryParse(lastVersion?.ToString(), out var oldVersion);
+                if (oldVersion?.Major == Package.Current.Id.Version.Major && oldVersion?.Minor == Package.Current.Id.Version.Minor)
+                {
+                    return;
+                }
+
+                if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
+                {
+                    return;
+                }
+
+                try
+                {
+                    System.Diagnostics.Process.Start("eartrumpet:");
+                }
+                catch { }
             }            
         }
 

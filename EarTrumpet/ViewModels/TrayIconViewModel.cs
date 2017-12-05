@@ -110,41 +110,59 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
         {
-            if (noDevice && _currentIcon != IconId.NoDevice)
+            if (noDevice)
             {
+                if (_currentIcon == IconId.NoDevice)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.NoDevice];
                 _currentIcon = IconId.NoDevice;
-                return;
             }
-            if (isMuted && _currentIcon != IconId.Muted)
+            else if (isMuted)
             {
+                if (_currentIcon == IconId.Muted)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.Muted];
                 _currentIcon = IconId.Muted;
-                return;
             }
-            if (currentVolume == 0 && _currentIcon != IconId.SpeakerZeroBars)
+            else if (currentVolume == 0)
             {
+                if (_currentIcon == IconId.SpeakerZeroBars)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.SpeakerZeroBars];
                 _currentIcon = IconId.SpeakerZeroBars;
-                return;
             }
-            if (currentVolume >= 1 && currentVolume < 33 && _currentIcon != IconId.SpeakerOneBar)
+            else if (currentVolume >= 1 && currentVolume < 33)
             {
+                if (_currentIcon == IconId.SpeakerOneBar)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.SpeakerOneBar];
                 _currentIcon = IconId.SpeakerOneBar;
-                return;
             }
-            if (currentVolume >= 33 && currentVolume < 66 && _currentIcon != IconId.SpeakerTwoBars)
+            else if (currentVolume >= 33 && currentVolume < 66)
             {
+                if (_currentIcon == IconId.SpeakerTwoBars)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.SpeakerTwoBars];
                 _currentIcon = IconId.SpeakerTwoBars;
-                return;
             }
-            if (currentVolume >= 66 && currentVolume <= 100 && _currentIcon != IconId.SpeakerThreeBars)
+            else if (currentVolume >= 66 && currentVolume <= 100)
             {
+                if (_currentIcon == IconId.SpeakerThreeBars)
+                {
+                    return;
+                }
                 TrayIcon = _icons[IconId.SpeakerThreeBars];
                 _currentIcon = IconId.SpeakerThreeBars;
-                return;
             }
 
             if (_currentIcon == IconId.OriginalIcon)
