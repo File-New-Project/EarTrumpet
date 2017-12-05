@@ -73,6 +73,7 @@ namespace EarTrumpet
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Display Name: {session.DisplayName}");
             sb.AppendLine($"Id: {session.Id}");
+            sb.AppendLine($"Persist ID: {(session.ProcessId > 0 ? Services.AppResolverService.GetAppIdForProcess((uint)session.ProcessId) : "None")}");
             sb.AppendLine($"GroupingParam: {session.GroupingParam}");
             sb.AppendLine($"IconPath: {session.IconPath}");
             sb.AppendLine($"IsDesktopApp: {session.IsDesktopApp}");
