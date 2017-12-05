@@ -150,6 +150,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
+    <Compile Include="Services\AppResolverService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="KeyboardHook.cs" />
