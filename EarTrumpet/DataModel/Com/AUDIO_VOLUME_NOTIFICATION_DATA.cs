@@ -10,6 +10,6 @@ namespace EarTrumpet.DataModel.Com
         public int bMuted;
         public float fMasterVolume;
         public uint nChannels;
-        public float[] afChannelVolumes;
+        public IntPtr afChannelVolumes;
     }
 }
