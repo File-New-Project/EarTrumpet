@@ -21,8 +21,8 @@ namespace EarTrumpet.Services
 
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(currentVersion)] = currentVersion;
 
-                var versionArray = lastVersion?.ToString().Split('.');
-                if (versionArray?.Length > 2 && (versionArray[0] == Package.Current.Id.Version.Major.ToString() && versionArray[1] == Package.Current.Id.Version.Minor.ToString()))
+                Version.TryParse(lastVersion?.ToString(), out var oldVersion);
+                if (oldVersion?.Major == Package.Current.Id.Version.Major && oldVersion?.Minor == Package.Current.Id.Version.Minor)
                 {
                     return;
                 }
