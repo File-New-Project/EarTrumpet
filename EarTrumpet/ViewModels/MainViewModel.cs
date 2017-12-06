@@ -19,6 +19,10 @@ namespace EarTrumpet.ViewModels
 
         public string NoItemsContent => !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
 
+        public Visibility ExpandedPaneVisibility { get; private set; }
+
+        public string ExpandText => ExpandedPaneVisibility == Visibility.Visible ? "\ue010" : "\ue011";
+
         bool _isVisible = false;
         public bool IsVisible
         {
@@ -51,6 +55,7 @@ namespace EarTrumpet.ViewModels
 
             DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
 
+            ExpandedPaneVisibility = Visibility.Collapsed;
             UpdateInterfaceState();
 
             _peakMeterTimer = new Timer(1000 / 30);
@@ -98,6 +103,13 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(NoAppsPaneVisibility));
             RaisePropertyChanged(nameof(NoItemsContent));
             RaisePropertyChanged(nameof(DeviceVisibility));
+        }
+
+        public void DoExpandCollapse()
+        {
+            ExpandedPaneVisibility = ExpandedPaneVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            RaisePropertyChanged(nameof(ExpandedPaneVisibility));
+            RaisePropertyChanged(nameof(ExpandText));
         }
     }
 }

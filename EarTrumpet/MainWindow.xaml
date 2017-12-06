@@ -20,6 +20,7 @@
         TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
+
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
@@ -28,6 +29,56 @@
                          Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
+
+        
+        <SolidColorBrush x:Key="LargeButtonBackground"
+                         Color="Red" />
+
+        <Style x:Key="LargeButton" TargetType="Button">
+            <Setter Property="MinHeight" Value="50" />
+            <Setter Property="Margin" Value="3,0,3,0" />
+            <Setter Property="FontSize" Value="10" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="#33FFFFFF"
+                         SnapsToDevicePixels="True"                                                                   
+                         Background="{TemplateBinding Background}">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{TemplateBinding Tag}"
+                                           Margin="4"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           FontSize="18"/>
+
+                                <ContentPresenter 
+                                Margin="2" 
+                                VerticalAlignment="Bottom" 
+                                Grid.Row="1"
+                                RecognizesAccessKey="True" />
+                            </Grid>
+
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -35,25 +86,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Background="{DynamicResource HeaderBackground}"> 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" Padding="20,8,8,8" FontSize="15" TextTrimming="CharacterEllipsis" />
-
-            <Button HorizontalAlignment="Right" 
-                    Grid.Column="1"
-                    Width="32"
-                    Height="32"
-                    FontSize="15"
-                    BorderThickness="0"
-                    Foreground="White"
-                    Content="&#xE8AD;" 
-                    FontFamily="Segoe MDL2 Assets"
-                    Click="PopOutButton_Click"
-                    Margin="0,0,20,0">
+        <Grid Background="{DynamicResource HeaderBackground}">
+            <Button BorderThickness="0"
+                    HorizontalContentAlignment="Stretch"
+                    Foreground="{DynamicResource WindowForeground}"
+                    Click="ExpandCollapse_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background" >
@@ -67,7 +104,7 @@
                                     <Border x:Name="border"
                          SnapsToDevicePixels="True"                                                                   
                          Background="{TemplateBinding Background}">
-                                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                        <ContentPresenter RecognizesAccessKey="True" />
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -83,6 +120,29 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" 
+                               Padding="12,8,8,8" 
+                               FontSize="15" 
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" />
+
+                        <TextBlock Grid.Column="1" 
+                               FontFamily="Segoe MDL2 Assets"
+                               VerticalAlignment="Center"
+                               FontSize="15"
+                               Margin="8"
+                               Text="{Binding ExpandText}" />
+                    </Grid>
+                </Button.Content>
+
             </Button>
         </Grid>
         <ScrollViewer 
@@ -106,8 +166,29 @@
                                     TextWrapping="Wrap" />
                 </Grid>
 
-                <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
+
+                <StackPanel Orientation="Vertical">
+
+                    <Grid  Visibility="{Binding ExpandedPaneVisibility}"
+                      Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Tag="&#xe15d;" Content="Playback" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="PlaybackDevices_Click"  />
+                        <Button Grid.Column="1" Tag="&#xe13a;" Content="Communication" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="CommunicationDevices_Click"  />
+                        <Button Grid.Column="2" Tag="&#xe115;" Content="Settings" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="Settings_Click"  />
+                        <Button Grid.Column="3" Tag="&#xe8ad;" Content="Pop out" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="PopOut_Click"  />
+
+                    </Grid>
+
+                    <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
                                                 Visibility="{Binding DeviceVisibility}"/>
+
+                </StackPanel>
             </Grid>
         </ScrollViewer>
     </Grid>

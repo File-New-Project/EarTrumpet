@@ -127,10 +127,37 @@ namespace EarTrumpet
             }            
         }
 
-        private void PopOutButton_Click(object sender, RoutedEventArgs e)
+        private void ExpandCollapse_Click(object sender, RoutedEventArgs e)
         {
-            var fullWindow = new FullWindow(_deviceService);
-            fullWindow.Show();
+            _viewModel.DoExpandCollapse();
+            UpdateWindowPosition();
+        }
+
+        private void PlaybackDevices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CommunicationDevices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            if (SettingsWindow.Instance == null)
+            {
+                new SettingsWindow(_deviceService).Show();
+            }
+            else
+            {
+                SettingsWindow.Instance.RaiseWindow();
+            }
+        }
+
+        private void PopOut_Click(object sender, RoutedEventArgs e)
+        {
+            new FullWindow(_deviceService).Show();
         }
     }
 }
