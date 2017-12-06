@@ -106,7 +106,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center"
                                Margin="4">Hotkey:</TextBlock>
-                    <Button Click="HotkeySelect_Click" Content="{Binding Hotkey}" />
+                    <Button Click="HotkeySelect_Click" Content="{Binding HotkeyText}" />
                 </StackPanel>
 
             </StackPanel>

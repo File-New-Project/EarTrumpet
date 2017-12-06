@@ -23,8 +23,11 @@ namespace EarTrumpet.ViewModels
             {
                 _hotkey = value;
                 RaisePropertyChanged(nameof(Hotkey));
+                RaisePropertyChanged(nameof(HotkeyText));
             }
         }
+
+        public string HotkeyText => _hotkey.ToString();
 
         public SettingsViewModel(IAudioDeviceManager manager)
         {
