@@ -7,7 +7,7 @@
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              mc:Ignorable="d" 
              IsTabStop="False"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="50" d:DesignWidth="200">
     <UserControl.Resources>
 
         <ext:OpacityConverter x:Key="opacityConverter" />

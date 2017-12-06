@@ -62,7 +62,6 @@ namespace EarTrumpet.DataModel
                 if (container.ProcessId == newSession.ProcessId)
                 {
                     newSession.IsMuted = newSession.IsMuted || container.IsMuted;
-                    newSession.Volume = Math.Min(newSession.Volume, container.Volume);
                     break;
                 }
             }
