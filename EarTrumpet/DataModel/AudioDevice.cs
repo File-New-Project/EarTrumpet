@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace EarTrumpet.DataModel
 {
@@ -17,18 +18,32 @@ namespace EarTrumpet.DataModel
         IAudioEndpointVolume _deviceVolume;
         AudioDeviceSessionCollection _sessions;
         IAudioMeterInformation _meter;
+        IAudioDeviceManagerInternal _manager;
         string _id;
 
-        public AudioDevice(IMMDevice device, Dispatcher dispatcher)
+        public AudioDevice(IMMDevice device, IAudioDeviceManagerInternal manager, Dispatcher dispatcher)
         {
             _device = device;
             _dispatcher = dispatcher;
+            _manager = manager;
             _id = device.GetId();
             _deviceVolume = device.Activate<IAudioEndpointVolume>();
 
             _deviceVolume.RegisterControlChangeNotify(this);
             _meter = device.Activate<IAudioMeterInformation>();
             _sessions = new AudioDeviceSessionCollection(_device, dispatcher);
+            _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+        }
+
+        private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch(e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Debug.Assert(e.NewItems.Count == 1);
+                    _manager.OnSessionCreated((IAudioDeviceSession)e.NewItems[0]);
+                    break;
+            }
         }
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)

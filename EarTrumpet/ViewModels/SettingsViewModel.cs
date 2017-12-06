@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,18 +13,21 @@ namespace EarTrumpet.ViewModels
     {
         IAudioDeviceManager _manager;
 
-        public ObservableCollection<AudioSessionViewModel> DefaultDevices { get; private set; }
         public ObservableCollection<AudioSessionViewModel> DefaultApps { get; private set; }
 
         public SettingsViewModel(IAudioDeviceManager manager)
         {
             _manager = manager;
 
-            DefaultDevices = new ObservableCollection<AudioSessionViewModel>();
             DefaultApps = new ObservableCollection<AudioSessionViewModel>();
+
+            foreach(var app in SettingsService.DefaultApps)
+            {
+                DefaultApps.Add(new AppItemViewModel(new SettingAudioSession(app, manager)));
+            }
         }
 
-        public IEnumerable<IAudioDeviceSession> EnumerateApps()
+        public IEnumerable<AppItemViewModel> EnumerateApps()
         {
             if (!_manager.VirtualDefaultDevice.IsDevicePresent)
             {
@@ -32,38 +36,22 @@ namespace EarTrumpet.ViewModels
 
             foreach(var app in _manager.DefaultDevice.Sessions)
             {
-                if (!DefaultApps.Any(d => d.Id == app.Id))
+                if (!DefaultApps.Any(d => AppResolverService.GetAppIdForProcess((uint)app.ProcessId) == d.Id))
                 {
-                    yield return app;
+                    yield return new AppItemViewModel(app);
                 }
             }
-        }
-
-        public IEnumerable<IAudioDevice> EnumerateDevices()
-        {
-            if (!_manager.VirtualDefaultDevice.IsDevicePresent)
-            {
-                yield break;
-            }
-
-            foreach (var dev in _manager.Devices)
-            {
-                if (!DefaultDevices.Any(d => d.Id == dev.Id))
-                {
-                    yield return dev;
-                }
-            }
-        }
-
-        internal void AddDevice(IAudioDevice dev)
-        {
-            DefaultDevices.Add(new AudioSessionViewModel(dev));
         }
 
         internal void AddApp(IAudioDeviceSession app)
         {
-            DefaultApps.Add(new AppItemViewModel(app));
+            DefaultApps.Add(new AppItemViewModel(new SettingAudioSession(new SettingsService.DefaultApp
+            { Id = AppResolverService.GetAppIdForProcess((uint)app.ProcessId) }, _manager)));
+        }
 
+        public void Save()
+        {
+            SettingsService.DefaultApps = DefaultApps.Select(d => ((SettingAudioSession)((AppItemViewModel)d).Session).Data).ToArray();
         }
     }
 }

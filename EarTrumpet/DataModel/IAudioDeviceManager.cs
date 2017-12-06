@@ -10,5 +10,6 @@ namespace EarTrumpet.DataModel
         IVirtualDefaultAudioDevice VirtualDefaultDevice { get; }
 
         event EventHandler<IAudioDevice> DefaultDeviceChanged;
+        event EventHandler<IAudioDeviceSession> SessionCreated;
     }
 }

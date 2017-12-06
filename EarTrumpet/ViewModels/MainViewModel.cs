@@ -1,4 +1,7 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Services;
+using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using System.Windows;
 
@@ -8,11 +11,13 @@ namespace EarTrumpet.ViewModels
     {
         public DeviceViewModel DefaultDevice { get; private set; }
 
-        public Visibility ListVisibility { get; private set; }
-        public Visibility NoAppsPaneVisibility { get; private set; }
-        public Visibility DeviceVisibility { get; private set; }
+        public Visibility ListVisibility => DefaultDevice.Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
-        public string NoItemsContent { get; private set; }
+        public Visibility NoAppsPaneVisibility => DefaultDevice.Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+
+        public Visibility DeviceVisibility => _deviceService.VirtualDefaultDevice.IsDevicePresent ? Visibility.Visible : Visibility.Collapsed;
+
+        public string NoItemsContent => !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
 
         bool _isVisible = false;
         public bool IsVisible
@@ -36,19 +41,42 @@ namespace EarTrumpet.ViewModels
         }
 
         private readonly IAudioDeviceManager _deviceService;
-        Timer _peakMeterTimer;
+        private readonly Timer _peakMeterTimer;
 
         public MainViewModel(IAudioDeviceManager deviceService)
         {
             _deviceService = deviceService;
-            DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
+            _deviceService.SessionCreated += DeviceManager_SessionCreated;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
+
+            DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
 
             UpdateInterfaceState();
 
             _peakMeterTimer = new Timer(1000 / 30);
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
+
+            // Enumerate apps and set startup values.
+            foreach(var dev in _deviceService.Devices)
+            {
+                foreach(var session in dev.Sessions)
+                {
+                    DeviceManager_SessionCreated(null, session);
+                }
+            }
+        }
+
+        private void DeviceManager_SessionCreated(object sender, IAudioDeviceSession e)
+        {
+            var appId = AppResolverService.GetAppIdForProcess((uint)e.ProcessId);
+            var appSetting = SettingsService.DefaultApps.FirstOrDefault(d => d.Id == appId);
+            if (appSetting != null)
+            {
+                Debug.WriteLine("Default Session Applied: " + e.DisplayName);
+                e.IsMuted = appSetting.IsMuted;
+                e.Volume = appSetting.Volume;
+            }
         }
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -66,11 +94,6 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateInterfaceState()
         {
-            ListVisibility = DefaultDevice.Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            NoAppsPaneVisibility = DefaultDevice.Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-            NoItemsContent = !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
-            DeviceVisibility = _deviceService.VirtualDefaultDevice.IsDevicePresent ? Visibility.Visible : Visibility.Collapsed;
-
             RaisePropertyChanged(nameof(ListVisibility));
             RaisePropertyChanged(nameof(NoAppsPaneVisibility));
             RaisePropertyChanged(nameof(NoItemsContent));

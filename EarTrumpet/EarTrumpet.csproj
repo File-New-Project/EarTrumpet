@@ -54,6 +54,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
@@ -67,7 +68,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,7 @@
     <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\SettingAudioSession.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\AudioSessionViewModel.cs" />

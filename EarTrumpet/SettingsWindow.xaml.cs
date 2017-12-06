@@ -27,7 +27,11 @@ namespace EarTrumpet
             SourceInitialized += (s, e) => UpdateTheme();
 
             Instance = this;
-            Closing += (s, e) => Instance = null;
+            Closing += (s, e) =>
+            {
+                 Instance = null;
+                _viewModel.Save();
+            };
         }
 
         void UpdateTheme()
@@ -50,22 +54,6 @@ namespace EarTrumpet
             Topmost = false;
         }
 
-        private void AddDevice_Click(object sender, RoutedEventArgs e)
-        {
-            var cm = new ContextMenu();
-
-            foreach(var dev in _viewModel.EnumerateDevices())
-            {
-                var cmItem = new MenuItem { Header = dev.DisplayName };
-                cmItem.Click += (s, _) => _viewModel.AddDevice(dev);
-                cm.Items.Add(cmItem);
-            }
-
-            cm.PlacementTarget = (UIElement)sender;
-            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            cm.IsOpen = true;
-        }
-
         private void AddApp_Click(object sender, RoutedEventArgs e)
         {
             var cm = new ContextMenu();
@@ -73,7 +61,7 @@ namespace EarTrumpet
             foreach (var app in _viewModel.EnumerateApps())
             {
                 var cmItem = new MenuItem { Header = app.DisplayName };
-                cmItem.Click += (s, _) => _viewModel.AddApp(app);
+                cmItem.Click += (s, _) => _viewModel.AddApp(app.Session);
                 cm.Items.Add(cmItem);
             }
 
@@ -85,6 +73,11 @@ namespace EarTrumpet
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void RemoveApp_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.DefaultApps.Remove((AudioSessionViewModel)((Button)sender).DataContext);
         }
     }
 }

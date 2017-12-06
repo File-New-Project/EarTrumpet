@@ -26,6 +26,8 @@ namespace EarTrumpet.ViewModels
         string _displayName;
         public override string DisplayName => _displayName;
 
+        public IAudioDeviceSession Session => _session;
+
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {
             _session = session;

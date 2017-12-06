@@ -9,9 +9,10 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
-    public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
+    public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
     {
         public event EventHandler<IAudioDevice> DefaultDeviceChanged;
+        public event EventHandler<IAudioDeviceSession> SessionCreated;
 
         IMMDeviceEnumerator _enumerator;
         IAudioDevice _defaultDevice;
@@ -110,7 +111,7 @@ namespace EarTrumpet.DataModel
                     IMMDevice device;
                     _enumerator.GetDevice(pwstrDeviceId, out device);
 
-                    _devices.Add(new SafeAudioDevice(new AudioDevice(device, _dispatcher)));
+                    _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
                 }
             });
         }
@@ -154,5 +155,10 @@ namespace EarTrumpet.DataModel
         }
 
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key) { }
+
+        public void OnSessionCreated(IAudioDeviceSession session)
+        {
+            SessionCreated?.Invoke(this, session);
+        }
     }
 }

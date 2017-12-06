@@ -65,45 +65,21 @@
                 Orientation="Vertical"
                 Margin="8">
 
-                <GroupBox Header="Device Defaults">
-                    <StackPanel Orientation="Vertical">
-                        <Button Click="AddDevice_Click">Add Device</Button>
-                        <ItemsControl ItemsSource="{Binding DefaultDevices}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding DisplayName}" />
-                                        <uc:AudioSessionControl 
-                            Stream="{Binding}"
-                            IconHeight="32"
-                            IconWidth="32"
-                            VolumeTextFontSize="24"
-                            IconText="&#xE767;"
-                            IconTextSize="24"
-                            IconTextFontFamily="Segoe MDL2 Assets"
-                            IconBackground="Transparent"
-                            BeepOnPointerUp="True"
-                            Padding="0,4,0,4"
-                        />
-                                    </StackPanel>
-                                    
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                    </StackPanel>
-                </GroupBox>
-
                 <GroupBox Header="App Defaults">
                     <StackPanel Orientation="Vertical">
                         <Button Click="AddApp_Click">Add App</Button>
                         <ItemsControl ItemsSource="{Binding DefaultApps}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding DisplayName}" />
-                                        <uc:AudioSessionControl 
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding DisplayName}" />
+                                            <uc:AudioSessionControl 
                         Stream="{Binding}"
                         IconHeight="24"
                         IconWidth="24"
@@ -115,7 +91,12 @@
                         IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
                         IconBackground="{Binding Background}"
                         />
-                                    </StackPanel>
+                                        </StackPanel>
+
+                                        <Button Grid.Column="1" Click="RemoveApp_Click">X</Button>
+                                    </Grid>
+                                    
+
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
