@@ -14,6 +14,7 @@
         SizeToContent="WidthAndHeight"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
+        BorderThickness="1"
         Height="300"
         MinWidth="360"
         Width="360">
@@ -21,6 +22,19 @@
         <WindowChrome CaptionHeight="31"
                       ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="BorderBrush"
+                    Value="{DynamicResource ActiveBorder}" />
+            <Style.Triggers>
+                <Trigger Property="IsActive"
+                         Value="false">
+                    <Setter Property="BorderBrush"
+                            Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     <Window.Resources>
 
         <SolidColorBrush x:Key="WindowForeground"

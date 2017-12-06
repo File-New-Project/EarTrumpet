@@ -14,11 +14,25 @@
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="110" Width="150"
+        BorderThickness="1"
         PreviewKeyDown="Window_PreviewKeyDown">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31"
                       ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="BorderBrush"
+                    Value="{DynamicResource ActiveBorder}" />
+            <Style.Triggers>
+                <Trigger Property="IsActive"
+                         Value="false">
+                    <Setter Property="BorderBrush"
+                            Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     <Window.Resources>
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
