@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EarTrumpet.UserControls"
+        xmlns:resx="clr-namespace:EarTrumpet.Properties"
         mc:Ignorable="d"
         Name="WindowRoot"
         WindowStyle="None"
@@ -103,11 +104,8 @@
                     </EventTrigger>
                 </Button.Triggers>
                 <Button.ContextMenu>
-                    <!-- TODO: localize menu items -->
                     <ContextMenu>
-                        <MenuItem Header="Show Empty Devices" Foreground="Black" IsChecked="{Binding ShowEmptyDevices, Mode=TwoWay}" Click="ToggleMenuItem_Click"/>
-                        <Separator />
-                        <MenuItem Header="Show Hidden Channels" Foreground="Black" IsChecked="{Binding IsShowingHiddenChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
+                        <MenuItem Header="{x:Static resx:Resources.ShowHiddenSessionsMenuItem}" Foreground="Black" IsChecked="{Binding IsShowingHiddenChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

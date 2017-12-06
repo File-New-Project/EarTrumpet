@@ -24,6 +24,7 @@ namespace EarTrumpet
             Hotkey = hotkey;
             InitializeComponent();
 
+            UpdateText();
         }
 
         void UpdateText()

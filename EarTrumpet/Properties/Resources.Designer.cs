@@ -160,11 +160,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string SelectHotkeySaveButtonText {
+            get {
+                return ResourceManager.GetString("SelectHotkeySaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a hotkey.
+        /// </summary>
+        public static string SelectHotkeyWindowTitle {
+            get {
+                return ResourceManager.GetString("SelectHotkeyWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Settings.
         /// </summary>
         public static string SettingsWindowText {
             get {
                 return ResourceManager.GetString("SettingsWindowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Hidden Sessions.
+        /// </summary>
+        public static string ShowHiddenSessionsMenuItem {
+            get {
+                return ResourceManager.GetString("ShowHiddenSessionsMenuItem", resourceCulture);
             }
         }
         

@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:resx="clr-namespace:EarTrumpet.Properties"
         mc:Ignorable="d"
-        Title="Select a hotkey" Height="110" Width="150"
+        SizeToContent="WidthAndHeight"
+        Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="110" Width="150"
          PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
         <StackPanel>
             <TextBlock Margin="12" Name="HotkeyText" />
-            <Button Margin="12" Click="Button_Click">Save</Button>
+            <Button Margin="12" Click="Button_Click" Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
         </StackPanel>
         
     </Grid>
