@@ -139,6 +139,8 @@ namespace EarTrumpet
 
         private void PlaybackDevices_Click(object sender, RoutedEventArgs e)
         {
+            if (_deviceService.DefaultPlaybackDevice == null) return;
+
             var cm = new ContextMenu();
 
             foreach (var dev in _deviceService.Devices)
@@ -156,6 +158,8 @@ namespace EarTrumpet
 
         private void CommunicationDevices_Click(object sender, RoutedEventArgs e)
         {
+            if (_deviceService.DefaultCommunicationDevice == null) return;
+
             var cm = new ContextMenu();
 
             foreach (var dev in _deviceService.Devices)

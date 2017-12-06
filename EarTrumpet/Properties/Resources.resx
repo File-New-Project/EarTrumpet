@@ -169,10 +169,13 @@
     <value>Show Hidden Sessions</value>
   </data>
   <data name="DefaultAppsDescriptionText" xml:space="preserve">
-    <value>Set default values for these apps:</value>
+    <value>Set default volume for these apps:</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Open EarTrumpet by pressing</value>
+  </data>
+  <data name="NoAppsPlayingSoundText" xml:space="preserve">
+    <value>Apps which recently played sound will show up here</value>
   </data>
   <data name="SelectHotkeySaveButtonText" xml:space="preserve">
     <value>Close</value>

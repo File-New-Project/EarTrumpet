@@ -97,7 +97,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set default values for these apps:.
+        ///   Looks up a localized string similar to Set default volume for these apps:.
         /// </summary>
         public static string DefaultAppsDescriptionText {
             get {
@@ -138,6 +138,15 @@ namespace EarTrumpet.Properties {
         public static string NoAppsPanelContent {
             get {
                 return ResourceManager.GetString("NoAppsPanelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apps which recently played sound will show up here.
+        /// </summary>
+        public static string NoAppsPlayingSoundText {
+            get {
+                return ResourceManager.GetString("NoAppsPlayingSoundText", resourceCulture);
             }
         }
         

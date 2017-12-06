@@ -61,7 +61,15 @@ namespace EarTrumpet
             foreach (var app in _viewModel.EnumerateApps())
             {
                 var cmItem = new MenuItem { Header = app.DisplayName };
+                cmItem.Header = app.DisplayName;
                 cmItem.Click += (s, _) => _viewModel.AddApp(app.Session);
+                cm.Items.Add(cmItem);
+            }
+
+            if (cm.Items.Count == 0)
+            {
+                var cmItem = new MenuItem { Header = Properties.Resources.NoAppsPlayingSoundText };
+                cmItem.IsEnabled = false;
                 cm.Items.Add(cmItem);
             }
 

@@ -169,25 +169,46 @@
 
                 <StackPanel Orientation="Vertical">
 
+
+                    <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
+                                                Visibility="{Binding DeviceVisibility}"/>
                     <Grid  Visibility="{Binding ExpandedPaneVisibility}"
-                      Margin="8">
+                           Margin="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0" Tag="&#xe15d;" Content="Playback" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="PlaybackDevices_Click"  />
-                        <Button Grid.Column="1" Tag="&#xe13a;" Content="Communication" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="CommunicationDevices_Click"  />
-                        <Button Grid.Column="2" Tag="&#xe115;" Content="Settings" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="Settings_Click"  />
-                        <Button Grid.Column="3" Tag="&#xe8ad;" Content="Pop out" Style="{StaticResource LargeButton}" Background="{DynamicResource LargeButtonBackground}" Foreground="{DynamicResource WindowForeground}" Click="PopOut_Click"  />
-
+                        <Button Grid.Column="0"
+                                Tag="&#xe15d;"
+                                Content="Playback"
+                                Style="{StaticResource LargeButton}"
+                                Background="{DynamicResource LargeButtonBackground}"
+                                Foreground="{DynamicResource WindowForeground}"
+                                Click="PlaybackDevices_Click" />
+                        <Button Grid.Column="1"
+                                Tag="&#xe13a;"
+                                Content="Communication"
+                                Style="{StaticResource LargeButton}"
+                                Background="{DynamicResource LargeButtonBackground}"
+                                Foreground="{DynamicResource WindowForeground}"
+                                Click="CommunicationDevices_Click" />
+                        <Button Grid.Column="2"
+                                Tag="&#xe115;"
+                                Content="Settings"
+                                Style="{StaticResource LargeButton}"
+                                Background="{DynamicResource LargeButtonBackground}"
+                                Foreground="{DynamicResource WindowForeground}"
+                                Click="Settings_Click" />
+                        <Button Grid.Column="3"
+                                Tag="&#xe8ad;"
+                                Content="Pop out"
+                                Style="{StaticResource LargeButton}"
+                                Background="{DynamicResource LargeButtonBackground}"
+                                Foreground="{DynamicResource WindowForeground}"
+                                Click="PopOut_Click" />
                     </Grid>
-
-                    <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
-                                                Visibility="{Binding DeviceVisibility}"/>
-
                 </StackPanel>
             </Grid>
         </ScrollViewer>
