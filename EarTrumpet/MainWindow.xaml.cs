@@ -5,6 +5,7 @@ using EarTrumpet.ViewModels;
 using System;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 
@@ -135,12 +136,36 @@ namespace EarTrumpet
 
         private void PlaybackDevices_Click(object sender, RoutedEventArgs e)
         {
+            var cm = new ContextMenu();
 
+            foreach (var dev in _deviceService.Devices)
+            {
+                var cmItem = new MenuItem { Header = dev.DisplayName };
+                cmItem.Click += (s, _) => _deviceService.DefaultPlaybackDevice = dev;
+                cmItem.IsChecked = dev == _deviceService.DefaultPlaybackDevice;
+                cm.Items.Add(cmItem);
+            }
+
+            cm.PlacementTarget = (UIElement)sender;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
         }
 
         private void CommunicationDevices_Click(object sender, RoutedEventArgs e)
         {
+            var cm = new ContextMenu();
 
+            foreach (var dev in _deviceService.Devices)
+            {
+                var cmItem = new MenuItem { Header = dev.DisplayName };
+                cmItem.Click += (s, _) => _deviceService.DefaultCommunicationDevice = dev;
+                cmItem.IsChecked = dev == _deviceService.DefaultCommunicationDevice;
+                cm.Items.Add(cmItem);
+            }
+
+            cm.PlacementTarget = (UIElement)sender;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)

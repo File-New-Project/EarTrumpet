@@ -63,7 +63,7 @@ namespace EarTrumpet.Services
         static string DumpDevices(IAudioDeviceManager manager)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Default Playback Device: {manager.DefaultDevice.DisplayName} {manager.DefaultDevice.Id}");
+            sb.AppendLine($"Default Playback Device: {manager.DefaultPlaybackDevice.DisplayName} {manager.DefaultPlaybackDevice.Id}");
             foreach (var device in manager.Devices)
             {
                 sb.AppendLine(DumpDevice(device));

@@ -18,7 +18,7 @@ namespace EarTrumpet.DataModel
 
             Setup();
 
-            manager.DefaultDeviceChanged += (_, __) =>
+            manager.DefaultPlaybackDeviceChanged += (_, __) =>
             {
                 if (_device != null)
                 {
@@ -41,7 +41,7 @@ namespace EarTrumpet.DataModel
 
         private void Setup()
         {
-            _device = _manager.DefaultDevice;
+            _device = _manager.DefaultPlaybackDevice;
 
             if (_device != null)
             {

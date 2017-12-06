@@ -11,11 +11,12 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
     {
-        public event EventHandler<IAudioDevice> DefaultDeviceChanged;
+        public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
         public event EventHandler<IAudioDeviceSession> SessionCreated;
 
         IMMDeviceEnumerator _enumerator;
-        IAudioDevice _defaultDevice;
+        IAudioDevice _defaultPlaybackDevice;
+        IAudioDevice _defaultCommunicationsDevice;
         ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
         IVirtualDefaultAudioDevice _virtualDefaultDevice;
         Dispatcher _dispatcher;
@@ -40,12 +41,13 @@ namespace EarTrumpet.DataModel
             }
 
             // Trigger default logic to register for volume change
-            SetDefaultDevice();
+            QueryDefaultPlaybackDevice();
+            QueryDefaultPlaybackDevice();
 
             _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }
 
-        void SetDefaultDevice()
+        void QueryDefaultPlaybackDevice()
         {
             IMMDevice device = null;
             try
@@ -64,31 +66,75 @@ namespace EarTrumpet.DataModel
                 newDeviceId = device.GetId();
             }
 
-            var currentDeviceId = _defaultDevice != null ? _defaultDevice.Id : null;
+            var currentDeviceId = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Id : null;
 
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null) _defaultDevice = null;
-                else _defaultDevice = FindDevice(newDeviceId);
+                if (newDeviceId == null) _defaultPlaybackDevice = null;
+                else _defaultPlaybackDevice = FindDevice(newDeviceId);
 
-                DefaultDeviceChanged?.Invoke(this, _defaultDevice);
+                DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
+            }
+        }
+
+        void QueryDefaultCommunicationsDevice()
+        {
+            IMMDevice device = null;
+            try
+            {
+                _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications, out device);
+            }
+            catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
+            {
+                // Element not found.
+            }
+
+            string newDeviceId = null;
+
+            if (device != null)
+            {
+                newDeviceId = device.GetId();
+            }
+
+            var currentDeviceId = _defaultCommunicationsDevice != null ? _defaultCommunicationsDevice.Id : null;
+
+            if (currentDeviceId != newDeviceId)
+            {
+                if (newDeviceId == null) _defaultCommunicationsDevice = null;
+                else _defaultCommunicationsDevice = FindDevice(newDeviceId);
+
+                // No event necessary.
             }
         }
 
         public IVirtualDefaultAudioDevice VirtualDefaultDevice => _virtualDefaultDevice;
 
-        public IAudioDevice DefaultDevice
+        public IAudioDevice DefaultPlaybackDevice
         {
-            get => _defaultDevice;
+            get => _defaultPlaybackDevice;
             set
             {
-                if (_defaultDevice == null ||
-                    value.Id != _defaultDevice.Id)
+                if (_defaultPlaybackDevice == null ||
+                    value.Id != _defaultPlaybackDevice.Id)
                 {
                     DefaultEndPoint.SetDefaultDevice(value);
                 }
             }
         }
+
+        public IAudioDevice DefaultCommunicationDevice
+        {
+            get => _defaultCommunicationsDevice;
+            set
+            {
+                if (_defaultCommunicationsDevice == null ||
+                    value.Id != _defaultCommunicationsDevice.Id)
+                {
+                    DefaultEndPoint.SetDefaultDevice(value, ERole.eCommunications);
+                }
+            }
+        }
+
 
         public ObservableCollection<IAudioDevice> Devices => _devices;
 
@@ -132,7 +178,8 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                SetDefaultDevice();
+                QueryDefaultPlaybackDevice();
+                QueryDefaultCommunicationsDevice();
             });
         }
 

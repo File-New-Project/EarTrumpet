@@ -61,28 +61,28 @@ namespace EarTrumpet.DataModel
         [Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9")]
         public class PolicyConfigClient { }
 
-        public static void SetDefaultDevice(IAudioDevice device)
+        public static void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
         {
             var policyClient = new PolicyConfigClient();
 
             var policy_th1 = policyClient as IPolicyConfig_TH1;
             if (policy_th1 != null)
             {
-                policy_th1.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
+                policy_th1.SetDefaultEndpoint(device.Id, (uint)role);
                 return;
             }
 
             var policy_th2 = policyClient as IPolicyConfig_TH2;
             if (policy_th2 != null)
             {
-                policy_th2.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
+                policy_th2.SetDefaultEndpoint(device.Id, (uint)role);
                 return;
             }
 
             var policy_rs1 = policyClient as IPolicyConfig_RS1;
             if (policy_rs1 != null)
             {
-                policy_rs1.SetDefaultEndpoint(device.Id, (uint)ERole.eMultimedia);
+                policy_rs1.SetDefaultEndpoint(device.Id, (uint)role);
                 return;
             }
 

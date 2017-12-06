@@ -34,7 +34,7 @@ namespace EarTrumpet.ViewModels
                 yield break;
             }
 
-            foreach(var app in _manager.DefaultDevice.Sessions)
+            foreach(var app in _manager.DefaultPlaybackDevice.Sessions)
             {
                 if (!DefaultApps.Any(d => AppResolverService.GetAppIdForProcess((uint)app.ProcessId) == d.Id))
                 {

@@ -15,7 +15,8 @@
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
         Height="300" 
-        Width="300">
+        MinWidth="360"
+        Width="360">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
@@ -76,7 +77,7 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <StackPanel Orientation="Vertical">
                                             <TextBlock Text="{Binding DisplayName}" />
                                             <uc:AudioSessionControl 
@@ -95,31 +96,19 @@
 
                                         <Button Grid.Column="1" Click="RemoveApp_Click">X</Button>
                                     </Grid>
-                                    
-
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-
-
                     </StackPanel>
                 </GroupBox>
 
                 <!-- TODO localization -->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock>Hotkey:</TextBlock>
+                    <TextBlock VerticalAlignment="Center"
+                               Margin="4">Hotkey:</TextBlock>
                     <Button>Ctrl+Shift+Q</Button>
                 </StackPanel>
 
-                <CheckBox Content="Show hidden audio streams in volume mixer" />
-
-                <GroupBox Header="Default device change options">
-                    <StackPanel Orientation="Vertical">
-                        <RadioButton Content="Set only the playback device" />
-                        <RadioButton Content="Set playback and communications device" />
-                    </StackPanel>
-                </GroupBox>
-                
             </StackPanel>
 
 

@@ -202,7 +202,7 @@ namespace EarTrumpet
         void Device_Click(object sender, EventArgs e)
         {
             var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
-            _deviceService.DefaultDevice = device;      
+            _deviceService.DefaultPlaybackDevice = device;      
         }
 
         private void SetupDeviceMenuItems()
@@ -229,7 +229,7 @@ namespace EarTrumpet
             {
                 var newItem = new System.Windows.Forms.MenuItem(device.DisplayName, Device_Click);
                 newItem.Tag = device;
-                newItem.Checked = device == _deviceService.DefaultDevice;
+                newItem.Checked = device == _deviceService.DefaultPlaybackDevice;
                 _trayIcon.ContextMenu.MenuItems.Add(iPos++, newItem);
             }
         }
