@@ -15,6 +15,17 @@ namespace EarTrumpet.ViewModels
 
         public ObservableCollection<AudioSessionViewModel> DefaultApps { get; private set; }
 
+        SettingsService.HotkeyData _hotkey;
+        public SettingsService.HotkeyData Hotkey
+        {
+            get => _hotkey;
+            set
+            {
+                _hotkey = value;
+                RaisePropertyChanged(nameof(Hotkey));
+            }
+        }
+
         public SettingsViewModel(IAudioDeviceManager manager)
         {
             _manager = manager;
@@ -25,6 +36,8 @@ namespace EarTrumpet.ViewModels
             {
                 DefaultApps.Add(new AppItemViewModel(new SettingAudioSession(app, manager)));
             }
+
+            Hotkey = SettingsService.Hotkey;
         }
 
         public IEnumerable<AppItemViewModel> EnumerateApps()
@@ -52,6 +65,8 @@ namespace EarTrumpet.ViewModels
         public void Save()
         {
             SettingsService.DefaultApps = DefaultApps.Select(d => ((SettingAudioSession)((AppItemViewModel)d).Session).Data).ToArray();
+            SettingsService.Hotkey = Hotkey;
+            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
     }
 }

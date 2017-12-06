@@ -42,6 +42,9 @@ namespace EarTrumpet
             ThemeService.ThemeChanged += () => UpdateTheme();
 
             CreateAndHideWindow();
+
+            var Hotkey = SettingsService.Hotkey;
+            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
 
         private void CreateAndHideWindow()

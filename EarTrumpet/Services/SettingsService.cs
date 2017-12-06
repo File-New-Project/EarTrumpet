@@ -22,6 +22,50 @@ namespace EarTrumpet.Services
             public bool IsDesktopApp;
         }
 
+        public class HotkeyData
+        {
+            public KBModifierKeys Modifiers;
+            public System.Windows.Forms.Keys Key;
+
+            public override string ToString()
+            {
+                string ret = "";
+
+                if ((Modifiers & KBModifierKeys.Control) == KBModifierKeys.Control)
+                {
+                    ret += "Control+";
+                }
+                if ((Modifiers & KBModifierKeys.Shift) == KBModifierKeys.Shift)
+                {
+                    ret += "Shift+";
+                }
+                if ((Modifiers & KBModifierKeys.Alt) == KBModifierKeys.Alt)
+                {
+                    ret += "Alt+";
+                }
+
+                if (Key != System.Windows.Forms.Keys.None)
+                {
+                    ret += Key.ToString();
+                }
+
+                return ret;
+            }
+        }
+
+        public static HotkeyData Hotkey
+        {
+            get
+            {
+                var ret = ReadSetting("Hotkey", new HotkeyData { Modifiers = KBModifierKeys.Shift | KBModifierKeys.Control, Key = System.Windows.Forms.Keys.Q });
+                return ret;
+            }
+            set
+            {
+                WriteSetting("Hotkey", value);
+            }
+        }
+
         public static DefaultApp[] DefaultApps
         {
             get

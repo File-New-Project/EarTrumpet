@@ -79,5 +79,14 @@ namespace EarTrumpet
         {
             _viewModel.DefaultApps.Remove((AudioSessionViewModel)((Button)sender).DataContext);
         }
+
+        private void HotkeySelect_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new HotkeySelectionWindow(_viewModel.Hotkey);
+            win.Owner = this;
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.ShowDialog();
+            _viewModel.Hotkey = win.Hotkey;
+        }
     }
 }

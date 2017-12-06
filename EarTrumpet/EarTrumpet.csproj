@@ -69,7 +69,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
+    <Compile Include="HotkeySelectionWindow.xaml.cs">
+      <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DiagnosticsService.cs" />
+    <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -182,6 +186,10 @@
     <Compile Include="UserControls\AudioSessionControl.xaml.cs">
       <DependentUpon>AudioSessionControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="HotkeySelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

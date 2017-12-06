@@ -106,7 +106,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center"
                                Margin="4">Hotkey:</TextBlock>
-                    <Button>Ctrl+Shift+Q</Button>
+                    <Button Click="HotkeySelect_Click" Content="{Binding Hotkey}" />
                 </StackPanel>
 
             </StackPanel>
