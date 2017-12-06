@@ -42,7 +42,7 @@ namespace EarTrumpet.DataModel
 
             // Trigger default logic to register for volume change
             QueryDefaultPlaybackDevice();
-            QueryDefaultPlaybackDevice();
+            QueryDefaultCommunicationsDevice();
 
             _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }

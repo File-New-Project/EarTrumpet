@@ -142,7 +142,7 @@ namespace EarTrumpet
             {
                 var cmItem = new MenuItem { Header = dev.DisplayName };
                 cmItem.Click += (s, _) => _deviceService.DefaultPlaybackDevice = dev;
-                cmItem.IsChecked = dev == _deviceService.DefaultPlaybackDevice;
+                cmItem.IsChecked = dev.Id == _deviceService.DefaultPlaybackDevice.Id;
                 cm.Items.Add(cmItem);
             }
 
@@ -159,7 +159,7 @@ namespace EarTrumpet
             {
                 var cmItem = new MenuItem { Header = dev.DisplayName };
                 cmItem.Click += (s, _) => _deviceService.DefaultCommunicationDevice = dev;
-                cmItem.IsChecked = dev == _deviceService.DefaultCommunicationDevice;
+                cmItem.IsChecked = dev.Id == _deviceService.DefaultCommunicationDevice.Id;
                 cm.Items.Add(cmItem);
             }
 
