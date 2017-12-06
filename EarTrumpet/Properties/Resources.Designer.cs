@@ -97,11 +97,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set default values for these apps:.
+        /// </summary>
+        public static string DefaultAppsDescriptionText {
+            get {
+                return ResourceManager.GetString("DefaultAppsDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
             get {
                 return ResourceManager.GetString("FullWindowTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open EarTrumpet by pressing.
+        /// </summary>
+        public static string HotkeyDescriptionText {
+            get {
+                return ResourceManager.GetString("HotkeyDescriptionText", resourceCulture);
             }
         }
         

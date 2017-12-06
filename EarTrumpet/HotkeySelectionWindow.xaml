@@ -5,14 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         mc:Ignorable="d"
+        Name="WindowRoot"
+        WindowStyle="None"
+        Icon="Tray.ico"
+        ShowInTaskbar="True"
+        AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
+        Foreground="{DynamicResource WindowForeground}"
+        Background="{DynamicResource WindowBackground}"
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="110" Width="150"
-         PreviewKeyDown="Window_PreviewKeyDown">
-    <Grid>
-        <StackPanel>
-            <TextBlock Margin="12" Name="HotkeyText" />
-            <Button Margin="12" Click="Button_Click" Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
-        </StackPanel>
+        PreviewKeyDown="Window_PreviewKeyDown">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="31"
+                      ResizeBorderThickness="4" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowForeground"
+                         Color="White" />
+        <SolidColorBrush x:Key="WindowBackground"
+                         Color="Black" />
+        <SolidColorBrush x:Key="HeaderBackground"
+                         Color="Black" />
+        <SolidColorBrush x:Key="ActiveBorder"
+                         Color="Red" />
         
-    </Grid>
+        <Style TargetType="Window">
+            <Setter Property="BorderBrush"
+                    Value="{DynamicResource ActiveBorder}" />
+            <Style.Triggers>
+                <Trigger Property="IsActive"
+                         Value="false">
+                    <Setter Property="BorderBrush"
+                            Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock TextAlignment="Left"
+                       Padding="20, 8, 20, 8"
+                       Text="{Binding ElementName=WindowRoot,Path=Title}" />
+            <Button x:Name="CloseButton"
+                    Grid.Column="1"
+                    Content="&#xE8BB;"
+                    Style="{DynamicResource CloseButtonStyle}"
+                    Click="CloseButton_Click" />
+        </Grid>
+        <Grid>
+            <StackPanel>
+                <TextBlock Margin="12"
+                           Name="HotkeyText" />
+                <Button Margin="12"
+                        FontSize="12"
+                        Click="CloseButton_Click"
+                        Style="{DynamicResource SlimButton}"
+                        Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
+                        Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

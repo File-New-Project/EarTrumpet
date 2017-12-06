@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using EarTrumpet.Services;
+using EarTrumpet.Extensions;
 
 namespace EarTrumpet
 {
@@ -25,6 +26,24 @@ namespace EarTrumpet
             InitializeComponent();
 
             UpdateText();
+
+            ThemeService.ThemeChanged += UpdateTheme;
+
+            SourceInitialized += (s, e) => UpdateTheme();
+
+        }
+
+        void UpdateTheme()
+        {
+            ThemeService.UpdateThemeResources(Resources);
+            if (ThemeService.IsWindowTransparencyEnabled)
+            {
+                this.EnableBlur();
+            }
+            else
+            {
+                this.DisableBlur();
+            }
         }
 
         void UpdateText()
@@ -71,7 +90,7 @@ namespace EarTrumpet
             UpdateText();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

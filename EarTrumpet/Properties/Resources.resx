@@ -168,6 +168,12 @@
   <data name="ShowHiddenSessionsMenuItem" xml:space="preserve">
     <value>Show Hidden Sessions</value>
   </data>
+  <data name="DefaultAppsDescriptionText" xml:space="preserve">
+    <value>Set default values for these apps:</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Open EarTrumpet by pressing</value>
+  </data>
   <data name="SelectHotkeySaveButtonText" xml:space="preserve">
     <value>Close</value>
   </data>

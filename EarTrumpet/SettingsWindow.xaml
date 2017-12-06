@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         mc:Ignorable="d"
         Name="WindowRoot"
@@ -29,50 +29,18 @@
                          Color="Black" />
         <SolidColorBrush x:Key="HeaderBackground"
                          Color="Black" />
-        
-        <Style x:Key="CloseButtonStyle"
-               TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
-                    Value="True" />
-            <Setter Property="FontFamily"
-                    Value="Segoe MDL2 Assets" />
-            <Setter Property="Content"
-                    Value="&#xE8BB;" />
-            <Setter Property="Width"
-                    Value="46" />
-            <Setter Property="Height"
-                    Value="31" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Foreground"
-                    Value="White" />
+        <SolidColorBrush x:Key="ActiveBorder"
+                         Color="Red" />
+        <Style TargetType="Window">
             <Setter Property="BorderBrush"
-                    Value="{x:Null}" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-        </Style>
-        
-        <Style TargetType="Button" x:Key="SlimButton">
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="FontSize"
-                    Value="20" />
-            <Setter Property="Margin"
-                    Value="8" />
-            <Setter Property="Padding"
-                    Value="4" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-
-                            <TextBlock Text="{TemplateBinding Content}"
-                                       Foreground="{TemplateBinding Foreground}"/>
-
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+                    Value="{DynamicResource ActiveBorder}" />
+            <Style.Triggers>
+                <Trigger Property="IsActive"
+                         Value="false">
+                    <Setter Property="BorderBrush"
+                            Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
@@ -87,15 +55,33 @@
                            Text="{Binding ElementName=WindowRoot,Path=Title}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="1"
+                        Content="&#xE8BB;"
                         Style="{DynamicResource CloseButtonStyle}"
-                        Click="CloseButton_Click"></Button>
+                        Click="CloseButton_Click" />
             </Grid>
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Bottom" />
             <StackPanel Orientation="Vertical"
                         Margin="8">
-                <GroupBox Header="App Defaults">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock VerticalAlignment="Center"
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}"
+                               Margin="4,4,0,4" />
+                    <Button Click="HotkeySelect_Click"
+                            FontSize="12"
+                            Margin="2,0,0,0"
+                            Style="{StaticResource SlimButton}"
+                            Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
+                            Content="{Binding HotkeyText}" />
+                </StackPanel>
+                <GroupBox BorderThickness="0"
+                          Background="#11FFFFFF"
+                          BorderBrush="Transparent"
+                          >
                     <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{x:Static resx:Resources.DefaultAppsDescriptionText}"
+                                   Margin="4"/>
+                        
                         <Button Click="AddApp_Click"
                                 Style="{StaticResource SlimButton}"
                                 Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
@@ -105,7 +91,7 @@
                         <ItemsControl ItemsSource="{Binding DefaultApps}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Margin="4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -114,7 +100,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding DisplayName}" />
+                                        <TextBlock Margin="4" Text="{Binding DisplayName}" />
                                         <uc:AudioSessionControl Grid.Row="1"
                                                                 Stream="{Binding}"
                                                                 IconHeight="24"
@@ -141,15 +127,8 @@
                         </ItemsControl>
                     </StackPanel>
                 </GroupBox>
-                <!-- TODO localization -->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center"
-                               Margin="4">Hotkey:</TextBlock>
-                    <Button Click="HotkeySelect_Click"
-                            Style="{StaticResource SlimButton}"
-                            Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                            Content="{Binding HotkeyText}" />
-                </StackPanel>
+
+
             </StackPanel>
         </DockPanel>
     </Grid>
