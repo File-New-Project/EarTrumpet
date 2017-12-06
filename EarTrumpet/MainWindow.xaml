@@ -45,16 +45,45 @@
 
             <Button HorizontalAlignment="Right" 
                     Grid.Column="1"
-                    Width="25"
-                    Height="25"
-                    FontSize="20"
+                    Width="32"
+                    Height="32"
+                    FontSize="15"
                     BorderThickness="0"
-                    Background="Transparent"
-                    Foreground="{DynamicResource CottonSwabSliderTrackFill}"
-                    Content="&#xe2ae;" 
+                    Foreground="White"
+                    Content="&#xE8AD;" 
                     FontFamily="Segoe MDL2 Assets"
                     Click="PopOutButton_Click"
-                    Margin="0,0,20,0" />
+                    Margin="0,0,20,0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" >
+                            <Setter.Value>
+                                <SolidColorBrush Color="Transparent" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                         SnapsToDevicePixels="True"                                                                   
+                         Background="{TemplateBinding Background}">
+                                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="#22FFFFFF" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
         <ScrollViewer 
                     Grid.Row="1"

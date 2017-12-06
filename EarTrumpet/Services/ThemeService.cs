@@ -20,6 +20,7 @@ namespace EarTrumpet.Services
 
             SetBrush(dictionary, "WindowForeground", "ImmersiveApplicationTextDarkTheme");
             ReplaceBrush(dictionary, "CottonSwabSliderThumb", "ImmersiveSystemAccent");
+            ReplaceBrush(dictionary, "ActiveBorder", "ImmersiveSystemAccent");
             ReplaceBrushWithOpacity(dictionary, "HeaderBackground", "ImmersiveSystemAccent", 0.2);
             ReplaceBrush(dictionary, "CottonSwabSliderTrackFill", "ImmersiveSystemAccentLight1");
             SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");

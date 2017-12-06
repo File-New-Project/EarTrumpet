@@ -27,6 +27,16 @@ namespace EarTrumpet
             {
                 UpdateTheme();
             };
+
+            this.StateChanged += FullWindow_StateChanged;
+        }
+
+        private void FullWindow_StateChanged(object sender, System.EventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
         }
 
         private void UpdateTheme()
