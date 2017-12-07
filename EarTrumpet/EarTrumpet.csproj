@@ -179,6 +179,8 @@
     <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
+    <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />
+    <Compile Include="ViewModels\Mocks\SettingsViewModelMock.cs" />
     <Compile Include="ViewModels\SettingAudioSession.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />

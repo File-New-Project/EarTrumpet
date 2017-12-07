@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:uc="clr-namespace:EarTrumpet.UserControls"
+        xmlns:mock="clr-namespace:EarTrumpet.ViewModels.Mocks"
         mc:Ignorable="d"
         Name="WindowRoot"
         WindowStyle="None"
@@ -57,7 +58,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}">
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>

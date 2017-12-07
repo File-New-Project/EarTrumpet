@@ -38,43 +38,39 @@
             <Setter Property="MinHeight" Value="50" />
             <Setter Property="Margin" Value="3,0,3,0" />
             <Setter Property="FontSize" Value="10" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Transparent" />
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                                
+                        <Border Background="{TemplateBinding Background}">
+                            <Border x:Name="border"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="#33FFFFFF"
-                         SnapsToDevicePixels="True"                                                                   
-                         Background="{TemplateBinding Background}">
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Text="{TemplateBinding Tag}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                         SnapsToDevicePixels="True">
+                                <Grid Margin="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{TemplateBinding Tag}"
                                            Margin="4"
                                            FontFamily="Segoe MDL2 Assets"
                                            FontSize="18"/>
-
-                                <ContentPresenter 
-                                Margin="2" 
+                                    <ContentPresenter 
                                 VerticalAlignment="Bottom" 
                                 Grid.Row="1"
                                 RecognizesAccessKey="True" />
-                            </Grid>
-
-
+                                </Grid>
+                            </Border>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BorderBrush" Value="#44FFFFFF" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -173,7 +169,7 @@
                     <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
                                                 Visibility="{Binding DeviceVisibility}"/>
                     <Grid  Visibility="{Binding ExpandedPaneVisibility}"
-                           Margin="8">
+                           Margin="4,0,4,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -200,6 +196,7 @@
                                 Style="{StaticResource LargeButton}"
                                 Background="{DynamicResource LargeButtonBackground}"
                                 Foreground="{DynamicResource WindowForeground}"
+                                
                                 Click="Settings_Click" />
                         <Button Grid.Column="3"
                                 Tag="&#xe8ad;"
