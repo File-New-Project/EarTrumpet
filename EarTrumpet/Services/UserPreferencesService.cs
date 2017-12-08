@@ -6,6 +6,20 @@ namespace EarTrumpet.Services
 {
     public static class UserPreferencesService
     {
-        // It's quiet in here.
+        public static bool UseOldIcon
+        {
+            get
+            {
+                if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(UseOldIcon)))
+                {
+                    return false;
+                }
+                return (bool)Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(UseOldIcon)];
+            }
+            set
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(UseOldIcon)] = value;
+            }
+        }
     }
 }

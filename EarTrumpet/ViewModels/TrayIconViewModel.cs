@@ -87,6 +87,19 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        internal void ChangeTrayIcon(bool useOldIcon)
+        {
+            try
+            {
+                UserPreferencesService.UseOldIcon = useOldIcon;
+            }
+            catch
+            {
+                // If Windows Storage API's fail, just update the icon for this session
+            }
+            UpdateTrayIcon();
+        }
+
         private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
             var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
@@ -110,6 +123,16 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
         {
+            if (UserPreferencesService.UseOldIcon)
+            {
+                if (TrayIcon == null || _currentIcon != IconId.OriginalIcon)
+                { 
+                    TrayIcon = _icons[IconId.OriginalIcon];
+                    _currentIcon = IconId.OriginalIcon;
+                }
+                return;
+            }
+
             if (noDevice)
             {
                 if (_currentIcon == IconId.NoDevice)

@@ -28,6 +28,11 @@ namespace EarTrumpet
             var deviceSep = _trayIcon.ContextMenu.MenuItems.Add("-");
             deviceSep.Name = _deviceSeparatorName;
 
+            var useOldIconItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.UseOldIconText);
+            useOldIconItem.Click += UseOldIconItem_Click; ;
+
+            var sep2 = _trayIcon.ContextMenu.MenuItems.Add("-");
+
             var feedbackItem = _trayIcon.ContextMenu.MenuItems.Add(EarTrumpet.Properties.Resources.ContextMenuSendFeedback);
             feedbackItem.Click += Feedback_Click;
 
@@ -44,6 +49,13 @@ namespace EarTrumpet
             _trayIcon.Text = string.Concat("EarTrumpet - ", EarTrumpet.Properties.Resources.TrayIconTooltipText);
 
             _trayIcon.Visible = true;
+        }
+
+        private void UseOldIconItem_Click(object sender, EventArgs e)
+        {
+            var menuItem = (System.Windows.Forms.MenuItem)sender;
+            menuItem.Checked = !menuItem.Checked;
+            _trayViewModel.ChangeTrayIcon(menuItem.Checked);
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
