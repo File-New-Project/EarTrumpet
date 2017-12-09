@@ -54,7 +54,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
     </Reference>
@@ -151,8 +151,8 @@
     <None Include="Color Types.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resource.zh-Hans.resx" />
-    <EmbeddedResource Include="Properties\Resource.zh-Hant.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-Hant.resx" />
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
