@@ -65,6 +65,11 @@ namespace EarTrumpet
             {
                 Invoked.Invoke();
             }
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Middle)
+            {
+                _trayViewModel.ToggleDefaultAudioDeviceMute();
+            }
         }
 
         void Feedback_Click(object sender, EventArgs e)
