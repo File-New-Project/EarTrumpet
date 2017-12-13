@@ -11,7 +11,7 @@ using namespace EarTrumpet::Interop;
 
 HRESULT EndpointNotificationHandler::OnDefaultDeviceChanged(EDataFlow dataFlow, ERole role, PCWSTR rawDeviceId)
 {
-    if (dataFlow == EDataFlow::eRender && role != ERole::eCommunications)
+    if (dataFlow == EDataFlow::eRender && role != ERole::eCommunications && rawDeviceId != nullptr)
     {
         std::wstring deviceId(rawDeviceId);
         _lastSeenDeviceId = deviceId;
