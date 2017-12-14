@@ -200,6 +200,12 @@ namespace EarTrumpet.ViewModels
         public void ToggleDefaultAudioDeviceMute()
         {
             var defaultDevice = GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+
+            if (defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
+            {
+                return;
+            }
+
             if (defaultDevice.IsMuted)
             {
                 _deviceService.UnmuteAudioDevice(defaultDevice.Id);
