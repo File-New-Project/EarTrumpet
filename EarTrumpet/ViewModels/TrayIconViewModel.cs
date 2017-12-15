@@ -89,15 +89,18 @@ namespace EarTrumpet.ViewModels
 
         internal void ChangeTrayIcon(bool useOldIcon)
         {
-            try
+            UserPreferencesService.UseOldIcon = useOldIcon;
+            if (UserPreferencesService.UseOldIcon)
             {
-                UserPreferencesService.UseOldIcon = useOldIcon;
+                UpdateTrayIcon();
             }
-            catch
+            else
             {
-                // If Windows Storage API's fail, just update the icon for this session
+                var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+                var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
+                var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
+                UpdateTrayIcon(noDevice, defaultDevice.IsMuted, volume.ToVolumeInt());
             }
-            UpdateTrayIcon();
         }
 
         private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
