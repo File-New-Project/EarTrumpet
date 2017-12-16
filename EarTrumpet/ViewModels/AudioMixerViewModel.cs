@@ -82,7 +82,7 @@ namespace EarTrumpet.ViewModels
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
                 var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-                if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
+                if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)) && Device != null)
                 {
                     var updatedDefaultDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, e.Volume);
                     Device.UpdateFromOther(updatedDefaultDevice);
@@ -113,6 +113,11 @@ namespace EarTrumpet.ViewModels
                     {
                         Device = newDevice;
                     }
+                    RaisePropertyChanged("Device");
+                }
+                else
+                {
+                    Device = null;
                     RaisePropertyChanged("Device");
                 }
 
