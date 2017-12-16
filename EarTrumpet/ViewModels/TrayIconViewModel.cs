@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
@@ -105,9 +106,12 @@ namespace EarTrumpet.ViewModels
 
         private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
-            UpdateTrayIcon(noDevice, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+                var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
+                UpdateTrayIcon(noDevice, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
+            }));
         }
 
         private void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
