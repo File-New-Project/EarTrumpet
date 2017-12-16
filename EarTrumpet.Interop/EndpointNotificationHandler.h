@@ -41,7 +41,7 @@ namespace EarTrumpet
 
             HRESULT GetCachedDeviceByDeviceId(std::wstring const& deviceId, IMMDevice** device);
             HRESULT GetCachedAudioEndpointVolumeByDeviceId(std::wstring const& deviceId, IAudioEndpointVolume** audioEndpointVolume);
-            HRESULT GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, CComObject<ControlChangeHandler>** controlChangeHandler);
+            HRESULT GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, ControlChangeHandler** controlChangeHandler);
             HRESULT GetDefaultDeviceVolume(float* volume);
         };
     }
