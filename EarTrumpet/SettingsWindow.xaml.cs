@@ -34,6 +34,11 @@ namespace EarTrumpet
             };
         }
 
+        ~SettingsWindow()
+        {
+            ThemeService.ThemeChanged -= UpdateTheme;
+        }
+
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);

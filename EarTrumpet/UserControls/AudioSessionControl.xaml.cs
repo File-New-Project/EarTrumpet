@@ -68,6 +68,11 @@ namespace EarTrumpet.UserControls
             ThemeService.ThemeChanged += UpdateTheme;
         }
 
+        ~AudioSessionControl()
+        {
+            ThemeService.ThemeChanged -= UpdateTheme;
+        }
+
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);

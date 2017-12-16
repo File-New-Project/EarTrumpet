@@ -39,15 +39,24 @@ namespace EarTrumpet
             _mMutex = null;
         }
 
-        internal static bool HasIdentity()
+        static bool? _hasIdentity = null;
+        internal static bool HasIdentity
         {
-            try
+            get
             {
-                return (Package.Current.Id != null);
-            }
-            catch (InvalidOperationException)
-            {
-                return false;
+                if (_hasIdentity == null)
+                {
+                    try
+                    {
+                        _hasIdentity = (Package.Current.Id != null);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        _hasIdentity = false;
+                    }
+                }
+
+                return (bool)_hasIdentity;
             }
         }
     }

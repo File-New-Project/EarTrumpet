@@ -33,6 +33,11 @@ namespace EarTrumpet.UserControls
             ThemeService.ThemeChanged += UpdateTheme;
         }
 
+        ~AudioPeakMeter()
+        {
+            ThemeService.ThemeChanged -= UpdateTheme;
+        }
+
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);
@@ -42,6 +47,7 @@ namespace EarTrumpet.UserControls
         {
             ((AudioPeakMeter)d).PeakValueChanged();
         }
+
         private void PeakValueChanged()
         {
             peakBorder.Width = MainGrid.ActualWidth * PeakValue * (Volume/100f);

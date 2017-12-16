@@ -15,6 +15,11 @@ namespace EarTrumpet.DataModel
             _session.PropertyChanged += Session_PropertyChanged;
         }
 
+        ~SafeAudioDeviceSession()
+        {
+            _session.PropertyChanged -= Session_PropertyChanged;
+        }
+
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);

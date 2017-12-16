@@ -31,6 +31,14 @@ namespace EarTrumpet.DataModel
             }
         }
 
+        ~AudioDeviceSessionCollection()
+        {
+            foreach(var session in _sessions)
+            {
+                session.PropertyChanged -= Session_PropertyChanged;
+            }
+        }
+
         public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
 
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)

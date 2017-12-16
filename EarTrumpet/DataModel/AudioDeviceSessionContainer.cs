@@ -18,6 +18,14 @@ namespace EarTrumpet.DataModel
             AddSession(session);
         }
 
+        ~AudioDeviceSessionContainer()
+        {
+            foreach(var session in _sessions)
+            {
+                session.PropertyChanged -= Session_PropertyChanged;
+            }
+        }
+
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);

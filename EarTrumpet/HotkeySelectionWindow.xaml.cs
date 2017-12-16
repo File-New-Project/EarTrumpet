@@ -33,6 +33,11 @@ namespace EarTrumpet
 
         }
 
+        ~HotkeySelectionWindow()
+        {
+            ThemeService.ThemeChanged -= UpdateTheme;
+        }
+
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);

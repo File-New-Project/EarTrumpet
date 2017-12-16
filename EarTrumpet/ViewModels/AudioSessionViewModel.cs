@@ -10,10 +10,17 @@ namespace EarTrumpet.ViewModels
         public AudioSessionViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
-            _stream.PropertyChanged += (_, e) =>
-            {
-                RaisePropertyChanged(e.PropertyName);
-            };
+            _stream.PropertyChanged += Stream_PropertyChanged;
+        }
+
+        ~AudioSessionViewModel()
+        {
+            _stream.PropertyChanged -= Stream_PropertyChanged;
+        }
+
+        private void Stream_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged(e.PropertyName);
         }
 
         public virtual string DisplayName => _stream.DisplayName;

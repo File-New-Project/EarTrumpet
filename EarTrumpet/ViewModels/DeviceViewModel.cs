@@ -39,6 +39,16 @@ namespace EarTrumpet.ViewModels
             UpdateFilterAndEnumerateAppSessions();
         }
 
+        ~DeviceViewModel()
+        {
+            _device.PropertyChanged -= Device_PropertyChanged;
+
+            if (_sessions != null)
+            {
+                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+            }
+        }
+
         void UpdateFilterAndEnumerateAppSessions()
         {
             if (_sessions != null)

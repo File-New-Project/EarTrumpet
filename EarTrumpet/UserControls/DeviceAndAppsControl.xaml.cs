@@ -20,6 +20,11 @@ namespace EarTrumpet.UserControls
             ThemeService.ThemeChanged += UpdateTheme;
         }
 
+        ~DeviceAndAppsControl()
+        {
+            ThemeService.ThemeChanged -= UpdateTheme;
+        }
+
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);

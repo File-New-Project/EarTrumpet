@@ -83,7 +83,7 @@ namespace EarTrumpet.Services
         {
             string ret;
 
-            if (App.HasIdentity())
+            if (App.HasIdentity)
             {
                 ret = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
             }
@@ -123,7 +123,7 @@ namespace EarTrumpet.Services
 
         static void WriteSetting(string key, string value)
         {
-            if (App.HasIdentity())
+            if (App.HasIdentity)
             {
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
             }

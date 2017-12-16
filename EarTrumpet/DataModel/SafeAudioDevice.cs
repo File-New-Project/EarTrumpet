@@ -14,6 +14,11 @@ namespace EarTrumpet.DataModel
             _device.PropertyChanged += Device_PropertyChanged;
         }
 
+        ~SafeAudioDevice()
+        {
+            _device.PropertyChanged -= Device_PropertyChanged;
+        }
+
         private void Device_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PropertyChanged?.Invoke(this, e);

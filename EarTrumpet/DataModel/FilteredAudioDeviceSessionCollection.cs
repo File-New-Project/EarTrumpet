@@ -22,6 +22,16 @@ namespace EarTrumpet.DataModel
             PopulateSessions();
         }
 
+        ~FilteredAudioDeviceSessionCollection()
+        {
+            _collection.CollectionChanged -= Sessions_CollectionChanged;
+
+            foreach (var session in Sessions)
+            {
+                session.PropertyChanged -= Session_PropertyChanged;
+            }
+        }
+
         void PopulateSessions()
         {
             foreach (var item in _collection)
@@ -65,7 +75,7 @@ namespace EarTrumpet.DataModel
                 if (!_applicabilityCheckCallback(session))
                 {
                     Sessions.RemoveById(session);
-                    session.PropertyChanged += Session_PropertyChanged;
+                    session.PropertyChanged -= Session_PropertyChanged;
                 }
             }
             else

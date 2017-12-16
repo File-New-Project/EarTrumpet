@@ -9,7 +9,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (App.HasIdentity())
+            if (App.HasIdentity)
             {
                 var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
                 var hasShownFirstRun = false;

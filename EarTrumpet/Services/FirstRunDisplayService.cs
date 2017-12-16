@@ -8,7 +8,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (App.HasIdentity())
+            if (App.HasIdentity)
             {
                 bool hasShownFirstRun = false;
                 if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))

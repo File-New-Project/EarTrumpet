@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
@@ -38,8 +39,29 @@ namespace EarTrumpet.Services
                 return "GeneratedId.SystemSoundsSession";
             }
 
-            _appResolver.GetAppIDForProcess(processId, out string appid, out bool u1, out bool u2, out bool u3);
-            return appid;   
+            string appId = null;
+
+            try
+            {
+                _appResolver.GetAppIDForProcess(processId, out appId, out bool u1, out bool u2, out bool u3);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+
+                try
+                {
+                    appId = Process.GetProcessById((int)processId).MainModule.FileName;
+                }
+                catch (Exception iex)
+                {
+                    Debug.WriteLine(iex);
+                    appId = "#Unknown";
+                }
+            }
+
+            return appId;   
         }
     }
 }
