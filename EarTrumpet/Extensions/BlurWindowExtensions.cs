@@ -59,14 +59,14 @@ namespace EarTrumpet.Extensions
             }
         }
 
-        public static void EnableBlur(this Window window)
+        public static void EnableBlur(this Window window, bool showAllBorders = false)
         {
             if (SystemParameters.HighContrast)
             {
                 return; // Blur is not useful in high contrast mode
             }
 
-            SetAccentPolicy(window, Interop.AccentState.ACCENT_ENABLE_BLURBEHIND);
+            SetAccentPolicy(window, Interop.AccentState.ACCENT_ENABLE_BLURBEHIND, showAllBorders);
         }
 
         public static void DisableBlur(this Window window)
@@ -74,13 +74,13 @@ namespace EarTrumpet.Extensions
             SetAccentPolicy(window, Interop.AccentState.ACCENT_DISABLED);
         }
 
-        private static void SetAccentPolicy(Window window, Interop.AccentState accentState)
+        private static void SetAccentPolicy(Window window, Interop.AccentState accentState, bool showAllBorders = false)
         {
             var windowHelper = new WindowInteropHelper(window);
 
             var accent = new Interop.AccentPolicy();
             accent.AccentState = accentState;
-            accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
+            accent.AccentFlags = GetAccentFlagsForTaskbarPosition(showAllBorders);
 
             var accentStructSize = Marshal.SizeOf(accent);
 
@@ -97,9 +97,14 @@ namespace EarTrumpet.Extensions
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        private static Interop.AccentFlags GetAccentFlagsForTaskbarPosition()
+        private static Interop.AccentFlags GetAccentFlagsForTaskbarPosition(bool showAllBorders = false)
         {
             var flags = Interop.AccentFlags.DrawAllBorders;
+
+            if (showAllBorders)
+            {
+                return flags;
+            }
 
             switch(TaskbarService.GetWinTaskbarState().TaskbarPosition)
             {
