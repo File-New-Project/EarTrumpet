@@ -26,8 +26,8 @@ namespace EarTrumpet.Extensions
             {
                 public AccentState AccentState;
                 public AccentFlags AccentFlags;
-                public int GradientColor;
-                public int AnimationId;
+                public uint GradientColor;
+                public uint AnimationId;
             }
 
             [Flags]
@@ -55,9 +55,16 @@ namespace EarTrumpet.Extensions
                 ACCENT_ENABLE_GRADIENT = 1,
                 ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
                 ACCENT_ENABLE_BLURBEHIND = 3,
-                ACCENT_INVALID_STATE = 4
+                ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
+                ACCENT_INVALID_STATE = 5
             }
         }
+
+        private static uint _blurOpacity = 42;
+        public static uint BlurOpacity { get => _blurOpacity; set => _blurOpacity = value; }
+
+        private static uint _blurBackgroundColor = 0x000000; // BGR Black
+        public static uint BlurBackgroundColor { get => _blurBackgroundColor; set => _blurBackgroundColor = value; }
 
         public static void EnableBlur(this Window window, bool showAllBorders = false)
         {
@@ -66,7 +73,7 @@ namespace EarTrumpet.Extensions
                 return; // Blur is not useful in high contrast mode
             }
 
-            SetAccentPolicy(window, Interop.AccentState.ACCENT_ENABLE_BLURBEHIND, showAllBorders);
+            SetAccentPolicy(window, Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, showAllBorders);
         }
 
         public static void DisableBlur(this Window window)
@@ -81,6 +88,7 @@ namespace EarTrumpet.Extensions
             var accent = new Interop.AccentPolicy();
             accent.AccentState = accentState;
             accent.AccentFlags = GetAccentFlagsForTaskbarPosition(showAllBorders);
+            accent.GradientColor = (_blurOpacity << 24) | (_blurBackgroundColor & 0xFFFFFF);
 
             var accentStructSize = Marshal.SizeOf(accent);
 
