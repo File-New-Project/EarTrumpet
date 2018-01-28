@@ -69,6 +69,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
+    <Compile Include="Extensions\RelayCommand.cs" />
     <Compile Include="HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>

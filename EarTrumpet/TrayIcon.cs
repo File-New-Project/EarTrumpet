@@ -14,7 +14,7 @@ namespace EarTrumpet
     {
         public event Action Invoked = delegate { };
 
-        private readonly System.Windows.Forms.NotifyIcon _trayIcon;
+        internal readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
         private IAudioDeviceManager _deviceService;
 
@@ -28,9 +28,6 @@ namespace EarTrumpet
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
             HotkeyService.KeyPressed += Hotkey_KeyPressed;
-
-            var aboutString = Properties.Resources.ContextMenuAboutTitle;
-            var version = Assembly.GetEntryAssembly().GetName().Version;
 
             // (Devices added here later in ContextMenu_Popup)
 
@@ -50,7 +47,7 @@ namespace EarTrumpet
             AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
             AddItem(Properties.Resources.TroubleshootEarTrumpetText, DiagnosticsItem_Click);
             AddItem(Properties.Resources.ContextMenuSendFeedback, Feedback_Click);
-            AddItem($"{aboutString} EarTrumpet {version} ...", About_Click);
+            AddItem(_trayViewModel.AboutHeader, About_Click);
             AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
@@ -71,27 +68,17 @@ namespace EarTrumpet
 
         private void SettingsItem_Click(object sender, EventArgs e)
         {
-            if (SettingsWindow.Instance == null)
-            {
-
-                var window = new SettingsWindow(_deviceService);
-                window.Show();
-            }
-            else
-            {
-                SettingsWindow.Instance.RaiseWindow();
-            }
+            _trayViewModel.OpenSettingsCommand.Execute();
         }
 
         private void EtVolumeMixer_Click(object sender, EventArgs e)
         {
-            var window = new FullWindow(_deviceService);
-            window.Show();
+            _trayViewModel.OpenEarTrumpetVolumeMixerCommand.Execute();
         }
 
         private void DiagnosticsItem_Click(object sender, EventArgs e)
         {
-            DiagnosticsService.DumpAndShowData(_deviceService);
+            _trayViewModel.OpenDiagnosticsCommand.Execute();
         }
 
         private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -101,22 +88,22 @@ namespace EarTrumpet
 
         private void PlaybackDevices_Click(object sender, EventArgs e)
         {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,playback");
+            _trayViewModel.OpenPlaybackDevicesCommand.Execute();
         }
 
         private void RecordingDevices_Click(object sender, EventArgs e)
         {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,recording");
+            _trayViewModel.OpenRecordingDevicesCommand.Execute();
         }
 
         private void SoundsControlPanel_Click(object sender, EventArgs e)
         {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,sounds");
+            _trayViewModel.OpenSoundsControlPanelCommand.Execute();
         }
 
         private void OpenlegacyVolumeMixer_Click(object sender, EventArgs e)
         {
-            Process.Start("sndvol.exe");
+            _trayViewModel.OpenLegacyVolumeMixerCommand.Execute();
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -169,15 +156,15 @@ namespace EarTrumpet
 
         void Feedback_Click(object sender, EventArgs e)
         {
-            _trayViewModel.StartAppServiceAndFeedbackHub();
+            _trayViewModel.StartAppServiceAndFeedbackHubCommand.Execute();
         }
 
         void About_Click(object sender, EventArgs e)
         {
-            Process.Start("http://github.com/File-New-Project/EarTrumpet");
+            _trayViewModel.OpenAboutCommand.Execute();
         }
 
-        void Exit_Click(object sender, EventArgs e)
+        public void Exit_Click(object sender, EventArgs e)
         {
             try
             {
@@ -199,10 +186,10 @@ namespace EarTrumpet
         void Device_Click(object sender, EventArgs e)
         {
             var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
-            _deviceService.DefaultPlaybackDevice = device;      
+            _trayViewModel.ChangeDeviceCommand.Execute(device);      
         }
 
-        private void SetupDeviceMenuItems()
+        internal void SetupDeviceMenuItems()
         {
             for (int i = _trayIcon.ContextMenu.MenuItems.Count - 1; i >= 0; i--)
             {

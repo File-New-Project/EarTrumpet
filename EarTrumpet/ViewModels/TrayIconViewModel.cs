@@ -3,8 +3,11 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
@@ -47,6 +50,27 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        public string AboutHeader
+        {
+            get
+            {
+                var aboutString = Properties.Resources.ContextMenuAboutTitle;
+                var version = Assembly.GetEntryAssembly().GetName().Version;
+                return $"{aboutString} EarTrumpet {version} ...";
+            }
+        }
+
+        public RelayCommand OpenSettingsCommand { get; }
+        public RelayCommand OpenPlaybackDevicesCommand { get; }
+        public RelayCommand OpenRecordingDevicesCommand { get; }
+        public RelayCommand OpenSoundsControlPanelCommand { get; }
+        public RelayCommand OpenLegacyVolumeMixerCommand { get; }
+        public RelayCommand OpenAboutCommand { get; }
+        public RelayCommand OpenDiagnosticsCommand { get; }
+        public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
+        public RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
+        public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
+
         public TrayViewModel(IAudioDeviceManager deviceService)
         {
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
@@ -77,6 +101,17 @@ namespace EarTrumpet.ViewModels
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
             UpdateTrayIcon();
+
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
+            OpenPlaybackDevicesCommand = new RelayCommand(OpenPlaybackDevices);
+            OpenRecordingDevicesCommand = new RelayCommand(OpenRecordingDevices);
+            OpenSoundsControlPanelCommand = new RelayCommand(OpenSoundsControlPanel);
+            OpenLegacyVolumeMixerCommand = new RelayCommand(OpenLegacyVolumeMixer);
+            OpenAboutCommand = new RelayCommand(OpenAbout);
+            OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
+            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
+            ChangeDeviceCommand = new RelayCommand<IAudioDevice>(ChangeDevice);
+            StartAppServiceAndFeedbackHubCommand = new RelayCommand(StartAppServiceAndFeedbackHub);
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -148,7 +183,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void StartAppServiceAndFeedbackHub()
+        private void StartAppServiceAndFeedbackHub()
         {
             if (_appServiceConnection == null)
             {
@@ -166,6 +201,61 @@ namespace EarTrumpet.ViewModels
             {
                 _appServiceConnection.Dispose();
             }
+        }
+
+        private void OpenPlaybackDevices()
+        {
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,playback");
+        }
+
+        private void OpenRecordingDevices()
+        {
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,recording");
+        }
+
+        private void OpenSoundsControlPanel()
+        {
+            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,sounds");
+        }
+
+        private void OpenLegacyVolumeMixer()
+        {
+            Process.Start("sndvol.exe");
+        }
+
+        private void OpenAbout()
+        {
+            Process.Start("http://github.com/File-New-Project/EarTrumpet");
+        }
+
+        private void OpenDiagnostics()
+        {
+            DiagnosticsService.DumpAndShowData(_deviceService);
+        }
+
+        private void OpenSettings()
+        {
+            if (SettingsWindow.Instance == null)
+            {
+
+                var window = new SettingsWindow(_deviceService);
+                window.Show();
+            }
+            else
+            {
+                SettingsWindow.Instance.RaiseWindow();
+            }
+        }
+
+        private void OpenEarTrumpetVolumeMixer()
+        {
+            var window = new FullWindow(_deviceService);
+            window.Show();
+        }
+
+        private void ChangeDevice(IAudioDevice device)
+        {
+            _deviceService.DefaultPlaybackDevice = device;
         }
     }
 }
