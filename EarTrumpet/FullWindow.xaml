@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
         Foreground="{DynamicResource WindowForeground}"
-        Background="{DynamicResource WindowBackground}"
+         Background="Black"
         Height="500" Width="900" MinWidth="300" MinHeight="300" BorderThickness="1">
     <Window.Style>
         <Style TargetType="Window">
@@ -39,7 +39,7 @@
                          Color="Black" />
 
     </Window.Resources>
-    <DockPanel x:Name="ContentRoot">
+    <DockPanel x:Name="ContentRoot" Background="{DynamicResource WindowBackground}">
         <DockPanel DockPanel.Dock="Top">
             <Button x:Name="CloseButton"  DockPanel.Dock="Right" Content="&#xE8BB;" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click"/>
             <Button x:Name="OptionsButton" DockPanel.Dock="Right" Content="&#xE713;" Style="{DynamicResource OptionsButtonStyle}" >

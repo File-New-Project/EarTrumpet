@@ -41,14 +41,6 @@ namespace EarTrumpet
         void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);
-            if (ThemeService.IsWindowTransparencyEnabled)
-            {
-                this.EnableBlur();
-            }
-            else
-            {
-                this.DisableBlur();
-            }
         }
 
         void UpdateText()

@@ -42,14 +42,6 @@ namespace EarTrumpet
         private void UpdateTheme()
         {
             ThemeService.UpdateThemeResources(Resources);
-            if (ThemeService.IsWindowTransparencyEnabled)
-            {
-                this.EnableBlur(true);
-            }
-            else
-            {
-                this.DisableBlur();
-            }
         }
 
         private void ToggleMenuItem_Click(object sender, RoutedEventArgs e)

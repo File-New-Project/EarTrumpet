@@ -8,12 +8,11 @@
         Name="WindowRoot"
         WindowStyle="None"
         Icon="Tray.ico"
-        ShowInTaskbar="True"
         AllowsTransparency="True"
-        SizeToContent="WidthAndHeight"
+        ShowInTaskbar="True"        
         Foreground="{DynamicResource WindowForeground}"
-        Background="{DynamicResource WindowBackground}"
-        Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="110" Width="150"
+        Background="Black"        
+        Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="200" Width="300"
         BorderThickness="1"
         PreviewKeyDown="Window_PreviewKeyDown">
     <WindowChrome.WindowChrome>
@@ -55,8 +54,8 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <DockPanel>
-        <Grid DockPanel.Dock="Top">
+    <DockPanel Background="{DynamicResource WindowBackground}">
+        <Grid DockPanel.Dock="Top" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -71,16 +70,18 @@
                     Click="CloseButton_Click" />
         </Grid>
         <Grid>
-            <StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
                 <TextBlock Margin="12"
                            Name="HotkeyText" />
-                <Button Margin="12"
+                <Button Margin="12" Grid.Row="1"
                         FontSize="12"
                         Click="CloseButton_Click"
                         Style="{DynamicResource SlimButton}"
                         Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
                         Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
-            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>
