@@ -21,8 +21,6 @@ namespace EarTrumpet.ViewModels
 
         public Visibility ExpandedPaneVisibility { get; private set; }
 
-        public string ExpandText => ExpandedPaneVisibility == Visibility.Visible ? "\ue010" : "\ue011";
-
         bool _isVisible = false;
         public bool IsVisible
         {
@@ -109,7 +107,6 @@ namespace EarTrumpet.ViewModels
         {
             ExpandedPaneVisibility = ExpandedPaneVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             RaisePropertyChanged(nameof(ExpandedPaneVisibility));
-            RaisePropertyChanged(nameof(ExpandText));
         }
     }
 }

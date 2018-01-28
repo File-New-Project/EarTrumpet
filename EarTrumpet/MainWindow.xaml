@@ -1,7 +1,8 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet.UserControls"
+        xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:userControls="clr-namespace:EarTrumpet.UserControls"
         Title="EarTrumpet"
         MaxHeight="600"
         Width="360"
@@ -29,52 +30,6 @@
                          Color="Black" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
-
-        
-        <SolidColorBrush x:Key="LargeButtonBackground"
-                         Color="Red" />
-
-        <Style x:Key="LargeButton" TargetType="Button">
-            <Setter Property="MinHeight" Value="50" />
-            <Setter Property="Margin" Value="3,0,3,0" />
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <Border x:Name="border"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                         SnapsToDevicePixels="True">
-                                <Grid Margin="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="{TemplateBinding Tag}"
-                                           Margin="4"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="18"/>
-                                    <ContentPresenter 
-                                VerticalAlignment="Bottom" 
-                                Grid.Row="1"
-                                RecognizesAccessKey="True" />
-                                </Grid>
-                            </Border>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="BorderBrush" Value="#44FFFFFF" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
@@ -82,67 +37,49 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Background="{DynamicResource HeaderBackground}">
-            <Button BorderThickness="0"
-                    HorizontalContentAlignment="Stretch"
-                    Foreground="{DynamicResource WindowForeground}"
-                    Click="ExpandCollapse_Click">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Background" >
-                            <Setter.Value>
-                                <SolidColorBrush Color="Transparent" />
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border x:Name="border"
-                         SnapsToDevicePixels="True"                                                                   
-                         Background="{TemplateBinding Background}">
-                                        <ContentPresenter RecognizesAccessKey="True" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" >
-                                    <Setter.Value>
-                                        <SolidColorBrush Color="#22FFFFFF" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" 
-                               Padding="12,8,8,8" 
+        <DockPanel Background="{DynamicResource HeaderBackground}">
+            <Button DockPanel.Dock="Right" Style="{DynamicResource OptionsButtonStyle}" Content="&#xE712;" Click="Button_Click" >
+                <!--<Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <BooleanAnimationUsingKeyFrames                                  
+                                            Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
+                                    </BooleanAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>-->
+                <Button.ContextMenu>
+                    <ContextMenu x:Name="PopupContextMenu">
+                        <Separator />
+                        <MenuItem Header="{x:Static resx:Resources.FullWindowTitleText}" Command="{Binding OpenEarTrumpetVolumeMixerCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.LegacyVolumeMixerText}" Command="{Binding OpenLegacyVolumeMixerCommand}" />
+                        <Separator />
+                        <MenuItem Header="{x:Static resx:Resources.PlaybackDevicesText}" Command="{Binding OpenPlaybackDevicesCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.RecordingDevicesText}" Command="{Binding OpenRecordingDevicesCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.SoundsControlPanelText}" Command="{Binding OpenSoundsControlPanelCommand}" />
+                        <Separator />
+                        <MenuItem Header="{x:Static resx:Resources.SettingsWindowText}" Command="{Binding OpenSettingsCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.TroubleshootEarTrumpetText}" Command="{Binding OpenDiagnosticsCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.ContextMenuSendFeedback}" Command="{Binding StartAppServiceAndFeedbackHubCommand}" />
+                        <MenuItem Header="{Binding AboutHeader}" Command="{Binding OpenAboutCommand}" />
+                        <MenuItem Header="{x:Static resx:Resources.ContextMenuExitTitle}" Click="ExitMenu_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+            <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" 
+                       DockPanel.Dock="Left"
+                               Padding="12,6,8,6" 
                                FontSize="15" 
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis" />
-
-                        <TextBlock Grid.Column="1" 
-                               FontFamily="Segoe MDL2 Assets"
-                               VerticalAlignment="Center"
-                               FontSize="15"
-                               Margin="8"
-                               Text="{Binding ExpandText}" />
-                    </Grid>
-                </Button.Content>
-
-            </Button>
-        </Grid>
+        </DockPanel>
         <ScrollViewer 
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.ColumnSpan="2"
                     VerticalScrollBarVisibility="Auto"
                     CanContentScroll="True"
@@ -166,46 +103,9 @@
                 <StackPanel Orientation="Vertical">
 
 
-                    <local:DeviceAndAppsControl Device="{Binding DefaultDevice}"
+                    <userControls:DeviceAndAppsControl Device="{Binding DefaultDevice}"
                                                 Visibility="{Binding DeviceVisibility}"/>
-                    <Grid  Visibility="{Binding ExpandedPaneVisibility}"
-                           Margin="4,0,4,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0"
-                                Tag="&#xe15d;"
-                                Content="Playback"
-                                Style="{StaticResource LargeButton}"
-                                Background="{DynamicResource LargeButtonBackground}"
-                                Foreground="{DynamicResource WindowForeground}"
-                                Click="PlaybackDevices_Click" />
-                        <Button Grid.Column="1"
-                                Tag="&#xe13a;"
-                                Content="Communication"
-                                Style="{StaticResource LargeButton}"
-                                Background="{DynamicResource LargeButtonBackground}"
-                                Foreground="{DynamicResource WindowForeground}"
-                                Click="CommunicationDevices_Click" />
-                        <Button Grid.Column="2"
-                                Tag="&#xe115;"
-                                Content="Settings"
-                                Style="{StaticResource LargeButton}"
-                                Background="{DynamicResource LargeButtonBackground}"
-                                Foreground="{DynamicResource WindowForeground}"
-                                
-                                Click="Settings_Click" />
-                        <Button Grid.Column="3"
-                                Tag="&#xe8ad;"
-                                Content="Pop out"
-                                Style="{StaticResource LargeButton}"
-                                Background="{DynamicResource LargeButtonBackground}"
-                                Foreground="{DynamicResource WindowForeground}"
-                                Click="PopOut_Click" />
-                    </Grid>
+                    
                 </StackPanel>
             </Grid>
         </ScrollViewer>
