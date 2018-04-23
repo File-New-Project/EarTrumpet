@@ -224,3 +224,6 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 EarTrumpet.Interop/callbacks.h
 EarTrumpet.Interop/handlers.h
 EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
+
+#nuget packages
+/packages

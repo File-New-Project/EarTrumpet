@@ -13,22 +13,29 @@ HRESULT EndpointNotificationHandler::OnDefaultDeviceChanged(EDataFlow dataFlow, 
 {
     if (dataFlow == EDataFlow::eRender && role != ERole::eCommunications)
     {
-        std::wstring deviceId(rawDeviceId);
-        _lastSeenDeviceId = deviceId;
-        if (_controlChangeHandlers.find(deviceId) == _controlChangeHandlers.end())
+        if (rawDeviceId != nullptr)
         {
-            CComObject<ControlChangeHandler>* controlChangeHandler;
-            FAST_FAIL(GetCachedControlChangeHandlerByDeviceId(deviceId, &controlChangeHandler));
-            controlChangeHandler->RegisterVolumeChangedCallback(deviceId.c_str(), this);
+            std::wstring deviceId(rawDeviceId);
+            _lastSeenDeviceId = deviceId;
+            if (_controlChangeHandlers.find(deviceId) == _controlChangeHandlers.end())
+            {
+                ControlChangeHandler* controlChangeHandler;
+                FAST_FAIL(GetCachedControlChangeHandlerByDeviceId(deviceId, &controlChangeHandler));
+                controlChangeHandler->RegisterVolumeChangedCallback(deviceId.c_str(), this);
 
-            IAudioEndpointVolume* audioEndpointVolume;
-            FAST_FAIL(GetCachedAudioEndpointVolumeByDeviceId(deviceId, &audioEndpointVolume));
-            FAST_FAIL(audioEndpointVolume->RegisterControlChangeNotify(controlChangeHandler));
+                IAudioEndpointVolume* audioEndpointVolume;
+                FAST_FAIL(GetCachedAudioEndpointVolumeByDeviceId(deviceId, &audioEndpointVolume));
+                FAST_FAIL(audioEndpointVolume->RegisterControlChangeNotify(controlChangeHandler));
+            }
+
+            float volume;
+            FAST_FAIL(GetDefaultDeviceVolume(&volume));
+            FAST_FAIL(OnVolumeChanged(deviceId.c_str(), volume));
         }
-
-        float volume;
-        FAST_FAIL(GetDefaultDeviceVolume(&volume));
-        FAST_FAIL(OnVolumeChanged(_lastSeenDeviceId.c_str(), volume));
+        else
+        {
+            FAST_FAIL(OnVolumeChanged(nullptr, 0.0f));
+        }
     }
 
     return S_OK;
@@ -50,7 +57,7 @@ HRESULT EndpointNotificationHandler::RegisterVolumeChangeHandler(IMMDeviceEnumer
 
 HRESULT EndpointNotificationHandler::OnVolumeChanged(PCWSTR deviceId, float volume)
 {
-    if (_lastSeenDeviceId == deviceId)
+    if (deviceId == nullptr || _lastSeenDeviceId == deviceId)
     {
         FAST_FAIL(_endpointCallback->OnVolumeChanged(volume));
     }
@@ -91,7 +98,7 @@ HRESULT EndpointNotificationHandler::GetCachedAudioEndpointVolumeByDeviceId(std:
     return S_OK;
 }
 
-HRESULT EndpointNotificationHandler::GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, CComObject<ControlChangeHandler>** controlChangeHandler)
+HRESULT EndpointNotificationHandler::GetCachedControlChangeHandlerByDeviceId(std::wstring const& deviceId, ControlChangeHandler** controlChangeHandler)
 {
     if (_controlChangeHandlers.find(deviceId) == _controlChangeHandlers.end())
     {

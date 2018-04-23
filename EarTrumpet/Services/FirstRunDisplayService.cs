@@ -11,14 +11,25 @@ namespace EarTrumpet.Services
             if (App.HasIdentity())
             {
                 bool hasShownFirstRun = false;
-                if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
+                try
                 {
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
-                    try
+
+                    if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))
                     {
-                        System.Diagnostics.Process.Start("eartrumpet://welcome");
+                        Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
+                        try
+                        {
+                            System.Diagnostics.Process.Start("eartrumpet://welcome");
+                        }
+                        catch
+                        {
+                            // In case Process.Start throws, no need to do anything
+                        }
                     }
-                    catch { }
+                }
+                catch
+                {
+                    // In case Windows Storage APIs are not stable (seen in Dev Dashboard)
                 }
             }
         }

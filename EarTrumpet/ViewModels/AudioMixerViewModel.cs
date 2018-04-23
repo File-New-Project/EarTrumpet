@@ -1,10 +1,12 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Models;
 using EarTrumpet.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace EarTrumpet.ViewModels
 {
@@ -77,17 +79,20 @@ namespace EarTrumpet.ViewModels
 
         private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)))
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
-                var updatedDefaultDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, e.Volume);
-                Device.UpdateFromOther(updatedDefaultDevice);
-                RaisePropertyChanged("Device");
-            }
-            else
-            {
-                Refresh();
-            }
+                var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+                if (!defaultDevice.Equals(default(EarTrumpetAudioDeviceModel)) && Device != null)
+                {
+                    var updatedDefaultDevice = new DeviceAppItemViewModel(_proxy, defaultDevice, e.Volume);
+                    Device.UpdateFromOther(updatedDefaultDevice);
+                    RaisePropertyChanged("Device");
+                }
+                else
+                {
+                    Refresh();
+                }
+            }));
         }
 
         public void Refresh()
@@ -110,6 +115,11 @@ namespace EarTrumpet.ViewModels
                     }
                     RaisePropertyChanged("Device");
                 }
+                else
+                {
+                    Device = null;
+                    RaisePropertyChanged("Device");
+                }
 
                 bool hasApps = Apps.Count > 0;
                 var sessions = _audioService.GetAudioSessionGroups().Select(x => new AppItemViewModel(_proxy, x));
@@ -124,6 +134,7 @@ namespace EarTrumpet.ViewModels
                         staleSessionsToRemove.Add(app);
                     }
                 }
+
                 foreach (var app in staleSessionsToRemove)
                 {
                     Apps.Remove(app);

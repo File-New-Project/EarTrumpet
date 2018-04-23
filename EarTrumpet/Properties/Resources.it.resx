@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,36 +118,36 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>Om</value>
+    <value>Info su</value>
   </data>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Avslutt</value>
+    <value>Esci</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>No devices found</value>
+    <value>Nessun dispositivo trovato</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Send Feedback...</value>
+    <value>Invia feedback...</value>
   </data>
   <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Vis skrivebordsapplikasjoner</value>
+    <value>Mostra le app del desktop</value>
   </data>
   <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>Det ser ikke ut som du har noen applikasjoner åpne.</value>
+    <value>Sembra che tu non abbia alcuna app aperta.</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>It doesn't look like you have any audio devices.</value>
+    <value>Sembra che tu non abbia alcun dispositivo audio.</value>
   </data>
   <data name="SpeechRuntimeDisplayName" xml:space="preserve">
     <value>Speech Runtime</value>
   </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>Systemlyder</value>
+    <value>Suoni di sistema</value>
   </data>
   <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Volumkontroll for Windows</value>
+    <value>Controllo volume per Windows</value>
   </data>
   <data name="UseOldIconText" xml:space="preserve">
-    <value>Bruk EarTrumpet ikonet</value>
+    <value>Usare l'icona di EarTrumpet</value>
   </data>
 </root>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
@@ -87,11 +88,30 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        internal void ChangeTrayIcon(bool useOldIcon)
+        {
+            UserPreferencesService.UseOldIcon = useOldIcon;
+            if (UserPreferencesService.UseOldIcon)
+            {
+                UpdateTrayIcon();
+            }
+            else
+            {
+                var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+                var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
+                var volume = _deviceService.GetAudioDeviceVolume(defaultDevice.Id);
+                UpdateTrayIcon(noDevice, defaultDevice.IsMuted, volume.ToVolumeInt());
+            }
+        }
+
         private void DeviceService_MasterVolumeChanged(object sender, EarTrumpetAudioDeviceService.MasterVolumeChangedArgs e)
         {
-            var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
-            var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
-            UpdateTrayIcon(noDevice, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                var defaultDevice = _deviceService.GetAudioDevices().FirstOrDefault(x => x.IsDefault);
+                var noDevice = defaultDevice.Equals(default(EarTrumpetAudioDeviceModel));
+                UpdateTrayIcon(noDevice, defaultDevice.IsMuted, e.Volume.ToVolumeInt());
+            }));
         }
 
         private void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
@@ -110,6 +130,16 @@ namespace EarTrumpet.ViewModels
 
         public void UpdateTrayIcon(bool noDevice = false, bool isMuted = false, int currentVolume = 100)
         {
+            if (UserPreferencesService.UseOldIcon)
+            {
+                if (TrayIcon == null || _currentIcon != IconId.OriginalIcon)
+                { 
+                    TrayIcon = _icons[IconId.OriginalIcon];
+                    _currentIcon = IconId.OriginalIcon;
+                }
+                return;
+            }
+
             if (noDevice)
             {
                 if (_currentIcon == IconId.NoDevice)

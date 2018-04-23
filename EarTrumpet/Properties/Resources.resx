@@ -147,4 +147,7 @@
   <data name="TrayIconTooltipText" xml:space="preserve">
     <value>Volume Control for Windows</value>
   </data>
+  <data name="UseOldIconText" xml:space="preserve">
+    <value>Use EarTrumpet Icon</value>
+  </data>
 </root>
