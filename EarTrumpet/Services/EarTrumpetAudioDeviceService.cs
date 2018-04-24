@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Timers;
 
 namespace EarTrumpet.Services
 {
@@ -37,6 +38,14 @@ namespace EarTrumpet.Services
             public static extern int RegisterVolumeChangeCallback(IEarTrumpetVolumeCallback callback);
         }
 
+        private bool _dropEvents = false;
+        private readonly Timer _dropEventsTimer;
+
+        private void DropEventsTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            _dropEvents = false;
+        }
+
         public sealed class MasterVolumeChangedArgs
         {
             public float Volume { get; set; }
@@ -46,6 +55,12 @@ namespace EarTrumpet.Services
 
         public EarTrumpetAudioDeviceService()
         {
+            _dropEventsTimer = new Timer(TimeSpan.FromSeconds(3).TotalMilliseconds)
+            {
+                AutoReset = false
+            };
+            _dropEventsTimer.Elapsed += DropEventsTimerElapsed;
+
             Interop.RegisterVolumeChangeCallback(this);
         }
 
@@ -83,8 +98,13 @@ namespace EarTrumpet.Services
 
             return volume;
         }
+
         public void SetAudioDeviceVolume(string deviceId, float volume)
         {
+            _dropEvents = true;
+            _dropEventsTimer.Stop();
+            _dropEventsTimer.Start();
+
             Interop.SetAudioDeviceVolume(deviceId, volume);
         }
 
@@ -105,7 +125,10 @@ namespace EarTrumpet.Services
 
         protected virtual void OnMasterVolumeChanged(MasterVolumeChangedArgs args)
         {
-            MasterVolumeChanged?.Invoke(this, args);
+            if (!_dropEvents)
+            {
+                MasterVolumeChanged?.Invoke(this, args);
+            }
         }
     }
 }
