@@ -60,7 +60,7 @@ namespace EarTrumpet.Extensions
             }
         }
 
-        private static bool _isRunningOnRs4 = Environment.OSVersion.Version.Build >= 17134;
+        private static bool _isRunningOnRs4OrHigher = Environment.OSVersion.Version.Build >= 17134;
 
         public static void EnableBlur(this Window window)
         {
@@ -69,7 +69,7 @@ namespace EarTrumpet.Extensions
                 return; // Blur is not useful in high contrast mode
             }
 
-            SetAccentPolicy(window, (_isRunningOnRs4 ? Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : Interop.AccentState.ACCENT_ENABLE_BLURBEHIND));
+            SetAccentPolicy(window, (_isRunningOnRs4OrHigher ? Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : Interop.AccentState.ACCENT_ENABLE_BLURBEHIND));
         }
 
         public static void DisableBlur(this Window window)
@@ -85,9 +85,10 @@ namespace EarTrumpet.Extensions
             accent.AccentState = accentState;
             accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
 
-            if (_isRunningOnRs4)
+            if (_isRunningOnRs4OrHigher)
             {
-                accent.GradientColor = (42 << 24) | (0x000000 & 0xFFFFFF /* BGR */);
+                                       // A  B  G  R
+                accent.GradientColor = 0x2A_00_00_00;
             }
 
             var accentStructSize = Marshal.SizeOf(accent);
