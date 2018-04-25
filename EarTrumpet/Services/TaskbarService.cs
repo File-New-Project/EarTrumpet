@@ -12,26 +12,10 @@ namespace EarTrumpet.Services
 
         public static TaskbarState GetWinTaskbarState()
         {
-            APPBARDATA ABD = new APPBARDATA();
             TaskbarState retState = new TaskbarState();
             var hwnd = User32.FindWindow(ClassName, null);
 
-            ABD.cbSize = Marshal.SizeOf(ABD);
-            ABD.uEdge = 0;
-            ABD.hWnd = hwnd;
-            ABD.lParam = 1;
-
-            User32.GetWindowRect(hwnd, out RECT scaledTaskbarRect);
-
-            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref ABD);
-
-            var scalingAmount = (double)(scaledTaskbarRect.bottom - scaledTaskbarRect.top) / (ABD.rc.bottom - ABD.rc.top);
-
-            retState.TaskbarSize = default(RECT);
-            retState.TaskbarSize.top = (int)(ABD.rc.top * scalingAmount);
-            retState.TaskbarSize.bottom = (int)(ABD.rc.bottom * scalingAmount);
-            retState.TaskbarSize.left = (int)(ABD.rc.left * scalingAmount);
-            retState.TaskbarSize.right = (int)(ABD.rc.right * scalingAmount);
+            User32.GetWindowRect(hwnd, out retState.TaskbarSize);
 
             var screen = Screen.AllScreens.FirstOrDefault(x => x.Bounds.Contains(
                             new Rectangle(
@@ -56,7 +40,7 @@ namespace EarTrumpet.Services
             }               
 
             return retState;
-        }        
+        }
     }
 
     public static class User32
@@ -75,46 +59,6 @@ namespace EarTrumpet.Services
         public int top;
         public int right;
         public int bottom;
-    }
-
-    public static class Shell32
-    {
-        [DllImport("shell32.dll")]
-        public static extern IntPtr SHAppBarMessage(uint dwMessage, [In] ref APPBARDATA pData);
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct APPBARDATA
-    {
-        public int cbSize; // initialize this field using: Marshal.SizeOf(typeof(APPBARDATA));
-        public IntPtr hWnd;
-        public uint uCallbackMessage;
-        public uint uEdge;
-        public RECT rc;
-        public int lParam;
-    }
-
-    public enum ABMsg
-    {
-        ABM_NEW = 0,
-        ABM_REMOVE,
-        ABM_QUERYPOS,
-        ABM_SETPOS,
-        ABM_GETSTATE,
-        ABM_GETTASKBARPOS,
-        ABM_ACTIVATE,
-        ABM_GETAUTOHIDEBAR,
-        ABM_SETAUTOHIDEBAR,
-        ABM_WINDOWPOSCHANGED,
-        ABM_SETSTATE
-    }
-
-    public enum ABEdge
-    {
-        ABE_LEFT = 0,
-        ABE_TOP = 1,
-        ABE_RIGHT = 2,
-        ABE_BOTTOM = 3
     }
 
     [StructLayout(LayoutKind.Sequential)]
