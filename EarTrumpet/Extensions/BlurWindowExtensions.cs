@@ -26,8 +26,8 @@ namespace EarTrumpet.Extensions
             {
                 public AccentState AccentState;
                 public AccentFlags AccentFlags;
-                public int GradientColor;
-                public int AnimationId;
+                public uint GradientColor;
+                public uint AnimationId;
             }
 
             [Flags]
@@ -55,9 +55,12 @@ namespace EarTrumpet.Extensions
                 ACCENT_ENABLE_GRADIENT = 1,
                 ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
                 ACCENT_ENABLE_BLURBEHIND = 3,
+                ACCENT_ENABLE_ACRYLICBLURBEHIND = 4, // RS4
                 ACCENT_INVALID_STATE = 4
             }
         }
+
+        private static bool _isRunningOnRs4OrHigher = Environment.OSVersion.Version.Build >= 17134;
 
         public static void EnableBlur(this Window window)
         {
@@ -66,7 +69,7 @@ namespace EarTrumpet.Extensions
                 return; // Blur is not useful in high contrast mode
             }
 
-            SetAccentPolicy(window, Interop.AccentState.ACCENT_ENABLE_BLURBEHIND);
+            SetAccentPolicy(window, (_isRunningOnRs4OrHigher ? Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : Interop.AccentState.ACCENT_ENABLE_BLURBEHIND));
         }
 
         public static void DisableBlur(this Window window)
@@ -81,6 +84,12 @@ namespace EarTrumpet.Extensions
             var accent = new Interop.AccentPolicy();
             accent.AccentState = accentState;
             accent.AccentFlags = GetAccentFlagsForTaskbarPosition();
+
+            if (_isRunningOnRs4OrHigher)
+            {
+                                       // A  B  G  R
+                accent.GradientColor = 0x2A_00_00_00;
+            }
 
             var accentStructSize = Marshal.SizeOf(accent);
 
