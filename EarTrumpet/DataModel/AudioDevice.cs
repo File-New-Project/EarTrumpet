@@ -11,6 +11,15 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
+        static class Interop
+        {
+            [DllImport("combase.dll")]
+            public static extern void RoGetActivationFactory(
+                [MarshalAs(UnmanagedType.HString)] string activatableClassId,
+                [In] ref Guid iid,
+                [Out, MarshalAs(UnmanagedType.IInspectable)] out Object factory);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         IMMDevice _device;
@@ -42,7 +51,7 @@ namespace EarTrumpet.DataModel
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
@@ -110,12 +119,27 @@ namespace EarTrumpet.DataModel
 
                 PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
                 PropVariant pv;
-                ((IPropertyStore)propStore).GetValue(ref PKEY_Device_FriendlyName, out  pv);
+                ((IPropertyStore)propStore).GetValue(ref PKEY_Device_FriendlyName, out pv);
 
                 var ret = Marshal.PtrToStringUni(pv.pointerValue);
                 PropertyStoreInterop.PropVariantClear(ref pv);
                 return ret;
             }
+        }
+
+        static IAudioPolicyConfigFactory s_sharedPolicyConfig;
+
+        public void TakeSessionFromOtherDevice(IAudioDeviceSession session)
+        {
+            if (s_sharedPolicyConfig == null)
+            {
+                object factory;
+                Guid iid = typeof(IAudioPolicyConfigFactory).GUID;
+                Interop.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out factory);
+                s_sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
+            }
+
+            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)session.ProcessId, EDataFlow.eRender, ERole.eMultimedia, @"\\?\SWD#MMDEVAPI#" + Id);
         }
     }
 }

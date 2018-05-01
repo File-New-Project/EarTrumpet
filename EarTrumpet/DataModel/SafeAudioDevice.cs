@@ -35,6 +35,8 @@ namespace EarTrumpet.DataModel
 
         public float PeakValue => SafeCallHelper.GetValue(() => _device.PeakValue);
 
+        public void TakeSessionFromOtherDevice(IAudioDeviceSession session) => _device.TakeSessionFromOtherDevice(session);
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

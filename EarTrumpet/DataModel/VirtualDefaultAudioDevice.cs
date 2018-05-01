@@ -74,6 +74,8 @@ namespace EarTrumpet.DataModel
 
         public float PeakValue { get => _device != null ? _device.PeakValue : 0; }
 
+        public void TakeSessionFromOtherDevice(IAudioDeviceSession session) => _device.TakeSessionFromOtherDevice(session);
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
