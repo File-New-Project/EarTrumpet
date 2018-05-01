@@ -1,6 +1,8 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Services;
-using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Timers;
 using System.Windows;
@@ -10,6 +12,10 @@ namespace EarTrumpet.ViewModels
     public class MainViewModel : BindableBase
     {
         public DeviceViewModel DefaultDevice { get; private set; }
+
+        public ObservableCollection<DeviceViewModel> Devices { get; private set; }
+
+        List<IAudioDevice> _allDevices = new List<IAudioDevice>();
 
         public Visibility ListVisibility => DefaultDevice.Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
@@ -49,20 +55,87 @@ namespace EarTrumpet.ViewModels
         {
             _deviceService = deviceService;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
+            _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
 
+            Devices = new ObservableCollection<DeviceViewModel>();
             DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
 
             ExpandedPaneVisibility = Visibility.Collapsed;
             UpdateInterfaceState();
+            Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _peakMeterTimer = new Timer(1000 / 30);
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
         }
 
+        private void Devices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    AddDevice((IAudioDevice)e.NewItems[0]);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    _allDevices.Remove((IAudioDevice)e.OldItems[0]);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    _allDevices.Clear();
+                    foreach (var device in _deviceService.Devices)
+                    {
+                        AddDevice(device);
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        void AddDevice(IAudioDevice device)
+        {
+            _allDevices.Add(device);
+            device.PropertyChanged += Device_PropertyChanged;
+
+            CheckApplicability(device);
+        }
+
+        private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "HasMeaningfulSessions")
+            {
+                CheckApplicability((IAudioDevice)sender);
+            }
+        }
+
+        void CheckApplicability(IAudioDevice device)
+        {
+            if (_deviceService.DefaultPlaybackDevice != device)
+            {
+                if (device.HasMeaningfulSessions())
+                {
+                    if (!Devices.Any(d => d.Device.Id == device.Id))
+                    {
+                        Devices.Add(new DeviceViewModel(device));
+                        return;
+                    }
+                }
+            }
+
+            var existing = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
+            if (existing != null)
+            {
+                Devices.Remove(existing);
+            }
+        }
+
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             DefaultDevice.TriggerPeakCheck();
+
+            foreach (var device in Devices)
+            {
+                device.TriggerPeakCheck();
+            }
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

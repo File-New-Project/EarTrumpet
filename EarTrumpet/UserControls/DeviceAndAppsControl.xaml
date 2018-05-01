@@ -32,7 +32,13 @@
                 <DataTemplate DataType="viewModels:AudioSessionControlViewModel">
                     <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
-                        <local:AudioSessionControl 
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding DisplayName}" 
+                               Padding="12,6,8,6" 
+                               FontSize="15" 
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" />
+                            <local:AudioSessionControl 
                             Stream="{Binding}"
                             IconHeight="32"
                             IconWidth="32"
@@ -44,6 +50,7 @@
                             BeepOnPointerUp="True"
                             Padding="0,4,0,4"
                         />
+                        </StackPanel>
                     </Border>
                 </DataTemplate>
             </HeaderedItemsControl.HeaderTemplate>

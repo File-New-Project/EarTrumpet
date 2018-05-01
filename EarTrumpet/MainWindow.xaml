@@ -31,53 +31,7 @@
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
     </Window.Resources>
-
     <Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <DockPanel Background="{DynamicResource HeaderBackground}">
-            <Button DockPanel.Dock="Right" Style="{DynamicResource OptionsButtonStyle}" Content="&#xE712;" Click="Button_Click" >
-                <!--<Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <BooleanAnimationUsingKeyFrames                                  
-                                            Storyboard.TargetProperty="ContextMenu.IsOpen">
-                                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
-                                    </BooleanAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>-->
-                <Button.ContextMenu>
-                    <ContextMenu x:Name="PopupContextMenu">
-                        <Separator />
-                        <MenuItem Header="{x:Static resx:Resources.FullWindowTitleText}" Command="{Binding OpenEarTrumpetVolumeMixerCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.LegacyVolumeMixerText}" Command="{Binding OpenLegacyVolumeMixerCommand}" />
-                        <Separator />
-                        <MenuItem Header="{x:Static resx:Resources.PlaybackDevicesText}" Command="{Binding OpenPlaybackDevicesCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.RecordingDevicesText}" Command="{Binding OpenRecordingDevicesCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.SoundsControlPanelText}" Command="{Binding OpenSoundsControlPanelCommand}" />
-                        <Separator />
-                        <MenuItem Header="{x:Static resx:Resources.SettingsWindowText}" Command="{Binding OpenSettingsCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.TroubleshootEarTrumpetText}" Command="{Binding OpenDiagnosticsCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.ContextMenuSendFeedback}" Command="{Binding StartAppServiceAndFeedbackHubCommand}" />
-                        <MenuItem Header="{Binding AboutHeader}" Command="{Binding OpenAboutCommand}" />
-                        <MenuItem Header="{x:Static resx:Resources.ContextMenuExitTitle}" Click="ExitMenu_Click" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-            <TextBlock Text="{Binding DefaultDevice.Device.DisplayName}" 
-                       DockPanel.Dock="Left"
-                               Padding="12,6,8,6" 
-                               FontSize="15" 
-                               VerticalAlignment="Center"
-                               TextTrimming="CharacterEllipsis" />
-        </DockPanel>
         <ScrollViewer 
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
@@ -99,13 +53,17 @@
                                     TextWrapping="Wrap" />
                 </Grid>
 
-
-                <StackPanel Orientation="Vertical">
-
-
-                    <userControls:DeviceAndAppsControl Device="{Binding DefaultDevice}"
-                                                Visibility="{Binding DeviceVisibility}"/>
-                    
+                <StackPanel Orientation="Vertical"
+                            Visibility="{Binding DeviceVisibility}">
+                    <ItemsControl ItemsSource="{Binding Devices}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <userControls:DeviceAndAppsControl Device="{Binding}"
+                                                                   Margin="0,0,0,12"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <userControls:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

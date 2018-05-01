@@ -75,10 +75,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
-                        <StackPanel Orientation="Vertical" Width="300">
-                            <TextBlock Text="{Binding Device.DisplayName}" Padding="20,8,8,8" FontSize="15" Background="{DynamicResource HeaderBackground}" TextTrimming="CharacterEllipsis" />
-                            <local:DeviceAndAppsControl Device="{Binding}" />
-                        </StackPanel>
+                        <local:DeviceAndAppsControl Device="{Binding}"
+                                                    Width="300"/>
                     </ItemContainerTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

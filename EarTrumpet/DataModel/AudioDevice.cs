@@ -141,5 +141,14 @@ namespace EarTrumpet.DataModel
 
             s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)session.ProcessId, EDataFlow.eRender, ERole.eMultimedia, @"\\?\SWD#MMDEVAPI#" + Id);
         }
+
+        public bool HasMeaningfulSessions()
+        {
+            foreach(var session in Sessions)
+            {
+                if (!session.IsSystemSoundsSession) return true;
+            }
+            return false;
+        }
     }
 }

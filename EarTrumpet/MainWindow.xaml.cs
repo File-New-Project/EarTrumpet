@@ -30,7 +30,6 @@ namespace EarTrumpet
             _trayIcon.Invoked += TrayIcon_Invoked;
 
             DataContext = _viewModel;
-            PopupContextMenu.DataContext = _trayViewModel;
 
             // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
             // visuals are preferrable.
@@ -138,76 +137,6 @@ namespace EarTrumpet
         {
             _viewModel.DoExpandCollapse();
             UpdateWindowPosition();
-        }
-
-        //private void PlaybackDevices_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (_deviceService.DefaultPlaybackDevice == null) return;
-
-        //    var cm = new ContextMenu();
-
-        //    foreach (var dev in _deviceService.Devices)
-        //    {
-        //        var cmItem = new MenuItem { Header = dev.DisplayName };
-        //        cmItem.Click += (s, _) => _deviceService.DefaultPlaybackDevice = dev;
-        //        cmItem.IsChecked = dev.Id == _deviceService.DefaultPlaybackDevice.Id;
-        //        cm.Items.Add(cmItem);
-        //    }
-
-        //    cm.PlacementTarget = (UIElement)sender;
-        //    cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-        //    cm.IsOpen = true;
-        //}
-
-        //private void CommunicationDevices_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (_deviceService.DefaultCommunicationDevice == null) return;
-
-        //    var cm = new ContextMenu();
-
-        //    foreach (var dev in _deviceService.Devices)
-        //    {
-        //        var cmItem = new MenuItem { Header = dev.DisplayName };
-        //        cmItem.Click += (s, _) => _deviceService.DefaultCommunicationDevice = dev;
-        //        cmItem.IsChecked = dev.Id == _deviceService.DefaultCommunicationDevice.Id;
-        //        cm.Items.Add(cmItem);
-        //    }
-
-        //    cm.PlacementTarget = (UIElement)sender;
-        //    cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-        //    cm.IsOpen = true;
-        //}
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = PopupContextMenu.Items.Count - 1; i >= 0; i--)
-            {
-                var item = PopupContextMenu.Items[i] as MenuItem;
-                if (item != null && item.Tag != null)
-                {
-                    PopupContextMenu.Items.Remove(item);
-                }
-            }
-
-            var audioDevices = _deviceService.Devices.OrderBy(x => x.DisplayName);
-            if (audioDevices.Count() == 0)
-            {
-                var newItem = new MenuItem { Header = EarTrumpet.Properties.Resources.ContextMenuNoDevices, IsEnabled = false };
-                PopupContextMenu.Items.Insert(0, newItem);
-            }
-            else
-            {
-                int iPos = 0;
-                foreach (var dev in audioDevices)
-                {
-                    var cmItem = new MenuItem { Header = dev.DisplayName, Tag = dev };
-                    cmItem.SetBinding(MenuItem.CommandProperty, "ChangeDeviceCommand");
-                    cmItem.SetBinding(MenuItem.CommandParameterProperty, new Binding("Tag") { RelativeSource = new RelativeSource(RelativeSourceMode.Self) });
-                    cmItem.IsChecked = dev == _deviceService.DefaultPlaybackDevice;
-                    PopupContextMenu.Items.Insert(iPos++, cmItem);
-                }
-            }
-            PopupContextMenu.IsOpen = true;
         }
 
         private void ExitMenu_Click(object sender, RoutedEventArgs e)
