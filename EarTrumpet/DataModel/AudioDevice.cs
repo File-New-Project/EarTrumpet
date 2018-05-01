@@ -40,7 +40,7 @@ namespace EarTrumpet.DataModel
 
             _deviceVolume.RegisterControlChangeNotify(this);
             _meter = device.Activate<IAudioMeterInformation>();
-            _sessions = new AudioDeviceSessionCollection(_device, dispatcher);
+            _sessions = new AudioDeviceSessionCollection(_device, this, dispatcher);
             _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
         }
 

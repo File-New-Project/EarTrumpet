@@ -75,7 +75,7 @@ namespace EarTrumpet.DataModel
                 if (!_applicabilityCheckCallback(session))
                 {
                     Sessions.RemoveById(session);
-                    session.PropertyChanged -= Session_PropertyChanged;
+                    // Keep listening in case applicability parameters change after removal.
                 }
             }
             else
@@ -92,7 +92,8 @@ namespace EarTrumpet.DataModel
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var session = (IAudioDeviceSession)sender;
-            if (e.PropertyName == nameof(session.State))
+            if (e.PropertyName == nameof(session.State) ||
+                e.PropertyName == nameof(session.ActiveOnOtherDevice))
             {
                 AddIfApplicable(session);
             }

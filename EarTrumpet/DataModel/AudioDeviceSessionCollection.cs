@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Threading;
+using System.Collections.Generic;
 
 namespace EarTrumpet.DataModel
 {
@@ -11,9 +12,12 @@ namespace EarTrumpet.DataModel
     {
         Dispatcher _dispatcher;
         ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        IAudioDevice _device;
+        static List<IAudioDeviceSession> _allSessions = new List<IAudioDeviceSession>();
 
-        public AudioDeviceSessionCollection(IMMDevice device, Dispatcher dispatcher)
+        public AudioDeviceSessionCollection(IMMDevice device, IAudioDevice audioDevice, Dispatcher dispatcher)
         {
+            _device = audioDevice;
             _dispatcher = dispatcher;
 
             var sessionManager = device.Activate<IAudioSessionManager2>();
@@ -27,7 +31,7 @@ namespace EarTrumpet.DataModel
             {
                 IAudioSessionControl session;
                 enumerator.GetSession(i, out session);
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _dispatcher)));
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _device, _dispatcher)));
             }
         }
 
@@ -45,7 +49,7 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _dispatcher)));
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _device, _dispatcher)));
             });
         }
 
@@ -74,6 +78,8 @@ namespace EarTrumpet.DataModel
                 }
             }
 
+            session.PropertyChanged += Session_PropertyChanged;
+            _allSessions.Add(newSession);
             _sessions.Add(newSession);
         }
 
@@ -89,6 +95,7 @@ namespace EarTrumpet.DataModel
                     // Delete the now-empty container.
                     if (!container.Sessions.Any())
                     {
+                        _allSessions.Remove(container);
                         _sessions.Remove(container);
                     }
 
@@ -106,6 +113,35 @@ namespace EarTrumpet.DataModel
             {
                 RemoveSession(session);
                 AddSession(session);
+            }
+            else if (e.PropertyName == nameof(session.State))
+            {
+                session.ActiveOnOtherDevice = "";
+
+                if (session.State == AudioSessionState.Active)
+                {
+                    foreach(var s in _allSessions)
+                    {
+                        if (s.ProcessId == session.ProcessId &&
+                            s.Device.Id != session.Device.Id &&
+                            s.State == AudioSessionState.Inactive)
+                        {
+                            s.ActiveOnOtherDevice = session.Device.Id;
+                        }
+                    }
+                }
+                else if (session.State == AudioSessionState.Inactive)
+                {
+                    foreach (var s in _allSessions)
+                    {
+                        if (s.ProcessId == session.ProcessId &&
+                            s.Device.Id != session.Device.Id &&
+                            s.ActiveOnOtherDevice == session.Device.Id)
+                        {
+                            s.ActiveOnOtherDevice = "";
+                        }
+                    }
+                }
             }
         }
     }

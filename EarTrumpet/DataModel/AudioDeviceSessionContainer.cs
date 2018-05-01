@@ -49,6 +49,8 @@ namespace EarTrumpet.DataModel
             _sessions.Remove(session);
         }
 
+        public IAudioDevice Device => _sessions[0].Device;
+
         public uint BackgroundColor => _sessions[0].BackgroundColor;
 
         public string DisplayName => _sessions[0].DisplayName;
@@ -70,6 +72,12 @@ namespace EarTrumpet.DataModel
         public int ProcessId => _sessions[0].ProcessId;
 
         public AudioSessionState State => _sessions[0].State;
+
+        public string ActiveOnOtherDevice
+        {
+            get => _sessions[0].ActiveOnOtherDevice;
+            set => _sessions[0].ActiveOnOtherDevice = value;
+        }
 
         public float Volume { get => _sessions[0].Volume; set => _sessions.ForEach(s => s.Volume = value); }
 

@@ -25,6 +25,8 @@ namespace EarTrumpet.DataModel
             PropertyChanged?.Invoke(this, e);
         }
 
+        public IAudioDevice Device => _session.Device;
+
         public uint BackgroundColor => SafeCallHelper.GetValue(() => _session.BackgroundColor);
 
         public Guid GroupingParam => SafeCallHelper.GetValue(() => _session.GroupingParam);
@@ -42,6 +44,12 @@ namespace EarTrumpet.DataModel
         public string DisplayName => SafeCallHelper.GetValue(() => _session.DisplayName);
 
         public string Id => SafeCallHelper.GetValue(() => _session.Id);
+
+        public string ActiveOnOtherDevice
+        {
+            get => SafeCallHelper.GetValue(() => _session.ActiveOnOtherDevice);
+            set => SafeCallHelper.SetValue(() => _session.ActiveOnOtherDevice = value);
+        }
 
         public bool IsMuted { get => SafeCallHelper.GetValue(() => _session.IsMuted); set => SafeCallHelper.SetValue(() => _session.IsMuted = value); }
         public float Volume { get => SafeCallHelper.GetValue(() => _session.Volume); set => SafeCallHelper.SetValue(() => _session.Volume = value); }

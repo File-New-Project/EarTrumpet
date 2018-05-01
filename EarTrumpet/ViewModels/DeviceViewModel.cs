@@ -65,6 +65,11 @@ namespace EarTrumpet.ViewModels
                 return false;
             }
 
+            if (!string.IsNullOrWhiteSpace(session.ActiveOnOtherDevice))
+            {
+                return false;
+            }
+
             return true;
         }
 

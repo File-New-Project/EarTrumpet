@@ -24,15 +24,17 @@ namespace EarTrumpet.DataModel
         IAudioSessionControl _session;
         ISimpleAudioVolume _simpleVolume;
         IAudioMeterInformation _meter;
+        IAudioDevice _device;
         Dispatcher _dispatcher;
         string _processDisplayName;
         string _processIconPath;
         bool _isDesktopApp;
         uint _backgroundColor;
 
-        public AudioDeviceSession(IAudioSessionControl session, Dispatcher dispatcher)
+        public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
+            _device = device;
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
@@ -48,6 +50,8 @@ namespace EarTrumpet.DataModel
 
             if (_processDisplayName == null) _processDisplayName = "";
         }
+
+        public IAudioDevice Device => _device;
 
         public float Volume
         {
@@ -149,6 +153,17 @@ namespace EarTrumpet.DataModel
             get
             {
                 return ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            }
+        }
+
+        string _activeOnOtherDevice;
+        public string ActiveOnOtherDevice
+        {
+            get => _activeOnOtherDevice;
+            set
+            {
+                _activeOnOtherDevice = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveOnOtherDevice)));
             }
         }
 
