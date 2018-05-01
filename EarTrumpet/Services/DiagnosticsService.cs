@@ -31,7 +31,6 @@ namespace EarTrumpet.Services
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"  Display Name: {session.DisplayName}");
             sb.AppendLine($"  Id: {session.Id}");
-            sb.AppendLine($"  AppID: {AppResolverService.GetAppIdForProcess((uint)session.ProcessId) }");
             sb.AppendLine($"  GroupingParam: {session.GroupingParam}");
             sb.AppendLine($"  Flags: {flags}");
             sb.AppendLine($"  ProcessId: {session.ProcessId}");

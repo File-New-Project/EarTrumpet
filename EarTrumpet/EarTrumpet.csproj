@@ -161,7 +161,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
-    <Compile Include="Services\AppResolverService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="KeyboardHook.cs" />
@@ -181,7 +180,6 @@
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />
     <Compile Include="ViewModels\Mocks\SettingsViewModelMock.cs" />
-    <Compile Include="ViewModels\SettingAudioSession.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\AudioSessionViewModel.cs" />

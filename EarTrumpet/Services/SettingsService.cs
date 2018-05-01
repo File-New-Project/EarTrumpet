@@ -1,9 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -11,17 +7,6 @@ namespace EarTrumpet.Services
 {
     public class SettingsService
     {
-        public class DefaultApp
-        {
-            public string Id;
-            public string IconPath;
-            public string DisplayName;
-            public float Volume;
-            public bool IsMuted;
-            public uint BackgroundColor;
-            public bool IsDesktopApp;
-        }
-
         public class HotkeyData
         {
             public KBModifierKeys Modifiers;
@@ -65,20 +50,7 @@ namespace EarTrumpet.Services
                 WriteSetting("Hotkey", value);
             }
         }
-
-        public static DefaultApp[] DefaultApps
-        {
-            get
-            {
-                var ret = ReadSetting<DefaultApp[]>("DefaultApps", new DefaultApp[] { });
-                return ret;
-            }
-            set
-            {
-                WriteSetting("DefaultApps", value);
-            }
-        }
-
+        
         static string ReadSetting(string key)
         {
             string ret;

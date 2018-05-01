@@ -88,61 +88,6 @@
                             Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
                             Content="{Binding HotkeyText}" />
                 </StackPanel>
-                <GroupBox BorderThickness="0"
-                          Background="#11FFFFFF"
-                          BorderBrush="Transparent"
-                          >
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{x:Static resx:Resources.DefaultAppsDescriptionText}"
-                                   Margin="4"/>
-                        
-                        <Button Click="AddApp_Click"
-                                Style="{StaticResource SlimButton}"
-                                Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                                Content="&#xe948;"
-                                HorizontalAlignment="Left"
-                                FontFamily="Segoe MDL2 Assets" />
-                        <ItemsControl ItemsSource="{Binding DefaultApps}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Margin="4" Text="{Binding DisplayName}" />
-                                        <uc:AudioSessionControl Grid.Row="1"
-                                                                Stream="{Binding}"
-                                                                IconHeight="24"
-                                                                IconWidth="24"
-                                                                VolumeTextFontSize="18"
-                                                                IconSource="{Binding Icon}"
-                                                                IconText="{Binding IconText}"
-                                                                IconTextSize="16"
-                                                                IconTextFontWeight="Bold"
-                                                                IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                                                                IconBackground="{Binding Background}" />
-                                        <Button Grid.Column="1"
-                                                Grid.Row="1"
-                                                Click="RemoveApp_Click"
-                                                Style="{StaticResource SlimButton}"
-                                                Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Center"
-                                                Content="&#xe8bb;"
-                                                FontFamily="Segoe MDL2 Assets" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </GroupBox>
-
-
             </StackPanel>
         </DockPanel>
     </Grid>

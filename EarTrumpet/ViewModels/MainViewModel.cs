@@ -48,7 +48,6 @@ namespace EarTrumpet.ViewModels
         public MainViewModel(IAudioDeviceManager deviceService)
         {
             _deviceService = deviceService;
-            _deviceService.SessionCreated += DeviceManager_SessionCreated;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
             DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
@@ -59,27 +58,6 @@ namespace EarTrumpet.ViewModels
             _peakMeterTimer = new Timer(1000 / 30);
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
-
-            // Enumerate apps and set startup values.
-            foreach(var dev in _deviceService.Devices)
-            {
-                foreach(var session in dev.Sessions)
-                {
-                    DeviceManager_SessionCreated(null, session);
-                }
-            }
-        }
-
-        private void DeviceManager_SessionCreated(object sender, IAudioDeviceSession e)
-        {
-            var appId = AppResolverService.GetAppIdForProcess((uint)e.ProcessId);
-            var appSetting = SettingsService.DefaultApps.FirstOrDefault(d => d.Id == appId);
-            if (appSetting != null)
-            {
-                Debug.WriteLine("Default Session Applied: " + e.DisplayName);
-                e.IsMuted = appSetting.IsMuted;
-                e.Volume = appSetting.Volume;
-            }
         }
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
