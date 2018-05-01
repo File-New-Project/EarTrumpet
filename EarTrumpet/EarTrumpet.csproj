@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Com\IAudioPolicyConfigFactory.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\RelayCommand.cs" />
     <Compile Include="HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>

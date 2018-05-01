@@ -139,7 +139,11 @@ namespace EarTrumpet.DataModel
                 s_sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
             }
 
-            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)session.ProcessId, EDataFlow.eRender, ERole.eMultimedia, @"\\?\SWD#MMDEVAPI#" + Id);
+            const string DEVINTERFACE_AUDIO_RENDER = "{e6327cad-dcec-4949-ae8a-991e976a79d2}";
+            const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI";
+            
+            var persistedDeviceId = $"{MMDEVAPI_TOKEN}#{Id}#{DEVINTERFACE_AUDIO_RENDER}";
+            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)session.ProcessId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, persistedDeviceId);
         }
 
         public bool HasMeaningfulSessions()

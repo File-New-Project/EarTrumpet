@@ -55,10 +55,11 @@ namespace EarTrumpet.ViewModels
         {
             _deviceService = deviceService;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
+            _deviceService.DefaultPlaybackDeviceChanged += _deviceService_DefaultPlaybackDeviceChanged;
             _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
 
             Devices = new ObservableCollection<DeviceViewModel>();
-            DefaultDevice = new DeviceViewModel(_deviceService.VirtualDefaultDevice);
+            DefaultDevice = new DeviceViewModel(_deviceService, _deviceService.VirtualDefaultDevice);
 
             ExpandedPaneVisibility = Visibility.Collapsed;
             UpdateInterfaceState();
@@ -67,6 +68,14 @@ namespace EarTrumpet.ViewModels
             _peakMeterTimer = new Timer(1000 / 30);
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
+        }
+
+        private void _deviceService_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        {
+            foreach(var device in _allDevices)
+            {
+                CheckApplicability(device);
+            }
         }
 
         private void Devices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -115,7 +124,7 @@ namespace EarTrumpet.ViewModels
                 {
                     if (!Devices.Any(d => d.Device.Id == device.Id))
                     {
-                        Devices.Add(new DeviceViewModel(device));
+                        Devices.Add(new DeviceViewModel(_deviceService, device));
                         return;
                     }
                 }

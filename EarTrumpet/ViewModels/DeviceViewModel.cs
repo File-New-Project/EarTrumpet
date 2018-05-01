@@ -15,9 +15,11 @@ namespace EarTrumpet.ViewModels
 
         IAudioDevice _device;
         FilteredAudioDeviceSessionCollection _sessions;
+        IAudioDeviceManager _deviceService;
 
-        public DeviceViewModel(IAudioDevice device)
+        public DeviceViewModel(IAudioDeviceManager deviceService, IAudioDevice device)
         {
+            _deviceService = deviceService;
             _device = device;
             _device.PropertyChanged += Device_PropertyChanged;
 
@@ -106,6 +108,11 @@ namespace EarTrumpet.ViewModels
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
                     throw new NotImplementedException();
             }
+        }
+
+        internal void TakeExternalSession(AudioSessionViewModel vm)
+        {
+            _device.TakeSessionFromOtherDevice(vm.Session);
         }
     }
 }

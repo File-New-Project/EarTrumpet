@@ -38,7 +38,7 @@
                     VerticalScrollBarVisibility="Auto"
                     CanContentScroll="True"
                     PanningMode="VerticalOnly"
-                    Focusable="False"                      
+                    Focusable="False"           
                     Margin="0">
             <Grid>
                 <Grid x:Name="NoAppsPanel"

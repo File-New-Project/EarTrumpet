@@ -25,6 +25,8 @@ namespace EarTrumpet.ViewModels
 
         public virtual string DisplayName => _stream.DisplayName;
         public string Id => _stream.Id;
+        public IAudioDeviceSession Session => (IAudioDeviceSession)_stream;
+
         public bool IsMuted
         {
             get => _stream.IsMuted;

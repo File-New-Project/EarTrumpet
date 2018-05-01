@@ -44,7 +44,7 @@ namespace EarTrumpet.ViewModels
 
         void AddDevice(IAudioDevice device)
         {
-            var newDevice = new DeviceViewModel(device);
+            var newDevice = new DeviceViewModel(_manager, device);
             Devices.AddSorted(newDevice, DeviceViewModelComparer.Instance);
         }
 

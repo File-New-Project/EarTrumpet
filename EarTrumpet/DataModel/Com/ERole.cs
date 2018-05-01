@@ -1,5 +1,8 @@
-﻿namespace EarTrumpet.DataModel.Com
+﻿using System;
+
+namespace EarTrumpet.DataModel.Com
 {
+    [Flags]
     public enum ERole
     {
         eConsole = 0,

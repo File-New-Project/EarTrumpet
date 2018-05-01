@@ -9,37 +9,50 @@
     <UserControl.Resources>
         <SolidColorBrush x:Key="HeaderBackground"
                          Color="Black" />
+        <Style x:Key="{x:Type ListView}" TargetType="ListView">
+            <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border Background="{TemplateBinding Background}">
+                            <ItemsPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter 
+                                Content="{TemplateBinding ContentControl.Content}" 
+                                ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Name="GridRoot">
-        <HeaderedItemsControl ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                        Header="{Binding Device.Device}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        HorizontalContentAlignment="Stretch"
-                        Focusable="False">
-            <HeaderedItemsControl.Template>
-                <ControlTemplate TargetType="HeaderedItemsControl">
-                    <Grid x:Name="Root">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}" KeyboardNavigation.IsTabStop="False" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalAlignment="Stretch" />
-                        <ItemsPresenter x:Name="Items" Grid.Row="1" Margin="0,0,0,12" />
-                    </Grid>
-                </ControlTemplate>
-            </HeaderedItemsControl.Template>
-            <HeaderedItemsControl.HeaderTemplate>
-                <DataTemplate DataType="viewModels:AudioSessionControlViewModel">
-                    <Border Background="{DynamicResource HeaderBackground}"
+        <StackPanel Orientation="Vertical">
+            <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding DisplayName}" 
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Device.Device.DisplayName}" 
                                Padding="12,6,8,6" 
                                FontSize="15" 
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis" />
-                            <local:AudioSessionControl 
-                            Stream="{Binding}"
+                    <local:AudioSessionControl 
+                            Stream="{Binding Device.Device}"
                             IconHeight="32"
                             IconWidth="32"
                             VolumeTextFontSize="24"
@@ -50,13 +63,18 @@
                             BeepOnPointerUp="True"
                             Padding="0,4,0,4"
                         />
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </HeaderedItemsControl.HeaderTemplate>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <local:AudioSessionControl 
+                </StackPanel>
+            </Border>
+            <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                      PreviewMouseLeftButtonDown="ListView_MouseLeftButtonDown"
+                      PreviewMouseMove="ListView_MouseMove"
+                      Drop="ListView_Drop"
+                      DragEnter="ListView_DragEnter"
+                      AllowDrop="True"
+                      Background="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="viewModels:AppItemViewModel">
+                        <local:AudioSessionControl 
                         Stream="{Binding}"
                         IconHeight="24"
                         IconWidth="24"
@@ -66,10 +84,10 @@
                         IconTextSize="16"
                         IconTextFontWeight="Bold"
                         IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                        IconBackground="{Binding Background}"
-                        />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </HeaderedItemsControl>
+                        IconBackground="{Binding Background}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>
