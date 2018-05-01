@@ -3,11 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
-using System.Linq;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 

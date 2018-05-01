@@ -4,7 +4,6 @@
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:userControls="clr-namespace:EarTrumpet.UserControls"
         Title="EarTrumpet"
-        MaxHeight="600"
         Width="360"
         Icon="Application.ico"
         Topmost="True"
