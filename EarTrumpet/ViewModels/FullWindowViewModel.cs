@@ -12,18 +12,6 @@ namespace EarTrumpet.ViewModels
     {
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
-        bool _isShowingHiddenChannels = false;
-        public bool IsShowingHiddenChannels
-        {
-            get => _isShowingHiddenChannels;
-            set
-            {
-                _isShowingHiddenChannels = value;
-                RaisePropertyChanged(nameof(IsShowingHiddenChannels));
-                UpdateAllDeviceSettings();
-            }
-        }
-
         IAudioDeviceManager _manager;
         Timer _peakMeterTimer;
 
@@ -58,18 +46,6 @@ namespace EarTrumpet.ViewModels
         {
             var newDevice = new DeviceViewModel(device);
             Devices.AddSorted(newDevice, DeviceViewModelComparer.Instance);
-
-            UpdateDeviceSettings(newDevice);
-        }
-
-        void UpdateAllDeviceSettings()
-        {
-            foreach (var device in Devices) UpdateDeviceSettings(device);
-        }
-
-        void UpdateDeviceSettings(DeviceViewModel device)
-        {
-            device.IsShowingHiddenChannels = IsShowingHiddenChannels;
         }
 
         private void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

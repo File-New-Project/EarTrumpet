@@ -13,18 +13,6 @@ namespace EarTrumpet.ViewModels
         public AudioSessionViewModel Device { get; private set; }
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
-        bool _isShowingHiddenChannels = false;
-        public bool IsShowingHiddenChannels
-        {
-            get => _isShowingHiddenChannels;
-            set
-            {
-                _isShowingHiddenChannels = value;
-                RaisePropertyChanged(nameof(IsShowingHiddenChannels));
-                UpdateFilterAndEnumerateAppSessions();
-            }
-        }
-
         IAudioDevice _device;
         FilteredAudioDeviceSessionCollection _sessions;
 
@@ -73,11 +61,6 @@ namespace EarTrumpet.ViewModels
             if (session.State == AudioSessionState.Expired)
             {
                 return false;
-            }
-
-            if (session.IsHidden)
-            {
-                if (!IsShowingHiddenChannels) return false;
             }
 
             return true;

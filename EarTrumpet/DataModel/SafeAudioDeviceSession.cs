@@ -33,8 +33,6 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => SafeCallHelper.GetValue(() => _session.IsDesktopApp);
 
-        public bool IsHidden => SafeCallHelper.GetValue(() => _session.IsHidden);
-
         public bool IsSystemSoundsSession => SafeCallHelper.GetValue(() => _session.IsSystemSoundsSession);
 
         public int ProcessId => SafeCallHelper.GetValue(() => _session.ProcessId);

@@ -40,8 +40,6 @@ namespace EarTrumpet.ViewModels
 
         public bool IsDesktopApp => _liveSession != null ? _liveSession.IsDesktopApp : _cachedData.IsDesktopApp;
 
-        public bool IsHidden => _liveSession != null ? _liveSession.IsHidden : false;
-
         public bool IsSystemSoundsSession => _liveSession != null ? _liveSession.IsSystemSoundsSession : false;
 
         public int ProcessId => _liveSession != null ? _liveSession.ProcessId : 0;

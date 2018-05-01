@@ -61,8 +61,6 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => _sessions[0].IsDesktopApp;
 
-        public bool IsHidden => _sessions[0].IsHidden;
-
         public bool IsMuted { get => _sessions[0].IsMuted; set => _sessions.ForEach(s => s.IsMuted = value); }
 
         public bool IsSystemSoundsSession => _sessions[0].IsSystemSoundsSession;

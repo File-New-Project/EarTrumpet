@@ -9,7 +9,6 @@ namespace EarTrumpet.DataModel
         Guid GroupingParam { get; }
         string IconPath { get; }
         bool IsDesktopApp { get; }
-        bool IsHidden { get; }
         bool IsSystemSoundsSession { get; }
         int ProcessId { get; }
         AudioSessionState State { get; }

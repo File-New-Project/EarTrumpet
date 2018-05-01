@@ -29,13 +29,11 @@ namespace EarTrumpet.DataModel
         string _processIconPath;
         bool _isDesktopApp;
         uint _backgroundColor;
-        bool _isHidden;
 
         public AudioDeviceSession(IAudioSessionControl session, Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
             _session = session;
-            _isHidden = _session.IsHidden();
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
 
@@ -78,8 +76,6 @@ namespace EarTrumpet.DataModel
                 _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
             }
         }
-
-        public bool IsHidden => _isHidden;
 
         public string DisplayName => _processDisplayName;
 

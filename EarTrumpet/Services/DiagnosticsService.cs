@@ -28,11 +28,6 @@ namespace EarTrumpet.Services
                 flags += "IsSystemSoundsSession ";
             }
 
-            if (session.IsHidden)
-            {
-                flags += "IsHidden ";
-            }
-
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"  Display Name: {session.DisplayName}");
             sb.AppendLine($"  Id: {session.Id}");
