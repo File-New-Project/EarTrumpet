@@ -63,6 +63,8 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => _sessions[0].IsDesktopApp;
 
+        public string AppId => _sessions[0].AppId;
+
         public bool IsMuted { get => _sessions[0].IsMuted; set => _sessions.ForEach(s => s.IsMuted = value); }
 
         public bool IsSystemSoundsSession => _sessions[0].IsSystemSoundsSession;
@@ -72,12 +74,6 @@ namespace EarTrumpet.DataModel
         public int ProcessId => _sessions[0].ProcessId;
 
         public AudioSessionState State => _sessions[0].State;
-
-        public string ActiveOnOtherDevice
-        {
-            get => _sessions[0].ActiveOnOtherDevice;
-            set => _sessions[0].ActiveOnOtherDevice = value;
-        }
 
         public float Volume { get => _sessions[0].Volume; set => _sessions.ForEach(s => s.Volume = value); }
 

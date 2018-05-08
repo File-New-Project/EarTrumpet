@@ -57,28 +57,21 @@ namespace EarTrumpet.DataModel
         {
             foreach(AudioDeviceSessionContainer container in _sessions)
             {
-                if (container.GroupingParam == session.GroupingParam)
+                if (container.AppId == session.AppId)
                 {
+                    // If there is a session in the same process, inherit safely.
+                    // (Avoids a minesweeper ad playing at max volume when app should be muted)
+                    session.IsMuted = session.IsMuted || container.IsMuted;
+
                     container.AddSession(session);
                     session.PropertyChanged += Session_PropertyChanged;
                     return;
                 }
             }
 
-            var newSession = new AudioDeviceSessionContainer(session);
-
-            // If there is a session in the same process, inherit safely.
-            // (Avoids a minesweeper ad playing at max volume when app should be muted)
-            foreach (AudioDeviceSessionContainer container in _sessions)
-            {
-                if (container.ProcessId == newSession.ProcessId)
-                {
-                    newSession.IsMuted = newSession.IsMuted || container.IsMuted;
-                    break;
-                }
-            }
-
             session.PropertyChanged += Session_PropertyChanged;
+
+            var newSession = new AudioDeviceSessionContainer(session);
             _allSessions.Add(newSession);
             _sessions.Add(newSession);
         }
@@ -109,38 +102,11 @@ namespace EarTrumpet.DataModel
         {
             var session = (IAudioDeviceSession)sender;
 
-            if (e.PropertyName == nameof(session.GroupingParam))
+            if (e.PropertyName == nameof(session.State))
             {
-                RemoveSession(session);
-                AddSession(session);
-            }
-            else if (e.PropertyName == nameof(session.State))
-            {
-                session.ActiveOnOtherDevice = "";
-
-                if (session.State == AudioSessionState.Active)
+                if (session.State == AudioSessionState.Expired)
                 {
-                    foreach(var s in _allSessions)
-                    {
-                        if (s.ProcessId == session.ProcessId &&
-                            s.Device.Id != session.Device.Id &&
-                            s.State == AudioSessionState.Inactive)
-                        {
-                            s.ActiveOnOtherDevice = session.Device.Id;
-                        }
-                    }
-                }
-                else if (session.State == AudioSessionState.Inactive)
-                {
-                    foreach (var s in _allSessions)
-                    {
-                        if (s.ProcessId == session.ProcessId &&
-                            s.Device.Id != session.Device.Id &&
-                            s.ActiveOnOtherDevice == session.Device.Id)
-                        {
-                            s.ActiveOnOtherDevice = "";
-                        }
-                    }
+                    RemoveSession(session);
                 }
             }
         }

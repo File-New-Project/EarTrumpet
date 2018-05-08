@@ -1,7 +1,8 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.DataModel.Com;
+﻿using EarTrumpet.DataModel.Com;
+using EarTrumpet.Extensions;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
@@ -28,6 +29,7 @@ namespace EarTrumpet.DataModel
         Dispatcher _dispatcher;
         string _processDisplayName;
         string _processIconPath;
+        string _appId;
         bool _isDesktopApp;
         uint _backgroundColor;
 
@@ -43,12 +45,27 @@ namespace EarTrumpet.DataModel
 
             Interop.GetProcessProperties(ProcessId, out _processDisplayName, out _processIconPath, ref _isDesktopApp, ref _backgroundColor);
 
+            if (_processDisplayName == null)
+            {
+                _processDisplayName = "";
+            }
+
             if (IsSystemSoundsSession)
             {
                 _isDesktopApp = true;
             }
-
-            if (_processDisplayName == null) _processDisplayName = "";
+            else
+            {
+                try
+                {
+                    _appId = Process.GetProcessById(ProcessId).GetMainModuleFileName();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    // Our process could have quit and we haven't seen the notification yet, so don't crash.
+                }
+            }
         }
 
         public IAudioDevice Device => _device;
@@ -121,6 +138,8 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => _isDesktopApp;
 
+        public string AppId => _appId;
+
         public AudioSessionState State
         {
             get
@@ -153,17 +172,6 @@ namespace EarTrumpet.DataModel
             get
             {
                 return ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
-            }
-        }
-
-        string _activeOnOtherDevice;
-        public string ActiveOnOtherDevice
-        {
-            get => _activeOnOtherDevice;
-            set
-            {
-                _activeOnOtherDevice = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveOnOtherDevice)));
             }
         }
 

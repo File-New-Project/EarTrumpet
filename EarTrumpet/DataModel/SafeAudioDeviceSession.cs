@@ -35,6 +35,8 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => SafeCallHelper.GetValue(() => _session.IsDesktopApp);
 
+        public string AppId => SafeCallHelper.GetValue(() => _session.AppId);
+
         public bool IsSystemSoundsSession => SafeCallHelper.GetValue(() => _session.IsSystemSoundsSession);
 
         public int ProcessId => SafeCallHelper.GetValue(() => _session.ProcessId);
@@ -44,12 +46,6 @@ namespace EarTrumpet.DataModel
         public string DisplayName => SafeCallHelper.GetValue(() => _session.DisplayName);
 
         public string Id => SafeCallHelper.GetValue(() => _session.Id);
-
-        public string ActiveOnOtherDevice
-        {
-            get => SafeCallHelper.GetValue(() => _session.ActiveOnOtherDevice);
-            set => SafeCallHelper.SetValue(() => _session.ActiveOnOtherDevice = value);
-        }
 
         public bool IsMuted { get => SafeCallHelper.GetValue(() => _session.IsMuted); set => SafeCallHelper.SetValue(() => _session.IsMuted = value); }
         public float Volume { get => SafeCallHelper.GetValue(() => _session.Volume); set => SafeCallHelper.SetValue(() => _session.Volume = value); }

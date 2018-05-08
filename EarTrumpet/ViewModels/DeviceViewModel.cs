@@ -14,63 +14,28 @@ namespace EarTrumpet.ViewModels
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
         IAudioDevice _device;
-        FilteredAudioDeviceSessionCollection _sessions;
         IAudioDeviceManager _deviceService;
 
         public DeviceViewModel(IAudioDeviceManager deviceService, IAudioDevice device)
         {
             _deviceService = deviceService;
             _device = device;
-            _device.PropertyChanged += Device_PropertyChanged;
 
             Device = new AudioSessionViewModel(device);
             Apps = new ObservableCollection<AppItemViewModel>();
 
-            UpdateFilterAndEnumerateAppSessions();
-        }
-
-        ~DeviceViewModel()
-        {
-            _device.PropertyChanged -= Device_PropertyChanged;
-
-            if (_sessions != null)
-            {
-                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
-            }
-        }
-
-        void UpdateFilterAndEnumerateAppSessions()
-        {
-            if (_sessions != null)
-            {
-                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
-            }
-
-            if (_device.Sessions == null) return;
-
-            _sessions = new FilteredAudioDeviceSessionCollection(_device.Sessions, IsApplicableCheck);
-            _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+            _device.Sessions.CollectionChanged += Sessions_CollectionChanged;
 
             Apps.Clear();
-            foreach (var session in _sessions.Sessions)
+            foreach (var session in _device.Sessions)
             {
                 Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
             }
         }
 
-        bool IsApplicableCheck(IAudioDeviceSession session)
+        ~DeviceViewModel()
         {
-            if (session.State == AudioSessionState.Expired)
-            {
-                return false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(session.ActiveOnOtherDevice))
-            {
-                return false;
-            }
-
-            return true;
+            _device.Sessions.CollectionChanged -= Sessions_CollectionChanged;
         }
 
         public void TriggerPeakCheck()
@@ -78,14 +43,6 @@ namespace EarTrumpet.ViewModels
             Device.TriggerPeakCheck();
 
             foreach (var app in Apps) app.TriggerPeakCheck();
-        }
-
-        private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(_device.Sessions))
-            {
-                UpdateFilterAndEnumerateAppSessions();
-            }
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -104,8 +61,7 @@ namespace EarTrumpet.ViewModels
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
-                    UpdateFilterAndEnumerateAppSessions();
-                    break;
+                    throw new NotImplementedException();
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
                     throw new NotImplementedException();
