@@ -4,6 +4,7 @@ using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -166,7 +167,31 @@ namespace EarTrumpet
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
+            var selectedApp = (AppItemViewModel)SecondaryUI.DataContext;
 
+            var currentDeviceId = selectedApp.Session.Device.Id;
+
+            MoveDeviceContextMenu.Items.Clear();
+
+            var addDevice = new Action<DeviceViewModel>((device) =>
+            {
+                if (device.Device.Id == currentDeviceId) return;
+
+                var newItem = new MenuItem { Header = device.Device.DisplayName };
+                newItem.Click += (_, __) => device.TakeExternalSession(selectedApp);
+                MoveDeviceContextMenu.Items.Add(newItem);
+            });
+
+            foreach(var device in _viewModel.Devices)
+            {
+                addDevice(device);
+            }
+
+            addDevice(_viewModel.DefaultDevice);
+
+            MoveDeviceContextMenu.PlacementTarget = (UIElement)sender;
+            MoveDeviceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            MoveDeviceContextMenu.IsOpen = true;
         }
     }
 }

@@ -161,16 +161,21 @@
                             </Button.Style>
                             <Button.Content>
                                 <Grid HorizontalAlignment="Right"
-                                      Margin="10,0,10,0">
+                                      Margin="10,4,10,4">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock FontSize="20"
+                                        <TextBlock FontSize="18"
                                                Margin="0"
+                                               FontFamily="Segoe MDL2 Assets"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Bottom"
-                                               Text="..." />
+                                               Text="&#xe148;" />
                                     </StackPanel>
                                 </Grid>
                             </Button.Content>
+                            <Button.ContextMenu>
+
+                                <ContextMenu Name="MoveDeviceContextMenu" />
+                            </Button.ContextMenu>
                         </Button>
 
 
@@ -276,9 +281,9 @@
                         </Button.Content>
                     </Button>
                 </Grid>
-
-                <Grid Name="OverlayGrid" />
             </Grid>
         </ScrollViewer>
+
+        <Grid Name="OverlayGrid" />
     </Grid>
 </Window>

@@ -117,30 +117,18 @@ namespace EarTrumpet.ViewModels
         void AddDevice(IAudioDevice device)
         {
             _allDevices.Add(device);
-            device.PropertyChanged += Device_PropertyChanged;
 
             CheckApplicability(device);
-        }
-
-        private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "HasMeaningfulSessions")
-            {
-                CheckApplicability((IAudioDevice)sender);
-            }
         }
 
         void CheckApplicability(IAudioDevice device)
         {
             if (_deviceService.DefaultPlaybackDevice != device)
             {
-                if (device.HasMeaningfulSessions())
+                if (!Devices.Any(d => d.Device.Id == device.Id))
                 {
-                    if (!Devices.Any(d => d.Device.Id == device.Id))
-                    {
-                        Devices.Add(new DeviceViewModel(_deviceService, device));
-                        return;
-                    }
+                    Devices.Add(new DeviceViewModel(_deviceService, device));
+                    return;
                 }
             }
 
