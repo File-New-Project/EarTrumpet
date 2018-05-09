@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel.Com;
 using EarTrumpet.Extensions;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -170,6 +171,8 @@ namespace EarTrumpet.DataModel
                 return ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             }
         }
+
+        public ObservableCollection<IAudioDeviceSession> Children => null;
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {

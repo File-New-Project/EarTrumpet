@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel.Com;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace EarTrumpet.DataModel
@@ -8,7 +9,8 @@ namespace EarTrumpet.DataModel
     // Session multiplexing container (for grouping)
     public class AudioDeviceSessionContainer : IAudioDeviceSession
     {
-        List<IAudioDeviceSession> _sessions = new List<IAudioDeviceSession>();
+        ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        string _id;
 
         public AudioDeviceSessionContainer(IAudioDeviceSession session)
         {
@@ -41,6 +43,11 @@ namespace EarTrumpet.DataModel
 
             // Inherit properties (safely) from existing streams
             session.IsMuted = _sessions[0].IsMuted || session.IsMuted;
+
+            if (_id == null)
+            {
+                _id = _sessions[0].Id;
+            }
         }
 
         public void RemoveSession(IAudioDeviceSession session)
@@ -59,13 +66,22 @@ namespace EarTrumpet.DataModel
 
         public string IconPath => _sessions[0].IconPath;
 
-        public string Id => _sessions[0].Id;
+        public string Id => _id;
 
         public bool IsDesktopApp => _sessions[0].IsDesktopApp;
 
         public string AppId => _sessions[0].AppId;
 
-        public bool IsMuted { get => _sessions[0].IsMuted; set => _sessions.ForEach(s => s.IsMuted = value); }
+        public bool IsMuted {
+            get => _sessions[0].IsMuted;
+            set
+            {
+                foreach (var session in _sessions)
+                {
+                    session.IsMuted = value;
+                }
+            }
+        }
 
         public bool IsSystemSoundsSession => _sessions[0].IsSystemSoundsSession;
 
@@ -75,7 +91,19 @@ namespace EarTrumpet.DataModel
 
         public AudioSessionState State => _sessions[0].State;
 
-        public float Volume { get => _sessions[0].Volume; set => _sessions.ForEach(s => s.Volume = value); }
+        public float Volume
+        {
+            get => _sessions[0].Volume;
+            set
+            {
+                foreach (var session in _sessions)
+                {
+                    session.Volume = value;
+                }
+            }
+        }
+
+        public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

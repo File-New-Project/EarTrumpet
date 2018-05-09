@@ -31,6 +31,15 @@ namespace EarTrumpet.UserControls
 
             UpdateTheme();
             ThemeService.ThemeChanged += UpdateTheme;
+
+            SizeOrVolumeOrPeakValueChanged();
+        }
+
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            var ret = base.ArrangeOverride(arrangeBounds);
+            SizeOrVolumeOrPeakValueChanged();
+            return ret;
         }
 
         ~AudioPeakMeter()
@@ -45,17 +54,18 @@ namespace EarTrumpet.UserControls
 
         private static void PeakValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((AudioPeakMeter)d).PeakValueChanged();
+            ((AudioPeakMeter)d).SizeOrVolumeOrPeakValueChanged();
         }
 
-        private void PeakValueChanged()
+        private void SizeOrVolumeOrPeakValueChanged()
         {
+            volumeBorder.Width = MainGrid.ActualWidth * (Volume / 100f);
             peakBorder.Width = MainGrid.ActualWidth * PeakValue * (Volume/100f);
         }
 
         private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((AudioPeakMeter)d).PeakValueChanged();
+            ((AudioPeakMeter)d).SizeOrVolumeOrPeakValueChanged();
         }
     }
 }

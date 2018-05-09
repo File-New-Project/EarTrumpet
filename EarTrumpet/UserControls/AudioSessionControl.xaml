@@ -73,11 +73,11 @@
                 <Border Name="TrackBackground"
                         Margin="0"
                         Height="2"
-                        Background="{DynamicResource CottonSwabSliderTrackBackground}" />
+                        Background="Transparent" />
                 <Track Name="PART_Track">
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
-                                      Foreground="{DynamicResource CottonSwabSliderTrackFill}"
+                                      Foreground="Transparent"
                                       Style="{StaticResource SliderButtonStyle}"
                                       Command="Slider.DecreaseLarge" />
                     </Track.DecreaseRepeatButton>
@@ -88,7 +88,7 @@
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
-                                      Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
+                                      Foreground="Transparent"
                                       Style="{StaticResource SliderButtonStyle}"
                                       Command="Slider.IncreaseLarge" />
                     </Track.IncreaseRepeatButton>
@@ -196,7 +196,19 @@
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
-
+        
+        <ItemsControl Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Stream.Children}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:AudioPeakMeter 
+                        Margin="12,1,20,1"
+                        IsHitTestVisible="False"
+                        PeakValue="{Binding PeakValue}"
+                        Volume="{Binding Volume}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
         <Slider Grid.Column="1"
                                 Value="{Binding Stream.Volume,Mode=TwoWay}"
                                 Minimum="0"
@@ -218,13 +230,9 @@
                                 MouseWheel="Slider_MouseWheel"
                                 MouseMove="Slider_MouseMove"
                                 Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}" />
+        
 
-        <local:AudioPeakMeter 
-            Grid.Column="1"
-            Margin="12,0,20,0"
-            IsHitTestVisible="False"
-            PeakValue="{Binding Stream.PeakValue}"
-            Volume="{Binding Stream.Volume}" />
+
         
         <TextBlock Grid.Column="2"
                                     Text="{Binding Stream.Volume, Mode=OneWay}"

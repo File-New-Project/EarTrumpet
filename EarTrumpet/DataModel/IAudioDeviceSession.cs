@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Com;
 using System;
+using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
@@ -14,5 +15,6 @@ namespace EarTrumpet.DataModel
         int ProcessId { get; }
         string AppId { get; }
         AudioSessionState State { get; }
+        ObservableCollection<IAudioDeviceSession> Children { get; }
     }
 }

@@ -66,11 +66,6 @@
                 </StackPanel>
             </Border>
             <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      PreviewMouseLeftButtonDown="ListView_MouseLeftButtonDown"
-                      PreviewMouseMove="ListView_MouseMove"
-                      Drop="ListView_Drop"
-                      DragEnter="ListView_DragEnter"
-                      AllowDrop="True"
                       Background="Transparent">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">

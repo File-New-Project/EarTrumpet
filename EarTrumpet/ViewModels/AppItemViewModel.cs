@@ -2,6 +2,7 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace EarTrumpet.ViewModels
 
         public SolidColorBrush Background { get; private set; }
 
-        public char IconText =>DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
+        public char IconText => DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
         string _displayName;
         public override string DisplayName => _displayName;
@@ -29,6 +30,10 @@ namespace EarTrumpet.ViewModels
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {
             _session = session;
+            _session.Children.CollectionChanged += Children_CollectionChanged;
+
+            Children = new ObservableCollection<AudioSessionViewModel>();
+            LoadChildren();
 
             ExeName = session.DisplayName;
             _displayName = ExeName;
@@ -99,6 +104,40 @@ namespace EarTrumpet.ViewModels
                 }
                 catch { } // we fallback to exe name if DisplayName is not set in the try above.                 
             });
+        }
+
+        private void LoadChildren()
+        {
+            foreach(var child in _session.Children)
+            {
+                Children.Add(new AudioSessionViewModel(child));
+            }
+        }
+
+        private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    Debug.Assert(e.NewItems.Count == 1);
+                    var newSession = new AudioSessionViewModel((IAudioDeviceSession)e.NewItems[0]);
+                    Children.Add(newSession);
+                    break;
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    Debug.Assert(e.OldItems.Count == 1);
+                    Children.Remove(Children.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    break;
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    throw new NotImplementedException();
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    throw new NotImplementedException();
+
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    throw new NotImplementedException();
+            }
         }
     }
 }

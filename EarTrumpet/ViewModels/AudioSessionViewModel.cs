@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using System.Collections.ObjectModel;
 
 namespace EarTrumpet.ViewModels
 {
@@ -11,6 +12,8 @@ namespace EarTrumpet.ViewModels
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;
+            Children = new ObservableCollection<AudioSessionViewModel>();
+            Children.Add(this);
         }
 
         ~AudioSessionViewModel()
@@ -26,6 +29,7 @@ namespace EarTrumpet.ViewModels
         public virtual string DisplayName => _stream.DisplayName;
         public string Id => _stream.Id;
         public IAudioDeviceSession Session => (IAudioDeviceSession)_stream;
+        public ObservableCollection<AudioSessionViewModel> Children { get; protected set; }
 
         public bool IsMuted
         {
@@ -42,6 +46,17 @@ namespace EarTrumpet.ViewModels
         public void TriggerPeakCheck()
         {
             RaisePropertyChanged(nameof(PeakValue));
+
+            if (Children != null)
+            {
+                foreach(var child in Children)
+                {
+                    if (child != this)
+                    {
+                        child.TriggerPeakCheck();
+                    }
+                }
+            }
         }
     }
 }

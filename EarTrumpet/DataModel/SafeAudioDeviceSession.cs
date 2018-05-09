@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Com;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace EarTrumpet.DataModel
@@ -51,6 +52,8 @@ namespace EarTrumpet.DataModel
         public float Volume { get => SafeCallHelper.GetValue(() => _session.Volume); set => SafeCallHelper.SetValue(() => _session.Volume = value); }
 
         public float PeakValue => SafeCallHelper.GetValue(() => _session.PeakValue);
+
+        public ObservableCollection<IAudioDeviceSession> Children => SafeCallHelper.GetValue(() => _session.Children);
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
