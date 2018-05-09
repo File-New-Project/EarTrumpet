@@ -30,6 +30,7 @@ namespace EarTrumpet.DataModel
         string _processDisplayName;
         string _processIconPath;
         string _appId;
+        string _id;
         bool _isDesktopApp;
         uint _backgroundColor;
 
@@ -42,6 +43,8 @@ namespace EarTrumpet.DataModel
             _simpleVolume = (ISimpleAudioVolume)session;
 
             _session.RegisterAudioSessionNotification(this);
+
+            ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
             Interop.GetProcessProperties(ProcessId, out _processDisplayName, out _processIconPath, ref _isDesktopApp, ref _backgroundColor);
 
@@ -158,14 +161,7 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public string Id
-        {
-            get
-            {
-                ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out string ret);
-                return ret;
-            }
-        }
+        public string Id => _id;
 
         public bool IsSystemSoundsSession
         {
