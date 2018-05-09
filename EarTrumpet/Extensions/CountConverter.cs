@@ -10,7 +10,7 @@ namespace EarTrumpet.Extensions
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((IEnumerable<object>)value).Count();
+            return Math.Min(9, ((IEnumerable<object>)value).Count());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

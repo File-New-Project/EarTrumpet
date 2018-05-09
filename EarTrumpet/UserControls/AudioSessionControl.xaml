@@ -191,15 +191,17 @@
 
                 <Grid VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
+                      Margin="0,0,-2,-2"
                       Visibility="{Binding Stream.Children, Converter={StaticResource nonZeroConverter}}">
                     <Canvas>
-                        <Ellipse Fill="Black"
-                                 Width="12"
-                                 Height="12" />
+                        <Ellipse Fill="#ff555555"
+                                 Width="11"
+                                 Height="11" />
                     </Canvas>
 
-                    <TextBlock FontSize="8"
-                           Margin="3,0,0,0"
+                    <TextBlock FontSize="7"
+                           Margin="4,0,0,0"
+                           FontWeight="Bold"
                            Text="{Binding Stream.Children,Converter={StaticResource CountConverter}}" />
                 </Grid>
                 
@@ -220,7 +222,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:AudioPeakMeter 
-                        Margin="12,1,20,1"
+                        Margin="12,0.5,20,0.5"
                         IsHitTestVisible="False"
                         PeakValue="{Binding PeakValue}"
                         Volume="{Binding Volume}"
