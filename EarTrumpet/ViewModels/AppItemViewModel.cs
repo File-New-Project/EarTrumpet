@@ -27,13 +27,20 @@ namespace EarTrumpet.ViewModels
         string _displayName;
         public override string DisplayName => _displayName;
 
+        public ObservableCollection<AppItemViewModel> ChildApps { get; private set; }
+
+
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {
             _session = session;
-            _session.Children.CollectionChanged += Children_CollectionChanged;
 
-            Children = new ObservableCollection<AudioSessionViewModel>();
-            LoadChildren();
+            ChildApps = new ObservableCollection<AppItemViewModel>();
+            if (_session.Children != null)
+            {
+                Children.Clear();
+                _session.Children.CollectionChanged += Children_CollectionChanged;
+                LoadChildren();
+            }
 
             ExeName = session.DisplayName;
             _displayName = ExeName;
@@ -110,6 +117,7 @@ namespace EarTrumpet.ViewModels
         {
             foreach(var child in _session.Children)
             {
+                ChildApps.Add(new AppItemViewModel(child));
                 Children.Add(new AudioSessionViewModel(child));
             }
         }

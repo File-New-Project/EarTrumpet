@@ -21,6 +21,7 @@ namespace EarTrumpet
             InitializeComponent();
             _deviceService = new AudioDeviceManager(Dispatcher);
             _viewModel = new MainViewModel(_deviceService);
+            _viewModel.SessionPopup += _viewModel_SessionPopup;
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -43,6 +44,18 @@ namespace EarTrumpet
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
+        }
+
+        private void _viewModel_SessionPopup(object sender, SessionPopupEventArgs e)
+        {
+            SecondaryUI.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+            SecondaryUI.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
+            SecondaryUI.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y;
+            SecondaryUI.Height = ActualHeight;
+            SecondaryUI.Width = ActualWidth;
+            SecondaryUI.DataContext = e.ViewModel;
+            SecondaryUI.AllowsTransparency = true;
+            SecondaryUI.IsOpen = true;
         }
 
         private void CreateAndHideWindow()
@@ -138,6 +151,11 @@ namespace EarTrumpet
         private void ExitMenu_Click(object sender, RoutedEventArgs e)
         {
             _trayIcon.Exit_Click(this, null);
+        }
+
+        private void DismissSecondaryUI_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryUI.IsOpen = false;
         }
     }
 }
