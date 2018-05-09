@@ -162,6 +162,15 @@ namespace EarTrumpet.DataModel
             }
         }
 
+        public string RawDisplayName
+        {
+            get
+            {
+                _session.GetDisplayName(out string ret);
+                return ret;
+            }
+        }
+
         public int ProcessId
         {
             get
