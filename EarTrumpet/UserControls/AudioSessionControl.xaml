@@ -216,7 +216,7 @@
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
-        <ItemsControl Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource cvs}}">
+        <ItemsControl IsTabStop="False" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource cvs}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:AudioPeakMeter 
@@ -236,6 +236,7 @@
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Stretch"
                                 Margin="12,0"
+                                IsTabStop="False"
                                 VerticalAlignment="Center"
                                 Interval="1"
                                 SnapsToDevicePixels="True"

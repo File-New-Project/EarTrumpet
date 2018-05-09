@@ -196,7 +196,7 @@ namespace EarTrumpet.UserControls
 
         private void CollectionViewSource_Filter(object sender, System.Windows.Data.FilterEventArgs e)
         {
-            e.Accepted = Stream.Children.IndexOf((AudioSessionViewModel)e.Item) < 5;
+            e.Accepted = Stream.Children.IndexOf((AudioSessionViewModel)e.Item) < 3;
         }
 
         private void UserControl_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)

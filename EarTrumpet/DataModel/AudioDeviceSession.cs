@@ -83,6 +83,15 @@ namespace EarTrumpet.DataModel
             }
             set
             {
+                if (value < 0)
+                {
+                    value = 0;
+                }
+
+                if (value > 1.0f)
+                {
+                    value = 1.0f;
+                }
                 Guid dummy = Guid.Empty;
                 _simpleVolume.SetMasterVolume(value, ref dummy);
             }

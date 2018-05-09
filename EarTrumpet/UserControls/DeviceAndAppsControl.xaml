@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              mc:Ignorable="d" 
+             IsTabStop="False"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <SolidColorBrush x:Key="HeaderBackground"
@@ -30,6 +31,8 @@
           Value="true" />
             <Setter Property="OverridesDefaultStyle"
           Value="true" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{DynamicResource SolidFocusVisual}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -39,19 +42,35 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
+        </Style>
+
+        <Style x:Key="SolidFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Rectangle StrokeThickness="3" Stroke="Black" />
+                            <Rectangle StrokeThickness="2" Stroke="White" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <StackPanel Orientation="Vertical">
             <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
+
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Device.Device.DisplayName}" 
                                Padding="12,6,8,6" 
                                FontSize="15" 
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis" />
-                    <local:AudioSessionControl 
+                    <ListViewItem>
+                        <local:AudioSessionControl 
                             Stream="{Binding Device.Device}"
                             IconHeight="32"
                             IconWidth="32"
@@ -63,10 +82,12 @@
                             BeepOnPointerUp="True"
                             Padding="0,4,0,4"
                         />
+                    </ListViewItem>
                 </StackPanel>
             </Border>
             <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      Background="Transparent">
+                      Background="Transparent"
+                      Name="AppList">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
                         <local:AudioSessionControl 
