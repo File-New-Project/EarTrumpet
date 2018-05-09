@@ -52,18 +52,64 @@
                                     TextWrapping="Wrap" />
                 </Grid>
 
-                <StackPanel Orientation="Vertical"
-                            Visibility="{Binding DeviceVisibility}">
-                    <ItemsControl ItemsSource="{Binding Devices}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <userControls:DeviceAndAppsControl Device="{Binding}"
-                                                                   Margin="0,0,0,12"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <userControls:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
-                </StackPanel>
+                <Grid Visibility="{Binding DeviceVisibility}">
+                    <StackPanel Orientation="Vertical">
+                        <ItemsControl ItemsSource="{Binding Devices}" Visibility="{Binding ExpandedPaneVisibility}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <userControls:DeviceAndAppsControl Device="{Binding}"
+                                                                Margin="0,0,0,12"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <userControls:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
+                    </StackPanel>
+                    <Button BorderThickness="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Foreground="{DynamicResource WindowForeground}"
+                        Click="ExpandCollapse_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" >
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Transparent" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="border"
+                             SnapsToDevicePixels="True"                                                                   
+                             Background="{TemplateBinding Background}">
+                                                <ContentPresenter RecognizesAccessKey="True" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" >
+                                            <Setter.Value>
+                                                <SolidColorBrush Color="#22FFFFFF" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Grid HorizontalAlignment="Right">
+                                <TextBlock FontSize="15"
+                                               Margin="10"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               Text="{Binding ExpandText}" />
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    
+
+                </Grid>
             </Grid>
         </ScrollViewer>
     </Grid>
