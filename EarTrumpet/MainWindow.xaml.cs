@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace EarTrumpet
 {
@@ -48,6 +49,8 @@ namespace EarTrumpet
 
         private void _viewModel_SessionPopup(object sender, SessionPopupEventArgs e)
         {
+            OverlayGrid.Background = (Brush)Resources["DimmedBackground"];
+
             SecondaryUI.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
             SecondaryUI.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
             SecondaryUI.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y;
@@ -86,6 +89,8 @@ namespace EarTrumpet
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
+            DismissSecondaryUI_Click(null, null);
+
             this.HideWithAnimation();
             _viewModel.IsVisible = false;
         }
@@ -156,6 +161,12 @@ namespace EarTrumpet
         private void DismissSecondaryUI_Click(object sender, RoutedEventArgs e)
         {
             SecondaryUI.IsOpen = false;
+            OverlayGrid.Background = null;
+        }
+
+        private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
