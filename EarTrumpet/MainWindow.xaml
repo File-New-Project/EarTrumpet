@@ -239,7 +239,8 @@
                                     TextWrapping="Wrap" />
                 </Grid>
 
-                <Grid Visibility="{Binding DeviceVisibility}">
+                <Grid Visibility="{Binding DeviceVisibility}"
+                      Margin="0,0,0,8">
                     <StackPanel Orientation="Vertical">
                         <ItemsControl ItemsSource="{Binding Devices}" 
                                       Visibility="{Binding ExpandedPaneVisibility}"
