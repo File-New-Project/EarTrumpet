@@ -70,9 +70,11 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Com\IAudioPolicyConfigFactory.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
+    <Compile Include="Extensions\CountConverter.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\RelayCommand.cs" />
+    <Compile Include="Extensions\VisibileWhenNonZeroConverter.cs" />
     <Compile Include="HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>

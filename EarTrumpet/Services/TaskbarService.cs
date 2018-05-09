@@ -41,6 +41,7 @@ namespace EarTrumpet.Services
                                 retState.TaskbarSize.bottom - retState.TaskbarSize.top)
                          ));
 
+            retState.TaskbarScreen = screen;
             retState.TaskbarPosition = TaskbarPosition.Bottom;
 
             if (screen != null)
@@ -117,11 +118,11 @@ namespace EarTrumpet.Services
         ABE_BOTTOM = 3
     }
 
-    [StructLayout(LayoutKind.Sequential)]
     public struct TaskbarState
     {
         public TaskbarPosition TaskbarPosition;
         public RECT TaskbarSize;
+        public Screen TaskbarScreen;
     }
 
     public enum TaskbarPosition

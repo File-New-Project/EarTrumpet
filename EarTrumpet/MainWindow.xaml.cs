@@ -122,11 +122,13 @@ namespace EarTrumpet
 
         private void UpdateWindowPosition()
         {
+            var taskbarState = TaskbarService.GetWinTaskbarState();
+
             LayoutRoot.UpdateLayout();
-            LayoutRoot.Measure(new Size(double.PositiveInfinity, MaxHeight));
+            LayoutRoot.Measure(new Size(double.PositiveInfinity, taskbarState.TaskbarScreen.WorkingArea.Height));
             Height = LayoutRoot.DesiredSize.Height;
 
-            var taskbarState = TaskbarService.GetWinTaskbarState();
+            
             switch(taskbarState.TaskbarPosition)
             {
                 case TaskbarPosition.Left:

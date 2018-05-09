@@ -14,7 +14,9 @@
         <CollectionViewSource x:Key="cvs" Filter="CollectionViewSource_Filter"/>
         <ext:OpacityConverter x:Key="opacityConverter" />
         <ext:InvertableVisibilityConverter x:Key="visConverter" />
-
+        <ext:CountConverter x:Key="CountConverter" />
+        <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
+        
         <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
                          Color="#39FFFFFF" />
         <SolidColorBrush x:Key="CottonSwabSliderThumb"
@@ -186,6 +188,22 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+
+                <Grid VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                      Visibility="{Binding Stream.Children, Converter={StaticResource nonZeroConverter}}">
+                    <Canvas>
+                        <Ellipse Fill="Black"
+                                 Width="12"
+                                 Height="12" />
+                    </Canvas>
+
+                    <TextBlock FontSize="8"
+                           Margin="3,0,0,0"
+                           Text="{Binding Stream.Children,Converter={StaticResource CountConverter}}" />
+                </Grid>
+                
+
             </Grid>
         </Border>
         <TextBlock Grid.Column="0" 
