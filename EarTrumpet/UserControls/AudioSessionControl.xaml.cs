@@ -4,6 +4,7 @@ using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -12,8 +13,8 @@ namespace EarTrumpet.UserControls
     public partial class AudioSessionControl : UserControl
     {
         public AudioSessionViewModel Stream { get { return (AudioSessionViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
-        public static readonly DependencyProperty StreamProperty =
-            DependencyProperty.Register("Stream", typeof(AudioSessionViewModel), typeof(AudioSessionControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
+          "Stream", typeof(AudioSessionViewModel), typeof(AudioSessionControl), new PropertyMetadata(null, new PropertyChangedCallback(StreamChanged)));
 
         public ImageSource IconSource { get { return (ImageSource)GetValue(IconUriProperty); } set { SetValue(IconUriProperty, value); } }
         public static readonly DependencyProperty IconUriProperty =
@@ -180,6 +181,21 @@ namespace EarTrumpet.UserControls
                 Stream.IsMuted = !Stream.IsMuted;
                 e.Handled = true;
             }
+        }
+
+        private static void StreamChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((AudioSessionControl)d).StreamChanged();
+        }
+
+        private void StreamChanged()
+        {
+            ((CollectionViewSource)Resources["cvs"]).Source = Stream.Children;
+        }
+
+        private void CollectionViewSource_Filter(object sender, System.Windows.Data.FilterEventArgs e)
+        {
+            e.Accepted = Stream.Children.IndexOf((AudioSessionViewModel)e.Item) < 5;
         }
     }
 }

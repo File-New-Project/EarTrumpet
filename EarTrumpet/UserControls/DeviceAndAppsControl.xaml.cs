@@ -1,10 +1,7 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Services;
+﻿using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace EarTrumpet.UserControls
 {

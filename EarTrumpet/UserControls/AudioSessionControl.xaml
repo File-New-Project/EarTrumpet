@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:data="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              mc:Ignorable="d" 
              IsTabStop="False"
              d:DesignHeight="50" d:DesignWidth="200">
     <UserControl.Resources>
-
+        <CollectionViewSource x:Key="cvs" Filter="CollectionViewSource_Filter"/>
         <ext:OpacityConverter x:Key="opacityConverter" />
         <ext:InvertableVisibilityConverter x:Key="visConverter" />
 
@@ -196,15 +197,15 @@
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
-        
-        <ItemsControl Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Stream.Children}">
+        <ItemsControl Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource cvs}}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:AudioPeakMeter 
                         Margin="12,1,20,1"
                         IsHitTestVisible="False"
                         PeakValue="{Binding PeakValue}"
-                        Volume="{Binding Volume}" />
+                        Volume="{Binding Volume}"
+                        Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -230,10 +231,7 @@
                                 MouseWheel="Slider_MouseWheel"
                                 MouseMove="Slider_MouseMove"
                                 Opacity="{Binding Stream.IsMuted, Converter={StaticResource opacityConverter}}" />
-        
 
-
-        
         <TextBlock Grid.Column="2"
                                     Text="{Binding Stream.Volume, Mode=OneWay}"
                                     FontSize="{Binding VolumeTextFontSize}"
