@@ -34,7 +34,7 @@
         
         <SolidColorBrush x:Key="DimmedBackground"
                          Color="#DD000000" />
-
+        
         <Style x:Key="{x:Type ListView}" TargetType="ListView">
             <Setter Property="SnapsToDevicePixels"
           Value="true" />
@@ -97,9 +97,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
-    <Grid x:Name="LayoutRoot">
-        <Popup Name="SecondaryUI" IsOpen="False">
+        <Popup x:Key="SecondaryUIPopup" IsOpen="False">
             <ScrollViewer 
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
@@ -114,13 +112,10 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <Button Style="{StaticResource DismissButton}" Click="DismissSecondaryUI_Click" />
                     <Button Style="{StaticResource DismissButton}" Grid.Row="2" Click="DismissSecondaryUI_Click" />
-
                     <Grid Grid.Row="1"
                           Background="{DynamicResource HeaderBackgroundSolid}">
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -129,15 +124,13 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-
-                        <TextBlock Text="{Binding ChildApps[0].DisplayName}"
+                        <TextBlock Text="{Binding DisplayName}"
                                    Padding="12,6,8,6" 
                                    FontSize="15" 
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Stretch"
                                    
                                    TextTrimming="CharacterEllipsis"/>
-
                         <Button BorderThickness="0"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalAlignment="Top"
@@ -186,13 +179,7 @@
                                     </StackPanel>
                                 </Grid>
                             </Button.Content>
-                            <Button.ContextMenu>
-
-                                <ContextMenu Name="MoveDeviceContextMenu" />
-                            </Button.ContextMenu>
                         </Button>
-
-
                         <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                           VerticalAlignment="Center"
                           Grid.ColumnSpan="2"
@@ -217,7 +204,8 @@
                 </Grid>
             </ScrollViewer>
         </Popup>
-        
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot">
         <ScrollViewer 
                     Grid.Row="2"
                     Grid.ColumnSpan="2"

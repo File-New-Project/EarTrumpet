@@ -5,6 +5,7 @@ using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -17,6 +18,8 @@ namespace EarTrumpet
         private readonly MainViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
+
+        private Popup _secondaryUI;
 
         public MainWindow()
         {
@@ -52,14 +55,20 @@ namespace EarTrumpet
         {
             OverlayGrid.Background = (Brush)Resources["DimmedBackground"];
 
-            SecondaryUI.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
-            SecondaryUI.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
-            SecondaryUI.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y;
-            SecondaryUI.Height = ActualHeight;
-            SecondaryUI.Width = ActualWidth;
-            SecondaryUI.DataContext = e.ViewModel;
-            SecondaryUI.AllowsTransparency = true;
-            SecondaryUI.IsOpen = true;
+            if (_secondaryUI == null)
+            {
+                _secondaryUI = (Popup)Resources["SecondaryUIPopup"];
+                LayoutRoot.Children.Add(_secondaryUI);
+            }
+
+            _secondaryUI.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+            _secondaryUI.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
+            _secondaryUI.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y;
+            _secondaryUI.Height = ActualHeight;
+            _secondaryUI.Width = ActualWidth;
+            _secondaryUI.DataContext = e.ViewModel;
+            _secondaryUI.AllowsTransparency = true;
+            _secondaryUI.IsOpen = true;
         }
 
         private void CreateAndHideWindow()
@@ -167,17 +176,23 @@ namespace EarTrumpet
 
         private void DismissSecondaryUI_Click(object sender, RoutedEventArgs e)
         {
-            SecondaryUI.IsOpen = false;
+            if (_secondaryUI != null)
+            {
+                _secondaryUI.DataContext = null;
+                _secondaryUI.IsOpen = false;
+                LayoutRoot.Children.Remove(_secondaryUI);
+                _secondaryUI = null;
+            }
             OverlayGrid.Background = null;
         }
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
-            var selectedApp = (AppItemViewModel)SecondaryUI.DataContext;
+            var selectedApp = (AppItemViewModel)_secondaryUI.DataContext;
 
             var currentDeviceId = selectedApp.Session.Device.Id;
 
-            MoveDeviceContextMenu.Items.Clear();
+            var moveMenu = new ContextMenu();
 
             var addDevice = new Action<DeviceViewModel>((device) =>
             {
@@ -185,7 +200,7 @@ namespace EarTrumpet
 
                 var newItem = new MenuItem { Header = device.Device.DisplayName };
                 newItem.Click += (_, __) => device.TakeExternalSession(selectedApp);
-                MoveDeviceContextMenu.Items.Add(newItem);
+                moveMenu.Items.Add(newItem);
             });
 
             foreach(var device in _viewModel.Devices)
@@ -195,9 +210,9 @@ namespace EarTrumpet
 
             addDevice(_viewModel.DefaultDevice);
 
-            MoveDeviceContextMenu.PlacementTarget = (UIElement)sender;
-            MoveDeviceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            MoveDeviceContextMenu.IsOpen = true;
+            moveMenu.PlacementTarget = (UIElement)sender;
+            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            moveMenu.IsOpen = true;
         }
     }
 }
