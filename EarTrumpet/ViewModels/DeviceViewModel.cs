@@ -13,6 +13,8 @@ namespace EarTrumpet.ViewModels
         public AudioSessionViewModel Device { get; private set; }
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
+        public string DeviceIconText { get; private set; }
+
         IAudioDevice _device;
         IAudioDeviceManager _deviceService;
 
@@ -24,12 +26,23 @@ namespace EarTrumpet.ViewModels
             Device = new AudioSessionViewModel(device);
             Apps = new ObservableCollection<AppItemViewModel>();
 
+            _device.PropertyChanged += _device_PropertyChanged;
             _device.Sessions.CollectionChanged += Sessions_CollectionChanged;
 
             Apps.Clear();
             foreach (var session in _device.Sessions)
             {
                 Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
+            }
+
+            UpdateDeviceText();
+        }
+
+        private void _device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_device.IsMuted))
+            {
+                UpdateDeviceText();
             }
         }
 
@@ -43,6 +56,12 @@ namespace EarTrumpet.ViewModels
             Device.TriggerPeakCheck();
 
             foreach (var app in Apps) app.TriggerPeakCheck();
+        }
+
+        private void UpdateDeviceText()
+        {
+            DeviceIconText = _device.IsMuted ? "\xE74F" : "\xE767";
+            RaisePropertyChanged(nameof(DeviceIconText));
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

@@ -210,16 +210,19 @@
 
             </Grid>
         </Border>
-        <TextBlock Grid.Column="0" 
-                                    MouseDown="Mute_MouseDown" 
-                                    Visibility="{Binding Stream.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
-                                    Text="&#xE74F;" 
-                                    FontFamily="Segoe MDL2 Assets" 
-                                    FontSize="18" 
-                                    HorizontalAlignment="Center" 
-                                    VerticalAlignment="Center"
-                                    ToolTip="{Binding Stream.DisplayName}" 
-                                    Margin="1,0,0,0" />
+        <Border Grid.Column="0" 
+                Visibility="{Binding MuteOverlay, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+            <TextBlock 
+                MouseDown="Mute_MouseDown" 
+                Visibility="{Binding Stream.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}" 
+                Text="&#xE74F;" 
+                FontFamily="Segoe MDL2 Assets" 
+                FontSize="18" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                ToolTip="{Binding Stream.DisplayName}" 
+                Margin="1,0,0,0" />
+        </Border>
 
         <local:AudioPeakMeter 
             Grid.Column="1"

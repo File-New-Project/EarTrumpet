@@ -76,11 +76,12 @@
                             IconHeight="32"
                             IconWidth="32"
                             VolumeTextFontSize="24"
-                            IconText="&#xE767;"
+                            IconText="{Binding Device.DeviceIconText}"
                             IconTextSize="24"
                             IconTextFontFamily="Segoe MDL2 Assets"
                             IconBackground="Transparent"
                             BeepOnPointerUp="True"
+                            MuteOverlay="False"
                             Padding="0,4,0,4"
                         />
                         </ListViewItem>

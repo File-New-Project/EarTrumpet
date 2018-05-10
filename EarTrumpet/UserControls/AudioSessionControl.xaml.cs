@@ -44,6 +44,10 @@ namespace EarTrumpet.UserControls
         public static readonly DependencyProperty BeepOnPointerUpProperty =
             DependencyProperty.Register("BeepOnPointerUp", typeof(bool), typeof(AudioSessionControl), new PropertyMetadata(false));
 
+        public bool MuteOverlay { get { return (bool)GetValue(MuteOverlayProperty); } set { SetValue(MuteOverlayProperty, value); } }
+        public static readonly DependencyProperty MuteOverlayProperty =
+            DependencyProperty.Register("MuteOverlay", typeof(bool), typeof(AudioSessionControl), new PropertyMetadata(true));
+
         public FontFamily IconTextFontFamily { get { return (FontFamily)GetValue(IconTextFontFamilyProperty); } set { SetValue(IconTextFontFamilyProperty, value); } }
         public static readonly DependencyProperty IconTextFontFamilyProperty =
             DependencyProperty.Register("IconTextFontFamily", typeof(FontFamily), typeof(AudioSessionControl), new PropertyMetadata(null));
