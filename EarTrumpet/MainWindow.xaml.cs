@@ -95,7 +95,7 @@ namespace EarTrumpet
                 UpdateTheme();
                 UpdateWindowPosition();
                 this.ShowwithAnimation();
-                DefaultDeviceControl.ResetFocus();
+                DefaultDeviceControl.HideFocus();
                 _viewModel.IsVisible = true;
             }
         }

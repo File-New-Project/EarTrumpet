@@ -39,10 +39,13 @@ namespace EarTrumpet.UserControls
 
         private void ListViewItem_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var dt = ((ListViewItem)sender).DataContext;
+            var lvi = ((ListViewItem)sender);
+            var dt = lvi.DataContext;
 
             if (dt is DeviceAndAppsControl)
             {
+                // These apply only to the device ListViewItem
+
                 if (e.Key == Key.M || e.Key == Key.Space)
                 {
                     Device.Device.IsMuted = !Device.Device.IsMuted;
@@ -65,27 +68,55 @@ namespace EarTrumpet.UserControls
             }
             else
             {
+                // These apply to all the app sessions.
                 var vm = (AudioSessionViewModel)dt;
 
-                if (e.Key == System.Windows.Input.Key.M || e.Key == Key.Space)
+                if (e.Key == Key.M || e.Key == Key.Space)
                 {
                     vm.IsMuted = !vm.IsMuted;
                     e.Handled = true;
                 }
-                else if (e.Key == System.Windows.Input.Key.Left)
+                else if (e.Key == Key.Left)
                 {
                     vm.Volume--;
                     e.Handled = true;
                 }
-                else if (e.Key == System.Windows.Input.Key.Right)
+                else if (e.Key == Key.Right)
                 {
                     vm.Volume++;
                     e.Handled = true;
                 }
+                else if (e.Key == Key.Up)
+                {
+                    if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == 0)
+                    {
+                        // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
+                        lvi.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                        e.Handled = true;
+                    }
+
+                    ShowFocus();
+                }
+                else if (e.Key == Key.Down)
+                {
+                    if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == AppList.Items.Count - 1)
+                    {
+                        // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
+                        lvi.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        e.Handled = true;
+                    }
+
+                    ShowFocus();
+                }
             }
         }
 
-        internal void ResetFocus()
+        internal void ShowFocus()
+        {
+            DeviceListItem.FocusVisualStyle = _focusVisualStyle;
+        }
+
+        internal void HideFocus()
         {
             if (_focusVisualStyle == null && DeviceListItem.FocusVisualStyle != null)
             {
