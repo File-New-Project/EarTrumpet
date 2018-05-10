@@ -29,6 +29,7 @@ namespace EarTrumpet.ViewModels
 
         public ObservableCollection<AppItemViewModel> ChildApps { get; private set; }
 
+        public bool IsMovable => !_session.IsSystemSoundsSession;
 
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {

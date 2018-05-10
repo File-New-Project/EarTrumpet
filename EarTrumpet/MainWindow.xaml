@@ -135,8 +135,8 @@
                         <Button BorderThickness="0"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalAlignment="Top"
-                                Foreground="{DynamicResource WindowForeground}"
                                 Grid.Column="1" 
+                                IsEnabled="{Binding IsMovable}"
                                 Click="MoveToAnotherDevice_Click">
                             <Button.Style>
                                 <Style TargetType="Button">
@@ -164,22 +164,35 @@
                                                 </Setter.Value>
                                             </Setter>
                                         </Trigger>
+                                        <Trigger Property="IsEnabled" Value="true">
+                                            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Foreground" Value="{DynamicResource CottonSwabSliderTrackFill}" />
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <Button.Content>
-                                <Grid HorizontalAlignment="Right"
-                                      Margin="10,4,10,4">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock FontSize="18"
-                                               Margin="0"
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border Background="{TemplateBinding Background}">
+                                        <Grid HorizontalAlignment="Right"
+                                      Margin="10,4,10,4"
+                                          >
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock FontSize="18"
+                                               Margin="2"
+                                               Foreground="{TemplateBinding Foreground}"
                                                FontFamily="Segoe MDL2 Assets"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Bottom"
-                                               Text="&#xe148;" />
-                                    </StackPanel>
-                                </Grid>
-                            </Button.Content>
+                                               Text="&#xF623;" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                </ControlTemplate>
+                            </Button.Template>
                         </Button>
                         <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                           VerticalAlignment="Center"
