@@ -11,7 +11,7 @@ namespace EarTrumpet.Extensions
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((IEnumerable<object>)value).Count() > 1 ? Visibility.Visible : Visibility.Collapsed;
+            return (int)value > 1 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

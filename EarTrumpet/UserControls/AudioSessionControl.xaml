@@ -192,7 +192,7 @@
                 <Grid VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
                       Margin="0,0,-2,-2"
-                      Visibility="{Binding Stream.Children, Converter={StaticResource nonZeroConverter}}">
+                      Visibility="{Binding Stream.Children.Count, Converter={StaticResource nonZeroConverter}}">
                     <Canvas>
                         <Ellipse Fill="#ff555555"
                                  Width="11"
@@ -202,7 +202,7 @@
                     <TextBlock FontSize="7"
                            Margin="4,0,0,0"
                            FontWeight="Bold"
-                           Text="{Binding Stream.Children,Converter={StaticResource CountConverter}}" />
+                           Text="{Binding Stream.Children.Count,Converter={StaticResource CountConverter}}" />
                 </Grid>
                 
 
