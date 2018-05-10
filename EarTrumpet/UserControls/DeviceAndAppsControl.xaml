@@ -65,7 +65,7 @@
 
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Device.Device.DisplayName}" 
-                               Padding="12,6,8,6" 
+                               Padding="12,12,8,14" 
                                FontSize="15" 
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis" />
@@ -82,7 +82,7 @@
                             IconBackground="Transparent"
                             BeepOnPointerUp="True"
                             MuteOverlay="False"
-                            Padding="0,4,0,4"
+                            Padding="0,4,0,6"
                         />
                         </ListViewItem>
                     </ItemsControl>

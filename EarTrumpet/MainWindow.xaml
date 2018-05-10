@@ -288,8 +288,9 @@
                             </Style>
                         </Button.Style>
                         <Button.Content>
-                            <Grid HorizontalAlignment="Right">
-                                <TextBlock FontSize="15"
+                            <Grid HorizontalAlignment="Right"
+                                  Margin="0,6,0,6">
+                                <TextBlock FontSize="12"
                                                Margin="10"
                                                FontFamily="Segoe MDL2 Assets"
                                                Text="{Binding ExpandText}" />
