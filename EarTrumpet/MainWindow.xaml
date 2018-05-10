@@ -135,6 +135,7 @@
                         <Button BorderThickness="0"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalAlignment="Top"
+                                Foreground="{DynamicResource WindowForeground}"
                                 Grid.Column="1" 
                                 IsEnabled="{Binding IsMovable}"
                                 Click="MoveToAnotherDevice_Click">
@@ -163,12 +164,6 @@
                                                     <SolidColorBrush Color="#22FFFFFF" />
                                                 </Setter.Value>
                                             </Setter>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="true">
-                                            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Foreground" Value="{DynamicResource CottonSwabSliderTrackFill}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
