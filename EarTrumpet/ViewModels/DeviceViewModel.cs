@@ -41,7 +41,8 @@ namespace EarTrumpet.ViewModels
 
         private void _device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_device.IsMuted))
+            if (e.PropertyName == nameof(_device.IsMuted) ||
+                e.PropertyName == nameof(_device.Volume))
             {
                 UpdateDeviceText();
             }
@@ -61,7 +62,29 @@ namespace EarTrumpet.ViewModels
 
         private void UpdateDeviceText()
         {
-            DeviceIconText = _device.IsMuted ? "\xE74F" : "\xE767";
+            string icon = "";
+            if (_device.IsMuted)
+            {
+                icon = "\xE74F";
+            }
+            else if (_device.Volume >= 0.65f)
+            {
+                icon = "\xE995";
+            }
+            else if (_device.Volume >= 0.33f)
+            {
+                icon = "\xE994";
+            }
+            else if (_device.Volume > 0f)
+            {
+                icon = "\xE993";
+            }
+            else
+            {
+                icon = "\xE74F";
+            }
+
+            DeviceIconText = icon;
             RaisePropertyChanged(nameof(DeviceIconText));
         }
 
