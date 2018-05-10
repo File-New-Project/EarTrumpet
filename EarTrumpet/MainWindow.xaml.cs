@@ -33,10 +33,6 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
-            // Move keyboard focus to the first element. Disabled this since it is ugly but not sure invisible
-            // visuals are preferrable.
-            // Activated += (s,e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
             SourceInitialized += (s, e) =>
             {
                 UpdateTheme();
@@ -53,8 +49,6 @@ namespace EarTrumpet
 
         private void _viewModel_SessionPopup(object sender, SessionPopupEventArgs e)
         {
-            OverlayGrid.Background = (Brush)Resources["DimmedBackground"];
-
             if (_secondaryUI == null)
             {
                 _secondaryUI = (Popup)Resources["SecondaryUIPopup"];
@@ -68,7 +62,21 @@ namespace EarTrumpet
             _secondaryUI.Width = ActualWidth;
             _secondaryUI.DataContext = e.ViewModel;
             _secondaryUI.AllowsTransparency = true;
+            
+            _secondaryUI.Opened += (_, __) =>
+            {
+                if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
+                {
+                    _secondaryUI.EnableBlur();
+                }
+                else
+                {
+                    _secondaryUI.DisableBlur();
+                    OverlayGrid.Background = (Brush)Resources["DimmedBackground"];
+                }
+            };
             _secondaryUI.IsOpen = true;
+
         }
 
         private void CreateAndHideWindow()
@@ -123,7 +131,7 @@ namespace EarTrumpet
             // Call UpdateTheme before UpdateWindowPosition in case sizes change with the theme.
             ThemeService.UpdateThemeResources(Resources);
 
-            if (ThemeService.IsWindowTransparencyEnabled)
+            if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
             {
                 this.EnableBlur();
             }

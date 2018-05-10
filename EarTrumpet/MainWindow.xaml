@@ -97,14 +97,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Popup x:Key="SecondaryUIPopup" IsOpen="False">
+        <Popup x:Key="SecondaryUIPopup"
+               AllowsTransparency="True">
             <ScrollViewer 
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
                     VerticalScrollBarVisibility="Auto"
                     CanContentScroll="True"
                     PanningMode="VerticalOnly"
-                    Focusable="False"           
+                    Focusable="False"
                     Margin="0">
                 <Grid Background="#01000000" IsHitTestVisible="True">
                     <Grid.RowDefinitions>

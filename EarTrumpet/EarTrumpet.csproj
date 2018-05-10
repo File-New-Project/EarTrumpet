@@ -78,6 +78,7 @@
     <Compile Include="HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\AccentPolicyService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\SettingsService.cs" />
