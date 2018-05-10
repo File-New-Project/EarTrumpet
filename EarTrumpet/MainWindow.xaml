@@ -252,7 +252,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <local:DeviceAndAppsControl Device="{Binding DefaultDevice}" />
+                        <local:DeviceAndAppsControl x:Name="DefaultDeviceControl" Device="{Binding DefaultDevice}" />
                     </StackPanel>
                     <Button BorderThickness="0"
                         HorizontalContentAlignment="Stretch"

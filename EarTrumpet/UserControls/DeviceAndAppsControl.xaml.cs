@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,8 @@ namespace EarTrumpet.UserControls
 {
     public partial class DeviceAndAppsControl : UserControl
     {
+        Style _focusVisualStyle;
+
         const string s_DragDropDataFormat = "EarTrumpet.AudioSession";
 
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
@@ -55,6 +58,10 @@ namespace EarTrumpet.UserControls
                     Device.Device.Volume++;
                     e.Handled = true;
                 }
+                else if (e.Key == Key.Tab || e.Key == Key.Down || e.Key == Key.Up)
+                {
+                    DeviceListItem.FocusVisualStyle = _focusVisualStyle;
+                }
             }
             else
             {
@@ -76,6 +83,17 @@ namespace EarTrumpet.UserControls
                     e.Handled = true;
                 }
             }
+        }
+
+        internal void ResetFocus()
+        {
+            if (_focusVisualStyle == null && DeviceListItem.FocusVisualStyle != null)
+            {
+                _focusVisualStyle = DeviceListItem.FocusVisualStyle;
+            }
+
+            DeviceListItem.FocusVisualStyle = null;
+            DeviceListItem.Focus();
         }
     }
 }
