@@ -64,6 +64,15 @@ namespace EarTrumpet.UserControls
                 else if (e.Key == Key.Tab || e.Key == Key.Down || e.Key == Key.Up)
                 {
                     DeviceListItem.FocusVisualStyle = _focusVisualStyle;
+
+                    if (e.Key == Key.Down)
+                    {
+                        if (AppList.Items.Count > 0)
+                        {
+                            ((FrameworkElement)AppList.ItemContainerGenerator.ContainerFromItem(AppList.Items[0])).Focus();
+                            e.Handled = true;
+                        }
+                    }
                 }
             }
             else
@@ -88,25 +97,27 @@ namespace EarTrumpet.UserControls
                 }
                 else if (e.Key == Key.Up)
                 {
+                    ShowFocus();
+
                     if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == 0)
                     {
                         // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
-                        lvi.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                        DeviceListItem.Focus();
                         e.Handled = true;
                     }
 
-                    ShowFocus();
+                    
                 }
                 else if (e.Key == Key.Down)
                 {
+                    ShowFocus();
+
                     if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == AppList.Items.Count - 1)
                     {
                         // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
                         lvi.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                         e.Handled = true;
                     }
-
-                    ShowFocus();
                 }
             }
         }

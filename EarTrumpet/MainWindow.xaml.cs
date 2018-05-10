@@ -222,5 +222,14 @@ namespace EarTrumpet
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             moveMenu.IsOpen = true;
         }
+
+        private void ExpandCollapse_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up)
+            {
+                // Top of window - don't wrap around.
+                e.Handled = true;
+            }
+        }
     }
 }

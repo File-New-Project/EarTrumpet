@@ -248,6 +248,7 @@
                         VerticalAlignment="Top"
                         Foreground="{DynamicResource WindowForeground}"
                         FocusVisualStyle="{DynamicResource SolidFocusVisual}"
+                        PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
                         Click="ExpandCollapse_Click">
                         <Button.Style>
                             <Style TargetType="Button">
