@@ -147,5 +147,18 @@ namespace EarTrumpet.ViewModels
                     throw new NotImplementedException();
             }
         }
+
+        public override void TriggerPeakCheck()
+        {
+            if (ChildApps != null)
+            {
+                foreach(var child in ChildApps)
+                {
+                    child.TriggerPeakCheck();
+                }
+            }
+
+            base.TriggerPeakCheck();
+        }
     }
 }

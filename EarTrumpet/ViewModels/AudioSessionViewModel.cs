@@ -67,7 +67,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void TriggerPeakCheck()
+        public virtual void TriggerPeakCheck()
         {
             RaisePropertyChanged(nameof(PeakValue));
 
