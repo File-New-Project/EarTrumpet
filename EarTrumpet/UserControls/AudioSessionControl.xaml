@@ -27,7 +27,9 @@
                          Color="Yellow" />
         <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
                          Color="#FF339933" />
-
+        <SolidColorBrush x:Key="BadgeBackground"
+                         Color="Red" />
+        
         <Style x:Key="SliderButtonStyle"
                TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle"
@@ -194,7 +196,7 @@
                       Margin="0,0,-1,-1"
                       Visibility="{Binding Stream.Children.Count, Converter={StaticResource nonZeroConverter}}">
                     <Canvas>
-                        <Ellipse Fill="#ff555555"
+                        <Ellipse Fill="{DynamicResource BadgeBackground}"
                                  Width="12"
                                  Height="12" />
                     </Canvas>
