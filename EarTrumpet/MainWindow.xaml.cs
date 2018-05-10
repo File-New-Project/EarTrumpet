@@ -69,8 +69,6 @@ namespace EarTrumpet
             Show();
             Hide();
             Opacity = 1;
-
-            DefaultDeviceControl.ResetFocus();
         }
 
         void TrayIcon_Invoked()
@@ -79,7 +77,6 @@ namespace EarTrumpet
             {
                 DismissSecondaryUI_Click(null, null);
 
-                DefaultDeviceControl.ResetFocus();
                 this.HideWithAnimation();
                 _viewModel.IsVisible = false;
             }
@@ -89,6 +86,7 @@ namespace EarTrumpet
                 UpdateTheme();
                 UpdateWindowPosition();
                 this.ShowwithAnimation();
+                DefaultDeviceControl.ResetFocus();
                 _viewModel.IsVisible = true;
             }
         }
@@ -97,7 +95,7 @@ namespace EarTrumpet
         {
             DismissSecondaryUI_Click(null, null);
 
-            DefaultDeviceControl.ResetFocus();
+            
             this.HideWithAnimation();
             _viewModel.IsVisible = false;
         }

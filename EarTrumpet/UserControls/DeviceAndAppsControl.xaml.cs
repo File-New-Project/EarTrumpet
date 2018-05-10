@@ -43,17 +43,17 @@ namespace EarTrumpet.UserControls
 
             if (dt is DeviceAndAppsControl)
             {
-                if (e.Key == System.Windows.Input.Key.M)
+                if (e.Key == Key.M || e.Key == Key.Space)
                 {
                     Device.Device.IsMuted = !Device.Device.IsMuted;
                     e.Handled = true;
                 }
-                else if (e.Key == System.Windows.Input.Key.Left)
+                else if (e.Key == Key.Left)
                 {
                     Device.Device.Volume--;
                     e.Handled = true;
                 }
-                else if (e.Key == System.Windows.Input.Key.Right)
+                else if (e.Key == Key.Right)
                 {
                     Device.Device.Volume++;
                     e.Handled = true;
@@ -67,7 +67,7 @@ namespace EarTrumpet.UserControls
             {
                 var vm = (AudioSessionViewModel)dt;
 
-                if (e.Key == System.Windows.Input.Key.M)
+                if (e.Key == System.Windows.Input.Key.M || e.Key == Key.Space)
                 {
                     vm.IsMuted = !vm.IsMuted;
                     e.Handled = true;
