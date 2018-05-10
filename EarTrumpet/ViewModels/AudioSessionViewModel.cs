@@ -41,7 +41,31 @@ namespace EarTrumpet.ViewModels
             get => _stream.Volume.ToVolumeInt();
             set => _stream.Volume = value/100f;
         }
-        public float PeakValue => _stream.PeakValue;
+        public float PeakValue
+        {
+            get
+            {
+                float ret = _stream.PeakValue;
+                if (Children != null)
+                {
+                    foreach(var child in Children)
+                    {
+                        if (child == this) continue;
+
+                        var newValue = child.PeakValue;
+                        if (newValue > ret)
+                        {
+                            ret = newValue;
+                        }
+                    }
+                }
+                else
+                {
+                    ret = _stream.PeakValue;
+                }
+                return ret;
+            }
+        }
 
         public void TriggerPeakCheck()
         {

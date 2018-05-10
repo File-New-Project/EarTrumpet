@@ -191,18 +191,18 @@
 
                 <Grid VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
-                      Margin="0,0,-2,-2"
+                      Margin="0,0,-1,-1"
                       Visibility="{Binding Stream.Children.Count, Converter={StaticResource nonZeroConverter}}">
                     <Canvas>
                         <Ellipse Fill="#ff555555"
-                                 Width="11"
-                                 Height="11" />
+                                 Width="12"
+                                 Height="12" />
                     </Canvas>
 
-                    <TextBlock FontSize="7"
-                           Margin="4,0,0,0"
+                    <TextBlock FontSize="10"
+                           Margin="2,-3,0,0"
                            FontWeight="Bold"
-                           Text="{Binding Stream.Children.Count,Converter={StaticResource CountConverter}}" />
+                           Text="..." />
                 </Grid>
                 
 
@@ -218,19 +218,14 @@
                                     VerticalAlignment="Center"
                                     ToolTip="{Binding Stream.DisplayName}" 
                                     Margin="1,0,0,0" />
-        <ItemsControl IsTabStop="False" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={StaticResource cvs}}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:AudioPeakMeter 
-                        Margin="12,0.5,20,0.5"
-                        IsHitTestVisible="False"
-                        PeakValue="{Binding PeakValue}"
-                        Volume="{Binding Volume}"
-                        Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        
+
+        <local:AudioPeakMeter 
+            Grid.Column="1"
+            Margin="12,0,20,0"
+            IsHitTestVisible="False"
+            PeakValue="{Binding Stream.PeakValue}"
+            Volume="{Binding Stream.Volume}" />
+
         <Slider Grid.Column="1"
                                 Value="{Binding Stream.Volume,Mode=TwoWay}"
                                 Minimum="0"
