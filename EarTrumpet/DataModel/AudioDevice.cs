@@ -138,7 +138,7 @@ namespace EarTrumpet.DataModel
 
         static IAudioPolicyConfigFactory s_sharedPolicyConfig;
 
-        public void TakeSessionFromOtherDevice(IAudioDeviceSession session)
+        public void TakeSessionFromOtherDevice(int processId)
         {
             if (s_sharedPolicyConfig == null)
             {
@@ -152,7 +152,7 @@ namespace EarTrumpet.DataModel
             const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI";
             
             var persistedDeviceId = $"{MMDEVAPI_TOKEN}#{Id}#{DEVINTERFACE_AUDIO_RENDER}";
-            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)session.ProcessId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, persistedDeviceId);
+            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, persistedDeviceId);
         }
 
         public bool HasMeaningfulSessions()

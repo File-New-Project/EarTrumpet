@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace EarTrumpet.ViewModels
 {
@@ -92,7 +93,26 @@ namespace EarTrumpet.ViewModels
 
         internal void TakeExternalSession(AudioSessionViewModel vm)
         {
-            _device.TakeSessionFromOtherDevice(vm.Session);
+            // Collect all pids for this app.
+
+            var pids = new HashSet<int>();
+
+            if (vm.Children == null)
+            {
+                pids.Add(vm.Session.ProcessId);
+            }
+            else
+            {
+                foreach (var child in vm.Children)
+                {
+                    pids.Add(child.Session.ProcessId);
+                }
+            }
+
+            foreach (var pid in pids)
+            {
+                _device.TakeSessionFromOtherDevice(pid);
+            }
         }
     }
 }
