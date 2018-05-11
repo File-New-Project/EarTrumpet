@@ -1,6 +1,8 @@
 ﻿using EarTrumpet.Services;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -151,6 +153,28 @@ namespace EarTrumpet.Extensions
         {
             var m = CalculateDpiFactors(window);
             return m.M11;
+        }
+
+        static class Interop
+        {
+            [DllImport("user32.dll")]
+            public static extern bool SetWindowPos(
+                IntPtr hWnd,
+                IntPtr hWndInsertAfter,
+                int X,
+                int Y,
+                int cx,
+                int cy,
+                uint uFlags);
+
+            public const UInt32 SWP_NOSIZE = 0x0001;
+            public const UInt32 SWP_NOMOVE = 0x0002;
+            public const UInt32 SWP_NOZORDER = 0x0004;
+        }
+
+        public static void Move(this Window window, double top, double left, double height, double width)
+        {
+            Interop.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, (int)left, (int)top, (int)width, (int)height, Interop.SWP_NOZORDER);
         }
     }
 }
