@@ -136,35 +136,46 @@ namespace EarTrumpet.UserControls
             DeviceListItem.Focus();
         }
 
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.ExpandedApp.IsExpanded = false;
+            MainViewModel.ExpandedApp = null;
+        }
+
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
             var selectedApp = MainViewModel.ExpandedApp;
             var vm = MainViewModel.Instance;
-            
-            var currentDeviceId = selectedApp.Session.Device.Id;
+            var persistedDevice = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();
 
-            var addDevice = new Action<DeviceViewModel>((device) =>
+            MenuItem defaultItem = null;
+            foreach(var dev in selectedApp.Devices)
             {
-                if (device.Device.Id == currentDeviceId) return;
-
-                var newItem = new MenuItem { Header = device.Device.DisplayName };
+                var newItem = new MenuItem { Header = dev.DisplayName };
                 newItem.Click += (_, __) =>
                 {
-                    device.TakeExternalSession(selectedApp);
+                    AudioPolicyConfigService.SetDefaultEndPoint(dev.Id, selectedApp.Session.ProcessId);
+
                     selectedApp.IsExpanded = false;
                     MainViewModel.ExpandedApp = null;
                 };
-                moveMenu.Items.Add(newItem);
-            });
 
-            foreach (var device in vm.Devices)
-            {
-                addDevice(device);
+                newItem.IsCheckable = true;
+                newItem.IsChecked = (dev.Id == persistedDevice.Id);
+
+                if (dev.IsDefault)
+                {
+                    defaultItem = newItem;
+                }
+
+                moveMenu.Items.Add(newItem);
             }
 
-            addDevice(vm.DefaultDevice);
+            moveMenu.Items.Remove(defaultItem);
+            moveMenu.Items.Insert(0, defaultItem);
+            moveMenu.Items.Insert(1, new Separator());
 
             moveMenu.PlacementTarget = (UIElement)sender;
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;

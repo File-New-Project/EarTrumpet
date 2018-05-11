@@ -106,6 +106,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Always use the default output device..
+        /// </summary>
+        public static string DefaultDeviceText {
+            get {
+                return ResourceManager.GetString("DefaultDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {

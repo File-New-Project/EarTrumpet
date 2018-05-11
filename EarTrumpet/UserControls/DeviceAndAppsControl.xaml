@@ -54,11 +54,17 @@
             </Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                            SnapsToDevicePixels="True"                                                                   
-                            Background="{TemplateBinding Background}">
-                            <ContentPresenter RecognizesAccessKey="True" />
+                    <ControlTemplate>
+                        <Border Background="{TemplateBinding Background}"
+                                Width="34"
+                                Height="34">
+                            <TextBlock FontSize="{TemplateBinding FontSize}"
+                                            Margin="4"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            FontFamily="Segoe MDL2 Assets"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{TemplateBinding Tag}" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -150,9 +156,10 @@
                             <Grid Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                                   Grid.Row="2">
                                 <Grid>
-                                    <Grid Background="{DynamicResource HeaderBackgroundSolid}">
+                                    <Grid Background="{DynamicResource HeaderBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
@@ -171,34 +178,25 @@
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalAlignment="Center"
                                                 Grid.Column="1" 
+                                                FontSize="16"
                                                 Foreground="{StaticResource WindowForeground}"
                                                 Style="{StaticResource StyledButton}"
                                                 IsEnabled="{Binding IsMovable}"
                                                 Tag="{Binding MoveIcon}"
-                                                Visibility="Collapsed"
-                                                Click="MoveToAnotherDevice_Click">
-                                            <Button.Template>
-                                                <ControlTemplate>
-                                                    <Border Background="{TemplateBinding Background}">
-                                                        <Grid HorizontalAlignment="Right"
-                                                              Margin="4">
-                                                            <StackPanel Orientation="Vertical">
-                                                                <TextBlock FontSize="17"
-                                                                           Margin="2"
-                                                                           Foreground="{TemplateBinding Foreground}"
-                                                                           FontFamily="Segoe MDL2 Assets"
-                                                                           HorizontalAlignment="Center"
-                                                                           VerticalAlignment="Bottom"
-                                                                           Text="{TemplateBinding Tag}" />
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
+                                                Click="MoveToAnotherDevice_Click" />
+                                        <Button BorderThickness="0"
+                                                Margin="0,0,2,0"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Grid.Column="2" 
+                                                FontSize="10"
+                                                Foreground="{StaticResource WindowForeground}"
+                                                Tag="&#xE8BB;"
+                                                Style="{StaticResource StyledButton}"
+                                                Click="CloseButton_Click" />
                                         <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                                                   VerticalAlignment="Center"
-                                                  Grid.ColumnSpan="2"
+                                                  Grid.ColumnSpan="3"
                                                   Grid.Row="1"
                                                   Margin="0,0,0,8">
                                             <ListView.ItemTemplate>
@@ -217,18 +215,6 @@
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
-                                        <Grid Grid.Row="2" Margin="20,0,0,12">
-                                            <ComboBox
-                                                IsEnabled="{Binding IsMovable}"
-                                                Height="26"
-                                                Width="200"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left"
-                                                VerticalContentAlignment="Center"
-                                                SelectedItem="{Binding PersistedOutputDevice}" 
-                                                ItemsSource="{Binding Devices, Mode=OneWay}"/>
-                                        </Grid>
-                                        
                                     </Grid>
                                 </Grid>
                             </Grid>

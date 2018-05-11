@@ -183,4 +183,7 @@
   <data name="SelectHotkeyWindowTitle" xml:space="preserve">
     <value>Select a hotkey</value>
   </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Always use the default output device.</value>
+  </data>
 </root>

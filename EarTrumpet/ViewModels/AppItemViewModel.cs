@@ -42,7 +42,7 @@ namespace EarTrumpet.ViewModels
     {
         private IAudioDeviceSession _session;
         // TODO: localization
-        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = "Default", IsDefault = true, };
+        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = EarTrumpet.Properties.Resources.DefaultDeviceText, IsDefault = true, };
 
         public string ExeName { get; private set; }
 
@@ -72,7 +72,7 @@ namespace EarTrumpet.ViewModels
 
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
-        public string MoveIcon => IsMovable ? "\xE97A" : "";
+        public string MoveIcon => IsMovable ? "\uE8AB" : "";
 
         public SimpleAudioDeviceViewModel PersistedOutputDevice
         {
