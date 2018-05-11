@@ -12,9 +12,36 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.ViewModels
 {
+    public class SimpleAudioDeviceViewModel
+    {
+        public string DisplayName;
+        public string Id;
+        public bool IsDefault;
+
+        public override string ToString()
+        {
+            return DisplayName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is SimpleAudioDeviceViewModel))
+                return false;
+
+            return ((SimpleAudioDeviceViewModel)obj).Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+    }
+
     public class AppItemViewModel : AudioSessionViewModel
     {
         private IAudioDeviceSession _session;
+        // TODO: localization
+        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = "Default", IsDefault = true, Id="Default" };
 
         public string ExeName { get; private set; }
 
@@ -35,6 +62,8 @@ namespace EarTrumpet.ViewModels
             {
                 _isExpanded = value;
                 RaisePropertyChanged(nameof(IsExpanded));
+                RaisePropertyChanged(nameof(Devices));
+                RaisePropertyChanged(nameof(PersistedOutputDevice));
             }
         }
 
@@ -43,6 +72,47 @@ namespace EarTrumpet.ViewModels
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
         public string MoveIcon => IsMovable ? "\xE97A" : "";
+
+        public SimpleAudioDeviceViewModel PersistedOutputDevice
+        {
+            get
+            {
+                string deviceId = AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
+                if (string.IsNullOrWhiteSpace(deviceId))
+                {
+                    return _defaultDevice;
+                }
+                else
+                {
+                    return Devices.First(d => d.Id == deviceId);
+                }
+            }
+            set
+            {
+                if (value == null) return;
+
+                AudioPolicyConfigService.SetDefaultEndPoint(value.Id, _session.ProcessId);
+            }
+        }
+
+
+        public ObservableCollection<SimpleAudioDeviceViewModel> Devices
+        {
+            get
+            {
+                var ret = new ObservableCollection<SimpleAudioDeviceViewModel>();
+                foreach(var device in MainViewModel.Instance.Devices)
+                {
+                    ret.Add(new SimpleAudioDeviceViewModel { DisplayName = device.Device.DisplayName, Id = device.Device.Id });
+                }
+
+                ret.Add(new SimpleAudioDeviceViewModel { DisplayName = MainViewModel.Instance.DefaultDevice.Device.DisplayName, Id = MainViewModel.Instance.DefaultDevice.Device.Id });
+
+                ret.Add(_defaultDevice);
+
+                return ret;
+            }
+        }
 
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {

@@ -157,7 +157,8 @@
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding DisplayName}"
                                            Padding="12,12,8,12" 
@@ -174,6 +175,7 @@
                                                 Style="{StaticResource StyledButton}"
                                                 IsEnabled="{Binding IsMovable}"
                                                 Tag="{Binding MoveIcon}"
+                                                Visibility="Collapsed"
                                                 Click="MoveToAnotherDevice_Click">
                                             <Button.Template>
                                                 <ControlTemplate>
@@ -215,6 +217,17 @@
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
+                                        <Grid Grid.Row="2" Margin="20,0,0,12">
+                                            <ComboBox
+                                                Height="26"
+                                                Width="200"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left"
+                                                VerticalContentAlignment="Center"
+                                                SelectedItem="{Binding PersistedOutputDevice}" 
+                                                ItemsSource="{Binding Devices, Mode=OneWay}"/>
+                                        </Grid>
+                                        
                                     </Grid>
                                 </Grid>
                             </Grid>
