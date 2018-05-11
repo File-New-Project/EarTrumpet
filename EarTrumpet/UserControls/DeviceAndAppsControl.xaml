@@ -160,15 +160,15 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding DisplayName}"
-                                   Padding="12,6,8,6" 
-                                   FontSize="15" 
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Stretch"
-                                   
-                                   TextTrimming="CharacterEllipsis"/>
+                                           Padding="12,12,8,12" 
+                                           FontSize="15" 
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Stretch"
+                                           TextTrimming="CharacterEllipsis"/>
                                         <Button BorderThickness="0"
+                                                Margin="0,0,2,0"
                                                 HorizontalContentAlignment="Stretch"
-                                                VerticalAlignment="Top"
+                                                VerticalAlignment="Center"
                                                 Grid.Column="1" 
                                                 Foreground="{StaticResource WindowForeground}"
                                                 Style="{StaticResource StyledButton}"
@@ -179,9 +179,9 @@
                                                 <ControlTemplate>
                                                     <Border Background="{TemplateBinding Background}">
                                                         <Grid HorizontalAlignment="Right"
-                                                              Margin="10,4,10,4">
+                                                              Margin="4">
                                                             <StackPanel Orientation="Vertical">
-                                                                <TextBlock FontSize="18"
+                                                                <TextBlock FontSize="17"
                                                                            Margin="2"
                                                                            Foreground="{TemplateBinding Foreground}"
                                                                            FontFamily="Segoe MDL2 Assets"
@@ -197,7 +197,8 @@
                                         <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                                                   VerticalAlignment="Center"
                                                   Grid.ColumnSpan="2"
-                                                  Grid.Row="1">
+                                                  Grid.Row="1"
+                                                  Margin="0,0,0,8">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate DataType="viewModels:AppItemViewModel">
                                                     <local:AudioSessionControl 

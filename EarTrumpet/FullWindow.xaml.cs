@@ -44,12 +44,6 @@ namespace EarTrumpet
             ThemeService.UpdateThemeResources(Resources);
         }
 
-        private void ToggleMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var item = (MenuItem)sender;
-            item.IsChecked = !item.IsChecked;
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

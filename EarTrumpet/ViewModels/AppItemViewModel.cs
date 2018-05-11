@@ -42,7 +42,7 @@ namespace EarTrumpet.ViewModels
 
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
-        public string MoveIcon => IsMovable ? "\xF623" : "\xF624";
+        public string MoveIcon => IsMovable ? "\xE97A" : "";
 
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {

@@ -42,27 +42,6 @@
     <DockPanel x:Name="ContentRoot" Background="{DynamicResource WindowBackground}">
         <DockPanel DockPanel.Dock="Top">
             <Button x:Name="CloseButton"  DockPanel.Dock="Right" Content="&#xE8BB;" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click"/>
-            <Button x:Name="OptionsButton" DockPanel.Dock="Right" Content="&#xE713;" Style="{DynamicResource OptionsButtonStyle}" >
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <BooleanAnimationUsingKeyFrames                                  
-                                            Storyboard.TargetProperty="ContextMenu.IsOpen">
-                                        <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True" />
-                                    </BooleanAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>
-                <Button.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{x:Static resx:Resources.ShowHiddenSessionsMenuItem}" Foreground="Black" IsChecked="{Binding IsShowingHiddenChannels, Mode=TwoWay}" Click="ToggleMenuItem_Click" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
             <TextBlock DockPanel.Dock="Left" TextAlignment="Left" Padding="20, 8, 20, 8" Text="{Binding ElementName=WindowRoot,Path=Title}" />
         </DockPanel>
         <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -76,7 +55,8 @@
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
                         <local:DeviceAndAppsControl Device="{Binding}"
-                                                    Width="300"/>
+                                                    Width="360"
+                                                    Margin="0,0,0,12"/>
                     </ItemContainerTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
