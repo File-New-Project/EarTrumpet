@@ -39,27 +39,6 @@ namespace EarTrumpet.ViewModels
 
         public string ExpandText => ExpandedPaneVisibility == Visibility.Collapsed ? "\ue010" : "\ue011";
 
-        bool _isVisible = false;
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    if (_isVisible)
-                    {
-                        _peakMeterTimer.Start();
-                    }
-                    else
-                    {
-                        _peakMeterTimer.Stop();
-                    }
-                }
-            }
-        }
-
         public ViewState State { get; private set; }
 
         public static AppItemViewModel ExpandedApp { get; set; }
@@ -73,6 +52,12 @@ namespace EarTrumpet.ViewModels
         public MainViewModel(IAudioDeviceManager deviceService)
         {
             State = ViewState.NotReady;
+
+            if (Instance != null)
+            {
+                throw new InvalidOperationException("Only one MainViewModel may exist");
+            }
+
             Instance = this;
 
             _deviceService = deviceService;
@@ -208,6 +193,12 @@ namespace EarTrumpet.ViewModels
             {
                 ChangeState(ViewState.Opening);
             }
+
+            // NotReady - Ignore, can't do anything.
+            // Opening - Ignore. Already opening.
+            // Opening_CloseRequested - Ignore, already opening and then closing.
+            // Open - We're already open.
+            // Closing - Drop event. Not worth the complexity?
         }
 
         public void BeginClose()
@@ -215,10 +206,16 @@ namespace EarTrumpet.ViewModels
             if (State == ViewState.Open)
             {
                 ChangeState(ViewState.Closing);
-            } else if (State == ViewState.Opening)
+            }
+            else if (State == ViewState.Opening)
             {
                 ChangeState(ViewState.Opening_CloseRequested);
             }
+
+            // NotReady - Impossible.
+            // Hidden - Nothing to do.
+            // Opening_CloseRequested - Nothing to do.
+            // Closing - Nothing to do.
         }
     }
 }
