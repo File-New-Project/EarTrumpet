@@ -33,18 +33,18 @@ namespace EarTrumpet
 
             SourceInitialized += (s, e) =>
             {
-                UpdateTheme();
                 ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
             };
 
-            ContentGrid.SizeChanged += (s, e) => UpdateWindowPosition();
-
             ThemeService.ThemeChanged += () => UpdateTheme();
 
+            // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             CreateAndHideWindow();
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
+
+            ContentGrid.SizeChanged += (s, e) => UpdateWindowPosition();
         }
 
         private void _viewModel_StateChanged(object sender, ViewState e)
@@ -79,8 +79,9 @@ namespace EarTrumpet
 
         private void CreateAndHideWindow()
         {
-            // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Opacity = 0;
+            Height = 1;
+            UpdateTheme();
             Show();
             Hide();
             Opacity = 1;
