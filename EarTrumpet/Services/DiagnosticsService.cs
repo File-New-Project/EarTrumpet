@@ -36,6 +36,7 @@ namespace EarTrumpet.Services
                 sb.AppendLine($"  GroupingParam: {session.GroupingParam}");
                 sb.AppendLine($"  Flags: {flags}");
                 sb.AppendLine($"  ProcessId: {session.ProcessId}");
+                sb.AppendLine($"  PersistedEndpointDeviceId: {AudioPolicyConfigService.GetDefaultEndPoint(session.ProcessId)}");
                 sb.AppendLine($"  State: {session.State}");
                 sb.AppendLine($"  IconPath: {session.IconPath}");
                 sb.AppendLine($"  Volume: {session.Volume.ToVolumeInt()} {(session.IsMuted ? "Muted" : "")}");

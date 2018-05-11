@@ -6,20 +6,12 @@ using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using EarTrumpet.Services;
 
 namespace EarTrumpet.DataModel
 {
     public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
-        static class Interop
-        {
-            [DllImport("combase.dll")]
-            public static extern void RoGetActivationFactory(
-                [MarshalAs(UnmanagedType.HString)] string activatableClassId,
-                [In] ref Guid iid,
-                [Out, MarshalAs(UnmanagedType.IInspectable)] out Object factory);
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         IMMDevice _device;
@@ -136,32 +128,9 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        static IAudioPolicyConfigFactory s_sharedPolicyConfig;
-
         public void TakeSessionFromOtherDevice(int processId)
         {
-            if (s_sharedPolicyConfig == null)
-            {
-                object factory;
-                Guid iid = typeof(IAudioPolicyConfigFactory).GUID;
-                Interop.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out factory);
-                s_sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
-            }
-
-            const string DEVINTERFACE_AUDIO_RENDER = "{e6327cad-dcec-4949-ae8a-991e976a79d2}";
-            const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI";
-            
-            var persistedDeviceId = $"{MMDEVAPI_TOKEN}#{Id}#{DEVINTERFACE_AUDIO_RENDER}";
-            s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, persistedDeviceId);
-        }
-
-        public bool HasMeaningfulSessions()
-        {
-            foreach(var session in Sessions)
-            {
-                if (!session.IsSystemSoundsSession) return true;
-            }
-            return false;
+            AudioPolicyConfigService.SetDefaultEndPoint(Id, processId);
         }
     }
 }

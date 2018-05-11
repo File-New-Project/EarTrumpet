@@ -47,7 +47,6 @@ namespace EarTrumpet.ViewModels
 
         private readonly IAudioDeviceManager _deviceService;
         private readonly Timer _peakMeterTimer;
-        private List<IAudioDevice> _allDevices = new List<IAudioDevice>();
 
         public MainViewModel(IAudioDeviceManager deviceService)
         {
@@ -79,10 +78,12 @@ namespace EarTrumpet.ViewModels
 
         private void _deviceService_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
         {
-            foreach(var device in _allDevices)
+            foreach(var device in _deviceService.Devices)
             {
                 CheckApplicability(device);
             }
+
+            CheckApplicability(_deviceService.DefaultPlaybackDevice);
         }
 
         private void Devices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -93,14 +94,28 @@ namespace EarTrumpet.ViewModels
                     AddDevice((IAudioDevice)e.NewItems[0]);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    _allDevices.Remove((IAudioDevice)e.OldItems[0]);
+                    var removed = ((IAudioDevice)e.OldItems[0]).Id;
+
+                    foreach(var device in Devices)
+                    {
+                        if (device.Device.Id == removed)
+                        {
+                            Devices.Remove(device);
+                            break;
+                        }
+                    }
                     break;
+
                 case NotifyCollectionChangedAction.Reset:
-                    _allDevices.Clear();
+
                     foreach (var device in _deviceService.Devices)
                     {
-                        AddDevice(device);
+                        if (device != _deviceService.DefaultPlaybackDevice)
+                        {
+                            AddDevice(device);
+                        }
                     }
+
                     break;
                 default:
                     throw new NotImplementedException();
@@ -109,26 +124,24 @@ namespace EarTrumpet.ViewModels
 
         void AddDevice(IAudioDevice device)
         {
-            _allDevices.Add(device);
-
             CheckApplicability(device);
         }
 
         void CheckApplicability(IAudioDevice device)
         {
-            if (_deviceService.DefaultPlaybackDevice != device)
+            var existing = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
+
+            if (_deviceService.DefaultPlaybackDevice == device)
+            {
+                Devices.Remove(existing);
+            }
+            else
             {
                 if (!Devices.Any(d => d.Device.Id == device.Id))
                 {
                     Devices.Add(new DeviceViewModel(_deviceService, device));
                     return;
                 }
-            }
-
-            var existing = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
-            if (existing != null)
-            {
-                Devices.Remove(existing);
             }
         }
 

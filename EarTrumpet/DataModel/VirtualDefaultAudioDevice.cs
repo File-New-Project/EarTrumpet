@@ -76,8 +76,6 @@ namespace EarTrumpet.DataModel
 
         public void TakeSessionFromOtherDevice(int processId) => _device.TakeSessionFromOtherDevice(processId);
 
-        public bool HasMeaningfulSessions() => _device.HasMeaningfulSessions();
-
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -7,7 +7,5 @@ namespace EarTrumpet.DataModel
         ObservableCollection<IAudioDeviceSession> Sessions { get; }
 
         void TakeSessionFromOtherDevice(int processId);
-
-        bool HasMeaningfulSessions();
     }
 }
