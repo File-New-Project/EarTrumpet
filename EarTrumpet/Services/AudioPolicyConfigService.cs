@@ -17,7 +17,7 @@ namespace EarTrumpet.Services
 
             [DllImport("combase.dll")]
             public static extern void WindowsCreateString(
-                [MarshalAs(UnmanagedType.LPWStr)] string activatableClassId,
+                [MarshalAs(UnmanagedType.LPWStr)] string src,
                 [In] uint length,
                 [Out] out IntPtr hstring);
         }
@@ -31,16 +31,14 @@ namespace EarTrumpet.Services
         {
             if (s_sharedPolicyConfig == null)
             {
-                object factory;
                 Guid iid = typeof(IAudioPolicyConfigFactory).GUID;
-                Interop.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out factory);
+                Interop.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
                 s_sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
             }
         }
 
         private static string GenerateDeviceId(string deviceId)
         {
-
             return $"{MMDEVAPI_TOKEN}{deviceId}{DEVINTERFACE_AUDIO_RENDER}";
         }
 
