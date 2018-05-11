@@ -154,10 +154,17 @@ namespace EarTrumpet.DataModel
             {
                 if (!HasDevice(pwstrDeviceId))
                 {
-                    IMMDevice device;
-                    _enumerator.GetDevice(pwstrDeviceId, out device);
+                    try
+                    {
+                        IMMDevice device;
+                        _enumerator.GetDevice(pwstrDeviceId, out device);
 
-                    _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
+                        _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
+                    }
+                    catch(COMException ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
                 }
             });
         }

@@ -32,6 +32,8 @@ namespace EarTrumpet.DataModel
         string _processIconPath;
         string _appId;
         string _id;
+        float _volume;
+        bool _isMuted;
         bool _isDesktopApp;
         uint _backgroundColor;
 
@@ -70,17 +72,15 @@ namespace EarTrumpet.DataModel
                     // Our process could have quit and we haven't seen the notification yet, so don't crash.
                 }
             }
+
+            ReadVolumeAndMute();
         }
 
         public IAudioDevice Device => _device;
 
         public float Volume
         {
-            get
-            {
-                _simpleVolume.GetMasterVolume(out float level);
-                return level;
-            }
+            get => _volume;
             set
             {
                 if (value < 0)
@@ -92,22 +92,26 @@ namespace EarTrumpet.DataModel
                 {
                     value = 1.0f;
                 }
-                Guid dummy = Guid.Empty;
-                _simpleVolume.SetMasterVolume(value, ref dummy);
+
+                if (value != _volume)
+                {
+                    Guid dummy = Guid.Empty;
+                    _simpleVolume.SetMasterVolume(value, ref dummy);
+                }
+
             }
         }
 
         public bool IsMuted
         {
-            get
-            {
-                _simpleVolume.GetMute(out int muted);
-                return muted != 0;
-            }
+            get => _isMuted;
             set
             {
-                Guid dummy = Guid.Empty;
-                _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
+                if (value != _isMuted)
+                {
+                    Guid dummy = Guid.Empty;
+                    _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
+                }
             }
         }
 
@@ -192,8 +196,17 @@ namespace EarTrumpet.DataModel
 
         public ObservableCollection<IAudioDeviceSession> Children => null;
 
+        void ReadVolumeAndMute()
+        {
+            _simpleVolume.GetMasterVolume(out _volume);
+            _simpleVolume.GetMute(out int muted);
+            _isMuted = muted != 0;
+        }
+
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
+            ReadVolumeAndMute();
+
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));

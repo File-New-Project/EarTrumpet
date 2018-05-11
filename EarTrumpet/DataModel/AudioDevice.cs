@@ -21,6 +21,9 @@ namespace EarTrumpet.DataModel
         IAudioMeterInformation _meter;
         IAudioDeviceManagerInternal _manager;
         string _id;
+        string _displayName;
+        float _volume;
+        bool _isMuted;
 
         public AudioDevice(IMMDevice device, IAudioDeviceManagerInternal manager, Dispatcher dispatcher)
         {
@@ -34,6 +37,10 @@ namespace EarTrumpet.DataModel
             _meter = device.Activate<IAudioMeterInformation>();
             _sessions = new AudioDeviceSessionCollection(_device, this, dispatcher);
             _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
+
+            ReadVolumeAndMute();
+
+            ReadDisplayName();
         }
 
         ~AudioDevice()
@@ -54,6 +61,8 @@ namespace EarTrumpet.DataModel
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
         {
+            ReadVolumeAndMute();
+
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
@@ -63,11 +72,7 @@ namespace EarTrumpet.DataModel
 
         public float Volume
         {
-            get
-            {
-                _deviceVolume.GetMasterVolumeLevelScalar(out float level);
-                return level;
-            }
+            get => _volume;
             set
             {
                 if (value > 1)
@@ -79,8 +84,11 @@ namespace EarTrumpet.DataModel
                     value = 0.0f;
                 }
 
-                Guid dummy = Guid.Empty;
-                _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+                if (_volume != value)
+                {
+                    Guid dummy = Guid.Empty;
+                    _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+                }
             }
         }
 
@@ -95,15 +103,14 @@ namespace EarTrumpet.DataModel
 
         public bool IsMuted
         {
-            get
-            {
-                _deviceVolume.GetMute(out int muted);
-                return muted != 0;
-            }
+            get => _isMuted;
             set
             {
-                Guid dummy = Guid.Empty;
-                _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                if (value != _isMuted)
+                {
+                    Guid dummy = Guid.Empty;
+                    _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                }
             }
         }
 
@@ -111,21 +118,26 @@ namespace EarTrumpet.DataModel
 
         public ObservableCollection<IAudioDeviceSession> Sessions => _sessions.Sessions;
 
-        public string DisplayName
+        public string DisplayName => _displayName;
+
+        private void ReadDisplayName()
         {
-            get
-            {
-                IPropertyStore propStore;
-                _device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
+            IPropertyStore propStore;
+            _device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
 
-                PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
-                PropVariant pv;
-                ((IPropertyStore)propStore).GetValue(ref PKEY_Device_FriendlyName, out pv);
+            PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
+            PropVariant pv;
+            propStore.GetValue(ref PKEY_Device_FriendlyName, out pv);
 
-                var ret = Marshal.PtrToStringUni(pv.pointerValue);
-                PropertyStoreInterop.PropVariantClear(ref pv);
-                return ret;
-            }
+            _displayName = Marshal.PtrToStringUni(pv.pointerValue);
+            PropertyStoreInterop.PropVariantClear(ref pv);
+        }
+
+        private void ReadVolumeAndMute()
+        {
+            _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
+            _deviceVolume.GetMute(out int muted);
+            _isMuted = muted != 0;
         }
 
         public void TakeSessionFromOtherDevice(int processId)

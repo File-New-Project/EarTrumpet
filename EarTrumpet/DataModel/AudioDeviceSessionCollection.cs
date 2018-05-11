@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Threading;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace EarTrumpet.DataModel
 {
@@ -13,7 +15,6 @@ namespace EarTrumpet.DataModel
         Dispatcher _dispatcher;
         ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         IAudioDevice _device;
-        static List<IAudioDeviceSession> _allSessions = new List<IAudioDeviceSession>();
 
         public AudioDeviceSessionCollection(IMMDevice device, IAudioDevice audioDevice, Dispatcher dispatcher)
         {
@@ -49,7 +50,14 @@ namespace EarTrumpet.DataModel
         {
             _dispatcher.SafeInvoke(() =>
             {
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _device, _dispatcher)));
+                try
+                {
+                    AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _device, _dispatcher)));
+                }
+                catch(COMException ex)
+                {
+                    Debug.WriteLine(ex);
+                }
             });
         }
 
@@ -72,7 +80,6 @@ namespace EarTrumpet.DataModel
             session.PropertyChanged += Session_PropertyChanged;
 
             var newSession = new AudioDeviceSessionContainer(session);
-            _allSessions.Add(newSession);
             _sessions.Add(newSession);
         }
 
@@ -88,7 +95,6 @@ namespace EarTrumpet.DataModel
                     // Delete the now-empty container.
                     if (!container.Sessions.Any())
                     {
-                        _allSessions.Remove(container);
                         _sessions.Remove(container);
                     }
 
