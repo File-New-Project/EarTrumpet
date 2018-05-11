@@ -173,6 +173,7 @@
                                                 Foreground="{StaticResource WindowForeground}"
                                                 Style="{StaticResource StyledButton}"
                                                 IsEnabled="{Binding IsMovable}"
+                                                Tag="{Binding MoveIcon}"
                                                 Click="MoveToAnotherDevice_Click">
                                             <Button.Template>
                                                 <ControlTemplate>
@@ -186,7 +187,7 @@
                                                                            FontFamily="Segoe MDL2 Assets"
                                                                            HorizontalAlignment="Center"
                                                                            VerticalAlignment="Bottom"
-                                                                           Text="&#xF623;" />
+                                                                           Text="{TemplateBinding Tag}" />
                                                             </StackPanel>
                                                         </Grid>
                                                     </Border>
