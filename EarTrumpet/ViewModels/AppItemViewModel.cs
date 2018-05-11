@@ -33,6 +33,7 @@ namespace EarTrumpet.ViewModels
 
         public override int GetHashCode()
         {
+            if (Id == null) return "Default".GetHashCode();
             return Id.GetHashCode();
         }
     }
@@ -41,7 +42,7 @@ namespace EarTrumpet.ViewModels
     {
         private IAudioDeviceSession _session;
         // TODO: localization
-        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = "Default", IsDefault = true, Id="Default" };
+        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = "Default", IsDefault = true, };
 
         public string ExeName { get; private set; }
 

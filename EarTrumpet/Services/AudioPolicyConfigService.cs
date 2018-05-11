@@ -14,6 +14,12 @@ namespace EarTrumpet.Services
                 [MarshalAs(UnmanagedType.HString)] string activatableClassId,
                 [In] ref Guid iid,
                 [Out, MarshalAs(UnmanagedType.IInspectable)] out Object factory);
+
+            [DllImport("combase.dll")]
+            public static extern void WindowsCreateString(
+                [MarshalAs(UnmanagedType.LPWStr)] string activatableClassId,
+                [In] uint length,
+                [Out] out IntPtr hstring);
         }
 
         const string DEVINTERFACE_AUDIO_RENDER = "#{e6327cad-dcec-4949-ae8a-991e976a79d2}";
@@ -34,6 +40,7 @@ namespace EarTrumpet.Services
 
         private static string GenerateDeviceId(string deviceId)
         {
+
             return $"{MMDEVAPI_TOKEN}{deviceId}{DEVINTERFACE_AUDIO_RENDER}";
         }
 
@@ -50,7 +57,14 @@ namespace EarTrumpet.Services
 
             try
             {
-                s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, GenerateDeviceId(deviceId));
+                IntPtr hstring = IntPtr.Zero;
+                
+                if (!string.IsNullOrWhiteSpace(deviceId))
+                {
+                    var str = GenerateDeviceId(deviceId);
+                    Interop.WindowsCreateString(str, (uint)str.Length, out hstring);
+                }
+                s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, hstring);
             }
             catch(COMException ex)
             {

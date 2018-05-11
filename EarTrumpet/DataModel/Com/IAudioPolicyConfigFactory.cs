@@ -28,7 +28,7 @@ namespace EarTrumpet.DataModel.Com
         int __incomplete__remove_ChatContextChanged();
 
 
-        int SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [MarshalAs(UnmanagedType.HString)] string deviceId);
+        int SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
         int GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
         int ClearAllPersistedApplicationDefaultEndpoints();
     }
