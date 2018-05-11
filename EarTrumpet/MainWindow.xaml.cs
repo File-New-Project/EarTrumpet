@@ -19,14 +19,11 @@ namespace EarTrumpet
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
 
-        private Popup _secondaryUI;
-
         public MainWindow()
         {
             InitializeComponent();
             _deviceService = new AudioDeviceManager(Dispatcher);
             _viewModel = new MainViewModel(_deviceService);
-            _viewModel.SessionPopup += _viewModel_SessionPopup;
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -39,44 +36,14 @@ namespace EarTrumpet
                 ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
             };
 
+            ContentGrid.SizeChanged += (s, e) => UpdateWindowPosition();
+
             ThemeService.ThemeChanged += () => UpdateTheme();
 
             CreateAndHideWindow();
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
-        }
-
-        private void _viewModel_SessionPopup(object sender, SessionPopupEventArgs e)
-        {
-            if (_secondaryUI == null)
-            {
-                _secondaryUI = (Popup)Resources["SecondaryUIPopup"];
-                LayoutRoot.Children.Add(_secondaryUI);
-            }
-
-            _secondaryUI.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
-            _secondaryUI.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
-            _secondaryUI.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y;
-            _secondaryUI.Height = ActualHeight;
-            _secondaryUI.Width = ActualWidth;
-            _secondaryUI.DataContext = e.ViewModel;
-            _secondaryUI.AllowsTransparency = true;
-            
-            _secondaryUI.Opened += (_, __) =>
-            {
-                if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
-                {
-                    _secondaryUI.EnableBlur();
-                }
-                else
-                {
-                    _secondaryUI.DisableBlur();
-                    OverlayGrid.Background = (Brush)Resources["DimmedBackground"];
-                }
-            };
-            _secondaryUI.IsOpen = true;
-
         }
 
         private void CreateAndHideWindow()
@@ -92,8 +59,6 @@ namespace EarTrumpet
         {
             if (this.Visibility == Visibility.Visible)
             {
-                DismissSecondaryUI_Click(null, null);
-
                 this.HideWithAnimation();
                 _viewModel.IsVisible = false;
             }
@@ -110,9 +75,6 @@ namespace EarTrumpet
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            DismissSecondaryUI_Click(null, null);
-
-            
             this.HideWithAnimation();
             _viewModel.IsVisible = false;
         }
@@ -180,47 +142,6 @@ namespace EarTrumpet
         private void ExitMenu_Click(object sender, RoutedEventArgs e)
         {
             _trayIcon.Exit_Click(this, null);
-        }
-
-        private void DismissSecondaryUI_Click(object sender, RoutedEventArgs e)
-        {
-            if (_secondaryUI != null)
-            {
-                _secondaryUI.DataContext = null;
-                _secondaryUI.IsOpen = false;
-                LayoutRoot.Children.Remove(_secondaryUI);
-                _secondaryUI = null;
-            }
-            OverlayGrid.Background = null;
-        }
-
-        private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedApp = (AppItemViewModel)_secondaryUI.DataContext;
-
-            var currentDeviceId = selectedApp.Session.Device.Id;
-
-            var moveMenu = new ContextMenu();
-
-            var addDevice = new Action<DeviceViewModel>((device) =>
-            {
-                if (device.Device.Id == currentDeviceId) return;
-
-                var newItem = new MenuItem { Header = device.Device.DisplayName };
-                newItem.Click += (_, __) => device.TakeExternalSession(selectedApp);
-                moveMenu.Items.Add(newItem);
-            });
-
-            foreach(var device in _viewModel.Devices)
-            {
-                addDevice(device);
-            }
-
-            addDevice(_viewModel.DefaultDevice);
-
-            moveMenu.PlacementTarget = (UIElement)sender;
-            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            moveMenu.IsOpen = true;
         }
 
         private void ExpandCollapse_PreviewKeyDown(object sender, KeyEventArgs e)

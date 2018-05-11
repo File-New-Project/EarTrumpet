@@ -78,7 +78,7 @@ namespace EarTrumpet.UserControls
             else
             {
                 // These apply to all the app sessions.
-                var vm = (AudioSessionViewModel)dt;
+                var vm = (AppItemViewModel)dt;
 
                 if (e.Key == Key.M || e.Key == Key.Space)
                 {
@@ -105,8 +105,6 @@ namespace EarTrumpet.UserControls
                         DeviceListItem.Focus();
                         e.Handled = true;
                     }
-
-                    
                 }
                 else if (e.Key == Key.Down)
                 {
@@ -136,6 +134,41 @@ namespace EarTrumpet.UserControls
 
             DeviceListItem.FocusVisualStyle = null;
             DeviceListItem.Focus();
+        }
+
+        private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedApp = MainViewModel.ExpandedApp;
+            var vm = MainViewModel.Instance;
+            
+            var currentDeviceId = selectedApp.Session.Device.Id;
+
+            var moveMenu = new ContextMenu();
+
+            var addDevice = new Action<DeviceViewModel>((device) =>
+            {
+                if (device.Device.Id == currentDeviceId) return;
+
+                var newItem = new MenuItem { Header = device.Device.DisplayName };
+                newItem.Click += (_, __) =>
+                {
+                    device.TakeExternalSession(selectedApp);
+                    selectedApp.IsExpanded = false;
+                    MainViewModel.ExpandedApp = null;
+                };
+                moveMenu.Items.Add(newItem);
+            });
+
+            foreach (var device in vm.Devices)
+            {
+                addDevice(device);
+            }
+
+            addDevice(vm.DefaultDevice);
+
+            moveMenu.PlacementTarget = (UIElement)sender;
+            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            moveMenu.IsOpen = true;
         }
     }
 }

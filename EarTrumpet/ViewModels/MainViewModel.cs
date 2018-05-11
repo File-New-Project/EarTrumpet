@@ -9,17 +9,9 @@ using System.Windows;
 
 namespace EarTrumpet.ViewModels
 {
-    public class SessionPopupEventArgs
-    {
-        public UIElement Item;
-        public AppItemViewModel ViewModel;
-    }
-
     public class MainViewModel : BindableBase
     {
-        static MainViewModel s_instance;
-
-        public event EventHandler<SessionPopupEventArgs> SessionPopup;
+        public static MainViewModel Instance { get; private set; }
 
         public DeviceViewModel DefaultDevice { get; private set; }
 
@@ -55,17 +47,24 @@ namespace EarTrumpet.ViewModels
                     else
                     {
                         _peakMeterTimer.Stop();
+
+                        if (ExpandedApp != null)
+                        {
+                            ExpandedApp.IsExpanded = false;
+                        }
                     }
                 }
             }
         }
+
+        public static AppItemViewModel ExpandedApp { get; internal set; }
 
         private readonly IAudioDeviceManager _deviceService;
         private readonly Timer _peakMeterTimer;
 
         public MainViewModel(IAudioDeviceManager deviceService)
         {
-            s_instance = this;
+            Instance = this;
 
             _deviceService = deviceService;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
@@ -170,11 +169,6 @@ namespace EarTrumpet.ViewModels
             ExpandedPaneVisibility = ExpandedPaneVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             RaisePropertyChanged(nameof(ExpandedPaneVisibility));
             RaisePropertyChanged(nameof(ExpandText));
-        }
-
-        public static void InvokeSecondaryUIForSession(UIElement item, AppItemViewModel stream)
-        {
-            s_instance.SessionPopup(s_instance, new SessionPopupEventArgs { Item = item, ViewModel = stream });
         }
     }
 }

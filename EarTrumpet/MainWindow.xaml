@@ -84,7 +84,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
         <Style x:Key="SolidFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -97,122 +96,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Popup x:Key="SecondaryUIPopup"
-               AllowsTransparency="True">
-            <ScrollViewer 
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    VerticalScrollBarVisibility="Auto"
-                    CanContentScroll="True"
-                    PanningMode="VerticalOnly"
-                    Focusable="False"
-                    Margin="0">
-                <Grid Background="#01000000" IsHitTestVisible="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Button Style="{StaticResource DismissButton}" Click="DismissSecondaryUI_Click" />
-                    <Button Style="{StaticResource DismissButton}" Grid.Row="2" Click="DismissSecondaryUI_Click" />
-                    <Grid Grid.Row="1"
-                          Background="{DynamicResource HeaderBackgroundSolid}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding DisplayName}"
-                                   Padding="12,6,8,6" 
-                                   FontSize="15" 
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Stretch"
-                                   
-                                   TextTrimming="CharacterEllipsis"/>
-                        <Button BorderThickness="0"
-                                HorizontalContentAlignment="Stretch"
-                                VerticalAlignment="Top"
-                                Foreground="{DynamicResource WindowForeground}"
-                                Grid.Column="1" 
-                                IsEnabled="{Binding IsMovable}"
-                                Click="MoveToAnotherDevice_Click">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" >
-                                        <Setter.Value>
-                                            <SolidColorBrush Color="Transparent" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border"
-                             SnapsToDevicePixels="True"                                                                   
-                             Background="{TemplateBinding Background}">
-                                                    <ContentPresenter RecognizesAccessKey="True" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Background" >
-                                                <Setter.Value>
-                                                    <SolidColorBrush Color="#22FFFFFF" />
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Border Background="{TemplateBinding Background}">
-                                        <Grid HorizontalAlignment="Right"
-                                      Margin="10,4,10,4"
-                                          >
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock FontSize="18"
-                                               Margin="2"
-                                               Foreground="{TemplateBinding Foreground}"
-                                               FontFamily="Segoe MDL2 Assets"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Bottom"
-                                               Text="&#xF623;" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
-                          VerticalAlignment="Center"
-                          Grid.ColumnSpan="2"
-                          Grid.Row="1">
-                            <ListView.ItemTemplate>
-                                <DataTemplate DataType="viewModels:AppItemViewModel">
-                                    <local:AudioSessionControl 
-                                        Stream="{Binding}"
-                                        IconHeight="24"
-                                        IconWidth="24"
-                                        VolumeTextFontSize="18"
-                                        IconSource="{Binding Icon}"
-                                        IconText="{Binding IconText}"
-                                        IconTextSize="16"
-                                        IconTextFontWeight="Bold"
-                                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                                        IconBackground="{Binding Background}" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                </Grid>
-            </ScrollViewer>
-        </Popup>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer 
@@ -223,7 +106,7 @@
                     PanningMode="VerticalOnly"
                     Focusable="False"           
                     Margin="0">
-            <Grid>
+            <Grid Name="ContentGrid" VerticalAlignment="Top">
                 <Grid x:Name="NoAppsPanel"
                                 Margin="0,8"
                                 Grid.Row="1" 
@@ -235,7 +118,6 @@
                                     FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
                                     TextWrapping="Wrap" />
                 </Grid>
-
                 <Grid Visibility="{Binding DeviceVisibility}"
                       Margin="0,0,0,8">
                     <StackPanel Orientation="Vertical">
@@ -300,7 +182,5 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
-
-        <Grid Name="OverlayGrid" />
     </Grid>
 </Window>

@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              mc:Ignorable="d" 
              IsTabStop="False"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <ext:InvertableVisibilityConverter x:Key="visConverter" />
+        <SolidColorBrush x:Key="WindowForeground"
+                         Color="White" />
+        <SolidColorBrush x:Key="WindowBackground"
+                         Color="Black" />
         <SolidColorBrush x:Key="HeaderBackground"
+                         Color="Black" />
+        <SolidColorBrush x:Key="HeaderBackgroundSolid"
                          Color="Black" />
         <Style x:Key="{x:Type ListView}" TargetType="ListView">
             <Setter Property="SnapsToDevicePixels"
@@ -25,7 +33,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
         <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
             <Setter Property="SnapsToDevicePixels"
           Value="true" />
@@ -44,7 +51,6 @@
             </Setter>
             <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
         </Style>
-
         <Style x:Key="SolidFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -62,7 +68,6 @@
         <StackPanel Orientation="Vertical">
             <Border Background="{DynamicResource HeaderBackground}"
                             BorderThickness="0,0,0,12">
-
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Device.Device.DisplayName}" 
                                Padding="12,12,8,14" 
@@ -93,17 +98,124 @@
                       Name="AppList">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <local:AudioSessionControl 
-                        Stream="{Binding}"
-                        IconHeight="24"
-                        IconWidth="24"
-                        VolumeTextFontSize="18"
-                        IconSource="{Binding Icon}"
-                        IconText="{Binding IconText}"
-                        IconTextSize="16"
-                        IconTextFontWeight="Bold"
-                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                        IconBackground="{Binding Background}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <local:AudioSessionControl 
+                                Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Inverted}"
+                                Grid.Row="1"
+                                Stream="{Binding}"
+                                IconHeight="24"
+                                IconWidth="24"
+                                VolumeTextFontSize="18"
+                                IconSource="{Binding Icon}"
+                                IconText="{Binding IconText}"
+                                IconTextSize="16"
+                                IconTextFontWeight="Bold"
+                                IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                                IconBackground="{Binding Background}" />
+                            <Grid Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                                  Grid.Row="2">
+                                <Grid>
+                                    <Grid Background="{DynamicResource HeaderBackgroundSolid}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding DisplayName}"
+                                   Padding="12,6,8,6" 
+                                   FontSize="15" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Stretch"
+                                   
+                                   TextTrimming="CharacterEllipsis"/>
+                                        <Button BorderThickness="0"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalAlignment="Top"
+                                                Foreground="{DynamicResource WindowForeground}"
+                                                Grid.Column="1" 
+                                                FocusVisualStyle="{StaticResource SolidFocusVisual}"
+                                                IsEnabled="{Binding IsMovable}"
+                                                Click="MoveToAnotherDevice_Click">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" >
+                                                        <Setter.Value>
+                                                            <SolidColorBrush Color="Transparent" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border x:Name="border"
+                             SnapsToDevicePixels="True"                                                                   
+                             Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter RecognizesAccessKey="True" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                            <Setter Property="Background" >
+                                                                <Setter.Value>
+                                                                    <SolidColorBrush Color="#22FFFFFF" />
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <Grid HorizontalAlignment="Right"
+                                                              Margin="10,4,10,4">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock FontSize="18"
+                                                                           Margin="2"
+                                                                           Foreground="{TemplateBinding Foreground}"
+                                                                           FontFamily="Segoe MDL2 Assets"
+                                                                           HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Bottom"
+                                                                           Text="&#xF623;" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
+                                                  VerticalAlignment="Center"
+                                                  Grid.ColumnSpan="2"
+                                                  Grid.Row="1">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate DataType="viewModels:AppItemViewModel">
+                                                    <local:AudioSessionControl 
+                                                        Stream="{Binding}"
+                                                        IconHeight="24"
+                                                        IconWidth="24"
+                                                        VolumeTextFontSize="18"
+                                                        IconSource="{Binding Icon}"
+                                                        IconText="{Binding IconText}"
+                                                        IconTextSize="16"
+                                                        IconTextFontWeight="Bold"
+                                                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                                                        IconBackground="{Binding Background}" />
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

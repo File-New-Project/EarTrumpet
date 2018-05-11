@@ -27,6 +27,17 @@ namespace EarTrumpet.ViewModels
         string _displayName;
         public override string DisplayName => _displayName;
 
+        bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set
+            {
+                _isExpanded = value;
+                RaisePropertyChanged(nameof(IsExpanded));
+            }
+        }
+
         public ObservableCollection<AppItemViewModel> ChildApps { get; private set; }
 
         public bool IsMovable => !_session.IsSystemSoundsSession;

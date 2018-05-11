@@ -206,9 +206,16 @@ namespace EarTrumpet.UserControls
         private void UserControl_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             var app = Stream as AppItemViewModel;
-            if (app != null)
+            if (app != null && !app.IsExpanded)
             {
-                MainViewModel.InvokeSecondaryUIForSession((UIElement)sender, app);
+                app.IsExpanded = true;
+                var oldApp = MainViewModel.ExpandedApp;
+                MainViewModel.ExpandedApp = app;
+
+                if (oldApp != null && oldApp != app)
+                {
+                    oldApp.IsExpanded = false;
+                }
             }
         }
     }
