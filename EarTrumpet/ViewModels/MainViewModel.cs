@@ -9,6 +9,16 @@ using System.Windows;
 
 namespace EarTrumpet.ViewModels
 {
+    public enum ViewState
+    {
+        NotReady,
+        Hidden,
+        Opening,
+        Opening_CloseRequested,
+        Open,
+        Closing,
+    }
+
     public class MainViewModel : BindableBase
     {
         public static MainViewModel Instance { get; private set; }
@@ -16,8 +26,6 @@ namespace EarTrumpet.ViewModels
         public DeviceViewModel DefaultDevice { get; private set; }
 
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
-
-        List<IAudioDevice> _allDevices = new List<IAudioDevice>();
 
         public Visibility ListVisibility => DefaultDevice.Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 
@@ -47,23 +55,24 @@ namespace EarTrumpet.ViewModels
                     else
                     {
                         _peakMeterTimer.Stop();
-
-                        if (ExpandedApp != null)
-                        {
-                            ExpandedApp.IsExpanded = false;
-                        }
                     }
                 }
             }
         }
 
-        public static AppItemViewModel ExpandedApp { get; internal set; }
+        public ViewState State { get; private set; }
+
+        public static AppItemViewModel ExpandedApp { get; set; }
+
+        public event EventHandler<ViewState> StateChanged = delegate { };
 
         private readonly IAudioDeviceManager _deviceService;
         private readonly Timer _peakMeterTimer;
+        private List<IAudioDevice> _allDevices = new List<IAudioDevice>();
 
         public MainViewModel(IAudioDeviceManager deviceService)
         {
+            State = ViewState.NotReady;
             Instance = this;
 
             _deviceService = deviceService;
@@ -169,6 +178,47 @@ namespace EarTrumpet.ViewModels
             ExpandedPaneVisibility = ExpandedPaneVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             RaisePropertyChanged(nameof(ExpandedPaneVisibility));
             RaisePropertyChanged(nameof(ExpandText));
+        }
+
+        public void ChangeState(ViewState state)
+        {
+            var oldState = State;
+
+            State = state;
+            StateChanged(this, state);
+
+            if (state == ViewState.Open)
+            {
+                _peakMeterTimer.Start();
+
+                if (oldState == ViewState.Opening_CloseRequested)
+                {
+                    BeginClose();
+                }
+            }
+            else if (state == ViewState.Hidden)
+            {
+                _peakMeterTimer.Stop();
+            }
+        }
+
+        public void BeginOpen()
+        {
+            if (State == ViewState.Hidden)
+            {
+                ChangeState(ViewState.Opening);
+            }
+        }
+
+        public void BeginClose()
+        {
+            if (State == ViewState.Open)
+            {
+                ChangeState(ViewState.Closing);
+            } else if (State == ViewState.Opening)
+            {
+                ChangeState(ViewState.Opening_CloseRequested);
+            }
         }
     }
 }

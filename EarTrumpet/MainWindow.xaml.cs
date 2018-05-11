@@ -24,6 +24,7 @@ namespace EarTrumpet
             InitializeComponent();
             _deviceService = new AudioDeviceManager(Dispatcher);
             _viewModel = new MainViewModel(_deviceService);
+            _viewModel.StateChanged += _viewModel_StateChanged;
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -46,6 +47,36 @@ namespace EarTrumpet
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
 
+        private void _viewModel_StateChanged(object sender, ViewState e)
+        {
+            switch (e)
+            {
+                case ViewState.Opening:
+                    UpdateTheme();
+                    UpdateWindowPosition();
+                    this.ShowwithAnimation(() => _viewModel.ChangeState(ViewState.Open));
+
+                    DefaultDeviceControl.HideFocus();
+                    break;
+
+                case ViewState.Closing:
+                    this.HideWithAnimation(() => _viewModel.ChangeState(ViewState.Hidden));
+                    break;
+
+                case ViewState.Hidden:
+
+                    // Hide the app only after we've completed the animation.
+                    if (MainViewModel.ExpandedApp != null)
+                    {
+                        MainViewModel.ExpandedApp.IsExpanded = false;
+                        MainViewModel.ExpandedApp = null;
+                    }
+
+                    UpdateWindowPosition();
+                    break;
+            }
+        }
+
         private void CreateAndHideWindow()
         {
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
@@ -53,44 +84,41 @@ namespace EarTrumpet
             Show();
             Hide();
             Opacity = 1;
+
+            _viewModel.ChangeState(ViewState.Hidden);
         }
 
         void TrayIcon_Invoked()
         {
-            if (this.Visibility == Visibility.Visible)
+            switch (_viewModel.State)
             {
-                this.HideWithAnimation();
-                _viewModel.IsVisible = false;
-            }
-            else
-            {
-                _viewModel.UpdateInterfaceState();
-                UpdateTheme();
-                UpdateWindowPosition();
-                this.ShowwithAnimation();
-                DefaultDeviceControl.HideFocus();
-                _viewModel.IsVisible = true;
+                case ViewState.Hidden:
+                    _viewModel.BeginOpen();
+                    break;
+                case ViewState.Open:
+                    _viewModel.BeginClose();
+                    break;
+                default:
+                    // For transition states, we ignore the event.
+                    break;
             }
         }
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            this.HideWithAnimation();
-            _viewModel.IsVisible = false;
+            _viewModel.BeginClose();
         }
         
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                this.HideWithAnimation();
-                _viewModel.IsVisible = false;
+                _viewModel.BeginClose();
             }
         }
 
         private void UpdateTheme()
         {
-            // Call UpdateTheme before UpdateWindowPosition in case sizes change with the theme.
             ThemeService.UpdateThemeResources(Resources);
 
             if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
@@ -111,7 +139,6 @@ namespace EarTrumpet
             LayoutRoot.Measure(new Size(double.PositiveInfinity, taskbarState.TaskbarScreen.WorkingArea.Height));
             Height = LayoutRoot.DesiredSize.Height;
 
-            
             switch(taskbarState.TaskbarPosition)
             {
                 case TaskbarPosition.Left:
@@ -136,12 +163,6 @@ namespace EarTrumpet
         private void ExpandCollapse_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.DoExpandCollapse();
-            UpdateWindowPosition();
-        }
-
-        private void ExitMenu_Click(object sender, RoutedEventArgs e)
-        {
-            _trayIcon.Exit_Click(this, null);
         }
 
         private void ExpandCollapse_PreviewKeyDown(object sender, KeyEventArgs e)

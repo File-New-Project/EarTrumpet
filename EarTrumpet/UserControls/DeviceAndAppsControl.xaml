@@ -33,6 +33,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="SolidFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Rectangle StrokeThickness="3" Stroke="Black" />
+                            <Rectangle StrokeThickness="2" Stroke="White" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="StyledButton" TargetType="Button">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <SolidColorBrush Color="Transparent" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                            SnapsToDevicePixels="True"                                                                   
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" >
+                        <Setter.Value>
+                            <SolidColorBrush Color="#22FFFFFF" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
             <Setter Property="SnapsToDevicePixels"
           Value="true" />
@@ -51,18 +92,7 @@
             </Setter>
             <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
         </Style>
-        <Style x:Key="SolidFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Rectangle StrokeThickness="3" Stroke="Black" />
-                            <Rectangle StrokeThickness="2" Stroke="White" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <StackPanel Orientation="Vertical">
@@ -139,40 +169,11 @@
                                         <Button BorderThickness="0"
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalAlignment="Top"
-                                                Foreground="{DynamicResource WindowForeground}"
                                                 Grid.Column="1" 
-                                                FocusVisualStyle="{StaticResource SolidFocusVisual}"
+                                                Foreground="{StaticResource WindowForeground}"
+                                                Style="{StaticResource StyledButton}"
                                                 IsEnabled="{Binding IsMovable}"
                                                 Click="MoveToAnotherDevice_Click">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Background" >
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="Transparent" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border x:Name="border"
-                             SnapsToDevicePixels="True"                                                                   
-                             Background="{TemplateBinding Background}">
-                                                                    <ContentPresenter RecognizesAccessKey="True" />
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="true">
-                                                            <Setter Property="Background" >
-                                                                <Setter.Value>
-                                                                    <SolidColorBrush Color="#22FFFFFF" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
                                             <Button.Template>
                                                 <ControlTemplate>
                                                     <Border Background="{TemplateBinding Background}">
