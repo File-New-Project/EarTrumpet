@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EarTrumpet
 {
@@ -15,6 +16,7 @@ namespace EarTrumpet
         public event Action Invoked = delegate { };
 
         internal readonly System.Windows.Forms.NotifyIcon _trayIcon;
+        private readonly System.Windows.Forms.ContextMenu _contextMenu;
         private readonly TrayViewModel _trayViewModel;
         private IAudioDeviceManager _deviceService;
 
@@ -23,7 +25,8 @@ namespace EarTrumpet
             _deviceService = deviceService;
             _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
             _trayIcon = new System.Windows.Forms.NotifyIcon();
-            _trayIcon.ContextMenu = new System.Windows.Forms.ContextMenu();
+            _contextMenu = new System.Windows.Forms.ContextMenu();
+            _trayIcon.ContextMenu = _contextMenu;
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
@@ -31,18 +34,18 @@ namespace EarTrumpet
 
             // (Devices added here later in ContextMenu_Popup)
 
-            _trayIcon.ContextMenu.MenuItems.Add("-");
+            _contextMenu.MenuItems.Add("-");
 
             AddItem(Properties.Resources.FullWindowTitleText, EtVolumeMixer_Click);
             AddItem(Properties.Resources.LegacyVolumeMixerText, OpenlegacyVolumeMixer_Click);
 
-            _trayIcon.ContextMenu.MenuItems.Add("-");
+            _contextMenu.MenuItems.Add("-");
 
             AddItem(Properties.Resources.PlaybackDevicesText, PlaybackDevices_Click);
             AddItem(Properties.Resources.RecordingDevicesText, RecordingDevices_Click);
             AddItem(Properties.Resources.SoundsControlPanelText, SoundsControlPanel_Click);
 
-            _trayIcon.ContextMenu.MenuItems.Add("-");
+            _contextMenu.MenuItems.Add("-");
 
             AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
             AddItem(Properties.Resources.TroubleshootEarTrumpetText, DiagnosticsItem_Click);
@@ -51,7 +54,7 @@ namespace EarTrumpet
             AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
-            _trayIcon.ContextMenu.Popup += ContextMenu_Popup;
+            _contextMenu.Popup += ContextMenu_Popup;
 
             _trayIcon.Icon = _trayViewModel.TrayIcon;
 
@@ -62,7 +65,7 @@ namespace EarTrumpet
 
         private void AddItem(string text, EventHandler clickHandler)
         {
-            var item = _trayIcon.ContextMenu.MenuItems.Add(text);
+            var item = _contextMenu.MenuItems.Add(text);
             item.Click += clickHandler;
         }
 
@@ -147,6 +150,19 @@ namespace EarTrumpet
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 Invoked.Invoke();
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) ||
+                    Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    LegacyVolumeFlyoutService.ShowMenu();
+                }
+                else
+                {
+                    // TODO: When we de-couple ContextMenu from NotifyIcon, show it here.
+                    // _contextMenu.Show(null, System.Windows.Forms.Cursor.Position);
+                }
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
