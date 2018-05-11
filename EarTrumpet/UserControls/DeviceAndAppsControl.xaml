@@ -219,6 +219,7 @@
                                         </ListView>
                                         <Grid Grid.Row="2" Margin="20,0,0,12">
                                             <ComboBox
+                                                IsEnabled="{Binding IsMovable}"
                                                 Height="26"
                                                 Width="200"
                                                 VerticalAlignment="Center"
