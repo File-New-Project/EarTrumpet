@@ -235,7 +235,7 @@
                 <Border.Style>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDimmed}" Value="true">
+                            <DataTrigger Binding="{Binding IsDimmed}" Value="true" >
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>

@@ -19,6 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>
     </PackageCertificateKeyFile>
+    <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -97,6 +98,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FeedbackTask.cs" />
+    <Compile Include="UpdateTask.cs" />
     <Compile Include="WhatsNewPage.xaml.cs">
       <DependentUpon>WhatsNewPage.xaml</DependentUpon>
     </Compile>
@@ -115,40 +118,13 @@
     <Content Include="Assets\Square44x44LogoDark.scale-200.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\welcome.gif" />
-    <AppxSystemBinary Include="EarTrumpet.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AppxSystemBinary>
     <Content Include="Assets\Wide310x150Logo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="de\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EarTrumpet.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="fr\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="nb-no\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="nn-no\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="VFS\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zh-Hans\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="zh-Hant\EarTrumpet.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -166,10 +142,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.2</Version>
+      <Version>6.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
-      <Version>10.1710.25002</Version>
+      <Version>10.1711.28001</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -189,28 +165,12 @@
     <PRIResource Include="Strings\zh-hk\resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EarTrumpet.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Registry.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj">
-      <Project>{b4b0d6b6-b9ea-4492-a42e-2ec45f2ea30a}</Project>
-      <Name>EarTrumpet.BackgroundTasks</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
@@ -223,10 +183,7 @@
     <ItemGroup>
       <EarTrumpet Include="$(ProjectDir)..\Build\$(Configuration)\**\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(EarTrumpet)" DestinationFiles="@(EarTrumpet->'$(ProjectDir)%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="$(ProjectDir)..\Build\$(Configuration)\EarTrumpet.exe" DestinationFiles="$(ProjectDir)$(OutputPath)EarTrumpet.exe" />
-    <Copy SourceFiles="$(ProjectDir)..\Build\$(Configuration)\EarTrumpet.exe" DestinationFiles="$(ProjectDir)$(OutputPath)\Appx\EarTrumpet.exe" />
   </Target>
 </Project>
