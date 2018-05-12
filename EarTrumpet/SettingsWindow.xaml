@@ -12,6 +12,7 @@
         Icon="Tray.ico"
         ShowInTaskbar="True"
         AllowsTransparency="True"
+        SizeToContent="Height"
         Foreground="{DynamicResource WindowForeground}"
         Background="Black"
         BorderThickness="1"
@@ -47,6 +48,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="HeadingText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="4, 12" />
+        </Style>
+        <Style x:Key="BodyText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="4, 0, 12, 0" />
+        </Style>
     </Window.Resources>
     <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}" Background="{DynamicResource WindowBackground}">
         <DockPanel>
@@ -56,7 +67,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock TextAlignment="Left"
-                           Padding="20, 8, 20, 8"
+                           Padding="16, 8, 20, 8"
                            Text="{Binding ElementName=WindowRoot,Path=Title}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="1"
@@ -66,18 +77,25 @@
             </Grid>
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Bottom" />
-            <StackPanel Orientation="Vertical"
-                        Margin="8">
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <StackPanel Orientation="Vertical" Margin="12,12,12,24">
+                <TextBlock Text="{x:Static resx:Resources.SettingsTitle}" Style="{StaticResource HeadingText}" Margin="4,0,4,12" />
+                <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center"
                                Text="{x:Static resx:Resources.HotkeyDescriptionText}"
-                               Margin="4,4,0,4" />
+                               Style="{StaticResource BodyText}"
+                               Margin="4,0,12,0" />
                     <Button Click="HotkeySelect_Click"
-                            FontSize="12"
-                            Margin="2,0,0,0"
                             Style="{StaticResource SlimButton}"
                             Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                            Content="{Binding HotkeyText}" />
+                            Content="{Binding HotkeyText}" HorizontalAlignment="Left" />
+                </StackPanel>
+                <TextBlock Text="{x:Static resx:Resources.DiagnosticsTitle}" Style="{StaticResource HeadingText}" />
+                <TextBlock Text="{x:Static resx:Resources.DiagnosticsText}" Style="{StaticResource BodyText}"/>
+                <Button Content="{x:Static resx:Resources.TroubleshootEarTrumpetText}" HorizontalAlignment="Left" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenDiagnosticsCommand}" Margin="0,8,0,0"></Button>
+                <TextBlock Text="{x:Static resx:Resources.AboutTitle}" Style="{StaticResource HeadingText}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding AboutText}" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
+                    <Button Content="{x:Static resx:Resources.WebsiteText}" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenAboutCommand}"></Button>
                 </StackPanel>
             </StackPanel>
         </DockPanel>

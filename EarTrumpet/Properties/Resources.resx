@@ -151,7 +151,7 @@
     <value>Recording devices</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Settings</value>
+    <value>EarTrumpet Settings  / About</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
@@ -185,5 +185,23 @@
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Always use the default output device.</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="DiagnosticsText" xml:space="preserve">
+    <value>Having trouble with EarTrumpet? Sometimes it can help to have the list of audio sessions from your PC.</value>
+  </data>
+  <data name="DiagnosticsTitle" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Press the key combination</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Website</value>
   </data>
 </root>

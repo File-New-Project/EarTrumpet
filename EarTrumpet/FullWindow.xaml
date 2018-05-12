@@ -28,9 +28,6 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
-    <Window.Resources>
-
-    </Window.Resources>
     <DockPanel x:Name="ContentRoot" Background="{DynamicResource WindowBackground}">
         <DockPanel DockPanel.Dock="Top">
             <Button x:Name="CloseButton"  DockPanel.Dock="Right" Content="&#xE8BB;" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click"/>

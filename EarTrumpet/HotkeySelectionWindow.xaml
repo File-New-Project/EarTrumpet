@@ -14,7 +14,7 @@
         Background="Black"        
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="200" Width="300"
         BorderThickness="1"
-        PreviewKeyDown="Window_PreviewKeyDown">
+        PreviewKeyDown="Window_PreviewKeyDown" WindowStartupLocation="CenterOwner">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31"
                       ResizeBorderThickness="4" />
@@ -33,15 +33,6 @@
         </Style>
     </Window.Style>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowForeground"
-                         Color="White" />
-        <SolidColorBrush x:Key="WindowBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="ActiveBorder"
-                         Color="Red" />
-        
         <Style TargetType="Window">
             <Setter Property="BorderBrush"
                     Value="{DynamicResource ActiveBorder}" />
@@ -69,19 +60,20 @@
                     Style="{DynamicResource CloseButtonStyle}"
                     Click="CloseButton_Click" />
         </Grid>
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-                <TextBlock Margin="12"
-                           Name="HotkeyText" />
-                <Button Margin="12" Grid.Row="1"
-                        FontSize="12"
-                        Click="CloseButton_Click"
-                        Style="{DynamicResource SlimButton}"
-                        Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                        Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
+            <TextBlock Text="{x:Static resx:Resources.HotKeySelectionText}" FontSize="15" />
+            <TextBlock Grid.Row="1" Name="HotkeyText" FontSize="24" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Row="2"
+                    FontSize="12"
+                    Click="CloseButton_Click"
+                    Style="{DynamicResource SlimButton}"
+                    Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
+                    Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}" />
         </Grid>
     </DockPanel>
 </Window>
