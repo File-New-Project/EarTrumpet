@@ -1,20 +1,21 @@
 ﻿<UserControl x:Class="EarTrumpet.UserControls.DeviceAndAppsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              IsTabStop="False"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300"
+             d:DesignWidth="300">
     <UserControl.Resources>
-
-        <Style x:Key="{x:Type ListView}" TargetType="ListView">
+        <Style x:Key="{x:Type ListView}"
+               TargetType="ListView">
             <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                    Value="true" />
             <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                    Value="true" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListView">
@@ -25,56 +26,100 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
-        
-        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+        <Style x:Key="{x:Type ListViewItem}"
+               TargetType="ListViewItem">
             <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+                    Value="true" />
             <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+                    Value="true" />
             <Setter Property="FocusVisualStyle"
                     Value="{DynamicResource SolidFocusVisual}" />
-            
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <ContentPresenter 
-                                Content="{TemplateBinding ContentControl.Content}" 
-                                ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                          ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
-            <EventSetter Event="PreviewMouseRightButtonDown" Handler="AppList_PreviewMouseRightButtonDown" />
+            <EventSetter Event="PreviewKeyDown"
+                         Handler="ListViewItem_PreviewKeyDown" />
+            <EventSetter Event="PreviewMouseRightButtonDown"
+                         Handler="AppList_PreviewMouseRightButtonDown" />
         </Style>
-
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <StackPanel Orientation="Vertical">
             <Border Background="{DynamicResource HeaderBackground}"
-                            BorderThickness="0,0,0,12">
+                    BorderThickness="0,0,0,12">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Device.Device.DisplayName}" 
-                               Padding="12,12,8,14" 
-                               FontSize="15" 
+                    <TextBlock Text="{Binding Device.Device.DisplayName}"
+                               Padding="12,12,8,14"
+                               FontSize="15"
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis" />
                     <ItemsControl IsTabStop="False">
                         <ListViewItem Name="DeviceListItem">
-                            <local:AudioSessionControl 
-                            Stream="{Binding Device.Device}"
-                            IconHeight="32"
-                            IconWidth="32"
-                            VolumeTextFontSize="24"
-                            IconText="{Binding Device.DeviceIconText}"
-                            IconTextSize="24"
-                            IconTextFontFamily="Segoe MDL2 Assets"
-                            IconBackground="Transparent"
-                            BeepOnPointerUp="True"
-                            MuteOverlay="False"
-                            Padding="0,4,0,6"
-                        />
+
+                            <Grid Margin="12,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="42" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0"
+                                        ToolTip="{Binding Device.Device.DisplayName}"
+                                        Background="Transparent"
+                                        HorizontalAlignment="Center"
+                                        Height="24"
+                                        Width="24"
+                                        Margin="8,0"
+                                        MouseDown="Icon_MouseDown"
+                                        Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
+                                    <Grid>
+                                        <TextBlock FontSize="24"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding Device.DeviceIconText}"
+                                                   FontFamily="Segoe MDL2 Assets"
+                                                   Margin="0,-1,0,0" />
+
+                                    </Grid>
+                                </Border>
+
+                                <local:AudioPeakMeter Grid.Column="1"
+                                                      Margin="12,0,20,0"
+                                                      IsHitTestVisible="False"
+                                                      PeakValue="{Binding Device.Device.PeakValue}"
+                                                      Volume="{Binding Device.Device.Volume}" />
+                                <local:TouchSlider Grid.Column="1"
+                                                   Value="{Binding Device.Device.Volume,Mode=TwoWay}"
+                                                   Minimum="0"
+                                                   Maximum="100"
+                                                   VerticalContentAlignment="Center"
+                                                   HorizontalContentAlignment="Stretch"
+                                                   PreviewTouchUp="TouchSlider_TouchUp"
+                                                   PreviewMouseUp="TouchSlider_MouseUp"
+                                                   Margin="12,0"
+                                                   IsTabStop="False"
+                                                   VerticalAlignment="Center"
+                                                   Interval="1"
+                                                   SnapsToDevicePixels="True"
+                                                   SmallChange="1"
+                                                   LargeChange="10"
+                                                   IsManipulationEnabled="True"
+                                                   Style="{StaticResource TouchSliderStyle}"
+                                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding Device.Device.Volume, Mode=OneWay}"
+                                           FontSize="24"
+                                           FontFamily="Segoe UI"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                           Margin="0,-3,0,0" />
+                            </Grid>
                         </ListViewItem>
                     </ItemsControl>
                 </StackPanel>
@@ -84,17 +129,10 @@
                       Name="AppList">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <local:AudioSessionControl 
-                            Stream="{Binding}"
-                            IconHeight="24"
-                            IconWidth="24"
-                            VolumeTextFontSize="18"
-                            IconSource="{Binding Icon}"
-                            IconText="{Binding IconText}"
-                            IconTextSize="16"
-                            IconTextFontWeight="Bold"
-                            IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
-                            IconBackground="{Binding Background}" />
+                        <local:AudioSessionControl Stream="{Binding}"
+                                                   IconSource="{Binding Icon}"
+                                                   IconText="{Binding IconText}"
+                                                   IconBackground="{Binding Background}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -8,9 +8,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SystemThemeColors.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#39FFFFFF" />
+            
+            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
+            <ext:OpacityConverter x:Key="opacityConverter" />
+            
             <Style x:Key="CaptionButtonStyle"
                TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
@@ -150,6 +152,120 @@
                                 <SolidColorBrush Color="#22FFFFFF" />
                             </Setter.Value>
                         </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="SliderButtonStyle"
+               TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+                <Setter Property="IsTabStop"
+                    Value="false" />
+                <Setter Property="Focusable"
+                    Value="false" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Border Background="Transparent">
+                                <Border Background="{TemplateBinding Foreground}"
+                                    Height="2"></Border>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SliderThumbStyle"
+               TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+                <Setter Property="Height"
+                    Value="24" />
+                <Setter Property="Width"
+                    Value="8" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border Name="Thumb"
+                                Background="{TemplateBinding Foreground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                CornerRadius="5"></Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ControlTemplate x:Key="HorizontalSlider"
+                         TargetType="{x:Type Slider}">
+                <Grid>
+                    <Border Name="TrackBackground"
+                        Margin="0"
+                        Height="2"
+                        Background="Transparent" />
+                    <Track Name="PART_Track">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Name="SliderLeft"
+                                      Foreground="Transparent"
+                                      Style="{StaticResource SliderButtonStyle}"
+                                      Command="Slider.DecreaseLarge" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb Name="SliderThumb"
+                               Foreground="{DynamicResource CottonSwabSliderThumb}"
+                               Style="{StaticResource SliderThumbStyle}" />
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Name="SliderRight"
+                                      Foreground="Transparent"
+                                      Style="{StaticResource SliderButtonStyle}"
+                                      Command="Slider.IncreaseLarge" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualStateGroup.Transitions>
+                                <VisualTransition To="Normal"
+                                              GeneratedDuration="0" />
+                            </VisualStateGroup.Transitions>
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="MouseOver">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
+                                                               Storyboard.TargetName="SliderThumb">
+                                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                            Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
+                                                               Storyboard.TargetName="SliderThumb">
+                                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                            Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled"
+                         Value="False">
+                        <Setter Property="Opacity"
+                            Value="0.5" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style x:Key="TouchSliderStyle" TargetType="{x:Type Slider}">
+                <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+                <Style.Triggers>
+                    <Trigger Property="Orientation"
+                         Value="Horizontal">
+                        <Setter Property="Height"
+                            Value="32" />
+                        <Setter Property="Template"
+                            Value="{StaticResource HorizontalSlider}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

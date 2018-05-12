@@ -54,24 +54,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="DismissButton" TargetType="Button">
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="VerticalContentAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="Transparent" />
-            <Setter Property="MinHeight" Value="25" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource SolidFocusVisual}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
         <Popup x:Key="AppPopup">
             <Grid>
@@ -123,14 +105,8 @@
                             <DataTemplate DataType="viewModels:AppItemViewModel">
                                 <local:AudioSessionControl 
                                                         Stream="{Binding}"
-                                                        IconHeight="24"
-                                                        IconWidth="24"
-                                                        VolumeTextFontSize="18"
                                                         IconSource="{Binding Icon}"
                                                         IconText="{Binding IconText}"
-                                                        IconTextSize="16"
-                                                        IconTextFontWeight="Bold"
-                                                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
                                                         IconBackground="{Binding Background}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>

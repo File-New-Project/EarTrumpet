@@ -87,6 +87,7 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TouchSlider.cs" />
     <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
       <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
     </Compile>
