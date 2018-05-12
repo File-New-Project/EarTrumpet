@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel.Com;
+using EarTrumpet.DataModel.Services;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -117,7 +118,7 @@ namespace EarTrumpet.DataModel
                 if (_defaultPlaybackDevice == null ||
                     value.Id != _defaultPlaybackDevice.Id)
                 {
-                    DefaultEndPoint.SetDefaultDevice(value);
+                    DefaultEndPointService.SetDefaultDevice(value);
                 }
             }
         }
@@ -130,7 +131,7 @@ namespace EarTrumpet.DataModel
                 if (_defaultCommunicationsDevice == null ||
                     value.Id != _defaultCommunicationsDevice.Id)
                 {
-                    DefaultEndPoint.SetDefaultDevice(value, ERole.eCommunications);
+                    DefaultEndPointService.SetDefaultDevice(value, ERole.eCommunications);
                 }
             }
         }

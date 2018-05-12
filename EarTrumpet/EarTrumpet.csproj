@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Services\AccentPolicyService.cs" />
     <Compile Include="Services\AudioPolicyConfigService.cs" />
+    <Compile Include="Services\DefaultEndpointService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\LegacyVolumeFlyoutService.cs" />
@@ -116,7 +117,6 @@
     <Compile Include="DataModel\Com\IMMNotificationClient.cs" />
     <Compile Include="DataModel\Com\ISimpleAudioVolume.cs" />
     <Compile Include="DataModel\Com\MMDeviceEnumerator.cs" />
-    <Compile Include="DataModel\DefaultEndPoint.cs" />
     <Compile Include="DataModel\Extensions\CollectionExtensionsForAudioDeviceSession.cs" />
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceManager.cs" />
