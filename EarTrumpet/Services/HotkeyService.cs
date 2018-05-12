@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace EarTrumpet.Services
@@ -17,8 +18,16 @@ namespace EarTrumpet.Services
             }
 
             s_hook = new KeyboardHook();
-            s_hook.RegisterHotKey(modifiers, key);
             s_hook.KeyPressed += Hotkey_KeyPressed;
+
+            try
+            {
+                s_hook.RegisterHotKey(modifiers, key);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"Couldn't register hotkey: {ex}");
+            }
         }
 
         static void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
