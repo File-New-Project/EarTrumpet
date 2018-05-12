@@ -87,6 +87,7 @@
           Value="true" />
             <Setter Property="FocusVisualStyle"
                     Value="{DynamicResource SolidFocusVisual}" />
+            
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -97,6 +98,7 @@
                 </Setter.Value>
             </Setter>
             <EventSetter Event="PreviewKeyDown" Handler="ListViewItem_PreviewKeyDown" />
+            <EventSetter Event="PreviewMouseRightButtonDown" Handler="AppList_PreviewMouseRightButtonDown" />
         </Style>
 
     </UserControl.Resources>
@@ -134,13 +136,14 @@
                       Name="AppList">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <local:AudioSessionControl 
+                        <Grid Name="DisconnectContainer">
+                            <Grid Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <local:AudioSessionControl 
                                 Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Inverted}"
                                 Grid.Row="1"
                                 Stream="{Binding}"
@@ -153,27 +156,27 @@
                                 IconTextFontWeight="Bold"
                                 IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
                                 IconBackground="{Binding Background}" />
-                            <Grid Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                                <Grid Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                                   Grid.Row="2">
-                                <Grid>
-                                    <Grid Background="{DynamicResource HeaderBackground}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding DisplayName}"
+                                    <Grid>
+                                        <Grid Background="{DynamicResource HeaderBackground}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding DisplayName}"
                                            Padding="12,12,8,12" 
                                            FontSize="15" 
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Stretch"
                                            TextTrimming="CharacterEllipsis"/>
-                                        <Button BorderThickness="0"
+                                            <Button BorderThickness="0"
                                                 Margin="0,0,2,0"
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalAlignment="Center"
@@ -184,7 +187,7 @@
                                                 IsEnabled="{Binding IsMovable}"
                                                 Tag="{Binding MoveIcon}"
                                                 Click="MoveToAnotherDevice_Click" />
-                                        <Button BorderThickness="0"
+                                            <Button BorderThickness="0"
                                                 Margin="0,0,2,0"
                                                 HorizontalContentAlignment="Stretch"
                                                 VerticalAlignment="Center"
@@ -194,14 +197,14 @@
                                                 Tag="&#xE8BB;"
                                                 Style="{StaticResource StyledButton}"
                                                 Click="CloseButton_Click" />
-                                        <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
+                                            <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                                                   VerticalAlignment="Center"
                                                   Grid.ColumnSpan="3"
                                                   Grid.Row="1"
                                                   Margin="0,0,0,8">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate DataType="viewModels:AppItemViewModel">
-                                                    <local:AudioSessionControl 
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate DataType="viewModels:AppItemViewModel">
+                                                        <local:AudioSessionControl 
                                                         Stream="{Binding}"
                                                         IconHeight="24"
                                                         IconWidth="24"
@@ -212,9 +215,10 @@
                                                         IconTextFontWeight="Bold"
                                                         IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
                                                         IconBackground="{Binding Background}" />
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

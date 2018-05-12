@@ -4,8 +4,12 @@ using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace EarTrumpet
 {
@@ -15,6 +19,7 @@ namespace EarTrumpet
         private readonly MainViewModel _viewModel;
         private readonly TrayViewModel _trayViewModel;
         private readonly TrayIcon _trayIcon;
+        private Popup _popup;
 
         public MainWindow()
         {
@@ -22,6 +27,8 @@ namespace EarTrumpet
             _deviceService = new AudioDeviceManager(Dispatcher);
             _viewModel = new MainViewModel(_deviceService);
             _viewModel.StateChanged += _viewModel_StateChanged;
+            _viewModel.AppExpanded += _viewModel_AppExpanded;
+            _viewModel.AppCollapsed += _viewModel_AppCollapsed;
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -44,6 +51,62 @@ namespace EarTrumpet
             ContentGrid.SizeChanged += (s, e) => UpdateWindowPosition();
         }
 
+        private void _viewModel_AppCollapsed(object sender, object e)
+        {
+            _popup.Child = null;
+            var grid = ((Grid)_viewModel.ExpandedAppContainerParent);
+            grid.Children.Add(_viewModel.ExpandedAppContainer);
+            grid.Height = double.NaN;
+
+            LayoutRoot.Children.Remove(_popup);
+            _popup.IsOpen = false;
+            _popup = null;
+
+            MainViewModel.ExpandedApp.IsExpanded = false;
+            MainViewModel.ExpandedApp = null;
+
+            ((BlurEffect)ContentGrid.Effect).Radius = 0;
+
+            UpdateLayout();
+        }
+
+        private void _viewModel_AppExpanded(object sender, AppItemViewModel e)
+        {
+            this.UpdateLayout();
+
+            _popup = new Popup();
+
+            // TODO: better
+            var ch0 = VisualTreeHelper.GetChild(_viewModel.ExpandedAppContainer, 0);
+            var ch1 = VisualTreeHelper.GetChild(ch0, 0);
+
+            var parentContainer = (Grid)ch1;
+            var visualContainer = parentContainer.Children[0];
+
+            parentContainer.Height = parentContainer.ActualHeight;
+
+            parentContainer.Children.Remove(visualContainer);
+            _viewModel.ExpandedAppContainerParent = parentContainer;
+            _viewModel.ExpandedAppContainer = (FrameworkElement)visualContainer;
+
+            _popup.Child = visualContainer;
+
+            Point relativeLocation = parentContainer.TranslatePoint(new Point(0, 0), this);
+
+            LayoutRoot.Children.Add(_popup);
+            _popup.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+            _popup.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
+            _popup.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y + relativeLocation.Y;
+            _popup.Height = parentContainer.ActualHeight;
+            _popup.Width = ActualWidth;
+            _popup.DataContext = e;
+            _popup.AllowsTransparency = true;
+
+            _popup.IsOpen = true;
+
+            ((BlurEffect)ContentGrid.Effect).Radius = 10;
+        }
+
         private void _viewModel_StateChanged(object sender, ViewState e)
         {
             switch (e)
@@ -58,18 +121,6 @@ namespace EarTrumpet
 
                 case ViewState.Closing:
                     this.HideWithAnimation(() => _viewModel.ChangeState(ViewState.Hidden));
-                    break;
-
-                case ViewState.Hidden:
-
-                    // Hide the app only after we've completed the animation.
-                    if (MainViewModel.ExpandedApp != null)
-                    {
-                        MainViewModel.ExpandedApp.IsExpanded = false;
-                        MainViewModel.ExpandedApp = null;
-                    }
-
-                    UpdateWindowPosition();
                     break;
             }
         }
@@ -173,6 +224,12 @@ namespace EarTrumpet
                 // Top of window - don't wrap around.
                 e.Handled = true;
             }
+        }
+
+        private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _viewModel.OnAppCollapsed();
+            e.Handled = true;
         }
     }
 }

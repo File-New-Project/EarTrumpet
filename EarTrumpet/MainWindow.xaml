@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:local="clr-namespace:EarTrumpet.UserControls"
+        xmlns:ext="clr-namespace:EarTrumpet.Extensions"
         Title="EarTrumpet"
         Width="360"
         Icon="Application.ico"
@@ -20,7 +21,7 @@
         TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
-
+        <ext:InvertableVisibilityConverter x:Key="visConverter" />
         <SolidColorBrush x:Key="WindowForeground"
                          Color="White" />
         <SolidColorBrush x:Key="WindowBackground"
@@ -107,6 +108,10 @@
                     Focusable="False"           
                     Margin="0">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
+                <Grid.Effect>
+                    <BlurEffect Radius="0" />
+                </Grid.Effect>
+                
                 <Grid x:Name="NoAppsPanel"
                                 Margin="0,8"
                                 Grid.Row="1" 
@@ -180,6 +185,8 @@
                         </Button.Content>
                     </Button>
                 </Grid>
+                
+                <Border Background="#88000000" Visibility="{Binding IsDimmed, Converter={StaticResource visConverter}, ConverterParameter=Normal}" PreviewMouseDown="LightDismissBorder_PreviewMouseDown" />
             </Grid>
         </ScrollViewer>
     </Grid>

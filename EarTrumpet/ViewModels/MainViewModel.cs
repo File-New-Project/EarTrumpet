@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace EarTrumpet.ViewModels
 {
@@ -40,9 +41,14 @@ namespace EarTrumpet.ViewModels
         public string ExpandText => ExpandedPaneVisibility == Visibility.Collapsed ? "\ue010" : "\ue011";
 
         public ViewState State { get; private set; }
+        public bool IsDimmed { get; private set; }
 
         public static AppItemViewModel ExpandedApp { get; set; }
+        public FrameworkElement ExpandedAppContainer { get; set; }
+        public DependencyObject ExpandedAppContainerParent { get; set; }
 
+        public event EventHandler<AppItemViewModel> AppExpanded = delegate { };
+        public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<ViewState> StateChanged = delegate { };
 
         private readonly IAudioDeviceManager _deviceService;
@@ -197,7 +203,36 @@ namespace EarTrumpet.ViewModels
             else if (state == ViewState.Hidden)
             {
                 _peakMeterTimer.Stop();
+
+                if (ExpandedApp != null)
+                {
+                    OnAppCollapsed();
+                }
             }
+        }
+
+        public void OnAppExpanded(AppItemViewModel vm, ListViewItem lvi)
+        {
+            if (ExpandedApp != null)
+            {
+                OnAppCollapsed();
+            }
+
+            ExpandedAppContainer = lvi;
+            ExpandedAppContainerParent = lvi.Parent;
+            ExpandedApp = vm;
+
+            AppExpanded?.Invoke(this, vm);
+
+            IsDimmed = true;
+            RaisePropertyChanged(nameof(IsDimmed));
+        }
+
+        public void OnAppCollapsed()
+        {
+            AppCollapsed?.Invoke(this, null);
+            IsDimmed = false;
+            RaisePropertyChanged(nameof(IsDimmed));
         }
 
         public void BeginOpen()

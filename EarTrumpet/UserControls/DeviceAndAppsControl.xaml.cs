@@ -138,8 +138,7 @@ namespace EarTrumpet.UserControls
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            MainViewModel.ExpandedApp.IsExpanded = false;
-            MainViewModel.ExpandedApp = null;
+            MainViewModel.Instance.OnAppCollapsed();
         }
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
@@ -180,6 +179,21 @@ namespace EarTrumpet.UserControls
             moveMenu.PlacementTarget = (UIElement)sender;
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             moveMenu.IsOpen = true;
+        }
+
+        private void AppList_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var lvi = (ListViewItem)sender;
+            var vm = ((AppItemViewModel)lvi.DataContext);
+
+            if (!vm.IsExpanded)
+            {
+                vm.IsExpanded = true;
+                MainViewModel.Instance.OnAppExpanded(vm, lvi);
+            }
+
+            var i = 0;
+            i++;
         }
     }
 }

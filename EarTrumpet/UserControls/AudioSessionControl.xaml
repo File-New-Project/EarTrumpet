@@ -8,7 +8,6 @@
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              mc:Ignorable="d" 
              IsTabStop="False"
-             PreviewMouseRightButtonUp="UserControl_PreviewMouseRightButtonUp"
              d:DesignHeight="50" d:DesignWidth="200">
     <UserControl.Resources>
         <CollectionViewSource x:Key="cvs" Filter="CollectionViewSource_Filter"/>
