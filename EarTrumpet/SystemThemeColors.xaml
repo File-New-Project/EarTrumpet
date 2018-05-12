@@ -6,10 +6,12 @@
     <SolidColorBrush x:Key="WindowBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="BadgeBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="PopupBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderBackgroundSolid">Red</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderThumb">Red</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderThumbHover">Red</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderThumbPressed">Red</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderTrackFill">Red</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterHotColor">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ActiveBorder">Red</SolidColorBrush>
 </ResourceDictionary>

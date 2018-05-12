@@ -75,7 +75,7 @@
 
         <Popup x:Key="AppPopup">
             <Grid>
-                <Grid Background="{DynamicResource HeaderBackground}">
+                <Grid Background="{DynamicResource PopupBackground}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -86,6 +86,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <Border Background="{DynamicResource HeaderBackground}" Grid.ColumnSpan="3" />
                     <TextBlock Text="{Binding DisplayName}"
                                            Padding="12,12,8,12" 
                                            FontSize="15" 
@@ -117,7 +118,7 @@
                                                   VerticalAlignment="Center"
                                                   Grid.ColumnSpan="3"
                                                   Grid.Row="1"
-                                                  Margin="0,0,0,8">
+                                                  Margin="0,8,0,8">
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="viewModels:AppItemViewModel">
                                 <local:AudioSessionControl 
@@ -226,7 +227,7 @@
         <Border Background="#FF000000" Visibility="{Binding IsDimmed, Converter={StaticResource visConverter}, ConverterParameter=Normal}" PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border Opacity="0.4" Margin="-1,-7,0,0" >
                 <Border.Effect>
-                    <BlurEffect Radius="0" KernelType="Gaussian" RenderingBias="Performance" />
+                    <BlurEffect Radius="2" KernelType="Gaussian" RenderingBias="Performance" />
                 </Border.Effect>
                 <Border.Background>
                     <VisualBrush  Visual="{Binding ElementName=BaseVisual}" Stretch="Fill" AlignmentX="Left" AlignmentY="Top" />
@@ -238,7 +239,7 @@
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation From="0" To="10" Duration="00:00:00.3" Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
+                                            <DoubleAnimation From="2" To="10" Duration="00:00:00.2" Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>

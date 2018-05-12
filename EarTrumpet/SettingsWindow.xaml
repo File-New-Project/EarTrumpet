@@ -36,15 +36,6 @@
         </Style>
     </Window.Style>
     <Window.Resources>
-
-        <SolidColorBrush x:Key="WindowForeground"
-                         Color="White" />
-        <SolidColorBrush x:Key="WindowBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="ActiveBorder"
-                         Color="Red" />
         <Style TargetType="Window">
             <Setter Property="BorderBrush"
                     Value="{DynamicResource ActiveBorder}" />

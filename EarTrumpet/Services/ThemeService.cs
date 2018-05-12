@@ -23,11 +23,13 @@ namespace EarTrumpet.Services
             newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccent", 0.2);
             newDictionary["HeaderBackgroundSolid"] = Lookup("ImmersiveSystemAccent", 0.6);
             newDictionary["CottonSwabSliderThumb"] = Lookup("ImmersiveSystemAccent");
+            newDictionary["ActiveBorder"] = Lookup("ImmersiveSystemAccent");
             newDictionary["CottonSwabSliderThumbHover"] = Lookup("ImmersiveControlDarkSliderThumbHover");
             newDictionary["CottonSwabSliderThumbPressed"] = Lookup("ImmersiveControlDarkSliderThumbHover");
             newDictionary["CottonSwabSliderTrackFill"] = Lookup("ImmersiveSystemAccentLight1");
             newDictionary["BadgeBackground"] = Lookup("ImmersiveSystemAccentDark2", 0.8);
             newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
+            newDictionary["PopupBackground"] = new SolidColorBrush(GetWindowBackgroundColor(true));
             newDictionary["PeakMeterHotColor"] = Lookup(IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
@@ -59,7 +61,7 @@ namespace EarTrumpet.Services
             return IntPtr.Zero;
         }
 
-        private static Color GetWindowBackgroundColor()
+        private static Color GetWindowBackgroundColor(bool solidOverride = false)
         {
             string resource;
             if (SystemParameters.HighContrast)
@@ -77,6 +79,10 @@ namespace EarTrumpet.Services
 
             var color = AccentColorService.GetColorByTypeName(resource);
             color.A = (byte) (IsWindowTransparencyEnabled ? 190 : 255);
+            if (solidOverride)
+            {
+                color.A = 255;
+            }
             return color;
         }
 

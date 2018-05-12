@@ -29,14 +29,6 @@
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowForeground"
-                         Color="White" />
-        <SolidColorBrush x:Key="WindowBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="ActiveBorder"
-                         Color="Black" />
 
     </Window.Resources>
     <DockPanel x:Name="ContentRoot" Background="{DynamicResource WindowBackground}">
