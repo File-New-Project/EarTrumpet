@@ -123,7 +123,7 @@ namespace EarTrumpet
             UpdateTheme();
             Show();
             Hide();
-            Opacity = 1;
+            Opacity = 0.5;
 
             _viewModel.ChangeState(ViewState.Hidden);
         }
