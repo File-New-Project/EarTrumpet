@@ -16,7 +16,6 @@ namespace EarTrumpet.Extensions
 
             var onCompleted = new EventHandler((s, e) =>
             {
-                //window.Opacity = 1;
                 window.Topmost = true;
                 window.Focus();
                 completed();
@@ -44,7 +43,7 @@ namespace EarTrumpet.Extensions
                 Duration = new Duration(TimeSpan.FromMilliseconds(266)),
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0,
+                From = 0.5,
                 To = 1
             };
             fadeAnimation.Completed += (s, e) => { window.Opacity = 1; };
@@ -87,7 +86,7 @@ namespace EarTrumpet.Extensions
                 moveAnimation.From = window.Top;
             }
 
-            window.Opacity = 0;
+            window.Opacity = 0.5;
             window.Visibility = Visibility.Visible;
 
             var storyboard = new Storyboard();
