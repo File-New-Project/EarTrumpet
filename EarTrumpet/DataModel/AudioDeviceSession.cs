@@ -35,6 +35,7 @@ namespace EarTrumpet.DataModel
         float _volume;
         bool _isMuted;
         bool _isDesktopApp;
+        bool _isDisconnected;
         uint _backgroundColor;
 
         public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
@@ -161,6 +162,10 @@ namespace EarTrumpet.DataModel
         {
             get
             {
+                if (_isDisconnected)
+                {
+                    return AudioSessionState.Expired;
+                }
                 _session.GetState(out AudioSessionState ret);
                 return ret;
             }
@@ -230,8 +235,15 @@ namespace EarTrumpet.DataModel
             });
         }
 
-        // Unused.
-        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason){}
+        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason)
+        {
+            _isDisconnected = true;
+            _dispatcher.SafeInvoke(() =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            });
+        }
+
         void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext){}
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext) { }
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
