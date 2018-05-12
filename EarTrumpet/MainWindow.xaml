@@ -97,6 +97,70 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Popup x:Key="AppPopup">
+            <Grid>
+                <Grid Background="{DynamicResource HeaderBackground}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding DisplayName}"
+                                           Padding="12,12,8,12" 
+                                           FontSize="15" 
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Stretch"
+                                           TextTrimming="CharacterEllipsis"/>
+                    <Button BorderThickness="0"
+                                                Margin="0,0,2,0"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Grid.Column="1" 
+                                                FontSize="16"
+                                                Foreground="{StaticResource WindowForeground}"
+                                                Style="{StaticResource StyledButton}"
+                                                IsEnabled="{Binding IsMovable}"
+                                                Tag="{Binding MoveIcon}"
+                                                Click="MoveToAnotherDevice_Click" />
+                    <Button BorderThickness="0"
+                                                Margin="0,0,2,0"
+                                                HorizontalContentAlignment="Stretch"
+                                                VerticalAlignment="Center"
+                                                Grid.Column="2" 
+                                                FontSize="10"
+                                                Foreground="{StaticResource WindowForeground}"
+                                                Tag="&#xE8BB;"
+                                                Style="{StaticResource StyledButton}"
+                                                Click="CloseButton_Click" />
+                    <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
+                                                  VerticalAlignment="Center"
+                                                  Grid.ColumnSpan="3"
+                                                  Grid.Row="1"
+                                                  Margin="0,0,0,8">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="viewModels:AppItemViewModel">
+                                <local:AudioSessionControl 
+                                                        Stream="{Binding}"
+                                                        IconHeight="24"
+                                                        IconWidth="24"
+                                                        VolumeTextFontSize="18"
+                                                        IconSource="{Binding Icon}"
+                                                        IconText="{Binding IconText}"
+                                                        IconTextSize="16"
+                                                        IconTextFontWeight="Bold"
+                                                        IconTextFontFamily="{Binding RelativeSource={RelativeSource Self},Path=FontFamily}"
+                                                        IconBackground="{Binding Background}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Popup>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer x:Name="BaseVisual"

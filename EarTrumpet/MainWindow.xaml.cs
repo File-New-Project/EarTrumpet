@@ -38,6 +38,8 @@ namespace EarTrumpet
             SourceInitialized += (s, e) =>
             {
                 ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+
+                _popup = (Popup)Resources["AppPopup"];
             };
 
             ThemeService.ThemeChanged += () => UpdateTheme();
@@ -53,14 +55,8 @@ namespace EarTrumpet
 
         private void _viewModel_AppCollapsed(object sender, object e)
         {
-            _popup.Child = null;
-            var grid = ((Grid)_viewModel.ExpandedAppContainerParent);
-            grid.Children.Add(_viewModel.ExpandedAppContainer);
-            grid.Height = double.NaN;
-
             LayoutRoot.Children.Remove(_popup);
             _popup.IsOpen = false;
-            _popup = null;
 
             MainViewModel.ExpandedApp.IsExpanded = false;
             MainViewModel.ExpandedApp = null;
@@ -68,36 +64,34 @@ namespace EarTrumpet
             UpdateLayout();
         }
 
-        private void _viewModel_AppExpanded(object sender, AppItemViewModel e)
+        private void _viewModel_AppExpanded(object sender, ListViewItem container)
         {
-            this.UpdateLayout();
+            var selectedApp = MainViewModel.ExpandedApp;
 
-            _popup = new Popup();
-
-            // TODO: better
-            var ch0 = VisualTreeHelper.GetChild(_viewModel.ExpandedAppContainer, 0);
-            var ch1 = VisualTreeHelper.GetChild(ch0, 0);
-
-            var parentContainer = (Grid)ch1;
-            var visualContainer = parentContainer.Children[0];
-
-            parentContainer.Height = parentContainer.ActualHeight;
-
-            parentContainer.Children.Remove(visualContainer);
-            _viewModel.ExpandedAppContainerParent = parentContainer;
-            _viewModel.ExpandedAppContainer = (FrameworkElement)visualContainer;
-
-            _popup.Child = visualContainer;
-
-            Point relativeLocation = parentContainer.TranslatePoint(new Point(0, 0), this);
-
+            _popup.DataContext = selectedApp;
             LayoutRoot.Children.Add(_popup);
+
+            Point relativeLocation = container.TranslatePoint(new Point(0, 0), this);
+
+            // TODO: This is fudge factor that we can at least partially calculate.
+            double HEADER_SIZE = 44;
+            double ITEM_SIZE = 50;
+            relativeLocation.Y -= HEADER_SIZE;
+
+            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE);
+
+            if (relativeLocation.Y + popupHeight > ActualHeight)
+            {
+                relativeLocation.Y = ActualHeight - popupHeight;
+            }
+
             _popup.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
             _popup.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
             _popup.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y + relativeLocation.Y;
-            _popup.Height = parentContainer.ActualHeight;
+
             _popup.Width = ActualWidth;
-            _popup.DataContext = e;
+            _popup.Height = popupHeight;
+
             _popup.AllowsTransparency = true;
 
             _popup.IsOpen = true;
@@ -227,6 +221,48 @@ namespace EarTrumpet
         {
             _viewModel.OnAppCollapsed();
             e.Handled = true;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.Instance.OnAppCollapsed();
+        }
+
+        private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedApp = MainViewModel.ExpandedApp;
+            var vm = MainViewModel.Instance;
+            var persistedDevice = selectedApp.PersistedOutputDevice;
+
+            var moveMenu = new ContextMenu();
+
+            MenuItem defaultItem = null;
+            foreach (var dev in selectedApp.Devices)
+            {
+                var newItem = new MenuItem { Header = dev.DisplayName };
+                newItem.Click += (_, __) =>
+                {
+                    AudioPolicyConfigService.SetDefaultEndPoint(dev.Id, selectedApp.Session.ProcessId);
+                };
+
+                newItem.IsCheckable = true;
+                newItem.IsChecked = (dev.Id == persistedDevice.Id);
+
+                if (dev.IsDefault)
+                {
+                    defaultItem = newItem;
+                }
+
+                moveMenu.Items.Add(newItem);
+            }
+
+            moveMenu.Items.Remove(defaultItem);
+            moveMenu.Items.Insert(0, defaultItem);
+            moveMenu.Items.Insert(1, new Separator());
+
+            moveMenu.PlacementTarget = (UIElement)sender;
+            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            moveMenu.IsOpen = true;
         }
     }
 }

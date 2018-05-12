@@ -136,64 +136,18 @@ namespace EarTrumpet.UserControls
             DeviceListItem.Focus();
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainViewModel.Instance.OnAppCollapsed();
-        }
-
-        private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedApp = MainViewModel.ExpandedApp;
-            var vm = MainViewModel.Instance;
-            var persistedDevice = selectedApp.PersistedOutputDevice;
-
-            var moveMenu = new ContextMenu();
-
-            MenuItem defaultItem = null;
-            foreach(var dev in selectedApp.Devices)
-            {
-                var newItem = new MenuItem { Header = dev.DisplayName };
-                newItem.Click += (_, __) =>
-                {
-                    AudioPolicyConfigService.SetDefaultEndPoint(dev.Id, selectedApp.Session.ProcessId);
-
-                    selectedApp.IsExpanded = false;
-                    MainViewModel.ExpandedApp = null;
-                };
-
-                newItem.IsCheckable = true;
-                newItem.IsChecked = (dev.Id == persistedDevice.Id);
-
-                if (dev.IsDefault)
-                {
-                    defaultItem = newItem;
-                }
-
-                moveMenu.Items.Add(newItem);
-            }
-
-            moveMenu.Items.Remove(defaultItem);
-            moveMenu.Items.Insert(0, defaultItem);
-            moveMenu.Items.Insert(1, new Separator());
-
-            moveMenu.PlacementTarget = (UIElement)sender;
-            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            moveMenu.IsOpen = true;
-        }
-
         private void AppList_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             var lvi = (ListViewItem)sender;
-            var vm = ((AppItemViewModel)lvi.DataContext);
-
-            if (!vm.IsExpanded)
+            var vm = lvi.DataContext as AppItemViewModel;
+            if (vm != null)
             {
-                vm.IsExpanded = true;
-                MainViewModel.Instance.OnAppExpanded(vm, lvi);
+                if (!vm.IsExpanded)
+                {
+                    vm.IsExpanded = true;
+                    MainViewModel.Instance.OnAppExpanded(vm, lvi);
+                }
             }
-
-            var i = 0;
-            i++;
         }
     }
 }

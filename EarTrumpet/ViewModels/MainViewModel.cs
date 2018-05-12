@@ -44,10 +44,8 @@ namespace EarTrumpet.ViewModels
         public bool IsDimmed { get; private set; }
 
         public static AppItemViewModel ExpandedApp { get; set; }
-        public FrameworkElement ExpandedAppContainer { get; set; }
-        public DependencyObject ExpandedAppContainerParent { get; set; }
 
-        public event EventHandler<AppItemViewModel> AppExpanded = delegate { };
+        public event EventHandler<ListViewItem> AppExpanded = delegate { };
         public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<ViewState> StateChanged = delegate { };
 
@@ -218,11 +216,10 @@ namespace EarTrumpet.ViewModels
                 OnAppCollapsed();
             }
 
-            ExpandedAppContainer = lvi;
-            ExpandedAppContainerParent = lvi.Parent;
             ExpandedApp = vm;
+            ExpandedApp.IsExpanded = true;
 
-            AppExpanded?.Invoke(this, vm);
+            AppExpanded?.Invoke(this, lvi);
 
             IsDimmed = true;
             RaisePropertyChanged(nameof(IsDimmed));
