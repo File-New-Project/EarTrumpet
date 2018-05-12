@@ -10,131 +10,91 @@ namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
-        private static bool shouldAnimate()
-        {
-            return SystemParameters.MenuAnimation;
-        }
-
-        public static void HideWithAnimation(this Window window, Action completed)
-        {
-            var onCompleted = new EventHandler((s, e) =>
-             {
-                 window.Visibility = Visibility.Hidden;
-                 completed();
-             });
-
-            var hideAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(0.2)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseIn }
-            };
-            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                case TaskbarPosition.Right:
-                    hideAnimation.From = window.Left;
-                    break;
-                default:
-                    hideAnimation.From = window.Top;
-                    break;
-            }
-            hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
-            hideAnimation.Completed += onCompleted;
-
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                case TaskbarPosition.Right:
-                    if (shouldAnimate())
-                    {
-                        window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());
-                    }
-                    else
-                    {
-                        window.Left = (double)hideAnimation.To;
-                    }
-                    break;
-                default:
-                    if (shouldAnimate())
-                    {
-                        window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock());
-                    }
-                    else
-                    {
-                        window.Top = (double)hideAnimation.To;
-                    }
-                    break;
-            }
-
-            if (!shouldAnimate())
-            {
-                onCompleted(null, null);
-            }
-        }
-
         public static void ShowwithAnimation(this Window window, Action completed)
         {
+            const int animationOffset = 25;
+
             var onCompleted = new EventHandler((s, e) =>
             {
+                window.Opacity = 1;
                 window.Topmost = true;
                 window.Focus();
                 completed();
             });
 
-            window.Visibility = Visibility.Visible;
             window.Topmost = false;
             window.Activate();
-            var showAnimation = new DoubleAnimation
+
+            if (!SystemParameters.MenuAnimation)
             {
-                Duration = new Duration(TimeSpan.FromSeconds(0.3)),
+                window.Visibility = Visibility.Visible;
+                onCompleted(null, null);
+                return;
+            }
+
+            var moveAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(266)),
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
             };
+
+            var fadeAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(200)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                From = 0,
+                To = 1
+            };
+            Storyboard.SetTarget(fadeAnimation, window);
+            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
+
             var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                case TaskbarPosition.Right:
-                    showAnimation.To = window.Left;
-                    break;
-                default:
-                    showAnimation.To = window.Top;
-                    break;
-            }
-            showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;
-            showAnimation.Completed += onCompleted;
 
             switch (taskbarPosition)
             {
                 case TaskbarPosition.Left:
-                case TaskbarPosition.Right:
-                    if (shouldAnimate())
-                    {
-                        window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
-                    }
-                    else
-                    {
-                        window.Left = (double)showAnimation.To;
-                    }
+                    moveAnimation.To = window.Left;
+                    window.Left -= animationOffset;
                     break;
+                case TaskbarPosition.Right:
+                    moveAnimation.To = window.Left;
+                    window.Left += animationOffset;
+                    break;
+                case TaskbarPosition.Top:
+                    moveAnimation.To = window.Top;
+                    window.Top -= animationOffset;
+                    break;
+                case TaskbarPosition.Bottom:
                 default:
-                    if (shouldAnimate())
-                    {
-                        window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
-                    }
-                    else
-                    {
-                        window.Top = (double)showAnimation.To;
-                    }
+                    moveAnimation.To = window.Top;
+                    window.Top += animationOffset;
                     break;
             }
 
-            if (!shouldAnimate())
+            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
             {
-                onCompleted(null, null);
+                Storyboard.SetTarget(moveAnimation, window);
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
+                moveAnimation.From = window.Left;
             }
+            else
+            {
+                Storyboard.SetTarget(moveAnimation, window);
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
+                moveAnimation.From = window.Top;
+            }
+
+            //window.Opacity = 0;
+            window.Visibility = Visibility.Visible;
+
+            var storyboard = new Storyboard();
+            storyboard.FillBehavior = FillBehavior.Stop;
+            storyboard.Children.Add(moveAnimation);
+            //storyboard.Children.Add(fadeAnimation);
+            storyboard.Completed += onCompleted;
+            storyboard.Begin(window);
         }
 
         public static Matrix CalculateDpiFactors(this Window window)

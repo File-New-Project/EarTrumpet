@@ -120,7 +120,8 @@ namespace EarTrumpet
                     break;
 
                 case ViewState.Closing:
-                    this.HideWithAnimation(() => _viewModel.ChangeState(ViewState.Hidden));
+                    this.Visibility = Visibility.Hidden;
+                    _viewModel.ChangeState(ViewState.Hidden);
                     break;
             }
         }
