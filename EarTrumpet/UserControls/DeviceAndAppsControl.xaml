@@ -57,7 +57,7 @@
                                                       IsHitTestVisible="False"
                                                       PeakValue="{Binding Device.Device.PeakValue}"
                                                       Volume="{Binding Device.Device.Volume}" />
-                                <local:TouchSlider Grid.Column="1"
+                                <local:VolumeSlider Grid.Column="1"
                                                    Value="{Binding Device.Device.Volume,Mode=TwoWay}"
                                                    Minimum="0"
                                                    Maximum="100"

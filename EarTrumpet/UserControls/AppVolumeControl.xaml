@@ -93,7 +93,7 @@
                               PeakValue="{Binding App.PeakValue}"
                               Volume="{Binding App.Volume}" />
 
-        <local:TouchSlider Grid.Column="1"
+        <local:VolumeSlider Grid.Column="1"
                            Value="{Binding App.Volume,Mode=TwoWay}"
                            Minimum="0"
                            Maximum="100"

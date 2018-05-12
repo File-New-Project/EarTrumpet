@@ -6,9 +6,9 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UserControls
 {
-    public class TouchSlider : Slider
+    public class VolumeSlider : Slider
     {
-        public TouchSlider() : base()
+        public VolumeSlider() : base()
         {
             TouchDown += OnTouchDown;
             MouseDown += OnMouseDown;
