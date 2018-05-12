@@ -1,7 +1,8 @@
 ﻿<Window x:Class="EarTrumpet.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet.UserControls"
+        xmlns:uc="clr-namespace:EarTrumpet.UserControls"
+        xmlns:local="clr-namespace:EarTrumpet"
         Title="EarTrumpet"
         Width="360"
         Icon="Application.ico"
@@ -15,7 +16,7 @@
         PreviewKeyDown="Window_PreviewKeyDown"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
-		ResizeMode="NoResize"
+        ResizeMode="NoResize"
         TextOptions.TextFormattingMode="Display"
         x:Name="VolumeWindow">
     <Window.Resources>
@@ -62,7 +63,8 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+        <Style x:Key="{x:Type ScrollViewer}"
+               TargetType="{x:Type ScrollViewer}">
             <Setter Property="VerticalScrollBarVisibility"
                     Value="Auto" />
             <Setter Property="CanContentScroll"
@@ -88,42 +90,43 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border Background="{DynamicResource HeaderBackground}" Grid.ColumnSpan="3" />
+                    <Border Background="{DynamicResource HeaderBackground}"
+                            Grid.ColumnSpan="3" />
                     <TextBlock Text="{Binding DisplayName}"
-                                           Padding="12,12,8,12" 
-                                           FontSize="15" 
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Stretch"
-                                           TextTrimming="CharacterEllipsis"/>
+                               Padding="12,12,8,12"
+                               FontSize="15"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Stretch"
+                               TextTrimming="CharacterEllipsis" />
                     <Button BorderThickness="0"
-                                                Margin="0,0,2,0"
-                                                HorizontalContentAlignment="Stretch"
-                                                VerticalAlignment="Center"
-                                                Grid.Column="1" 
-                                                FontSize="16"
-                                                Foreground="{DynamicResource WindowForeground}"
-                                                Style="{StaticResource StyledButton}"
-                                                IsEnabled="{Binding IsMovable}"
-                                                Tag="{Binding MoveIcon}"
-                                                Click="MoveToAnotherDevice_Click" />
+                            Margin="0,0,2,0"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Grid.Column="1"
+                            FontSize="16"
+                            Foreground="{DynamicResource WindowForeground}"
+                            Style="{StaticResource StyledButton}"
+                            IsEnabled="{Binding IsMovable}"
+                            Tag="{Binding MoveIcon}"
+                            Click="MoveToAnotherDevice_Click" />
                     <Button BorderThickness="0"
-                                                Margin="0,0,2,0"
-                                                HorizontalContentAlignment="Stretch"
-                                                VerticalAlignment="Center"
-                                                Grid.Column="2" 
-                                                FontSize="10"
-                                                Foreground="{DynamicResource WindowForeground}"
-                                                Tag="&#xE8BB;"
-                                                Style="{StaticResource StyledButton}"
-                                                Click="CloseButton_Click" />
+                            Margin="0,0,2,0"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Grid.Column="2"
+                            FontSize="10"
+                            Foreground="{DynamicResource WindowForeground}"
+                            Tag="&#xE8BB;"
+                            Style="{StaticResource StyledButton}"
+                            Click="CloseButton_Click" />
                     <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
-                                                  VerticalAlignment="Center"
-                                                  Grid.ColumnSpan="3"
-                                                  Grid.Row="1"
-                                                  Margin="0,8,0,8">
+                              VerticalAlignment="Center"
+                              Grid.ColumnSpan="3"
+                              Grid.Row="1"
+                              Margin="0,8,0,8">
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="viewModels:AppItemViewModel">
-                                <local:AppVolumeControl App="{Binding}" />
+                                <uc:AppVolumeControl App="{Binding}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -135,17 +138,17 @@
         <ScrollViewer Name="BaseVisual">
             <Grid Name="ContentGrid"
                   VerticalAlignment="Top">
-                <Grid Name="NoAppsPanel"
-                                Margin="0,8"
-                                Height="50"
-                                Visibility="{Binding NoAppsPaneVisibility}">
-                    <TextBlock Text="{Binding NoItemsContent}"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                                    TextWrapping="Wrap" />
+                <Grid Margin="0,8"
+                      Height="50"
+                      Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                    <TextBlock x:Uid="NoDevicesPanelContent"
+                               Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                               TextWrapping="Wrap" />
                 </Grid>
-                <Grid Visibility="{Binding DeviceVisibility}"
+                <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}"
                       Margin="0,0,0,8">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -153,22 +156,19 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <ItemsControl ItemsSource="{Binding Devices}"
-                                      Visibility="{Binding ExpandedPaneVisibility}"
                                       IsTabStop="False">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <local:DeviceAndAppsControl Device="{Binding}"
+                                    <uc:DeviceAndAppsControl Device="{Binding}"
                                                                 Margin="0,0,0,12" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <local:DeviceAndAppsControl x:Name="DefaultDeviceControl"
-                                                    Grid.Row="1"
-                                                    Device="{Binding DefaultDevice}" />
                     </Grid>
 
                     <Button PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
                             Style="{StaticResource ExpandCollapseButtonStyle}"
+                            IsEnabled="{Binding CanExpand}"
                             Click="ExpandCollapse_Click">
                         <Button.Content>
                             <Grid HorizontalAlignment="Right"
@@ -183,22 +183,34 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
-        <Border Background="#FF000000" Visibility="{Binding IsDimmed, Converter={StaticResource visConverter}, ConverterParameter=Normal}" PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
-            <Border Opacity="0.4" Margin="-1,-7,0,0" >
+        <Border Background="#FF000000"
+                Visibility="{Binding IsShowingModalDialog, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+            <Border Opacity="0.4"
+                    Margin="-1,-7,0,0">
                 <Border.Effect>
-                    <BlurEffect Radius="2" KernelType="Gaussian" RenderingBias="Performance" />
+                    <BlurEffect Radius="2"
+                                KernelType="Gaussian"
+                                RenderingBias="Performance" />
                 </Border.Effect>
                 <Border.Background>
-                    <VisualBrush  Visual="{Binding ElementName=BaseVisual}" Stretch="Fill" AlignmentX="Left" AlignmentY="Top" />
+                    <VisualBrush  Visual="{Binding ElementName=BaseVisual}"
+                                  Stretch="Fill"
+                                  AlignmentX="Left"
+                                  AlignmentY="Top" />
                 </Border.Background>
                 <Border.Style>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDimmed}" Value="true">
+                            <DataTrigger Binding="{Binding IsShowingModalDialog}"
+                                         Value="true">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation From="2" To="10" Duration="00:00:00.2" Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
+                                            <DoubleAnimation From="2"
+                                                             To="10"
+                                                             Duration="00:00:00.2"
+                                                             Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>

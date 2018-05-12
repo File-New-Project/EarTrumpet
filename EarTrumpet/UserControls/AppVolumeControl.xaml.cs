@@ -39,14 +39,7 @@ namespace EarTrumpet.UserControls
         {
             if (!App.IsExpanded)
             {
-                App.IsExpanded = true;
-                var oldApp = MainViewModel.ExpandedApp;
-                MainViewModel.ExpandedApp = App;
-
-                if (oldApp != null && oldApp != App)
-                {
-                    oldApp.IsExpanded = false;
-                }
+                MainViewModel.Instance.OnAppExpanded(App, (UIElement)sender);
             }
         }
     }

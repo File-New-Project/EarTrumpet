@@ -60,7 +60,7 @@
                 <Grid VerticalAlignment="Bottom"
                       HorizontalAlignment="Right"
                       Margin="0,0,-1,-1"
-                      Visibility="{Binding App.Children.Count, Converter={StaticResource nonZeroConverter}}">
+                      Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
                     <Canvas>
                         <Ellipse Fill="{DynamicResource BadgeBackground}"
                                  Width="12"

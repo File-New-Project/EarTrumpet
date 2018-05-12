@@ -203,9 +203,16 @@ namespace EarTrumpet.DataModel
 
         void ReadVolumeAndMute()
         {
-            _simpleVolume.GetMasterVolume(out _volume);
-            _simpleVolume.GetMute(out int muted);
-            _isMuted = muted != 0;
+            try
+            {
+                _simpleVolume.GetMasterVolume(out _volume);
+                _simpleVolume.GetMute(out int muted);
+                _isMuted = muted != 0;
+            }
+            catch(COMException ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)

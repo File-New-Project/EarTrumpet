@@ -188,6 +188,7 @@
     <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />
     <Compile Include="ViewModels\Mocks\SettingsViewModelMock.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SimpleAudioDeviceViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\AudioSessionViewModel.cs" />
     <Compile Include="UserControls\AppVolumeControl.xaml.cs">

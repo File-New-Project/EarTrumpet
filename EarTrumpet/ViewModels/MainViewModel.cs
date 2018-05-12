@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace EarTrumpet.ViewModels
 {
@@ -20,59 +20,69 @@ namespace EarTrumpet.ViewModels
         Closing,
     }
 
+    public class AppExpandedEventArgs
+    {
+        public UIElement Container;
+        public AppItemViewModel ViewModel;
+    }
+
     public class MainViewModel : BindableBase
     {
         public static MainViewModel Instance { get; private set; }
 
-        public DeviceViewModel DefaultDevice { get; private set; }
+        public bool IsExpanded { get; private set; }
+        public bool CanExpand => _allDevices.Count > 1;
+        public bool IsEmpty => Devices.Count == 0;
 
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
-        public Visibility ListVisibility => DefaultDevice.Apps.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility NoAppsPaneVisibility => DefaultDevice.Apps.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility DeviceVisibility => _deviceService.VirtualDefaultDevice.IsDevicePresent ? Visibility.Visible : Visibility.Collapsed;
-
-        public string NoItemsContent => !_deviceService.VirtualDefaultDevice.IsDevicePresent ? Properties.Resources.NoDevicesPanelContent : Properties.Resources.NoAppsPanelContent;
-
-        public Visibility ExpandedPaneVisibility { get; private set; }
-
-        public string ExpandText => ExpandedPaneVisibility == Visibility.Collapsed ? "\ue010" : "\ue011";
+        public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
 
         public ViewState State { get; private set; }
-        public bool IsDimmed { get; private set; }
 
-        public static AppItemViewModel ExpandedApp { get; set; }
+        public bool IsShowingModalDialog { get; private set; }
 
-        public event EventHandler<ListViewItem> AppExpanded = delegate { };
+        public ObservableCollection<SimpleAudioDeviceViewModel> PlaybackDevices
+        {
+            get
+            {
+                var ret = new ObservableCollection<SimpleAudioDeviceViewModel>();
+                ret.Add(DefaultPlaybackDevice);
+
+                foreach (var device in _allDevices)
+                {
+                    ret.Add(new SimpleAudioDeviceViewModel { DisplayName = device.Device.DisplayName, Id = device.Device.Id });
+                }
+
+                return ret;
+            }
+        }
+        public SimpleAudioDeviceViewModel DefaultPlaybackDevice { get; private set; }
+
+        public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
         public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<ViewState> StateChanged = delegate { };
 
         private readonly IAudioDeviceManager _deviceService;
         private readonly Timer _peakMeterTimer;
+        private List<DeviceViewModel> _allDevices = new List<DeviceViewModel>();
+        private AppItemViewModel _expandedApp;
 
         public MainViewModel(IAudioDeviceManager deviceService)
         {
             State = ViewState.NotReady;
 
-            if (Instance != null)
-            {
-                throw new InvalidOperationException("Only one MainViewModel may exist");
-            }
-
+            Debug.Assert(Instance == null);
             Instance = this;
 
             _deviceService = deviceService;
-            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
             _deviceService.DefaultPlaybackDeviceChanged += _deviceService_DefaultPlaybackDeviceChanged;
             _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
 
             Devices = new ObservableCollection<DeviceViewModel>();
-            DefaultDevice = new DeviceViewModel(_deviceService, _deviceService.VirtualDefaultDevice);
 
-            ExpandedPaneVisibility = Visibility.Collapsed;
-            UpdateInterfaceState();
+            DefaultPlaybackDevice = new SimpleAudioDeviceViewModel { DisplayName = EarTrumpet.Properties.Resources.DefaultDeviceText, IsDefault = true, };
+
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _peakMeterTimer = new Timer(1000 / 30);
@@ -80,14 +90,37 @@ namespace EarTrumpet.ViewModels
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
         }
 
+        private void AddDevice(IAudioDevice device)
+        {
+            var newDevice = new DeviceViewModel(_deviceService, device);
+            _allDevices.Add(newDevice);
+
+            if (IsExpanded || Devices.Count == 0)
+            {
+                Devices.Insert(0, newDevice);
+            }
+        }
+
         private void _deviceService_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
         {
-            foreach(var device in _deviceService.Devices)
-            {
-                CheckApplicability(device);
-            }
+            // no longer any device
+            if (e == null) return;
 
-            CheckApplicability(_deviceService.DefaultPlaybackDevice);
+            var foundDevice = Devices.FirstOrDefault(d => d.Device.Id == e.Id);
+            if (foundDevice != null)
+            {
+                // Move to bottom.
+                Devices.Move(Devices.IndexOf(foundDevice), Devices.Count - 1);
+            }
+            else
+            {
+                var foundAllDevice = _allDevices.FirstOrDefault(d => d.Device.Id == e.Id);
+                if (foundAllDevice != null)
+                {
+                    Devices.Clear();
+                    Devices.Add(foundAllDevice);
+                }
+            }
         }
 
         private void Devices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -97,88 +130,88 @@ namespace EarTrumpet.ViewModels
                 case NotifyCollectionChangedAction.Add:
                     AddDevice((IAudioDevice)e.NewItems[0]);
                     break;
+
                 case NotifyCollectionChangedAction.Remove:
                     var removed = ((IAudioDevice)e.OldItems[0]).Id;
 
-                    foreach(var device in Devices)
+                    var existing = Devices.FirstOrDefault(d => d.Device.Id == removed);
+                    if (existing != null)
                     {
-                        if (device.Device.Id == removed)
-                        {
-                            Devices.Remove(device);
-                            break;
-                        }
+                        Devices.Remove(existing);
+                    }
+
+                    var allExisting = _allDevices.FirstOrDefault(d => d.Device.Id == removed);
+                    if (allExisting != null)
+                    {
+                        _allDevices.Remove(allExisting);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
 
+                    _allDevices.Clear();
+                    Devices.Clear();
+
                     foreach (var device in _deviceService.Devices)
                     {
-                        if (device != _deviceService.DefaultPlaybackDevice)
-                        {
-                            AddDevice(device);
-                        }
+                        AddDevice(device);
                     }
 
+                    _deviceService_DefaultPlaybackDeviceChanged(null, _deviceService.DefaultPlaybackDevice);
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
-        }
 
-        void AddDevice(IAudioDevice device)
-        {
-            CheckApplicability(device);
-        }
-
-        void CheckApplicability(IAudioDevice device)
-        {
-            var existing = Devices.FirstOrDefault(d => d.Device.Id == device.Id);
-
-            if (_deviceService.DefaultPlaybackDevice == device)
+            if (!CanExpand)
             {
-                Devices.Remove(existing);
+                IsExpanded = false;
             }
-            else
-            {
-                if (!Devices.Any(d => d.Device.Id == device.Id))
-                {
-                    Devices.Add(new DeviceViewModel(_deviceService, device));
-                    return;
-                }
-            }
+
+            RaisePropertyChanged(nameof(IsEmpty));
+            RaisePropertyChanged(nameof(CanExpand));
+            RaisePropertyChanged(nameof(ExpandText));
         }
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            DefaultDevice.TriggerPeakCheck();
-
             foreach (var device in Devices)
             {
                 device.TriggerPeakCheck();
             }
         }
 
-        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(_deviceService.VirtualDefaultDevice.IsDevicePresent))
-            {
-                UpdateInterfaceState();
-            }
-        }
-
-        public void UpdateInterfaceState()
-        {
-            RaisePropertyChanged(nameof(ListVisibility));
-            RaisePropertyChanged(nameof(NoAppsPaneVisibility));
-            RaisePropertyChanged(nameof(NoItemsContent));
-            RaisePropertyChanged(nameof(DeviceVisibility));
-        }
-
         public void DoExpandCollapse()
         {
-            ExpandedPaneVisibility = ExpandedPaneVisibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            RaisePropertyChanged(nameof(ExpandedPaneVisibility));
+            IsExpanded = !IsExpanded;
+
+            if (IsExpanded)
+            {
+                // Add any that aren't existing.
+                foreach (var device in _allDevices)
+                {
+                    if (!Devices.Contains(device))
+                    {
+                        Devices.Insert(0, device);
+                    }
+                }
+            }
+            else
+            {
+                // Remove all but default.
+                for (int i = Devices.Count - 1; i >= 0; i--)
+                {
+                    var device = Devices[i];
+
+                    if (device.Device.Id != _deviceService.DefaultPlaybackDevice.Id)
+                    {
+                        Devices.Remove(device);
+                    }
+                }
+            }
+
+            RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(ExpandText));
         }
 
@@ -202,34 +235,37 @@ namespace EarTrumpet.ViewModels
             {
                 _peakMeterTimer.Stop();
 
-                if (ExpandedApp != null)
+                if (_expandedApp != null)
                 {
                     OnAppCollapsed();
                 }
             }
         }
 
-        public void OnAppExpanded(AppItemViewModel vm, ListViewItem lvi)
+        public void OnAppExpanded(AppItemViewModel vm, UIElement container)
         {
-            if (ExpandedApp != null)
+            if (_expandedApp != null)
             {
                 OnAppCollapsed();
             }
 
-            ExpandedApp = vm;
-            ExpandedApp.IsExpanded = true;
+            _expandedApp = vm;
+            _expandedApp.IsExpanded = true;
 
-            AppExpanded?.Invoke(this, lvi);
+            AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
 
-            IsDimmed = true;
-            RaisePropertyChanged(nameof(IsDimmed));
+            IsShowingModalDialog = true;
+            RaisePropertyChanged(nameof(IsShowingModalDialog));
         }
 
         public void OnAppCollapsed()
         {
+            _expandedApp.IsExpanded = false;
+            _expandedApp = null;
+
             AppCollapsed?.Invoke(this, null);
-            IsDimmed = false;
-            RaisePropertyChanged(nameof(IsDimmed));
+            IsShowingModalDialog = false;
+            RaisePropertyChanged(nameof(IsShowingModalDialog));
         }
 
         public void BeginOpen()
