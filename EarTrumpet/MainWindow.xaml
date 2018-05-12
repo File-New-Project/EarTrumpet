@@ -94,8 +94,6 @@
                     <TextBlock Text="{Binding DisplayName}"
                                FontSize="15"
                                Margin="{StaticResource LargeTextWindowMargin}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Stretch"
                                TextTrimming="CharacterEllipsis" />
                     <Button BorderThickness="0"
                             HorizontalContentAlignment="Stretch"
@@ -141,7 +139,6 @@
                             Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
                             Height="50"
                             Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
-                            VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
                             TextWrapping="Wrap" />

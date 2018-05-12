@@ -28,16 +28,13 @@
             <Border Height="{StaticResource DeviceTitleCellHeight}">
                 <TextBlock Text="{Binding Device.Device.DisplayName}"
                            FontSize="15"
-                           Margin="{StaticResource LargeTextWindowMargin}"
-                           VerticalAlignment="Center"
-                           TextTrimming="CharacterEllipsis" />
+                           Margin="{StaticResource LargeTextWindowMargin}"/>
             </Border>
 
             <ItemsControl IsTabStop="False"
                           Grid.Row="1">
                 <ListViewItem Name="DeviceListItem"
                               Height="{StaticResource AppItemCellHeight}">
-
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource DeviceIconCellWidth}" />
@@ -72,12 +69,8 @@
                         <TextBlock Grid.Column="2"
                                    Text="{Binding Device.Device.Volume, Mode=OneWay}"
                                    FontSize="24"
-                                   FontFamily="Segoe UI"
                                    HorizontalAlignment="Center"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                    />
+                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
                     </Grid>
                 </ListViewItem>
             </ItemsControl>

@@ -354,6 +354,14 @@
                 <Setter Property="FontFamily"
                         Value="Segoe MDL2 Assets" />
             </Style>
+
+            <Style x:Key="{x:Type TextBlock}"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="TextTrimming"
+                        Value="CharacterEllipsis" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

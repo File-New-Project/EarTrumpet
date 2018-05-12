@@ -37,7 +37,6 @@
                        Width="24" />
                 <TextBlock FontSize="16"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            Text="{Binding App.IconText}"
                            FontWeight="Bold">
                     <TextBlock.Style>
@@ -78,12 +77,9 @@
                    MouseDown="Mute_MouseDown"
                    Visibility="{Binding App.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                    Text="&#xE74F;"
-                   FontFamily="Segoe MDL2 Assets"
                    FontSize="18"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   ToolTip="{Binding App.DisplayName}"
-                   Margin="1,0,0,0" />
+                   Style="{StaticResource GlyphTextBlockStyle}"
+                   ToolTip="{Binding App.DisplayName}"/>
 
         <local:AudioPeakMeter Grid.Column="1"
                               IsHitTestVisible="False"
@@ -98,10 +94,7 @@
         <TextBlock Grid.Column="2"
                    Text="{Binding App.Volume, Mode=OneWay}"
                    FontSize="18"
-                   FontFamily="Segoe UI"
                    HorizontalAlignment="Center"
-                   TextAlignment="Center"
-                   VerticalAlignment="Center"
                    Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
     </Grid>
 </UserControl>
