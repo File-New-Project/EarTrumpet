@@ -9,15 +9,7 @@
              IsTabStop="False"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ext:InvertableVisibilityConverter x:Key="visConverter" />
-        <SolidColorBrush x:Key="WindowForeground"
-                         Color="White" />
-        <SolidColorBrush x:Key="WindowBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackground"
-                         Color="Black" />
-        <SolidColorBrush x:Key="HeaderBackgroundSolid"
-                         Color="Black" />
+
         <Style x:Key="{x:Type ListView}" TargetType="ListView">
             <Setter Property="SnapsToDevicePixels"
           Value="true" />

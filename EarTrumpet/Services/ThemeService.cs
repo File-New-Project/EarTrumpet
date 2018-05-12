@@ -14,20 +14,24 @@ namespace EarTrumpet.Services
             get { return !SystemParameters.HighContrast && UserSystemPreferencesService.IsTransparencyEnabled; }
         }
 
-        public static void UpdateThemeResources(ResourceDictionary dictionary)
+        public static void LoadCurrentTheme()
         {
-            dictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
+            var newDictionary = new ResourceDictionary();
+            var themeDictionary = Application.Current.Resources.MergedDictionaries[0];
 
-            SetBrush(dictionary, "WindowForeground", "ImmersiveApplicationTextDarkTheme");
-            ReplaceBrush(dictionary, "CottonSwabSliderThumb", "ImmersiveSystemAccent");
-            ReplaceBrush(dictionary, "ActiveBorder", "ImmersiveSystemAccent");
-            ReplaceBrushWithOpacity(dictionary, "HeaderBackground", "ImmersiveSystemAccent", 0.2);
-            ReplaceBrushWithOpacity(dictionary, "HeaderBackgroundSolid", "ImmersiveSystemAccent", 0.6);
-            ReplaceBrushWithOpacity(dictionary, "BadgeBackground", "ImmersiveSystemAccentDark2", 0.8);
-            ReplaceBrush(dictionary, "CottonSwabSliderTrackFill", "ImmersiveSystemAccentLight1");
-            SetBrush(dictionary, "CottonSwabSliderThumbHover", "ImmersiveControlDarkSliderThumbHover");
-            SetBrush(dictionary, "CottonSwabSliderThumbPressed", "ImmersiveControlDarkSliderThumbHover");
-            SetBrush(dictionary, "PeakMeterHotColor", IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
+            newDictionary["WindowForeground"] = Lookup("ImmersiveApplicationTextDarkTheme");
+            newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccent", 0.2);
+            newDictionary["HeaderBackgroundSolid"] = Lookup("ImmersiveSystemAccent", 0.6);
+            newDictionary["CottonSwabSliderThumb"] = Lookup("ImmersiveSystemAccent");
+            newDictionary["CottonSwabSliderThumbHover"] = Lookup("ImmersiveControlDarkSliderThumbHover");
+            newDictionary["CottonSwabSliderThumbPressed"] = Lookup("ImmersiveControlDarkSliderThumbHover");
+            newDictionary["CottonSwabSliderTrackFill"] = Lookup("ImmersiveSystemAccentLight1");
+            newDictionary["BadgeBackground"] = Lookup("ImmersiveSystemAccentDark2", 0.8);
+            newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
+            newDictionary["PeakMeterHotColor"] = Lookup(IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
+
+            Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
+            Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
         }
 
         public static void RegisterForThemeChanges(IntPtr hwnd)
@@ -76,33 +80,11 @@ namespace EarTrumpet.Services
             return color;
         }
 
-        private static void SetBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
+        private static SolidColorBrush Lookup(string name, double opacity = 1)
         {
-            if (!dictionary.Contains(name)) return;
-
-            var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
-            color.A = (byte) (opacity*255);
-            ((SolidColorBrush) dictionary[name]).Color = color;
-        }
-
-        private static void SetBrush(ResourceDictionary dictionary, string name, string immersiveAccentName)
-        {
-            SetBrushWithOpacity(dictionary, name, immersiveAccentName, 1.0);
-        }
-
-        private static void ReplaceBrush(ResourceDictionary dictionary, string name, string immersiveAccentName)
-        {
-            if (!dictionary.Contains(name)) return;
-
-            dictionary[name] = new SolidColorBrush(AccentColorService.GetColorByTypeName(immersiveAccentName));
-        }
-        private static void ReplaceBrushWithOpacity(ResourceDictionary dictionary, string name, string immersiveAccentName, double opacity)
-        {
-            if (!dictionary.Contains(name)) return;
-
-            var color = AccentColorService.GetColorByTypeName(immersiveAccentName);
+            var color = AccentColorService.GetColorByTypeName(name);
             color.A = (byte)(opacity * 255);
-            dictionary[name] = new SolidColorBrush(color);
+            return new SolidColorBrush(color);
         }
     }
 }

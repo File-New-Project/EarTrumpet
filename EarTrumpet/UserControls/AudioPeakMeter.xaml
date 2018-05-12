@@ -7,14 +7,6 @@
              IsTabStop="False"
              Focusable="False"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <SolidColorBrush x:Key="PeakMeterHotColor"
-                         Color="Red" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#39FFFFFF" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
-                         Color="#FF339933" />
-    </UserControl.Resources>
     <Grid Name="MainGrid" VerticalAlignment="Center" Background="{DynamicResource CottonSwabSliderTrackBackground}">
         <Border HorizontalAlignment="Left" Height="2" Name="volumeBorder" Background="{DynamicResource CottonSwabSliderTrackFill}" />
         <Border HorizontalAlignment="Left" Height="2" Name="peakBorder" Background="{DynamicResource PeakMeterHotColor}" />

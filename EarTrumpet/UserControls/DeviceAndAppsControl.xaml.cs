@@ -22,19 +22,6 @@ namespace EarTrumpet.UserControls
         {
             InitializeComponent();
             GridRoot.DataContext = this;
-
-            UpdateTheme();
-            ThemeService.ThemeChanged += UpdateTheme;
-        }
-
-        ~DeviceAndAppsControl()
-        {
-            ThemeService.ThemeChanged -= UpdateTheme;
-        }
-
-        void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
         }
 
         private void ListViewItem_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

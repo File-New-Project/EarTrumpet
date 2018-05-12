@@ -12,22 +12,11 @@
     <UserControl.Resources>
         <CollectionViewSource x:Key="cvs" Filter="CollectionViewSource_Filter"/>
         <ext:OpacityConverter x:Key="opacityConverter" />
-        <ext:InvertableVisibilityConverter x:Key="visConverter" />
+
         <ext:CountConverter x:Key="CountConverter" />
         <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
         
-        <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#39FFFFFF" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumb"
-                         Color="#FF339933" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumbHover"
-                         Color="Red" />
-        <SolidColorBrush x:Key="CottonSwabSliderThumbPressed"
-                         Color="Yellow" />
-        <SolidColorBrush x:Key="CottonSwabSliderTrackFill"
-                         Color="#FF339933" />
-        <SolidColorBrush x:Key="BadgeBackground"
-                         Color="Red" />
+
         
         <Style x:Key="SliderButtonStyle"
                TargetType="{x:Type RepeatButton}">
@@ -110,7 +99,7 @@
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
                                                                Storyboard.TargetName="SliderThumb">
                                     <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderThumbHover}" />
+                                                            Value="{DynamicResource CottonSwabSliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
@@ -119,7 +108,7 @@
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
                                                                Storyboard.TargetName="SliderThumb">
                                     <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{StaticResource CottonSwabSliderThumbPressed}" />
+                                                            Value="{DynamicResource CottonSwabSliderThumbPressed}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>

@@ -20,10 +20,6 @@ namespace EarTrumpet
             _viewModel = new SettingsViewModel(manager);
             DataContext = _viewModel;
 
-            ThemeService.ThemeChanged += UpdateTheme;
-
-            SourceInitialized += (s, e) => UpdateTheme();
-
             Instance = this;
             Closing += (s, e) =>
             {
@@ -32,15 +28,6 @@ namespace EarTrumpet
             };
         }
 
-        ~SettingsWindow()
-        {
-            ThemeService.ThemeChanged -= UpdateTheme;
-        }
-
-        void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
-        }
 
         internal void RaiseWindow()
         {

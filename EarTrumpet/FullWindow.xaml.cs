@@ -21,13 +21,6 @@ namespace EarTrumpet
             _viewModel = new FullWindowViewModel(manager);
             DataContext = _viewModel;
 
-            ThemeService.ThemeChanged += UpdateTheme;
-
-            SourceInitialized += (s, e) =>
-            {
-                UpdateTheme();
-            };
-
             this.StateChanged += FullWindow_StateChanged;
         }
 
@@ -37,11 +30,6 @@ namespace EarTrumpet
             {
                 this.WindowState = WindowState.Normal;
             }
-        }
-
-        private void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

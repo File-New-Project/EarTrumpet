@@ -159,7 +159,7 @@ namespace EarTrumpet
 
         private void UpdateTheme()
         {
-            ThemeService.UpdateThemeResources(Resources);
+            ThemeService.LoadCurrentTheme();
 
             if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
             {

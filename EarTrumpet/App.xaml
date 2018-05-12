@@ -1,153 +1,162 @@
 ﻿<Application x:Class="EarTrumpet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              Startup="Application_Startup" Exit="App_OnExit">
     <Application.Resources>
-        <Style x:Key="CaptionButtonStyle"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SystemThemeColors.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
+                         Color="#39FFFFFF" />
+            <ext:InvertableVisibilityConverter x:Key="visConverter" />
+            <Style x:Key="CaptionButtonStyle"
                TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
                     Value="True" />
-            <Setter Property="FontFamily"
+                <Setter Property="FontFamily"
                     Value="Segoe MDL2 Assets" />
-            <Setter Property="Width"
+                <Setter Property="Width"
                     Value="46" />
-            <Setter Property="Height"
+                <Setter Property="Height"
                     Value="31" />
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="Transparent" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground"
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground"
                     Value="White" />
-            <Setter Property="BorderBrush"
+                <Setter Property="BorderBrush"
                     Value="{x:Null}" />
-            <Setter Property="BorderThickness"
+                <Setter Property="BorderThickness"
                     Value="0" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
                                 SnapsToDevicePixels="True"
                                 Background="{TemplateBinding Background}">
-                            <ContentPresenter Margin="2"
+                                <ContentPresenter Margin="2"
                                               HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
                                               RecognizesAccessKey="True" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="CloseButtonStyle"
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CloseButtonStyle"
                BasedOn="{StaticResource CaptionButtonStyle}"
                TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
                          Value="true">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="Red" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="OptionsButtonStyle"
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="Red" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="OptionsButtonStyle"
                BasedOn="{StaticResource CaptionButtonStyle}"
                TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
                          Value="true">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#22FFFFFF" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Button"
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#22FFFFFF" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="Button"
                x:Key="SlimButton">
-            <Setter Property="BorderThickness"
+                <Setter Property="BorderThickness"
                     Value="0" />
-            <Setter Property="FontSize"
+                <Setter Property="FontSize"
                     Value="18" />
-            <Setter Property="Margin"
+                <Setter Property="Margin"
                     Value="8" />
-            <Setter Property="Padding"
+                <Setter Property="Padding"
                     Value="4" />
-            <Setter Property="Background"
+                <Setter Property="Background"
                     Value="Transparent" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <TextBlock Text="{TemplateBinding Content}"
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}">
+                                <TextBlock Text="{TemplateBinding Content}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Padding="4"
                                        Foreground="{TemplateBinding Foreground}" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
                          Value="true">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#22FFFFFF" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="SolidFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Rectangle StrokeThickness="3" Stroke="Black" />
-                            <Rectangle StrokeThickness="2" Stroke="White" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="StyledButton" TargetType="Button">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <SolidColorBrush Color="Transparent" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border Background="{TemplateBinding Background}"
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#22FFFFFF" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="SolidFocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Rectangle StrokeThickness="3" Stroke="Black" />
+                                <Rectangle StrokeThickness="2" Stroke="White" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="StyledButton" TargetType="Button">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
+                <Setter Property="Background" >
+                    <Setter.Value>
+                        <SolidColorBrush Color="Transparent" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Background="{TemplateBinding Background}"
                                 Width="34"
                                 Height="34">
-                            <TextBlock FontSize="{TemplateBinding FontSize}"
+                                <TextBlock FontSize="{TemplateBinding FontSize}"
                                             Margin="4"
                                             Foreground="{TemplateBinding Foreground}"
                                             FontFamily="Segoe MDL2 Assets"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Text="{TemplateBinding Tag}" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" >
-                        <Setter.Value>
-                            <SolidColorBrush Color="#22FFFFFF" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Background" >
+                            <Setter.Value>
+                                <SolidColorBrush Color="#22FFFFFF" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

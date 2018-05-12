@@ -29,9 +29,6 @@ namespace EarTrumpet.UserControls
 
             peakBorder.Width = 0;
 
-            UpdateTheme();
-            ThemeService.ThemeChanged += UpdateTheme;
-
             SizeOrVolumeOrPeakValueChanged();
         }
 
@@ -40,16 +37,6 @@ namespace EarTrumpet.UserControls
             var ret = base.ArrangeOverride(arrangeBounds);
             SizeOrVolumeOrPeakValueChanged();
             return ret;
-        }
-
-        ~AudioPeakMeter()
-        {
-            ThemeService.ThemeChanged -= UpdateTheme;
-        }
-
-        void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
         }
 
         private static void PeakValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

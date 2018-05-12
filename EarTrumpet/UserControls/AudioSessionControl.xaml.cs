@@ -68,19 +68,6 @@ namespace EarTrumpet.UserControls
         {
             InitializeComponent();
             GridRoot.DataContext = this;
-
-            UpdateTheme();
-            ThemeService.ThemeChanged += UpdateTheme;
-        }
-
-        ~AudioSessionControl()
-        {
-            ThemeService.ThemeChanged -= UpdateTheme;
-        }
-
-        void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
         }
 
         private void Slider_TouchDown(object sender, TouchEventArgs e)

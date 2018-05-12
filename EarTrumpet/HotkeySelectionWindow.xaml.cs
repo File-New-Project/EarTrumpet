@@ -26,21 +26,6 @@ namespace EarTrumpet
             InitializeComponent();
 
             UpdateText();
-
-            ThemeService.ThemeChanged += UpdateTheme;
-
-            SourceInitialized += (s, e) => UpdateTheme();
-
-        }
-
-        ~HotkeySelectionWindow()
-        {
-            ThemeService.ThemeChanged -= UpdateTheme;
-        }
-
-        void UpdateTheme()
-        {
-            ThemeService.UpdateThemeResources(Resources);
         }
 
         void UpdateText()
