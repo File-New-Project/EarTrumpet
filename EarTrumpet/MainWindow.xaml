@@ -103,11 +103,7 @@
                                                   Margin="0,8,0,8">
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="viewModels:AppItemViewModel">
-                                <local:AudioSessionControl 
-                                                        Stream="{Binding}"
-                                                        IconSource="{Binding Icon}"
-                                                        IconText="{Binding IconText}"
-                                                        IconBackground="{Binding Background}" />
+                                <local:AppVolumeControl App="{Binding}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

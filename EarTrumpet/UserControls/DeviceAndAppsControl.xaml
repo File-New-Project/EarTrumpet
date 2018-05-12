@@ -1,14 +1,8 @@
 ﻿<UserControl x:Class="EarTrumpet.UserControls.DeviceAndAppsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
-             mc:Ignorable="d"
-             IsTabStop="False"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             IsTabStop="False">
     <UserControl.Resources>
         <Style x:Key="{x:Type ListView}"
                TargetType="ListView">
@@ -129,10 +123,7 @@
                       Name="AppList">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <local:AudioSessionControl Stream="{Binding}"
-                                                   IconSource="{Binding Icon}"
-                                                   IconText="{Binding IconText}"
-                                                   IconBackground="{Binding Background}" />
+                        <local:AppVolumeControl App="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
