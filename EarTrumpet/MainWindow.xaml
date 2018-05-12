@@ -22,37 +22,10 @@
 
         <SolidColorBrush x:Key="DimmedBackground"
                          Color="#DD000000" />
-        
-        <Style x:Key="{x:Type ListView}" TargetType="ListView">
-            <Setter Property="SnapsToDevicePixels"
-          Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-          Value="true" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListView">
-                        <Border Background="{TemplateBinding Background}">
-                            <ItemsPresenter />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
-        <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
-            <Setter Property="SnapsToDevicePixels"
-          Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-          Value="true" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <ContentPresenter 
-                                Content="{TemplateBinding ContentControl.Content}" 
-                                ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+
+        <Style x:Key="{x:Type ListViewItem}"
+               BasedOn="{StaticResource BaseListViewItem}"
+               TargetType="ListViewItem">
         </Style>
 
         <Popup x:Key="AppPopup">

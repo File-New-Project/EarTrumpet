@@ -4,38 +4,9 @@
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              IsTabStop="False">
     <UserControl.Resources>
-        <Style x:Key="{x:Type ListView}"
-               TargetType="ListView">
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListView">
-                        <Border Background="{TemplateBinding Background}">
-                            <ItemsPresenter />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="{x:Type ListViewItem}"
+               BasedOn="{StaticResource BaseListViewItem}"
                TargetType="ListViewItem">
-            <Setter Property="SnapsToDevicePixels"
-                    Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{DynamicResource SolidFocusVisual}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
-                                          ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
             <EventSetter Event="PreviewKeyDown"
                          Handler="ListViewItem_PreviewKeyDown" />
             <EventSetter Event="PreviewMouseRightButtonDown"
