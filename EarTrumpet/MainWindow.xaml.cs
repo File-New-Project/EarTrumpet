@@ -68,13 +68,15 @@ namespace EarTrumpet
 
             Point relativeLocation = e.Container.TranslatePoint(new Point(0, 0), this);
 
-            // TODO: This is fudge factor that we can at least partially calculate.
-            double HEADER_SIZE = 44;
-            double ITEM_SIZE = 50;
+            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
+            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
+
             relativeLocation.Y -= HEADER_SIZE;
 
-            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE);
+            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
 
+            // TODO: Cap top as well as bottom
             if (relativeLocation.Y + popupHeight > ActualHeight)
             {
                 relativeLocation.Y = ActualHeight - popupHeight;

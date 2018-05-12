@@ -89,15 +89,15 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Border Background="{DynamicResource HeaderBackground}"
-                            Grid.ColumnSpan="3" />
+                            Grid.ColumnSpan="3"
+                            Height="{StaticResource DeviceTitleCellHeight}" />
                     <TextBlock Text="{Binding DisplayName}"
-                               Padding="12,12,8,12"
                                FontSize="15"
+                               Margin="{StaticResource LargeTextWindowMargin}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Stretch"
                                TextTrimming="CharacterEllipsis" />
                     <Button BorderThickness="0"
-                            Margin="0,0,2,0"
                             HorizontalContentAlignment="Stretch"
                             VerticalAlignment="Center"
                             Grid.Column="1"
@@ -108,7 +108,6 @@
                             Tag="{Binding MoveIcon}"
                             Click="MoveToAnotherDevice_Click" />
                     <Button BorderThickness="0"
-                            Margin="0,0,2,0"
                             HorizontalContentAlignment="Stretch"
                             VerticalAlignment="Center"
                             Grid.Column="2"
@@ -120,8 +119,8 @@
                     <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                               VerticalAlignment="Center"
                               Grid.ColumnSpan="3"
-                              Grid.Row="1"
-                              Margin="0,8,0,8">
+                              Margin="{StaticResource VolumeAppListMargin}"
+                              Grid.Row="1">
                         <ListView.ItemTemplate>
                             <DataTemplate DataType="viewModels:AppItemViewModel">
                                 <uc:AppVolumeControl App="{Binding}" />
@@ -160,10 +159,11 @@
                     <Button PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
                             Style="{StaticResource ExpandCollapseButtonStyle}"
                             IsEnabled="{Binding CanExpand}"
-                            Height="35"
+                            Height="{StaticResource DeviceTitleCellHeight}"
                             Click="ExpandCollapse_Click">
                         <Button.Content>
                             <TextBlock FontSize="12"
+                                       Margin="{StaticResource LargeTextWindowMargin}"
                                        HorizontalAlignment="Right"
                                        Style="{StaticResource GlyphTextBlockStyle}"
                                        Text="{Binding ExpandText}" />

@@ -8,6 +8,7 @@
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              mc:Ignorable="d"
              IsTabStop="False"
+             Height="{StaticResource AppItemCellHeight}"
              d:DesignHeight="50"
              d:DesignWidth="200">
     <UserControl.Resources>
@@ -17,9 +18,9 @@
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="{StaticResource AppIconCellWidth}" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="42" />
+            <ColumnDefinition Width="{StaticResource AppVolumeTextCellWidth}" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"
                 ToolTip="{Binding App.DisplayName}"
