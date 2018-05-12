@@ -99,7 +99,7 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer 
+        <ScrollViewer x:Name="BaseVisual"
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
                     VerticalScrollBarVisibility="Auto"
@@ -107,11 +107,7 @@
                     PanningMode="VerticalOnly"
                     Focusable="False"           
                     Margin="0">
-            <Grid Name="ContentGrid" VerticalAlignment="Top">
-                <Grid.Effect>
-                    <BlurEffect Radius="0" />
-                </Grid.Effect>
-                
+            <Grid x:Name="ContentGrid" VerticalAlignment="Top">
                 <Grid x:Name="NoAppsPanel"
                                 Margin="0,8"
                                 Grid.Row="1" 
@@ -185,9 +181,17 @@
                         </Button.Content>
                     </Button>
                 </Grid>
-                
-                <Border Background="#88000000" Visibility="{Binding IsDimmed, Converter={StaticResource visConverter}, ConverterParameter=Normal}" PreviewMouseDown="LightDismissBorder_PreviewMouseDown" />
             </Grid>
         </ScrollViewer>
+        <Border Background="#FF000000" Visibility="{Binding IsDimmed, Converter={StaticResource visConverter}, ConverterParameter=Normal}" PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+            <Border Opacity="0.53">
+                <Border.Effect>
+                    <BlurEffect Radius="10"/>
+                </Border.Effect>
+                <Border.Background>
+                    <VisualBrush  Visual="{Binding ElementName=BaseVisual}" Stretch="Fill" AlignmentX="Left" AlignmentY="Top" />
+                </Border.Background>
+            </Border>
+        </Border>
     </Grid>
 </Window>

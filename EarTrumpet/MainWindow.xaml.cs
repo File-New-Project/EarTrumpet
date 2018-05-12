@@ -65,8 +65,6 @@ namespace EarTrumpet
             MainViewModel.ExpandedApp.IsExpanded = false;
             MainViewModel.ExpandedApp = null;
 
-            ((BlurEffect)ContentGrid.Effect).Radius = 0;
-
             UpdateLayout();
         }
 
@@ -103,8 +101,6 @@ namespace EarTrumpet
             _popup.AllowsTransparency = true;
 
             _popup.IsOpen = true;
-
-            ((BlurEffect)ContentGrid.Effect).Radius = 10;
         }
 
         private void _viewModel_StateChanged(object sender, ViewState e)
