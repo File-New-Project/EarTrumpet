@@ -28,6 +28,53 @@
                TargetType="ListViewItem">
         </Style>
 
+        <Style x:Key="ExpandCollapseButtonStyle"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalAlignment"
+                    Value="Top" />
+            <Setter Property="Foreground"
+                    Value="{DynamicResource WindowForeground}" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{DynamicResource SolidFocusVisual}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                SnapsToDevicePixels="True"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter RecognizesAccessKey="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="true">
+                    <Setter Property="Background"
+                            Value="#22FFFFFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="VerticalScrollBarVisibility"
+                    Value="Auto" />
+            <Setter Property="CanContentScroll"
+                    Value="True" />
+            <Setter Property="PanningMode"
+                    Value="VerticalOnly" />
+            <Setter Property="Focusable"
+                    Value="False" />
+            <Setter Property="Margin"
+                    Value="0" />
+        </Style>
+
         <Popup x:Key="AppPopup">
             <Grid>
                 <Grid Background="{DynamicResource PopupBackground}">
@@ -85,18 +132,11 @@
         </Popup>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer x:Name="BaseVisual"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    VerticalScrollBarVisibility="Auto"
-                    CanContentScroll="True"
-                    PanningMode="VerticalOnly"
-                    Focusable="False"           
-                    Margin="0">
-            <Grid x:Name="ContentGrid" VerticalAlignment="Top">
-                <Grid x:Name="NoAppsPanel"
+        <ScrollViewer Name="BaseVisual">
+            <Grid Name="ContentGrid"
+                  VerticalAlignment="Top">
+                <Grid Name="NoAppsPanel"
                                 Margin="0,8"
-                                Grid.Row="1" 
                                 Height="50"
                                 Visibility="{Binding NoAppsPaneVisibility}">
                     <TextBlock Text="{Binding NoItemsContent}"
@@ -107,62 +147,36 @@
                 </Grid>
                 <Grid Visibility="{Binding DeviceVisibility}"
                       Margin="0,0,0,8">
-                    <StackPanel Orientation="Vertical">
-                        <ItemsControl ItemsSource="{Binding Devices}" 
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ItemsControl ItemsSource="{Binding Devices}"
                                       Visibility="{Binding ExpandedPaneVisibility}"
                                       IsTabStop="False">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <local:DeviceAndAppsControl Device="{Binding}"
-                                                                Margin="0,0,0,12"/>
+                                                                Margin="0,0,0,12" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <local:DeviceAndAppsControl x:Name="DefaultDeviceControl" Device="{Binding DefaultDevice}" />
-                    </StackPanel>
-                    <Button BorderThickness="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Foreground="{DynamicResource WindowForeground}"
-                        FocusVisualStyle="{DynamicResource SolidFocusVisual}"
-                        PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
-                        Click="ExpandCollapse_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" >
-                                    <Setter.Value>
-                                        <SolidColorBrush Color="Transparent" />
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="border"
-                             SnapsToDevicePixels="True"                                                                   
-                             Background="{TemplateBinding Background}">
-                                                <ContentPresenter RecognizesAccessKey="True" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" >
-                                            <Setter.Value>
-                                                <SolidColorBrush Color="#22FFFFFF" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                        <local:DeviceAndAppsControl x:Name="DefaultDeviceControl"
+                                                    Grid.Row="1"
+                                                    Device="{Binding DefaultDevice}" />
+                    </Grid>
+
+                    <Button PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
+                            Style="{StaticResource ExpandCollapseButtonStyle}"
+                            Click="ExpandCollapse_Click">
                         <Button.Content>
                             <Grid HorizontalAlignment="Right"
                                   Margin="0,6,0,6">
                                 <TextBlock FontSize="12"
-                                               Margin="10"
-                                               FontFamily="Segoe MDL2 Assets"
-                                               Text="{Binding ExpandText}" />
+                                           Margin="10"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           Text="{Binding ExpandText}" />
                             </Grid>
                         </Button.Content>
                     </Button>

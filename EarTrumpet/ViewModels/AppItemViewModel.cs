@@ -160,8 +160,9 @@ namespace EarTrumpet.ViewModels
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Debug.WriteLine($"Failed to load icon: {ex}");
                     // ignored
                 }
 
