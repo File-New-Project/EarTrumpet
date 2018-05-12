@@ -114,19 +114,19 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        internal void TakeExternalSession(AudioSessionViewModel vm)
+        internal void TakeExternalSession(AppItemViewModel vm)
         {
             // Collect all pids for this app.
 
             var pids = new HashSet<int>();
 
-            if (vm.Children == null)
+            if (vm.ChildApps == null)
             {
                 pids.Add(vm.Session.ProcessId);
             }
             else
             {
-                foreach (var child in vm.Children)
+                foreach (var child in vm.ChildApps)
                 {
                     pids.Add(child.Session.ProcessId);
                 }

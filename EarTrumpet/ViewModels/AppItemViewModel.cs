@@ -122,7 +122,6 @@ namespace EarTrumpet.ViewModels
             ChildApps = new ObservableCollection<AppItemViewModel>();
             if (_session.Children != null)
             {
-                Children.Clear();
                 _session.Children.CollectionChanged += Children_CollectionChanged;
                 LoadChildren();
             }
@@ -203,7 +202,6 @@ namespace EarTrumpet.ViewModels
             foreach(var child in _session.Children)
             {
                 ChildApps.Add(new AppItemViewModel(child));
-                Children.Add(new AudioSessionViewModel(child));
             }
         }
 
@@ -213,13 +211,12 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    var newSession = new AudioSessionViewModel((IAudioDeviceSession)e.NewItems[0]);
-                    Children.Add(newSession);
+                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     Debug.Assert(e.OldItems.Count == 1);
-                    Children.Remove(Children.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
@@ -244,6 +241,30 @@ namespace EarTrumpet.ViewModels
             }
 
             base.TriggerPeakCheck();
+        }
+
+        public override float PeakValue
+        {
+            get
+            {
+                if (_session.Children != null)
+                {
+                    float highestOfChildrenPeakValues = 0;
+                    foreach(var child in _session.Children)
+                    {
+                        var childPeakValue = child.PeakValue;
+                        if (childPeakValue > highestOfChildrenPeakValues)
+                        {
+                            highestOfChildrenPeakValues = childPeakValue;
+                        }
+                    }
+                    return highestOfChildrenPeakValues;
+                }
+                else
+                {
+                    return _session.PeakValue;
+                }
+            }
         }
     }
 }
