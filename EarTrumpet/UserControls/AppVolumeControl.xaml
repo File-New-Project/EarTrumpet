@@ -15,8 +15,7 @@
         <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
 
     </UserControl.Resources>
-    <Grid Margin="12,6"
-          Name="GridRoot">
+    <Grid Name="GridRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -28,7 +27,6 @@
                 HorizontalAlignment="Center"
                 Height="24"
                 Width="24"
-                Margin="8,0"
                 MouseDown="Icon_MouseDown"
                 Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}">
             <Grid>
@@ -40,8 +38,7 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Text="{Binding App.IconText}"
-                           FontWeight="Bold"
-                           Margin="0,-1,0,0">
+                           FontWeight="Bold">
                     <TextBlock.Style>
                         <Style>
                             <Setter Property="TextBlock.Visibility"
@@ -88,14 +85,12 @@
                    Margin="1,0,0,0" />
 
         <local:AudioPeakMeter Grid.Column="1"
-                              Margin="12,0,20,0"
                               IsHitTestVisible="False"
                               PeakValue="{Binding App.PeakValue}"
                               Volume="{Binding App.Volume}" />
 
         <local:VolumeSlider Grid.Column="1"
                             Value="{Binding App.Volume,Mode=TwoWay}"
-                            Margin="12,0"
                             Style="{StaticResource TouchSliderStyle}"
                             Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
 
@@ -106,7 +101,6 @@
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
-                   Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}"
-                   Margin="0,-3,0,0" />
+                   Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
     </Grid>
 </UserControl>

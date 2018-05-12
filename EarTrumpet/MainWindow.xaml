@@ -6,7 +6,6 @@
         Title="EarTrumpet"
         Width="360"
         Icon="Application.ico"
-        Topmost="True"
         ShowInTaskbar="False"
         AllowsTransparency="True"
         SnapsToDevicePixels="True"
@@ -17,8 +16,7 @@
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
         ResizeMode="NoResize"
-        TextOptions.TextFormattingMode="Display"
-        x:Name="VolumeWindow">
+        TextOptions.TextFormattingMode="Display">
     <Window.Resources>
 
         <SolidColorBrush x:Key="DimmedBackground"
@@ -138,46 +136,37 @@
         <ScrollViewer Name="BaseVisual">
             <Grid Name="ContentGrid"
                   VerticalAlignment="Top">
-                <Grid Margin="0,8"
-                      Height="50"
-                      Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
-                    <TextBlock x:Uid="NoDevicesPanelContent"
-                               Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                               TextWrapping="Wrap" />
-                </Grid>
-                <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}"
-                      Margin="0,0,0,8">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <ItemsControl ItemsSource="{Binding Devices}"
-                                      IsTabStop="False">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <uc:DeviceAndAppsControl Device="{Binding}"
-                                                                Margin="0,0,0,12" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
+
+                <TextBlock x:Uid="NoDevicesPanelContent"
+                            Margin="0,8"
+                            Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
+                            Height="50"
+                            Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                            TextWrapping="Wrap" />
+
+                <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
+                    <ItemsControl ItemsSource="{Binding Devices}"
+                                  IsTabStop="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <uc:DeviceAndAppsControl Device="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
                     <Button PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
                             Style="{StaticResource ExpandCollapseButtonStyle}"
                             IsEnabled="{Binding CanExpand}"
+                            Height="35"
                             Click="ExpandCollapse_Click">
                         <Button.Content>
-                            <Grid HorizontalAlignment="Right"
-                                  Margin="0,6,0,6">
-                                <TextBlock FontSize="12"
-                                           Margin="10"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           Text="{Binding ExpandText}" />
-                            </Grid>
+                            <TextBlock FontSize="12"
+                                       HorizontalAlignment="Right"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="{Binding ExpandText}" />
                         </Button.Content>
                     </Button>
                 </Grid>

@@ -14,79 +14,80 @@
         </Style>
     </UserControl.Resources>
     <Grid Name="GridRoot">
-        <StackPanel Orientation="Vertical">
-            <Border Background="{DynamicResource HeaderBackground}"
-                    BorderThickness="0,0,0,12">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Device.Device.DisplayName}"
-                               Padding="12,12,8,14"
-                               FontSize="15"
-                               VerticalAlignment="Center"
-                               TextTrimming="CharacterEllipsis" />
-                    <ItemsControl IsTabStop="False">
-                        <ListViewItem Name="DeviceListItem">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-                            <Grid Margin="12,6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="42" />
-                                </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0"
-                                        ToolTip="{Binding Device.Device.DisplayName}"
-                                        Background="Transparent"
-                                        HorizontalAlignment="Center"
-                                        Height="24"
-                                        Width="24"
-                                        Margin="8,0"
-                                        MouseDown="Icon_MouseDown"
-                                        Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
-                                    <Grid>
-                                        <TextBlock FontSize="24"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Text="{Binding Device.DeviceIconText}"
-                                                   FontFamily="Segoe MDL2 Assets"
-                                                   Margin="0,-1,0,0" />
+        <Grid Background="{DynamicResource HeaderBackground}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                                    </Grid>
-                                </Border>
+            <TextBlock Text="{Binding Device.Device.DisplayName}"
+                       FontSize="15"
+                       VerticalAlignment="Center"
+                       TextTrimming="CharacterEllipsis" />
+            
+            <ItemsControl IsTabStop="False"
+                          Grid.Row="1">
+                <ListViewItem Name="DeviceListItem">
 
-                                <local:AudioPeakMeter Grid.Column="1"
-                                                      Margin="12,0,20,0"
-                                                      IsHitTestVisible="False"
-                                                      PeakValue="{Binding Device.Device.PeakValue}"
-                                                      Volume="{Binding Device.Device.Volume}" />
-                                <local:VolumeSlider Grid.Column="1"
-                                                    Value="{Binding Device.Device.Volume,Mode=TwoWay}"
-                                                    PreviewTouchUp="TouchSlider_TouchUp"
-                                                    PreviewMouseUp="TouchSlider_MouseUp"
-                                                    Margin="12,0"
-                                                    Style="{StaticResource TouchSliderStyle}"
-                                                    Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
-                                <TextBlock Grid.Column="2"
-                                           Text="{Binding Device.Device.Volume, Mode=OneWay}"
-                                           FontSize="24"
-                                           FontFamily="Segoe UI"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                           Margin="0,-3,0,0" />
-                            </Grid>
-                        </ListViewItem>
-                    </ItemsControl>
-                </StackPanel>
-            </Border>
-            <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      Background="Transparent"
-                      Name="AppList">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <local:AppVolumeControl App="{Binding}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+                    <Grid Margin="12,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="42" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0"
+                                ToolTip="{Binding Device.Device.DisplayName}"
+                                Background="Transparent"
+                                HorizontalAlignment="Center"
+                                Height="24"
+                                Width="24"
+                                Margin="8,0"
+                                MouseDown="Icon_MouseDown"
+                                Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
+
+                            <TextBlock FontSize="24"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="{Binding Device.DeviceIconText}"
+                                       Margin="0,-1,0,0" />
+                        </Border>
+
+                        <local:AudioPeakMeter Grid.Column="1"
+                                              IsHitTestVisible="False"
+                                              PeakValue="{Binding Device.Device.PeakValue}"
+                                              Volume="{Binding Device.Device.Volume}" />
+                        <local:VolumeSlider Grid.Column="1"
+                                            Value="{Binding Device.Device.Volume,Mode=TwoWay}"
+                                            PreviewTouchUp="TouchSlider_TouchUp"
+                                            PreviewMouseUp="TouchSlider_MouseUp"
+                                            Style="{StaticResource TouchSliderStyle}"
+                                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding Device.Device.Volume, Mode=OneWay}"
+                                   FontSize="24"
+                                   FontFamily="Segoe UI"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                   Margin="0,-3,0,0" />
+                    </Grid>
+                </ListViewItem>
+            </ItemsControl>
+        </Grid>
+
+        <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                  Grid.Row="1"
+                  Name="AppList">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="viewModels:AppItemViewModel">
+                    <local:AppVolumeControl App="{Binding}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

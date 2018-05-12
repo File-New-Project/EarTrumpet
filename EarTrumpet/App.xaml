@@ -328,6 +328,16 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="GlyphTextBlockStyle"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="FontFamily"
+                        Value="Segoe MDL2 Assets" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
