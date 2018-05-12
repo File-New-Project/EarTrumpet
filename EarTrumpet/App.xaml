@@ -256,9 +256,33 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+
             <Style x:Key="TouchSliderStyle" TargetType="{x:Type Slider}">
                 <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
+                        Value="true" />
+                <Setter Property="Minimum"
+                        Value="0" />
+                <Setter Property="Maximum"
+                        Value="100" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="IsTabStop"
+                        Value="False" />
+                <Setter Property="Interval"
+                        Value="1" />
+                <Setter Property="SnapsToDevicePixels"
+                        Value="true" />
+                <Setter Property="SmallChange"
+                        Value="1" />
+                <Setter Property="LargeChange"
+                        Value="10" />
+                <Setter Property="IsManipulationEnabled"
+                        Value="true" />
+                
                 <Style.Triggers>
                     <Trigger Property="Orientation"
                          Value="Horizontal">

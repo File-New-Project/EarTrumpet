@@ -94,21 +94,10 @@
                               Volume="{Binding App.Volume}" />
 
         <local:VolumeSlider Grid.Column="1"
-                           Value="{Binding App.Volume,Mode=TwoWay}"
-                           Minimum="0"
-                           Maximum="100"
-                           VerticalContentAlignment="Center"
-                           HorizontalContentAlignment="Stretch"
-                           Margin="12,0"
-                           IsTabStop="False"
-                           VerticalAlignment="Center"
-                           Interval="1"
-                           SnapsToDevicePixels="True"
-                           SmallChange="1"
-                           LargeChange="10"
-                           IsManipulationEnabled="True"
-                           Style="{StaticResource TouchSliderStyle}"
-                           Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
+                            Value="{Binding App.Volume,Mode=TwoWay}"
+                            Margin="12,0"
+                            Style="{StaticResource TouchSliderStyle}"
+                            Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
 
         <TextBlock Grid.Column="2"
                    Text="{Binding App.Volume, Mode=OneWay}"
