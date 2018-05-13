@@ -105,6 +105,9 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\VolumeControlPopup.xaml.cs">
+      <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\VolumeSlider.cs" />
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
@@ -241,6 +244,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\AppVolumeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\VolumeControlPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -270,12 +270,15 @@ namespace EarTrumpet.ViewModels
 
         public void OnAppCollapsed()
         {
-            _expandedApp.IsExpanded = false;
-            _expandedApp = null;
+            if (_expandedApp != null)
+            {
+                _expandedApp.IsExpanded = false;
+                _expandedApp = null;
 
-            AppCollapsed?.Invoke(this, null);
-            IsShowingModalDialog = false;
-            RaisePropertyChanged(nameof(IsShowingModalDialog));
+                AppCollapsed?.Invoke(this, null);
+                IsShowingModalDialog = false;
+                RaisePropertyChanged(nameof(IsShowingModalDialog));
+            }
         }
 
         public void BeginOpen()

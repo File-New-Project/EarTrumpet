@@ -75,59 +75,7 @@
                     Value="0" />
         </Style>
 
-        <Popup x:Key="AppPopup">
-            <Grid>
-                <Grid Background="{DynamicResource PopupBackground}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Border Background="{DynamicResource HeaderBackground}"
-                            Grid.ColumnSpan="3"
-                            Height="{StaticResource DeviceTitleCellHeight}" />
-                    <TextBlock Text="{Binding DisplayName}"
-                               FontSize="{StaticResource LargeWindowTextFontSize}"
-                               Margin="{StaticResource WindowMargin}"
-                               TextTrimming="CharacterEllipsis" />
-                    <Button BorderThickness="0"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            Grid.Column="1"
-                            FontSize="16"
-                            Foreground="{DynamicResource WindowForeground}"
-                            Style="{StaticResource StyledButton}"
-                            IsEnabled="{Binding IsMovable}"
-                            Tag="{Binding MoveIcon}"
-                            Click="MoveToAnotherDevice_Click" />
-                    <Button BorderThickness="0"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            Grid.Column="2"
-                            FontSize="10"
-                            Foreground="{DynamicResource WindowForeground}"
-                            Tag="&#xE8BB;"
-                            Style="{StaticResource StyledButton}"
-                            Click="CloseButton_Click" />
-                    <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
-                              VerticalAlignment="Center"
-                              Grid.ColumnSpan="3"
-                              Margin="{StaticResource VolumeAppListMargin}"
-                              Grid.Row="1">
-                        <ListView.ItemTemplate>
-                            <DataTemplate DataType="viewModels:AppItemViewModel">
-                                <uc:AppVolumeControl App="{Binding}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-            </Grid>
-        </Popup>
+        <uc:VolumeControlPopup x:Key="AppPopup" />
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual">
