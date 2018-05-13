@@ -20,7 +20,7 @@ namespace EarTrumpet.Services
             public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
             [DllImport("user32.dll")]
-            public static extern int SendMessage(IntPtr hWnd, int wMsg, uint wParam, int lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
             public const int WM_USERMAGIC = 1120;
             public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
@@ -37,7 +37,7 @@ namespace EarTrumpet.Services
             if (handle != IntPtr.Zero)
             {
                 var pt = System.Windows.Forms.Cursor.Position;
-                Interop.SendMessage(handle, Interop.WM_USERMAGIC, Interop.MAKEWPARAM((ushort)pt.X, (ushort)pt.Y), Interop.SNDVOL_ACTION_SHOWCONTEXTMENU);
+                Interop.SendMessage(handle, Interop.WM_USERMAGIC, new IntPtr(Interop.MAKEWPARAM((ushort)pt.X, (ushort)pt.Y)), new IntPtr(Interop.SNDVOL_ACTION_SHOWCONTEXTMENU));
             }
         }
 

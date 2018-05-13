@@ -3,7 +3,7 @@
 namespace EarTrumpet.DataModel.Com
 {
     [Flags]
-    public enum Sichint : uint
+    public enum SICHINT : uint
     {
         /// <summary>iOrder based on display in a folder view</summary>
         DISPLAY = 0x00000000,

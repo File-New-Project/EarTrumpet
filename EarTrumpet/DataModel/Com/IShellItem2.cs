@@ -12,23 +12,23 @@ namespace EarTrumpet.DataModel.Com
         object BindToHandler(IBindCtx pbc, [In] ref Guid bhid, [In] ref Guid riid);
         IShellItem GetParent();
         [return: MarshalAs(UnmanagedType.LPWStr)]
-        string GetDisplayName(Sigdn sigdnName);
-        Sfgao GetAttributes(Sfgao sfgaoMask);
-        int Compare(IShellItem psi, Sichint hint);
+        string GetDisplayName(SIGDN sigdnName);
+        SFGAO GetAttributes(SFGAO sfgaoMask);
+        int Compare(IShellItem psi, SICHINT hint);
         [return: MarshalAs(UnmanagedType.Interface)]
         object GetPropertyStore(
-            Gps flags,
+            GPS flags,
             [In] ref Guid riid);
         [return: MarshalAs(UnmanagedType.Interface)]
         object GetPropertyStoreWithCreateObject(
-            Gps flags,
+            GPS flags,
             [MarshalAs(UnmanagedType.IUnknown)] object punkCreateObject,   // factory for low-rights creation of type ICreateObject
             [In] ref Guid riid);
         [return: MarshalAs(UnmanagedType.Interface)]
         object GetPropertyStoreForKeys(
             IntPtr rgKeys,
             uint cKeys,
-            Gps flags,
+            GPS flags,
             [In] ref Guid riid);
         [return: MarshalAs(UnmanagedType.Interface)]
         object GetPropertyDescriptionList(

@@ -13,14 +13,14 @@ namespace EarTrumpet.Services
     {
         private class Interop
         {
-            [DllImport("shell32.dll")]
-            public static extern IntPtr ExtractIcon(IntPtr instanceHandle, string path, int iconIndex);
+            [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+            public static extern IntPtr ExtractIcon(IntPtr instanceHandle, [MarshalAs(UnmanagedType.LPWStr)] string path, int iconIndex);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+            public static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPWStr)] string path, IntPtr reserved, LoadLibraryFlags flags);
 
             [DllImport("kernel32.dll")]
-            public static extern IntPtr LoadLibraryEx(string path, IntPtr reserved, LoadLibraryFlags flags);
-
-            [DllImport("kernel32.dll")]
-            public static extern IntPtr FreeLibrary(IntPtr moduleHandle);
+            public static extern int FreeLibrary(IntPtr moduleHandle);
 
             [Flags]
             public enum LoadLibraryFlags
@@ -50,7 +50,7 @@ namespace EarTrumpet.Services
             IntPtr iconHandle = IntPtr.Zero;
             Interop.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Interop.LoadIconDesiredMetric.Small, ref iconHandle);
 
-            
+            Interop.FreeLibrary(moduleHandle);
             return Icon.FromHandle(iconHandle);
         }
 

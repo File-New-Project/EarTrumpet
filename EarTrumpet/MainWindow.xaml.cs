@@ -183,20 +183,20 @@ namespace EarTrumpet
             switch(taskbarState.TaskbarPosition)
             {
                 case TaskbarPosition.Left:
-                    newLeft = (taskbarState.TaskbarSize.right / this.DpiWidthFactor());
-                    newTop = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - newHeight;
+                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor());
+                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor()) - newHeight;
                     break;
                 case TaskbarPosition.Right:
-                    newLeft = (taskbarState.TaskbarSize.left / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor()) - newHeight;
+                    newLeft = (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor()) - newHeight;
                     break;
                 case TaskbarPosition.Top:
-                    newLeft = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.bottom / this.DpiHeightFactor());
+                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor());
                     break;
                 case TaskbarPosition.Bottom:
-                    newLeft = (taskbarState.TaskbarSize.right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.top / this.DpiHeightFactor()) - newHeight;
+                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.TaskbarSize.Top / this.DpiHeightFactor()) - newHeight;
                     break;
             }
 

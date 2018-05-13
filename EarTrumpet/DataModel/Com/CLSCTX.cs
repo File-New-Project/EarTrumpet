@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.DataModel.Com
 {
-    public enum ClsCtx : int
+    public enum CLSCTX : int
     {
         CLSCTX_INPROC_SERVER = 0x1,
     }

@@ -3,7 +3,7 @@
 namespace EarTrumpet.DataModel.Com
 {
     [Flags]
-    public enum Sfgao : uint
+    public enum SFGAO : uint
     {
         /// <summary>Objects can be copied</summary>
         /// <remarks>DROPEFFECT_COPY</remarks>
