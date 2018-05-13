@@ -60,6 +60,7 @@ namespace EarTrumpet.ViewModels
         public SimpleAudioDeviceViewModel DefaultPlaybackDevice { get; private set; }
 
         public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
+        public event EventHandler<object> WindowSizeInvalidated = delegate { };
         public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<ViewState> StateChanged = delegate { };
 
@@ -98,6 +99,7 @@ namespace EarTrumpet.ViewModels
             if (IsExpanded || Devices.Count == 0)
             {
                 Devices.Insert(0, newDevice);
+                InvalidateWindowSize();
             }
         }
 
@@ -119,6 +121,7 @@ namespace EarTrumpet.ViewModels
                 {
                     Devices.Clear();
                     Devices.Add(foundAllDevice);
+                    InvalidateWindowSize();
                 }
             }
         }
@@ -172,6 +175,7 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
+            InvalidateWindowSize();
         }
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -213,6 +217,12 @@ namespace EarTrumpet.ViewModels
 
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(ExpandText));
+            InvalidateWindowSize();
+        }
+
+        private void InvalidateWindowSize()
+        {
+            WindowSizeInvalidated?.Invoke(this, null);
         }
 
         public void ChangeState(ViewState state)

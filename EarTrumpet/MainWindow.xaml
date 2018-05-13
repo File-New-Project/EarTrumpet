@@ -135,9 +135,9 @@
                   VerticalAlignment="Top">
 
                 <TextBlock x:Uid="NoDevicesPanelContent"
-                            Margin="0,8"
+                           Margin="{StaticResource NoItemsPaneMargin}"
                             Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
-                            Height="50"
+                           Height="{StaticResource NoItemsPaneHeight}"
                             Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                             HorizontalAlignment="Center"
                             FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"

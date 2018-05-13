@@ -27,6 +27,7 @@ namespace EarTrumpet
             _viewModel.StateChanged += _viewModel_StateChanged;
             _viewModel.AppExpanded += _viewModel_AppExpanded;
             _viewModel.AppCollapsed += _viewModel_AppCollapsed;
+            _viewModel.WindowSizeInvalidated += _viewModel_WindowSizeInvalidated;
             _trayViewModel = new TrayViewModel(_deviceService);
             _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
             _trayIcon.Invoked += TrayIcon_Invoked;
@@ -47,16 +48,17 @@ namespace EarTrumpet
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
+        }
 
-            ContentGrid.SizeChanged += (s, e) => UpdateWindowPosition();
+        private void _viewModel_WindowSizeInvalidated(object sender, object e)
+        {
+            UpdateWindowPosition();
         }
 
         private void _viewModel_AppCollapsed(object sender, object e)
         {
             LayoutRoot.Children.Remove(_popup);
             _popup.IsOpen = false;
-
-            UpdateLayout();
         }
 
         private void _viewModel_AppExpanded(object sender, AppExpandedEventArgs e)
@@ -172,9 +174,40 @@ namespace EarTrumpet
         {
             var taskbarState = TaskbarService.GetWinTaskbarState();
 
-            LayoutRoot.Measure(new Size(double.PositiveInfinity, taskbarState.TaskbarScreen.WorkingArea.Height));
+            double newHeight = 0;
 
-            double newHeight = LayoutRoot.DesiredSize.Height;
+            if (_viewModel.IsEmpty)
+            {
+                var NoItemsPaneHeight = (double)App.Current.Resources["NoItemsPaneHeight"];
+                var NoItemsPaneMargin = (Thickness)App.Current.Resources["NoItemsPaneMargin"];
+
+                newHeight = NoItemsPaneHeight + NoItemsPaneMargin.Bottom + NoItemsPaneMargin.Top;
+            }
+            else
+            {
+                var DeviceItemCellHeight = (double)App.Current.Resources["DeviceItemCellHeight"];
+                var DeviceTitleCellHeight = (double)App.Current.Resources["DeviceTitleCellHeight"];
+                var AppItemCellHeight = (double)App.Current.Resources["AppItemCellHeight"];
+                
+                var VolumeAppListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
+                foreach (var device in _viewModel.Devices)
+                {
+                    newHeight += DeviceTitleCellHeight + DeviceItemCellHeight;
+                    
+                    if (device.Apps.Count > 0)
+                    {
+                        newHeight += VolumeAppListMargin.Bottom + VolumeAppListMargin.Top;
+                    }
+
+                    foreach(var app in device.Apps)
+                    {
+                        newHeight += AppItemCellHeight;
+                    }
+                }
+            }
+
+            newHeight = Math.Min(newHeight, taskbarState.TaskbarScreen.WorkingArea.Height);
+
             double newTop = 0;
             double newLeft = 0;
             switch(taskbarState.TaskbarPosition)
@@ -197,6 +230,7 @@ namespace EarTrumpet
                     break;
             }
 
+            UpdateLayout();
             this.Move(newTop, newLeft, newHeight, Width);
         }
 
