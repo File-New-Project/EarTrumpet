@@ -124,9 +124,6 @@
     <Content Include="de\EarTrumpet.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="EarTrumpet.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="fr\EarTrumpet.resources.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
