@@ -38,15 +38,15 @@ namespace EarTrumpet.Services
 
             newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
             newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
-            newDictionary["ButtonBackground"] = Lookup("ImmersiveLightBaseLow");
-            newDictionary["ButtonBackgroundHover"] = Lookup("ImmersiveLightBaseLow");
-            newDictionary["ButtonBackgroundPressed"] = Lookup("ImmersiveLightBaseMediumLow");
-            newDictionary["ButtonBorder"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
-            newDictionary["ButtonBorderHover"] = Lookup("ImmersiveLightBaseMediumLow");
-            newDictionary["ButtonBorderPressed"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
-            newDictionary["ButtonForeground"] = Lookup("ImmersiveLightBaseHigh");
-            newDictionary["ButtonForegroundHover"] = Lookup("ImmersiveLightBaseHigh");
-            newDictionary["ButtonForegroundPressed"] = Lookup("ImmersiveLightBaseHigh");
+            newDictionary["ButtonBackground"] = Lookup(isLightTheme ? "ImmersiveLightBaseLow" : "ImmersiveDarkBaseLow");
+            newDictionary["ButtonBackgroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseLow" : "ImmersiveDarkBaseLow");
+            newDictionary["ButtonBackgroundPressed"] = Lookup(isLightTheme ? "ImmersiveLightBaseMediumLow" : "ImmersiveDarkBaseMediumLow");
+            newDictionary["ButtonBorder"] = new SolidColorBrush(Colors.Transparent);
+            newDictionary["ButtonBorderHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseMediumLow" : "ImmersiveDarkBaseMediumLow");
+            newDictionary["ButtonBorderPressed"] = new SolidColorBrush(Colors.Transparent);
+            newDictionary["ButtonForeground"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
+            newDictionary["ButtonForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
+            newDictionary["ButtonForegroundPressed"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
             newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
@@ -111,10 +111,13 @@ namespace EarTrumpet.Services
             return color;
         }
 
-        private static SolidColorBrush Lookup(string name, double opacity = 1)
+        private static SolidColorBrush Lookup(string name, double opacity = 0)
         {
             var color = AccentColorService.GetColorByTypeName(name);
-            color.A = (byte)(opacity * 255);
+            if (opacity > 0)
+            {
+                color.A = (byte)(opacity * 255);
+            }
             return new SolidColorBrush(color);
         }
     }

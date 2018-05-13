@@ -87,7 +87,7 @@
                     <Button Click="HotkeySelect_Click"
                             Style="{StaticResource SlimButton}"
                             Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                            Content="{Binding HotkeyText}" HorizontalAlignment="Left" />
+                            Content="{Binding HotkeyText}" HorizontalAlignment="Left"/>
                 </StackPanel>
                 <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsTitle}" Style="{StaticResource HeadingText}" />-->
                 <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsText}" Style="{StaticResource BodyText}"/>-->

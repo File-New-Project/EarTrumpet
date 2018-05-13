@@ -107,11 +107,11 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="Button" x:Key="SlimButton">
-                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="12,4" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorder}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Template">
                     <Setter.Value>
