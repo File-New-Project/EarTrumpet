@@ -98,8 +98,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FeedbackTask.cs" />
-    <Compile Include="UpdateTask.cs" />
     <Compile Include="WhatsNewPage.xaml.cs">
       <DependentUpon>WhatsNewPage.xaml</DependentUpon>
     </Compile>
@@ -165,18 +163,18 @@
     <PRIResource Include="Strings\zh-hk\resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj">
-      <Project>{b4b0d6b6-b9ea-4492-a42e-2ec45f2ea30a}</Project>
-      <Name>EarTrumpet.BackgroundTasks</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj">
+      <Project>{b4b0d6b6-b9ea-4492-a42e-2ec45f2ea30a}</Project>
+      <Name>EarTrumpet.BackgroundTasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
