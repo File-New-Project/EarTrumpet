@@ -24,19 +24,12 @@ namespace EarTrumpet.UserControls
         public static readonly DependencyProperty VolumeValueProperty = DependencyProperty.Register(
           "Volume", typeof(int), typeof(VolumeSlider), new PropertyMetadata(0, new PropertyChangedCallback(VolumeChanged)));
 
-        Border PeakMeter
-        {
-            get
-            {
-                return (Border)GetTemplateChild("PeakMeter");
-            }
-        }
+        Border PeakMeter => (Border)GetTemplateChild("PeakMeter");
 
-        // PeakMeter
         public VolumeSlider() : base()
         {
-            TouchDown += OnTouchDown;
-            MouseDown += OnMouseDown;
+            PreviewTouchDown += OnTouchDown;
+            PreviewMouseDown += OnMouseDown;
             TouchUp += OnTouchUp;
             MouseUp += OnMouseUp;
             TouchMove += OnTouchMove;
