@@ -29,6 +29,8 @@ namespace EarTrumpet.DataModel.Com
 
 
         int SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
+
+        [PreserveSig]
         int GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
         int ClearAllPersistedApplicationDefaultEndpoints();
     }

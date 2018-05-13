@@ -74,15 +74,8 @@ namespace EarTrumpet.Services
         {
             EnsurePolicyConfig();
 
-            try
-            {
-                s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
-                return UnpackDeviceId(deviceId);
-            }
-            catch(COMException ex) when (ex.HResult == unchecked((int)0x80070490)) // Element Not Found
-            {
-                return "";
-            }
+            s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
+            return UnpackDeviceId(deviceId);
         }
     }
 }
