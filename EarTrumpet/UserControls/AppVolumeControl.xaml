@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="EarTrumpet.UserControls.AppVolumeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:data="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
+             xmlns:local="clr-namespace:EarTrumpet.UserControls"
+             xmlns:ext="clr-namespace:EarTrumpet.Extensions"
+             mc:Ignorable="d"
+             IsTabStop="False"
+             Height="{StaticResource AppItemCellHeight}"
+             d:DesignHeight="50"
+             d:DesignWidth="200">
+    <UserControl.Resources>
+
+        <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
+
+    </UserControl.Resources>
+    <Grid Name="GridRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                ToolTip="{Binding App.DisplayName}"
+                Background="{Binding App.Background, Mode=OneTime}"
+                HorizontalAlignment="Center"
+                Height="{StaticResource AppIconSize}"
+                Width="{StaticResource AppIconSize}"
+                Margin="{StaticResource DeviceOrAppIconMargin}"
+                MouseDown="Icon_MouseDown"
+                Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}">
+            <Grid>
+                <Image Source="{Binding App.Icon, Mode=OneTime}"
+                       Stretch="Fill"
+                       Height="{StaticResource AppIconSize}"
+                       Width="{StaticResource AppIconSize}" />
+                <TextBlock FontSize="16"
+                           HorizontalAlignment="Center"
+                           Text="{Binding App.IconText}"
+                           FontWeight="Bold">
+                    <TextBlock.Style>
+                        <Style>
+                            <Setter Property="TextBlock.Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding App.Icon}"
+                                             Value="{x:Null}">
+                                    <Setter Property="TextBlock.Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <Grid VerticalAlignment="Bottom"
+                      HorizontalAlignment="Right"
+                      Margin="0,0,-1,-1"
+                      Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
+                    <Canvas>
+                        <Ellipse Fill="{DynamicResource BadgeBackground}"
+                                 Width="12"
+                                 Height="12" />
+                    </Canvas>
+
+                    <TextBlock FontSize="10"
+                               Margin="2,-3,0,0"
+                               FontWeight="Bold"
+                               Text="..." />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Column="0"
+                   MouseDown="Mute_MouseDown"
+                   Visibility="{Binding App.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                   Text="&#xE74F;"
+                   FontSize="18"
+                   Style="{StaticResource GlyphTextBlockStyle}"
+                   ToolTip="{Binding App.DisplayName}" />
+
+        <local:VolumeSlider Grid.Column="1"
+                            Volume="{Binding App.Volume}"
+                            Value="{Binding App.Volume,Mode=TwoWay}"
+                            PeakValue="{Binding App.PeakValue}"
+                            Style="{StaticResource TouchSliderStyle}"
+                            Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
+
+        <TextBlock Grid.Column="2"
+                   Text="{Binding App.Volume, Mode=OneWay}"
+                   FontSize="{StaticResource AppVolumeTextFontSize}"
+                   Margin="{StaticResource VolumeTextMargin}"
+                   HorizontalAlignment="Center"
+                   Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
+    </Grid>
+</UserControl>

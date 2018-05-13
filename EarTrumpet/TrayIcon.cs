@@ -48,9 +48,7 @@ namespace EarTrumpet
             _contextMenu.MenuItems.Add("-");
 
             AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
-            AddItem(Properties.Resources.TroubleshootEarTrumpetText, DiagnosticsItem_Click);
             AddItem(Properties.Resources.ContextMenuSendFeedback, Feedback_Click);
-            AddItem(_trayViewModel.AboutHeader, About_Click);
             AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
@@ -77,11 +75,6 @@ namespace EarTrumpet
         private void EtVolumeMixer_Click(object sender, EventArgs e)
         {
             _trayViewModel.OpenEarTrumpetVolumeMixerCommand.Execute();
-        }
-
-        private void DiagnosticsItem_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenDiagnosticsCommand.Execute();
         }
 
         private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -175,11 +168,6 @@ namespace EarTrumpet
             _trayViewModel.StartAppServiceAndFeedbackHubCommand.Execute();
         }
 
-        void About_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenAboutCommand.Execute();
-        }
-
         public void Exit_Click(object sender, EventArgs e)
         {
             try
@@ -202,7 +190,7 @@ namespace EarTrumpet
         void Device_Click(object sender, EventArgs e)
         {
             var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
-            _trayViewModel.ChangeDeviceCommand.Execute(device);      
+            _trayViewModel.ChangeDeviceCommand.Execute(device);
         }
 
         internal void SetupDeviceMenuItems()

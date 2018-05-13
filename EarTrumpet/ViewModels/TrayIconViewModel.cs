@@ -50,23 +50,11 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public string AboutHeader
-        {
-            get
-            {
-                var aboutString = Properties.Resources.ContextMenuAboutTitle;
-                var version = Assembly.GetEntryAssembly().GetName().Version;
-                return $"{aboutString} EarTrumpet {version} ...";
-            }
-        }
-
         public RelayCommand OpenSettingsCommand { get; }
         public RelayCommand OpenPlaybackDevicesCommand { get; }
         public RelayCommand OpenRecordingDevicesCommand { get; }
         public RelayCommand OpenSoundsControlPanelCommand { get; }
         public RelayCommand OpenLegacyVolumeMixerCommand { get; }
-        public RelayCommand OpenAboutCommand { get; }
-        public RelayCommand OpenDiagnosticsCommand { get; }
         public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
         public RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
         public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
@@ -107,8 +95,6 @@ namespace EarTrumpet.ViewModels
             OpenRecordingDevicesCommand = new RelayCommand(OpenRecordingDevices);
             OpenSoundsControlPanelCommand = new RelayCommand(OpenSoundsControlPanel);
             OpenLegacyVolumeMixerCommand = new RelayCommand(OpenLegacyVolumeMixer);
-            OpenAboutCommand = new RelayCommand(OpenAbout);
-            OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
             ChangeDeviceCommand = new RelayCommand<IAudioDevice>(ChangeDevice);
             StartAppServiceAndFeedbackHubCommand = new RelayCommand(StartAppServiceAndFeedbackHub);
@@ -221,16 +207,6 @@ namespace EarTrumpet.ViewModels
         private void OpenLegacyVolumeMixer()
         {
             Process.Start("sndvol.exe");
-        }
-
-        private void OpenAbout()
-        {
-            Process.Start("http://github.com/File-New-Project/EarTrumpet");
-        }
-
-        private void OpenDiagnostics()
-        {
-            DiagnosticsService.DumpAndShowData(_deviceService);
         }
 
         private void OpenSettings()

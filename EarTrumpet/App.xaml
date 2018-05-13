@@ -1,16 +1,43 @@
 ﻿<Application x:Class="EarTrumpet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              Startup="Application_Startup" Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SystemThemeColors.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground"
-                         Color="#39FFFFFF" />
+            
+            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />
+            
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
+            <ext:OpacityConverter x:Key="opacityConverter" />
+
+            <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
+            
+            <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
+            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
+
+            <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
+            <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
+
+            <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
+            <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
+            <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
+
+            <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
+            <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
+
+            <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
+            <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
+
+            <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
+            <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
+            <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
+            
             <Style x:Key="CaptionButtonStyle"
                TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
@@ -75,22 +102,18 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="Button"
-               x:Key="SlimButton">
-                <Setter Property="BorderThickness"
-                    Value="0" />
+            <Style TargetType="Button" x:Key="SlimButton">
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="FontSize"
-                    Value="18" />
-                <Setter Property="Margin"
-                    Value="8" />
+                    Value="15" />
                 <Setter Property="Padding"
-                    Value="4" />
+                    Value="12,4" />
                 <Setter Property="Background"
                     Value="Transparent" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}">
+                            <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
                                 <TextBlock Text="{TemplateBinding Content}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -124,7 +147,12 @@
                 </Setter>
             </Style>
             <Style x:Key="StyledButton" TargetType="Button">
-                <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
+                <Setter Property="Width"
+                        Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Height"
+                        Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="FocusVisualStyle"
+                        Value="{StaticResource SolidFocusVisual}" />
                 <Setter Property="Background" >
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent" />
@@ -133,11 +161,8 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
-                            <Border Background="{TemplateBinding Background}"
-                                Width="34"
-                                Height="34">
+                            <Border Background="{TemplateBinding Background}">
                                 <TextBlock FontSize="{TemplateBinding FontSize}"
-                                            Margin="4"
                                             Foreground="{TemplateBinding Foreground}"
                                             FontFamily="Segoe MDL2 Assets"
                                             HorizontalAlignment="Center"
@@ -156,6 +181,202 @@
                         </Setter>
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+            <Style x:Key="SliderButtonStyle"
+               TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+                <Setter Property="IsTabStop"
+                    Value="false" />
+                <Setter Property="Focusable"
+                    Value="false" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Border Background="Transparent">
+                                <Border Background="{TemplateBinding Foreground}"
+                                    Height="2"></Border>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SliderThumbStyle"
+               TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle"
+                    Value="true" />
+                <Setter Property="Height"
+                    Value="24" />
+                <Setter Property="Width"
+                    Value="8" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border Name="Thumb"
+                                Background="{TemplateBinding Foreground}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                CornerRadius="5"></Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ControlTemplate x:Key="HorizontalSlider"
+                         TargetType="{x:Type Slider}">
+                <Grid>
+                    <Border Name="TrackBackground"
+                            Height="2" />
+
+                    <Track Name="PART_Track">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Name="SliderLeft"
+                                          Foreground="{DynamicResource CottonSwabSliderTrackFill}"
+                                      Style="{StaticResource SliderButtonStyle}"
+                                      Command="Slider.DecreaseLarge" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb Name="SliderThumb"
+                               Foreground="{DynamicResource CottonSwabSliderThumb}"
+                               Style="{StaticResource SliderThumbStyle}" />
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Name="SliderRight"
+                                          Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
+                                          Style="{StaticResource SliderButtonStyle}"
+                                          Command="Slider.IncreaseLarge" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
+
+                    <Border HorizontalAlignment="Left"
+                            Height="2"
+                            Width="78"
+                            Name="PeakMeter"
+                            Background="{DynamicResource PeakMeterHotColor}" />
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualStateGroup.Transitions>
+                                <VisualTransition To="Normal"
+                                              GeneratedDuration="0" />
+                            </VisualStateGroup.Transitions>
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="MouseOver">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
+                                                               Storyboard.TargetName="SliderThumb">
+                                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                            Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
+                                                               Storyboard.TargetName="SliderThumb">
+                                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                            Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled"
+                         Value="False">
+                        <Setter Property="Opacity"
+                            Value="0.5" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="TouchSliderStyle" TargetType="{x:Type Slider}">
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="Minimum"
+                        Value="0" />
+                <Setter Property="Maximum"
+                        Value="100" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="IsTabStop"
+                        Value="False" />
+                <Setter Property="Interval"
+                        Value="1" />
+                <Setter Property="SnapsToDevicePixels"
+                        Value="true" />
+                <Setter Property="SmallChange"
+                        Value="1" />
+                <Setter Property="LargeChange"
+                        Value="10" />
+                <Setter Property="IsManipulationEnabled"
+                        Value="true" />
+                
+                <Style.Triggers>
+                    <Trigger Property="Orientation"
+                         Value="Horizontal">
+                        <Setter Property="Height"
+                            Value="32" />
+                        <Setter Property="Template"
+                            Value="{StaticResource HorizontalSlider}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="{x:Type ListView}"
+                   TargetType="ListView">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="true" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseListViewItem"
+                   TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="true" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="FocusVisualStyle"
+                        Value="{DynamicResource SolidFocusVisual}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="GlyphTextBlockStyle"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="FontFamily"
+                        Value="Segoe MDL2 Assets" />
+            </Style>
+
+            <Style x:Key="{x:Type TextBlock}"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="TextTrimming"
+                        Value="CharacterEllipsis" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -136,5 +136,33 @@ namespace EarTrumpet.UserControls
                 }
             }
         }
+
+        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Device.Device.IsMuted = !Device.Device.IsMuted;
+                e.Handled = true;
+            }
+        }
+
+        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Device.Device.IsMuted = !Device.Device.IsMuted;
+                e.Handled = true;
+            }
+        }
+
+        private void TouchSlider_TouchUp(object sender, TouchEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+        }
+
+        private void TouchSlider_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Media.SystemSounds.Beep.Play();
+        }
     }
 }

@@ -97,6 +97,7 @@
     <Compile Include="Services\AccentPolicyService.cs" />
     <Compile Include="Services\AppInformationService.cs" />
     <Compile Include="Services\AudioPolicyConfigService.cs" />
+    <Compile Include="Services\DefaultEndpointService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\LegacyVolumeFlyoutService.cs" />
@@ -104,9 +105,7 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
-      <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="UserControls\VolumeSlider.cs" />
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
     <Compile Include="DataModel\Com\AudioSessionState.cs" />
@@ -132,7 +131,6 @@
     <Compile Include="DataModel\Com\IMMNotificationClient.cs" />
     <Compile Include="DataModel\Com\ISimpleAudioVolume.cs" />
     <Compile Include="DataModel\Com\MMDeviceEnumerator.cs" />
-    <Compile Include="DataModel\DefaultEndPoint.cs" />
     <Compile Include="DataModel\Extensions\CollectionExtensionsForAudioDeviceSession.cs" />
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceManager.cs" />
@@ -204,10 +202,11 @@
     <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />
     <Compile Include="ViewModels\Mocks\SettingsViewModelMock.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SimpleAudioDeviceViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\AudioSessionViewModel.cs" />
-    <Compile Include="UserControls\AudioSessionControl.xaml.cs">
-      <DependentUpon>AudioSessionControl.xaml</DependentUpon>
+    <Compile Include="UserControls\AppVolumeControl.xaml.cs">
+      <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
     <Page Include="HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
@@ -220,10 +219,6 @@
     <Page Include="SystemThemeColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\AudioPeakMeter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DeviceAndAppsControl.xaml">
       <SubType>Designer</SubType>
@@ -245,7 +240,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\AudioSessionControl.xaml">
+    <Page Include="UserControls\AppVolumeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,7 +287,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

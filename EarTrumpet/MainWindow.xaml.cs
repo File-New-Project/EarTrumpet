@@ -8,8 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Effects;
 
 namespace EarTrumpet
 {
@@ -58,28 +56,28 @@ namespace EarTrumpet
             LayoutRoot.Children.Remove(_popup);
             _popup.IsOpen = false;
 
-            MainViewModel.ExpandedApp.IsExpanded = false;
-            MainViewModel.ExpandedApp = null;
-
             UpdateLayout();
         }
 
-        private void _viewModel_AppExpanded(object sender, ListViewItem container)
+        private void _viewModel_AppExpanded(object sender, AppExpandedEventArgs e)
         {
-            var selectedApp = MainViewModel.ExpandedApp;
+            var selectedApp = e.ViewModel;
 
             _popup.DataContext = selectedApp;
             LayoutRoot.Children.Add(_popup);
 
-            Point relativeLocation = container.TranslatePoint(new Point(0, 0), this);
+            Point relativeLocation = e.Container.TranslatePoint(new Point(0, 0), this);
 
-            // TODO: This is fudge factor that we can at least partially calculate.
-            double HEADER_SIZE = 44;
-            double ITEM_SIZE = 50;
-            relativeLocation.Y -= HEADER_SIZE;
+            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
+            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
-            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE);
+            // TODO: can't figure out where this 6px is from
+            relativeLocation.Y -= HEADER_SIZE + 6;
 
+            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
+
+            // TODO: Cap top as well as bottom
             if (relativeLocation.Y + popupHeight > ActualHeight)
             {
                 relativeLocation.Y = ActualHeight - popupHeight;
@@ -106,7 +104,6 @@ namespace EarTrumpet
                     UpdateWindowPosition();
                     this.ShowwithAnimation(() => _viewModel.ChangeState(ViewState.Open));
 
-                    DefaultDeviceControl.HideFocus();
                     break;
 
                 case ViewState.Closing:
@@ -225,19 +222,17 @@ namespace EarTrumpet
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            MainViewModel.Instance.OnAppCollapsed();
+            _viewModel.OnAppCollapsed();
         }
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
-            var selectedApp = MainViewModel.ExpandedApp;
-            var vm = MainViewModel.Instance;
+            var selectedApp = (AppItemViewModel)((FrameworkElement)sender).DataContext;
             var persistedDevice = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();
 
-            MenuItem defaultItem = null;
-            foreach (var dev in selectedApp.Devices)
+            foreach (var dev in MainViewModel.Instance.PlaybackDevices)
             {
                 var newItem = new MenuItem { Header = dev.DisplayName };
                 newItem.Click += (_, __) =>
@@ -248,16 +243,9 @@ namespace EarTrumpet
                 newItem.IsCheckable = true;
                 newItem.IsChecked = (dev.Id == persistedDevice.Id);
 
-                if (dev.IsDefault)
-                {
-                    defaultItem = newItem;
-                }
-
                 moveMenu.Items.Add(newItem);
             }
 
-            moveMenu.Items.Remove(defaultItem);
-            moveMenu.Items.Insert(0, defaultItem);
             moveMenu.Items.Insert(1, new Separator());
 
             moveMenu.PlacementTarget = (UIElement)sender;

@@ -63,6 +63,15 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
+        public static string AboutTitle {
+            get {
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
         public static string ContextMenuAboutTitle {
             get {
                 return ResourceManager.GetString("ContextMenuAboutTitle", resourceCulture);
@@ -115,6 +124,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Having trouble with EarTrumpet? Sometimes it can help to have the list of audio sessions from your PC..
+        /// </summary>
+        public static string DiagnosticsText {
+            get {
+                return ResourceManager.GetString("DiagnosticsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnostics.
+        /// </summary>
+        public static string DiagnosticsTitle {
+            get {
+                return ResourceManager.GetString("DiagnosticsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
@@ -129,6 +156,15 @@ namespace EarTrumpet.Properties {
         public static string HotkeyDescriptionText {
             get {
                 return ResourceManager.GetString("HotkeyDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press the key combination.
+        /// </summary>
+        public static string HotKeySelectionText {
+            get {
+                return ResourceManager.GetString("HotKeySelectionText", resourceCulture);
             }
         }
         
@@ -214,7 +250,16 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Settings.
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Settings  / About.
         /// </summary>
         public static string SettingsWindowText {
             get {
@@ -264,6 +309,15 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string WebsiteText {
+            get {
+                return ResourceManager.GetString("WebsiteText", resourceCulture);
             }
         }
     }

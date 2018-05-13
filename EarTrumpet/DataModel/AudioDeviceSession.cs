@@ -32,6 +32,7 @@ namespace EarTrumpet.DataModel
         private string _id;
         private float _volume;
         private bool _isMuted;
+        private bool _isDisconnected;
 
         public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
         {
@@ -118,6 +119,10 @@ namespace EarTrumpet.DataModel
         {
             get
             {
+                if (_isDisconnected)
+                {
+                    return AudioSessionState.Expired;
+                }
                 _session.GetState(out AudioSessionState ret);
                 return ret;
             }
@@ -155,9 +160,16 @@ namespace EarTrumpet.DataModel
 
         void ReadVolumeAndMute()
         {
-            _simpleVolume.GetMasterVolume(out _volume);
-            _simpleVolume.GetMute(out int muted);
-            _isMuted = muted != 0;
+            try
+            {
+                _simpleVolume.GetMasterVolume(out _volume);
+                _simpleVolume.GetMute(out int muted);
+                _isMuted = muted != 0;
+            }
+            catch(COMException ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
@@ -187,8 +199,15 @@ namespace EarTrumpet.DataModel
             });
         }
 
-        // Unused.
-        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason){}
+        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason)
+        {
+            _isDisconnected = true;
+            _dispatcher.SafeInvoke(() =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            });
+        }
+
         void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext){}
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext) { }
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }

@@ -12,37 +12,9 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.ViewModels
 {
-    public class SimpleAudioDeviceViewModel
-    {
-        public string DisplayName;
-        public string Id;
-        public bool IsDefault;
-
-        public override string ToString()
-        {
-            return DisplayName;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is SimpleAudioDeviceViewModel))
-                return false;
-
-            return ((SimpleAudioDeviceViewModel)obj).Id == Id;
-        }
-
-        public override int GetHashCode()
-        {
-            if (Id == null) return "Default".GetHashCode();
-            return Id.GetHashCode();
-        }
-    }
-
     public class AppItemViewModel : AudioSessionViewModel
     {
         private IAudioDeviceSession _session;
-        // TODO: localization
-        private SimpleAudioDeviceViewModel _defaultDevice = new SimpleAudioDeviceViewModel { DisplayName = EarTrumpet.Properties.Resources.DefaultDeviceText, IsDefault = true, };
 
         public string ExeName { get; private set; }
 
@@ -63,8 +35,6 @@ namespace EarTrumpet.ViewModels
             {
                 _isExpanded = value;
                 RaisePropertyChanged(nameof(IsExpanded));
-                RaisePropertyChanged(nameof(Devices));
-                RaisePropertyChanged(nameof(PersistedOutputDevice));
             }
         }
 
@@ -81,11 +51,11 @@ namespace EarTrumpet.ViewModels
                 string deviceId = AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
                 if (string.IsNullOrWhiteSpace(deviceId))
                 {
-                    return _defaultDevice;
+                    return MainViewModel.Instance.DefaultPlaybackDevice;
                 }
                 else
                 {
-                    return Devices.First(d => d.Id == deviceId);
+                    return MainViewModel.Instance.PlaybackDevices.First(d => d.Id == deviceId);
                 }
             }
             set
@@ -96,25 +66,6 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-
-        public ObservableCollection<SimpleAudioDeviceViewModel> Devices
-        {
-            get
-            {
-                var ret = new ObservableCollection<SimpleAudioDeviceViewModel>();
-                foreach(var device in MainViewModel.Instance.Devices)
-                {
-                    ret.Add(new SimpleAudioDeviceViewModel { DisplayName = device.Device.DisplayName, Id = device.Device.Id });
-                }
-
-                ret.Add(new SimpleAudioDeviceViewModel { DisplayName = MainViewModel.Instance.DefaultDevice.Device.DisplayName, Id = MainViewModel.Instance.DefaultDevice.Device.Id });
-
-                ret.Add(_defaultDevice);
-
-                return ret;
-            }
-        }
-
         public AppItemViewModel(IAudioDeviceSession session) : base(session)
         {
             _session = session;
@@ -122,7 +73,6 @@ namespace EarTrumpet.ViewModels
             ChildApps = new ObservableCollection<AppItemViewModel>();
             if (_session.Children != null)
             {
-                Children.Clear();
                 _session.Children.CollectionChanged += Children_CollectionChanged;
                 LoadChildren();
             }
@@ -161,8 +111,9 @@ namespace EarTrumpet.ViewModels
                         }
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Debug.WriteLine($"Failed to load icon: {ex}");
                     // ignored
                 }
 
@@ -203,7 +154,6 @@ namespace EarTrumpet.ViewModels
             foreach(var child in _session.Children)
             {
                 ChildApps.Add(new AppItemViewModel(child));
-                Children.Add(new AudioSessionViewModel(child));
             }
         }
 
@@ -213,13 +163,12 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    var newSession = new AudioSessionViewModel((IAudioDeviceSession)e.NewItems[0]);
-                    Children.Add(newSession);
+                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     Debug.Assert(e.OldItems.Count == 1);
-                    Children.Remove(Children.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
@@ -244,6 +193,30 @@ namespace EarTrumpet.ViewModels
             }
 
             base.TriggerPeakCheck();
+        }
+
+        public override float PeakValue
+        {
+            get
+            {
+                if (_session.Children != null)
+                {
+                    float highestOfChildrenPeakValues = 0;
+                    foreach(var child in _session.Children)
+                    {
+                        var childPeakValue = child.PeakValue;
+                        if (childPeakValue > highestOfChildrenPeakValues)
+                        {
+                            highestOfChildrenPeakValues = childPeakValue;
+                        }
+                    }
+                    return highestOfChildrenPeakValues;
+                }
+                else
+                {
+                    return _session.PeakValue;
+                }
+            }
         }
     }
 }

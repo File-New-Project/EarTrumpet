@@ -2,16 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <!-- NOTE: Only theme-specific colors belong in this file. -->
-    <SolidColorBrush x:Key="WindowForeground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="WindowBackground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="HeaderBackground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="BadgeBackground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="PopupBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="WindowForeground">White</SolidColorBrush>
+    <SolidColorBrush x:Key="WindowBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderBackground">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="BadgeBackground">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="PopupBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderBackgroundSolid">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumb">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumbHover">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumbPressed">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderTrackFill">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="PeakMeterHotColor">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ActiveBorder">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="CottonSwabSliderThumb">White</SolidColorBrush>
+    <SolidColorBrush x:Key="CottonSwabSliderThumbHover">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="CottonSwabSliderThumbPressed">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="CottonSwabSliderTrackFill">Purple</SolidColorBrush>
+    <SolidColorBrush x:Key="PeakMeterHotColor">Aqua</SolidColorBrush>
+    <SolidColorBrush x:Key="ActiveBorder">Green</SolidColorBrush>
 </ResourceDictionary>
