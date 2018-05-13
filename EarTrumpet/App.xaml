@@ -16,8 +16,11 @@
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
             <ext:OpacityConverter x:Key="opacityConverter" />
 
+            <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
+            
             <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
-
+            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
+            
             <win:GridLength x:Key="AppIconCellWidth">60</win:GridLength>
             <win:GridLength x:Key="AppVolumeTextCellWidth">60</win:GridLength>
 
@@ -27,15 +30,13 @@
             <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
             <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
             <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
-            
-            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
 
             <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
             <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
 
-
-
+            <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="LargeTextWindowMargin">8,0,8,0</Thickness>
+            
             <Thickness x:Key="VolumeAppListMargin">0,8,0,8</Thickness>
             
             <Style x:Key="CaptionButtonStyle"

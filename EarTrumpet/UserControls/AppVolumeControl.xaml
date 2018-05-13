@@ -26,8 +26,8 @@
                 ToolTip="{Binding App.DisplayName}"
                 Background="{Binding App.Background, Mode=OneTime}"
                 HorizontalAlignment="Center"
-                Height="24"
-                Width="24"
+                Height="{StaticResource AppIconSize}"
+                Width="{StaticResource AppIconSize}"
                 MouseDown="Icon_MouseDown"
                 Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}">
             <Grid>

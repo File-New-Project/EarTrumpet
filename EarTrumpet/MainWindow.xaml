@@ -4,7 +4,7 @@
         xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         xmlns:local="clr-namespace:EarTrumpet"
         Title="EarTrumpet"
-        Width="360"
+        Width="{StaticResource WindowAndItemSize}"
         Icon="Application.ico"
         ShowInTaskbar="False"
         AllowsTransparency="True"
@@ -92,7 +92,7 @@
                             Grid.ColumnSpan="3"
                             Height="{StaticResource DeviceTitleCellHeight}" />
                     <TextBlock Text="{Binding DisplayName}"
-                               FontSize="15"
+                               FontSize="{StaticResource LargeWindowTextFontSize}"
                                Margin="{StaticResource LargeTextWindowMargin}"
                                TextTrimming="CharacterEllipsis" />
                     <Button BorderThickness="0"
@@ -173,7 +173,7 @@
                 Visibility="{Binding IsShowingModalDialog, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border Opacity="0.4"
-                    Margin="-1,-7,0,0">
+                    Margin="0,0,0,14">
                 <Border.Effect>
                     <BlurEffect Radius="2"
                                 KernelType="Gaussian"

@@ -27,7 +27,7 @@
 
             <Border Height="{StaticResource DeviceTitleCellHeight}">
                 <TextBlock Text="{Binding Device.Device.DisplayName}"
-                           FontSize="15"
+                           FontSize="{StaticResource LargeWindowTextFontSize}"
                            Margin="{StaticResource LargeTextWindowMargin}"/>
             </Border>
 
@@ -52,8 +52,7 @@
 
                             <TextBlock FontSize="24"
                                        Style="{StaticResource GlyphTextBlockStyle}"
-                                       Text="{Binding Device.DeviceIconText}"
-                                       Margin="0,-1,0,0" />
+                                       Text="{Binding Device.DeviceIconText}" />
                         </Border>
 
                         <local:VolumeSlider Grid.Column="1"
