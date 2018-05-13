@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
 
@@ -45,6 +46,24 @@ namespace EarTrumpet.Services
             colorBytes[3] = (byte)(0x000000FF & abgrValue);			// R
 
             return Color.FromArgb(colorBytes[0], colorBytes[3], colorBytes[2], colorBytes[1]);
+        }
+
+        public static IDictionary<string, Color> GetImmersiveColors()
+        {
+            var colors = new Dictionary<string, Color>();
+            var colorSet = Interop.GetImmersiveUserColorSetPreference(false, false);
+
+            for (uint i = 0; ; i++)
+            {
+                var ptr = Interop.GetImmersiveColorNamedTypeByIndex(i);
+                if (ptr == IntPtr.Zero)
+                    break;
+
+                var name = Marshal.PtrToStringUni(Marshal.ReadIntPtr(ptr));
+                colors.Add(name, GetColorByTypeName($"Immersive{name}"));
+            }
+
+            return colors;
         }
     }
 }

@@ -30,6 +30,13 @@ namespace EarTrumpet
             FirstRunDisplayService.ShowIfAppropriate();
 
             new MainWindow();
+
+#if DEBUG
+            if (Debugger.IsAttached)
+            {
+                new DebugWindow().Show();
+            }
+#endif
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)

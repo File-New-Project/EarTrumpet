@@ -86,6 +86,9 @@
     <Compile Include="DataModel\Com\SIGDN.cs" />
     <Compile Include="DataModel\Com\STGM.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
+    <Compile Include="DebugWindow.xaml.cs">
+      <DependentUpon>DebugWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\CountConverter.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
@@ -211,6 +214,10 @@
     <Compile Include="UserControls\AppVolumeControl.xaml.cs">
       <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="DebugWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
