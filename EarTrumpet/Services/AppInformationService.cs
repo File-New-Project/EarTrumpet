@@ -68,7 +68,7 @@ namespace EarTrumpet.Services
                 var processHandle = Interop.OpenProcess(Interop.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
                 if (processHandle != IntPtr.Zero)
                 {
-                    if (Interop.IsImmersiveProcess(processHandle) == Interop.S_OK)
+                    if (Interop.IsImmersiveProcess(processHandle) > 0)
                     {
                         int amuidBufferLength = Interop.MAX_AUMID_LEN;
                         var amuidBuffer = new StringBuilder(amuidBufferLength);
@@ -110,6 +110,7 @@ namespace EarTrumpet.Services
                         var processFullPath = Process.GetProcessById(processId).GetMainModuleFileName();
                         info.SmallLogoPath = processFullPath;
                         info.DisplayName = Path.GetFileName(processFullPath);
+                        info.AppUserModelId = processFullPath;
                         info.IsDesktopApp = true;
                     }
                 }
