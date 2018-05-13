@@ -13,12 +13,12 @@
         ShowInTaskbar="True"
         AllowsTransparency="True"
         SizeToContent="Height"
-        Foreground="{DynamicResource WindowForeground}"
-        Background="Black"
+        Foreground="{DynamicResource NormalWindowForeground}"
+        Background="{DynamicResource NormalWindowBackground}"        
         BorderThickness="1"
         Height="500"
         MinWidth="600"
-        Width="600">
+        Width="600" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31"
                       ResizeBorderThickness="4" />
@@ -56,10 +56,10 @@
         <Style x:Key="BodyText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="4, 0, 12, 0" />
+            <Setter Property="Margin" Value="4, 0, 12, 8" />
         </Style>
     </Window.Resources>
-    <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}" Background="{DynamicResource WindowBackground}">
+    <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}">
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -67,7 +67,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock TextAlignment="Left"
-                           Padding="16, 8, 20, 8"
+                           Padding="20, 8, 20, 8"
                            Text="{Binding ElementName=WindowRoot,Path=Title}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="1"
@@ -77,7 +77,7 @@
             </Grid>
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Bottom" />
-            <StackPanel Orientation="Vertical" Margin="12,12,12,24">
+            <StackPanel Orientation="Vertical" Margin="16,16,16,32">
                 <TextBlock Text="{x:Static resx:Resources.SettingsTitle}" Style="{StaticResource HeadingText}" Margin="4,0,4,12" />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center"
@@ -89,13 +89,19 @@
                             Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
                             Content="{Binding HotkeyText}" HorizontalAlignment="Left" />
                 </StackPanel>
-                <TextBlock Text="{x:Static resx:Resources.DiagnosticsTitle}" Style="{StaticResource HeadingText}" />
-                <TextBlock Text="{x:Static resx:Resources.DiagnosticsText}" Style="{StaticResource BodyText}"/>
-                <Button Content="{x:Static resx:Resources.TroubleshootEarTrumpetText}" HorizontalAlignment="Left" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenDiagnosticsCommand}" Margin="0,8,0,0"></Button>
-                <TextBlock Text="{x:Static resx:Resources.AboutTitle}" Style="{StaticResource HeadingText}" />
+                <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsTitle}" Style="{StaticResource HeadingText}" />-->
+                <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsText}" Style="{StaticResource BodyText}"/>-->
+                <!--<Button Content="{x:Static resx:Resources.TroubleshootEarTrumpetText}" HorizontalAlignment="Left" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenDiagnosticsCommand}" Margin="0,8,0,0"></Button>-->
+                <TextBlock Text="{x:Static resx:Resources.AboutTitle}" Style="{StaticResource HeadingText}" Margin="4,48,4,12" />
                 <StackPanel Orientation="Horizontal">
+                    <Image Source="{DynamicResource LogoImage}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,16,0" />
+                    <StackPanel>
                     <TextBlock Text="{Binding AboutText}" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                    <Button Content="{x:Static resx:Resources.WebsiteText}" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenAboutCommand}"></Button>
+                    <TextBlock Text="© 2018 File-New-Project" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
+                    <TextBlock><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                        <TextBlock><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
+                    <!--<Button Content="{x:Static resx:Resources.WebsiteText}" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenAboutCommand}"></Button>-->
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </DockPanel>

@@ -58,7 +58,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Foreground"
-                    Value="White" />
+                    Value="{DynamicResource NormalWindowForeground}" />
                 <Setter Property="BorderBrush"
                     Value="{x:Null}" />
                 <Setter Property="BorderThickness"
@@ -108,12 +108,11 @@
             </Style>
             <Style TargetType="Button" x:Key="SlimButton">
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="FontSize"
-                    Value="15" />
-                <Setter Property="Padding"
-                    Value="12,4" />
-                <Setter Property="Background"
-                    Value="Transparent" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="12,4" />
+                <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorder}" />
+                <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -128,13 +127,15 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                         Value="true">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="#22FFFFFF" />
-                            </Setter.Value>
-                        </Setter>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundHover}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundHover}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderHover}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPressed}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderPressed}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

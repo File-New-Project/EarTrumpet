@@ -12,9 +12,9 @@
         ShowInTaskbar="True"
         AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
-        Foreground="{DynamicResource WindowForeground}"
-         Background="Black"
-        Height="500" Width="900" MinWidth="300" MinHeight="300" BorderThickness="1">
+        Foreground="{DynamicResource NormalWindowForeground}"
+        Background="{DynamicResource NormalWindowBackground}"
+        Height="500" Width="900" MinWidth="300" MinHeight="300" BorderThickness="1" WindowStartupLocation="CenterScreen">
     <Window.Style>
         <Style TargetType="Window">
             <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
@@ -28,7 +28,7 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
-    <DockPanel x:Name="ContentRoot" Background="{DynamicResource WindowBackground}">
+    <DockPanel x:Name="ContentRoot">
         <DockPanel DockPanel.Dock="Top">
             <Button x:Name="CloseButton"  DockPanel.Dock="Right" Content="&#xE8BB;" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click"/>
             <TextBlock DockPanel.Dock="Left" TextAlignment="Left" Padding="20, 8, 20, 8" Text="{Binding ElementName=WindowRoot,Path=Title}" />
