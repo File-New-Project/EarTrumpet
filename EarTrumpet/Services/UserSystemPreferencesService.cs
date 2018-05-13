@@ -25,5 +25,16 @@ namespace EarTrumpet.Services
                 }
             }
         }
+
+        public static bool IsLightTheme
+        {
+            get
+            {
+                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                {
+                    return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue("AppsUseLightTheme", 0) > 0;
+                }
+            }
+        }
     }
 }
