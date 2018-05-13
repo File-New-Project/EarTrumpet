@@ -88,6 +88,11 @@ namespace EarTrumpet.DataModel
                 {
                     Guid dummy = Guid.Empty;
                     _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+
+                    if (IsMuted)
+                    {
+                        IsMuted = false;
+                    }
                 }
             }
         }
