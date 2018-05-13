@@ -50,7 +50,7 @@ namespace EarTrumpet.Services
                 WriteSetting("Hotkey", value);
             }
         }
-        
+
         static string ReadSetting(string key)
         {
             string ret;

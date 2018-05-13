@@ -90,7 +90,7 @@ namespace EarTrumpet.ViewModels
             }
 
             if (session.IsDesktopApp)
-            {                
+            {
                 try
                 {
                     if (Path.GetExtension(session.IconPath) == ".dll")
