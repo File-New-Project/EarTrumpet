@@ -1,9 +1,9 @@
 ﻿using EarTrumpet.DataModel.Com;
 using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
@@ -23,19 +23,15 @@ namespace EarTrumpet.DataModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        IAudioSessionControl _session;
-        ISimpleAudioVolume _simpleVolume;
-        IAudioMeterInformation _meter;
-        IAudioDevice _device;
-        Dispatcher _dispatcher;
-        string _processDisplayName;
-        string _processIconPath;
-        string _appId;
-        string _id;
-        float _volume;
-        bool _isMuted;
-        bool _isDesktopApp;
-        uint _backgroundColor;
+        private readonly IAudioSessionControl _session;
+        private readonly ISimpleAudioVolume _simpleVolume;
+        private readonly IAudioMeterInformation _meter;
+        private readonly IAudioDevice _device;
+        private readonly Dispatcher _dispatcher;
+        private readonly AppInformation _appInfo;
+        private string _id;
+        private float _volume;
+        private bool _isMuted;
 
         public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
         {
@@ -44,34 +40,9 @@ namespace EarTrumpet.DataModel
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
-
             _session.RegisterAudioSessionNotification(this);
-
+            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
-
-            Interop.GetProcessProperties(ProcessId, out _processDisplayName, out _processIconPath, ref _isDesktopApp, ref _backgroundColor);
-
-            if (_processDisplayName == null)
-            {
-                _processDisplayName = "";
-            }
-
-            if (IsSystemSoundsSession)
-            {
-                _isDesktopApp = true;
-            }
-            else
-            {
-                try
-                {
-                    _appId = Process.GetProcessById(ProcessId).GetMainModuleFileName();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                    // Our process could have quit and we haven't seen the notification yet, so don't crash.
-                }
-            }
 
             ReadVolumeAndMute();
         }
@@ -115,23 +86,9 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public string DisplayName => _processDisplayName;
+        public string DisplayName => _appInfo.DisplayName;
 
-        public string IconPath
-        {
-            get
-            {
-                if (IsSystemSoundsSession)
-                {
-                    return Environment.ExpandEnvironmentVariables(
-                        $"%windir%\\{(Environment.Is64BitOperatingSystem ? "sysnative" : "system32")}\\audiosrv.dll");
-                }
-                else
-                {
-                    return _processIconPath;
-                }
-            }
-        }
+        public string IconPath => _appInfo.SmallLogoPath;
 
         public Guid GroupingParam
         {
@@ -151,11 +108,11 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        public uint BackgroundColor => _backgroundColor;
+        public uint BackgroundColor => _appInfo.BackgroundColor;
 
-        public bool IsDesktopApp => _isDesktopApp;
+        public bool IsDesktopApp => _appInfo.IsDesktopApp;
 
-        public string AppId => _appId;
+        public string AppId => _appInfo.AppUserModelId;
 
         public AudioSessionState State
         {

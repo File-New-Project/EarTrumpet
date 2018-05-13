@@ -6,7 +6,7 @@ namespace EarTrumpet.DataModel.Com
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMNotificationClient
     {
-        void OnDeviceStateChanged([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId, DEVICE_STATE dwNewState);
+        void OnDeviceStateChanged([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId, DeviceState dwNewState);
         void OnDeviceAdded([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId);
         void OnDeviceRemoved([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId);
         void OnDefaultDeviceChanged(EDataFlow flow, ERole role, [MarshalAs(UnmanagedType.LPWStr)]string pwstrDefaultDeviceId);

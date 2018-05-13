@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -68,7 +68,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\Com\FolderIds.cs" />
+    <Compile Include="DataModel\Com\Gps.cs" />
+    <Compile Include="DataModel\Com\IIDs.cs" />
+    <Compile Include="DataModel\Com\IMrtResourceManager.cs" />
+    <Compile Include="DataModel\Com\IResourceMap.cs" />
+    <Compile Include="DataModel\Com\IShellItem.cs" />
+    <Compile Include="DataModel\Com\IShellItem2.cs" />
     <Compile Include="DataModel\Com\IAudioPolicyConfigFactory.cs" />
+    <Compile Include="DataModel\Com\MrtResourceManager.cs" />
+    <Compile Include="DataModel\Com\PropertyKeys.cs" />
+    <Compile Include="DataModel\Com\PropVariant.cs" />
+    <Compile Include="DataModel\Com\PropVariantUnion.cs" />
+    <Compile Include="DataModel\Com\Sfgao.cs" />
+    <Compile Include="DataModel\Com\Sichint.cs" />
+    <Compile Include="DataModel\Com\Sigdn.cs" />
+    <Compile Include="DataModel\Com\Stgm.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
     <Compile Include="Extensions\CountConverter.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
@@ -79,6 +95,7 @@
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentPolicyService.cs" />
+    <Compile Include="Services\AppInformationService.cs" />
     <Compile Include="Services\AudioPolicyConfigService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
@@ -94,8 +111,8 @@
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
     <Compile Include="DataModel\Com\AudioSessionState.cs" />
     <Compile Include="DataModel\Com\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
-    <Compile Include="DataModel\Com\CLSCTX.cs" />
-    <Compile Include="DataModel\Com\DEVICE_STATE.cs" />
+    <Compile Include="DataModel\Com\ClsCtx.cs" />
+    <Compile Include="DataModel\Com\DeviceState.cs" />
     <Compile Include="DataModel\Com\EDataFlow.cs" />
     <Compile Include="DataModel\Com\ERole.cs" />
     <Compile Include="DataModel\Com\IAudioEndpointVolume.cs" />
@@ -201,8 +218,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SystemThemeColors.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\AudioPeakMeter.xaml">
       <SubType>Designer</SubType>

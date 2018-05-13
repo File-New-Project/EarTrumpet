@@ -4,18 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet", "EarTrumpet\EarTrumpet.csproj", "{BA3C7B42-84B0-468C-8640-217E2A24CF81}"
-	ProjectSection(ProjectDependencies) = postProject
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778} = {73FA0BF9-96FE-4C5B-89B2-00B861F3F778}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EarTrumpet.Interop", "EarTrumpet.Interop\EarTrumpet.Interop.vcxproj", "{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.BackgroundTasks", "EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj", "{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.UWP", "EarTrumpet.UWP\EarTrumpet.UWP.csproj", "{D6BA1652-937F-4BE2-8E52-DCE1C2B49267}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BA3C7B42-84B0-468C-8640-217E2A24CF81} = {BA3C7B42-84B0-468C-8640-217E2A24CF81}
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778} = {73FA0BF9-96FE-4C5B-89B2-00B861F3F778}
 	EndProjectSection
 EndProject
 Global
@@ -40,16 +34,6 @@ Global
 		{BA3C7B42-84B0-468C-8640-217E2A24CF81}.Release|x64.ActiveCfg = Release|x86
 		{BA3C7B42-84B0-468C-8640-217E2A24CF81}.Release|x86.ActiveCfg = Release|x86
 		{BA3C7B42-84B0-468C-8640-217E2A24CF81}.Release|x86.Build.0 = Release|x86
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Debug|ARM.ActiveCfg = Debug|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Debug|x64.ActiveCfg = Debug|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Debug|x86.ActiveCfg = Debug|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Debug|x86.Build.0 = Debug|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Release|Any CPU.ActiveCfg = Release|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Release|ARM.ActiveCfg = Release|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Release|x64.ActiveCfg = Release|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Release|x86.ActiveCfg = Release|Win32
-		{73FA0BF9-96FE-4C5B-89B2-00B861F3F778}.Release|x86.Build.0 = Release|Win32
 		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Debug|ARM.ActiveCfg = Debug|ARM

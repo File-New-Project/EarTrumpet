@@ -129,7 +129,7 @@ namespace EarTrumpet.DataModel
             PropVariant pv;
             propStore.GetValue(ref PKEY_Device_FriendlyName, out pv);
 
-            _displayName = Marshal.PtrToStringUni(pv.pointerValue);
+            _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
             PropertyStoreInterop.PropVariantClear(ref pv);
         }
 

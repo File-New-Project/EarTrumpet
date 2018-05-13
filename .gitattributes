@@ -1,2 +1,2 @@
 [core]
-autocrlf = true
+* eol=crlf
