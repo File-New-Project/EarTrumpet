@@ -72,8 +72,8 @@ namespace EarTrumpet
             double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
             Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
-            // TODO: can't figure out where this 8px is from
-            relativeLocation.Y -= HEADER_SIZE + 8;
+            // TODO: can't figure out where this 6px is from
+            relativeLocation.Y -= HEADER_SIZE + 6;
 
             var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
 

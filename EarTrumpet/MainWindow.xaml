@@ -93,7 +93,7 @@
                             Height="{StaticResource DeviceTitleCellHeight}" />
                     <TextBlock Text="{Binding DisplayName}"
                                FontSize="{StaticResource LargeWindowTextFontSize}"
-                               Margin="{StaticResource LargeTextWindowMargin}"
+                               Margin="{StaticResource WindowMargin}"
                                TextTrimming="CharacterEllipsis" />
                     <Button BorderThickness="0"
                             HorizontalContentAlignment="Stretch"
@@ -160,7 +160,7 @@
                             Click="ExpandCollapse_Click">
                         <Button.Content>
                             <TextBlock FontSize="12"
-                                       Margin="{StaticResource LargeTextWindowMargin}"
+                                       Margin="{StaticResource WindowMargin}"
                                        HorizontalAlignment="Right"
                                        Style="{StaticResource GlyphTextBlockStyle}"
                                        Text="{Binding ExpandText}" />

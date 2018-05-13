@@ -20,13 +20,10 @@
             
             <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
             <bcl:Double x:Key="AppIconSize">24</bcl:Double>
-            
-            <win:GridLength x:Key="AppIconCellWidth">60</win:GridLength>
-            <win:GridLength x:Key="AppVolumeTextCellWidth">60</win:GridLength>
 
-            <win:GridLength x:Key="DeviceIconCellWidth">60</win:GridLength>
-            <win:GridLength x:Key="DeviceVolumeTextCellWidth">60</win:GridLength>
-            
+            <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
+            <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
+
             <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
             <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
             <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
@@ -35,9 +32,11 @@
             <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
 
             <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
-            <Thickness x:Key="LargeTextWindowMargin">8,0,8,0</Thickness>
-            
-            <Thickness x:Key="VolumeAppListMargin">0,8,0,8</Thickness>
+            <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
+
+            <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
+            <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
+            <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             
             <Style x:Key="CaptionButtonStyle"
                TargetType="Button">

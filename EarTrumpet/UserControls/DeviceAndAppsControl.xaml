@@ -25,10 +25,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border Height="{StaticResource DeviceTitleCellHeight}">
+            <Border Height="{StaticResource DeviceTitleCellHeight}"
+                    Margin="{StaticResource WindowMargin}">
                 <TextBlock Text="{Binding Device.Device.DisplayName}"
-                           FontSize="{StaticResource LargeWindowTextFontSize}"
-                           Margin="{StaticResource LargeTextWindowMargin}"/>
+                           FontSize="{StaticResource LargeWindowTextFontSize}"/>
             </Border>
 
             <ItemsControl IsTabStop="False"
@@ -37,17 +37,16 @@
                               Height="{StaticResource DeviceItemCellHeight}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource DeviceIconCellWidth}" />
+                            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource DeviceVolumeTextCellWidth}" />
+                            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0"
                                 ToolTip="{Binding Device.Device.DisplayName}"
                                 Background="Transparent"
                                 HorizontalAlignment="Center"
-                                Height="{StaticResource DeviceIconSize}"
-                                Width="{StaticResource DeviceIconSize}"
                                 MouseDown="Icon_MouseDown"
+                                Margin="{StaticResource DeviceOrAppIconMargin}"
                                 Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
 
                             <TextBlock FontSize="24"
@@ -66,6 +65,7 @@
                         <TextBlock Grid.Column="2"
                                    Text="{Binding Device.Device.Volume, Mode=OneWay}"
                                    FontSize="{StaticResource DeviceVolumeTextFontSize}"
+                                   Margin="{StaticResource VolumeTextMargin}"
                                    HorizontalAlignment="Center"
                                    Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
                     </Grid>

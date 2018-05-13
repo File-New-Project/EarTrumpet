@@ -18,9 +18,9 @@
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{StaticResource AppIconCellWidth}" />
+            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="{StaticResource AppVolumeTextCellWidth}" />
+            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"
                 ToolTip="{Binding App.DisplayName}"
@@ -28,6 +28,7 @@
                 HorizontalAlignment="Center"
                 Height="{StaticResource AppIconSize}"
                 Width="{StaticResource AppIconSize}"
+                Margin="{StaticResource DeviceOrAppIconMargin}"
                 MouseDown="Icon_MouseDown"
                 Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}">
             <Grid>
@@ -78,7 +79,7 @@
                    Text="&#xE74F;"
                    FontSize="18"
                    Style="{StaticResource GlyphTextBlockStyle}"
-                   ToolTip="{Binding App.DisplayName}"/>
+                   ToolTip="{Binding App.DisplayName}" />
 
         <local:VolumeSlider Grid.Column="1"
                             Volume="{Binding App.Volume}"
@@ -90,6 +91,7 @@
         <TextBlock Grid.Column="2"
                    Text="{Binding App.Volume, Mode=OneWay}"
                    FontSize="{StaticResource AppVolumeTextFontSize}"
+                   Margin="{StaticResource VolumeTextMargin}"
                    HorizontalAlignment="Center"
                    Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
     </Grid>
