@@ -21,11 +21,6 @@ namespace EarTrumpet.Services
             internal const int PACKAGE_INFORMATION_BASIC = 0x00000000;
             internal const int PACKAGE_FILTER_HEAD = 0x00000010;
 
-            internal struct PACKAGE_INFO_REFERENCE
-            {
-                IntPtr reserved;
-            };
-
             [DllImport("kernel32.dll", PreserveSig = true)]
             internal static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
@@ -81,18 +76,18 @@ namespace EarTrumpet.Services
             internal static extern int OpenPackageInfoByFullName(
                 [MarshalAs(UnmanagedType.LPWStr)]string packageFullName,
                 int reserved,
-                out PACKAGE_INFO_REFERENCE packageInfoReference);
+                out IntPtr packageInfoReference);
 
             [DllImport("kernel32.dll", PreserveSig = true)]
             internal static extern int GetPackageApplicationIds(
-                PACKAGE_INFO_REFERENCE packageInfoReference,
+                IntPtr packageInfoReference,
                 ref int bufferLength,
                 IntPtr buffer,
                 out int count);
 
             [DllImport("kernel32.dll", PreserveSig = true)]
             internal static extern int ClosePackageInfo(
-                PACKAGE_INFO_REFERENCE packageInfoReference);
+                IntPtr packageInfoReference);
         }
 
         public static bool IsImmersiveProcess(int processId)
@@ -176,7 +171,7 @@ namespace EarTrumpet.Services
                     if (packageCount > 0)
                     {
                         var pointers = new IntPtr[packageCount];
-                        IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength);
+                        IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength * 2 /* sizeof(wchar_t) */);
 
                         Interop.FindPackagesByPackageFamily(
                             packageFamilyName,
@@ -190,17 +185,18 @@ namespace EarTrumpet.Services
                         var packageFullName = Marshal.PtrToStringUni(pointers[0]);
                         Marshal.FreeHGlobal(buffer);
 
-                        Interop.OpenPackageInfoByFullName(packageFullName, 0, out Interop.PACKAGE_INFO_REFERENCE packageInfoReference);
+                        Interop.OpenPackageInfoByFullName(packageFullName, 0, out IntPtr packageInfoReference);
 
                         int bufferLength = 0;
                         Interop.GetPackageApplicationIds(packageInfoReference, ref bufferLength, IntPtr.Zero, out int appIdCount);
 
                         buffer = Marshal.AllocHGlobal(bufferLength);
                         Interop.GetPackageApplicationIds(packageInfoReference, ref bufferLength, buffer, out appIdCount);
-                        Interop.ClosePackageInfo(packageInfoReference);
 
                         appUserModelId = Marshal.PtrToStringUni(Marshal.ReadIntPtr(buffer));
                         Marshal.FreeHGlobal(buffer);
+
+                        Interop.ClosePackageInfo(packageInfoReference);
                     }
                 }
             }
