@@ -190,7 +190,7 @@ namespace EarTrumpet
         void Device_Click(object sender, EventArgs e)
         {
             var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
-            _trayViewModel.ChangeDeviceCommand.Execute(device);      
+            _trayViewModel.ChangeDeviceCommand.Execute(device);
         }
 
         internal void SetupDeviceMenuItems()

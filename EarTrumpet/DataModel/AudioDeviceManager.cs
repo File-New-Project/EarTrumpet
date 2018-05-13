@@ -191,16 +191,16 @@ namespace EarTrumpet.DataModel
             });
         }
 
-        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DEVICE_STATE dwNewState)
+        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DeviceState dwNewState)
         {
             switch (dwNewState)
             {
-                case DEVICE_STATE.ACTIVE:
+                case DeviceState.ACTIVE:
                     ((IMMNotificationClient)this).OnDeviceAdded(pwstrDeviceId);
                     break;
-                case DEVICE_STATE.DISABLED:
-                case DEVICE_STATE.NOTPRESENT:
-                case DEVICE_STATE.UNPLUGGED:
+                case DeviceState.DISABLED:
+                case DeviceState.NOTPRESENT:
+                case DeviceState.UNPLUGGED:
                     ((IMMNotificationClient)this).OnDeviceRemoved(pwstrDeviceId);
                     break;
                 default:

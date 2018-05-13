@@ -117,14 +117,14 @@ namespace EarTrumpet.ViewModels
                     // ignored
                 }
 
-                Background = new SolidColorBrush(Icon == null ? 
+                Background = new SolidColorBrush(Icon == null ?
                     AccentColorService.GetColorByTypeName("ImmersiveSystemAccent") :
                     Colors.Transparent);
             }
             else
             {
                 if (File.Exists(session.IconPath)) // hack until we invoke the resource manager correctly.
-                {                    
+                {
                     Icon = new BitmapImage(new Uri(session.IconPath));
                 }
                 Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
@@ -145,7 +145,7 @@ namespace EarTrumpet.ViewModels
                         });
                     }
                 }
-                catch { } // we fallback to exe name if DisplayName is not set in the try above.                 
+                catch { } // we fallback to exe name if DisplayName is not set in the try above.
             });
         }
 

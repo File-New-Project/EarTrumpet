@@ -27,23 +27,9 @@ namespace EarTrumpet.DataModel.Com
         int Commit();
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct PropVariant
-    {
-        public short variantType;
-        public short Reserved1, Reserved2, Reserved3;
-        public IntPtr pointerValue;
-    }
-
     public static class PropertyStoreInterop
     {
         [DllImport("ole32.dll")]
         internal static extern int PropVariantClear(ref PropVariant pvar);
-    }
-
-    public enum STGM
-    {
-        STGM_READ = 0,
-        // ...
     }
 }

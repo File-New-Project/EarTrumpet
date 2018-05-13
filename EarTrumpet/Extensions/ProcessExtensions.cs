@@ -7,8 +7,8 @@ namespace EarTrumpet.Extensions
 {
     internal static class Extensions
     {
-        [DllImport("Kernel32.dll")]
-        private static extern uint QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
+        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
+        private static extern uint QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
 
         public static string GetMainModuleFileName(this Process process, int buffer = 1024)
         {

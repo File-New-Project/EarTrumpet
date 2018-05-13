@@ -8,86 +8,85 @@ namespace EarTrumpet.Services
 {
     public sealed class TaskbarService
     {
-        private const string ClassName = "Shell_TrayWnd";
+        private const string _className = "Shell_TrayWnd";
 
         public static TaskbarState GetWinTaskbarState()
         {
-            APPBARDATA ABD = new APPBARDATA();
-            TaskbarState retState = new TaskbarState();
-            var hwnd = User32.FindWindow(ClassName, null);
+            var appbar = new APPBARDATA();
 
-            ABD.cbSize = Marshal.SizeOf(ABD);
-            ABD.uEdge = 0;
-            ABD.hWnd = hwnd;
-            ABD.lParam = 1;
+            var hwnd = User32.FindWindowW(_className, null);
+
+            appbar.cbSize = Marshal.SizeOf(appbar);
+            appbar.uEdge = 0;
+            appbar.hWnd = hwnd;
+            appbar.lParam = 1;
 
             User32.GetWindowRect(hwnd, out RECT scaledTaskbarRect);
 
-            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref ABD);
+            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref appbar);
+            var scalingAmount = (double)(scaledTaskbarRect.Bottom - scaledTaskbarRect.Top) / (appbar.rc.Bottom - appbar.rc.Top);
 
-            var scalingAmount = (double)(scaledTaskbarRect.bottom - scaledTaskbarRect.top) / (ABD.rc.bottom - ABD.rc.top);
-
-            retState.TaskbarSize = default(RECT);
-            retState.TaskbarSize.top = (int)(ABD.rc.top * scalingAmount);
-            retState.TaskbarSize.bottom = (int)(ABD.rc.bottom * scalingAmount);
-            retState.TaskbarSize.left = (int)(ABD.rc.left * scalingAmount);
-            retState.TaskbarSize.right = (int)(ABD.rc.right * scalingAmount);
+            TaskbarState retState = new TaskbarState();
+            retState.TaskbarSize.Top = (int)(appbar.rc.Top * scalingAmount);
+            retState.TaskbarSize.Bottom = (int)(appbar.rc.Bottom * scalingAmount);
+            retState.TaskbarSize.Left = (int)(appbar.rc.Left * scalingAmount);
+            retState.TaskbarSize.Right = (int)(appbar.rc.Right * scalingAmount);
 
             var screen = Screen.AllScreens.FirstOrDefault(x => x.Bounds.Contains(
-                            new Rectangle(
-                                retState.TaskbarSize.left, 
-                                retState.TaskbarSize.top,
-                                retState.TaskbarSize.right - retState.TaskbarSize.left, 
-                                retState.TaskbarSize.bottom - retState.TaskbarSize.top)
-                         ));
+                new Rectangle(
+                    retState.TaskbarSize.Left,
+                    retState.TaskbarSize.Top,
+                    retState.TaskbarSize.Right - retState.TaskbarSize.Left,
+                    retState.TaskbarSize.Bottom - retState.TaskbarSize.Top)
+            ));
 
             retState.TaskbarScreen = screen;
             retState.TaskbarPosition = TaskbarPosition.Bottom;
 
             if (screen != null)
             {
-                if (retState.TaskbarSize.bottom == screen.Bounds.Bottom && retState.TaskbarSize.top == screen.Bounds.Top)
+                if (retState.TaskbarSize.Bottom == screen.Bounds.Bottom && retState.TaskbarSize.Top == screen.Bounds.Top)
                 {
-                    retState.TaskbarPosition = (retState.TaskbarSize.left == screen.Bounds.Left) ? TaskbarPosition.Left : TaskbarPosition.Right;
+                    retState.TaskbarPosition = (retState.TaskbarSize.Left == screen.Bounds.Left) ? TaskbarPosition.Left : TaskbarPosition.Right;
                 }
-                if (retState.TaskbarSize.right == screen.Bounds.Right && retState.TaskbarSize.left == screen.Bounds.Left)
+                if (retState.TaskbarSize.Right == screen.Bounds.Right && retState.TaskbarSize.Left == screen.Bounds.Left)
                 {
-                    retState.TaskbarPosition = (retState.TaskbarSize.top == screen.Bounds.Top) ? TaskbarPosition.Top : TaskbarPosition.Bottom;
+                    retState.TaskbarPosition = (retState.TaskbarSize.Top == screen.Bounds.Top) ? TaskbarPosition.Top : TaskbarPosition.Bottom;
                 }
-            }               
+            }
 
             return retState;
-        }        
+        }
     }
 
     public static class User32
     {
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindowW([MarshalAs(UnmanagedType.LPWStr)]string lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll")]
         public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
     {
-        public int left;
-        public int top;
-        public int right;
-        public int bottom;
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
     }
 
     public static class Shell32
     {
         [DllImport("shell32.dll")]
-        public static extern IntPtr SHAppBarMessage(uint dwMessage, [In] ref APPBARDATA pData);
+        public static extern IntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
     }
 
     [StructLayout(LayoutKind.Sequential)]
     public struct APPBARDATA
     {
-        public int cbSize; // initialize this field using: Marshal.SizeOf(typeof(APPBARDATA));
+        public int cbSize;
         public IntPtr hWnd;
         public uint uCallbackMessage;
         public uint uEdge;
@@ -108,14 +107,6 @@ namespace EarTrumpet.Services
         ABM_SETAUTOHIDEBAR,
         ABM_WINDOWPOSCHANGED,
         ABM_SETSTATE
-    }
-
-    public enum ABEdge
-    {
-        ABE_LEFT = 0,
-        ABE_TOP = 1,
-        ABE_RIGHT = 2,
-        ABE_BOTTOM = 3
     }
 
     public struct TaskbarState

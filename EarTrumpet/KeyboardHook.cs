@@ -14,7 +14,7 @@ namespace EarTrumpet
 
         private class Window : NativeWindow, IDisposable
         {
-            private static int WM_HOTKEY = 0x0312;
+            private static readonly int WM_HOTKEY = 0x0312;
 
             public Window()
             {
@@ -58,7 +58,7 @@ namespace EarTrumpet
             _currentId = _currentId + 1;
 
             if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new Exception("Couldn’t register hotkey.");
+                throw new Exception("Couldn't register hotkey.");
         }
 
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
@@ -76,23 +76,13 @@ namespace EarTrumpet
 
     public class KeyPressedEventArgs : EventArgs
     {
-        private KBModifierKeys _modifier;
-        private Keys _key;
+        public KBModifierKeys Modifier { get; }
+        public Keys Key { get; }
 
         internal KeyPressedEventArgs(KBModifierKeys modifier, Keys key)
         {
-            _modifier = modifier;
-            _key = key;
-        }
-
-        public KBModifierKeys Modifier
-        {
-            get { return _modifier; }
-        }
-
-        public Keys Key
-        {
-            get { return _key; }
+            Modifier = modifier;
+            Key = key;
         }
     }
 

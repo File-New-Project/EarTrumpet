@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.DataModel.Com
 {
-    public enum DEVICE_STATE : int
+    public enum DeviceState : int
     {
         ACTIVE = 0x00000001,
         DISABLED = 0x00000002,
