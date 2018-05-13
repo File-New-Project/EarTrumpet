@@ -169,10 +169,10 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
-        <Border Background="#FF000000"
+        <Border Background="#CC000000"
                 Visibility="{Binding IsShowingModalDialog, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
-            <Border Opacity="0.4"
+            <Border Opacity="0.8"
                     Margin="0,0,0,14">
                 <Border.Effect>
                     <BlurEffect Radius="2"
@@ -194,8 +194,8 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <DoubleAnimation From="2"
-                                                             To="10"
-                                                             Duration="00:00:00.2"
+                                                             To="20"
+                                                             Duration="00:00:00.15"
                                                              Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
