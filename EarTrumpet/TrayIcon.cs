@@ -48,7 +48,7 @@ namespace EarTrumpet
             _contextMenu.MenuItems.Add("-");
 
             AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
-            AddItem(Properties.Resources.ContextMenuSendFeedback, Feedback_Click);
+            AddItem($"{Properties.Resources.ContextMenuSendFeedback}...", Feedback_Click);
             AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
 
             _trayIcon.MouseClick += TrayIcon_MouseClick;
@@ -181,7 +181,7 @@ namespace EarTrumpet
             {
                 // We're shutting down, ignore all
             }
-            _trayViewModel.CloseAppService();
+            FeedbackService.CloseAppService();
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
             Application.Current.Shutdown();

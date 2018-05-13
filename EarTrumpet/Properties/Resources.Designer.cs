@@ -70,15 +70,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
-        /// </summary>
-        public static string ContextMenuAboutTitle {
-            get {
-                return ResourceManager.GetString("ContextMenuAboutTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string ContextMenuExitTitle {
@@ -97,7 +88,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send Feedback....
+        ///   Looks up a localized string similar to Send Feedback.
         /// </summary>
         public static string ContextMenuSendFeedback {
             get {
@@ -304,7 +295,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Diagnostics Data.
+        ///   Looks up a localized string similar to Collect debug information.
         /// </summary>
         public static string TroubleshootEarTrumpetText {
             get {

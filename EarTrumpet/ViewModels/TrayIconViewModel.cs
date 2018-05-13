@@ -30,7 +30,6 @@ namespace EarTrumpet.ViewModels
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private Icon _trayIcon;
         private readonly IAudioDeviceManager _deviceService;
-        private AppServiceConnection _appServiceConnection;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.OriginalIcon;
 
@@ -97,26 +96,12 @@ namespace EarTrumpet.ViewModels
             OpenLegacyVolumeMixerCommand = new RelayCommand(OpenLegacyVolumeMixer);
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
             ChangeDeviceCommand = new RelayCommand<IAudioDevice>(ChangeDevice);
-            StartAppServiceAndFeedbackHubCommand = new RelayCommand(StartAppServiceAndFeedbackHub);
+            StartAppServiceAndFeedbackHubCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             UpdateTrayIcon();
-        }
-
-        private void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
-        {
-            var status = operation.GetResults();
-            if (status == AppServiceConnectionStatus.Success)
-            {
-                var secondOperation = _appServiceConnection.SendMessageAsync(null);
-                secondOperation.Completed = (_, __) =>
-                {
-                    _appServiceConnection.Dispose();
-                    _appServiceConnection = null;
-                };
-            }
         }
 
         void UpdateTrayIcon()
@@ -166,26 +151,6 @@ namespace EarTrumpet.ViewModels
             {
                 TrayIcon = _icons[IconId.OriginalIcon];
                 _currentIcon = IconId.OriginalIcon;
-            }
-        }
-
-        private void StartAppServiceAndFeedbackHub()
-        {
-            if (_appServiceConnection == null)
-            {
-                _appServiceConnection = new AppServiceConnection();
-            }
-
-            _appServiceConnection.AppServiceName = "SendFeedback";
-            _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
-            _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
-        }
-
-        public void CloseAppService()
-        {
-            if (_appServiceConnection != null)
-            {
-                _appServiceConnection.Dispose();
             }
         }
 

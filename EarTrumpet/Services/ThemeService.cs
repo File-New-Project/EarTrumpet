@@ -38,15 +38,15 @@ namespace EarTrumpet.Services
 
             newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
             newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
-            newDictionary["ButtonBackground"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBackgroundRest" : "ImmersiveControlDarkCheckboxBackgroundRest");
-            newDictionary["ButtonBackgroundHover"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBackgroundHover" : "ImmersiveControlDarkCheckboxBackgroundHover");
-            newDictionary["ButtonBackgroundPressed"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBackgroundPressed" : "ImmersiveControlDarkCheckboxBackgroundPressed");
-            newDictionary["ButtonBorder"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBorderRest" : "ImmersiveControlDarkCheckboxBorderRest");
-            newDictionary["ButtonBorderHover"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBorderHover" : "ImmersiveControlDarkCheckboxBorderHover");
-            newDictionary["ButtonBorderPressed"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxBorderPressed" : "ImmersiveControlDarkCheckboxBorderPressed");
-            newDictionary["ButtonForeground"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxTextRest" : "ImmersiveControlDarkCheckboxTextRest");
-            newDictionary["ButtonForegroundHover"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxTextHover" : "ImmersiveControlDarkCheckboxTextHover");
-            newDictionary["ButtonForegroundPressed"] = Lookup(isLightTheme ? "ImmersiveControlLightCheckboxTextPressed" : "ImmersiveControlDarkCheckboxTextPressed");
+            newDictionary["ButtonBackground"] = Lookup("ImmersiveSystemBaseLowColor");
+            newDictionary["ButtonBackgroundHover"] = Lookup("ImmersiveSystemBaseLowColor");
+            newDictionary["ButtonBackgroundPressed"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBorder"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
+            newDictionary["ButtonBorderHover"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBorderPressed"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
+            newDictionary["ButtonForeground"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["ButtonForegroundHover"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["ButtonForegroundPressed"] = Lookup("ImmersiveSystemBaseHighColor");
             newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);

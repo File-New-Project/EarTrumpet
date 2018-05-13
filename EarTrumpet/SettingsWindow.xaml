@@ -97,8 +97,9 @@
                     <Image Source="{DynamicResource LogoImage}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,16,0" />
                     <StackPanel>
                     <TextBlock Text="{Binding AboutText}" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                    <TextBlock Text="© 2018 File-New-Project" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                    <TextBlock><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                    <TextBlock Text="© File-New-Project" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
+                        <TextBlock><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                        <TextBlock><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
                         <TextBlock><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
                     <!--<Button Content="{x:Static resx:Resources.WebsiteText}" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenAboutCommand}"></Button>-->
                     </StackPanel>
