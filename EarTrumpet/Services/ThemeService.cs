@@ -38,15 +38,15 @@ namespace EarTrumpet.Services
 
             newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
             newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
-            newDictionary["ButtonBackground"] = Lookup("ImmersiveSystemBaseLowColor");
-            newDictionary["ButtonBackgroundHover"] = Lookup("ImmersiveSystemBaseLowColor");
-            newDictionary["ButtonBackgroundPressed"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBackground"] = Lookup("ImmersiveLightBaseLow");
+            newDictionary["ButtonBackgroundHover"] = Lookup("ImmersiveLightBaseLow");
+            newDictionary["ButtonBackgroundPressed"] = Lookup("ImmersiveLightBaseMediumLow");
             newDictionary["ButtonBorder"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
-            newDictionary["ButtonBorderHover"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBorderHover"] = Lookup("ImmersiveLightBaseMediumLow");
             newDictionary["ButtonBorderPressed"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
-            newDictionary["ButtonForeground"] = Lookup("ImmersiveSystemBaseHighColor");
-            newDictionary["ButtonForegroundHover"] = Lookup("ImmersiveSystemBaseHighColor");
-            newDictionary["ButtonForegroundPressed"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["ButtonForeground"] = Lookup("ImmersiveLightBaseHigh");
+            newDictionary["ButtonForegroundHover"] = Lookup("ImmersiveLightBaseHigh");
+            newDictionary["ButtonForegroundPressed"] = Lookup("ImmersiveLightBaseHigh");
             newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
