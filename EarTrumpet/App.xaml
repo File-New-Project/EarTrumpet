@@ -108,8 +108,8 @@
             </Style>
             <Style TargetType="Button" x:Key="SlimButton">
                 <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="Padding" Value="12,4" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="16,8" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
@@ -119,8 +119,7 @@
                             <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
                                 <TextBlock Text="{TemplateBinding Content}"
                                        HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Padding="4"
+                                       VerticalAlignment="Center"                                       
                                        Foreground="{TemplateBinding Foreground}" />
                             </Border>
                         </ControlTemplate>

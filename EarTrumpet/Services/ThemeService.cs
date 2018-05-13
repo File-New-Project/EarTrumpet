@@ -49,6 +49,9 @@ namespace EarTrumpet.Services
             newDictionary["ButtonForegroundPressed"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
             newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
 
+            newDictionary["HyperlinkTextForeground"] = Lookup("ImmersiveSystemAccent");
+            newDictionary["HyperlinkTextForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseMedium" : "ImmersiveDarkBaseMedium");
+
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
         }

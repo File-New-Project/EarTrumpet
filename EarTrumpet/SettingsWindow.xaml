@@ -54,9 +54,26 @@
             <Setter Property="Margin" Value="4, 12" />
         </Style>
         <Style x:Key="BodyText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="Margin" Value="4, 0, 12, 8" />
+        </Style>
+
+        <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="4, 0, 12, 8" />
+        </Style>
+
+        <Style TargetType="{x:Type Hyperlink}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForegroundHover}" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForeground}" />
+            <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+            <Setter Property="FontSize" Value="14" />
         </Style>
     </Window.Resources>
     <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}">
@@ -89,19 +106,15 @@
                             Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
                             Content="{Binding HotkeyText}" HorizontalAlignment="Left"/>
                 </StackPanel>
-                <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsTitle}" Style="{StaticResource HeadingText}" />-->
-                <!--<TextBlock Text="{x:Static resx:Resources.DiagnosticsText}" Style="{StaticResource BodyText}"/>-->
-                <!--<Button Content="{x:Static resx:Resources.TroubleshootEarTrumpetText}" HorizontalAlignment="Left" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenDiagnosticsCommand}" Margin="0,8,0,0"></Button>-->
                 <TextBlock Text="{x:Static resx:Resources.AboutTitle}" Style="{StaticResource HeadingText}" Margin="4,48,4,12" />
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{DynamicResource LogoImage}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,16,0" />
                     <StackPanel>
                     <TextBlock Text="{Binding AboutText}" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
                     <TextBlock Text="© File-New-Project" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                        <TextBlock><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
-                        <TextBlock><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
-                        <TextBlock><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
-                    <!--<Button Content="{x:Static resx:Resources.WebsiteText}" Style="{StaticResource SlimButton}" Foreground="{Binding ElementName=WindowRoot,Path=Foreground}" Command="{Binding OpenAboutCommand}"></Button>-->
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

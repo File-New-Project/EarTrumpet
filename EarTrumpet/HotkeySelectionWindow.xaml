@@ -66,10 +66,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{x:Static resx:Resources.HotKeySelectionText}" FontSize="15" TextAlignment="Center" />
+            <TextBlock Text="{x:Static resx:Resources.HotKeySelectionText}" FontSize="14" TextAlignment="Center" />
             <TextBlock Grid.Row="1" Name="HotkeyText" FontSize="24" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button Grid.Row="2"
-                    FontSize="12"
                     Click="CloseButton_Click"
                     Style="{DynamicResource SlimButton}"
                     Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"

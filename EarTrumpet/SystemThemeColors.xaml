@@ -27,6 +27,9 @@
     <SolidColorBrush x:Key="ButtonForegroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundPressed">White</SolidColorBrush>
 
+    <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Grey</SolidColorBrush>
+
     <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"></BitmapImage>
 
 
