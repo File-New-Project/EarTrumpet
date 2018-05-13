@@ -34,7 +34,7 @@
             <ItemsControl IsTabStop="False"
                           Grid.Row="1">
                 <ListViewItem Name="DeviceListItem"
-                              Height="{StaticResource AppItemCellHeight}">
+                              Height="{StaticResource DeviceItemCellHeight}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource DeviceIconCellWidth}" />
@@ -45,8 +45,8 @@
                                 ToolTip="{Binding Device.Device.DisplayName}"
                                 Background="Transparent"
                                 HorizontalAlignment="Center"
-                                Height="24"
-                                Width="24"
+                                Height="{StaticResource DeviceIconSize}"
+                                Width="{StaticResource DeviceIconSize}"
                                 MouseDown="Icon_MouseDown"
                                 Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
 
@@ -68,7 +68,7 @@
                                             Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
                         <TextBlock Grid.Column="2"
                                    Text="{Binding Device.Device.Volume, Mode=OneWay}"
-                                   FontSize="24"
+                                   FontSize="{StaticResource DeviceVolumeTextFontSize}"
                                    HorizontalAlignment="Center"
                                    Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
                     </Grid>

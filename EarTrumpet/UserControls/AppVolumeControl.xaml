@@ -33,8 +33,8 @@
             <Grid>
                 <Image Source="{Binding App.Icon, Mode=OneTime}"
                        Stretch="Fill"
-                       Height="24"
-                       Width="24" />
+                       Height="{StaticResource AppIconSize}"
+                       Width="{StaticResource AppIconSize}" />
                 <TextBlock FontSize="16"
                            HorizontalAlignment="Center"
                            Text="{Binding App.IconText}"
@@ -93,7 +93,7 @@
 
         <TextBlock Grid.Column="2"
                    Text="{Binding App.Volume, Mode=OneWay}"
-                   FontSize="18"
+                   FontSize="{StaticResource AppVolumeTextFontSize}"
                    HorizontalAlignment="Center"
                    Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
     </Grid>
