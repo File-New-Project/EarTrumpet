@@ -118,8 +118,54 @@
             </Grid>
         </ScrollViewer>
         <Border Background="#CC000000"
-                Visibility="{Binding IsShowingModalDialog, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
+                Visibility="Collapsed"
+                Name="LightDismissBorder"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsShowingModalDialog}"
+                                     Value="true">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation From="0"
+                                                         To="1"
+                                                         Duration="00:00:00.15"
+                                                         Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation From="1"
+                                                         To="0"
+                                                         Duration="00:00:00.15"
+                                                         Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.15">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <Border Opacity="0.8"
                     Margin="0,0,0,14">
                 <Border.Effect>
@@ -145,9 +191,27 @@
                                                              To="20"
                                                              Duration="00:00:00.15"
                                                              Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
+                                            <DoubleAnimation From="0"
+                                                             To="1"
+                                                             Duration="00:00:00.15"
+                                                             Storyboard.TargetProperty="Opacity"></DoubleAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation From="20"
+                                                             To="0"
+                                                             Duration="00:00:00.15"
+                                                             Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
+                                            <DoubleAnimation From="1"
+                                                             To="0"
+                                                             Duration="00:00:00.15"
+                                                             Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
