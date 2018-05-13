@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Services;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
@@ -44,6 +45,13 @@ namespace EarTrumpet
         {
             get
             {
+#if DEBUG
+                if (Debugger.IsAttached)
+                {
+                    return false;
+                }
+#endif
+
                 if (_hasIdentity == null)
                 {
                     try
