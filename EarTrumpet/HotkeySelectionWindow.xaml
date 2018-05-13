@@ -10,8 +10,8 @@
         Icon="Tray.ico"
         AllowsTransparency="True"
         ShowInTaskbar="True"        
-        Foreground="{DynamicResource WindowForeground}"
-        Background="Black"        
+        Foreground="{DynamicResource NormalWindowForeground}"
+        Background="{DynamicResource NormalWindowBackground}"        
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}" Height="200" Width="300"
         BorderThickness="1"
         PreviewKeyDown="Window_PreviewKeyDown" WindowStartupLocation="CenterOwner">
@@ -45,7 +45,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <DockPanel Background="{DynamicResource WindowBackground}">
+    <DockPanel>
         <Grid DockPanel.Dock="Top" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -60,13 +60,13 @@
                     Style="{DynamicResource CloseButtonStyle}"
                     Click="CloseButton_Click" />
         </Grid>
-        <Grid Margin="12">
+        <Grid Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{x:Static resx:Resources.HotKeySelectionText}" FontSize="15" />
+            <TextBlock Text="{x:Static resx:Resources.HotKeySelectionText}" FontSize="15" TextAlignment="Center" />
             <TextBlock Grid.Row="1" Name="HotkeyText" FontSize="24" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button Grid.Row="2"
                     FontSize="12"

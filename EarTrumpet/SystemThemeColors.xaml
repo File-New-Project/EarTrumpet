@@ -14,4 +14,20 @@
     <SolidColorBrush x:Key="CottonSwabSliderTrackFill">Purple</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterHotColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="ActiveBorder">Green</SolidColorBrush>
+
+    <SolidColorBrush x:Key="NormalWindowForeground">White</SolidColorBrush>
+    <SolidColorBrush x:Key="NormalWindowBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackground">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackgroundHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackgroundPressed">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBorder">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBorderHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBorderPressed">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonForeground">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonForegroundHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonForegroundPressed">White</SolidColorBrush>
+
+    <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"></BitmapImage>
+
+
 </ResourceDictionary>

@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Services\AccentPolicyService.cs" />
     <Compile Include="Services\AppInformationService.cs" />
+    <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\AudioPolicyConfigService.cs" />
     <Compile Include="Services\DefaultEndpointService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
@@ -299,7 +300,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Logo-Dark.png" />
+    <Resource Include="Assets\Logo-Light.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

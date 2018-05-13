@@ -2,7 +2,9 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System.Diagnostics;
+using System.IO.Packaging;
 using System.Reflection;
+using Windows.ApplicationModel.AppService;
 
 namespace EarTrumpet.ViewModels
 {
@@ -25,14 +27,14 @@ namespace EarTrumpet.ViewModels
         public string HotkeyText => _hotkey.ToString();
         public RelayCommand OpenDiagnosticsCommand { get; }
         public RelayCommand OpenAboutCommand { get; }
+        public RelayCommand OpenFeedbackCommand { get; }
 
         public string AboutText
         {
             get
             {
-                var aboutString = Properties.Resources.ContextMenuAboutTitle;
                 var version = Assembly.GetEntryAssembly().GetName().Version;
-                return $"{aboutString} EarTrumpet {version}";
+                return $"EarTrumpet {version}";
             }
         }
 
@@ -44,6 +46,7 @@ namespace EarTrumpet.ViewModels
             Hotkey = SettingsService.Hotkey;
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
+            OpenFeedbackCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
         }
 
         public void Save()
@@ -60,7 +63,6 @@ namespace EarTrumpet.ViewModels
         private void OpenAbout()
         {
             Process.Start("http://github.com/File-New-Project/EarTrumpet");
-        }
-
+        }        
     }
 }

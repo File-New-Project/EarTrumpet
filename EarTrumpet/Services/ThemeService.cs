@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.Services
 {
@@ -18,6 +20,7 @@ namespace EarTrumpet.Services
         {
             var newDictionary = new ResourceDictionary();
             var themeDictionary = Application.Current.Resources.MergedDictionaries[0];
+            var isLightTheme = UserSystemPreferencesService.IsLightTheme;
 
             newDictionary["WindowForeground"] = Lookup("ImmersiveApplicationTextDarkTheme");
             newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccent", 0.2);
@@ -31,6 +34,20 @@ namespace EarTrumpet.Services
             newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
             newDictionary["PopupBackground"] = new SolidColorBrush(GetWindowBackgroundColor(true));
             newDictionary["PeakMeterHotColor"] = Lookup(IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
+
+
+            newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
+            newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
+            newDictionary["ButtonBackground"] = Lookup("ImmersiveSystemBaseLowColor");
+            newDictionary["ButtonBackgroundHover"] = Lookup("ImmersiveSystemBaseLowColor");
+            newDictionary["ButtonBackgroundPressed"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBorder"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
+            newDictionary["ButtonBorderHover"] = Lookup("ImmersiveSystemBaseMediumLowColor");
+            newDictionary["ButtonBorderPressed"] = new SolidColorBrush(new Color() { A = 0, R = 0, G = 0, B = 0 });
+            newDictionary["ButtonForeground"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["ButtonForegroundHover"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["ButtonForegroundPressed"] = Lookup("ImmersiveSystemBaseHighColor");
+            newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
@@ -47,13 +64,21 @@ namespace EarTrumpet.Services
             const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x320;
             const int WM_DWMCOMPOSITIONCHANGED = 0x31E;
             const int WM_THEMECHANGED = 0x031A;
+            const int WM_SETTINGCHANGE = 0x001A;
 
             switch (msg)
             {
                 case WM_DWMCOLORIZATIONCOLORCHANGED:
                 case WM_DWMCOMPOSITIONCHANGED:
-                case WM_THEMECHANGED:
+                case WM_THEMECHANGED:                
                     ThemeChanged?.Invoke();
+                    break;
+                case WM_SETTINGCHANGE:
+                    var settingChanged = Marshal.PtrToStringUni(lParam);
+                    if (settingChanged == "ImmersiveColorSet")
+                    {
+                        ThemeChanged?.Invoke();
+                    }
                     break;
                 default:
                     break;
