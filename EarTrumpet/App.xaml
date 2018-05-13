@@ -108,8 +108,10 @@
             </Style>
             <Style TargetType="Button" x:Key="SlimButton">
                 <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Padding" Value="16,8" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="MinWidth" Value="90" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
