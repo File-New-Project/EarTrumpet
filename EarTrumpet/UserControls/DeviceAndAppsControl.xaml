@@ -56,12 +56,10 @@
                                        Margin="0,-1,0,0" />
                         </Border>
 
-                        <local:AudioPeakMeter Grid.Column="1"
-                                              IsHitTestVisible="False"
-                                              PeakValue="{Binding Device.Device.PeakValue}"
-                                              Volume="{Binding Device.Device.Volume}" />
                         <local:VolumeSlider Grid.Column="1"
                                             Value="{Binding Device.Device.Volume,Mode=TwoWay}"
+                                            Volume="{Binding Device.Device.Volume}"
+                                            PeakValue="{Binding Device.Device.PeakValue}"
                                             PreviewTouchUp="TouchSlider_TouchUp"
                                             PreviewMouseUp="TouchSlider_MouseUp"
                                             Style="{StaticResource TouchSliderStyle}"

@@ -8,6 +8,31 @@ namespace EarTrumpet.UserControls
 {
     public class VolumeSlider : Slider
     {
+        public float PeakValue
+        {
+            get { return (float)this.GetValue(PeakValueProperty); }
+            set { this.SetValue(PeakValueProperty, value); }
+        }
+        public static readonly DependencyProperty PeakValueProperty = DependencyProperty.Register(
+          "PeakValue", typeof(float), typeof(VolumeSlider), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
+
+        public int Volume
+        {
+            get { return (int)this.GetValue(VolumeValueProperty); }
+            set { this.SetValue(VolumeValueProperty, value); }
+        }
+        public static readonly DependencyProperty VolumeValueProperty = DependencyProperty.Register(
+          "Volume", typeof(int), typeof(VolumeSlider), new PropertyMetadata(0, new PropertyChangedCallback(VolumeChanged)));
+
+        Border PeakMeter
+        {
+            get
+            {
+                return (Border)GetTemplateChild("PeakMeter");
+            }
+        }
+
+        // PeakMeter
         public VolumeSlider() : base()
         {
             TouchDown += OnTouchDown;
@@ -17,6 +42,28 @@ namespace EarTrumpet.UserControls
             TouchMove += OnTouchMove;
             MouseMove += OnMouseMove;
             MouseWheel += OnMouseWheel;
+        }
+
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            var ret = base.ArrangeOverride(arrangeBounds);
+            SizeOrVolumeOrPeakValueChanged();
+            return ret;
+        }
+
+        private static void PeakValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((VolumeSlider)d).SizeOrVolumeOrPeakValueChanged();
+        }
+
+        private void SizeOrVolumeOrPeakValueChanged()
+        {
+            PeakMeter.Width = this.ActualWidth * PeakValue * (Volume / 100f);
+        }
+
+        private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((VolumeSlider)d).SizeOrVolumeOrPeakValueChanged();
         }
 
         private void OnTouchDown(object sender, TouchEventArgs e)

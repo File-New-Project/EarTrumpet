@@ -69,7 +69,6 @@
                                FontWeight="Bold"
                                Text="..." />
                 </Grid>
-
             </Grid>
         </Border>
 
@@ -81,13 +80,10 @@
                    Style="{StaticResource GlyphTextBlockStyle}"
                    ToolTip="{Binding App.DisplayName}"/>
 
-        <local:AudioPeakMeter Grid.Column="1"
-                              IsHitTestVisible="False"
-                              PeakValue="{Binding App.PeakValue}"
-                              Volume="{Binding App.Volume}" />
-
         <local:VolumeSlider Grid.Column="1"
+                            Volume="{Binding App.Volume}"
                             Value="{Binding App.Volume,Mode=TwoWay}"
+                            PeakValue="{Binding App.PeakValue}"
                             Style="{StaticResource TouchSliderStyle}"
                             Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
 

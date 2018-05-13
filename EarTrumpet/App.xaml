@@ -12,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             
             <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />
+            
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
             <ext:OpacityConverter x:Key="opacityConverter" />
 
@@ -224,13 +225,12 @@
                          TargetType="{x:Type Slider}">
                 <Grid>
                     <Border Name="TrackBackground"
-                        Margin="0"
-                        Height="2"
-                        Background="Transparent" />
+                            Height="2" />
+
                     <Track Name="PART_Track">
                         <Track.DecreaseRepeatButton>
                             <RepeatButton Name="SliderLeft"
-                                      Foreground="Transparent"
+                                          Foreground="{DynamicResource CottonSwabSliderTrackFill}"
                                       Style="{StaticResource SliderButtonStyle}"
                                       Command="Slider.DecreaseLarge" />
                         </Track.DecreaseRepeatButton>
@@ -241,11 +241,17 @@
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
                             <RepeatButton Name="SliderRight"
-                                      Foreground="Transparent"
-                                      Style="{StaticResource SliderButtonStyle}"
-                                      Command="Slider.IncreaseLarge" />
+                                          Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
+                                          Style="{StaticResource SliderButtonStyle}"
+                                          Command="Slider.IncreaseLarge" />
                         </Track.IncreaseRepeatButton>
                     </Track>
+
+                    <Border HorizontalAlignment="Left"
+                            Height="2"
+                            Width="78"
+                            Name="PeakMeter"
+                            Background="{DynamicResource PeakMeterHotColor}" />
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualStateGroup.Transitions>

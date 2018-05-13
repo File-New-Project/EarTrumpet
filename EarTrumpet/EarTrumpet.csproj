@@ -89,9 +89,6 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\VolumeSlider.cs" />
-    <Compile Include="UserControls\AudioPeakMeter.xaml.cs">
-      <DependentUpon>AudioPeakMeter.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
     <Compile Include="DataModel\Com\AudioSessionState.cs" />
@@ -203,10 +200,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SystemThemeColors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AudioPeakMeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
