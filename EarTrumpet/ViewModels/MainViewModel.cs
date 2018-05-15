@@ -31,10 +31,11 @@ namespace EarTrumpet.ViewModels
         public static MainViewModel Instance { get; private set; }
 
         public bool IsExpanded { get; private set; }
-        public bool CanExpand => _allDevices.Count > 1;
+        public bool CanExpand => AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
 
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
+        public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
 
         public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
 
@@ -49,7 +50,7 @@ namespace EarTrumpet.ViewModels
                 var ret = new ObservableCollection<SimpleAudioDeviceViewModel>();
                 ret.Add(DefaultPlaybackDevice);
 
-                foreach (var device in _allDevices)
+                foreach (var device in AllDevices)
                 {
                     ret.Add(new SimpleAudioDeviceViewModel { DisplayName = device.Device.DisplayName, Id = device.Device.Id });
                 }
@@ -66,7 +67,6 @@ namespace EarTrumpet.ViewModels
 
         private readonly IAudioDeviceManager _deviceService;
         private readonly Timer _peakMeterTimer;
-        private List<DeviceViewModel> _allDevices = new List<DeviceViewModel>();
         private AppItemViewModel _expandedApp;
 
         public MainViewModel(IAudioDeviceManager deviceService)
@@ -81,6 +81,7 @@ namespace EarTrumpet.ViewModels
             _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
 
             Devices = new ObservableCollection<DeviceViewModel>();
+            AllDevices = new ObservableCollection<DeviceViewModel>();
 
             DefaultPlaybackDevice = new SimpleAudioDeviceViewModel { DisplayName = EarTrumpet.Properties.Resources.DefaultDeviceText, IsDefault = true, };
 
@@ -94,7 +95,7 @@ namespace EarTrumpet.ViewModels
         private void AddDevice(IAudioDevice device)
         {
             var newDevice = new DeviceViewModel(_deviceService, device);
-            _allDevices.Add(newDevice);
+            AllDevices.Add(newDevice);
 
             if (IsExpanded || Devices.Count == 0)
             {
@@ -116,7 +117,7 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                var foundAllDevice = _allDevices.FirstOrDefault(d => d.Device.Id == e.Id);
+                var foundAllDevice = AllDevices.FirstOrDefault(d => d.Device.Id == e.Id);
                 if (foundAllDevice != null)
                 {
                     Devices.Clear();
@@ -143,16 +144,16 @@ namespace EarTrumpet.ViewModels
                         Devices.Remove(existing);
                     }
 
-                    var allExisting = _allDevices.FirstOrDefault(d => d.Device.Id == removed);
+                    var allExisting = AllDevices.FirstOrDefault(d => d.Device.Id == removed);
                     if (allExisting != null)
                     {
-                        _allDevices.Remove(allExisting);
+                        AllDevices.Remove(allExisting);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
 
-                    _allDevices.Clear();
+                    AllDevices.Clear();
                     Devices.Clear();
 
                     foreach (var device in _deviceService.Devices)
@@ -193,7 +194,7 @@ namespace EarTrumpet.ViewModels
             if (IsExpanded)
             {
                 // Add any that aren't existing.
-                foreach (var device in _allDevices)
+                foreach (var device in AllDevices)
                 {
                     if (!Devices.Contains(device))
                     {

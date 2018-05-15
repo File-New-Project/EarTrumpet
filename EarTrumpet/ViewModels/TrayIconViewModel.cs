@@ -190,7 +190,7 @@ namespace EarTrumpet.ViewModels
 
         private void OpenEarTrumpetVolumeMixer()
         {
-            var window = new FullWindow(_deviceService);
+            var window = new FullWindow(MainViewModel.Instance);
             window.Show();
         }
 

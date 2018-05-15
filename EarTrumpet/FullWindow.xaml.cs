@@ -1,24 +1,20 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
-using EarTrumpet.Services;
-using EarTrumpet.ViewModels;
+﻿using EarTrumpet.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace EarTrumpet
 {
     public partial class FullWindow : Window
     {
-        FullWindowViewModel _viewModel;
-        IAudioDeviceManager _manager;
+        MainViewModel _viewModel;
 
-        public FullWindow(IAudioDeviceManager manager)
+        public FullWindow(MainViewModel viewModel)
         {
-            _manager = manager;
+            _viewModel = viewModel;
+
             InitializeComponent();
 
             Title = Properties.Resources.FullWindowTitleText;
-            _viewModel = new FullWindowViewModel(manager);
+
             DataContext = _viewModel;
 
             this.StateChanged += FullWindow_StateChanged;

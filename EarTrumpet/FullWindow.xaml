@@ -20,7 +20,8 @@
             <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
             <Style.Triggers>
                 <Trigger Property="IsActive" Value="false">
-                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderBrush"
+                            Value="Gray" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -35,7 +36,7 @@
         </DockPanel>
         <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Devices}">
+            <ItemsControl ItemsSource="{Binding AllDevices}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />

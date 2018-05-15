@@ -203,7 +203,6 @@
     <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\DeviceViewModelComparer.cs" />
-    <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />
