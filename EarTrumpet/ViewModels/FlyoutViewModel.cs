@@ -14,7 +14,6 @@ namespace EarTrumpet.ViewModels
             NotReady,
             Hidden,
             Opening,
-            Opening_CloseRequested,
             Open,
             Closing,
         }
@@ -34,6 +33,7 @@ namespace EarTrumpet.ViewModels
 
         private IAudioDeviceManager _deviceManager;
         private MainViewModel _mainViewModel;
+        private bool _closedOnOpen;
 
         public FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
         {
@@ -188,8 +188,9 @@ namespace EarTrumpet.ViewModels
             {
                 _mainViewModel.OnTrayFlyoutShown();
 
-                if (oldState == ViewState.Opening_CloseRequested)
+                if (_closedOnOpen)
                 {
+                    _closedOnOpen = false;
                     BeginClose();
                 }
             }
@@ -233,12 +234,6 @@ namespace EarTrumpet.ViewModels
             {
                 ChangeState(ViewState.Opening);
             }
-
-            // NotReady - Ignore, can't do anything.
-            // Opening - Ignore. Already opening.
-            // Opening_CloseRequested - Ignore, already opening and then closing.
-            // Open - We're already open.
-            // Closing - Drop event. Not worth the complexity?
         }
 
         public void BeginClose()
@@ -249,13 +244,8 @@ namespace EarTrumpet.ViewModels
             }
             else if (State == ViewState.Opening)
             {
-                ChangeState(ViewState.Opening_CloseRequested);
+                _closedOnOpen = true;
             }
-
-            // NotReady - Impossible.
-            // Hidden - Nothing to do.
-            // Opening_CloseRequested - Nothing to do.
-            // Closing - Nothing to do.
         }
     }
 }

@@ -91,8 +91,89 @@ namespace EarTrumpet.Extensions
             {
                 window.Opacity = 0.5;
             }
-            
-            window.Visibility = Visibility.Visible;
+
+            window.Cloak(false);
+
+            var storyboard = new Storyboard();
+            storyboard.FillBehavior = FillBehavior.Stop;
+            storyboard.Children.Add(moveAnimation);
+
+            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            {
+                storyboard.Children.Add(fadeAnimation);
+            }
+
+            storyboard.Completed += onCompleted;
+            storyboard.Begin(window);
+        }
+
+        public static void HideWithAnimation(this Window window, Action completed)
+        {
+            const int animationOffset = 25;
+
+            var onCompleted = new EventHandler((s, e) =>
+            {
+                window.Cloak();
+                completed();
+            });
+
+            if (!SystemParameters.MenuAnimation)
+            {
+                onCompleted(null, null);
+                return;
+            }
+
+            var moveAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+            };
+
+            var fadeAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                From = 1,
+                To = 0.75,
+            };
+            fadeAnimation.Completed += (s, e) => { window.Opacity = 0; };
+
+            Storyboard.SetTarget(fadeAnimation, window);
+            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
+
+            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
+
+            switch (taskbarPosition)
+            {
+                case TaskbarPosition.Left:
+                    moveAnimation.To = window.Left - animationOffset;
+                    break;
+                case TaskbarPosition.Right:
+                    moveAnimation.To = window.Left - animationOffset;
+                    break;
+                case TaskbarPosition.Top:
+                    moveAnimation.To = window.Top - animationOffset;
+                    break;
+                case TaskbarPosition.Bottom:
+                default:
+                    moveAnimation.To = window.Top + animationOffset;
+                    break;
+            }
+
+            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
+            {
+                Storyboard.SetTarget(moveAnimation, window);
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
+                moveAnimation.From = window.Left;
+            }
+            else
+            {
+                Storyboard.SetTarget(moveAnimation, window);
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
+                moveAnimation.From = window.Top;
+            }
 
             var storyboard = new Storyboard();
             storyboard.FillBehavior = FillBehavior.Stop;

@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -14,6 +15,7 @@ namespace EarTrumpet
         private readonly MainViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
         private VolumeControlPopup _popup;
+        private bool _expandOnCloseThenOpen;
 
         public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager)
         {
@@ -47,8 +49,6 @@ namespace EarTrumpet
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
-            Hide();
-            this.Cloak(false);
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
@@ -105,8 +105,34 @@ namespace EarTrumpet
                     break;
 
                 case FlyoutViewModel.ViewState.Closing:
-                    this.Visibility = Visibility.Hidden;
-                    _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+
+                    var cloakAndMarkHidden = new Action(() =>
+                    {
+                        this.Cloak();
+                        _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+                    });
+
+                    if (_expandOnCloseThenOpen)
+                    {
+                        this.HideWithAnimation(cloakAndMarkHidden);
+                    }
+                    else
+                    {
+                        cloakAndMarkHidden();
+                    }
+
+                    break;
+
+                case FlyoutViewModel.ViewState.Hidden:
+
+                    if (_expandOnCloseThenOpen)
+                    {
+                        _expandOnCloseThenOpen = false;
+
+                        _viewModel.DoExpandCollapse();
+                        UpdateLayout();
+                        _viewModel.BeginOpen();
+                    }
                     break;
             }
         }
@@ -217,7 +243,9 @@ namespace EarTrumpet
 
         private void ExpandCollapse_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.DoExpandCollapse();
+            _expandOnCloseThenOpen = true;
+
+            _viewModel.BeginClose();
         }
 
         private void ExpandCollapse_PreviewKeyDown(object sender, KeyEventArgs e)
