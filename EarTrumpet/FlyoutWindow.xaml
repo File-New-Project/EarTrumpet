@@ -11,7 +11,6 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True"
         WindowStyle="None"
-        Deactivated="Window_Deactivated"
         PreviewKeyDown="Window_PreviewKeyDown"
         Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"

@@ -87,13 +87,22 @@ namespace EarTrumpet.Extensions
                 moveAnimation.From = window.Top;
             }
 
-            window.Opacity = 0.5;
+            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            {
+                window.Opacity = 0.5;
+            }
+            
             window.Visibility = Visibility.Visible;
 
             var storyboard = new Storyboard();
             storyboard.FillBehavior = FillBehavior.Stop;
             storyboard.Children.Add(moveAnimation);
-            storyboard.Children.Add(fadeAnimation);
+
+            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            {
+                storyboard.Children.Add(fadeAnimation);
+            }
+
             storyboard.Completed += onCompleted;
             storyboard.Begin(window);
         }

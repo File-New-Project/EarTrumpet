@@ -3,7 +3,6 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
-using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -26,34 +25,32 @@ namespace EarTrumpet
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.AppExpanded += OnAppExpanded;
             _viewModel.AppCollapsed += OnAppCollapsed;
-            _viewModel.WindowSizeInvalidated += OnWindowSizeInvalidated;
+            _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
 
             DataContext = _viewModel;
+
+            _popup = (VolumeControlPopup)Resources["AppPopup"];
+            _popup.Closed += (_, __) => _viewModel.OnAppCollapsed();
+
+            Deactivated += (_, __) => _viewModel.BeginClose();
 
             SourceInitialized += (s, e) =>
             {
                 this.Cloak();
 
-                ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+                UpdateTheme();
 
-                _popup = (VolumeControlPopup)Resources["AppPopup"];
-                _popup.Closed += OnPopupClosed;
+                ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
             };
 
             ThemeService.ThemeChanged += () => UpdateTheme();
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
-            CreateAndHideWindow();
-        }
+            Show();
+            Hide();
+            this.Cloak(false);
 
-        private void OnPopupClosed(object sender, EventArgs e)
-        {
-            _viewModel.OnAppCollapsed();
-        }
-
-        private void OnWindowSizeInvalidated(object sender, object e)
-        {
-            UpdateWindowPosition();
+            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
 
         private void OnAppCollapsed(object sender, object e)
@@ -103,10 +100,10 @@ namespace EarTrumpet
             switch (e)
             {
                 case FlyoutViewModel.ViewState.Opening:
-                    UpdateTheme();
-                  //  UpdateWindowPosition();
-                    this.ShowwithAnimation(() => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
 
+                    UpdateWindowBounds();
+
+                    this.ShowwithAnimation(() => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
                     break;
 
                 case FlyoutViewModel.ViewState.Closing:
@@ -114,19 +111,6 @@ namespace EarTrumpet
                     _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
                     break;
             }
-        }
-
-        private void CreateAndHideWindow()
-        {
-            UpdateTheme();
-
-            Show();
-            Hide();
-            this.Cloak(false);
-
-            UpdateWindowPosition();
-
-            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
 
         public void OpenAsFlyout()
@@ -139,17 +123,9 @@ namespace EarTrumpet
                 case FlyoutViewModel.ViewState.Open:
                     _viewModel.BeginClose();
                     break;
-                default:
-                    // For transition states, we ignore the event.
-                    break;
             }
         }
 
-        private void Window_Deactivated(object sender, EventArgs e)
-        {
-            _viewModel.BeginClose();
-        }
-        
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -172,12 +148,11 @@ namespace EarTrumpet
             }
         }
 
-        private void UpdateWindowPosition()
+        private void UpdateWindowBounds()
         {
             var taskbarState = TaskbarService.GetWinTaskbarState();
 
             double newHeight = 0;
-
             if (_viewModel.IsEmpty)
             {
                 var NoItemsPaneHeight = (double)App.Current.Resources["NoItemsPaneHeight"];
@@ -208,15 +183,14 @@ namespace EarTrumpet
                 }
             }
 
+            bool isOverflowing = false;
             if (newHeight > taskbarState.TaskbarScreen.WorkingArea.Height)
             {
                 newHeight = taskbarState.TaskbarScreen.WorkingArea.Height;
-                BaseVisual.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Visible;
+                isOverflowing = true;
             }
-            else
-            {
-                BaseVisual.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Hidden;
-            }
+
+            BaseVisual.VerticalScrollBarVisibility = isOverflowing ? System.Windows.Controls.ScrollBarVisibility.Visible : System.Windows.Controls.ScrollBarVisibility.Hidden;
 
             double newTop = 0;
             double newLeft = 0;

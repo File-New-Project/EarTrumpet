@@ -60,8 +60,23 @@ namespace EarTrumpet.ViewModels
         {
             if (IsExpanded || Devices.Count == 0)
             {
+                device.Apps.CollectionChanged += Apps_CollectionChanged;
                 Devices.Insert(0, device);
-                InvalidateWindowSize();
+            }
+        }
+
+        private void Apps_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            InvalidateWindowSize();
+        }
+
+        private void RemoveDevice(string id)
+        {
+            var existing = Devices.FirstOrDefault(d => d.Device.Id == id);
+            if (existing != null)
+            {
+                existing.Apps.CollectionChanged -= Apps_CollectionChanged;
+                Devices.Remove(existing);
             }
         }
 
@@ -74,18 +89,15 @@ namespace EarTrumpet.ViewModels
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    var removed = ((DeviceViewModel)e.OldItems[0]).Device.Id;
-
-                    var existing = Devices.FirstOrDefault(d => d.Device.Id == removed);
-                    if (existing != null)
-                    {
-                        Devices.Remove(existing);
-                    }
+                    RemoveDevice(((DeviceViewModel)e.OldItems[0]).Device.Id);
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
 
-                    Devices.Clear();
+                    for (int i = Devices.Count - 1; i >= 0; i--)
+                    {
+                        RemoveDevice(Devices[i].Device.Id);
+                    }
 
                     foreach (var device in _mainViewModel.AllDevices)
                     {
