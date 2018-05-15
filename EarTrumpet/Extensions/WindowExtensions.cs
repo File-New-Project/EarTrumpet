@@ -117,6 +117,8 @@ namespace EarTrumpet.Extensions
                 completed();
             });
 
+            window.Topmost = false;
+
             if (!SystemParameters.MenuAnimation)
             {
                 onCompleted(null, null);
