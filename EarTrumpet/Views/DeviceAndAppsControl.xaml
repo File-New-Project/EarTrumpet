@@ -40,9 +40,17 @@
                                 Margin="{StaticResource DeviceOrAppIconMargin}"
                                 Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
 
-                            <TextBlock FontSize="24"
-                                       Style="{StaticResource GlyphTextBlockStyle}"
-                                       Text="{Binding Device.DeviceIconText}" />
+                            <Grid>
+                                <TextBlock FontSize="24"
+                                           Opacity="0.4"
+                                           Style="{StaticResource GlyphTextBlockStyle}"
+                                           Text="{Binding Device.DeviceIconTextBackground}" />
+
+                                <TextBlock FontSize="24"
+                                           Style="{StaticResource GlyphTextBlockStyle}"
+                                           Text="{Binding Device.DeviceIconText}" />
+                            </Grid>
+
                         </Border>
 
                         <local:VolumeSlider Grid.Column="1"

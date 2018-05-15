@@ -15,6 +15,7 @@ namespace EarTrumpet.ViewModels
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
 
         public string DeviceIconText { get; private set; }
+        public string DeviceIconTextBackground { get; private set; }
 
         IAudioDevice _device;
         IAudioDeviceManager _deviceService;
@@ -62,10 +63,13 @@ namespace EarTrumpet.ViewModels
 
         private void UpdateDeviceText()
         {
+            DeviceIconTextBackground = "\xE995";
+
             string icon = "";
             if (_device.IsMuted)
             {
                 icon = "\xE74F";
+                DeviceIconTextBackground = icon;
             }
             else if (_device.Volume >= 0.65f)
             {
@@ -82,10 +86,12 @@ namespace EarTrumpet.ViewModels
             else
             {
                 icon = "\xE74F"; // Mute
+                DeviceIconTextBackground = icon;
             }
 
             DeviceIconText = icon;
             RaisePropertyChanged(nameof(DeviceIconText));
+            RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
