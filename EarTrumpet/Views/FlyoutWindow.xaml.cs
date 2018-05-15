@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
@@ -62,7 +63,7 @@ namespace EarTrumpet
 
                     UpdateWindowBounds();
 
-                    this.ShowwithAnimation(() => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+                    FlyoutAnimationLibrary.BeginEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
                     break;
 
                 case FlyoutViewModel.ViewState.Closing:
@@ -75,7 +76,7 @@ namespace EarTrumpet
 
                     if (_expandOnCloseThenOpen)
                     {
-                        this.HideWithAnimation(cloakAndMarkHidden);
+                        FlyoutAnimationLibrary.BeginExitanimation(this, cloakAndMarkHidden);
                     }
                     else
                     {
@@ -123,14 +124,7 @@ namespace EarTrumpet
         {
             ThemeService.LoadCurrentTheme();
 
-            if (ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast)
-            {
-                this.EnableBlur();
-            }
-            else
-            {
-                this.DisableBlur();
-            }
+            this.SetWindowBlur(ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast);
         }
 
         private void UpdateWindowBounds()

@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System.Windows;

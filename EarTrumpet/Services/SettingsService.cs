@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using Microsoft.Win32;
 using System.IO;
 using System.Xml;

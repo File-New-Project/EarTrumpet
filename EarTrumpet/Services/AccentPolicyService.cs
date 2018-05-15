@@ -113,14 +113,16 @@ namespace EarTrumpet.Services
             return flags;
         }
 
-        public static void EnableBlur(IntPtr handle)
+        public static void SetBlurPolicy(IntPtr handle, bool isBlur)
         {
-            SetAccentPolicy(handle, Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, false, _blurOpacity);
-        }
-
-        public static void DisableBlur(IntPtr handle)
-        {
-            SetAccentPolicy(handle, Interop.AccentState.ACCENT_DISABLED);
+            if (isBlur)
+            {
+                SetAccentPolicy(handle, Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, false, _blurOpacity);
+            }
+            else
+            {
+                SetAccentPolicy(handle, Interop.AccentState.ACCENT_DISABLED);
+            }
         }
     }
 }

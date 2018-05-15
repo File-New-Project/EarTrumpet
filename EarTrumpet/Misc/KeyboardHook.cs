@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace EarTrumpet
+namespace EarTrumpet.Misc
 {
     public sealed class KeyboardHook : IDisposable
     {

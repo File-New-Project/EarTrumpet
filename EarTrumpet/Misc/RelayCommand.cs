@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace EarTrumpet.Extensions
+namespace EarTrumpet.Misc
 {
     public class RelayCommand : ICommand
     {

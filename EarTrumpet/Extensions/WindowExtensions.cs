@@ -5,209 +5,11 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
-        public static void ShowwithAnimation(this Window window, Action completed)
-        {
-            const int animationOffset = 25;
-
-            var onCompleted = new EventHandler((s, e) =>
-            {
-                window.Topmost = true;
-                window.Focus();
-                completed();
-            });
-
-            window.Topmost = false;
-            window.Activate();
-
-            if (!SystemParameters.MenuAnimation)
-            {
-                window.Visibility = Visibility.Visible;
-                onCompleted(null, null);
-                return;
-            }
-
-            var moveAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(266)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
-            };
-
-            var fadeAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(266)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0.5,
-                To = 1
-            };
-            fadeAnimation.Completed += (s, e) => { window.Opacity = 1; };
-            Storyboard.SetTarget(fadeAnimation, window);
-            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
-
-            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                    moveAnimation.To = window.Left;
-                    window.Left -= animationOffset;
-                    break;
-                case TaskbarPosition.Right:
-                    moveAnimation.To = window.Left;
-                    window.Left += animationOffset;
-                    break;
-                case TaskbarPosition.Top:
-                    moveAnimation.To = window.Top;
-                    window.Top -= animationOffset;
-                    break;
-                case TaskbarPosition.Bottom:
-                default:
-                    moveAnimation.To = window.Top;
-                    window.Top += animationOffset;
-                    break;
-            }
-
-            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
-            {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
-                moveAnimation.From = window.Left;
-            }
-            else
-            {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
-                moveAnimation.From = window.Top;
-            }
-
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
-            {
-                window.Opacity = 0.5;
-            }
-
-            window.Cloak(false);
-
-            var storyboard = new Storyboard();
-            storyboard.FillBehavior = FillBehavior.Stop;
-            storyboard.Children.Add(moveAnimation);
-
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
-            {
-                storyboard.Children.Add(fadeAnimation);
-            }
-
-            storyboard.Completed += onCompleted;
-            storyboard.Begin(window);
-        }
-
-        public static void HideWithAnimation(this Window window, Action completed)
-        {
-            const int animationOffset = 25;
-
-            var onCompleted = new EventHandler((s, e) =>
-            {
-                window.Cloak();
-                completed();
-            });
-
-            window.Topmost = false;
-
-            if (!SystemParameters.MenuAnimation)
-            {
-                onCompleted(null, null);
-                return;
-            }
-
-            var moveAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
-            };
-
-            var fadeAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 1,
-                To = 0.75,
-            };
-            fadeAnimation.Completed += (s, e) => { window.Opacity = 0; };
-
-            Storyboard.SetTarget(fadeAnimation, window);
-            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
-
-            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-
-            switch (taskbarPosition)
-            {
-                case TaskbarPosition.Left:
-                    moveAnimation.To = window.Left - animationOffset;
-                    break;
-                case TaskbarPosition.Right:
-                    moveAnimation.To = window.Left - animationOffset;
-                    break;
-                case TaskbarPosition.Top:
-                    moveAnimation.To = window.Top - animationOffset;
-                    break;
-                case TaskbarPosition.Bottom:
-                default:
-                    moveAnimation.To = window.Top + animationOffset;
-                    break;
-            }
-
-            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
-            {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
-                moveAnimation.From = window.Left;
-            }
-            else
-            {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
-                moveAnimation.From = window.Top;
-            }
-
-            var storyboard = new Storyboard();
-            storyboard.FillBehavior = FillBehavior.Stop;
-            storyboard.Children.Add(moveAnimation);
-
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
-            {
-                storyboard.Children.Add(fadeAnimation);
-            }
-
-            storyboard.Completed += onCompleted;
-            storyboard.Begin(window);
-        }
-
-        public static Matrix CalculateDpiFactors(this Window window)
-        {
-            var mainWindowPresentationSource = PresentationSource.FromVisual(window);
-            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1 } : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
-        }
-
-        public static double DpiHeightFactor(this Window window)
-        {
-            var m = CalculateDpiFactors(window);
-            return m.M22;
-        }
-
-        public static double DpiWidthFactor(this Window window)
-        {
-            var m = CalculateDpiFactors(window);
-            return m.M11;
-        }
-
         static class Interop
         {
             [DllImport("dwmapi.dll", PreserveSig = true)]
@@ -247,6 +49,30 @@ namespace EarTrumpet.Extensions
             int attributeValue = hide ? 1 : 0;
             int ret = Interop.DwmSetWindowAttribute(new WindowInteropHelper(window).Handle, Interop.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
             Debug.Assert(ret == 0);
+        }
+
+        public static void SetWindowBlur(this Window window, bool isBlur)
+        {
+            var hwnd = new WindowInteropHelper(window).Handle;
+            AccentPolicyService.SetBlurPolicy(hwnd, isBlur);
+        }
+
+        public static Matrix CalculateDpiFactors(this Window window)
+        {
+            var mainWindowPresentationSource = PresentationSource.FromVisual(window);
+            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1 } : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
+        }
+
+        public static double DpiHeightFactor(this Window window)
+        {
+            var m = CalculateDpiFactors(window);
+            return m.M22;
+        }
+
+        public static double DpiWidthFactor(this Window window)
+        {
+            var m = CalculateDpiFactors(window);
+            return m.M11;
         }
     }
 }
