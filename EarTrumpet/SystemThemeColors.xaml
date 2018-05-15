@@ -4,6 +4,7 @@
     <!-- NOTE: Only theme-specific colors belong in this file. -->
     <SolidColorBrush x:Key="WindowForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="WindowBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="BlurBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="HeaderBackground">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="BadgeBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="PopupBackground">Black</SolidColorBrush>

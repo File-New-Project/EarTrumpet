@@ -74,7 +74,7 @@
                 </ItemsControl>
             </ScrollViewer>
                 
-            <Border Background="#CC000000"
+            <Border Background="{DynamicResource BlurBackground}"
                     Visibility="Collapsed"
                     Name="LightDismissBorder"
                     PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
@@ -132,7 +132,7 @@
                     </Border.Effect>
                     <Border.Background>
                         <VisualBrush  Visual="{Binding ElementName=BaseVisual}"
-                                        Stretch="Fill"
+                                        Stretch="UniformToFill"
                                         AlignmentX="Left"
                                         AlignmentY="Top" />
                     </Border.Background>

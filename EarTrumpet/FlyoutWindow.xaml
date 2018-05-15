@@ -108,7 +108,7 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
-        <Border Background="#CC000000"
+        <Border Background="{DynamicResource BlurBackground}"
                 Visibility="Collapsed"
                 Name="LightDismissBorder"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
@@ -157,16 +157,15 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Border Opacity="0.8"
-                    Margin="0,0,0,14">
+            <Border Margin="0,0,0,14">
                 <Border.Effect>
-                    <BlurEffect Radius="2"
-                                KernelType="Gaussian"
+                    <BlurEffect KernelType="Gaussian"
                                 RenderingBias="Performance" />
                 </Border.Effect>
                 <Border.Background>
+
                     <VisualBrush  Visual="{Binding ElementName=BaseVisual}"
-                                  Stretch="Fill"
+                                  Stretch="UniformToFill"
                                   AlignmentX="Left"
                                   AlignmentY="Top" />
                 </Border.Background>

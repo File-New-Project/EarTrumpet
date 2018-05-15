@@ -32,6 +32,12 @@ namespace EarTrumpet.Services
             newDictionary["CottonSwabSliderTrackFill"] = Lookup("ImmersiveSystemAccentLight1");
             newDictionary["BadgeBackground"] = Lookup("ImmersiveSystemAccentDark2", 0.8);
             newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
+
+            var blurColor = GetWindowBackgroundColor();
+            var opacity = (UserSystemPreferencesService.IsTransparencyEnabled) ? 1 : 0.9;
+            blurColor.A = (byte)(opacity * 255);
+
+            newDictionary["BlurBackground"] = new SolidColorBrush(blurColor);
             newDictionary["PopupBackground"] = new SolidColorBrush(GetWindowBackgroundColor(true));
             newDictionary["PeakMeterHotColor"] = Lookup(IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
 
