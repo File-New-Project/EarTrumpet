@@ -10,10 +10,6 @@ namespace EarTrumpet.UserControls
 {
     public partial class DeviceAndAppsControl : UserControl
     {
-        Style _focusVisualStyle;
-
-        const string s_DragDropDataFormat = "EarTrumpet.AudioSession";
-
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(null));
@@ -50,8 +46,6 @@ namespace EarTrumpet.UserControls
                 }
                 else if (e.Key == Key.Tab || e.Key == Key.Down || e.Key == Key.Up)
                 {
-                    DeviceListItem.FocusVisualStyle = _focusVisualStyle;
-
                     if (e.Key == Key.Down)
                     {
                         if (AppList.Items.Count > 0)
@@ -84,8 +78,6 @@ namespace EarTrumpet.UserControls
                 }
                 else if (e.Key == Key.Up)
                 {
-                    ShowFocus();
-
                     if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == 0)
                     {
                         // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
@@ -95,44 +87,12 @@ namespace EarTrumpet.UserControls
                 }
                 else if (e.Key == Key.Down)
                 {
-                    ShowFocus();
-
                     if (AppList.ItemContainerGenerator.IndexFromContainer(lvi) == AppList.Items.Count - 1)
                     {
                         // When we're the first ListViewItem in the list, move focus like shift+tab to the previous item.
                         lvi.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                         e.Handled = true;
                     }
-                }
-            }
-        }
-
-        internal void ShowFocus()
-        {
-            DeviceListItem.FocusVisualStyle = _focusVisualStyle;
-        }
-
-        internal void HideFocus()
-        {
-            if (_focusVisualStyle == null && DeviceListItem.FocusVisualStyle != null)
-            {
-                _focusVisualStyle = DeviceListItem.FocusVisualStyle;
-            }
-
-            DeviceListItem.FocusVisualStyle = null;
-            DeviceListItem.Focus();
-        }
-
-        private void AppList_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var lvi = (ListViewItem)sender;
-            var vm = lvi.DataContext as AppItemViewModel;
-            if (vm != null)
-            {
-                if (!vm.IsExpanded)
-                {
-                    vm.IsExpanded = true;
-                    MainViewModel.Instance.OnAppExpanded(vm, lvi);
                 }
             }
         }

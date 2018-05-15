@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace EarTrumpet.UserControls
 {
@@ -17,25 +16,13 @@ namespace EarTrumpet.UserControls
             GridRoot.DataContext = this;
         }
 
-        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                App.IsMuted = !App.IsMuted;
-                e.Handled = true;
-            }
+            App.IsMuted = !App.IsMuted;
+            e.Handled = true;
         }
 
-        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                App.IsMuted = !App.IsMuted;
-                e.Handled = true;
-            }
-        }
-
-        private void UserControl_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (!App.IsExpanded)
             {

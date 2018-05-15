@@ -9,8 +9,6 @@
                TargetType="ListViewItem">
             <EventSetter Event="PreviewKeyDown"
                          Handler="ListViewItem_PreviewKeyDown" />
-            <EventSetter Event="PreviewMouseRightButtonDown"
-                         Handler="AppList_PreviewMouseRightButtonDown" />
         </Style>
     </UserControl.Resources>
     <Grid Name="GridRoot">

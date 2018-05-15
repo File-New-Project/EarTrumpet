@@ -34,7 +34,7 @@ namespace EarTrumpet
 #if DEBUG
             if (Debugger.IsAttached)
             {
-                new DebugWindow().Show();
+              //  new DebugWindow().Show();
             }
 #endif
         }

@@ -66,7 +66,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public AppItemViewModel(IAudioDeviceSession session) : base(session)
+        public AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
         {
             _session = session;
 
@@ -79,6 +79,11 @@ namespace EarTrumpet.ViewModels
 
             ExeName = session.DisplayName;
             _displayName = ExeName;
+
+            if (isChild)
+            {
+                _isExpanded = true;
+            }
 
             if (session.DisplayName.ToLowerInvariant() == "speechruntime.exe")
             {
@@ -153,7 +158,7 @@ namespace EarTrumpet.ViewModels
         {
             foreach(var child in _session.Children)
             {
-                ChildApps.Add(new AppItemViewModel(child));
+                ChildApps.Add(new AppItemViewModel(child, isChild:true));
             }
         }
 
@@ -163,7 +168,7 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]));
+                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0], isChild:true));
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:

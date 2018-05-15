@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:data="clr-namespace:System.Windows.Data;assembly=PresentationFramework"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              mc:Ignorable="d"
@@ -15,6 +14,55 @@
 
         <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
 
+        <Style x:Key="BaseOverlayButton"
+               TargetType="{x:Type Button}">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Visibility"
+                    Value="Collapsed" />
+            <Setter Property="Foreground"
+                    Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="#33FFFFFF" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="true">
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="#66FFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.ColumnDefinitions>
@@ -22,64 +70,142 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0"
-                ToolTip="{Binding App.DisplayName}"
-                Background="{Binding App.Background, Mode=OneTime}"
-                HorizontalAlignment="Center"
-                Height="{StaticResource AppIconSize}"
-                Width="{StaticResource AppIconSize}"
-                Margin="{StaticResource DeviceOrAppIconMargin}"
-                MouseDown="Icon_MouseDown"
-                Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}">
-            <Grid>
-                <Image Source="{Binding App.Icon, Mode=OneTime}"
-                       Stretch="Fill"
-                       Height="{StaticResource AppIconSize}"
-                       Width="{StaticResource AppIconSize}" />
-                <TextBlock FontSize="16"
-                           HorizontalAlignment="Center"
-                           Text="{Binding App.IconText}"
-                           FontWeight="Bold">
-                    <TextBlock.Style>
-                        <Style>
-                            <Setter Property="TextBlock.Visibility"
-                                    Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding App.Icon}"
-                                             Value="{x:Null}">
-                                    <Setter Property="TextBlock.Visibility"
-                                            Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
 
-                <Grid VerticalAlignment="Bottom"
-                      HorizontalAlignment="Right"
-                      Margin="0,0,-1,-1"
-                      Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
-                    <Canvas>
-                        <Ellipse Fill="{DynamicResource BadgeBackground}"
-                                 Width="12"
-                                 Height="12" />
-                    </Canvas>
+        <Grid Grid.Column="0" 
+              Name="RevealButtonsBorder"
+              Margin="{StaticResource DeviceOrAppIconMargin}"
+              Background="Transparent">
 
-                    <TextBlock FontSize="10"
-                               Margin="2,-3,0,0"
-                               FontWeight="Bold"
-                               Text="..." />
+            <Border Background="{Binding App.Background, Mode=OneTime}"
+                    HorizontalAlignment="Center"
+                    Height="{StaticResource AppIconSize}"
+                    Width="{StaticResource AppIconSize}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
+                                <Setter Property="Opacity"
+                                        Value="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver,  Converter={StaticResource opacityConverter}}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
+                                <Setter Property="Opacity"
+                                        Value="{Binding App.IsMuted,  Converter={StaticResource opacityConverter}}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Image Source="{Binding App.Icon, Mode=OneTime}"
+                           Stretch="Fill"
+                           Height="{StaticResource AppIconSize}"
+                           Width="{StaticResource AppIconSize}" />
+                    <TextBlock FontSize="16"
+                               HorizontalAlignment="Center"
+                               Text="{Binding App.IconText}"
+                               Visibility="Collapsed"
+                               FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding App.Icon}" Value="{x:Null}">
+                                        <Setter Property="TextBlock.Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Grid VerticalAlignment="Bottom"
+                          HorizontalAlignment="Right"
+                          Margin="0,0,-1,-1"
+                          Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
+                        <Canvas>
+                            <Ellipse Fill="{DynamicResource BadgeBackground}"
+                                     Width="12"
+                                     Height="12" />
+                        </Canvas>
+
+                        <TextBlock FontSize="10"
+                                   Margin="2,-3,0,0"
+                                   FontWeight="Bold"
+                                   Text="..." />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Border>
+            </Border>
 
-        <TextBlock Grid.Column="0"
-                   MouseDown="Mute_MouseDown"
-                   Visibility="{Binding App.IsMuted, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
-                   Text="&#xE74F;"
-                   FontSize="18"
-                   Style="{StaticResource GlyphTextBlockStyle}"
-                   ToolTip="{Binding App.DisplayName}" />
+            <Button Name="MuteButton"
+                    Height="{StaticResource AppIconSize}"
+                    Width="{StaticResource AppIconSize}"
+                    Click="MuteButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource BaseOverlayButton}">
+                        <Style.Triggers>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding App.IsExpanded}"
+                                               Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Margin"
+                                            Value="0,-10,0,0" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <TextBlock Text="&#xE74F;"
+                               FontSize="18"
+                               Style="{StaticResource GlyphTextBlockStyle}"/>
+                </Button.Content>
+            </Button>
+
+            <Button Name="MoreButton"
+                    Height="14"
+                    Width="{StaticResource AppIconSize}"
+                    VerticalContentAlignment="Center"
+                    Click="MoreButton_Click"
+                    Margin="0,28,0,0">
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource BaseOverlayButton}">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding App.IsExpanded}"
+                                               Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <TextBlock Text="..."
+                               IsHitTestVisible="False"
+                               Margin="0,-14,0,0"
+                               FontSize="20" />
+                </Button.Content>
+            </Button>
+        </Grid>
 
         <local:VolumeSlider Grid.Column="1"
                             Volume="{Binding App.Volume}"
