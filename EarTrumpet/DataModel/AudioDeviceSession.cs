@@ -119,7 +119,7 @@ namespace EarTrumpet.DataModel
 
         public bool IsDesktopApp => _appInfo.IsDesktopApp;
 
-        public string AppId => _appInfo.AppUserModelId;
+        public string AppId => _appInfo.PackageInstallPath;
 
         public AudioSessionState State
         {
