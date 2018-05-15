@@ -4,21 +4,21 @@
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
-             Startup="Application_Startup"
-             Exit="App_OnExit">
+             Exit="App_OnExit"
+             Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Views\SystemThemeColors.xaml"/>
+                <ResourceDictionary Source="Views\SystemThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />
-            
+
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
             <ext:OpacityConverter x:Key="opacityConverter" />
 
             <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
-            
+
             <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
             <bcl:Double x:Key="AppIconSize">24</bcl:Double>
 
@@ -42,49 +42,40 @@
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
 
-            
-            <Style x:Key="CaptionButtonStyle"
-               TargetType="Button">
-                <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
-                    Value="True" />
-                <Setter Property="FontFamily"
-                    Value="Segoe MDL2 Assets" />
-                <Setter Property="Width"
-                    Value="46" />
-                <Setter Property="Height"
-                    Value="31" />
+
+            <Style x:Key="CaptionButtonStyle" TargetType="Button">
+                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                <Setter Property="Width" Value="46" />
+                <Setter Property="Height" Value="31" />
                 <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground"
-                    Value="{DynamicResource NormalWindowForeground}" />
-                <Setter Property="BorderBrush"
-                    Value="{x:Null}" />
-                <Setter Property="BorderThickness"
-                    Value="0" />
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
+                                    Background="{TemplateBinding Background}"
+                                    SnapsToDevicePixels="True">
                                 <ContentPresenter Margin="2"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              RecognizesAccessKey="True" />
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  RecognizesAccessKey="True" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
             <Style x:Key="CloseButtonStyle"
-               BasedOn="{StaticResource CaptionButtonStyle}"
-               TargetType="Button">
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                         Value="true">
+                    <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Background">
                             <Setter.Value>
                                 <SolidColorBrush Color="Red" />
@@ -94,11 +85,10 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="OptionsButtonStyle"
-               BasedOn="{StaticResource CaptionButtonStyle}"
-               TargetType="Button">
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver"
-                         Value="true">
+                    <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Background">
                             <Setter.Value>
                                 <SolidColorBrush Color="#22FFFFFF" />
@@ -107,7 +97,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style TargetType="Button" x:Key="SlimButton">
+            <Style x:Key="SlimButton" TargetType="Button">
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="14,0" />
@@ -119,11 +109,14 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
-                                <TextBlock Text="{TemplateBinding Content}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"                                       
-                                       Foreground="{TemplateBinding Foreground}" />
+                            <Border Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Content}" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -146,44 +139,40 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid>
-                                <Rectangle StrokeThickness="3" Stroke="Black" />
-                                <Rectangle StrokeThickness="2" Stroke="White" />
+                                <Rectangle Stroke="Black" StrokeThickness="3" />
+                                <Rectangle Stroke="White" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
             <Style x:Key="StyledButton" TargetType="Button">
-                <Setter Property="Width"
-                        Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="Height"
-                        Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="FocusVisualStyle"
-                        Value="{StaticResource SolidFocusVisual}" />
-                <Setter Property="Background" >
+                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
+                <Setter Property="Background">
                     <Setter.Value>
                         <SolidColorBrush Color="Transparent" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground"
-                        Value="{DynamicResource WindowForeground}" />
+                <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
                             <Border Background="{TemplateBinding Background}">
-                                <TextBlock FontSize="{TemplateBinding FontSize}"
-                                            Foreground="{TemplateBinding Foreground}"
-                                            FontFamily="Segoe MDL2 Assets"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Text="{TemplateBinding Tag}" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Tag}" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background" >
+                        <Setter Property="Background">
                             <Setter.Value>
                                 <SolidColorBrush Color="#22FFFFFF" />
                             </Setter.Value>
@@ -191,98 +180,82 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="SliderButtonStyle"
-               TargetType="{x:Type RepeatButton}">
-                <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-                <Setter Property="IsTabStop"
-                    Value="false" />
-                <Setter Property="Focusable"
-                    Value="false" />
+            <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="Focusable" Value="false" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
                             <Border Background="Transparent">
-                                <Border Background="{TemplateBinding Foreground}"
-                                    Height="2"></Border>
+                                <Border Height="2" Background="{TemplateBinding Foreground}" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="SliderThumbStyle"
-               TargetType="{x:Type Thumb}">
-                <Setter Property="OverridesDefaultStyle"
-                    Value="true" />
-                <Setter Property="Height"
-                    Value="24" />
-                <Setter Property="Width"
-                    Value="8" />
+            <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Width" Value="8" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
                             <Border Name="Thumb"
-                                Background="{TemplateBinding Foreground}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="0"
-                                CornerRadius="5"></Border>
+                                    Background="{TemplateBinding Foreground}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="5" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <ControlTemplate x:Key="HorizontalSlider"
-                         TargetType="{x:Type Slider}">
+            <ControlTemplate x:Key="HorizontalSlider" TargetType="{x:Type Slider}">
                 <Grid>
-                    <Border Name="TrackBackground"
-                            Height="2" />
+                    <Border Name="TrackBackground" Height="2" />
 
                     <Track Name="PART_Track">
                         <Track.DecreaseRepeatButton>
                             <RepeatButton Name="SliderLeft"
+                                          Command="Slider.DecreaseLarge"
                                           Foreground="{DynamicResource CottonSwabSliderTrackFill}"
-                                      Style="{StaticResource SliderButtonStyle}"
-                                      Command="Slider.DecreaseLarge" />
+                                          Style="{StaticResource SliderButtonStyle}" />
                         </Track.DecreaseRepeatButton>
                         <Track.Thumb>
                             <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource CottonSwabSliderThumb}"
-                               Style="{StaticResource SliderThumbStyle}" />
+                                   Foreground="{DynamicResource CottonSwabSliderThumb}"
+                                   Style="{StaticResource SliderThumbStyle}" />
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
                             <RepeatButton Name="SliderRight"
+                                          Command="Slider.IncreaseLarge"
                                           Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
-                                          Style="{StaticResource SliderButtonStyle}"
-                                          Command="Slider.IncreaseLarge" />
+                                          Style="{StaticResource SliderButtonStyle}" />
                         </Track.IncreaseRepeatButton>
                     </Track>
 
-                    <Border HorizontalAlignment="Left"
-                            Height="2"
+                    <Border Name="PeakMeter"
                             Width="78"
-                            Name="PeakMeter"
+                            Height="2"
+                            HorizontalAlignment="Left"
                             Background="{DynamicResource PeakMeterHotColor}" />
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualStateGroup.Transitions>
-                                <VisualTransition To="Normal"
-                                              GeneratedDuration="0" />
+                                <VisualTransition GeneratedDuration="0" To="Normal" />
                             </VisualStateGroup.Transitions>
                             <VisualState x:Name="Normal" />
                             <VisualState x:Name="MouseOver">
                                 <Storyboard>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderThumb">
-                                        <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbHover}" />
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>
                             </VisualState>
                             <VisualState x:Name="Pressed">
                                 <Storyboard>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
-                                                               Storyboard.TargetName="SliderThumb">
-                                        <DiscreteObjectKeyFrame KeyTime="0"
-                                                            Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbPressed}" />
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>
                             </VisualState>
@@ -290,57 +263,37 @@
                     </VisualStateManager.VisualStateGroups>
                 </Grid>
                 <ControlTemplate.Triggers>
-                    <Trigger Property="IsEnabled"
-                         Value="False">
-                        <Setter Property="Opacity"
-                            Value="0.5" />
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <Style x:Key="TouchSliderStyle" TargetType="{x:Type Slider}">
-                <Setter Property="OverridesDefaultStyle"
-                        Value="true" />
-                <Setter Property="Minimum"
-                        Value="0" />
-                <Setter Property="Maximum"
-                        Value="100" />
-                <Setter Property="VerticalContentAlignment"
-                        Value="Center" />
-                <Setter Property="HorizontalContentAlignment"
-                        Value="Stretch" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="IsTabStop"
-                        Value="False" />
-                <Setter Property="Interval"
-                        Value="1" />
-                <Setter Property="SnapsToDevicePixels"
-                        Value="true" />
-                <Setter Property="SmallChange"
-                        Value="1" />
-                <Setter Property="LargeChange"
-                        Value="10" />
-                <Setter Property="IsManipulationEnabled"
-                        Value="true" />
-                
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="100" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Interval" Value="1" />
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="SmallChange" Value="1" />
+                <Setter Property="LargeChange" Value="10" />
+                <Setter Property="IsManipulationEnabled" Value="true" />
+
                 <Style.Triggers>
-                    <Trigger Property="Orientation"
-                         Value="Horizontal">
-                        <Setter Property="Height"
-                            Value="32" />
-                        <Setter Property="Template"
-                            Value="{StaticResource HorizontalSlider}" />
+                    <Trigger Property="Orientation" Value="Horizontal">
+                        <Setter Property="Height" Value="32" />
+                        <Setter Property="Template" Value="{StaticResource HorizontalSlider}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="{x:Type ListView}"
-                   TargetType="ListView">
-                <Setter Property="SnapsToDevicePixels"
-                        Value="true" />
-                <Setter Property="OverridesDefaultStyle"
-                        Value="true" />
+            <Style x:Key="{x:Type ListView}" TargetType="ListView">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
@@ -352,40 +305,28 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="{x:Type ListViewItem}"
-                   TargetType="ListViewItem">
-                <Setter Property="SnapsToDevicePixels"
-                        Value="true" />
-                <Setter Property="OverridesDefaultStyle"
-                        Value="true" />
-                <Setter Property="FocusVisualStyle"
-                        Value="{DynamicResource SolidFocusVisual}" />
+            <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource SolidFocusVisual}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
-                                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
 
-            <Style x:Key="GlyphTextBlockStyle"
-                   TargetType="{x:Type TextBlock}">
-                <Setter Property="HorizontalAlignment"
-                        Value="Center" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="FontFamily"
-                        Value="Segoe MDL2 Assets" />
+            <Style x:Key="GlyphTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
             </Style>
 
-            <Style x:Key="{x:Type TextBlock}"
-                   TargetType="{x:Type TextBlock}">
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="TextTrimming"
-                        Value="CharacterEllipsis" />
+            <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

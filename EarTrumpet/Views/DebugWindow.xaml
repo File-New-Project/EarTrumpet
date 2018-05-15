@@ -1,11 +1,10 @@
 ﻿<Window x:Class="EarTrumpet.DebugWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EarTrumpet"
-        mc:Ignorable="d"
-        Title="DebugWindow" Height="450" Width="800">
+        Title="DebugWindow"
+        Width="800"
+        Height="450">
     <Grid>
         <ScrollViewer>
             <ListView Name="Colors">
@@ -13,8 +12,8 @@
                     <DataTemplate DataType="local:ColorData">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding Name}" />
-                            <Border Height="20"
-                                    Width="40"
+                            <Border Width="40"
+                                    Height="20"
                                     Background="{Binding Color}" />
                         </StackPanel>
                     </DataTemplate>

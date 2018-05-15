@@ -1,106 +1,89 @@
 ﻿<Window x:Class="EarTrumpet.FlyoutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         xmlns:local="clr-namespace:EarTrumpet"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
-        Icon="pack://application:,,,/Assets/Application.ico"
-        ShowInTaskbar="False"
         AllowsTransparency="True"
-        SnapsToDevicePixels="True"
-        UseLayoutRounding="True"
-        WindowStyle="None"
-        PreviewKeyDown="Window_PreviewKeyDown"
-        Foreground="{DynamicResource WindowForeground}"
         Background="{DynamicResource WindowBackground}"
+        Foreground="{DynamicResource WindowForeground}"
+        Icon="pack://application:,,,/Assets/Application.ico"
+        PreviewKeyDown="Window_PreviewKeyDown"
         ResizeMode="NoResize"
-        TextOptions.TextFormattingMode="Display">
+        ShowInTaskbar="False"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
+        WindowStyle="None">
     <Window.Resources>
 
-        <Style x:Key="ExpandCollapseButtonStyle"
-               TargetType="Button">
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Stretch" />
-            <Setter Property="VerticalAlignment"
-                    Value="Top" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource WindowForeground}" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{DynamicResource SolidFocusVisual}" />
+        <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource SolidFocusVisual}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
                             <ContentPresenter RecognizesAccessKey="True" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Background"
-                            Value="#22FFFFFF" />
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#22FFFFFF" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="{x:Type ScrollViewer}"
-               TargetType="{x:Type ScrollViewer}">
-            <Setter Property="CanContentScroll"
-                    Value="True" />
-            <Setter Property="PanningMode"
-                    Value="VerticalOnly" />
-            <Setter Property="Focusable"
-                    Value="False" />
-            <Setter Property="Margin"
-                    Value="0" />
+        <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="CanContentScroll" Value="True" />
+            <Setter Property="PanningMode" Value="VerticalOnly" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Margin" Value="0" />
         </Style>
 
         <uc:VolumeControlPopup x:Key="AppPopup" />
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual">
-            <Grid Name="ContentGrid"
-                  VerticalAlignment="Top">
+            <Grid Name="ContentGrid" VerticalAlignment="Top">
 
                 <TextBlock x:Uid="NoDevicesPanelContent"
-                           Margin="{StaticResource NoItemsPaneMargin}"
-                            Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                            Height="{StaticResource NoItemsPaneHeight}"
-                            Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
-                            HorizontalAlignment="Center"
-                            FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                            TextWrapping="Wrap" />
+                           Margin="{StaticResource NoItemsPaneMargin}"
+                           HorizontalAlignment="Center"
+                           FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                           Text="{x:Static resx:Resources.NoDevicesPanelContent}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
 
                 <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
-                    <ItemsControl ItemsSource="{Binding Devices}"
-                                  IsTabStop="False">
+                    <ItemsControl IsTabStop="False" ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <uc:DeviceAndAppsControl Device="{Binding}"
-                                                         AppExpanded="DeviceAndAppsControl_AppExpanded"/>
+                                <uc:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <Button PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
-                            Style="{StaticResource ExpandCollapseButtonStyle}"
+                    <Button Height="{StaticResource DeviceTitleCellHeight}"
+                            Click="ExpandCollapse_Click"
                             IsEnabled="{Binding CanExpand}"
-                            Height="{StaticResource DeviceTitleCellHeight}"
-                            Click="ExpandCollapse_Click">
+                            PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
+                            Style="{StaticResource ExpandCollapseButtonStyle}">
                         <Button.Content>
-                            <TextBlock FontSize="12"
-                                       Margin="{StaticResource WindowMargin}"
+                            <TextBlock Margin="{StaticResource WindowMargin}"
                                        HorizontalAlignment="Right"
+                                       FontSize="12"
                                        Style="{StaticResource GlyphTextBlockStyle}"
                                        Text="{Binding ExpandText}" />
                         </Button.Content>
@@ -108,22 +91,21 @@
                 </Grid>
             </Grid>
         </ScrollViewer>
-        <Border Background="{DynamicResource BlurBackground}"
-                Visibility="Collapsed"
-                Name="LightDismissBorder"
-                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+        <Border Name="LightDismissBorder"
+                Background="{DynamicResource BlurBackground}"
+                PreviewMouseDown="LightDismissBorder_PreviewMouseDown"
+                Visibility="Collapsed">
             <Border.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsShowingModalDialog}"
-                                     Value="true">
+                        <DataTrigger Binding="{Binding IsShowingModalDialog}" Value="true">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation From="0"
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
                                                          To="1"
-                                                         Duration="00:00:00.15"
-                                                         Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                                         Duration="00:00:00.15" />
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0">
@@ -138,10 +120,10 @@
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation From="1"
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
                                                          To="0"
-                                                         Duration="00:00:00.15"
-                                                         Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                                         Duration="00:00:00.15" />
 
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
                                             <DiscreteObjectKeyFrame KeyTime="0:0:0.15">
@@ -159,46 +141,44 @@
             </Border.Style>
             <Border Margin="0,0,0,14">
                 <Border.Effect>
-                    <BlurEffect KernelType="Gaussian"
-                                RenderingBias="Performance" />
+                    <BlurEffect KernelType="Gaussian" RenderingBias="Performance" />
                 </Border.Effect>
                 <Border.Background>
 
-                    <VisualBrush  Visual="{Binding ElementName=BaseVisual}"
-                                  Stretch="UniformToFill"
-                                  AlignmentX="Left"
-                                  AlignmentY="Top" />
+                    <VisualBrush AlignmentX="Left"
+                                 AlignmentY="Top"
+                                 Stretch="UniformToFill"
+                                 Visual="{Binding ElementName=BaseVisual}" />
                 </Border.Background>
                 <Border.Style>
                     <Style>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsShowingModalDialog}"
-                                         Value="true">
+                            <DataTrigger Binding="{Binding IsShowingModalDialog}" Value="true">
                                 <DataTrigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation From="2"
+                                            <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
+                                                             From="2"
                                                              To="20"
-                                                             Duration="00:00:00.15"
-                                                             Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
-                                            <DoubleAnimation From="0"
+                                                             Duration="00:00:00.15" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="0"
                                                              To="1"
-                                                             Duration="00:00:00.15"
-                                                             Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                                             Duration="00:00:00.15" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
                                 <DataTrigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation From="20"
+                                            <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
+                                                             From="20"
                                                              To="0"
-                                                             Duration="00:00:00.15"
-                                                             Storyboard.TargetProperty="Effect.Radius"></DoubleAnimation>
-                                            <DoubleAnimation From="1"
+                                                             Duration="00:00:00.15" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="1"
                                                              To="0"
-                                                             Duration="00:00:00.15"
-                                                             Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                                             Duration="00:00:00.15" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>

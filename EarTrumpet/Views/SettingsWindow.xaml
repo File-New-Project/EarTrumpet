@@ -1,68 +1,59 @@
 ﻿<Window x:Class="EarTrumpet.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mock="clr-namespace:EarTrumpet.ViewModels.Mocks"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:uc="clr-namespace:EarTrumpet.UserControls"
-        xmlns:mock="clr-namespace:EarTrumpet.ViewModels.Mocks"
-        mc:Ignorable="d"
         Name="WindowRoot"
-        WindowStyle="None"
-        Icon="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico"
-        ShowInTaskbar="True"
-        AllowsTransparency="True"
-        SizeToContent="Height"
-        Foreground="{DynamicResource NormalWindowForeground}"
-        Background="{DynamicResource NormalWindowBackground}"        
-        BorderThickness="1"
+        Width="600"
         Height="500"
         MinWidth="600"
-        Width="600" WindowStartupLocation="CenterScreen">
+        AllowsTransparency="True"
+        Background="{DynamicResource NormalWindowBackground}"
+        BorderThickness="1"
+        Foreground="{DynamicResource NormalWindowForeground}"
+        Icon="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico"
+        ShowInTaskbar="True"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="31"
-                      ResizeBorderThickness="4" />
+        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
     <Window.Style>
         <Style TargetType="Window">
-            <Setter Property="BorderBrush"
-                    Value="{DynamicResource ActiveBorder}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
             <Style.Triggers>
-                <Trigger Property="IsActive"
-                         Value="false">
-                    <Setter Property="BorderBrush"
-                            Value="{DynamicResource InactiveWindowBorder}" />
+                <Trigger Property="IsActive" Value="false">
+                    <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Style>
     <Window.Resources>
         <Style TargetType="Window">
-            <Setter Property="BorderBrush"
-                    Value="{DynamicResource ActiveBorder}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
             <Style.Triggers>
-                <Trigger Property="IsActive"
-                         Value="false">
-                    <Setter Property="BorderBrush"
-                            Value="Transparent" />
+                <Trigger Property="IsActive" Value="false">
+                    <Setter Property="BorderBrush" Value="Transparent" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="HeadingText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="4, 12" />
+            <Setter Property="Margin" Value="4,12" />
         </Style>
         <Style x:Key="BodyText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="4, 0, 12, 8" />
+            <Setter Property="Margin" Value="4,0,12,8" />
         </Style>
 
         <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="4, 4, 12, 16" />
+            <Setter Property="Margin" Value="4,4,12,16" />
         </Style>
 
         <Style TargetType="{x:Type Hyperlink}">
@@ -76,45 +67,63 @@
             <Setter Property="FontSize" Value="16" />
         </Style>
     </Window.Resources>
-    <Grid d:DataContext="{d:DesignInstance Type=mock:SettingsViewModelMock, IsDesignTimeCreatable=True}">
+    <Grid>
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock TextAlignment="Left"
-                           Padding="20, 8, 20, 8"
-                           Text="{Binding ElementName=WindowRoot,Path=Title}" />
+                <TextBlock Padding="20,8,20,8"
+                           Text="{Binding ElementName=WindowRoot, Path=Title}"
+                           TextAlignment="Left" />
                 <Button x:Name="CloseButton"
                         Grid.Column="1"
+                        Click="CloseButton_Click"
                         Content="&#xE8BB;"
-                        Style="{DynamicResource CloseButtonStyle}"
-                        Click="CloseButton_Click" />
+                        Style="{DynamicResource CloseButtonStyle}" />
             </Grid>
-            <StackPanel Orientation="Horizontal"
-                        DockPanel.Dock="Bottom" />
-            <StackPanel Orientation="Vertical" Margin="16,16,16,32">
-                <TextBlock Text="{x:Static resx:Resources.SettingsTitle}" Style="{StaticResource HeadingText}" Margin="4,0,4,12" />
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" />
+            <StackPanel Margin="16,16,16,32" Orientation="Vertical">
+                <TextBlock Margin="4,0,4,12"
+                           Style="{StaticResource HeadingText}"
+                           Text="{x:Static resx:Resources.SettingsTitle}" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}"
+                    <TextBlock Margin="4,0,12,0"
+                               VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
-                               Margin="4,0,12,0" />
-                    <Button Click="HotkeySelect_Click"
-                            Style="{StaticResource SlimButton}"
-                            Foreground="{Binding ElementName=WindowRoot,Path=Foreground}"
-                            Content="{Binding HotkeyText}" HorizontalAlignment="Left"/>
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+                    <Button HorizontalAlignment="Left"
+                            Click="HotkeySelect_Click"
+                            Content="{Binding HotkeyText}"
+                            Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
+                            Style="{StaticResource SlimButton}" />
                 </StackPanel>
-                <TextBlock Text="{x:Static resx:Resources.AboutTitle}" Style="{StaticResource HeadingText}" Margin="4,48,4,12" />
+                <TextBlock Margin="4,48,4,12"
+                           Style="{StaticResource HeadingText}"
+                           Text="{x:Static resx:Resources.AboutTitle}" />
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{DynamicResource LogoImage}" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,16,0" />
+                    <Image Height="44"
+                           Margin="0,0,16,0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Source="{DynamicResource LogoImage}" />
                     <StackPanel>
-                    <TextBlock Text="{Binding AboutText}" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                    <TextBlock Text="© File-New-Project" Style="{StaticResource BodyText}" VerticalAlignment="Center"/>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding AboutText}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="© File-New-Project" />
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
+                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                            </Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}">
+                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
+                            </Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}">
+                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
+                            </Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

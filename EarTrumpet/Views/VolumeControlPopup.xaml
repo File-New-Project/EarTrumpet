@@ -1,7 +1,7 @@
 ﻿<Popup x:Class="EarTrumpet.UserControls.VolumeControlPopup"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:uc="clr-namespace:EarTrumpet.UserControls">
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:uc="clr-namespace:EarTrumpet.UserControls">
     <Grid Background="{DynamicResource PopupBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -13,40 +13,40 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border Background="{DynamicResource HeaderBackground}"
-                Grid.ColumnSpan="3"
-                Height="{StaticResource DeviceTitleCellHeight}" />
-        <TextBlock Text="{Binding DisplayName}"
+        <Border Grid.ColumnSpan="3"
+                Height="{StaticResource DeviceTitleCellHeight}"
+                Background="{DynamicResource HeaderBackground}" />
+        <TextBlock Margin="{StaticResource WindowMargin}"
                    FontSize="{StaticResource LargeWindowTextFontSize}"
-                   Margin="{StaticResource WindowMargin}"
                    Foreground="{DynamicResource WindowForeground}"
+                   Text="{Binding DisplayName}"
                    TextTrimming="CharacterEllipsis" />
-        <Button BorderThickness="0"
-                HorizontalContentAlignment="Stretch"
+        <Button Grid.Column="1"
                 VerticalAlignment="Center"
-                Grid.Column="1"
+                HorizontalContentAlignment="Stretch"
+                BorderThickness="0"
+                Click="MoveToAnotherDevice_Click"
                 FontSize="16"
                 Foreground="{DynamicResource WindowForeground}"
-                Style="{StaticResource StyledButton}"
                 IsEnabled="{Binding IsMovable}"
-                Tag="{Binding MoveIcon}"
-                Click="MoveToAnotherDevice_Click" />
-        <Button BorderThickness="0"
-                HorizontalContentAlignment="Stretch"
+                Style="{StaticResource StyledButton}"
+                Tag="{Binding MoveIcon}" />
+        <Button Grid.Column="2"
                 VerticalAlignment="Center"
-                Grid.Column="2"
+                HorizontalContentAlignment="Stretch"
+                BorderThickness="0"
+                Click="CloseButton_Click"
                 FontSize="10"
                 Foreground="{DynamicResource WindowForeground}"
-                Tag="&#xE8BB;"
                 Style="{StaticResource StyledButton}"
-                Click="CloseButton_Click" />
-        <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
-                  VerticalAlignment="Center"
+                Tag="&#xE8BB;" />
+        <ListView Grid.Row="1"
                   Grid.ColumnSpan="3"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.CanContentScroll="True"
                   Margin="{StaticResource VolumeAppListMargin}"
-                  Grid.Row="1">
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding ChildApps, Mode=OneWay}"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
                     <uc:AppVolumeControl App="{Binding}" />

@@ -1,7 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <!-- NOTE: Only theme-specific colors belong in this file. -->
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  NOTE: Only theme-specific colors belong in this file.  -->
     <SolidColorBrush x:Key="WindowForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="WindowBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="BlurBackground">Black</SolidColorBrush>
@@ -32,7 +31,7 @@
     <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Grey</SolidColorBrush>
 
-    <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"></BitmapImage>
+    <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png" />
 
 
 </ResourceDictionary>

@@ -15,17 +15,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border Height="{StaticResource DeviceTitleCellHeight}"
-                    Margin="{StaticResource WindowMargin}">
-                <TextBlock Text="{Binding Device.Device.DisplayName}"
-                           FontSize="{StaticResource LargeWindowTextFontSize}"/>
+            <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
+                <TextBlock FontSize="{StaticResource LargeWindowTextFontSize}" Text="{Binding Device.Device.DisplayName}" />
             </Border>
 
-            <ItemsControl IsTabStop="False"
-                          Grid.Row="1">
+            <ItemsControl Grid.Row="1" IsTabStop="False">
                 <ListViewItem Name="DeviceListItem"
-                              PreviewKeyDown="ListViewItem_PreviewKeyDown"
-                              Height="{StaticResource DeviceItemCellHeight}">
+                              Height="{StaticResource DeviceItemCellHeight}"
+                              PreviewKeyDown="ListViewItem_PreviewKeyDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource IconCellWidth}" />
@@ -33,12 +30,12 @@
                             <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0"
-                                ToolTip="{Binding Device.Device.DisplayName}"
-                                Background="Transparent"
-                                HorizontalAlignment="Center"
-                                MouseDown="Icon_MouseDown"
                                 Margin="{StaticResource DeviceOrAppIconMargin}"
-                                Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}">
+                                HorizontalAlignment="Center"
+                                Background="Transparent"
+                                MouseDown="Icon_MouseDown"
+                                Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                ToolTip="{Binding Device.Device.DisplayName}">
 
                             <Grid>
                                 <TextBlock FontSize="24"
@@ -54,33 +51,33 @@
                         </Border>
 
                         <local:VolumeSlider Grid.Column="1"
-                                            Value="{Binding Device.Device.Volume,Mode=TwoWay}"
-                                            Volume="{Binding Device.Device.Volume}"
+                                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
                                             PeakValue="{Binding Device.Device.PeakValue}"
-                                            PreviewTouchUp="TouchSlider_TouchUp"
                                             PreviewMouseUp="TouchSlider_MouseUp"
+                                            PreviewTouchUp="TouchSlider_TouchUp"
                                             Style="{StaticResource TouchSliderStyle}"
-                                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
+                                            Volume="{Binding Device.Device.Volume}"
+                                            Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
-                                   Text="{Binding Device.Device.Volume, Mode=OneWay}"
-                                   FontSize="{StaticResource DeviceVolumeTextFontSize}"
                                    Margin="{StaticResource VolumeTextMargin}"
                                    HorizontalAlignment="Center"
-                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}" />
+                                   FontSize="{StaticResource DeviceVolumeTextFontSize}"
+                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                   Text="{Binding Device.Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </ListViewItem>
             </ItemsControl>
         </Grid>
 
-        <ListView ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+        <ListView Name="AppList"
                   Grid.Row="1"
                   Margin="{StaticResource VolumeAppListMargin}"
-                  Name="AppList">
+                  ItemsSource="{Binding Device.Apps, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
                     <local:AppVolumeControl App="{Binding}"
-                                            PreviewKeyDown="ListViewItem_PreviewKeyDown"
-                                            AppExpanded="AppVolumeControl_AppExpanded"/>
+                                            AppExpanded="AppVolumeControl_AppExpanded"
+                                            PreviewKeyDown="ListViewItem_PreviewKeyDown" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
