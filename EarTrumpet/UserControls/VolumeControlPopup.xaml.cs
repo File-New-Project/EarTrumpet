@@ -12,6 +12,8 @@ namespace EarTrumpet.UserControls
         public VolumeControlPopup()
         {
             InitializeComponent();
+
+            AllowsTransparency = true;
         }
 
         public void ShowWithAnimation()

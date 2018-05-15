@@ -59,12 +59,12 @@ namespace EarTrumpet
             _popup.IsOpen = false;
         }
 
-        private void OnAppExpanded(object sender, FlyoutViewModel.AppExpandedEventArgs e)
+        private void OnAppExpanded(object sender, AppExpandedEventArgs e)
         {
             var selectedApp = e.ViewModel;
 
             _popup.DataContext = selectedApp;
-            LayoutRoot.Children.Add(_popup);
+           LayoutRoot.Children.Add(_popup);
 
             Point relativeLocation = e.Container.TranslatePoint(new Point(0, 0), this);
 
@@ -89,8 +89,6 @@ namespace EarTrumpet
 
             _popup.Width = ActualWidth;
             _popup.Height = popupHeight;
-
-            _popup.AllowsTransparency = true;
 
             _popup.ShowWithAnimation();
         }

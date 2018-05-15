@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uc="clr-namespace:EarTrumpet.UserControls"
         xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:resx="clr-namespace:EarTrumpet.Properties"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Icon="Application.ico"
@@ -17,14 +18,6 @@
         ResizeMode="NoResize"
         TextOptions.TextFormattingMode="Display">
     <Window.Resources>
-
-        <SolidColorBrush x:Key="DimmedBackground"
-                         Color="#DD000000" />
-
-        <Style x:Key="{x:Type ListViewItem}"
-               BasedOn="{StaticResource BaseListViewItem}"
-               TargetType="ListViewItem">
-        </Style>
 
         <Style x:Key="ExpandCollapseButtonStyle"
                TargetType="Button">
@@ -81,7 +74,7 @@
 
                 <TextBlock x:Uid="NoDevicesPanelContent"
                            Margin="{StaticResource NoItemsPaneMargin}"
-                            Text="{x:Static local:Properties.Resources.NoDevicesPanelContent}"
+                            Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                            Height="{StaticResource NoItemsPaneHeight}"
                             Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}"
                             HorizontalAlignment="Center"

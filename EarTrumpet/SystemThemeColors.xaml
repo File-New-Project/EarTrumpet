@@ -26,6 +26,7 @@
     <SolidColorBrush x:Key="ButtonForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundPressed">White</SolidColorBrush>
+    <SolidColorBrush x:Key="InactiveWindowBorder">Red</SolidColorBrush>
 
     <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Grey</SolidColorBrush>

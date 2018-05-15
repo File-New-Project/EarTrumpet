@@ -200,6 +200,7 @@
     <Compile Include="Services\UserSystemPreferencesService.cs" />
     <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="TrayIcon.cs" />
+    <Compile Include="ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\DeviceViewModelComparer.cs" />
     <Compile Include="ViewModels\FlyoutViewModel.cs" />
+    <Compile Include="ViewModels\FullWindowViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BindableBase.cs" />
     <Compile Include="ViewModels\Mocks\MainViewModelMock.cs" />

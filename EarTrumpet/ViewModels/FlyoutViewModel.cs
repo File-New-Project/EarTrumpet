@@ -19,12 +19,6 @@ namespace EarTrumpet.ViewModels
             Closing,
         }
 
-        public class AppExpandedEventArgs
-        {
-            public UIElement Container;
-            public AppItemViewModel ViewModel;
-        }
-
         public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
         public event EventHandler<object> WindowSizeInvalidated = delegate { };
         public event EventHandler<object> AppCollapsed = delegate { };
@@ -38,7 +32,6 @@ namespace EarTrumpet.ViewModels
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
-        private AppItemViewModel _expandedApp;
         private IAudioDeviceManager _deviceManager;
         private MainViewModel _mainViewModel;
 
@@ -204,7 +197,7 @@ namespace EarTrumpet.ViewModels
             {
                 _mainViewModel.OnTrayFlyoutHidden();
 
-                if (_expandedApp != null)
+                if (IsShowingModalDialog)
                 {
                     OnAppCollapsed();
                 }
@@ -213,13 +206,10 @@ namespace EarTrumpet.ViewModels
 
         public void OnAppExpanded(AppItemViewModel vm, UIElement container)
         {
-            if (_expandedApp != null)
+            if (IsShowingModalDialog)
             {
                 OnAppCollapsed();
             }
-
-            _expandedApp = vm;
-            _expandedApp.IsExpanded = true;
 
             AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
 
@@ -229,11 +219,8 @@ namespace EarTrumpet.ViewModels
 
         public void OnAppCollapsed()
         {
-            if (_expandedApp != null)
+            if (IsShowingModalDialog)
             {
-                _expandedApp.IsExpanded = false;
-                _expandedApp = null;
-
                 AppCollapsed?.Invoke(this, null);
                 IsShowingModalDialog = false;
                 RaisePropertyChanged(nameof(IsShowingModalDialog));

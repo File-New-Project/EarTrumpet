@@ -4,7 +4,8 @@
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
-             Startup="Application_Startup" Exit="App_OnExit">
+             Startup="Application_Startup"
+             Exit="App_OnExit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -349,7 +350,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="BaseListViewItem"
+            <Style x:Key="{x:Type ListViewItem}"
                    TargetType="ListViewItem">
                 <Setter Property="SnapsToDevicePixels"
                         Value="true" />

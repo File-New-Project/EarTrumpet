@@ -35,7 +35,6 @@ namespace EarTrumpet.Services
             newDictionary["PopupBackground"] = new SolidColorBrush(GetWindowBackgroundColor(true));
             newDictionary["PeakMeterHotColor"] = Lookup(IsWindowTransparencyEnabled ? "ImmersiveSystemAccentDark2" : "ImmersiveSystemAccentDark3");
 
-
             newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
             newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
             newDictionary["ButtonBackground"] = Lookup(isLightTheme ? "ImmersiveLightBaseLow" : "ImmersiveDarkBaseLow");
@@ -48,6 +47,8 @@ namespace EarTrumpet.Services
             newDictionary["ButtonForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
             newDictionary["ButtonForegroundPressed"] = Lookup(isLightTheme ? "ImmersiveLightBaseHigh" : "ImmersiveDarkBaseHigh");
             newDictionary["LogoImage"] = new BitmapImage(new Uri(isLightTheme ? "pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" : "pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png"));
+
+            newDictionary["InactiveWindowBorder"] = Lookup(isLightTheme ? "ImmersiveLightChromeDisabledHigh" : "ImmersiveDarkChromeDisabledHigh");
 
             newDictionary["HyperlinkTextForeground"] = Lookup("ImmersiveSystemAccent");
             newDictionary["HyperlinkTextForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseMedium" : "ImmersiveDarkBaseMedium");

@@ -3,14 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EarTrumpet.UserControls"
              IsTabStop="False">
-    <UserControl.Resources>
-        <Style x:Key="{x:Type ListViewItem}"
-               BasedOn="{StaticResource BaseListViewItem}"
-               TargetType="ListViewItem">
-            <EventSetter Event="PreviewKeyDown"
-                         Handler="ListViewItem_PreviewKeyDown" />
-        </Style>
-    </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,6 +24,7 @@
             <ItemsControl IsTabStop="False"
                           Grid.Row="1">
                 <ListViewItem Name="DeviceListItem"
+                              PreviewKeyDown="ListViewItem_PreviewKeyDown"
                               Height="{StaticResource DeviceItemCellHeight}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -78,6 +71,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
                     <local:AppVolumeControl App="{Binding}"
+                                            PreviewKeyDown="ListViewItem_PreviewKeyDown"
                                             AppExpanded="AppVolumeControl_AppExpanded"/>
                 </DataTemplate>
             </ListView.ItemTemplate>

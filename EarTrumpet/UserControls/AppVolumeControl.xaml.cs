@@ -32,7 +32,7 @@ namespace EarTrumpet.UserControls
                 AppExpanded?.Invoke(this, new AppVolumeControlExpandedEventArgs
                 {
                     ViewModel = App,
-                    Container = (UIElement)sender,
+                    Container = (UIElement)this,
                 });
             }
         }
