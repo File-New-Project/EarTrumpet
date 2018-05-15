@@ -24,7 +24,7 @@ namespace EarTrumpet.UserControls
 
         private void ListViewItem_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var lvi = ((ListViewItem)sender);
+            var lvi = ((AppVolumeControl)sender);
             var dt = lvi.DataContext;
 
             if (dt is DeviceAndAppsControl)

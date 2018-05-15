@@ -24,8 +24,8 @@
                     Value="0" />
             <Setter Property="BorderThickness"
                     Value="0" />
-            <Setter Property="Visibility"
-                    Value="Collapsed" />
+            <Setter Property="Opacity"
+                    Value="0" />
             <Setter Property="Foreground"
                     Value="{DynamicResource WindowForeground}" />
             <Setter Property="Template">
@@ -49,7 +49,7 @@
                                      Value="true">
                                 <Setter Property="Background"
                                         TargetName="border"
-                                        Value="#33FFFFFF" />
+                                        Value="#11FFFFFF" />
                             </Trigger>
                             <Trigger Property="IsPressed"
                                      Value="true">
@@ -156,19 +156,20 @@
                             </MultiDataTrigger>
 
                             <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
+                                <Setter Property="Opacity"
+                                        Value="1" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
+                                    <Setter Property="Opacity"
+                                        Value="1" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
                 <Button.Content>
                     <TextBlock Text="&#xE74F;"
-                               FontSize="18"
+                               FontSize="24"
+                               Opacity="0.75"
                                Style="{StaticResource GlyphTextBlockStyle}"/>
                 </Button.Content>
             </Button>
@@ -190,10 +191,26 @@
                                     <Condition Binding="{Binding App.IsExpanded}"
                                                Value="False" />
                                 </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Visibility"
-                                            Value="Visible" />
-                                </MultiDataTrigger.Setters>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)"
+                                                             To="1"
+                                                             From="0"
+                                                             Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)"
+                                                             To="0"
+                                                             From="1"
+                                                             Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -202,7 +219,7 @@
                     <TextBlock Text="..."
                                IsHitTestVisible="False"
                                Margin="0,-14,0,0"
-                               FontSize="20" />
+                               FontSize="24" />
                 </Button.Content>
             </Button>
         </Grid>
