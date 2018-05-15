@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using EarTrumpet.Extensions;
 using Windows.ApplicationModel;
-using Windows.System;
 
 namespace EarTrumpet.Services
 {
@@ -9,7 +7,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (App.HasIdentity)
+            if (App.Current.HasIdentity())
             {
                 var currentVersion = PackageVersionToReadableString(Package.Current.Id.Version);
                 var hasShownFirstRun = false;

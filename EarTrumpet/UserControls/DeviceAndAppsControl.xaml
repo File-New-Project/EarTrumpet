@@ -77,7 +77,8 @@
                   Name="AppList">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <local:AppVolumeControl App="{Binding}" />
+                    <local:AppVolumeControl App="{Binding}"
+                                            AppExpanded="AppVolumeControl_AppExpanded"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

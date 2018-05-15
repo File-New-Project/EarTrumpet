@@ -2,9 +2,7 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System.Diagnostics;
-using System.IO.Packaging;
 using System.Reflection;
-using Windows.ApplicationModel.AppService;
 
 namespace EarTrumpet.ViewModels
 {

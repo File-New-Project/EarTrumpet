@@ -7,8 +7,12 @@ namespace EarTrumpet
     {
         MainViewModel _viewModel;
 
+        public static FullWindow Instance { get; private set; }
+
         public FullWindow(MainViewModel viewModel)
         {
+            Instance = this;
+
             _viewModel = viewModel;
 
             InitializeComponent();
@@ -18,6 +22,8 @@ namespace EarTrumpet
             DataContext = _viewModel;
 
             this.StateChanged += FullWindow_StateChanged;
+
+            _viewModel.OnFullWindowOpened();
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)
@@ -31,6 +37,8 @@ namespace EarTrumpet
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            _viewModel.OnFullWindowClosed();
+
         }
     }
 }

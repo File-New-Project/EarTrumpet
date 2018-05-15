@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using EarTrumpet.Extensions;
+using Microsoft.Win32;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -55,7 +56,7 @@ namespace EarTrumpet.Services
         {
             string ret;
 
-            if (App.HasIdentity)
+            if (App.Current.HasIdentity())
             {
                 ret = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
             }
@@ -95,7 +96,7 @@ namespace EarTrumpet.Services
 
         static void WriteSetting(string key, string value)
         {
-            if (App.HasIdentity)
+            if (App.Current.HasIdentity())
             {
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
             }

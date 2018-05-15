@@ -1,27 +1,22 @@
-﻿using EarTrumpet.Services;
-using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Reflection;
-using System.Threading;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Services;
+using EarTrumpet.ViewModels;
 using System.Windows;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet
 {
     public partial class App
     {
-        private Mutex _mMutex;
+        private FlyoutWindow _flyoutWindow;
+        private MainViewModel _viewModel;
+        private IAudioDeviceManager _deviceManager;
+        private TrayViewModel _trayViewModel;
+        private TrayIcon _trayIcon;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var mutexName = string.Format(CultureInfo.InvariantCulture, "Local\\{{{0}}}{{{1}}}", assembly.GetType().GUID, assembly.GetName().Name);
-
-            _mMutex = new Mutex(true, mutexName, out bool mutexCreated);
-            if (!mutexCreated)
+            if (!SingleInstanceAppMutex.TakeExclusivity())
             {
-                _mMutex = null;
                 Current.Shutdown();
                 return;
             }
@@ -29,50 +24,22 @@ namespace EarTrumpet
             WhatsNewDisplayService.ShowIfAppropriate();
             FirstRunDisplayService.ShowIfAppropriate();
 
-            new MainWindow();
+            _deviceManager = new AudioDeviceManager(Dispatcher);
+            _viewModel = new MainViewModel(_deviceManager);
 
-#if DEBUG
-            if (Debugger.IsAttached)
-            {
-              //  new DebugWindow().Show();
-            }
-#endif
+            _flyoutWindow = new FlyoutWindow(_viewModel, _deviceManager);
+
+            _trayViewModel = new TrayViewModel(_deviceManager);
+            _trayIcon = new TrayIcon(_deviceManager, _trayViewModel);
+            _trayIcon.Invoked += () => _flyoutWindow.OpenAsFlyout();
+
+            var Hotkey = SettingsService.Hotkey;
+            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            if (_mMutex == null) return;
-            _mMutex.ReleaseMutex();
-            _mMutex.Close();
-            _mMutex = null;
-        }
-
-        static bool? _hasIdentity = null;
-        internal static bool HasIdentity
-        {
-            get
-            {
-#if DEBUG
-                if (Debugger.IsAttached)
-                {
-                    return false;
-                }
-#endif
-
-                if (_hasIdentity == null)
-                {
-                    try
-                    {
-                        _hasIdentity = (Package.Current.Id != null);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        _hasIdentity = false;
-                    }
-                }
-
-                return (bool)_hasIdentity;
-            }
+            SingleInstanceAppMutex.ReleaseExclusivity();
         }
     }
 }

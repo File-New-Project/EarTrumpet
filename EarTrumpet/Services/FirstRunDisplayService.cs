@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Windows.System;
+﻿using EarTrumpet.Extensions;
 
 namespace EarTrumpet.Services
 {
@@ -8,7 +6,7 @@ namespace EarTrumpet.Services
     {
         internal static void ShowIfAppropriate()
         {
-            if (App.HasIdentity)
+            if (App.Current.HasIdentity())
             {
                 bool hasShownFirstRun = false;
                 if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(nameof(hasShownFirstRun)))

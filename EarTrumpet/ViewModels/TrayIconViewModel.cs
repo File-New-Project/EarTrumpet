@@ -178,7 +178,6 @@ namespace EarTrumpet.ViewModels
         {
             if (SettingsWindow.Instance == null)
             {
-
                 var window = new SettingsWindow(_deviceService);
                 window.Show();
             }
@@ -190,8 +189,15 @@ namespace EarTrumpet.ViewModels
 
         private void OpenEarTrumpetVolumeMixer()
         {
-            var window = new FullWindow(MainViewModel.Instance);
-            window.Show();
+            if (FullWindow.Instance == null)
+            {
+                var window = new FullWindow(MainViewModel.Instance);
+                window.Show();
+            }
+            else
+            {
+                FullWindow.Instance.RaiseWindow();
+            }
         }
 
         private void ChangeDevice(IAudioDevice device)

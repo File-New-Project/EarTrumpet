@@ -5,33 +5,28 @@ using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace EarTrumpet
 {
-    public partial class MainWindow
+    public partial class FlyoutWindow
     {
-        private readonly IAudioDeviceManager _deviceService;
-        private readonly MainViewModel _viewModel;
-        private readonly TrayViewModel _trayViewModel;
-        private readonly TrayIcon _trayIcon;
+        private readonly MainViewModel _mainViewModel;
+        private readonly FlyoutViewModel _viewModel;
         private VolumeControlPopup _popup;
 
-        public MainWindow()
+        public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager)
         {
+            _mainViewModel = mainViewModel;
+
             InitializeComponent();
-            _deviceService = new AudioDeviceManager(Dispatcher);
-            _viewModel = new MainViewModel(_deviceService);
-            _viewModel.StateChanged += _viewModel_StateChanged;
-            _viewModel.AppExpanded += _viewModel_AppExpanded;
-            _viewModel.AppCollapsed += _viewModel_AppCollapsed;
-            _viewModel.WindowSizeInvalidated += _viewModel_WindowSizeInvalidated;
-            _trayViewModel = new TrayViewModel(_deviceService);
-            _trayIcon = new TrayIcon(_deviceService, _trayViewModel);
-            _trayIcon.Invoked += TrayIcon_Invoked;
+
+            _viewModel = new FlyoutViewModel(mainViewModel, manager);
+            _viewModel.StateChanged += OnStateChanged;
+            _viewModel.AppExpanded += OnAppExpanded;
+            _viewModel.AppCollapsed += OnAppCollapsed;
+            _viewModel.WindowSizeInvalidated += OnWindowSizeInvalidated;
 
             DataContext = _viewModel;
 
@@ -40,35 +35,32 @@ namespace EarTrumpet
                 ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
 
                 _popup = (VolumeControlPopup)Resources["AppPopup"];
-                _popup.Closed += _popup_Closed;
+                _popup.Closed += OnPopupClosed;
             };
 
             ThemeService.ThemeChanged += () => UpdateTheme();
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             CreateAndHideWindow();
-
-            var Hotkey = SettingsService.Hotkey;
-            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
 
-        private void _popup_Closed(object sender, EventArgs e)
+        private void OnPopupClosed(object sender, EventArgs e)
         {
             _viewModel.OnAppCollapsed();
         }
 
-        private void _viewModel_WindowSizeInvalidated(object sender, object e)
+        private void OnWindowSizeInvalidated(object sender, object e)
         {
             UpdateWindowPosition();
         }
 
-        private void _viewModel_AppCollapsed(object sender, object e)
+        private void OnAppCollapsed(object sender, object e)
         {
             LayoutRoot.Children.Remove(_popup);
             _popup.IsOpen = false;
         }
 
-        private void _viewModel_AppExpanded(object sender, AppExpandedEventArgs e)
+        private void OnAppExpanded(object sender, FlyoutViewModel.AppExpandedEventArgs e)
         {
             var selectedApp = e.ViewModel;
 
@@ -104,20 +96,20 @@ namespace EarTrumpet
             _popup.ShowWithAnimation();
         }
 
-        private void _viewModel_StateChanged(object sender, ViewState e)
+        private void OnStateChanged(object sender, FlyoutViewModel.ViewState e)
         {
             switch (e)
             {
-                case ViewState.Opening:
+                case FlyoutViewModel.ViewState.Opening:
                     UpdateTheme();
                     UpdateWindowPosition();
-                    this.ShowwithAnimation(() => _viewModel.ChangeState(ViewState.Open));
+                    this.ShowwithAnimation(() => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
 
                     break;
 
-                case ViewState.Closing:
+                case FlyoutViewModel.ViewState.Closing:
                     this.Visibility = Visibility.Hidden;
-                    _viewModel.ChangeState(ViewState.Hidden);
+                    _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
                     break;
             }
         }
@@ -131,17 +123,17 @@ namespace EarTrumpet
             Hide();
             Opacity = 0.5;
 
-            _viewModel.ChangeState(ViewState.Hidden);
+            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
 
-        void TrayIcon_Invoked()
+        public void OpenAsFlyout()
         {
             switch (_viewModel.State)
             {
-                case ViewState.Hidden:
+                case FlyoutViewModel.ViewState.Hidden:
                     _viewModel.BeginOpen();
                     break;
-                case ViewState.Open:
+                case FlyoutViewModel.ViewState.Open:
                     _viewModel.BeginClose();
                     break;
                 default:
@@ -259,6 +251,11 @@ namespace EarTrumpet
         {
             _popup.HideWithAnimation();
             e.Handled = true;
+        }
+
+        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
+        {
+            _viewModel.OnAppExpanded(e.ViewModel, e.Container);
         }
     }
 }

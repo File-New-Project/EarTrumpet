@@ -55,13 +55,13 @@ namespace EarTrumpet.UserControls
         {
             var viewModel = MainViewModel.Instance;
             var selectedApp = (AppItemViewModel)((FrameworkElement)sender).DataContext;
-            var persistedDevice = selectedApp.PersistedOutputDevice;
+            var persistedDeviceId = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();
 
-            foreach (var dev in viewModel.PlaybackDevices)
+            foreach (var dev in viewModel.AllDevices)
             {
-                var newItem = new MenuItem { Header = dev.DisplayName };
+                var newItem = new MenuItem { Header = dev.Device.DisplayName };
                 newItem.Click += (_, __) =>
                 {
                     viewModel.MoveAppToDevice(selectedApp, dev);
@@ -70,10 +70,18 @@ namespace EarTrumpet.UserControls
                 };
 
                 newItem.IsCheckable = true;
-                newItem.IsChecked = (dev.Id == persistedDevice.Id);
+                newItem.IsChecked = (dev.Device.Id == persistedDeviceId);
 
                 moveMenu.Items.Add(newItem);
             }
+
+            var defaultItem = new MenuItem { Header = EarTrumpet.Properties.Resources.DefaultDeviceText };
+            defaultItem.Click += (_, __) =>
+            {
+                viewModel.MoveAppToDevice(selectedApp, null);
+                HideWithAnimation();
+            };
+            moveMenu.Items.Insert(0, defaultItem);
 
             moveMenu.Items.Insert(1, new Separator());
 

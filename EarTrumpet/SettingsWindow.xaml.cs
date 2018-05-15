@@ -28,14 +28,6 @@ namespace EarTrumpet
             };
         }
 
-
-        internal void RaiseWindow()
-        {
-            Topmost = true;
-            Activate();
-            Topmost = false;
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

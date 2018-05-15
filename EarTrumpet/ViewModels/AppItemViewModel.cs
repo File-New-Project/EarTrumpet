@@ -44,27 +44,7 @@ namespace EarTrumpet.ViewModels
 
         public string MoveIcon => IsMovable ? "\uE8AB" : "";
 
-        public SimpleAudioDeviceViewModel PersistedOutputDevice
-        {
-            get
-            {
-                string deviceId = AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
-                if (string.IsNullOrWhiteSpace(deviceId))
-                {
-                    return MainViewModel.Instance.DefaultPlaybackDevice;
-                }
-                else
-                {
-                    return MainViewModel.Instance.PlaybackDevices.First(d => d.Id == deviceId);
-                }
-            }
-            set
-            {
-                if (value == null) return;
-
-                AudioPolicyConfigService.SetDefaultEndPoint(value.Id, _session.ProcessId);
-            }
-        }
+        public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
 
         public AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
         {

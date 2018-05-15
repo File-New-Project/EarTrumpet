@@ -136,5 +136,12 @@ namespace EarTrumpet.Extensions
         {
             Interop.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, (int)left, (int)top, (int)width, (int)height, Interop.SWP_NOZORDER);
         }
+
+        public static void RaiseWindow(this Window window)
+        {
+            window.Topmost = true;
+            window.Activate();
+            window.Topmost = false;
+        }
     }
 }
