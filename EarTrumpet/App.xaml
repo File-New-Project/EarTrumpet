@@ -9,7 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="SystemThemeColors.xaml"/>
+                <ResourceDictionary Source="Views\SystemThemeColors.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />

@@ -6,7 +6,7 @@
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
-        Icon="Application.ico"
+        Icon="pack://application:,,,/Assets/Application.ico"
         ShowInTaskbar="False"
         AllowsTransparency="True"
         SnapsToDevicePixels="True"

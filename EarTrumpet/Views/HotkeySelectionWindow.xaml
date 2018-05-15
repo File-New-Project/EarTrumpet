@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Name="WindowRoot"
         WindowStyle="None"
-        Icon="Tray.ico"
+        Icon="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico"
         AllowsTransparency="True"
         ShowInTaskbar="True"        
         Foreground="{DynamicResource NormalWindowForeground}"

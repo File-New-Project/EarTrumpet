@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Application.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -86,7 +86,7 @@
     <Compile Include="DataModel\Com\SIGDN.cs" />
     <Compile Include="DataModel\Com\STGM.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
-    <Compile Include="DebugWindow.xaml.cs">
+    <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\AppExtensions.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\RelayCommand.cs" />
     <Compile Include="Extensions\VisibileWhenNonZeroConverter.cs" />
-    <Compile Include="HotkeySelectionWindow.xaml.cs">
+    <Compile Include="Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentPolicyService.cs" />
@@ -108,14 +108,14 @@
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\LegacyVolumeFlyoutService.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SingleInstanceAppMutex.cs" />
-    <Compile Include="UserControls\VolumeControlPopup.xaml.cs">
+    <Compile Include="Misc\SingleInstanceAppMutex.cs" />
+    <Compile Include="Views\VolumeControlPopup.xaml.cs">
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\VolumeSlider.cs" />
+    <Compile Include="Views\VolumeSlider.cs" />
     <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
     <Compile Include="DataModel\Com\AudioSessionDisconnectReason.cs" />
     <Compile Include="DataModel\Com\AudioSessionState.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="DataModel\SafeAudioDeviceSession.cs" />
     <Compile Include="DataModel\SafeCallHelper.cs" />
     <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
-    <Compile Include="UserControls\DeviceAndAppsControl.xaml.cs">
+    <Compile Include="Views\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DispatcherExtensions.cs" />
@@ -168,7 +168,7 @@
     <Compile Include="DataModel\AudioDeviceManager.cs" />
     <Compile Include="DataModel\AudioDeviceSession.cs" />
     <Compile Include="DataModel\AudioDeviceSessionCollection.cs" />
-    <Compile Include="FullWindow.xaml.cs">
+    <Compile Include="Views\FullWindow.xaml.cs">
       <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.de.Designer.cs">
@@ -194,12 +194,12 @@
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Services\IconService.cs" />
-    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
     <Compile Include="Services\WhatsNewDisplayService.cs" />
-    <Compile Include="TrayIcon.cs" />
+    <Compile Include="Views\TrayIcon.cs" />
     <Compile Include="ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
@@ -216,34 +216,34 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\AudioSessionViewModel.cs" />
-    <Compile Include="UserControls\AppVolumeControl.xaml.cs">
+    <Compile Include="Views\AppVolumeControl.xaml.cs">
       <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="DebugWindow.xaml">
+    <Page Include="Views\DebugWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HotkeySelectionWindow.xaml">
+    <Page Include="Views\HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SystemThemeColors.xaml">
+    <Page Include="Views\SystemThemeColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\DeviceAndAppsControl.xaml">
+    <Page Include="Views\DeviceAndAppsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FullWindow.xaml">
+    <Page Include="Views\FullWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FlyoutWindow.xaml">
+    <Page Include="Views\FlyoutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,15 +251,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FlyoutWindow.xaml.cs">
+    <Compile Include="Views\FlyoutWindow.xaml.cs">
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\AppVolumeControl.xaml">
+    <Page Include="Views\AppVolumeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\VolumeControlPopup.xaml">
+    <Page Include="Views\VolumeControlPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,12 +276,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Application.ico" />
-    <Resource Include="Tray.ico" />
+    <Resource Include="Assets\Application.ico" />
+    <Resource Include="Assets\Tray.ico" />
     <None Include="App.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Color Types.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resource.zh-Hans.resx" />
@@ -308,6 +307,7 @@
     <Resource Include="Assets\Logo-Dark.png" />
     <Resource Include="Assets\Logo-Light.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

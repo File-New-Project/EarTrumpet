@@ -34,6 +34,13 @@ namespace EarTrumpet
             this.StateChanged += FullWindow_StateChanged;
 
             Activated += (_, __) => SizeToContent = SizeToContent.Manual;
+
+            Instance = this;
+            Closing += (s, e) =>
+            {
+                Instance = null;
+                _viewModel.Close();
+            };
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)
@@ -49,7 +56,6 @@ namespace EarTrumpet
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            _viewModel.Close();
         }
 
         private void DeviceAndAppsControl_AppExpanded(object sender, UserControls.AppVolumeControlExpandedEventArgs e)

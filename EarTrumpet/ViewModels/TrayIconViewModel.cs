@@ -5,12 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.AppService;
-using Windows.Foundation;
 
 namespace EarTrumpet.ViewModels
 {
@@ -60,7 +55,7 @@ namespace EarTrumpet.ViewModels
 
         public TrayViewModel(IAudioDeviceManager deviceService)
         {
-            var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Tray.ico")).Stream);
+            var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             _icons.Add(IconId.OriginalIcon, originalIcon);
             try
             {
