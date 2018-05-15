@@ -17,8 +17,8 @@ namespace EarTrumpet
             Instance = this;
 
             _viewModel = new FullWindowViewModel(viewModel);
-            _viewModel.AppExpanded += OnAppExpanded;
-            _viewModel.AppCollapsed += OnAppCollapsed;
+            _viewModel.AppExpanded += (_, e) => _popup.PositionAndShow(this, e);
+            _viewModel.AppCollapsed += (_, __) => _popup.IsOpen = false;
 
             InitializeComponent();
 
@@ -34,46 +34,6 @@ namespace EarTrumpet
             this.StateChanged += FullWindow_StateChanged;
 
             Activated += (_, __) => SizeToContent = SizeToContent.Manual;
-        }
-
-        private void OnAppCollapsed(object sender, object e)
-        {
-            ContentRoot.Children.Remove(_popup);
-            _popup.IsOpen = false;
-        }
-
-        private void OnAppExpanded(object sender, AppExpandedEventArgs e)
-        {
-            var selectedApp = e.ViewModel;
-
-            _popup.DataContext = selectedApp;
-            ContentRoot.Children.Add(_popup);
-
-            Point relativeLocation = e.Container.TranslatePoint(new Point(0, 0), this);
-
-            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
-            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
-            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
-
-            // TODO: can't figure out where this 6px is from
-            relativeLocation.Y -= HEADER_SIZE + 6;
-
-            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
-
-            // TODO: Cap top as well as bottom
-            if (relativeLocation.Y + popupHeight > ActualHeight)
-            {
-                relativeLocation.Y = ActualHeight - popupHeight;
-            }
-
-            _popup.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
-            _popup.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X + relativeLocation.X;
-            _popup.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y + relativeLocation.Y;
-
-            _popup.Width = ((FrameworkElement)e.Container).ActualWidth;
-            _popup.Height = popupHeight;
-
-            _popup.ShowWithAnimation();
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)

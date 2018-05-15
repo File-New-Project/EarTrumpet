@@ -25,9 +25,10 @@ namespace EarTrumpet
 
             _viewModel = new FlyoutViewModel(mainViewModel, manager);
             _viewModel.StateChanged += OnStateChanged;
-            _viewModel.AppExpanded += OnAppExpanded;
-            _viewModel.AppCollapsed += OnAppCollapsed;
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
+
+            _viewModel.AppExpanded += (_, e) => _popup.PositionAndShow(this, e);
+            _viewModel.AppCollapsed += (_, __) => _popup.IsOpen = false;
 
             DataContext = _viewModel;
 
@@ -51,46 +52,6 @@ namespace EarTrumpet
             Show();
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
-        }
-
-        private void OnAppCollapsed(object sender, object e)
-        {
-            LayoutRoot.Children.Remove(_popup);
-            _popup.IsOpen = false;
-        }
-
-        private void OnAppExpanded(object sender, AppExpandedEventArgs e)
-        {
-            var selectedApp = e.ViewModel;
-
-            _popup.DataContext = selectedApp;
-           LayoutRoot.Children.Add(_popup);
-
-            Point relativeLocation = e.Container.TranslatePoint(new Point(0, 0), this);
-
-            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
-            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
-            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
-
-            // TODO: can't figure out where this 6px is from
-            relativeLocation.Y -= HEADER_SIZE + 6;
-
-            var popupHeight = HEADER_SIZE + (selectedApp.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
-
-            // TODO: Cap top as well as bottom
-            if (relativeLocation.Y + popupHeight > ActualHeight)
-            {
-                relativeLocation.Y = ActualHeight - popupHeight;
-            }
-
-            _popup.Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
-            _popup.HorizontalOffset = this.PointToScreen(new Point(0, 0)).X;
-            _popup.VerticalOffset = this.PointToScreen(new Point(0, 0)).Y + relativeLocation.Y;
-
-            _popup.Width = ActualWidth;
-            _popup.Height = popupHeight;
-
-            _popup.ShowWithAnimation();
         }
 
         private void OnStateChanged(object sender, FlyoutViewModel.ViewState e)

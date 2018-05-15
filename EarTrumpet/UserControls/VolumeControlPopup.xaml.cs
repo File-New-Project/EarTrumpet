@@ -1,4 +1,5 @@
-﻿using EarTrumpet.ViewModels;
+﻿using EarTrumpet.Services;
+using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,7 @@ namespace EarTrumpet.UserControls
             AllowsTransparency = true;
         }
 
-        public void ShowWithAnimation()
+        private void ShowWithAnimation()
         {
             var fadeAnimation = new DoubleAnimation
             {
@@ -92,6 +93,45 @@ namespace EarTrumpet.UserControls
             moveMenu.PlacementTarget = (UIElement)sender;
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             moveMenu.IsOpen = true;
+        }
+
+        public void PositionAndShow(Window relativeTo, AppExpandedEventArgs e)
+        {
+            var taskbarState = TaskbarService.GetWinTaskbarState();
+            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
+            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
+
+            DataContext = e.ViewModel;
+
+            Point offsetFromWindow = e.Container.TranslatePoint(new Point(0, 0), relativeTo);
+            // Adjust for the title bar + top margin on the app list.
+            offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom);
+
+            var popupHeight = HEADER_SIZE + (e.ViewModel.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
+            var popupOriginYScreenCoordinates = relativeTo.PointToScreen(new Point(0, 0)).Y + offsetFromWindow.Y;
+
+            // If we flow off the bottom
+            if (popupOriginYScreenCoordinates + popupHeight > taskbarState.TaskbarScreen.WorkingArea.Bottom)
+            {
+                popupOriginYScreenCoordinates = taskbarState.TaskbarScreen.WorkingArea.Bottom - popupHeight;
+
+                // If we also flow off the top
+                if (popupOriginYScreenCoordinates < taskbarState.TaskbarScreen.WorkingArea.Top)
+                {
+                    popupOriginYScreenCoordinates = taskbarState.TaskbarScreen.WorkingArea.Top;
+                    popupHeight = taskbarState.TaskbarScreen.WorkingArea.Bottom - taskbarState.TaskbarScreen.WorkingArea.Top;
+                }
+            }
+
+            Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+            HorizontalOffset = relativeTo.PointToScreen(new Point(0, 0)).X + offsetFromWindow.X;
+            VerticalOffset = popupOriginYScreenCoordinates;
+
+            Width = ((FrameworkElement)e.Container).ActualWidth;
+            Height = popupHeight;
+
+            ShowWithAnimation();
         }
     }
 }

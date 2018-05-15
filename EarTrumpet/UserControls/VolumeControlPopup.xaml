@@ -19,6 +19,7 @@
         <TextBlock Text="{Binding DisplayName}"
                    FontSize="{StaticResource LargeWindowTextFontSize}"
                    Margin="{StaticResource WindowMargin}"
+                   Foreground="{DynamicResource WindowForeground}"
                    TextTrimming="CharacterEllipsis" />
         <Button BorderThickness="0"
                 HorizontalContentAlignment="Stretch"
@@ -42,6 +43,8 @@
         <ListView ItemsSource="{Binding ChildApps, Mode=OneWay}"
                   VerticalAlignment="Center"
                   Grid.ColumnSpan="3"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
                   Margin="{StaticResource VolumeAppListMargin}"
                   Grid.Row="1">
             <ListView.ItemTemplate>

@@ -165,6 +165,8 @@
                         <SolidColorBrush Color="Transparent" />
                     </Setter.Value>
                 </Setter>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource WindowForeground}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>

@@ -235,6 +235,7 @@
                    Text="{Binding App.Volume, Mode=OneWay}"
                    FontSize="{StaticResource AppVolumeTextFontSize}"
                    Margin="{StaticResource VolumeTextMargin}"
+                   Foreground="{DynamicResource WindowForeground}"
                    HorizontalAlignment="Center"
                    Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
     </Grid>
