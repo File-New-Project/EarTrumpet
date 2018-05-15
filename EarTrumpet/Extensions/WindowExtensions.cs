@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Services;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -117,6 +118,9 @@ namespace EarTrumpet.Extensions
 
         static class Interop
         {
+            [DllImport("dwmapi.dll", PreserveSig = true)]
+            public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
             [DllImport("user32.dll")]
             public static extern bool SetWindowPos(
                 IntPtr hWnd,
@@ -130,6 +134,8 @@ namespace EarTrumpet.Extensions
             public const UInt32 SWP_NOSIZE = 0x0001;
             public const UInt32 SWP_NOMOVE = 0x0002;
             public const UInt32 SWP_NOZORDER = 0x0004;
+
+            public const int DWMA_CLOAK = 0xD;
         }
 
         public static void Move(this Window window, double top, double left, double height, double width)
@@ -142,6 +148,13 @@ namespace EarTrumpet.Extensions
             window.Topmost = true;
             window.Activate();
             window.Topmost = false;
+        }
+
+        public static void Cloak(this Window window, bool hide = true)
+        {
+            int attributeValue = hide ? 1 : 0;
+            int ret = Interop.DwmSetWindowAttribute(new WindowInteropHelper(window).Handle, Interop.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
+            Debug.Assert(ret == 0);
         }
     }
 }

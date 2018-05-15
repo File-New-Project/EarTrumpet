@@ -63,8 +63,6 @@
 
         <Style x:Key="{x:Type ScrollViewer}"
                TargetType="{x:Type ScrollViewer}">
-            <Setter Property="VerticalScrollBarVisibility"
-                    Value="Auto" />
             <Setter Property="CanContentScroll"
                     Value="True" />
             <Setter Property="PanningMode"

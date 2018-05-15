@@ -76,6 +76,8 @@ namespace EarTrumpet.UserControls
             }
 
             var defaultItem = new MenuItem { Header = EarTrumpet.Properties.Resources.DefaultDeviceText };
+            defaultItem.IsCheckable = true;
+            defaultItem.IsChecked = (string.IsNullOrWhiteSpace(persistedDeviceId));
             defaultItem.Click += (_, __) =>
             {
                 viewModel.MoveAppToDevice(selectedApp, null);

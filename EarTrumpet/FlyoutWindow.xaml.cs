@@ -32,6 +32,8 @@ namespace EarTrumpet
 
             SourceInitialized += (s, e) =>
             {
+                this.Cloak();
+
                 ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
 
                 _popup = (VolumeControlPopup)Resources["AppPopup"];
@@ -102,7 +104,7 @@ namespace EarTrumpet
             {
                 case FlyoutViewModel.ViewState.Opening:
                     UpdateTheme();
-                    UpdateWindowPosition();
+                  //  UpdateWindowPosition();
                     this.ShowwithAnimation(() => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
 
                     break;
@@ -116,12 +118,13 @@ namespace EarTrumpet
 
         private void CreateAndHideWindow()
         {
-            Opacity = 0;
-            Height = 1;
             UpdateTheme();
+
             Show();
             Hide();
-            Opacity = 0.5;
+            this.Cloak(false);
+
+            UpdateWindowPosition();
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
@@ -205,7 +208,15 @@ namespace EarTrumpet
                 }
             }
 
-            newHeight = Math.Min(newHeight, taskbarState.TaskbarScreen.WorkingArea.Height);
+            if (newHeight > taskbarState.TaskbarScreen.WorkingArea.Height)
+            {
+                newHeight = taskbarState.TaskbarScreen.WorkingArea.Height;
+                BaseVisual.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Visible;
+            }
+            else
+            {
+                BaseVisual.VerticalScrollBarVisibility = System.Windows.Controls.ScrollBarVisibility.Hidden;
+            }
 
             double newTop = 0;
             double newLeft = 0;
@@ -229,7 +240,6 @@ namespace EarTrumpet
                     break;
             }
 
-            UpdateLayout();
             this.Move(newTop, newLeft, newHeight, Width);
         }
 
