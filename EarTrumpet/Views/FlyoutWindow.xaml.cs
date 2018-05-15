@@ -92,7 +92,6 @@ namespace EarTrumpet
                         _expandOnCloseThenOpen = false;
 
                         _viewModel.DoExpandCollapse();
-                        UpdateLayout();
                         _viewModel.BeginOpen();
                     }
                     break;
