@@ -1,4 +1,6 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -66,6 +68,9 @@ namespace EarTrumpet.ViewModels
         public event EventHandler<ViewState> StateChanged = delegate { };
 
         private readonly IAudioDeviceManager _deviceService;
+
+
+
         private readonly Timer _peakMeterTimer;
         private AppItemViewModel _expandedApp;
 
@@ -311,6 +316,36 @@ namespace EarTrumpet.ViewModels
             // Hidden - Nothing to do.
             // Opening_CloseRequested - Nothing to do.
             // Closing - Nothing to do.
+        }
+
+        public void MoveAppToDevice(AppItemViewModel app, SimpleAudioDeviceViewModel dev)
+        {
+            var searchId = dev.Id;
+            if (dev.IsDefault)
+            {
+                searchId = _deviceService.DefaultPlaybackDevice.Id;
+            }
+            DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
+            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Device.Id);
+
+            try
+            {
+                var pids = app.ChildApps.Select(c => c.Session.ProcessId).ToSet();
+
+                foreach (var pid in pids)
+                {
+                    AudioPolicyConfigService.SetDefaultEndPoint(dev.Id, pid);
+                }
+                if (oldDevice != newDevice)
+                {
+                    newDevice.OnAppMovedToDevice(app);
+                    oldDevice.OnAppMovedFromDevice(app);
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

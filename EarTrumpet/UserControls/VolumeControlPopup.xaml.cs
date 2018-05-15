@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Services;
-using EarTrumpet.ViewModels;
+﻿using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +12,6 @@ namespace EarTrumpet.UserControls
         public VolumeControlPopup()
         {
             InitializeComponent();
-
         }
 
         public void ShowWithAnimation()
@@ -40,7 +38,7 @@ namespace EarTrumpet.UserControls
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
                 From = 1,
-                To = 0.5,
+                To = 0.25,
             };
 
             fadeAnimation.Completed += (_, __) => IsOpen = false;
@@ -55,17 +53,20 @@ namespace EarTrumpet.UserControls
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
+            var viewModel = MainViewModel.Instance;
             var selectedApp = (AppItemViewModel)((FrameworkElement)sender).DataContext;
             var persistedDevice = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();
 
-            foreach (var dev in MainViewModel.Instance.PlaybackDevices)
+            foreach (var dev in viewModel.PlaybackDevices)
             {
                 var newItem = new MenuItem { Header = dev.DisplayName };
                 newItem.Click += (_, __) =>
                 {
-                    AudioPolicyConfigService.SetDefaultEndPoint(dev.Id, selectedApp.Session.ProcessId);
+                    viewModel.MoveAppToDevice(selectedApp, dev);
+
+                    HideWithAnimation();
                 };
 
                 newItem.IsCheckable = true;

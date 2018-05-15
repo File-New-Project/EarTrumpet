@@ -268,6 +268,7 @@ namespace EarTrumpet.Services
             return new AppInformation()
             {
                 BackgroundColor = 0x000000,
+                AppUserModelId = "System.SystemSoundsSession",
                 IsDesktopApp = true,
                 SmallLogoPath = Environment.ExpandEnvironmentVariables(
                     $"%windir%\\{(Environment.Is64BitOperatingSystem ? "sysnative" : "system32")}\\audiosrv.dll")

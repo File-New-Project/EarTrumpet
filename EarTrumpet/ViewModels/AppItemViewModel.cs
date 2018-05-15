@@ -154,6 +154,11 @@ namespace EarTrumpet.ViewModels
             });
         }
 
+        public bool DoesGroupWith(AppItemViewModel app)
+        {
+            return (_session.AppId == app._session.AppId);
+        }
+
         private void LoadChildren()
         {
             foreach(var child in _session.Children)

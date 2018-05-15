@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Extensions\CountConverter.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\RelayCommand.cs" />
     <Compile Include="Extensions\VisibileWhenNonZeroConverter.cs" />

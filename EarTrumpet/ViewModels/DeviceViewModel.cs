@@ -1,6 +1,8 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -92,8 +94,7 @@ namespace EarTrumpet.ViewModels
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     Debug.Assert(e.NewItems.Count == 1);
-                    var newSession = new AppItemViewModel((IAudioDeviceSession)e.NewItems[0]);
-                    Apps.AddSorted(newSession, AppItemViewModelComparer.Instance);
+                    AddSession((IAudioDeviceSession)e.NewItems[0]);
                     break;
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
@@ -110,6 +111,45 @@ namespace EarTrumpet.ViewModels
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
                     throw new NotImplementedException();
             }
+        }
+
+        private void AddSession(IAudioDeviceSession session)
+        {
+            var newSession = new AppItemViewModel(session);
+
+            foreach(var a in Apps)
+            {
+                if (a.DoesGroupWith(newSession))
+                {
+                    Apps.Remove(a);
+                    break;
+                }
+            }
+
+            Apps.AddSorted(newSession, AppItemViewModelComparer.Instance);
+        }
+
+        public void OnAppMovedToDevice(AppItemViewModel app)
+        {
+            bool hasExistingAppGroup = false;
+            foreach(var a in Apps)
+            {
+                if (a.DoesGroupWith(app))
+                {
+                    hasExistingAppGroup = true;
+                    break;
+                }
+            }
+
+            if (!hasExistingAppGroup)
+            {
+                Apps.AddSorted(app, AppItemViewModelComparer.Instance);
+            }
+        }
+
+        public void OnAppMovedFromDevice(AppItemViewModel app)
+        {
+            Apps.Remove(app);
         }
     }
 }
