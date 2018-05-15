@@ -4,7 +4,6 @@
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
-             Exit="App_OnExit"
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
@@ -18,30 +17,22 @@
             <ext:OpacityConverter x:Key="opacityConverter" />
 
             <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
-
             <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
             <bcl:Double x:Key="AppIconSize">24</bcl:Double>
-
             <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
             <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
-
             <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
             <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
             <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
-
             <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
             <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
-
             <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
-
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
-
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
-
 
             <Style x:Key="CaptionButtonStyle" TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -71,6 +62,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
             <Style x:Key="CloseButtonStyle"
                    BasedOn="{StaticResource CaptionButtonStyle}"
                    TargetType="Button">
@@ -84,20 +76,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="OptionsButtonStyle"
-                   BasedOn="{StaticResource CaptionButtonStyle}"
-                   TargetType="Button">
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="#22FFFFFF" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="SlimButton" TargetType="Button">
+
+            <Style x:Key="Windows10ButtonStyle" TargetType="Button">
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="14,0" />
@@ -134,7 +114,8 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="SolidFocusVisual">
+
+            <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -146,40 +127,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="StyledButton" TargetType="Button">
-                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource SolidFocusVisual}" />
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Transparent" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Border Background="{TemplateBinding Background}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="{TemplateBinding FontSize}"
-                                           Foreground="{TemplateBinding Foreground}"
-                                           Text="{TemplateBinding Tag}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="#22FFFFFF" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
+
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="IsTabStop" Value="false" />
@@ -194,6 +142,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
             <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="Height" Value="24" />
@@ -210,6 +159,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
             <ControlTemplate x:Key="HorizontalSlider" TargetType="{x:Type Slider}">
                 <Grid>
                     <Border Name="TrackBackground" Height="2" />
@@ -308,7 +258,7 @@
             <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource SolidFocusVisual}" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">

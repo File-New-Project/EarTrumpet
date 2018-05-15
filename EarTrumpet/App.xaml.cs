@@ -22,6 +22,8 @@ namespace EarTrumpet
                 return;
             }
 
+            Exit += (_, __) => SingleInstanceAppMutex.ReleaseExclusivity();
+
             WhatsNewDisplayService.ShowIfAppropriate();
             FirstRunDisplayService.ShowIfAppropriate();
 
@@ -36,13 +38,6 @@ namespace EarTrumpet
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
-
-            // new DebugWindow().Show();
-        }
-
-        private void App_OnExit(object sender, ExitEventArgs e)
-        {
-            SingleInstanceAppMutex.ReleaseExclusivity();
         }
     }
 }

@@ -72,7 +72,7 @@
                     Click="CloseButton_Click"
                     Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}"
                     Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                    Style="{DynamicResource SlimButton}" />
+                    Style="{DynamicResource Windows10ButtonStyle}" />
         </Grid>
     </DockPanel>
 </Window>

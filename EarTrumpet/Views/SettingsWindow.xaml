@@ -97,7 +97,7 @@
                             Click="HotkeySelect_Click"
                             Content="{Binding HotkeyText}"
                             Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                            Style="{StaticResource SlimButton}" />
+                            Style="{StaticResource Windows10ButtonStyle}" />
                 </StackPanel>
                 <TextBlock Margin="4,48,4,12"
                            Style="{StaticResource HeadingText}"

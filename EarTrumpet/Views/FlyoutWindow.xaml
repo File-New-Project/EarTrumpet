@@ -25,7 +25,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource SolidFocusVisual}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">

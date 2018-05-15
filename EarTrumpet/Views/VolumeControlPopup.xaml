@@ -2,6 +2,42 @@
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:uc="clr-namespace:EarTrumpet.UserControls">
+    <Popup.Resources>
+        <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
+            <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="Transparent" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="{TemplateBinding Background}">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Text="{TemplateBinding Tag}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#22FFFFFF" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Popup.Resources>
     <Grid Background="{DynamicResource PopupBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -29,7 +65,7 @@
                 FontSize="16"
                 Foreground="{DynamicResource WindowForeground}"
                 IsEnabled="{Binding IsMovable}"
-                Style="{StaticResource StyledButton}"
+                Style="{StaticResource VirtualTitleBarButtonStyle}"
                 Tag="{Binding MoveIcon}" />
         <Button Grid.Column="2"
                 VerticalAlignment="Center"
@@ -38,7 +74,7 @@
                 Click="CloseButton_Click"
                 FontSize="10"
                 Foreground="{DynamicResource WindowForeground}"
-                Style="{StaticResource StyledButton}"
+                Style="{StaticResource VirtualTitleBarButtonStyle}"
                 Tag="&#xE8BB;" />
         <ListView Grid.Row="1"
                   Grid.ColumnSpan="3"

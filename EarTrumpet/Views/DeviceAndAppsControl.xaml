@@ -47,7 +47,6 @@
                                            Style="{StaticResource GlyphTextBlockStyle}"
                                            Text="{Binding Device.DeviceIconText}" />
                             </Grid>
-
                         </Border>
 
                         <local:VolumeSlider Grid.Column="1"
