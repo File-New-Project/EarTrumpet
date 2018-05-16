@@ -23,12 +23,11 @@
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
         </Style>
 
-        <Style x:Key="VolumeControlPopupBorder" TargetType="{x:Type Border}"
-               BasedOn="{StaticResource BaseVolumeControlPopupBorder}">
-            <Setter Property="Background"
-                    Value="{DynamicResource PopupBackground}" />
-            <Setter Property="BorderBrush"
-                    Value="{DynamicResource ActiveBorder}" />
+        <Style x:Key="VolumeControlPopupBorder"
+               BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
+               TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
@@ -40,11 +39,9 @@
         <Style x:Key="VirtualTitleBarButtonStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
-            <Setter Property="Foreground"
-                    Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
             <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
+                <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="Background">
                         <Setter.Value>
                             <SolidColorBrush Color="#22FFFFFF" />
@@ -57,8 +54,7 @@
         <Style x:Key="VirtualTitleBarTextStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground"
-                    Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
         </Style>
 
         <Style x:Key="PerThemeGlyphTextBlockStyle"

@@ -62,6 +62,8 @@ namespace EarTrumpet.Services
             newDictionary["PeakMeterBackground"] = Lookup("ImmersiveSystemAccentDark3");
             newDictionary["FullWindowDeviceBackground"] = Lookup(isLightTheme ? "ImmersiveLightListLow" : "ImmersiveDarkChromeMediumLow");
 
+            newDictionary["CloseButtonForeground"] = Lookup(isLightTheme ? "ImmersiveSystemText" : "ImmersiveApplicationTextDarkTheme");
+
             var AddThemeSpecificBrush = new Action<string>((s) =>
             {
                 newDictionary[$"Control{s}"] = Lookup(isLightTheme ? $"ImmersiveControlLight{s}" : $"ImmersiveControlDark{s}");
@@ -70,6 +72,9 @@ namespace EarTrumpet.Services
             AddThemeSpecificBrush("SliderTrackFillRest");
             AddThemeSpecificBrush("SliderTrackBackgroundRest");
             AddThemeSpecificBrush("SliderThumbHover");
+
+            newDictionary["HardwareTitleBarCloseButtonHover"] = Lookup("ImmersiveHardwareTitleBarCloseButtonHover", 1);
+            newDictionary["HardwareTitleBarCloseButtonPressed"] = Lookup("ImmersiveHardwareTitleBarCloseButtonPressed", 1);
 
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);

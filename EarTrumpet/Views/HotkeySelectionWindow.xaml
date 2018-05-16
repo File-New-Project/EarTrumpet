@@ -6,38 +6,9 @@
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}"
         Width="300"
         Height="200"
-        AllowsTransparency="True"
-        Background="{DynamicResource NormalWindowBackground}"
-        BorderThickness="1"
-        Foreground="{DynamicResource NormalWindowForeground}"
-        Icon="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico"
+        Style="{StaticResource DialogWindowStyle}"
         PreviewKeyDown="Window_PreviewKeyDown"
-        ShowInTaskbar="True"
-        WindowStartupLocation="CenterOwner"
-        WindowStyle="None">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
-    </WindowChrome.WindowChrome>
-    <Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
-            <Style.Triggers>
-                <Trigger Property="IsActive" Value="false">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>
-    <Window.Resources>
-        <Style TargetType="Window">
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
-            <Style.Triggers>
-                <Trigger Property="IsActive" Value="false">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
+        WindowStartupLocation="CenterOwner">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>

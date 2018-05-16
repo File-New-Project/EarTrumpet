@@ -4,32 +4,11 @@
         xmlns:local="clr-namespace:EarTrumpet.UserControls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         Name="WindowRoot"
-        Width="900"
-        Height="500"
         MinWidth="300"
         MinHeight="300"
-        AllowsTransparency="True"
-        Background="{DynamicResource NormalWindowBackground}"
-        BorderThickness="1"
-        Foreground="{DynamicResource NormalWindowForeground}"
-        Icon="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico"
-        ShowInTaskbar="True"
         SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
-    <Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
-            <Style.Triggers>
-                <Trigger Property="IsActive" Value="false">
-                    <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
-    </WindowChrome.WindowChrome>
+        Style="{StaticResource DialogWindowStyle}"
+        WindowStartupLocation="CenterOwner">
     <Window.Resources>
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
@@ -71,8 +50,6 @@
                TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
-
-
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
@@ -174,8 +151,6 @@
                TargetType="{x:Type Slider}">
             <Setter Property="Template" Value="{DynamicResource VolumeSliderTemplate}" />
         </Style>
-
-
     </Window.Resources>
 
     <DockPanel x:Name="ContentRoot">

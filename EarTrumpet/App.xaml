@@ -70,11 +70,20 @@
                    TargetType="Button">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="Red" />
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource CloseButtonForeground}" />
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation FillBehavior="HoldEnd"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="Red"
+                                                    Duration="0:0:0.2" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -289,6 +298,29 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
+                <Setter Property="AllowsTransparency" Value="True" />
+                <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
+                <Setter Property="ShowInTaskbar" Value="True" />
+                <Setter Property="WindowStyle" Value="None" />
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+                <Style.Triggers>
+                    <Trigger Property="IsActive" Value="false">
+                        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
