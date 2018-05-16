@@ -6,8 +6,8 @@
         Width="600"
         Height="500"
         MinWidth="600"
-        Style="{StaticResource DialogWindowStyle}"
         SizeToContent="Height"
+        Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="HeadingText" TargetType="TextBlock">

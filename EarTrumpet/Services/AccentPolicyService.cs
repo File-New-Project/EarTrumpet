@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
@@ -77,7 +78,8 @@ namespace EarTrumpet.Services
             data.SizeOfData = accentStructSize;
             data.Data = accentPtr;
 
-            Interop.SetWindowCompositionAttribute(handle, ref data);
+            var ret = Interop.SetWindowCompositionAttribute(handle, ref data);
+            Debug.Assert(ret == 0 || ret == 1);
 
             Marshal.FreeHGlobal(accentPtr);
         }
@@ -113,11 +115,11 @@ namespace EarTrumpet.Services
             return flags;
         }
 
-        public static void SetBlurPolicy(IntPtr handle, bool isBlur)
+        public static void SetBlurPolicy(IntPtr handle, bool isBlur, bool showAllBorders = false)
         {
             if (isBlur)
             {
-                SetAccentPolicy(handle, Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, false, _blurOpacity);
+                SetAccentPolicy(handle, Interop.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, showAllBorders, _blurOpacity);
             }
             else
             {

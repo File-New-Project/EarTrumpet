@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System.Windows;
@@ -26,6 +27,8 @@ namespace EarTrumpet
                  Instance = null;
                 _viewModel.Save();
             };
+
+            SourceInitialized += (_, __) => this.SetWindowBlur(true, true);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

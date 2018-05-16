@@ -6,8 +6,8 @@
         Title="{x:Static resx:Resources.SelectHotkeyWindowTitle}"
         Width="300"
         Height="200"
-        Style="{StaticResource DialogWindowStyle}"
         PreviewKeyDown="Window_PreviewKeyDown"
+        Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
     <DockPanel>
         <Grid DockPanel.Dock="Top">

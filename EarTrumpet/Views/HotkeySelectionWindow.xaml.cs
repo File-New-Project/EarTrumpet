@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Misc;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,8 @@ namespace EarTrumpet
             InitializeComponent();
 
             UpdateText();
+
+            SourceInitialized += (_, __) => this.SetWindowBlur(true, true);
         }
 
         void UpdateText()

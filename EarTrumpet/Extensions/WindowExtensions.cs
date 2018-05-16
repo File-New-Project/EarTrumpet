@@ -51,10 +51,10 @@ namespace EarTrumpet.Extensions
             Debug.Assert(ret == 0);
         }
 
-        public static void SetWindowBlur(this Window window, bool isBlur)
+        public static void SetWindowBlur(this Window window, bool isBlur, bool showAllBorders = false)
         {
             var hwnd = new WindowInteropHelper(window).Handle;
-            AccentPolicyService.SetBlurPolicy(hwnd, isBlur);
+            AccentPolicyService.SetBlurPolicy(hwnd, isBlur, showAllBorders);
         }
 
         public static Matrix CalculateDpiFactors(this Window window)

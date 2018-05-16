@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UserControls;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
 using System.Windows;
 using System.Windows.Input;
@@ -41,6 +42,8 @@ namespace EarTrumpet
                 Instance = null;
                 _viewModel.Close();
             };
+
+            SourceInitialized += (_, __) => this.SetWindowBlur(true, true);
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)

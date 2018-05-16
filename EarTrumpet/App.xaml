@@ -70,10 +70,8 @@
                    TargetType="Button">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Foreground"
-                                Value="{DynamicResource CloseButtonForeground}" />
-                        <Setter Property="Background"
-                                Value="Transparent" />
+                        <Setter Property="Foreground" Value="{DynamicResource CloseButtonForeground}" />
+                        <Setter Property="Background" Value="Transparent" />
                         <Trigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard>

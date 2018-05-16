@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Services;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
@@ -15,6 +16,9 @@ namespace EarTrumpet.UserControls
             InitializeComponent();
 
             AllowsTransparency = true;
+            
+            
+            Opened += (_, __) => this.SetWindowBlur(true, true);
         }
 
         private void ShowWithAnimation()
