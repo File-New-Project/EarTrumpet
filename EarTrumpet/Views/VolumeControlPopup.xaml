@@ -38,54 +38,57 @@
             </Style.Triggers>
         </Style>
     </Popup.Resources>
-    <Grid Style="{DynamicResource VolumeControlPopupGrid}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="3" Style="{DynamicResource VirtualTitleBarBorderStyle}" />
-        <TextBlock Margin="{StaticResource WindowMargin}"
-                   FontSize="{StaticResource LargeWindowTextFontSize}"
-                   Foreground="{DynamicResource WindowForeground}"
-                   Text="{Binding DisplayName}"
-                   TextTrimming="CharacterEllipsis" />
-        <Button Grid.Column="1"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Stretch"
-                BorderThickness="0"
-                Click="MoveToAnotherDevice_Click"
-                FontSize="16"
-                Foreground="{DynamicResource WindowForeground}"
-                IsEnabled="{Binding IsMovable}"
-                Style="{StaticResource VirtualTitleBarButtonStyle}"
-                Tag="{Binding MoveIcon}" />
-        <Button Grid.Column="2"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Stretch"
-                BorderThickness="0"
-                Click="CloseButton_Click"
-                FontSize="10"
-                Foreground="{DynamicResource WindowForeground}"
-                Style="{StaticResource VirtualTitleBarButtonStyle}"
-                Tag="&#xE8BB;" />
-        <ListView Grid.Row="1"
-                  Grid.ColumnSpan="3"
-                  Margin="{StaticResource VolumeAppListMargin}"
-                  VerticalAlignment="Center"
-                  ItemsSource="{Binding ChildApps, Mode=OneWay}"
-                  ScrollViewer.CanContentScroll="True"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <uc:AppVolumeControl App="{Binding}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+
+    <Border Style="{DynamicResource VolumeControlPopupBorder}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.ColumnSpan="3" Style="{DynamicResource VirtualTitleBarBorderStyle}" />
+            <TextBlock Margin="{StaticResource WindowMargin}"
+                       FontSize="{StaticResource LargeWindowTextFontSize}"
+                       Foreground="{DynamicResource WindowForeground}"
+                       Text="{Binding DisplayName}"
+                       TextTrimming="CharacterEllipsis" />
+            <Button Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    BorderThickness="0"
+                    Click="MoveToAnotherDevice_Click"
+                    FontSize="16"
+                    Foreground="{DynamicResource WindowForeground}"
+                    IsEnabled="{Binding IsMovable}"
+                    Style="{StaticResource VirtualTitleBarButtonStyle}"
+                    Tag="{Binding MoveIcon}" />
+            <Button Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Stretch"
+                    BorderThickness="0"
+                    Click="CloseButton_Click"
+                    FontSize="10"
+                    Foreground="{DynamicResource WindowForeground}"
+                    Style="{StaticResource VirtualTitleBarButtonStyle}"
+                    Tag="&#xE8BB;" />
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="3"
+                      Margin="{StaticResource VolumeAppListMargin}"
+                      VerticalAlignment="Center"
+                      ItemsSource="{Binding ChildApps, Mode=OneWay}"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="viewModels:AppItemViewModel">
+                        <uc:AppVolumeControl App="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Border>
 </Popup>

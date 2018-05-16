@@ -36,8 +36,11 @@
             <Setter Property="Background" Value="{DynamicResource FullWindowDeviceBackground}" />
         </Style>
 
-        <Style x:Key="VolumeControlPopupGrid" TargetType="{x:Type Grid}">
+        <Style x:Key="VolumeControlPopupBorder"
+               BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
+               TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"

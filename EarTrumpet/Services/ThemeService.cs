@@ -23,8 +23,8 @@ namespace EarTrumpet.Services
             var isLightTheme = UserSystemPreferencesService.IsLightTheme;
 
             newDictionary["WindowForeground"] = Lookup("ImmersiveApplicationTextDarkTheme");
-            newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccent", 0.2);
-            newDictionary["HeaderBackgroundSolid"] = Lookup("ImmersiveSystemAccent", 0.6);
+            newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccentLight1", 0.2);
+            newDictionary["HeaderBackgroundSolid"] = Lookup("ImmersiveSystemAccent", 1);
             newDictionary["CottonSwabSliderThumb"] = Lookup("ImmersiveSystemAccent");
             newDictionary["ActiveBorder"] = Lookup("ImmersiveSystemAccent");
             newDictionary["CottonSwabSliderThumbHover"] = Lookup("ImmersiveControlDarkSliderThumbHover");

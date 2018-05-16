@@ -98,15 +98,16 @@ namespace EarTrumpet.UserControls
         public void PositionAndShow(Window relativeTo, AppExpandedEventArgs e)
         {
             var taskbarState = TaskbarService.GetWinTaskbarState();
-            double HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
-            double ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
-            Thickness volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
+            var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            var ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
+            var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
+            var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
             DataContext = e.ViewModel;
 
             Point offsetFromWindow = e.Container.TranslatePoint(new Point(0, 0), relativeTo);
-            // Adjust for the title bar + top margin on the app list.
-            offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom);
+            // Adjust for the title bar, top border and top margin on the app list.
+            offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom + PopupBorderSize.Top);
 
             var popupHeight = HEADER_SIZE + (e.ViewModel.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
             var popupOriginYScreenCoordinates = relativeTo.PointToScreen(new Point(0, 0)).Y + offsetFromWindow.Y;
