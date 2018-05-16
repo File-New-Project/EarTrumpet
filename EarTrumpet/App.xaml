@@ -17,7 +17,7 @@
             <ext:OpacityConverter x:Key="opacityConverter" />
 
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
-            <bcl:Double x:Key="WindowBlurRadius">28</bcl:Double>
+            <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
             <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
             <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
             <bcl:Double x:Key="AppIconSize">24</bcl:Double>

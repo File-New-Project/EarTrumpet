@@ -115,17 +115,6 @@
                 <Button.Style>
                     <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
                         <Style.Triggers>
-
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="True" />
-                                    <Condition Binding="{Binding App.IsExpanded}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Margin" Value="0,-10,0,0" />
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-
                             <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
                                 <Setter Property="Opacity" Value="1" />
                             </DataTrigger>
@@ -140,53 +129,6 @@
                                Opacity="0.75"
                                Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
                                Text="&#xE74F;" />
-                </Button.Content>
-            </Button>
-
-            <Button Name="MoreButton"
-                    Width="{StaticResource AppIconSize}"
-                    Height="14"
-                    Margin="0,28,0,0"
-                    VerticalContentAlignment="Center"
-                    Click="MoreButton_Click">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="True" />
-                                    <Condition Binding="{Binding App.IsExpanded}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)"
-                                                             From="0"
-                                                             To="1"
-                                                             Duration="0:0:0.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.EnterActions>
-                                <MultiDataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)"
-                                                             From="1"
-                                                             To="0"
-                                                             Duration="0:0:0.2" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.ExitActions>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Content>
-                    <TextBlock Margin="0,-14,0,0"
-                               FontSize="24"
-                               IsHitTestVisible="False"
-                               Style="{DynamicResource PerThemeTextBlockStyle}"
-                               Text="..." />
                 </Button.Content>
             </Button>
         </Grid>

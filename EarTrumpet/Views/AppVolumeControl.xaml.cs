@@ -17,6 +17,8 @@ namespace EarTrumpet.UserControls
         {
             InitializeComponent();
             GridRoot.DataContext = this;
+
+            PreviewMouseRightButtonUp += (_, __) => ExpandApp();
         }
 
         private void MuteButton_Click(object sender, RoutedEventArgs e)
@@ -25,7 +27,7 @@ namespace EarTrumpet.UserControls
             e.Handled = true;
         }
 
-        private void MoreButton_Click(object sender, RoutedEventArgs e)
+        private void ExpandApp()
         {
             if (!App.IsExpanded)
             {
