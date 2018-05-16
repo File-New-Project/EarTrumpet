@@ -195,7 +195,6 @@
                             Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}"
                             PeakValue="{Binding App.PeakValue}"
                             Style="{DynamicResource VolumeSliderStyle}"
-                            Volume="{Binding App.Volume}"
                             Value="{Binding App.Volume, Mode=TwoWay}" />
 
         <TextBlock Grid.Column="2"

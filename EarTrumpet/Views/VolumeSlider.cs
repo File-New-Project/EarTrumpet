@@ -16,14 +16,6 @@ namespace EarTrumpet.UserControls
         public static readonly DependencyProperty PeakValueProperty = DependencyProperty.Register(
           "PeakValue", typeof(float), typeof(VolumeSlider), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
 
-        public int Volume
-        {
-            get { return (int)this.GetValue(VolumeValueProperty); }
-            set { this.SetValue(VolumeValueProperty, value); }
-        }
-        public static readonly DependencyProperty VolumeValueProperty = DependencyProperty.Register(
-          "Volume", typeof(int), typeof(VolumeSlider), new PropertyMetadata(0, new PropertyChangedCallback(VolumeChanged)));
-
         Border PeakMeter => (Border)GetTemplateChild("PeakMeter");
 
         public VolumeSlider() : base()
@@ -53,13 +45,8 @@ namespace EarTrumpet.UserControls
         {
             if (PeakMeter != null)
             {
-                PeakMeter.Width = this.ActualWidth * PeakValue * (Volume / 100f);
+                PeakMeter.Width = this.ActualWidth * PeakValue * (Value / 100f);
             }
-        }
-
-        private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((VolumeSlider)d).SizeOrVolumeOrPeakValueChanged();
         }
 
         private void OnTouchDown(object sender, TouchEventArgs e)

@@ -54,7 +54,6 @@
                                             PreviewMouseUp="TouchSlider_MouseUp"
                                             PreviewTouchUp="TouchSlider_TouchUp"
                                             Style="{DynamicResource VolumeSliderStyle}"
-                                            Volume="{Binding Device.Device.Volume}"
                                             Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
                                    Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
