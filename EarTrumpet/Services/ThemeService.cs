@@ -23,7 +23,7 @@ namespace EarTrumpet.Services
             var isLightTheme = UserSystemPreferencesService.IsLightTheme;
 
             newDictionary["WindowForeground"] = Lookup("ImmersiveApplicationTextDarkTheme");
-            newDictionary["HeaderBackground"] = Lookup("ImmersiveSystemAccent", 0.5);
+            newDictionary["HeaderBackground"] = Lookup("ImmersiveStartHighlight", 0.2);
             newDictionary["HeaderBackgroundSolid"] = Lookup("ImmersiveSystemAccent", 1);
             newDictionary["CottonSwabSliderThumb"] = Lookup("ImmersiveSystemAccent");
             newDictionary["ActiveBorder"] = Lookup("ImmersiveSystemAccent");
@@ -130,7 +130,7 @@ namespace EarTrumpet.Services
             }
 
             var color = AccentColorService.GetColorByTypeName(resource);
-            color.A = (byte) (IsWindowTransparencyEnabled ? 190 : 255);
+            color.A = (byte) (IsWindowTransparencyEnabled ? 180 : 255);
             return color;
         }
 
