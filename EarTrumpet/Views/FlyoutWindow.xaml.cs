@@ -63,7 +63,7 @@ namespace EarTrumpet
 
                     UpdateWindowBounds();
 
-                    FlyoutAnimationLibrary.BeginEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+                    WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
                     break;
 
                 case FlyoutViewModel.ViewState.Closing:
@@ -76,7 +76,7 @@ namespace EarTrumpet
 
                     if (_expandOnCloseThenOpen)
                     {
-                        FlyoutAnimationLibrary.BeginExitanimation(this, cloakAndMarkHidden);
+                        WindowAnimationLibrary.BeginFlyoutExitanimation(this, cloakAndMarkHidden);
                     }
                     else
                     {

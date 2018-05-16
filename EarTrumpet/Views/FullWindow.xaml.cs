@@ -43,7 +43,11 @@ namespace EarTrumpet
                 _viewModel.Close();
             };
 
-            SourceInitialized += (_, __) => this.SetWindowBlur(true, true);
+            SourceInitialized += (_, __) =>
+            {
+                this.Cloak();
+                this.SetWindowBlur(true, true);
+            };
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)

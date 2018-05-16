@@ -16,8 +16,7 @@ namespace EarTrumpet.UserControls
             InitializeComponent();
 
             AllowsTransparency = true;
-            
-            
+
             Opened += (_, __) => this.SetWindowBlur(true, true);
         }
 

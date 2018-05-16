@@ -176,6 +176,8 @@ namespace EarTrumpet.ViewModels
             {
                 var window = new SettingsWindow(_deviceService);
                 window.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
+
             }
             else
             {
@@ -188,7 +190,10 @@ namespace EarTrumpet.ViewModels
             if (FullWindow.Instance == null)
             {
                 var window = new FullWindow(MainViewModel.Instance);
+
                 window.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
+
             }
             else
             {

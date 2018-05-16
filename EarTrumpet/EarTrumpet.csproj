@@ -87,7 +87,7 @@
     <Compile Include="DataModel\Com\STGM.cs" />
     <Compile Include="DataModel\IAudioDeviceManagerInternal.cs" />
     <Compile Include="Extensions\PopupExtensions.cs" />
-    <Compile Include="Misc\WindowEntranceExitAnimationLibrary.cs" />
+    <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
