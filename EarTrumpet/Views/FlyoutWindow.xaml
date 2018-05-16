@@ -19,6 +19,117 @@
         WindowStyle="None">
     <Window.Resources>
 
+        <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+        </Style>
+
+        <Style x:Key="PerThemeGlyphTextBlockStyle"
+               BasedOn="{StaticResource GlyphTextBlockStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="PerThemeTextBlockStyle"
+               BasedOn="{StaticResource TextBlockStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="DeviceVolumeTextStyle"
+               BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="AppVolumeTextStyle"
+               BasedOn="{StaticResource BaseAppVolumeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="DeviceTitleTextStyle"
+               BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="BadgeTextStyle"
+               BasedOn="{StaticResource BaseBadgeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+        </Style>
+
+        <Style x:Key="BadgeEllipseStyle"
+               BasedOn="{StaticResource BaseBadgeEllipseStyle}"
+               TargetType="{x:Type Ellipse}">
+            <Setter Property="Fill" Value="{DynamicResource BadgeBackground}" />
+        </Style>
+
+        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
+            <Grid>
+                <Border Name="TrackBackground" Height="2" />
+
+                <Track Name="PART_Track">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Name="SliderLeft"
+                                      Command="Slider.DecreaseLarge"
+                                      Foreground="{DynamicResource CottonSwabSliderTrackFill}"
+                                      Style="{StaticResource SliderButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Name="SliderThumb"
+                               Foreground="{DynamicResource CottonSwabSliderThumb}"
+                               Style="{StaticResource SliderThumbStyle}" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Name="SliderRight"
+                                      Command="Slider.IncreaseLarge"
+                                      Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
+                                      Style="{StaticResource SliderButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+
+                <Border Name="PeakMeter"
+                        Width="78"
+                        Height="2"
+                        HorizontalAlignment="Left"
+                        Background="{DynamicResource PeakMeterHotColor}" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualStateGroup.Transitions>
+                            <VisualTransition GeneratedDuration="0" To="Normal" />
+                        </VisualStateGroup.Transitions>
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="VolumeSliderStyle"
+               BasedOn="{StaticResource BaseVolumeSliderStyle}"
+               TargetType="{x:Type Slider}">
+            <Setter Property="Template" Value="{StaticResource VolumeSliderTemplate}" />
+        </Style>
+
         <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -51,7 +162,6 @@
             <Setter Property="Margin" Value="0" />
         </Style>
 
-        <uc:VolumeControlPopup x:Key="AppPopup" />
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual">
@@ -188,5 +298,7 @@
                 </Border.Style>
             </Border>
         </Border>
+
+        <uc:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
     </Grid>
 </Window>

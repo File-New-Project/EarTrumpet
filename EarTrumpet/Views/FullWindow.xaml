@@ -31,7 +31,119 @@
         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
-        <local:VolumeControlPopup x:Key="AppPopup" />
+
+        <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="Gray" />
+        </Style>
+
+        <Style x:Key="PerThemeGlyphTextBlockStyle"
+               BasedOn="{StaticResource GlyphTextBlockStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Yellow" />
+        </Style>
+
+        <Style x:Key="PerThemeTextBlockStyle"
+               BasedOn="{StaticResource TextBlockStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Yellow" />
+        </Style>
+
+        <Style x:Key="DeviceVolumeTextStyle"
+               BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+
+        <Style x:Key="AppVolumeTextStyle"
+               BasedOn="{StaticResource BaseAppVolumeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Orange" />
+        </Style>
+
+        <Style x:Key="DeviceTitleTextStyle"
+               BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Orange" />
+        </Style>
+
+        <Style x:Key="BadgeTextStyle"
+               BasedOn="{StaticResource BaseBadgeTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Blue" />
+        </Style>
+
+        <Style x:Key="BadgeEllipseStyle"
+               BasedOn="{StaticResource BaseBadgeEllipseStyle}"
+               TargetType="{x:Type Ellipse}">
+            <Setter Property="Fill" Value="Red" />
+        </Style>
+
+        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
+            <Grid>
+                <Border Name="TrackBackground" Height="2" />
+
+                <Track Name="PART_Track">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Name="SliderLeft"
+                                      Command="Slider.DecreaseLarge"
+                                      Foreground="Blue"
+                                      Style="{StaticResource SliderButtonStyle}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Name="SliderThumb"
+                               Foreground="Purple"
+                               Style="{StaticResource SliderThumbStyle}" />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Name="SliderRight"
+                                      Command="Slider.IncreaseLarge"
+                                      Foreground="Yellow"
+                                      Style="{StaticResource SliderButtonStyle}" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+
+                <Border Name="PeakMeter"
+                        Width="78"
+                        Height="2"
+                        HorizontalAlignment="Left"
+                        Background="Lime" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualStateGroup.Transitions>
+                            <VisualTransition GeneratedDuration="0" To="Normal" />
+                        </VisualStateGroup.Transitions>
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource HeaderBackground}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource HeaderBackground}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="VolumeSliderStyle"
+               BasedOn="{StaticResource BaseVolumeSliderStyle}"
+               TargetType="{x:Type Slider}">
+            <Setter Property="Template" Value="{StaticResource VolumeSliderTemplate}" />
+        </Style>
+
+
     </Window.Resources>
 
     <DockPanel x:Name="ContentRoot">
@@ -164,6 +276,8 @@
                     </Border.Style>
                 </Border>
             </Border>
+
+            <local:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
         </Grid>
     </DockPanel>
 

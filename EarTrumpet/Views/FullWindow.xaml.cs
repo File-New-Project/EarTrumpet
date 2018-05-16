@@ -23,7 +23,7 @@ namespace EarTrumpet
             InitializeComponent();
 
             Title = Properties.Resources.FullWindowTitleText;
-            _popup = (VolumeControlPopup)Resources["AppPopup"];
+            _popup = AppPopup;
             _popup.Closed += (_, __) => _viewModel.OnAppCollapsed();
 
             LocationChanged += (_, __) => _viewModel.OnAppCollapsed();

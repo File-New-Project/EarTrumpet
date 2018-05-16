@@ -160,66 +160,7 @@
                 </Setter>
             </Style>
 
-            <ControlTemplate x:Key="HorizontalSlider" TargetType="{x:Type Slider}">
-                <Grid>
-                    <Border Name="TrackBackground" Height="2" />
-
-                    <Track Name="PART_Track">
-                        <Track.DecreaseRepeatButton>
-                            <RepeatButton Name="SliderLeft"
-                                          Command="Slider.DecreaseLarge"
-                                          Foreground="{DynamicResource CottonSwabSliderTrackFill}"
-                                          Style="{StaticResource SliderButtonStyle}" />
-                        </Track.DecreaseRepeatButton>
-                        <Track.Thumb>
-                            <Thumb Name="SliderThumb"
-                                   Foreground="{DynamicResource CottonSwabSliderThumb}"
-                                   Style="{StaticResource SliderThumbStyle}" />
-                        </Track.Thumb>
-                        <Track.IncreaseRepeatButton>
-                            <RepeatButton Name="SliderRight"
-                                          Command="Slider.IncreaseLarge"
-                                          Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
-                                          Style="{StaticResource SliderButtonStyle}" />
-                        </Track.IncreaseRepeatButton>
-                    </Track>
-
-                    <Border Name="PeakMeter"
-                            Width="78"
-                            Height="2"
-                            HorizontalAlignment="Left"
-                            Background="{DynamicResource PeakMeterHotColor}" />
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualStateGroup.Transitions>
-                                <VisualTransition GeneratedDuration="0" To="Normal" />
-                            </VisualStateGroup.Transitions>
-                            <VisualState x:Name="Normal" />
-                            <VisualState x:Name="MouseOver">
-                                <Storyboard>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbHover}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </VisualState>
-                            <VisualState x:Name="Pressed">
-                                <Storyboard>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbPressed}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Opacity" Value="0.5" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-
-            <Style x:Key="TouchSliderStyle" TargetType="{x:Type Slider}">
+            <Style x:Key="BaseVolumeSliderStyle" TargetType="{x:Type Slider}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="Minimum" Value="0" />
                 <Setter Property="Maximum" Value="100" />
@@ -228,17 +169,11 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Interval" Value="1" />
+                <Setter Property="Height" Value="32" />
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="SmallChange" Value="1" />
                 <Setter Property="LargeChange" Value="10" />
                 <Setter Property="IsManipulationEnabled" Value="true" />
-
-                <Style.Triggers>
-                    <Trigger Property="Orientation" Value="Horizontal">
-                        <Setter Property="Height" Value="32" />
-                        <Setter Property="Template" Value="{StaticResource HorizontalSlider}" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
 
             <Style x:Key="{x:Type ListView}" TargetType="ListView">
@@ -274,10 +209,49 @@
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
             </Style>
 
+            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
             <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
             </Style>
+
+            <Style x:Key="BaseDeviceVolumeTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
+
+            </Style>
+
+            <Style x:Key="BaseAppVolumeTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
+            </Style>
+
+            <Style x:Key="BaseDeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+            </Style>
+
+            <Style x:Key="BaseBadgeTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="2,-3,0,0" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="BaseBadgeEllipseStyle" TargetType="{x:Type Ellipse}">
+                <Setter Property="Height" Value="12" />
+                <Setter Property="Width" Value="12" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

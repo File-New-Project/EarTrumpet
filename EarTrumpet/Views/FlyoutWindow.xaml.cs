@@ -33,7 +33,7 @@ namespace EarTrumpet
 
             DataContext = _viewModel;
 
-            _popup = (VolumeControlPopup)Resources["AppPopup"];
+            _popup = AppPopup;
             _popup.Closed += (_, __) => _viewModel.OnAppCollapsed();
 
             Deactivated += (_, __) => _viewModel.BeginClose();

@@ -51,7 +51,10 @@ namespace EarTrumpet.UserControls
 
         private void SizeOrVolumeOrPeakValueChanged()
         {
-            PeakMeter.Width = this.ActualWidth * PeakValue * (Volume / 100f);
+            if (PeakMeter != null)
+            {
+                PeakMeter.Width = this.ActualWidth * PeakValue * (Volume / 100f);
+            }
         }
 
         private static void VolumeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

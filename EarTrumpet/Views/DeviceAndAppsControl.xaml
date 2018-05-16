@@ -9,14 +9,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Background="{DynamicResource HeaderBackground}">
+        <Grid Style="{DynamicResource DeviceHeaderGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                <TextBlock FontSize="{StaticResource LargeWindowTextFontSize}" Text="{Binding Device.Device.DisplayName}" />
+                <TextBlock Style="{DynamicResource DeviceTitleTextStyle}" Text="{Binding Device.Device.DisplayName}" />
             </Border>
 
             <ItemsControl Grid.Row="1" IsTabStop="False">
@@ -40,11 +40,10 @@
                             <Grid>
                                 <TextBlock FontSize="24"
                                            Opacity="0.4"
-                                           Style="{StaticResource GlyphTextBlockStyle}"
+                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
                                            Text="{Binding Device.DeviceIconTextBackground}" />
-
                                 <TextBlock FontSize="24"
-                                           Style="{StaticResource GlyphTextBlockStyle}"
+                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
                                            Text="{Binding Device.DeviceIconText}" />
                             </Grid>
                         </Border>
@@ -54,14 +53,12 @@
                                             PeakValue="{Binding Device.Device.PeakValue}"
                                             PreviewMouseUp="TouchSlider_MouseUp"
                                             PreviewTouchUp="TouchSlider_TouchUp"
-                                            Style="{StaticResource TouchSliderStyle}"
+                                            Style="{DynamicResource VolumeSliderStyle}"
                                             Volume="{Binding Device.Device.Volume}"
                                             Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
-                                   Margin="{StaticResource VolumeTextMargin}"
-                                   HorizontalAlignment="Center"
-                                   FontSize="{StaticResource DeviceVolumeTextFontSize}"
                                    Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                   Style="{DynamicResource DeviceVolumeTextStyle}"
                                    Text="{Binding Device.Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </ListViewItem>

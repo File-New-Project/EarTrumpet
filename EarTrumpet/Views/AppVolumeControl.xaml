@@ -100,15 +100,10 @@
                           VerticalAlignment="Bottom"
                           Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
                         <Canvas>
-                            <Ellipse Width="12"
-                                     Height="12"
-                                     Fill="{DynamicResource BadgeBackground}" />
+                            <Ellipse Style="{DynamicResource BadgeEllipseStyle}" />
                         </Canvas>
 
-                        <TextBlock Margin="2,-3,0,0"
-                                   FontSize="10"
-                                   FontWeight="Bold"
-                                   Text="..." />
+                        <TextBlock Style="{DynamicResource BadgeTextStyle}" Text="..." />
                     </Grid>
                 </Grid>
             </Border>
@@ -143,7 +138,7 @@
                 <Button.Content>
                     <TextBlock FontSize="24"
                                Opacity="0.75"
-                               Style="{StaticResource GlyphTextBlockStyle}"
+                               Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
                                Text="&#xE74F;" />
                 </Button.Content>
             </Button>
@@ -190,6 +185,7 @@
                     <TextBlock Margin="0,-14,0,0"
                                FontSize="24"
                                IsHitTestVisible="False"
+                               Style="{DynamicResource PerThemeTextBlockStyle}"
                                Text="..." />
                 </Button.Content>
             </Button>
@@ -198,16 +194,13 @@
         <local:VolumeSlider Grid.Column="1"
                             Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}"
                             PeakValue="{Binding App.PeakValue}"
-                            Style="{StaticResource TouchSliderStyle}"
+                            Style="{DynamicResource VolumeSliderStyle}"
                             Volume="{Binding App.Volume}"
                             Value="{Binding App.Volume, Mode=TwoWay}" />
 
         <TextBlock Grid.Column="2"
-                   Margin="{StaticResource VolumeTextMargin}"
-                   HorizontalAlignment="Center"
-                   FontSize="{StaticResource AppVolumeTextFontSize}"
-                   Foreground="{DynamicResource WindowForeground}"
                    Opacity="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}"
+                   Style="{DynamicResource AppVolumeTextStyle}"
                    Text="{Binding App.Volume, Mode=OneWay}" />
     </Grid>
 </UserControl>
