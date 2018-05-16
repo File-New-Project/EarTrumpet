@@ -82,13 +82,13 @@
                     <TextBlock HorizontalAlignment="Center"
                                FontSize="16"
                                FontWeight="Bold"
-                               Text="{Binding App.IconText}"
-                               Visibility="Collapsed">
+                               Text="{Binding App.IconText}">
                         <TextBlock.Style>
-                            <Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding App.Icon}" Value="{x:Null}">
-                                        <Setter Property="TextBlock.Visibility" Value="Visible" />
+                                        <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
