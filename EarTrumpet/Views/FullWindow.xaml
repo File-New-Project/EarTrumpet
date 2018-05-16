@@ -46,7 +46,18 @@
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackgroundSolid}" />
+            <Setter Property="Background" Value="{DynamicResource FullWindowDeviceBackground}" />
+        </Style>
+
+        <Style x:Key="VirtualTitleBarButtonStyle"
+               BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
+               TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource ButtonBorderHover}" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="PerThemeGlyphTextBlockStyle"
@@ -54,6 +65,14 @@
                TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
+
+        <Style x:Key="VirtualTitleBarTextStyle"
+               BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+        </Style>
+
+
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"

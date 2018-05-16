@@ -261,6 +261,34 @@
             <Style x:Key="BaseVolumeControlPopupBorder" TargetType="{x:Type Border}">
                 <Setter Property="BorderThickness" Value="{StaticResource PopupBorderThickness}" />
             </Style>
+
+            <Style x:Key="BaseVirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
+                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="BaseVirtualTitleBarButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Background="{TemplateBinding Background}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Tag}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
