@@ -59,6 +59,18 @@ namespace EarTrumpet.Services
             newDictionary["HyperlinkTextForeground"] = Lookup("ImmersiveSystemAccent");
             newDictionary["HyperlinkTextForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseMedium" : "ImmersiveDarkBaseMedium");
 
+            newDictionary["PeakMeterBackground"] = Lookup("ImmersiveSystemAccentDark3");
+            newDictionary["FullWindowDeviceBackground"] = Lookup(isLightTheme ? "ImmersiveLightListLow" : "ImmersiveDarkChromeMediumLow");
+
+            var AddThemeSpecificBrush = new Action<string>((s) =>
+            {
+                newDictionary[$"Control{s}"] = Lookup(isLightTheme ? $"ImmersiveControlLight{s}" : $"ImmersiveControlDark{s}");
+            });
+
+            AddThemeSpecificBrush("SliderTrackFillRest");
+            AddThemeSpecificBrush("SliderTrackBackgroundRest");
+            AddThemeSpecificBrush("SliderThumbHover");
+
             Application.Current.Resources.MergedDictionaries.Remove(themeDictionary);
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
         }

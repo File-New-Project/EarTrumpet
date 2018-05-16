@@ -33,49 +33,59 @@
     <Window.Resources>
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="Gray" />
+            <Setter Property="Background" Value="{DynamicResource FullWindowDeviceBackground}" />
+        </Style>
+
+        <Style x:Key="VolumeControlPopupGrid" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+        </Style>
+
+        <Style x:Key="VirtualTitleBarBorderStyle"
+               BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
+               TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource HeaderBackgroundSolid}" />
         </Style>
 
         <Style x:Key="PerThemeGlyphTextBlockStyle"
                BasedOn="{StaticResource GlyphTextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Yellow" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Yellow" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
 
         <Style x:Key="DeviceVolumeTextStyle"
                BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
 
         <Style x:Key="AppVolumeTextStyle"
                BasedOn="{StaticResource BaseAppVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Orange" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
 
         <Style x:Key="DeviceTitleTextStyle"
                BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Orange" />
+            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
         </Style>
 
         <Style x:Key="BadgeTextStyle"
                BasedOn="{StaticResource BaseBadgeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
         </Style>
 
         <Style x:Key="BadgeEllipseStyle"
                BasedOn="{StaticResource BaseBadgeEllipseStyle}"
                TargetType="{x:Type Ellipse}">
-            <Setter Property="Fill" Value="Red" />
+            <Setter Property="Fill" Value="{DynamicResource BadgeBackground}" />
         </Style>
 
         <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
@@ -86,18 +96,18 @@
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
                                       Command="Slider.DecreaseLarge"
-                                      Foreground="Blue"
+                                      Foreground="{DynamicResource ControlSliderTrackFillRest}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
                         <Thumb Name="SliderThumb"
-                               Foreground="Purple"
+                               Foreground="{DynamicResource ControlSliderTrackFillRest}"
                                Style="{StaticResource SliderThumbStyle}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="Yellow"
+                                      Foreground="{DynamicResource ControlSliderTrackBackgroundRest}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
@@ -106,7 +116,7 @@
                         Width="78"
                         Height="2"
                         HorizontalAlignment="Left"
-                        Background="Lime" />
+                        Background="{DynamicResource PeakMeterBackground}" />
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualStateGroup.Transitions>
@@ -116,14 +126,14 @@
                         <VisualState x:Name="MouseOver">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource HeaderBackground}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ControlSliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource HeaderBackground}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ControlSliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
@@ -140,7 +150,7 @@
         <Style x:Key="VolumeSliderStyle"
                BasedOn="{StaticResource BaseVolumeSliderStyle}"
                TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{StaticResource VolumeSliderTemplate}" />
+            <Setter Property="Template" Value="{DynamicResource VolumeSliderTemplate}" />
         </Style>
 
 

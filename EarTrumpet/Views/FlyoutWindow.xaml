@@ -23,6 +23,16 @@
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
         </Style>
 
+        <Style x:Key="VolumeControlPopupGrid" TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
+        </Style>
+
+        <Style x:Key="VirtualTitleBarBorderStyle"
+               BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
+               TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+        </Style>
+
         <Style x:Key="PerThemeGlyphTextBlockStyle"
                BasedOn="{StaticResource GlyphTextBlockStyle}"
                TargetType="{x:Type TextBlock}">

@@ -10,11 +10,12 @@
             <ListView Name="Colors">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="local:ColorData">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}" />
+                        <StackPanel Height="14" Orientation="Horizontal">
                             <Border Width="40"
-                                    Height="20"
+                                    Height="14"
                                     Background="{Binding Color}" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

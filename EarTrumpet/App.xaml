@@ -252,6 +252,10 @@
                 <Setter Property="Width" Value="12" />
             </Style>
 
+            <Style x:Key="BaseVirtualTitleBarBorderStyle" TargetType="{x:Type Border}">
+                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

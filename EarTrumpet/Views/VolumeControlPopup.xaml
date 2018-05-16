@@ -38,7 +38,7 @@
             </Style.Triggers>
         </Style>
     </Popup.Resources>
-    <Grid Background="{DynamicResource PopupBackground}">
+    <Grid Style="{DynamicResource VolumeControlPopupGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -49,9 +49,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="3"
-                Height="{StaticResource DeviceTitleCellHeight}"
-                Background="{DynamicResource HeaderBackground}" />
+        <Border Grid.ColumnSpan="3" Style="{DynamicResource VirtualTitleBarBorderStyle}" />
         <TextBlock Margin="{StaticResource WindowMargin}"
                    FontSize="{StaticResource LargeWindowTextFontSize}"
                    Foreground="{DynamicResource WindowForeground}"
