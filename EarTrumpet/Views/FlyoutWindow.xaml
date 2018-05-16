@@ -279,7 +279,7 @@
                                         <Storyboard>
                                             <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
                                                              From="2"
-                                                             To="20"
+                                                             To="{StaticResource WindowBlurRadius}"
                                                              Duration="00:00:00.15" />
                                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                              From="0"
@@ -292,7 +292,7 @@
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
-                                                             From="20"
+                                                             From="{StaticResource WindowBlurRadius}"
                                                              To="0"
                                                              Duration="00:00:00.15" />
                                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
