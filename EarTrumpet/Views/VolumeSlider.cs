@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EarTrumpet.UserControls
+namespace EarTrumpet.Views
 {
     public class VolumeSlider : Slider
     {

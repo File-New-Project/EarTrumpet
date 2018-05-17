@@ -4,7 +4,7 @@ using EarTrumpet.Services;
 using System.Windows;
 using System.Windows.Input;
 
-namespace EarTrumpet
+namespace EarTrumpet.Views
 {
     public partial class HotkeySelectionWindow : Window
     {

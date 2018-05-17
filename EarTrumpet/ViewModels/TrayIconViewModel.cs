@@ -2,6 +2,7 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
+using EarTrumpet.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

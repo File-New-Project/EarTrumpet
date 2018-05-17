@@ -1,8 +1,7 @@
-﻿<Popup x:Class="EarTrumpet.UserControls.VolumeControlPopup"
+﻿<Popup x:Class="EarTrumpet.Views.VolumeControlPopup"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:uc="clr-namespace:EarTrumpet.UserControls">
-
+       xmlns:views="clr-namespace:EarTrumpet.Views">
     <Border Style="{DynamicResource VolumeControlPopupBorder}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -43,7 +42,7 @@
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <uc:AppVolumeControl App="{Binding}" />
+                        <views:AppVolumeControl App="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

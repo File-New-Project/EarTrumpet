@@ -1,8 +1,8 @@
-﻿<Window x:Class="EarTrumpet.FullWindow"
+﻿<Window x:Class="EarTrumpet.Views.FullWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet.UserControls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:views="clr-namespace:EarTrumpet.Views"
         Name="WindowRoot"
         MinWidth="300"
         MinHeight="300"
@@ -165,7 +165,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <ItemContainerTemplate>
-                            <local:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
+                            <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
                                                         AppExpanded="DeviceAndAppsControl_AppExpanded"
                                                         Device="{Binding}" />
                         </ItemContainerTemplate>
@@ -272,7 +272,7 @@
                 </Border>
             </Border>
 
-            <local:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+            <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
         </Grid>
     </DockPanel>
 

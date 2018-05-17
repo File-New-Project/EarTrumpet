@@ -6,7 +6,7 @@ using EarTrumpet.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EarTrumpet
+namespace EarTrumpet.Views
 {
     public partial class SettingsWindow : Window
     {

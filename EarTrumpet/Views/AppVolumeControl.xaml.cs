@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EarTrumpet.UserControls
+namespace EarTrumpet.Views
 {
     public partial class AppVolumeControl : UserControl
     {

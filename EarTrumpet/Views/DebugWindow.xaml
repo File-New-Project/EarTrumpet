@@ -1,7 +1,7 @@
-﻿<Window x:Class="EarTrumpet.DebugWindow"
+﻿<Window x:Class="EarTrumpet.Views.DebugWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet"
+        xmlns:views="clr-namespace:EarTrumpet.Views"
         Title="DebugWindow"
         Width="800"
         Height="450">
@@ -9,7 +9,7 @@
         <ScrollViewer>
             <ListView Name="Colors">
                 <ListView.ItemTemplate>
-                    <DataTemplate DataType="local:ColorData">
+                    <DataTemplate DataType="views:ColorData">
                         <StackPanel Height="14" Orientation="Horizontal">
                             <Border Width="40"
                                     Height="14"

@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 
-namespace EarTrumpet.UserControls
+namespace EarTrumpet.Views
 {
     public partial class VolumeControlPopup : Popup
     {

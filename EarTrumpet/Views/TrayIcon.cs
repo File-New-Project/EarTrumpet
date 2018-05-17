@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
-namespace EarTrumpet
+namespace EarTrumpet.Views
 {
     class TrayIcon
     {

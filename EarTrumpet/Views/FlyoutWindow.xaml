@@ -1,9 +1,8 @@
-﻿<Window x:Class="EarTrumpet.FlyoutWindow"
+﻿<Window x:Class="EarTrumpet.Views.FlyoutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:EarTrumpet"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
-        xmlns:uc="clr-namespace:EarTrumpet.UserControls"
+        xmlns:views="clr-namespace:EarTrumpet.Views"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         AllowsTransparency="True"
@@ -202,7 +201,7 @@
                     <ItemsControl IsTabStop="False" ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <uc:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
+                                <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -321,6 +320,6 @@
             </Border>
         </Border>
 
-        <uc:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+        <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
     </Grid>
 </Window>

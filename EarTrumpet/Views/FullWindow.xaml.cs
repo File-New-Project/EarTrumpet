@@ -1,10 +1,9 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 
-namespace EarTrumpet
+namespace EarTrumpet.Views
 {
     public partial class FullWindow : Window
     {
@@ -65,7 +64,7 @@ namespace EarTrumpet
             this.Close();
         }
 
-        private void DeviceAndAppsControl_AppExpanded(object sender, UserControls.AppVolumeControlExpandedEventArgs e)
+        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
         {
             _viewModel.OnAppExpanded(e.ViewModel, e.Container);
         }

@@ -2,14 +2,13 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
-using EarTrumpet.UserControls;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace EarTrumpet
+namespace EarTrumpet.Views
 {
     public partial class FlyoutWindow
     {

@@ -2,7 +2,9 @@
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
+using EarTrumpet.Views;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EarTrumpet
 {
@@ -38,6 +40,11 @@ namespace EarTrumpet
 
             var Hotkey = SettingsService.Hotkey;
             HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
+
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                new DebugWindow().Show();
+            }
         }
     }
 }
