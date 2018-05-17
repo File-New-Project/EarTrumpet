@@ -9,8 +9,8 @@ namespace EarTrumpet.DataModel.Internal
     // Session multiplexing container (for grouping)
     public class AudioDeviceSessionGroup : IAudioDeviceSession
     {
-        ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
-        string _id;
+        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        private string _id;
 
         public AudioDeviceSessionGroup(IAudioDeviceSession session)
         {

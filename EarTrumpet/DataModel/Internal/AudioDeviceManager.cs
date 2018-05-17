@@ -15,12 +15,12 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
         public event EventHandler<IAudioDeviceSession> SessionCreated;
 
-        IMMDeviceEnumerator _enumerator;
-        IAudioDevice _defaultPlaybackDevice;
-        IAudioDevice _defaultCommunicationsDevice;
-        ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
-        IVirtualDefaultAudioDevice _virtualDefaultDevice;
-        Dispatcher _dispatcher;
+        private IMMDeviceEnumerator _enumerator;
+        private IAudioDevice _defaultPlaybackDevice;
+        private IAudioDevice _defaultCommunicationsDevice;
+        private ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
+        private IVirtualDefaultAudioDevice _virtualDefaultDevice;
+        private Dispatcher _dispatcher;
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
@@ -29,7 +29,7 @@ namespace EarTrumpet.DataModel.Internal
             _enumerator.RegisterEndpointNotificationCallback(this);
 
             IMMDeviceCollection devices;
-            _enumerator.EnumAudioEndpoints(EDataFlow.eRender, (uint)ERole.eMultimedia, out devices);
+            _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE, out devices);
 
             uint deviceCount;
             devices.GetCount(out deviceCount);
@@ -48,7 +48,7 @@ namespace EarTrumpet.DataModel.Internal
             _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
         }
 
-        void QueryDefaultPlaybackDevice()
+        private void QueryDefaultPlaybackDevice()
         {
             IMMDevice device = null;
             try
@@ -78,7 +78,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        void QueryDefaultCommunicationsDevice()
+        private void QueryDefaultCommunicationsDevice()
         {
             IMMDevice device = null;
             try
@@ -139,12 +139,12 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDevice> Devices => _devices;
 
-        bool HasDevice(string deviceId)
+        private bool HasDevice(string deviceId)
         {
             return _devices.Any(d => d.Id == deviceId);
         }
 
-        IAudioDevice FindDevice(string deviceId)
+        private IAudioDevice FindDevice(string deviceId)
         {
             return _devices.First(d => d.Id == deviceId);
         }

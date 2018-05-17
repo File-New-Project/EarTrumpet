@@ -9,8 +9,8 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        IAudioDevice _device;
-        IAudioDeviceManager _manager;
+        private IAudioDevice _device;
+        private IAudioDeviceManager _manager;
 
         public VirtualDefaultAudioDevice(IAudioDeviceManager manager)
         {

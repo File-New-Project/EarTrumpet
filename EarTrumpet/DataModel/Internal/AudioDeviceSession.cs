@@ -153,7 +153,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => null;
 
-        void ReadVolumeAndMute()
+        private void ReadVolumeAndMute()
         {
             try
             {

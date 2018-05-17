@@ -6,7 +6,7 @@ namespace EarTrumpet.DataModel.Internal
     // Avoid device invalidation COMExceptions from bubbling up out of devices that have been removed.
     public class SafeAudioDevice : IAudioDevice
     {
-        IAudioDevice _device;
+        private readonly IAudioDevice _device;
 
         public SafeAudioDevice(IAudioDevice device)
         {

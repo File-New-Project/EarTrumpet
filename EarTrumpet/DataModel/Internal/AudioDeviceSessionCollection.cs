@@ -11,9 +11,9 @@ namespace EarTrumpet.DataModel.Internal
 {
     public class AudioDeviceSessionCollection : IAudioSessionNotification
     {
-        Dispatcher _dispatcher;
-        ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
-        IAudioDevice _device;
+        private Dispatcher _dispatcher;
+        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        private IAudioDevice _device;
 
         public AudioDeviceSessionCollection(IMMDevice device, IAudioDevice audioDevice, Dispatcher dispatcher)
         {
@@ -60,7 +60,7 @@ namespace EarTrumpet.DataModel.Internal
             });
         }
 
-        void AddSession(IAudioDeviceSession session)
+        private void AddSession(IAudioDeviceSession session)
         {
             foreach(AudioDeviceSessionGroup container in _sessions)
             {
@@ -82,7 +82,7 @@ namespace EarTrumpet.DataModel.Internal
             _sessions.Add(newSession);
         }
 
-        void RemoveSession(IAudioDeviceSession session)
+        private void RemoveSession(IAudioDeviceSession session)
         {
             foreach (AudioDeviceSessionGroup container in _sessions)
             {

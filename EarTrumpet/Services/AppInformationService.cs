@@ -170,17 +170,23 @@ namespace EarTrumpet.Services
             }
             else
             {
-                try
+                appInfo.IsDesktopApp = true;
+
+                const uint PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
+                var handle = Kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
+                if (handle != IntPtr.Zero)
                 {
-                    var processFullPath = Process.GetProcessById(processId).GetMainModuleFileName();
-                    appInfo.DisplayName = Path.GetFileName(processFullPath);
-                    appInfo.SmallLogoPath = processFullPath;
-                    appInfo.PackageInstallPath = processFullPath;
-                    appInfo.IsDesktopApp = true;
-                }
-                catch (System.ArgumentException)
-                {
-                    /* Process disappeared */
+                    var fileNameBuilder = new StringBuilder(255);
+                    uint bufferLength = (uint)fileNameBuilder.Capacity + 1;
+                    Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength);
+
+                    if (fileNameBuilder.Length > 0)
+                    {
+                        var processFullPath = fileNameBuilder.ToString();
+                        appInfo.DisplayName = Path.GetFileName(processFullPath);
+                        appInfo.SmallLogoPath = processFullPath;
+                        appInfo.PackageInstallPath = processFullPath;
+                    }
                 }
             }
 

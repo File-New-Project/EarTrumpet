@@ -90,5 +90,8 @@ namespace EarTrumpet.Interop
         [DllImport("kernel32.dll", PreserveSig = true)]
         internal static extern int ClosePackageInfo(
             IntPtr packageInfoReference);
+
+        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        internal static extern int QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
     }
 }

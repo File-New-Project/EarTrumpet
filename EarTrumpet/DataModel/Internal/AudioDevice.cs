@@ -14,16 +14,16 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        IMMDevice _device;
-        Dispatcher _dispatcher;
-        IAudioEndpointVolume _deviceVolume;
-        AudioDeviceSessionCollection _sessions;
-        IAudioMeterInformation _meter;
-        IAudioDeviceManagerInternal _manager;
-        string _id;
-        string _displayName;
-        float _volume;
-        bool _isMuted;
+        private IMMDevice _device;
+        private Dispatcher _dispatcher;
+        private IAudioEndpointVolume _deviceVolume;
+        private AudioDeviceSessionCollection _sessions;
+        private IAudioMeterInformation _meter;
+        private IAudioDeviceManagerInternal _manager;
+        private string _id;
+        private string _displayName;
+        private float _volume;
+        private bool _isMuted;
 
         public AudioDevice(IMMDevice device, IAudioDeviceManagerInternal manager, Dispatcher dispatcher)
         {
