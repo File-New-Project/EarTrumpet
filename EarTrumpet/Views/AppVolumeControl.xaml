@@ -82,6 +82,7 @@
             <Button Name="MuteButton"
                     Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
+                    ToolTip="{Binding App.DisplayName}"
                     Click="MuteButton_Click">
                 <Button.Style>
                     <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
@@ -94,7 +95,7 @@
                 </Button.Style>
                 <Button.Content>
                     <TextBlock FontSize="24"
-                               Opacity="0.75"
+                               Opacity="0.8"
                                Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
                                Text="&#xE74F;" />
                 </Button.Content>
