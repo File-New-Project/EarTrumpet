@@ -4,36 +4,15 @@ namespace EarTrumpet.Services
 {
     public static class UserSystemPreferencesService
     {
-        public static bool IsTransparencyEnabled
-        { 
-            get 
-            {
-                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                {
-                    return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue("EnableTransparency", 0) > 0;
-                }
-            }
-        }
+        public static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
+        public static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
+        public static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme");
 
-        public static bool UseAccentColor
+        private static bool ReadPersonalizationSetting(string key)
         {
-            get
+            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             {
-                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                {
-                    return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue("ColorPrevalence", 0) > 0;
-                }
-            }
-        }
-
-        public static bool IsLightTheme
-        {
-            get
-            {
-                using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                {
-                    return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue("AppsUseLightTheme", 0) > 0;
-                }
+                return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue(key, 0) > 0;
             }
         }
     }

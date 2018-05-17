@@ -42,9 +42,10 @@ namespace EarTrumpet.UserControls
 
         private void SizeOrVolumeOrPeakValueChanged()
         {
-            if (PeakMeter != null)
+            var meter = PeakMeter;
+            if (meter != null)
             {
-                PeakMeter.Width = this.ActualWidth * PeakValue * (Value / 100f);
+                meter.Width = ActualWidth * PeakValue * (Value / 100f);
             }
         }
 
@@ -75,24 +76,22 @@ namespace EarTrumpet.UserControls
         {
             VisualStateManager.GoToState((FrameworkElement)sender, "Normal", true);
 
-            var slider = (Slider)sender;
-            slider.ReleaseTouchCapture(e.TouchDevice);
+            ReleaseTouchCapture(e.TouchDevice);
             e.Handled = true;
         }
 
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
-            var slider = (Slider)sender;
-            if (slider.IsMouseCaptured)
+            if (IsMouseCaptured)
             {
                 // If the point is outside of the control, clear the hover state.
-                Rect rcSlider = new Rect(0, 0, slider.ActualWidth, slider.ActualHeight);
-                if (!rcSlider.Contains(e.GetPosition(slider)))
+                Rect rcSlider = new Rect(0, 0, ActualWidth, ActualHeight);
+                if (!rcSlider.Contains(e.GetPosition(this)))
                 {
                     VisualStateManager.GoToState((FrameworkElement)sender, "Normal", true);
                 }
 
-                ((Slider)sender).ReleaseMouseCapture();
+                ReleaseMouseCapture();
                 e.Handled = true;
             }
         }
