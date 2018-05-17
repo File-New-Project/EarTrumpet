@@ -26,11 +26,12 @@ namespace EarTrumpet.Services
         {
             try
             {
+                var iid = typeof(IShellItem2).GUID;
                 Shell32.SHCreateItemInKnownFolder(
                 ref FolderIds.AppsFolder,
                 Shell32.KF_FLAG_DONT_VERIFY,
                 aumid,
-                ref IIDs.IID_IShellItem2,
+                ref iid,
                 out IShellItem2 shellitem);
                 return true;
             }
@@ -138,11 +139,12 @@ namespace EarTrumpet.Services
             {
                 appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
 
+                var iid = typeof(IShellItem2).GUID;
                 Shell32.SHCreateItemInKnownFolder(
                     ref FolderIds.AppsFolder,
                     Shell32.KF_FLAG_DONT_VERIFY,
                     appInfo.AppUserModelId,
-                    ref IIDs.IID_IShellItem2,
+                    ref iid,
                     out IShellItem2 shellitem);
 
                 appInfo.DisplayName = shellitem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
@@ -157,9 +159,10 @@ namespace EarTrumpet.Services
                 }
                 else
                 {
+                    iid = typeof(IResourceMap).GUID;
                     var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
                     mrtResourceManager.InitializeForPackage(appInfo.PackageFullName);
-                    mrtResourceManager.GetMainResourceMap(ref IIDs.IID_ResourceMap, out IResourceMap map);
+                    mrtResourceManager.GetMainResourceMap(ref iid, out IResourceMap map);
 
                     map.GetFilePath(rawSmallLogoPath, out string mrtSmallLogoPath);
                     appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, mrtSmallLogoPath);

@@ -14,7 +14,7 @@ namespace EarTrumpet.Interop
             public IntPtr hWnd;
             public uint uCallbackMessage;
             public uint uEdge;
-            public Win32.RECT rc;
+            public RECT rc;
             public int lParam;
         }
 

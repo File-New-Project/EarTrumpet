@@ -21,7 +21,7 @@ namespace EarTrumpet.Services
             appbar.hWnd = hwnd;
             appbar.lParam = 1;
 
-            User32.GetWindowRect(hwnd, out Win32.RECT scaledTaskbarRect);
+            User32.GetWindowRect(hwnd, out RECT scaledTaskbarRect);
 
             var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage(Shell32.ABMsg.ABM_GETTASKBARPOS, ref appbar);
             var scalingAmount = (double)(scaledTaskbarRect.Bottom - scaledTaskbarRect.Top) / (appbar.rc.Bottom - appbar.rc.Top);
@@ -62,7 +62,7 @@ namespace EarTrumpet.Services
     public struct TaskbarState
     {
         public TaskbarPosition TaskbarPosition;
-        public Win32.RECT TaskbarSize;
+        public RECT TaskbarSize;
         public Screen TaskbarScreen;
     }
 

@@ -76,7 +76,6 @@
     <Compile Include="Interop\FolderIds.cs" />
     <Compile Include="Interop\Gdi32.cs" />
     <Compile Include="Interop\GPS.cs" />
-    <Compile Include="Interop\IIDs.cs" />
     <Compile Include="Interop\IMrtResourceManager.cs" />
     <Compile Include="Interop\IPolicyConfig.cs" />
     <Compile Include="Interop\IResourceMap.cs" />
@@ -99,7 +98,7 @@
     <Compile Include="Extensions\PopupExtensions.cs" />
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
-    <Compile Include="Interop\Win32.cs" />
+    <Compile Include="Interop\RECT.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>

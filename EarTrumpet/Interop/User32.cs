@@ -37,7 +37,7 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll")]
         public static extern bool GetWindowRect(
             IntPtr hwnd,
-            out Win32.RECT lpRect);
+            out RECT lpRect);
 
         [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int IsImmersiveProcess(
