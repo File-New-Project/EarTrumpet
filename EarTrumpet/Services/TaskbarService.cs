@@ -23,7 +23,7 @@ namespace EarTrumpet.Services
 
             User32.GetWindowRect(hwnd, out Win32.RECT scaledTaskbarRect);
 
-            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref appbar);
+            var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage(Shell32.ABMsg.ABM_GETTASKBARPOS, ref appbar);
             var scalingAmount = (double)(scaledTaskbarRect.Bottom - scaledTaskbarRect.Top) / (appbar.rc.Bottom - appbar.rc.Top);
 
             TaskbarState retState = new TaskbarState();
@@ -57,21 +57,6 @@ namespace EarTrumpet.Services
 
             return retState;
         }
-    }
-
-    public enum ABMsg
-    {
-        ABM_NEW = 0,
-        ABM_REMOVE,
-        ABM_QUERYPOS,
-        ABM_SETPOS,
-        ABM_GETSTATE,
-        ABM_GETTASKBARPOS,
-        ABM_ACTIVATE,
-        ABM_GETAUTOHIDEBAR,
-        ABM_SETAUTOHIDEBAR,
-        ABM_WINDOWPOSCHANGED,
-        ABM_SETSTATE
     }
 
     public struct TaskbarState

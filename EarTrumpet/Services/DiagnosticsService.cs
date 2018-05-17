@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using System.Diagnostics;
 using System.IO;
@@ -52,7 +53,7 @@ namespace EarTrumpet.Services
 
             foreach (var session in device.Sessions)
             {
-                var container = session as AudioDeviceSessionContainer;
+                var container = session as AudioDeviceSessionGroup;
                 foreach(var sessionIncontainer in container.Children)
                 {
                     sb.AppendLine(DumpSession(sessionIncontainer));

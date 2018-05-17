@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal
 {
     // Avoid device invalidation COMExceptions from bubbling up out of devices that have been removed.
     class SafeAudioDeviceSession : IAudioDeviceSession

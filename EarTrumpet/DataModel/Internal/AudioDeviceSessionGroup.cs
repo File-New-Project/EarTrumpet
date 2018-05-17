@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal
 {
     // Session multiplexing container (for grouping)
-    public class AudioDeviceSessionContainer : IAudioDeviceSession
+    public class AudioDeviceSessionGroup : IAudioDeviceSession
     {
         ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         string _id;
 
-        public AudioDeviceSessionContainer(IAudioDeviceSession session)
+        public AudioDeviceSessionGroup(IAudioDeviceSession session)
         {
             // GroupingParam can change at runtime, so we can't trust session[0].
             GroupingParam = session.GroupingParam;
@@ -20,7 +20,7 @@ namespace EarTrumpet.DataModel
             AddSession(session);
         }
 
-        ~AudioDeviceSessionContainer()
+        ~AudioDeviceSessionGroup()
         {
             foreach(var session in _sessions)
             {

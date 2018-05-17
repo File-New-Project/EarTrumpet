@@ -27,7 +27,7 @@ namespace EarTrumpet
             WhatsNewDisplayService.ShowIfAppropriate();
             FirstRunDisplayService.ShowIfAppropriate();
 
-            _deviceManager = new AudioDeviceManager(Dispatcher);
+            _deviceManager = DataModelFactory.CreateAudioDeviceManager();
             _viewModel = new MainViewModel(_deviceManager);
 
             _flyoutWindow = new FlyoutWindow(_viewModel, _deviceManager);

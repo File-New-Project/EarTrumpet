@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensions;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -53,9 +52,8 @@ namespace EarTrumpet.UserControls
         {
             VisualStateManager.GoToState((FrameworkElement)sender, "Pressed", true);
 
-            var slider = (Slider)sender;
-            slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
-            slider.CaptureTouch(e.TouchDevice);
+            SetPositionByControlPoint(e.GetTouchPoint(this).Position);
+            CaptureTouch(e.TouchDevice);
 
             e.Handled = true;
         }
@@ -66,9 +64,8 @@ namespace EarTrumpet.UserControls
             {
                 VisualStateManager.GoToState((FrameworkElement)sender, "Pressed", true);
 
-                var slider = (Slider)sender;
-                slider.SetPositionByControlPoint(e.GetPosition(slider));
-                slider.CaptureMouse();
+                SetPositionByControlPoint(e.GetPosition(this));
+                CaptureMouse();
 
                 e.Handled = true;
             }
@@ -102,29 +99,42 @@ namespace EarTrumpet.UserControls
 
         private void OnTouchMove(object sender, TouchEventArgs e)
         {
-            var slider = (Slider)sender;
-            if (slider.AreAnyTouchesCaptured)
+            if (AreAnyTouchesCaptured)
             {
-                slider.SetPositionByControlPoint(e.GetTouchPoint(slider).Position);
+                SetPositionByControlPoint(e.GetTouchPoint(this).Position);
                 e.Handled = true;
             }
         }
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            var slider = (Slider)sender;
-            if (slider.IsMouseCaptured)
+            if (IsMouseCaptured)
             {
-                slider.SetPositionByControlPoint(e.GetPosition(slider));
+                SetPositionByControlPoint(e.GetPosition(this));
             }
         }
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            var slider = (Slider)sender;
             var amount = Math.Sign(e.Delta) * 2.0;
-            slider.ChangePositionByAmount(amount);
+            ChangePositionByAmount(amount);
             e.Handled = true;
+        }
+
+        public void SetPositionByControlPoint(Point point)
+        {
+            var percent = point.X / ActualWidth;
+            Value = Bound((Maximum - Minimum) * percent);
+        }
+
+        public void ChangePositionByAmount(double amount)
+        {
+            Value = Bound(Value + amount);
+        }
+
+        public double Bound(double val)
+        {
+            return Math.Max(Minimum, Math.Min(Maximum, val));
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal
 {
     public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {

@@ -18,9 +18,24 @@ namespace EarTrumpet.Interop
             public int lParam;
         }
 
+        public enum ABMsg : uint
+        {
+            ABM_NEW = 0,
+            ABM_REMOVE,
+            ABM_QUERYPOS,
+            ABM_SETPOS,
+            ABM_GETSTATE,
+            ABM_GETTASKBARPOS,
+            ABM_ACTIVATE,
+            ABM_GETAUTOHIDEBAR,
+            ABM_SETAUTOHIDEBAR,
+            ABM_WINDOWPOSCHANGED,
+            ABM_SETSTATE
+        }
+
         [DllImport("shell32.dll", PreserveSig = true)]
         public static extern IntPtr SHAppBarMessage(
-            uint dwMessage,
+            ABMsg dwMessage,
             ref APPBARDATA pData);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]

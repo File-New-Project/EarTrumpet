@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal
 {
     public static class SafeCallHelper
     {

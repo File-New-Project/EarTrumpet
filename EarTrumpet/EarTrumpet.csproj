@@ -69,6 +69,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\DataModelFactory.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
@@ -127,7 +128,7 @@
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VolumeSlider.cs" />
-    <Compile Include="DataModel\AudioDeviceSessionContainer.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\AudioSessionDisconnectReason.cs" />
     <Compile Include="Interop\AudioSessionState.cs" />
     <Compile Include="Interop\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
@@ -158,24 +159,22 @@
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="DataModel\IVirtualDefaultAudioDevice.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
-    <Compile Include="DataModel\SafeAudioDevice.cs" />
-    <Compile Include="DataModel\SafeAudioDeviceSession.cs" />
-    <Compile Include="DataModel\SafeCallHelper.cs" />
-    <Compile Include="DataModel\VirtualDefaultAudioDevice.cs" />
+    <Compile Include="DataModel\Internal\SafeAudioDevice.cs" />
+    <Compile Include="DataModel\Internal\SafeAudioDeviceSession.cs" />
+    <Compile Include="DataModel\Internal\SafeCallHelper.cs" />
+    <Compile Include="DataModel\Internal\VirtualDefaultAudioDevice.cs" />
     <Compile Include="Views\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DispatcherExtensions.cs" />
-    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="Converters\InvertableVisibilityConverter.cs" />
     <Compile Include="Converters\OpacityConverter.cs" />
-    <Compile Include="Extensions\SliderExtensions.cs" />
-    <Compile Include="DataModel\AudioDevice.cs" />
-    <Compile Include="DataModel\AudioDeviceManager.cs" />
-    <Compile Include="DataModel\AudioDeviceSession.cs" />
-    <Compile Include="DataModel\AudioDeviceSessionCollection.cs" />
+    <Compile Include="DataModel\Internal\AudioDevice.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionCollection.cs" />
     <Compile Include="Views\FullWindow.xaml.cs">
       <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>

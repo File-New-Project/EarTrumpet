@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal
 {
     public class AudioDeviceSessionCollection : IAudioSessionNotification
     {
@@ -62,7 +62,7 @@ namespace EarTrumpet.DataModel
 
         void AddSession(IAudioDeviceSession session)
         {
-            foreach(AudioDeviceSessionContainer container in _sessions)
+            foreach(AudioDeviceSessionGroup container in _sessions)
             {
                 if (container.AppId == session.AppId)
                 {
@@ -78,13 +78,13 @@ namespace EarTrumpet.DataModel
 
             session.PropertyChanged += Session_PropertyChanged;
 
-            var newSession = new AudioDeviceSessionContainer(session);
+            var newSession = new AudioDeviceSessionGroup(session);
             _sessions.Add(newSession);
         }
 
         void RemoveSession(IAudioDeviceSession session)
         {
-            foreach (AudioDeviceSessionContainer container in _sessions)
+            foreach (AudioDeviceSessionGroup container in _sessions)
             {
                 if (container.Sessions.Contains(session))
                 {

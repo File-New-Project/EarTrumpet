@@ -14,14 +14,19 @@ namespace EarTrumpet.Extensions
         {
             var bitmap = icon.ToBitmap();
             var hBitmap = bitmap.GetHbitmap();
-
-            ImageSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                hBitmap,
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-
-            Gdi32.DeleteObject(hBitmap);
+            ImageSource bitmapSource;
+            try
+            {
+                bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally
+            {
+                Gdi32.DeleteObject(hBitmap);
+            }
             return bitmapSource;
         }
     }
