@@ -70,6 +70,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
+        /// </summary>
+        public static string AppFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("AppFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
+        /// </summary>
+        public static string AppMutedFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("AppMutedFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collapse to show only the default device.
+        /// </summary>
+        public static string CollapseAccessibleText {
+            get {
+                return ResourceManager.GetString("CollapseAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string ContextMenuExitTitle {
@@ -115,6 +142,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
+        /// </summary>
+        public static string DeviceFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("DeviceFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
+        /// </summary>
+        public static string DeviceMutedFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("DeviceMutedFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Having trouble with EarTrumpet? Sometimes it can help to have the list of audio sessions from your PC..
         /// </summary>
         public static string DiagnosticsText {
@@ -129,6 +174,15 @@ namespace EarTrumpet.Properties {
         public static string DiagnosticsTitle {
             get {
                 return ResourceManager.GetString("DiagnosticsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand to show all devices.
+        /// </summary>
+        public static string ExpandAccessibleText {
+            get {
+                return ResourceManager.GetString("ExpandAccessibleText", resourceCulture);
             }
         }
         

@@ -19,49 +19,49 @@
                 <TextBlock Style="{DynamicResource DeviceTitleTextStyle}" Text="{Binding Device.Device.DisplayName}" />
             </Border>
 
-            <ItemsControl Grid.Row="1" IsTabStop="False">
-                <ListViewItem Name="DeviceListItem"
-                              Height="{StaticResource DeviceItemCellHeight}"
-                              PreviewKeyDown="ListViewItem_PreviewKeyDown">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"
-                                Margin="{StaticResource DeviceOrAppIconMargin}"
-                                HorizontalAlignment="Center"
-                                Background="Transparent"
-                                MouseDown="Icon_MouseDown"
-                                Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                ToolTip="{Binding Device.Device.DisplayName}">
+            <ListViewItem Name="DeviceListItem"
+                          Grid.Row="1"
+                          Height="{StaticResource DeviceItemCellHeight}"
+                          AutomationProperties.Name="{Binding Device}"
+                          PreviewKeyDown="ListViewItem_PreviewKeyDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0"
+                            Margin="{StaticResource DeviceOrAppIconMargin}"
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            MouseDown="Icon_MouseDown"
+                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                            ToolTip="{Binding Device.Device.DisplayName}">
 
-                            <Grid>
-                                <TextBlock FontSize="24"
-                                           Opacity="0.4"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconTextBackground}" />
-                                <TextBlock FontSize="24"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconText}" />
-                            </Grid>
-                        </Border>
+                        <Grid>
+                            <TextBlock FontSize="24"
+                                       Opacity="0.4"
+                                       Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
+                                       Text="{Binding Device.DeviceIconTextBackground}" />
+                            <TextBlock FontSize="24"
+                                       Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
+                                       Text="{Binding Device.DeviceIconText}" />
+                        </Grid>
+                    </Border>
 
-                        <views:VolumeSlider Grid.Column="1"
-                                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                            PeakValue="{Binding Device.Device.PeakValue}"
-                                            PreviewMouseUp="TouchSlider_MouseUp"
-                                            PreviewTouchUp="TouchSlider_TouchUp"
-                                            Style="{DynamicResource VolumeSliderStyle}"
-                                            Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2"
-                                   Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                   Style="{DynamicResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Device.Device.Volume, Mode=OneWay}" />
-                    </Grid>
-                </ListViewItem>
-            </ItemsControl>
+                    <views:VolumeSlider Grid.Column="1"
+                                        Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                        PeakValue="{Binding Device.Device.PeakValue}"
+                                        PreviewMouseUp="TouchSlider_MouseUp"
+                                        PreviewTouchUp="TouchSlider_TouchUp"
+                                        Style="{DynamicResource VolumeSliderStyle}"
+                                        Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
+                    <TextBlock Grid.Column="2"
+                               Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                               Style="{DynamicResource DeviceVolumeTextStyle}"
+                               Text="{Binding Device.Device.Volume, Mode=OneWay}" />
+                </Grid>
+            </ListViewItem>
         </Grid>
 
         <ListView Name="AppList"

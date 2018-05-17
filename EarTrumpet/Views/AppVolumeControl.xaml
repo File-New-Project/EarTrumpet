@@ -40,8 +40,7 @@
             <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0"
-              Margin="{StaticResource DeviceOrAppIconMargin}">
+        <Grid Grid.Column="0" Margin="{StaticResource DeviceOrAppIconMargin}">
 
             <Border Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
@@ -82,8 +81,9 @@
             <Button Name="MuteButton"
                     Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
-                    ToolTip="{Binding App.DisplayName}"
-                    Click="MuteButton_Click">
+                    Click="MuteButton_Click"
+                    IsTabStop="False"
+                    ToolTip="{Binding App.DisplayName}">
                 <Button.Style>
                     <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
                         <Style.Triggers>

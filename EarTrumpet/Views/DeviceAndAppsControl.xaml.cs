@@ -24,6 +24,7 @@ namespace EarTrumpet.Views
 
         private void ListViewItem_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            /*
             var lvi = ((AppVolumeControl)sender);
             var dt = lvi.DataContext;
 
@@ -97,6 +98,7 @@ namespace EarTrumpet.Views
                     }
                 }
             }
+            */
         }
 
         private void Mute_MouseDown(object sender, MouseButtonEventArgs e)

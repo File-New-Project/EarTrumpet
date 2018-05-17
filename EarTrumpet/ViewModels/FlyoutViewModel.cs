@@ -27,6 +27,7 @@ namespace EarTrumpet.ViewModels
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
         public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
+        public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
         public ViewState State { get; private set; }
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
@@ -112,6 +113,7 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
+            RaisePropertyChanged(nameof(ExpandAccessibleText));
             InvalidateWindowSize();
         }
 
@@ -169,6 +171,7 @@ namespace EarTrumpet.ViewModels
 
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(ExpandText));
+            RaisePropertyChanged(nameof(ExpandAccessibleText));
             InvalidateWindowSize();
         }
 

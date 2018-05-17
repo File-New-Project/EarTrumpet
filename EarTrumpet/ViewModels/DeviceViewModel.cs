@@ -157,5 +157,17 @@ namespace EarTrumpet.ViewModels
         {
             Apps.Remove(app);
         }
+
+        public override string ToString()
+        {
+            if (Device.IsMuted)
+            {
+                return string.Format(Properties.Resources.DeviceMutedFormatAccessibleText, Device.DisplayName);
+            }
+            else
+            {
+                return string.Format(Properties.Resources.DeviceFormatAccessibleText, Device.DisplayName, Device.Volume);
+            }
+        }
     }
 }

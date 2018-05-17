@@ -206,5 +206,17 @@ namespace EarTrumpet.ViewModels
                 }
             }
         }
+
+        public override string ToString()
+        {
+            if (IsMuted)
+            {
+                return string.Format(Properties.Resources.AppMutedFormatAccessibleText, DisplayName);
+            }
+            else
+            {
+                return string.Format(Properties.Resources.AppFormatAccessibleText, DisplayName, Volume);
+            }
+        }
     }
 }

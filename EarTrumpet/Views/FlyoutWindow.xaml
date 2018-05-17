@@ -207,6 +207,7 @@
                     </ItemsControl>
 
                     <Button Height="{StaticResource DeviceTitleCellHeight}"
+                            AutomationProperties.Name="{Binding ExpandAccessibleText}"
                             Click="ExpandCollapse_Click"
                             IsEnabled="{Binding CanExpand}"
                             PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
