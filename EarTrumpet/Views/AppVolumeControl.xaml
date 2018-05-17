@@ -28,14 +28,6 @@
                                               RecognizesAccessKey="True"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="border" Property="Background" Value="#11FFFFFF" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="border" Property="Background" Value="#66FFFFFF" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -48,10 +40,8 @@
             <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
 
-        <Grid Name="RevealButtonsBorder"
-              Grid.Column="0"
-              Margin="{StaticResource DeviceOrAppIconMargin}"
-              Background="Transparent">
+        <Grid Grid.Column="0"
+              Margin="{StaticResource DeviceOrAppIconMargin}">
 
             <Border Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
@@ -60,9 +50,6 @@
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
-                                <Setter Property="Opacity" Value="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver, Converter={StaticResource opacityConverter}}" />
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
                             </DataTrigger>
@@ -99,9 +86,6 @@
                 <Button.Style>
                     <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=RevealButtonsBorder, Path=IsMouseOver}" Value="true">
-                                <Setter Property="Opacity" Value="1" />
-                            </DataTrigger>
                             <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="1" />
                             </DataTrigger>

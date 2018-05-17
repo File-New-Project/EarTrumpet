@@ -22,9 +22,9 @@
                     BorderThickness="0"
                     Click="MoveToAnotherDevice_Click"
                     FontSize="16"
-                    IsEnabled="{Binding IsMovable}"
                     Style="{DynamicResource VirtualTitleBarButtonStyle}"
-                    Tag="&#xE8AB;" />
+                    Tag="&#xE8AB;"
+                    Visibility="{Binding IsMovable, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
             <Button Grid.Column="2"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
