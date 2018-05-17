@@ -25,7 +25,7 @@
                     FontSize="16"
                     IsEnabled="{Binding IsMovable}"
                     Style="{DynamicResource VirtualTitleBarButtonStyle}"
-                    Tag="{Binding MoveIcon}" />
+                    Tag="&#xE8AB;" />
             <Button Grid.Column="2"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"

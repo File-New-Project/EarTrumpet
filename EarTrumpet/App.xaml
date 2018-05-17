@@ -248,19 +248,6 @@
                 <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
             </Style>
 
-            <Style x:Key="BaseBadgeTextStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="2,-3,0,0" />
-                <Setter Property="FontSize" Value="10" />
-                <Setter Property="FontWeight" Value="Bold" />
-            </Style>
-
-            <Style x:Key="BaseBadgeEllipseStyle" TargetType="{x:Type Ellipse}">
-                <Setter Property="Height" Value="12" />
-                <Setter Property="Width" Value="12" />
-            </Style>
-
             <Style x:Key="BaseVirtualTitleBarBorderStyle" TargetType="{x:Type Border}">
                 <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
             </Style>

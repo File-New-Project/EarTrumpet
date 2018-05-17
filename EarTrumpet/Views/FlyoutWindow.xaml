@@ -87,18 +87,6 @@
             <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
         </Style>
 
-        <Style x:Key="BadgeTextStyle"
-               BasedOn="{StaticResource BaseBadgeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-        </Style>
-
-        <Style x:Key="BadgeEllipseStyle"
-               BasedOn="{StaticResource BaseBadgeEllipseStyle}"
-               TargetType="{x:Type Ellipse}">
-            <Setter Property="Fill" Value="{DynamicResource BadgeBackground}" />
-        </Style>
-
         <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
             <Grid>
                 <Border Name="TrackBackground" Height="2" />

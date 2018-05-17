@@ -42,8 +42,6 @@ namespace EarTrumpet.ViewModels
 
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
-        public string MoveIcon => IsMovable ? "\uE8AB" : "";
-
         public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
 
         public AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)

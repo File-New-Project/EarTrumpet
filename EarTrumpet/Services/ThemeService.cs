@@ -30,7 +30,6 @@ namespace EarTrumpet.Services
             newDictionary["CottonSwabSliderThumbHover"] = Lookup("ImmersiveControlDarkSliderThumbHover");
             newDictionary["CottonSwabSliderThumbPressed"] = Lookup("ImmersiveControlDarkSliderThumbHover");
             newDictionary["CottonSwabSliderTrackFill"] = Lookup("ImmersiveSystemAccentLight1");
-            newDictionary["BadgeBackground"] = Lookup("ImmersiveSystemAccentDark2", 0.8);
             newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
 
             var blurColor = GetWindowBackgroundColor();

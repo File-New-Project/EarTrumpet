@@ -6,9 +6,6 @@
              Height="{StaticResource AppItemCellHeight}"
              IsTabStop="False">
     <UserControl.Resources>
-
-        <ext:VisibleWhenNonZeroConverter x:Key="nonZeroConverter" />
-
         <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Margin" Value="0" />
@@ -44,7 +41,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.ColumnDefinitions>
@@ -94,17 +90,6 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Grid Margin="0,0,-1,-1"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Visibility="{Binding App.ChildApps.Count, Converter={StaticResource nonZeroConverter}}">
-                        <Canvas>
-                            <Ellipse Style="{DynamicResource BadgeEllipseStyle}" />
-                        </Canvas>
-
-                        <TextBlock Style="{DynamicResource BadgeTextStyle}" Text="..." />
-                    </Grid>
                 </Grid>
             </Border>
 

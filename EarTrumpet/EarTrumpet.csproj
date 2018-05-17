@@ -92,11 +92,9 @@
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\AppExtensions.cs" />
-    <Compile Include="Converters\CountConverter.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Misc\RelayCommand.cs" />
-    <Compile Include="Converters\VisibileWhenNonZeroConverter.cs" />
     <Compile Include="Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
