@@ -1,12 +1,11 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.DataModel.Com;
+using EarTrumpet.Interop;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Threading;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {

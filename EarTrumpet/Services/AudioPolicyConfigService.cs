@@ -1,4 +1,4 @@
-﻿using EarTrumpet.DataModel.Com;
+﻿using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -7,21 +7,6 @@ namespace EarTrumpet.Services
 {
     public class AudioPolicyConfigService
     {
-        static class Interop
-        {
-            [DllImport("combase.dll")]
-            public static extern void RoGetActivationFactory(
-                [MarshalAs(UnmanagedType.HString)] string activatableClassId,
-                [In] ref Guid iid,
-                [Out, MarshalAs(UnmanagedType.IInspectable)] out Object factory);
-
-            [DllImport("combase.dll")]
-            public static extern void WindowsCreateString(
-                [MarshalAs(UnmanagedType.LPWStr)] string src,
-                [In] uint length,
-                [Out] out IntPtr hstring);
-        }
-
         const string DEVINTERFACE_AUDIO_RENDER = "#{e6327cad-dcec-4949-ae8a-991e976a79d2}";
         const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI#";
 
@@ -32,7 +17,7 @@ namespace EarTrumpet.Services
             if (s_sharedPolicyConfig == null)
             {
                 Guid iid = typeof(IAudioPolicyConfigFactory).GUID;
-                Interop.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
+                Combase.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
                 s_sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
             }
         }
@@ -56,11 +41,11 @@ namespace EarTrumpet.Services
             try
             {
                 IntPtr hstring = IntPtr.Zero;
-                
+
                 if (!string.IsNullOrWhiteSpace(deviceId))
                 {
                     var str = GenerateDeviceId(deviceId);
-                    Interop.WindowsCreateString(str, (uint)str.Length, out hstring);
+                    Combase.WindowsCreateString(str, (uint)str.Length, out hstring);
                 }
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, hstring);
             }

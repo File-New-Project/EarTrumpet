@@ -1,5 +1,5 @@
-﻿using EarTrumpet.DataModel.Com;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -12,22 +12,11 @@ namespace EarTrumpet.DataModel
 {
     public class AudioDeviceSession : IAudioSessionEvents, IAudioDeviceSession
     {
-        static class Interop
-        {
-            [DllImport("EarTrumpet.Interop.dll")]
-            public static extern int GetProcessProperties(int processId,
-                 [MarshalAs(UnmanagedType.LPWStr)] out string displayName,
-                 [MarshalAs(UnmanagedType.LPWStr)] out string iconPath,
-                 [MarshalAs(UnmanagedType.Bool)] ref bool isDesktopApp,
-                 [MarshalAs(UnmanagedType.U4)] ref uint backgroundColor);
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly IAudioSessionControl _session;
         private readonly ISimpleAudioVolume _simpleVolume;
         private readonly IAudioMeterInformation _meter;
-        private readonly IAudioDevice _device;
         private readonly Dispatcher _dispatcher;
         private readonly AppInformation _appInfo;
         private string _id;
@@ -38,7 +27,7 @@ namespace EarTrumpet.DataModel
         public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
         {
             _dispatcher = dispatcher;
-            _device = device;
+            Device = device;
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
@@ -49,7 +38,7 @@ namespace EarTrumpet.DataModel
             ReadVolumeAndMute();
         }
 
-        public IAudioDevice Device => _device;
+        public IAudioDevice Device { get; }
 
         public float Volume
         {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using EarTrumpet.Interop;
+using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -10,12 +10,6 @@ namespace EarTrumpet.Extensions
 {
     public static class IconExtensions
     {
-        private class Interop
-        {
-            [DllImport("gdi32.dll")]
-            public static extern bool DeleteObject(IntPtr objectHandle);
-        }
-
         public static ImageSource ToImageSource(this Icon icon)
         {
             var bitmap = icon.ToBitmap();
@@ -27,7 +21,7 @@ namespace EarTrumpet.Extensions
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
 
-            Interop.DeleteObject(hBitmap);
+            Gdi32.DeleteObject(hBitmap);
             return bitmapSource;
         }
     }

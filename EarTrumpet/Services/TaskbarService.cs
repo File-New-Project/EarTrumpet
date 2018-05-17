@@ -1,4 +1,4 @@
-﻿using System;
+﻿using EarTrumpet.Interop;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -12,7 +12,7 @@ namespace EarTrumpet.Services
 
         public static TaskbarState GetWinTaskbarState()
         {
-            var appbar = new APPBARDATA();
+            var appbar = new Shell32.APPBARDATA();
 
             var hwnd = User32.FindWindowW(_className, null);
 
@@ -21,7 +21,7 @@ namespace EarTrumpet.Services
             appbar.hWnd = hwnd;
             appbar.lParam = 1;
 
-            User32.GetWindowRect(hwnd, out RECT scaledTaskbarRect);
+            User32.GetWindowRect(hwnd, out Win32.RECT scaledTaskbarRect);
 
             var taskbarNonDPIAwareSize = Shell32.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref appbar);
             var scalingAmount = (double)(scaledTaskbarRect.Bottom - scaledTaskbarRect.Top) / (appbar.rc.Bottom - appbar.rc.Top);
@@ -59,41 +59,6 @@ namespace EarTrumpet.Services
         }
     }
 
-    public static class User32
-    {
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowW([MarshalAs(UnmanagedType.LPWStr)]string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct RECT
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
-    }
-
-    public static class Shell32
-    {
-        [DllImport("shell32.dll")]
-        public static extern IntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct APPBARDATA
-    {
-        public int cbSize;
-        public IntPtr hWnd;
-        public uint uCallbackMessage;
-        public uint uEdge;
-        public RECT rc;
-        public int lParam;
-    }
-
     public enum ABMsg
     {
         ABM_NEW = 0,
@@ -112,7 +77,7 @@ namespace EarTrumpet.Services
     public struct TaskbarState
     {
         public TaskbarPosition TaskbarPosition;
-        public RECT TaskbarSize;
+        public Win32.RECT TaskbarSize;
         public Screen TaskbarScreen;
     }
 

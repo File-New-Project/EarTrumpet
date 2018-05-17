@@ -1,12 +1,12 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.DataModel.Com;
+using EarTrumpet.Interop;
+using EarTrumpet.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using EarTrumpet.Services;
 
 namespace EarTrumpet.DataModel
 {
@@ -135,7 +135,7 @@ namespace EarTrumpet.DataModel
             propStore.GetValue(ref PKEY_Device_FriendlyName, out pv);
 
             _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
-            PropertyStoreInterop.PropVariantClear(ref pv);
+            Ole32.PropVariantClear(ref pv);
         }
 
         private void ReadVolumeAndMute()
