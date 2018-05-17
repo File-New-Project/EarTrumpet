@@ -142,7 +142,6 @@
     <Compile Include="DataModel\Com\IMMNotificationClient.cs" />
     <Compile Include="DataModel\Com\ISimpleAudioVolume.cs" />
     <Compile Include="DataModel\Com\MMDeviceEnumerator.cs" />
-    <Compile Include="DataModel\Extensions\CollectionExtensionsForAudioDeviceSession.cs" />
     <Compile Include="DataModel\IAudioDevice.cs" />
     <Compile Include="DataModel\IAudioDeviceManager.cs" />
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
@@ -160,7 +159,6 @@
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="DataModel\Extensions\IMMDeviceExtensions.cs" />
     <Compile Include="Converters\InvertableVisibilityConverter.cs" />
     <Compile Include="Converters\OpacityConverter.cs" />
     <Compile Include="Extensions\SliderExtensions.cs" />
