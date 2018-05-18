@@ -160,7 +160,12 @@ namespace EarTrumpet.DataModel.Internal
                         IMMDevice device;
                         _enumerator.GetDevice(pwstrDeviceId, out device);
 
-                        _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
+                        ((IMMEndpoint)device).GetDataFlow(out EDataFlow flow);
+
+                        if (flow == EDataFlow.eRender)
+                        {
+                            _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
+                        }
                     }
                     catch(COMException ex)
                     {
