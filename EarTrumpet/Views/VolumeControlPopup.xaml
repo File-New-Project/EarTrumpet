@@ -41,6 +41,7 @@
                       Grid.ColumnSpan="3"
                       Margin="{StaticResource VolumeAppListMargin}"
                       VerticalAlignment="Center"
+                      FocusVisualStyle="{x:Null}"
                       ItemsSource="{Binding ChildApps, Mode=OneWay}"
                       ScrollViewer.CanContentScroll="True"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
