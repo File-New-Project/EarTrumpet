@@ -11,22 +11,22 @@ namespace EarTrumpet.Services
     {
         public class HotkeyData
         {
-            public KBModifierKeys Modifiers;
+            public KeyboardHook.ModifierKeys Modifiers;
             public System.Windows.Forms.Keys Key;
 
             public override string ToString()
             {
                 string ret = "";
 
-                if ((Modifiers & KBModifierKeys.Control) == KBModifierKeys.Control)
+                if ((Modifiers & KeyboardHook.ModifierKeys.Control) == KeyboardHook.ModifierKeys.Control)
                 {
                     ret += "Control+";
                 }
-                if ((Modifiers & KBModifierKeys.Shift) == KBModifierKeys.Shift)
+                if ((Modifiers & KeyboardHook.ModifierKeys.Shift) == KeyboardHook.ModifierKeys.Shift)
                 {
                     ret += "Shift+";
                 }
-                if ((Modifiers & KBModifierKeys.Alt) == KBModifierKeys.Alt)
+                if ((Modifiers & KeyboardHook.ModifierKeys.Alt) == KeyboardHook.ModifierKeys.Alt)
                 {
                     ret += "Alt+";
                 }
@@ -44,7 +44,7 @@ namespace EarTrumpet.Services
         {
             get
             {
-                var ret = ReadSetting("Hotkey", new HotkeyData { Modifiers = KBModifierKeys.Shift | KBModifierKeys.Control, Key = System.Windows.Forms.Keys.Q });
+                var ret = ReadSetting("Hotkey", new HotkeyData { Modifiers = KeyboardHook.ModifierKeys.Shift | KeyboardHook.ModifierKeys.Control, Key = System.Windows.Forms.Keys.Q });
                 return ret;
             }
             set

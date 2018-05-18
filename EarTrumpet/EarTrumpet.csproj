@@ -118,7 +118,6 @@
     <Compile Include="Services\DefaultEndpointService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
-    <Compile Include="Services\LegacyVolumeFlyoutService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Views\KeyboardNavigationService.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">

@@ -7,11 +7,11 @@ namespace EarTrumpet.Services
 {
     class HotkeyService
     {
-        public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+        public static event EventHandler<KeyboardHook.KeyPressedEventArgs> KeyPressed;
 
         static KeyboardHook s_hook;
 
-        public static void Register(KBModifierKeys modifiers, Keys key)
+        public static void Register(KeyboardHook.ModifierKeys modifiers, Keys key)
         {
             if (s_hook != null)
             {
@@ -31,7 +31,7 @@ namespace EarTrumpet.Services
             }
         }
 
-        static void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
+        static void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
         {
             KeyPressed?.Invoke(s_hook, e);
         }

@@ -1,16 +1,32 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using EarTrumpet.Interop;
+using System;
 using System.Windows.Forms;
 
 namespace EarTrumpet.Misc
 {
     public sealed class KeyboardHook : IDisposable
     {
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        public class KeyPressedEventArgs : EventArgs
+        {
+            public ModifierKeys Modifier { get; }
+            public Keys Key { get; }
 
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+            internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
+            {
+                Modifier = modifier;
+                Key = key;
+            }
+        }
+
+        [Flags]
+        public enum ModifierKeys : uint
+        {
+            None = 0,
+            Alt = 1,
+            Control = 2,
+            Shift = 4,
+            Win = 8
+        }
 
         private class Window : NativeWindow, IDisposable
         {
@@ -28,7 +44,7 @@ namespace EarTrumpet.Misc
                 if (m.Msg == WM_HOTKEY)
                 {
                     Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-                    KBModifierKeys modifier = (KBModifierKeys)((int)m.LParam & 0xFFFF);
+                    ModifierKeys modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
 
                     KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
                 }
@@ -47,17 +63,14 @@ namespace EarTrumpet.Misc
 
         public KeyboardHook()
         {
-            _window.KeyPressed += (s, e) =>
-            {
-                    KeyPressed?.Invoke(this, e);
-            };
+            _window.KeyPressed += (s, e) => KeyPressed?.Invoke(this, e);
         }
 
-        public void RegisterHotKey(KBModifierKeys modifier, Keys key)
+        public void RegisterHotKey(ModifierKeys modifier, Keys key)
         {
             _currentId = _currentId + 1;
 
-            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
+            if (!User32.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
                 throw new Exception("Couldn't register hotkey.");
         }
 
@@ -67,32 +80,10 @@ namespace EarTrumpet.Misc
         {
             for (int i = _currentId; i > 0; i--)
             {
-                UnregisterHotKey(_window.Handle, i);
+                User32.UnregisterHotKey(_window.Handle, i);
             }
 
             _window.Dispose();
         }
-    }
-
-    public class KeyPressedEventArgs : EventArgs
-    {
-        public KBModifierKeys Modifier { get; }
-        public Keys Key { get; }
-
-        internal KeyPressedEventArgs(KBModifierKeys modifier, Keys key)
-        {
-            Modifier = modifier;
-            Key = key;
-        }
-    }
-
-    [Flags]
-    public enum KBModifierKeys : uint
-    {
-        None = 0,
-        Alt = 1,
-        Control = 2,
-        Shift = 4,
-        Win = 8
     }
 }

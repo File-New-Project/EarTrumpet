@@ -27,22 +27,22 @@ namespace EarTrumpet.Views
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Hotkey.Modifiers = KBModifierKeys.None;
+            Hotkey.Modifiers = KeyboardHook.ModifierKeys.None;
             Hotkey.Key = System.Windows.Forms.Keys.None;
 
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                Hotkey.Modifiers = KBModifierKeys.Control;
+                Hotkey.Modifiers = KeyboardHook.ModifierKeys.Control;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
-                Hotkey.Modifiers |= KBModifierKeys.Shift;
+                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Shift;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
-                Hotkey.Modifiers |= KBModifierKeys.Alt;
+                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Alt;
             }
 
             if (e.Key == Key.LeftShift || e.Key == Key.RightShift ||

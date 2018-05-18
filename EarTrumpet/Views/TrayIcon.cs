@@ -6,9 +6,7 @@ using EarTrumpet.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
 
 namespace EarTrumpet.Views
 {
@@ -78,7 +76,7 @@ namespace EarTrumpet.Views
             _trayViewModel.OpenEarTrumpetVolumeMixerCommand.Execute();
         }
 
-        private void Hotkey_KeyPressed(object sender, KeyPressedEventArgs e)
+        private void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
         {
             Invoked.Invoke();
         }
@@ -144,19 +142,6 @@ namespace EarTrumpet.Views
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 Invoked.Invoke();
-            }
-            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                if (Keyboard.IsKeyDown(Key.LeftCtrl) ||
-                    Keyboard.IsKeyDown(Key.RightCtrl))
-                {
-                    LegacyVolumeFlyoutService.ShowMenu();
-                }
-                else
-                {
-                    // TODO: When we de-couple ContextMenu from NotifyIcon, show it here.
-                    // _contextMenu.Show(null, System.Windows.Forms.Cursor.Position);
-                }
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {

@@ -11,9 +11,9 @@ namespace EarTrumpet.Services
     {
         public static void DumpAndShowData(IAudioDeviceManager manager)
         {
-            var fileName = Path.GetTempFileName();
+            var fileName = $"{Path.GetTempFileName()}.txt";
             File.WriteAllText(fileName, DumpDevices(manager));
-            Process.Start("notepad", fileName);
+            Process.Start(fileName);
         }
 
         static string DumpSession(IAudioDeviceSession session)

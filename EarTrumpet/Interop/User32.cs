@@ -14,6 +14,12 @@ namespace EarTrumpet.Interop
             return ((uint)high << 16) | low;
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
