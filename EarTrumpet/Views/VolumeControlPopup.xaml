@@ -1,6 +1,7 @@
 ﻿<Popup x:Class="EarTrumpet.Views.VolumeControlPopup"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:resx="clr-namespace:EarTrumpet.Properties"
        xmlns:views="clr-namespace:EarTrumpet.Views">
     <Border Style="{DynamicResource VolumeControlPopupBorder}">
         <Grid>
@@ -19,6 +20,7 @@
             <Button Grid.Column="1"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
+                    AutomationProperties.Name="{x:Static resx:Resources.MoveButtonAccessibleText}"
                     BorderThickness="0"
                     Click="MoveToAnotherDevice_Click"
                     FontSize="16"
@@ -28,12 +30,14 @@
             <Button Grid.Column="2"
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Stretch"
+                    AutomationProperties.Name="{x:Static resx:Resources.CloseButtonAccessibleText}"
                     BorderThickness="0"
                     Click="CloseButton_Click"
                     FontSize="10"
                     Style="{DynamicResource VirtualTitleBarButtonStyle}"
                     Tag="&#xE8BB;" />
-            <ListView Grid.Row="1"
+            <ListView Name="AppItems"
+                      Grid.Row="1"
                       Grid.ColumnSpan="3"
                       Margin="{StaticResource VolumeAppListMargin}"
                       VerticalAlignment="Center"

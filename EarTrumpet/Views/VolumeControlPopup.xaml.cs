@@ -18,7 +18,11 @@ namespace EarTrumpet.Views
             AllowsTransparency = true;
             StaysOpen = false;
 
-            Opened += (_, __) => this.SetWindowBlur(true, true);
+            Opened += (_, __) =>
+            {
+                this.SetWindowBlur(true, true);
+                AppItems.Focus();
+            };
         }
 
         private void ShowWithAnimation()
@@ -32,9 +36,10 @@ namespace EarTrumpet.Views
                 To = 1,
             };
 
-            Child.BeginAnimation(OpacityProperty, fadeAnimation);
-
+            Opacity = (double)fadeAnimation.From;
             IsOpen = true;
+
+            Child.BeginAnimation(OpacityProperty, fadeAnimation);
         }
 
         public void HideWithAnimation()

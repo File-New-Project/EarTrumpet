@@ -198,7 +198,9 @@
                            Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
 
                 <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
-                    <ItemsControl IsTabStop="False" ItemsSource="{Binding Devices}">
+                    <ItemsControl Name="DevicesList"
+                                  IsTabStop="False"
+                                  ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
@@ -210,7 +212,6 @@
                             AutomationProperties.Name="{Binding ExpandAccessibleText}"
                             Click="ExpandCollapse_Click"
                             IsEnabled="{Binding CanExpand}"
-                            PreviewKeyDown="ExpandCollapse_PreviewKeyDown"
                             Style="{StaticResource ExpandCollapseButtonStyle}">
                         <Button.Content>
                             <TextBlock Margin="{StaticResource WindowMargin}"

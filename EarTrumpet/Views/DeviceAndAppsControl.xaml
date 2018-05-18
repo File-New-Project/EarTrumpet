@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="EarTrumpet.Views.DeviceAndAppsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:views="clr-namespace:EarTrumpet.Views"
              IsTabStop="False">
     <Grid Name="GridRoot">
@@ -22,8 +23,7 @@
             <ListViewItem Name="DeviceListItem"
                           Grid.Row="1"
                           Height="{StaticResource DeviceItemCellHeight}"
-                          AutomationProperties.Name="{Binding Device}"
-                          PreviewKeyDown="ListViewItem_PreviewKeyDown">
+                          AutomationProperties.Name="{Binding Device}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="{StaticResource IconCellWidth}" />
@@ -67,12 +67,11 @@
         <ListView Name="AppList"
                   Grid.Row="1"
                   Margin="{StaticResource VolumeAppListMargin}"
+                  AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
                   ItemsSource="{Binding Device.Apps, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <views:AppVolumeControl App="{Binding}"
-                                            AppExpanded="AppVolumeControl_AppExpanded"
-                                            PreviewKeyDown="ListViewItem_PreviewKeyDown" />
+                    <views:AppVolumeControl App="{Binding}" AppExpanded="AppVolumeControl_AppExpanded" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

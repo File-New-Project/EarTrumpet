@@ -27,7 +27,7 @@ namespace EarTrumpet.Views
             e.Handled = true;
         }
 
-        private void ExpandApp()
+        public void ExpandApp()
         {
             if (!App.IsExpanded)
             {

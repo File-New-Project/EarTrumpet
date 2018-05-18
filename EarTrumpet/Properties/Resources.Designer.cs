@@ -88,6 +88,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apps.
+        /// </summary>
+        public static string AppsListAccessibleText {
+            get {
+                return ResourceManager.GetString("AppsListAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseButtonAccessibleText {
+            get {
+                return ResourceManager.GetString("CloseButtonAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse to show only the default device.
         /// </summary>
         public static string CollapseAccessibleText {
@@ -219,6 +237,15 @@ namespace EarTrumpet.Properties {
         public static string LegacyVolumeMixerText {
             get {
                 return ResourceManager.GetString("LegacyVolumeMixerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move this app to another output device.
+        /// </summary>
+        public static string MoveButtonAccessibleText {
+            get {
+                return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
             }
         }
         

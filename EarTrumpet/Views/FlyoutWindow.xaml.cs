@@ -28,7 +28,7 @@ namespace EarTrumpet.Views
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
 
             _viewModel.AppExpanded += (_, e) => _popup.PositionAndShow(this, e);
-            _viewModel.AppCollapsed += (_, __) => _popup.IsOpen = false;
+            _viewModel.AppCollapsed += (_, __) => _popup.HideWithAnimation();
 
             DataContext = _viewModel;
 
@@ -36,6 +36,8 @@ namespace EarTrumpet.Views
             _popup.Closed += (_, __) => _viewModel.OnAppCollapsed();
 
             Deactivated += (_, __) => _viewModel.BeginClose();
+
+            PreviewKeyDown += (_, e) => KeyboardNavigationService.OnKeyDown(this, ref e);
 
             SourceInitialized += (s, e) =>
             {
@@ -61,6 +63,8 @@ namespace EarTrumpet.Views
                 case FlyoutViewModel.ViewState.Opening:
 
                     UpdateWindowBounds();
+
+                    DevicesList.Focus();
 
                     WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
                     break;
@@ -114,7 +118,14 @@ namespace EarTrumpet.Views
         {
             if (e.Key == Key.Escape)
             {
-                _viewModel.BeginClose();
+                if (_viewModel.IsShowingModalDialog)
+                {
+                    _viewModel.OnAppCollapsed();
+                }
+                else
+                {
+                    _viewModel.BeginClose();
+                }
             }
         }
 
@@ -199,15 +210,6 @@ namespace EarTrumpet.Views
             _expandOnCloseThenOpen = true;
 
             _viewModel.BeginClose();
-        }
-
-        private void ExpandCollapse_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up)
-            {
-                // Top of window - don't wrap around.
-                e.Handled = true;
-            }
         }
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)

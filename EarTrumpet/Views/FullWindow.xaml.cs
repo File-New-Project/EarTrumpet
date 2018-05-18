@@ -18,7 +18,7 @@ namespace EarTrumpet.Views
 
             _viewModel = new FullWindowViewModel(viewModel);
             _viewModel.AppExpanded += (_, e) => _popup.PositionAndShow(this, e);
-            _viewModel.AppCollapsed += (_, __) => _popup.IsOpen = false;
+            _viewModel.AppCollapsed += (_, __) => _popup.HideWithAnimation();
 
             InitializeComponent();
 
@@ -34,6 +34,7 @@ namespace EarTrumpet.Views
             this.StateChanged += FullWindow_StateChanged;
 
             Activated += (_, __) => SizeToContent = SizeToContent.Manual;
+            PreviewKeyDown += FullWindow_PreviewKeyDown;
 
             Instance = this;
             Closing += (s, e) =>
@@ -47,6 +48,18 @@ namespace EarTrumpet.Views
                 this.Cloak();
                 this.SetWindowBlur(true, true);
             };
+        }
+
+        private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape && _viewModel.IsShowingModalDialog)
+            {
+                _viewModel.OnAppCollapsed();
+            }
+            else
+            {
+                KeyboardNavigationService.OnKeyDown(this, ref e);
+            }
         }
 
         private void FullWindow_StateChanged(object sender, System.EventArgs e)

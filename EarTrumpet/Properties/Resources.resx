@@ -207,6 +207,12 @@
   <data name="AppMutedFormatAccessibleText" xml:space="preserve">
     <value>"Muted - {0}"</value>
   </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
     <value>Collapse to show only the default device</value>
   </data>
@@ -218,5 +224,8 @@
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Expand to show all devices</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Move this app to another output device</value>
   </data>
 </root>

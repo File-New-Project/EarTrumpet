@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\LegacyVolumeFlyoutService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Views\KeyboardNavigationService.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

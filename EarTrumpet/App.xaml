@@ -41,11 +41,8 @@
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
                 <Setter Property="Width" Value="46" />
                 <Setter Property="Height" Value="31" />
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Color="Transparent" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
                 <Setter Property="BorderThickness" Value="0" />
@@ -78,10 +75,20 @@
                                     <ColorAnimation FillBehavior="HoldEnd"
                                                     Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                                     To="Red"
-                                                    Duration="0:0:0.2" />
+                                                    Duration="0:0:0.1" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation FillBehavior="HoldEnd"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="#00FF0000"
+                                                    Duration="0:0:0.05" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.ExitActions>
                     </Trigger>
                 </Style.Triggers>
             </Style>
