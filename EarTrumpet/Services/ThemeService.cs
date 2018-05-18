@@ -69,17 +69,16 @@ namespace EarTrumpet.Services
                 if (IsWindowTransparencyEnabled)
                 {
                     newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveLightChromeWhite", 0.7);
-
                 }
                 else
                 {
-                    newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 0.8);
+                    newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1);
 
                 }
             }
             else
             {
-                newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6);
+                newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", IsWindowTransparencyEnabled ? 0.6 : 1);
 
             }
 
