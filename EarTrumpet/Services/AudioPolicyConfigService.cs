@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;

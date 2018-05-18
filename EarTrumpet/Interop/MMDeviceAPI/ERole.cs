@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EarTrumpet.Interop
+namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Flags]
     public enum ERole

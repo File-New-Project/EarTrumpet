@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using EarTrumpet.Interop.MMDeviceAPI;
 
 namespace EarTrumpet.DataModel.Services
 {

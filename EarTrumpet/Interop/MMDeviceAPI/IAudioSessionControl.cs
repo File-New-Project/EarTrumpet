@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.Interop
+namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("F4B1A599-7266-4319-A8CA-E70ACB11E8CD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

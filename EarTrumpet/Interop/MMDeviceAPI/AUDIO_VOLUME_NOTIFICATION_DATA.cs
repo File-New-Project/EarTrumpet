@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.Interop
+namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct AUDIO_VOLUME_NOTIFICATION_DATA

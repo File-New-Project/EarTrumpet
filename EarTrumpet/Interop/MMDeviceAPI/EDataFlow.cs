@@ -1,4 +1,4 @@
-﻿namespace EarTrumpet.Interop
+﻿namespace EarTrumpet.Interop.MMDeviceAPI
 {
     public enum EDataFlow
     {

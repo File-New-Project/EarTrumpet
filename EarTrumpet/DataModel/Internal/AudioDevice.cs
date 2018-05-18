@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
+using EarTrumpet.Interop.MMDeviceAPI;
 using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
