@@ -101,9 +101,21 @@
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
-                        <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource ControlSliderTrackFillRest}"
-                               Style="{StaticResource SliderThumbStyle}" />
+                        <Thumb Name="SliderThumb">
+                            <Thumb.Style>
+                                <Style TargetType="{x:Type Thumb}"
+                                       BasedOn="{StaticResource SliderThumbStyle}">
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource ControlSliderTrackFillRest}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
+                                            <Setter Property="Foreground"
+                                                    Value="{DynamicResource ControlSliderThumbHover}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Thumb.Style>
+                        </Thumb>
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
@@ -118,28 +130,6 @@
                         Height="2"
                         HorizontalAlignment="Left"
                         Background="{DynamicResource PeakMeterBackground}" />
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualStateGroup.Transitions>
-                            <VisualTransition GeneratedDuration="0" To="Normal" />
-                        </VisualStateGroup.Transitions>
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ControlSliderThumbHover}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource ControlSliderThumbHover}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
