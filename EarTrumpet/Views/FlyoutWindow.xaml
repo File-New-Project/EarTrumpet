@@ -205,8 +205,8 @@
 
                 <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
                     <ItemsControl Name="DevicesList"
-                                  IsTabStop="False"
                                   FocusVisualStyle="{x:Null}"
+                                  IsTabStop="False"
                                   ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

@@ -33,7 +33,6 @@ namespace EarTrumpet.Views
 
             this.StateChanged += FullWindow_StateChanged;
 
-            Activated += (_, __) => SizeToContent = SizeToContent.Manual;
             PreviewKeyDown += FullWindow_PreviewKeyDown;
 
             Instance = this;

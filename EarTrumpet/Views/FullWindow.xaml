@@ -103,14 +103,11 @@
                     <Track.Thumb>
                         <Thumb Name="SliderThumb">
                             <Thumb.Style>
-                                <Style TargetType="{x:Type Thumb}"
-                                       BasedOn="{StaticResource SliderThumbStyle}">
-                                    <Setter Property="Foreground"
-                                            Value="{DynamicResource ControlSliderTrackFillRest}" />
+                                <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
+                                    <Setter Property="Foreground" Value="{DynamicResource ControlSliderTrackFillRest}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
-                                            <Setter Property="Foreground"
-                                                    Value="{DynamicResource ControlSliderThumbHover}" />
+                                            <Setter Property="Foreground" Value="{DynamicResource ControlSliderThumbHover}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
