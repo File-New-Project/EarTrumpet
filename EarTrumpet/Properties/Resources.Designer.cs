@@ -142,15 +142,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set default volume for these apps:.
-        /// </summary>
-        public static string DefaultAppsDescriptionText {
-            get {
-                return ResourceManager.GetString("DefaultAppsDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Always use the default output device..
         /// </summary>
         public static string DefaultDeviceText {
@@ -196,24 +187,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Having trouble with EarTrumpet? Sometimes it can help to have the list of audio sessions from your PC..
-        /// </summary>
-        public static string DiagnosticsText {
-            get {
-                return ResourceManager.GetString("DiagnosticsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Diagnostics.
-        /// </summary>
-        public static string DiagnosticsTitle {
-            get {
-                return ResourceManager.GetString("DiagnosticsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Expand to show all devices.
         /// </summary>
         public static string ExpandAccessibleText {
@@ -250,7 +223,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keyboard shortcuts.
+        ///   Looks up a localized string similar to Keyboard shortcut.
         /// </summary>
         public static string KeyboardShortcutsTitle {
             get {
@@ -273,24 +246,6 @@ namespace EarTrumpet.Properties {
         public static string MoveButtonAccessibleText {
             get {
                 return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It doesn&apos;t look like you have any apps open..
-        /// </summary>
-        public static string NoAppsPanelContent {
-            get {
-                return ResourceManager.GetString("NoAppsPanelContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Apps which recently played sound will show up here.
-        /// </summary>
-        public static string NoAppsPlayingSoundText {
-            get {
-                return ResourceManager.GetString("NoAppsPlayingSoundText", resourceCulture);
             }
         }
         
@@ -372,15 +327,6 @@ namespace EarTrumpet.Properties {
         public static string SettingsWindowText {
             get {
                 return ResourceManager.GetString("SettingsWindowText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Hidden Sessions.
-        /// </summary>
-        public static string ShowHiddenSessionsMenuItem {
-            get {
-                return ResourceManager.GetString("ShowHiddenSessionsMenuItem", resourceCulture);
             }
         }
         

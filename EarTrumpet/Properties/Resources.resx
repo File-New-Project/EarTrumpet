@@ -132,9 +132,6 @@
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy Volume Mixer</value>
   </data>
-  <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>It doesn't look like you have any apps open.</value>
-  </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any audio devices.</value>
   </data>
@@ -162,17 +159,8 @@
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
     <value>Collect debug information</value>
   </data>
-  <data name="ShowHiddenSessionsMenuItem" xml:space="preserve">
-    <value>Show Hidden Sessions</value>
-  </data>
-  <data name="DefaultAppsDescriptionText" xml:space="preserve">
-    <value>Set default volume for these apps:</value>
-  </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Your shortcut</value>
-  </data>
-  <data name="NoAppsPlayingSoundText" xml:space="preserve">
-    <value>Apps which recently played sound will show up here</value>
   </data>
   <data name="SelectHotkeySaveButtonText" xml:space="preserve">
     <value>Close</value>
@@ -185,12 +173,6 @@
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="DiagnosticsText" xml:space="preserve">
-    <value>Having trouble with EarTrumpet? Sometimes it can help to have the list of audio sessions from your PC.</value>
-  </data>
-  <data name="DiagnosticsTitle" xml:space="preserve">
-    <value>Diagnostics</value>
   </data>
   <data name="HotKeySelectionText" xml:space="preserve">
     <value>Press a key combination</value>
@@ -232,7 +214,7 @@
     <value>Expand to show all devices</value>
   </data>
   <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Keyboard shortcuts</value>
+    <value>Keyboard shortcut</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Move this app to another output device</value>
