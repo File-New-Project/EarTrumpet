@@ -160,6 +160,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Shift+Q.
+        /// </summary>
+        public static string DefaultHotkeyContentText {
+            get {
+                return ResourceManager.GetString("DefaultHotkeyContentText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default shortcut.
+        /// </summary>
+        public static string DefaultHotkeyDescriptionText {
+            get {
+                return ResourceManager.GetString("DefaultHotkeyDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
         /// </summary>
         public static string DeviceFormatAccessibleText {
@@ -214,7 +232,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open EarTrumpet by pressing.
+        ///   Looks up a localized string similar to Your shortcut.
         /// </summary>
         public static string HotkeyDescriptionText {
             get {
@@ -228,6 +246,15 @@ namespace EarTrumpet.Properties {
         public static string HotKeySelectionText {
             get {
                 return ResourceManager.GetString("HotKeySelectionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard shortcuts.
+        /// </summary>
+        public static string KeyboardShortcutsTitle {
+            get {
+                return ResourceManager.GetString("KeyboardShortcutsTitle", resourceCulture);
             }
         }
         
@@ -322,7 +349,16 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Open EarTrumpet flyout.
+        /// </summary>
+        public static string SettingsOpenEarTrumpetText {
+            get {
+                return ResourceManager.GetString("SettingsOpenEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet.
         /// </summary>
         public static string SettingsTitle {
             get {

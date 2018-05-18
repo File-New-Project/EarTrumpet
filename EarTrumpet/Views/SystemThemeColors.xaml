@@ -34,6 +34,7 @@
     <SolidColorBrush x:Key="ControlSliderTrackBackgroundRest">Red</SolidColorBrush>
     <SolidColorBrush x:Key="ControlSliderThumbHover">Red</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="SettingsHeaderBackground">Blue</SolidColorBrush>
 
     <BitmapImage x:Key="LogoImage" UriSource="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png" />
 

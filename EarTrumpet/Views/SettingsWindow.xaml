@@ -12,18 +12,26 @@
     <Window.Resources>
         <Style x:Key="HeadingText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="4,12" />
+            <Setter Property="Margin" Value="0,14,0,14" />
         </Style>
+
         <Style x:Key="BodyText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="4,0,12,8" />
+            <Setter Property="Margin" Value="0,4,0,4" />
+        </Style>
+
+        <Style x:Key="BodySubText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryText}" />
+            <Setter Property="Margin" Value="0,4,0,4" />
         </Style>
 
         <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="4,4,12,16" />
+            <Setter Property="Margin" Value="0,8,0,8" />
         </Style>
 
         <Style TargetType="{x:Type Hyperlink}">
@@ -38,13 +46,23 @@
         </Style>
     </Window.Resources>
     <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="94" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Background="{DynamicResource SettingsHeaderBackground}" />
+        </Grid>
+
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Padding="20,8,20,8"
+                <TextBlock Margin="14,0,0,0"
                            Text="{Binding ElementName=WindowRoot, Path=Title}"
                            TextAlignment="Left" />
                 <Button x:Name="CloseButton"
@@ -53,31 +71,62 @@
                         Content="&#xE8BB;"
                         Style="{DynamicResource CloseButtonStyle}" />
             </Grid>
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" />
-            <StackPanel Margin="16,16,16,32" Orientation="Vertical">
-                <TextBlock Margin="4,0,4,12"
-                           Style="{StaticResource HeadingText}"
-                           Text="{x:Static resx:Resources.SettingsTitle}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="4,0,12,0"
+
+            <StackPanel Margin="14,0,0,14" Orientation="Vertical">
+
+                <StackPanel Margin="0,18,0,14" Orientation="Horizontal">
+                    <Image Height="24"
+                           Margin="0,0,8,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Source="{DynamicResource LogoImage}" />
+
+                    <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
+                </StackPanel>
+
+                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="120" />
+                        <ColumnDefinition Width="Auto" MinWidth="120" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+
+                    <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyContentText}" />
+
+                    <TextBlock Grid.Row="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <Button HorizontalAlignment="Left"
+
+                    <Button Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Left"
                             Click="HotkeySelect_Click"
                             Content="{Binding HotkeyText}"
                             Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
                             Style="{StaticResource Windows10ButtonStyle}" />
-                </StackPanel>
-                <TextBlock Margin="4,48,4,12"
-                           Style="{StaticResource HeadingText}"
-                           Text="{x:Static resx:Resources.AboutTitle}" />
+
+
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" />
+                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="44"
-                           Margin="0,0,16,0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           Source="{DynamicResource LogoImage}" />
+
                     <StackPanel>
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"

@@ -63,6 +63,12 @@ namespace EarTrumpet.Services
             newDictionary["FullWindowDeviceBackground"] = Lookup(isLightTheme ? "ImmersiveLightListLow" : "ImmersiveDarkChromeMediumLow");
 
             newDictionary["CloseButtonForeground"] = Lookup(isLightTheme ? "ImmersiveSystemText" : "ImmersiveApplicationTextDarkTheme");
+            newDictionary["SettingsHeaderBackground"] = Lookup(isLightTheme ? "ImmersiveLightChromeMediumLow" : "ImmersiveApplicationTextDarkTheme");
+
+
+            newDictionary["SecondaryText"] = Lookup(isLightTheme ? "ImmersiveLightSecondaryText" : "ImmersiveDarkSecondaryText");
+
+            
 
             if (isLightTheme)
             {

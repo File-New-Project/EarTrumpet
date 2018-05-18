@@ -169,7 +169,7 @@
     <value>Set default volume for these apps:</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Open EarTrumpet by pressing</value>
+    <value>Your shortcut</value>
   </data>
   <data name="NoAppsPlayingSoundText" xml:space="preserve">
     <value>Apps which recently played sound will show up here</value>
@@ -196,7 +196,7 @@
     <value>Press a key combination</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Website</value>
@@ -216,6 +216,12 @@
   <data name="CollapseAccessibleText" xml:space="preserve">
     <value>Collapse to show only the default device</value>
   </data>
+  <data name="DefaultHotkeyContentText" xml:space="preserve">
+    <value>Ctrl+Shift+Q</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Default shortcut</value>
+  </data>
   <data name="DeviceFormatAccessibleText" xml:space="preserve">
     <value>"{1} percent volume - {0}"</value>
   </data>
@@ -225,7 +231,13 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Expand to show all devices</value>
   </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Keyboard shortcuts</value>
+  </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Move this app to another output device</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Open EarTrumpet flyout</value>
   </data>
 </root>
