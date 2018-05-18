@@ -22,6 +22,12 @@
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
         </Style>
 
+        <Style x:Key="AppListStyle"
+               BasedOn="{StaticResource BaseAppListStyle}"
+               TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
@@ -105,7 +111,7 @@
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource CottonSwabSliderTrackBackground}"
+                                      Foreground="#39FFFFFF"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>

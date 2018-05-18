@@ -11,8 +11,6 @@
                 <ResourceDictionary Source="Views\SystemThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="CottonSwabSliderTrackBackground" Color="#39FFFFFF" />
-
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
             <ext:OpacityConverter x:Key="opacityConverter" />
 
@@ -31,6 +29,7 @@
             <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
+            <Thickness x:Key="VolumeAppListMarginFullWindow">0,6,0,0</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
@@ -311,6 +310,11 @@
                         <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BaseAppListStyle" TargetType="{x:Type ListView}">
+                <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
+                <Setter Property="BorderThickness" Value="0" />
             </Style>
 
         </ResourceDictionary>

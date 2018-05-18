@@ -7,7 +7,7 @@
     <Grid Name="GridRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Style="{DynamicResource DeviceHeaderGridStyle}">
@@ -66,9 +66,9 @@
 
         <ListView Name="AppList"
                   Grid.Row="1"
-                  Margin="{StaticResource VolumeAppListMargin}"
                   AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
-                  ItemsSource="{Binding Device.Apps, Mode=OneWay}">
+                  ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                  Style="{DynamicResource AppListStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="viewModels:AppItemViewModel">
                     <views:AppVolumeControl App="{Binding}" AppExpanded="AppVolumeControl_AppExpanded" />

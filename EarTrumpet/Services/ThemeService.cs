@@ -29,6 +29,7 @@ namespace EarTrumpet.Services
             newDictionary["ActiveBorder"] = Lookup("ImmersiveSystemAccent");
             newDictionary["CottonSwabSliderThumbHover"] = Lookup("ImmersiveControlDarkSliderThumbHover");
             newDictionary["CottonSwabSliderThumbPressed"] = Lookup("ImmersiveControlDarkSliderThumbHover");
+
             newDictionary["CottonSwabSliderTrackFill"] = Lookup("ImmersiveSystemAccentLight1");
             newDictionary["WindowBackground"] = new SolidColorBrush(GetWindowBackgroundColor());
 
@@ -63,13 +64,32 @@ namespace EarTrumpet.Services
 
             newDictionary["CloseButtonForeground"] = Lookup(isLightTheme ? "ImmersiveSystemText" : "ImmersiveApplicationTextDarkTheme");
 
+            if (isLightTheme)
+            {
+                if (IsWindowTransparencyEnabled)
+                {
+                    newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveLightChromeWhite", 0.7);
+
+                }
+                else
+                {
+                    newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 0.8);
+
+                }
+            }
+            else
+            {
+                newDictionary["ChromeBlackMedium"] = Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6);
+
+            }
+
             var AddThemeSpecificBrush = new Action<string>((s) =>
             {
                 newDictionary[$"Control{s}"] = Lookup(isLightTheme ? $"ImmersiveControlLight{s}" : $"ImmersiveControlDark{s}");
             });
 
             AddThemeSpecificBrush("SliderTrackFillRest");
-            AddThemeSpecificBrush("SliderTrackBackgroundRest");
+            AddThemeSpecificBrush("SliderTrackFillDisabled");
             AddThemeSpecificBrush("SliderThumbHover");
 
             newDictionary["HardwareTitleBarCloseButtonHover"] = Lookup("ImmersiveHardwareTitleBarCloseButtonHover", 1);

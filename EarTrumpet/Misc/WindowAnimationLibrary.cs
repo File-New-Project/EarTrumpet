@@ -226,7 +226,7 @@ namespace EarTrumpet.Misc
                 completed();
             });
 
-            if (!SystemParameters.MenuAnimation || !UserSystemPreferencesService.IsTransparencyEnabled)
+            if (!SystemParameters.MenuAnimation)
             {
                 onCompleted(null, null);
                 return;

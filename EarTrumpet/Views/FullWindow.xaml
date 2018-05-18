@@ -7,12 +7,26 @@
         MinWidth="300"
         MinHeight="300"
         SizeToContent="WidthAndHeight"
-        Style="{StaticResource DialogWindowStyle}"
+        Style="{DynamicResource FullWindowDialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
 
+        <Style x:Key="FullWindowDialogWindowStyle"
+               BasedOn="{StaticResource DialogWindowStyle}"
+               TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="{DynamicResource ChromeBlackMedium}" />
+            <Setter Property="ResizeMode" Value="NoResize" />
+        </Style>
+
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="{DynamicResource FullWindowDeviceBackground}" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style x:Key="AppListStyle"
+               BasedOn="{StaticResource BaseAppListStyle}"
+               TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+            <Setter Property="Margin" Value="{StaticResource VolumeAppListMarginFullWindow}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
@@ -94,7 +108,7 @@
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource ControlSliderTrackBackgroundRest}"
+                                      Foreground="{DynamicResource ControlSliderTrackFillDisabled}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
