@@ -13,7 +13,7 @@ namespace EarTrumpet.Services
     {
         public static bool IsImmersiveProcess(int processId)
         {
-            var processHandle = Kernel32.OpenProcess(Kernel32.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
+            var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
             if (processHandle == IntPtr.Zero)
                 return false;
 
@@ -45,7 +45,7 @@ namespace EarTrumpet.Services
         {
             string appUserModelId = string.Empty;
 
-            var processHandle = Kernel32.OpenProcess(Kernel32.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
+            var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
             if (processHandle != IntPtr.Zero)
             {
                 int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
@@ -180,7 +180,7 @@ namespace EarTrumpet.Services
             {
                 appInfo.IsDesktopApp = true;
 
-                var handle = Kernel32.OpenProcess(Kernel32.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
+                var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
                 if (handle != IntPtr.Zero)
                 {
                     var fileNameBuilder = new StringBuilder(260);

@@ -45,6 +45,11 @@ namespace EarTrumpet.DataModel.Internal
                     });
                 });
 
+            if (!IsSystemSoundsSession)
+            {
+                ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
+            }
+
             ReadVolumeAndMute();
         }
 
@@ -179,6 +184,15 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
+        private void DisconnectSession()
+        {
+            _isDisconnected = true;
+            _dispatcher.SafeInvoke(() =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            });
+        }
+
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
             ReadVolumeAndMute();
@@ -206,14 +220,7 @@ namespace EarTrumpet.DataModel.Internal
             });
         }
 
-        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason)
-        {
-            _isDisconnected = true;
-            _dispatcher.SafeInvoke(() =>
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
-            });
-        }
+        void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason) => DisconnectSession();
 
         void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext){}
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext) { }

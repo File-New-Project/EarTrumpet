@@ -11,29 +11,38 @@ namespace EarTrumpet.Interop
         internal const int MAX_AUMID_LEN = 512;
         internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * 2;
         internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * 2;
-        internal const int PROCESS_QUERY_INFORMATION = 0x0400;
-        internal const int PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
+
+        internal enum ProcessFlags : uint
+        {
+            PROCESS_QUERY_LIMITED_INFORMATION = 0x1000,
+            SYNCHRONIZE = 0x00100000,
+        }
 
         [Flags]
-        public enum LoadLibraryFlags
+        internal enum LoadLibraryFlags
         {
             LOAD_LIBRARY_AS_DATAFILE = 0x02,
             LOAD_LIBRARY_AS_IMAGE_RESOURCE = 0x20
         }
 
+        internal const int WAIT_OBJECT_0 = 0x00000000;
+        internal const int WAIT_FAILED = unchecked((int)0xFFFFFFFF);
+        internal const int WAIT_TIMEOUT = 0x00000102;
+        internal const int WAIT_ABANDONED = 0x00000080;
+
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern IntPtr LoadLibraryEx(
+        internal static extern IntPtr LoadLibraryEx(
             [MarshalAs(UnmanagedType.LPWStr)] string path,
             IntPtr reserved,
             LoadLibraryFlags flags);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
-        public static extern int FreeLibrary(
+        internal static extern int FreeLibrary(
             IntPtr moduleHandle);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         internal static extern IntPtr OpenProcess(
-            uint dwDesiredAccess,
+            ProcessFlags dwDesiredAccess,
             bool bInheritHandle,
             int dwProcessId);
 
@@ -98,5 +107,8 @@ namespace EarTrumpet.Interop
             uint dwFlags,
             [MarshalAs(UnmanagedType.LPWStr)]StringBuilder lpExeName,
             ref uint lpdwSize);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        internal static extern int WaitForMultipleObjects(int nCount, IntPtr[] lpHandles, [MarshalAs(UnmanagedType.Bool)]bool bWaitAll, int dwMilliseconds);
     }
 }

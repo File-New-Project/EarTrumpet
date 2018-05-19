@@ -60,7 +60,7 @@ namespace EarTrumpet.Services
 
             foreach (AudioDeviceSessionGroup appGroup in device.Groups)
             {
-                foreach(AudioDeviceSessionGroup appSession in appGroup.Children)
+                foreach (AudioDeviceSessionGroup appSession in appGroup.Children)
                 {
                     foreach (SafeAudioDeviceSession rawSession in appSession.Children)
                     {

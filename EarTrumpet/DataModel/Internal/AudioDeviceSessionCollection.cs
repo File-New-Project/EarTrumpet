@@ -23,7 +23,6 @@ namespace EarTrumpet.DataModel.Internal
             var sessionManager = device.Activate<IAudioSessionManager2>();
             sessionManager.RegisterSessionNotification(this);
 
-            // Enumerate existing sessions.
             var enumerator = sessionManager.GetSessionEnumerator();
             int count;
             enumerator.GetCount(out count);
@@ -105,6 +104,7 @@ namespace EarTrumpet.DataModel.Internal
                         if (!appSessionGroup.Sessions.Any())
                         {
                             appGroup.RemoveSession(appSessionGroup);
+                            break;
                         }
                     }
                 }
@@ -113,9 +113,9 @@ namespace EarTrumpet.DataModel.Internal
                 if (!appGroup.Sessions.Any())
                 {
                     _sessions.Remove(appGroup);
+                    break;
                 }
             }
-            throw new Exception("RemoveSession: session not found");
         }
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
