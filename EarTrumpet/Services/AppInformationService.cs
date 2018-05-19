@@ -181,33 +181,35 @@ namespace EarTrumpet.Services
             {
                 appInfo.IsDesktopApp = true;
 
-                const uint PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
-                var handle = Kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
+                var handle = Kernel32.OpenProcess(Kernel32.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
                 if (handle != IntPtr.Zero)
                 {
-                    var fileNameBuilder = new StringBuilder(255);
-                    uint bufferLength = (uint)fileNameBuilder.Capacity + 1;
-                    Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength);
-
-                    if (fileNameBuilder.Length > 0)
+                    var fileNameBuilder = new StringBuilder(260);
+                    uint bufferLength = (uint)fileNameBuilder.Capacity;
+                    if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
                     {
-                        var processFullPath = fileNameBuilder.ToString();
-                        appInfo.ExeName = Path.GetFileName(processFullPath);
-                        appInfo.SmallLogoPath = processFullPath;
-                        appInfo.PackageInstallPath = processFullPath;
-
-                        if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                        if (fileNameBuilder.Length > 0)
                         {
-                            displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
-                            shouldResolvedDisplayNameFromMainWindow = false;
+                            var processFullPath = fileNameBuilder.ToString();
+                            appInfo.ExeName = Path.GetFileName(processFullPath);
+                            appInfo.SmallLogoPath = processFullPath;
+                            appInfo.PackageInstallPath = processFullPath;
+
+                            if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                            {
+                                displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
+                                shouldResolvedDisplayNameFromMainWindow = false;
+                            }
+
+                            // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
+                            if (appInfo.SmallLogoPath.ToLowerInvariant().Contains("speechruntime.exe"))
+                            {
+                                var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
+                                appInfo.SmallLogoPath = Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe");
+                            }
                         }
 
-                        // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
-                        if (appInfo.SmallLogoPath.ToLowerInvariant().Contains("speechruntime.exe"))
-                        {
-                            var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
-                            appInfo.SmallLogoPath = Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe");
-                        }
+                        Kernel32.CloseHandle(handle);
                     }
                 }
             }

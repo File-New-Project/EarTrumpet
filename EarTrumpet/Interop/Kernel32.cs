@@ -11,6 +11,7 @@ namespace EarTrumpet.Interop
         internal const int MAX_AUMID_LEN = 512;
         internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * 2;
         internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * 2;
+        internal const int PROCESS_QUERY_INFORMATION = 0x0400;
         internal const int PROCESS_QUERY_LIMITED_INFORMATION = 0x1000;
 
         [Flags]
@@ -91,7 +92,11 @@ namespace EarTrumpet.Interop
         internal static extern int ClosePackageInfo(
             IntPtr packageInfoReference);
 
-        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        internal static extern int QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        internal static extern int QueryFullProcessImageName(
+            IntPtr hProcess,
+            uint dwFlags,
+            [MarshalAs(UnmanagedType.LPWStr)]StringBuilder lpExeName,
+            ref uint lpdwSize);
     }
 }
