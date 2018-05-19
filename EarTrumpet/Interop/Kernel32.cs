@@ -12,6 +12,7 @@ namespace EarTrumpet.Interop
         internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * 2;
         internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * 2;
 
+        [Flags]
         internal enum ProcessFlags : uint
         {
             PROCESS_QUERY_LIMITED_INFORMATION = 0x1000,
@@ -110,5 +111,8 @@ namespace EarTrumpet.Interop
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         internal static extern int WaitForMultipleObjects(int nCount, IntPtr[] lpHandles, [MarshalAs(UnmanagedType.Bool)]bool bWaitAll, int dwMilliseconds);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        internal static extern int WaitForSingleObject(IntPtr lpHandle, int dwMilliseconds);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
+using EarTrumpet.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -28,8 +29,7 @@ namespace EarTrumpet.DataModel.Internal
             int count = enumerator.GetCount();
             for (int i = 0; i < count; i++)
             {
-                var session = enumerator.GetSession(i);
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _device, _dispatcher)));
+                CreateAndAddSession(enumerator.GetSession(i));
             }
         }
 
@@ -41,19 +41,25 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
+        private void CreateAndAddSession(IAudioSessionControl session)
+        {
+            try
+            {
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _device, _dispatcher)));
+            }
+            catch(COMException ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            catch (ZombieProcessException)
+            {
+                // Nothing to do.
+            }
+        }
+
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)
         {
-            _dispatcher.SafeInvoke(() =>
-            {
-                try
-                {
-                    AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(NewSession, _device, _dispatcher)));
-                }
-                catch(COMException ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-            });
+            _dispatcher.SafeInvoke(() => CreateAndAddSession(NewSession));
         }
 
         private void AddSession(IAudioDeviceSession session)

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace EarTrumpet.Services
 {
+    public class ZombieProcessException : Exception { }
+
     public class AppInformationService
     {
         public static bool IsImmersiveProcess(int processId)
@@ -41,8 +43,8 @@ namespace EarTrumpet.Services
         {
             string appUserModelId = string.Empty;
 
-            var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
-            if (processHandle != IntPtr.Zero)
+            var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
+            if (processHandle != IntPtr.Zero && Kernel32.WaitForSingleObject(processHandle, 0) == Kernel32.WAIT_TIMEOUT)
             {
                 int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
                 var amuidBuffer = new StringBuilder(amuidBufferLength);
@@ -118,6 +120,7 @@ namespace EarTrumpet.Services
                     }
                 }
             }
+            else throw new ZombieProcessException();
 
             return appUserModelId;
         }
@@ -171,8 +174,8 @@ namespace EarTrumpet.Services
             {
                 appInfo.IsDesktopApp = true;
 
-                var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
-                if (handle != IntPtr.Zero)
+                var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
+                if (handle != IntPtr.Zero && Kernel32.WaitForSingleObject(handle, 0) == Kernel32.WAIT_TIMEOUT)
                 {
                     var fileNameBuilder = new StringBuilder(260);
                     uint bufferLength = (uint)fileNameBuilder.Capacity;
@@ -195,6 +198,7 @@ namespace EarTrumpet.Services
                         Kernel32.CloseHandle(handle);
                     }
                 }
+                else throw new ZombieProcessException();
             }
 
             if (shouldResolvedDisplayNameFromMainWindow)
