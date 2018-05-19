@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
-using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -122,7 +121,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string Id => _id;
 
-        public ObservableCollection<IAudioDeviceSession> Sessions => _sessions.Sessions;
+        public ObservableCollection<IAudioDeviceSession> Groups => _sessions.Sessions;
 
         public string DisplayName => _displayName;
 
@@ -144,11 +143,6 @@ namespace EarTrumpet.DataModel.Internal
             _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
             _deviceVolume.GetMute(out int muted);
             _isMuted = muted != 0;
-        }
-
-        public void TakeSessionFromOtherDevice(int processId)
-        {
-            AudioPolicyConfigService.SetDefaultEndPoint(Id, processId);
         }
     }
 }

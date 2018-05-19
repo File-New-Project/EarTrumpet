@@ -1,7 +1,9 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -25,11 +27,18 @@ namespace EarTrumpet.Services
 
         public static ImageSource GetIconFromFileAsImageSource(string path, int iconIndex = 0)
         {
-            var iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
-            var image = Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            User32.DestroyIcon(iconHandle);
-
-            return image;
+            // TODO: not clear both branches are needed here
+            if (Path.GetExtension(path) == ".dll")
+            {
+                var iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
+                var image = Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                User32.DestroyIcon(iconHandle);
+                return image;
+            }
+            else
+            {
+                return System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource();
+            }
         }
     }
 }

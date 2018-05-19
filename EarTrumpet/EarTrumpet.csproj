@@ -211,7 +211,6 @@
     <Compile Include="ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\DeviceViewModelComparer.cs" />
     <Compile Include="ViewModels\FlyoutViewModel.cs" />

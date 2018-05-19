@@ -26,7 +26,7 @@ namespace EarTrumpet.Views
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                Device.Device.IsMuted = !Device.Device.IsMuted;
+                Device.IsMuted = !Device.IsMuted;
                 e.Handled = true;
             }
         }
@@ -35,7 +35,7 @@ namespace EarTrumpet.Views
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                Device.Device.IsMuted = !Device.Device.IsMuted;
+                Device.IsMuted = !Device.IsMuted;
                 e.Handled = true;
             }
         }

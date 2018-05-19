@@ -53,7 +53,7 @@ namespace EarTrumpet.ViewModels
 
                 case NotifyCollectionChangedAction.Remove:
                     var removed = ((IAudioDevice)e.OldItems[0]).Id;
-                    var allExisting = AllDevices.FirstOrDefault(d => d.Device.Id == removed);
+                    var allExisting = AllDevices.FirstOrDefault(d => d.Id == removed);
                     if (allExisting != null)
                     {
                         AllDevices.Remove(allExisting);
@@ -83,20 +83,20 @@ namespace EarTrumpet.ViewModels
 
         public void MoveAppToDevice(AppItemViewModel app, DeviceViewModel dev)
         {
-            var searchId = dev?.Device.Id;
+            var searchId = dev?.Id;
             if (dev == null)
             {
                 searchId = _deviceService.DefaultPlaybackDevice.Id;
             }
             DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
-            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Device.Id);
+            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
 
             try
             {
                 // Update the output for all processes represented by this app.
                 foreach (var pid in app.ChildApps.Select(c => c.Session.ProcessId).ToSet())
                 {
-                    AudioPolicyConfigService.SetDefaultEndPoint(dev?.Device.Id, pid);
+                    AudioPolicyConfigService.SetDefaultEndPoint(dev?.Id, pid);
                 }
 
                 // Update the UI if the device logically changed places.

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace EarTrumpet.DataModel.Internal
 {
@@ -62,6 +63,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public string DisplayName => _sessions[0].DisplayName;
 
+        public string ExeName => _sessions[0].ExeName;
+
         public Guid GroupingParam { get; private set; }
 
         public string IconPath => _sessions[0].IconPath;
@@ -85,7 +88,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public bool IsSystemSoundsSession => _sessions[0].IsSystemSoundsSession;
 
-        public float PeakValue => _sessions[0].PeakValue;
+        public float PeakValue => _sessions.Max(s => s.PeakValue);
 
         public int ProcessId => _sessions[0].ProcessId;
 

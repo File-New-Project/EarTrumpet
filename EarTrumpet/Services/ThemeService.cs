@@ -67,6 +67,7 @@ namespace EarTrumpet.Services
 
 
             newDictionary["SecondaryText"] = Lookup(isLightTheme ? "ImmersiveLightSecondaryText" : "ImmersiveDarkSecondaryText");
+            newDictionary["SystemAccent"] = Lookup("ImmersiveSystemAccent");
 
             
 

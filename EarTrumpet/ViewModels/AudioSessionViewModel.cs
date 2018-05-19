@@ -23,7 +23,6 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(e.PropertyName);
         }
 
-        public virtual string DisplayName => _stream.DisplayName;
         public string Id => _stream.Id;
         public IAudioDeviceSession Session => (IAudioDeviceSession)_stream;
 

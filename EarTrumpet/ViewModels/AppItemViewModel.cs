@@ -1,12 +1,10 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -14,9 +12,15 @@ namespace EarTrumpet.ViewModels
 {
     public class AppItemViewModel : AudioSessionViewModel
     {
-        private IAudioDeviceSession _session;
+        public class ExeNameComparer : IComparer<AppItemViewModel>
+        {
+            public int Compare(AppItemViewModel one, AppItemViewModel two)
+            {
+                return string.Compare(one._session.ExeName, two._session.ExeName, StringComparison.Ordinal);
+            }
+        }
 
-        public string ExeName { get; private set; }
+        public static readonly ExeNameComparer CompareByExeName = new ExeNameComparer();
 
         public ImageSource Icon { get; private set; }
 
@@ -24,19 +28,7 @@ namespace EarTrumpet.ViewModels
 
         public char IconText => DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
-        string _displayName;
-        public override string DisplayName => _displayName;
-
-        bool _isExpanded;
-        public bool IsExpanded
-        {
-            get => _isExpanded;
-            set
-            {
-                _isExpanded = value;
-                RaisePropertyChanged(nameof(IsExpanded));
-            }
-        }
+        public string DisplayName => _session.DisplayName;
 
         public ObservableCollection<AppItemViewModel> ChildApps { get; private set; }
 
@@ -44,104 +36,47 @@ namespace EarTrumpet.ViewModels
 
         public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
 
+        public bool IsExpanded { get; private set; }
+
+        private IAudioDeviceSession _session;
+
         public AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
         {
+            IsExpanded = isChild;
             _session = session;
+            _session.PropertyChanged += Session_PropertyChanged;
 
-            ChildApps = new ObservableCollection<AppItemViewModel>();
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;
-                LoadChildren();
+                ChildApps = new ObservableCollection<AppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
             }
 
-            ExeName = session.DisplayName;
-            _displayName = ExeName;
+            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent :
+                AccentColorService.FromABGR(session.BackgroundColor));
 
-            if (isChild)
+            try
             {
-                _isExpanded = true;
-            }
-
-            if (session.DisplayName.ToLowerInvariant() == "speechruntime.exe")
-            {
-                _displayName = Properties.Resources.SpeechRuntimeDisplayName;
-            }
-            else if (session.IsSystemSoundsSession)
-            {
-                _displayName = Properties.Resources.SystemSoundsDisplayName;
-            }
-
-            if (session.IsDesktopApp)
-            {
-                try
+                if (session.IsDesktopApp)
                 {
-                    if (Path.GetExtension(session.IconPath) == ".dll")
-                    {
-                        Icon = IconService.GetIconFromFileAsImageSource(session.IconPath);
-                    }
-                    else
-                    {
-                        // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
-                        if (session.IconPath.ToLowerInvariant().Contains("speechruntime.exe"))
-                        {
-                            var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
-                            Icon = IconService.GetIconFromFileAsImageSource(Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe"), 0);
-                        }
-                        else
-                        {
-                            Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-                        }
-                    }
+                    Icon = IconService.GetIconFromFileAsImageSource(session.IconPath);
                 }
-                catch(Exception ex)
-                {
-                    Debug.WriteLine($"Failed to load icon: {ex}");
-                    // ignored
-                }
-
-                Background = new SolidColorBrush(Icon == null ?
-                    AccentColorService.GetColorByTypeName("ImmersiveSystemAccent") :
-                    Colors.Transparent);
-            }
-            else
-            {
-                if (File.Exists(session.IconPath)) // hack until we invoke the resource manager correctly.
+                else
                 {
                     Icon = new BitmapImage(new Uri(session.IconPath));
                 }
-                Background = new SolidColorBrush(AccentColorService.FromABGR(session.BackgroundColor));
             }
-
-            Task.Factory.StartNew(() =>
+            catch (Exception ex)
             {
-                try
-                {
-                    var proc = Process.GetProcessById((int)_session.ProcessId);
-                    if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
-                    {
-                        var displayName = proc.MainWindowTitle;
-                        App.Current.Dispatcher.SafeInvoke(() =>
-                        {
-                            _displayName = displayName;
-                            RaisePropertyChanged(nameof(DisplayName));
-                        });
-                    }
-                }
-                catch { } // we fallback to exe name if DisplayName is not set in the try above.
-            });
+                Debug.WriteLine($"Failed to load icon: {ex}");
+            }
         }
 
-        public bool DoesGroupWith(AppItemViewModel app)
+        private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            return (_session.AppId == app._session.AppId);
-        }
-
-        private void LoadChildren()
-        {
-            foreach(var child in _session.Children)
+            if (e.PropertyName == nameof(_session.DisplayName))
             {
-                ChildApps.Add(new AppItemViewModel(child, isChild:true));
+                RaisePropertyChanged(nameof(DisplayName));
             }
         }
 
@@ -158,14 +93,7 @@ namespace EarTrumpet.ViewModels
                     Debug.Assert(e.OldItems.Count == 1);
                     ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                     break;
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
-                    throw new NotImplementedException();
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    throw new NotImplementedException();
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                default:
                     throw new NotImplementedException();
             }
         }
@@ -174,7 +102,7 @@ namespace EarTrumpet.ViewModels
         {
             if (ChildApps != null)
             {
-                foreach(var child in ChildApps)
+                foreach (var child in ChildApps)
                 {
                     child.TriggerPeakCheck();
                 }
@@ -183,40 +111,10 @@ namespace EarTrumpet.ViewModels
             base.TriggerPeakCheck();
         }
 
-        public override float PeakValue
-        {
-            get
-            {
-                if (_session.Children != null)
-                {
-                    float highestOfChildrenPeakValues = 0;
-                    foreach(var child in _session.Children)
-                    {
-                        var childPeakValue = child.PeakValue;
-                        if (childPeakValue > highestOfChildrenPeakValues)
-                        {
-                            highestOfChildrenPeakValues = childPeakValue;
-                        }
-                    }
-                    return highestOfChildrenPeakValues;
-                }
-                else
-                {
-                    return _session.PeakValue;
-                }
-            }
-        }
+        public override float PeakValue => _session.PeakValue;
 
-        public override string ToString()
-        {
-            if (IsMuted)
-            {
-                return string.Format(Properties.Resources.AppMutedFormatAccessibleText, DisplayName);
-            }
-            else
-            {
-                return string.Format(Properties.Resources.AppFormatAccessibleText, DisplayName, Volume);
-            }
-        }
+        public bool DoesGroupWith(AppItemViewModel app) => (_session.AppId == app._session.AppId);
+
+        public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppMutedFormatAccessibleText : Properties.Resources.AppFormatAccessibleText, DisplayName, Volume);
     }
 }

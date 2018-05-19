@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EarTrumpet.Services
 {
@@ -126,7 +127,7 @@ namespace EarTrumpet.Services
             return appUserModelId;
         }
 
-        public static AppInformation GetInformationForAppByPid(int processId)
+        public static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
         {
             var appInfo = new AppInformation();
 
@@ -134,6 +135,8 @@ namespace EarTrumpet.Services
             {
                 return GetInformationForSystemProcess();
             }
+
+            bool shouldResolvedDisplayNameFromMainWindow = true;
 
             if (IsImmersiveProcess(processId))
             {
@@ -147,7 +150,12 @@ namespace EarTrumpet.Services
                     ref iid,
                     out IShellItem2 shellitem);
 
-                appInfo.DisplayName = shellitem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+                // TODO: thsi should be exe name
+                appInfo.ExeName = shellitem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+
+                displayNameResolved(appInfo.ExeName);
+                shouldResolvedDisplayNameFromMainWindow = false;
+
                 appInfo.BackgroundColor = shellitem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 appInfo.PackageInstallPath = shellitem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 appInfo.PackageFullName = shellitem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
@@ -183,11 +191,43 @@ namespace EarTrumpet.Services
                     if (fileNameBuilder.Length > 0)
                     {
                         var processFullPath = fileNameBuilder.ToString();
-                        appInfo.DisplayName = Path.GetFileName(processFullPath);
+                        appInfo.ExeName = Path.GetFileName(processFullPath);
                         appInfo.SmallLogoPath = processFullPath;
                         appInfo.PackageInstallPath = processFullPath;
+
+                        if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                        {
+                            displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
+                            shouldResolvedDisplayNameFromMainWindow = false;
+                        }
+
+                        // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
+                        if (appInfo.SmallLogoPath.ToLowerInvariant().Contains("speechruntime.exe"))
+                        {
+                            var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
+                            appInfo.SmallLogoPath = Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe");
+                        }
                     }
                 }
+            }
+
+            if (shouldResolvedDisplayNameFromMainWindow)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        var proc = Process.GetProcessById(processId);
+                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                        {
+                            displayNameResolved(proc.MainWindowTitle);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                });
             }
 
             return appInfo;
@@ -197,6 +237,7 @@ namespace EarTrumpet.Services
         {
             return new AppInformation()
             {
+                DisplayName = Properties.Resources.SystemSoundsDisplayName,
                 BackgroundColor = 0x000000,
                 PackageInstallPath = "System.SystemSoundsSession",
                 IsDesktopApp = true,

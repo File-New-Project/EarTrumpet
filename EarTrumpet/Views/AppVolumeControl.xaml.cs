@@ -29,14 +29,11 @@ namespace EarTrumpet.Views
 
         public void ExpandApp()
         {
-            if (!App.IsExpanded)
+            AppExpanded?.Invoke(this, new AppVolumeControlExpandedEventArgs
             {
-                AppExpanded?.Invoke(this, new AppVolumeControlExpandedEventArgs
-                {
-                    ViewModel = App,
-                    Container = (UIElement)this,
-                });
-            }
+                ViewModel = App,
+                Container = (UIElement)this,
+            });
         }
     }
 

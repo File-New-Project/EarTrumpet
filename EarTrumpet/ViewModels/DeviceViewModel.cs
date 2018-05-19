@@ -1,95 +1,94 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 
 namespace EarTrumpet.ViewModels
 {
-    public class DeviceViewModel : BindableBase
+    public class DeviceViewModel : AudioSessionViewModel
     {
-        public AudioSessionViewModel Device { get; private set; }
+        public string DisplayName { get; private set; }
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
-
         public string DeviceIconText { get; private set; }
         public string DeviceIconTextBackground { get; private set; }
 
-        IAudioDevice _device;
-        IAudioDeviceManager _deviceService;
+        private readonly string s_Sound3BarsIcon = "\xE995";
+        private readonly string s_Sound2BarsIcon = "\xE994";
+        private readonly string s_Sound1BarIcon = "\xE993";
+        private readonly string s_SoundMuteIcon = "\xE74F";
 
-        public DeviceViewModel(IAudioDeviceManager deviceService, IAudioDevice device)
+        private IAudioDevice _device;
+        private IAudioDeviceManager _deviceManager;
+
+        public DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
-            _deviceService = deviceService;
+            _deviceManager = deviceManager;
             _device = device;
 
-            Device = new AudioSessionViewModel(device);
             Apps = new ObservableCollection<AppItemViewModel>();
 
-            _device.PropertyChanged += _device_PropertyChanged;
-            _device.Sessions.CollectionChanged += Sessions_CollectionChanged;
+            _device.PropertyChanged += Device_PropertyChanged;
+            _device.Groups.CollectionChanged += Sessions_CollectionChanged;
+            DisplayName = _device.DisplayName;
 
-            Apps.Clear();
-            foreach (var session in _device.Sessions)
+            foreach (var session in _device.Groups)
             {
-                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModelComparer.Instance);
+                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModel.CompareByExeName);
             }
 
-            UpdateDeviceText();
+            UpdateMasterVolumeIcon();
         }
 
-        private void _device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_device.IsMuted) ||
                 e.PropertyName == nameof(_device.Volume))
             {
-                UpdateDeviceText();
+                UpdateMasterVolumeIcon();
             }
         }
 
         ~DeviceViewModel()
         {
-            _device.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+            _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
         }
 
-        public void TriggerPeakCheck()
+        public override void TriggerPeakCheck()
         {
-            Device.TriggerPeakCheck();
+            base.TriggerPeakCheck();
 
             foreach (var app in Apps) app.TriggerPeakCheck();
         }
 
-        private void UpdateDeviceText()
+        private void UpdateMasterVolumeIcon()
         {
-            DeviceIconTextBackground = "\xE995";
-
-            string icon = "";
+            string icon;
             if (_device.IsMuted)
             {
-                icon = "\xE74F";
-                DeviceIconTextBackground = icon;
+                icon = s_SoundMuteIcon;
             }
             else if (_device.Volume >= 0.65f)
             {
-                icon = "\xE995";
+                icon = s_Sound3BarsIcon;
             }
             else if (_device.Volume >= 0.33f)
             {
-                icon = "\xE994";
+                icon = s_Sound2BarsIcon;
             }
             else if (_device.Volume > 0f)
             {
-                icon = "\xE993";
+                icon = s_Sound1BarIcon;
             }
             else
             {
-                icon = "\xE74F"; // Mute
-                DeviceIconTextBackground = icon;
+                icon = s_SoundMuteIcon;
             }
 
             DeviceIconText = icon;
+            DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
+
             RaisePropertyChanged(nameof(DeviceIconText));
             RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
@@ -108,13 +107,7 @@ namespace EarTrumpet.ViewModels
                     Apps.Remove(Apps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                     break;
 
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
-                    throw new NotImplementedException();
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    throw new NotImplementedException();
-
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                default:
                     throw new NotImplementedException();
             }
         }
@@ -132,7 +125,7 @@ namespace EarTrumpet.ViewModels
                 }
             }
 
-            Apps.AddSorted(newSession, AppItemViewModelComparer.Instance);
+            Apps.AddSorted(newSession, AppItemViewModel.CompareByExeName);
         }
 
         public void OnAppMovedToDevice(AppItemViewModel app)
@@ -149,7 +142,7 @@ namespace EarTrumpet.ViewModels
 
             if (!hasExistingAppGroup)
             {
-                Apps.AddSorted(app, AppItemViewModelComparer.Instance);
+                Apps.AddSorted(app, AppItemViewModel.CompareByExeName);
             }
         }
 
@@ -158,16 +151,6 @@ namespace EarTrumpet.ViewModels
             Apps.Remove(app);
         }
 
-        public override string ToString()
-        {
-            if (Device.IsMuted)
-            {
-                return string.Format(Properties.Resources.DeviceMutedFormatAccessibleText, Device.DisplayName);
-            }
-            else
-            {
-                return string.Format(Properties.Resources.DeviceFormatAccessibleText, Device.DisplayName, Device.Volume);
-            }
-        }
+        public override string ToString() => string.Format(IsMuted ? Properties.Resources.DeviceMutedFormatAccessibleText : Properties.Resources.DeviceFormatAccessibleText, DisplayName, Volume);
     }
 }

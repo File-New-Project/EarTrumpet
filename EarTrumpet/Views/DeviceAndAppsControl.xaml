@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                <TextBlock Style="{DynamicResource DeviceTitleTextStyle}" Text="{Binding Device.Device.DisplayName}" />
+                <TextBlock Style="{DynamicResource DeviceTitleTextStyle}" Text="{Binding Device.DisplayName}" />
             </Border>
 
             <ListViewItem Name="DeviceListItem"
@@ -35,8 +35,8 @@
                             HorizontalAlignment="Center"
                             Background="Transparent"
                             MouseDown="Icon_MouseDown"
-                            Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                            ToolTip="{Binding Device.Device.DisplayName}">
+                            Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                            ToolTip="{Binding Device.DisplayName}">
 
                         <Grid>
                             <TextBlock FontSize="24"
@@ -50,16 +50,16 @@
                     </Border>
 
                     <views:VolumeSlider Grid.Column="1"
-                                        Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                        PeakValue="{Binding Device.Device.PeakValue}"
+                                        Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                        PeakValue="{Binding Device.PeakValue}"
                                         PreviewMouseUp="TouchSlider_MouseUp"
                                         PreviewTouchUp="TouchSlider_TouchUp"
                                         Style="{DynamicResource VolumeSliderStyle}"
-                                        Value="{Binding Device.Device.Volume, Mode=TwoWay}" />
+                                        Value="{Binding Device.Volume, Mode=TwoWay}" />
                     <TextBlock Grid.Column="2"
-                               Opacity="{Binding Device.Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                               Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
                                Style="{DynamicResource DeviceVolumeTextStyle}"
-                               Text="{Binding Device.Device.Volume, Mode=OneWay}" />
+                               Text="{Binding Device.Volume, Mode=OneWay}" />
                 </Grid>
             </ListViewItem>
         </Grid>

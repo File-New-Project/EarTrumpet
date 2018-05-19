@@ -66,7 +66,7 @@ namespace EarTrumpet.ViewModels
 
         private void RemoveDevice(string id)
         {
-            var existing = Devices.FirstOrDefault(d => d.Device.Id == id);
+            var existing = Devices.FirstOrDefault(d => d.Id == id);
             if (existing != null)
             {
                 existing.Apps.CollectionChanged -= Apps_CollectionChanged;
@@ -83,14 +83,14 @@ namespace EarTrumpet.ViewModels
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveDevice(((DeviceViewModel)e.OldItems[0]).Device.Id);
+                    RemoveDevice(((DeviceViewModel)e.OldItems[0]).Id);
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
 
                     for (int i = Devices.Count - 1; i >= 0; i--)
                     {
-                        RemoveDevice(Devices[i].Device.Id);
+                        RemoveDevice(Devices[i].Id);
                     }
 
                     foreach (var device in _mainViewModel.AllDevices)
@@ -122,7 +122,7 @@ namespace EarTrumpet.ViewModels
             // no longer any device
             if (e == null) return;
 
-            var foundDevice = Devices.FirstOrDefault(d => d.Device.Id == e.Id);
+            var foundDevice = Devices.FirstOrDefault(d => d.Id == e.Id);
             if (foundDevice != null)
             {
                 // Move to bottom.
@@ -130,7 +130,7 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                var foundAllDevice = _mainViewModel.AllDevices.FirstOrDefault(d => d.Device.Id == e.Id);
+                var foundAllDevice = _mainViewModel.AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 if (foundAllDevice != null)
                 {
                     Devices.Clear();
@@ -162,7 +162,7 @@ namespace EarTrumpet.ViewModels
                 {
                     var device = Devices[i];
 
-                    if (device.Device.Id != _deviceManager.DefaultPlaybackDevice.Id)
+                    if (device.Id != _deviceManager.DefaultPlaybackDevice.Id)
                     {
                         Devices.Remove(device);
                     }

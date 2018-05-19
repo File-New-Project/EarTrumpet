@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.ViewModels;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,10 +11,7 @@ namespace EarTrumpet.Views
         public static void OnKeyDown(FrameworkElement host, ref KeyEventArgs evt)
         {
             var focused = FocusManager.GetFocusedElement(host);
-            Debug.WriteLine(focused);
-
             var listItem = focused as ListViewItem;
-            var button = focused as Button;
 
             if (listItem != null)
             {
@@ -48,7 +44,7 @@ namespace EarTrumpet.Views
                 }
                 else
                 {
-                    var device = ((DeviceAndAppsControl)listItem.DataContext).Device.Device;
+                    var device = ((DeviceAndAppsControl)listItem.DataContext).Device;
                     switch (evt.Key)
                     {
                         case Key.OemPeriod:

@@ -19,6 +19,7 @@ namespace EarTrumpet.DataModel.Internal
         private readonly IAudioMeterInformation _meter;
         private readonly Dispatcher _dispatcher;
         private readonly AppInformation _appInfo;
+        private string _resolvedDisplayName;
         private string _id;
         private float _volume;
         private bool _isMuted;
@@ -32,8 +33,17 @@ namespace EarTrumpet.DataModel.Internal
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
             _session.RegisterAudioSessionNotification(this);
-            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
+
+            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId,
+                (displayName) =>
+                {
+                    dispatcher.SafeInvoke(() =>
+                    {
+                        _resolvedDisplayName = displayName;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                    });
+                });
 
             ReadVolumeAndMute();
         }
@@ -82,7 +92,9 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string DisplayName => _appInfo.DisplayName;
+        public string DisplayName => !string.IsNullOrWhiteSpace(_resolvedDisplayName) ? _resolvedDisplayName : _appInfo.ExeName;
+
+        public string ExeName => _appInfo.ExeName;
 
         public string IconPath => _appInfo.SmallLogoPath;
 
@@ -151,7 +163,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public ObservableCollection<IAudioDeviceSession> Children => null;
+        public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
 
         private void ReadVolumeAndMute()
         {

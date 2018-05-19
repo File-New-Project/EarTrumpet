@@ -22,7 +22,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (_device != null)
                 {
-                    _device.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+                    _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
                     _device.PropertyChanged -= Device_PropertyChanged;
                 }
 
@@ -35,7 +35,7 @@ namespace EarTrumpet.DataModel.Internal
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Sessions)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Groups)));
             };
         }
 
@@ -46,7 +46,7 @@ namespace EarTrumpet.DataModel.Internal
             if (_device != null)
             {
                 _device.PropertyChanged += Device_PropertyChanged;
-                _device.Sessions.CollectionChanged += Sessions_CollectionChanged;
+                _device.Groups.CollectionChanged += Sessions_CollectionChanged;
             }
         }
 
@@ -68,13 +68,11 @@ namespace EarTrumpet.DataModel.Internal
 
         public bool IsMuted { get => _device != null ? _device.IsMuted : false; set => _device.IsMuted = value; }
 
-        public ObservableCollection<IAudioDeviceSession> Sessions => _device != null ? _device.Sessions : null;
+        public ObservableCollection<IAudioDeviceSession> Groups => _device != null ? _device.Groups : null;
 
         public float Volume { get => _device != null ? _device.Volume : 0; set => _device.Volume = value; }
 
         public float PeakValue { get => _device != null ? _device.PeakValue : 0; }
-
-        public void TakeSessionFromOtherDevice(int processId) => _device.TakeSessionFromOtherDevice(processId);
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

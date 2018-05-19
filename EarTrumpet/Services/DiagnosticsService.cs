@@ -51,7 +51,7 @@ namespace EarTrumpet.Services
             sb.AppendLine($"Device: {device.DisplayName} {device.Id}");
             sb.AppendLine($"Volume: {device.Volume.ToVolumeInt()} {(device.IsMuted ? "Muted" : "")}");
 
-            foreach (var session in device.Sessions)
+            foreach (var session in device.Groups)
             {
                 var container = session as AudioDeviceSessionGroup;
                 foreach(var sessionIncontainer in container.Children)

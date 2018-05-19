@@ -44,13 +44,16 @@
 
             <Border Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
-                    HorizontalAlignment="Center"
-                    Background="{Binding App.Background, Mode=OneTime}">
+                    HorizontalAlignment="Center">
                 <Border.Style>
                     <Style TargetType="Border">
+                        <Setter Property="Background" Value="{Binding App.Background, Mode=OneTime}" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding App.IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="{Binding App.IsMuted, Converter={StaticResource opacityConverter}}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding App.Icon}" Value="{x:Null}">
+                                <Setter Property="Background" Value="{DynamicResource SystemAccent}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

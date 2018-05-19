@@ -24,7 +24,7 @@ namespace EarTrumpet.DataModel.Internal
             PropertyChanged?.Invoke(this, e);
         }
 
-        public ObservableCollection<IAudioDeviceSession> Sessions => SafeCallHelper.GetValue(() => _device.Sessions);
+        public ObservableCollection<IAudioDeviceSession> Groups => SafeCallHelper.GetValue(() => _device.Groups);
 
         public string DisplayName => SafeCallHelper.GetValue(() => _device.DisplayName);
 
@@ -34,8 +34,6 @@ namespace EarTrumpet.DataModel.Internal
         public float Volume { get => SafeCallHelper.GetValue(() => _device.Volume); set => SafeCallHelper.SetValue(() => _device.Volume = value); }
 
         public float PeakValue => SafeCallHelper.GetValue(() => _device.PeakValue);
-
-        public void TakeSessionFromOtherDevice(int processId) => _device.TakeSessionFromOtherDevice(processId);
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

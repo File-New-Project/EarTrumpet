@@ -73,7 +73,7 @@ namespace EarTrumpet.Views
 
             foreach (var dev in viewModel.AllDevices)
             {
-                var newItem = new MenuItem { Header = dev.Device.DisplayName };
+                var newItem = new MenuItem { Header = dev.DisplayName };
                 newItem.Click += (_, __) =>
                 {
                     viewModel.MoveAppToDevice(selectedApp, dev);
@@ -82,7 +82,7 @@ namespace EarTrumpet.Views
                 };
 
                 newItem.IsCheckable = true;
-                newItem.IsChecked = (dev.Device.Id == persistedDeviceId);
+                newItem.IsChecked = (dev.Id == persistedDeviceId);
 
                 moveMenu.Items.Add(newItem);
             }

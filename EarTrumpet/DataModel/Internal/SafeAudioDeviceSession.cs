@@ -45,6 +45,9 @@ namespace EarTrumpet.DataModel.Internal
         public AudioSessionState State => SafeCallHelper.GetValue(() => _session.State);
 
         public string DisplayName => SafeCallHelper.GetValue(() => _session.DisplayName);
+
+        public string ExeName => SafeCallHelper.GetValue(() => _session.ExeName);
+
         public string RawDisplayName => SafeCallHelper.GetValue(() => ((AudioDeviceSession)_session).RawDisplayName);
 
         public string Id => SafeCallHelper.GetValue(() => _session.Id);

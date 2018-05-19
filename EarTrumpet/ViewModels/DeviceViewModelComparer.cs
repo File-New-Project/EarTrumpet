@@ -9,7 +9,7 @@ namespace EarTrumpet.ViewModels
 
         public int Compare(DeviceViewModel one, DeviceViewModel two)
         {
-            return string.Compare(one.Device.Id, two.Device.Id, StringComparison.Ordinal);
+            return string.Compare(one.Id, two.Id, StringComparison.Ordinal);
         }
     }
 }
