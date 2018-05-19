@@ -62,42 +62,57 @@ namespace EarTrumpet.DataModel.Internal
 
         private void AddSession(IAudioDeviceSession session)
         {
-            foreach(AudioDeviceSessionGroup container in _sessions)
-            {
-                if (container.AppId == session.AppId)
-                {
-                    // If there is a session in the same process, inherit safely.
-                    // (Avoids a minesweeper ad playing at max volume when app should be muted)
-                    session.IsMuted = session.IsMuted || container.IsMuted;
+            session.PropertyChanged += Session_PropertyChanged;
 
-                    container.AddSession(session);
-                    session.PropertyChanged += Session_PropertyChanged;
+            foreach (AudioDeviceSessionGroup appGroup in _sessions)
+            {
+                if (appGroup.AppId == session.AppId)
+                {
+                    foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
+                    {
+                        if (appSessionGroup.GroupingParam == session.GroupingParam)
+                        {
+                            // If there is a session in the same process, inherit safely.
+                            // (Avoids a minesweeper ad playing at max volume when app should be muted)
+                            session.IsMuted = session.IsMuted || appSessionGroup.IsMuted;
+                            appSessionGroup.AddSession(session);
+                            return;
+                        }
+                    }
+
+                    session.IsMuted = session.IsMuted || appGroup.IsMuted;
+                    appGroup.AddSession(new AudioDeviceSessionGroup(session));
                     return;
                 }
             }
 
-            session.PropertyChanged += Session_PropertyChanged;
-
-            var newSession = new AudioDeviceSessionGroup(session);
-            _sessions.Add(newSession);
+            _sessions.Add(new AudioDeviceSessionGroup(new AudioDeviceSessionGroup(session)));
         }
 
         private void RemoveSession(IAudioDeviceSession session)
         {
-            foreach (AudioDeviceSessionGroup container in _sessions)
+            session.PropertyChanged -= Session_PropertyChanged;
+
+            foreach (AudioDeviceSessionGroup appGroup in _sessions)
             {
-                if (container.Sessions.Contains(session))
+                foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
                 {
-                    container.RemoveSession(session);
-                    session.PropertyChanged -= Session_PropertyChanged;
-
-                    // Delete the now-empty container.
-                    if (!container.Sessions.Any())
+                    if (appSessionGroup.Sessions.Contains(session))
                     {
-                        _sessions.Remove(container);
-                    }
+                        appSessionGroup.RemoveSession(session);
 
-                    return;
+                        // Delete the now-empty app session group.
+                        if (!appSessionGroup.Sessions.Any())
+                        {
+                            appGroup.RemoveSession(appSessionGroup);
+                        }
+                    }
+                }
+
+                // Delete the now-empty app.
+                if (!appGroup.Sessions.Any())
+                {
+                    _sessions.Remove(appGroup);
                 }
             }
             throw new Exception("RemoveSession: session not found");

@@ -17,27 +17,14 @@ namespace EarTrumpet.Services
             Process.Start(fileName);
         }
 
-        static string DumpSession(IAudioDeviceSession session)
+        static string DumpSession(string indent, SafeAudioDeviceSession session)
         {
-            string flags = "";
-            if (session.IsDesktopApp)
-            {
-                flags += "IsDesktop ";
-            }
+            string flags= session.IsDesktopApp ? "Desktop " : "Modern ";
 
             if (session.IsSystemSoundsSession)
             {
-                flags += "IsSystemSoundsSession ";
+                flags += "SystemSounds ";
             }
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"  Display Name: {session.DisplayName}");
-            sb.AppendLine($"  Raw Display Name: {((SafeAudioDeviceSession)session).RawDisplayName}");
-            sb.AppendLine($"  Id: {session.Id}");
-            sb.AppendLine($"  AppId: {session.AppId}");
-            sb.AppendLine($"  GroupingParam: {session.GroupingParam}");
-            sb.AppendLine($"  Flags: {flags}");
-            sb.AppendLine($"  ProcessId: {session.ProcessId}");
 
             bool isAlive = false;
 
@@ -47,12 +34,20 @@ namespace EarTrumpet.Services
                 isAlive = true;
             }
             catch (Exception) { }
-            sb.AppendLine($"  Process Is Alive?: {isAlive}");
 
-            sb.AppendLine($"  PersistedEndpointDeviceId: {AudioPolicyConfigService.GetDefaultEndPoint(session.ProcessId)}");
-            sb.AppendLine($"  State: {session.State}");
-            sb.AppendLine($"  IconPath: {session.IconPath}");
-            sb.AppendLine($"  Volume: {session.Volume.ToVolumeInt()} {(session.IsMuted ? "Muted" : "")}");
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(indent + $"{session.DisplayName} (raw: {session.RawDisplayName})");
+            sb.AppendLine(indent + $"  [{session.State}]: {session.Volume.ToVolumeInt()}%{(session.IsMuted ? " (Muted)" : "")} {flags}pid:{session.ProcessId} {(!isAlive ? "(dead)" : "")}");
+            sb.AppendLine(indent + $"  AppId: {session.AppId}  id={session.Id}");
+            sb.AppendLine(indent + $"  IconPath: {session.IconPath}");
+            sb.AppendLine(indent + $"  GroupingParam: {session.GroupingParam}");
+
+            var persisted = AudioPolicyConfigService.GetDefaultEndPoint(session.ProcessId);
+            if (!string.IsNullOrWhiteSpace(persisted))
+            {
+                sb.AppendLine(indent + $"  Persisted Output Endpoint: {persisted}");
+            }
+
             return sb.ToString();
         }
 
@@ -60,16 +55,22 @@ namespace EarTrumpet.Services
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
-            sb.AppendLine($"Device: {device.DisplayName} {device.Id}");
-            sb.AppendLine($"Volume: {device.Volume.ToVolumeInt()} {(device.IsMuted ? "Muted" : "")}");
+            sb.AppendLine($"{device.Volume.ToVolumeInt()}%{(device.IsMuted ? " (Muted)" : "")} {device.DisplayName} id={device.Id}");
+            sb.AppendLine();
 
-            foreach (var session in device.Groups)
+            foreach (AudioDeviceSessionGroup appGroup in device.Groups)
             {
-                var container = session as AudioDeviceSessionGroup;
-                foreach (var sessionIncontainer in container.Children)
+                foreach(AudioDeviceSessionGroup appSession in appGroup.Children)
                 {
-                    sb.AppendLine(DumpSession(sessionIncontainer));
+                    foreach (SafeAudioDeviceSession rawSession in appSession.Children)
+                    {
+                        bool isOneSession = appSession.Children.Count == 1;
+                        var indent = (isOneSession ? "  " : "|   ");
+                        sb.Append(DumpSession(indent, rawSession));
+                        sb.AppendLine(indent);
+                    }
                 }
+                sb.AppendLine("------------------------------------------");
             }
             return sb.ToString();
         }
@@ -77,9 +78,10 @@ namespace EarTrumpet.Services
         static string DumpDevices(IAudioDeviceManager manager)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Default Playback Device: {manager.DefaultPlaybackDevice.DisplayName} {manager.DefaultPlaybackDevice.Id}");
             foreach (var device in manager.Devices)
             {
+                sb.Append(device == manager.DefaultPlaybackDevice ? "[Playback Default] " : "");
+                sb.Append(device == manager.DefaultCommunicationDevice ? "[Communications Default] " : "");
                 sb.AppendLine(DumpDevice(device));
             }
             return sb.ToString();
