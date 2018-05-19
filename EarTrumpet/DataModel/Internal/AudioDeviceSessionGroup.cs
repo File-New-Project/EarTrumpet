@@ -7,55 +7,11 @@ using System.Linq;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    // Session multiplexing container (for grouping)
-    public class AudioDeviceSessionGroup : IAudioDeviceSession
+    class AudioDeviceSessionGroup : IAudioDeviceSession
     {
-        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
-        private string _id;
-
-        public AudioDeviceSessionGroup(IAudioDeviceSession session)
-        {
-            // GroupingParam can change at runtime, so we can't trust session[0].
-            GroupingParam = session.GroupingParam;
-
-            AddSession(session);
-        }
-
-        ~AudioDeviceSessionGroup()
-        {
-            foreach(var session in _sessions)
-            {
-                session.PropertyChanged -= Session_PropertyChanged;
-            }
-        }
-
-        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(this, e);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
-
-        public void AddSession(IAudioDeviceSession session)
-        {
-            if (_id == null)
-            {
-                _id = session.Id;
-            }
-
-            _sessions.Add(session);
-
-            session.PropertyChanged += Session_PropertyChanged;
-
-            // Inherit properties (safely) from existing streams
-            session.IsMuted = _sessions[0].IsMuted || session.IsMuted;
-        }
-
-        public void RemoveSession(IAudioDeviceSession session)
-        {
-            session.PropertyChanged -= Session_PropertyChanged;
-            _sessions.Remove(session);
-        }
 
         public IAudioDevice Device => _sessions[0].Device;
 
@@ -75,7 +31,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public string AppId => _sessions[0].AppId;
 
-        public bool IsMuted {
+        public bool IsMuted
+        {
             get => _sessions[0].IsMuted;
             set
             {
@@ -108,6 +65,48 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        private string _id;
+
+        public AudioDeviceSessionGroup(IAudioDeviceSession session)
+        {
+            GroupingParam = session.GroupingParam; // can change at runtime
+
+            AddSession(session);
+        }
+
+        ~AudioDeviceSessionGroup()
+        {
+            foreach(var session in _sessions)
+            {
+                session.PropertyChanged -= Session_PropertyChanged;
+            }
+        }
+
+        public void AddSession(IAudioDeviceSession session)
+        {
+            if (_id == null)
+            {
+                _id = session.Id;
+            }
+
+            _sessions.Add(session);
+
+            session.PropertyChanged += Session_PropertyChanged;
+
+            // Inherit properties (safely) from existing streams
+            session.IsMuted = _sessions[0].IsMuted || session.IsMuted;
+        }
+
+        public void RemoveSession(IAudioDeviceSession session)
+        {
+            session.PropertyChanged -= Session_PropertyChanged;
+            _sessions.Remove(session);
+        }
+
+        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+        }
     }
 }

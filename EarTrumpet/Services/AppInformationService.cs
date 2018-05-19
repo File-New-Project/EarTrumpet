@@ -122,7 +122,7 @@ namespace EarTrumpet.Services
             return appUserModelId;
         }
 
-        public static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
+        internal static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
         {
             var appInfo = new AppInformation();
 

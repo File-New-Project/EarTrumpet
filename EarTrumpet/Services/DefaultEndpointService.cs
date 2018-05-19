@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel.Services
 {
-    public static class DefaultEndPointService
+    static class DefaultEndPointService
     {
         static IPolicyConfig s_PolicyConfigClient = null;
 

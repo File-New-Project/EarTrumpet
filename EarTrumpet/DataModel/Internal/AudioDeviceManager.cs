@@ -11,10 +11,12 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
+    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
     {
         public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
         public event EventHandler<IAudioDeviceSession> SessionCreated;
+
+        public ObservableCollection<IAudioDevice> Devices => _devices;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
@@ -33,8 +35,7 @@ namespace EarTrumpet.DataModel.Internal
             uint deviceCount = devices.GetCount();
             for (uint i = 0; i < deviceCount; i++)
             {
-                IMMDevice immDevice = devices.Item(i);
-                ((IMMNotificationClient)this).OnDeviceAdded(immDevice.GetId());
+                ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
             }
 
             // Trigger default logic to register for volume change
@@ -56,26 +57,11 @@ namespace EarTrumpet.DataModel.Internal
                 // Element not found.
             }
 
-            string newDeviceId = null;
-
-            if (device != null)
-            {
-                newDeviceId = device.GetId();
-            }
-
-            var currentDeviceId = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Id : null;
-
+            string newDeviceId = device?.GetId();
+            var currentDeviceId = _defaultPlaybackDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null)
-                {
-                    _defaultPlaybackDevice = null;
-                }
-                else
-                {
-                    _defaultPlaybackDevice = FindDevice(newDeviceId);
-                }
-
+                _defaultPlaybackDevice = (newDeviceId == null) ? null : FindDevice(newDeviceId);
                 DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
             }
         }
@@ -92,27 +78,11 @@ namespace EarTrumpet.DataModel.Internal
                 // Element not found.
             }
 
-            string newDeviceId = null;
-
-            if (device != null)
-            {
-                newDeviceId = device.GetId();
-            }
-
-            var currentDeviceId = _defaultCommunicationsDevice != null ? _defaultCommunicationsDevice.Id : null;
-
+            string newDeviceId = device?.GetId();
+            var currentDeviceId = _defaultCommunicationsDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null)
-                {
-                    _defaultCommunicationsDevice = null;
-                }
-                else
-                {
-                    _defaultCommunicationsDevice = FindDevice(newDeviceId);
-                }
-
-                // No event necessary for our purposes.
+                _defaultCommunicationsDevice = (newDeviceId == null) ? null : FindDevice(newDeviceId);
             }
         }
 
@@ -143,9 +113,6 @@ namespace EarTrumpet.DataModel.Internal
                 }
             }
         }
-
-
-        public ObservableCollection<IAudioDevice> Devices => _devices;
 
         private bool HasDevice(string deviceId)
         {

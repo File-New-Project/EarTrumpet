@@ -8,23 +8,7 @@ namespace EarTrumpet.DataModel.Internal
     // Avoid device invalidation COMExceptions from bubbling up out of devices that have been removed.
     class SafeAudioDeviceSession : IAudioDeviceSession
     {
-        private readonly IAudioDeviceSession _session;
-
-        public SafeAudioDeviceSession(IAudioDeviceSession session)
-        {
-            _session = session;
-            _session.PropertyChanged += Session_PropertyChanged;
-        }
-
-        ~SafeAudioDeviceSession()
-        {
-            _session.PropertyChanged -= Session_PropertyChanged;
-        }
-
-        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(this, e);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public IAudioDevice Device => _session.Device;
 
@@ -59,6 +43,22 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => SafeCallHelper.GetValue(() => _session.Children);
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly IAudioDeviceSession _session;
+
+        public SafeAudioDeviceSession(IAudioDeviceSession session)
+        {
+            _session = session;
+            _session.PropertyChanged += Session_PropertyChanged;
+        }
+
+        ~SafeAudioDeviceSession()
+        {
+            _session.PropertyChanged -= Session_PropertyChanged;
+        }
+
+        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+        }
     }
 }

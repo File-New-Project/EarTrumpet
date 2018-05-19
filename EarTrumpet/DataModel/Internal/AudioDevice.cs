@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,7 +38,8 @@ namespace EarTrumpet.DataModel.Internal
             _sessions = new AudioDeviceSessionCollection(_device, this, dispatcher);
             _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
 
-            ReadVolumeAndMute();
+            _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
+            _isMuted = _deviceVolume.GetMute() != 0;
 
             ReadDisplayName();
         }
@@ -61,7 +62,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
         {
-            ReadVolumeAndMute();
+            _volume = pNotify.fMasterVolume;
+            _isMuted = pNotify.bMuted != 0;
 
             _dispatcher.SafeInvoke(() =>
             {
@@ -114,12 +116,6 @@ namespace EarTrumpet.DataModel.Internal
             var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
             _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
             Ole32.PropVariantClear(ref pv);
-        }
-
-        private void ReadVolumeAndMute()
-        {
-            _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
-            _isMuted = _deviceVolume.GetMute() != 0;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel
 {
-    public class AppInformation
+    class AppInformation
     {
         public string AppUserModelId = "";
         public UInt32 BackgroundColor;

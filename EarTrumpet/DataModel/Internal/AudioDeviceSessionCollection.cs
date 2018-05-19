@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -9,8 +8,10 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDeviceSessionCollection : IAudioSessionNotification
+    class AudioDeviceSessionCollection : IAudioSessionNotification
     {
+        public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
+
         private Dispatcher _dispatcher;
         private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private IAudioDevice _device;
@@ -39,8 +40,6 @@ namespace EarTrumpet.DataModel.Internal
                 session.PropertyChanged -= Session_PropertyChanged;
             }
         }
-
-        public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
 
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)
         {

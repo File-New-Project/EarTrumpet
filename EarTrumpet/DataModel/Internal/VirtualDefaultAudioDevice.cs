@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace EarTrumpet.DataModel.Internal
 {
     // This device follows the default device so a client does not need to pay attention to default device change events.
-    public class VirtualDefaultAudioDevice : IAudioDevice, IVirtualDefaultAudioDevice
+    class VirtualDefaultAudioDevice : IAudioDevice, IVirtualDefaultAudioDevice
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 

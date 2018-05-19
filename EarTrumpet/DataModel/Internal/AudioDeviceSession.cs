@@ -10,48 +10,9 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDeviceSession : IAudioSessionEvents, IAudioDeviceSession
+    class AudioDeviceSession : IAudioSessionEvents, IAudioDeviceSession
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private readonly IAudioSessionControl _session;
-        private readonly ISimpleAudioVolume _simpleVolume;
-        private readonly IAudioMeterInformation _meter;
-        private readonly Dispatcher _dispatcher;
-        private readonly AppInformation _appInfo;
-        private string _resolvedDisplayName;
-        private string _id;
-        private float _volume;
-        private bool _isMuted;
-        private bool _isDisconnected;
-
-        public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
-        {
-            _dispatcher = dispatcher;
-            Device = device;
-            _session = session;
-            _meter = (IAudioMeterInformation)_session;
-            _simpleVolume = (ISimpleAudioVolume)session;
-            _session.RegisterAudioSessionNotification(this);
-            ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
-
-            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId,
-                (displayName) =>
-                {
-                    dispatcher.SafeInvoke(() =>
-                    {
-                        _resolvedDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
-                    });
-                });
-
-            if (!IsSystemSoundsSession)
-            {
-                ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
-            }
-
-            ReadVolumeAndMute();
-        }
 
         public IAudioDevice Device { get; }
 
@@ -60,25 +21,13 @@ namespace EarTrumpet.DataModel.Internal
             get => _volume;
             set
             {
-                if (value < 0)
-                {
-                    value = 0;
-                }
-
-                if (value > 1.0f)
-                {
-                    value = 1.0f;
-                }
+                value = value.Bound(0, 1f);
 
                 if (value != _volume)
                 {
                     Guid dummy = Guid.Empty;
                     _simpleVolume.SetMasterVolume(value, ref dummy);
-
-                    if (IsMuted)
-                    {
-                        IsMuted = false;
-                    }
+                    IsMuted = false;
                 }
 
             }
@@ -124,6 +73,45 @@ namespace EarTrumpet.DataModel.Internal
         public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
+
+        private readonly IAudioSessionControl _session;
+        private readonly ISimpleAudioVolume _simpleVolume;
+        private readonly IAudioMeterInformation _meter;
+        private readonly Dispatcher _dispatcher;
+        private readonly AppInformation _appInfo;
+        private string _resolvedDisplayName;
+        private string _id;
+        private float _volume;
+        private bool _isMuted;
+        private bool _isDisconnected;
+
+        public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
+        {
+            _dispatcher = dispatcher;
+            Device = device;
+            _session = session;
+            _meter = (IAudioMeterInformation)_session;
+            _simpleVolume = (ISimpleAudioVolume)session;
+            _session.RegisterAudioSessionNotification(this);
+            ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
+
+            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId,
+                (displayName) =>
+                {
+                    dispatcher.SafeInvoke(() =>
+                    {
+                        _resolvedDisplayName = displayName;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                    });
+                });
+
+            if (!IsSystemSoundsSession)
+            {
+                ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
+            }
+
+            ReadVolumeAndMute();
+        }
 
         private void ReadVolumeAndMute()
         {

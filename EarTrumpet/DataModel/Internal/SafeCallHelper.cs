@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public static class SafeCallHelper
+    static class SafeCallHelper
     {
         public static T GetValue<T>(Func<T> call)
         {
