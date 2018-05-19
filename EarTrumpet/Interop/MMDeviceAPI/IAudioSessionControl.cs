@@ -7,12 +7,14 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioSessionControl
     {
-        void GetState(out AudioSessionState pRetVal);
-        void GetDisplayName([MarshalAs(UnmanagedType.LPWStr)] out string pRetVal);
+        AudioSessionState GetState();
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        string GetDisplayName();
         void SetDisplayName([MarshalAs(UnmanagedType.LPWStr)]string Value, ref Guid EventContext);
-        void GetIconPath([MarshalAs(UnmanagedType.LPWStr)]out string pRetVal);
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        string GetIconPath();
         void SetIconPath([MarshalAs(UnmanagedType.LPWStr)]string Value, ref Guid EventContext);
-        void GetGroupingParam(out Guid pRetVal);
+        Guid GetGroupingParam();
         void SetGroupingParam(ref Guid Override, ref Guid EventContext);
         void RegisterAudioSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionEvents NewNotifications);
         void UnregisterAudioSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionEvents NewNotifications);

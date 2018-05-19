@@ -6,7 +6,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IAudioMeterInformation
     {
-        void GetPeakValue(out float pfPeak);
+        float GetPeakValue();
         void GetMeteringChannelCount(out uint pnChannelCount);
         void GetChannelsPeakValues(uint u32ChannelCount, out float afPeakValues);
         void QueryHardwareSupport(out uint pdwHardwareSupportMask);

@@ -18,7 +18,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         void UnregisterAudioSessionNotification([MarshalAs(UnmanagedType.Interface)] IAudioSessionEvents NewNotifications);
         void GetSessionIdentifier([MarshalAs(UnmanagedType.LPWStr)]out string pRetVal);
         void GetSessionInstanceIdentifier([MarshalAs(UnmanagedType.LPWStr)]out string pRetVal);
-        void GetProcessId(out uint pRetVal);
+        uint GetProcessId();
         [PreserveSig]
         int IsSystemSoundsSession();
         void SetDuckingPreference(int optOut);

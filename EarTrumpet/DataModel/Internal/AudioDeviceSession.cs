@@ -103,23 +103,9 @@ namespace EarTrumpet.DataModel.Internal
 
         public string IconPath => _appInfo.SmallLogoPath;
 
-        public Guid GroupingParam
-        {
-            get
-            {
-                _session.GetGroupingParam(out Guid ret);
-                return ret;
-            }
-        }
+        public Guid GroupingParam => _session.GetGroupingParam();
 
-        public float PeakValue
-        {
-            get
-            {
-                _meter.GetPeakValue(out float ret);
-                return ret;
-            }
-        }
+        public float PeakValue => _meter.GetPeakValue();
 
         public uint BackgroundColor => _appInfo.BackgroundColor;
 
@@ -127,46 +113,15 @@ namespace EarTrumpet.DataModel.Internal
 
         public string AppId => _appInfo.PackageInstallPath;
 
-        public AudioSessionState State
-        {
-            get
-            {
-                if (_isDisconnected)
-                {
-                    return AudioSessionState.Expired;
-                }
-                _session.GetState(out AudioSessionState ret);
-                return ret;
-            }
-        }
+        public AudioSessionState State => _isDisconnected ? AudioSessionState.Expired : _session.GetState();
 
-        public string RawDisplayName
-        {
-            get
-            {
-                _session.GetDisplayName(out string ret);
-                return ret;
-            }
-        }
+        public string RawDisplayName => _session.GetDisplayName();
 
-        public int ProcessId
-        {
-            get
-            {
-                ((IAudioSessionControl2)_session).GetProcessId(out uint ret);
-                return (int)ret;
-            }
-        }
+        public int ProcessId => (int)((IAudioSessionControl2)_session).GetProcessId();
 
         public string Id => _id;
 
-        public bool IsSystemSoundsSession
-        {
-            get
-            {
-                return ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
-            }
-        }
+        public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
 

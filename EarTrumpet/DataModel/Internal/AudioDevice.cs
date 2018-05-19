@@ -97,14 +97,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public float PeakValue
-        {
-            get
-            {
-                _meter.GetPeakValue(out float ret);
-                return ret;
-            }
-        }
+        public float PeakValue => _meter.GetPeakValue();
 
         public bool IsMuted
         {
