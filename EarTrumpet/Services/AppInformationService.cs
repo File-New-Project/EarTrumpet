@@ -190,13 +190,6 @@ namespace EarTrumpet.Services
                                 displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
                                 shouldResolvedDisplayNameFromMainWindow = false;
                             }
-
-                            // override for SpeechRuntime.exe (Repo -> HEY CORTANA)
-                            if (appInfo.SmallLogoPath.ToLowerInvariant().Contains("speechruntime.exe"))
-                            {
-                                var sysType = Environment.Is64BitOperatingSystem ? "SysNative" : "System32";
-                                appInfo.SmallLogoPath = Path.Combine("%windir%", sysType, "Speech\\SpeechUX\\SpeechUXWiz.exe");
-                            }
                         }
 
                         Kernel32.CloseHandle(handle);

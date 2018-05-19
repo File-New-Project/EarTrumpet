@@ -63,12 +63,9 @@
                            Height="{StaticResource AppIconSize}"
                            Source="{Binding App.Icon, Mode=OneTime}"
                            Stretch="Fill" />
-                    <TextBlock HorizontalAlignment="Center"
-                               FontSize="16"
-                               FontWeight="Bold"
-                               Text="{Binding App.IconText}">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding App.Icon}" Value="{x:Null}">
@@ -76,8 +73,18 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                        </Border.Style>
+
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Margin="0,-1,0,0"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource WindowForeground}"
+                                   Text="{Binding App.IconText}" />
+                    </Border>
+
                 </Grid>
             </Border>
 

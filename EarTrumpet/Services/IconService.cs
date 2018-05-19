@@ -25,17 +25,9 @@ namespace EarTrumpet.Services
             return Icon.FromHandle(iconHandle);
         }
 
-        public static ImageSource GetIconFromFileAsImageSource(string path, int iconIndex = 0)
+        public static ImageSource GetIconFromFileAsImageSource(string path)
         {
-            // TODO: not clear both branches are needed here
-            if (Path.GetExtension(path) == ".dll")
-            {
-                var iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
-                var image = Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                User32.DestroyIcon(iconHandle);
-                return image;
-            }
-            else if(!string.IsNullOrWhiteSpace(path))
+            if(!string.IsNullOrWhiteSpace(path))
             {
                 return System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource();
             }
