@@ -23,7 +23,10 @@ namespace EarTrumpet.Services
 
         public static void WatchProcess(int processId, Action<int> processQuit)
         {
-            if (s_watchers.Any(w => w.Value.processId == processId)) return;
+            lock (_lock)
+            {
+                if (s_watchers.Any(w => w.Value.processId == processId)) return;
+            }
 
             var data = new ProcessWatcherData
             {
@@ -31,6 +34,7 @@ namespace EarTrumpet.Services
                 quitAction = processQuit,
                 processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.SYNCHRONIZE, false, processId)
             };
+
             lock (_lock)
             {
                 s_watchers.Add(processId, data);
@@ -41,10 +45,18 @@ namespace EarTrumpet.Services
 
         private static void EnsureWatcherThreadRunning()
         {
-            if (!_threadRunning)
+            bool needsNewThread;
+            lock (_lock)
             {
-                _threadRunning = true;
+                needsNewThread = !_threadRunning;
+                if (needsNewThread)
+                {
+                    _threadRunning = true;
+                }
+            }
 
+            if (needsNewThread)
+            {
                 App.Current.Exit += (_, __) => _threadRunning = false;
 
                 new Thread(() =>
@@ -77,8 +89,8 @@ namespace EarTrumpet.Services
                                 {
                                     var handle = handles[ret];
                                     data = s_watchers.First(w => w.Value.processHandle == handle).Value;
-                                    s_watchers.Remove(data.processId);
 
+                                    s_watchers.Remove(data.processId);
                                     _threadRunning = s_watchers.Count > 0;
                                 }
 
