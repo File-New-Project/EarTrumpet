@@ -35,9 +35,13 @@ namespace EarTrumpet.Services
                 User32.DestroyIcon(iconHandle);
                 return image;
             }
-            else
+            else if(!string.IsNullOrWhiteSpace(path))
             {
                 return System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource();
+            }
+            else
+            {
+                return null;
             }
         }
     }
