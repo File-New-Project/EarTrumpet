@@ -130,8 +130,7 @@ namespace EarTrumpet.DataModel.Internal
             try
             {
                 _simpleVolume.GetMasterVolume(out _volume);
-                _simpleVolume.GetMute(out int muted);
-                _isMuted = muted != 0;
+                _isMuted = _simpleVolume.GetMute() != 0;
             }
             catch(COMException ex)
             {

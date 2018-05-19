@@ -6,7 +6,8 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDeviceCollection
     {
-        void GetCount(out uint pcDevices);
-        void Item(uint nDevice, [MarshalAs(UnmanagedType.Interface)] out IMMDevice ppDevice);
+        uint GetCount();
+        [return: MarshalAs(UnmanagedType.Interface)]
+        IMMDevice Item(uint nDevice);
     }
 }

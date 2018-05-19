@@ -39,12 +39,12 @@ namespace EarTrumpet.Interop
             ref APPBARDATA pData);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
-        public static extern void SHCreateItemInKnownFolder(
+        [return: MarshalAs(UnmanagedType.Interface)]
+        public static extern IShellItem2 SHCreateItemInKnownFolder(
             ref Guid kfid,
             uint dwKFFlags,
             [MarshalAs(UnmanagedType.LPWStr)]string pszItem,
-            ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface)]out IShellItem2 ppv);
+            ref Guid riid);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern IntPtr ExtractIcon(

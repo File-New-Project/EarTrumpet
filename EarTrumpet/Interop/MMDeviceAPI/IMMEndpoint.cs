@@ -7,6 +7,6 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMEndpoint
     {
-        void GetDataFlow(out EDataFlow dataFlow);
+        EDataFlow GetDataFlow();
     }
 }

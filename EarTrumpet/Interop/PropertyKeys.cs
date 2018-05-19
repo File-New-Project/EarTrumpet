@@ -33,5 +33,11 @@ namespace EarTrumpet.Interop
             fmtid = Guid.Parse("{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}"),
             pid = new UIntPtr(21)
         };
+
+        public static PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY
+        {
+            fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"),
+            pid = new UIntPtr(14)
+        };
     }
 }

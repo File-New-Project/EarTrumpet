@@ -29,16 +29,11 @@ namespace EarTrumpet.DataModel.Internal
             _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             _enumerator.RegisterEndpointNotificationCallback(this);
 
-            IMMDeviceCollection devices;
-            _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE, out devices);
-
-            uint deviceCount;
-            devices.GetCount(out deviceCount);
-
+            var devices = _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE);
+            uint deviceCount = devices.GetCount();
             for (uint i = 0; i < deviceCount; i++)
             {
-                IMMDevice immDevice;
-                devices.Item(i, out immDevice);
+                IMMDevice immDevice = devices.Item(i);
                 ((IMMNotificationClient)this).OnDeviceAdded(immDevice.GetId());
             }
 
@@ -54,7 +49,7 @@ namespace EarTrumpet.DataModel.Internal
             IMMDevice device = null;
             try
             {
-                _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia, out device);
+                device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia);
             }
             catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
             {
@@ -72,8 +67,14 @@ namespace EarTrumpet.DataModel.Internal
 
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null) _defaultPlaybackDevice = null;
-                else _defaultPlaybackDevice = FindDevice(newDeviceId);
+                if (newDeviceId == null)
+                {
+                    _defaultPlaybackDevice = null;
+                }
+                else
+                {
+                    _defaultPlaybackDevice = FindDevice(newDeviceId);
+                }
 
                 DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
             }
@@ -84,7 +85,7 @@ namespace EarTrumpet.DataModel.Internal
             IMMDevice device = null;
             try
             {
-                _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications, out device);
+                device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications);
             }
             catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
             {
@@ -102,10 +103,16 @@ namespace EarTrumpet.DataModel.Internal
 
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null) _defaultCommunicationsDevice = null;
-                else _defaultCommunicationsDevice = FindDevice(newDeviceId);
+                if (newDeviceId == null)
+                {
+                    _defaultCommunicationsDevice = null;
+                }
+                else
+                {
+                    _defaultCommunicationsDevice = FindDevice(newDeviceId);
+                }
 
-                // No event necessary.
+                // No event necessary for our purposes.
             }
         }
 
@@ -158,12 +165,8 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     try
                     {
-                        IMMDevice device;
-                        _enumerator.GetDevice(pwstrDeviceId, out device);
-
-                        ((IMMEndpoint)device).GetDataFlow(out EDataFlow flow);
-
-                        if (flow == EDataFlow.eRender)
+                        IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
+                        if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                         {
                             _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
                         }

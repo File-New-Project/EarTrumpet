@@ -8,8 +8,10 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     public interface IMMDevice
     {
         void Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
-        void OpenPropertyStore(uint stgmAccess, [MarshalAs(UnmanagedType.Interface)] out IPropertyStore ppProperties);
-        void GetId([MarshalAs(UnmanagedType.LPWStr)] out string ppstrId);
+        [return: MarshalAs(UnmanagedType.Interface)]
+        IPropertyStore OpenPropertyStore(STGM stgmAccess);
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        string GetId();
         void GetState(out uint pdwState);
     }
 
@@ -20,13 +22,6 @@ namespace EarTrumpet.Interop.MMDeviceAPI
             Guid iid = typeof(T).GUID;
             device.Activate(ref iid, (uint)CLSCTX.CLSCTX_INPROC_SERVER, IntPtr.Zero, out object ret);
             return (T)ret;
-        }
-
-        public static string GetId(this IMMDevice device)
-        {
-            string id;
-            device.GetId(out id);
-            return id;
         }
     }
 }

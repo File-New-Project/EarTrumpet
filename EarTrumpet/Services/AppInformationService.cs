@@ -27,16 +27,12 @@ namespace EarTrumpet.Services
             try
             {
                 var iid = typeof(IShellItem2).GUID;
-                Shell32.SHCreateItemInKnownFolder(
-                ref FolderIds.AppsFolder,
-                Shell32.KF_FLAG_DONT_VERIFY,
-                aumid,
-                ref iid,
-                out IShellItem2 shellitem);
+                Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 return false;
             }
         }
@@ -143,24 +139,19 @@ namespace EarTrumpet.Services
                 appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
 
                 var iid = typeof(IShellItem2).GUID;
-                Shell32.SHCreateItemInKnownFolder(
-                    ref FolderIds.AppsFolder,
-                    Shell32.KF_FLAG_DONT_VERIFY,
-                    appInfo.AppUserModelId,
-                    ref iid,
-                    out IShellItem2 shellitem);
+                var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appInfo.AppUserModelId, ref iid);
 
                 // TODO: thsi should be exe name
-                appInfo.ExeName = shellitem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+                appInfo.ExeName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
 
                 displayNameResolved(appInfo.ExeName);
                 shouldResolvedDisplayNameFromMainWindow = false;
 
-                appInfo.BackgroundColor = shellitem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
-                appInfo.PackageInstallPath = shellitem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
-                appInfo.PackageFullName = shellitem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
+                appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
+                appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
+                appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
 
-                string rawSmallLogoPath = shellitem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
+                string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
                 if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
                 {
                     appInfo.SmallLogoPath = new Uri(rawSmallLogoPath).LocalPath;

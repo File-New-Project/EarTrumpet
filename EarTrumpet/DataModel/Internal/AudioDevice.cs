@@ -75,24 +75,14 @@ namespace EarTrumpet.DataModel.Internal
             get => _volume;
             set
             {
-                if (value > 1)
-                {
-                    value = 1.0f;
-                }
-                else if (value < 0)
-                {
-                    value = 0.0f;
-                }
+                value = value.Bound(0, 1f);
 
                 if (_volume != value)
                 {
                     Guid dummy = Guid.Empty;
                     _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
 
-                    if (IsMuted)
-                    {
-                        IsMuted = false;
-                    }
+                    IsMuted = false;
                 }
             }
         }
@@ -120,13 +110,8 @@ namespace EarTrumpet.DataModel.Internal
 
         private void ReadDisplayName()
         {
-            IPropertyStore propStore;
-            _device.OpenPropertyStore((uint)STGM.STGM_READ, out propStore);
-
-            PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY { fmtid = Guid.Parse("{0xa45c254e, 0xdf1c, 0x4efd, {0x80, 0x20, 0x67, 0xd1, 0x46, 0xa8, 0x50, 0xe0}}"), pid = new UIntPtr(14) };
-            PropVariant pv;
-            propStore.GetValue(ref PKEY_Device_FriendlyName, out pv);
-
+            var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
+            var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
             _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
             Ole32.PropVariantClear(ref pv);
         }
@@ -134,8 +119,7 @@ namespace EarTrumpet.DataModel.Internal
         private void ReadVolumeAndMute()
         {
             _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
-            _deviceVolume.GetMute(out int muted);
-            _isMuted = muted != 0;
+            _isMuted = _deviceVolume.GetMute() != 0;
         }
     }
 }

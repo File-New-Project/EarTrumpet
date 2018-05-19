@@ -6,9 +6,12 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IMMDeviceEnumerator
     {
-        void EnumAudioEndpoints(EDataFlow dataFlow, DeviceState dwStateMask, [MarshalAs(UnmanagedType.Interface)] out IMMDeviceCollection ppDevices);
-        void GetDefaultAudioEndpoint(EDataFlow dataFlow, ERole role, [MarshalAs(UnmanagedType.Interface)] out IMMDevice ppEndpoint);
-        void GetDevice([MarshalAs(UnmanagedType.LPWStr)]string pwstrId, [MarshalAs(UnmanagedType.Interface)] out IMMDevice ppDevice);
+        [return: MarshalAs(UnmanagedType.Interface)]
+        IMMDeviceCollection EnumAudioEndpoints(EDataFlow dataFlow, DeviceState dwStateMask);
+        [return: MarshalAs(UnmanagedType.Interface)]
+        IMMDevice GetDefaultAudioEndpoint(EDataFlow dataFlow, ERole role);
+        [return: MarshalAs(UnmanagedType.Interface)]
+        IMMDevice GetDevice([MarshalAs(UnmanagedType.LPWStr)]string pwstrId);
         void RegisterEndpointNotificationCallback([MarshalAs(UnmanagedType.Interface)] IMMNotificationClient pClient);
         void UnregisterEndpointNotificationCallback([MarshalAs(UnmanagedType.Interface)] IMMNotificationClient pClient);
     }

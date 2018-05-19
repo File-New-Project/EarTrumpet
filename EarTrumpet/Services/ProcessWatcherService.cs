@@ -61,7 +61,8 @@ namespace EarTrumpet.Services
 
                 new Thread(() =>
                 {
-                    while (_threadRunning)
+                    bool quit = false;
+                    while (_threadRunning && !quit)
                     {
                         IntPtr[] handles;
                         lock (_lock)
@@ -92,13 +93,12 @@ namespace EarTrumpet.Services
 
                                     s_watchers.Remove(data.processId);
                                     _threadRunning = s_watchers.Count > 0;
+                                    quit = !_threadRunning;
                                 }
 
-                                App.Current.Dispatcher.SafeInvoke(() =>
-                                {
-                                    Debug.WriteLine($"Process quit: {data.processId}");
-                                    data.quitAction(data.processId);
-                                });
+                                Debug.WriteLine($"Process quit: {data.processId}");
+                                data.quitAction(data.processId);
+
                                 break;
                         }
                     }

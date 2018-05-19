@@ -19,7 +19,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         void GetChannelVolumeLevel(uint nChannel, out float pfLevelDB);
         void GetChannelVolumeLevelScalar(uint nChannel, out float pfLevel);
         void SetMute(int bMute, ref Guid pguidEventContext);
-        void GetMute(out int pbMute);
+        int GetMute();
         void GetVolumeStepInfo(out uint pnStep, out uint pnStepCount);
         void VolumeStepUp(ref Guid pguidEventContext);
         void VolumeStepDown(ref Guid pguidEventContext);

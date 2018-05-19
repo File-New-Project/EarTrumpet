@@ -24,12 +24,10 @@ namespace EarTrumpet.DataModel.Internal
             sessionManager.RegisterSessionNotification(this);
 
             var enumerator = sessionManager.GetSessionEnumerator();
-            int count;
-            enumerator.GetCount(out count);
+            int count = enumerator.GetCount();
             for (int i = 0; i < count; i++)
             {
-                IAudioSessionControl session;
-                enumerator.GetSession(i, out session);
+                var session = enumerator.GetSession(i);
                 AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _device, _dispatcher)));
             }
         }

@@ -38,17 +38,17 @@ namespace EarTrumpet.DataModel.Internal
 
         public void AddSession(IAudioDeviceSession session)
         {
+            if (_id == null)
+            {
+                _id = session.Id;
+            }
+
             _sessions.Add(session);
 
             session.PropertyChanged += Session_PropertyChanged;
 
             // Inherit properties (safely) from existing streams
             session.IsMuted = _sessions[0].IsMuted || session.IsMuted;
-
-            if (_id == null)
-            {
-                _id = _sessions[0].Id;
-            }
         }
 
         public void RemoveSession(IAudioDeviceSession session)

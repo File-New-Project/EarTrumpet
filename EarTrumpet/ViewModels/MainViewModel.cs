@@ -75,10 +75,13 @@ namespace EarTrumpet.ViewModels
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            foreach (var device in AllDevices)
+            App.Current.Dispatcher.SafeInvoke(() =>
             {
-                device.TriggerPeakCheck();
-            }
+                foreach (var device in AllDevices)
+                {
+                    device.TriggerPeakCheck();
+                }
+            });
         }
 
         public void MoveAppToDevice(AppItemViewModel app, DeviceViewModel dev)

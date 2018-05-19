@@ -10,6 +10,6 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         void SetMasterVolume(float fLevel, ref Guid EventContext);
         void GetMasterVolume(out float pfLevel);
         void SetMute(int bMute, ref Guid EventContext);
-        void GetMute(out int pbMute);
+        int GetMute();
     }
 }
