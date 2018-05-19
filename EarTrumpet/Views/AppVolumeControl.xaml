@@ -33,7 +33,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Name="GridRoot">
+    <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{StaticResource IconCellWidth}" />
             <ColumnDefinition Width="*" />
