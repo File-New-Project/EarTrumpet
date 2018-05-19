@@ -133,6 +133,7 @@ namespace EarTrumpet.Services
 
             if (processId == 0)
             {
+                displayNameResolved(Properties.Resources.SystemSoundsDisplayName);
                 return GetInformationForSystemProcess();
             }
 
@@ -237,7 +238,7 @@ namespace EarTrumpet.Services
         {
             return new AppInformation()
             {
-                DisplayName = Properties.Resources.SystemSoundsDisplayName,
+                ExeName = "*SystemSounds",
                 BackgroundColor = 0x000000,
                 PackageInstallPath = "System.SystemSoundsSession",
                 IsDesktopApp = true,
