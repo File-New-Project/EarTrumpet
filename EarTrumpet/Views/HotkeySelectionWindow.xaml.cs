@@ -27,22 +27,27 @@ namespace EarTrumpet.Views
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Hotkey.Modifiers = KeyboardHook.ModifierKeys.None;
-            Hotkey.Key = System.Windows.Forms.Keys.None;
+            if (e.Key == Key.Enter) return;
+            if (e.Key == Key.Enter) return;
+            if (e.Key == Key.Tab) return;
+
+            SettingsService.HotkeyData newHotkey = new SettingsService.HotkeyData();
+            newHotkey.Modifiers = KeyboardHook.ModifierKeys.None;
+            newHotkey.Key = System.Windows.Forms.Keys.None;
 
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                Hotkey.Modifiers = KeyboardHook.ModifierKeys.Control;
+                newHotkey.Modifiers = KeyboardHook.ModifierKeys.Control;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
-                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Shift;
+                newHotkey.Modifiers |= KeyboardHook.ModifierKeys.Shift;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
-                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Alt;
+                newHotkey.Modifiers |= KeyboardHook.ModifierKeys.Alt;
             }
 
             if (e.Key == Key.LeftShift || e.Key == Key.RightShift ||
@@ -54,8 +59,9 @@ namespace EarTrumpet.Views
             }
             else
             {
-                if (Hotkey.Modifiers > 0)
+                if (newHotkey.Modifiers > 0)
                 {
+                    Hotkey.Modifiers = newHotkey.Modifiers;
                     Hotkey.Key = (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(e.Key);
                 }
             }
