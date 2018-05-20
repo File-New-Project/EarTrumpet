@@ -10,8 +10,7 @@ namespace EarTrumpet.Extensions
         static bool? _hasIdentity = null;
         public static bool HasIdentity(this Application app)
         {
-#if DEBUG
-            // TODO: Remove before ship to make sure UWP debugging is possible.
+#if VSDEBUG
             if (Debugger.IsAttached)
             {
                 return false;
