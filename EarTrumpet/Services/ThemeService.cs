@@ -44,7 +44,7 @@ namespace EarTrumpet.Services
             newDictionary["PeakMeterHotColor"] = Lookup("ImmersiveSystemAccentDark3", 0.9);
 
             newDictionary["NormalWindowForeground"] = Lookup(isLightTheme ? "ImmersiveApplicationTextLightTheme" : "ImmersiveApplicationTextDarkTheme");
-            newDictionary["NormalWindowBackground"] = Lookup("ImmersiveApplicationBackground");
+            newDictionary["NormalWindowBackground"] = isLightTheme ? Lookup("ImmersiveApplicationBackground") : new SolidColorBrush(Color.FromArgb(255, 34, 34, 34));
             newDictionary["ButtonBackground"] = Lookup(isLightTheme ? "ImmersiveLightBaseLow" : "ImmersiveDarkBaseLow");
             newDictionary["ButtonBackgroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseLow" : "ImmersiveDarkBaseLow");
             newDictionary["ButtonBackgroundPressed"] = Lookup(isLightTheme ? "ImmersiveLightBaseMediumLow" : "ImmersiveDarkBaseMediumLow");
@@ -73,7 +73,7 @@ namespace EarTrumpet.Services
             }
 
             newDictionary["CloseButtonForeground"] = Lookup(isLightTheme ? "ImmersiveSystemText" : "ImmersiveApplicationTextDarkTheme");
-            newDictionary["SettingsHeaderBackground"] = Lookup(isLightTheme ? "ImmersiveLightChromeMediumLow" : "ImmersiveDarkChromeMedium");
+            newDictionary["SettingsHeaderBackground"] = isLightTheme ? Lookup("ImmersiveLightChromeMediumLow") : new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
 
 
             newDictionary["SecondaryText"] = Lookup(isLightTheme ? "ImmersiveLightSecondaryText" : "ImmersiveLightDisabledText");

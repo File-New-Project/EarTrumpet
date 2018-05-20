@@ -184,7 +184,7 @@
                         Click="CloseButton_Click"
                         Content="&#xE8BB;"
                         DockPanel.Dock="Right"
-                        Style="{DynamicResource CloseButtonStyle}" />
+                        Style="{DynamicResource CloseButtonStyle}" Margin="0,1,0,0" />
                 <TextBlock Padding="20,8,20,8"
                            DockPanel.Dock="Left"
                            Text="{Binding ElementName=WindowRoot, Path=Title}"

@@ -71,7 +71,7 @@
                         Grid.Column="1"
                         Click="CloseButton_Click"
                         Content="&#xE8BB;"
-                        Style="{DynamicResource CloseButtonStyle}" />
+                        Style="{DynamicResource CloseButtonStyle}" Margin="0,1,0,0" />
             </Grid>
 
             <StackPanel Margin="14,0,0,14" Orientation="Vertical">
