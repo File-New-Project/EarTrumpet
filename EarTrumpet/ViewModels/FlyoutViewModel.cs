@@ -134,6 +134,7 @@ namespace EarTrumpet.ViewModels
                 if (foundAllDevice != null)
                 {
                     Devices.Clear();
+                    foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
                     InvalidateWindowSize();
                 }
@@ -151,6 +152,7 @@ namespace EarTrumpet.ViewModels
                 {
                     if (!Devices.Contains(device))
                     {
+                        device.Apps.CollectionChanged += Apps_CollectionChanged;
                         Devices.Insert(0, device);
                     }
                 }
@@ -164,6 +166,7 @@ namespace EarTrumpet.ViewModels
 
                     if (device.Id != _deviceManager.DefaultPlaybackDevice.Id)
                     {
+                        device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
                     }
                 }

@@ -28,7 +28,6 @@ namespace EarTrumpet.Views
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) return;
-            if (e.Key == Key.Enter) return;
             if (e.Key == Key.Tab) return;
 
             SettingsService.HotkeyData newHotkey = new SettingsService.HotkeyData();
