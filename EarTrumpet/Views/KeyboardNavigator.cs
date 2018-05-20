@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet.Views
 {
-    public class KeyboardNavigationService
+    public class KeyboardNavigator
     {
         public static void OnKeyDown(FrameworkElement host, ref KeyEventArgs evt)
         {

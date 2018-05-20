@@ -58,7 +58,7 @@ namespace EarTrumpet.Views
             }
             else
             {
-                KeyboardNavigationService.OnKeyDown(this, ref e);
+                KeyboardNavigator.OnKeyDown(this, ref e);
             }
         }
 

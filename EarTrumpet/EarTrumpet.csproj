@@ -132,7 +132,7 @@
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Views\KeyboardNavigationService.cs" />
+    <Compile Include="Views\KeyboardNavigator.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>

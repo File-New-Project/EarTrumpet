@@ -40,7 +40,7 @@ namespace EarTrumpet.Views
 
             Deactivated += (_, __) => _viewModel.BeginClose();
 
-            PreviewKeyDown += (_, e) => KeyboardNavigationService.OnKeyDown(this, ref e);
+            PreviewKeyDown += (_, e) => KeyboardNavigator.OnKeyDown(this, ref e);
 
             SourceInitialized += (s, e) =>
             {
