@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Services;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
@@ -17,6 +16,8 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler<IAudioDeviceSession> SessionCreated;
 
         public ObservableCollection<IAudioDevice> Devices => _devices;
+
+        private static IPolicyConfig s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
@@ -96,7 +97,7 @@ namespace EarTrumpet.DataModel.Internal
                 if (_defaultPlaybackDevice == null ||
                     value.Id != _defaultPlaybackDevice.Id)
                 {
-                    DefaultEndPointService.SetDefaultDevice(value);
+                    SetDefaultDevice(value);
                 }
             }
         }
@@ -109,9 +110,19 @@ namespace EarTrumpet.DataModel.Internal
                 if (_defaultCommunicationsDevice == null ||
                     value.Id != _defaultCommunicationsDevice.Id)
                 {
-                    DefaultEndPointService.SetDefaultDevice(value, ERole.eCommunications);
+                    SetDefaultDevice(value, ERole.eCommunications);
                 }
             }
+        }
+
+        private void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
+        {
+            if (s_PolicyConfigClient == null)
+            {
+                s_PolicyConfigClient = (IPolicyConfig)new PolicyConfigClient();
+            }
+
+            s_PolicyConfigClient.SetDefaultEndpoint(device.Id, role);
         }
 
         private bool HasDevice(string deviceId)
