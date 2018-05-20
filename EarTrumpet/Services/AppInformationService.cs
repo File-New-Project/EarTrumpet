@@ -13,7 +13,107 @@ namespace EarTrumpet.Services
 
     public class AppInformationService
     {
-        public static bool IsImmersiveProcess(int processId)
+        internal static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
+        {
+            var appInfo = new AppInformation();
+
+            if (processId == 0)
+            {
+                displayNameResolved(Properties.Resources.SystemSoundsDisplayName);
+                return GetInformationForSystemProcess();
+            }
+
+            bool shouldResolvedDisplayNameFromMainWindow = true;
+
+            if (IsImmersiveProcess(processId))
+            {
+                appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
+
+                var iid = typeof(IShellItem2).GUID;
+                var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appInfo.AppUserModelId, ref iid);
+
+                // TODO: thsi should be exe name
+                appInfo.ExeName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+
+                displayNameResolved(appInfo.ExeName);
+                shouldResolvedDisplayNameFromMainWindow = false;
+
+                appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
+                appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
+                appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
+
+                string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
+                if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
+                {
+                    appInfo.SmallLogoPath = new Uri(rawSmallLogoPath).LocalPath;
+                }
+                else
+                {
+                    iid = typeof(IResourceMap).GUID;
+                    var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
+                    mrtResourceManager.InitializeForPackage(appInfo.PackageFullName);
+                    mrtResourceManager.GetMainResourceMap(ref iid, out IResourceMap map);
+
+                    map.GetFilePath(rawSmallLogoPath, out string mrtSmallLogoPath);
+                    appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, mrtSmallLogoPath);
+                }
+            }
+            else
+            {
+                appInfo.IsDesktopApp = true;
+
+                var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
+                if (handle != IntPtr.Zero)
+                {
+                    CheckProcessHandle(handle);
+
+                    var fileNameBuilder = new StringBuilder(260);
+                    uint bufferLength = (uint)fileNameBuilder.Capacity;
+                    if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
+                    {
+                        if (fileNameBuilder.Length > 0)
+                        {
+                            var processFullPath = fileNameBuilder.ToString();
+                            appInfo.ExeName = Path.GetFileName(processFullPath);
+                            appInfo.SmallLogoPath = processFullPath;
+                            appInfo.PackageInstallPath = processFullPath;
+
+                            if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                            {
+                                displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
+                                shouldResolvedDisplayNameFromMainWindow = false;
+                            }
+                        }
+
+                        Kernel32.CloseHandle(handle);
+                    }
+                }
+                else throw new ZombieProcessException();
+            }
+
+            if (shouldResolvedDisplayNameFromMainWindow)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        var proc = Process.GetProcessById(processId);
+                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                        {
+                            displayNameResolved(proc.MainWindowTitle);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                });
+            }
+
+            return appInfo;
+        }
+
+        private static bool IsImmersiveProcess(int processId)
         {
             var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
             if (processHandle == IntPtr.Zero)
@@ -22,6 +122,19 @@ namespace EarTrumpet.Services
             bool result = User32.IsImmersiveProcess(processHandle) != 0;
             Kernel32.CloseHandle(processHandle);
             return result;
+        }
+
+        private static void CheckProcessHandle(IntPtr handle)
+        {
+            if (Kernel32.WaitForSingleObject(handle, 0) == Kernel32.WAIT_TIMEOUT)
+            {
+                // Handle is OK
+            }
+            else
+            {
+                Kernel32.CloseHandle(handle);
+                throw new ZombieProcessException();
+            }
         }
 
         private static bool CanResolveAppByApplicationUserModelId(string aumid)
@@ -44,8 +157,10 @@ namespace EarTrumpet.Services
             string appUserModelId = string.Empty;
 
             var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
-            if (processHandle != IntPtr.Zero && Kernel32.WaitForSingleObject(processHandle, 0) == Kernel32.WAIT_TIMEOUT)
+            if (processHandle != IntPtr.Zero)
             {
+                CheckProcessHandle(processHandle);
+
                 int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
                 var amuidBuffer = new StringBuilder(amuidBufferLength);
 
@@ -123,104 +238,6 @@ namespace EarTrumpet.Services
             else throw new ZombieProcessException();
 
             return appUserModelId;
-        }
-
-        internal static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
-        {
-            var appInfo = new AppInformation();
-
-            if (processId == 0)
-            {
-                displayNameResolved(Properties.Resources.SystemSoundsDisplayName);
-                return GetInformationForSystemProcess();
-            }
-
-            bool shouldResolvedDisplayNameFromMainWindow = true;
-
-            if (IsImmersiveProcess(processId))
-            {
-                appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
-
-                var iid = typeof(IShellItem2).GUID;
-                var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appInfo.AppUserModelId, ref iid);
-
-                // TODO: thsi should be exe name
-                appInfo.ExeName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
-
-                displayNameResolved(appInfo.ExeName);
-                shouldResolvedDisplayNameFromMainWindow = false;
-
-                appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
-                appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
-                appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
-
-                string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
-                if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
-                {
-                    appInfo.SmallLogoPath = new Uri(rawSmallLogoPath).LocalPath;
-                }
-                else
-                {
-                    iid = typeof(IResourceMap).GUID;
-                    var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
-                    mrtResourceManager.InitializeForPackage(appInfo.PackageFullName);
-                    mrtResourceManager.GetMainResourceMap(ref iid, out IResourceMap map);
-
-                    map.GetFilePath(rawSmallLogoPath, out string mrtSmallLogoPath);
-                    appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, mrtSmallLogoPath);
-                }
-            }
-            else
-            {
-                appInfo.IsDesktopApp = true;
-
-                var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
-                if (handle != IntPtr.Zero && Kernel32.WaitForSingleObject(handle, 0) == Kernel32.WAIT_TIMEOUT)
-                {
-                    var fileNameBuilder = new StringBuilder(260);
-                    uint bufferLength = (uint)fileNameBuilder.Capacity;
-                    if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
-                    {
-                        if (fileNameBuilder.Length > 0)
-                        {
-                            var processFullPath = fileNameBuilder.ToString();
-                            appInfo.ExeName = Path.GetFileName(processFullPath);
-                            appInfo.SmallLogoPath = processFullPath;
-                            appInfo.PackageInstallPath = processFullPath;
-
-                            if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
-                            {
-                                displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
-                                shouldResolvedDisplayNameFromMainWindow = false;
-                            }
-                        }
-
-                        Kernel32.CloseHandle(handle);
-                    }
-                }
-                else throw new ZombieProcessException();
-            }
-
-            if (shouldResolvedDisplayNameFromMainWindow)
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        var proc = Process.GetProcessById(processId);
-                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
-                        {
-                            displayNameResolved(proc.MainWindowTitle);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
-            }
-
-            return appInfo;
         }
 
         private static AppInformation GetInformationForSystemProcess()

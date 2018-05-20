@@ -75,14 +75,14 @@
                             </Style>
                         </Border.Style>
 
-                        <TextBlock HorizontalAlignment="Center"
+                        <TextBlock Margin="0,-1,0,0"
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   TextAlignment="Center"
-                                   Margin="0,-1,0,0"
                                    FontSize="16"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource WindowForeground}"
-                                   Text="{Binding App.IconText}" />
+                                   Text="{Binding App.IconText}"
+                                   TextAlignment="Center" />
                     </Border>
 
                 </Grid>
