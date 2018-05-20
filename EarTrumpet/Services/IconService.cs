@@ -1,13 +1,8 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.Services
 {
@@ -27,14 +22,7 @@ namespace EarTrumpet.Services
 
         public static ImageSource GetIconFromFileAsImageSource(string path)
         {
-            if(!string.IsNullOrWhiteSpace(path))
-            {
-                return System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource();
-            }
-            else
-            {
-                return null;
-            }
+            return System.Drawing.Icon.ExtractAssociatedIcon(path).ToImageSource();
         }
     }
 }

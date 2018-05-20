@@ -28,20 +28,18 @@ namespace EarTrumpet.Services
             if (IsImmersiveProcess(processId))
             {
                 appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
+                appInfo.ExeName = appInfo.AppUserModelId;
 
                 var iid = typeof(IShellItem2).GUID;
                 var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appInfo.AppUserModelId, ref iid);
 
-                // TODO: thsi should be exe name
-                appInfo.ExeName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
-
-                displayNameResolved(appInfo.ExeName);
+                displayNameResolved(shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay));
                 shouldResolvedDisplayNameFromMainWindow = false;
 
                 appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
-
+                
                 string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
                 if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
                 {
@@ -168,13 +166,10 @@ namespace EarTrumpet.Services
                 appUserModelId = amuidBuffer.ToString();
                 Kernel32.CloseHandle(processHandle);
 
-                //
                 // We may receive an AUMID for an app in a package that doesn't have
                 // the metadata we need (e.g. Skype). If the AUMID doesn't resolve to
                 // an app, we need to bust open the package, find the main app, and
                 // retrieve the metadata we need.
-                //
-
                 if (!CanResolveAppByApplicationUserModelId(appUserModelId))
                 {
                     int packageFamilyNameLength = Kernel32.PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z;
