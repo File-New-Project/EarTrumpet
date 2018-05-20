@@ -40,10 +40,12 @@ namespace EarTrumpet
 
             HotkeyService.Register(SettingsService.Hotkey);
 
+#if VSDEBUG
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
                 new DebugWindow().Show();
             }
+#endif
         }
     }
 }
