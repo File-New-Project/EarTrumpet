@@ -204,7 +204,7 @@ namespace EarTrumpet.Views
                     break;
             }
 
-            this.Move(newTop, newLeft, newHeight, Width);
+            this.Move(newTop * this.DpiHeightFactor(), newLeft * this.DpiWidthFactor(), newHeight * this.DpiHeightFactor(), Width * this.DpiWidthFactor());
         }
 
         private void ExpandCollapse_Click(object sender, RoutedEventArgs e)

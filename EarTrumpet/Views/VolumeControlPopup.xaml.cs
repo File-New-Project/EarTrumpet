@@ -118,24 +118,30 @@ namespace EarTrumpet.Views
             // Adjust for the title bar, top border and top margin on the app list.
             offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom + PopupBorderSize.Top);
 
-            var popupHeight = HEADER_SIZE + (e.ViewModel.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top;
-            var popupOriginYScreenCoordinates = relativeTo.PointToScreen(new Point(0, 0)).Y + offsetFromWindow.Y;
+            var popupHeight = (HEADER_SIZE + (e.ViewModel.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top);
+            var popupOriginYScreenCoordinates = (relativeTo.PointToScreen(new Point(0, 0)).Y / this.DpiHeightFactor()) + offsetFromWindow.Y;
+
+            var scaledWorkArea = new Rect(taskbarState.TaskbarScreen.WorkingArea.Left / this.DpiWidthFactor(),
+                taskbarState.TaskbarScreen.WorkingArea.Top / this.DpiHeightFactor(),
+                taskbarState.TaskbarScreen.WorkingArea.Width / this.DpiWidthFactor(),
+                taskbarState.TaskbarScreen.WorkingArea.Height / this.DpiHeightFactor()
+                );
 
             // If we flow off the bottom
-            if (popupOriginYScreenCoordinates + popupHeight > taskbarState.TaskbarScreen.WorkingArea.Bottom)
+            if (popupOriginYScreenCoordinates + popupHeight > scaledWorkArea.Bottom)
             {
-                popupOriginYScreenCoordinates = taskbarState.TaskbarScreen.WorkingArea.Bottom - popupHeight;
+                popupOriginYScreenCoordinates = scaledWorkArea.Bottom - popupHeight;
 
                 // If we also flow off the top
-                if (popupOriginYScreenCoordinates < taskbarState.TaskbarScreen.WorkingArea.Top)
+                if (popupOriginYScreenCoordinates < scaledWorkArea.Top)
                 {
-                    popupOriginYScreenCoordinates = taskbarState.TaskbarScreen.WorkingArea.Top;
-                    popupHeight = taskbarState.TaskbarScreen.WorkingArea.Bottom - taskbarState.TaskbarScreen.WorkingArea.Top;
+                    popupOriginYScreenCoordinates = scaledWorkArea.Top;
+                    popupHeight = scaledWorkArea.Bottom - scaledWorkArea.Top;
                 }
             }
 
             Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
-            HorizontalOffset = relativeTo.PointToScreen(new Point(0, 0)).X + offsetFromWindow.X;
+            HorizontalOffset = (relativeTo.PointToScreen(new Point(0, 0)).X / this.DpiWidthFactor()) + offsetFromWindow.X;
             VerticalOffset = popupOriginYScreenCoordinates;
 
             Width = ((FrameworkElement)e.Container).ActualWidth;
