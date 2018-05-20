@@ -53,6 +53,8 @@ namespace EarTrumpet.Views
 
             themeService.ThemeChanged += () => UpdateTheme();
 
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.BeginClose());
+
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
             Hide();

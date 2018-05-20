@@ -47,6 +47,8 @@ namespace EarTrumpet.Views
                 this.Cloak();
                 this.SetWindowBlur(true, true);
             };
+
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.OnAppCollapsed());
         }
 
         private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
