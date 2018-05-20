@@ -52,6 +52,7 @@ namespace EarTrumpet.Views
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
+            Hide();
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
@@ -62,8 +63,8 @@ namespace EarTrumpet.Views
             {
                 case FlyoutViewModel.ViewState.Opening:
 
+                    Show();
                     UpdateWindowBounds();
-
                     DevicesList.Focus();
 
                     WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
@@ -74,6 +75,7 @@ namespace EarTrumpet.Views
                     var cloakAndMarkHidden = new Action(() =>
                     {
                         this.Cloak();
+                        Hide();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
                     });
 
