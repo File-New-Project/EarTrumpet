@@ -99,6 +99,8 @@ namespace EarTrumpet.Services
 
             }
 
+            newDictionary["AcrylicWindowBackdropFallback"] = Lookup(isLightTheme ? "ImmersiveLightAcrylicWindowBackdropFallback" : "ImmersiveDarkAcrylicWindowBackdropFallback", 1);
+
             var AddThemeSpecificBrush = new Action<string>((s) =>
             {
                 newDictionary[$"Control{s}"] = Lookup(isLightTheme ? $"ImmersiveControlLight{s}" : $"ImmersiveControlDark{s}");

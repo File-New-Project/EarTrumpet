@@ -14,7 +14,7 @@
         <Style x:Key="FullWindowDialogWindowStyle"
                BasedOn="{StaticResource DialogWindowStyle}"
                TargetType="{x:Type Window}">
-            <Setter Property="Background" Value="{DynamicResource ChromeBlackMedium}" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="ResizeMode" Value="NoResize" />
         </Style>
 
@@ -142,123 +142,159 @@
         </Style>
     </Window.Resources>
 
-    <DockPanel x:Name="ContentRoot">
-        <DockPanel DockPanel.Dock="Top">
-            <Button x:Name="CloseButton"
-                    Click="CloseButton_Click"
-                    Content="&#xE8BB;"
-                    DockPanel.Dock="Right"
-                    Style="{DynamicResource CloseButtonStyle}" />
-            <TextBlock Padding="20,8,20,8"
-                       DockPanel.Dock="Left"
-                       Text="{Binding ElementName=WindowRoot, Path=Title}"
-                       TextAlignment="Left" />
+    <Grid>
+        <Border Name="AcrylicBackgroundActive" Background="{DynamicResource ChromeBlackMedium}" />
+
+        <Border Name="AcrylicBackgroundInactive">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Background" Value="{DynamicResource AcrylicWindowBackdropFallback}" />
+                    <Setter Property="Opacity" Value="1" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="00:00:00.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00.15" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+
+        <DockPanel x:Name="ContentRoot">
+            <DockPanel DockPanel.Dock="Top">
+                <Button x:Name="CloseButton"
+                        Click="CloseButton_Click"
+                        Content="&#xE8BB;"
+                        DockPanel.Dock="Right"
+                        Style="{DynamicResource CloseButtonStyle}" />
+                <TextBlock Padding="20,8,20,8"
+                           DockPanel.Dock="Left"
+                           Text="{Binding ElementName=WindowRoot, Path=Title}"
+                           TextAlignment="Left" />
+            </DockPanel>
+            <Grid>
+                <ScrollViewer x:Name="BaseVisual"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ItemsControl IsTabStop="False" ItemsSource="{Binding AllDevices}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <ItemContainerTemplate>
+                                <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
+                                                            AppExpanded="DeviceAndAppsControl_AppExpanded"
+                                                            Device="{Binding}" />
+                            </ItemContainerTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+            </Grid>
         </DockPanel>
-        <Grid>
-            <ScrollViewer x:Name="BaseVisual"
-                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ItemsControl IsTabStop="False" ItemsSource="{Binding AllDevices}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
-                                                        AppExpanded="DeviceAndAppsControl_AppExpanded"
-                                                        Device="{Binding}" />
-                        </ItemContainerTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
 
-            <Border Name="LightDismissBorder"
-                    Background="{DynamicResource NormalWindowBackground}"
-                    PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
-                <Border.Style>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Setter Property="Opacity" Value="1" />
-                        <Style.Triggers>
+        <Border Name="LightDismissBorder"
+                Background="{DynamicResource NormalWindowBackground}"
+                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Opacity" Value="1" />
+                    <Style.Triggers>
 
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
-                                    <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
-                                </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                            </MultiDataTrigger.Conditions>
 
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="Opacity" Value="1" />
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger.Setters>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Opacity" Value="1" />
+                                <Setter Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger.Setters>
 
-                            </MultiDataTrigger>
+                        </MultiDataTrigger>
 
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
-                                    <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
-                                </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                            </MultiDataTrigger.Conditions>
 
-                                <MultiDataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             From="0"
-                                                             To="1"
-                                                             Duration="00:00:00.15" />
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00.15" />
 
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.EnterActions>
-                                <MultiDataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             From="1"
-                                                             To="0"
-                                                             Duration="00:00:00.15" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="00:00:00.15" />
 
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.15">
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Collapsed</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.ExitActions>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <Border Margin="0,0,0,14" Opacity="0.8">
-                    <Border.Effect>
-                        <BlurEffect KernelType="Gaussian"
-                                    Radius="{StaticResource WindowBlurRadius}"
-                                    RenderingBias="Performance" />
-                    </Border.Effect>
-                    <Border.Background>
-                        <VisualBrush AlignmentX="Left"
-                                     AlignmentY="Top"
-                                     Stretch="UniformToFill"
-                                     Visual="{Binding ElementName=BaseVisual}" />
-                    </Border.Background>
-                </Border>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.15">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Border Margin="0,0,0,14" Opacity="0.8">
+                <Border.Effect>
+                    <BlurEffect KernelType="Gaussian"
+                                Radius="{StaticResource WindowBlurRadius}"
+                                RenderingBias="Performance" />
+                </Border.Effect>
+                <Border.Background>
+                    <VisualBrush AlignmentX="Left"
+                                 AlignmentY="Top"
+                                 Stretch="UniformToFill"
+                                 Visual="{Binding ElementName=ContentRoot}" />
+                </Border.Background>
             </Border>
-
-            <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
-        </Grid>
-    </DockPanel>
-
+        </Border>
+    </Grid>
 </Window>
