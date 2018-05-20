@@ -115,6 +115,7 @@
     <Compile Include="Interop\RECT.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="Services\ProcessWatcherService.cs" />
+    <Compile Include="Views\AppSpecificThemes.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>

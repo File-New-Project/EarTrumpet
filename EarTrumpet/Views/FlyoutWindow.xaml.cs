@@ -46,9 +46,9 @@ namespace EarTrumpet.Views
             {
                 this.Cloak();
 
-                UpdateTheme();
-
                 themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+
+                UpdateTheme();
             };
 
             themeService.ThemeChanged += () => UpdateTheme();
@@ -138,8 +138,6 @@ namespace EarTrumpet.Views
 
         private void UpdateTheme()
         {
-            _themeService.LoadCurrentTheme();
-
             this.SetWindowBlur(UserSystemPreferencesService.IsTransparencyEnabled && !SystemParameters.HighContrast);
         }
 

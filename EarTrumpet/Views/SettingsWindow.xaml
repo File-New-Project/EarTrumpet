@@ -80,8 +80,19 @@
                     <Image Height="24"
                            Margin="0,0,8,0"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Source="{DynamicResource LogoImage}" />
+                           VerticalAlignment="Center">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={StaticResource ThemeService}, Path=IsLightTheme}" Value="True">
+                                        <Setter Property="Source" Value="pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
 
                     <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
                 </StackPanel>
