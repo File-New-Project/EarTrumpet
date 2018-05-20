@@ -70,6 +70,7 @@
             <Style x:Key="CloseButtonStyle"
                    BasedOn="{StaticResource CaptionButtonStyle}"
                    TargetType="Button">
+                <Setter Property="Margin" Value="0,1,0,0" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Foreground" Value="{DynamicResource CloseButtonForeground}" />
