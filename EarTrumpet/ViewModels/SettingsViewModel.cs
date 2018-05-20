@@ -17,6 +17,7 @@ namespace EarTrumpet.ViewModels
             set
             {
                 _hotkey = value;
+                SettingsService.Hotkey = _hotkey;
                 RaisePropertyChanged(nameof(Hotkey));
                 RaisePropertyChanged(nameof(HotkeyText));
             }
@@ -45,12 +46,6 @@ namespace EarTrumpet.ViewModels
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
-        }
-
-        public void Save()
-        {
-            SettingsService.Hotkey = Hotkey;
-            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
         }
 
         private void OpenDiagnostics()

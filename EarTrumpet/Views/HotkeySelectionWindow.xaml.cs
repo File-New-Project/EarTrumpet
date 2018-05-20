@@ -60,7 +60,6 @@ namespace EarTrumpet.Views
                 }
             }
 
-
             UpdateText();
         }
 

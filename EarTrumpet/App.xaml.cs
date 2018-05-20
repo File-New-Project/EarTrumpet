@@ -38,8 +38,7 @@ namespace EarTrumpet
             _trayIcon = new TrayIcon(_deviceManager, _trayViewModel);
             _trayIcon.Invoked += () => _flyoutWindow.OpenAsFlyout();
 
-            var Hotkey = SettingsService.Hotkey;
-            HotkeyService.Register(Hotkey.Modifiers, Hotkey.Key);
+            HotkeyService.Register(SettingsService.Hotkey);
 
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {

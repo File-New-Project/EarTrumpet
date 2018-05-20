@@ -9,9 +9,9 @@ namespace EarTrumpet.Services
     {
         public static event EventHandler<KeyboardHook.KeyPressedEventArgs> KeyPressed;
 
-        static KeyboardHook s_hook;
+        private static KeyboardHook s_hook;
 
-        public static void Register(KeyboardHook.ModifierKeys modifiers, Keys key)
+        public static void Register(SettingsService.HotkeyData hotkey)
         {
             if (s_hook != null)
             {
@@ -23,7 +23,7 @@ namespace EarTrumpet.Services
 
             try
             {
-                s_hook.RegisterHotKey(modifiers, key);
+                s_hook.RegisterHotKey(hotkey.Modifiers, hotkey.Key);
             }
             catch(Exception ex)
             {
@@ -31,9 +31,17 @@ namespace EarTrumpet.Services
             }
         }
 
-        static void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
+        private static void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
         {
             KeyPressed?.Invoke(s_hook, e);
+        }
+
+        public static void Unregister()
+        {
+            if (s_hook != null)
+            {
+                s_hook.Dispose();
+            }
         }
     }
 }

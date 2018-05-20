@@ -26,7 +26,6 @@ namespace EarTrumpet.Views
             Closing += (s, e) =>
             {
                  Instance = null;
-                _viewModel.Save();
             };
 
             SourceInitialized += (_, __) =>
@@ -43,11 +42,15 @@ namespace EarTrumpet.Views
 
         private void HotkeySelect_Click(object sender, RoutedEventArgs e)
         {
+            HotkeyService.Unregister();
+
             var win = new HotkeySelectionWindow(_viewModel.Hotkey);
             win.Owner = this;
             win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             win.ShowDialog();
             _viewModel.Hotkey = win.Hotkey;
+
+            HotkeyService.Register(_viewModel.Hotkey);
         }
     }
 }

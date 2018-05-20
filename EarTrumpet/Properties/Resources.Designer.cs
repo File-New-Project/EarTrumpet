@@ -214,7 +214,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press a key combination.
+        ///   Looks up a localized string similar to Press a key combination:.
         /// </summary>
         public static string HotKeySelectionText {
             get {

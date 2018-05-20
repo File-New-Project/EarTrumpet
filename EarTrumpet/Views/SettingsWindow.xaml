@@ -6,6 +6,7 @@
         Width="600"
         Height="500"
         MinWidth="600"
+        ResizeMode="NoResize"
         SizeToContent="Height"
         Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterScreen">
@@ -18,20 +19,20 @@
         <Style x:Key="BodyText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="0,4,0,4" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
         <Style x:Key="BodySubText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Foreground" Value="{DynamicResource SecondaryText}" />
-            <Setter Property="Margin" Value="0,4,0,4" />
         </Style>
 
         <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="0,8,0,8" />
+            <Setter Property="Margin" Value="0,10,0,10" />
         </Style>
 
         <Style TargetType="{x:Type Hyperlink}">
@@ -43,6 +44,7 @@
             <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForeground}" />
             <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
             <Setter Property="FontSize" Value="16" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
         </Style>
     </Window.Resources>
     <Grid>
@@ -89,13 +91,13 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="34" />
+                        <RowDefinition Height="34" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="120" />
-                        <ColumnDefinition Width="Auto" MinWidth="120" />
+                        <ColumnDefinition Width="Auto" MinWidth="140" />
+                        <ColumnDefinition Width="Auto" MinWidth="140" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock VerticalAlignment="Center"
@@ -114,6 +116,7 @@
 
                     <Button Grid.Row="1"
                             Grid.Column="1"
+                            MinWidth="140"
                             HorizontalAlignment="Left"
                             Click="HotkeySelect_Click"
                             Content="{Binding HotkeyText}"

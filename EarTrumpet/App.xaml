@@ -38,6 +38,8 @@
             <Style x:Key="CaptionButtonStyle" TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="ExtraLight" />
                 <Setter Property="Width" Value="46" />
                 <Setter Property="Height" Value="31" />
                 <Setter Property="IsTabStop" Value="False" />
@@ -49,6 +51,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border"
+                                    Margin="0,-1,0,0"
                                     Background="{TemplateBinding Background}"
                                     SnapsToDevicePixels="True">
                                 <ContentPresenter Margin="2"
@@ -67,29 +70,35 @@
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Foreground" Value="{DynamicResource CloseButtonForeground}" />
-                        <Setter Property="Background" Value="Transparent" />
-                        <Trigger.EnterActions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation FillBehavior="HoldEnd"
-                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                    To="Red"
-                                                    Duration="0:0:0.1" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </Trigger.EnterActions>
-                        <Trigger.ExitActions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation FillBehavior="HoldEnd"
-                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                    To="#00FF0000"
-                                                    Duration="0:0:0.05" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </Trigger.ExitActions>
+                        <Setter Property="Background" Value="#FFE81123" />
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="Windows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Rectangle Stroke="Black" StrokeThickness="3" />
+                                <Rectangle Stroke="White" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="LargeWindows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid Margin="-4" SnapsToDevicePixels="True">
+                                <Rectangle Stroke="Black" StrokeThickness="3" />
+                                <Rectangle Stroke="White" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style x:Key="Windows10ButtonStyle" TargetType="Button">
@@ -98,6 +107,7 @@
                 <Setter Property="Padding" Value="14,0" />
                 <Setter Property="Height" Value="32" />
                 <Setter Property="MinWidth" Value="90" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
@@ -125,23 +135,11 @@
                     <Trigger Property="IsPressed" Value="true">
                         <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPressed}" />
                         <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
-                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderPressed}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackgroundPressed}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="Windows10FocusVisualStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid>
-                                <Rectangle Stroke="Black" StrokeThickness="3" />
-                                <Rectangle Stroke="White" StrokeThickness="2" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />

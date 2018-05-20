@@ -175,7 +175,7 @@
     <value>About</value>
   </data>
   <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Press a key combination</value>
+    <value>Press a key combination:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>EarTrumpet</value>
