@@ -24,7 +24,7 @@ namespace EarTrumpet.Misc
 
             if (!SystemParameters.MenuAnimation)
             {
-                window.Visibility = Visibility.Visible;
+                window.Cloak(false);
                 onCompleted(null, null);
                 return;
             }
@@ -228,6 +228,7 @@ namespace EarTrumpet.Misc
 
             if (!SystemParameters.MenuAnimation)
             {
+                window.Cloak(false);
                 onCompleted(null, null);
                 return;
             }
