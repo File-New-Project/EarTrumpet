@@ -62,7 +62,15 @@ namespace EarTrumpet.Services
             newDictionary["HyperlinkTextForegroundHover"] = Lookup(isLightTheme ? "ImmersiveLightBaseMedium" : "ImmersiveDarkBaseMedium");
 
             newDictionary["PeakMeterBackground"] = Lookup("ImmersiveSystemAccentDark3");
-            newDictionary["FullWindowDeviceBackground"] = Lookup(isLightTheme ? "ImmersiveLightListLow" : "ImmersiveDarkChromeMediumLow");
+
+            if (SystemParameters.HighContrast)
+            {
+                newDictionary["FullWindowDeviceBackground"] = SystemColors.WindowBrush;
+            }
+            else
+            {
+                newDictionary["FullWindowDeviceBackground"] = Lookup(isLightTheme ? "ImmersiveLightListLow" : "ImmersiveDarkChromeMediumLow");
+            }
 
             newDictionary["CloseButtonForeground"] = Lookup(isLightTheme ? "ImmersiveSystemText" : "ImmersiveApplicationTextDarkTheme");
             newDictionary["SettingsHeaderBackground"] = Lookup(isLightTheme ? "ImmersiveLightChromeMediumLow" : "ImmersiveApplicationTextDarkTheme");

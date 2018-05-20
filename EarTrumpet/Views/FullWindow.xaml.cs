@@ -28,7 +28,6 @@ namespace EarTrumpet.Views
 
             LocationChanged += (_, __) => _viewModel.OnAppCollapsed();
             SizeChanged += (_, __) => _viewModel.OnAppCollapsed();
-
             DataContext = _viewModel;
 
             this.StateChanged += FullWindow_StateChanged;
