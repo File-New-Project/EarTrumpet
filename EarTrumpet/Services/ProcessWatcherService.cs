@@ -99,6 +99,8 @@ namespace EarTrumpet.Services
                                 Debug.WriteLine($"Process quit: {data.processId}");
                                 data.quitAction(data.processId);
 
+                                Kernel32.CloseHandle(data.processHandle);
+
                                 break;
                         }
                     }
