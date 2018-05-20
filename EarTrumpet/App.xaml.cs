@@ -32,7 +32,7 @@ namespace EarTrumpet
             _deviceManager = DataModelFactory.CreateAudioDeviceManager();
             _viewModel = new MainViewModel(_deviceManager);
 
-            _flyoutWindow = new FlyoutWindow(_viewModel, _deviceManager);
+            _flyoutWindow = new FlyoutWindow(_viewModel, _deviceManager, (ThemeService)Resources["ThemeService"]);
 
             _trayViewModel = new TrayViewModel(_deviceManager);
             _trayIcon = new TrayIcon(_deviceManager, _trayViewModel);

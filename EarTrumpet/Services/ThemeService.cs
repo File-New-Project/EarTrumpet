@@ -7,16 +7,18 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.Services
 {
-    public class ThemeService
+    public class ThemeService : ViewModels.BindableBase
     {
-        public static event Action ThemeChanged;
+        public event Action ThemeChanged;
 
-        public static bool IsWindowTransparencyEnabled
+        public bool AnimationsEnabled => SystemParameters.MenuAnimation;
+
+        private bool IsWindowTransparencyEnabled
         {
             get { return !SystemParameters.HighContrast && UserSystemPreferencesService.IsTransparencyEnabled; }
         }
 
-        public static void LoadCurrentTheme()
+        public void LoadCurrentTheme()
         {
             var newDictionary = new ResourceDictionary();
             var themeDictionary = Application.Current.Resources.MergedDictionaries[0];
@@ -105,13 +107,13 @@ namespace EarTrumpet.Services
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
         }
 
-        public static void RegisterForThemeChanges(IntPtr hwnd)
+        public void RegisterForThemeChanges(IntPtr hwnd)
         {
             var src = HwndSource.FromHwnd(hwnd);
             src.AddHook(WndProc);
         }
 
-        private static IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x320;
             const int WM_DWMCOMPOSITIONCHANGED = 0x31E;
@@ -131,6 +133,10 @@ namespace EarTrumpet.Services
                     {
                         ThemeChanged?.Invoke();
                     }
+                    else if (settingChanged == "WindowMetrics")
+                    {
+                        RaisePropertyChanged(nameof(AnimationsEnabled));
+                    }
                     break;
                 default:
                     break;
@@ -138,7 +144,7 @@ namespace EarTrumpet.Services
             return IntPtr.Zero;
         }
 
-        private static Color GetWindowBackgroundColor()
+        private Color GetWindowBackgroundColor()
         {
             string resource;
             if (SystemParameters.HighContrast)
@@ -159,7 +165,7 @@ namespace EarTrumpet.Services
             return color;
         }
 
-        private static SolidColorBrush Lookup(string name, double opacity = 0)
+        private SolidColorBrush Lookup(string name, double opacity = 0)
         {
             var color = AccentColorService.GetColorByTypeName(name);
             if (opacity > 0)

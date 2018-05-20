@@ -14,12 +14,15 @@ namespace EarTrumpet.Views
     {
         private readonly MainViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
+        private readonly ThemeService _themeService;
         private VolumeControlPopup _popup;
         private bool _expandOnCloseThenOpen;
 
-        public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager)
+
+        public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager, ThemeService themeService)
         {
             _mainViewModel = mainViewModel;
+            _themeService = themeService;
 
             InitializeComponent();
 
@@ -45,10 +48,10 @@ namespace EarTrumpet.Views
 
                 UpdateTheme();
 
-                ThemeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+                themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
             };
 
-            ThemeService.ThemeChanged += () => UpdateTheme();
+            themeService.ThemeChanged += () => UpdateTheme();
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
@@ -133,9 +136,9 @@ namespace EarTrumpet.Views
 
         private void UpdateTheme()
         {
-            ThemeService.LoadCurrentTheme();
+            _themeService.LoadCurrentTheme();
 
-            this.SetWindowBlur(ThemeService.IsWindowTransparencyEnabled && !SystemParameters.HighContrast);
+            this.SetWindowBlur(UserSystemPreferencesService.IsTransparencyEnabled && !SystemParameters.HighContrast);
         }
 
         private void UpdateWindowBounds()

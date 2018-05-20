@@ -233,13 +233,65 @@
         </ScrollViewer>
         <Border Name="LightDismissBorder"
                 Background="{DynamicResource BlurBackground}"
-                PreviewMouseDown="LightDismissBorder_PreviewMouseDown"
-                Visibility="Collapsed">
+                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
-                <Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Opacity" Value="1" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsShowingModalDialog}" Value="true">
-                            <DataTrigger.EnterActions>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:0" />
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard HandoffBehavior="SnapshotAndReplace">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="00:00:0" />
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <MultiDataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -256,8 +308,8 @@
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -274,14 +326,16 @@
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>
             <Border Margin="0,0,0,14">
                 <Border.Effect>
-                    <BlurEffect KernelType="Gaussian" RenderingBias="Performance" />
+                    <BlurEffect KernelType="Gaussian"
+                                Radius="{StaticResource WindowBlurRadius}"
+                                RenderingBias="Performance" />
                 </Border.Effect>
                 <Border.Background>
 
@@ -290,42 +344,6 @@
                                  Stretch="UniformToFill"
                                  Visual="{Binding ElementName=BaseVisual}" />
                 </Border.Background>
-                <Border.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsShowingModalDialog}" Value="true">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
-                                                             From="2"
-                                                             To="{StaticResource WindowBlurRadius}"
-                                                             Duration="00:00:00.15" />
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             From="0"
-                                                             To="1"
-                                                             Duration="00:00:00.15" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
-                                                             From="{StaticResource WindowBlurRadius}"
-                                                             To="0"
-                                                             Duration="00:00:00.15" />
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             From="1"
-                                                             To="0"
-                                                             Duration="00:00:00.15" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
             </Border>
         </Border>
 
