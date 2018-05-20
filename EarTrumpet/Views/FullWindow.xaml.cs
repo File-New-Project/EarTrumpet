@@ -1,7 +1,9 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Views
 {
@@ -17,8 +19,8 @@ namespace EarTrumpet.Views
             Instance = this;
 
             _viewModel = new FullWindowViewModel(viewModel);
-            _viewModel.AppExpanded += (_, e) => _popup.PositionAndShow(this, e);
-            _viewModel.AppCollapsed += (_, __) => _popup.HideWithAnimation();
+            _viewModel.AppExpanded += OnAppExpanded;
+            _viewModel.AppCollapsed += (_, __) => OnAppCollapsed();
 
             InitializeComponent();
 
@@ -48,6 +50,69 @@ namespace EarTrumpet.Views
             };
 
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.OnAppCollapsed());
+        }
+
+
+        private void OnAppExpanded(object sender, AppExpandedEventArgs e)
+        {
+            _popup.PositionAndShow(this, e);
+
+            LightDismissBorder.Visibility = Visibility.Visible;
+
+            if (!SystemParameters.MenuAnimation)
+            {
+                return;
+            }
+
+            var fadeAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
+                FillBehavior = FillBehavior.HoldEnd,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                From = 0,
+                To = 1,
+            };
+
+            Storyboard.SetTarget(fadeAnimation, LightDismissBorder);
+            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
+
+            var storyboard = new Storyboard();
+            storyboard.FillBehavior = FillBehavior.HoldEnd;
+            storyboard.Children.Add(fadeAnimation);
+            storyboard.Begin(LightDismissBorder);
+        }
+
+        private void OnAppCollapsed()
+        {
+            _popup.HideWithAnimation();
+
+            if (!SystemParameters.MenuAnimation)
+            {
+                LightDismissBorder.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            var fadeAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
+                FillBehavior = FillBehavior.Stop,
+                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                From = 1,
+                To = 0,
+            };
+
+            Storyboard.SetTarget(fadeAnimation, LightDismissBorder);
+            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
+
+            var storyboard = new Storyboard();
+            storyboard.FillBehavior = FillBehavior.Stop;
+            storyboard.Children.Add(fadeAnimation);
+            storyboard.Completed += (s, e) =>
+            {
+                LightDismissBorder.Visibility = Visibility.Collapsed;
+                LightDismissBorder.Opacity = 1;
+            };
+            storyboard.Begin(LightDismissBorder);
         }
 
         private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)

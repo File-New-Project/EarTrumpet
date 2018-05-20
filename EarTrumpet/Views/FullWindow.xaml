@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.Views.FullWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:bcl="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.Views"
         Name="WindowRoot"
@@ -151,9 +152,15 @@
                     <Setter Property="Background" Value="{DynamicResource AcrylicWindowBackdropFallback}" />
                     <Setter Property="Opacity" Value="1" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
+                                <Condition Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOff" />
+                                <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOff" />
+                                <BeginStoryboard Name="IsActive_Enter_AnimationsOn">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                          From="1"
@@ -161,9 +168,11 @@
                                                          Duration="00:00:00.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOff" />
+                                <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOff" />
+                                <BeginStoryboard Name="IsActive_Exit_AnimationsOn">
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                                          From="0"
@@ -171,8 +180,38 @@
                                                          Duration="00:00:00.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
+                                <Condition Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOn" />
+                                <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOn" />
+                                <BeginStoryboard Name="IsActive_Enter_AnimationsOff">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="00:00:00" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOn" />
+                                <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOn" />
+                                <BeginStoryboard Name="IsActive_Exit_AnimationsOff">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>
@@ -220,66 +259,6 @@
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Collapsed" />
-                    <Setter Property="Opacity" Value="1" />
-                    <Style.Triggers>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.Setters>
-                                <Setter Property="Opacity" Value="1" />
-                                <Setter Property="Visibility" Value="Visible" />
-                            </MultiDataTrigger.Setters>
-
-                        </MultiDataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-
-                            <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                         From="0"
-                                                         To="1"
-                                                         Duration="00:00:00.15" />
-
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <Visibility>Visible</Visibility>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.EnterActions>
-                            <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                         From="1"
-                                                         To="0"
-                                                         Duration="00:00:00.15" />
-
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.15">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <Visibility>Collapsed</Visibility>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiDataTrigger.ExitActions>
-                        </MultiDataTrigger>
-                    </Style.Triggers>
                 </Style>
             </Border.Style>
             <Border Margin="0,0,0,14" Opacity="0.8">
