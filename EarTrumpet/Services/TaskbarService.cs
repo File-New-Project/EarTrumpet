@@ -14,7 +14,7 @@ namespace EarTrumpet.Services
         {
             var appbar = new Shell32.APPBARDATA();
 
-            var hwnd = User32.FindWindowW(_className, null);
+            var hwnd = User32.FindWindow(_className, null);
 
             appbar.cbSize = Marshal.SizeOf(appbar);
             appbar.uEdge = 0;

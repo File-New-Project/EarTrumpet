@@ -37,10 +37,10 @@ namespace EarTrumpet.Services
 
         public static void SetDefaultEndPoint(string deviceId, int processId)
         {
-            EnsurePolicyConfig();
-
             try
             {
+                EnsurePolicyConfig();
+
                 IntPtr hstring = IntPtr.Zero;
 
                 if (!string.IsNullOrWhiteSpace(deviceId))
@@ -58,10 +58,19 @@ namespace EarTrumpet.Services
 
         public static string GetDefaultEndPoint(int processId)
         {
-            EnsurePolicyConfig();
+            try
+            {
+                EnsurePolicyConfig();
 
-            s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
-            return UnpackDeviceId(deviceId);
+                s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
+                return UnpackDeviceId(deviceId);
+            }
+            catch(COMException ex)
+            {
+                Debug.WriteLine($"GetDefaultEndPoint Failed: {ex}");
+            }
+
+            return null;
         }
     }
 }

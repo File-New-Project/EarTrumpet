@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop
 {
     public class Gdi32
     {
-        [DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr objectHandle);
+        [DllImport("gdi32.dll", PreserveSig = true)]
+        internal static extern bool DeleteObject(IntPtr objectHandle);
     }
 }

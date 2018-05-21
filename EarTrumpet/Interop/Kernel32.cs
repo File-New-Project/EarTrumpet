@@ -6,11 +6,12 @@ namespace EarTrumpet.Interop
 {
     public class Kernel32
     {
+        internal const int SIZEOF_WCHAR = 2;
         internal const int PACKAGE_INFORMATION_BASIC = 0x00000000;
         internal const int PACKAGE_FILTER_HEAD = 0x00000010;
         internal const int MAX_AUMID_LEN = 512;
-        internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * 2;
-        internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * 2;
+        internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * SIZEOF_WCHAR;
+        internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * SIZEOF_WCHAR;
 
         [Flags]
         internal enum ProcessFlags : uint
@@ -20,7 +21,7 @@ namespace EarTrumpet.Interop
         }
 
         [Flags]
-        internal enum LoadLibraryFlags
+        internal enum LoadLibraryFlags : int
         {
             LOAD_LIBRARY_AS_DATAFILE = 0x02,
             LOAD_LIBRARY_AS_IMAGE_RESOURCE = 0x20
@@ -52,13 +53,13 @@ namespace EarTrumpet.Interop
             IntPtr hObject);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        internal static extern void GetApplicationUserModelId(
+        internal static extern int GetApplicationUserModelId(
             IntPtr hProcess,
             ref int applicationUserModelIdLength,
             [MarshalAs(UnmanagedType.LPWStr)]StringBuilder applicationUserModelId);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        internal static extern void ParseApplicationUserModelId(
+        internal static extern int ParseApplicationUserModelId(
             [MarshalAs(UnmanagedType.LPWStr)]string applicationUserModelId,
             ref int packageFamilyNameLength,
             StringBuilder packageFamilyName,
@@ -110,9 +111,15 @@ namespace EarTrumpet.Interop
             ref uint lpdwSize);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
-        internal static extern int WaitForMultipleObjects(int nCount, IntPtr[] lpHandles, [MarshalAs(UnmanagedType.Bool)]bool bWaitAll, int dwMilliseconds);
+        internal static extern int WaitForMultipleObjects(
+            int nCount,
+            IntPtr[] lpHandles,
+            [MarshalAs(UnmanagedType.Bool)]bool bWaitAll,
+            int dwMilliseconds);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
-        internal static extern int WaitForSingleObject(IntPtr lpHandle, int dwMilliseconds);
+        internal static extern int WaitForSingleObject(
+            IntPtr lpHandle,
+            int dwMilliseconds);
     }
 }

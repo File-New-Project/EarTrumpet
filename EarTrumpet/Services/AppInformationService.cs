@@ -65,28 +65,36 @@ namespace EarTrumpet.Services
                 {
                     CheckProcessHandle(handle);
 
-                    var fileNameBuilder = new StringBuilder(260);
-                    uint bufferLength = (uint)fileNameBuilder.Capacity;
-                    if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
+                    try
                     {
-                        if (fileNameBuilder.Length > 0)
+                        var fileNameBuilder = new StringBuilder(260);
+                        uint bufferLength = (uint)fileNameBuilder.Capacity;
+                        if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
                         {
-                            var processFullPath = fileNameBuilder.ToString();
-                            appInfo.ExeName = Path.GetFileName(processFullPath);
-                            appInfo.SmallLogoPath = processFullPath;
-                            appInfo.PackageInstallPath = processFullPath;
-
-                            if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                            if (fileNameBuilder.Length > 0)
                             {
-                                displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
-                                shouldResolvedDisplayNameFromMainWindow = false;
+                                var processFullPath = fileNameBuilder.ToString();
+                                appInfo.ExeName = Path.GetFileName(processFullPath);
+                                appInfo.SmallLogoPath = processFullPath;
+                                appInfo.PackageInstallPath = processFullPath;
+
+                                if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
+                                {
+                                    displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
+                                    shouldResolvedDisplayNameFromMainWindow = false;
+                                }
                             }
                         }
-
+                    }
+                    finally
+                    {
                         Kernel32.CloseHandle(handle);
                     }
                 }
-                else throw new ZombieProcessException();
+                else
+                {
+                    throw new ZombieProcessException();
+                }
             }
 
             if (shouldResolvedDisplayNameFromMainWindow)
@@ -159,12 +167,18 @@ namespace EarTrumpet.Services
             {
                 CheckProcessHandle(processHandle);
 
-                int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
-                var amuidBuffer = new StringBuilder(amuidBufferLength);
+                try
+                {
+                    int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
+                    var amuidBuffer = new StringBuilder(amuidBufferLength);
 
-                Kernel32.GetApplicationUserModelId(processHandle, ref amuidBufferLength, amuidBuffer);
-                appUserModelId = amuidBuffer.ToString();
-                Kernel32.CloseHandle(processHandle);
+                    Kernel32.GetApplicationUserModelId(processHandle, ref amuidBufferLength, amuidBuffer);
+                    appUserModelId = amuidBuffer.ToString();
+                }
+                finally
+                {
+                    Kernel32.CloseHandle(processHandle);
+                }
 
                 // We may receive an AUMID for an app in a package that doesn't have
                 // the metadata we need (e.g. Skype). If the AUMID doesn't resolve to
@@ -201,7 +215,7 @@ namespace EarTrumpet.Services
                     if (packageCount > 0)
                     {
                         var pointers = new IntPtr[packageCount];
-                        IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength * 2 /* sizeof(wchar_t) */);
+                        IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength * Kernel32.SIZEOF_WCHAR);
 
                         Kernel32.FindPackagesByPackageFamily(
                             packageFamilyName,
@@ -230,7 +244,10 @@ namespace EarTrumpet.Services
                     }
                 }
             }
-            else throw new ZombieProcessException();
+            else
+            {
+                throw new ZombieProcessException();
+            }
 
             return appUserModelId;
         }

@@ -32,7 +32,7 @@ namespace EarTrumpet.Misc
         {
             private static readonly int WM_HOTKEY = 0x0312;
 
-            public Window()
+            public void Initialize()
             {
                 CreateHandle(new CreateParams());
             }
@@ -58,11 +58,13 @@ namespace EarTrumpet.Misc
             }
         }
 
-        private Window _window = new Window();
+        private Window _window;
         private int _currentId;
 
         public KeyboardHook()
         {
+            _window = new Window();
+            _window.Initialize();
             _window.KeyPressed += (s, e) => KeyPressed?.Invoke(this, e);
         }
 

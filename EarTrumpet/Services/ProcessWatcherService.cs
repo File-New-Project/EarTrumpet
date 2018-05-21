@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
+﻿using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,15 +16,18 @@ namespace EarTrumpet.Services
             public IntPtr processHandle;
         }
 
-        private static Dictionary<int, ProcessWatcherData> s_watchers = new Dictionary<int, ProcessWatcherData>();
+        private static readonly Dictionary<int, ProcessWatcherData> s_watchers = new Dictionary<int, ProcessWatcherData>();
+        private static readonly object _lock = new object();
         private static bool _threadRunning;
-        private static object _lock = new object();
 
         public static void WatchProcess(int processId, Action<int> processQuit)
         {
             lock (_lock)
             {
-                if (s_watchers.Any(w => w.Value.processId == processId)) return;
+                if (s_watchers.Any(w => w.Value.processId == processId))
+                {
+                    return;
+                }
             }
 
             var data = new ProcessWatcherData
@@ -57,10 +59,10 @@ namespace EarTrumpet.Services
 
             if (needsNewThread)
             {
-                App.Current.Exit += (_, __) => _threadRunning = false;
-
                 new Thread(() =>
                 {
+                    Thread.CurrentThread.IsBackground = true;
+
                     bool quit = false;
                     while (_threadRunning && !quit)
                     {
@@ -70,13 +72,10 @@ namespace EarTrumpet.Services
                             handles = s_watchers.Select(w => w.Value.processHandle).ToArray();
                         }
 
-                        var ret = Kernel32.WaitForMultipleObjects(handles.Length, handles, false, (int)TimeSpan.FromSeconds(5).TotalMilliseconds);
-
-                        switch(ret)
+                        var returnValue = Kernel32.WaitForMultipleObjects(handles.Length, handles, false, (int)TimeSpan.FromSeconds(5).TotalMilliseconds);
+                        switch(returnValue)
                         {
                             case Kernel32.WAIT_ABANDONED:
-                                Debug.Assert(false);
-                                break;
                             case Kernel32.WAIT_FAILED:
                                 Debug.Assert(false);
                                 break;
@@ -84,11 +83,10 @@ namespace EarTrumpet.Services
                                 // Go again
                                 break;
                             default:
-
                                 ProcessWatcherData data;
                                 lock (_lock)
                                 {
-                                    var handle = handles[ret];
+                                    var handle = handles[returnValue];
                                     data = s_watchers.First(w => w.Value.processHandle == handle).Value;
 
                                     s_watchers.Remove(data.processId);
@@ -100,7 +98,6 @@ namespace EarTrumpet.Services
                                 data.quitAction(data.processId);
 
                                 Kernel32.CloseHandle(data.processHandle);
-
                                 break;
                         }
                     }
