@@ -180,7 +180,10 @@ namespace EarTrumpet.ViewModels
 
         private void InvalidateWindowSize()
         {
-            WindowSizeInvalidated?.Invoke(this, null);
+            // We must be async because otherwise SetWindowPos will pump messages before the UI has updated.
+            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+                WindowSizeInvalidated?.Invoke(this, null);
+            }));
         }
 
         public void ChangeState(ViewState state)
