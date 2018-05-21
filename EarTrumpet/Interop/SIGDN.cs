@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop
 {
-    public enum SIGDN : uint
+    enum SIGDN : uint
     {                                                 // lower word (& with 0xFFFF)
         NORMALDISPLAY = 0x00000000,                   // SHGDN_NORMAL
         PARENTRELATIVEPARSING = 0x80018001,           // SHGDN_INFOLDER | SHGDN_FORPARSING

@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
-    public interface IAudioDeviceSession : IStreamWithVolumeControl
+    interface IAudioDeviceSession : IStreamWithVolumeControl
     {
         string DisplayName { get; }
         string ExeName { get; }

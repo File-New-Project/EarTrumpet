@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.DataModel
 {
-    public interface IAudioDeviceManagerInternal
+    interface IAudioDeviceManagerInternal
     {
         void OnSessionCreated(IAudioDeviceSession session);
     }

@@ -3,7 +3,7 @@
 namespace EarTrumpet.Interop
 {
     [Flags]
-    public enum SFGAO : uint
+    enum SFGAO : uint
     {
         /// <summary>Objects can be copied</summary>
         /// <remarks>DROPEFFECT_COPY</remarks>

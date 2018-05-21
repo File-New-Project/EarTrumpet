@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public static class Combase
+    static class Combase
     {
         [DllImport("combase.dll", PreserveSig = false)]
         public static extern void RoGetActivationFactory(

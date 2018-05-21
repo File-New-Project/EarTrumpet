@@ -6,7 +6,7 @@ namespace EarTrumpet.Interop
 {
     [Guid("7E9FB0D3-919F-4307-AB2E-9B1860310C93")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IShellItem2 : IShellItem
+    interface IShellItem2 : IShellItem
     {
         [return: MarshalAs(UnmanagedType.Interface)]
         object BindToHandler(IBindCtx pbc, [In] ref Guid bhid, [In] ref Guid riid);

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
 {
-    public class AudioPolicyConfigService
+    class AudioPolicyConfigService
     {
         const string DEVINTERFACE_AUDIO_RENDER = "#{e6327cad-dcec-4949-ae8a-991e976a79d2}";
         const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI#";

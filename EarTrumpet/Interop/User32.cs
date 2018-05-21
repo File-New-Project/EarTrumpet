@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public class User32
+    class User32
     {
         public const int WM_USERMAGIC = 1120;
         public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;

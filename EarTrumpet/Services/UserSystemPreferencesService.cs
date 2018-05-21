@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace EarTrumpet.Services
 {
-    public static class UserSystemPreferencesService
+    static class UserSystemPreferencesService
     {
         public static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
         public static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");

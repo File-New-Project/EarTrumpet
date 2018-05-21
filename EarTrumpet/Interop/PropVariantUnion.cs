@@ -16,7 +16,7 @@ namespace EarTrumpet.Interop
     /// CY, used in PropVariantUnion.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]
-    public struct CY
+    struct CY
     {
         public uint Lo;
         public int Hi;
@@ -26,7 +26,7 @@ namespace EarTrumpet.Interop
     /// BSTRBLOB, used in PropVariantUnion.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]
-    public struct BSTRBLOB
+    struct BSTRBLOB
     {
         public uint cbSize;
         public IntPtr pData;
@@ -36,7 +36,7 @@ namespace EarTrumpet.Interop
     /// BLOB, used in PropVariantUnion.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]
-    public struct BLOB
+    struct BLOB
     {
         public uint cbSize;
         public IntPtr pBlobData;
@@ -46,7 +46,7 @@ namespace EarTrumpet.Interop
     /// CArray, used in PropVariantUnion.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]
-    public struct CArray
+    struct CArray
     {
         public uint cElems;
         public IntPtr pElems;
@@ -72,7 +72,7 @@ namespace EarTrumpet.Interop
     ///     managed equivalent types.
     /// </remarks>
     [StructLayout(LayoutKind.Explicit)]
-    public struct PropVariantUnion
+    struct PropVariantUnion
     {
         /// <summary>
         /// CHAR

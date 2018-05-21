@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("F8679F50-850A-41CF-9C72-430F290290C8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IPolicyConfig
+    interface IPolicyConfig
     {
         void __incomplete__1();
         void __incomplete__2();

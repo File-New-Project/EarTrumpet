@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("5CDF2C82-841E-4546-9722-0CF74078229A")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IAudioEndpointVolume
+    interface IAudioEndpointVolume
     {
         void RegisterControlChangeNotify([MarshalAs(UnmanagedType.Interface)] IAudioEndpointVolumeCallback pNotify);
         void UnregisterControlChangeNotify([MarshalAs(UnmanagedType.Interface)] IAudioEndpointVolumeCallback pNotify);

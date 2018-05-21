@@ -3,7 +3,7 @@ using Windows.ApplicationModel;
 
 namespace EarTrumpet.Services
 {
-    public static class WhatsNewDisplayService
+    static class WhatsNewDisplayService
     {
         internal static void ShowIfAppropriate()
         {

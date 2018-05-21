@@ -6,7 +6,7 @@ using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Misc
 {
-    public class WindowAnimationLibrary
+    class WindowAnimationLibrary
     {
         const int _animationOffset = 25;
 

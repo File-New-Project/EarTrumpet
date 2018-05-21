@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public class Shell32
+    class Shell32
     {
         public const int KF_FLAG_DONT_VERIFY = 0x00004000;
 
@@ -45,12 +45,5 @@ namespace EarTrumpet.Interop
             uint dwKFFlags,
             [MarshalAs(UnmanagedType.LPWStr)]string pszItem,
             ref Guid riid);
-
-        [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern IntPtr ExtractIcon(
-            IntPtr instanceHandle,
-            [MarshalAs(UnmanagedType.LPWStr)]string path,
-            int iconIndex);
-
     }
 }

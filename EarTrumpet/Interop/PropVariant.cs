@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop
 {
-    public enum VarType : short
+    enum VarType : short
     {
         /// <summary>
         /// BSTR
@@ -18,7 +18,7 @@
         VT_FILETIME = 64,
     }
 
-    public struct PropVariant
+    struct PropVariant
     {
         /// <summary>
         /// Variant type

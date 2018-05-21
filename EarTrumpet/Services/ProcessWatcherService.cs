@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace EarTrumpet.Services
 {
-    public class ProcessWatcherService
+    class ProcessWatcherService
     {
         class ProcessWatcherData
         {

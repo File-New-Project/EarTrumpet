@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EarTrumpet.Interop
 {
-    public class Kernel32
+    class Kernel32
     {
         internal const int SIZEOF_WCHAR = 2;
         internal const int PACKAGE_INFORMATION_BASIC = 0x00000000;

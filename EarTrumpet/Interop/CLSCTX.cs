@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop
 {
-    public enum CLSCTX : int
+    enum CLSCTX : int
     {
         CLSCTX_INPROC_SERVER = 0x1,
     }

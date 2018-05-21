@@ -8,7 +8,7 @@ using System.Text;
 
 namespace EarTrumpet.Services
 {
-    public class DiagnosticsService
+    class DiagnosticsService
     {
         public static void DumpAndShowData(IAudioDeviceManager manager)
         {

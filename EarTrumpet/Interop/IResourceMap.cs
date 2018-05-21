@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop
 {
     [Guid("6E21E72B-B9B0-42AE-A686-983CF784EDCD")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IResourceMap
+    interface IResourceMap
     {
         void GetUri(/*...*/);
         void GetSubtree(/*...*/);

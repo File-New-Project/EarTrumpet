@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop
 {
-    public enum STGM
+    enum STGM
     {
         STGM_READ = 0,
         // ...

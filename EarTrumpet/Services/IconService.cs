@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Services
 {
-    public sealed class IconService
+    sealed class IconService
     {
         public static Icon GetIconFromFile(string path, int iconOrdinal = 0)
         {

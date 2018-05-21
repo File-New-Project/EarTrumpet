@@ -37,8 +37,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-
-        public SettingsViewModel(IAudioDeviceManager manager)
+        internal SettingsViewModel(IAudioDeviceManager manager)
         {
             _manager = manager;
 

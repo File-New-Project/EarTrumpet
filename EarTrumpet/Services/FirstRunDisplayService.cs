@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.Services
 {
-    public static class FirstRunDisplayService
+    static class FirstRunDisplayService
     {
         internal static void ShowIfAppropriate()
         {

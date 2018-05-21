@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.Interop
 {
-    public static class Ole32
+    static class Ole32
     {
         [DllImport("ole32.dll", PreserveSig = false)]
         public static extern void PropVariantClear(ref PropVariant pvar);

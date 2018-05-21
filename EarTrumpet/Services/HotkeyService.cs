@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace EarTrumpet.Services
 {

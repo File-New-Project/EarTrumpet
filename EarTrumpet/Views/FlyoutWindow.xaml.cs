@@ -21,7 +21,7 @@ namespace EarTrumpet.Views
         private bool _expandOnCloseThenOpen;
         private RawInputListener _rawListener;
 
-        public FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel, IAudioDeviceManager manager, ThemeService themeService)
+        internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel, IAudioDeviceManager manager, ThemeService themeService)
         {
             _mainViewModel = mainViewModel;
             _themeService = themeService;

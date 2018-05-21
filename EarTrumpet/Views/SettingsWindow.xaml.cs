@@ -14,7 +14,7 @@ namespace EarTrumpet.Views
 
         SettingsViewModel _viewModel;
 
-        public SettingsWindow(IAudioDeviceManager manager)
+        internal SettingsWindow(IAudioDeviceManager manager)
         {
             InitializeComponent();
 

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct AUDIO_VOLUME_NOTIFICATION_DATA
+    struct AUDIO_VOLUME_NOTIFICATION_DATA
     {
         public Guid guidEventContext;
         public int bMuted;

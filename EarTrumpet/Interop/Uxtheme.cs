@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public class Uxtheme
+    class Uxtheme
     {
         [DllImport("uxtheme.dll", EntryPoint = "#94", CharSet = CharSet.Unicode, PreserveSig = true)]
         internal static extern int GetImmersiveColorSetCount();

@@ -38,9 +38,11 @@ namespace EarTrumpet.ViewModels
 
         public bool IsExpanded { get; private set; }
 
+        public int ProcessId => _session.ProcessId;
+
         private IAudioDeviceSession _session;
 
-        public AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
+        internal AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
         {
             IsExpanded = isChild;
             _session = session;

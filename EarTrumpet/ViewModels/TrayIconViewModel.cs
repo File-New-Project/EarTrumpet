@@ -53,11 +53,11 @@ namespace EarTrumpet.ViewModels
         public RelayCommand OpenSoundsControlPanelCommand { get; }
         public RelayCommand OpenLegacyVolumeMixerCommand { get; }
         public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
-        public RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
+        internal RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
         public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
 
-        public TrayViewModel(IAudioDeviceManager deviceService, FlyoutViewModel flyoutViewModel)
+        internal TrayViewModel(IAudioDeviceManager deviceService, FlyoutViewModel flyoutViewModel)
         {
             _flyoutViewModel = flyoutViewModel;
 

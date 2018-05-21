@@ -4,7 +4,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("E2F5BB11-0570-40CA-ACDD-3AA01277DEE8")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IAudioSessionEnumerator
+    interface IAudioSessionEnumerator
     {
         int GetCount();
         [return: MarshalAs(UnmanagedType.Interface)]

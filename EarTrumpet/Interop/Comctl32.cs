@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public static class Comctl32
+    static class Comctl32
     {
         [DllImport("comctl32.dll", PreserveSig = false)]
         internal static extern void LoadIconMetric(

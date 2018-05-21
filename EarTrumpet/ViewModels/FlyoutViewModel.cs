@@ -40,7 +40,7 @@ namespace EarTrumpet.ViewModels
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
 
-        public FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
+        internal FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
         {
             Devices = new ObservableCollection<DeviceViewModel>();
 

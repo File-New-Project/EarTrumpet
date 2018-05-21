@@ -22,7 +22,7 @@ namespace EarTrumpet.ViewModels
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
 
-        public DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        internal DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;

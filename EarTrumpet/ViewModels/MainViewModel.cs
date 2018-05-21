@@ -21,7 +21,7 @@ namespace EarTrumpet.ViewModels
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
 
-        public MainViewModel(IAudioDeviceManager deviceService)
+        internal MainViewModel(IAudioDeviceManager deviceService)
         {
             Debug.Assert(Instance == null);
             Instance = this;
@@ -97,7 +97,7 @@ namespace EarTrumpet.ViewModels
             try
             {
                 // Update the output for all processes represented by this app.
-                foreach (var pid in app.ChildApps.Select(c => c.Session.ProcessId).ToSet())
+                foreach (var pid in app.ChildApps.Select(c => c.ProcessId).ToSet())
                 {
                     AudioPolicyConfigService.SetDefaultEndPoint(dev?.Id, pid);
                 }

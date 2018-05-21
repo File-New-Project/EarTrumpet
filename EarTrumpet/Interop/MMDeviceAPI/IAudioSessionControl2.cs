@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("BFB7FF88-7239-4FC9-8FA2-07C950BE9C6D")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IAudioSessionControl2
+    interface IAudioSessionControl2
     {
         void GetState(out AudioSessionState pRetVal);
         void GetDisplayName([MarshalAs(UnmanagedType.LPWStr)]out string pRetVal);

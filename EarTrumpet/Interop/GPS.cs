@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop
 {
-    public enum GPS
+    enum GPS
     {
         // If no flags are specified (GPS_DEFAULT), a read-only property store is returned that includes properties for the file or item.
         // In the case that the shell item is a file, the property store contains:

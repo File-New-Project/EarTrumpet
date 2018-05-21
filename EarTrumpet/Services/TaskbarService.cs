@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.Services
 {
-    public sealed class TaskbarService
+    sealed class TaskbarService
     {
         private const string _className = "Shell_TrayWnd";
 
@@ -59,7 +59,7 @@ namespace EarTrumpet.Services
         }
     }
 
-    public struct TaskbarState
+    struct TaskbarState
     {
         public TaskbarPosition TaskbarPosition;
         public RECT TaskbarSize;

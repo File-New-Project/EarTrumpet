@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel
 {
-    public interface IVirtualDefaultAudioDevice : IAudioDevice
+    interface IVirtualDefaultAudioDevice : IAudioDevice
     {
         bool IsDevicePresent { get; }
         event NotifyCollectionChangedEventHandler CollectionChanged;

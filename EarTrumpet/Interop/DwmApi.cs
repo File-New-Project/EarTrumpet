@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    public class DwmApi
+    class DwmApi
     {
         internal const int DWMA_CLOAK = 13;
 

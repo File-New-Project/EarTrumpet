@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Services
 {
-    public class AccentPolicyService
+    class AccentPolicyService
     {
         private static readonly uint _blurBackgroundColor = 0x000000; // BGR Black
         private static readonly uint _blurOpacity = 42;

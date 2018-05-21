@@ -7,7 +7,7 @@ namespace EarTrumpet.ViewModels
     {
         IStreamWithVolumeControl _stream;
 
-        public AudioSessionViewModel(IStreamWithVolumeControl stream)
+        internal AudioSessionViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;
@@ -24,7 +24,6 @@ namespace EarTrumpet.ViewModels
         }
 
         public string Id => _stream.Id;
-        public IAudioDeviceSession Session => (IAudioDeviceSession)_stream;
 
         public bool IsMuted
         {

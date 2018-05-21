@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Services
 {
-    public static class AccentColorService
+    static class AccentColorService
     {
         public static Color GetColorByTypeName(string name)
         {

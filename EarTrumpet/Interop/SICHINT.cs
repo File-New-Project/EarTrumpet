@@ -3,7 +3,7 @@
 namespace EarTrumpet.Interop
 {
     [Flags]
-    public enum SICHINT : uint
+    enum SICHINT : uint
     {
         /// <summary>iOrder based on display in a folder view</summary>
         DISPLAY = 0x00000000,

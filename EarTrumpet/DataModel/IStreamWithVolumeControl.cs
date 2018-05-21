@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel
 {
-    public interface IStreamWithVolumeControl : INotifyPropertyChanged
+    interface IStreamWithVolumeControl : INotifyPropertyChanged
     {
         string Id { get; }
         bool IsMuted { get; set; }

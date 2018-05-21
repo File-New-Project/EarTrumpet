@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
-    public interface IAudioDeviceManager
+    interface IAudioDeviceManager
     {
         IAudioDevice DefaultPlaybackDevice { get; set; }
         IAudioDevice DefaultCommunicationDevice { get; set; }

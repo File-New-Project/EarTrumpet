@@ -11,7 +11,7 @@ namespace EarTrumpet.Services
 {
     public class ZombieProcessException : Exception { }
 
-    public class AppInformationService
+    class AppInformationService
     {
         internal static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
         {
