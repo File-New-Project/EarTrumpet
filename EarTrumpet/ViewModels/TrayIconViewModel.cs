@@ -27,6 +27,7 @@ namespace EarTrumpet.ViewModels
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private Icon _trayIcon;
         private readonly IAudioDeviceManager _deviceService;
+        private readonly FlyoutViewModel _flyoutViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.OriginalIcon;
 
@@ -54,9 +55,12 @@ namespace EarTrumpet.ViewModels
         public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
         public RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
         public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
+        public RelayCommand OpenFlyoutCommand { get; }
 
-        public TrayViewModel(IAudioDeviceManager deviceService)
+        public TrayViewModel(IAudioDeviceManager deviceService, FlyoutViewModel flyoutViewModel)
         {
+            _flyoutViewModel = flyoutViewModel;
+
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             _icons.Add(IconId.OriginalIcon, originalIcon);
             try
@@ -94,6 +98,7 @@ namespace EarTrumpet.ViewModels
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
             ChangeDeviceCommand = new RelayCommand<IAudioDevice>(ChangeDevice);
             StartAppServiceAndFeedbackHubCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
+            OpenFlyoutCommand = new RelayCommand(OpenFlyout);
         }
 
         private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -205,6 +210,11 @@ namespace EarTrumpet.ViewModels
         private void ChangeDevice(IAudioDevice device)
         {
             _deviceService.DefaultPlaybackDevice = device;
+        }
+
+        private void OpenFlyout()
+        {
+            _flyoutViewModel.OpenFlyoutFromExternal();
         }
     }
 }

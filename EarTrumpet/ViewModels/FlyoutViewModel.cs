@@ -2,12 +2,14 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace EarTrumpet.ViewModels
 {
-    class FlyoutViewModel : BindableBase
+    public class FlyoutViewModel : BindableBase
     {
         public enum ViewState
         {
@@ -15,7 +17,8 @@ namespace EarTrumpet.ViewModels
             Hidden,
             Opening,
             Open,
-            Closing,
+            Closing_Stage1,
+            Closing_Stage2,
         }
 
         public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
@@ -32,8 +35,9 @@ namespace EarTrumpet.ViewModels
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
 
-        private IAudioDeviceManager _deviceManager;
-        private MainViewModel _mainViewModel;
+        private readonly IAudioDeviceManager _deviceManager;
+        private readonly MainViewModel _mainViewModel;
+        private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
         private bool _closedOnOpen;
 
         public FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
@@ -48,6 +52,15 @@ namespace EarTrumpet.ViewModels
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
 
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            _hideTimer.Tick += HideTimer_Tick;
+        }
+
+        private void HideTimer_Tick(object sender, EventArgs e)
+        {
+            Debug.Assert(State == ViewState.Closing_Stage2);
+            _hideTimer.IsEnabled = false;
+            ChangeState(ViewState.Hidden);
         }
 
         private void AddDevice(DeviceViewModel device)
@@ -203,7 +216,7 @@ namespace EarTrumpet.ViewModels
                     BeginClose();
                 }
             }
-            else if (state == ViewState.Hidden)
+            else if (state == ViewState.Closing_Stage1)
             {
                 _mainViewModel.OnTrayFlyoutHidden();
 
@@ -211,6 +224,10 @@ namespace EarTrumpet.ViewModels
                 {
                     OnAppCollapsed();
                 }
+            }
+            else if (state == ViewState.Closing_Stage2)
+            {
+                _hideTimer.Start();
             }
         }
 
@@ -249,11 +266,29 @@ namespace EarTrumpet.ViewModels
         {
             if (State == ViewState.Open)
             {
-                ChangeState(ViewState.Closing);
+                ChangeState(ViewState.Closing_Stage1);
             }
             else if (State == ViewState.Opening)
             {
                 _closedOnOpen = true;
+            }
+        }
+
+        public void OpenFlyoutFromExternal()
+        {
+            if (State == ViewState.Closing_Stage2)
+            {
+                return;
+            }
+
+            switch (State)
+            {
+                case ViewState.Hidden:
+                    BeginOpen();
+                    break;
+                case ViewState.Open:
+                    BeginClose();
+                    break;
             }
         }
     }

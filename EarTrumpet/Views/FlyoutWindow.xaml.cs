@@ -21,14 +21,14 @@ namespace EarTrumpet.Views
         private bool _expandOnCloseThenOpen;
         private RawInputListener _rawListener;
 
-        public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager, ThemeService themeService)
+        public FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel, IAudioDeviceManager manager, ThemeService themeService)
         {
             _mainViewModel = mainViewModel;
             _themeService = themeService;
 
             InitializeComponent();
 
-            _viewModel = new FlyoutViewModel(mainViewModel, manager);
+            _viewModel = flyoutViewModel;
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
 
@@ -92,24 +92,25 @@ namespace EarTrumpet.Views
 
                     break;
 
-                case FlyoutViewModel.ViewState.Closing:
+                case FlyoutViewModel.ViewState.Closing_Stage1:
 
                     _rawListener.Stop();
 
-                    var cloakAndMarkHidden = new Action(() =>
-                    {
-                        this.Cloak();
-                        Hide();
-                        _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
-                    });
-
                     if (_expandOnCloseThenOpen)
                     {
-                        WindowAnimationLibrary.BeginFlyoutExitanimation(this, cloakAndMarkHidden);
+                        WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
+                        {
+                            this.Cloak();
+                            Hide();
+                            // NB: Hidden to avoid the stage 2 hide delay, we want to show again immediately.
+                            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+                        });
                     }
                     else
                     {
-                        cloakAndMarkHidden();
+                        this.Cloak();
+                        Hide();
+                        _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
                     }
 
                     break;
@@ -123,19 +124,6 @@ namespace EarTrumpet.Views
                         _viewModel.DoExpandCollapse();
                         _viewModel.BeginOpen();
                     }
-                    break;
-            }
-        }
-
-        public void OpenAsFlyout()
-        {
-            switch (_viewModel.State)
-            {
-                case FlyoutViewModel.ViewState.Hidden:
-                    _viewModel.BeginOpen();
-                    break;
-                case FlyoutViewModel.ViewState.Open:
-                    _viewModel.BeginClose();
                     break;
             }
         }

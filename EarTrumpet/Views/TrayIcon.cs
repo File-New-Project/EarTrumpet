@@ -12,8 +12,6 @@ namespace EarTrumpet.Views
 {
     class TrayIcon
     {
-        public event Action Invoked = delegate { };
-
         internal readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly System.Windows.Forms.ContextMenu _contextMenu;
         private readonly TrayViewModel _trayViewModel;
@@ -60,6 +58,7 @@ namespace EarTrumpet.Views
             _trayIcon.Visible = true;
         }
 
+
         private void AddItem(string text, EventHandler clickHandler)
         {
             var item = _contextMenu.MenuItems.Add(text);
@@ -78,7 +77,7 @@ namespace EarTrumpet.Views
 
         private void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
         {
-            Invoked.Invoke();
+            _trayViewModel.OpenFlyoutCommand.Execute();
         }
 
         private void PlaybackDevices_Click(object sender, EventArgs e)
@@ -141,7 +140,7 @@ namespace EarTrumpet.Views
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                Invoked.Invoke();
+                _trayViewModel.OpenFlyoutCommand.Execute();
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {

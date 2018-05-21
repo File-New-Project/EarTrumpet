@@ -36,11 +36,11 @@ namespace EarTrumpet
 
             themeService.SetTheme(AppSpecificThemes.GetThemeBuildData());
 
-            _flyoutWindow = new FlyoutWindow(_viewModel, _deviceManager, themeService);
+            var flyoutViewModel = new FlyoutViewModel(_viewModel, _deviceManager);
+            _flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel, _deviceManager, themeService);
 
-            _trayViewModel = new TrayViewModel(_deviceManager);
+            _trayViewModel = new TrayViewModel(_deviceManager, flyoutViewModel);
             _trayIcon = new TrayIcon(_deviceManager, _trayViewModel);
-            _trayIcon.Invoked += () => _flyoutWindow.OpenAsFlyout();
 
             HotkeyService.Register(SettingsService.Hotkey);
 
