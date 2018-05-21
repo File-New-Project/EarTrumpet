@@ -317,6 +317,15 @@
             <Style x:Key="BaseAppListStyle" TargetType="{x:Type ListView}">
                 <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
                 <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
         </ResourceDictionary>
