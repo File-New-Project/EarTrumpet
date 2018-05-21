@@ -113,6 +113,7 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
+    <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="Services\ProcessWatcherService.cs" />
     <Compile Include="Views\AppSpecificThemes.cs" />

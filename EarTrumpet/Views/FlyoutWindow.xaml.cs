@@ -4,6 +4,7 @@ using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -18,7 +19,7 @@ namespace EarTrumpet.Views
         private readonly ThemeService _themeService;
         private VolumeControlPopup _popup;
         private bool _expandOnCloseThenOpen;
-
+        private RawInputListener _rawListener;
 
         public FlyoutWindow(MainViewModel mainViewModel, IAudioDeviceManager manager, ThemeService themeService)
         {
@@ -50,6 +51,10 @@ namespace EarTrumpet.Views
                 themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
 
                 UpdateTheme();
+
+                _rawListener = new RawInputListener(this);
+                _rawListener.MouseWheel += RawListener_MouseWheel;
+                MouseEnter += (_, __) => _rawListener.Stop();
             };
 
             themeService.ThemeChanged += () => UpdateTheme();
@@ -63,6 +68,14 @@ namespace EarTrumpet.Views
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
 
+        private void RawListener_MouseWheel(object sender, int e)
+        {
+            if (_viewModel.Devices.Any())
+            {
+                _viewModel.Devices.Last().Volume += Math.Sign(e) * 4;
+            }
+        }
+
         private void OnStateChanged(object sender, FlyoutViewModel.ViewState e)
         {
             switch (e)
@@ -74,9 +87,14 @@ namespace EarTrumpet.Views
                     DevicesList.Focus();
 
                     WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+
+                    _rawListener.Start();
+
                     break;
 
                 case FlyoutViewModel.ViewState.Closing:
+
+                    _rawListener.Stop();
 
                     var cloakAndMarkHidden = new Action(() =>
                     {
