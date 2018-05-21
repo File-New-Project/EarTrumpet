@@ -32,7 +32,7 @@ namespace EarTrumpet.ViewModels
             _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
-            _peakMeterTimer = new Timer(1000 / 30);
+            _peakMeterTimer = new Timer(1000 / 30); // 30 fps
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
         }

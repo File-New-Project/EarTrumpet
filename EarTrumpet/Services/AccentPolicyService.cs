@@ -7,15 +7,17 @@ namespace EarTrumpet.Services
 {
     public class AccentPolicyService
     {
-        private static uint _blurBackgroundColor = 0x000000; // BGR Black
-        private static uint _blurOpacity = 42;
+        private static readonly uint _blurBackgroundColor = 0x000000; // BGR Black
+        private static readonly uint _blurOpacity = 42;
 
         private static void SetAccentPolicy(IntPtr handle, User32.AccentState accentState, bool showAllBorders = false, uint blurOpacity = 0)
         {
-            var accent = new User32.AccentPolicy();
-            accent.AccentState = accentState;
-            accent.AccentFlags = GetAccentFlagsForTaskbarPosition(showAllBorders);
-            accent.GradientColor = (blurOpacity << 24) | (_blurBackgroundColor & 0xFFFFFF);
+            var accent = new User32.AccentPolicy
+            {
+                AccentState = accentState,
+                AccentFlags = GetAccentFlagsForTaskbarPosition(showAllBorders),
+                GradientColor = (blurOpacity << 24) | (_blurBackgroundColor & 0xFFFFFF)
+            };
 
             var accentStructSize = Marshal.SizeOf(accent);
 

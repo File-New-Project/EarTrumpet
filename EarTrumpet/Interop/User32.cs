@@ -14,33 +14,39 @@ namespace EarTrumpet.Interop
             return ((uint)high << 16) | low;
         }
 
-        [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern bool RegisterHotKey(
+            IntPtr hWnd,
+            int id,
+            uint fsModifiers,
+            uint vk);
 
-        [DllImport("user32.dll")]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern bool UnregisterHotKey(
+            IntPtr hWnd,
+            int id);
 
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
             IntPtr hWndInsertAfter,
-            int X,
-            int Y,
+            int x,
+            int y,
             int cx,
             int cy,
             uint uFlags);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int SetWindowCompositionAttribute(
             IntPtr hwnd,
             ref WindowCompositionAttribData data);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern IntPtr FindWindowW(
+        public static extern IntPtr FindWindow(
             [MarshalAs(UnmanagedType.LPWStr)]string lpClassName,
             string lpWindowName);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool GetWindowRect(
             IntPtr hwnd,
             out RECT lpRect);
@@ -48,35 +54,6 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int IsImmersiveProcess(
             IntPtr hProcess);
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        public static extern bool DestroyIcon(
-            IntPtr iconHandle);
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern int GetClassName(
-            IntPtr hWnd,
-            StringBuilder strText,
-            int maxCount);
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        public static extern uint GetWindowThreadProcessId(
-            IntPtr hWnd,
-            out uint lpdwProcessId);
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        public static extern bool EnumWindows(
-            EnumWindowsProc enumProc,
-            IntPtr lParam);
-
-        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        public static extern IntPtr SendMessage(
-            IntPtr hWnd,
-            int wMsg,
-            IntPtr wParam,
-            IntPtr lParam);
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct WindowCompositionAttribData

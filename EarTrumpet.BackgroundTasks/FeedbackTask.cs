@@ -15,8 +15,7 @@ namespace EarTrumpet.BackgroundTasks
             _deferral = taskInstance.GetDeferral();
             taskInstance.Canceled += OnTaskCanceled;
 
-            var details = taskInstance.TriggerDetails as AppServiceTriggerDetails;
-            if (details != null)
+            if (taskInstance.TriggerDetails is AppServiceTriggerDetails details)
             {
                 _connection = details.AppServiceConnection;
                 _connection.RequestReceived += OnRequestReceived;

@@ -14,9 +14,15 @@ namespace EarTrumpet.Services
                 Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
 
             IntPtr iconHandle = IntPtr.Zero;
-            Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Comctl32.LoadIconDesiredMetric.Small, ref iconHandle);
+            try
+            {
+                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
+            }
+            finally
+            {
+                Kernel32.FreeLibrary(moduleHandle);
+            }
 
-            Kernel32.FreeLibrary(moduleHandle);
             return Icon.FromHandle(iconHandle);
         }
 

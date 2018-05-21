@@ -11,7 +11,7 @@ namespace EarTrumpet.Services
 {
     public class ThemeService : ViewModels.BindableBase
     {
-        public interface ResolvableThemeBrush
+        public interface IResolvableThemeBrush
         {
             Color Resolve(ThemeResolveData data);
         }
@@ -30,7 +30,7 @@ namespace EarTrumpet.Services
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => UserSystemPreferencesService.IsLightTheme;
 
-        private Dictionary<string, ResolvableThemeBrush> _themeData;
+        private Dictionary<string, IResolvableThemeBrush> _themeData;
         private DispatcherTimer _themeChangetimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
 
         public ThemeService()
@@ -38,7 +38,7 @@ namespace EarTrumpet.Services
             _themeChangetimer.Tick += ThemeChangeTimer_Tick;
         }
 
-        public void SetTheme(Dictionary<string, ThemeService.ResolvableThemeBrush> data)
+        public void SetTheme(Dictionary<string, ThemeService.IResolvableThemeBrush> data)
         {
             _themeData = data;
         }

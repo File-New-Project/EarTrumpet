@@ -6,16 +6,16 @@ namespace EarTrumpet.Interop
     public static class Comctl32
     {
         [DllImport("comctl32.dll", PreserveSig = false)]
-        public static extern void LoadIconMetric(
+        internal static extern void LoadIconMetric(
             IntPtr instanceHandle,
             IntPtr iconId,
-            LoadIconDesiredMetric desiredMetric,
+            LI_METRIC desiredMetric,
             ref IntPtr icon);
 
-        public enum LoadIconDesiredMetric
+        internal enum LI_METRIC
         {
-            Small,
-            Large,
+            LIM_SMALL = 0,
+            LIM_LARGE = 1,
         }
     }
 }
