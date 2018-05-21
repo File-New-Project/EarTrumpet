@@ -77,12 +77,6 @@ namespace EarTrumpet.Services
                                 appInfo.ExeName = Path.GetFileName(processFullPath);
                                 appInfo.SmallLogoPath = processFullPath;
                                 appInfo.PackageInstallPath = processFullPath;
-
-                                if (appInfo.ExeName.ToLowerInvariant() == "speechruntime.exe")
-                                {
-                                    displayNameResolved(Properties.Resources.SpeechRuntimeDisplayName);
-                                    shouldResolvedDisplayNameFromMainWindow = false;
-                                }
                             }
                         }
                     }
