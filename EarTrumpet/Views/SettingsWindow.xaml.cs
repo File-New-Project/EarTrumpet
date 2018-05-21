@@ -33,6 +33,8 @@ namespace EarTrumpet.Views
                 this.Cloak();
                 this.SetWindowBlur(true, true);
             };
+
+            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

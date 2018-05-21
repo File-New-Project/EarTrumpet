@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
@@ -35,6 +36,8 @@ namespace EarTrumpet.Views
             this.StateChanged += FullWindow_StateChanged;
 
             PreviewKeyDown += FullWindow_PreviewKeyDown;
+
+            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             Instance = this;
             Closing += (s, e) =>

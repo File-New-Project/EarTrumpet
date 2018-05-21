@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using EarTrumpet.Interop;
+using Microsoft.Win32;
+using System.Globalization;
 
 namespace EarTrumpet.Services
 {
@@ -7,6 +9,8 @@ namespace EarTrumpet.Services
         public static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
         public static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
         public static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme");
+
+        public static bool IsRTL => CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
 
         private static bool ReadPersonalizationSetting(string key)
         {

@@ -44,6 +44,8 @@ namespace EarTrumpet.Views
 
             PreviewKeyDown += (_, e) => KeyboardNavigator.OnKeyDown(this, ref e);
 
+            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
             SourceInitialized += (s, e) =>
             {
                 this.Cloak();
@@ -254,6 +256,7 @@ namespace EarTrumpet.Views
 
             BaseVisual.VerticalScrollBarVisibility = isOverflowing ? System.Windows.Controls.ScrollBarVisibility.Visible : System.Windows.Controls.ScrollBarVisibility.Hidden;
 
+            bool isRTL = UserSystemPreferencesService.IsRTL;
             double newTop = 0;
             double newLeft = 0;
             switch(taskbarState.TaskbarPosition)
@@ -267,11 +270,13 @@ namespace EarTrumpet.Views
                     newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor()) - newHeight;
                     break;
                 case TaskbarPosition.Top:
-                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
+                    newLeft = isRTL ? (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) :
+                        (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
                     newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor());
                     break;
                 case TaskbarPosition.Bottom:
-                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
+                    newLeft = isRTL ? (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) :
+                        (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
                     newTop = (taskbarState.TaskbarSize.Top / this.DpiHeightFactor()) - newHeight;
                     break;
             }
