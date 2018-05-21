@@ -82,7 +82,7 @@ namespace EarTrumpet.Views
                 }
                 else
                 {
-                    resource = "ImmersiveDarkChromeMedium";
+                    resource = "ImmersiveDarkChromeLow";
                 }
 
                 var color = data.LookupThemeColor(resource);
