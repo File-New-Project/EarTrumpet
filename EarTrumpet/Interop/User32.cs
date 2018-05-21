@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace EarTrumpet.Interop
 {
@@ -106,7 +105,7 @@ namespace EarTrumpet.Interop
         public const UInt32 SWP_NOZORDER = 0x0004;
 
         [StructLayout(LayoutKind.Sequential)]
-        internal struct RAWINPUTDEV
+        internal struct RAWINPUTDEVICE
         {
             public ushort usUsagePage;
             public ushort usUsage;
@@ -156,19 +155,63 @@ namespace EarTrumpet.Interop
             // ...
         }
 
+        public enum HidUsagePage : ushort
+        {
+            /// <summary>Unknown usage page.</summary>
+            UNDEFINED = 0x00,
+            /// <summary>Generic desktop controls.</summary>
+            GENERIC = 0x01,
+            /// <summary>Simulation controls.</summary>
+            SIMULATION = 0x02,
+            /// <summary>Virtual reality controls.</summary>
+            VR = 0x03,
+            /// <summary>Sports controls.</summary>
+            SPORT = 0x04,
+            /// <summary>Games controls.</summary>
+            GAME = 0x05,
+            /// <summary>Keyboard controls.</summary>
+            KEYBOARD = 0x07,
+        }
 
-        [DllImport("User32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+        public enum HidUsage : ushort
+        {
+            /// <summary>Unknown usage.</summary>
+            Undefined = 0x00,
+            /// <summary>Pointer</summary>
+            Pointer = 0x01,
+            /// <summary>Mouse</summary>
+            Mouse = 0x02,
+            /// <summary>Joystick</summary>
+            Joystick = 0x04,
+            /// <summary>Game Pad</summary>
+            Gamepad = 0x05,
+            /// <summary>Keyboard</summary>
+            Keyboard = 0x06,
+            /// <summary>Keypad</summary>
+            Keypad = 0x07,
+            /// <summary>Muilt-axis Controller</summary>
+            SystemControl = 0x80,
+            /// <summary>Tablet PC controls</summary>
+            Tablet = 0x80,
+            /// <summary>Consumer</summary>
+            Consumer = 0x0C,
+        }
+
+        [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool RegisterRawInputDevices(IntPtr rawInputDevices, uint numDevices, uint size);
+        internal static extern bool RegisterRawInputDevices(
+            IntPtr rawInputDevices,
+            uint numDevices,
+            uint size);
 
-        [DllImport("User32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.I4)]
-        internal static extern int GetRawInputData(IntPtr hRawInput,
+        internal static extern uint GetRawInputData(
+            IntPtr hRawInput,
             uint uiCommand,
             IntPtr pData,
             ref uint pcbSize,
-            uint cbSizeHeader
-            );
+            uint cbSizeHeader);
 
         internal const int RIDEV_NOLEGACY = 0x00000030;
         internal const int WM_INPUT = 0x00FF;

@@ -31,9 +31,9 @@ namespace EarTrumpet.Misc
 
         private void RegisterForRawMouseInput(uint flags)
         {
-            User32.RAWINPUTDEV mouseRawDevice = new User32.RAWINPUTDEV();
-            mouseRawDevice.usUsagePage = 0x01;
-            mouseRawDevice.usUsage = 0x02;
+            User32.RAWINPUTDEVICE mouseRawDevice = new User32.RAWINPUTDEVICE();
+            mouseRawDevice.usUsagePage = (ushort)User32.HidUsagePage.GENERIC;
+            mouseRawDevice.usUsage = (ushort)User32.HidUsage.Mouse;
             mouseRawDevice.dwFlags = flags;
             mouseRawDevice.hwndTarget = (flags == User32.RIDEV_REMOVE ? IntPtr.Zero : _hwnd);
 
@@ -43,7 +43,7 @@ namespace EarTrumpet.Misc
             if (User32.RegisterRawInputDevices(devicePtr, 1, (uint)Marshal.SizeOf(mouseRawDevice)) == false)
             {
                 int err = Marshal.GetLastWin32Error();
-                Debug.WriteLine($"Couldn't register for raw input: {err}");
+                Debug.WriteLine($"Couldn't register for raw input: {flags} {err} {_hwnd}");
             }
 
             Marshal.FreeHGlobal(devicePtr);
@@ -57,11 +57,11 @@ namespace EarTrumpet.Misc
                 var headerSize = (uint)Marshal.SizeOf(header);
 
                 uint bufferSize = 0;
-                int res = User32.GetRawInputData(lParam, User32.RID_INPUT, IntPtr.Zero, ref bufferSize, headerSize);
+                uint res = User32.GetRawInputData(lParam, User32.RID_INPUT, IntPtr.Zero, ref bufferSize, headerSize);
                 if (res == 0)
                 {
                     var dataPtr = Marshal.AllocHGlobal((int)bufferSize);
-                    int writtenBytes = User32.GetRawInputData(lParam, User32.RID_INPUT, dataPtr, ref bufferSize, headerSize);
+                    uint writtenBytes = User32.GetRawInputData(lParam, User32.RID_INPUT, dataPtr, ref bufferSize, headerSize);
                     if (writtenBytes == bufferSize)
                     {
                         var rawInput = Marshal.PtrToStructure<User32.RAWINPUT>(dataPtr);
