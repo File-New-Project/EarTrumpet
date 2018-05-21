@@ -135,9 +135,6 @@
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any audio devices.</value>
   </data>
-  <data name="SpeechRuntimeDisplayName" xml:space="preserve">
-    <value>Speech Runtime</value>
-  </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>Systemklänge</value>
   </data>

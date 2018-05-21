@@ -340,15 +340,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Speech Runtime.
-        /// </summary>
-        public static string SpeechRuntimeDisplayName {
-            get {
-                return ResourceManager.GetString("SpeechRuntimeDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to System Sounds.
         /// </summary>
         public static string SystemSoundsDisplayName {
