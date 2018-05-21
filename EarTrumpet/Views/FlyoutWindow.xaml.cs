@@ -72,7 +72,7 @@ namespace EarTrumpet.Views
         {
             if (_viewModel.Devices.Any())
             {
-                _viewModel.Devices.Last().Volume += Math.Sign(e) * 4;
+                _viewModel.Devices.Last().Volume += Math.Sign(e) * 2;
             }
         }
 
