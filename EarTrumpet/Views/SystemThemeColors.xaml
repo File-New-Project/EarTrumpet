@@ -39,4 +39,13 @@
     <SolidColorBrush x:Key="SettingsHeaderBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="SystemAccent">Blue</SolidColorBrush>
 
+    <SolidColorBrush x:Key="ContextMenuBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuBorder">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemBackgroundHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemText">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextDisabled">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemGlyph">Grey</SolidColorBrush>
+
+
 </ResourceDictionary>

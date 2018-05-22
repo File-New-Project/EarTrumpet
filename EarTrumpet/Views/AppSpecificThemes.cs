@@ -54,7 +54,14 @@ namespace EarTrumpet.Views
                             new Lookup("ImmersiveLightChromeWhite", 0.7),
                             new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
                         new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))
-                }
+                },
+                { "ContextMenuBackground", new LightOrDark(new Lookup("ImmersiveLightChromeMediumLow"), new Lookup("ImmersiveDarkChromeMediumLow")) },
+                { "ContextMenuBorder", new LightOrDark(new Lookup("ImmersiveLightChromeHigh"), new Lookup("ImmersiveDarkChromeHigh")) },
+                { "ContextMenuItemBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightListLow"), new Lookup("ImmersiveDarkListLow")) },
+                { "ContextMenuItemText", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
+                { "ContextMenuItemTextHover", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
+                { "ContextMenuItemTextDisabled", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
+                { "ContextMenuItemGlyph", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) }
             };
         }
 
