@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
@@ -7,119 +8,109 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Interop;
+using resx = EarTrumpet.Properties.Resources;
 
 namespace EarTrumpet.Views
 {
     class TrayIcon
     {
-        internal readonly System.Windows.Forms.NotifyIcon _trayIcon;
-        private readonly System.Windows.Forms.ContextMenu _contextMenu;
+        private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
-        private IAudioDeviceManager _deviceService;
+        private readonly MainViewModel _mainViewModel;
+        private readonly IVirtualDefaultAudioDevice _defaultDevice;
 
-        public TrayIcon(IAudioDeviceManager deviceService, TrayViewModel trayViewModel)
+        public TrayIcon(IAudioDeviceManager deviceManager, MainViewModel mainViewModel, TrayViewModel trayViewModel)
         {
-            _deviceService = deviceService;
-            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
-            _trayIcon = new System.Windows.Forms.NotifyIcon();
-            _contextMenu = new System.Windows.Forms.ContextMenu();
-            _trayIcon.ContextMenu = _contextMenu;
+            _mainViewModel = mainViewModel;
+            _defaultDevice = deviceManager.VirtualDefaultDevice;
+            _defaultDevice.PropertyChanged += (_, __) => UpdateToolTip();
+
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
-            HotkeyService.KeyPressed += Hotkey_KeyPressed;
-
-            // (Devices added here later in ContextMenu_Popup)
-
-            _contextMenu.MenuItems.Add("-");
-
-            AddItem(Properties.Resources.FullWindowTitleText, EtVolumeMixer_Click);
-            AddItem(Properties.Resources.LegacyVolumeMixerText, OpenlegacyVolumeMixer_Click);
-
-            _contextMenu.MenuItems.Add("-");
-
-            AddItem(Properties.Resources.PlaybackDevicesText, PlaybackDevices_Click);
-            AddItem(Properties.Resources.RecordingDevicesText, RecordingDevices_Click);
-            AddItem(Properties.Resources.SoundsControlPanelText, SoundsControlPanel_Click);
-
-            _contextMenu.MenuItems.Add("-");
-
-            AddItem(Properties.Resources.SettingsWindowText, SettingsItem_Click);
-            AddItem($"{Properties.Resources.ContextMenuSendFeedback}...", Feedback_Click);
-            AddItem(Properties.Resources.ContextMenuExitTitle, Exit_Click);
-
+            _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.MouseClick += TrayIcon_MouseClick;
-            _contextMenu.Popup += ContextMenu_Popup;
-
             _trayIcon.Icon = _trayViewModel.TrayIcon;
-
             UpdateToolTip();
 
             _trayIcon.Visible = true;
         }
 
-
-        private void AddItem(string text, EventHandler clickHandler)
+        private ContextMenu BuildContextMenu()
         {
-            var item = _contextMenu.MenuItems.Add(text);
-            item.Click += clickHandler;
-        }
+            var cm = new ContextMenu();
 
-        private void SettingsItem_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenSettingsCommand.Execute();
-        }
+            // TODO: add a style.
 
-        private void EtVolumeMixer_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenEarTrumpetVolumeMixerCommand.Execute();
-        }
+            cm.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            cm.Opened += (_, __) => User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
+            cm.LostFocus += (_, __) => cm.IsOpen = FocusManager.GetFocusedElement(cm) != null;
 
-        private void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
-        {
-            _trayViewModel.OpenFlyoutCommand.Execute();
-        }
-
-        private void PlaybackDevices_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenPlaybackDevicesCommand.Execute();
-        }
-
-        private void RecordingDevices_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenRecordingDevicesCommand.Execute();
-        }
-
-        private void SoundsControlPanel_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenSoundsControlPanelCommand.Execute();
-        }
-
-        private void OpenlegacyVolumeMixer_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.OpenLegacyVolumeMixerCommand.Execute();
-        }
-
-        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            UpdateToolTip();
-        }
-
-        void UpdateToolTip()
-        {
-            var device = _deviceService.VirtualDefaultDevice;
-
-            if (device.IsDevicePresent)
+            var AddItem = new Action<string, ICommand>((displayName, action) =>
             {
-                var otherText = "EarTrumpet: 100% - ";
-                var dev = _deviceService.VirtualDefaultDevice.DisplayName;
-                // API Limitation: "less than 64 chars" for the tooltip.
-                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                _trayIcon.Text = $"EarTrumpet: {_deviceService.VirtualDefaultDevice.Volume.ToVolumeInt()}% - {dev}";
+                cm.Items.Add(new MenuItem
+                {
+                    Header = displayName,
+                    Command = action
+                });
+            });
+
+            // Add devices
+            var audioDevices = _mainViewModel.AllDevices.OrderBy(x => x.DisplayName);
+            if (!audioDevices.Any())
+            {
+                cm.Items.Add(new MenuItem
+                {
+                    Header = resx.ContextMenuNoDevices,
+                    IsEnabled = false
+                });
             }
             else
             {
-                _trayIcon.Text = Properties.Resources.NoDeviceTrayText;
+                foreach (var device in audioDevices)
+                {
+                    cm.Items.Add(new MenuItem
+                    {
+                        Header = device.DisplayName,
+                        IsChecked = device.Id == _defaultDevice.Id,
+                        Command = new RelayCommand(() => _trayViewModel.ChangeDeviceCommand.Execute(device)),
+                    });
+                }
+            }
+
+            // Static items
+            cm.Items.Add(new Separator());
+            AddItem(resx.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);
+            AddItem(resx.LegacyVolumeMixerText, _trayViewModel.OpenLegacyVolumeMixerCommand);
+            cm.Items.Add(new Separator());
+            AddItem(resx.PlaybackDevicesText, _trayViewModel.OpenPlaybackDevicesCommand);
+            AddItem(resx.RecordingDevicesText, _trayViewModel.OpenRecordingDevicesCommand);
+            AddItem(resx.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
+            cm.Items.Add(new Separator());
+            AddItem(resx.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
+            AddItem(resx.ContextMenuSendFeedback, _trayViewModel.StartAppServiceAndFeedbackHubCommand);
+            AddItem(resx.ContextMenuExitTitle, new RelayCommand(Exit_Click));
+
+            return cm;
+        }
+
+        private void UpdateToolTip()
+        {
+            if (_defaultDevice.IsDevicePresent)
+            {
+                var otherText = "EarTrumpet: 100% - ";
+                var dev = _defaultDevice.DisplayName;
+                // API Limitation: "less than 64 chars" for the tooltip.
+                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
+                _trayIcon.Text = $"EarTrumpet: {_defaultDevice.Volume.ToVolumeInt()}% - {dev}";
+            }
+            else
+            {
+                _trayIcon.Text = resx.NoDeviceTrayText;
             }
         }
 
@@ -131,29 +122,25 @@ namespace EarTrumpet.Views
             }
         }
 
-        private void ContextMenu_Popup(object sender, EventArgs e)
-        {
-            SetupDeviceMenuItems();
-        }
-
         void TrayIcon_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 _trayViewModel.OpenFlyoutCommand.Execute();
             }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                var cm = BuildContextMenu();
+                cm.Placement = PlacementMode.Mouse;
+                cm.IsOpen = true;
+            }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
-                _deviceService.VirtualDefaultDevice.IsMuted = !_deviceService.VirtualDefaultDevice.IsMuted;
+                _defaultDevice.IsMuted = !_defaultDevice.IsMuted;
             }
         }
 
-        void Feedback_Click(object sender, EventArgs e)
-        {
-            _trayViewModel.StartAppServiceAndFeedbackHubCommand.Execute();
-        }
-
-        public void Exit_Click(object sender, EventArgs e)
+        public void Exit_Click()
         {
             try
             {
@@ -170,41 +157,6 @@ namespace EarTrumpet.Views
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
             Application.Current.Shutdown();
-        }
-
-        void Device_Click(object sender, EventArgs e)
-        {
-            var device = (IAudioDevice)((System.Windows.Forms.MenuItem)sender).Tag;
-            _trayViewModel.ChangeDeviceCommand.Execute(device);
-        }
-
-        internal void SetupDeviceMenuItems()
-        {
-            for (int i = _trayIcon.ContextMenu.MenuItems.Count - 1; i >= 0; i--)
-            {
-                var item = _trayIcon.ContextMenu.MenuItems[i];
-                if (item.Tag != null)
-                {
-                    _trayIcon.ContextMenu.MenuItems.Remove(item);
-                }
-            }
-
-            var audioDevices = _deviceService.Devices.OrderBy(x => x.DisplayName);
-            if (audioDevices.Count() == 0)
-            {
-                var newItem = new System.Windows.Forms.MenuItem(EarTrumpet.Properties.Resources.ContextMenuNoDevices);
-                newItem.Enabled = false;
-                _trayIcon.ContextMenu.MenuItems.Add(0, newItem);
-            }
-
-            int iPos = 0;
-            foreach(var device in audioDevices)
-            {
-                var newItem = new System.Windows.Forms.MenuItem(device.DisplayName, Device_Click);
-                newItem.Tag = device;
-                newItem.Checked = device == _deviceService.DefaultPlaybackDevice;
-                _trayIcon.ContextMenu.MenuItems.Add(iPos++, newItem);
-            }
         }
     }
 }

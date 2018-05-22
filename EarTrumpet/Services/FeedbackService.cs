@@ -13,7 +13,6 @@ namespace EarTrumpet.Services
     {
         private static AppServiceConnection _appServiceConnection;
 
-
         private static void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
         {
             var status = operation.GetResults();

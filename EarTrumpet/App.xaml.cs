@@ -40,9 +40,10 @@ namespace EarTrumpet
             _flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel, _deviceManager, themeService);
 
             _trayViewModel = new TrayViewModel(_deviceManager, flyoutViewModel);
-            _trayIcon = new TrayIcon(_deviceManager, _trayViewModel);
+            _trayIcon = new TrayIcon(_deviceManager, _viewModel, _trayViewModel);
 
             HotkeyService.Register(SettingsService.Hotkey);
+            HotkeyService.KeyPressed += (_, __) => _trayViewModel.OpenFlyoutCommand.Execute();
 
 #if VSDEBUG
             if (Keyboard.IsKeyDown(Key.LeftCtrl))

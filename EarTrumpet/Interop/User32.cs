@@ -189,7 +189,7 @@ namespace EarTrumpet.Interop
             Keyboard = 0x06,
             /// <summary>Keypad</summary>
             Keypad = 0x07,
-            /// <summary>Muilt-axis Controller</summary>
+            /// <summary>Multi-axis Controller</summary>
             SystemControl = 0x80,
             /// <summary>Tablet PC controls</summary>
             Tablet = 0x80,
@@ -220,5 +220,9 @@ namespace EarTrumpet.Interop
         internal const int RIDEV_REMOVE = 0x00000001;
         internal const int RIM_TYPEMOUSE = 0x0;
         internal const int RI_MOUSE_WHEEL = 0x0400;
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 }

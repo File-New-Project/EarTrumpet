@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
@@ -120,9 +121,16 @@ namespace EarTrumpet.Views
 
         private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape && _viewModel.IsShowingModalDialog)
+            if (e.Key == Key.Escape)
             {
-                _viewModel.OnAppCollapsed();
+                if (_viewModel.IsShowingModalDialog)
+                {
+                    _viewModel.OnAppCollapsed();
+                }
+                else
+                {
+                    CloseButton_Click(null, null);
+                }
             }
             else
             {
@@ -142,7 +150,7 @@ namespace EarTrumpet.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
         }
 
         private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)

@@ -151,6 +151,11 @@ namespace EarTrumpet.ViewModels
             Apps.Remove(app);
         }
 
+        public void MakeDefaultPlaybackDevice()
+        {
+            _deviceManager.DefaultPlaybackDevice = _device;
+        }
+
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.DeviceMutedFormatAccessibleText : Properties.Resources.DeviceFormatAccessibleText, DisplayName, Volume);
     }
 }

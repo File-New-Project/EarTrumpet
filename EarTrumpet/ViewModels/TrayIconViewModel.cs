@@ -53,7 +53,7 @@ namespace EarTrumpet.ViewModels
         public RelayCommand OpenSoundsControlPanelCommand { get; }
         public RelayCommand OpenLegacyVolumeMixerCommand { get; }
         public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
-        internal RelayCommand<IAudioDevice> ChangeDeviceCommand { get; }
+        public RelayCommand<DeviceViewModel> ChangeDeviceCommand { get; }
         public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
 
@@ -96,7 +96,7 @@ namespace EarTrumpet.ViewModels
             OpenSoundsControlPanelCommand = new RelayCommand(OpenSoundsControlPanel);
             OpenLegacyVolumeMixerCommand = new RelayCommand(OpenLegacyVolumeMixer);
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
-            ChangeDeviceCommand = new RelayCommand<IAudioDevice>(ChangeDevice);
+            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>(ChangeDevice);
             StartAppServiceAndFeedbackHubCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(OpenFlyout);
         }
@@ -207,9 +207,9 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        private void ChangeDevice(IAudioDevice device)
+        private void ChangeDevice(DeviceViewModel device)
         {
-            _deviceService.DefaultPlaybackDevice = device;
+            device.MakeDefaultPlaybackDevice();
         }
 
         private void OpenFlyout()
