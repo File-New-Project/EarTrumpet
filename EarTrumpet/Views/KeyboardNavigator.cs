@@ -21,6 +21,7 @@ namespace EarTrumpet.Views
                 {
                     switch (evt.Key)
                     {
+                        case Key.M:
                         case Key.OemPeriod:
                             app.IsMuted = !app.IsMuted;
                             evt.Handled = true;
@@ -35,6 +36,7 @@ namespace EarTrumpet.Views
                             app.Volume--;
                             evt.Handled = true;
                             break;
+                        case Key.System: // context menu key, or Shift+F10
                         case Key.Space:
                             var volControl = listItem.FindVisualChild<AppVolumeControl>();
                             volControl.ExpandApp();
@@ -47,6 +49,7 @@ namespace EarTrumpet.Views
                     var device = ((DeviceAndAppsControl)listItem.DataContext).Device;
                     switch (evt.Key)
                     {
+                        case Key.M:
                         case Key.OemPeriod:
                             device.IsMuted = !device.IsMuted;
                             evt.Handled = true;
