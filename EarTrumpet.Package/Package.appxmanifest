@@ -37,7 +37,7 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.startupTask" Executable="$targetnametoken$.exe" EntryPoint="Windows.FullTrustApplication">
+        <desktop:Extension Category="windows.startupTask" Executable="EarTrumpet\EarTrumpet.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="EarTrumpet" Enabled="true" DisplayName="EarTrumpet" />
         </desktop:Extension>
         <uap:Extension Category="windows.appService" EntryPoint="EarTrumpet.BackgroundTasks.FeedbackTask">
