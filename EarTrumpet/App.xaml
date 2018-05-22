@@ -361,7 +361,8 @@
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
                 <Setter Property="HasDropShadow" Value="True" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemText}" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -386,7 +387,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
-                            <Border BorderThickness="1" BorderBrush="{DynamicResource ContextMenuItemGlyph}" />
+                            <Line Stroke="{DynamicResource ContextMenuItemGlyph}" StrokeThickness="1" X2="1" Stretch="Fill" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -436,11 +437,7 @@
                         <Setter Property="Background" TargetName="Border" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground">
-                            <Setter.Value>
-                                <SolidColorBrush Color="Magenta" />
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabled}" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -455,8 +452,8 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
                             <ColumnDefinition Width="13" />
                         </Grid.ColumnDefinitions>
-                        <ContentPresenter x:Name="Icon" Margin="0" VerticalAlignment="Center" ContentSource="Icon" />
-                        <Border x:Name="Check" Width="14" Height="14" Visibility="Collapsed" Margin="0,0,12,0" BorderThickness="1">
+                        <!--<ContentPresenter x:Name="Icon" Margin="0" VerticalAlignment="Center" ContentSource="Icon" />-->
+                        <Border x:Name="Check" Width="14" Height="14" Visibility="Visible" Margin="0,0,12,0" BorderThickness="1">
                             <TextBlock x:Name="CheckMark" Visibility="Hidden" SnapsToDevicePixels="False" FontFamily="Segoe MDL2 Assets" FontSize="14" Text="&#xE73E;" Foreground="{DynamicResource ContextMenuItemGlyph}" />
                         </Border>
                         <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
@@ -465,16 +462,16 @@
                 </Border>
                 <ControlTemplate.Triggers>
                     <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
-                    <Trigger Property="Icon" Value="{x:Null}">
+                    <!--<Trigger Property="Icon" Value="{x:Null}">
                         <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
-                    </Trigger>
+                    </Trigger>-->
                     <Trigger Property="IsChecked" Value="true">
                         <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                     </Trigger>
-                    <Trigger Property="IsCheckable" Value="true">
+                    <!--<Trigger Property="IsCheckable" Value="true">
                         <Setter TargetName="Check" Property="Visibility" Value="Visible" />
                         <Setter TargetName="Icon" Property="Visibility" Value="Hidden" />
-                    </Trigger>
+                    </Trigger>-->
                     <Trigger Property="IsHighlighted" Value="true">
                         <Setter Property="Background" TargetName="Border" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
                     </Trigger>

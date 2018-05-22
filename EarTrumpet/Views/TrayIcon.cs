@@ -47,8 +47,6 @@ namespace EarTrumpet.Views
         {
             var cm = new ContextMenu();
 
-            // TODO: add a style.
-
             cm.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += (_, __) =>
             {
