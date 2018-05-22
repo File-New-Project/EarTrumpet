@@ -32,7 +32,6 @@
             <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
-            <Thickness x:Key="VolumeAppListMarginFullWindow">0,6,0,0</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>

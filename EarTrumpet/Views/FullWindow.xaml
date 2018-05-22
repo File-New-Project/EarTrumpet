@@ -27,7 +27,6 @@
                BasedOn="{StaticResource BaseAppListStyle}"
                TargetType="{x:Type ListView}">
             <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
-            <Setter Property="Margin" Value="{StaticResource VolumeAppListMarginFullWindow}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
@@ -248,6 +247,10 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
+
+                <Grid Height="6"
+                      VerticalAlignment="Bottom"
+                      Background="{DynamicResource NormalWindowBackground}" />
 
                 <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
             </Grid>
