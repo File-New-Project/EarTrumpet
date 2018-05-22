@@ -5,6 +5,7 @@ using EarTrumpet.Services;
 using EarTrumpet.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
@@ -24,29 +25,7 @@ namespace EarTrumpet.ViewModels
             OriginalIcon
         }
 
-        private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private Icon _trayIcon;
-        private readonly IAudioDeviceManager _deviceService;
-        private readonly FlyoutViewModel _flyoutViewModel;
-        private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
-        private IconId _currentIcon = IconId.OriginalIcon;
-
-        public Icon TrayIcon
-        {
-            get
-            {
-                return _trayIcon;
-            }
-            set
-            {
-                if (_trayIcon != value)
-                {
-                    _trayIcon = value;
-                    RaisePropertyChanged(nameof(TrayIcon));
-                }
-            }
-        }
-
+        public Icon TrayIcon { get; private set; }
         public RelayCommand OpenSettingsCommand { get; }
         public RelayCommand OpenPlaybackDevicesCommand { get; }
         public RelayCommand OpenRecordingDevicesCommand { get; }
@@ -56,15 +35,26 @@ namespace EarTrumpet.ViewModels
         public RelayCommand<DeviceViewModel> ChangeDeviceCommand { get; }
         public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
+        public RelayCommand ExitCommand { get; }
 
-        internal TrayViewModel(IAudioDeviceManager deviceService, FlyoutViewModel flyoutViewModel)
+        private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
+        private readonly IAudioDeviceManager _deviceManager;
+        private readonly MainViewModel _mainViewModel;
+        private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
+        private IconId _currentIcon = IconId.OriginalIcon;
+
+        public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
+
+        internal TrayViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
         {
-            _flyoutViewModel = flyoutViewModel;
+            _mainViewModel = mainViewModel;
+            _deviceManager = deviceManager;
+            _deviceManager.VirtualDefaultDevice.PropertyChanged += (_, __) => UpdateTrayIcon();
 
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
-            _icons.Add(IconId.OriginalIcon, originalIcon);
             try
             {
+                _icons.Add(IconId.OriginalIcon, originalIcon);
                 _icons.Add(IconId.NoDevice, IconService.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
                 _icons.Add(IconId.Muted, IconService.GetIconFromFile(_trayIconPath, (int)IconId.Muted));
                 _icons.Add(IconId.SpeakerZeroBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
@@ -75,146 +65,70 @@ namespace EarTrumpet.ViewModels
             catch
             {
                 _icons.Clear();
+                _icons.Add(IconId.OriginalIcon, originalIcon);
                 _icons.Add(IconId.NoDevice, originalIcon);
                 _icons.Add(IconId.Muted, originalIcon);
                 _icons.Add(IconId.SpeakerZeroBars, originalIcon);
                 _icons.Add(IconId.SpeakerOneBar, originalIcon);
                 _icons.Add(IconId.SpeakerTwoBars, originalIcon);
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
-
-                _icons.Add(IconId.OriginalIcon, originalIcon);
             }
 
-            _deviceService = deviceService;
-            _deviceService.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
-
             UpdateTrayIcon();
 
-            OpenSettingsCommand = new RelayCommand(OpenSettings);
-            OpenPlaybackDevicesCommand = new RelayCommand(OpenPlaybackDevices);
-            OpenRecordingDevicesCommand = new RelayCommand(OpenRecordingDevices);
-            OpenSoundsControlPanelCommand = new RelayCommand(OpenSoundsControlPanel);
-            OpenLegacyVolumeMixerCommand = new RelayCommand(OpenLegacyVolumeMixer);
-            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(OpenEarTrumpetVolumeMixer);
-            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>(ChangeDevice);
+            OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
+            OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
+            OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
+            OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
+            OpenLegacyVolumeMixerCommand = new RelayCommand(() => Process.Start("sndvol.exe"));
+            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
+            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             StartAppServiceAndFeedbackHubCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(OpenFlyout);
-        }
-
-        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            UpdateTrayIcon();
+            OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
+            ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 
         void UpdateTrayIcon()
         {
-            bool noDevice = !_deviceService.VirtualDefaultDevice.IsDevicePresent;
-            bool isMuted = _deviceService.VirtualDefaultDevice.IsMuted;
-            int currentVolume = _deviceService.VirtualDefaultDevice.Volume.ToVolumeInt();
+            int volume = _deviceManager.VirtualDefaultDevice.Volume.ToVolumeInt();
+            IconId desiredIcon = IconId.OriginalIcon;
 
-            if (noDevice)
+            if (!_deviceManager.VirtualDefaultDevice.IsDevicePresent)
             {
-                _currentIcon = IconId.NoDevice;
-                TrayIcon = _icons[IconId.NoDevice];
-                return;
+                desiredIcon = IconId.NoDevice;
             }
-            else if (isMuted)
+            else if (_deviceManager.VirtualDefaultDevice.IsMuted)
             {
-                _currentIcon = IconId.Muted;
-                TrayIcon = _icons[IconId.Muted];
-                return;
+                desiredIcon = IconId.Muted;
             }
-            else if (currentVolume == 0)
+            else if (volume == 0)
             {
-                _currentIcon = IconId.SpeakerZeroBars;
-                TrayIcon = _icons[IconId.SpeakerZeroBars];
-                return;
+                desiredIcon = IconId.SpeakerZeroBars;
             }
-            else if (currentVolume >= 1 && currentVolume < 33)
+            else if (volume >= 1 && volume < 33)
             {
-                _currentIcon = IconId.SpeakerOneBar;
-                TrayIcon = _icons[IconId.SpeakerOneBar];
-                return;
+                desiredIcon = IconId.SpeakerOneBar;
             }
-            else if (currentVolume >= 33 && currentVolume < 66)
+            else if (volume >= 33 && volume < 66)
             {
-                _currentIcon = IconId.SpeakerTwoBars;
-                TrayIcon = _icons[IconId.SpeakerTwoBars];
-                return;
+                desiredIcon = IconId.SpeakerTwoBars;
             }
-            else if (currentVolume >= 66 && currentVolume <= 100)
+            else if (volume >= 66 && volume <= 100)
             {
-                _currentIcon = IconId.SpeakerThreeBars;
-                TrayIcon = _icons[IconId.SpeakerThreeBars];
-                return;
+                desiredIcon = IconId.SpeakerThreeBars;
             }
 
-            if (_currentIcon == IconId.OriginalIcon)
+            if (desiredIcon != _currentIcon)
             {
-                TrayIcon = _icons[IconId.OriginalIcon];
-                _currentIcon = IconId.OriginalIcon;
+                _currentIcon = desiredIcon;
+                TrayIcon = _icons[_currentIcon];
+                RaisePropertyChanged(nameof(TrayIcon));
             }
         }
 
-        private void OpenPlaybackDevices()
+        private void OpenControlPanel(string panel)
         {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,playback");
-        }
-
-        private void OpenRecordingDevices()
-        {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,recording");
-        }
-
-        private void OpenSoundsControlPanel()
-        {
-            Process.Start("rundll32.exe", "shell32.dll,Control_RunDLL mmsys.cpl,,sounds");
-        }
-
-        private void OpenLegacyVolumeMixer()
-        {
-            Process.Start("sndvol.exe");
-        }
-
-        private void OpenSettings()
-        {
-            if (SettingsWindow.Instance == null)
-            {
-                var window = new SettingsWindow(_deviceService);
-                window.Show();
-                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
-
-            }
-            else
-            {
-                SettingsWindow.Instance.RaiseWindow();
-            }
-        }
-
-        private void OpenEarTrumpetVolumeMixer()
-        {
-            if (FullWindow.Instance == null)
-            {
-                var window = new FullWindow(MainViewModel.Instance);
-
-                window.Show();
-                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
-
-            }
-            else
-            {
-                FullWindow.Instance.RaiseWindow();
-            }
-        }
-
-        private void ChangeDevice(DeviceViewModel device)
-        {
-            device.MakeDefaultPlaybackDevice();
-        }
-
-        private void OpenFlyout()
-        {
-            _flyoutViewModel.OpenFlyoutFromExternal();
+            Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}");
         }
     }
 }

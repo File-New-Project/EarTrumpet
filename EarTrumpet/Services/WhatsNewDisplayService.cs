@@ -20,7 +20,15 @@ namespace EarTrumpet.Services
                     {
                         try
                         {
-                            System.Diagnostics.Process.Start("eartrumpet:");
+                            var handle = System.Diagnostics.Process.Start("eartrumpet:");
+                            App.Current.Exit += (_, __) =>
+                            {
+                                try
+                                {
+                                    handle.Kill();
+                                }
+                                catch { }
+                            };
                         }
                         catch { }
                     }

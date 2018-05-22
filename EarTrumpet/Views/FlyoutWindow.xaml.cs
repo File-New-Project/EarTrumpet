@@ -21,13 +21,13 @@ namespace EarTrumpet.Views
         private bool _expandOnCloseThenOpen;
         private RawInputListener _rawListener;
 
-        internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel, IAudioDeviceManager manager, ThemeService themeService)
+        internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
         {
-            _mainViewModel = mainViewModel;
-            _themeService = themeService;
-
             InitializeComponent();
 
+            _themeService = (ThemeService)App.Current.Resources["ThemeService"];
+
+            _mainViewModel = mainViewModel;
             _viewModel = flyoutViewModel;
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
@@ -50,7 +50,7 @@ namespace EarTrumpet.Views
             {
                 this.Cloak();
 
-                themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+                _themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
 
                 UpdateTheme();
 
@@ -59,7 +59,7 @@ namespace EarTrumpet.Views
                 MouseEnter += (_, __) => _rawListener.Stop();
             };
 
-            themeService.ThemeChanged += () => UpdateTheme();
+            _themeService.ThemeChanged += () => UpdateTheme();
 
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.BeginClose());
 

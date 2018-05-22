@@ -18,7 +18,7 @@ namespace EarTrumpet.ViewModels
             Opening,
             Open,
             Closing_Stage1,
-            Closing_Stage2,
+            Closing_Stage2, // Delay stage
         }
 
         public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
@@ -46,6 +46,7 @@ namespace EarTrumpet.ViewModels
 
             _deviceManager = deviceManager;
             _mainViewModel = mainViewModel;
+            _mainViewModel.FlyoutShowRequested += (_, __) => OpenFlyout();
 
             _deviceManager.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
 
@@ -274,7 +275,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void OpenFlyoutFromExternal()
+        private void OpenFlyout()
         {
             if (State == ViewState.Closing_Stage2)
             {

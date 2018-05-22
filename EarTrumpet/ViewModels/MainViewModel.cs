@@ -14,6 +14,8 @@ namespace EarTrumpet.ViewModels
     {
         public static MainViewModel Instance { get; private set; }
 
+        public event EventHandler FlyoutShowRequested;
+
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
 
         private readonly IAudioDeviceManager _deviceService;
@@ -142,6 +144,11 @@ namespace EarTrumpet.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
+        }
+
+        public void OpenFlyout()
+        {
+            FlyoutShowRequested(this, null);
         }
     }
 }

@@ -10,10 +10,17 @@ namespace EarTrumpet.Services
 {
     class DiagnosticsService
     {
-        public static void DumpAndShowData(IAudioDeviceManager manager)
+        private static IAudioDeviceManager _manager;
+
+        public static void AdviseManager(IAudioDeviceManager manager)
+        {
+            _manager = manager;
+        }
+
+        public static void DumpAndShowData()
         {
             var fileName = $"{Path.GetTempFileName()}.txt";
-            File.WriteAllText(fileName, DumpDevices(manager));
+            File.WriteAllText(fileName, DumpDevices(_manager));
             Process.Start(fileName);
         }
 

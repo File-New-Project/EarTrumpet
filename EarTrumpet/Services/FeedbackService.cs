@@ -23,6 +23,7 @@ namespace EarTrumpet.Services
                 {
                     _appServiceConnection.Dispose();
                     _appServiceConnection = null;
+                    App.Current.Exit -= CloseFeedbackServiceAtExit;
                 };
             }
         }
@@ -32,11 +33,17 @@ namespace EarTrumpet.Services
             if (_appServiceConnection == null)
             {
                 _appServiceConnection = new AppServiceConnection();
+                App.Current.Exit += CloseFeedbackServiceAtExit;
             }
 
             _appServiceConnection.AppServiceName = "SendFeedback";
             _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
             _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
+        }
+
+        private static void CloseFeedbackServiceAtExit(object sender, System.Windows.ExitEventArgs e)
+        {
+            CloseAppService();
         }
 
         public static void CloseAppService()

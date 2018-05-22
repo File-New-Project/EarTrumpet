@@ -1,25 +1,23 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace EarTrumpet.Views
 {
     public partial class SettingsWindow : Window
     {
-        public static SettingsWindow Instance;
+        private static SettingsWindow Instance;
 
-        SettingsViewModel _viewModel;
+        private SettingsViewModel _viewModel;
 
-        internal SettingsWindow(IAudioDeviceManager manager)
+        internal SettingsWindow()
         {
             InitializeComponent();
 
             Title = Properties.Resources.SettingsWindowText;
-            _viewModel = new SettingsViewModel(manager);
+            _viewModel = new SettingsViewModel();
             DataContext = _viewModel;
 
             Instance = this;
@@ -35,6 +33,20 @@ namespace EarTrumpet.Views
             };
 
             this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+        }
+
+        public static void ActivateSingleInstance()
+        {
+            if (Instance == null)
+            {
+                var window = new SettingsWindow();
+                window.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
+            }
+            else
+            {
+                Instance.RaiseWindow();
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

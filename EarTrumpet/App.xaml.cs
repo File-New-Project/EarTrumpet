@@ -10,10 +10,7 @@ namespace EarTrumpet
 {
     public partial class App
     {
-        private FlyoutWindow _flyoutWindow;
         private MainViewModel _viewModel;
-        private IAudioDeviceManager _deviceManager;
-        private TrayViewModel _trayViewModel;
         private TrayIcon _trayIcon;
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -29,21 +26,20 @@ namespace EarTrumpet
             WhatsNewDisplayService.ShowIfAppropriate();
             FirstRunDisplayService.ShowIfAppropriate();
 
-            _deviceManager = DataModelFactory.CreateAudioDeviceManager();
-            _viewModel = new MainViewModel(_deviceManager);
+            ((ThemeService)Resources["ThemeService"]).SetTheme(AppSpecificThemes.GetThemeBuildData());
 
-            var themeService = (ThemeService)Resources["ThemeService"];
+            var deviceManager = DataModelFactory.CreateAudioDeviceManager();
+            DiagnosticsService.AdviseManager(deviceManager);
 
-            themeService.SetTheme(AppSpecificThemes.GetThemeBuildData());
-
-            var flyoutViewModel = new FlyoutViewModel(_viewModel, _deviceManager);
-            _flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel, _deviceManager, themeService);
-
-            _trayViewModel = new TrayViewModel(_deviceManager, flyoutViewModel);
-            _trayIcon = new TrayIcon(_deviceManager, _viewModel, _trayViewModel);
-
+            _viewModel = new MainViewModel(deviceManager);
             HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => _trayViewModel.OpenFlyoutCommand.Execute();
+            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
+
+            var flyoutViewModel = new FlyoutViewModel(_viewModel, deviceManager);
+            var flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel);
+
+            var trayViewModel = new TrayViewModel(_viewModel, deviceManager);
+            _trayIcon = new TrayIcon(deviceManager, trayViewModel);
 
 #if VSDEBUG
             if (Keyboard.IsKeyDown(Key.LeftCtrl))

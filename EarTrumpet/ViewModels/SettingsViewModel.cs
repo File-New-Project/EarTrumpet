@@ -8,8 +8,6 @@ namespace EarTrumpet.ViewModels
 {
     public class SettingsViewModel : BindableBase
     {
-        IAudioDeviceManager _manager;
-
         SettingsService.HotkeyData _hotkey;
         public SettingsService.HotkeyData Hotkey
         {
@@ -37,10 +35,8 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        internal SettingsViewModel(IAudioDeviceManager manager)
+        internal SettingsViewModel()
         {
-            _manager = manager;
-
             Hotkey = SettingsService.Hotkey;
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
@@ -49,7 +45,7 @@ namespace EarTrumpet.ViewModels
 
         private void OpenDiagnostics()
         {
-            DiagnosticsService.DumpAndShowData(_manager);
+            DiagnosticsService.DumpAndShowData();
         }
 
         private void OpenAbout()

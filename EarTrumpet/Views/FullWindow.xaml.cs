@@ -11,7 +11,7 @@ namespace EarTrumpet.Views
 {
     public partial class FullWindow : Window
     {
-        public static FullWindow Instance { get; private set; }
+        private static FullWindow Instance;
 
         private FullWindowViewModel _viewModel;
         private VolumeControlPopup _popup;
@@ -56,7 +56,22 @@ namespace EarTrumpet.Views
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.OnAppCollapsed());
         }
 
+        public static void ActivateSingleInstance()
+        {
+            if (Instance == null)
+            {
+                var window = new FullWindow(MainViewModel.Instance);
 
+                window.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
+
+            }
+            else
+            {
+                Instance.RaiseWindow();
+            }
+        }
+        
         private void OnAppExpanded(object sender, AppExpandedEventArgs e)
         {
             _popup.PositionAndShow(this, e);

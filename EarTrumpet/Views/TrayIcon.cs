@@ -5,7 +5,6 @@ using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +19,10 @@ namespace EarTrumpet.Views
     {
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
-        private readonly MainViewModel _mainViewModel;
         private readonly IVirtualDefaultAudioDevice _defaultDevice;
 
-        public TrayIcon(IAudioDeviceManager deviceManager, MainViewModel mainViewModel, TrayViewModel trayViewModel)
+        public TrayIcon(IAudioDeviceManager deviceManager, TrayViewModel trayViewModel)
         {
-            _mainViewModel = mainViewModel;
             _defaultDevice = deviceManager.VirtualDefaultDevice;
             _defaultDevice.PropertyChanged += (_, __) => UpdateToolTip();
 
@@ -38,6 +35,12 @@ namespace EarTrumpet.Views
             UpdateToolTip();
 
             _trayIcon.Visible = true;
+
+            App.Current.Exit += (_, __) =>
+            {
+                _trayIcon.Visible = false;
+                _trayIcon.Dispose();
+            };
         }
 
         private ContextMenu BuildContextMenu()
@@ -63,7 +66,7 @@ namespace EarTrumpet.Views
             });
 
             // Add devices
-            var audioDevices = _mainViewModel.AllDevices.OrderBy(x => x.DisplayName);
+            var audioDevices = _trayViewModel.AllDevices.OrderBy(x => x.DisplayName);
             if (!audioDevices.Any())
             {
                 cm.Items.Add(new MenuItem
@@ -96,7 +99,7 @@ namespace EarTrumpet.Views
             cm.Items.Add(new Separator());
             AddItem(resx.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
             AddItem(resx.ContextMenuSendFeedback, _trayViewModel.StartAppServiceAndFeedbackHubCommand);
-            AddItem(resx.ContextMenuExitTitle, new RelayCommand(Exit_Click));
+            AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);
 
             return cm;
         }
@@ -141,25 +144,6 @@ namespace EarTrumpet.Views
             {
                 _defaultDevice.IsMuted = !_defaultDevice.IsMuted;
             }
-        }
-
-        public void Exit_Click()
-        {
-            try
-            {
-                foreach(var proc in Process.GetProcessesByName("EarTrumpet.UWP"))
-                {
-                    proc.Kill();
-                }
-            }
-            catch
-            {
-                // We're shutting down, ignore all
-            }
-            FeedbackService.CloseAppService();
-            _trayIcon.Visible = false;
-            _trayIcon.Dispose();
-            Application.Current.Shutdown();
         }
     }
 }

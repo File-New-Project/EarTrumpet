@@ -14,7 +14,15 @@ namespace EarTrumpet.Services
                     Windows.Storage.ApplicationData.Current.LocalSettings.Values[nameof(hasShownFirstRun)] = true;
                     try
                     {
-                        System.Diagnostics.Process.Start("eartrumpet://welcome");
+                        var handle = System.Diagnostics.Process.Start("eartrumpet://welcome");
+                        App.Current.Exit += (_, __) =>
+                        {
+                            try
+                            {
+                                handle.Kill();
+                            }
+                            catch { }
+                        };
                     }
                     catch { }
                 }
