@@ -223,7 +223,7 @@ namespace EarTrumpet.ViewModels
 
                 if (IsShowingModalDialog)
                 {
-                    OnAppCollapsed();
+                    CollapseApp();
                 }
             }
             else if (state == ViewState.Closing_Stage2)
@@ -232,11 +232,11 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void OnAppExpanded(AppItemViewModel vm, UIElement container)
+        public void BeginExpandApp(AppItemViewModel vm, UIElement container)
         {
             if (IsShowingModalDialog)
             {
-                OnAppCollapsed();
+                CollapseApp();
             }
 
             AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
@@ -245,7 +245,7 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(IsShowingModalDialog));
         }
 
-        public void OnAppCollapsed()
+        public void CollapseApp()
         {
             if (IsShowingModalDialog)
             {

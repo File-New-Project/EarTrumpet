@@ -38,7 +38,7 @@ namespace EarTrumpet.Views
             DataContext = _viewModel;
 
             _popup = AppPopup;
-            _popup.Closed += (_, __) => _viewModel.OnAppCollapsed();
+            _popup.Closed += (_, __) => _viewModel.CollapseApp();
 
             Deactivated += (_, __) => _viewModel.BeginClose();
 
@@ -205,7 +205,7 @@ namespace EarTrumpet.Views
             {
                 if (_viewModel.IsShowingModalDialog)
                 {
-                    _viewModel.OnAppCollapsed();
+                    _viewModel.CollapseApp();
                 }
                 else
                 {
@@ -306,7 +306,7 @@ namespace EarTrumpet.Views
 
         private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
         {
-            _viewModel.OnAppExpanded(e.ViewModel, e.Container);
+            _viewModel.BeginExpandApp(e.ViewModel, e.Container);
         }
     }
 }
