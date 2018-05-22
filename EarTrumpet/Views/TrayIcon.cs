@@ -47,8 +47,11 @@ namespace EarTrumpet.Views
             // TODO: add a style.
 
             cm.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            cm.Opened += (_, __) => User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-            cm.LostFocus += (_, __) => cm.IsOpen = FocusManager.GetFocusedElement(cm) != null;
+            cm.Opened += (_, __) =>
+            {
+                User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
+                cm.Focus();
+            };
 
             var AddItem = new Action<string, ICommand>((displayName, action) =>
             {
