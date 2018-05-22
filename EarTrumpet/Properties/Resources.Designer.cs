@@ -72,18 +72,18 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
         /// </summary>
-        public static string AppFormatAccessibleText {
+        public static string AppOrDeviceFormatAccessibleText {
             get {
-                return ResourceManager.GetString("AppFormatAccessibleText", resourceCulture);
+                return ResourceManager.GetString("AppOrDeviceFormatAccessibleText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
         /// </summary>
-        public static string AppMutedFormatAccessibleText {
+        public static string AppOrDeviceMutedFormatAccessibleText {
             get {
-                return ResourceManager.GetString("AppMutedFormatAccessibleText", resourceCulture);
+                return ResourceManager.GetString("AppOrDeviceMutedFormatAccessibleText", resourceCulture);
             }
         }
         
@@ -165,24 +165,6 @@ namespace EarTrumpet.Properties {
         public static string DefaultHotkeyDescriptionText {
             get {
                 return ResourceManager.GetString("DefaultHotkeyDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
-        /// </summary>
-        public static string DeviceFormatAccessibleText {
-            get {
-                return ResourceManager.GetString("DeviceFormatAccessibleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
-        /// </summary>
-        public static string DeviceMutedFormatAccessibleText {
-            get {
-                return ResourceManager.GetString("DeviceMutedFormatAccessibleText", resourceCulture);
             }
         }
         

@@ -156,6 +156,6 @@ namespace EarTrumpet.ViewModels
             _deviceManager.DefaultPlaybackDevice = _device;
         }
 
-        public override string ToString() => string.Format(IsMuted ? Properties.Resources.DeviceMutedFormatAccessibleText : Properties.Resources.DeviceFormatAccessibleText, DisplayName, Volume);
+        public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
     }
 }

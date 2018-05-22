@@ -180,10 +180,10 @@
   <data name="WebsiteText" xml:space="preserve">
     <value>Website</value>
   </data>
-  <data name="AppFormatAccessibleText" xml:space="preserve">
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{1} percent volume - {0}"</value>
   </data>
-  <data name="AppMutedFormatAccessibleText" xml:space="preserve">
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>"Muted - {0}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
@@ -200,12 +200,6 @@
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Default shortcut</value>
-  </data>
-  <data name="DeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{1} percent volume - {0}"</value>
-  </data>
-  <data name="DeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"Muted - {0}"</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Expand to show all playback devices</value>
