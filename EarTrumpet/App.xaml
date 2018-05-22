@@ -355,7 +355,7 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="{x:Type ContextMenu}">
+            <Style x:Key="BaseContextMenuStyle" TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
@@ -363,14 +363,13 @@
                 <Setter Property="HasDropShadow" Value="True" />
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemText}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
                             <Border x:Name="Border">
                                 <Border Padding="2,8"
-                                        Background="{DynamicResource ContextMenuBackground}"
-                                        BorderBrush="{DynamicResource ContextMenuBorder}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </Border>
@@ -394,19 +393,31 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+            <Style BasedOn="{StaticResource BaseContextMenuStyle}" TargetType="{x:Type ContextMenu}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemText}" />
+                <Setter Property="Background" Value="{DynamicResource ContextMenuBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ContextMenuBorder}" />
+            </Style>
+
+            <Style x:Key="BaseSeparatorStyle" TargetType="{x:Type Separator}">
                 <Setter Property="Height" Value="1" />
                 <Setter Property="Margin" Value="8,4,8,4" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
                             <Line Stretch="Fill"
-                                  Stroke="{DynamicResource ContextMenuSeparator}"
+                                  Stroke="{TemplateBinding Foreground}"
                                   StrokeThickness="1"
                                   X2="1" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+
+            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
+                   BasedOn="{StaticResource BaseSeparatorStyle}"
+                   TargetType="{x:Type Separator}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuSeparator}" />
             </Style>
 
             <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
@@ -466,58 +477,19 @@
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
             </Style>
 
-            <Style x:Key="ContextMenuDarkOnly" TargetType="{x:Type ContextMenu}">
-                <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Grid.IsSharedSizeScope" Value="true" />
-                <Setter Property="MinWidth" Value="311" />
-                <Setter Property="HasDropShadow" Value="True" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
+            <Style x:Key="ContextMenuDarkOnly"
+                   BasedOn="{StaticResource BaseContextMenuStyle}"
+                   TargetType="{x:Type ContextMenu}">
                 <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDarkOnly}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ContextMenu}">
-                            <Border x:Name="Border">
-                                <Border Padding="2,8"
-                                        Background="{DynamicResource ContextMenuBackgroundDarkOnly}"
-                                        BorderBrush="{DynamicResource ContextMenuBorderDarkOnly}"
-                                        BorderThickness="1">
-                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                </Border>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="HasDropShadow" Value="true">
-                                    <Setter TargetName="Border" Property="CornerRadius" Value="0" />
-                                    <Setter TargetName="Border" Property="Background" Value="Transparent" />
-                                    <Setter TargetName="Border" Property="Padding" Value="0,0,5,5" />
-                                    <Setter TargetName="Border" Property="Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect BlurRadius="4"
-                                                              Opacity="0.8"
-                                                              ShadowDepth="2" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background" Value="{DynamicResource ContextMenuBackgroundDarkOnly}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ContextMenuBorderDarkOnly}" />
             </Style>
 
-            <Style x:Key="MenuItemSeparatorDarkOnly" TargetType="{x:Type Separator}">
-                <Setter Property="Height" Value="1" />
-                <Setter Property="Margin" Value="8,4,8,4" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Separator}">
-                            <Line Stretch="Fill"
-                                  Stroke="{DynamicResource ContextMenuSeparatorDarkOnly}"
-                                  StrokeThickness="1"
-                                  X2="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+            <Style x:Key="MenuItemSeparatorDarkOnly"
+                   BasedOn="{StaticResource BaseSeparatorStyle}"
+                   TargetType="{x:Type Separator}">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource ContextMenuSeparatorDarkOnly}" />
             </Style>
 
             <ControlTemplate x:Key="MenuItemTemplateDarkOnly" TargetType="{x:Type MenuItem}">
