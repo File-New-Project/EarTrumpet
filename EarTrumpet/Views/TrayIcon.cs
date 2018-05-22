@@ -72,7 +72,8 @@ namespace EarTrumpet.Views
                 cm.Items.Add(new MenuItem
                 {
                     Header = resx.ContextMenuNoDevices,
-                    IsEnabled = false
+                    IsEnabled = false,
+                    Style = menuItemStyle
                 });
             }
             else
@@ -84,6 +85,7 @@ namespace EarTrumpet.Views
                         Header = device.DisplayName,
                         IsChecked = device.Id == _defaultDevice.Id,
                         Command = new RelayCommand(() => _trayViewModel.ChangeDeviceCommand.Execute(device)),
+                        Style = menuItemStyle
                     });
                 }
             }
