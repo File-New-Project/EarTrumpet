@@ -387,7 +387,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
-                            <Line Stroke="{DynamicResource ContextMenuItemGlyph}" StrokeThickness="1" X2="1" Stretch="Fill" />
+                            <Line Stroke="{DynamicResource ContextMenuSeparator}" StrokeThickness="1" X2="1" Stretch="Fill" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -454,7 +454,7 @@
                         </Grid.ColumnDefinitions>
                         <!--<ContentPresenter x:Name="Icon" Margin="0" VerticalAlignment="Center" ContentSource="Icon" />-->
                         <Border x:Name="Check" Width="14" Height="14" Visibility="Visible" Margin="0,0,12,0" BorderThickness="1">
-                            <TextBlock x:Name="CheckMark" Visibility="Hidden" SnapsToDevicePixels="False" FontFamily="Segoe MDL2 Assets" FontSize="14" Text="&#xE73E;" Foreground="{DynamicResource ContextMenuItemGlyph}" />
+                            <TextBlock x:Name="CheckMark" Visibility="Hidden" SnapsToDevicePixels="False" FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE0E7;" Foreground="{DynamicResource ContextMenuItemGlyph}" />
                         </Border>
                         <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
                         <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Margin="5,2,0,2" DockPanel.Dock="Right" FontSize="10" />

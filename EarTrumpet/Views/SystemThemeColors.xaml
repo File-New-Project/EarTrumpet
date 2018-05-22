@@ -46,6 +46,7 @@
     <SolidColorBrush x:Key="ContextMenuItemTextHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuItemTextDisabled">Grey</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuItemGlyph">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuSeparator">Grey</SolidColorBrush>
 
 
 </ResourceDictionary>
