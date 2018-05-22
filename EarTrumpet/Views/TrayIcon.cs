@@ -52,6 +52,7 @@ namespace EarTrumpet.Views
             {
                 User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
                 cm.Focus();
+                ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
             };
 
             var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;

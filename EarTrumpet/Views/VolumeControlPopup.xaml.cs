@@ -119,6 +119,11 @@ namespace EarTrumpet.Views
             }
             moveMenu.Items.Insert(1, newSeparator);
 
+            moveMenu.Opened += (_, __) =>
+            {
+                ((Popup)moveMenu.Parent).PopupAnimation = PopupAnimation.None;
+            };
+
             moveMenu.PlacementTarget = (UIElement)sender;
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             moveMenu.IsOpen = true;
