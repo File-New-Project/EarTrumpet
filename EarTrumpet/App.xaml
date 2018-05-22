@@ -444,7 +444,7 @@
 
             <!-- SubmenuItem -->
             <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
-                <Border x:Name="Border" BorderThickness="0" Padding="12,6,12,6">
+                <Border x:Name="Border" BorderThickness="0" Padding="10,7,10,7">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
