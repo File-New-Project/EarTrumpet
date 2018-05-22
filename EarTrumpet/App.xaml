@@ -360,6 +360,7 @@
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+                <Setter Property="MinWidth" Value="311" />
                 <Setter Property="HasDropShadow" Value="True" />
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
@@ -444,7 +445,7 @@
 
             <!-- SubmenuItem -->
             <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
-                <Border x:Name="Border" BorderThickness="0" Padding="10,7,10,7">
+                <Border x:Name="Border" BorderThickness="0" Padding="10,7,10,7" Background="Transparent">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
