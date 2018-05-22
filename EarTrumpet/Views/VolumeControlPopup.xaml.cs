@@ -11,6 +11,8 @@ namespace EarTrumpet.Views
 {
     public partial class VolumeControlPopup : Popup
     {
+        private bool _useDarkTheme = false;
+
         public VolumeControlPopup()
         {
             InitializeComponent();
@@ -70,10 +72,19 @@ namespace EarTrumpet.Views
             var persistedDeviceId = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();
+            if (_useDarkTheme)
+            {
+                moveMenu.Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style;
+            }
 
+            var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;
             foreach (var dev in viewModel.AllDevices)
             {
                 var newItem = new MenuItem { Header = dev.DisplayName };
+                if(_useDarkTheme)
+                {
+                    newItem.Style = menuItemStyle;
+                }
                 newItem.Click += (_, __) =>
                 {
                     viewModel.MoveAppToDevice(selectedApp, dev);
@@ -88,6 +99,10 @@ namespace EarTrumpet.Views
             }
 
             var defaultItem = new MenuItem { Header = EarTrumpet.Properties.Resources.DefaultDeviceText };
+            if (_useDarkTheme)
+            {
+                defaultItem.Style = menuItemStyle;
+            }
             defaultItem.IsCheckable = true;
             defaultItem.IsChecked = (string.IsNullOrWhiteSpace(persistedDeviceId));
             defaultItem.Click += (_, __) =>
@@ -97,7 +112,12 @@ namespace EarTrumpet.Views
             };
             moveMenu.Items.Insert(0, defaultItem);
 
-            moveMenu.Items.Insert(1, new Separator());
+            var newSeparator = new Separator();
+            if (_useDarkTheme)
+            {
+                newSeparator.Style = Application.Current.FindResource("MenuItemSeparatorDarkOnly") as Style;
+            }
+            moveMenu.Items.Insert(1, newSeparator);
 
             moveMenu.PlacementTarget = (UIElement)sender;
             moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
@@ -113,6 +133,9 @@ namespace EarTrumpet.Views
             var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
             DataContext = e.ViewModel;
+
+            var contextTheme = relativeTo.TryFindResource("ContextMenuTheme") as string;
+            _useDarkTheme = contextTheme != null && contextTheme.Equals("DarkOnly");
 
             Point offsetFromWindow = e.Container.TranslatePoint(new Point(0, 0), relativeTo);
             // Adjust for the title bar, top border and top margin on the app list.

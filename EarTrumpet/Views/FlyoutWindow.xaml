@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.Views"
+        xmlns:clr="clr-namespace:System;assembly=mscorlib"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         AllowsTransparency="True"
@@ -17,6 +18,7 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
+        <clr:String x:Key="ContextMenuTheme">DarkOnly</clr:String>
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />

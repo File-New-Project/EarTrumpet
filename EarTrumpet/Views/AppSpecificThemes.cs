@@ -62,7 +62,16 @@ namespace EarTrumpet.Views
                 { "ContextMenuItemTextHover", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
                 { "ContextMenuItemTextDisabled", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
                 { "ContextMenuItemGlyph", new LightOrDark(new Lookup("ImmersiveLightBaseMedium"), new Lookup("ImmersiveDarkBaseMedium")) },
-                { "ContextMenuSeparator", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) }
+                { "ContextMenuSeparator", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
+
+                { "ContextMenuBackgroundDarkOnly", new Lookup("ImmersiveDarkChromeMediumLow") },
+                { "ContextMenuBorderDarkOnly", new Lookup("ImmersiveDarkChromeHigh") },
+                { "ContextMenuItemBackgroundHoverDarkOnly", new Lookup("ImmersiveDarkListLow") },
+                { "ContextMenuItemTextDarkOnly", new Lookup("ImmersiveDarkBaseHigh") },
+                { "ContextMenuItemTextHoverDarkOnly", new Lookup("ImmersiveDarkBaseHigh") },
+                { "ContextMenuItemTextDisabledDarkOnly", new Lookup("ImmersiveDarkBaseMediumLow") },
+                { "ContextMenuItemGlyphDarkOnly", new Lookup("ImmersiveDarkBaseMedium") },
+                { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow") }
             };
         }
 

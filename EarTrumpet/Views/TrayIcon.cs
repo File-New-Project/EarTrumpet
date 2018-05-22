@@ -45,7 +45,7 @@ namespace EarTrumpet.Views
 
         private ContextMenu BuildContextMenu()
         {
-            var cm = new ContextMenu();
+            var cm = new ContextMenu { Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style };
 
             cm.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += (_, __) =>
@@ -54,12 +54,14 @@ namespace EarTrumpet.Views
                 cm.Focus();
             };
 
+            var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;
             var AddItem = new Action<string, ICommand>((displayName, action) =>
             {
                 cm.Items.Add(new MenuItem
                 {
                     Header = displayName,
-                    Command = action
+                    Command = action,
+                    Style = menuItemStyle
                 });
             });
 
@@ -87,14 +89,16 @@ namespace EarTrumpet.Views
             }
 
             // Static items
-            cm.Items.Add(new Separator());
+            var separatorStyle = Application.Current.FindResource("MenuItemSeparatorDarkOnly") as Style;
+
+            cm.Items.Add(new Separator { Style = separatorStyle });
             AddItem(resx.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);
             AddItem(resx.LegacyVolumeMixerText, _trayViewModel.OpenLegacyVolumeMixerCommand);
-            cm.Items.Add(new Separator());
+            cm.Items.Add(new Separator { Style = separatorStyle });
             AddItem(resx.PlaybackDevicesText, _trayViewModel.OpenPlaybackDevicesCommand);
             AddItem(resx.RecordingDevicesText, _trayViewModel.OpenRecordingDevicesCommand);
             AddItem(resx.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
-            cm.Items.Add(new Separator());
+            cm.Items.Add(new Separator { Style = separatorStyle });
             AddItem(resx.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
             AddItem(resx.ContextMenuSendFeedback, _trayViewModel.StartAppServiceAndFeedbackHubCommand);
             AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);

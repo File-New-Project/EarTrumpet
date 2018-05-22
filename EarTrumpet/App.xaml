@@ -379,7 +379,7 @@
                                     <Setter TargetName="Border" Property="Padding" Value="0,0,5,5"/>
                                     <Setter TargetName="Border" Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="4" Opacity="0.8" ShadowDepth="1"/>
+                                            <DropShadowEffect BlurRadius="4" Opacity="0.8" ShadowDepth="2"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -434,6 +434,87 @@
             <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
+            </Style>
+
+            <Style x:Key="ContextMenuDarkOnly" TargetType="{x:Type ContextMenu}">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+                <Setter Property="MinWidth" Value="311" />
+                <Setter Property="HasDropShadow" Value="True" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDarkOnly}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ContextMenu}">
+                            <Border x:Name="Border" >
+                                <Border Background="{DynamicResource ContextMenuBackgroundDarkOnly}" BorderThickness="1" Padding="2,8" BorderBrush="{DynamicResource ContextMenuBorderDarkOnly}">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                </Border>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasDropShadow" Value="true">
+                                    <Setter TargetName="Border" Property="CornerRadius" Value="0" />
+                                    <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                                    <Setter TargetName="Border" Property="Padding" Value="0,0,5,5"/>
+                                    <Setter TargetName="Border" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="4" Opacity="0.8" ShadowDepth="2"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MenuItemSeparatorDarkOnly" TargetType="{x:Type Separator}">
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Margin" Value="8,4,8,4" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Separator}">
+                            <Line Stroke="{DynamicResource ContextMenuSeparatorDarkOnly}" StrokeThickness="1" X2="1" Stretch="Fill" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <ControlTemplate x:Key="MenuItemTemplateDarkOnly" TargetType="{x:Type MenuItem}">
+                <Border x:Name="Border" BorderThickness="0" Padding="10,7,10,7" Background="Transparent">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
+                            <ColumnDefinition Width="13" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Check" Width="14" Height="14" Visibility="Visible" Margin="0,0,12,0" BorderThickness="1">
+                            <TextBlock x:Name="CheckMark" Visibility="Hidden" SnapsToDevicePixels="False" FontFamily="Segoe MDL2 Assets" FontSize="12" Text="&#xE0E7;" Foreground="{DynamicResource ContextMenuItemGlyphDarkOnly}" />
+                        </Border>
+                        <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" />
+                        <TextBlock x:Name="InputGestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}" Margin="5,2,0,2" DockPanel.Dock="Right" FontSize="10" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger Property="IsHighlighted" Value="true">
+                        <Setter Property="Background" TargetName="Border" Value="{DynamicResource ContextMenuItemBackgroundHoverDarkOnly}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="MenuItemDarkOnly" TargetType="{x:Type MenuItem}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Template" Value="{StaticResource MenuItemTemplateDarkOnly}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
