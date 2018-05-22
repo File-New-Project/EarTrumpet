@@ -182,9 +182,11 @@
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{1} percent volume - {0}"</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>"Muted - {0}"</value>
+    <comment>0 = localized app name</comment>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Apps</value>
