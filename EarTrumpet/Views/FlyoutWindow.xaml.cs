@@ -59,6 +59,13 @@ namespace EarTrumpet.Views
                 MouseEnter += (_, __) => _rawListener.Stop();
             };
 
+            // Disable Alt+F4 because we hide instead.
+            Closing += (_, e) =>
+            {
+                e.Cancel = true;
+                _viewModel.BeginClose();
+            };
+
             _themeService.ThemeChanged += () => UpdateTheme();
 
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.BeginClose());
