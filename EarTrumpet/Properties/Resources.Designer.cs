@@ -106,7 +106,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collapse to show only the default device.
+        ///   Looks up a localized string similar to Collapse to show only the default playback device.
         /// </summary>
         public static string CollapseAccessibleText {
             get {
@@ -133,7 +133,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send Feedback.
+        ///   Looks up a localized string similar to Send feedback.
         /// </summary>
         public static string ContextMenuSendFeedback {
             get {
@@ -142,7 +142,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Always use the default output device..
+        ///   Looks up a localized string similar to Always use the default playback device.
         /// </summary>
         public static string DefaultDeviceText {
             get {
@@ -187,7 +187,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expand to show all devices.
+        ///   Looks up a localized string similar to Expand to show all playback devices.
         /// </summary>
         public static string ExpandAccessibleText {
             get {
@@ -214,7 +214,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press a key combination:.
+        ///   Looks up a localized string similar to Type a key combination:.
         /// </summary>
         public static string HotKeySelectionText {
             get {
@@ -241,7 +241,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move this app to another output device.
+        ///   Looks up a localized string similar to Assign this app to a playback device.
         /// </summary>
         public static string MoveButtonAccessibleText {
             get {
@@ -250,7 +250,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It doesn&apos;t look like you have any audio devices..
+        ///   Looks up a localized string similar to It doesn&apos;t look like you have any playback devices..
         /// </summary>
         public static string NoDevicesPanelContent {
             get {
@@ -259,7 +259,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet: No Device.
+        ///   Looks up a localized string similar to EarTrumpet: No playback devices.
         /// </summary>
         public static string NoDeviceTrayText {
             get {
@@ -286,7 +286,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string SelectHotkeySaveButtonText {
             get {
@@ -295,7 +295,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a hotkey.
+        ///   Looks up a localized string similar to Choose a keyboard shortcut.
         /// </summary>
         public static string SelectHotkeyWindowTitle {
             get {
