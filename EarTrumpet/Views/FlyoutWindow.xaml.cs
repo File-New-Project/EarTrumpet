@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Views
 {
@@ -17,7 +15,6 @@ namespace EarTrumpet.Views
         private readonly MainViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
         private readonly ThemeService _themeService;
-        private VolumeControlPopup _popup;
         private bool _expandOnCloseThenOpen;
         private RawInputListener _rawListener;
 
@@ -32,13 +29,12 @@ namespace EarTrumpet.Views
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
 
-            _viewModel.AppExpanded += OnAppExpanded;
-            _viewModel.AppCollapsed += (_, __) => OnAppCollapsed();
+            _viewModel.AppExpanded += (_, e) => AppPopup.PositionAndShow(this, e);
+            _viewModel.AppCollapsed += (_, __) => AppPopup.HideWithAnimation();
 
             DataContext = _viewModel;
 
-            _popup = AppPopup;
-            _popup.Closed += (_, __) => _viewModel.CollapseApp();
+            AppPopup.Closed += (_, __) => _viewModel.CollapseApp();
 
             Deactivated += (_, __) => _viewModel.BeginClose();
 
@@ -135,68 +131,6 @@ namespace EarTrumpet.Views
                     }
                     break;
             }
-        }
-
-        private void OnAppExpanded(object sender, AppExpandedEventArgs e)
-        {
-            _popup.PositionAndShow(this, e);
-
-            LightDismissBorder.Visibility = Visibility.Visible;
-
-            if (!SystemParameters.MenuAnimation)
-            {
-                return;
-            }
-
-            var fadeAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
-                FillBehavior = FillBehavior.HoldEnd,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0,
-                To = 1,
-            };
-
-            Storyboard.SetTarget(fadeAnimation, LightDismissBorder);
-            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
-
-            var storyboard = new Storyboard();
-            storyboard.FillBehavior = FillBehavior.HoldEnd;
-            storyboard.Children.Add(fadeAnimation);
-            storyboard.Begin(LightDismissBorder);
-        }
-
-        private void OnAppCollapsed()
-        {
-            _popup.HideWithAnimation();
-
-            if (!SystemParameters.MenuAnimation)
-            {
-                LightDismissBorder.Visibility = Visibility.Collapsed;
-                return;
-            }
-
-            var fadeAnimation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 1,
-                To = 0,
-            };
-
-            Storyboard.SetTarget(fadeAnimation, LightDismissBorder);
-            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
-
-            var storyboard = new Storyboard();
-            storyboard.FillBehavior = FillBehavior.Stop;
-            storyboard.Children.Add(fadeAnimation);
-            storyboard.Completed += (s, e) =>
-            {
-                LightDismissBorder.Visibility = Visibility.Collapsed;
-                LightDismissBorder.Opacity = 1;
-            };
-            storyboard.Begin(LightDismissBorder);
         }
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -300,7 +234,7 @@ namespace EarTrumpet.Views
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _popup.HideWithAnimation();
+            AppPopup.HideWithAnimation();
             e.Handled = true;
         }
 

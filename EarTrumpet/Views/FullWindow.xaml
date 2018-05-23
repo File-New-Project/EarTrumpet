@@ -1,10 +1,10 @@
 ﻿<Window x:Class="EarTrumpet.Views.FullWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:bcl="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.Views"
         Name="WindowRoot"
+        Title="{x:Static resx:Resources.FullWindowTitleText}"
         MinWidth="300"
         MinHeight="300"
         SizeToContent="WidthAndHeight"
@@ -262,6 +262,73 @@
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="EnterLightDismiss_AnimationsOff" />
+                                <StopStoryboard BeginStoryboardName="ExitLightDismiss_AnimationsOff" />
+                                <BeginStoryboard Name="EnterLightDismiss_AnimationsOn">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00.15" />
+                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="EnterLightDismiss_AnimationsOff" />
+                                <StopStoryboard BeginStoryboardName="ExitLightDismiss_AnimationsOff" />
+                                <BeginStoryboard Name="ExitLightDismiss_AnimationsOn">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="00:00:00.15" />
+                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00.15" Value="{x:Static Visibility.Collapsed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Source={StaticResource ThemeService}, Path=AnimationsEnabled}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="EnterLightDismiss_AnimationsOn" />
+                                <StopStoryboard BeginStoryboardName="ExitLightDismiss_AnimationsOn" />
+                                <BeginStoryboard Name="EnterLightDismiss_AnimationsOff">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="EnterLightDismiss_AnimationsOn" />
+                                <StopStoryboard BeginStoryboardName="ExitLightDismiss_AnimationsOn" />
+                                <BeginStoryboard Name="ExitLightDismiss_AnimationsOff">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
                 </Style>
             </Border.Style>
             <Border Margin="0,0,0,14" Opacity="0.8">
