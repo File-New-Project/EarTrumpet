@@ -219,7 +219,7 @@
 
                     <Button Height="{StaticResource DeviceTitleCellHeight}"
                             AutomationProperties.Name="{Binding ExpandAccessibleText}"
-                            Click="ExpandCollapse_Click"
+                            Command="{Binding ExpandCollapse}"
                             IsEnabled="{Binding CanExpand}"
                             Style="{StaticResource ExpandCollapseButtonStyle}">
                         <Button.Content>

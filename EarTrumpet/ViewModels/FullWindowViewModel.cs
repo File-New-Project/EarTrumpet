@@ -23,15 +23,15 @@ namespace EarTrumpet.ViewModels
 
         public void Close()
         {
-            OnAppCollapsed();
+            CollapseApp();
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void OnAppExpanded(AppItemViewModel vm, UIElement container)
+        public void ExpandApp(AppItemViewModel vm, UIElement container)
         {
             if (IsShowingModalDialog)
             {
-                OnAppCollapsed();
+                CollapseApp();
             }
 
             AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
@@ -40,7 +40,7 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(IsShowingModalDialog));
         }
 
-        public void OnAppCollapsed()
+        public void CollapseApp()
         {
             if (IsShowingModalDialog)
             {

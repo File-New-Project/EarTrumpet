@@ -14,31 +14,23 @@ namespace EarTrumpet.Views
     {
         private readonly MainViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
-        private readonly ThemeService _themeService;
-        private bool _expandOnCloseThenOpen;
         private RawInputListener _rawListener;
 
         internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 
-            _themeService = (ThemeService)App.Current.Resources["ThemeService"];
-
             _mainViewModel = mainViewModel;
             _viewModel = flyoutViewModel;
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.WindowSizeInvalidated += (_, __) => UpdateWindowBounds();
-
             _viewModel.AppExpanded += (_, e) => AppPopup.PositionAndShow(this, e);
             _viewModel.AppCollapsed += (_, __) => AppPopup.HideWithAnimation();
 
             DataContext = _viewModel;
 
             AppPopup.Closed += (_, __) => _viewModel.CollapseApp();
-
             Deactivated += (_, __) => _viewModel.BeginClose();
-
-            PreviewKeyDown += (_, e) => KeyboardNavigator.OnKeyDown(this, ref e);
 
             this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
@@ -46,8 +38,9 @@ namespace EarTrumpet.Views
             {
                 this.Cloak();
 
-                _themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
-
+                var themeService = (ThemeService)App.Current.Resources["ThemeService"];
+                themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+                themeService.ThemeChanged += () => UpdateTheme();
                 UpdateTheme();
 
                 _rawListener = new RawInputListener(this);
@@ -61,8 +54,6 @@ namespace EarTrumpet.Views
                 e.Cancel = true;
                 _viewModel.BeginClose();
             };
-
-            _themeService.ThemeChanged += () => UpdateTheme();
 
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.BeginClose());
 
@@ -81,27 +72,23 @@ namespace EarTrumpet.Views
             }
         }
 
-        private void OnStateChanged(object sender, FlyoutViewModel.ViewState e)
+        private void OnStateChanged(object sender, FlyoutViewModel.CloseReason e)
         {
-            switch (e)
+            switch (_viewModel.State)
             {
                 case FlyoutViewModel.ViewState.Opening:
-
+                    _rawListener.Start();
                     Show();
                     UpdateWindowBounds();
                     DevicesList.Focus();
 
                     WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
-
-                    _rawListener.Start();
-
                     break;
 
                 case FlyoutViewModel.ViewState.Closing_Stage1:
-
                     _rawListener.Stop();
 
-                    if (_expandOnCloseThenOpen)
+                    if (e == FlyoutViewModel.CloseReason.CloseThenOpen)
                     {
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
@@ -116,18 +103,6 @@ namespace EarTrumpet.Views
                         this.Cloak();
                         Hide();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
-                    }
-
-                    break;
-
-                case FlyoutViewModel.ViewState.Hidden:
-
-                    if (_expandOnCloseThenOpen)
-                    {
-                        _expandOnCloseThenOpen = false;
-
-                        _viewModel.DoExpandCollapse();
-                        _viewModel.BeginOpen();
                     }
                     break;
             }
@@ -145,6 +120,10 @@ namespace EarTrumpet.Views
                 {
                     _viewModel.BeginClose();
                 }
+            }
+            else
+            {
+                KeyboardNavigator.OnKeyDown(this, ref e);
             }
         }
 
@@ -223,13 +202,6 @@ namespace EarTrumpet.Views
             }
 
             this.Move(newTop * this.DpiHeightFactor(), newLeft * this.DpiWidthFactor(), newHeight * this.DpiHeightFactor(), Width * this.DpiWidthFactor());
-        }
-
-        private void ExpandCollapse_Click(object sender, RoutedEventArgs e)
-        {
-            _expandOnCloseThenOpen = true;
-
-            _viewModel.BeginClose();
         }
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)

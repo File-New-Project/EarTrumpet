@@ -23,10 +23,9 @@ namespace EarTrumpet.Views
 
             InitializeComponent();
 
-            AppPopup.Closed += (_, __) => _viewModel.OnAppCollapsed();
-
-            LocationChanged += (_, __) => _viewModel.OnAppCollapsed();
-            SizeChanged += (_, __) => _viewModel.OnAppCollapsed();
+            AppPopup.Closed += (_, __) => _viewModel.CollapseApp();
+            LocationChanged += (_, __) => _viewModel.CollapseApp();
+            SizeChanged += (_, __) => _viewModel.CollapseApp();
             DataContext = _viewModel;
 
             PreviewKeyDown += FullWindow_PreviewKeyDown;
@@ -46,7 +45,7 @@ namespace EarTrumpet.Views
                 this.SetWindowBlur(true, true);
             };
 
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.OnAppCollapsed());
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.CollapseApp());
         }
 
         public static void ActivateSingleInstance()
@@ -70,7 +69,7 @@ namespace EarTrumpet.Views
             {
                 if (_viewModel.IsShowingModalDialog)
                 {
-                    _viewModel.OnAppCollapsed();
+                    _viewModel.CollapseApp();
                 }
                 else
                 {
@@ -90,7 +89,7 @@ namespace EarTrumpet.Views
 
         private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
         {
-            _viewModel.OnAppExpanded(e.ViewModel, e.Container);
+            _viewModel.ExpandApp(e.ViewModel, e.Container);
         }
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)

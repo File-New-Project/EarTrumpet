@@ -9,7 +9,7 @@ namespace EarTrumpet.ViewModels
     public class SettingsViewModel : BindableBase
     {
         SettingsService.HotkeyData _hotkey;
-        public SettingsService.HotkeyData Hotkey
+        internal SettingsService.HotkeyData Hotkey
         {
             get => _hotkey;
             set

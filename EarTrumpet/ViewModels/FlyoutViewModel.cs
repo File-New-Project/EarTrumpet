@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Misc;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -21,10 +22,16 @@ namespace EarTrumpet.ViewModels
             Closing_Stage2, // Delay stage
         }
 
+        public enum CloseReason
+        {
+            Normal,
+            CloseThenOpen,
+        }
+
         public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
         public event EventHandler<object> WindowSizeInvalidated = delegate { };
         public event EventHandler<object> AppCollapsed = delegate { };
-        public event EventHandler<ViewState> StateChanged = delegate { };
+        public event EventHandler<CloseReason> StateChanged = delegate { };
 
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
@@ -34,11 +41,13 @@ namespace EarTrumpet.ViewModels
         public ViewState State { get; private set; }
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
+        public RelayCommand ExpandCollapse { get; private set; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly MainViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
+        private bool _expandOnCloseThenOpen;
 
         internal FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
         {
@@ -55,6 +64,8 @@ namespace EarTrumpet.ViewModels
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
+
+            ExpandCollapse = new RelayCommand(() => BeginClose(FlyoutViewModel.CloseReason.CloseThenOpen));
         }
 
         private void HideTimer_Tick(object sender, EventArgs e)
@@ -205,7 +216,7 @@ namespace EarTrumpet.ViewModels
             var oldState = State;
 
             State = state;
-            StateChanged(this, state);
+            StateChanged(this, _expandOnCloseThenOpen ? CloseReason.CloseThenOpen : CloseReason.Normal);
 
             if (state == ViewState.Open)
             {
@@ -215,6 +226,16 @@ namespace EarTrumpet.ViewModels
                 {
                     _closedOnOpen = false;
                     BeginClose();
+                }
+            }
+            else if (state == ViewState.Hidden)
+            {
+                if (_expandOnCloseThenOpen)
+                {
+                    _expandOnCloseThenOpen = false;
+
+                    DoExpandCollapse();
+                    BeginOpen();
                 }
             }
             else if (state == ViewState.Closing_Stage1)
@@ -263,10 +284,15 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void BeginClose()
+        public void BeginClose(CloseReason reason = CloseReason.Normal)
         {
             if (State == ViewState.Open)
             {
+                if (reason == CloseReason.CloseThenOpen)
+                {
+                    _expandOnCloseThenOpen = true;
+                }
+
                 ChangeState(ViewState.Closing_Stage1);
             }
             else if (State == ViewState.Opening)
