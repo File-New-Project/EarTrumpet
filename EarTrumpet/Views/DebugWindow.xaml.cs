@@ -14,7 +14,9 @@ namespace EarTrumpet.Views
             List<ColorData> colors = new List<ColorData>();
             foreach(var c in AccentColorService.GetImmersiveColors())
             {
-                colors.Add(new ColorData { Color = new SolidColorBrush(c.Value), Name = c.Key });
+                var color = c.Value;
+                color.A = 255; // Very misleading to render on white otherwise!
+                colors.Add(new ColorData { Color = new SolidColorBrush(color), Name = c.Key });
             }
 
             Colors.ItemsSource = colors;

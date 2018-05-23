@@ -405,10 +405,9 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
-                            <Line Stretch="Fill"
-                                  Stroke="{TemplateBinding Foreground}"
-                                  StrokeThickness="1"
-                                  X2="1" />
+                            <Rectangle HorizontalAlignment="Stretch"
+                                       Fill="{TemplateBinding Foreground}"
+                                       Height="1" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -422,22 +421,19 @@
 
             <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
                 <Border x:Name="Border"
-                        Padding="10,7,10,7"
+                        Height="32"
                         Background="Transparent"
                         BorderThickness="0">
-                    <Grid>
+                    <Grid Margin="0,-1,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                            <ColumnDefinition Width="32"
+                                              SharedSizeGroup="Icon" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
-                            <ColumnDefinition Width="13" />
                         </Grid.ColumnDefinitions>
                         <Border x:Name="Check"
                                 Width="14"
                                 Height="14"
-                                Margin="0,0,12,0"
-                                BorderThickness="1"
-                                Visibility="Visible">
+                                BorderThickness="1">
                             <TextBlock x:Name="CheckMark"
                                        FontFamily="Segoe MDL2 Assets"
                                        FontSize="12"
@@ -450,12 +446,6 @@
                                           Grid.Column="1"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
-                        <TextBlock x:Name="InputGestureText"
-                                   Grid.Column="2"
-                                   Margin="5,2,0,2"
-                                   DockPanel.Dock="Right"
-                                   FontSize="10"
-                                   Text="{TemplateBinding InputGestureText}" />
                     </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
@@ -488,28 +478,23 @@
             <Style x:Key="MenuItemSeparatorDarkOnly"
                    BasedOn="{StaticResource BaseSeparatorStyle}"
                    TargetType="{x:Type Separator}">
-                <Setter Property="Foreground"
-                        Value="{DynamicResource ContextMenuSeparatorDarkOnly}" />
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuSeparatorDarkOnly}" />
             </Style>
 
             <ControlTemplate x:Key="MenuItemTemplateDarkOnly" TargetType="{x:Type MenuItem}">
                 <Border x:Name="Border"
-                        Padding="10,7,10,7"
+                        Height="32"
                         Background="Transparent"
                         BorderThickness="0">
-                    <Grid>
+                    <Grid Margin="0,-1,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                            <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
-                            <ColumnDefinition Width="13" />
                         </Grid.ColumnDefinitions>
                         <Border x:Name="Check"
                                 Width="14"
                                 Height="14"
-                                Margin="0,0,12,0"
-                                BorderThickness="1"
-                                Visibility="Visible">
+                                BorderThickness="1">
                             <TextBlock x:Name="CheckMark"
                                        FontFamily="Segoe MDL2 Assets"
                                        FontSize="12"
@@ -522,12 +507,6 @@
                                           Grid.Column="1"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
-                        <TextBlock x:Name="InputGestureText"
-                                   Grid.Column="2"
-                                   Margin="5,2,0,2"
-                                   DockPanel.Dock="Right"
-                                   FontSize="10"
-                                   Text="{TemplateBinding InputGestureText}" />
                     </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
