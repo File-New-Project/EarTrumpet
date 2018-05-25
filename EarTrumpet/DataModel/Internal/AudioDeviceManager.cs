@@ -149,8 +149,10 @@ namespace EarTrumpet.DataModel.Internal
                             _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
                         }
                     }
-                    catch(COMException ex)
+                    catch(Exception ex)
                     {
+                        // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
+                        // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
                         Debug.WriteLine(ex);
                     }
                 }
