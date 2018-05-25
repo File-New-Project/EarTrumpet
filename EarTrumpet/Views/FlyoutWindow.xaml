@@ -123,6 +123,7 @@
                         Height="2"
                         HorizontalAlignment="Left"
                         Background="{DynamicResource PeakMeterHotColor}" />
+
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualStateGroup.Transitions>

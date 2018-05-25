@@ -37,6 +37,7 @@
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
+            <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
 
             <Style x:Key="CaptionButtonStyle" TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
@@ -163,7 +164,7 @@
             <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="Height" Value="24" />
-                <Setter Property="Width" Value="8" />
+                <Setter Property="Width" Value="{StaticResource SliderThumbWidth}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">

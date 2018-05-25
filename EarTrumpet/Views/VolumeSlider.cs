@@ -15,7 +15,9 @@ namespace EarTrumpet.Views
         public static readonly DependencyProperty PeakValueProperty = DependencyProperty.Register(
           "PeakValue", typeof(float), typeof(VolumeSlider), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
 
-        Border PeakMeter => (Border)GetTemplateChild("PeakMeter");
+        private double _thumbWidth;
+
+        private Border PeakMeter => (Border)GetTemplateChild("PeakMeter");
 
         public VolumeSlider() : base()
         {
@@ -26,6 +28,8 @@ namespace EarTrumpet.Views
             TouchMove += OnTouchMove;
             MouseMove += OnMouseMove;
             MouseWheel += OnMouseWheel;
+
+            _thumbWidth = (double)TryFindResource("SliderThumbWidth");
         }
 
         protected override Size ArrangeOverride(Size arrangeBounds)
@@ -45,7 +49,16 @@ namespace EarTrumpet.Views
             var meter = PeakMeter;
             if (meter != null)
             {
-                meter.Width = ActualWidth * PeakValue * (Value / 100f);
+                var newWidth = (ActualWidth * PeakValue * (Value / 100f)) - _thumbWidth;
+                if (newWidth > 0)
+                {
+                    meter.Width = newWidth;
+                }
+
+                if (Value == 0)
+                {
+                    meter.Width = 0;
+                }
             }
         }
 
