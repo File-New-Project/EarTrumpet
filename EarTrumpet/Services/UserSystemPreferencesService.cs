@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Interop;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Globalization;
 
 namespace EarTrumpet.Services
@@ -15,8 +14,9 @@ namespace EarTrumpet.Services
         private static bool ReadPersonalizationSetting(string key)
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+            using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
             {
-                return (int)baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue(key, 0) > 0;
+                return ((int)subKey.GetValue(key, 0)) > 0;
             }
         }
     }

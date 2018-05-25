@@ -63,7 +63,10 @@ namespace EarTrumpet.Services
             }
             else
             {
-                ret = (string)Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true).GetValue(key);
+                using (var regKey = Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true))
+                {
+                    ret = (string)regKey.GetValue(key);
+                }
             }
 
             return ret;
@@ -103,7 +106,10 @@ namespace EarTrumpet.Services
             }
             else
             {
-                Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true).SetValue(key, value);
+                using (var regKey = Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true))
+                {
+                    regKey.SetValue(key, value);
+                }
             }
         }
     }
