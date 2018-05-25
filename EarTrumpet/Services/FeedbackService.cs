@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
+﻿using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation;
 
@@ -23,8 +18,12 @@ namespace EarTrumpet.Services
                 {
                     _appServiceConnection.Dispose();
                     _appServiceConnection = null;
-                    App.Current.Exit -= CloseFeedbackServiceAtExit;
                 };
+            }
+            else
+            {
+                _appServiceConnection.Dispose();
+                _appServiceConnection = null;
             }
         }
 
@@ -33,17 +32,11 @@ namespace EarTrumpet.Services
             if (_appServiceConnection == null)
             {
                 _appServiceConnection = new AppServiceConnection();
-                App.Current.Exit += CloseFeedbackServiceAtExit;
             }
 
             _appServiceConnection.AppServiceName = "SendFeedback";
             _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
             _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
-        }
-
-        private static void CloseFeedbackServiceAtExit(object sender, System.Windows.ExitEventArgs e)
-        {
-            CloseAppService();
         }
 
         public static void CloseAppService()
