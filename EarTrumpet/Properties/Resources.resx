@@ -215,4 +215,7 @@
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
     <value>Open EarTrumpet flyout</value>
   </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Use legacy EarTrumpet icon</value>
+  </data>
 </root>

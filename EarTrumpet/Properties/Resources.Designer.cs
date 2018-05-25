@@ -304,6 +304,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
+        /// </summary>
+        public static string SettingsUseLegacyEarTrumpetIcon {
+            get {
+                return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Settings  / About.
         /// </summary>
         public static string SettingsWindowText {

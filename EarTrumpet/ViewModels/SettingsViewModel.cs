@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -26,14 +27,13 @@ namespace EarTrumpet.ViewModels
         public RelayCommand OpenAboutCommand { get; }
         public RelayCommand OpenFeedbackCommand { get; }
 
-        public string AboutText
+        public bool UseLegacyIcon
         {
-            get
-            {
-                var version = Assembly.GetEntryAssembly().GetName().Version;
-                return $"EarTrumpet {version}";
-            }
+            get => SettingsService.UseLegacyIcon;
+            set => SettingsService.UseLegacyIcon = value;
         }
+
+        public string AboutText => $"EarTrumpet {Assembly.GetEntryAssembly().GetName().Version}";
 
         internal SettingsViewModel()
         {

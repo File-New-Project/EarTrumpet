@@ -16,6 +16,7 @@ namespace EarTrumpet.ViewModels
     {
         public enum IconId
         {
+            Invalid = 0,
             Muted = 120,
             SpeakerZeroBars = 121,
             SpeakerOneBar = 122,
@@ -41,7 +42,8 @@ namespace EarTrumpet.ViewModels
         private readonly IAudioDeviceManager _deviceManager;
         private readonly MainViewModel _mainViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
-        private IconId _currentIcon = IconId.OriginalIcon;
+        private IconId _currentIcon = IconId.Invalid;
+        private bool _useLegacyIcon;
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
 
@@ -74,6 +76,9 @@ namespace EarTrumpet.ViewModels
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
             }
 
+            _useLegacyIcon = SettingsService.UseLegacyIcon;
+            SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
+
             UpdateTrayIcon();
 
             OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
@@ -88,34 +93,47 @@ namespace EarTrumpet.ViewModels
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 
-        void UpdateTrayIcon()
+        private void SettingsService_UseLegacyIconChanged(object sender, bool e)
+        {
+            _useLegacyIcon = e;
+            UpdateTrayIcon();
+        }
+
+        private void UpdateTrayIcon()
         {
             int volume = _deviceManager.VirtualDefaultDevice.Volume.ToVolumeInt();
             IconId desiredIcon = IconId.OriginalIcon;
 
-            if (!_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+            if (_useLegacyIcon)
             {
-                desiredIcon = IconId.NoDevice;
+                desiredIcon = IconId.OriginalIcon;
             }
-            else if (_deviceManager.VirtualDefaultDevice.IsMuted)
+            else
             {
-                desiredIcon = IconId.Muted;
-            }
-            else if (volume == 0)
-            {
-                desiredIcon = IconId.SpeakerZeroBars;
-            }
-            else if (volume >= 1 && volume < 33)
-            {
-                desiredIcon = IconId.SpeakerOneBar;
-            }
-            else if (volume >= 33 && volume < 66)
-            {
-                desiredIcon = IconId.SpeakerTwoBars;
-            }
-            else if (volume >= 66 && volume <= 100)
-            {
-                desiredIcon = IconId.SpeakerThreeBars;
+                if (!_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+                {
+                    desiredIcon = IconId.NoDevice;
+                }
+                else if (_deviceManager.VirtualDefaultDevice.IsMuted)
+                {
+                    desiredIcon = IconId.Muted;
+                }
+                else if (volume == 0)
+                {
+                    desiredIcon = IconId.SpeakerZeroBars;
+                }
+                else if (volume >= 1 && volume < 33)
+                {
+                    desiredIcon = IconId.SpeakerOneBar;
+                }
+                else if (volume >= 33 && volume < 66)
+                {
+                    desiredIcon = IconId.SpeakerTwoBars;
+                }
+                else if (volume >= 66 && volume <= 100)
+                {
+                    desiredIcon = IconId.SpeakerThreeBars;
+                }
             }
 
             if (desiredIcon != _currentIcon)

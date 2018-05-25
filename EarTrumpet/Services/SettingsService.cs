@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -9,6 +10,8 @@ namespace EarTrumpet.Services
 {
     public class SettingsService
     {
+        public static event EventHandler<bool> UseLegacyIconChanged;
+
         public class HotkeyData
         {
             public KeyboardHook.ModifierKeys Modifiers;
@@ -52,6 +55,28 @@ namespace EarTrumpet.Services
                 WriteSetting("Hotkey", value);
             }
         }
+
+        public static bool UseLegacyIcon
+        {
+            get
+            {
+                var ret = ReadSetting("UseLegacyIcon");
+                if (ret == null)
+                {
+                    return false;
+                }
+
+                bool.TryParse(ret, out bool isUseLegacyIcon);
+                return isUseLegacyIcon;
+            }
+            set
+            {
+                WriteSetting("UseLegacyIcon", value.ToString());
+
+                UseLegacyIconChanged?.Invoke(null, UseLegacyIcon);
+            }
+        }
+
 
         static string ReadSetting(string key)
         {
