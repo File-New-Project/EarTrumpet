@@ -1,49 +1,14 @@
-﻿using Windows.ApplicationModel;
-using Windows.ApplicationModel.AppService;
-using Windows.Foundation;
+﻿using System.Diagnostics;
 
 namespace EarTrumpet.Services
 {
     class FeedbackService
     {
-        private static AppServiceConnection _appServiceConnection;
-
-        private static void AppServiceConnectionCompleted(IAsyncOperation<AppServiceConnectionStatus> operation, AsyncStatus asyncStatus)
+        public static void OpenFeedbackHub()
         {
-            var status = operation.GetResults();
-            if (status == AppServiceConnectionStatus.Success)
+            using (Process.Start("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet"))
             {
-                var secondOperation = _appServiceConnection.SendMessageAsync(null);
-                secondOperation.Completed = (_, __) =>
-                {
-                    _appServiceConnection.Dispose();
-                    _appServiceConnection = null;
-                };
-            }
-            else
-            {
-                _appServiceConnection.Dispose();
-                _appServiceConnection = null;
-            }
-        }
 
-        public static void StartAppServiceAndFeedbackHub()
-        {
-            if (_appServiceConnection == null)
-            {
-                _appServiceConnection = new AppServiceConnection();
-            }
-
-            _appServiceConnection.AppServiceName = "SendFeedback";
-            _appServiceConnection.PackageFamilyName = Package.Current.Id.FamilyName;
-            _appServiceConnection.OpenAsync().Completed = AppServiceConnectionCompleted;
-        }
-
-        public static void CloseAppService()
-        {
-            if (_appServiceConnection != null)
-            {
-                _appServiceConnection.Dispose();
             }
         }
     }

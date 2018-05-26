@@ -24,9 +24,6 @@
         <desktop:Extension Category="windows.startupTask" Executable="EarTrumpet\EarTrumpet.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="EarTrumpet" Enabled="true" DisplayName="EarTrumpet" />
         </desktop:Extension>
-        <uap:Extension Category="windows.appService" EntryPoint="EarTrumpet.BackgroundTasks.FeedbackTask">
-          <uap:AppService Name="SendFeedback" />
-        </uap:Extension>
         <Extension Category="windows.updateTask" EntryPoint="EarTrumpet.BackgroundTasks.UpdateTask" />
       </Extensions>
     </Application>

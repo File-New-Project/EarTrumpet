@@ -34,7 +34,7 @@ namespace EarTrumpet.ViewModels
         public RelayCommand OpenLegacyVolumeMixerCommand { get; }
         public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
         public RelayCommand<DeviceViewModel> ChangeDeviceCommand { get; }
-        public RelayCommand StartAppServiceAndFeedbackHubCommand { get; }
+        public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
 
@@ -88,7 +88,7 @@ namespace EarTrumpet.ViewModels
             OpenLegacyVolumeMixerCommand = new RelayCommand(() => Process.Start("sndvol.exe"));
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
-            StartAppServiceAndFeedbackHubCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
+            OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }

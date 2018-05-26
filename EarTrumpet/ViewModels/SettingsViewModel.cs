@@ -40,7 +40,7 @@ namespace EarTrumpet.ViewModels
             Hotkey = SettingsService.Hotkey;
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
-            OpenFeedbackCommand = new RelayCommand(FeedbackService.StartAppServiceAndFeedbackHub);
+            OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
         }
 
         private void OpenDiagnostics()

@@ -103,7 +103,7 @@ namespace EarTrumpet.Views
             AddItem(resx.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
             cm.Items.Add(new Separator { Style = separatorStyle });
             AddItem(resx.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
-            AddItem(resx.ContextMenuSendFeedback, _trayViewModel.StartAppServiceAndFeedbackHubCommand);
+            AddItem(resx.ContextMenuSendFeedback, _trayViewModel.OpenFeedbackHubCommand);
             AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);
 
             return cm;

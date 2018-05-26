@@ -225,3 +225,5 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 # Auto-generated files
 EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
 EarTrumpet.Interop/mmdeviceapi.h
+/EarTrumpet.Package/BundleArtifacts
+/EarTrumpet.Package/_pkginfo.txt
