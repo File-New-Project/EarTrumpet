@@ -99,7 +99,8 @@
 
                 <CheckBox Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                           Foreground="Red"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
+                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
+                          Visibility="Collapsed" />
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
