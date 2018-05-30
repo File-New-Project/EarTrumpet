@@ -4,6 +4,7 @@ using EarTrumpet.Services;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Windows.ApplicationModel;
 
 namespace EarTrumpet.ViewModels
 {
@@ -33,7 +34,11 @@ namespace EarTrumpet.ViewModels
             set => SettingsService.UseLegacyIcon = value;
         }
 
-        public string AboutText => $"EarTrumpet {Assembly.GetEntryAssembly().GetName().Version}";
+        public string AboutText => $"EarTrumpet " +
+            $"{Package.Current.Id.Version.Major}." +
+            $"{Package.Current.Id.Version.Minor}." +
+            $"{Package.Current.Id.Version.Build}." +
+            $"{Package.Current.Id.Version.Revision}";
 
         internal SettingsViewModel()
         {
