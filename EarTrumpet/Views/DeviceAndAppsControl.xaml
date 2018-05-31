@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                <TextBlock Margin="0,0,30,0"
+                <TextBlock Margin="0,0,20,0"
                            Style="{DynamicResource DeviceTitleTextStyle}"
                            Text="{Binding Device.DisplayName}"
                            TextTrimming="CharacterEllipsis" />
