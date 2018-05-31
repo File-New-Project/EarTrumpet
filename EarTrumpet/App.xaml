@@ -445,6 +445,7 @@
                         </Border>
                         <ContentPresenter x:Name="HeaderHost"
                                           Grid.Column="1"
+                                          Margin="0,0,8,0"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
                     </Grid>
@@ -506,6 +507,7 @@
                         </Border>
                         <ContentPresenter x:Name="HeaderHost"
                                           Grid.Column="1"
+                                          Margin="0,0,8,0"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
                     </Grid>
