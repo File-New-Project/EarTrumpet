@@ -17,7 +17,10 @@
             </Grid.RowDefinitions>
 
             <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                <TextBlock Style="{DynamicResource DeviceTitleTextStyle}" Text="{Binding Device.DisplayName}" TextTrimming="CharacterEllipsis" Margin="0,0,30,0" />
+                <TextBlock Margin="0,0,30,0"
+                           Style="{DynamicResource DeviceTitleTextStyle}"
+                           Text="{Binding Device.DisplayName}"
+                           TextTrimming="CharacterEllipsis" />
             </Border>
 
             <ListViewItem Name="DeviceListItem"
@@ -35,8 +38,7 @@
                             HorizontalAlignment="Center"
                             Background="Transparent"
                             MouseDown="Icon_MouseDown"
-                            Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                            ToolTip="{Binding Device.DisplayName}">
+                            Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
 
                         <Grid>
                             <TextBlock FontSize="24"

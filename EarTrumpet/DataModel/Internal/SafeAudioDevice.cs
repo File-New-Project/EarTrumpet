@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using EarTrumpet.Interop.MMDeviceAPI;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace EarTrumpet.DataModel.Internal
 {
     // Avoid device invalidation COMExceptions from bubbling up out of devices that have been removed.
-    class SafeAudioDevice : IAudioDevice
+    class SafeAudioDevice : IAudioDevice, IAudioDeviceInternal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,5 +38,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             PropertyChanged?.Invoke(this, e);
         }
+
+        public void DevicePropertiesChanged(IMMDevice dev) => ((IAudioDeviceInternal)_device).DevicePropertiesChanged(dev);
     }
 }

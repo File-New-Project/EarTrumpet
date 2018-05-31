@@ -9,7 +9,7 @@ namespace EarTrumpet.ViewModels
 {
     public class DeviceViewModel : AudioSessionViewModel
     {
-        public string DisplayName { get; private set; }
+        public string DisplayName => _device.DisplayName;
         public ObservableCollection<AppItemViewModel> Apps { get; private set; }
         public string DeviceIconText { get; private set; }
         public string DeviceIconTextBackground { get; private set; }
@@ -31,7 +31,6 @@ namespace EarTrumpet.ViewModels
 
             _device.PropertyChanged += Device_PropertyChanged;
             _device.Groups.CollectionChanged += Sessions_CollectionChanged;
-            DisplayName = _device.DisplayName;
 
             foreach (var session in _device.Groups)
             {
@@ -47,6 +46,10 @@ namespace EarTrumpet.ViewModels
                 e.PropertyName == nameof(_device.Volume))
             {
                 UpdateMasterVolumeIcon();
+            }
+            else if (e.PropertyName == nameof(_device.DisplayName))
+            {
+                RaisePropertyChanged(nameof(DisplayName));
             }
         }
 

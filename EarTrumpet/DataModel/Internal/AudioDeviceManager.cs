@@ -62,7 +62,15 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultPlaybackDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                _defaultPlaybackDevice = (newDeviceId == null) ? null : FindDevice(newDeviceId);
+                if (newDeviceId == null)
+                {
+                    _defaultPlaybackDevice = null;
+                }
+                else
+                {
+                    FindDevice(newDeviceId, out _defaultPlaybackDevice);
+                }
+
                 DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
             }
         }
@@ -83,7 +91,14 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultCommunicationsDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                _defaultCommunicationsDevice = (newDeviceId == null) ? null : FindDevice(newDeviceId);
+                if (newDeviceId == null)
+                {
+                    _defaultCommunicationsDevice = null;
+                }
+                else
+                {
+                    FindDevice(newDeviceId, out _defaultCommunicationsDevice);
+                }
             }
         }
 
@@ -125,21 +140,17 @@ namespace EarTrumpet.DataModel.Internal
             s_PolicyConfigClient.SetDefaultEndpoint(device.Id, role);
         }
 
-        private bool HasDevice(string deviceId)
+        private bool FindDevice(string deviceId, out IAudioDevice found)
         {
-            return _devices.Any(d => d.Id == deviceId);
-        }
-
-        private IAudioDevice FindDevice(string deviceId)
-        {
-            return _devices.First(d => d.Id == deviceId);
+            found = _devices.FirstOrDefault(d => d.Id == deviceId);
+            return found != null;
         }
 
         void IMMNotificationClient.OnDeviceAdded(string pwstrDeviceId)
         {
             _dispatcher.SafeInvoke(() =>
             {
-                if (!HasDevice(pwstrDeviceId))
+                if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
                 {
                     try
                     {
@@ -163,10 +174,9 @@ namespace EarTrumpet.DataModel.Internal
         {
             _dispatcher.SafeInvoke(() =>
             {
-                if (HasDevice(pwstrDeviceId))
+                if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
                 {
-                    var device = FindDevice(pwstrDeviceId);
-                    _devices.Remove(device);
+                    _devices.Remove(dev);
                 }
             });
         }
@@ -198,7 +208,16 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key) { }
+        void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
+        {
+            if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
+            {
+                if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
+                {
+                    ((IAudioDeviceInternal)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
+                }
+            }
+        }
 
         public void OnSessionCreated(IAudioDeviceSession session)
         {

@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice, IAudioDeviceInternal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -116,6 +116,17 @@ namespace EarTrumpet.DataModel.Internal
             var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
             _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
             Ole32.PropVariantClear(ref pv);
+        }
+
+        public void DevicePropertiesChanged(IMMDevice dev)
+        {
+            _device = dev;
+            ReadDisplayName();
+
+            _dispatcher.SafeInvoke(() =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+            });
         }
     }
 }

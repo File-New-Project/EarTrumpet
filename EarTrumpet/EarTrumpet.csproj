@@ -82,6 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="DataModel\Internal\IAudioDeviceInternal.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />

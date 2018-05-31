@@ -8,6 +8,22 @@ namespace EarTrumpet.Interop
     {
         public Guid fmtid;
         public UIntPtr pid;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            var pkey = ((PROPERTYKEY)obj);
+            return pkey.fmtid == fmtid && pkey.pid == pid;
+        }
+
+        public override int GetHashCode()
+        {
+            return fmtid.GetHashCode() + pid.GetHashCode();
+        }
     }
 
     [ComImport]
