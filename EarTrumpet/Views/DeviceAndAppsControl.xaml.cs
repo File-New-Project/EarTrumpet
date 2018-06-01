@@ -47,7 +47,10 @@ namespace EarTrumpet.Views
 
         private void TouchSlider_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Media.SystemSounds.Beep.Play();
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
         }
 
         private void AppVolumeControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
