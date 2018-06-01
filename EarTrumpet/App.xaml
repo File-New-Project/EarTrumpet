@@ -359,6 +359,7 @@
 
             <Style x:Key="BaseContextMenuStyle" TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"></Setter>
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
                 <Setter Property="MinWidth" Value="311" />
