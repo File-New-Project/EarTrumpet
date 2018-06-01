@@ -99,7 +99,7 @@
 
                 <CheckBox Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                           IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                          Style="{StaticResource CheckboxStyle}" />
+                          Style="{StaticResource CheckboxStyle}" HorizontalAlignment="Left" />
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />

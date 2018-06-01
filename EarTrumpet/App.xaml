@@ -359,7 +359,7 @@
 
             <Style x:Key="BaseContextMenuStyle" TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"></Setter>
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal"/>
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
                 <Setter Property="MinWidth" Value="311" />
@@ -536,7 +536,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type CheckBox}">
