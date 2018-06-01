@@ -12,10 +12,6 @@ namespace EarTrumpet.Services
 
     class AppInformationService
     {
-        static AppInformationService()
-        {
-        }
-
         private static IShellItem2 GetShellItemForAppByAumid(string aumid)
         {
             var iid = typeof(IShellItem2).GUID;
@@ -113,10 +109,12 @@ namespace EarTrumpet.Services
             {
                 try
                 {
-                    var proc = Process.GetProcessById(processId);
-                    if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                    using (var proc = Process.GetProcessById(processId))
                     {
-                        return proc.MainWindowTitle;
+                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                        {
+                            return proc.MainWindowTitle;
+                        }
                     }
                 }
                 catch (Exception ex)

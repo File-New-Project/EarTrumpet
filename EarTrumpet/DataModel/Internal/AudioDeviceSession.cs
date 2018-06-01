@@ -143,9 +143,9 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         _resolvedDisplayName = displayName;
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
-                    }, DispatcherPriority.Background);
+                    });
 
-                    Task.Delay(TimeSpan.FromSeconds(5));
+                    Task.Delay(TimeSpan.FromSeconds(5)).Wait();
                 });
 
                 _refreshDisplayNameTask.Start();

@@ -6,7 +6,7 @@ namespace EarTrumpet.Extensions
 {
     public static class DispatcherExtensions
     {
-        public static void SafeInvoke(this Dispatcher dispatcher, Action method, DispatcherPriority priority = DispatcherPriority.Normal)
+        public static void SafeInvoke(this Dispatcher dispatcher, Action method)
         {
             if (dispatcher.Thread.ManagedThreadId == Thread.CurrentThread.ManagedThreadId)
             {
@@ -14,7 +14,7 @@ namespace EarTrumpet.Extensions
             }
             else
             {
-                dispatcher.BeginInvoke(method, priority);
+                dispatcher.BeginInvoke(method);
             }
         }
     }
