@@ -166,7 +166,15 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
-            ReadVolumeAndMute();
+            // We're racing and the device might be dead, so don't fail below.
+            try
+            {
+                ReadVolumeAndMute();
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
             _dispatcher.SafeInvoke(() =>
             {
