@@ -62,14 +62,7 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultPlaybackDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null)
-                {
-                    _defaultPlaybackDevice = null;
-                }
-                else
-                {
-                    FindDevice(newDeviceId, out _defaultPlaybackDevice);
-                }
+                FindDevice(newDeviceId, out _defaultPlaybackDevice);
 
                 DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
             }
@@ -91,14 +84,7 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultCommunicationsDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                if (newDeviceId == null)
-                {
-                    _defaultCommunicationsDevice = null;
-                }
-                else
-                {
-                    FindDevice(newDeviceId, out _defaultCommunicationsDevice);
-                }
+                FindDevice(newDeviceId, out _defaultCommunicationsDevice);
             }
         }
 
@@ -109,8 +95,7 @@ namespace EarTrumpet.DataModel.Internal
             get => _defaultPlaybackDevice;
             set
             {
-                if (_defaultPlaybackDevice == null ||
-                    value.Id != _defaultPlaybackDevice.Id)
+                if (_defaultPlaybackDevice == null || value.Id != _defaultPlaybackDevice.Id)
                 {
                     SetDefaultDevice(value);
                 }
@@ -122,8 +107,7 @@ namespace EarTrumpet.DataModel.Internal
             get => _defaultCommunicationsDevice;
             set
             {
-                if (_defaultCommunicationsDevice == null ||
-                    value.Id != _defaultCommunicationsDevice.Id)
+                if (_defaultCommunicationsDevice == null || value.Id != _defaultCommunicationsDevice.Id)
                 {
                     SetDefaultDevice(value, ERole.eCommunications);
                 }
@@ -137,11 +121,25 @@ namespace EarTrumpet.DataModel.Internal
                 s_PolicyConfigClient = (IPolicyConfig)new PolicyConfigClient();
             }
 
-            s_PolicyConfigClient.SetDefaultEndpoint(device.Id, role);
+            // Racing with the system, the device may not be valid anymore.
+            try
+            {
+                s_PolicyConfigClient.SetDefaultEndpoint(device.Id, role);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private bool FindDevice(string deviceId, out IAudioDevice found)
         {
+            if (deviceId == null)
+            {
+                found = null;
+                return false;
+            }
+
             found = _devices.FirstOrDefault(d => d.Id == deviceId);
             return found != null;
         }
@@ -160,7 +158,7 @@ namespace EarTrumpet.DataModel.Internal
                             _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
                         // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
@@ -214,7 +212,15 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
                 {
-                    ((IAudioDeviceInternal)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
+                    // We're racing with the system, the device may not be resolvable anymore.
+                    try
+                    {
+                        ((IAudioDeviceInternal)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
                 }
             }
         }
