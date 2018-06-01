@@ -48,5 +48,13 @@
     <SolidColorBrush x:Key="ContextMenuItemGlyph">Grey</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuSeparator">Grey</SolidColorBrush>
 
+    <SolidColorBrush x:Key="CheckBoxBorder">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBorderHover">White</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBorderPressed">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBorderChecked">Transparent</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBackground">Transparent</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBackgroundHover">Transparent</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBackgroundPressed">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBackgroundChecked">Green</SolidColorBrush>
 
 </ResourceDictionary>

@@ -530,6 +530,70 @@
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Template" Value="{StaticResource MenuItemTemplateDarkOnly}" />
             </Style>
+
+            <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="8,0,0,0" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="checkBoxBorder" BorderBrush="{DynamicResource CheckBoxBorder}" BorderThickness="2" Height="20" Width="20" Background="{DynamicResource CheckBoxBackground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <TextBlock x:Name="optionMark" 
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="16"
+                                       Foreground="White"
+                                       SnapsToDevicePixels="False"
+                                       Text="&#xE0E7;"
+                                       Opacity="0" />
+                                </Border>
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBackgroundHover}"/>
+                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBorderHover}"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBackgroundPressed}"/>
+                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBorderPressed}"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                                    <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBackgroundChecked}"/>
+                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBorderChecked}"/>
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBackgroundChecked}"/>
+                                        <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBorderHover}"/>
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBackgroundPressed}"/>
+                                        <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBoxBorderPressed}"/>
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

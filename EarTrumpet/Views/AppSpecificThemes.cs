@@ -71,7 +71,16 @@ namespace EarTrumpet.Views
                 { "ContextMenuItemTextHoverDarkOnly", new Lookup("ImmersiveDarkBaseHigh") },
                 { "ContextMenuItemTextDisabledDarkOnly", new Lookup("ImmersiveDarkBaseMediumLow") },
                 { "ContextMenuItemGlyphDarkOnly", new Lookup("ImmersiveDarkBaseMedium") },
-                { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow") }
+                { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow") },
+
+                { "CheckBoxBorder",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh")) },
+                { "CheckBoxBorderHover",  new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
+                { "CheckBoxBorderPressed",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium")) },
+                { "CheckBoxBorderChecked",  new Lookup("ImmersiveSystemAccent") },
+                { "CheckBoxBackground",  new Static(Colors.Transparent) },
+                { "CheckBoxBackgroundHover",  new Static(Colors.Transparent) },
+                { "CheckBoxBackgroundPressed",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium")) },
+                { "CheckBoxBackgroundChecked",  new Lookup("ImmersiveSystemAccent") }
             };
         }
 

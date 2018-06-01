@@ -98,9 +98,8 @@
                 </StackPanel>
 
                 <CheckBox Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                          Foreground="Red"
                           IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                          Visibility="Collapsed" />
+                          Style="{StaticResource CheckboxStyle}" />
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
