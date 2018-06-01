@@ -5,7 +5,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -144,15 +143,8 @@ namespace EarTrumpet.DataModel.Internal
 
         private void ReadVolumeAndMute()
         {
-            try
-            {
-                _simpleVolume.GetMasterVolume(out _volume);
-                _isMuted = _simpleVolume.GetMute() != 0;
-            }
-            catch(COMException ex)
-            {
-                Debug.WriteLine(ex);
-            }
+            _simpleVolume.GetMasterVolume(out _volume);
+            _isMuted = _simpleVolume.GetMute() != 0;
         }
 
         private void DisconnectSession()

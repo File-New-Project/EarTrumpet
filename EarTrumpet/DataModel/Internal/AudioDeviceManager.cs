@@ -10,10 +10,9 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
+    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
         public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
-        public event EventHandler<IAudioDeviceSession> SessionCreated;
 
         public ObservableCollection<IAudioDevice> Devices => _devices;
 
@@ -155,7 +154,7 @@ namespace EarTrumpet.DataModel.Internal
                         IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
                         if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                         {
-                            _devices.Add(new SafeAudioDevice(new AudioDevice(device, this, _dispatcher)));
+                            _devices.Add(new SafeAudioDevice(new AudioDevice(device)));
                         }
                     }
                     catch (Exception ex)
@@ -223,11 +222,6 @@ namespace EarTrumpet.DataModel.Internal
                     }
                 }
             }
-        }
-
-        public void OnSessionCreated(IAudioDeviceSession session)
-        {
-            SessionCreated?.Invoke(this, session);
         }
     }
 }

@@ -4,7 +4,6 @@ using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
@@ -19,48 +18,26 @@ namespace EarTrumpet.DataModel.Internal
         private IAudioEndpointVolume _deviceVolume;
         private AudioDeviceSessionCollection _sessions;
         private IAudioMeterInformation _meter;
-        private IAudioDeviceManagerInternal _manager;
         private string _id;
         private string _displayName;
         private float _volume;
         private bool _isMuted;
 
-        public AudioDevice(IMMDevice device, IAudioDeviceManagerInternal manager, Dispatcher dispatcher)
+        public AudioDevice(IMMDevice device)
         {
             _device = device;
-            _dispatcher = dispatcher;
-            _manager = manager;
+            _dispatcher = App.Current.Dispatcher;
             _id = device.GetId();
             _deviceVolume = device.Activate<IAudioEndpointVolume>();
 
             _deviceVolume.RegisterControlChangeNotify(this);
             _meter = device.Activate<IAudioMeterInformation>();
             _sessions = new AudioDeviceSessionCollection(_device);
-            _sessions.Sessions.CollectionChanged += Sessions_CollectionChanged;
 
             _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
             _isMuted = _deviceVolume.GetMute() != 0;
 
             ReadDisplayName();
-        }
-
-        ~AudioDevice()
-        {
-            if (_sessions != null)
-            {
-                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
-            }
-        }
-
-        private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Debug.Assert(e.NewItems.Count == 1);
-                    _manager.OnSessionCreated((IAudioDeviceSession)e.NewItems[0]);
-                    break;
-            }
         }
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
