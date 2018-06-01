@@ -4,6 +4,7 @@ using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using EarTrumpet.Views;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EarTrumpet
 {

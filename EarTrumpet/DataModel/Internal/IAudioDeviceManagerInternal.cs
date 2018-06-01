@@ -1,4 +1,4 @@
-﻿namespace EarTrumpet.DataModel
+﻿namespace EarTrumpet.DataModel.Internal
 {
     interface IAudioDeviceManagerInternal
     {
