@@ -1,6 +1,4 @@
-﻿using EarTrumpet.Interop;
-using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
@@ -9,7 +7,6 @@ namespace EarTrumpet.DataModel
     {
         string DisplayName { get; }
         string ExeName { get; }
-        IAudioDevice Device { get; }
         uint BackgroundColor { get; }
         Guid GroupingParam { get; }
         string IconPath { get; }
@@ -17,7 +14,8 @@ namespace EarTrumpet.DataModel
         bool IsSystemSoundsSession { get; }
         int ProcessId { get; }
         string AppId { get; }
-        AudioSessionState State { get; }
+        SessionState State { get; }
         ObservableCollection<IAudioDeviceSession> Children { get; }
+        void MoveFromDevice();
     }
 }

@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,27 +12,25 @@ namespace EarTrumpet.DataModel.Internal
 
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
 
-        public IAudioDevice Device => _sessions[0].Device;
+        public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;
 
-        public uint BackgroundColor => _sessions[0].BackgroundColor;
+        public string DisplayName => _sessions.Count > 0 ? _sessions[0].DisplayName : null;
 
-        public string DisplayName => _sessions[0].DisplayName;
-
-        public string ExeName => _sessions[0].ExeName;
+        public string ExeName => _sessions.Count > 0 ? _sessions[0].ExeName : null;
 
         public Guid GroupingParam { get; private set; }
 
-        public string IconPath => _sessions[0].IconPath;
+        public string IconPath => _sessions.Count > 0 ? _sessions[0].IconPath : null;
 
         public string Id => _id;
 
-        public bool IsDesktopApp => _sessions[0].IsDesktopApp;
+        public bool IsDesktopApp => _sessions.Count > 0 ? _sessions[0].IsDesktopApp : false;
 
-        public string AppId => _sessions[0].AppId;
+        public string AppId { get; private set; }
 
         public bool IsMuted
         {
-            get => _sessions[0].IsMuted;
+            get => _sessions.Count > 0 ? _sessions[0].IsMuted : false;
             set
             {
                 foreach (var session in _sessions)
@@ -43,17 +40,17 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public bool IsSystemSoundsSession => _sessions[0].IsSystemSoundsSession;
+        public bool IsSystemSoundsSession => _sessions.Count > 0 ? _sessions[0].IsSystemSoundsSession : false;
 
-        public float PeakValue => _sessions.Max(s => s.PeakValue);
+        public float PeakValue => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue) : 0;
 
-        public int ProcessId => _sessions[0].ProcessId;
+        public int ProcessId => _sessions.Count > 0 ? _sessions[0].ProcessId : -1;
 
-        public AudioSessionState State => _sessions[0].State;
+        public SessionState State => _sessions.Count > 0 ? _sessions[0].State : SessionState.Invalid;
 
         public float Volume
         {
-            get => _sessions[0].Volume;
+            get => _sessions.Count > 0 ? _sessions[0].Volume : 1;
             set
             {
                 foreach (var session in _sessions)
@@ -65,12 +62,21 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
+        public void MoveFromDevice()
+        {
+            foreach(var session in _sessions)
+            {
+                session.MoveFromDevice();
+            }
+        }
+
         private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private string _id;
 
         public AudioDeviceSessionGroup(IAudioDeviceSession session)
         {
             GroupingParam = session.GroupingParam; // can change at runtime
+            AppId = session.AppId;
 
             AddSession(session);
         }

@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -9,8 +8,6 @@ namespace EarTrumpet.DataModel.Internal
     class SafeAudioDeviceSession : IAudioDeviceSession
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public IAudioDevice Device => _session.Device;
 
         public uint BackgroundColor => SafeCallHelper.GetValue(() => _session.BackgroundColor);
 
@@ -26,7 +23,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public int ProcessId => SafeCallHelper.GetValue(() => _session.ProcessId);
 
-        public AudioSessionState State => SafeCallHelper.GetValue(() => _session.State);
+        public SessionState State => SafeCallHelper.GetValue(() => _session.State);
 
         public string DisplayName => SafeCallHelper.GetValue(() => _session.DisplayName);
 
@@ -42,6 +39,8 @@ namespace EarTrumpet.DataModel.Internal
         public float PeakValue => SafeCallHelper.GetValue(() => _session.PeakValue);
 
         public ObservableCollection<IAudioDeviceSession> Children => SafeCallHelper.GetValue(() => _session.Children);
+
+        public void MoveFromDevice() => _session.MoveFromDevice();
 
         private readonly IAudioDeviceSession _session;
 

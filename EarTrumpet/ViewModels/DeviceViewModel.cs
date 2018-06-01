@@ -107,7 +107,11 @@ namespace EarTrumpet.ViewModels
 
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     Debug.Assert(e.OldItems.Count == 1);
-                    Apps.Remove(Apps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                    var existing = Apps.FirstOrDefault(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id);
+                    if (existing != null)
+                    {
+                        Apps.Remove(existing);
+                    }
                     break;
 
                 default:
@@ -123,6 +127,7 @@ namespace EarTrumpet.ViewModels
             {
                 if (a.DoesGroupWith(newSession))
                 {
+                    // Remove the fake app entry.
                     Apps.Remove(a);
                     break;
                 }
@@ -145,13 +150,17 @@ namespace EarTrumpet.ViewModels
 
             if (!hasExistingAppGroup)
             {
+                // Add a fake app entry.
                 Apps.AddSorted(app, AppItemViewModel.CompareByExeName);
             }
         }
 
         public void OnAppMovedFromDevice(AppItemViewModel app)
         {
-            Apps.Remove(app);
+            foreach(var a in app.ChildApps.ToArray()) // Enumeration will modify collection.
+            {
+                a.MoveFromDevice();
+            }
         }
 
         public void MakeDefaultPlaybackDevice()

@@ -14,8 +14,6 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IAudioDevice Device { get; }
-
         public float Volume
         {
             get => _volume;
@@ -62,7 +60,32 @@ namespace EarTrumpet.DataModel.Internal
 
         public string AppId => _appInfo.PackageInstallPath;
 
-        public AudioSessionState State => _isDisconnected ? AudioSessionState.Expired : _session.GetState();
+        public SessionState State
+        {
+            get
+            {
+                if (_isDisconnected)
+                {
+                    return SessionState.Expired;
+                }
+                else if (_isMoved)
+                {
+                    return SessionState.Moved;
+                }
+
+                switch (_session.GetState())
+                {
+                    case AudioSessionState.Active:
+                        return SessionState.Active;
+                    case AudioSessionState.Inactive:
+                        return SessionState.Inactive;
+                    case AudioSessionState.Expired:
+                        return SessionState.Expired;
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+        }
 
         public string RawDisplayName => _session.GetDisplayName();
 
@@ -84,11 +107,11 @@ namespace EarTrumpet.DataModel.Internal
         private float _volume;
         private bool _isMuted;
         private bool _isDisconnected;
+        private bool _isMoved;
 
-        public AudioDeviceSession(IAudioSessionControl session, IAudioDevice device, Dispatcher dispatcher)
+        public AudioDeviceSession(IAudioSessionControl session)
         {
-            _dispatcher = dispatcher;
-            Device = device;
+            _dispatcher = App.Current.Dispatcher;
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
@@ -98,7 +121,7 @@ namespace EarTrumpet.DataModel.Internal
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId,
                 (displayName) =>
                 {
-                    dispatcher.SafeInvoke(() =>
+                    _dispatcher.SafeInvoke(() =>
                     {
                         _resolvedDisplayName = displayName;
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
@@ -111,6 +134,12 @@ namespace EarTrumpet.DataModel.Internal
             }
 
             ReadVolumeAndMute();
+        }
+
+        public void MoveFromDevice()
+        {
+            _isMoved = true;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
         }
 
         private void ReadVolumeAndMute()
@@ -156,6 +185,14 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
+            if (_isMoved)
+            {
+                if (NewState == AudioSessionState.Active)
+                {
+                    _isMoved = false;
+                }
+            }
+
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));

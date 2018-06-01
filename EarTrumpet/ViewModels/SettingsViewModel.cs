@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using System;
@@ -34,11 +35,7 @@ namespace EarTrumpet.ViewModels
             set => SettingsService.UseLegacyIcon = value;
         }
 
-        public string AboutText => $"EarTrumpet " +
-            $"{Package.Current.Id.Version.Major}." +
-            $"{Package.Current.Id.Version.Minor}." +
-            $"{Package.Current.Id.Version.Build}." +
-            $"{Package.Current.Id.Version.Revision}";
+        public string AboutText { get; private set; }
 
         internal SettingsViewModel()
         {
@@ -46,6 +43,17 @@ namespace EarTrumpet.ViewModels
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
+
+            string aboutFormat = "EarTrumpet {0}.{1}.{2}.{3}";
+            if (App.Current.HasIdentity())
+            {
+                var ver = Package.Current.Id.Version;
+                AboutText = string.Format(aboutFormat, ver.Major, ver.Minor, ver.Build, ver.Revision);
+            }
+            else
+            {
+                AboutText = string.Format(aboutFormat, 0, 0, 0, 0);
+            }
         }
 
         private void OpenDiagnostics()

@@ -49,16 +49,7 @@ namespace EarTrumpet.Views
             var meter = PeakMeter;
             if (meter != null)
             {
-                var newWidth = (ActualWidth * PeakValue * (Value / 100f)) - _thumbWidth;
-                if (newWidth > 0)
-                {
-                    meter.Width = newWidth;
-                }
-
-                if (Value == 0)
-                {
-                    meter.Width = 0;
-                }
+                meter.Width = Math.Max(0, (ActualWidth - _thumbWidth) * PeakValue * (Value / 100f));
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
 using EarTrumpet.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -15,12 +16,11 @@ namespace EarTrumpet.DataModel.Internal
 
         private Dispatcher _dispatcher;
         private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
-        private IAudioDevice _device;
+        private List<IAudioDeviceSession> _movedSessions = new List<IAudioDeviceSession>();
 
-        public AudioDeviceSessionCollection(IMMDevice device, IAudioDevice audioDevice, Dispatcher dispatcher)
+        public AudioDeviceSessionCollection(IMMDevice device)
         {
-            _device = audioDevice;
-            _dispatcher = dispatcher;
+            _dispatcher = App.Current.Dispatcher;
 
             var sessionManager = device.Activate<IAudioSessionManager2>();
             sessionManager.RegisterSessionNotification(this);
@@ -45,7 +45,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session, _device, _dispatcher)));
+                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session)));
             }
             catch(COMException ex)
             {
@@ -127,10 +127,29 @@ namespace EarTrumpet.DataModel.Internal
 
             if (e.PropertyName == nameof(session.State))
             {
-                if (session.State == AudioSessionState.Expired)
+                if (session.State == SessionState.Expired)
                 {
                     RemoveSession(session);
                 }
+                else if (session.State == SessionState.Moved)
+                {
+                    RemoveSession(session);
+                    _movedSessions.Add(session);
+                    session.PropertyChanged += MovedSession_PropertyChanged;
+                }
+            }
+        }
+
+        private void MovedSession_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var session = (IAudioDeviceSession)sender;
+
+            if (e.PropertyName == nameof(session.State) && session.State == SessionState.Active)
+            {
+                _movedSessions.Remove(session);
+                session.PropertyChanged -= MovedSession_PropertyChanged;
+
+                AddSession(session);
             }
         }
     }

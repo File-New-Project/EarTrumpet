@@ -118,5 +118,13 @@ namespace EarTrumpet.ViewModels
         public bool DoesGroupWith(AppItemViewModel app) => (_session.AppId == app._session.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void MoveFromDevice()
+        {
+            foreach(var session in _session.Children.ToArray()) // Enumeration will remove items.
+            {
+                session.MoveFromDevice();
+            }
+        }
     }
 }
