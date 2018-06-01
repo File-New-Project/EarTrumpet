@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -98,17 +97,12 @@ namespace EarTrumpet.ViewModels
 
             try
             {
-                // Update the output for all processes represented by this app.
-                foreach (var pid in app.ChildApps.Select(c => c.ProcessId).ToSet())
-                {
-                    AudioPolicyConfigService.SetDefaultEndPoint(dev?.Id, pid);
-                }
+                app.MoveAllSessionsToDevice(dev?.Id);
 
                 // Update the UI if the device logically changed places.
                 if (oldDevice != newDevice)
                 {
                     newDevice.OnAppMovedToDevice(app);
-                    oldDevice.OnAppMovedFromDevice(app);
                 }
             }
             catch (Exception ex)

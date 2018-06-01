@@ -6,7 +6,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace EarTrumpet.Services
+namespace EarTrumpet.DataModel.Internal.Services
 {
     public class ZombieProcessException : Exception { }
 

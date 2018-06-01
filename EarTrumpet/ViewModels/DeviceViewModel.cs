@@ -155,14 +155,6 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void OnAppMovedFromDevice(AppItemViewModel app)
-        {
-            foreach(var a in app.ChildApps.ToArray()) // Enumeration will modify collection.
-            {
-                a.MoveFromDevice();
-            }
-        }
-
         public void MakeDefaultPlaybackDevice()
         {
             _deviceManager.DefaultPlaybackDevice = _device;

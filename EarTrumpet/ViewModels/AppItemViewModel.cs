@@ -34,7 +34,7 @@ namespace EarTrumpet.ViewModels
 
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
-        public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(_session.ProcessId);
+        public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;
 
         public bool IsExpanded { get; private set; }
 
@@ -98,6 +98,11 @@ namespace EarTrumpet.ViewModels
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        internal void MoveAllSessionsToDevice(string id)
+        {
+            _session.MoveAllSessionsToDevice(id);
         }
 
         public override void TriggerPeakCheck()

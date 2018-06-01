@@ -49,10 +49,10 @@ namespace EarTrumpet.Services
             sb.AppendLine(indent + $"  IconPath: {session.IconPath}");
             sb.AppendLine(indent + $"  GroupingParam: {session.GroupingParam}");
 
-            var persisted = AudioPolicyConfigService.GetDefaultEndPoint(session.ProcessId);
+            var persisted = session.PersistedDefaultEndPointId;
             if (!string.IsNullOrWhiteSpace(persisted))
             {
-                sb.AppendLine(indent + $"  Persisted Output Endpoint: {persisted}");
+                sb.AppendLine(indent + $"  Persisted Playback Endpoint: {persisted}");
             }
 
             return sb.ToString();

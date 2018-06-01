@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.Services
+namespace EarTrumpet.DataModel.Internal.Services
 {
     class AudioPolicyConfigService
     {

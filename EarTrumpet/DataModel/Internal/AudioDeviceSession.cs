@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
 using EarTrumpet.Services;
 using System;
@@ -95,6 +96,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
 
+        public string PersistedDefaultEndPointId => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
+
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
 
         private readonly string _id;
@@ -156,6 +159,12 @@ namespace EarTrumpet.DataModel.Internal
         {
             _isMoved = true;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+        }
+
+        public void MoveAllSessionsToDevice(string id)
+        {
+            // The group should have handled this.
+            throw new NotImplementedException();
         }
 
         private void ReadVolumeAndMute()

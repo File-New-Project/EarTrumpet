@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -60,14 +62,27 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
+        public string PersistedDefaultEndPointId => _sessions.Count > 0 ? _sessions[0].PersistedDefaultEndPointId : null;
+
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
         public void MoveFromDevice()
         {
-            foreach(var session in _sessions)
+            foreach(var session in _sessions.ToArray())
             {
                 session.MoveFromDevice();
             }
+        }
+
+        public void MoveAllSessionsToDevice(string id)
+        {
+            // Update the output for all processes represented by this app.
+            foreach (var pid in _sessions.Select(c => c.ProcessId).ToSet())
+            {
+                AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
+            }
+
+            MoveFromDevice();
         }
 
         private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();

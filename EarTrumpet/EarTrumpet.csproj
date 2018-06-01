@@ -117,7 +117,7 @@
     <Compile Include="Interop\RECT.cs" />
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
-    <Compile Include="Services\ProcessWatcherService.cs" />
+    <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="Views\AppSpecificThemes.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
@@ -130,9 +130,9 @@
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentPolicyService.cs" />
-    <Compile Include="Services\AppInformationService.cs" />
+    <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
-    <Compile Include="Services\AudioPolicyConfigService.cs" />
+    <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
     <Compile Include="Services\DiagnosticsService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\SettingsService.cs" />
