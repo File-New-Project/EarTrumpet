@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -88,7 +89,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string RawDisplayName => _session.GetDisplayName();
 
-        public int ProcessId => (int)((IAudioSessionControl2)_session).GetProcessId();
+        public int ProcessId { get; }
 
         public string Id => _id;
 
@@ -96,17 +97,19 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
 
+        private readonly string _id;
         private readonly IAudioSessionControl _session;
         private readonly ISimpleAudioVolume _simpleVolume;
         private readonly IAudioMeterInformation _meter;
         private readonly Dispatcher _dispatcher;
         private readonly AppInformation _appInfo;
+
         private string _resolvedDisplayName;
-        private string _id;
         private float _volume;
         private bool _isMuted;
         private bool _isDisconnected;
         private bool _isMoved;
+        private Task _refreshDisplayNameTask;
 
         public AudioDeviceSession(IAudioSessionControl session)
         {
@@ -114,18 +117,11 @@ namespace EarTrumpet.DataModel.Internal
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
+            ProcessId = (int)((IAudioSessionControl2)_session).GetProcessId();
+
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
-
-            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId,
-                (displayName) =>
-                {
-                    _dispatcher.SafeInvoke(() =>
-                    {
-                        _resolvedDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
-                    });
-                });
+            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
             if (!IsSystemSoundsSession)
             {
@@ -133,6 +129,27 @@ namespace EarTrumpet.DataModel.Internal
             }
 
             ReadVolumeAndMute();
+            RefreshDisplayName();
+        }
+
+        public void RefreshDisplayName()
+        {
+            if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
+            {
+                _refreshDisplayNameTask = new Task(() =>
+                {
+                    var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
+                    _dispatcher.SafeInvoke(() =>
+                    {
+                        _resolvedDisplayName = displayName;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                    }, DispatcherPriority.Background);
+
+                    Task.Delay(TimeSpan.FromSeconds(5));
+                });
+
+                _refreshDisplayNameTask.Start();
+            }
         }
 
         public void MoveFromDevice()

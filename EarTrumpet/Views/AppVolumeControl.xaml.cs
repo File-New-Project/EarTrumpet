@@ -35,6 +35,11 @@ namespace EarTrumpet.Views
                 Container = (UIElement)this,
             });
         }
+
+        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            App.RefreshDisplayName();
+        }
     }
 
     public class AppVolumeControlExpandedEventArgs

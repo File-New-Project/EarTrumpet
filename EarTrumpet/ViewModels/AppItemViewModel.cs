@@ -113,6 +113,11 @@ namespace EarTrumpet.ViewModels
             base.TriggerPeakCheck();
         }
 
+        public void RefreshDisplayName()
+        {
+            _session.RefreshDisplayName();
+        }
+
         public override float PeakValue => _session.PeakValue;
 
         public bool DoesGroupWith(AppItemViewModel app) => (_session.AppId == app._session.AppId);

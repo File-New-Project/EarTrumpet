@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet.Services
 {
@@ -13,33 +12,36 @@ namespace EarTrumpet.Services
 
     class AppInformationService
     {
-        internal static AppInformation GetInformationForAppByPid(int processId, Action<string> displayNameResolved)
+        static AppInformationService()
+        {
+        }
+
+        private static IShellItem2 GetShellItemForAppByAumid(string aumid)
+        {
+            var iid = typeof(IShellItem2).GUID;
+            return Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
+        }
+
+        internal static AppInformation GetInformationForAppByPid(int processId)
         {
             var appInfo = new AppInformation();
 
             if (processId == 0)
             {
-                displayNameResolved(Properties.Resources.SystemSoundsDisplayName);
                 return GetInformationForSystemProcess();
             }
-
-            bool shouldResolvedDisplayNameFromMainWindow = true;
 
             if (IsImmersiveProcess(processId))
             {
                 appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
                 appInfo.ExeName = appInfo.AppUserModelId;
 
-                var iid = typeof(IShellItem2).GUID;
-                var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appInfo.AppUserModelId, ref iid);
-
-                displayNameResolved(shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay));
-                shouldResolvedDisplayNameFromMainWindow = false;
+                var shellItem = GetShellItemForAppByAumid(appInfo.AppUserModelId);
 
                 appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
-                
+
                 string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
                 if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
                 {
@@ -47,7 +49,7 @@ namespace EarTrumpet.Services
                 }
                 else
                 {
-                    iid = typeof(IResourceMap).GUID;
+                    var iid = typeof(IResourceMap).GUID;
                     var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
                     mrtResourceManager.InitializeForPackage(appInfo.PackageFullName);
                     mrtResourceManager.GetMainResourceMap(ref iid, out IResourceMap map);
@@ -91,28 +93,39 @@ namespace EarTrumpet.Services
                 }
             }
 
-            if (shouldResolvedDisplayNameFromMainWindow)
+            return appInfo;
+        }
+
+        internal static string GetDisplayNameForAppByPid(int processId)
+        {
+            if (processId == 0)
             {
-                Task.Factory.StartNew(() =>
-                {
-                    try
-                    {
-                        using (var proc = Process.GetProcessById(processId))
-                        {
-                            if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
-                            {
-                                displayNameResolved(proc.MainWindowTitle);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
+                return Properties.Resources.SystemSoundsDisplayName;
             }
 
-            return appInfo;
+            if (IsImmersiveProcess(processId))
+            {
+                var aumid = GetAppUserModelIdByPid(processId);
+                var shellItem = GetShellItemForAppByAumid(aumid);
+                return shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+            }
+            else
+            {
+                try
+                {
+                    var proc = Process.GetProcessById(processId);
+                    if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                    {
+                        return proc.MainWindowTitle;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+                return "";
+            }
         }
 
         private static bool IsImmersiveProcess(int processId)

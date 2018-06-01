@@ -6,6 +6,7 @@ namespace EarTrumpet.DataModel
     interface IAudioDeviceSession : IStreamWithVolumeControl
     {
         string DisplayName { get; }
+        void RefreshDisplayName();
         string ExeName { get; }
         uint BackgroundColor { get; }
         Guid GroupingParam { get; }

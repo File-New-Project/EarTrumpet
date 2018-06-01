@@ -59,5 +59,10 @@ namespace EarTrumpet.DataModel.Internal
         {
             PropertyChanged?.Invoke(this, e);
         }
+
+        public void RefreshDisplayName()
+        {
+            _session.RefreshDisplayName();
+        }
     }
 }
