@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.Services;
+using EarTrumpet.Misc;
 using EarTrumpet.ViewModels;
 using System;
 using System.Windows;
@@ -125,13 +125,13 @@ namespace EarTrumpet.Views
             };
 
             moveMenu.PlacementTarget = (UIElement)sender;
-            moveMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            moveMenu.Placement = PlacementMode.Bottom;
             moveMenu.IsOpen = true;
         }
 
         public void PositionAndShow(Window relativeTo, AppExpandedEventArgs e)
         {
-            var taskbarState = TaskbarService.GetWinTaskbarState();
+            var taskbarState = WindowsTaskbar.Current;
             var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
             var ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
@@ -149,10 +149,10 @@ namespace EarTrumpet.Views
             var popupHeight = (HEADER_SIZE + (e.ViewModel.ChildApps.Count * ITEM_SIZE) + volumeListMargin.Bottom + volumeListMargin.Top);
             var popupOriginYScreenCoordinates = (relativeTo.PointToScreen(new Point(0, 0)).Y / this.DpiHeightFactor()) + offsetFromWindow.Y;
 
-            var scaledWorkArea = new Rect(taskbarState.TaskbarScreen.WorkingArea.Left / this.DpiWidthFactor(),
-                taskbarState.TaskbarScreen.WorkingArea.Top / this.DpiHeightFactor(),
-                taskbarState.TaskbarScreen.WorkingArea.Width / this.DpiWidthFactor(),
-                taskbarState.TaskbarScreen.WorkingArea.Height / this.DpiHeightFactor()
+            var scaledWorkArea = new Rect(taskbarState.ContainingScreen.WorkingArea.Left / this.DpiWidthFactor(),
+                taskbarState.ContainingScreen.WorkingArea.Top / this.DpiHeightFactor(),
+                taskbarState.ContainingScreen.WorkingArea.Width / this.DpiWidthFactor(),
+                taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor()
                 );
 
             // If we flow off the bottom
@@ -168,7 +168,7 @@ namespace EarTrumpet.Views
                 }
             }
 
-            Placement = System.Windows.Controls.Primitives.PlacementMode.Absolute;
+            Placement = PlacementMode.Absolute;
             HorizontalOffset = (relativeTo.PointToScreen(new Point(0, 0)).X / this.DpiWidthFactor()) + offsetFromWindow.X;
             VerticalOffset = popupOriginYScreenCoordinates;
 

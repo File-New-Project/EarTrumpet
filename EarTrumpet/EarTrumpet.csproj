@@ -218,7 +218,7 @@
     <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Misc\KeyboardHook.cs" />
-    <Compile Include="Services\TaskbarService.cs" />
+    <Compile Include="Misc\WindowsTaskbar.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
     <Compile Include="Views\TrayIcon.cs" />

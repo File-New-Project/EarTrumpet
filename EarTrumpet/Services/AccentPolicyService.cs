@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -44,21 +45,21 @@ namespace EarTrumpet.Services
                 return flags;
             }
 
-            switch (TaskbarService.GetWinTaskbarState().TaskbarPosition)
+            switch (WindowsTaskbar.Current.Location)
             {
-                case TaskbarPosition.Top:
+                case WindowsTaskbar.Position.Top:
                     flags &= ~User32.AccentFlags.DrawTopBorder;
                     break;
 
-                case TaskbarPosition.Bottom:
+                case WindowsTaskbar.Position.Bottom:
                     flags &= ~User32.AccentFlags.DrawBottomBorder;
                     break;
 
-                case TaskbarPosition.Left:
+                case WindowsTaskbar.Position.Left:
                     flags &= ~User32.AccentFlags.DrawLeftBorder;
                     break;
 
-                case TaskbarPosition.Right:
+                case WindowsTaskbar.Position.Right:
                     flags &= ~User32.AccentFlags.DrawRightBorder;
                     break;
             }

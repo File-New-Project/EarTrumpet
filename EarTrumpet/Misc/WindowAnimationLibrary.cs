@@ -48,30 +48,30 @@ namespace EarTrumpet.Misc
             Storyboard.SetTarget(fadeAnimation, window);
             Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
 
-            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
+            var taskbarPosition = WindowsTaskbar.Current.Location;
 
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Left:
+                case WindowsTaskbar.Position.Left:
                     moveAnimation.To = window.Left;
                     window.Left -= _animationOffset;
                     break;
-                case TaskbarPosition.Right:
+                case WindowsTaskbar.Position.Right:
                     moveAnimation.To = window.Left;
                     window.Left += _animationOffset;
                     break;
-                case TaskbarPosition.Top:
+                case WindowsTaskbar.Position.Top:
                     moveAnimation.To = window.Top;
                     window.Top -= _animationOffset;
                     break;
-                case TaskbarPosition.Bottom:
+                case WindowsTaskbar.Position.Bottom:
                 default:
                     moveAnimation.To = window.Top;
                     window.Top += _animationOffset;
                     break;
             }
 
-            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
+            if (taskbarPosition == WindowsTaskbar.Position.Left || taskbarPosition == WindowsTaskbar.Position.Right)
             {
                 Storyboard.SetTarget(moveAnimation, window);
                 Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
@@ -140,26 +140,26 @@ namespace EarTrumpet.Misc
             Storyboard.SetTarget(fadeAnimation, window);
             Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
 
-            var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
+            var taskbarPosition = WindowsTaskbar.Current.Location;
 
             switch (taskbarPosition)
             {
-                case TaskbarPosition.Left:
+                case WindowsTaskbar.Position.Left:
                     moveAnimation.To = window.Left - _animationOffset;
                     break;
-                case TaskbarPosition.Right:
+                case WindowsTaskbar.Position.Right:
                     moveAnimation.To = window.Left - _animationOffset;
                     break;
-                case TaskbarPosition.Top:
+                case WindowsTaskbar.Position.Top:
                     moveAnimation.To = window.Top - _animationOffset;
                     break;
-                case TaskbarPosition.Bottom:
+                case WindowsTaskbar.Position.Bottom:
                 default:
                     moveAnimation.To = window.Top + _animationOffset;
                     break;
             }
 
-            if (taskbarPosition == TaskbarPosition.Left || taskbarPosition == TaskbarPosition.Right)
+            if (taskbarPosition == WindowsTaskbar.Position.Left || taskbarPosition == WindowsTaskbar.Position.Right)
             {
                 Storyboard.SetTarget(moveAnimation, window);
                 Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));

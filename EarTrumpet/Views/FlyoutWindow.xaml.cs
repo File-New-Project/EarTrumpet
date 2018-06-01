@@ -134,9 +134,9 @@ namespace EarTrumpet.Views
 
         private void UpdateWindowBounds()
         {
-            var taskbarState = TaskbarService.GetWinTaskbarState();
+            var taskbarState = WindowsTaskbar.Current;
 
-            if (taskbarState.TaskbarScreen == null)
+            if (taskbarState.ContainingScreen == null)
             {
                 // we're not ready to lay out. (e.g. RDP transition)
                 return;
@@ -174,9 +174,9 @@ namespace EarTrumpet.Views
             }
 
             bool isOverflowing = false;
-            if (newHeight > taskbarState.TaskbarScreen.WorkingArea.Height)
+            if (newHeight > taskbarState.ContainingScreen.WorkingArea.Height)
             {
-                newHeight = taskbarState.TaskbarScreen.WorkingArea.Height;
+                newHeight = taskbarState.ContainingScreen.WorkingArea.Height;
                 isOverflowing = true;
             }
 
@@ -185,25 +185,25 @@ namespace EarTrumpet.Views
             bool isRTL = UserSystemPreferencesService.IsRTL;
             double newTop = 0;
             double newLeft = 0;
-            switch(taskbarState.TaskbarPosition)
+            switch(taskbarState.Location)
             {
-                case TaskbarPosition.Left:
-                    newLeft = (taskbarState.TaskbarSize.Right / this.DpiWidthFactor());
-                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor()) - newHeight;
+                case WindowsTaskbar.Position.Left:
+                    newLeft = (taskbarState.Size.Right / this.DpiWidthFactor());
+                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor()) - newHeight;
                     break;
-                case TaskbarPosition.Right:
-                    newLeft = (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor()) - newHeight;
+                case WindowsTaskbar.Position.Right:
+                    newLeft = (taskbarState.Size.Left / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor()) - newHeight;
                     break;
-                case TaskbarPosition.Top:
-                    newLeft = isRTL ? (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) :
-                        (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.Bottom / this.DpiHeightFactor());
+                case WindowsTaskbar.Position.Top:
+                    newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor());
                     break;
-                case TaskbarPosition.Bottom:
-                    newLeft = isRTL ? (taskbarState.TaskbarSize.Left / this.DpiWidthFactor()) :
-                        (taskbarState.TaskbarSize.Right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.TaskbarSize.Top / this.DpiHeightFactor()) - newHeight;
+                case WindowsTaskbar.Position.Bottom:
+                    newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
+                    newTop = (taskbarState.Size.Top / this.DpiHeightFactor()) - newHeight;
                     break;
             }
 
