@@ -329,6 +329,10 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="BaseAppListBorderStyle"
+                   TargetType="{x:Type Border}">
+            </Style>
+
             <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />

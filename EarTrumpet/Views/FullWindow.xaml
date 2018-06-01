@@ -26,6 +26,12 @@
         <Style x:Key="AppListStyle"
                BasedOn="{StaticResource BaseAppListStyle}"
                TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style x:Key="AppListBorderStyle"
+               BasedOn="{StaticResource BaseAppListBorderStyle}"
+               TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
         </Style>
 
@@ -246,10 +252,6 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-
-                <Grid Height="6"
-                      VerticalAlignment="Bottom"
-                      Background="{DynamicResource NormalWindowBackground}" />
 
                 <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
             </Grid>

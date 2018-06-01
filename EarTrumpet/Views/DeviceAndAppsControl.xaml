@@ -66,16 +66,19 @@
             </ListViewItem>
         </Grid>
 
-        <ListView Name="AppList"
-                  Grid.Row="1"
-                  AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
-                  ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                  Style="{DynamicResource AppListStyle}">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="viewModels:AppItemViewModel">
-                    <views:AppVolumeControl App="{Binding}" AppExpanded="AppVolumeControl_AppExpanded" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Border Style="{DynamicResource AppListBorderStyle}"
+                Grid.Row="1">
+            <ListView Name="AppList"
+                      AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
+                      ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                      Style="{DynamicResource AppListStyle}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="viewModels:AppItemViewModel">
+                        <views:AppVolumeControl App="{Binding}"
+                                                AppExpanded="AppVolumeControl_AppExpanded" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Border>
     </Grid>
 </UserControl>

@@ -7,7 +7,7 @@
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         AllowsTransparency="True"
-        Background="{DynamicResource WindowBackground}"
+        Background="Transparent"
         Foreground="{DynamicResource WindowForeground}"
         Icon="pack://application:,,,/Assets/Application.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
@@ -28,6 +28,12 @@
                BasedOn="{StaticResource BaseAppListStyle}"
                TargetType="{x:Type ListView}">
             <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style x:Key="AppListBorderStyle"
+               BasedOn="{StaticResource BaseAppListBorderStyle}"
+               TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
@@ -200,6 +206,8 @@
                            Height="{StaticResource NoItemsPaneHeight}"
                            Margin="{StaticResource NoItemsPaneMargin}"
                            HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Background="{DynamicResource WindowBackground}"
                            FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
                            Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                            TextWrapping="Wrap"
