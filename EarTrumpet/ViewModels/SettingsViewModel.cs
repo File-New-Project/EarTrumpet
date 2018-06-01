@@ -44,15 +44,14 @@ namespace EarTrumpet.ViewModels
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
 
-            string aboutFormat = "EarTrumpet {0}.{1}.{2}.{3}";
+            string aboutFormat = "EarTrumpet {0}";
             if (App.Current.HasIdentity())
             {
-                var ver = Package.Current.Id.Version;
-                AboutText = string.Format(aboutFormat, ver.Major, ver.Minor, ver.Build, ver.Revision);
+                AboutText = string.Format(aboutFormat, Package.Current.Id.Version.ToVersionString());
             }
             else
             {
-                AboutText = string.Format(aboutFormat, 0, 0, 0, 0);
+                AboutText = string.Format(aboutFormat, "0.0.0.0");
             }
         }
 

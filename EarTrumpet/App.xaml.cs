@@ -4,7 +4,6 @@ using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using EarTrumpet.Views;
 using System.Windows;
-using System.Windows.Input;
 
 namespace EarTrumpet
 {
@@ -23,8 +22,7 @@ namespace EarTrumpet
 
             Exit += (_, __) => SingleInstanceAppMutex.ReleaseExclusivity();
 
-            WhatsNewDisplayService.ShowIfAppropriate();
-            FirstRunDisplayService.ShowIfAppropriate();
+            StartupUWPDialogDisplayService.ShowIfAppropriate();
 
             ((ThemeService)Resources["ThemeService"]).SetTheme(AppSpecificThemes.GetThemeBuildData());
 

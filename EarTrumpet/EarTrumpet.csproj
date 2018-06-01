@@ -85,6 +85,7 @@
     <Compile Include="DataModel\Internal\IAudioDeviceInternal.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\PackageVersionExtensions.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="Services\ProcessWatcherService.cs" />
+    <Compile Include="Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="Views\AppSpecificThemes.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
@@ -215,13 +217,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AccentColorService.cs" />
-    <Compile Include="Services\FirstRunDisplayService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Services\TaskbarService.cs" />
     <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
-    <Compile Include="Services\WhatsNewDisplayService.cs" />
     <Compile Include="Views\TrayIcon.cs" />
     <Compile Include="ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />
