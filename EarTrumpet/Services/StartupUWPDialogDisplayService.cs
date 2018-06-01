@@ -57,22 +57,22 @@ namespace EarTrumpet.Services
                 if (!LocalSettings.ContainsKey(FirstRunKey))
                 {
                     LocalSettings[FirstRunKey] = true;
-                    ProtocolLaunchEarTrumpet("//welcome");
+                    ProtocolLaunchEarTrumpet("welcome");
                 }
             }
         }
 
         internal static void ShowWhatsNewIfAppropriate()
         {
-            var currentVersion = Package.Current.Id.Version.ToVersionString();
-            var lastVersion = LocalSettings[CurrentVersionKey];
-            if ((lastVersion == null || currentVersion != (string)lastVersion))
+            var binaryVersion = Package.Current.Id.Version.ToVersionString();
+            var storedVersion = LocalSettings[CurrentVersionKey];
+            if ((storedVersion == null || binaryVersion != (string)storedVersion))
             {
-                LocalSettings[CurrentVersionKey] = currentVersion;
+                LocalSettings[CurrentVersionKey] = binaryVersion;
 
                 if (LocalSettings.ContainsKey(FirstRunKey))
                 {
-                    ProtocolLaunchEarTrumpet();
+                    ProtocolLaunchEarTrumpet("changelog");
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace EarTrumpet.Services
         {
             try
             {
-                using (Process.Start($"eartrumpet:{more}")) { }
+                using (Process.Start($"eartrumpet://{more}")) { }
             }
             catch (Exception ex)
             {
