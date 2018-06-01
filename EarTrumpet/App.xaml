@@ -530,7 +530,6 @@
             <Style x:Key="MenuItemDarkOnly" TargetType="{x:Type MenuItem}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Template" Value="{StaticResource MenuItemTemplateDarkOnly}" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
             </Style>
 
             <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
