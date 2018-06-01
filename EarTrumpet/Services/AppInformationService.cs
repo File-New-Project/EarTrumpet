@@ -97,10 +97,12 @@ namespace EarTrumpet.Services
                 {
                     try
                     {
-                        var proc = Process.GetProcessById(processId);
-                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                        using (var proc = Process.GetProcessById(processId))
                         {
-                            displayNameResolved(proc.MainWindowTitle);
+                            if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
+                            {
+                                displayNameResolved(proc.MainWindowTitle);
+                            }
                         }
                     }
                     catch (Exception ex)

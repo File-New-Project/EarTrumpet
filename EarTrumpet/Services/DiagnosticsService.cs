@@ -21,7 +21,7 @@ namespace EarTrumpet.Services
         {
             var fileName = $"{Path.GetTempFileName()}.txt";
             File.WriteAllText(fileName, DumpDevices(_manager));
-            Process.Start(fileName);
+            using (Process.Start(fileName)) { }
         }
 
         static string DumpSession(string indent, SafeAudioDeviceSession session)
@@ -37,8 +37,8 @@ namespace EarTrumpet.Services
 
             try
             {
-                Process.GetProcessById(session.ProcessId);
-                isAlive = true;
+                using (Process.GetProcessById(session.ProcessId)) { }
+                    isAlive = true;
             }
             catch (Exception) { }
 

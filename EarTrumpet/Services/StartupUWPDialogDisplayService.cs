@@ -15,10 +15,13 @@ namespace EarTrumpet.Services
 
         internal static void ShowIfAppropriate()
         {
-            ShowWelcomeIfAppropriate();
-            ShowWhatsNewIfAppropriate();
+            if (App.Current.HasIdentity())
+            {
+                ShowWelcomeIfAppropriate();
+                ShowWhatsNewIfAppropriate();
 
-            App.Current.Exit += App_Exit;
+                App.Current.Exit += App_Exit;
+            }
         }
 
         private static void App_Exit(object sender, System.Windows.ExitEventArgs e)
@@ -27,7 +30,18 @@ namespace EarTrumpet.Services
             {
                 foreach (var proc in Process.GetProcessesByName("EarTrumpet.UWP"))
                 {
-                    proc.Kill();
+                    try
+                    {
+                        proc.Kill();
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                    finally
+                    {
+                        proc.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -43,40 +57,35 @@ namespace EarTrumpet.Services
                 if (!LocalSettings.ContainsKey(FirstRunKey))
                 {
                     LocalSettings[FirstRunKey] = true;
-                    try
-                    {
-                        Process.Start("eartrumpet://welcome");
-                    }
-                    catch(Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
+                    ProtocolLaunchEarTrumpet("//welcome");
                 }
             }
         }
 
         internal static void ShowWhatsNewIfAppropriate()
         {
-            if (App.Current.HasIdentity())
+            var currentVersion = Package.Current.Id.Version.ToVersionString();
+            var lastVersion = LocalSettings[CurrentVersionKey];
+            if ((lastVersion == null || currentVersion != (string)lastVersion))
             {
-                var currentVersion = Package.Current.Id.Version.ToVersionString();
-                var lastVersion = LocalSettings[CurrentVersionKey];
-                if ((lastVersion == null || currentVersion != (string)lastVersion))
-                {
-                    LocalSettings[CurrentVersionKey] = currentVersion;
+                LocalSettings[CurrentVersionKey] = currentVersion;
 
-                    if (LocalSettings.ContainsKey(FirstRunKey))
-                    {
-                        try
-                        {
-                            Process.Start("eartrumpet:");
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex);
-                        }
-                    }
+                if (LocalSettings.ContainsKey(FirstRunKey))
+                {
+                    ProtocolLaunchEarTrumpet();
                 }
+            }
+        }
+
+        private static void ProtocolLaunchEarTrumpet(string more = "")
+        {
+            try
+            {
+                using (Process.Start($"eartrumpet:{more}")) { }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
         }
     }

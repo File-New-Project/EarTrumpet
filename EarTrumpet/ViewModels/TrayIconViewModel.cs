@@ -85,7 +85,7 @@ namespace EarTrumpet.ViewModels
             OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
             OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
             OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
-            OpenLegacyVolumeMixerCommand = new RelayCommand(() => Process.Start("sndvol.exe"));
+            OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
@@ -146,7 +146,12 @@ namespace EarTrumpet.ViewModels
 
         private void OpenControlPanel(string panel)
         {
-            Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}");
+            using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}")) { }
+        }
+
+        private void StartLegacyMixer()
+        {
+            using (Process.Start("sndvol.exe")) { }
         }
     }
 }
