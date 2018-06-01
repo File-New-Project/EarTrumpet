@@ -97,11 +97,14 @@
                     <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
                 </StackPanel>
 
-                <CheckBox Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                          Style="{StaticResource CheckboxStyle}" HorizontalAlignment="Left" />
-
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
+
+                <CheckBox Margin="0,0,0,12"
+                          HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
+                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
+                          Style="{StaticResource CheckboxStyle}" />
+
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
 
                 <Grid>

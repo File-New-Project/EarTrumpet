@@ -205,7 +205,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keyboard shortcut.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string KeyboardShortcutsTitle {
             get {

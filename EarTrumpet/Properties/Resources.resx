@@ -207,7 +207,7 @@
     <value>Expand to show all playback devices</value>
   </data>
   <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Keyboard shortcut</value>
+    <value>Settings</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Assign this app to a playback device</value>
