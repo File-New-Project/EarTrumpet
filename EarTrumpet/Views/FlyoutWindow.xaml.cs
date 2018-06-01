@@ -136,6 +136,12 @@ namespace EarTrumpet.Views
         {
             var taskbarState = TaskbarService.GetWinTaskbarState();
 
+            if (taskbarState.TaskbarScreen == null)
+            {
+                // we're not ready to lay out. (e.g. RDP transition)
+                return;
+            }
+
             double newHeight = 0;
             if (_viewModel.IsEmpty)
             {

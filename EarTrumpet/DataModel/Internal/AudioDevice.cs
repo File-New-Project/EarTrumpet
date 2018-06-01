@@ -46,7 +46,10 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDevice()
         {
-            _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+            if (_sessions != null)
+            {
+                _sessions.Sessions.CollectionChanged -= Sessions_CollectionChanged;
+            }
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
