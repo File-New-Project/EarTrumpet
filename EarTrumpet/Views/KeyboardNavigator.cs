@@ -36,7 +36,6 @@ namespace EarTrumpet.Views
                             app.Volume--;
                             evt.Handled = true;
                             break;
-                        case Key.System: // context menu key, or Shift+F10
                         case Key.Space:
                             var volControl = listItem.FindVisualChild<AppVolumeControl>();
                             volControl.ExpandApp();
