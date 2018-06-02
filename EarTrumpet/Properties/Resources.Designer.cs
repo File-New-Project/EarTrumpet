@@ -124,7 +124,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No devices found.
+        ///   Looks up a localized string similar to No playback devices found.
         /// </summary>
         public static string ContextMenuNoDevices {
             get {

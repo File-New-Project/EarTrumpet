@@ -121,7 +121,7 @@
     <value>Exit</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>No devices found</value>
+    <value>No playback devices found</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Send feedback</value>
