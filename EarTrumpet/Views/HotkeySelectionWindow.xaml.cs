@@ -12,7 +12,7 @@ namespace EarTrumpet.Views
 
         public HotkeySelectionWindow(SettingsService.HotkeyData hotkey)
         {
-            Hotkey = hotkey;
+            Hotkey = new SettingsService.HotkeyData { Key = hotkey.Key, Modifiers = hotkey.Modifiers };
             InitializeComponent();
 
             UpdateText();
@@ -72,6 +72,13 @@ namespace EarTrumpet.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false;
+            Close();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
             Close();
         }
     }

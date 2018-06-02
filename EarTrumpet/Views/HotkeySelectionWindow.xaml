@@ -40,7 +40,7 @@
                        FontSize="24"
                        TextAlignment="Center" />
             <Button Grid.Row="2"
-                    Click="CloseButton_Click"
+                    Click="SaveButton_Click"
                     Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}"
                     Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
                     Style="{DynamicResource Windows10ButtonStyle}" />
