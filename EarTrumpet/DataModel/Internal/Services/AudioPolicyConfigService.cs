@@ -64,7 +64,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
                 return UnpackDeviceId(deviceId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.TraceError($"GetDefaultEndPoint Failed: {ex}");
             }

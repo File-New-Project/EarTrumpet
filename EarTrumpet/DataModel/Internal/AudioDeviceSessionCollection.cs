@@ -55,7 +55,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                var newSession = new SafeAudioDeviceSession(new AudioDeviceSession(session));
+                var newSession = new AudioDeviceSession(session);
                 _dispatcher.SafeInvoke(() =>
                 {
                     AddSession(newSession);

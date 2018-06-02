@@ -77,9 +77,15 @@ namespace EarTrumpet.DataModel.Internal
 
                 if (_volume != value)
                 {
-                    Guid dummy = Guid.Empty;
-                    _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
-
+                    try
+                    {
+                        Guid dummy = Guid.Empty;
+                        _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+                    }
+                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    {
+                        // Expected in some cases.
+                    }
                     IsMuted = false;
                 }
             }
@@ -94,8 +100,15 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (value != _isMuted)
                 {
-                    Guid dummy = Guid.Empty;
-                    _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                    try
+                    {
+                        Guid dummy = Guid.Empty;
+                        _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                    }
+                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    {
+                        // Expected in some cases.
+                    }
                 }
             }
         }
@@ -113,10 +126,17 @@ namespace EarTrumpet.DataModel.Internal
 
         private void ReadDisplayName()
         {
-            var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
-            var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
-            _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
-            Ole32.PropVariantClear(ref pv);
+            try
+            {
+                var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
+                var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
+                _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
+                Ole32.PropVariantClear(ref pv);
+            }
+            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
+            }
         }
 
         public void DevicePropertiesChanged(IMMDevice dev)

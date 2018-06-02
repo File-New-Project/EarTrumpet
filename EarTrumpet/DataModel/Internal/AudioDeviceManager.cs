@@ -5,7 +5,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -35,22 +34,29 @@ namespace EarTrumpet.DataModel.Internal
 
             Task.Factory.StartNew(() =>
             {
-                _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
-                _enumerator.RegisterEndpointNotificationCallback(this);
-
-                var devices = _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE);
-                uint deviceCount = devices.GetCount();
-                for (uint i = 0; i < deviceCount; i++)
+                try
                 {
-                    ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
+                    _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
+                    _enumerator.RegisterEndpointNotificationCallback(this);
+
+                    var devices = _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE);
+                    uint deviceCount = devices.GetCount();
+                    for (uint i = 0; i < deviceCount; i++)
+                    {
+                        ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
+                    }
+
+                    // Trigger default logic to register for volume change
+                    _dispatcher.SafeInvoke(() =>
+                    {
+                        QueryDefaultPlaybackDevice();
+                        QueryDefaultCommunicationsDevice();
+                    });
                 }
-
-                // Trigger default logic to register for volume change
-                _dispatcher.SafeInvoke(() =>
+                catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
                 {
-                    QueryDefaultPlaybackDevice();
-                    QueryDefaultCommunicationsDevice();
-                });
+                    // Expected in some cases.
+                }
             });
 
             Trace.WriteLine("AudioDeviceManager Create Exit");
@@ -58,7 +64,14 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDeviceManager()
         {
-            _enumerator.UnregisterEndpointNotificationCallback(this);
+            try
+            {
+                _enumerator.UnregisterEndpointNotificationCallback(this);
+            }
+            catch(Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
         }
 
         private void QueryDefaultPlaybackDevice()
@@ -69,9 +82,9 @@ namespace EarTrumpet.DataModel.Internal
             {
                 device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia);
             }
-            catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
+            catch (Exception ex) when (ex.Is(Error.ERROR_NOT_FOUND))
             {
-                // Element not found.
+                // Expected.
             }
 
             string newDeviceId = device?.GetId();
@@ -92,9 +105,9 @@ namespace EarTrumpet.DataModel.Internal
             {
                 device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications);
             }
-            catch (COMException ex) when ((uint)ex.HResult == 0x80070490)
+            catch (Exception ex) when (ex.Is(Error.ERROR_NOT_FOUND))
             {
-                // Element not found.
+                // Expected.
             }
 
             string newDeviceId = device?.GetId();
@@ -174,7 +187,7 @@ namespace EarTrumpet.DataModel.Internal
                     IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
                     if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                     {
-                        var newDevice = new SafeAudioDevice(new AudioDevice(device));
+                        var newDevice = new AudioDevice(device);
 
                         _dispatcher.SafeInvoke(() =>
                         {

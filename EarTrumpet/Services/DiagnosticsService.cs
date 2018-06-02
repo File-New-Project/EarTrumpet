@@ -38,7 +38,7 @@ namespace EarTrumpet.Services
             using (Process.Start(fileName)) { }
         }
 
-        static string DumpSession(string indent, SafeAudioDeviceSession session)
+        static string DumpSession(string indent, IAudioDeviceSession session)
         {
             string flags= session.IsDesktopApp ? "Desktop " : "Modern ";
 
@@ -83,7 +83,7 @@ namespace EarTrumpet.Services
             {
                 foreach (AudioDeviceSessionGroup appSession in appGroup.Children)
                 {
-                    foreach (SafeAudioDeviceSession rawSession in appSession.Children)
+                    foreach (IAudioDeviceSession rawSession in appSession.Children)
                     {
                         bool isOneSession = appSession.Children.Count == 1;
                         var indent = (isOneSession ? "  " : "|   ");

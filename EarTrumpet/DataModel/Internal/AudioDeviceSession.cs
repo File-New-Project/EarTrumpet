@@ -25,8 +25,15 @@ namespace EarTrumpet.DataModel.Internal
 
                 if (value != _volume)
                 {
-                    Guid dummy = Guid.Empty;
-                    _simpleVolume.SetMasterVolume(value, ref dummy);
+                    try
+                    {
+                        Guid dummy = Guid.Empty;
+                        _simpleVolume.SetMasterVolume(value, ref dummy);
+                    }
+                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    {
+                        // Expected in some cases.
+                    }
                     IsMuted = false;
                 }
 
@@ -40,8 +47,15 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (value != _isMuted)
                 {
-                    Guid dummy = Guid.Empty;
-                    _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
+                    try
+                    {
+                        Guid dummy = Guid.Empty;
+                        _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
+                    }
+                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    {
+                        // Expected in some cases.
+                    }
                 }
             }
         }
@@ -219,22 +233,37 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValue()
         {
-            PeakValue = _meter.GetPeakValue();
+            try
+            {
+                PeakValue = _meter.GetPeakValue();
+            }
+            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                PeakValue = 0;
+                // Expected in some cases.
+            }
         }
 
         private void ReadRawDisplayName()
         {
-            var displayName = _session.GetDisplayName();
-            if (displayName.StartsWith("@"))
+            try
             {
-                StringBuilder sb = new StringBuilder(512);
-                if (Shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)
+                var displayName = _session.GetDisplayName();
+                if (displayName.StartsWith("@"))
                 {
-                    displayName = sb.ToString();
+                    StringBuilder sb = new StringBuilder(512);
+                    if (Shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)
+                    {
+                        displayName = sb.ToString();
+                    }
                 }
-            }
 
-            _rawDisplayName = displayName;
+                _rawDisplayName = displayName;
+            }
+            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
+            }
         }
 
         private void DisconnectSession()
