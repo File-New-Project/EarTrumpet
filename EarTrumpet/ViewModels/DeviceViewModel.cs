@@ -68,7 +68,8 @@ namespace EarTrumpet.ViewModels
 
         public void UpdatePeakValues()
         {
-            foreach (var app in Apps) app.UpdatePeakValues();
+            // We're in the background so we need to use a snapshot.
+            foreach (var app in Apps.ToArray()) app.UpdatePeakValues();
 
             _device.UpdatePeakValue();
         }

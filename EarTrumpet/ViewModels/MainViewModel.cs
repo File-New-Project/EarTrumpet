@@ -76,7 +76,8 @@ namespace EarTrumpet.ViewModels
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            foreach (var device in AllDevices)
+            // We're in the background so we need to use a snapshot.
+            foreach (var device in AllDevices.ToArray())
             {
                 device.UpdatePeakValues();
             }
