@@ -1,16 +1,17 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Interop;
+﻿using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace EarTrumpet.DataModel.Internal.Services
 {
-    public class ZombieProcessException : Exception { }
+    public class ZombieProcessException : Exception
+    {
+        public ZombieProcessException(int processId) : base($"Process is a zombie: {processId}") { }
+    }
 
     class AppInformationService
     {
@@ -65,7 +66,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
                 if (handle != IntPtr.Zero)
                 {
-                    CheckProcessHandle(handle);
+                    CheckProcessHandle(processId, handle);
 
                     try
                     {
@@ -91,7 +92,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 {
                     if(!TryGetExecutableNameViaNtByPid(processId, out appInfo.ExeName))
                     {
-                        throw new ZombieProcessException();
+                        throw new ZombieProcessException(processId);
                     }
                 }
             }
@@ -187,7 +188,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             return result;
         }
 
-        private static void CheckProcessHandle(IntPtr handle)
+        private static void CheckProcessHandle(int processId, IntPtr handle)
         {
             if (Kernel32.WaitForSingleObject(handle, 0) == Kernel32.WAIT_TIMEOUT)
             {
@@ -196,7 +197,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             else
             {
                 Kernel32.CloseHandle(handle);
-                throw new ZombieProcessException();
+                throw new ZombieProcessException(processId);
             }
         }
 
@@ -222,7 +223,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
             if (processHandle != IntPtr.Zero)
             {
-                CheckProcessHandle(processHandle);
+                CheckProcessHandle(processId, processHandle);
 
                 try
                 {
@@ -303,7 +304,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             else
             {
-                throw new ZombieProcessException();
+                throw new ZombieProcessException(processId);
             }
 
             return appUserModelId;

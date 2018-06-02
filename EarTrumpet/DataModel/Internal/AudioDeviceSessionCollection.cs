@@ -57,9 +57,9 @@ namespace EarTrumpet.DataModel.Internal
             {
                 Trace.TraceError($"{ex}");
             }
-            catch (ZombieProcessException)
+            catch (ZombieProcessException ex)
             {
-                // Nothing to do.
+                Trace.TraceError($"{ex}");
             }
         }
 
