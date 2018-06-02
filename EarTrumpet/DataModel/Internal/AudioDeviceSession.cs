@@ -130,6 +130,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _isMuted;
         private bool _isDisconnected;
         private bool _isMoved;
+        private bool _moveOnInactive;
         private Task _refreshDisplayNameTask;
 
         public AudioDeviceSession(IAudioSessionControl session)
@@ -198,8 +199,16 @@ namespace EarTrumpet.DataModel.Internal
         public void MoveFromDevice()
         {
             Trace.WriteLine($"AudioDeviceSession MoveFromDevice {ExeName} {Id}");
-            _isMoved = true;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+
+            if (_state == AudioSessionState.Active)
+            {
+                _moveOnInactive = true;
+            }
+            else
+            {
+                _isMoved = true;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            }
         }
 
         public void MoveAllSessionsToDevice(string id)
@@ -267,12 +276,14 @@ namespace EarTrumpet.DataModel.Internal
 
             _state = NewState;
 
-            if (_isMoved)
+            if (_isMoved && NewState == AudioSessionState.Active)
             {
-                if (NewState == AudioSessionState.Active)
-                {
-                    _isMoved = false;
-                }
+                _isMoved = false;
+            }
+            else if (_moveOnInactive && NewState == AudioSessionState.Inactive)
+            {
+                _isMoved = true;
+                _moveOnInactive = false;
             }
 
             _dispatcher.SafeInvoke(() =>

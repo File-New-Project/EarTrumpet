@@ -206,8 +206,8 @@
         <ScrollViewer Name="BaseVisual">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
-                <Border VerticalAlignment="Center"
-                        Height="{StaticResource NoItemsPaneHeight}"
+                <Border Height="{StaticResource NoItemsPaneHeight}"
+                        VerticalAlignment="Center"
                         Background="{DynamicResource WindowBackground}"
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
