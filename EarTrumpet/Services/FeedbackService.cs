@@ -6,10 +6,9 @@ namespace EarTrumpet.Services
     {
         public static void OpenFeedbackHub()
         {
-            using (Process.Start("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet"))
-            {
+            Trace.WriteLine($"FeedbackService OpenFeedbackHub");
 
-            }
+            using (Process.Start("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet")) { }
         }
     }
 }

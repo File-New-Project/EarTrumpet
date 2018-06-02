@@ -20,6 +20,8 @@ namespace EarTrumpet.DataModel.Internal.Services
 
         internal static AppInformation GetInformationForAppByPid(int processId)
         {
+            Trace.WriteLine($"AppInformationService GetInformationForAppByPid {processId}");
+
             var appInfo = new AppInformation();
 
             if (processId == 0)

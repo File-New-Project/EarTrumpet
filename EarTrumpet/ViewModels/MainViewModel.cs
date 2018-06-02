@@ -142,6 +142,7 @@ namespace EarTrumpet.ViewModels
 
         public void OpenFlyout()
         {
+            Trace.WriteLine($"MainViewModel OpenFlyout");
             FlyoutShowRequested(this, null);
         }
     }

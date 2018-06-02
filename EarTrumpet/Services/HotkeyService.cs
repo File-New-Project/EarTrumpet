@@ -12,6 +12,7 @@ namespace EarTrumpet.Services
 
         public static void Register(SettingsService.HotkeyData hotkey)
         {
+            Trace.WriteLine($"HotkeyService Register {hotkey}");
             if (s_hook != null)
             {
                 s_hook.Dispose();
@@ -32,11 +33,14 @@ namespace EarTrumpet.Services
 
         private static void Hotkey_KeyPressed(object sender, KeyboardHook.KeyPressedEventArgs e)
         {
+            Trace.WriteLine($"HotkeyService Hotkey_KeyPressed");
             KeyPressed?.Invoke(s_hook, e);
         }
 
         public static void Unregister()
         {
+            Trace.WriteLine($"HotkeyService Unregister");
+
             if (s_hook != null)
             {
                 s_hook.Dispose();

@@ -30,6 +30,8 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
             }
 
+            Trace.WriteLine($"ProcessWatcherService Start watching {processId}");
+
             var data = new ProcessWatcherData
             {
                 processId = processId,
@@ -94,7 +96,8 @@ namespace EarTrumpet.DataModel.Internal.Services
                                     quit = !_threadRunning;
                                 }
 
-                                Debug.WriteLine($"Process quit: {data.processId}");
+                                Trace.WriteLine($"ProcessWatcherService Quit: {data.processId}");
+
                                 data.quitAction(data.processId);
 
                                 Kernel32.CloseHandle(data.processHandle);
