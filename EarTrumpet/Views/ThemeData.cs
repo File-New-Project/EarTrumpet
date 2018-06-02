@@ -10,7 +10,8 @@ namespace EarTrumpet.Views
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
                 { "WindowForeground", new Lookup("ImmersiveApplicationTextDarkTheme") },
-                { "HeaderBackground", new Lookup("ImmersiveSystemAccentDark1", 0.55, 1) },
+                { "HeaderBackground", new Lookup("ImmersiveSystemAccent", 0.4, 1) },
+                { "HeaderBackground2", new WindowBackground(0.4, opacityNotTransparent: 1) },
                 { "HeaderBackgroundSolid", new Lookup("ImmersiveSystemAccent", 1) },
                 { "CottonSwabSliderThumb", new Lookup("ImmersiveSystemAccent") },
                 { "ActiveBorder", new Lookup("ImmersiveSystemAccent") },

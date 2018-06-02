@@ -23,6 +23,10 @@
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
+        <Style x:Key="DeviceHeaderBackgroundBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
         <Style x:Key="AppListStyle"
                BasedOn="{StaticResource BaseAppListStyle}"
                TargetType="{x:Type ListView}">

@@ -24,6 +24,10 @@
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
         </Style>
 
+        <Style x:Key="DeviceHeaderBackgroundBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource HeaderBackground2}" />
+        </Style>
+
         <Style x:Key="AppListStyle"
                BasedOn="{StaticResource BaseAppListStyle}"
                TargetType="{x:Type ListView}">
