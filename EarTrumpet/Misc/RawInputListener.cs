@@ -12,6 +12,7 @@ namespace EarTrumpet.Misc
         public event EventHandler<int> MouseWheel;
 
         private readonly IntPtr _hwnd;
+        private bool _isListening;
 
         public RawInputListener(Window window)
         {
@@ -22,13 +23,18 @@ namespace EarTrumpet.Misc
         public void Start()
         {
             Trace.WriteLine("RawInputListener Start");
+            _isListening = true;
             RegisterForRawMouseInput(User32.RIDEV_INPUTSINK);
         }
 
         public void Stop()
         {
-            Trace.WriteLine("RawInputListener Stop");
-            RegisterForRawMouseInput(User32.RIDEV_REMOVE);
+            if (_isListening)
+            {
+                _isListening = false;
+                Trace.WriteLine("RawInputListener Stop");
+                RegisterForRawMouseInput(User32.RIDEV_REMOVE);
+            }
         }
 
         private void RegisterForRawMouseInput(uint flags)

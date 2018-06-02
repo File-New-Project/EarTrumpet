@@ -167,7 +167,6 @@ namespace EarTrumpet.DataModel.Internal
             {
                 _refreshDisplayNameTask = new Task(() =>
                 {
-                    Trace.WriteLine($"AudioDeviceSession RefreshDisplayName (Task) {Id}");
                     var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
                     _dispatcher.SafeInvoke(() =>
                     {
