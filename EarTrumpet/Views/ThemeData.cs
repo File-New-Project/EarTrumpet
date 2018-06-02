@@ -1,12 +1,11 @@
-﻿using EarTrumpet.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace EarTrumpet.Views
 {
-    internal class AppSpecificThemes
+    internal class ThemeData
     {
-        public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetThemeBuildData()
+        public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetBrushData()
         {
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {

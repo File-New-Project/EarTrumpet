@@ -122,7 +122,7 @@
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="Services\StartupUWPDialogDisplayService.cs" />
-    <Compile Include="Views\AppSpecificThemes.cs" />
+    <Compile Include="Views\ThemeData.cs" />
     <Compile Include="Views\DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
