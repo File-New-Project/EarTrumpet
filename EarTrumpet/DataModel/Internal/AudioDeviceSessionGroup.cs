@@ -85,6 +85,14 @@ namespace EarTrumpet.DataModel.Internal
             MoveFromDevice();
         }
 
+        public void UpdatePeakValue()
+        {
+            foreach (var session in _sessions)
+            {
+                session.UpdatePeakValue();
+            }
+        }
+
         private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private string _id;
 

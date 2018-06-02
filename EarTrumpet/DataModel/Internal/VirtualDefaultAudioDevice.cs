@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
@@ -86,6 +87,8 @@ namespace EarTrumpet.DataModel.Internal
         public float Volume { get => _device != null ? _device.Volume : 0; set => _device.Volume = value; }
 
         public float PeakValue { get => _device != null ? _device.PeakValue : 0; }
+
+        public void UpdatePeakValue() => throw new NotSupportedException();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

@@ -85,7 +85,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public float PeakValue => _meter.GetPeakValue();
+        public float PeakValue { get; private set; }
 
         public bool IsMuted
         {
@@ -105,6 +105,11 @@ namespace EarTrumpet.DataModel.Internal
         public ObservableCollection<IAudioDeviceSession> Groups => _sessions.Sessions;
 
         public string DisplayName => _displayName;
+
+        public void UpdatePeakValue()
+        {
+            PeakValue = _meter.GetPeakValue();
+        }
 
         private void ReadDisplayName()
         {

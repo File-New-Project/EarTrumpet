@@ -123,6 +123,21 @@ namespace EarTrumpet.ViewModels
             base.TriggerPeakCheck();
         }
 
+
+        internal void UpdatePeakValues()
+        {
+            if (ChildApps != null)
+            {
+                foreach (var child in ChildApps)
+                {
+                    child.UpdatePeakValues();
+                }
+            }
+
+            _session.UpdatePeakValue();
+        }
+
+
         public void RefreshDisplayName()
         {
             _session.RefreshDisplayName();

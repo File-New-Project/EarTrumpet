@@ -7,5 +7,7 @@ namespace EarTrumpet.DataModel
         string DisplayName { get; }
 
         ObservableCollection<IAudioDeviceSession> Groups { get; }
+
+        void UpdatePeakValue();
     }
 }

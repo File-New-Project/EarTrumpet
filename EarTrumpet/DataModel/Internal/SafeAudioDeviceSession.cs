@@ -39,7 +39,8 @@ namespace EarTrumpet.DataModel.Internal
         public ObservableCollection<IAudioDeviceSession> Children => SafeCallHelper.GetValue(() => _session.Children);
         public string PersistedDefaultEndPointId => SafeCallHelper.GetValue(() => _session.PersistedDefaultEndPointId);
 
-        public void MoveFromDevice() => _session.MoveFromDevice();
+        public void MoveFromDevice() => SafeCallHelper.SetValue(() => _session.MoveFromDevice());
+        public void UpdatePeakValue() => SafeCallHelper.SetValue(() => _session.UpdatePeakValue());
 
         public void MoveAllSessionsToDevice(string id) => _session.MoveAllSessionsToDevice(id);
 

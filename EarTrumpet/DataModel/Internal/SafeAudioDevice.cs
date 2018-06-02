@@ -20,6 +20,9 @@ namespace EarTrumpet.DataModel.Internal
         public float Volume { get => SafeCallHelper.GetValue(() => _device.Volume); set => SafeCallHelper.SetValue(() => _device.Volume = value); }
 
         public float PeakValue => SafeCallHelper.GetValue(() => _device.PeakValue);
+        public void UpdatePeakValue() => SafeCallHelper.SetValue(() => _device.UpdatePeakValue());
+
+        
 
         private readonly IAudioDevice _device;
 

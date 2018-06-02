@@ -66,6 +66,13 @@ namespace EarTrumpet.ViewModels
             foreach (var app in Apps) app.TriggerPeakCheck();
         }
 
+        public void UpdatePeakValues()
+        {
+            foreach (var app in Apps) app.UpdatePeakValues();
+
+            _device.UpdatePeakValue();
+        }
+
         private void UpdateMasterVolumeIcon()
         {
             string icon;
@@ -96,6 +103,8 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(DeviceIconText));
             RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
+
+
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

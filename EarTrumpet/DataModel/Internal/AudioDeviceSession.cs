@@ -71,7 +71,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public Guid GroupingParam { get; private set; }
 
-        public float PeakValue => _meter.GetPeakValue();
+        public float PeakValue { get; private set; }
 
         public uint BackgroundColor => _appInfo.BackgroundColor;
 
@@ -206,6 +206,11 @@ namespace EarTrumpet.DataModel.Internal
         {
             // The group should have handled this.
             Debug.Assert(false);
+        }
+
+        public void UpdatePeakValue()
+        {
+            PeakValue = _meter.GetPeakValue();
         }
 
         private void ReadRawDisplayName()
