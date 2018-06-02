@@ -101,14 +101,23 @@ namespace EarTrumpet.ViewModels
             DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
             DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
 
+            if (app.PersistedOutputDevice == dev?.Id)
+            {
+                // We don't actually need to do any work.
+                return;
+            }
+
             try
             {
+                var tempApp = new TemporaryAppItemViewModel(app);
+
                 app.MoveAllSessionsToDevice(dev?.Id);
 
                 // Update the UI if the device logically changed places.
                 if (oldDevice != newDevice)
                 {
-                    newDevice.OnAppMovedToDevice(app);
+                    oldDevice.OnAppMovedFromDevice(app);
+                    newDevice.OnAppMovedToDevice(tempApp);
                 }
             }
             catch (Exception ex)

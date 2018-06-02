@@ -130,7 +130,7 @@ namespace EarTrumpet.ViewModels
         {
             if (ChildApps != null)
             {
-                foreach (var child in ChildApps)
+                foreach (var child in ChildApps.ToArray())
                 {
                     child.UpdatePeakValueBackground();
                 }

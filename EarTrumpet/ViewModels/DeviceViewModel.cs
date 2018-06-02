@@ -130,6 +130,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+
         private void AddSession(IAudioDeviceSession session)
         {
             var newSession = new AppItemViewModel(session);
@@ -138,7 +139,9 @@ namespace EarTrumpet.ViewModels
             {
                 if (a.DoesGroupWith(newSession))
                 {
-                    // Remove the fake app entry.
+                    // Remove the fake app entry after copying any changes the user did.
+                    newSession.Volume = a.Volume;
+                    newSession.IsMuted = a.IsMuted;
                     Apps.Remove(a);
                     break;
                 }
@@ -168,6 +171,14 @@ namespace EarTrumpet.ViewModels
             {
                 // Add a fake app entry.
                 Apps.AddSorted(app, AppItemViewModel.CompareByExeName);
+            }
+        }
+
+        internal void OnAppMovedFromDevice(IAppItemViewModel app)
+        {
+            if (app is TemporaryAppItemViewModel)
+            {
+                Apps.Remove(app);
             }
         }
 
