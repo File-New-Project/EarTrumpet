@@ -44,7 +44,24 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string DisplayName => !string.IsNullOrWhiteSpace(_resolvedDisplayName) ? _resolvedDisplayName : _appInfo.ExeName;
+        public string DisplayName
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_rawDisplayName))
+                {
+                    return _rawDisplayName;
+                }
+                else if (!string.IsNullOrWhiteSpace(_resolvedDisplayName))
+                {
+                    return _resolvedDisplayName;
+                }
+                else
+                {
+                    return _appInfo.ExeName;
+                }
+            }
+        }
 
         public string ExeName => _appInfo.ExeName;
 
@@ -87,8 +104,6 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string RawDisplayName => _session.GetDisplayName();
-
         public int ProcessId { get; }
 
         public string Id => _id;
@@ -107,6 +122,7 @@ namespace EarTrumpet.DataModel.Internal
         private readonly AppInformation _appInfo;
 
         private string _resolvedDisplayName;
+        private string _rawDisplayName;
         private float _volume;
         private AudioSessionState _state;
         private bool _isMuted;
@@ -123,6 +139,7 @@ namespace EarTrumpet.DataModel.Internal
             ProcessId = (int)((IAudioSessionControl2)_session).GetProcessId();
             IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             _state = _session.GetState();
+            _rawDisplayName = _session.GetDisplayName();
             GroupingParam = _session.GetGroupingParam();
 
             _session.RegisterAudioSessionNotification(this);
@@ -241,10 +258,18 @@ namespace EarTrumpet.DataModel.Internal
             });
         }
 
+        void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
+        {
+            _rawDisplayName = _session.GetDisplayName();
+            _dispatcher.SafeInvoke(() =>
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+            });
+        }
+
         void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason) => DisconnectSession();
 
-        void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext){}
-        void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext) { }
+        void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext) { }
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
     }
 }

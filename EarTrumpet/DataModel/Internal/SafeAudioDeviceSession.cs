@@ -29,8 +29,6 @@ namespace EarTrumpet.DataModel.Internal
 
         public string ExeName => SafeCallHelper.GetValue(() => _session.ExeName);
 
-        public string RawDisplayName => SafeCallHelper.GetValue(() => ((AudioDeviceSession)_session).RawDisplayName);
-
         public string Id => SafeCallHelper.GetValue(() => _session.Id);
 
         public bool IsMuted { get => SafeCallHelper.GetValue(() => _session.IsMuted); set => SafeCallHelper.SetValue(() => _session.IsMuted = value); }
