@@ -27,6 +27,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
+            Trace.WriteLine("AudioDeviceManager Create");
+
             _dispatcher = dispatcher;
             _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
             _enumerator.RegisterEndpointNotificationCallback(this);
@@ -43,10 +45,13 @@ namespace EarTrumpet.DataModel.Internal
             QueryDefaultCommunicationsDevice();
 
             _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
+
+            Trace.WriteLine("AudioDeviceManager Create Exit");
         }
 
         private void QueryDefaultPlaybackDevice()
         {
+            Trace.WriteLine("AudioDeviceManager QueryDefaultPlaybackDevice");
             IMMDevice device = null;
             try
             {
@@ -69,6 +74,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void QueryDefaultCommunicationsDevice()
         {
+            Trace.WriteLine("AudioDeviceManager QueryDefaultCommunicationsDevice");
             IMMDevice device = null;
             try
             {
@@ -115,6 +121,8 @@ namespace EarTrumpet.DataModel.Internal
 
         private void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
         {
+            Trace.WriteLine($"AudioDeviceManager SetDefaultDevice {device.Id}");
+
             if (s_PolicyConfigClient == null)
             {
                 s_PolicyConfigClient = (IPolicyConfig)new PolicyConfigClient();
@@ -145,6 +153,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnDeviceAdded(string pwstrDeviceId)
         {
+            Trace.WriteLine($"AudioDeviceManager OnDeviceAdded {pwstrDeviceId}");
+
             _dispatcher.SafeInvoke(() =>
             {
                 if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
@@ -169,6 +179,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnDeviceRemoved(string pwstrDeviceId)
         {
+            Trace.WriteLine($"AudioDeviceManager OnDeviceRemoved {pwstrDeviceId}");
+
             _dispatcher.SafeInvoke(() =>
             {
                 if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
@@ -180,6 +192,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, string pwstrDefaultDeviceId)
         {
+            Trace.WriteLine($"AudioDeviceManager OnDefaultDeviceChanged {pwstrDefaultDeviceId}");
+
             _dispatcher.SafeInvoke(() =>
             {
                 QueryDefaultPlaybackDevice();
@@ -189,6 +203,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DeviceState dwNewState)
         {
+            Trace.WriteLine($"AudioDeviceManager OnDeviceStateChanged {pwstrDeviceId} {dwNewState}");
             switch (dwNewState)
             {
                 case DeviceState.ACTIVE:
@@ -207,6 +222,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
         {
+            Trace.WriteLine($"AudioDeviceManager OnPropertyValueChanged {pwstrDeviceId} {key.fmtid}{key.pid}");
             if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))

@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
-using EarTrumpet.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -124,6 +123,9 @@ namespace EarTrumpet.DataModel.Internal
 
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
+
+            Trace.WriteLine($"AudioDeviceSession Create {_id}");
+
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
             if (!IsSystemSoundsSession)
@@ -137,6 +139,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void RefreshDisplayName()
         {
+            Trace.WriteLine($"AudioDeviceSession RefreshDisplayName {Id}");
             if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
             {
                 _refreshDisplayNameTask = new Task(() =>
@@ -157,6 +160,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveFromDevice()
         {
+            Trace.WriteLine($"AudioDeviceSession MoveFromDevice {Id}");
             _isMoved = true;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
         }
@@ -175,6 +179,8 @@ namespace EarTrumpet.DataModel.Internal
 
         private void DisconnectSession()
         {
+            Trace.WriteLine($"AudioDeviceSession DisconnectSession {Id}"); 
+
             _isDisconnected = true;
             _dispatcher.SafeInvoke(() =>
             {
@@ -203,6 +209,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnGroupingParamChanged(ref Guid NewGroupingParam, ref Guid EventContext)
         {
+            Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {Id}");
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroupingParam)));
@@ -211,6 +218,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
+            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {Id}");
             if (_isMoved)
             {
                 if (NewState == AudioSessionState.Active)

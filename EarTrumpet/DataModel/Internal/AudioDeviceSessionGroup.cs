@@ -132,7 +132,10 @@ namespace EarTrumpet.DataModel.Internal
 
         public void RefreshDisplayName()
         {
-            _sessions[0].RefreshDisplayName();
+            foreach(var session in Sessions)
+            {
+                session.RefreshDisplayName();
+            }
         }
     }
 }
