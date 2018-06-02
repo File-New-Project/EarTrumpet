@@ -87,7 +87,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValue()
         {
-            foreach (var session in _sessions)
+            // We're in the background so we need to use a snapshot.
+            foreach (var session in _sessions.ToArray())
             {
                 session.UpdatePeakValue();
             }
