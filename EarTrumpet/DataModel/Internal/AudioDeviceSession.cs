@@ -142,6 +142,8 @@ namespace EarTrumpet.DataModel.Internal
             IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             _state = _session.GetState();
             GroupingParam = _session.GetGroupingParam();
+            _simpleVolume.GetMasterVolume(out _volume);
+            _isMuted = _simpleVolume.GetMute() != 0;
 
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
@@ -155,18 +157,17 @@ namespace EarTrumpet.DataModel.Internal
                 ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
             }
 
-            ReadVolumeAndMute();
             ReadRawdisplayName();
             RefreshDisplayName();
         }
 
         public void RefreshDisplayName()
         {
-            Trace.WriteLine($"AudioDeviceSession RefreshDisplayName {Id}");
             if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
             {
                 _refreshDisplayNameTask = new Task(() =>
                 {
+                    Trace.WriteLine($"AudioDeviceSession RefreshDisplayName (Task) {Id}");
                     var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
                     _dispatcher.SafeInvoke(() =>
                     {
@@ -191,7 +192,7 @@ namespace EarTrumpet.DataModel.Internal
         public void MoveAllSessionsToDevice(string id)
         {
             // The group should have handled this.
-            throw new NotImplementedException();
+            Debug.Assert(false);
         }
 
         private void ReadRawdisplayName()
@@ -209,12 +210,6 @@ namespace EarTrumpet.DataModel.Internal
             _rawDisplayName = displayName;
         }
 
-        private void ReadVolumeAndMute()
-        {
-            _simpleVolume.GetMasterVolume(out _volume);
-            _isMuted = _simpleVolume.GetMute() != 0;
-        }
-
         private void DisconnectSession()
         {
             Trace.WriteLine($"AudioDeviceSession DisconnectSession {Id}"); 
@@ -228,15 +223,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
         {
-            // We're racing and the device might be dead, so don't fail below.
-            try
-            {
-                ReadVolumeAndMute();
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+            _volume = NewVolume;
+            _isMuted = NewMute != 0;
 
             _dispatcher.SafeInvoke(() =>
             {
