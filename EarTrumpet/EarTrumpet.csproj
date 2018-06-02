@@ -220,7 +220,7 @@
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Misc\WindowsTaskbar.cs" />
-    <Compile Include="Services\ThemeService.cs" />
+    <Compile Include="Views\ThemeManager.cs" />
     <Compile Include="Services\UserSystemPreferencesService.cs" />
     <Compile Include="Views\TrayIcon.cs" />
     <Compile Include="ViewModels\AppExpandedEventArgs.cs" />

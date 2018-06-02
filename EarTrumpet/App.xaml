@@ -1,10 +1,9 @@
 ﻿<Application x:Class="EarTrumpet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:anim="clr-namespace:System.Windows.Media.Animation;assembly=PresentationFramework"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ext="clr-namespace:EarTrumpet.Extensions"
-             xmlns:svc="clr-namespace:EarTrumpet.Services"
+             xmlns:views="clr-namespace:EarTrumpet.Views"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              Startup="Application_Startup">
     <Application.Resources>
@@ -13,7 +12,7 @@
                 <ResourceDictionary Source="Views\SystemThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <svc:ThemeService x:Key="ThemeService" />
+            <views:ThemeManager x:Key="ThemeManager" />
 
             <ext:InvertableVisibilityConverter x:Key="visConverter" />
             <ext:OpacityConverter x:Key="opacityConverter" />

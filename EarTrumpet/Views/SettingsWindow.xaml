@@ -86,7 +86,7 @@
                                 <Setter Property="Source" Value="pack://application:,,,/EarTrumpet;component/Assets/Logo-Dark.png" />
 
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Source={StaticResource ThemeService}, Path=IsLightTheme}" Value="True">
+                                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsLightTheme}" Value="True">
                                         <Setter Property="Source" Value="pack://application:,,,/EarTrumpet;component/Assets/Logo-Light.png" />
                                     </DataTrigger>
                                 </Style.Triggers>

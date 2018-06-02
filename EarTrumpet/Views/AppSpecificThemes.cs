@@ -6,9 +6,9 @@ namespace EarTrumpet.Views
 {
     internal class AppSpecificThemes
     {
-        public static Dictionary<string, ThemeService.IResolvableThemeBrush> GetThemeBuildData()
+        public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetThemeBuildData()
         {
-            return new Dictionary<string, ThemeService.IResolvableThemeBrush>
+            return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
                 { "WindowForeground", new Lookup("ImmersiveApplicationTextDarkTheme") },
                 { "HeaderBackground", new Lookup("ImmersiveSystemAccentDark1", 0.5, 1) },
@@ -84,7 +84,7 @@ namespace EarTrumpet.Views
             };
         }
 
-        private class WindowBackground : ThemeService.IResolvableThemeBrush
+        private class WindowBackground : ThemeManager.IResolvableThemeBrush
         {
             private readonly double _opacityTransparent;
             private readonly double _opacityNotTransparent;
@@ -95,7 +95,7 @@ namespace EarTrumpet.Views
                 _opacityNotTransparent = opacityNotTransparent;
             }
 
-            public Color Resolve(ThemeService.ThemeResolveData data)
+            public Color Resolve(ThemeManager.ThemeResolveData data)
             {
                 string resource;
                 if (data.IsHighContrast)
@@ -122,7 +122,7 @@ namespace EarTrumpet.Views
             }
         }
 
-        private class Static : ThemeService.IResolvableThemeBrush
+        private class Static : ThemeManager.IResolvableThemeBrush
         {
             private readonly Color _color;
 
@@ -131,13 +131,13 @@ namespace EarTrumpet.Views
                 _color = color;
             }
 
-            public Color Resolve(ThemeService.ThemeResolveData data)
+            public Color Resolve(ThemeManager.ThemeResolveData data)
             {
                 return _color;
             }
         }
 
-        private class Lookup : ThemeService.IResolvableThemeBrush
+        private class Lookup : ThemeManager.IResolvableThemeBrush
         {
             private readonly string _color;
             private readonly double _opacity;
@@ -150,7 +150,7 @@ namespace EarTrumpet.Views
                 _opacityWhenNotTransparent = opacityWhenNotTransparent;
             }
 
-            public Color Resolve(ThemeService.ThemeResolveData data)
+            public Color Resolve(ThemeManager.ThemeResolveData data)
             {
                 var color = data.LookupThemeColor(_color);
 
@@ -165,37 +165,37 @@ namespace EarTrumpet.Views
             }
         }
 
-        private class TransparentOrNot : ThemeService.IResolvableThemeBrush
+        private class TransparentOrNot : ThemeManager.IResolvableThemeBrush
         {
-            readonly ThemeService.IResolvableThemeBrush _transparentColor;
-            readonly ThemeService.IResolvableThemeBrush _notTransparentColor;
+            readonly ThemeManager.IResolvableThemeBrush _transparentColor;
+            readonly ThemeManager.IResolvableThemeBrush _notTransparentColor;
 
-            public TransparentOrNot(ThemeService.IResolvableThemeBrush transparentColor, ThemeService.IResolvableThemeBrush notTransparentColor)
+            public TransparentOrNot(ThemeManager.IResolvableThemeBrush transparentColor, ThemeManager.IResolvableThemeBrush notTransparentColor)
             {
                 _transparentColor = transparentColor;
                 _notTransparentColor = notTransparentColor;
             }
 
-            public Color Resolve(ThemeService.ThemeResolveData data)
+            public Color Resolve(ThemeManager.ThemeResolveData data)
             {
                 return data.IsTransparencyEnabled ? _transparentColor.Resolve(data) : _notTransparentColor.Resolve(data);
             }
         }
 
-        private class LightOrDark : ThemeService.IResolvableThemeBrush
+        private class LightOrDark : ThemeManager.IResolvableThemeBrush
         {
-            readonly ThemeService.IResolvableThemeBrush _lightColor;
-            readonly ThemeService.IResolvableThemeBrush _darkColor;
-            readonly ThemeService.IResolvableThemeBrush _highContrastColor;
+            readonly ThemeManager.IResolvableThemeBrush _lightColor;
+            readonly ThemeManager.IResolvableThemeBrush _darkColor;
+            readonly ThemeManager.IResolvableThemeBrush _highContrastColor;
 
-            public LightOrDark(ThemeService.IResolvableThemeBrush lightcolor, ThemeService.IResolvableThemeBrush darkColor, ThemeService.IResolvableThemeBrush highContrastColor = null)
+            public LightOrDark(ThemeManager.IResolvableThemeBrush lightcolor, ThemeManager.IResolvableThemeBrush darkColor, ThemeManager.IResolvableThemeBrush highContrastColor = null)
             {
                 _lightColor = lightcolor;
                 _darkColor = darkColor;
                 _highContrastColor = highContrastColor;
             }
 
-            public Color Resolve(ThemeService.ThemeResolveData data)
+            public Color Resolve(ThemeManager.ThemeResolveData data)
             {
                 if (_highContrastColor != null && data.IsHighContrast) return _highContrastColor.Resolve(data);
 

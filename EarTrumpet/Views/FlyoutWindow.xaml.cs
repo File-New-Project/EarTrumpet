@@ -38,9 +38,9 @@ namespace EarTrumpet.Views
             {
                 this.Cloak();
 
-                var themeService = (ThemeService)App.Current.Resources["ThemeService"];
-                themeService.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
-                themeService.ThemeChanged += () => UpdateTheme();
+                var themeManager = (ThemeManager)App.Current.Resources["ThemeManager"];
+                themeManager.RegisterForThemeChanges(new WindowInteropHelper(this).Handle);
+                themeManager.ThemeChanged += () => UpdateTheme();
                 UpdateTheme();
 
                 _rawListener = new RawInputListener(this);

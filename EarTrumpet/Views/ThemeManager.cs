@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -7,9 +8,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace EarTrumpet.Services
+namespace EarTrumpet.Views
 {
-    public class ThemeService : ViewModels.BindableBase
+    public class ThemeManager : ViewModels.BindableBase
     {
         public interface IResolvableThemeBrush
         {
@@ -33,12 +34,12 @@ namespace EarTrumpet.Services
         private Dictionary<string, IResolvableThemeBrush> _themeData;
         private DispatcherTimer _themeChangetimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
 
-        public ThemeService()
+        public ThemeManager()
         {
             _themeChangetimer.Tick += ThemeChangeTimer_Tick;
         }
 
-        public void SetTheme(Dictionary<string, ThemeService.IResolvableThemeBrush> data)
+        public void SetTheme(Dictionary<string, ThemeManager.IResolvableThemeBrush> data)
         {
             _themeData = data;
         }

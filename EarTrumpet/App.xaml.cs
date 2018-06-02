@@ -28,7 +28,7 @@ namespace EarTrumpet
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
-            ((ThemeService)Resources["ThemeService"]).SetTheme(AppSpecificThemes.GetThemeBuildData());
+            ((ThemeManager)Resources["ThemeManager"]).SetTheme(AppSpecificThemes.GetThemeBuildData());
 
             var deviceManager = DataModelFactory.CreateAudioDeviceManager();
             DiagnosticsService.AdviseManager(deviceManager);

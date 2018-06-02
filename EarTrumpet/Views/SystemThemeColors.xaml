@@ -2,7 +2,7 @@
 
     <!--
         NOTE: Only theme-specific colors belong in this file.
-        This dictionay is replaced wholesale by ThemeService
+        This dictionay is replaced wholesale by ThemeManager
     -->
     <SolidColorBrush x:Key="WindowForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="WindowBackground">Black</SolidColorBrush>
