@@ -151,7 +151,7 @@ namespace EarTrumpet.DataModel.Internal
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
-            Trace.WriteLine($"AudioDeviceSession Create {_id}");
+            Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
 
             if (!IsSystemSoundsSession)
             {
@@ -189,7 +189,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveFromDevice()
         {
-            Trace.WriteLine($"AudioDeviceSession MoveFromDevice {Id}");
+            Trace.WriteLine($"AudioDeviceSession MoveFromDevice {ExeName} {Id}");
             _isMoved = true;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
         }
@@ -217,7 +217,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void DisconnectSession()
         {
-            Trace.WriteLine($"AudioDeviceSession DisconnectSession {Id}"); 
+            Trace.WriteLine($"AudioDeviceSession DisconnectSession {ExeName} {Id}"); 
 
             _isDisconnected = true;
             _dispatcher.SafeInvoke(() =>
@@ -241,7 +241,7 @@ namespace EarTrumpet.DataModel.Internal
         void IAudioSessionEvents.OnGroupingParamChanged(ref Guid NewGroupingParam, ref Guid EventContext)
         {
             GroupingParam = NewGroupingParam;
-            Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {Id}");
+            Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {ExeName} {Id}");
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroupingParam)));
@@ -250,7 +250,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
-            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {DisplayName} {Id}");
+            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {ExeName} {Id}");
 
             _state = NewState;
 

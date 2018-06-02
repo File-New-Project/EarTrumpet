@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -19,8 +20,12 @@ namespace EarTrumpet.Services
 
         public static void DumpAndShowData()
         {
+            var allText = DumpDevices(_manager);
+            allText += "\n\n";
+            allText += AppTraceListener.Instance.Log.ToString();
+
             var fileName = $"{Path.GetTempFileName()}.txt";
-            File.WriteAllText(fileName, DumpDevices(_manager));
+            File.WriteAllText(fileName, allText);
             using (Process.Start(fileName)) { }
         }
 

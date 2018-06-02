@@ -22,7 +22,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public AudioDeviceSessionCollection(IMMDevice device)
         {
-            Trace.WriteLine($"AudioDeviceSessionCollection Create {device.GetId()}");
+            Trace.WriteLine($"AudioDeviceSessionCollection Create dev={device.GetId()}");
 
             _dispatcher = App.Current.Dispatcher;
 
@@ -71,7 +71,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void AddSession(IAudioDeviceSession session)
         {
-            Trace.WriteLine($"AudioDeviceSessionCollection AddSession {session.Id}");
+            Trace.WriteLine($"AudioDeviceSessionCollection AddSession {session.ExeName} {session.Id}");
 
             session.PropertyChanged += Session_PropertyChanged;
 
@@ -102,7 +102,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void RemoveSession(IAudioDeviceSession session)
         {
-            Trace.WriteLine($"AudioDeviceSessionCollection RemoveSession {session.Id}");
+            Trace.WriteLine($"AudioDeviceSessionCollection RemoveSession {session.ExeName} {session.Id}");
 
             session.PropertyChanged -= Session_PropertyChanged;
 
