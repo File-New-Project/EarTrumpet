@@ -32,16 +32,31 @@ namespace EarTrumpet.Views
             Deactivated += FlyoutWindow_Deactivated;
             SourceInitialized += FlyoutWindow_SourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            Closing += FlyoutWindow_Closing;
 
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
             Hide();
+
+            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+        }
+
+        private void FlyoutWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Disable Alt+F4 because we hide instead.
+            e.Cancel = true;
+            _viewModel.BeginClose();
         }
 
         ~FlyoutWindow()
         {
+            _viewModel.StateChanged -= ViewModel_OnStateChanged;
+            _viewModel.WindowSizeInvalidated -= ViewModel_WindowSizeInvalidated;
+            _viewModel.AppExpanded -= ViewModel_AppExpanded;
+            _viewModel.AppCollapsed -= ViewModel_AppCollapsed;
+
             AppPopup.Closed -= AppPopup_Closed;
             Deactivated -= FlyoutWindow_Deactivated;
             SourceInitialized -= FlyoutWindow_SourceInitialized;
@@ -144,18 +159,6 @@ namespace EarTrumpet.Views
                         Hide();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
                     }
-                    break;
-                case FlyoutViewModel.ViewState.Closed:
-                    DataContext = null;
-
-                    _viewModel.StateChanged -= ViewModel_OnStateChanged;
-                    _viewModel.WindowSizeInvalidated -= ViewModel_WindowSizeInvalidated;
-                    _viewModel.AppExpanded -= ViewModel_AppExpanded;
-                    _viewModel.AppCollapsed -= ViewModel_AppCollapsed;
-
-                    Close();
-
-                    _viewModel.ChangeState(FlyoutViewModel.ViewState.NotLoaded);
                     break;
             }
         }
