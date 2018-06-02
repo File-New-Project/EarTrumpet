@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -30,21 +31,27 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine("AudioDeviceManager Create");
 
             _dispatcher = dispatcher;
-            _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
-            _enumerator.RegisterEndpointNotificationCallback(this);
-
-            var devices = _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE);
-            uint deviceCount = devices.GetCount();
-            for (uint i = 0; i < deviceCount; i++)
-            {
-                ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
-            }
-
-            // Trigger default logic to register for volume change
-            QueryDefaultPlaybackDevice();
-            QueryDefaultCommunicationsDevice();
-
             _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
+
+            Task.Factory.StartNew(() =>
+            {
+                _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
+                _enumerator.RegisterEndpointNotificationCallback(this);
+
+                var devices = _enumerator.EnumAudioEndpoints(EDataFlow.eRender, DeviceState.ACTIVE);
+                uint deviceCount = devices.GetCount();
+                for (uint i = 0; i < deviceCount; i++)
+                {
+                    ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
+                }
+
+                // Trigger default logic to register for volume change
+                _dispatcher.SafeInvoke(() =>
+                {
+                    QueryDefaultPlaybackDevice();
+                    QueryDefaultCommunicationsDevice();
+                });
+            });
 
             Trace.WriteLine("AudioDeviceManager Create Exit");
         }
@@ -160,26 +167,28 @@ namespace EarTrumpet.DataModel.Internal
         {
             Trace.WriteLine($"AudioDeviceManager OnDeviceAdded {pwstrDeviceId}");
 
-            _dispatcher.SafeInvoke(() =>
+            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
             {
-                if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
+                try
                 {
-                    try
+                    IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
+                    if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                     {
-                        IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
-                        if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
+                        var newDevice = new SafeAudioDevice(new AudioDevice(device));
+
+                        _dispatcher.SafeInvoke(() =>
                         {
-                            _devices.Add(new SafeAudioDevice(new AudioDevice(device)));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
-                        // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
-                        Trace.TraceError($"{ex}");
+                            _devices.Add(newDevice);
+                        });
                     }
                 }
-            });
+                catch (Exception ex)
+                {
+                    // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
+                    // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
+                    Trace.TraceError($"{ex}");
+                }
+            }
         }
 
         void IMMNotificationClient.OnDeviceRemoved(string pwstrDeviceId)

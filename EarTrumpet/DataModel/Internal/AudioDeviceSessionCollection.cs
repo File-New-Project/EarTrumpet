@@ -2,11 +2,13 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
 using EarTrumpet.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -15,10 +17,10 @@ namespace EarTrumpet.DataModel.Internal
     {
         public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
 
-        private readonly IAudioSessionManager2 _sessionManager;
         private readonly Dispatcher _dispatcher;
         private readonly ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private readonly List<IAudioDeviceSession> _movedSessions = new List<IAudioDeviceSession>();
+        private IAudioSessionManager2 _sessionManager;
 
         public AudioDeviceSessionCollection(IMMDevice device)
         {
@@ -26,15 +28,17 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher = App.Current.Dispatcher;
 
-            _sessionManager = device.Activate<IAudioSessionManager2>();
-            _sessionManager.RegisterSessionNotification(this);
-
-            var enumerator = _sessionManager.GetSessionEnumerator();
-            int count = enumerator.GetCount();
-            for (int i = 0; i < count; i++)
+            Task.Factory.StartNew(() =>
             {
-                CreateAndAddSession(enumerator.GetSession(i));
-            }
+                _sessionManager = device.Activate<IAudioSessionManager2>();
+                _sessionManager.RegisterSessionNotification(this);
+                var enumerator = _sessionManager.GetSessionEnumerator();
+                int count = enumerator.GetCount();
+                for (int i = 0; i < count; i++)
+                {
+                    CreateAndAddSession(enumerator.GetSession(i));
+                }
+            });
         }
 
         ~AudioDeviceSessionCollection()
@@ -51,13 +55,17 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session)));
+                var newSession = new SafeAudioDeviceSession(new AudioDeviceSession(session));
+                _dispatcher.SafeInvoke(() =>
+                {
+                    AddSession(newSession);
+                });
             }
-            catch (COMException ex)
+            catch (ZombieProcessException ex)
             {
                 Trace.TraceError($"{ex}");
             }
-            catch (ZombieProcessException ex)
+            catch (Exception ex)
             {
                 Trace.TraceError($"{ex}");
             }
@@ -66,7 +74,7 @@ namespace EarTrumpet.DataModel.Internal
         void IAudioSessionNotification.OnSessionCreated(IAudioSessionControl NewSession)
         {
             Trace.WriteLine($"AudioDeviceSessionCollection OnSessionCreated");
-            _dispatcher.SafeInvoke(() => CreateAndAddSession(NewSession));
+            CreateAndAddSession(NewSession);
         }
 
         private void AddSession(IAudioDeviceSession session)

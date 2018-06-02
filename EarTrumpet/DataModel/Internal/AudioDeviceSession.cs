@@ -187,6 +187,7 @@ namespace EarTrumpet.DataModel.Internal
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
                     });
 
+                    // Add a short delay to avoid running the task over and over.
                     Task.Delay(TimeSpan.FromSeconds(5)).Wait();
                 });
 

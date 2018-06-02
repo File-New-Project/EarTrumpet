@@ -46,6 +46,11 @@ namespace EarTrumpet.DataModel.Internal.Services
 
             lock (_lock)
             {
+                if (s_watchers.ContainsKey(processId))
+                {
+                    // We lost the race. We don't need to do anything.
+                    return;
+                }
                 s_watchers.Add(processId, data);
             }
 
