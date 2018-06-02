@@ -45,7 +45,7 @@ namespace EarTrumpet.Views
                 }
                 else
                 {
-                    var device = ((DeviceAndAppsControl)listItem.DataContext).Device;
+                    var device = (DeviceViewModel)listItem.DataContext;
                     switch (evt.Key)
                     {
                         case Key.M:
