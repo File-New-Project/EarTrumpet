@@ -213,6 +213,7 @@ namespace EarTrumpet.ViewModels
 
         public void ChangeState(ViewState state)
         {
+            Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
             var oldState = State;
 
             State = state;

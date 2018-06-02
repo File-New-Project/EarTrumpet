@@ -21,11 +21,13 @@ namespace EarTrumpet.Misc
 
         public void Start()
         {
+            Trace.WriteLine("RawInputListener Start");
             RegisterForRawMouseInput(User32.RIDEV_INPUTSINK);
         }
 
         public void Stop()
         {
+            Trace.WriteLine("RawInputListener Stop");
             RegisterForRawMouseInput(User32.RIDEV_REMOVE);
         }
 
@@ -69,6 +71,7 @@ namespace EarTrumpet.Misc
                         {
                             if ((rawInput.mouse.usButtonFlags & User32.RI_MOUSE_WHEEL) == User32.RI_MOUSE_WHEEL)
                             {
+                                Trace.WriteLine($"RawInputListener WM_INPUT MouseWheel: {rawInput.mouse.usButtonData}");
                                 MouseWheel?.Invoke(this, rawInput.mouse.usButtonData);
                             }
                         }
