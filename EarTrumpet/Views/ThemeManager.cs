@@ -21,16 +21,16 @@ namespace EarTrumpet.Views
         public class ThemeResolveData
         {
             public bool IsHighContrast => SystemParameters.HighContrast;
-            public bool IsTransparencyEnabled => UserSystemPreferencesService.IsTransparencyEnabled;
-            public bool IsLightTheme => UserSystemPreferencesService.IsLightTheme;
-            public bool UseAccentColor => UserSystemPreferencesService.UseAccentColor;
+            public bool IsTransparencyEnabled => SystemSettings.IsTransparencyEnabled;
+            public bool IsLightTheme => SystemSettings.IsLightTheme;
+            public bool UseAccentColor => SystemSettings.UseAccentColor;
             public Color LookupThemeColor(string color) => ImmersiveSystemColors.Lookup(color);
         }
 
         public event Action ThemeChanged;
 
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
-        public bool IsLightTheme => UserSystemPreferencesService.IsLightTheme;
+        public bool IsLightTheme => SystemSettings.IsLightTheme;
 
         private Dictionary<string, IResolvableThemeBrush> _themeData;
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };

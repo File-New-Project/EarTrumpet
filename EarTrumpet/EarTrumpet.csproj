@@ -221,7 +221,7 @@
     <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Misc\WindowsTaskbar.cs" />
     <Compile Include="Views\ThemeManager.cs" />
-    <Compile Include="Services\UserSystemPreferencesService.cs" />
+    <Compile Include="Misc\SystemSettings.cs" />
     <Compile Include="Views\TrayIcon.cs" />
     <Compile Include="ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="ViewModels\AppItemViewModel.cs" />

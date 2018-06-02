@@ -32,7 +32,7 @@ namespace EarTrumpet.Views
             AppPopup.Closed += (_, __) => _viewModel.CollapseApp();
             Deactivated += (_, __) => _viewModel.BeginClose();
 
-            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             SourceInitialized += (s, e) =>
             {
@@ -132,7 +132,7 @@ namespace EarTrumpet.Views
 
         private void UpdateTheme()
         {
-            this.SetWindowBlur(UserSystemPreferencesService.IsTransparencyEnabled && !SystemParameters.HighContrast);
+            this.SetWindowBlur(SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
         }
 
         private void UpdateWindowBounds()
@@ -185,7 +185,7 @@ namespace EarTrumpet.Views
 
             BaseVisual.VerticalScrollBarVisibility = isOverflowing ? System.Windows.Controls.ScrollBarVisibility.Visible : System.Windows.Controls.ScrollBarVisibility.Hidden;
 
-            bool isRTL = UserSystemPreferencesService.IsRTL;
+            bool isRTL = SystemSettings.IsRTL;
             double newTop = 0;
             double newLeft = 0;
 

@@ -47,7 +47,7 @@ namespace EarTrumpet.Views
         {
             var cm = new ContextMenu { Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style };
 
-            cm.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += (_, __) =>
             {
                 User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);

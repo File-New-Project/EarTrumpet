@@ -19,7 +19,7 @@ namespace EarTrumpet.Views
 
             SourceInitialized += (_, __) => this.SetWindowBlur(true, true);
 
-            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
         void UpdateText()

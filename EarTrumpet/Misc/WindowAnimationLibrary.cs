@@ -84,7 +84,7 @@ namespace EarTrumpet.Misc
                 moveAnimation.From = window.Top;
             }
 
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            if (SystemSettings.IsTransparencyEnabled)
             {
                 window.Opacity = 0.5;
             }
@@ -95,7 +95,7 @@ namespace EarTrumpet.Misc
             storyboard.FillBehavior = FillBehavior.Stop;
             storyboard.Children.Add(moveAnimation);
 
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            if (SystemSettings.IsTransparencyEnabled)
             {
                 storyboard.Children.Add(fadeAnimation);
             }
@@ -176,7 +176,7 @@ namespace EarTrumpet.Misc
             storyboard.FillBehavior = FillBehavior.Stop;
             storyboard.Children.Add(moveAnimation);
 
-            if (UserSystemPreferencesService.IsTransparencyEnabled)
+            if (SystemSettings.IsTransparencyEnabled)
             {
                 storyboard.Children.Add(fadeAnimation);
             }
@@ -193,7 +193,7 @@ namespace EarTrumpet.Misc
                 completed();
             });
 
-            if (!SystemParameters.MenuAnimation || !UserSystemPreferencesService.IsTransparencyEnabled)
+            if (!SystemParameters.MenuAnimation || !SystemSettings.IsTransparencyEnabled)
             {
                 onCompleted(null, null);
                 return;

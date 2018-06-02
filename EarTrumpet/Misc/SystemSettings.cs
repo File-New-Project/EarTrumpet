@@ -1,15 +1,15 @@
 ﻿using Microsoft.Win32;
 using System.Globalization;
 
-namespace EarTrumpet.Services
+namespace EarTrumpet.Misc
 {
-    static class UserSystemPreferencesService
+    static class SystemSettings
     {
-        public static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
-        public static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
-        public static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme");
+        internal static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
+        internal static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
+        internal static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme");
 
-        public static bool IsRTL => CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+        internal static bool IsRTL => CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
 
         private static bool ReadPersonalizationSetting(string key)
         {

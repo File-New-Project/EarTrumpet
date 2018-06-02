@@ -32,7 +32,7 @@ namespace EarTrumpet.Views
                 this.SetWindowBlur(true, true);
             };
 
-            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
         public static void ActivateSingleInstance()

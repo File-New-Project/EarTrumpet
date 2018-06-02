@@ -30,7 +30,7 @@ namespace EarTrumpet.Views
 
             PreviewKeyDown += FullWindow_PreviewKeyDown;
 
-            this.FlowDirection = UserSystemPreferencesService.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             Instance = this;
             Closing += (s, e) =>
