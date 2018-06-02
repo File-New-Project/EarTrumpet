@@ -68,7 +68,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveFromDevice()
         {
-            foreach(var session in _sessions.ToArray())
+            foreach (var session in _sessions.ToArray())
             {
                 session.MoveFromDevice();
             }
@@ -98,7 +98,7 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDeviceSessionGroup()
         {
-            foreach(var session in _sessions)
+            foreach (var session in _sessions)
             {
                 session.PropertyChanged -= Session_PropertyChanged;
             }
@@ -132,7 +132,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void RefreshDisplayName()
         {
-            foreach(var session in Sessions)
+            foreach (var session in Sessions)
             {
                 session.RefreshDisplayName();
             }

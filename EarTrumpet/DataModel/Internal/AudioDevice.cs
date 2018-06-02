@@ -4,6 +4,7 @@ using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
@@ -28,6 +29,9 @@ namespace EarTrumpet.DataModel.Internal
             _device = device;
             _dispatcher = App.Current.Dispatcher;
             _id = device.GetId();
+
+            Trace.WriteLine($"AudioDevice Create {_id}");
+
             _deviceVolume = device.Activate<IAudioEndpointVolume>();
 
             _deviceVolume.RegisterControlChangeNotify(this);
@@ -42,7 +46,14 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDevice()
         {
-            _deviceVolume.UnregisterControlChangeNotify(this);
+            try
+            {
+                _deviceVolume.UnregisterControlChangeNotify(this);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
         }
 
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
@@ -105,6 +116,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public void DevicePropertiesChanged(IMMDevice dev)
         {
+            Trace.WriteLine($"AudioDevice DevicePropertiesChanged {_id}");
+
             _device = dev;
             ReadDisplayName();
 

@@ -164,7 +164,14 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDeviceSession()
         {
-            _session.UnregisterAudioSessionNotification(this);
+            try
+            {
+                _session.UnregisterAudioSessionNotification(this);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
         }
 
         public void RefreshDisplayName()
@@ -217,7 +224,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void DisconnectSession()
         {
-            Trace.WriteLine($"AudioDeviceSession DisconnectSession {ExeName} {Id}"); 
+            Trace.WriteLine($"AudioDeviceSession DisconnectSession {ExeName} {Id}");
 
             _isDisconnected = true;
             _dispatcher.SafeInvoke(() =>
@@ -271,7 +278,7 @@ namespace EarTrumpet.DataModel.Internal
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
         {
             ReadRawDisplayName();
-            
+
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));

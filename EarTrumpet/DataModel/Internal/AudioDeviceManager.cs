@@ -138,7 +138,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 s_PolicyConfigClient.SetDefaultEndpoint(device.Id, role);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.TraceError($"{ex}");
             }
@@ -237,7 +237,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         ((IAudioDeviceInternal)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Trace.TraceError($"{ex}");
                     }

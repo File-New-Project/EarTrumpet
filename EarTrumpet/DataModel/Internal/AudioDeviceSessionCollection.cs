@@ -39,7 +39,7 @@ namespace EarTrumpet.DataModel.Internal
 
         ~AudioDeviceSessionCollection()
         {
-            foreach(var session in _sessions)
+            foreach (var session in _sessions)
             {
                 session.PropertyChanged -= Session_PropertyChanged;
             }
@@ -53,7 +53,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 AddSession(new SafeAudioDeviceSession(new AudioDeviceSession(session)));
             }
-            catch(COMException ex)
+            catch (COMException ex)
             {
                 Trace.TraceError($"{ex}");
             }
