@@ -107,7 +107,7 @@ namespace EarTrumpet.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 

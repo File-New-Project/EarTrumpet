@@ -121,7 +121,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex);
+                    Trace.TraceError($"{ex}");
                 }
 
                 return "";
@@ -162,7 +162,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Trace.TraceError($"{ex}");
                 return false;
             }
         }

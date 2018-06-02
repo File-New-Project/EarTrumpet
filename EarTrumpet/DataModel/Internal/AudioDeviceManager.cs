@@ -140,7 +140,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch(Exception ex)
             {
-                Debug.WriteLine(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -176,7 +176,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
                         // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
-                        Debug.WriteLine(ex);
+                        Trace.TraceError($"{ex}");
                     }
                 }
             });
@@ -220,7 +220,7 @@ namespace EarTrumpet.DataModel.Internal
                     ((IMMNotificationClient)this).OnDeviceRemoved(pwstrDeviceId);
                     break;
                 default:
-                    Debug.WriteLine($"Unknown DEVICE_STATE: {dwNewState}");
+                    Trace.TraceError($"Unknown DEVICE_STATE: {dwNewState}");
                     break;
             }
         }
@@ -239,7 +239,7 @@ namespace EarTrumpet.DataModel.Internal
                     }
                     catch(Exception ex)
                     {
-                        Debug.WriteLine(ex);
+                        Trace.TraceError($"{ex}");
                     }
                 }
             }

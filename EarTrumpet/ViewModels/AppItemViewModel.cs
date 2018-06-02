@@ -70,7 +70,7 @@ namespace EarTrumpet.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to load icon: {ex}");
+                Trace.TraceError($"Failed to load icon: {ex}");
             }
         }
 

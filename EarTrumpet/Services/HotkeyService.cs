@@ -27,7 +27,7 @@ namespace EarTrumpet.Services
             }
             catch(Exception ex)
             {
-                Debug.WriteLine($"Couldn't register hotkey: {ex}");
+                Trace.TraceError($"Couldn't register hotkey: {ex}");
             }
         }
 

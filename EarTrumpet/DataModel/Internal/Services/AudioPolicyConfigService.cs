@@ -52,7 +52,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch(COMException ex)
             {
-                Debug.WriteLine($"SetDefaultEndPoint Failed: {ex}");
+                Trace.TraceError($"SetDefaultEndPoint Failed: {ex}");
             }
         }
 
@@ -67,7 +67,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch(COMException ex)
             {
-                Debug.WriteLine($"GetDefaultEndPoint Failed: {ex}");
+                Trace.TraceError($"GetDefaultEndPoint Failed: {ex}");
             }
 
             return null;
