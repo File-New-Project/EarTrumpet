@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.Views;
@@ -57,12 +58,12 @@ namespace EarTrumpet.ViewModels
             try
             {
                 _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, IconService.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
-                _icons.Add(IconId.Muted, IconService.GetIconFromFile(_trayIconPath, (int)IconId.Muted));
-                _icons.Add(IconId.SpeakerZeroBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
-                _icons.Add(IconId.SpeakerOneBar, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
-                _icons.Add(IconId.SpeakerTwoBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
-                _icons.Add(IconId.SpeakerThreeBars, IconService.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+                _icons.Add(IconId.NoDevice, GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
+                _icons.Add(IconId.Muted, GetIconFromFile(_trayIconPath, (int)IconId.Muted));
+                _icons.Add(IconId.SpeakerZeroBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
+                _icons.Add(IconId.SpeakerOneBar, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
+                _icons.Add(IconId.SpeakerTwoBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
+                _icons.Add(IconId.SpeakerThreeBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
             }
             catch
             {
@@ -152,6 +153,24 @@ namespace EarTrumpet.ViewModels
         private void StartLegacyMixer()
         {
             using (Process.Start("sndvol.exe")) { }
+        }
+
+        private static Icon GetIconFromFile(string path, int iconOrdinal = 0)
+        {
+            var moduleHandle = Kernel32.LoadLibraryEx(path, IntPtr.Zero,
+                Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
+
+            IntPtr iconHandle = IntPtr.Zero;
+            try
+            {
+                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
+            }
+            finally
+            {
+                Kernel32.FreeLibrary(moduleHandle);
+            }
+
+            return Icon.FromHandle(iconHandle);
         }
     }
 }

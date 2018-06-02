@@ -218,7 +218,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\IconService.cs" />
     <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Misc\WindowsTaskbar.cs" />
     <Compile Include="Views\ThemeManager.cs" />

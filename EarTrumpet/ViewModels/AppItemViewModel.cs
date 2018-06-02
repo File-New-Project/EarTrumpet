@@ -61,7 +61,7 @@ namespace EarTrumpet.ViewModels
             {
                 if (session.IsDesktopApp)
                 {
-                    Icon = IconService.GetIconFromFileAsImageSource(session.IconPath);
+                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
                 }
                 else
                 {
