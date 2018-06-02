@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -13,6 +12,30 @@ namespace EarTrumpet.Views
 {
     public class ThemeManager : INotifyPropertyChanged
     {
+        private class Window : System.Windows.Forms.NativeWindow, IDisposable
+        {
+            Action<System.Windows.Forms.Message> _wndProc;
+
+            public void Initialize(Action<System.Windows.Forms.Message> wndProc)
+            {
+                _wndProc = wndProc;
+
+                CreateHandle(new System.Windows.Forms.CreateParams());
+            }
+
+            protected override void WndProc(ref System.Windows.Forms.Message m)
+            {
+                _wndProc(m);
+
+                base.WndProc(ref m);
+            }
+
+            public void Dispose()
+            {
+                this.DestroyHandle();
+            }
+        }
+
         public interface IResolvableThemeBrush
         {
             Color Resolve(ThemeResolveData data);
@@ -35,6 +58,7 @@ namespace EarTrumpet.Views
 
         private Dictionary<string, IResolvableThemeBrush> _themeData;
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
+        private Window _messageWindow;
 
         public ThemeManager()
         {
@@ -49,13 +73,9 @@ namespace EarTrumpet.Views
         public void SetTheme(Dictionary<string, ThemeManager.IResolvableThemeBrush> data)
         {
             _themeData = data;
-        }
 
-        public void RegisterForThemeChanges(IntPtr hwnd)
-        {
-            Trace.WriteLine($"ThemeManager RegisterForThemeChanges {hwnd}");
-            var src = HwndSource.FromHwnd(hwnd);
-            src.AddHook(WndProc);
+            _messageWindow = new Window();
+            _messageWindow.Initialize((m) => WndProc(m.Msg, m.WParam, m.LParam));
 
             RebuildTheme();
         }
@@ -75,7 +95,7 @@ namespace EarTrumpet.Views
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
         }
 
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private void WndProc(int msg, IntPtr wParam, IntPtr lParam)
         {
             const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x320;
             const int WM_DWMCOMPOSITIONCHANGED = 0x31E;
@@ -101,7 +121,6 @@ namespace EarTrumpet.Views
                     }
                     break;
             }
-            return IntPtr.Zero;
         }
 
         private void OnThemeColorsChanged()

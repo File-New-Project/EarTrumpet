@@ -14,12 +14,17 @@ namespace EarTrumpet.Views
 
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
-            DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
 
         public DeviceAndAppsControl()
         {
             InitializeComponent();
-            GridRoot.DataContext = this;
+        }
+
+        private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var self = (DeviceAndAppsControl)d;
+            self.GridRoot.DataContext = self.Device;
         }
 
         private void Mute_MouseDown(object sender, MouseButtonEventArgs e)

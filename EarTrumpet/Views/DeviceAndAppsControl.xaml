@@ -20,14 +20,14 @@
                 <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
                     <TextBlock Margin="0,0,20,0"
                                Style="{DynamicResource DeviceTitleTextStyle}"
-                               Text="{Binding Device.DisplayName}"
+                               Text="{Binding DisplayName}"
                                TextTrimming="CharacterEllipsis" />
                 </Border>
 
                 <ListViewItem Name="DeviceListItem"
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
-                              AutomationProperties.Name="{Binding Device}">
+                              AutomationProperties.Name="{Binding}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource IconCellWidth}" />
@@ -39,30 +39,30 @@
                                 HorizontalAlignment="Center"
                                 Background="Transparent"
                                 MouseDown="Icon_MouseDown"
-                                Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
+                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
 
                             <Grid>
                                 <TextBlock FontSize="24"
                                            Opacity="0.4"
                                            Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconTextBackground}" />
+                                           Text="{Binding DeviceIconTextBackground}" />
                                 <TextBlock FontSize="24"
                                            Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconText}" />
+                                           Text="{Binding DeviceIconText}" />
                             </Grid>
                         </Border>
 
                         <views:VolumeSlider Grid.Column="1"
-                                            Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                            PeakValue="{Binding Device.PeakValue}"
+                                            Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
+                                            PeakValue="{Binding PeakValue}"
                                             PreviewMouseUp="TouchSlider_MouseUp"
                                             PreviewTouchUp="TouchSlider_TouchUp"
                                             Style="{DynamicResource VolumeSliderStyle}"
-                                            Value="{Binding Device.Volume, Mode=TwoWay}" />
+                                            Value="{Binding Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
-                                   Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                   Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                                    Style="{DynamicResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Device.Volume, Mode=OneWay}" />
+                                   Text="{Binding Volume, Mode=OneWay}" />
                     </Grid>
                 </ListViewItem>
             </Grid>
@@ -71,7 +71,7 @@
         <Border Grid.Row="1" Style="{DynamicResource AppListBorderStyle}">
             <ListView Name="AppList"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
-                      ItemsSource="{Binding Device.Apps, Mode=OneWay}"
+                      ItemsSource="{Binding Apps, Mode=OneWay}"
                       Style="{DynamicResource AppListStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">

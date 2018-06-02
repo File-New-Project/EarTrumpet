@@ -12,10 +12,14 @@ namespace EarTrumpet
     public partial class App
     {
         private MainViewModel _viewModel;
+        private FlyoutViewModel _flyoutViewModel;
+        private FlyoutWindow _flyoutWindow;
         private TrayIcon _trayIcon;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
             Trace.Listeners.Clear();
             Trace.Listeners.Add(new AppTraceListener());
 
@@ -42,8 +46,8 @@ namespace EarTrumpet
             HotkeyService.Register(SettingsService.Hotkey);
             HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
 
-            var flyoutViewModel = new FlyoutViewModel(_viewModel, deviceManager);
-            var flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel);
+            _flyoutViewModel = new FlyoutViewModel(_viewModel, deviceManager);
+            _flyoutViewModel.StateChanged += _flyoutViewModel_StateChanged;
 
             var trayViewModel = new TrayViewModel(_viewModel, deviceManager);
             _trayIcon = new TrayIcon(deviceManager, trayViewModel);
@@ -55,6 +59,18 @@ namespace EarTrumpet
             }
 #endif
             Trace.WriteLine($"Application_Startup Exit time= {watch.ElapsedMilliseconds} ms");
+        }
+
+        private void _flyoutViewModel_StateChanged(object sender, FlyoutViewModel.CloseReason e)
+        {
+            if (_flyoutViewModel.State == FlyoutViewModel.ViewState.Loading)
+            {
+                _flyoutWindow = new FlyoutWindow(_viewModel, _flyoutViewModel);
+            }
+            else if (_flyoutViewModel.State == FlyoutViewModel.ViewState.Closed)
+            {
+                _flyoutWindow = null;
+            }
         }
     }
 }

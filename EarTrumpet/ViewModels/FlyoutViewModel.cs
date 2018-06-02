@@ -14,12 +14,14 @@ namespace EarTrumpet.ViewModels
     {
         public enum ViewState
         {
-            NotReady,
+            NotLoaded,
+            Loading,
             Hidden,
             Opening,
             Open,
             Closing_Stage1,
             Closing_Stage2, // Delay stage
+            Closed
         }
 
         public enum CloseReason
@@ -72,7 +74,7 @@ namespace EarTrumpet.ViewModels
         {
             Debug.Assert(State == ViewState.Closing_Stage2);
             _hideTimer.IsEnabled = false;
-            ChangeState(ViewState.Hidden);
+            ChangeState(ViewState.Closed);
         }
 
         private void AddDevice(DeviceViewModel device)
@@ -311,6 +313,10 @@ namespace EarTrumpet.ViewModels
 
             switch (State)
             {
+                case ViewState.NotLoaded:
+                    ChangeState(ViewState.Loading);
+                    ChangeState(ViewState.Opening);
+                    break;
                 case ViewState.Hidden:
                     BeginOpen();
                     break;

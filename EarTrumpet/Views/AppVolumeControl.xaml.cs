@@ -11,14 +11,24 @@ namespace EarTrumpet.Views
 
         public AppItemViewModel App { get { return (AppItemViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
         public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
-          "App", typeof(AppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(null));
+          "App", typeof(AppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(new PropertyChangedCallback(AppChanged)));
 
         public AppVolumeControl()
         {
             InitializeComponent();
-            GridRoot.DataContext = this;
 
-            PreviewMouseRightButtonUp += (_, __) => ExpandApp();
+            PreviewMouseRightButtonUp += AppVolumeControl_PreviewMouseRightButtonUp;
+        }
+
+        private static void AppChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var self = (AppVolumeControl)d;
+            self.GridRoot.DataContext = self.App;
+        }
+
+        private void AppVolumeControl_PreviewMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ExpandApp();
         }
 
         private void MuteButton_Click(object sender, RoutedEventArgs e)
