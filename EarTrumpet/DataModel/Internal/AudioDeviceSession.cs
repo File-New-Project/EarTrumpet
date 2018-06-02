@@ -201,7 +201,7 @@ namespace EarTrumpet.DataModel.Internal
             if (displayName.StartsWith("@"))
             {
                 StringBuilder sb = new StringBuilder(512);
-                if (shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)
+                if (Shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)
                 {
                     displayName = sb.ToString();
                 }
