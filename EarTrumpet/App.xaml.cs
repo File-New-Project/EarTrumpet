@@ -16,7 +16,9 @@ namespace EarTrumpet
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            var watch = Stopwatch.StartNew();
             Trace.WriteLine("Application_Startup");
+
             if (!SingleInstanceAppMutex.TakeExclusivity())
             {
                 Trace.WriteLine("TakeExclusivity failed");
@@ -49,7 +51,7 @@ namespace EarTrumpet
                 new DebugWindow().Show();
             }
 #endif
-            Trace.WriteLine("Application_Startup Exit");
+            Trace.WriteLine($"Application_Startup Exit time= {watch.ElapsedMilliseconds} ms");
         }
     }
 }
