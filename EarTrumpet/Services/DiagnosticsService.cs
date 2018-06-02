@@ -2,6 +2,7 @@
 using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
+using EarTrumpet.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,17 +12,25 @@ namespace EarTrumpet.Services
 {
     class DiagnosticsService
     {
-        private static IAudioDeviceManager _manager;
+        private static IAudioDeviceManager _deviceManager;
+        private static ThemeManager _themeManager;
 
-        public static void AdviseManager(IAudioDeviceManager manager)
+        public static void AdviseObjects(IAudioDeviceManager deviceManager, ThemeManager themeManager)
         {
-            _manager = manager;
+            _deviceManager = deviceManager;
+            _themeManager = themeManager;
         }
 
         public static void DumpAndShowData()
         {
-            var allText = DumpDevices(_manager);
-            allText += "\n\n";
+            var allText = DumpDevices(_deviceManager);
+            allText += Environment.NewLine;
+            allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
+            allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
+            allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
+            allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
+            allText += $"AnimationsEnabled: {_themeManager.AnimationsEnabled}" + Environment.NewLine;
+            allText += Environment.NewLine;
             allText += AppTraceListener.Instance.Log.ToString();
 
             var fileName = $"{Path.GetTempFileName()}.txt";
