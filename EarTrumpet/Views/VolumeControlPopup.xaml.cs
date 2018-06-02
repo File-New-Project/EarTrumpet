@@ -74,10 +74,10 @@ namespace EarTrumpet.Views
             var moveMenu = new ContextMenu();
             if (_useDarkTheme)
             {
-                moveMenu.Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style;
+                moveMenu.Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly");
             }
 
-            var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;
+            var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
             foreach (var dev in viewModel.AllDevices)
             {
                 var newItem = new MenuItem { Header = dev.DisplayName };
@@ -115,7 +115,7 @@ namespace EarTrumpet.Views
             var newSeparator = new Separator();
             if (_useDarkTheme)
             {
-                newSeparator.Style = Application.Current.FindResource("MenuItemSeparatorDarkOnly") as Style;
+                newSeparator.Style = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
             }
             moveMenu.Items.Insert(1, newSeparator);
 
@@ -139,7 +139,7 @@ namespace EarTrumpet.Views
 
             DataContext = e.ViewModel;
 
-            var contextTheme = relativeTo.TryFindResource("ContextMenuTheme") as string;
+            var contextTheme = (string)relativeTo.TryFindResource("ContextMenuTheme");
             _useDarkTheme = contextTheme != null && contextTheme.Equals("DarkOnly");
 
             Point offsetFromWindow = e.Container.TranslatePoint(new Point(0, 0), relativeTo);

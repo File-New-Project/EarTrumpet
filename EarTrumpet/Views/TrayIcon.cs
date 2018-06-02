@@ -2,7 +2,6 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Misc;
-using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using System;
 using System.Linq;
@@ -45,12 +44,12 @@ namespace EarTrumpet.Views
 
         private ContextMenu BuildContextMenu()
         {
-            var cm = new ContextMenu { Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style };
+            var cm = new ContextMenu { Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly") };
 
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += ContextMenu_Opened;
 
-            var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;
+            var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
             var AddItem = new Action<string, ICommand>((displayName, action) =>
             {
                 cm.Items.Add(new MenuItem
@@ -87,7 +86,7 @@ namespace EarTrumpet.Views
             }
 
             // Static items
-            var separatorStyle = Application.Current.FindResource("MenuItemSeparatorDarkOnly") as Style;
+            var separatorStyle = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
 
             cm.Items.Add(new Separator { Style = separatorStyle });
             AddItem(resx.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);

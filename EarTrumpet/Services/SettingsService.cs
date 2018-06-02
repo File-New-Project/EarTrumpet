@@ -108,7 +108,7 @@ namespace EarTrumpet.Services
             using (TextReader reader = new StringReader(data))
             {
                 XmlSerializer xs = new XmlSerializer(typeof(T));
-                return xs.Deserialize(reader) as T;
+                return (T)xs.Deserialize(reader);
             }
         }
 
