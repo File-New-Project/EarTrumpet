@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Services;
+﻿using EarTrumpet.Misc;
+using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +24,7 @@ namespace EarTrumpet.Views
             public bool IsTransparencyEnabled => UserSystemPreferencesService.IsTransparencyEnabled;
             public bool IsLightTheme => UserSystemPreferencesService.IsLightTheme;
             public bool UseAccentColor => UserSystemPreferencesService.UseAccentColor;
-            public Color LookupThemeColor(string color) => AccentColorService.GetColorByTypeName(color);
+            public Color LookupThemeColor(string color) => ImmersiveSystemColors.Lookup(color);
         }
 
         public event Action ThemeChanged;

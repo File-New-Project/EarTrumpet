@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Services;
+﻿using EarTrumpet.Misc;
+using EarTrumpet.Services;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -12,7 +13,7 @@ namespace EarTrumpet.Views
             InitializeComponent();
 
             List<ColorData> colors = new List<ColorData>();
-            foreach(var c in AccentColorService.GetImmersiveColors())
+            foreach(var c in ImmersiveSystemColors.GetList())
             {
                 var color = c.Value;
                 color.A = 255; // Very misleading to render on white otherwise!

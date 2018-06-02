@@ -86,6 +86,7 @@
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
+    <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
+    <Compile Include="Misc\ImmersiveSystemColors.cs" />
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
@@ -216,7 +218,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\AccentColorService.cs" />
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Misc\KeyboardHook.cs" />
     <Compile Include="Misc\WindowsTaskbar.cs" />

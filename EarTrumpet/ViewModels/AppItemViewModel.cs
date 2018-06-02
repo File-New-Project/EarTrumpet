@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
@@ -54,8 +55,7 @@ namespace EarTrumpet.ViewModels
                 ChildApps = new ObservableCollection<AppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
             }
 
-            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent :
-                AccentColorService.FromABGR(session.BackgroundColor));
+            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
 
             try
             {
