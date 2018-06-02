@@ -145,12 +145,13 @@ namespace EarTrumpet.DataModel.Internal
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
 
+            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
+
+            // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
             Trace.WriteLine($"AudioDeviceSession Create {_id}");
-
-            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
             if (!IsSystemSoundsSession)
             {
