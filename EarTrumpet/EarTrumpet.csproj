@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\Build\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;X86</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -61,6 +61,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xaml">
@@ -102,6 +103,7 @@
     <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\Kernel32.cs" />
     <Compile Include="Interop\MrtResourceManager.cs" />
+    <Compile Include="Interop\Ntdll.cs" />
     <Compile Include="Interop\Ole32.cs" />
     <Compile Include="Interop\MMDeviceAPI\PolicyConfigClient.cs" />
     <Compile Include="Interop\PropertyKeys.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Interop\RECT.cs" />
     <Compile Include="Misc\AppTraceListener.cs" />
     <Compile Include="Misc\ImmersiveSystemColors.cs" />
+    <Compile Include="Misc\MarshalHelper.cs" />
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />

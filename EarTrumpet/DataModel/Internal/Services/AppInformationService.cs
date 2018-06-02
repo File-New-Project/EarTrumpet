@@ -1,8 +1,10 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Interop;
+using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -87,11 +89,57 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 else
                 {
-                    throw new ZombieProcessException();
+                    if(!TryGetExecutableNameViaNtByPid(processId, out appInfo.ExeName))
+                    {
+                        throw new ZombieProcessException();
+                    }
                 }
             }
 
             return appInfo;
+        }
+
+        private static bool TryGetExecutableNameViaNtByPid(int processId, out string executableName)
+        {
+            bool executableNameRetrieved = false;
+            executableName = "";
+
+            var ntstatus = Ntdll.NtQuerySystemInformationInitial(
+                Ntdll.SYSTEM_INFORMATION_CLASS.SystemProcessInformation,
+                IntPtr.Zero,
+                0,
+                out int requiredBufferLength);
+
+            if(ntstatus == Ntdll.NTSTATUS.STATUS_INFO_LENGTH_MISMATCH)
+            {
+                var buffer = Marshal.AllocHGlobal(requiredBufferLength);
+                ntstatus = Ntdll.NtQuerySystemInformation(
+                    Ntdll.SYSTEM_INFORMATION_CLASS.SystemProcessInformation,
+                    buffer,
+                    requiredBufferLength,
+                    IntPtr.Zero);
+
+                if (ntstatus == Ntdll.NTSTATUS.SUCCESS)
+                {
+                    Ntdll.SYSTEM_PROCESS_INFORMATION processInfo;
+                    IntPtr entryPtr = buffer;
+                    do
+                    {
+                        processInfo = MarshalHelper.PtrToStructure<Ntdll.SYSTEM_PROCESS_INFORMATION>(entryPtr);
+                        if (processInfo.UniqueProcessId == processId && processInfo.ImageName.Buffer != IntPtr.Zero)
+                        {
+                            executableName = Marshal.PtrToStringUni(processInfo.ImageName.Buffer, processInfo.ImageName.Length / 2);
+                            executableNameRetrieved = true;
+                            break;
+                        }
+                        entryPtr += processInfo.NextEntryOffset;
+                    } while (processInfo.NextEntryOffset != 0);
+                }
+
+                Marshal.FreeHGlobal(buffer);
+            }
+
+            return executableNameRetrieved;
         }
 
         internal static string GetDisplayNameForAppByPid(int processId)
