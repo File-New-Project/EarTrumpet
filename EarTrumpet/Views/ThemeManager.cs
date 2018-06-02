@@ -40,6 +40,11 @@ namespace EarTrumpet.Views
             _themeChangeTimer.Tick += ThemeChangeTimer_Tick;
         }
 
+        ~ThemeManager()
+        {
+            _themeChangeTimer.Tick -= ThemeChangeTimer_Tick;
+        }
+
         public void SetTheme(Dictionary<string, ThemeManager.IResolvableThemeBrush> data)
         {
             _themeData = data;

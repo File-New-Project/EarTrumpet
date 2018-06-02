@@ -15,9 +15,10 @@ namespace EarTrumpet.DataModel.Internal
     {
         public ObservableCollection<IAudioDeviceSession> Sessions => _sessions;
 
-        private Dispatcher _dispatcher;
-        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
-        private List<IAudioDeviceSession> _movedSessions = new List<IAudioDeviceSession>();
+        private readonly IAudioSessionManager2 _sessionManager;
+        private readonly Dispatcher _dispatcher;
+        private readonly ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        private readonly List<IAudioDeviceSession> _movedSessions = new List<IAudioDeviceSession>();
 
         public AudioDeviceSessionCollection(IMMDevice device)
         {
@@ -25,10 +26,10 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher = App.Current.Dispatcher;
 
-            var sessionManager = device.Activate<IAudioSessionManager2>();
-            sessionManager.RegisterSessionNotification(this);
+            _sessionManager = device.Activate<IAudioSessionManager2>();
+            _sessionManager.RegisterSessionNotification(this);
 
-            var enumerator = sessionManager.GetSessionEnumerator();
+            var enumerator = _sessionManager.GetSessionEnumerator();
             int count = enumerator.GetCount();
             for (int i = 0; i < count; i++)
             {
@@ -42,6 +43,8 @@ namespace EarTrumpet.DataModel.Internal
             {
                 session.PropertyChanged -= Session_PropertyChanged;
             }
+
+            _sessionManager.UnregisterSessionNotification(this);
         }
 
         private void CreateAndAddSession(IAudioSessionControl session)

@@ -18,25 +18,38 @@ namespace EarTrumpet.DataModel.Internal
 
             Setup();
 
-            manager.DefaultPlaybackDeviceChanged += (_, __) =>
+            _manager.DefaultPlaybackDeviceChanged += Manager_DefaultPlaybackDeviceChanged;
+        }
+
+        ~VirtualDefaultAudioDevice()
+        {
+            _manager.DefaultPlaybackDeviceChanged -= Manager_DefaultPlaybackDeviceChanged;
+
+            if (_device != null)
             {
-                if (_device != null)
-                {
-                    _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
-                    _device.PropertyChanged -= Device_PropertyChanged;
-                }
+                _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
+                _device.PropertyChanged -= Device_PropertyChanged;
+            }
+        }
 
-                Setup();
+        private void Manager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        {
+            if (_device != null)
+            {
+                _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
+                _device.PropertyChanged -= Device_PropertyChanged;
+            }
 
-                CollectionChanged?.Invoke(null, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+            Setup();
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDevicePresent)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Groups)));
-            };
+            CollectionChanged?.Invoke(null, new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsDevicePresent)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Groups)));
         }
 
         private void Setup()

@@ -40,6 +40,11 @@ namespace EarTrumpet.DataModel.Internal
             ReadDisplayName();
         }
 
+        ~AudioDevice()
+        {
+            _deviceVolume.UnregisterControlChangeNotify(this);
+        }
+
         void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
         {
             _volume = pNotify.fMasterVolume;

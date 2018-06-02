@@ -40,6 +40,12 @@ namespace EarTrumpet.ViewModels
             UpdateMasterVolumeIcon();
         }
 
+        ~DeviceViewModel()
+        {
+            _device.PropertyChanged -= Device_PropertyChanged;
+            _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
+        }
+
         private void Device_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_device.IsMuted) ||
@@ -51,11 +57,6 @@ namespace EarTrumpet.ViewModels
             {
                 RaisePropertyChanged(nameof(DisplayName));
             }
-        }
-
-        ~DeviceViewModel()
-        {
-            _device.Groups.CollectionChanged -= Sessions_CollectionChanged;
         }
 
         public override void TriggerPeakCheck()

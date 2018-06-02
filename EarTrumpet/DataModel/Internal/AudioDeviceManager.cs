@@ -49,6 +49,11 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine("AudioDeviceManager Create Exit");
         }
 
+        ~AudioDeviceManager()
+        {
+            _enumerator.UnregisterEndpointNotificationCallback(this);
+        }
+
         private void QueryDefaultPlaybackDevice()
         {
             Trace.WriteLine("AudioDeviceManager QueryDefaultPlaybackDevice");

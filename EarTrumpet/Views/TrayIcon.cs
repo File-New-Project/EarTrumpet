@@ -48,12 +48,7 @@ namespace EarTrumpet.Views
             var cm = new ContextMenu { Style = Application.Current.FindResource("ContextMenuDarkOnly") as Style };
 
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            cm.Opened += (_, __) =>
-            {
-                User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-                cm.Focus();
-                ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
-            };
+            cm.Opened += ContextMenu_Opened;
 
             var menuItemStyle = Application.Current.FindResource("MenuItemDarkOnly") as Style;
             var AddItem = new Action<string, ICommand>((displayName, action) =>
@@ -107,6 +102,14 @@ namespace EarTrumpet.Views
             AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);
 
             return cm;
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            var cm = (ContextMenu)sender;
+            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
+            cm.Focus();
+            ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
         }
 
         private void UpdateToolTip()

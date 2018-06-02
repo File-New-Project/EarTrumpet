@@ -74,6 +74,11 @@ namespace EarTrumpet.ViewModels
             }
         }
 
+        ~AppItemViewModel()
+        {
+            _session.PropertyChanged -= Session_PropertyChanged;
+        }
+
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_session.DisplayName))

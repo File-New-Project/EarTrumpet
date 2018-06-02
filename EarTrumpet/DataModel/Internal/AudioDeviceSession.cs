@@ -161,6 +161,11 @@ namespace EarTrumpet.DataModel.Internal
             RefreshDisplayName();
         }
 
+        ~AudioDeviceSession()
+        {
+            _session.UnregisterAudioSessionNotification(this);
+        }
+
         public void RefreshDisplayName()
         {
             if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
