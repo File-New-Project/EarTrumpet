@@ -91,7 +91,7 @@ namespace EarTrumpet.ViewModels
             });
         }
 
-        public void MoveAppToDevice(AppItemViewModel app, DeviceViewModel dev)
+        public void MoveAppToDevice(IAppItemViewModel app, DeviceViewModel dev)
         {
             var searchId = dev?.Id;
             if (dev == null)

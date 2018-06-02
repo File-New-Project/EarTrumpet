@@ -5,6 +5,6 @@ namespace EarTrumpet.ViewModels
     public class AppExpandedEventArgs
     {
         public UIElement Container;
-        public AppItemViewModel ViewModel;
+        public IAppItemViewModel ViewModel;
     }
 }

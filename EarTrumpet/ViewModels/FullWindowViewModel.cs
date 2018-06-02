@@ -27,7 +27,7 @@ namespace EarTrumpet.ViewModels
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void ExpandApp(AppItemViewModel vm, UIElement container)
+        public void ExpandApp(IAppItemViewModel vm, UIElement container)
         {
             if (IsShowingModalDialog)
             {

@@ -108,6 +108,22 @@ namespace EarTrumpet.DataModel.Internal
             _sessions.Add(new AudioDeviceSessionGroup(new AudioDeviceSessionGroup(session)));
         }
 
+        internal void UnHideSessionsForProcessId(int processId)
+        {
+            foreach(var session in _movedSessions.ToArray())
+            {
+                if (session.ProcessId == processId)
+                {
+                    _movedSessions.Remove(session);
+                    session.PropertyChanged -= MovedSession_PropertyChanged;
+
+                    session.UnHide();
+
+                    AddSession(session);
+                }
+            }
+        }
+
         private void RemoveSession(IAudioDeviceSession session)
         {
             Trace.WriteLine($"AudioDeviceSessionCollection RemoveSession {session.ExeName} {session.Id}");

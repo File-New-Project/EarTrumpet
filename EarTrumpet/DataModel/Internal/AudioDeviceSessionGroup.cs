@@ -66,11 +66,19 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
-        public void MoveFromDevice()
+        public void Hide()
         {
             foreach (var session in _sessions.ToArray())
             {
-                session.MoveFromDevice();
+                session.Hide();
+            }
+        }
+
+        public void UnHide()
+        {
+            foreach (var session in _sessions.ToArray())
+            {
+                session.UnHide();
             }
         }
 
@@ -82,7 +90,7 @@ namespace EarTrumpet.DataModel.Internal
                 AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
             }
 
-            MoveFromDevice();
+            Hide();
         }
 
         public void UpdatePeakValueBackground()

@@ -265,7 +265,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void BeginExpandApp(AppItemViewModel vm, UIElement container)
+        public void BeginExpandApp(IAppItemViewModel vm, UIElement container)
         {
             if (IsShowingModalDialog)
             {

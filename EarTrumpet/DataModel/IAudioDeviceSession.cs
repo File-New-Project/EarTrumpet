@@ -19,8 +19,10 @@ namespace EarTrumpet.DataModel
         ObservableCollection<IAudioDeviceSession> Children { get; }
         string PersistedDefaultEndPointId { get; }
 
-        void MoveFromDevice();
+        void Hide();
+        void UnHide();
         void MoveAllSessionsToDevice(string id);
         void UpdatePeakValueBackground();
+
     }
 }

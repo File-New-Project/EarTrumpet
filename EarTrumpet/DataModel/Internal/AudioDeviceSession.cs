@@ -210,7 +210,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public void MoveFromDevice()
+        public void Hide()
         {
             Trace.WriteLine($"AudioDeviceSession MoveFromDevice {ExeName} {Id}");
 
@@ -223,6 +223,16 @@ namespace EarTrumpet.DataModel.Internal
                 _isMoved = true;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
             }
+        }
+
+        public void UnHide()
+        {
+            Trace.WriteLine($"AudioDeviceSession UnHide {ExeName} {Id}");
+
+            _isMoved = false;
+            _moveOnInactive = false;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
         }
 
         public void MoveAllSessionsToDevice(string id)

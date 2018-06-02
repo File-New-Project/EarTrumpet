@@ -15,7 +15,7 @@ namespace EarTrumpet.Views
 
             if (listItem != null)
             {
-                var app = listItem.DataContext as AppItemViewModel;
+                var app = listItem.DataContext as IAppItemViewModel;
 
                 if (app != null)
                 {

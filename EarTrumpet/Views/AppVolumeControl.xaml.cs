@@ -9,9 +9,9 @@ namespace EarTrumpet.Views
     {
         public event EventHandler<AppVolumeControlExpandedEventArgs> AppExpanded;
 
-        public AppItemViewModel App { get { return (AppItemViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
+        public IAppItemViewModel App { get { return (IAppItemViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
         public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
-          "App", typeof(AppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(new PropertyChangedCallback(AppChanged)));
+          "App", typeof(IAppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(new PropertyChangedCallback(AppChanged)));
 
         public AppVolumeControl()
         {
@@ -54,7 +54,7 @@ namespace EarTrumpet.Views
 
     public class AppVolumeControlExpandedEventArgs
     {
-        public AppItemViewModel ViewModel;
+        public IAppItemViewModel ViewModel;
         public UIElement Container;
     }
 }

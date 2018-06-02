@@ -10,7 +10,7 @@ namespace EarTrumpet.ViewModels
     public class DeviceViewModel : AudioSessionViewModel
     {
         public string DisplayName => _device.DisplayName;
-        public ObservableCollection<AppItemViewModel> Apps { get; private set; }
+        public ObservableCollection<IAppItemViewModel> Apps { get; private set; }
         public string DeviceIconText { get; private set; }
         public string DeviceIconTextBackground { get; private set; }
 
@@ -27,7 +27,7 @@ namespace EarTrumpet.ViewModels
             _deviceManager = deviceManager;
             _device = device;
 
-            Apps = new ObservableCollection<AppItemViewModel>();
+            Apps = new ObservableCollection<IAppItemViewModel>();
 
             _device.PropertyChanged += Device_PropertyChanged;
             _device.Groups.CollectionChanged += Sessions_CollectionChanged;
@@ -147,8 +147,13 @@ namespace EarTrumpet.ViewModels
             Apps.AddSorted(newSession, AppItemViewModel.CompareByExeName);
         }
 
-        public void OnAppMovedToDevice(AppItemViewModel app)
+        public void OnAppMovedToDevice(IAppItemViewModel app)
         {
+            foreach (var childApp in app.ChildApps)
+            {
+                _device.UnhideSessionsForProcessId(childApp.ProcessId);
+            }
+
             bool hasExistingAppGroup = false;
             foreach(var a in Apps)
             {

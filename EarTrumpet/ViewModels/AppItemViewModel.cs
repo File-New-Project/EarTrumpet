@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,13 +10,13 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.ViewModels
 {
-    public class AppItemViewModel : AudioSessionViewModel
+    public class AppItemViewModel : AudioSessionViewModel, IAppItemViewModel
     {
-        public class ExeNameComparer : IComparer<AppItemViewModel>
+        public class ExeNameComparer : IComparer<IAppItemViewModel>
         {
-            public int Compare(AppItemViewModel one, AppItemViewModel two)
+            public int Compare(IAppItemViewModel one, IAppItemViewModel two)
             {
-                return string.Compare(one._session.ExeName, two._session.ExeName, StringComparison.Ordinal);
+                return string.Compare(one.ExeName, two.ExeName, StringComparison.Ordinal);
             }
         }
 
@@ -31,7 +30,10 @@ namespace EarTrumpet.ViewModels
 
         public string DisplayName => _session.DisplayName;
 
-        public ObservableCollection<AppItemViewModel> ChildApps { get; private set; }
+        public string ExeName => _session.ExeName;
+        public string AppId => _session.AppId;
+
+        public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
         public bool IsMovable => !_session.IsSystemSoundsSession;
 
@@ -52,7 +54,7 @@ namespace EarTrumpet.ViewModels
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;
-                ChildApps = new ObservableCollection<AppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
+                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
             }
 
             Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
@@ -105,7 +107,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        internal void MoveAllSessionsToDevice(string id)
+        public void MoveAllSessionsToDevice(string id)
         {
             _session.MoveAllSessionsToDevice(id);
         }
@@ -124,7 +126,7 @@ namespace EarTrumpet.ViewModels
         }
 
 
-        internal void UpdatePeakValueBackground()
+        public void UpdatePeakValueBackground()
         {
             if (ChildApps != null)
             {
@@ -145,16 +147,8 @@ namespace EarTrumpet.ViewModels
 
         public override float PeakValue => _session.PeakValue;
 
-        public bool DoesGroupWith(AppItemViewModel app) => (_session.AppId == app._session.AppId);
+        public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
-
-        public void MoveFromDevice()
-        {
-            foreach(var session in _session.Children.ToArray()) // Enumeration will remove items.
-            {
-                session.MoveFromDevice();
-            }
-        }
     }
 }

@@ -124,6 +124,11 @@ namespace EarTrumpet.DataModel.Internal
             PeakValue = _meter.GetPeakValue();
         }
 
+        public void UnhideSessionsForProcessId(int processId)
+        {
+            _sessions.UnHideSessionsForProcessId(processId);
+        }
+
         private void ReadDisplayName()
         {
             try

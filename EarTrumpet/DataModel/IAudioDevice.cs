@@ -9,5 +9,6 @@ namespace EarTrumpet.DataModel
         ObservableCollection<IAudioDeviceSession> Groups { get; }
 
         void UpdatePeakValueBackground();
+        void UnhideSessionsForProcessId(int processId);
     }
 }

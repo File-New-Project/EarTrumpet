@@ -68,7 +68,7 @@ namespace EarTrumpet.Views
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
             var viewModel = MainViewModel.Instance;
-            var selectedApp = (AppItemViewModel)((FrameworkElement)sender).DataContext;
+            var selectedApp = (IAppItemViewModel)((FrameworkElement)sender).DataContext;
             var persistedDeviceId = selectedApp.PersistedOutputDevice;
 
             var moveMenu = new ContextMenu();

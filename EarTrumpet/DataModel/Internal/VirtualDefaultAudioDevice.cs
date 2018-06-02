@@ -90,6 +90,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValueBackground() => throw new NotSupportedException();
 
+        public void UnhideSessionsForProcessId(int processId) => throw new NotSupportedException();
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
