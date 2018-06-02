@@ -117,6 +117,7 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
+    <Compile Include="Misc\AppTraceListener.cs" />
     <Compile Include="Misc\ImmersiveSystemColors.cs" />
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />

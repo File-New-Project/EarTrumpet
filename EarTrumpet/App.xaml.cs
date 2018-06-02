@@ -16,6 +16,9 @@ namespace EarTrumpet
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new AppTraceListener());
+
             var watch = Stopwatch.StartNew();
             Trace.WriteLine("Application_Startup");
 
