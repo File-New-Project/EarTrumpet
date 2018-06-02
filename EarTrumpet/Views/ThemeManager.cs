@@ -33,11 +33,11 @@ namespace EarTrumpet.Views
         public bool IsLightTheme => UserSystemPreferencesService.IsLightTheme;
 
         private Dictionary<string, IResolvableThemeBrush> _themeData;
-        private DispatcherTimer _themeChangetimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
+        private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
 
         public ThemeManager()
         {
-            _themeChangetimer.Tick += ThemeChangeTimer_Tick;
+            _themeChangeTimer.Tick += ThemeChangeTimer_Tick;
         }
 
         public void SetTheme(Dictionary<string, ThemeManager.IResolvableThemeBrush> data)
@@ -99,16 +99,16 @@ namespace EarTrumpet.Views
 
         private void OnThemeColorsChanged()
         {
-            if (_themeChangetimer.IsEnabled)
+            if (_themeChangeTimer.IsEnabled)
             {
-                _themeChangetimer.Stop();
+                _themeChangeTimer.Stop();
             }
-            _themeChangetimer.Start();
+            _themeChangeTimer.Start();
         }
 
         private void ThemeChangeTimer_Tick(object sender, EventArgs e)
         {
-            _themeChangetimer.IsEnabled = false;
+            _themeChangeTimer.IsEnabled = false;
 
             Debug.WriteLine("Theme changed");
 
