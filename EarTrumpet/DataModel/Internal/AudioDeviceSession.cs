@@ -244,7 +244,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
-            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {Id}");
+            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {DisplayName} {Id}");
 
             _state = NewState;
 
