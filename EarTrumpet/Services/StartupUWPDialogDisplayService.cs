@@ -15,6 +15,8 @@ namespace EarTrumpet.Services
 
         internal static void ShowIfAppropriate()
         {
+            Trace.WriteLine($"StartupUWPDialogDisplayService ShowIfAppropriate {App.Current.HasIdentity()}");
+
             if (App.Current.HasIdentity())
             {
                 ShowWelcomeIfAppropriate();
@@ -79,6 +81,8 @@ namespace EarTrumpet.Services
 
         private static void ProtocolLaunchEarTrumpet(string more = "")
         {
+            Trace.WriteLine($"StartupUWPDialogDisplayService ProtocolLaunchEarTrumpet {more}");
+
             try
             {
                 using (Process.Start($"eartrumpet://{more}")) { }
