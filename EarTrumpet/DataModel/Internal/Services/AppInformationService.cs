@@ -96,7 +96,7 @@ namespace EarTrumpet.DataModel.Internal.Services
         {
             if (processId == 0)
             {
-                return Properties.Resources.SystemSoundsDisplayName;
+                return null;
             }
 
             if (IsImmersiveProcess(processId))

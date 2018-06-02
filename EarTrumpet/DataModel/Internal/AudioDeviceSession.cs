@@ -1,10 +1,12 @@
 ﻿using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -139,7 +141,6 @@ namespace EarTrumpet.DataModel.Internal
             ProcessId = (int)((IAudioSessionControl2)_session).GetProcessId();
             IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             _state = _session.GetState();
-            _rawDisplayName = _session.GetDisplayName();
             GroupingParam = _session.GetGroupingParam();
 
             _session.RegisterAudioSessionNotification(this);
@@ -155,6 +156,7 @@ namespace EarTrumpet.DataModel.Internal
             }
 
             ReadVolumeAndMute();
+            ReadRawdisplayName();
             RefreshDisplayName();
         }
 
@@ -190,6 +192,21 @@ namespace EarTrumpet.DataModel.Internal
         {
             // The group should have handled this.
             throw new NotImplementedException();
+        }
+
+        private void ReadRawdisplayName()
+        {
+            var displayName = _session.GetDisplayName();
+            if (displayName.StartsWith("@"))
+            {
+                StringBuilder sb = new StringBuilder(512);
+                if (shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)
+                {
+                    displayName = sb.ToString();
+                }
+            }
+
+            _rawDisplayName = displayName;
         }
 
         private void ReadVolumeAndMute()
@@ -260,7 +277,8 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
         {
-            _rawDisplayName = _session.GetDisplayName();
+            ReadRawdisplayName();
+            
             _dispatcher.SafeInvoke(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));

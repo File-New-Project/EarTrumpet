@@ -150,9 +150,6 @@
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
   </data>
-  <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>System Sounds</value>
-  </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
     <value>Collect debug information</value>
   </data>

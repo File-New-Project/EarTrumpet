@@ -331,15 +331,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to System Sounds.
-        /// </summary>
-        public static string SystemSoundsDisplayName {
-            get {
-                return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Collect debug information.
         /// </summary>
         public static string TroubleshootEarTrumpetText {
