@@ -26,6 +26,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             Trace.WriteLine($"AppInformationService GetInformationForAppByPid {processId}");
 
             var appInfo = new AppInformation();
+            appInfo.CanTrack = true;
 
             if (processId == 0)
             {
@@ -90,7 +91,11 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 else
                 {
-                    if(!TryGetExecutableNameViaNtByPid(processId, out appInfo.ExeName))
+                    if (TryGetExecutableNameViaNtByPid(processId, out appInfo.ExeName))
+                    {
+                        appInfo.CanTrack = false;
+                    }
+                    else
                     {
                         throw new ZombieProcessException(processId);
                     }
@@ -318,6 +323,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 BackgroundColor = 0x000000,
                 PackageInstallPath = "System.SystemSoundsSession",
                 IsDesktopApp = true,
+                CanTrack = false,
                 SmallLogoPath = Environment.ExpandEnvironmentVariables(
                     $"%windir%\\{(Environment.Is64BitOperatingSystem ? "sysnative" : "system32")}\\audiosrv.dll")
             };

@@ -11,5 +11,6 @@ namespace EarTrumpet.DataModel
         public string PackageFullName;
         public string SmallLogoPath;
         public bool IsDesktopApp;
+        public bool CanTrack;
     }
 }

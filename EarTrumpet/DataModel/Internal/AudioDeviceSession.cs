@@ -153,7 +153,7 @@ namespace EarTrumpet.DataModel.Internal
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
 
-            if (!IsSystemSoundsSession)
+            if (_appInfo.CanTrack)
             {
                 ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
             }
