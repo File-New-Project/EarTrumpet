@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.Misc;
-using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.Views
 {
-    public class ThemeManager : ViewModels.BindableBase
+    public class ThemeManager : INotifyPropertyChanged
     {
         public interface IResolvableThemeBrush
         {
@@ -20,14 +20,15 @@ namespace EarTrumpet.Views
 
         public class ThemeResolveData
         {
-            public bool IsHighContrast => SystemParameters.HighContrast;
-            public bool IsTransparencyEnabled => SystemSettings.IsTransparencyEnabled;
-            public bool IsLightTheme => SystemSettings.IsLightTheme;
-            public bool UseAccentColor => SystemSettings.UseAccentColor;
+            public bool IsHighContrast = SystemParameters.HighContrast;
+            public bool IsTransparencyEnabled = SystemSettings.IsTransparencyEnabled;
+            public bool IsLightTheme = SystemSettings.IsLightTheme;
+            public bool UseAccentColor = SystemSettings.UseAccentColor;
             public Color LookupThemeColor(string color) => ImmersiveSystemColors.Lookup(color);
         }
 
         public event Action ThemeChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
@@ -52,6 +53,7 @@ namespace EarTrumpet.Views
 
         public void RegisterForThemeChanges(IntPtr hwnd)
         {
+            Trace.WriteLine($"ThemeManager RegisterForThemeChanges {hwnd}");
             var src = HwndSource.FromHwnd(hwnd);
             src.AddHook(WndProc);
 
@@ -95,7 +97,7 @@ namespace EarTrumpet.Views
                     }
                     else if (settingChanged == "WindowMetrics")
                     {
-                        RaisePropertyChanged(nameof(AnimationsEnabled));
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnimationsEnabled)));
                     }
                     break;
             }
@@ -115,13 +117,10 @@ namespace EarTrumpet.Views
         {
             _themeChangeTimer.IsEnabled = false;
 
-            Trace.WriteLine("ThemeManager ThemeChangeTimer_Tick");
-
             RebuildTheme();
 
             ThemeChanged?.Invoke();
-
-            RaisePropertyChanged(nameof(IsLightTheme));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLightTheme)));
         }
     }
 }
