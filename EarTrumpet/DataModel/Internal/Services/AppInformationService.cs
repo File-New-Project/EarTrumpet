@@ -67,10 +67,10 @@ namespace EarTrumpet.DataModel.Internal.Services
                 var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
                 if (handle != IntPtr.Zero)
                 {
-                    CheckProcessHandle(processId, handle);
-
                     try
                     {
+                        CheckProcessHandle(processId, handle);
+
                         var fileNameBuilder = new StringBuilder(260);
                         uint bufferLength = (uint)fileNameBuilder.Capacity;
                         if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
@@ -167,18 +167,14 @@ namespace EarTrumpet.DataModel.Internal.Services
                 {
                     using (var proc = Process.GetProcessById(processId))
                     {
-                        if (!string.IsNullOrWhiteSpace(proc.MainWindowTitle))
-                        {
-                            return proc.MainWindowTitle;
-                        }
+                        return proc.MainWindowTitle;
                     }
                 }
                 catch (Exception ex)
                 {
                     Trace.TraceError($"{ex}");
                 }
-
-                return "";
+                return null;
             }
         }
 
@@ -186,22 +182,24 @@ namespace EarTrumpet.DataModel.Internal.Services
         {
             var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
             if (processHandle == IntPtr.Zero)
+            {
                 return false;
+            }
 
-            bool result = User32.IsImmersiveProcess(processHandle) != 0;
-            Kernel32.CloseHandle(processHandle);
-            return result;
+            try
+            {
+                return User32.IsImmersiveProcess(processHandle) != 0;
+            }
+            finally
+            {
+                Kernel32.CloseHandle(processHandle);
+            }
         }
 
         private static void CheckProcessHandle(int processId, IntPtr handle)
         {
-            if (Kernel32.WaitForSingleObject(handle, 0) == Kernel32.WAIT_TIMEOUT)
+            if (Kernel32.WaitForSingleObject(handle, 0) != Kernel32.WAIT_TIMEOUT)
             {
-                // Handle is OK
-            }
-            else
-            {
-                Kernel32.CloseHandle(handle);
                 throw new ZombieProcessException(processId);
             }
         }
@@ -228,10 +226,10 @@ namespace EarTrumpet.DataModel.Internal.Services
             var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
             if (processHandle != IntPtr.Zero)
             {
-                CheckProcessHandle(processId, processHandle);
-
                 try
                 {
+                    CheckProcessHandle(processId, processHandle);
+
                     int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
                     var amuidBuffer = new StringBuilder(amuidBufferLength);
 

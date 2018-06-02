@@ -7,6 +7,8 @@ using System.Threading;
 
 namespace EarTrumpet.DataModel.Internal.Services
 {
+    // Monitors a list of processes by Process Id.
+    // Uses a single background thread to monitor N processes for quit.
     class ProcessWatcherService
     {
         class ProcessWatcherData
@@ -16,8 +18,11 @@ namespace EarTrumpet.DataModel.Internal.Services
             public IntPtr processHandle;
         }
 
-        private static readonly Dictionary<int, ProcessWatcherData> s_watchers = new Dictionary<int, ProcessWatcherData>();
         private static readonly object _lock = new object();
+
+        // Protected by _lock.
+        private static readonly Dictionary<int, ProcessWatcherData> s_watchers = new Dictionary<int, ProcessWatcherData>();
+        // Protected by _lock.
         private static bool _threadRunning;
 
         public static void WatchProcess(int processId, Action<int> processQuit)
@@ -30,7 +35,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
             }
 
-            Trace.WriteLine($"ProcessWatcherService Start watching {processId}");
+            Trace.WriteLine($"ProcessWatcherService WatchProcess {processId}");
 
             var data = new ProcessWatcherData
             {

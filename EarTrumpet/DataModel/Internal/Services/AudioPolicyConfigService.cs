@@ -2,7 +2,6 @@
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace EarTrumpet.DataModel.Internal.Services
 {
@@ -50,7 +49,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, hstring);
             }
-            catch(COMException ex)
+            catch(Exception ex)
             {
                 Trace.TraceError($"SetDefaultEndPoint Failed: {ex}");
             }
@@ -65,7 +64,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
                 return UnpackDeviceId(deviceId);
             }
-            catch(COMException ex)
+            catch(Exception ex)
             {
                 Trace.TraceError($"GetDefaultEndPoint Failed: {ex}");
             }
