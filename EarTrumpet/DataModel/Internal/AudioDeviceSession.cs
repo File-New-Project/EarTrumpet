@@ -157,7 +157,7 @@ namespace EarTrumpet.DataModel.Internal
                 ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
             }
 
-            ReadRawdisplayName();
+            ReadRawDisplayName();
             RefreshDisplayName();
         }
 
@@ -195,7 +195,7 @@ namespace EarTrumpet.DataModel.Internal
             Debug.Assert(false);
         }
 
-        private void ReadRawdisplayName()
+        private void ReadRawDisplayName()
         {
             var displayName = _session.GetDisplayName();
             if (displayName.StartsWith("@"))
@@ -265,7 +265,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
         {
-            ReadRawdisplayName();
+            ReadRawDisplayName();
             
             _dispatcher.SafeInvoke(() =>
             {

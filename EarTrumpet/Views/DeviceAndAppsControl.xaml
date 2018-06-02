@@ -17,8 +17,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Border Height="{StaticResource DeviceTitleCellHeight}"
-                        Margin="{StaticResource WindowMargin}">
+                <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
                     <TextBlock Margin="0,0,20,0"
                                Style="{DynamicResource DeviceTitleTextStyle}"
                                Text="{Binding Device.DisplayName}"

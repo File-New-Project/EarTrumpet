@@ -6,7 +6,7 @@ namespace EarTrumpet.Interop
 {
     class shlwapi
     {
-        [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = false)]
+        [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = true)]
         internal static extern int SHLoadIndirectString(
             string pszSource, 
             StringBuilder pszOutBuf, 
