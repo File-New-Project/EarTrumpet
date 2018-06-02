@@ -79,6 +79,9 @@ namespace EarTrumpet.Views
                 case FlyoutViewModel.ViewState.Opening:
                     _rawListener.Start();
                     Show();
+
+                    // We need the theme to be updated on show because the window borders will be set based on taskbar position.
+                    UpdateTheme();
                     UpdateWindowBounds();
                     DevicesList.Focus();
 
@@ -185,6 +188,10 @@ namespace EarTrumpet.Views
             bool isRTL = UserSystemPreferencesService.IsRTL;
             double newTop = 0;
             double newLeft = 0;
+
+            // We need to account for the DWM border visualization.
+            double WindowWidthWithBorder = Width + 1;
+
             switch(taskbarState.Location)
             {
                 case WindowsTaskbar.Position.Left:
@@ -197,12 +204,12 @@ namespace EarTrumpet.Views
                     break;
                 case WindowsTaskbar.Position.Top:
                     newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - WindowWidthWithBorder;
                     newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor());
                     break;
                 case WindowsTaskbar.Position.Bottom:
                     newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - WindowWidthWithBorder;
                     newTop = (taskbarState.Size.Top / this.DpiHeightFactor()) - newHeight;
                     break;
             }
