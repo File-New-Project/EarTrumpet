@@ -231,7 +231,7 @@ namespace EarTrumpet.DataModel.Internal
             Debug.Assert(false);
         }
 
-        public void UpdatePeakValue()
+        public void UpdatePeakValueBackground()
         {
             try
             {

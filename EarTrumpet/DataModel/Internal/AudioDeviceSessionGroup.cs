@@ -85,12 +85,12 @@ namespace EarTrumpet.DataModel.Internal
             MoveFromDevice();
         }
 
-        public void UpdatePeakValue()
+        public void UpdatePeakValueBackground()
         {
             // We're in the background so we need to use a snapshot.
             foreach (var session in _sessions.ToArray())
             {
-                session.UpdatePeakValue();
+                session.UpdatePeakValueBackground();
             }
         }
 

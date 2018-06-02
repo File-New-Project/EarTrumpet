@@ -37,7 +37,7 @@ namespace EarTrumpet.ViewModels
         }
         public virtual float PeakValue => _stream.PeakValue;
 
-        public virtual void TriggerPeakCheck()
+        public virtual void UpdatePeakValueForeground()
         {
             RaisePropertyChanged(nameof(PeakValue));
         }

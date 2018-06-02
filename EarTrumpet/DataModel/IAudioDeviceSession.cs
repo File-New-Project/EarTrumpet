@@ -21,6 +21,6 @@ namespace EarTrumpet.DataModel
 
         void MoveFromDevice();
         void MoveAllSessionsToDevice(string id);
-        void UpdatePeakValue();
+        void UpdatePeakValueBackground();
     }
 }

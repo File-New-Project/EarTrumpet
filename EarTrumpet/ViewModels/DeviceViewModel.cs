@@ -59,19 +59,19 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public override void TriggerPeakCheck()
+        public override void UpdatePeakValueForeground()
         {
-            base.TriggerPeakCheck();
+            base.UpdatePeakValueForeground();
 
-            foreach (var app in Apps) app.TriggerPeakCheck();
+            foreach (var app in Apps) app.UpdatePeakValueForeground();
         }
 
-        public void UpdatePeakValues()
+        public void UpdatePeakValueBackground()
         {
             // We're in the background so we need to use a snapshot.
-            foreach (var app in Apps.ToArray()) app.UpdatePeakValues();
+            foreach (var app in Apps.ToArray()) app.UpdatePeakValueBackground();
 
-            _device.UpdatePeakValue();
+            _device.UpdatePeakValueBackground();
         }
 
         private void UpdateMasterVolumeIcon()

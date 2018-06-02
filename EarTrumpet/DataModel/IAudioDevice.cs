@@ -8,6 +8,6 @@ namespace EarTrumpet.DataModel
 
         ObservableCollection<IAudioDeviceSession> Groups { get; }
 
-        void UpdatePeakValue();
+        void UpdatePeakValueBackground();
     }
 }

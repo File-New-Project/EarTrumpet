@@ -110,31 +110,31 @@ namespace EarTrumpet.ViewModels
             _session.MoveAllSessionsToDevice(id);
         }
 
-        public override void TriggerPeakCheck()
+        public override void UpdatePeakValueForeground()
         {
             if (ChildApps != null)
             {
                 foreach (var child in ChildApps)
                 {
-                    child.TriggerPeakCheck();
+                    child.UpdatePeakValueForeground();
                 }
             }
 
-            base.TriggerPeakCheck();
+            base.UpdatePeakValueForeground();
         }
 
 
-        internal void UpdatePeakValues()
+        internal void UpdatePeakValueBackground()
         {
             if (ChildApps != null)
             {
                 foreach (var child in ChildApps)
                 {
-                    child.UpdatePeakValues();
+                    child.UpdatePeakValueBackground();
                 }
             }
 
-            _session.UpdatePeakValue();
+            _session.UpdatePeakValueBackground();
         }
 
 

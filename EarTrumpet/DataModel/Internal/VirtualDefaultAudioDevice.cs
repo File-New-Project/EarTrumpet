@@ -88,7 +88,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public float PeakValue { get => _device != null ? _device.PeakValue : 0; }
 
-        public void UpdatePeakValue() => throw new NotSupportedException();
+        public void UpdatePeakValueBackground() => throw new NotSupportedException();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

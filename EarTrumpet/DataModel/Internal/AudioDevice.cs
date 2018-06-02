@@ -119,7 +119,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string DisplayName => _displayName;
 
-        public void UpdatePeakValue()
+        public void UpdatePeakValueBackground()
         {
             PeakValue = _meter.GetPeakValue();
         }

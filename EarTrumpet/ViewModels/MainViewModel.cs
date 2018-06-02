@@ -79,14 +79,14 @@ namespace EarTrumpet.ViewModels
             // We're in the background so we need to use a snapshot.
             foreach (var device in AllDevices.ToArray())
             {
-                device.UpdatePeakValues();
+                device.UpdatePeakValueBackground();
             }
 
             App.Current.Dispatcher.SafeInvoke(() =>
             {
                 foreach (var device in AllDevices)
                 {
-                    device.TriggerPeakCheck();
+                    device.UpdatePeakValueForeground();
                 }
             });
         }
