@@ -50,7 +50,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string IconPath => _appInfo.SmallLogoPath;
 
-        public Guid GroupingParam => _session.GetGroupingParam();
+        public Guid GroupingParam { get; private set; }
 
         public float PeakValue => _meter.GetPeakValue();
 
@@ -73,7 +73,7 @@ namespace EarTrumpet.DataModel.Internal
                     return SessionState.Moved;
                 }
 
-                switch (_session.GetState())
+                switch (_state)
                 {
                     case AudioSessionState.Active:
                         return SessionState.Active;
@@ -93,7 +93,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string Id => _id;
 
-        public bool IsSystemSoundsSession => ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+        public bool IsSystemSoundsSession { get; }
 
         public string PersistedDefaultEndPointId => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
 
@@ -108,6 +108,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private string _resolvedDisplayName;
         private float _volume;
+        private AudioSessionState _state;
         private bool _isMuted;
         private bool _isDisconnected;
         private bool _isMoved;
@@ -120,6 +121,9 @@ namespace EarTrumpet.DataModel.Internal
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
             ProcessId = (int)((IAudioSessionControl2)_session).GetProcessId();
+            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            _state = _session.GetState();
+            GroupingParam = _session.GetGroupingParam();
 
             _session.RegisterAudioSessionNotification(this);
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
@@ -209,6 +213,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnGroupingParamChanged(ref Guid NewGroupingParam, ref Guid EventContext)
         {
+            GroupingParam = NewGroupingParam;
             Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {Id}");
             _dispatcher.SafeInvoke(() =>
             {
@@ -219,6 +224,9 @@ namespace EarTrumpet.DataModel.Internal
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
         {
             Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {Id}");
+
+            _state = NewState;
+
             if (_isMoved)
             {
                 if (NewState == AudioSessionState.Active)
