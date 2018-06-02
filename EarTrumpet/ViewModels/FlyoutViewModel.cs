@@ -216,6 +216,17 @@ namespace EarTrumpet.ViewModels
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
             var oldState = State;
 
+            bool isValidStateTransition = 
+                oldState == ViewState.NotLoaded &&      state == ViewState.Hidden ||
+                oldState == ViewState.Hidden &&         state == ViewState.Opening ||
+                oldState == ViewState.Opening &&        state == ViewState.Open ||
+                oldState == ViewState.Open &&           state == ViewState.Closing_Stage1 ||
+                oldState == ViewState.Closing_Stage1 && state == ViewState.Closing_Stage2 ||
+                oldState == ViewState.Closing_Stage1 && state == ViewState.Hidden ||
+                oldState == ViewState.Closing_Stage2 && state == ViewState.Hidden;
+
+            Debug.Assert(isValidStateTransition);
+
             State = state;
             StateChanged(this, _expandOnCloseThenOpen ? CloseReason.CloseThenOpen : CloseReason.Normal);
 
