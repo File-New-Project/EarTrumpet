@@ -55,6 +55,8 @@ namespace EarTrumpet.Views
 
         private void RebuildTheme()
         {
+            Trace.WriteLine("ThemeManager RebuildTheme");
+
             var resolveData = new ThemeResolveData();
             var newDictionary = new ResourceDictionary();
             foreach (var themeEntry in _themeData)
@@ -91,8 +93,6 @@ namespace EarTrumpet.Views
                         RaisePropertyChanged(nameof(AnimationsEnabled));
                     }
                     break;
-                default:
-                    break;
             }
             return IntPtr.Zero;
         }
@@ -110,7 +110,7 @@ namespace EarTrumpet.Views
         {
             _themeChangeTimer.IsEnabled = false;
 
-            Debug.WriteLine("Theme changed");
+            Trace.WriteLine("ThemeManager ThemeChangeTimer_Tick");
 
             RebuildTheme();
 
