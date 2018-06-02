@@ -206,16 +206,16 @@
         <ScrollViewer Name="BaseVisual">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
-                <TextBlock x:Uid="NoDevicesPanelContent"
-                           Height="{StaticResource NoItemsPaneHeight}"
-                           Margin="{StaticResource NoItemsPaneMargin}"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Background="{DynamicResource WindowBackground}"
-                           FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                           Text="{x:Static resx:Resources.NoDevicesPanelContent}"
-                           TextWrapping="Wrap"
-                           Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                <Border VerticalAlignment="Center"
+                        Height="{StaticResource NoItemsPaneHeight}"
+                        Background="{DynamicResource WindowBackground}"
+                        Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                    <TextBlock x:Uid="NoDevicesPanelContent"
+                               HorizontalAlignment="Center"
+                               FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                               Text="{x:Static resx:Resources.NoDevicesPanelContent}"
+                               TextWrapping="Wrap" />
+                </Border>
 
                 <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
                     <ItemsControl Name="DevicesList"

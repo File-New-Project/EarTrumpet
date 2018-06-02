@@ -195,10 +195,7 @@ namespace EarTrumpet.Views
             double newHeight = 0;
             if (_viewModel.IsEmpty)
             {
-                var NoItemsPaneHeight = (double)App.Current.Resources["NoItemsPaneHeight"];
-                var NoItemsPaneMargin = (Thickness)App.Current.Resources["NoItemsPaneMargin"];
-
-                newHeight = NoItemsPaneHeight + NoItemsPaneMargin.Bottom + NoItemsPaneMargin.Top;
+                newHeight = (double)App.Current.Resources["NoItemsPaneHeight"];
             }
             else
             {
