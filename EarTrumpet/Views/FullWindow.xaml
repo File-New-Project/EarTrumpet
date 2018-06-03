@@ -5,8 +5,6 @@
         xmlns:views="clr-namespace:EarTrumpet.Views"
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
-        MinWidth="300"
-        MinHeight="300"
         SizeToContent="WidthAndHeight"
         Style="{DynamicResource FullWindowDialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
