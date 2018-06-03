@@ -3,6 +3,7 @@ using EarTrumpet.Misc;
 using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -19,27 +20,23 @@ namespace EarTrumpet.Services
 
             public override string ToString()
             {
-                string ret = "";
+                var kc = new KeysConverter();
 
+                Keys modifiers = Keys.None;
                 if ((Modifiers & KeyboardHook.ModifierKeys.Control) == KeyboardHook.ModifierKeys.Control)
                 {
-                    ret += "Ctrl+";
+                    modifiers |= Keys.Control;
                 }
                 if ((Modifiers & KeyboardHook.ModifierKeys.Shift) == KeyboardHook.ModifierKeys.Shift)
                 {
-                    ret += "Shift+";
+                    modifiers |= Keys.Shift;
                 }
                 if ((Modifiers & KeyboardHook.ModifierKeys.Alt) == KeyboardHook.ModifierKeys.Alt)
                 {
-                    ret += "Alt+";
+                    modifiers |= Keys.Alt;
                 }
 
-                if (Key != System.Windows.Forms.Keys.None)
-                {
-                    ret += Key.ToString();
-                }
-
-                return ret;
+                return (string)kc.ConvertTo(modifiers | Key, typeof(string));
             }
         }
 
