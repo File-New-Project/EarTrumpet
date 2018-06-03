@@ -102,18 +102,21 @@ namespace EarTrumpet.ViewModels
             {
                 ProcessWatcherService.WatchProcess(pid, (pidQuit) =>
                 {
-                    var newPids = _processIds.ToList();
-
-                    if (newPids.Contains(pidQuit))
+                    App.Current.Dispatcher.SafeInvoke(() =>
                     {
-                        newPids.Remove(pidQuit);
-                    }
-                    _processIds = newPids.ToArray();
+                        var newPids = _processIds.ToList();
 
-                    if (_processIds.Length == 0)
-                    {
-                        Expire();
-                    }
+                        if (newPids.Contains(pidQuit))
+                        {
+                            newPids.Remove(pidQuit);
+                        }
+                        _processIds = newPids.ToArray();
+
+                        if (_processIds.Length == 0)
+                        {
+                            Expire();
+                        }
+                    });
                 });
             }
 

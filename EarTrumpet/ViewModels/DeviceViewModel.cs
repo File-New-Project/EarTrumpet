@@ -105,8 +105,6 @@ namespace EarTrumpet.ViewModels
             RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
 
-
-
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -129,7 +127,6 @@ namespace EarTrumpet.ViewModels
                     throw new NotImplementedException();
             }
         }
-
 
         private void AddSession(IAudioDeviceSession session)
         {
