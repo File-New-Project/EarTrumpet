@@ -150,8 +150,10 @@ namespace EarTrumpet.ViewModels
             Apps.AddSorted(newSession, AppItemViewModel.CompareByExeName);
         }
 
-        public void OnAppMovedToDevice(IAppItemViewModel app)
+        public void OnAppMovedToDevice(TemporaryAppItemViewModel app)
         {
+            app.Expired += App_Expired;
+
             foreach (var childApp in app.ChildApps)
             {
                 _device.UnhideSessionsForProcessId(childApp.ProcessId);
@@ -171,6 +173,16 @@ namespace EarTrumpet.ViewModels
             {
                 // Add a fake app entry.
                 Apps.AddSorted(app, AppItemViewModel.CompareByExeName);
+            }
+        }
+
+        private void App_Expired(object sender, EventArgs e)
+        {
+            var app = (TemporaryAppItemViewModel)sender;
+            if (Apps.Contains(app))
+            {
+                app.Expired -= App_Expired;
+                Apps.Remove(app);
             }
         }
 

@@ -14,7 +14,7 @@ namespace EarTrumpet.DataModel.Internal.Services
         class ProcessWatcherData
         {
             public int processId;
-            public Action<int> quitAction;
+            public List<Action<int>> quitActions = new List<Action<int>>();
             public IntPtr processHandle;
         }
 
@@ -40,18 +40,21 @@ namespace EarTrumpet.DataModel.Internal.Services
             var data = new ProcessWatcherData
             {
                 processId = processId,
-                quitAction = processQuit,
                 processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.SYNCHRONIZE, false, processId)
             };
+            data.quitActions.Add(processQuit);
 
             lock (_lock)
             {
                 if (s_watchers.ContainsKey(processId))
                 {
-                    // We lost the race. We don't need to do anything.
-                    return;
+                    // We lost the race.
+                    s_watchers[processId].quitActions.Add(processQuit);
                 }
-                s_watchers.Add(processId, data);
+                else
+                {
+                    s_watchers.Add(processId, data);
+                }
             }
 
             EnsureWatcherThreadRunning();
@@ -108,7 +111,10 @@ namespace EarTrumpet.DataModel.Internal.Services
 
                                 Trace.WriteLine($"ProcessWatcherService Quit: {data.processId}");
 
-                                data.quitAction(data.processId);
+                                foreach (var act in data.quitActions)
+                                {
+                                    act(data.processId);
+                                }
 
                                 Kernel32.CloseHandle(data.processHandle);
                                 break;

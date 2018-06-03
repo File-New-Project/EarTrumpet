@@ -1,14 +1,50 @@
 ﻿using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.Extensions;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media;
 
 namespace EarTrumpet.ViewModels
 {
-    class TemporaryAppItemViewModel : IAppItemViewModel
+    public class TemporaryAppItemViewModel : BindableBase, IAppItemViewModel
     {
+        public event EventHandler Expired;
+
         public string Id { get; }
-        public bool IsMuted { get; set; }
-        public int Volume { get; set; }
+        public bool IsMuted
+        {
+            get => ChildApps != null ? ChildApps[0].IsMuted : _isMuted;
+            set
+            {
+                if (ChildApps != null)
+                {
+                    ChildApps[0].IsMuted = value;
+                }
+                else
+                {
+                    _isMuted = value;
+                    RaisePropertyChanged(nameof(IsMuted));
+                }
+            }
+        }
+        public int Volume
+        {
+            get => ChildApps != null ? ChildApps[0].Volume : _volume;
+            set
+            {
+                if (ChildApps != null)
+                {
+                    ChildApps[0].Volume = value;
+                }
+                else
+                {
+                    _volume = value;
+                    RaisePropertyChanged(nameof(Volume));
+                }
+            }
+        }
         public SolidColorBrush Background { get; }
         public ObservableCollection<IAppItemViewModel> ChildApps { get; }
         public string DisplayName { get; }
@@ -22,16 +58,26 @@ namespace EarTrumpet.ViewModels
         public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
 
+        private int[] _processIds;
+        private int _volume;
+        private bool _isMuted;
+
         public TemporaryAppItemViewModel(IAppItemViewModel app, bool isChild = false)
         {
             if (!isChild)
             {
-                ChildApps = new ObservableCollection<IAppItemViewModel> { new TemporaryAppItemViewModel(app, true) };
+                ChildApps = new ObservableCollection<IAppItemViewModel>();
+                foreach(var childApp in app.ChildApps)
+                {
+                    var vm = new TemporaryAppItemViewModel(childApp, true);
+                    vm.PropertyChanged += ChildApp_PropertyChanged;
+                    ChildApps.Add(vm);
+                }
             }
 
             Id = app.Id;
-            IsMuted = app.IsMuted;
-            Volume = app.Volume;
+            _isMuted = app.IsMuted;
+            _volume = app.Volume;
             Background = app.Background;
             DisplayName = app.DisplayName;
             ExeName = app.ExeName;
@@ -43,9 +89,42 @@ namespace EarTrumpet.ViewModels
             PeakValue = 0;
             ProcessId = app.ProcessId;
 
+            if (ChildApps != null)
+            {
+                _processIds = ChildApps.Select(a => a.ProcessId).ToSet().ToArray();
+            }
+            else
+            {
+                _processIds = new int[] { ProcessId };
+            }
+
+            foreach(var pid in _processIds)
+            {
+                ProcessWatcherService.WatchProcess(pid, (pidQuit) =>
+                {
+                    var newPids = _processIds.ToList();
+
+                    if (newPids.Contains(pidQuit))
+                    {
+                        newPids.Remove(pidQuit);
+                    }
+                    _processIds = newPids.ToArray();
+
+                    if (_processIds.Length == 0)
+                    {
+                        Expire();
+                    }
+                });
+            }
+
 #if VSDEBUG
             Background = new SolidColorBrush(Colors.Red);
 #endif
+        }
+
+        private void ChildApp_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged(e.PropertyName);
         }
 
         public bool DoesGroupWith(IAppItemViewModel app)
@@ -53,7 +132,25 @@ namespace EarTrumpet.ViewModels
             return ExeName == app.ExeName;
         }
 
-        public void MoveAllSessionsToDevice(string id) { }
+        public void MoveAllSessionsToDevice(string id, bool hide)
+        {
+            // Update the output for all processes represented by this app.
+            foreach (var pid in _processIds)
+            {
+                AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
+            }
+
+            if (hide)
+            {
+                Expire();
+            }
+        }
+
+        private void Expire()
+        {
+            Expired?.Invoke(this, null);
+        }
+
         public void RefreshDisplayName() { }
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }

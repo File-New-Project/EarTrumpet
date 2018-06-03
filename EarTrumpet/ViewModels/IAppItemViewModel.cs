@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace EarTrumpet.ViewModels
 {
-    public interface IAppItemViewModel
+    public interface IAppItemViewModel : INotifyPropertyChanged
     {
         string Id { get; }
         bool IsMuted { get; set; }
@@ -22,7 +23,7 @@ namespace EarTrumpet.ViewModels
         int ProcessId { get; }
 
         bool DoesGroupWith(IAppItemViewModel app);
-        void MoveAllSessionsToDevice(string id);
+        void MoveAllSessionsToDevice(string id, bool hide);
         void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();

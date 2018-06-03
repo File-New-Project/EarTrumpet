@@ -109,12 +109,14 @@ namespace EarTrumpet.ViewModels
 
             try
             {
+                bool isLogicallyMovingDevices = (oldDevice != newDevice);
+
                 var tempApp = new TemporaryAppItemViewModel(app);
 
-                app.MoveAllSessionsToDevice(dev?.Id);
+                app.MoveAllSessionsToDevice(dev?.Id, hide:isLogicallyMovingDevices);
 
                 // Update the UI if the device logically changed places.
-                if (oldDevice != newDevice)
+                if (isLogicallyMovingDevices)
                 {
                     oldDevice.OnAppMovedFromDevice(app);
                     newDevice.OnAppMovedToDevice(tempApp);

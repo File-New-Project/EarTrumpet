@@ -36,13 +36,13 @@ namespace EarTrumpet.DataModel.Internal.Services
             if (IsImmersiveProcess(processId))
             {
                 appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
-                appInfo.ExeName = appInfo.AppUserModelId;
 
                 var shellItem = GetShellItemForAppByAumid(appInfo.AppUserModelId);
 
                 appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
+                appInfo.ExeName = appInfo.PackageInstallPath;
 
                 string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
                 if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
