@@ -151,15 +151,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Q.
-        /// </summary>
-        public static string DefaultHotkeyContentText {
-            get {
-                return ResourceManager.GetString("DefaultHotkeyContentText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Default shortcut.
         /// </summary>
         public static string DefaultHotkeyDescriptionText {

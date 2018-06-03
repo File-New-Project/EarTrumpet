@@ -23,7 +23,7 @@ namespace EarTrumpet.Services
 
             try
             {
-                s_hook.RegisterHotKey(hotkey.Modifiers, hotkey.Key);
+                s_hook.RegisterHotKey(hotkey.Key, hotkey.Modifiers);
             }
             catch(Exception ex)
             {

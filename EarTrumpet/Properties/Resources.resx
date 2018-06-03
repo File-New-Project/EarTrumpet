@@ -194,9 +194,6 @@
   <data name="CollapseAccessibleText" xml:space="preserve">
     <value>Collapse to show only the default playback device</value>
   </data>
-  <data name="DefaultHotkeyContentText" xml:space="preserve">
-    <value>Ctrl+Shift+Q</value>
-  </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Default shortcut</value>
   </data>

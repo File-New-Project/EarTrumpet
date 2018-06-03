@@ -117,7 +117,7 @@
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyContentText}" />
+                               Text="{Binding DefaultHotKey}" />
 
                     <TextBlock Grid.Row="1"
                                VerticalAlignment="Center"

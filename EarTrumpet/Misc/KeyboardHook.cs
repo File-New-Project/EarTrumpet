@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Interop;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace EarTrumpet.Misc
@@ -8,18 +9,12 @@ namespace EarTrumpet.Misc
     {
         public class KeyPressedEventArgs : EventArgs
         {
-            public ModifierKeys Modifier { get; }
-            public Keys Key { get; }
-
-            internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
-            {
-                Modifier = modifier;
-                Key = key;
-            }
+            public Keys Modifiers;
+            public Keys Key;
         }
 
         [Flags]
-        public enum ModifierKeys : uint
+        enum ModifierKeys : uint
         {
             None = 0,
             Alt = 1,
@@ -43,10 +38,11 @@ namespace EarTrumpet.Misc
 
                 if (m.Msg == WM_HOTKEY)
                 {
-                    Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-                    ModifierKeys modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
-
-                    KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
+                    KeyPressed?.Invoke(this, new KeyPressedEventArgs
+                    {
+                        Key = (Keys)(((int)m.LParam >> 16) & 0xFFFF),
+                        Modifiers = ModifiersToKeys((ModifierKeys)((int)m.LParam & 0xFFFF))
+                    });
                 }
             }
 
@@ -58,8 +54,9 @@ namespace EarTrumpet.Misc
             }
         }
 
+        public event EventHandler<KeyPressedEventArgs> KeyPressed;
+
         private Window _window;
-        private int _currentId;
 
         public KeyboardHook()
         {
@@ -68,24 +65,55 @@ namespace EarTrumpet.Misc
             _window.KeyPressed += (s, e) => KeyPressed?.Invoke(this, e);
         }
 
-        public void RegisterHotKey(ModifierKeys modifier, Keys key)
+        public void RegisterHotKey(Keys key, Keys modifiers)
         {
-            _currentId = _currentId + 1;
-
-            if (!User32.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new Exception("Couldn't register hotkey.");
+            if (!User32.RegisterHotKey(_window.Handle, 1, (uint)KeysToModifiers(modifiers), (uint)key))
+            {
+                throw new Exception($"Couldn't register hotkey: {Marshal.GetLastWin32Error()}");
+            }
         }
-
-        public event EventHandler<KeyPressedEventArgs> KeyPressed;
 
         public void Dispose()
         {
-            for (int i = _currentId; i > 0; i--)
-            {
-                User32.UnregisterHotKey(_window.Handle, i);
-            }
+            User32.UnregisterHotKey(_window.Handle, 1);
 
             _window.Dispose();
+        }
+
+        private static Keys ModifiersToKeys(ModifierKeys modifiers)
+        {
+            Keys ret = Keys.None;
+            if ((modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                ret |= Keys.Control;
+            }
+            if ((modifiers & ModifierKeys.Alt) == ModifierKeys.Alt)
+            {
+                ret |= Keys.Alt;
+            }
+            if ((modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+            {
+                ret |= Keys.Shift;
+            }
+            return ret;
+        }
+
+        private static ModifierKeys KeysToModifiers(Keys modifiers)
+        {
+            ModifierKeys ret = ModifierKeys.None;
+            if ((modifiers & Keys.Control) == Keys.Control)
+            {
+                ret |= ModifierKeys.Control;
+            }
+            if ((modifiers & Keys.Alt) == Keys.Alt)
+            {
+                ret |= ModifierKeys.Alt;
+            }
+            if ((modifiers & Keys.Shift) == Keys.Shift)
+            {
+                ret |= ModifierKeys.Shift;
+            }
+            return ret;
         }
     }
 }

@@ -32,22 +32,22 @@ namespace EarTrumpet.Views
             if (e.Key == Key.Enter) return;
             if (e.Key == Key.Tab) return;
 
-            Hotkey.Modifiers = KeyboardHook.ModifierKeys.None;
+            Hotkey.Modifiers = System.Windows.Forms.Keys.None;
             Hotkey.Key = System.Windows.Forms.Keys.None;
 
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                Hotkey.Modifiers = KeyboardHook.ModifierKeys.Control;
+                Hotkey.Modifiers = System.Windows.Forms.Keys.Control;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
-                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Shift;
+                Hotkey.Modifiers |= System.Windows.Forms.Keys.Shift;
             }
 
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
-                Hotkey.Modifiers |= KeyboardHook.ModifierKeys.Alt;
+                Hotkey.Modifiers |= System.Windows.Forms.Keys.Alt;
             }
 
             if (e.Key == Key.LeftShift || e.Key == Key.RightShift ||

@@ -25,6 +25,7 @@ namespace EarTrumpet.ViewModels
         }
 
         public string HotkeyText => _hotkey.ToString();
+        public string DefaultHotKey => SettingsService.s_defaultHotkey.ToString();
         public RelayCommand OpenDiagnosticsCommand { get; }
         public RelayCommand OpenAboutCommand { get; }
         public RelayCommand OpenFeedbackCommand { get; }

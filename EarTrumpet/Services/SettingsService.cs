@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.Misc;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -11,40 +10,26 @@ namespace EarTrumpet.Services
 {
     public class SettingsService
     {
-        public static event EventHandler<bool> UseLegacyIconChanged;
-
         public class HotkeyData
         {
-            public KeyboardHook.ModifierKeys Modifiers;
+            public System.Windows.Forms.Keys Modifiers;
             public System.Windows.Forms.Keys Key;
 
             public override string ToString()
             {
-                var kc = new KeysConverter();
-
-                Keys modifiers = Keys.None;
-                if ((Modifiers & KeyboardHook.ModifierKeys.Control) == KeyboardHook.ModifierKeys.Control)
-                {
-                    modifiers |= Keys.Control;
-                }
-                if ((Modifiers & KeyboardHook.ModifierKeys.Shift) == KeyboardHook.ModifierKeys.Shift)
-                {
-                    modifiers |= Keys.Shift;
-                }
-                if ((Modifiers & KeyboardHook.ModifierKeys.Alt) == KeyboardHook.ModifierKeys.Alt)
-                {
-                    modifiers |= Keys.Alt;
-                }
-
-                return (string)kc.ConvertTo(modifiers | Key, typeof(string));
+                return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
             }
         }
+
+        public static event EventHandler<bool> UseLegacyIconChanged;
+
+        public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = System.Windows.Forms.Keys.Q };
 
         public static HotkeyData Hotkey
         {
             get
             {
-                var ret = ReadSetting("Hotkey", new HotkeyData { Modifiers = KeyboardHook.ModifierKeys.Shift | KeyboardHook.ModifierKeys.Control, Key = System.Windows.Forms.Keys.Q });
+                var ret = ReadSetting("Hotkey", s_defaultHotkey);
                 return ret;
             }
             set
