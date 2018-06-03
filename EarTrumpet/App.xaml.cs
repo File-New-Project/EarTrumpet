@@ -24,11 +24,11 @@ namespace EarTrumpet
             Trace.Listeners.Add(new AppTraceListener());
 
             var watch = Stopwatch.StartNew();
-            Trace.WriteLine("Application_Startup");
+            Trace.WriteLine("App Application_Startup");
 
             if (!SingleInstanceAppMutex.TakeExclusivity())
             {
-                Trace.WriteLine("TakeExclusivity failed");
+                Trace.WriteLine("App Application_Startup TakeExclusivity failed");
                 Current.Shutdown();
                 return;
             }
@@ -60,11 +60,13 @@ namespace EarTrumpet
                 new DebugWindow().Show();
             }
 #endif
-            Trace.WriteLine($"Application_Startup Exit time= {watch.ElapsedMilliseconds} ms");
+            Trace.WriteLine($"App Application_Startup time= {watch.ElapsedMilliseconds} ms");
         }
 
         private void DeviceManager_PlaybackDevicesLoaded(object sender, System.EventArgs e)
         {
+            Trace.WriteLine("App Application_Startup DeviceManager_PlaybackDevicesLoaded");
+
             _trayIcon.Show();
         }
     }
