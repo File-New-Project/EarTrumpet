@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
+using resx = EarTrumpet.Properties.Resources;
 
 namespace EarTrumpet.ViewModels
 {
@@ -28,6 +29,8 @@ namespace EarTrumpet.ViewModels
         }
 
         public Icon TrayIcon { get; private set; }
+        public string ToolTip { get; private set; }
+        public string DefaultDeviceId => _deviceManager.VirtualDefaultDevice.IsDevicePresent ? _deviceManager.VirtualDefaultDevice.Id : null;
         public RelayCommand OpenSettingsCommand { get; }
         public RelayCommand OpenPlaybackDevicesCommand { get; }
         public RelayCommand OpenRecordingDevicesCommand { get; }
@@ -52,7 +55,8 @@ namespace EarTrumpet.ViewModels
         {
             _mainViewModel = mainViewModel;
             _deviceManager = deviceManager;
-            _deviceManager.VirtualDefaultDevice.PropertyChanged += (_, __) => UpdateTrayIcon();
+
+            _deviceManager.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
@@ -81,6 +85,7 @@ namespace EarTrumpet.ViewModels
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
 
             UpdateTrayIcon();
+            UpdateToolTip();
 
             OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
             OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
@@ -92,6 +97,12 @@ namespace EarTrumpet.ViewModels
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
+        }
+
+        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            UpdateTrayIcon();
+            UpdateToolTip();
         }
 
         private void SettingsService_UseLegacyIconChanged(object sender, bool e)
@@ -142,6 +153,37 @@ namespace EarTrumpet.ViewModels
                 _currentIcon = desiredIcon;
                 TrayIcon = _icons[_currentIcon];
                 RaisePropertyChanged(nameof(TrayIcon));
+            }
+        }
+
+        internal void ToggleMute()
+        {
+            if (_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+            {
+                _deviceManager.VirtualDefaultDevice.IsMuted = !_deviceManager.VirtualDefaultDevice.IsMuted;
+            }
+        }
+
+        private void UpdateToolTip()
+        {
+            string toolTipText;
+            if (_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+            {
+                var otherText = "EarTrumpet: 100% - ";
+                var dev = _deviceManager.VirtualDefaultDevice.DisplayName;
+                // API Limitation: "less than 64 chars" for the tooltip.
+                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
+                toolTipText = $"EarTrumpet: {_deviceManager.VirtualDefaultDevice.Volume.ToVolumeInt()}% - {dev}";
+            }
+            else
+            {
+                toolTipText = resx.NoDeviceTrayText;
+            }
+
+            if (toolTipText != ToolTip)
+            {
+                ToolTip = toolTipText;
+                RaisePropertyChanged(nameof(ToolTip));
             }
         }
 

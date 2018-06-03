@@ -1,6 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
+﻿using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.ViewModels;
 using System;
@@ -19,26 +17,24 @@ namespace EarTrumpet.Views
     {
         private readonly System.Windows.Forms.NotifyIcon _trayIcon;
         private readonly TrayViewModel _trayViewModel;
-        private readonly IVirtualDefaultAudioDevice _defaultDevice;
 
-        public TrayIcon(IAudioDeviceManager deviceManager, TrayViewModel trayViewModel)
+        public TrayIcon(TrayViewModel trayViewModel)
         {
-            _defaultDevice = deviceManager.VirtualDefaultDevice;
-            _defaultDevice.PropertyChanged += (_, __) => UpdateToolTip();
-
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
             _trayIcon = new System.Windows.Forms.NotifyIcon();
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = _trayViewModel.TrayIcon;
-            UpdateToolTip();
+            _trayIcon.Text = _trayViewModel.ToolTip;
 
-            App.Current.Exit += (_, __) =>
-            {
-                _trayIcon.Visible = false;
-                _trayIcon.Dispose();
-            };
+            App.Current.Exit += App_Exit;
+        }
+
+        private void App_Exit(object sender, ExitEventArgs e)
+        {
+            _trayIcon.Visible = false;
+            _trayIcon.Dispose();
         }
 
         private ContextMenu BuildContextMenu()
@@ -79,7 +75,7 @@ namespace EarTrumpet.Views
                     cm.Items.Add(new MenuItem
                     {
                         Header = device.DisplayName,
-                        IsChecked = device.Id == _defaultDevice.Id,
+                        IsChecked = device.Id == _trayViewModel.DefaultDeviceId,
                         Command = new RelayCommand(() => _trayViewModel.ChangeDeviceCommand.Execute(device)),
                         Style = menuItemStyle
                     });
@@ -109,11 +105,6 @@ namespace EarTrumpet.Views
             Trace.WriteLine("TrayIcon ContextMenu_Closed");
         }
 
-        public void Show()
-        {
-            _trayIcon.Visible = true;
-        }
-
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             Trace.WriteLine("TrayIcon ContextMenu_Opened");
@@ -124,20 +115,11 @@ namespace EarTrumpet.Views
             ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
         }
 
-        private void UpdateToolTip()
+        public void Show()
         {
-            if (_defaultDevice.IsDevicePresent)
-            {
-                var otherText = "EarTrumpet: 100% - ";
-                var dev = _defaultDevice.DisplayName;
-                // API Limitation: "less than 64 chars" for the tooltip.
-                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                _trayIcon.Text = $"EarTrumpet: {_defaultDevice.Volume.ToVolumeInt()}% - {dev}";
-            }
-            else
-            {
-                _trayIcon.Text = resx.NoDeviceTrayText;
-            }
+            Trace.WriteLine("TrayIcon Show");
+
+            _trayIcon.Visible = true;
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -145,6 +127,10 @@ namespace EarTrumpet.Views
             if (e.PropertyName == nameof(_trayViewModel.TrayIcon))
             {
                 _trayIcon.Icon = _trayViewModel.TrayIcon;
+            }
+            else if (e.PropertyName == nameof(_trayViewModel.ToolTip))
+            {
+                _trayIcon.Text = _trayViewModel.ToolTip;
             }
         }
 
@@ -165,7 +151,7 @@ namespace EarTrumpet.Views
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
-                _defaultDevice.IsMuted = !_defaultDevice.IsMuted;
+                _trayViewModel.ToggleMute();
             }
         }
     }

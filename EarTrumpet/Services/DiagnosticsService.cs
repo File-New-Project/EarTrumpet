@@ -2,23 +2,21 @@
 using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
-using EarTrumpet.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace EarTrumpet.Services
 {
     class DiagnosticsService
     {
         private static IAudioDeviceManager _deviceManager;
-        private static ThemeManager _themeManager;
 
-        public static void AdviseObjects(IAudioDeviceManager deviceManager, ThemeManager themeManager)
+        public static void Advise(IAudioDeviceManager deviceManager)
         {
             _deviceManager = deviceManager;
-            _themeManager = themeManager;
         }
 
         public static void DumpAndShowData()
@@ -29,7 +27,7 @@ namespace EarTrumpet.Services
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
             allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
-            allText += $"AnimationsEnabled: {_themeManager.AnimationsEnabled}" + Environment.NewLine;
+            allText += $"AnimationsEnabled: {SystemParameters.MenuAnimation}" + Environment.NewLine;
             allText += Environment.NewLine;
             allText += AppTraceListener.Instance.Log.ToString();
 

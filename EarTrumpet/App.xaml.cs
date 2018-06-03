@@ -12,9 +12,8 @@ namespace EarTrumpet
     public partial class App
     {
         private MainViewModel _viewModel;
-        private FlyoutViewModel _flyoutViewModel;
-        private FlyoutWindow _flyoutWindow;
         private TrayIcon _trayIcon;
+        private FlyoutWindow _flyoutWindow;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -35,24 +34,20 @@ namespace EarTrumpet
 
             Exit += (_, __) => SingleInstanceAppMutex.ReleaseExclusivity();
 
-            StartupUWPDialogDisplayService.ShowIfAppropriate();
-
-            var themeManager = ((ThemeManager)Resources["ThemeManager"]);
-            themeManager.SetTheme(ThemeData.GetBrushData());
+            ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
             var deviceManager = DataModelFactory.CreateAudioDeviceManager();
             deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
-            DiagnosticsService.AdviseObjects(deviceManager, themeManager);
+            DiagnosticsService.Advise(deviceManager);
 
             _viewModel = new MainViewModel(deviceManager);
+            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel, deviceManager));
+            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel, deviceManager));
+
             HotkeyService.Register(SettingsService.Hotkey);
             HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
 
-            _flyoutViewModel = new FlyoutViewModel(_viewModel, deviceManager);
-            _flyoutWindow = new FlyoutWindow(_viewModel, _flyoutViewModel);
-
-            var trayViewModel = new TrayViewModel(_viewModel, deviceManager);
-            _trayIcon = new TrayIcon(deviceManager, trayViewModel);
+            StartupUWPDialogDisplayService.ShowIfAppropriate();
 
 #if VSDEBUG
             if (Keyboard.IsKeyDown(Key.LeftCtrl))
