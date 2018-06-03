@@ -57,7 +57,8 @@ namespace EarTrumpet.Services
             catch (Exception) { }
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(indent + $"{session.DisplayName}");
+            sb.AppendLine(indent + $"{session.AppDisplayName}");
+            sb.AppendLine(indent + $"{session.SessionDisplayName}");
             sb.AppendLine(indent + $"  [{session.State}]: {session.Volume.ToVolumeInt()}%{(session.IsMuted ? " (Muted)" : "")} {flags}pid:{session.ProcessId} {(!isAlive ? "(dead)" : "")}");
             sb.AppendLine(indent + $"  AppId: {session.AppId}  id={session.Id}");
             sb.AppendLine(indent + $"  IconPath: {session.IconPath}");

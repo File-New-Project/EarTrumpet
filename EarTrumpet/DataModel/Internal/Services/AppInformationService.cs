@@ -78,7 +78,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                             if (fileNameBuilder.Length > 0)
                             {
                                 var processFullPath = fileNameBuilder.ToString();
-                                appInfo.ExeName = Path.GetFileName(processFullPath);
+                                appInfo.ExeName = Path.GetFileNameWithoutExtension(processFullPath);
                                 appInfo.SmallLogoPath = processFullPath;
                                 appInfo.PackageInstallPath = processFullPath;
                             }

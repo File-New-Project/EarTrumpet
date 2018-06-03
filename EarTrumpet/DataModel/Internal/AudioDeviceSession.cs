@@ -60,7 +60,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string DisplayName
+        public string SessionDisplayName
         {
             get
             {
@@ -68,9 +68,24 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     return _rawDisplayName;
                 }
-                else if (!string.IsNullOrWhiteSpace(_resolvedDisplayName))
+                else if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
                 {
-                    return _resolvedDisplayName;
+                    return _resolvedAppDisplayName;
+                }
+                else
+                {
+                    return _appInfo.ExeName;
+                }
+            }
+        }
+
+        public string AppDisplayName
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
+                {
+                    return _resolvedAppDisplayName;
                 }
                 else
                 {
@@ -137,7 +152,7 @@ namespace EarTrumpet.DataModel.Internal
         private readonly Dispatcher _dispatcher;
         private readonly AppInformation _appInfo;
 
-        private string _resolvedDisplayName;
+        private string _resolvedAppDisplayName;
         private string _rawDisplayName;
         private float _volume;
         private AudioSessionState _state;
@@ -198,8 +213,9 @@ namespace EarTrumpet.DataModel.Internal
                     var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
                     _dispatcher.SafeInvoke(() =>
                     {
-                        _resolvedDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                        _resolvedAppDisplayName = displayName;
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
                     });
 
                     // Add a short delay to avoid running the task over and over.
@@ -337,7 +353,8 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.SafeInvoke(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
             });
         }
 

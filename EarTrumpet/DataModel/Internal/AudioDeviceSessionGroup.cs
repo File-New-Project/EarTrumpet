@@ -16,7 +16,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;
 
-        public string DisplayName => _sessions.Count > 0 ? _sessions[0].DisplayName : null;
+        public string AppDisplayName => _sessions.Count > 0 ? _sessions[0].AppDisplayName : null;
+        public string SessionDisplayName => _sessions.Count > 0 ? _sessions[0].SessionDisplayName : null;
 
         public string ExeName => _sessions.Count > 0 ? _sessions[0].ExeName : null;
 

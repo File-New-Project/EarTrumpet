@@ -28,7 +28,7 @@ namespace EarTrumpet.ViewModels
 
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
-        public string DisplayName => _session.DisplayName;
+        public string DisplayName => IsExpanded ? _session.SessionDisplayName : _session.AppDisplayName;
 
         public string ExeName => _session.ExeName;
         public string AppId => _session.AppId;
@@ -83,7 +83,8 @@ namespace EarTrumpet.ViewModels
 
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_session.DisplayName))
+            if (e.PropertyName == nameof(_session.SessionDisplayName) ||
+                e.PropertyName == nameof(_session.AppDisplayName))
             {
                 RaisePropertyChanged(nameof(DisplayName));
             }
