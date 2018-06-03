@@ -48,19 +48,19 @@ namespace EarTrumpet.Services
             switch (WindowsTaskbar.Current.Location)
             {
                 case WindowsTaskbar.Position.Top:
-                    flags &= ~User32.AccentFlags.DrawTopBorder;
+                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
                     break;
 
                 case WindowsTaskbar.Position.Bottom:
-                    flags &= ~User32.AccentFlags.DrawBottomBorder;
+                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
                     break;
 
                 case WindowsTaskbar.Position.Left:
-                    flags &= ~User32.AccentFlags.DrawLeftBorder;
+                    flags = User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
                     break;
 
                 case WindowsTaskbar.Position.Right:
-                    flags &= ~User32.AccentFlags.DrawRightBorder;
+                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
                     break;
             }
 

@@ -188,7 +188,7 @@ namespace EarTrumpet.Views
 
             if (taskbarState.ContainingScreen == null)
             {
-                // we're not ready to lay out. (e.g. RDP transition)
+                // We're not ready to lay out. (e.g. RDP transition)
                 return;
             }
 
@@ -202,12 +202,12 @@ namespace EarTrumpet.Views
                 var DeviceItemCellHeight = (double)App.Current.Resources["DeviceItemCellHeight"];
                 var DeviceTitleCellHeight = (double)App.Current.Resources["DeviceTitleCellHeight"];
                 var AppItemCellHeight = (double)App.Current.Resources["AppItemCellHeight"];
-                
+
                 var VolumeAppListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
                 foreach (var device in _viewModel.Devices)
                 {
                     newHeight += DeviceTitleCellHeight + DeviceItemCellHeight;
-                    
+
                     if (device.Apps.Count > 0)
                     {
                         newHeight += VolumeAppListMargin.Bottom + VolumeAppListMargin.Top;
@@ -233,9 +233,6 @@ namespace EarTrumpet.Views
             double newTop = 0;
             double newLeft = 0;
 
-            // We need to account for the DWM border visualization.
-            double WindowWidthWithBorder = Width + 1;
-
             switch(taskbarState.Location)
             {
                 case WindowsTaskbar.Position.Left:
@@ -248,12 +245,12 @@ namespace EarTrumpet.Views
                     break;
                 case WindowsTaskbar.Position.Top:
                     newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - WindowWidthWithBorder;
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
                     newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor());
                     break;
                 case WindowsTaskbar.Position.Bottom:
                     newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - WindowWidthWithBorder;
+                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
                     newTop = (taskbarState.Size.Top / this.DpiHeightFactor()) - newHeight;
                     break;
             }
