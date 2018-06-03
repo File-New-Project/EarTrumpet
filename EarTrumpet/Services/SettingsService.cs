@@ -23,7 +23,7 @@ namespace EarTrumpet.Services
 
                 if ((Modifiers & KeyboardHook.ModifierKeys.Control) == KeyboardHook.ModifierKeys.Control)
                 {
-                    ret += "Control+";
+                    ret += "Ctrl+";
                 }
                 if ((Modifiers & KeyboardHook.ModifierKeys.Shift) == KeyboardHook.ModifierKeys.Shift)
                 {
