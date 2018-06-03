@@ -58,7 +58,7 @@ namespace EarTrumpet.Views
         {
             HotkeyService.Unregister();
 
-            var win = new HotkeySelectionWindow(_viewModel.Hotkey);
+            var win = new HotkeySelectionWindow();
             win.Owner = this;
             win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             if ((bool)win.ShowDialog())

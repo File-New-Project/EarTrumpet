@@ -10,9 +10,9 @@ namespace EarTrumpet.Views
     {
         public SettingsService.HotkeyData Hotkey { get; private set; }
 
-        public HotkeySelectionWindow(SettingsService.HotkeyData hotkey)
+        public HotkeySelectionWindow()
         {
-            Hotkey = new SettingsService.HotkeyData { Key = hotkey.Key, Modifiers = hotkey.Modifiers };
+            Hotkey = new SettingsService.HotkeyData();
             InitializeComponent();
 
             UpdateText();
