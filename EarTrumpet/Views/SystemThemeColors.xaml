@@ -29,12 +29,21 @@
     <SolidColorBrush x:Key="ButtonForegroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundPressed">White</SolidColorBrush>
     <SolidColorBrush x:Key="InactiveWindowBorder">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryDarkFocusVisual">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderBackground2">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="VirtualTitleBarButtonHover">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonForeground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryText">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="FullWindowDeviceBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="AcrylicWindowBackdropFallback">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlSliderTrackFillDisabled">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlSliderThumbHover">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="ChromeBlackMedium">Red</SolidColorBrush>
 
     <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Red</SolidColorBrush>
 
     <SolidColorBrush x:Key="ControlSliderTrackFillRest">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ControlSliderTrackBackgroundRest">Red</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="SettingsHeaderBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="SystemAccent">Blue</SolidColorBrush>
@@ -44,17 +53,26 @@
     <SolidColorBrush x:Key="ContextMenuItemBackgroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuItemText">White</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuItemTextHover">White</SolidColorBrush>
-    <SolidColorBrush x:Key="ContextMenuItemTextDisabled">Grey</SolidColorBrush>
-    <SolidColorBrush x:Key="ContextMenuItemGlyph">Grey</SolidColorBrush>
-    <SolidColorBrush x:Key="ContextMenuSeparator">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextDisabled">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemGlyph">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuSeparator">Gray</SolidColorBrush>
 
-    <SolidColorBrush x:Key="CheckBoxBorder">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuBackgroundDarkOnly">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuBorderDarkOnly">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemBackgroundHoverDarkOnly">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextDarkOnly">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextHoverDarkOnly">White</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemTextDisabledDarkOnly">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuItemGlyphDarkOnly">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="ContextMenuSeparatorDarkOnly">Gray</SolidColorBrush>
+
+    <SolidColorBrush x:Key="CheckBoxBorder">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBorderHover">White</SolidColorBrush>
-    <SolidColorBrush x:Key="CheckBoxBorderPressed">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBorderPressed">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBorderChecked">Transparent</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackground">Transparent</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundHover">Transparent</SolidColorBrush>
-    <SolidColorBrush x:Key="CheckBoxBackgroundPressed">Grey</SolidColorBrush>
+    <SolidColorBrush x:Key="CheckBoxBackgroundPressed">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundChecked">Green</SolidColorBrush>
 
 </ResourceDictionary>

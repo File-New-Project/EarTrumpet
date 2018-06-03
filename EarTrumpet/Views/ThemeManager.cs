@@ -84,12 +84,35 @@ namespace EarTrumpet.Views
         {
             Trace.WriteLine("ThemeManager RebuildTheme");
 
+            var oldDictionary = Application.Current.Resources.MergedDictionaries[0];
+
             var resolveData = new ThemeResolveData();
             var newDictionary = new ResourceDictionary();
             foreach (var themeEntry in _themeData)
             {
                 newDictionary[themeEntry.Key] = new SolidColorBrush(themeEntry.Value.Resolve(resolveData));
+
+#if DEBUG
+                // Verify the old dictionary has this entry. i.e. fix SystemThemeColors.xaml
+                var oldEntry = oldDictionary[themeEntry.Key];
+                if (oldEntry == null)
+                {
+                    throw new InvalidOperationException($"{themeEntry.Key} is missing from the previous dictionary");
+                }
+#endif
             }
+
+#if DEBUG
+            foreach (var key in oldDictionary.Keys)
+            {
+                // Verify the new diction has the old entry. i.e. fix ThemeData.cs
+                var newEntry = newDictionary[key];
+                if (newEntry == null)
+                {
+                    throw new InvalidOperationException($"{key} is missing from the new dictionary");
+                }
+            }
+#endif
 
             Application.Current.Resources.MergedDictionaries.RemoveAt(0);
             Application.Current.Resources.MergedDictionaries.Insert(0, newDictionary);
