@@ -33,8 +33,6 @@ namespace EarTrumpet.Views
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             UpdateToolTip();
 
-            _trayIcon.Visible = true;
-
             App.Current.Exit += (_, __) =>
             {
                 _trayIcon.Visible = false;
@@ -101,6 +99,11 @@ namespace EarTrumpet.Views
             AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);
 
             return cm;
+        }
+
+        public void Show()
+        {
+            _trayIcon.Visible = true;
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

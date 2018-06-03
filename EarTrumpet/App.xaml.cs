@@ -41,6 +41,7 @@ namespace EarTrumpet
             themeManager.SetTheme(ThemeData.GetBrushData());
 
             var deviceManager = DataModelFactory.CreateAudioDeviceManager();
+            deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
             DiagnosticsService.AdviseObjects(deviceManager, themeManager);
 
             _viewModel = new MainViewModel(deviceManager);
@@ -60,6 +61,11 @@ namespace EarTrumpet
             }
 #endif
             Trace.WriteLine($"Application_Startup Exit time= {watch.ElapsedMilliseconds} ms");
+        }
+
+        private void DeviceManager_PlaybackDevicesLoaded(object sender, System.EventArgs e)
+        {
+            _trayIcon.Show();
         }
     }
 }
