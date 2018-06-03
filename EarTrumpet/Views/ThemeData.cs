@@ -10,6 +10,7 @@ namespace EarTrumpet.Views
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
                 { "WindowForeground", new Lookup("ImmersiveApplicationTextDarkTheme") },
+                { "SecondaryDarkFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
                 { "HeaderBackground", new Lookup("ImmersiveSystemAccent", 0.3, 0.5)},
                 { "HeaderBackground2", new WindowBackground(0.6, opacityNotTransparent: 1) },
                 { "HeaderBackgroundSolid", new Lookup("ImmersiveSystemAccent", 1) },
@@ -30,6 +31,7 @@ namespace EarTrumpet.Views
                 { "ButtonBackgroundPressed", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
                 { "ButtonBorder", new Static(Colors.Transparent) },
                 { "ButtonBorderHover", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
+                { "VirtualTitleBarButtonHover", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow", 0.2), new Lookup("ImmersiveDarkBaseMediumLow", 0.2)) },
                 { "ButtonBorderPressed", new Static(Colors.Transparent) },
                 { "ButtonForeground", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
                 { "ButtonForegroundHover", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },

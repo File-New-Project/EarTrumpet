@@ -53,9 +53,23 @@
             <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
         </Style>
 
+        <Style x:Key="Windows10FocusVisualStyleDarkOnly">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Rectangle Stroke="{DynamicResource SecondaryDarkFocusVisual}" StrokeThickness="3" />
+                            <Rectangle Stroke="{DynamicResource WindowForeground}" StrokeThickness="2" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="VirtualTitleBarButtonStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
             <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
@@ -175,7 +189,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -199,6 +213,12 @@
             <Setter Property="PanningMode" Value="VerticalOnly" />
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="0" />
+        </Style>
+
+        <Style x:Key="{x:Type ListViewItem}"
+               BasedOn="{StaticResource BaseListViewItemStyle}"
+               TargetType="ListViewItem">
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
         </Style>
 
     </Window.Resources>

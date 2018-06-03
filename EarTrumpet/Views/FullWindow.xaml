@@ -58,7 +58,7 @@
             <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource ButtonBorderHover}" />
+                    <Setter Property="Background" Value="{DynamicResource VirtualTitleBarButtonHover}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -149,6 +149,10 @@
                TargetType="{x:Type Slider}">
             <Setter Property="Template" Value="{DynamicResource VolumeSliderTemplate}" />
         </Style>
+
+        <Style x:Key="{x:Type ListViewItem}"
+               BasedOn="{StaticResource BaseListViewItemStyle}"
+               TargetType="ListViewItem" />
     </Window.Resources>
 
     <Grid>

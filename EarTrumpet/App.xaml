@@ -84,8 +84,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid>
-                                <Rectangle Stroke="Black" StrokeThickness="3" />
-                                <Rectangle Stroke="White" StrokeThickness="2" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -97,8 +97,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid Margin="-4" SnapsToDevicePixels="True">
-                                <Rectangle Stroke="Black" StrokeThickness="3" />
-                                <Rectangle Stroke="White" StrokeThickness="2" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -207,7 +207,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+            <Style x:Key="BaseListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
