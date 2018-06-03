@@ -48,11 +48,13 @@ namespace EarTrumpet.DataModel.Internal.Services
             {
                 if (s_watchers.ContainsKey(processId))
                 {
-                    // We lost the race.
+                    // We lost the race, add our callback and clean up.
                     s_watchers[processId].quitActions.Add(processQuit);
+                    Kernel32.CloseHandle(data.processHandle);
                 }
                 else
                 {
+                    // Transfer ownership
                     s_watchers.Add(processId, data);
                 }
             }
