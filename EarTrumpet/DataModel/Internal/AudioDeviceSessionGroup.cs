@@ -82,7 +82,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public void MoveAllSessionsToDevice(string id, bool hide)
+        public void MoveToDevice(string id, bool hideExistingSessions)
         {
             // Update the output for all processes represented by this app.
             foreach (var pid in _sessions.Select(c => c.ProcessId).ToSet())
@@ -90,7 +90,7 @@ namespace EarTrumpet.DataModel.Internal
                 AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
             }
 
-            if (hide)
+            if (hideExistingSessions)
             {
                 Hide();
             }

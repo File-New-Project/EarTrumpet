@@ -235,7 +235,7 @@ namespace EarTrumpet.DataModel.Internal
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
         }
 
-        public void MoveAllSessionsToDevice(string id, bool hide)
+        public void MoveToDevice(string id, bool hide)
         {
             // The group should have handled this.
             throw new NotImplementedException();

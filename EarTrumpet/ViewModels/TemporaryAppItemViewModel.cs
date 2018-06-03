@@ -132,7 +132,7 @@ namespace EarTrumpet.ViewModels
             return ExeName == app.ExeName;
         }
 
-        public void MoveAllSessionsToDevice(string id, bool hide)
+        public void MoveToDevice(string id, bool hide)
         {
             // Update the output for all processes represented by this app.
             foreach (var pid in _processIds)

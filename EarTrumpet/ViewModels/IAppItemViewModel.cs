@@ -23,7 +23,7 @@ namespace EarTrumpet.ViewModels
         int ProcessId { get; }
 
         bool DoesGroupWith(IAppItemViewModel app);
-        void MoveAllSessionsToDevice(string id, bool hide);
+        void MoveToDevice(string id, bool hide);
         void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();

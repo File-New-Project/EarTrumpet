@@ -150,7 +150,7 @@ namespace EarTrumpet.ViewModels
             Apps.AddSorted(newSession, AppItemViewModel.CompareByExeName);
         }
 
-        public void OnAppMovedToDevice(TemporaryAppItemViewModel app)
+        public void AppVirtuallMovingToThisDevice(TemporaryAppItemViewModel app)
         {
             app.Expired += App_Expired;
 
@@ -186,7 +186,7 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        internal void OnAppMovedFromDevice(IAppItemViewModel app)
+        internal void AppVirtuallyLeavingFromThisDevice(IAppItemViewModel app)
         {
             if (app is TemporaryAppItemViewModel)
             {

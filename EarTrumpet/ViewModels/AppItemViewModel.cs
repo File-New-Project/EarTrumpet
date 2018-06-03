@@ -107,9 +107,9 @@ namespace EarTrumpet.ViewModels
             }
         }
 
-        public void MoveAllSessionsToDevice(string id, bool hide)
+        public void MoveToDevice(string id, bool hide)
         {
-            _session.MoveAllSessionsToDevice(id, hide);
+            _session.MoveToDevice(id, hide);
         }
 
         public override void UpdatePeakValueForeground()
