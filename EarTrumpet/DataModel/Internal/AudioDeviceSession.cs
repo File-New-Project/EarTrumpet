@@ -83,6 +83,11 @@ namespace EarTrumpet.DataModel.Internal
         {
             get
             {
+                if (IsSystemSoundsSession)
+                {
+                    return _rawDisplayName;
+                }
+
                 if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
                 {
                     return _resolvedAppDisplayName;
