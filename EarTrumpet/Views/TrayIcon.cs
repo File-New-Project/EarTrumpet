@@ -4,6 +4,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,6 +47,8 @@ namespace EarTrumpet.Views
 
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += ContextMenu_Opened;
+            cm.Closed += ContextMenu_Closed;
+            cm.StaysOpen = true; // To be removed on open.
 
             var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
             var AddItem = new Action<string, ICommand>((displayName, action) =>
@@ -101,6 +104,11 @@ namespace EarTrumpet.Views
             return cm;
         }
 
+        private void ContextMenu_Closed(object sender, RoutedEventArgs e)
+        {
+            Trace.WriteLine("TrayIcon ContextMenu_Closed");
+        }
+
         public void Show()
         {
             _trayIcon.Visible = true;
@@ -108,9 +116,11 @@ namespace EarTrumpet.Views
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
+            Trace.WriteLine("TrayIcon ContextMenu_Opened");
             var cm = (ContextMenu)sender;
             User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
             cm.Focus();
+            cm.StaysOpen = false;
             ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
         }
 
@@ -140,6 +150,8 @@ namespace EarTrumpet.Views
 
         void TrayIcon_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            Trace.WriteLine($"TrayIcon TrayIcon_MouseClick {e.Button}");
+
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 _trayViewModel.OpenFlyoutCommand.Execute();
@@ -149,6 +161,7 @@ namespace EarTrumpet.Views
                 var cm = BuildContextMenu();
                 cm.Placement = PlacementMode.Mouse;
                 cm.IsOpen = true;
+                Trace.WriteLine("TrayIcon TrayIcon_MouseClick Right (ContextMenu now open)");
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
