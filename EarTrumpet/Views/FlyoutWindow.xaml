@@ -143,7 +143,7 @@
                 </Track>
 
                 <Border Name="PeakMeter"
-                        Height="2"
+                        Height="4"
                         HorizontalAlignment="Left"
                         Background="{DynamicResource PeakMeterHotColor}" />
 
