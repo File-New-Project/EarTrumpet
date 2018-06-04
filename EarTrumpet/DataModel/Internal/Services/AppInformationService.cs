@@ -35,14 +35,15 @@ namespace EarTrumpet.DataModel.Internal.Services
 
             if (IsImmersiveProcess(processId))
             {
-                appInfo.AppUserModelId = GetAppUserModelIdByPid(processId);
+                var appUserModelId = GetAppUserModelIdByPid(processId);
 
-                var shellItem = GetShellItemForAppByAumid(appInfo.AppUserModelId);
+                var shellItem = GetShellItemForAppByAumid(appUserModelId);
 
                 appInfo.BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
-                appInfo.PackageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
                 appInfo.ExeName = appInfo.PackageInstallPath;
+
+                
 
                 string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
                 if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
@@ -51,9 +52,11 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 else
                 {
+                    var packageFullName = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName);
+
                     var iid = typeof(IResourceMap).GUID;
                     var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
-                    mrtResourceManager.InitializeForPackage(appInfo.PackageFullName);
+                    mrtResourceManager.InitializeForPackage(packageFullName);
                     mrtResourceManager.GetMainResourceMap(ref iid, out IResourceMap map);
 
                     map.GetFilePath(rawSmallLogoPath, out string mrtSmallLogoPath);
