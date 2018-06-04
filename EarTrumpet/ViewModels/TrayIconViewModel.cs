@@ -4,13 +4,13 @@ using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.Views;
+using EarTrumpet.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
-using resx = EarTrumpet.Properties.Resources;
 
 namespace EarTrumpet.ViewModels
 {
@@ -177,7 +177,7 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                toolTipText = resx.NoDeviceTrayText;
+                toolTipText = Resources.NoDeviceTrayText;
             }
 
             if (toolTipText != ToolTip)

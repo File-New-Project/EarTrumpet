@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Interop;
 using EarTrumpet.Misc;
 using EarTrumpet.ViewModels;
+using EarTrumpet.Properties;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using resx = EarTrumpet.Properties.Resources;
 
 namespace EarTrumpet.Views
 {
@@ -63,7 +63,7 @@ namespace EarTrumpet.Views
             {
                 cm.Items.Add(new MenuItem
                 {
-                    Header = resx.ContextMenuNoDevices,
+                    Header = Resources.ContextMenuNoDevices,
                     IsEnabled = false,
                     Style = menuItemStyle
                 });
@@ -86,16 +86,16 @@ namespace EarTrumpet.Views
             var separatorStyle = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
 
             cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(resx.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);
-            AddItem(resx.LegacyVolumeMixerText, _trayViewModel.OpenLegacyVolumeMixerCommand);
+            AddItem(Resources.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);
+            AddItem(Resources.LegacyVolumeMixerText, _trayViewModel.OpenLegacyVolumeMixerCommand);
             cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(resx.PlaybackDevicesText, _trayViewModel.OpenPlaybackDevicesCommand);
-            AddItem(resx.RecordingDevicesText, _trayViewModel.OpenRecordingDevicesCommand);
-            AddItem(resx.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
+            AddItem(Resources.PlaybackDevicesText, _trayViewModel.OpenPlaybackDevicesCommand);
+            AddItem(Resources.RecordingDevicesText, _trayViewModel.OpenRecordingDevicesCommand);
+            AddItem(Resources.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
             cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(resx.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
-            AddItem(resx.ContextMenuSendFeedback, _trayViewModel.OpenFeedbackHubCommand);
-            AddItem(resx.ContextMenuExitTitle, _trayViewModel.ExitCommand);
+            AddItem(Resources.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
+            AddItem(Resources.ContextMenuSendFeedback, _trayViewModel.OpenFeedbackHubCommand);
+            AddItem(Resources.ContextMenuExitTitle, _trayViewModel.ExitCommand);
 
             return cm;
         }
