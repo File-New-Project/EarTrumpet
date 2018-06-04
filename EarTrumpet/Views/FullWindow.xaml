@@ -131,9 +131,10 @@
                 </Track>
 
                 <Border Name="PeakMeter"
-                        Height="2"
+                        Height="4"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PeakMeterBackground}" />
+                        Background="{DynamicResource NormalWindowForeground}" />
+
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
