@@ -47,6 +47,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                     var str = GenerateDeviceId(deviceId);
                     Combase.WindowsCreateString(str, (uint)str.Length, out hstring);
                 }
+
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia, hstring);
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eConsole, hstring);
             }

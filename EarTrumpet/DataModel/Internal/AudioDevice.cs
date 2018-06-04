@@ -79,6 +79,7 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     try
                     {
+                        _volume = value;
                         Guid dummy = Guid.Empty;
                         _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
                     }
@@ -86,7 +87,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         // Expected in some cases.
                     }
-                    IsMuted = false;
+                    IsMuted = _volume.ToVolumeInt() == 0;
                 }
             }
         }
