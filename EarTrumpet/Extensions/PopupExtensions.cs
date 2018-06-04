@@ -8,10 +8,10 @@ namespace EarTrumpet.Extensions
 {
     public static class PopupExtensions
     {
-        public static void SetWindowBlur(this Popup window, bool isBlur, bool showAllBorders = false)
+        public static void SetWindowBlur(this Popup window, bool isEnabled, bool withBorders = false)
         {
             var hwnd = ((HwndSource)HwndSource.FromVisual(window.Child)).Handle;
-            AccentPolicyService.SetBlurPolicy(hwnd, isBlur, showAllBorders);
+            AccentPolicyService.SetBlurPolicy(hwnd, isEnabled, withBorders);
         }
 
         public static Matrix CalculateDpiFactors(this Popup window)

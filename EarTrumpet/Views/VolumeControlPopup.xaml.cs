@@ -22,7 +22,7 @@ namespace EarTrumpet.Views
 
             Opened += (_, __) =>
             {
-                this.SetWindowBlur(true, true);
+                this.SetWindowBlur(isEnabled: true, withBorders: true);
                 AppItems.Focus();
             };
         }

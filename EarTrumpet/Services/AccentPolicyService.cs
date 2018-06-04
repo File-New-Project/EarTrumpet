@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -8,16 +7,16 @@ namespace EarTrumpet.Services
 {
     class AccentPolicyService
     {
-        private static readonly uint _blurBackgroundColor = 0x000000; // BGR Black
-        private static readonly uint _blurOpacity = 42;
+        private static readonly uint _defaultTintBackgroundColor = 0x000000; // BGR Black
+        private static readonly uint _defaultTintOpacity = 42;
 
-        private static void SetAccentPolicy(IntPtr handle, User32.AccentState accentState, bool showAllBorders = false, uint blurOpacity = 0)
+        private static void SetAccentPolicy(IntPtr handle, User32.AccentState accentState, bool showBorders = false, uint tintOpacity = 0)
         {
             var accent = new User32.AccentPolicy
             {
                 AccentState = accentState,
-                AccentFlags = GetAccentFlagsForTaskbarPosition(showAllBorders),
-                GradientColor = (blurOpacity << 24) | (_blurBackgroundColor & 0xFFFFFF)
+                AccentFlags = (showBorders) ? User32.AccentFlags.DrawAllBorders : User32.AccentFlags.None,
+                GradientColor = (_defaultTintOpacity << 24) | (_defaultTintBackgroundColor & 0xFFFFFF)
             };
 
             var accentStructSize = Marshal.SizeOf(accent);
@@ -36,42 +35,11 @@ namespace EarTrumpet.Services
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        private static User32.AccentFlags GetAccentFlagsForTaskbarPosition(bool showAllBorders = false)
+        public static void SetBlurPolicy(IntPtr handle, bool isEnabled, bool withBorders = false)
         {
-            var flags = User32.AccentFlags.DrawAllBorders;
-
-            if (showAllBorders)
+            if (isEnabled)
             {
-                return flags;
-            }
-
-            switch (WindowsTaskbar.Current.Location)
-            {
-                case WindowsTaskbar.Position.Top:
-                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
-                    break;
-
-                case WindowsTaskbar.Position.Bottom:
-                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
-                    break;
-
-                case WindowsTaskbar.Position.Left:
-                    flags = User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
-                    break;
-
-                case WindowsTaskbar.Position.Right:
-                    flags = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
-                    break;
-            }
-
-            return flags;
-        }
-
-        public static void SetBlurPolicy(IntPtr handle, bool isBlur, bool showAllBorders = false)
-        {
-            if (isBlur)
-            {
-                SetAccentPolicy(handle, User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, showAllBorders, _blurOpacity);
+                SetAccentPolicy(handle, User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, withBorders, _defaultTintOpacity);
             }
             else
             {

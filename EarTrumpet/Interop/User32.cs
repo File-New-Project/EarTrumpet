@@ -74,6 +74,7 @@ namespace EarTrumpet.Interop
         [Flags]
         internal enum AccentFlags
         {
+            None = 0x0,
             // ...
             DrawLeftBorder = 0x20,
             DrawTopBorder = 0x40,
