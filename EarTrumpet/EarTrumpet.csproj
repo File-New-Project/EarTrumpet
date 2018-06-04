@@ -83,7 +83,6 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
-    <Compile Include="DataModel\Internal\IAudioDeviceInternal.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensioncs.cs" />
@@ -184,9 +183,7 @@
     <Compile Include="DataModel\IAudioDeviceManager.cs" />
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
-    <Compile Include="DataModel\IVirtualDefaultAudioDevice.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
-    <Compile Include="DataModel\Internal\VirtualDefaultAudioDevice.cs" />
     <Compile Include="Views\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>

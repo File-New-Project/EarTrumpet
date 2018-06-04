@@ -23,7 +23,6 @@ namespace EarTrumpet.DataModel.Internal
         private IAudioDevice _defaultPlaybackDevice;
         private IAudioDevice _defaultCommunicationsDevice;
         private ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
-        private IVirtualDefaultAudioDevice _virtualDefaultDevice;
         private Dispatcher _dispatcher;
 
         public AudioDeviceManager(Dispatcher dispatcher)
@@ -31,7 +30,6 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine("AudioDeviceManager Create");
 
             _dispatcher = dispatcher;
-            _virtualDefaultDevice = new VirtualDefaultAudioDevice(this);
 
             Task.Factory.StartNew(() =>
             {
@@ -119,8 +117,6 @@ namespace EarTrumpet.DataModel.Internal
                 FindDevice(newDeviceId, out _defaultCommunicationsDevice);
             }
         }
-
-        public IVirtualDefaultAudioDevice VirtualDefaultDevice => _virtualDefaultDevice;
 
         public IAudioDevice DefaultPlaybackDevice
         {
@@ -259,7 +255,7 @@ namespace EarTrumpet.DataModel.Internal
                     // We're racing with the system, the device may not be resolvable anymore.
                     try
                     {
-                        ((IAudioDeviceInternal)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
+                        ((AudioDevice)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
                     }
                     catch (Exception ex)
                     {

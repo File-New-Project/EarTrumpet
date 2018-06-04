@@ -30,7 +30,7 @@ namespace EarTrumpet.ViewModels
 
         public Icon TrayIcon { get; private set; }
         public string ToolTip { get; private set; }
-        public string DefaultDeviceId => _deviceManager.VirtualDefaultDevice.IsDevicePresent ? _deviceManager.VirtualDefaultDevice.Id : null;
+        public string DefaultDeviceId => _defaultPlaybackDevice?.Id;
         public RelayCommand OpenSettingsCommand { get; }
         public RelayCommand OpenPlaybackDevicesCommand { get; }
         public RelayCommand OpenRecordingDevicesCommand { get; }
@@ -48,6 +48,7 @@ namespace EarTrumpet.ViewModels
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.Invalid;
         private bool _useLegacyIcon;
+        private IAudioDevice _defaultPlaybackDevice;
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
 
@@ -55,8 +56,6 @@ namespace EarTrumpet.ViewModels
         {
             _mainViewModel = mainViewModel;
             _deviceManager = deviceManager;
-
-            _deviceManager.VirtualDefaultDevice.PropertyChanged += VirtualDefaultDevice_PropertyChanged;
 
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
@@ -84,8 +83,8 @@ namespace EarTrumpet.ViewModels
             _useLegacyIcon = SettingsService.UseLegacyIcon;
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
 
-            UpdateTrayIcon();
-            UpdateToolTip();
+            _deviceManager.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            DeviceManager_DefaultPlaybackDeviceChanged(this, null);
 
             OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
             OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
@@ -99,7 +98,24 @@ namespace EarTrumpet.ViewModels
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 
-        private void VirtualDefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        {
+            if (_defaultPlaybackDevice != null)
+            {
+                _defaultPlaybackDevice.PropertyChanged -= DefaultPlaybackDevice_PropertyChanged;
+            }
+
+            _defaultPlaybackDevice = _deviceManager.DefaultPlaybackDevice;
+
+            if (_defaultPlaybackDevice != null)
+            {
+                _defaultPlaybackDevice.PropertyChanged += DefaultPlaybackDevice_PropertyChanged;
+            }
+
+            DefaultPlaybackDevice_PropertyChanged(sender, null);
+        }
+
+        private void DefaultPlaybackDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             UpdateTrayIcon();
             UpdateToolTip();
@@ -113,7 +129,6 @@ namespace EarTrumpet.ViewModels
 
         private void UpdateTrayIcon()
         {
-            int volume = _deviceManager.VirtualDefaultDevice.Volume.ToVolumeInt();
             IconId desiredIcon = IconId.OriginalIcon;
 
             if (_useLegacyIcon)
@@ -122,11 +137,13 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                if (!_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+                int volume = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Volume.ToVolumeInt() : 0;
+
+                if (_defaultPlaybackDevice == null)
                 {
                     desiredIcon = IconId.NoDevice;
                 }
-                else if (_deviceManager.VirtualDefaultDevice.IsMuted)
+                else if (_defaultPlaybackDevice.IsMuted)
                 {
                     desiredIcon = IconId.Muted;
                 }
@@ -158,22 +175,22 @@ namespace EarTrumpet.ViewModels
 
         internal void ToggleMute()
         {
-            if (_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+            if (_defaultPlaybackDevice != null)
             {
-                _deviceManager.VirtualDefaultDevice.IsMuted = !_deviceManager.VirtualDefaultDevice.IsMuted;
+                _defaultPlaybackDevice.IsMuted = !_defaultPlaybackDevice.IsMuted;
             }
         }
 
         private void UpdateToolTip()
         {
             string toolTipText;
-            if (_deviceManager.VirtualDefaultDevice.IsDevicePresent)
+            if (_defaultPlaybackDevice != null)
             {
                 var otherText = "EarTrumpet: 100% - ";
-                var dev = _deviceManager.VirtualDefaultDevice.DisplayName;
+                var dev = _defaultPlaybackDevice.DisplayName;
                 // API Limitation: "less than 64 chars" for the tooltip.
                 dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                toolTipText = $"EarTrumpet: {_deviceManager.VirtualDefaultDevice.Volume.ToVolumeInt()}% - {dev}";
+                toolTipText = $"EarTrumpet: {_defaultPlaybackDevice.Volume.ToVolumeInt()}% - {dev}";
             }
             else
             {
