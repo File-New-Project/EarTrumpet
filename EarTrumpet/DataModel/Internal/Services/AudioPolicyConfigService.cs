@@ -47,7 +47,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                     var str = GenerateDeviceId(deviceId);
                     Combase.WindowsCreateString(str, (uint)str.Length, out hstring);
                 }
-                s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, hstring);
+                s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia | ERole.eConsole, hstring);
             }
             catch(Exception ex)
             {
@@ -61,7 +61,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             {
                 EnsurePolicyConfig();
 
-                s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia & ERole.eConsole, out string deviceId);
+                s_sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia | ERole.eConsole, out string deviceId);
                 return UnpackDeviceId(deviceId);
             }
             catch (Exception ex)
