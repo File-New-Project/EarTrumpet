@@ -135,6 +135,9 @@ namespace EarTrumpet.Views
                     // We need the theme to be updated on show because the window borders will be set based on taskbar position.
                     ThemeChanged();
                     UpdateWindowBounds();
+
+                    // Update layout otherwise we may display queued state changes
+                    UpdateLayout();
                     DevicesList.Focus();
 
                     WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
