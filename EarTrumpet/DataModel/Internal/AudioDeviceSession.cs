@@ -223,9 +223,6 @@ namespace EarTrumpet.DataModel.Internal
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
                     });
-
-                    // Add a short delay to avoid running the task over and over.
-                    Task.Delay(TimeSpan.FromSeconds(5)).Wait();
                 });
 
                 _refreshDisplayNameTask.Start();
