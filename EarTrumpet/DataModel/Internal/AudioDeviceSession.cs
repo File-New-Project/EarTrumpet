@@ -214,7 +214,8 @@ namespace EarTrumpet.DataModel.Internal
         {
             if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
             {
-                _refreshDisplayNameTask = new Task(() =>
+                _refreshDisplayNameTask = Task.Delay(TimeSpan.FromSeconds(5));
+                var internalRefreshDisplayNameTask = new Task(() =>
                 {
                     var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
                     _dispatcher.SafeInvoke(() =>
@@ -224,8 +225,8 @@ namespace EarTrumpet.DataModel.Internal
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
                     });
                 });
-
-                _refreshDisplayNameTask.Start();
+                internalRefreshDisplayNameTask.ContinueWith((inTask) => _refreshDisplayNameTask);
+                internalRefreshDisplayNameTask.Start();
             }
         }
 
