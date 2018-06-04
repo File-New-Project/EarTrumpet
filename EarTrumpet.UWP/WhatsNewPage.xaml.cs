@@ -25,29 +25,31 @@ namespace EarTrumpet.UWP
             var title = resources.GetString("WhatsNew/Text");
             WhatsNew.Text = string.Format(title, GetAppVersion());
 
-            var item1 = resources.GetString("NewItem1/Text");
-            _whatsNewItems.Add(item1, "Assets\\welcome.gif");
+            var version = Package.Current.Id.Version;
+            if (version.Major == 1 && version.Minor == 5)
+            {
 
-            var item2 = resources.GetString("NewItem2/Text");
-            _whatsNewItems.Add(item2, null);
+                var item1 = resources.GetString("NewItem1/Text");
+                _whatsNewItems.Add(item1, "Assets\\welcome.gif");
 
-            var item3 = resources.GetString("NewItem3/Text");
-            _whatsNewItems.Add(item3, null);
+                var item2 = resources.GetString("NewItem2/Text");
+                _whatsNewItems.Add(item2, null);
 
-            var item4 = resources.GetString("NewItem4/Text");
-            _whatsNewItems.Add(item4, null);
+                var item3 = resources.GetString("NewItem3/Text");
+                _whatsNewItems.Add(item3, null);
 
-            var item5 = resources.GetString("NewItem5/Text");
-            _whatsNewItems.Add(item5, null);
+                var item4 = resources.GetString("NewItem4/Text");
+                _whatsNewItems.Add(item4, null);
+
+                var item5 = resources.GetString("NewItem5/Text");
+                _whatsNewItems.Add(item5, null);
+            }
         }
 
         private string GetAppVersion()
         {
-            Package package = Package.Current;
-            PackageId packageId = package.Id;
-            PackageVersion version = packageId.Version;
-
-            return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+            var version = Package.Current.Id.Version;
+            return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
 
         private void Close_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
