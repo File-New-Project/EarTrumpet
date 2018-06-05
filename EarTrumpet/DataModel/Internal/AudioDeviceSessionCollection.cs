@@ -21,11 +21,13 @@ namespace EarTrumpet.DataModel.Internal
         private readonly ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private readonly List<IAudioDeviceSession> _movedSessions = new List<IAudioDeviceSession>();
         private IAudioSessionManager2 _sessionManager;
+        private WeakReference<IAudioDevice> _parent;
 
-        public AudioDeviceSessionCollection(IMMDevice device)
+        public AudioDeviceSessionCollection(IAudioDevice parent, IMMDevice device)
         {
             Trace.WriteLine($"AudioDeviceSessionCollection Create dev={device.GetId()}");
 
+            _parent = new WeakReference<IAudioDevice>(parent);
             _dispatcher = App.Current.Dispatcher;
 
             Task.Factory.StartNew(() =>
@@ -55,10 +57,23 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                var newSession = new AudioDeviceSession(session);
+                if (!_parent.TryGetTarget(out IAudioDevice parent))
+                {
+                    throw new Exception("Device session parent is invalid but device is still notifying.");
+                }
+
+                var newSession = new AudioDeviceSession(parent, session);
                 _dispatcher.SafeInvoke(() =>
                 {
-                    AddSession(newSession);
+                    if (newSession.State == SessionState.Moved)
+                    {
+                        _movedSessions.Add(newSession);
+                        newSession.PropertyChanged += MovedSession_PropertyChanged;
+                    }
+                    else
+                    {
+                        AddSession(newSession);
+                    }
                 });
             }
             catch (ZombieProcessException ex)

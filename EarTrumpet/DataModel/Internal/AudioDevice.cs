@@ -36,7 +36,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _deviceVolume.RegisterControlChangeNotify(this);
             _meter = device.Activate<IAudioMeterInformation>();
-            _sessions = new AudioDeviceSessionCollection(_device);
+            _sessions = new AudioDeviceSessionCollection(this, _device);
 
             _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
             _isMuted = _deviceVolume.GetMute() != 0;

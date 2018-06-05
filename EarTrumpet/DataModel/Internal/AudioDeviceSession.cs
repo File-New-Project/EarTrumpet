@@ -168,7 +168,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _moveOnInactive;
         private Task _refreshDisplayNameTask;
 
-        public AudioDeviceSession(IAudioSessionControl session)
+        public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
         {
             _dispatcher = App.Current.Dispatcher;
             _session = session;
@@ -196,6 +196,49 @@ namespace EarTrumpet.DataModel.Internal
 
             ReadRawDisplayName();
             RefreshDisplayName();
+
+            // NOTE: This is to work around what we believe to be a Windows 10 OS bug!
+            // The audio session redirection feature became available in 1803 and this bug appears
+            // to impact some or all UWP applications.
+            //
+            // Repro:
+            // - Using a UWP app like Minesweeper
+            // - Open the app on default device A and play a sound (observe sound plays on A)
+            // - Move the app to device B
+            // - Play a sound (observe the sound plays on B)
+            // - Close app
+            // - Open app again and play a sound
+            // EXPECTED: App plays on device B since it is configured and available
+            // ACTUAL: App plays on device A which is incorrect.
+            //
+            // We work around this by attempting to move the session to the specified persisted endpoint.
+            // If we fail for any reason (including that device no longer being available at all), we expect
+            // to continue without issue using the current parent device.
+            var persistedDeviceId = PersistedDefaultEndPointId;
+            if (!string.IsNullOrWhiteSpace(persistedDeviceId))
+            {
+                if (parent.Id != persistedDeviceId)
+                {
+                    Trace.WriteLine($"FORCE-MOVE: {parent.Id} -> {persistedDeviceId}");
+
+                    if (_state == AudioSessionState.Active)
+                    {
+                        _moveOnInactive = true;
+                    }
+                    else
+                    {
+                        _isMoved = true;
+                    }
+
+                    MoveToDevice(persistedDeviceId, false);
+
+                    // Our state may change before the event handlers are subscribed.
+                    _dispatcher.SafeInvoke(() =>
+                    {
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                    });
+                }
+            }
         }
 
         ~AudioDeviceSession()
