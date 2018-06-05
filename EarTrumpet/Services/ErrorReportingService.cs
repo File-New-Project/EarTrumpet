@@ -5,6 +5,7 @@ using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
 namespace EarTrumpet.Services
@@ -18,10 +19,14 @@ namespace EarTrumpet.Services
 #if DEBUG
                 WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
 #endif
+
+                WPFClient.Config.StoreOfflineErrors = true;
                 WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
                 WPFClient.Start();
 
                 WPFClient.Config.BeforeNotify(OnBeforeNotify);
+
+                Task.Factory.StartNew(WPFClient.SendStoredReports);
             }
             catch (Exception ex)
             {
