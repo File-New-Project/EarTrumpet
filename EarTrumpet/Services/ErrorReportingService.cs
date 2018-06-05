@@ -3,6 +3,7 @@ using Bugsnag.Clients;
 using EarTrumpet.Extensions;
 using System;
 using System.Diagnostics;
+using System.IO;
 using Windows.ApplicationModel;
 
 namespace EarTrumpet.Services
@@ -11,22 +12,20 @@ namespace EarTrumpet.Services
     {
         internal static void Initialize()
         {
-#if VSDEBUG
-            return;
-#else
-
             try
             {
+#if DEBUG
+                WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
+#endif
                 WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
                 WPFClient.Start();
 
                 WPFClient.Config.BeforeNotify(OnBeforeNotify);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine(ex);
             }
-#endif
         }
 
         private static bool OnBeforeNotify(Event error)
