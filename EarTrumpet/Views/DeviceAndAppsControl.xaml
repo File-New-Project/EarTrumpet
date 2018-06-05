@@ -24,47 +24,50 @@
                                TextTrimming="CharacterEllipsis" />
                 </Border>
 
-                <ListViewItem Name="DeviceListItem"
-                              Grid.Row="1"
-                              Height="{StaticResource DeviceItemCellHeight}"
-                              AutomationProperties.Name="{Binding}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0"
-                                Margin="{StaticResource DeviceOrAppIconMargin}"
-                                HorizontalAlignment="Center"
-                                Background="Transparent"
-                                MouseDown="Icon_MouseDown"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
+                <ItemsControl IsTabStop="False"
+                              Grid.Row="1">
+                    <ListViewItem Name="DeviceListItem"
+                                  
+                                  Height="{StaticResource DeviceItemCellHeight}"
+                                  AutomationProperties.Name="{Binding}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0"
+                                    Margin="{StaticResource DeviceOrAppIconMargin}"
+                                    HorizontalAlignment="Center"
+                                    Background="Transparent"
+                                    MouseDown="Icon_MouseDown"
+                                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
 
-                            <Grid>
-                                <TextBlock FontSize="24"
-                                           Opacity="0.4"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding DeviceIconTextBackground}" />
-                                <TextBlock FontSize="24"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding DeviceIconText}" />
-                            </Grid>
-                        </Border>
+                                <Grid>
+                                    <TextBlock FontSize="24"
+                                               Opacity="0.4"
+                                               Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
+                                               Text="{Binding DeviceIconTextBackground}" />
+                                    <TextBlock FontSize="24"
+                                               Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
+                                               Text="{Binding DeviceIconText}" />
+                                </Grid>
+                            </Border>
 
-                        <views:VolumeSlider Grid.Column="1"
-                                            Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                                            PeakValue="{Binding PeakValue}"
-                                            PreviewMouseUp="TouchSlider_MouseUp"
-                                            PreviewTouchUp="TouchSlider_TouchUp"
-                                            Style="{DynamicResource VolumeSliderStyle}"
-                                            Value="{Binding Volume, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2"
-                                   Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                                   Style="{DynamicResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Volume, Mode=OneWay}" />
-                    </Grid>
-                </ListViewItem>
+                            <views:VolumeSlider Grid.Column="1"
+                                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
+                                                PeakValue="{Binding PeakValue}"
+                                                PreviewMouseUp="TouchSlider_MouseUp"
+                                                PreviewTouchUp="TouchSlider_TouchUp"
+                                                Style="{DynamicResource VolumeSliderStyle}"
+                                                Value="{Binding Volume, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2"
+                                       Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
+                                       Style="{DynamicResource DeviceVolumeTextStyle}"
+                                       Text="{Binding Volume, Mode=OneWay}" />
+                        </Grid>
+                    </ListViewItem>
+                </ItemsControl>
             </Grid>
         </Border>
 
