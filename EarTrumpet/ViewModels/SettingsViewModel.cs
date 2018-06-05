@@ -1,10 +1,9 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using System;
 using System.Diagnostics;
-using System.Reflection;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 
 namespace EarTrumpet.ViewModels
@@ -58,12 +57,17 @@ namespace EarTrumpet.ViewModels
 
         private void OpenDiagnostics()
         {
+            if(Keyboard.IsKeyDown(Key.LeftShift) && Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                throw new Exception("This is an intentional crash.");
+            }
+
             DiagnosticsService.DumpAndShowData();
         }
 
         private void OpenAbout()
         {
             using (Process.Start("http://github.com/File-New-Project/EarTrumpet")) { }
-        }        
+        }
     }
 }

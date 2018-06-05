@@ -3,9 +3,9 @@ using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
 using EarTrumpet.Views;
+using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 
 namespace EarTrumpet
 {
@@ -17,6 +17,8 @@ namespace EarTrumpet
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Bugsnag.Clients.WPFClient.Start();
+
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             Trace.Listeners.Clear();
