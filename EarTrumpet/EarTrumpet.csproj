@@ -132,6 +132,7 @@
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
+    <Compile Include="Services\ErrorReportingService.cs" />
     <Compile Include="Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="ViewModels\IAppItemViewModel.cs" />
     <Compile Include="ViewModels\TemporaryAppItemViewModel.cs" />
