@@ -3,8 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid MaxWidth="490"              
-              Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid MaxWidth="490"
+              Margin="20"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -23,9 +25,12 @@
                     What's new in EarTrumpet
                 </TextBlock>
             </StackPanel>
-            <ScrollViewer Grid.Row="1" Foreground="{ThemeResource TextControlForeground}" Padding="0,0,20,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-                <ItemsControl 
-                              ItemsSource="{x:Bind _whatsNewItems}">
+            <ScrollViewer Grid.Row="1"
+                          Padding="0,0,20,0"
+                          Foreground="{ThemeResource TextControlForeground}"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{x:Bind _whatsNewItems}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -53,7 +58,7 @@
                                            Text="{Binding Key}"
                                            TextWrapping="Wrap" />
                                 <Image Grid.Row="1"
-                                       Grid.Column="1"                                       
+                                       Grid.Column="1"
                                        Margin="0,0,0,10"
                                        HorizontalAlignment="Left"
                                        Source="{Binding Value}" />

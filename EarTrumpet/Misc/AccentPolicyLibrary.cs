@@ -3,14 +3,14 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet.Services
+namespace EarTrumpet.Misc
 {
-    class AccentPolicyService
+    static class AccentPolicyLibrary
     {
         private static readonly uint _defaultTintBackgroundColor = 0x000000; // BGR Black
         private static readonly uint _defaultTintOpacity = 42;
 
-        private static void SetAccentPolicy(IntPtr handle, User32.AccentState accentState, bool showBorders = false, uint tintOpacity = 0)
+        private static void SetInternal(IntPtr handle, User32.AccentState accentState, bool showBorders = false, uint tintOpacity = 0)
         {
             var accent = new User32.AccentPolicy
             {
@@ -35,15 +35,15 @@ namespace EarTrumpet.Services
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        public static void SetBlurPolicy(IntPtr handle, bool isEnabled, bool withBorders = false)
+        public static void Set(IntPtr handle, bool isEnabled, bool withBorders = false)
         {
             if (isEnabled)
             {
-                SetAccentPolicy(handle, User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, withBorders, _defaultTintOpacity);
+                SetInternal(handle, User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, withBorders, _defaultTintOpacity);
             }
             else
             {
-                SetAccentPolicy(handle, User32.AccentState.ACCENT_DISABLED);
+                SetInternal(handle, User32.AccentState.ACCENT_DISABLED);
             }
         }
     }

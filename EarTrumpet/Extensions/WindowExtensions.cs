@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.Services;
+using EarTrumpet.Misc;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -31,7 +31,7 @@ namespace EarTrumpet.Extensions
         public static void SetWindowBlur(this Window window, bool isBlur, bool showAllBorders = false)
         {
             var hwnd = new WindowInteropHelper(window).Handle;
-            AccentPolicyService.SetBlurPolicy(hwnd, isBlur, showAllBorders);
+            AccentPolicyLibrary.Set(hwnd, isBlur, showAllBorders);
         }
 
         public static Matrix CalculateDpiFactors(this Window window)

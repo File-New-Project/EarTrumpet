@@ -138,7 +138,7 @@
     <Compile Include="Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\AccentPolicyService.cs" />
+    <Compile Include="Misc\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
