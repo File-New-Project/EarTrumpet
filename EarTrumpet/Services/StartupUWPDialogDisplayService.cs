@@ -74,7 +74,8 @@ namespace EarTrumpet.Services
 
                 if (LocalSettings.ContainsKey(FirstRunKey))
                 {
-                    ProtocolLaunchEarTrumpet("changelog");
+                    // TODO: Re-enable Whats-New dialog after 1.9.4.0.
+                    // ProtocolLaunchEarTrumpet("changelog");
                 }
             }
         }
