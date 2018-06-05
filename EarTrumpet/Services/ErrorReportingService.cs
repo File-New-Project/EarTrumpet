@@ -12,18 +12,17 @@ namespace EarTrumpet.Services
     {
         internal static void Initialize()
         {
-            if (App.Current.HasIdentity())
-            {
-              //  WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
-                WPFClient.Start();
+            WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
+            WPFClient.Start();
 
-             //   WPFClient.Config.BeforeNotify(OnBeforeNotify);
-            }
+            WPFClient.Config.BeforeNotify(OnBeforeNotify);
         }
 
         private static bool OnBeforeNotify(Event error)
         {
-            error.Metadata.AddToTab("Device", "hostname", "NO_HOST_NAME");
+            error.Metadata.AddToTab("Device", "machineName", "<redacted>");
+            error.Metadata.AddToTab("Device", "hostname", "<redacted>");
+
             return true;
         }
     }
