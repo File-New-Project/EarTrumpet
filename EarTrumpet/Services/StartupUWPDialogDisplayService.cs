@@ -87,13 +87,13 @@ namespace EarTrumpet.Services
                 var verStr = Get<string>(CurrentVersionKey);
                 if (!string.IsNullOrWhiteSpace(verStr))
                 {
-                    var parts = verStr.Split('.');
+                    var ver = Version.Parse(verStr);
                     return new PackageVersion
                     {
-                        Major = ushort.Parse(parts[0]),
-                        Minor = ushort.Parse(parts[1]),
-                        Build = ushort.Parse(parts[2]),
-                        Revision = ushort.Parse(parts[3])
+                        Major = (ushort)ver.Major,
+                        Minor = (ushort)ver.Minor,
+                        Build = (ushort)ver.Build,
+                        Revision = (ushort)ver.Revision
                     };
                 }
             }
