@@ -257,8 +257,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveToDevice(string id, bool hide)
         {
-            // The group should have handled this.
-            throw new NotImplementedException();
+            AudioPolicyConfigService.SetDefaultEndPoint(id, ProcessId);
         }
 
         public void UpdatePeakValueBackground()

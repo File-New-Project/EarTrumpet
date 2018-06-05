@@ -36,6 +36,7 @@ namespace EarTrumpet.DataModel.Internal.Services
 
         public static void SetDefaultEndPoint(string deviceId, int processId)
         {
+            Trace.WriteLine($"AudioPolicyConfigService SetDefaultEndPoint {deviceId} {processId}");
             try
             {
                 EnsurePolicyConfig();

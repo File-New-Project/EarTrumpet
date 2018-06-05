@@ -124,6 +124,17 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
+        internal void MoveHiddenAppsToDevice(string appId, string id)
+        {
+            foreach(var session in _movedSessions)
+            {
+                if (session.AppId == appId)
+                {
+                    session.MoveToDevice(id, false);
+                }
+            }
+        }
+
         private void RemoveSession(IAudioDeviceSession session)
         {
             Trace.WriteLine($"AudioDeviceSessionCollection RemoveSession {session.ExeName} {session.Id}");

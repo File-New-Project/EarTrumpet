@@ -174,6 +174,14 @@ namespace EarTrumpet.DataModel.Internal
             return found != null;
         }
 
+        public void MoveHiddenAppsToDevice(string appId, string id)
+        {
+            foreach(var device in _devices)
+            {
+                device.MoveHiddenAppsToDevice(appId, id);
+            }
+        }
+
         void IMMNotificationClient.OnDeviceAdded(string pwstrDeviceId)
         {
             Trace.WriteLine($"AudioDeviceManager OnDeviceAdded {pwstrDeviceId}");

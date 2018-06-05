@@ -10,5 +10,6 @@ namespace EarTrumpet.DataModel
 
         void UpdatePeakValueBackground();
         void UnhideSessionsForProcessId(int processId);
+        void MoveHiddenAppsToDevice(string appId, string id);
     }
 }

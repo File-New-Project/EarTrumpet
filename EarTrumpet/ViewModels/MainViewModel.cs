@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -17,20 +18,20 @@ namespace EarTrumpet.ViewModels
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
 
-        private readonly IAudioDeviceManager _deviceService;
+        private readonly IAudioDeviceManager _deviceManager;
         private readonly Timer _peakMeterTimer;
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
 
-        internal MainViewModel(IAudioDeviceManager deviceService)
+        internal MainViewModel(IAudioDeviceManager deviceManager)
         {
             Debug.Assert(Instance == null);
             Instance = this;
 
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
-            _deviceService = deviceService;
-            _deviceService.Devices.CollectionChanged += Devices_CollectionChanged;
+            _deviceManager = deviceManager;
+            _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _peakMeterTimer = new Timer(1000 / 30); // 30 fps
@@ -40,7 +41,7 @@ namespace EarTrumpet.ViewModels
 
         private void AddDevice(IAudioDevice device)
         {
-            var newDevice = new DeviceViewModel(_deviceService, device);
+            var newDevice = new DeviceViewModel(_deviceManager, device);
             AllDevices.Add(newDevice);
         }
 
@@ -63,7 +64,7 @@ namespace EarTrumpet.ViewModels
 
                 case NotifyCollectionChangedAction.Reset:
                     AllDevices.Clear();
-                    foreach (var device in _deviceService.Devices)
+                    foreach (var device in _deviceManager.Devices)
                     {
                         AddDevice(device);
                     }
@@ -93,19 +94,43 @@ namespace EarTrumpet.ViewModels
 
         public void MoveAppToDevice(IAppItemViewModel app, DeviceViewModel dev)
         {
+            // Collect all matching apps on all devices.
+            var apps = new List<IAppItemViewModel>();
+            apps.Add(app);
+
+            foreach(var device in AllDevices)
+            {
+                foreach(var deviceApp in device.Apps)
+                {
+                    if (deviceApp.DoesGroupWith(app))
+                    {
+                        if (!apps.Contains(deviceApp))
+                        {
+                            apps.Add(deviceApp);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            foreach(var foundApp in apps)
+            {
+                MoveAppToDeviceInternal(foundApp, dev);
+            }
+
+            // Collect and move any hidden/moved sessions.
+            _deviceManager.MoveHiddenAppsToDevice(app.AppId, dev?.Id);
+        }
+
+        private void MoveAppToDeviceInternal(IAppItemViewModel app, DeviceViewModel dev)
+        {
             var searchId = dev?.Id;
             if (dev == null)
             {
-                searchId = _deviceService.DefaultPlaybackDevice.Id;
+                searchId = _deviceManager.DefaultPlaybackDevice.Id;
             }
             DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
             DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
-
-            if (app.PersistedOutputDevice == dev?.Id)
-            {
-                // We don't actually need to do any work.
-                return;
-            }
 
             try
             {

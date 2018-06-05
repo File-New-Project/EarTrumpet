@@ -130,6 +130,11 @@ namespace EarTrumpet.DataModel.Internal
             _sessions.UnHideSessionsForProcessId(processId);
         }
 
+        public void MoveHiddenAppsToDevice(string appId, string id)
+        {
+            _sessions.MoveHiddenAppsToDevice(appId, id);
+        }
+
         private void ReadDisplayName()
         {
             try
