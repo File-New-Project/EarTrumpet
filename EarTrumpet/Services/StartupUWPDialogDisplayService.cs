@@ -2,16 +2,14 @@
 using System;
 using System.Diagnostics;
 using Windows.ApplicationModel;
-using Windows.Foundation.Collections;
 
 namespace EarTrumpet.Services
 {
+    // Note: We can't trust the Windows.Storage APIs, so make sure errors are handled in all cases.
     class StartupUWPDialogDisplayService
     {
         private static string FirstRunKey = "hasShownFirstRun";
         private static string CurrentVersionKey = "currentVersion";
-        
-        private static IPropertySet LocalSettings => Windows.Storage.ApplicationData.Current.LocalSettings.Values;
 
         internal static void ShowIfAppropriate()
         {
@@ -19,8 +17,8 @@ namespace EarTrumpet.Services
 
             if (App.Current.HasIdentity())
             {
-                ShowWelcomeIfAppropriate();
                 ShowWhatsNewIfAppropriate();
+                ShowWelcomeIfAppropriate();
 
                 App.Current.Exit += App_Exit;
             }
@@ -36,7 +34,7 @@ namespace EarTrumpet.Services
                     {
                         proc.Kill();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Trace.TraceError($"{ex}");
                     }
@@ -56,9 +54,9 @@ namespace EarTrumpet.Services
         {
             if (App.Current.HasIdentity())
             {
-                if (!LocalSettings.ContainsKey(FirstRunKey))
+                if (!HasKey(FirstRunKey))
                 {
-                    LocalSettings[FirstRunKey] = true;
+                    Set(FirstRunKey, true);
                     ProtocolLaunchEarTrumpet("welcome");
                 }
             }
@@ -66,18 +64,45 @@ namespace EarTrumpet.Services
 
         internal static void ShowWhatsNewIfAppropriate()
         {
-            var binaryVersion = Package.Current.Id.Version.ToVersionString();
-            var storedVersion = LocalSettings[CurrentVersionKey];
-            if ((storedVersion == null || binaryVersion != (string)storedVersion))
+            // Show only on Major/Minor build change.
+            // 1.9.4.0 Major.Minor.Build.Revision (ignore Build and Revision)
+            var binaryVersion = Package.Current.Id.Version;
+            var storedVersion = GetStoredVersion();
+            if (storedVersion.Major != binaryVersion.Major ||
+                storedVersion.Minor != binaryVersion.Minor)
             {
-                LocalSettings[CurrentVersionKey] = binaryVersion;
+                Set(CurrentVersionKey, binaryVersion.ToVersionString());
 
-                if (LocalSettings.ContainsKey(FirstRunKey))
+                if (HasKey(FirstRunKey))
                 {
-                    // TODO: Re-enable Whats-New dialog after 1.9.4.0.
-                    // ProtocolLaunchEarTrumpet("changelog");
+                    ProtocolLaunchEarTrumpet("changelog");
                 }
             }
+        }
+
+        private static PackageVersion GetStoredVersion()
+        {
+            try
+            {
+                var verStr = Get<string>(CurrentVersionKey);
+                if (!string.IsNullOrWhiteSpace(verStr))
+                {
+                    var parts = verStr.Split('.');
+                    return new PackageVersion
+                    {
+                        Major = ushort.Parse(parts[0]),
+                        Minor = ushort.Parse(parts[1]),
+                        Build = ushort.Parse(parts[2]),
+                        Revision = ushort.Parse(parts[3])
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
+
+            return new PackageVersion { Major = 0, Minor = 0, Build = 0, Revision = 0 };
         }
 
         private static void ProtocolLaunchEarTrumpet(string more = "")
@@ -92,6 +117,44 @@ namespace EarTrumpet.Services
             {
                 Trace.TraceError($"{ex}");
             }
+        }
+
+        private static bool HasKey(string key)
+        {
+            try
+            {
+                return Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
+            return false;
+        }
+
+        private static void Set<T>(string key, T value)
+        {
+            try
+            {
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
+        }
+
+        private static T Get<T>(string key)
+        {
+            try
+            {
+                return (T)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"{ex}");
+            }
+            return default(T);
         }
     }
 }
