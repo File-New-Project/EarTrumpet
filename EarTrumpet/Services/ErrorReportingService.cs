@@ -1,6 +1,7 @@
 ﻿using Bugsnag;
 using Bugsnag.Clients;
 using EarTrumpet.Extensions;
+using EarTrumpet.Misc;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -30,10 +31,29 @@ namespace EarTrumpet.Services
 
         private static bool OnBeforeNotify(Event error)
         {
+            // Remove default metadata we don't need nor want.
             error.Metadata.AddToTab("Device", "machineName", "<redacted>");
             error.Metadata.AddToTab("Device", "hostname", "<redacted>");
 
+            error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
+            error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
+            error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
+            error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
+
             return true;
+        }
+
+        private static string GetNoError(Func<object> get)
+        {
+            try
+            {
+                var ret = get();
+                return ret == null ? "null" : ret.ToString();
+            }
+            catch (Exception ex)
+            {
+                return $"{ex}";
+            }
         }
     }
 }
