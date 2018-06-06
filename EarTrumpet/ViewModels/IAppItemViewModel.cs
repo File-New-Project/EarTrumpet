@@ -18,7 +18,8 @@ namespace EarTrumpet.ViewModels
         char IconText { get; }
         bool IsExpanded { get; }
         bool IsMovable { get; }
-        float PeakValue { get; }
+        float PeakValue1 { get; }
+        float PeakValue2 { get; }
         string PersistedOutputDevice { get; }
         int ProcessId { get; }
 

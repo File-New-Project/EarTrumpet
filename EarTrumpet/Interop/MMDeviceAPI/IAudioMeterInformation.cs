@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop.MMDeviceAPI
 {
@@ -7,8 +8,8 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     interface IAudioMeterInformation
     {
         float GetPeakValue();
-        void GetMeteringChannelCount(out uint pnChannelCount);
-        void GetChannelsPeakValues(uint u32ChannelCount, out float afPeakValues);
+        uint GetMeteringChannelCount();
+        int GetChannelsPeakValues(uint u32ChannelCount, IntPtr afPeakValues);
         void QueryHardwareSupport(out uint pdwHardwareSupportMask);
     }
 }

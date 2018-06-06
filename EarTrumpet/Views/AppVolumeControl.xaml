@@ -86,7 +86,8 @@
 
         <views:VolumeSlider Grid.Column="1"
                             Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                            PeakValue="{Binding PeakValue}"
+                            PeakValue1="{Binding PeakValue1}"
+                            PeakValue2="{Binding PeakValue2}"
                             Style="{DynamicResource VolumeSliderStyle}"
                             Value="{Binding Volume, Mode=TwoWay}" />
 

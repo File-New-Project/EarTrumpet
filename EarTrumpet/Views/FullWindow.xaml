@@ -130,11 +130,17 @@
                     </Track.IncreaseRepeatButton>
                 </Track>
 
-                <Border Name="PeakMeter"
-                        Height="4"
+                <Border Name="PeakMeter1"
+                        Height="2"
+                        Margin="0,-6,0,0"
                         HorizontalAlignment="Left"
                         Background="{DynamicResource NormalWindowForeground}" />
 
+                <Border Name="PeakMeter2"
+                        Height="2"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{DynamicResource NormalWindowForeground}" />
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">

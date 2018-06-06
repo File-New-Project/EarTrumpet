@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -106,7 +107,8 @@ namespace EarTrumpet.DataModel.Internal
 
         public Guid GroupingParam { get; private set; }
 
-        public float PeakValue { get; private set; }
+        public float PeakValue1 { get; private set; }
+        public float PeakValue2 { get; private set; }
 
         public uint BackgroundColor => _appInfo.BackgroundColor;
 
@@ -307,12 +309,39 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                PeakValue = _meter.GetPeakValue();
+                uint chanCount = _meter.GetMeteringChannelCount();
+                if (chanCount == 0)
+                {
+                    PeakValue1 = 0;
+                    PeakValue2 = 0;
+                }
+                else
+                {
+                    
+                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
+                    _meter.GetChannelsPeakValues(chanCount, arrayPtr);
+
+                    var values = new float[chanCount];
+                    Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
+
+                    if (chanCount == 1)
+                    {
+                        PeakValue1 = values[0];
+                        PeakValue2 = values[0];
+                    }
+                    else if (chanCount > 1)
+                    {
+                        PeakValue1 = values[0];
+                        PeakValue2 = values[1];
+                    }
+                }
             }
             catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
             {
-                PeakValue = 0;
                 // Expected in some cases.
+
+                PeakValue1 = 0;
+                PeakValue2 = 0;
             }
         }
 

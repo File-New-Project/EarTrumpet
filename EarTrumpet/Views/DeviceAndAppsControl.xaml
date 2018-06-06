@@ -24,10 +24,8 @@
                                TextTrimming="CharacterEllipsis" />
                 </Border>
 
-                <ItemsControl IsTabStop="False"
-                              Grid.Row="1">
+                <ItemsControl Grid.Row="1" IsTabStop="False">
                     <ListViewItem Name="DeviceListItem"
-                                  
                                   Height="{StaticResource DeviceItemCellHeight}"
                                   AutomationProperties.Name="{Binding}">
                         <Grid>
@@ -56,7 +54,8 @@
 
                             <views:VolumeSlider Grid.Column="1"
                                                 Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                                                PeakValue="{Binding PeakValue}"
+                                                PeakValue1="{Binding PeakValue1}"
+                                                PeakValue2="{Binding PeakValue2}"
                                                 PreviewMouseUp="TouchSlider_MouseUp"
                                                 PreviewTouchUp="TouchSlider_TouchUp"
                                                 Style="{DynamicResource VolumeSliderStyle}"

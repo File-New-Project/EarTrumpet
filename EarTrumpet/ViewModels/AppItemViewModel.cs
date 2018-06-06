@@ -146,8 +146,6 @@ namespace EarTrumpet.ViewModels
             _session.RefreshDisplayName();
         }
 
-        public override float PeakValue => _session.PeakValue;
-
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);

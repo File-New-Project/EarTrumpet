@@ -92,7 +92,8 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public float PeakValue { get; private set; }
+        public float PeakValue1 { get; private set; }
+        public float PeakValue2 { get; private set; }
 
         public bool IsMuted
         {
@@ -122,7 +123,41 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValueBackground()
         {
-            PeakValue = _meter.GetPeakValue();
+            try
+            {
+                uint chanCount = _meter.GetMeteringChannelCount();
+                if (chanCount == 0)
+                {
+                    PeakValue1 = 0;
+                    PeakValue2 = 0;
+                }
+                else
+                {
+                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
+                    _meter.GetChannelsPeakValues(chanCount, arrayPtr);
+
+                    var values = new float[chanCount];
+                    Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
+
+                    if (chanCount == 1)
+                    {
+                        PeakValue1 = values[0];
+                        PeakValue2 = values[0];
+                    }
+                    else if (chanCount > 1)
+                    {
+                        PeakValue1 = values[0];
+                        PeakValue2 = values[1];
+                    }
+                }
+            }
+            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
+
+                PeakValue1 = 0;
+                PeakValue2 = 0;
+            }
         }
 
         public void UnhideSessionsForProcessId(int processId)

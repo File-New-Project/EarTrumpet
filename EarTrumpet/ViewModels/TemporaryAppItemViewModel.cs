@@ -54,7 +54,8 @@ namespace EarTrumpet.ViewModels
         public char IconText { get; }
         public bool IsExpanded { get; }
         public bool IsMovable { get; }
-        public float PeakValue { get; }
+        public float PeakValue1 { get; }
+        public float PeakValue2 { get; }
         public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
 
@@ -86,7 +87,8 @@ namespace EarTrumpet.ViewModels
             IconText = app.IconText;
             IsMovable = app.IsMovable;
             IsExpanded = isChild;
-            PeakValue = 0;
+            PeakValue1 = 0;
+            PeakValue2 = 0;
             ProcessId = app.ProcessId;
 
             if (ChildApps != null)

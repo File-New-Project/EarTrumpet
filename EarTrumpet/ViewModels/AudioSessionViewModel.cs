@@ -35,11 +35,13 @@ namespace EarTrumpet.ViewModels
             get => _stream.Volume.ToVolumeInt();
             set => _stream.Volume = value/100f;
         }
-        public virtual float PeakValue => _stream.PeakValue;
+        public virtual float PeakValue1 => _stream.PeakValue1;
+        public virtual float PeakValue2 => _stream.PeakValue2;
 
         public virtual void UpdatePeakValueForeground()
         {
-            RaisePropertyChanged(nameof(PeakValue));
+            RaisePropertyChanged(nameof(PeakValue1));
+            RaisePropertyChanged(nameof(PeakValue2));
         }
     }
 }
