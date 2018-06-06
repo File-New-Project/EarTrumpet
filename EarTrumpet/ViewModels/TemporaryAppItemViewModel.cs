@@ -8,6 +8,8 @@ using System.Windows.Media;
 
 namespace EarTrumpet.ViewModels
 {
+    // This ViewModel is used in redirection scenarios. When we move an app to a device,
+    // this serves as the visualziation and data container for that app until a real session is created.
     public class TemporaryAppItemViewModel : BindableBase, IAppItemViewModel
     {
         public event EventHandler Expired;
