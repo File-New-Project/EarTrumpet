@@ -16,7 +16,7 @@
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
 
 ## Credits ##
-- David Golden (@GoldenTao)
-- Rafael Rivera (@WithinRafael)
-- Dave Amenta (@davux)
+- David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
+- Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
+- Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
