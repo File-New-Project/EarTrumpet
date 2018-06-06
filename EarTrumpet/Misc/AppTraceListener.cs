@@ -11,6 +11,12 @@ namespace EarTrumpet.Misc
 
         private readonly DefaultTraceListener _defaultListener = new DefaultTraceListener();
 
+        public static void Initialize()
+        {
+            Trace.Listeners.Clear();
+            Trace.Listeners.Add(new AppTraceListener());
+        }
+
         public AppTraceListener()
         {
             Debug.Assert(Instance == null);

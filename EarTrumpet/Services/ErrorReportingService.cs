@@ -14,6 +14,8 @@ namespace EarTrumpet.Services
     {
         internal static void Initialize()
         {
+            AppTraceListener.Initialize();
+
             try
             {
 #if DEBUG

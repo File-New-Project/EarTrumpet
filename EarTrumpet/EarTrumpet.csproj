@@ -136,9 +136,6 @@
     <Compile Include="ViewModels\IAppItemViewModel.cs" />
     <Compile Include="ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="Views\ThemeData.cs" />
-    <Compile Include="Views\DebugWindow.xaml.cs">
-      <DependentUpon>DebugWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Misc\RelayCommand.cs" />
@@ -245,10 +242,6 @@
     <Compile Include="Views\AppVolumeControl.xaml.cs">
       <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\DebugWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

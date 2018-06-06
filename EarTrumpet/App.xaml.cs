@@ -5,7 +5,6 @@ using EarTrumpet.ViewModels;
 using EarTrumpet.Views;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 
 namespace EarTrumpet
 {
@@ -19,12 +18,6 @@ namespace EarTrumpet
         {
             ErrorReportingService.Initialize();
 
-            ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-            Trace.Listeners.Clear();
-            Trace.Listeners.Add(new AppTraceListener());
-
-            var watch = Stopwatch.StartNew();
             Trace.WriteLine("App Application_Startup");
 
             if (!SingleInstanceAppMutex.TakeExclusivity())
@@ -33,8 +26,6 @@ namespace EarTrumpet
                 Current.Shutdown();
                 return;
             }
-
-            Exit += (_, __) => SingleInstanceAppMutex.ReleaseExclusivity();
 
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
@@ -51,19 +42,12 @@ namespace EarTrumpet
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
-#if VSDEBUG
-            if (Keyboard.IsKeyDown(Key.LeftCtrl))
-            {
-                new DebugWindow().Show();
-            }
-#endif
-            Trace.WriteLine($"App Application_Startup time= {watch.ElapsedMilliseconds} ms");
+            Trace.WriteLine($"App Application_Startup Exit (Ready)");
         }
 
         private void DeviceManager_PlaybackDevicesLoaded(object sender, System.EventArgs e)
         {
             Trace.WriteLine("App Application_Startup DeviceManager_PlaybackDevicesLoaded");
-
             _trayIcon.Show();
         }
     }

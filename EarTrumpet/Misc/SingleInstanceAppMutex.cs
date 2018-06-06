@@ -19,7 +19,15 @@ namespace EarTrumpet.Misc
                 _mutex = null;
                 return false;
             }
+
+            App.Current.Exit += App_Exit;
+
             return true;
+        }
+
+        private static void App_Exit(object sender, System.Windows.ExitEventArgs e)
+        {
+            ReleaseExclusivity();
         }
 
         public static void ReleaseExclusivity()
