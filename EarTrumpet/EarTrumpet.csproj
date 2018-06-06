@@ -128,7 +128,6 @@
     <Compile Include="Interop\RECT.cs" />
     <Compile Include="Misc\AppTraceListener.cs" />
     <Compile Include="Misc\ImmersiveSystemColors.cs" />
-    <Compile Include="Misc\MarshalHelper.cs" />
     <Compile Include="Misc\RawInputListener.cs" />
     <Compile Include="Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />

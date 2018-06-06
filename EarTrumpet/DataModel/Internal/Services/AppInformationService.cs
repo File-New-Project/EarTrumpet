@@ -134,7 +134,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                     IntPtr entryPtr = buffer;
                     do
                     {
-                        processInfo = MarshalHelper.PtrToStructure<Ntdll.SYSTEM_PROCESS_INFORMATION>(entryPtr);
+                        processInfo = Marshal.PtrToStructure<Ntdll.SYSTEM_PROCESS_INFORMATION>(entryPtr);
                         if (processInfo.UniqueProcessId == processId && processInfo.ImageName.Buffer != IntPtr.Zero)
                         {
                             executableName = Marshal.PtrToStringUni(processInfo.ImageName.Buffer, processInfo.ImageName.Length / 2);
