@@ -17,24 +17,22 @@
                        Margin="0"
                        Style="{ThemeResource AppIcon}" />
                 <TextBlock x:Name="Welcome"
+                           x:Uid="WelcomeText"
                            Margin="20,20,0,20"
                            FontSize="18"
-                           Foreground="{ThemeResource TextControlForeground}">
-                    Welcome to EarTrumpet
-                </TextBlock>
+                           Foreground="{ThemeResource TextControlForeground}" />
             </StackPanel>
             <Image Grid.Row="1"
                    Height="241"
                    HorizontalAlignment="Left"
                    Source="Assets\welcome.gif" />
-            <Button Grid.Row="2"
+            <Button x:Uid="CloseButton"
+                    Grid.Row="2"
                     Width="160"
                     Margin="0,20,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Click="Close_Click">
-                Close
-            </Button>
+                    Click="Close_Click" />
         </Grid>
     </Grid>
 </Page>

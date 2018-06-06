@@ -21,9 +21,7 @@
                            x:Uid="WhatsNew"
                            Margin="20,30,0,30"
                            FontSize="18"
-                           Foreground="{ThemeResource TextControlForeground}">
-                    What's new in EarTrumpet
-                </TextBlock>
+                           Foreground="{ThemeResource TextControlForeground}" />
             </StackPanel>
             <ScrollViewer Grid.Row="1"
                           Padding="0,0,20,0"
@@ -67,14 +65,14 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Grid.Row="2"
+
+            <Button x:Uid="CloseButton"
+                    Grid.Row="2"
                     Width="160"
                     Margin="0,20,0,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Click="Close_Click">
-                Close
-            </Button>
+                    Click="Close_Click" />
         </Grid>
     </Grid>
 </Page>
