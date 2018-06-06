@@ -10,6 +10,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Image Width="32"
@@ -26,8 +27,12 @@
                    Height="241"
                    HorizontalAlignment="Left"
                    Source="Assets\welcome.gif" />
+
+            <TextBlock Grid.Row="2" Margin="0,20,0,20"><Hyperlink Click="MoreInformationLink_Click">
+                    <Run x:Uid="MoreInformationText" />
+                </Hyperlink></TextBlock>
             <Button x:Uid="CloseButton"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Width="160"
                     Margin="0,20,0,0"
                     HorizontalAlignment="Right"

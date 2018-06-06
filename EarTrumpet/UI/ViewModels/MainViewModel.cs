@@ -51,11 +51,19 @@ namespace EarTrumpet.UI.ViewModels
 
         private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
         {
-            var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
-            if (dev != null)
+            if (e == null)
             {
-                DefaultPlaybackDevice = dev;
-                DefaultPlaybackDeviceChanged?.Invoke(this, dev);
+                DefaultPlaybackDevice = null;
+                DefaultPlaybackDeviceChanged?.Invoke(this, DefaultPlaybackDevice);
+            }
+            else
+            {
+                var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
+                if (dev != null)
+                {
+                    DefaultPlaybackDevice = dev;
+                    DefaultPlaybackDeviceChanged?.Invoke(this, DefaultPlaybackDevice);
+                }
             }
         }
 
