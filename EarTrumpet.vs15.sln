@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.UWP", "EarTrumpe
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "EarTrumpet.Package", "EarTrumpet.Package\EarTrumpet.Package.wapproj", "{EA5510ED-F014-4587-A505-64C59D5B2627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.BackgroundTasks", "EarTrumpet.BackgroundTasks\EarTrumpet.BackgroundTasks.csproj", "{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -39,12 +37,6 @@ Global
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.ActiveCfg = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Build.0 = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Deploy.0 = Debug|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Debug|x86.ActiveCfg = Debug|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Debug|x86.Build.0 = Debug|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Release|x86.ActiveCfg = Release|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.Release|x86.Build.0 = Release|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.VSDebug|x86.ActiveCfg = Debug|x86
-		{B4B0D6B6-B9EA-4492-A42E-2EC45F2EA30A}.VSDebug|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

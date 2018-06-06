@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using System;
 using System.Diagnostics;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Services
 {
@@ -9,7 +8,6 @@ namespace EarTrumpet.UI.Services
     class StartupUWPDialogDisplayService
     {
         private static string FirstRunKey = "hasShownFirstRun";
-        private static string CurrentVersionKey = "currentVersion";
 
         internal static void ShowIfAppropriate()
         {
@@ -17,7 +15,6 @@ namespace EarTrumpet.UI.Services
 
             if (App.Current.HasIdentity())
             {
-                ShowWhatsNewIfAppropriate();
                 ShowWelcomeIfAppropriate();
 
                 App.Current.Exit += App_Exit;
@@ -60,49 +57,6 @@ namespace EarTrumpet.UI.Services
                     ProtocolLaunchEarTrumpet("welcome");
                 }
             }
-        }
-
-        internal static void ShowWhatsNewIfAppropriate()
-        {
-            // Show only on Major/Minor build change.
-            // 1.9.4.0 Major.Minor.Build.Revision (ignore Build and Revision)
-            var binaryVersion = Package.Current.Id.Version;
-            var storedVersion = GetStoredVersion();
-            if (storedVersion.Major != binaryVersion.Major ||
-                storedVersion.Minor != binaryVersion.Minor)
-            {
-                Set(CurrentVersionKey, binaryVersion.ToVersionString());
-
-                if (HasKey(FirstRunKey))
-                {
-                    ProtocolLaunchEarTrumpet("changelog");
-                }
-            }
-        }
-
-        private static PackageVersion GetStoredVersion()
-        {
-            try
-            {
-                var verStr = Get<string>(CurrentVersionKey);
-                if (!string.IsNullOrWhiteSpace(verStr))
-                {
-                    var ver = Version.Parse(verStr);
-                    return new PackageVersion
-                    {
-                        Major = (ushort)ver.Major,
-                        Minor = (ushort)ver.Minor,
-                        Build = (ushort)ver.Build,
-                        Revision = (ushort)ver.Revision
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"{ex}");
-            }
-
-            return new PackageVersion { Major = 0, Minor = 0, Build = 0, Revision = 0 };
         }
 
         private static void ProtocolLaunchEarTrumpet(string more = "")

@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewItem1.Text" xml:space="preserve">
-    <value>Das Symbol im Infobereich wurde aktualisiert und sieht nun aus wie das von Windows 10</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="NewItem2.Text" xml:space="preserve">
-    <value>Das Symbol im Infobereich erhielt ebenfalls Unterstützung für Monitore mit einer hohen DPI</value>
-  </data>
-  <data name="NewItem3.Text" xml:space="preserve">
-    <value>Die Textdarstellung im Hauptfenster wurde verbessert</value>
-  </data>
-  <data name="NewItem4.Text" xml:space="preserve">
-    <value>Ein Problem wurde behoben bei dem Änderungen vom Windows Lautstärkemixer nicht in EarTrumpet angezeigt wurden, z.B. Stummschalten</value>
-  </data>
-  <data name="NewItem5.Text" xml:space="preserve">
-    <value>Unterstützung für vereinfachtes und traditionelles Chinesisch (danke Yue Yin)</value>
-  </data>
-  <data name="WhatsNew.Text" xml:space="preserve">
-    <value>Was ist neu in EarTrumpet version {0}</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Welcome to EarTrumpet</value>
   </data>
 </root>

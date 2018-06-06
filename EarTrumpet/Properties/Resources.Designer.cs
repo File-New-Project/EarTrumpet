@@ -322,7 +322,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect debug information.
+        ///   Looks up a localized string similar to Collect debug data.
         /// </summary>
         public static string TroubleshootEarTrumpetText {
             get {
@@ -331,7 +331,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Website.
+        ///   Looks up a localized string similar to More Information.
         /// </summary>
         public static string WebsiteText {
             get {
