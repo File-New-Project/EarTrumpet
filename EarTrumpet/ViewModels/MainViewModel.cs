@@ -14,9 +14,12 @@ namespace EarTrumpet.ViewModels
     {
         public static MainViewModel Instance { get; private set; }
 
+        public event EventHandler Ready;
         public event EventHandler FlyoutShowRequested;
+        public event EventHandler<DeviceViewModel> DefaultPlaybackDeviceChanged;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
+        public DeviceViewModel DefaultPlaybackDevice { get; private set; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly Timer _peakMeterTimer;
@@ -31,12 +34,29 @@ namespace EarTrumpet.ViewModels
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
             _deviceManager = deviceManager;
+            _deviceManager.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            _deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
             _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _peakMeterTimer = new Timer(1000 / 30); // 30 fps
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
+        }
+
+        private void DeviceManager_PlaybackDevicesLoaded(object sender, EventArgs e)
+        {
+            Ready?.Invoke(this, null);
+        }
+
+        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        {
+            var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
+            if (dev != null)
+            {
+                DefaultPlaybackDevice = dev;
+                DefaultPlaybackDeviceChanged?.Invoke(this, dev);
+            }
         }
 
         private void AddDevice(IAudioDevice device)

@@ -30,24 +30,25 @@ namespace EarTrumpet
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
             var deviceManager = DataModelFactory.CreateAudioDeviceManager();
-            deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
             DiagnosticsService.Advise(deviceManager);
 
             _viewModel = new MainViewModel(deviceManager);
-            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel, deviceManager));
-            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel, deviceManager));
+            _viewModel.Ready += MainViewModel_Ready;
+
+            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel));
+            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel));
 
             HotkeyService.Register(SettingsService.Hotkey);
             HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
-            Trace.WriteLine($"App Application_Startup Exit (Ready)");
+            Trace.WriteLine($"App Application_Startup Exit");
         }
 
-        private void DeviceManager_PlaybackDevicesLoaded(object sender, System.EventArgs e)
+        private void MainViewModel_Ready(object sender, System.EventArgs e)
         {
-            Trace.WriteLine("App Application_Startup DeviceManager_PlaybackDevicesLoaded");
+            Trace.WriteLine("App Application_Startup MainViewModel_Ready");
             _trayIcon.Show();
         }
     }

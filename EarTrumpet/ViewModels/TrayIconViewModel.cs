@@ -43,19 +43,17 @@ namespace EarTrumpet.ViewModels
         public RelayCommand ExitCommand { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private readonly IAudioDeviceManager _deviceManager;
         private readonly MainViewModel _mainViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.Invalid;
         private bool _useLegacyIcon;
-        private IAudioDevice _defaultPlaybackDevice;
+        private DeviceViewModel _defaultPlaybackDevice;
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
 
-        internal TrayViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
+        internal TrayViewModel(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            _deviceManager = deviceManager;
 
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
@@ -83,7 +81,7 @@ namespace EarTrumpet.ViewModels
             _useLegacyIcon = SettingsService.UseLegacyIcon;
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
 
-            _deviceManager.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            _mainViewModel.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
             DeviceManager_DefaultPlaybackDeviceChanged(this, null);
 
             OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
@@ -98,14 +96,14 @@ namespace EarTrumpet.ViewModels
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 
-        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
         {
             if (_defaultPlaybackDevice != null)
             {
                 _defaultPlaybackDevice.PropertyChanged -= DefaultPlaybackDevice_PropertyChanged;
             }
 
-            _defaultPlaybackDevice = _deviceManager.DefaultPlaybackDevice;
+            _defaultPlaybackDevice = e;
 
             if (_defaultPlaybackDevice != null)
             {
@@ -137,7 +135,7 @@ namespace EarTrumpet.ViewModels
             }
             else
             {
-                int volume = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Volume.ToVolumeInt() : 0;
+                int volume = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Volume : 0;
 
                 if (_defaultPlaybackDevice == null)
                 {
@@ -190,7 +188,7 @@ namespace EarTrumpet.ViewModels
                 var dev = _defaultPlaybackDevice.DisplayName;
                 // API Limitation: "less than 64 chars" for the tooltip.
                 dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                toolTipText = $"EarTrumpet: {_defaultPlaybackDevice.Volume.ToVolumeInt()}% - {dev}";
+                toolTipText = $"EarTrumpet: {_defaultPlaybackDevice.Volume}% - {dev}";
             }
             else
             {

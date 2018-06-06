@@ -43,22 +43,18 @@ namespace EarTrumpet.ViewModels
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
 
-        private readonly IAudioDeviceManager _deviceManager;
         private readonly MainViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
 
-        internal FlyoutViewModel(MainViewModel mainViewModel, IAudioDeviceManager deviceManager)
+        internal FlyoutViewModel(MainViewModel mainViewModel)
         {
             Devices = new ObservableCollection<DeviceViewModel>();
 
-            _deviceManager = deviceManager;
             _mainViewModel = mainViewModel;
             _mainViewModel.FlyoutShowRequested += (_, __) => OpenFlyout();
-
-            _deviceManager.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
-
+            _mainViewModel.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
 
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -123,7 +119,7 @@ namespace EarTrumpet.ViewModels
                         AddDevice(device);
                     }
 
-                    OnDefaultPlaybackDeviceChanged(null, _deviceManager.DefaultPlaybackDevice);
+                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.DefaultPlaybackDevice);
                     break;
 
                 default:
@@ -142,7 +138,7 @@ namespace EarTrumpet.ViewModels
             InvalidateWindowSize();
         }
 
-        private void OnDefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        private void OnDefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
         {
             // no longer any device
             if (e == null) return;
@@ -189,7 +185,7 @@ namespace EarTrumpet.ViewModels
                 {
                     var device = Devices[i];
 
-                    if (device.Id != _deviceManager.DefaultPlaybackDevice.Id)
+                    if (device.Id != _mainViewModel.DefaultPlaybackDevice.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
