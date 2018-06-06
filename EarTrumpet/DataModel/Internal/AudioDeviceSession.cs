@@ -183,6 +183,14 @@ namespace EarTrumpet.DataModel.Internal
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
 
+            // NOTE: This is a workaround for what seems to be a Windows 10 OS bug.
+            // Sometimes the session (which is IsSystemSoundsSession) has a nonzero PID.
+            // The PID refers to taskhostw.exe.  In these cases the session is correctly
+            // wired up and does reflect the system sounds.  If we restart the app the system
+            // will give us a session which has IsSystemSounds=true/pid=0, so this seems to be a bug
+            // in letting system sounds played through taskhostw.exe bleed through.
+            ProcessId = IsSystemSoundsSession ? 0 : ProcessId;
+
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
