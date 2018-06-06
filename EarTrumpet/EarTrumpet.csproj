@@ -92,7 +92,7 @@
     <Compile Include="DataModel\DataModelFactory.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
-    <Compile Include="Extensions\ExceptionExtensioncs.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Interop\Combase.cs" />

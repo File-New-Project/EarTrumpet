@@ -9,7 +9,7 @@ namespace EarTrumpet.Extensions
         ERROR_NOT_FOUND,
     }
 
-    public static class ExceptionExtensioncs
+    public static class ExceptionExtensions
     {
         public static bool Is(this Exception ex, Error type)
         {
