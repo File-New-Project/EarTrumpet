@@ -221,23 +221,31 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (parent.Id != persistedDeviceId)
                 {
-                    Trace.WriteLine($"FORCE-MOVE: {parent.Id} -> {persistedDeviceId}");
-
-                    if (_state == AudioSessionState.Active)
-                    {
-                        _moveOnInactive = true;
-                    }
-                    else
-                    {
-                        _isMoved = true;
-                    }
+                    Trace.WriteLine($"FORCE-MOVE: {_state} {parent.Id} -> {persistedDeviceId}");
 
                     MoveToDevice(persistedDeviceId, false);
 
-                    // Our state may change before the event handlers are subscribed.
-                    _dispatcher.SafeInvoke(() =>
+                    // There is an inherence race condition in the system when calling the API to move the session to
+                    // another endpoint.  The system will very quickly make the session Active and then Inactive.  This
+                    // event causes us to lose the _isMoved/_moveOnInactive state, which means the session becomes visible again.
+                    // In order to work around this, we add a short delay so the system will have issued the events and either the
+                    // session is still playing (in which case the user will see it) or it is back to Inactive and we can hide it.
+                    var delay = Task.Delay(TimeSpan.FromMilliseconds(200));
+                    delay.ContinueWith((_) =>
                     {
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                        _dispatcher.SafeInvoke(() =>
+                        {
+                            if (_state == AudioSessionState.Active)
+                            {
+                                _moveOnInactive = true;
+                            }
+                            else
+                            {
+                                _isMoved = true;
+                            }
+
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                        });
                     });
                 }
             }
