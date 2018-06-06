@@ -196,8 +196,8 @@
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="Converters\InvertableVisibilityConverter.cs" />
-    <Compile Include="Converters\OpacityConverter.cs" />
+    <Compile Include="Views\InvertableVisibilityConverter.cs" />
+    <Compile Include="Views\OpacityConverter.cs" />
     <Compile Include="DataModel\Internal\AudioDevice.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />

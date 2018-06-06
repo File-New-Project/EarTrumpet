@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace EarTrumpet.Extensions
+namespace EarTrumpet.Views
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
     public class InvertableVisibilityConverter : IValueConverter
