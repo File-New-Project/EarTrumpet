@@ -1,19 +1,11 @@
-﻿using EarTrumpet.Misc;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace EarTrumpet.Extensions
 {
     public static class PopupExtensions
     {
-        public static void SetWindowBlur(this Popup window, bool isEnabled, bool withBorders = false)
-        {
-            var hwnd = ((HwndSource)HwndSource.FromVisual(window.Child)).Handle;
-            AccentPolicyLibrary.Set(hwnd, isEnabled, withBorders);
-        }
-
         public static Matrix CalculateDpiFactors(this Popup window)
         {
             var mainWindowPresentationSource = PresentationSource.FromVisual(window);

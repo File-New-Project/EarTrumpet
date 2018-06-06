@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Misc;
-using EarTrumpet.Services;
-using EarTrumpet.ViewModels;
-using EarTrumpet.Views;
+using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Services;
+using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.Views;
 using System.Diagnostics;
 using System.Windows;
 

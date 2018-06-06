@@ -126,38 +126,38 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
-    <Compile Include="Misc\AppTraceListener.cs" />
-    <Compile Include="Misc\ImmersiveSystemColors.cs" />
-    <Compile Include="Misc\RawInputListener.cs" />
-    <Compile Include="Misc\WindowAnimationLibrary.cs" />
+    <Compile Include="UI\Misc\AppTraceListener.cs" />
+    <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
+    <Compile Include="Interop\Helpers\RawInputListener.cs" />
+    <Compile Include="UI\Misc\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
-    <Compile Include="Services\ErrorReportingService.cs" />
-    <Compile Include="Services\StartupUWPDialogDisplayService.cs" />
-    <Compile Include="ViewModels\IAppItemViewModel.cs" />
-    <Compile Include="ViewModels\TemporaryAppItemViewModel.cs" />
-    <Compile Include="Views\ThemeData.cs" />
+    <Compile Include="UI\Services\ErrorReportingService.cs" />
+    <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
+    <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
+    <Compile Include="UI\Views\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Misc\RelayCommand.cs" />
-    <Compile Include="Views\HotkeySelectionWindow.xaml.cs">
+    <Compile Include="UI\Misc\RelayCommand.cs" />
+    <Compile Include="UI\Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\AccentPolicyLibrary.cs" />
+    <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
-    <Compile Include="Services\FeedbackService.cs" />
+    <Compile Include="UI\Services\FeedbackService.cs" />
     <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
-    <Compile Include="Services\DiagnosticsService.cs" />
-    <Compile Include="Services\HotkeyService.cs" />
-    <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Views\KeyboardNavigator.cs" />
-    <Compile Include="Views\SettingsWindow.xaml.cs">
+    <Compile Include="UI\Services\DiagnosticsService.cs" />
+    <Compile Include="UI\Services\HotkeyService.cs" />
+    <Compile Include="UI\Services\SettingsService.cs" />
+    <Compile Include="UI\Views\KeyboardNavigator.cs" />
+    <Compile Include="UI\Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Misc\SingleInstanceAppMutex.cs" />
-    <Compile Include="Views\VolumeControlPopup.xaml.cs">
+    <Compile Include="UI\Misc\SingleInstanceAppMutex.cs" />
+    <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VolumeSlider.cs" />
+    <Compile Include="UI\Views\VolumeSlider.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionState.cs" />
@@ -188,18 +188,18 @@
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
-    <Compile Include="Views\DeviceAndAppsControl.xaml.cs">
+    <Compile Include="UI\Views\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="Views\InvertableVisibilityConverter.cs" />
-    <Compile Include="Views\OpacityConverter.cs" />
+    <Compile Include="UI\Views\InvertableVisibilityConverter.cs" />
+    <Compile Include="UI\Views\OpacityConverter.cs" />
     <Compile Include="DataModel\Internal\AudioDevice.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionCollection.cs" />
-    <Compile Include="Views\FullWindow.xaml.cs">
+    <Compile Include="UI\Views\FullWindow.xaml.cs">
       <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.de.Designer.cs">
@@ -222,47 +222,47 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Misc\KeyboardHook.cs" />
-    <Compile Include="Misc\WindowsTaskbar.cs" />
-    <Compile Include="Views\ThemeManager.cs" />
-    <Compile Include="Misc\SystemSettings.cs" />
-    <Compile Include="Views\TrayIcon.cs" />
-    <Compile Include="ViewModels\AppExpandedEventArgs.cs" />
-    <Compile Include="ViewModels\AppItemViewModel.cs" />
+    <Compile Include="Interop\Helpers\KeyboardHook.cs" />
+    <Compile Include="UI\Misc\WindowsTaskbar.cs" />
+    <Compile Include="UI\Views\ThemeManager.cs" />
+    <Compile Include="UI\Misc\SystemSettings.cs" />
+    <Compile Include="UI\Views\TrayIcon.cs" />
+    <Compile Include="UI\ViewModels\AppExpandedEventArgs.cs" />
+    <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\FlyoutViewModel.cs" />
-    <Compile Include="ViewModels\FullWindowViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\BindableBase.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\TrayIconViewModel.cs" />
-    <Compile Include="ViewModels\AudioSessionViewModel.cs" />
-    <Compile Include="Views\AppVolumeControl.xaml.cs">
+    <Compile Include="UI\ViewModels\DeviceViewModel.cs" />
+    <Compile Include="UI\ViewModels\FlyoutViewModel.cs" />
+    <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
+    <Compile Include="UI\ViewModels\MainViewModel.cs" />
+    <Compile Include="UI\ViewModels\BindableBase.cs" />
+    <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />
+    <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
+    <Compile Include="UI\Views\AppVolumeControl.xaml.cs">
       <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\HotkeySelectionWindow.xaml">
+    <Page Include="UI\Views\HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
+    <Page Include="UI\Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SystemThemeColors.xaml">
+    <Page Include="UI\Views\SystemThemeColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DeviceAndAppsControl.xaml">
+    <Page Include="UI\Views\DeviceAndAppsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FullWindow.xaml">
+    <Page Include="UI\Views\FullWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FlyoutWindow.xaml">
+    <Page Include="UI\Views\FlyoutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -270,15 +270,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\FlyoutWindow.xaml.cs">
+    <Compile Include="UI\Views\FlyoutWindow.xaml.cs">
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AppVolumeControl.xaml">
+    <Page Include="UI\Views\AppVolumeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\VolumeControlPopup.xaml">
+    <Page Include="UI\Views\VolumeControlPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

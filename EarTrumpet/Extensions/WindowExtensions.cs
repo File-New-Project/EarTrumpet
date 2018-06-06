@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.Misc;
+using EarTrumpet.UI.Misc;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -26,12 +26,6 @@ namespace EarTrumpet.Extensions
         {
             int attributeValue = hide ? 1 : 0;
             DwmApi.DwmSetWindowAttribute(new WindowInteropHelper(window).Handle, DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
-        }
-
-        public static void SetWindowBlur(this Window window, bool isBlur, bool showAllBorders = false)
-        {
-            var hwnd = new WindowInteropHelper(window).Handle;
-            AccentPolicyLibrary.Set(hwnd, isBlur, showAllBorders);
         }
 
         public static Matrix CalculateDpiFactors(this Window window)

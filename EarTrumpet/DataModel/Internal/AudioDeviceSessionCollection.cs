@@ -1,13 +1,10 @@
 ﻿using EarTrumpet.DataModel.Internal.Services;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop.MMDeviceAPI;
-using EarTrumpet.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
