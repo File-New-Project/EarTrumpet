@@ -241,7 +241,7 @@ namespace EarTrumpet.DataModel.Internal
                     var delay = Task.Delay(TimeSpan.FromMilliseconds(200));
                     delay.ContinueWith((_) =>
                     {
-                        _dispatcher.SafeInvoke(() =>
+                        _dispatcher.BeginInvoke((Action)(() =>
                         {
                             if (_state == AudioSessionState.Active)
                             {
@@ -253,7 +253,7 @@ namespace EarTrumpet.DataModel.Internal
                             }
 
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
-                        });
+                        }));
                     });
                 }
             }
@@ -279,12 +279,12 @@ namespace EarTrumpet.DataModel.Internal
                 var internalRefreshDisplayNameTask = new Task(() =>
                 {
                     var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
-                    _dispatcher.SafeInvoke(() =>
+                    _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
-                    });
+                    }));
                 });
                 internalRefreshDisplayNameTask.ContinueWith((inTask) => _refreshDisplayNameTask);
                 internalRefreshDisplayNameTask.Start();
@@ -388,10 +388,10 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine($"AudioDeviceSession DisconnectSession {ExeName} {Id}");
 
             _isDisconnected = true;
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
-            });
+            }));
         }
 
         void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, int NewMute, ref Guid EventContext)
@@ -399,21 +399,21 @@ namespace EarTrumpet.DataModel.Internal
             _volume = NewVolume;
             _isMuted = NewMute != 0;
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
-            });
+            }));
         }
 
         void IAudioSessionEvents.OnGroupingParamChanged(ref Guid NewGroupingParam, ref Guid EventContext)
         {
             GroupingParam = NewGroupingParam;
             Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {ExeName} {Id}");
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroupingParam)));
-            });
+            }));
         }
 
         void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
@@ -432,21 +432,21 @@ namespace EarTrumpet.DataModel.Internal
                 _moveOnInactive = false;
             }
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
-            });
+            }));
         }
 
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
         {
             ReadRawDisplayName();
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
-            });
+            }));
         }
 
         void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason) => DisconnectSession();

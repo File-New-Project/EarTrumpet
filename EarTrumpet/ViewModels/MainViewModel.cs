@@ -83,13 +83,13 @@ namespace EarTrumpet.ViewModels
                 device.UpdatePeakValueBackground();
             }
 
-            App.Current.Dispatcher.SafeInvoke(() =>
+            App.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
                 foreach (var device in AllDevices)
                 {
                     device.UpdatePeakValueForeground();
                 }
-            });
+            }));
         }
 
         public void MoveAppToDevice(IAppItemViewModel app, DeviceViewModel dev)

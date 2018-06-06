@@ -195,7 +195,6 @@
     <Compile Include="Views\DeviceAndAppsControl.xaml.cs">
       <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\DispatcherExtensions.cs" />
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="Converters\InvertableVisibilityConverter.cs" />

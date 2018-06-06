@@ -2,6 +2,7 @@
 using EarTrumpet.Misc;
 using EarTrumpet.Services;
 using EarTrumpet.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -45,7 +46,7 @@ namespace EarTrumpet.Views
                 this.SetWindowBlur(true, true);
             };
 
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.SafeInvoke(() => _viewModel.CollapseApp());
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.CollapseApp()));
         }
 
         public static void ActivateSingleInstance()

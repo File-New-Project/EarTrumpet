@@ -61,11 +61,11 @@ namespace EarTrumpet.DataModel.Internal
             _volume = pNotify.fMasterVolume;
             _isMuted = pNotify.bMuted != 0;
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
-            });
+            }));
         }
 
         public float Volume
@@ -192,10 +192,10 @@ namespace EarTrumpet.DataModel.Internal
             _device = dev;
             ReadDisplayName();
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
-            });
+            }));
         }
     }
 }

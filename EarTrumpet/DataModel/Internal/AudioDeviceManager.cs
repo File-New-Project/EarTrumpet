@@ -46,12 +46,12 @@ namespace EarTrumpet.DataModel.Internal
                     }
 
                     // Trigger default logic to register for volume change
-                    _dispatcher.SafeInvoke(() =>
+                    _dispatcher.BeginInvoke((Action)(() =>
                     {
                         QueryDefaultPlaybackDevice();
                         QueryDefaultCommunicationsDevice();
                         PlaybackDevicesLoaded?.Invoke(this, null);
-                    });
+                    }));
                 }
                 catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
                 {
@@ -195,10 +195,10 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         var newDevice = new AudioDevice(device);
 
-                        _dispatcher.SafeInvoke(() =>
+                        _dispatcher.BeginInvoke((Action)(() =>
                         {
                             _devices.Add(newDevice);
-                        });
+                        }));
                     }
                 }
                 catch (Exception ex)
@@ -214,24 +214,24 @@ namespace EarTrumpet.DataModel.Internal
         {
             Trace.WriteLine($"AudioDeviceManager OnDeviceRemoved {pwstrDeviceId}");
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
                 {
                     _devices.Remove(dev);
                 }
-            });
+            }));
         }
 
         void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, string pwstrDefaultDeviceId)
         {
             Trace.WriteLine($"AudioDeviceManager OnDefaultDeviceChanged {pwstrDefaultDeviceId}");
 
-            _dispatcher.SafeInvoke(() =>
+            _dispatcher.BeginInvoke((Action)(() =>
             {
                 QueryDefaultPlaybackDevice();
                 QueryDefaultCommunicationsDevice();
-            });
+            }));
         }
 
         void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DeviceState dwNewState)

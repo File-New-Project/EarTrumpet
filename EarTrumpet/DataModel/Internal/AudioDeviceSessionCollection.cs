@@ -63,7 +63,7 @@ namespace EarTrumpet.DataModel.Internal
                 }
 
                 var newSession = new AudioDeviceSession(parent, session);
-                _dispatcher.SafeInvoke(() =>
+                _dispatcher.BeginInvoke((Action)(() =>
                 {
                     if (newSession.State == SessionState.Moved)
                     {
@@ -74,7 +74,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         AddSession(newSession);
                     }
-                });
+                }));
             }
             catch (ZombieProcessException ex)
             {

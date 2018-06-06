@@ -104,7 +104,7 @@ namespace EarTrumpet.ViewModels
             {
                 ProcessWatcherService.WatchProcess(pid, (pidQuit) =>
                 {
-                    App.Current.Dispatcher.SafeInvoke(() =>
+                    App.Current.Dispatcher.BeginInvoke((Action)(() =>
                     {
                         var newPids = _processIds.ToList();
 
@@ -118,7 +118,7 @@ namespace EarTrumpet.ViewModels
                         {
                             Expire();
                         }
-                    });
+                    }));
                 });
             }
 
