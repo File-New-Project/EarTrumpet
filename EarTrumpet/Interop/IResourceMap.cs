@@ -11,7 +11,8 @@ namespace EarTrumpet.Interop
         void GetSubtree(/*...*/);
         void GetString(/*...*/);
         void GetStringForcontext(/*...*/);
-        void GetFilePath([MarshalAs(UnmanagedType.LPWStr)]string file, [MarshalAs(UnmanagedType.LPWStr)]out string path);
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        string GetFilePath([MarshalAs(UnmanagedType.LPWStr)]string file);
 
         /*...*/
     }

@@ -16,4 +16,14 @@ namespace EarTrumpet.Interop
 
         /* ... */
     }
+
+    static class IMrtResourceManagerExtensions
+    {
+        public static IResourceMap GetMainResourceMap(this IMrtResourceManager resourceManager)
+        {
+            Guid iid = typeof(IResourceMap).GUID;
+            resourceManager.GetMainResourceMap(iid, out IResourceMap ret);
+            return ret;
+        }
+    }
 }
