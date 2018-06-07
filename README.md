@@ -2,6 +2,17 @@
 
 ![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/feature/2.0/Graphics/hero1.gif)
 
+## Features
+
+### Visualize Audio with Multi-Channel Aware Peaking
+![Channels and Peaks](./Graphics/hero2.gif)
+
+### Full Volume Mixer
+![Channels and Peaks](./Graphics/hero3.gif)
+
+### Move Apps Between Playback Devices
+![Channels and Peaks](./Graphics/hero4.gif)
+
 ## Supported operating systems ##
 - Windows 10 1507
 - Windows 10 1511 (November Update)
