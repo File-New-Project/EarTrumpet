@@ -42,8 +42,8 @@ namespace EarTrumpet.UWP
                 Window.Current.Content = rootFrame;
             }
 
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 400)); // min 192x48 max 500x500
-            ApplicationView.PreferredLaunchViewSize = new Size(500, 400); //min 500x320
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(460, 471)); // min 192x48 max 500x500
+            ApplicationView.PreferredLaunchViewSize = new Size(500, 471); //min 500x320
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
             rootFrame.Navigate(typeof(WelcomePage));
 

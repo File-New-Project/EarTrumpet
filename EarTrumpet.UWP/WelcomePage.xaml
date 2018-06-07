@@ -3,9 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid MaxWidth="460"
-              MaxHeight="420"
-              Margin="20">
+        <Grid MaxWidth="420"
+              MaxHeight="500"
+              Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -30,7 +30,7 @@
             </StackPanel>
             <Image Grid.Row="1"
                    Grid.ColumnSpan="2"
-                   Height="241"
+                   Height="275"
                    HorizontalAlignment="Left"
                    Source="Assets\welcome.gif" />
 
