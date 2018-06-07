@@ -1,6 +1,6 @@
 # EarTrumpet
 
-![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/dev/Graphics/hero1.gif)
+![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/feature/2.0/Graphics/hero1.gif)
 
 ## Supported operating systems ##
 - Windows 10 1507
