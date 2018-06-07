@@ -1,7 +1,8 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Controls;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Linq;

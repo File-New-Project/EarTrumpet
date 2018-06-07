@@ -1,9 +1,10 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using System;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace EarTrumpet.UI.Misc
+namespace EarTrumpet.UI.Helpers
 {
     class WindowAnimationLibrary
     {

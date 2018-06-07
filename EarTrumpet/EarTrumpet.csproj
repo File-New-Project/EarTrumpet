@@ -126,10 +126,10 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
-    <Compile Include="UI\Misc\AppTraceListener.cs" />
+    <Compile Include="UI\Helpers\AppTraceListener.cs" />
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
-    <Compile Include="UI\Misc\WindowAnimationLibrary.cs" />
+    <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="UI\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="UI\Misc\RelayCommand.cs" />
+    <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
@@ -153,7 +153,7 @@
     <Compile Include="UI\Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Misc\SingleInstanceAppMutex.cs" />
+    <Compile Include="UI\Helpers\SingleInstanceAppMutex.cs" />
     <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
@@ -223,9 +223,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Interop\Helpers\KeyboardHook.cs" />
-    <Compile Include="UI\Misc\WindowsTaskbar.cs" />
+    <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
     <Compile Include="UI\Controls\ThemeManager.cs" />
-    <Compile Include="UI\Misc\SystemSettings.cs" />
+    <Compile Include="DataModel\SystemSettings.cs" />
     <Compile Include="UI\Controls\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="UI\ViewModels\AppItemViewModel.cs" />

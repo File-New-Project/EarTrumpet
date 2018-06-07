@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading;
 
-namespace EarTrumpet.UI.Misc
+namespace EarTrumpet.UI.Helpers
 {
     class SingleInstanceAppMutex
     {

@@ -1,6 +1,7 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System.Windows;
 using System.Windows.Input;

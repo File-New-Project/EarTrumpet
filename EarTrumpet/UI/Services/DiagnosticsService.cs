@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using System;
 using System.Diagnostics;
 using System.IO;

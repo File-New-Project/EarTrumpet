@@ -1,5 +1,5 @@
-﻿using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Misc;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

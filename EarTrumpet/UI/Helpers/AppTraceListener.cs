@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 
-namespace EarTrumpet.UI.Misc
+namespace EarTrumpet.UI.Helpers
 {
     class AppTraceListener : TraceListener
     {

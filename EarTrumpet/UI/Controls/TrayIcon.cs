@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.Properties;
 using System;
@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using EarTrumpet.DataModel;
 
 namespace EarTrumpet.UI.Controls
 {

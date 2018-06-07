@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System;
 using System.Diagnostics;

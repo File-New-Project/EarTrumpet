@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;

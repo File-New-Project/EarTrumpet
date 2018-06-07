@@ -1,4 +1,4 @@
-﻿using EarTrumpet.UI.Misc;
+﻿using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;

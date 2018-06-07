@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace EarTrumpet.UI.Misc
+namespace EarTrumpet.UI.Helpers
 {
     sealed class WindowsTaskbar
     {

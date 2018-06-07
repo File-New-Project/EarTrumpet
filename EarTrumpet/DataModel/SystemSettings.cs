@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Globalization;
 
-namespace EarTrumpet.UI.Misc
+namespace EarTrumpet.DataModel
 {
     static class SystemSettings
     {

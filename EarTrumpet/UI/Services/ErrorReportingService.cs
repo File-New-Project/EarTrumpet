@@ -1,7 +1,8 @@
 ﻿using Bugsnag;
 using Bugsnag.Clients;
+using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Misc;
+using EarTrumpet.UI.Helpers;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
