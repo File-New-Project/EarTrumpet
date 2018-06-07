@@ -13,6 +13,14 @@
 ### Move Apps Between Playback Devices
 ![Channels and Peaks](./Graphics/hero4.gif)
 
+### ... And More
+* Automatic updates via the Microsoft Store
+* Full support for light/dark mode
+* Configurable hotkey
+* Modern context menus
+* Growing multi-lingual support
+* Cairo Shell support
+
 ## Supported operating systems ##
 - Windows 10 1507
 - Windows 10 1511 (November Update)
