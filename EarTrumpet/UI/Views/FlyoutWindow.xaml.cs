@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Misc;
 using EarTrumpet.UI.ViewModels;
 using System;

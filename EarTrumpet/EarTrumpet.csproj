@@ -135,7 +135,7 @@
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
-    <Compile Include="UI\Views\ThemeData.cs" />
+    <Compile Include="UI\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Misc\RelayCommand.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="UI\Services\DiagnosticsService.cs" />
     <Compile Include="UI\Services\HotkeyService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
-    <Compile Include="UI\Views\KeyboardNavigator.cs" />
+    <Compile Include="UI\Services\KeyboardNavigator.cs" />
     <Compile Include="UI\Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -157,7 +157,7 @@
     <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\VolumeSlider.cs" />
+    <Compile Include="UI\Controls\VolumeSlider.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionState.cs" />
@@ -193,8 +193,8 @@
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="UI\Views\InvertableVisibilityConverter.cs" />
-    <Compile Include="UI\Views\OpacityConverter.cs" />
+    <Compile Include="UI\Converters\InvertableVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\OpacityConverter.cs" />
     <Compile Include="DataModel\Internal\AudioDevice.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
@@ -224,9 +224,9 @@
     </Compile>
     <Compile Include="Interop\Helpers\KeyboardHook.cs" />
     <Compile Include="UI\Misc\WindowsTaskbar.cs" />
-    <Compile Include="UI\Views\ThemeManager.cs" />
+    <Compile Include="UI\Controls\ThemeManager.cs" />
     <Compile Include="UI\Misc\SystemSettings.cs" />
-    <Compile Include="UI\Views\TrayIcon.cs" />
+    <Compile Include="UI\Controls\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppExpandedEventArgs.cs" />
     <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />

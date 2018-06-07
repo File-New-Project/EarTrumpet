@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
+             xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+             xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              Startup="Application_Startup">
@@ -11,12 +13,12 @@
                 <ResourceDictionary Source="UI\Views\SystemThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <views:ThemeManager x:Key="ThemeManager" />
+            <ctl:ThemeManager x:Key="ThemeManager" />
 
-            <views:InvertableVisibilityConverter x:Key="visConverter" />
-            <views:OpacityConverter x:Key="opacityConverter"
-                                    FalseOpacity="1.0"
-                                    TrueOpacity="0.4" />
+            <conv:InvertableVisibilityConverter x:Key="visConverter" />
+            <conv:OpacityConverter x:Key="opacityConverter"
+                                   FalseOpacity="1.0"
+                                   TrueOpacity="0.4" />
 
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
             <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>

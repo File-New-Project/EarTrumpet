@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Misc;
 using EarTrumpet.UI.Services;
 using EarTrumpet.UI.ViewModels;

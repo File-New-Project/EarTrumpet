@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace EarTrumpet.UI.Views
+namespace EarTrumpet.UI.Controls
 {
     public class ThemeManager : INotifyPropertyChanged
     {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace EarTrumpet.UI.Views
+namespace EarTrumpet.UI.Converters
 {
     public class OpacityConverter : DependencyObject, IValueConverter
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EarTrumpet.UI.Controls;
+using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.Views
