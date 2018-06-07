@@ -4,7 +4,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid MaxWidth="460"
-              MaxHeight="380"
+              MaxHeight="420"
               Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -28,7 +28,10 @@
                    HorizontalAlignment="Left"
                    Source="Assets\welcome.gif" />
 
-            <TextBlock Grid.Row="2" Margin="0,20,0,20"><Hyperlink Click="MoreInformationLink_Click">
+            <TextBlock Grid.Row="2"
+                       Margin="0,20,0,0"
+                       HorizontalAlignment="Left"
+                       FontFamily="Segoe UI"><Hyperlink Click="MoreInformationLink_Click" UnderlineStyle="None">
                     <Run x:Uid="MoreInformationText" />
                 </Hyperlink></TextBlock>
             <Button x:Uid="CloseButton"

@@ -121,7 +121,7 @@
     <value>Close</value>
   </data>
   <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>More Information</value>
+    <value>Learn more</value>
   </data>
   <data name="WelcomeText.Text" xml:space="preserve">
     <value>Welcome to EarTrumpet</value>

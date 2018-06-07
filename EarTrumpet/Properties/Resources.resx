@@ -151,7 +151,7 @@
     <value>Sounds</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Collect debug data</value>
+    <value>Collect troubleshooting data</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Your shortcut</value>
@@ -175,7 +175,7 @@
     <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>More Information</value>
+    <value>Learn more</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{1} percent volume - {0}"</value>
