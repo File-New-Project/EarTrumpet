@@ -10,9 +10,14 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
                 <Image Width="32"
                        Height="32"
                        Margin="0"
@@ -24,18 +29,22 @@
                            Foreground="{ThemeResource TextControlForeground}" />
             </StackPanel>
             <Image Grid.Row="1"
+                   Grid.ColumnSpan="2"
                    Height="241"
                    HorizontalAlignment="Left"
                    Source="Assets\welcome.gif" />
 
             <TextBlock Grid.Row="2"
+                       Grid.Column="0"
                        Margin="0,20,0,0"
                        HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
                        FontFamily="Segoe UI"><Hyperlink Click="MoreInformationLink_Click" UnderlineStyle="None">
                     <Run x:Uid="MoreInformationText" />
                 </Hyperlink></TextBlock>
             <Button x:Uid="CloseButton"
-                    Grid.Row="3"
+                    Grid.Row="2"
+                    Grid.Column="1"
                     Width="160"
                     Margin="0,20,0,0"
                     HorizontalAlignment="Right"
