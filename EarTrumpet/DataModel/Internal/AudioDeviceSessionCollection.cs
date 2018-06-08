@@ -29,13 +29,20 @@ namespace EarTrumpet.DataModel.Internal
 
             Task.Factory.StartNew(() =>
             {
-                _sessionManager = device.Activate<IAudioSessionManager2>();
-                _sessionManager.RegisterSessionNotification(this);
-                var enumerator = _sessionManager.GetSessionEnumerator();
-                int count = enumerator.GetCount();
-                for (int i = 0; i < count; i++)
+                try
                 {
-                    CreateAndAddSession(enumerator.GetSession(i));
+                    _sessionManager = device.Activate<IAudioSessionManager2>();
+                    _sessionManager.RegisterSessionNotification(this);
+                    var enumerator = _sessionManager.GetSessionEnumerator();
+                    int count = enumerator.GetCount();
+                    for (int i = 0; i < count; i++)
+                    {
+                        CreateAndAddSession(enumerator.GetSession(i));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    AppTrace.LogWarning(ex);
                 }
             });
         }
