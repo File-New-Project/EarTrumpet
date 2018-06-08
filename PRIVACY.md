@@ -7,13 +7,14 @@ fitness for a particular purpose and noninfringement.
 With that out of the way, here's a breakdown of all the information we may collect **at crash time** via Bugsnag.
 
 ### Application-Level
+Includes:
 * Exception information
   * Could, in rare cases, contain paths to applications on your computer
 * Machine name ℹ
 * Host name ℹ
 * Version number (e.g. 2.0.x.x)
 
-### Operating System-level
+### Operating System-Level
 Includes:
 * Architecture (e.g. 32-bit)
 * Version (e.g. Windows 10)

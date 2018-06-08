@@ -7,27 +7,23 @@
 ### Visualize Audio with Multi-Channel Aware Peaking
 ![Channels and Peaks](./Graphics/hero2.gif)
 
-### Full Volume Mixer
+### Standalone Volume Mixer
 ![Channels and Peaks](./Graphics/hero3.gif)
 
 ### Move Apps Between Playback Devices
 ![Channels and Peaks](./Graphics/hero4.gif)
 
 ### ... And More
+* Default playback device management
 * Automatic updates via the Microsoft Store
-* Full support for light/dark mode
+* Support for light/dark mode and all accent colors
 * Configurable hotkey
 * Modern context menus
 * Growing multi-lingual support
 * Cairo Shell support
 
 ## Supported operating systems ##
-- Windows 10 1507
-- Windows 10 1511 (November Update)
-- Windows 10 1607 (Anniversary Update)
-- Windows 10 1703 (Creators Update)
-- Windows 10 1709 (Fall Creators Update)
-- Windows 10 1803
+- Windows 10 1803 (April 2018 Update)
 
 ## Known issues ##
 - Skype appears to have multiple audio sessions but only one is active ([#42](https://github.com/File-New-Project/EarTrumpet/issues/42))
