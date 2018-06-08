@@ -1,6 +1,25 @@
 # EarTrumpet
 
-![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/dev/Graphics/screenshot.png)
+![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/feature/2.0/Graphics/hero1.gif)
+
+## Features
+
+### Visualize Audio with Multi-Channel Aware Peaking
+![Channels and Peaks](./Graphics/hero2.gif)
+
+### Full Volume Mixer
+![Channels and Peaks](./Graphics/hero3.gif)
+
+### Move Apps Between Playback Devices
+![Channels and Peaks](./Graphics/hero4.gif)
+
+### ... And More
+* Automatic updates via the Microsoft Store
+* Full support for light/dark mode
+* Configurable hotkey
+* Modern context menus
+* Growing multi-lingual support
+* Cairo Shell support
 
 ## Supported operating systems ##
 - Windows 10 1507
@@ -16,7 +35,7 @@
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
 
 ## Credits ##
-- David Golden (@GoldenTao)
-- Rafael Rivera (@WithinRafael)
-- Dave Amenta (@davux)
+- David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
+- Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
+- Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)

@@ -1,119 +1,37 @@
-﻿using EarTrumpet.Services;
+﻿using EarTrumpet.Interop;
+using EarTrumpet.UI.Helpers;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace EarTrumpet.Extensions
 {
     internal static class WindowExtensions
     {
-        private static bool hideAnimationInProgress = false;
-        public static void HideWithAnimation(this Window window)
+        public static void Move(this Window window, double top, double left, double height, double width)
         {
-            if (hideAnimationInProgress) return;
-
-            try
-            {
-                hideAnimationInProgress = true;
-            
-                var hideAnimation = new DoubleAnimation
-                {
-                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
-                    FillBehavior = FillBehavior.Stop,
-                    EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseIn }
-                };
-                var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-                switch (taskbarPosition)
-                {
-                    case TaskbarPosition.Left:
-                    case TaskbarPosition.Right: 
-                        hideAnimation.From = window.Left; 
-                        break;
-                    default: 
-                        hideAnimation.From = window.Top; 
-                        break;
-                }
-                hideAnimation.To = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? hideAnimation.From - 10 : hideAnimation.From + 10;
-                hideAnimation.Completed += (s, e) =>
-                {
-                    window.Visibility = Visibility.Hidden;
-                    hideAnimationInProgress = false;
-                };
-
-                switch (taskbarPosition)
-                {
-                    case TaskbarPosition.Left: 
-                    case TaskbarPosition.Right:
-                        window.ApplyAnimationClock(Window.LeftProperty, hideAnimation.CreateClock());  
-                        break;
-                    default:
-                        window.ApplyAnimationClock(Window.TopProperty, hideAnimation.CreateClock()); 
-                        break;
-                }
-            }
-            catch
-            {
-                hideAnimationInProgress = false;
-            }
+            User32.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, (int)left, (int)top, (int)width, (int)height, User32.SWP_NOZORDER);
         }
 
-        private static bool showAnimationInProgress = false;
-        public static void ShowwithAnimation(this Window window)
+        public static void RaiseWindow(this Window window)
         {
-            if (showAnimationInProgress) return;
+            window.Topmost = true;
+            window.Activate();
+            window.Topmost = false;
+        }
 
-            try
-            {
-                showAnimationInProgress = true;
-                window.Visibility = Visibility.Visible;
-                window.Topmost = false;
-                window.Activate();
-                var showAnimation = new DoubleAnimation
-                {
-                    Duration = new Duration(TimeSpan.FromSeconds(0.3)),
-                    FillBehavior = FillBehavior.Stop,
-                    EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
-                };
-                var taskbarPosition = TaskbarService.GetWinTaskbarState().TaskbarPosition;
-                switch (taskbarPosition)
-                {
-                    case TaskbarPosition.Left:
-                    case TaskbarPosition.Right:
-                        showAnimation.To = window.Left;
-                        break;
-                    default:
-                        showAnimation.To = window.Top;
-                        break;
-                }
-                showAnimation.From = (taskbarPosition == TaskbarPosition.Top || taskbarPosition == TaskbarPosition.Left) ? showAnimation.To - 25 : showAnimation.To + 25;            
-                showAnimation.Completed += (s, e) =>
-                {
-                    window.Topmost = true;
-                    showAnimationInProgress = false;
-                    window.Focus();                
-                };
-                switch (taskbarPosition)
-                {
-                    case TaskbarPosition.Left: 
-                    case TaskbarPosition.Right:
-                        window.ApplyAnimationClock(Window.LeftProperty, showAnimation.CreateClock());
-                        break;
-                    default:
-                        window.ApplyAnimationClock(Window.TopProperty, showAnimation.CreateClock());
-                        break;
-                }
-            }
-            catch
-            {
-                showAnimationInProgress = false;
-            }
+        public static void Cloak(this Window window, bool hide = true)
+        {
+            int attributeValue = hide ? 1 : 0;
+            DwmApi.DwmSetWindowAttribute(new WindowInteropHelper(window).Handle, DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
         }
 
         public static Matrix CalculateDpiFactors(this Window window)
         {
             var mainWindowPresentationSource = PresentationSource.FromVisual(window);
-            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1} : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
+            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1 } : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
         }
 
         public static double DpiHeightFactor(this Window window)

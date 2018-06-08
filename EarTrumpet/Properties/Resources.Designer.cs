@@ -63,9 +63,54 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
-        public static string ContextMenuAboutTitle {
+        public static string AboutTitle {
             get {
-                return ResourceManager.GetString("ContextMenuAboutTitle", resourceCulture);
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
+        /// </summary>
+        public static string AppOrDeviceFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("AppOrDeviceFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
+        /// </summary>
+        public static string AppOrDeviceMutedFormatAccessibleText {
+            get {
+                return ResourceManager.GetString("AppOrDeviceMutedFormatAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apps.
+        /// </summary>
+        public static string AppsListAccessibleText {
+            get {
+                return ResourceManager.GetString("AppsListAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseButtonAccessibleText {
+            get {
+                return ResourceManager.GetString("CloseButtonAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collapse to show only the default playback device.
+        /// </summary>
+        public static string CollapseAccessibleText {
+            get {
+                return ResourceManager.GetString("CollapseAccessibleText", resourceCulture);
             }
         }
         
@@ -79,7 +124,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No devices found.
+        ///   Looks up a localized string similar to No playback devices found.
         /// </summary>
         public static string ContextMenuNoDevices {
             get {
@@ -88,7 +133,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send Feedback....
+        ///   Looks up a localized string similar to Send feedback.
         /// </summary>
         public static string ContextMenuSendFeedback {
             get {
@@ -97,25 +142,88 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Desktop Apps.
+        ///   Looks up a localized string similar to Always use the default playback device.
         /// </summary>
-        public static string ContextMenuShowDesktopAppsTitle {
+        public static string DefaultDeviceText {
             get {
-                return ResourceManager.GetString("ContextMenuShowDesktopAppsTitle", resourceCulture);
+                return ResourceManager.GetString("DefaultDeviceText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It doesn&apos;t look like you have any apps open..
+        ///   Looks up a localized string similar to Default shortcut.
         /// </summary>
-        public static string NoAppsPanelContent {
+        public static string DefaultHotkeyDescriptionText {
             get {
-                return ResourceManager.GetString("NoAppsPanelContent", resourceCulture);
+                return ResourceManager.GetString("DefaultHotkeyDescriptionText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It doesn&apos;t look like you have any audio devices..
+        ///   Looks up a localized string similar to Expand to show all playback devices.
+        /// </summary>
+        public static string ExpandAccessibleText {
+            get {
+                return ResourceManager.GetString("ExpandAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
+        /// </summary>
+        public static string FullWindowTitleText {
+            get {
+                return ResourceManager.GetString("FullWindowTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your shortcut.
+        /// </summary>
+        public static string HotkeyDescriptionText {
+            get {
+                return ResourceManager.GetString("HotkeyDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type a key combination:.
+        /// </summary>
+        public static string HotKeySelectionText {
+            get {
+                return ResourceManager.GetString("HotKeySelectionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string KeyboardShortcutsTitle {
+            get {
+                return ResourceManager.GetString("KeyboardShortcutsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legacy Volume Mixer.
+        /// </summary>
+        public static string LegacyVolumeMixerText {
+            get {
+                return ResourceManager.GetString("LegacyVolumeMixerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign this app to a playback device.
+        /// </summary>
+        public static string MoveButtonAccessibleText {
+            get {
+                return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It doesn&apos;t look like you have any playback devices..
         /// </summary>
         public static string NoDevicesPanelContent {
             get {
@@ -124,38 +232,110 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Speech Runtime.
+        ///   Looks up a localized string similar to EarTrumpet: No playback devices.
         /// </summary>
-        public static string SpeechRuntimeDisplayName {
+        public static string NoDeviceTrayText {
             get {
-                return ResourceManager.GetString("SpeechRuntimeDisplayName", resourceCulture);
+                return ResourceManager.GetString("NoDeviceTrayText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to System Sounds.
+        ///   Looks up a localized string similar to Playback devices.
         /// </summary>
-        public static string SystemSoundsDisplayName {
+        public static string PlaybackDevicesText {
             get {
-                return ResourceManager.GetString("SystemSoundsDisplayName", resourceCulture);
+                return ResourceManager.GetString("PlaybackDevicesText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volume Control for Windows.
+        ///   Looks up a localized string similar to Recording devices.
         /// </summary>
-        public static string TrayIconTooltipText {
+        public static string RecordingDevicesText {
             get {
-                return ResourceManager.GetString("TrayIconTooltipText", resourceCulture);
+                return ResourceManager.GetString("RecordingDevicesText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use EarTrumpet Icon.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
-        public static string UseOldIconText {
+        public static string SelectHotkeySaveButtonText {
             get {
-                return ResourceManager.GetString("UseOldIconText", resourceCulture);
+                return ResourceManager.GetString("SelectHotkeySaveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a keyboard shortcut.
+        /// </summary>
+        public static string SelectHotkeyWindowTitle {
+            get {
+                return ResourceManager.GetString("SelectHotkeyWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open EarTrumpet flyout.
+        /// </summary>
+        public static string SettingsOpenEarTrumpetText {
+            get {
+                return ResourceManager.GetString("SettingsOpenEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet.
+        /// </summary>
+        public static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
+        /// </summary>
+        public static string SettingsUseLegacyEarTrumpetIcon {
+            get {
+                return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Settings  / About.
+        /// </summary>
+        public static string SettingsWindowText {
+            get {
+                return ResourceManager.GetString("SettingsWindowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sounds.
+        /// </summary>
+        public static string SoundsControlPanelText {
+            get {
+                return ResourceManager.GetString("SoundsControlPanelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collect troubleshooting data.
+        /// </summary>
+        public static string TroubleshootEarTrumpetText {
+            get {
+                return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Learn more.
+        /// </summary>
+        public static string WebsiteText {
+            get {
+                return ResourceManager.GetString("WebsiteText", resourceCulture);
             }
         }
     }

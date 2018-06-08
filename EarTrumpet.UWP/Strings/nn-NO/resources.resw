@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewItem1.Text" xml:space="preserve">
-    <value>The icon in the Notification Area icon has changed and now looks like the one built into Windows 10</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="NewItem2.Text" xml:space="preserve">
-    <value>We updated the Notification Area icon for high DPI users</value>
-  </data>
-  <data name="NewItem3.Text" xml:space="preserve">
-    <value>We improved text rendering on the main window</value>
-  </data>
-  <data name="NewItem4.Text" xml:space="preserve">
-    <value>Fixed a problem with changes from Windows Volume Mixer not showing in EarTrumpet (e.g. mute)</value>
-  </data>
-  <data name="NewItem5.Text" xml:space="preserve">
-    <value>Added supported for Simplified and Traditional Chinese (thanks Yue Yin)</value>
-  </data>
-  <data name="WhatsNew.Text" xml:space="preserve">
-    <value>What's new in EarTrumpet version {0}</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Welcome to EarTrumpet</value>
   </data>
 </root>

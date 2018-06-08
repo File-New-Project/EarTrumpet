@@ -1,54 +1,56 @@
-﻿using EarTrumpet.Services;
-using System;
-using System.Globalization;
-using System.Reflection;
-using System.Threading;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.UI.Controls;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.Services;
+using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.Views;
+using System.Diagnostics;
 using System.Windows;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet
 {
     public partial class App
     {
-        private Mutex _mMutex;
+        private MainViewModel _viewModel;
+        private TrayIcon _trayIcon;
+        private FlyoutWindow _flyoutWindow;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var mutexName = string.Format(CultureInfo.InvariantCulture, "Local\\{{{0}}}{{{1}}}", assembly.GetType().GUID, assembly.GetName().Name);
+            ErrorReportingService.Initialize();
 
-            _mMutex = new Mutex(true, mutexName, out bool mutexCreated);
-            if (!mutexCreated)
+            Trace.WriteLine("App Application_Startup");
+
+            if (!SingleInstanceAppMutex.TakeExclusivity())
             {
-                _mMutex = null;
+                Trace.WriteLine("App Application_Startup TakeExclusivity failed");
                 Current.Shutdown();
                 return;
             }
 
-            WhatsNewDisplayService.ShowIfAppropriate();
-            FirstRunDisplayService.ShowIfAppropriate();
+            ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
-            new MainWindow();
+            var deviceManager = DataModelFactory.CreateAudioDeviceManager();
+            DiagnosticsService.Advise(deviceManager);
+
+            _viewModel = new MainViewModel(deviceManager);
+            _viewModel.Ready += MainViewModel_Ready;
+
+            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel));
+            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel));
+
+            HotkeyService.Register(SettingsService.Hotkey);
+            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
+
+            StartupUWPDialogDisplayService.ShowIfAppropriate();
+
+            Trace.WriteLine($"App Application_Startup Exit");
         }
 
-        private void App_OnExit(object sender, ExitEventArgs e)
+        private void MainViewModel_Ready(object sender, System.EventArgs e)
         {
-            if (_mMutex == null) return;
-            _mMutex.ReleaseMutex();
-            _mMutex.Close();
-            _mMutex = null;
-        }
-
-        internal static bool HasIdentity()
-        {
-            try
-            {
-                return (Package.Current.Id != null);
-            }
-            catch (InvalidOperationException)
-            {
-                return false;
-            }
+            Trace.WriteLine("App Application_Startup MainViewModel_Ready");
+            _trayIcon.Show();
         }
     }
 }

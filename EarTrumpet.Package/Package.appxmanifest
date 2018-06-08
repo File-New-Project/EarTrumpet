@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
+  <Identity Name="40459File-New-Project.EarTrumpet" ProcessorArchitecture="x86" Publisher="CN=6099D0EF-9374-47ED-BDFE-A82136831235" Version="1.9.5.0" />
+  <Properties>
+    <DisplayName>EarTrumpet</DisplayName>
+    <PublisherDisplayName>File-New-Project</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+    <PackageDependency Name="Microsoft.Services.Store.Engagement" MinVersion="10.0.1606.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.24123.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="EarTrumpet" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements DisplayName="EarTrumpet" Description="EarTrumpet" BackgroundColor="transparent" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
+      </uap:VisualElements>
+      <Extensions>
+        <desktop:Extension Category="windows.startupTask" Executable="EarTrumpet\EarTrumpet.exe" EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="EarTrumpet" Enabled="true" DisplayName="EarTrumpet" />
+        </desktop:Extension>
+      </Extensions>
+    </Application>
+    <Application Id="EarTrumpet.UWP" Executable="EarTrumpet.UWP.exe" EntryPoint="EarTrumpet.UWP.App">
+      <uap:VisualElements DisplayName="EarTrumpet" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="EarTrumpet" BackgroundColor="transparent" AppListEntry="none">
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="eartrumpet">
+            <uap:DisplayName>EarTrumpet</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

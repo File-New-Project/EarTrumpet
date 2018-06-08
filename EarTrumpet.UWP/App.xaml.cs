@@ -21,14 +21,12 @@ namespace EarTrumpet.UWP
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                ShowMainPage(eventArgs.Uri.Host == "welcome");
+                ShowMainPage();
             }
         }
 
-        private void ShowMainPage(bool isWelcome)
+        private void ShowMainPage()
         {
-
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.BackgroundColor = Colors.Transparent;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -44,20 +42,10 @@ namespace EarTrumpet.UWP
                 Window.Current.Content = rootFrame;
             }
 
-            if (isWelcome)
-            {
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 400)); // min 192x48 max 500x500
-                ApplicationView.PreferredLaunchViewSize = new Size(500, 400); //min 500x320
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
-                rootFrame.Navigate(typeof(WelcomePage));
-            }
-            else
-            {
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(530, 500));
-                ApplicationView.PreferredLaunchViewSize = new Size(530, 660);
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-                rootFrame.Navigate(typeof(WhatsNewPage));
-            }
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(460, 471)); // min 192x48 max 500x500
+            ApplicationView.PreferredLaunchViewSize = new Size(500, 471); //min 500x320
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;                    
+            rootFrame.Navigate(typeof(WelcomePage));
 
             Window.Current.Activate();
 
@@ -68,7 +56,7 @@ namespace EarTrumpet.UWP
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {            
-            ShowMainPage(false);
+            ShowMainPage();
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

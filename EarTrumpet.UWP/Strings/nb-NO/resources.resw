@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewItem1.Text" xml:space="preserve">
-    <value>Meldingsikonet er endret og ser nå ut som det som er innebygget i Windows 10.</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="NewItem2.Text" xml:space="preserve">
-    <value>Vi har oppdatert meldingsikonet for brukere med høy DPI.</value>
-  </data>
-  <data name="NewItem3.Text" xml:space="preserve">
-    <value>Vi har forbedret rendering av tekst i hovedvinduet.</value>
-  </data>
-  <data name="NewItem4.Text" xml:space="preserve">
-    <value>Fikset et problem med endringer in Windows volum mikser som ikke ble vist i EarTrumpet (f.eks mute)</value>
-  </data>
-  <data name="NewItem5.Text" xml:space="preserve">
-    <value>La til støtte for Simplified/Traditional kinesisk (takk Yue Yin)</value>
-  </data>
-  <data name="WhatsNew.Text" xml:space="preserve">
-    <value>Hva er nytt i EarTrumpet versjon {0}</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Welcome to EarTrumpet</value>
   </data>
 </root>

@@ -1,5 +1,624 @@
 ﻿<Application x:Class="EarTrumpet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="Application_Startup" Exit="App_OnExit">
+             xmlns:bcl="clr-namespace:System;assembly=mscorlib"
+             xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+             xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
+             xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
+             Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UI\Views\SystemThemeColors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ctl:ThemeManager x:Key="ThemeManager" />
+
+            <conv:InvertableVisibilityConverter x:Key="visConverter" />
+            <conv:OpacityConverter x:Key="opacityConverter"
+                                   FalseOpacity="1.0"
+                                   TrueOpacity="0.4" />
+
+            <Thickness x:Key="PopupBorderThickness">1</Thickness>
+            <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
+            <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
+            <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
+            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
+            <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
+            <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
+            <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
+            <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
+            <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
+            <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
+            <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
+            <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
+            <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
+            <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
+            <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
+            <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
+            <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
+            <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
+            <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
+
+            <Style x:Key="CaptionButtonStyle" TargetType="Button">
+                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="ExtraLight" />
+                <Setter Property="Width" Value="46" />
+                <Setter Property="Height" Value="31" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Margin="0,-1,0,0"
+                                    Background="{TemplateBinding Background}"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter Margin="2"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  RecognizesAccessKey="True" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CloseButtonStyle"
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Margin" Value="0,1,0,0" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Foreground" Value="{DynamicResource CloseButtonForeground}" />
+                        <Setter Property="Background" Value="#FFE81123" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="Windows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="LargeWindows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid Margin="-4" SnapsToDevicePixels="True">
+                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Windows10ButtonStyle" TargetType="Button">
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="MinWidth" Value="90" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
+                <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
+                <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Content}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundHover}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundHover}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderHover}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPressed}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackgroundPressed}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="Focusable" Value="false" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Border Background="Transparent">
+                                <Border Height="2" Background="{TemplateBinding Foreground}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Height" Value="24" />
+                <Setter Property="Width" Value="{StaticResource SliderThumbWidth}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Border Name="Thumb"
+                                    Background="{TemplateBinding Foreground}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0"
+                                    CornerRadius="5" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseVolumeSliderStyle" TargetType="{x:Type Slider}">
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="100" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Interval" Value="1" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="SmallChange" Value="1" />
+                <Setter Property="LargeChange" Value="10" />
+                <Setter Property="IsManipulationEnabled" Value="true" />
+            </Style>
+
+            <Style x:Key="{x:Type ListView}" TargetType="ListView">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="GlyphTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
+            </Style>
+
+            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            </Style>
+
+            <Style x:Key="BaseDeviceVolumeTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
+
+            </Style>
+
+            <Style x:Key="BaseAppVolumeTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
+            </Style>
+
+            <Style x:Key="BaseDeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+            </Style>
+
+            <Style x:Key="BaseVirtualTitleBarBorderStyle" TargetType="{x:Type Border}">
+                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+            </Style>
+
+            <Style x:Key="BaseVolumeControlPopupBorder" TargetType="{x:Type Border}">
+                <Setter Property="BorderThickness" Value="{StaticResource PopupBorderThickness}" />
+            </Style>
+
+            <Style x:Key="BaseVirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
+                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="BaseVirtualTitleBarButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Background="{TemplateBinding Background}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Tag}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
+                <Setter Property="AllowsTransparency" Value="True" />
+                <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
+                <Setter Property="ShowInTaskbar" Value="True" />
+                <Setter Property="WindowStyle" Value="None" />
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+                <Style.Triggers>
+                    <Trigger Property="IsActive" Value="false">
+                        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="BaseAppListStyle" TargetType="{x:Type ListView}">
+                <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseAppListBorderStyle" TargetType="{x:Type Border}" />
+
+            <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Focusable="False"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseContextMenuStyle" TargetType="{x:Type ContextMenu}">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+                <Setter Property="MinWidth" Value="311" />
+                <Setter Property="HasDropShadow" Value="True" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ContextMenu}">
+                            <Border x:Name="Border">
+                                <Border Padding="2,8"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                </Border>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="HasDropShadow" Value="true">
+                                    <Setter TargetName="Border" Property="CornerRadius" Value="0" />
+                                    <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                    <Setter TargetName="Border" Property="Padding" Value="0,0,5,5" />
+                                    <Setter TargetName="Border" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="4"
+                                                              Opacity="0.8"
+                                                              ShadowDepth="2" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style BasedOn="{StaticResource BaseContextMenuStyle}" TargetType="{x:Type ContextMenu}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemText}" />
+                <Setter Property="Background" Value="{DynamicResource ContextMenuBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ContextMenuBorder}" />
+            </Style>
+
+            <Style x:Key="BaseSeparatorStyle" TargetType="{x:Type Separator}">
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Margin" Value="8,4,8,4" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Separator}">
+                            <Rectangle Height="1"
+                                       HorizontalAlignment="Stretch"
+                                       Fill="{TemplateBinding Foreground}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
+                   BasedOn="{StaticResource BaseSeparatorStyle}"
+                   TargetType="{x:Type Separator}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuSeparator}" />
+            </Style>
+
+            <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
+                <Border x:Name="Border"
+                        Height="32"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Grid Margin="0,-1,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Check"
+                                Width="14"
+                                Height="14"
+                                BorderThickness="1">
+                            <TextBlock x:Name="CheckMark"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource ContextMenuItemGlyph}"
+                                       SnapsToDevicePixels="False"
+                                       Text="&#xE0E7;"
+                                       Visibility="Hidden" />
+                        </Border>
+                        <ContentPresenter x:Name="HeaderHost"
+                                          Grid.Column="1"
+                                          Margin="0,0,8,0"
+                                          ContentSource="Header"
+                                          RecognizesAccessKey="True" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger Property="IsHighlighted" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabled}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
+            </Style>
+
+            <Style x:Key="ContextMenuDarkOnly"
+                   BasedOn="{StaticResource BaseContextMenuStyle}"
+                   TargetType="{x:Type ContextMenu}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDarkOnly}" />
+                <Setter Property="Background" Value="{DynamicResource ContextMenuBackgroundDarkOnly}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ContextMenuBorderDarkOnly}" />
+            </Style>
+
+            <Style x:Key="MenuItemSeparatorDarkOnly"
+                   BasedOn="{StaticResource BaseSeparatorStyle}"
+                   TargetType="{x:Type Separator}">
+                <Setter Property="Foreground" Value="{DynamicResource ContextMenuSeparatorDarkOnly}" />
+            </Style>
+
+            <ControlTemplate x:Key="MenuItemTemplateDarkOnly" TargetType="{x:Type MenuItem}">
+                <Border x:Name="Border"
+                        Height="32"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Grid Margin="0,-1,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Check"
+                                Width="14"
+                                Height="14"
+                                BorderThickness="1">
+                            <TextBlock x:Name="CheckMark"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource ContextMenuItemGlyphDarkOnly}"
+                                       SnapsToDevicePixels="False"
+                                       Text="&#xE0E7;"
+                                       Visibility="Hidden" />
+                        </Border>
+                        <ContentPresenter x:Name="HeaderHost"
+                                          Grid.Column="1"
+                                          Margin="0,0,8,0"
+                                          ContentSource="Header"
+                                          RecognizesAccessKey="True" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger Property="IsHighlighted" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHoverDarkOnly}" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="MenuItemDarkOnly" TargetType="{x:Type MenuItem}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Template" Value="{StaticResource MenuItemTemplateDarkOnly}" />
+            </Style>
+
+            <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="8,0,0,0" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Grid x:Name="templateRoot"
+                                  Background="Transparent"
+                                  SnapsToDevicePixels="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border x:Name="checkBoxBorder"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="1"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Background="{DynamicResource CheckBoxBackground}"
+                                        BorderBrush="{DynamicResource CheckBoxBorder}"
+                                        BorderThickness="2">
+                                    <TextBlock x:Name="optionMark"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontSize="16"
+                                               Foreground="White"
+                                               Opacity="0"
+                                               SnapsToDevicePixels="False"
+                                               Text="&#xE0E7;" />
+                                </Border>
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Grid.Column="1"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  Focusable="False"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBackgroundHover}" />
+                                    <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderHover}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBackgroundPressed}" />
+                                    <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderPressed}" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="optionMark" Property="Opacity" Value="1" />
+                                    <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBackgroundChecked}" />
+                                    <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderChecked}" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBackgroundChecked}" />
+                                        <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderHover}" />
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource CheckBoxBackgroundPressed}" />
+                                        <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderPressed}" />
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

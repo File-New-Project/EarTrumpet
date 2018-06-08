@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet.Extensions
 {
@@ -11,6 +7,11 @@ namespace EarTrumpet.Extensions
         public static Int32 ToVolumeInt(this float val)
         {
             return Convert.ToInt32(Math.Round((val * 100), MidpointRounding.AwayFromZero));
+        }
+
+        public static float Bound(this float val, float min, float max)
+        {
+            return Math.Max(min, Math.Min(max, val));
         }
     }
 }

@@ -138,9 +138,6 @@
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>看上去你没有连接任何音频设备</value>
   </data>
-  <data name="SpeechRuntimeDisplayName" xml:space="preserve">
-    <value>Speech Runtime</value>
-  </data>
   <data name="SystemSoundsDisplayName" xml:space="preserve">
     <value>系統聲音</value>
   </data>
