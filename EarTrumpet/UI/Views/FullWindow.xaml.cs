@@ -2,9 +2,9 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
 using EarTrumpet.UI.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,41 +18,85 @@ namespace EarTrumpet.UI.Views
 
         public FullWindow(MainViewModel viewModel)
         {
+            Trace.WriteLine("FullWindow .ctor");
             Instance = this;
-
-            _viewModel = new FullWindowViewModel(viewModel);
-            _viewModel.AppExpanded += (_, e) => AppPopup.PositionAndShow(this, e);
-            _viewModel.AppCollapsed += (_, __) => AppPopup.HideWithAnimation();
 
             InitializeComponent();
 
-            AppPopup.Closed += (_, __) => _viewModel.CollapseApp();
-            LocationChanged += (_, __) => _viewModel.CollapseApp();
-            SizeChanged += (_, __) => _viewModel.CollapseApp();
+            _viewModel = new FullWindowViewModel(viewModel);
+            _viewModel.AppExpanded += ViewModel_AppExpanded;
+            _viewModel.AppCollapsed += ViewModel_AppCollapsed;
+
+            AppPopup.Closed += AppPopup_Closed;
+            SourceInitialized += FullWindow_SourceInitialized;
+            LocationChanged += FullWindow_LocationChanged;
+            SizeChanged += FullWindow_SizeChanged;
+            PreviewKeyDown += FullWindow_PreviewKeyDown;
+            Closing += FullWindow_Closing;
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
             DataContext = _viewModel;
 
-            PreviewKeyDown += FullWindow_PreviewKeyDown;
-
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+        }
 
-            Instance = this;
-            Closing += (s, e) =>
-            {
-                Instance = null;
-                _viewModel.Close();
-            };
+        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            Trace.WriteLine("FullWindow SystemEvents_DisplaySettingsChanged");
 
-            SourceInitialized += (_, __) =>
-            {
-                this.Cloak();
-                AccentPolicyLibrary.SetWindowBlur(this, true, true);
-            };
+            Dispatcher.BeginInvoke((Action)(() => _viewModel.CollapseApp()));
+        }
 
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (s, e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.CollapseApp()));
+        private void FullWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Trace.WriteLine("FullWindow FullWindow_Closing");
+
+            Instance = null;
+            _viewModel.Close();
+        }
+
+        private void FullWindow_SourceInitialized(object sender, EventArgs e)
+        {
+            Trace.WriteLine("FullWindow FullWindow_SourceInitialized");
+
+            this.Cloak();
+            AccentPolicyLibrary.SetWindowBlur(this, true, true);
+        }
+
+        private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _viewModel.CollapseApp();
+        }
+
+        private void FullWindow_LocationChanged(object sender, EventArgs e)
+        {
+            _viewModel.CollapseApp();
+        }
+
+        private void AppPopup_Closed(object sender, EventArgs e)
+        {
+            Trace.WriteLine("FullWindow AppPopup_Closed");
+
+            _viewModel.CollapseApp();
+        }
+
+        private void ViewModel_AppCollapsed(object sender, object e)
+        {
+            Trace.WriteLine("FullWindow ViewModel_AppCollapsed");
+
+            AppPopup.HideWithAnimation();
+        }
+
+        private void ViewModel_AppExpanded(object sender, AppExpandedEventArgs e)
+        {
+            Trace.WriteLine("FullWindow ViewModel_AppExpanded");
+
+            AppPopup.PositionAndShow(this, e);
         }
 
         public static void ActivateSingleInstance()
         {
+            Trace.WriteLine("FullWindow ActivateSingleInstance");
             if (Instance == null)
             {
                 var window = new FullWindow(MainViewModel.Instance);
@@ -87,11 +131,15 @@ namespace EarTrumpet.UI.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            Trace.WriteLine("FullWindow CloseButton_Click");
+
             WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
         }
 
         private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
         {
+            Trace.WriteLine("FullWindow DeviceAndAppsControl_AppExpanded");
+
             _viewModel.ExpandApp(e.ViewModel, e.Container);
         }
 
