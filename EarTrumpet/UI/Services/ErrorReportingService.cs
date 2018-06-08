@@ -16,7 +16,7 @@ namespace EarTrumpet.UI.Services
     {
         internal static void Initialize()
         {
-            AppTraceListener.Initialize();
+            AppTrace.Initialize(OnWarningException);
 
             try
             {
@@ -36,6 +36,11 @@ namespace EarTrumpet.UI.Services
             {
                 Trace.WriteLine(ex);
             }
+        }
+
+        private static void OnWarningException(Exception ex)
+        {
+            WPFClient.Notify(ex, Severity.Warning);
         }
 
         private static bool OnBeforeNotify(Event error)
