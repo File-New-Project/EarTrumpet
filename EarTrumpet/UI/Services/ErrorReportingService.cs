@@ -50,7 +50,7 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("Device", "machineName", "<redacted>");
             error.Metadata.AddToTab("Device", "hostname", "<redacted>");
 
-            error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => GetBuildLabel()));
+            error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => SystemSettings.BuildLabel));
 
             error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
             error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
@@ -59,15 +59,6 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
 
             return true;
-        }
-
-        private static string GetBuildLabel()
-        {
-            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-            using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
-            {
-                return (string)subKey.GetValue("BuildLabEx", "No BuildLabEx set");
-            }
         }
 
         private static string GetNoError(Func<object> get)

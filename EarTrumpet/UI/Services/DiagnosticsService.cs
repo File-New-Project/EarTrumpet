@@ -23,6 +23,7 @@ namespace EarTrumpet.UI.Services
         {
             var allText = DumpDevices(_deviceManager);
             allText += Environment.NewLine;
+            allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
