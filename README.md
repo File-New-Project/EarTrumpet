@@ -1,6 +1,6 @@
 # EarTrumpet
 
-![Ear Trumpet Screenshot](https://raw.githubusercontent.com/File-New-Project/EarTrumpet/feature/2.0/Graphics/hero1.gif)
+![Ear Trumpet Screenshot](./Graphics/hero1.gif)
 
 ## Features
 
