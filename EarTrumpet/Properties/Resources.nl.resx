@@ -117,14 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Afsluiten </value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Geen afspeelapparaten gevonden</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Stuur feedback</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet Volume Mixer</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Legacy Volume Mixer</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Het ziet er niet naar uit dat u geen afspeelapparaten hebt.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Geen afspeelapparaten</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Afspeelapparaten </value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Opname-apparaten </value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet Instellingen/Over</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Geluiden</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Verzamel probleem data</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Uw snelkoppeling</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Kies een toetsenbord snelkoppeling</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Gebruik altijd het standaard afspeelapparaat</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Typ een toetsencombinatie</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Leer meer</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} geluidspercentage - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Stil - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Sluit om enkel het standaard afspeelapparaat te tonen</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Standaard snelkoppeling</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Klap open om all afspeelapparaten te tonen</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Voeg deze app toe aan een afspeelapparaat</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Open EarTrumpet flyout</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Gebruik het oude Eartrumpet icoon</value>
   </data>
 
 </root>

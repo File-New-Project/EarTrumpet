@@ -117,10 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Close</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Sair</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Welcome to EarTrumpet</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Não foram detetados dispositivos de reprodução</value>
   </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Enviar comentários</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Misturador de volume EarTrumpet</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Misturador de volume antigo</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Não tem nenhum dispositivo de reprodução</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Nenhum dispositivo de reprodução</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Dispositivos de reprodução</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Dispositivos de gravação</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Configurações EarTrumpet / Sobre</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Sons</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Recolher informações de erro</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Atalho</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Escolher método de introdução</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Utilizar sempre o mesmo dispositivo padrão de reprodução</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Introduzir uma combinação de teclas</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Mais informações</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} percentagem de volume {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>sem som {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Aplicações</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Fechar para visualizar apenas o dispositivo padrão de reprodução</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Atalho padrão</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Abrir para visualizar todos os dispositivos de reprodução</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Definir a aplicação ao dispositivo de reprodução</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Abrir caixa de informações do EarTrumpet</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Usar o ícone antigo do EarTrumpet</value>
+  </data>
+
 </root>

@@ -118,9 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CloseButton.Content" xml:space="preserve">
-    <value>Close</value>
+    <value>关闭</value>
+  </data>
+  <data name="MoreInformationText.Text" xml:space="preserve">
+    <value>了解更多</value>
   </data>
   <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Welcome to EarTrumpet</value>
+    <value>欢迎使用 EarTrumpet</value>
   </data>
+
 </root>

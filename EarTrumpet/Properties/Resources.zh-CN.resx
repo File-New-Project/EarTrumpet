@@ -117,14 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>退出</value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>找不到播放设备</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>发送反馈</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet 音量合成器</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>原生音量合成器</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>似乎你没有任何播放设备。</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: 没有播放设备</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>播放设备</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>录音设备</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet 设置 / 关于</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>声音</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>收集错误报告</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>你的快捷键</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>选择快捷键</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>始终使用默认播放设备</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>键入一个组合键：</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>了解更多</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>音量 {1}% - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>静音 - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>折叠以仅显示默认播放设备</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>默认快捷键</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>展开以显示所有播放设备</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>指定该应用的播放设备</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>打开 EarTrumpet 浮动框</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>使用经典 EarTrumpet 图标</value>
   </data>
 
 </root>

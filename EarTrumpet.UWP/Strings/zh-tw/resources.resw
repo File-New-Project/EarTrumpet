@@ -117,37 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>О программе</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>關閉</value>
   </data>
-  <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Выход</value>
+  <data name="MoreInformationText.Text" xml:space="preserve">
+    <value>瞭解更多</value>
   </data>
-  <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Не найдено устройство</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>歡迎使用 EarTrumpet</value>
   </data>
-  <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Отправить отзыв...</value>
-  </data>
-  <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Показать обычные приложения</value>
-  </data>
-  <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>Не обнаружено открытых приложений.</value>
-  </data>
-  <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Не обнаружено аудио-устройств.</value>
-  </data>
-  <data name="SpeechRuntimeDisplayName" xml:space="preserve">
-    <value>Голосовой движок</value>
-  </data>
-  <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>Системные звуки</value>
-  </data>
-  <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Управление звуками Windows</value>
-  </data>
-  <data name="UseOldIconText" xml:space="preserve">
-    <value>Использовать иконку EarTrumpet</value>
-  </data>
+
 </root>

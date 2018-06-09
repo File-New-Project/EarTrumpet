@@ -117,14 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Выход</value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Не найдено устройств воспроизведения</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Отправить отзыв</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet Микшер громкости</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Старый микшер громкости</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Нет устройств воспроизведения</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Устройства воспроизведения</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Записывающие устройства</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Параметры EarTrumpet / О приложении</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Звуки</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Сбор данных об устранении неполадки</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Ваш ярлык</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Выберите комбинацию клавиш</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Всегда использовать устройство воспроизведения по умолчанию</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Введите комбинацию клавиш:</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Узнать больше</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} процент громкости - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Заглушён - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Приложения</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Свернуть, чтобы показать только устройство воспроизведения по умолчанию</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Ярлык по умолчанию</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Развернуть, чтобы показать все устройства воспроизведения</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Назначить приложению устройство воспроизведения</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Открыть всплывающее окно EarTrumpet</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Использовать старую иконку EarTrumpet</value>
   </data>
 
 </root>

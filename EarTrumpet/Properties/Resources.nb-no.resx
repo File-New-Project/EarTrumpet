@@ -117,34 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>Om</value>
-  </data>
   <data name="ContextMenuExitTitle" xml:space="preserve">
     <value>Avslutt</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>No devices found</value>
+    <value>Ingen avspillingsenheter funnet</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Send Feedback...</value>
+    <value>Send tilbakemelding</value>
   </data>
-  <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Vis skrivebordsapplikasjoner</value>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet volum mikser</value>
   </data>
-  <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>Det ser ikke ut som du har noen applikasjoner åpne.</value>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Legacy volum mikser</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>It doesn't look like you have any audio devices.</value>
+    <value>Det ser ikke ut som om du har noen avspillingsenheter</value>
   </data>
-  <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>Systemlyder</value>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Ingen avspillingenheter</value>
   </data>
-  <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Volumkontroll for Windows</value>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Avspillingsenheter</value>
   </data>
-  <data name="UseOldIconText" xml:space="preserve">
-    <value>Bruk EarTrumpet ikonet</value>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Opptaksenheter</value>
   </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet Innstillinger / Om</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Lyder</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Samle inn feilhåndterings data</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Din snarvei</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Velg en tastatur snarvei</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Bruk alltid standard avspillingsenhet</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Tast inn knappe kombinasjon</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Lær mer</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} prosent volum - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Lydløs - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Kollaps for å kun vise standard avspillingsenhet</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Standard snarvei</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Utvid for å vise alle avspillingsenheter</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Oppsett</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Tilordne denne appen til en avspillingsenhet</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Åpne EarTrumpet flyout</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Bruk gammelt EarTrumpet ikon</value>
+  </data>
+
 </root>

@@ -117,14 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Ieși</value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Nu am găsit niciun dispozitiv de redare</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Trimite feedback</value>
   </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mixer EarTrumpet</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mixer clasic</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Se pare că nu ai niciun dispozitiv de redare conectat.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Niciun dispozitiv de redare</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Dispozitive de redare</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Dispozitive de înregistrare</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Setări EarTrumpet / Despre</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Sunete</value>
+  </data>
+  
+<!--
+<data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Collect troubleshooting data</value>
+  </data>
+-->
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Comanda ta rapidă</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  
+<!--
+<data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Choose a keyboard shortcut</value>
+  </data>
+-->
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Folosește întotdeauna dispozitivul implicit de redare</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Despre</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Tastează comanda de tastatură:</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Află mai multe</value>
+  </data>
+  
+<!--
+<data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{1} percent volume - {0}"</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+-->
+  
+<!--
+<data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Muted - {0}"</value>
+    <comment>0 = localized app name</comment>
+  </data>
+-->
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Aplicații</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  
+<!--
+<data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Collapse to show only the default playback device</value>
+  </data>
+-->
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Comandă implicită</value>
+  </data>
+  
+<!--
+<data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Expand to show all playback devices</value>
+  </data>
+-->
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Setări</value>
+  </data>
+  
+<!--
+<data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Assign this app to a playback device</value>
+  </data>
+-->
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Deschide panoul EarTrumpet</value>
+  </data>
+  
+<!--
+<data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Use legacy EarTrumpet icon</value>
+  </data>
+-->
 
 </root>

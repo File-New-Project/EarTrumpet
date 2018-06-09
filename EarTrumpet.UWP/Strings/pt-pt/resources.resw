@@ -117,34 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>關於</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Fechar</value>
   </data>
-  <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>退出</value>
+  <data name="MoreInformationText.Text" xml:space="preserve">
+    <value>Mais informações</value>
   </data>
-  <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>沒有找到可用設備</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Bem-vindo ao EarTrumpet</value>
   </data>
-  <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>發送反饋</value>
-  </data>
-  <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>顯示桌面應用</value>
-  </data>
-  <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>看上去你沒有打開任何應用</value>
-  </data>
-  <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>看上去你没有连接任何音频设备</value>
-  </data>
-  <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>系統聲音</value>
-  </data>
-  <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Windows 音量控制</value>
-  </data>
-  <data name="UseOldIconText" xml:space="preserve">
-    <value>使用 EarTrumpet 圖標</value>
-  </data>
+
 </root>

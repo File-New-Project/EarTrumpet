@@ -117,14 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>終了</value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>再生デバイスが見つかりません</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>フィードバックを送る</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>EarTrumpet ボリューム ミキサー</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>レガシー ボリューム ミキサー</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>再生デバイスが見つかりません。</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: 再生デバイス無し</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>再生デバイス</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>録音デバイス</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet 設定 / 詳細</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>音</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>トラブルシューティング データの収集</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>ショートカット</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>キーボード ショートカットの選択</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>常に既定の再生デバイスを使用する</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>キーの組み合わせを入力して下さい</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>もっと詳しく</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} 音量（％） - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>消音 - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>アプリ</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>既定の再生デバイスのみ表示</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>既定のショートカット</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>全ての再生デバイスを表示</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>このアプリを再生デバイスに登録する</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>EarTrumpet フライアウトを開く</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>以前のEarTrumpet アイコンを使用する</value>
   </data>
 
 </root>

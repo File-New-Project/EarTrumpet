@@ -117,14 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseButton.Content" xml:space="preserve">
-    <value>Lukk</value>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Quitter</value>
   </data>
-  <data name="MoreInformationText.Text" xml:space="preserve">
-    <value>Mer informasjon</value>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Aucun périphérique de lecture n'a été trouvé</value>
   </data>
-  <data name="WelcomeText.Text" xml:space="preserve">
-    <value>Velkommen til EarTrumpet</value>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Envoyer des commentaires</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mélangeur de volume EarTrumpet</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mélangeur de volume original</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Il semblerait que vous n'avez aucun périphérique de lecture.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Aucun périphérique de lecture</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Périphériques de lecture</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Périphériques d'enregistrement</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>EarTrumpet Paramètres / À propos</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Sons</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Collecter les données de diagnostic</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Votre raccourci</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Choisissez un raccourci clavier</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Toujours utiliser le périphérique de lecture par défaut</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Tapez une combinaison de touches</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>En savoir plus</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{1} pourcentage du volume - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Sourdine - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Réduire pour afficher uniquement le périphérique de lecture par défaut</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Raccourci par défaut</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Développer pour afficher tous les périphériques de lecture</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Attribuer cette application à un périphérique de lecture</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Ouvrir le menu déroulant d'EarTrumpet</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Utiliser l'icône original d'EarTrumpet</value>
   </data>
 
 </root>
