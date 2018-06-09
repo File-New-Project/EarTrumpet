@@ -18,7 +18,7 @@ namespace EarTrumpet.UWP
 
         private async void MoreInformationLink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("http://github.com/File-New-Project/EarTrumpet"));
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://github.com/File-New-Project/EarTrumpet"));
         }
     }
 }

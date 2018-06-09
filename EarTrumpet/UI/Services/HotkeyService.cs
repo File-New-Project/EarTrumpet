@@ -25,9 +25,9 @@ namespace EarTrumpet.UI.Services
             {
                 s_hook.RegisterHotKey(hotkey.Key, hotkey.Modifiers);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Trace.TraceError($"Couldn't register hotkey: {ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 

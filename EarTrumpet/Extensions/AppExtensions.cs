@@ -23,8 +23,14 @@ namespace EarTrumpet.Extensions
                 {
                     _hasIdentity = (Package.Current.Id != null);
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException ex)
                 {
+#if !DEBUG
+                    // We do not expect this to occur in production when the app is packaged.
+                    AppTrace.LogWarning(ex);
+#else
+                    Trace.WriteLine(ex);
+#endif
                     _hasIdentity = false;
                 }
             }

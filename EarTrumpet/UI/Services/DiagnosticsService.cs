@@ -23,17 +23,18 @@ namespace EarTrumpet.UI.Services
         {
             var allText = DumpDevices(_deviceManager);
             allText += Environment.NewLine;
+            allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
             allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
             allText += $"AnimationsEnabled: {SystemParameters.MenuAnimation}" + Environment.NewLine;
             allText += Environment.NewLine;
-            allText += AppTraceListener.Instance.Log.ToString();
+            allText += AppTrace.Instance.Log.ToString();
 
             var fileName = $"{Path.GetTempFileName()}.txt";
             File.WriteAllText(fileName, allText);
-            using (Process.Start(fileName)) { }
+            using (ProcessHelper.StartNoThrowAndLogWarning(fileName)) { }
         }
 
         static string DumpSession(string indent, IAudioDeviceSession session)

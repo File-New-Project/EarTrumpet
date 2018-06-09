@@ -21,11 +21,13 @@ namespace EarTrumpet.UI.Views
             AllowsTransparency = true;
             StaysOpen = false;
 
-            Opened += (_, __) =>
-            {
-                AccentPolicyLibrary.SetWindowBlur(this, isEnabled: true, enableBorders: false);
-                AppItems.Focus();
-            };
+            Opened += VolumeControlPopup_Opened;
+        }
+
+        private void VolumeControlPopup_Opened(object sender, EventArgs e)
+        {
+            AccentPolicyLibrary.SetWindowBlur(this, isEnabled: true, enableBorders: false);
+            AppItems.Focus();
         }
 
         private void ShowWithAnimation()

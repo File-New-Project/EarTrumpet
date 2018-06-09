@@ -98,6 +98,7 @@
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
+    <Compile Include="Interop\Error.cs" />
     <Compile Include="Interop\FolderIds.cs" />
     <Compile Include="Interop\Gdi32.cs" />
     <Compile Include="Interop\GPS.cs" />
@@ -126,9 +127,10 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
-    <Compile Include="UI\Helpers\AppTraceListener.cs" />
+    <Compile Include="AppTrace.cs" />
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
+    <Compile Include="UI\Helpers\ProcessHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
