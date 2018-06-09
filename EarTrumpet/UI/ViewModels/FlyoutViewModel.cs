@@ -184,7 +184,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     var device = Devices[i];
 
-                    if (device.Id != _mainViewModel.DefaultPlaybackDevice.Id)
+                    if (device.Id != _mainViewModel.DefaultPlaybackDevice?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
