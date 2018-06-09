@@ -117,22 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewItem1.Text" xml:space="preserve">
-    <value>L'icone de la zone de notifications a changée, et ressemble maintenant à celle pré-intégrée dans Windows 10</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>Fermer</value>
   </data>
-  <data name="NewItem2.Text" xml:space="preserve">
-    <value>Nous avons mis à jour l’icone de la zone de notifications pour les utilisateurs d’écran à haut DPI</value>
+  <data name="MoreInformationText.Text" xml:space="preserve">
+    <value>En savoir plus</value>
   </data>
-  <data name="NewItem3.Text" xml:space="preserve">
-    <value>Nous avons amélioré le rendu du texte sur la fenêtre principale</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Bienvenue à EarTrumpet</value>
   </data>
-  <data name="NewItem4.Text" xml:space="preserve">
-    <value>Nous avons réglé un problème où les changements dans le Gestionnaire de Volume Windows ne se reflétaient pas dans EarTrumpet (exemple : muet)</value>
-  </data>
-  <data name="NewItem5.Text" xml:space="preserve">
-    <value>Nous avons ajouté le support du Chinois Simplifié et Traditionnel (merci Yue Yin)</value>
-  </data>
-  <data name="WhatsNew.Text" xml:space="preserve">
-    <value>Changements dans EarTrumpet pour la version {0}</value>
-  </data>
+
 </root>

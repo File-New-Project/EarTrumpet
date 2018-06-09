@@ -5,14 +5,6 @@ namespace EarTrumpet.Extensions
 {
     public static class CollectionExtensions
     {
-        public static void AddRange<T>(this ICollection<T> destination, IEnumerable<T> source)
-        {
-            foreach (var item in source)
-            {
-                destination.Add(item);
-            }
-        }
-
         public static void AddSorted<T>(this ObservableCollection<T> collection, T item, IComparer<T> comparer)
         {
             var i = 0;

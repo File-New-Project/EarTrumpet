@@ -16,12 +16,12 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Application.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\Build\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;X86</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -35,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\Build\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;X86</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -46,17 +46,38 @@
   <PropertyGroup>
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VSDebug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Build\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;VSDEBUG;X86</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bugsnag, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bugsnag.1.4.0.0\lib\Net45\Bugsnag.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -67,63 +88,166 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Extensions\DoubleExtensions.cs" />
-    <Compile Include="Extensions\BlurWindowExtensions.cs" />
+    <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\PackageVersionExtensions.cs" />
+    <Compile Include="Extensions\uintColorExtensions.cs" />
+    <Compile Include="Interop\Combase.cs" />
+    <Compile Include="Interop\Comctl32.cs" />
+    <Compile Include="Interop\DwmApi.cs" />
+    <Compile Include="Interop\FolderIds.cs" />
+    <Compile Include="Interop\Gdi32.cs" />
+    <Compile Include="Interop\GPS.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IMMEndpoint.cs" />
+    <Compile Include="Interop\IMrtResourceManager.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IPolicyConfig.cs" />
+    <Compile Include="Interop\IResourceMap.cs" />
+    <Compile Include="Interop\IShellItem.cs" />
+    <Compile Include="Interop\IShellItem2.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
+    <Compile Include="Interop\Kernel32.cs" />
+    <Compile Include="Interop\MrtResourceManager.cs" />
+    <Compile Include="Interop\Ntdll.cs" />
+    <Compile Include="Interop\Ole32.cs" />
+    <Compile Include="Interop\MMDeviceAPI\PolicyConfigClient.cs" />
+    <Compile Include="Interop\PropertyKeys.cs" />
+    <Compile Include="Interop\PropVariant.cs" />
+    <Compile Include="Interop\PropVariantUnion.cs" />
+    <Compile Include="Interop\SFGAO.cs" />
+    <Compile Include="Interop\Shell32.cs" />
+    <Compile Include="Interop\Shlwapi.cs" />
+    <Compile Include="Interop\SICHINT.cs" />
+    <Compile Include="Interop\SIGDN.cs" />
+    <Compile Include="Interop\STGM.cs" />
+    <Compile Include="Extensions\PopupExtensions.cs" />
+    <Compile Include="Interop\User32.cs" />
+    <Compile Include="Interop\Uxtheme.cs" />
+    <Compile Include="Interop\RECT.cs" />
+    <Compile Include="UI\Helpers\AppTraceListener.cs" />
+    <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
+    <Compile Include="Interop\Helpers\RawInputListener.cs" />
+    <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
+    <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
+    <Compile Include="UI\Services\ErrorReportingService.cs" />
+    <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
+    <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
+    <Compile Include="UI\ThemeData.cs" />
+    <Compile Include="Extensions\AppExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="UI\Helpers\RelayCommand.cs" />
+    <Compile Include="UI\Views\HotkeySelectionWindow.xaml.cs">
+      <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
+    <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
+    <Compile Include="UI\Services\FeedbackService.cs" />
+    <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
+    <Compile Include="UI\Services\DiagnosticsService.cs" />
+    <Compile Include="UI\Services\HotkeyService.cs" />
+    <Compile Include="UI\Services\SettingsService.cs" />
+    <Compile Include="UI\Services\KeyboardNavigator.cs" />
+    <Compile Include="UI\Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Helpers\SingleInstanceAppMutex.cs" />
+    <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
+      <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\VolumeSlider.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
+    <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
+    <Compile Include="Interop\MMDeviceAPI\AudioSessionState.cs" />
+    <Compile Include="Interop\MMDeviceAPI\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
+    <Compile Include="Interop\CLSCTX.cs" />
+    <Compile Include="Interop\MMDeviceAPI\DeviceState.cs" />
+    <Compile Include="Interop\MMDeviceAPI\EDataFlow.cs" />
+    <Compile Include="Interop\MMDeviceAPI\ERole.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioEndpointVolume.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioEndpointVolumeCallback.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioMeterInformation.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionControl.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionControl2.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionEnumerator.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionEvents.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionManager.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionManager2.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioSessionNotification.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioVolumeDuckNotification.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IMMDevice.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IMMDeviceCollection.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IMMDeviceEnumerator.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IMMNotificationClient.cs" />
+    <Compile Include="Interop\MMDeviceAPI\ISimpleAudioVolume.cs" />
+    <Compile Include="Interop\MMDeviceAPI\MMDeviceEnumerator.cs" />
+    <Compile Include="DataModel\IAudioDevice.cs" />
+    <Compile Include="DataModel\IAudioDeviceManager.cs" />
+    <Compile Include="DataModel\IAudioDeviceSession.cs" />
+    <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
+    <Compile Include="Interop\IPropertyStore.cs" />
+    <Compile Include="UI\Views\DeviceAndAppsControl.xaml.cs">
+      <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="Extensions\InvertableVisibilityConverter.cs" />
-    <Compile Include="Extensions\OpacityConverter.cs" />
-    <Compile Include="Extensions\SliderExtensions.cs" />
-    <Compile Include="Models\EarTrumpetAudioDeviceModel.cs" />
-    <Compile Include="Properties\Resources.de.Designer.cs">
-      <DependentUpon>Resources.de.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="UI\Converters\InvertableVisibilityConverter.cs" />
+    <Compile Include="UI\Converters\OpacityConverter.cs" />
+    <Compile Include="DataModel\Internal\AudioDevice.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionCollection.cs" />
+    <Compile Include="UI\Views\FullWindow.xaml.cs">
+      <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.ru-ru.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.ru-ru.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Resources.nn-no.Designer.cs">
-      <DependentUpon>Resources.nn-no.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\Resources.nb-no.Designer.cs">
-      <DependentUpon>Resources.nb-no.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Services\AccentColorService.cs" />
-    <Compile Include="Models\EarTrumpetAudioSessionModelGroup.cs" />
-    <Compile Include="Services\EarTrumpetAudioDeviceService.cs" />
-    <Compile Include="Services\FirstRunDisplayService.cs" />
-    <Compile Include="Services\IconService.cs" />
-    <Compile Include="Services\IEarTrumpetVolumeCallback.cs" />
-    <Compile Include="Services\TaskbarService.cs" />
-    <Compile Include="Services\ThemeService.cs" />
-    <Compile Include="Services\UserPreferencesService.cs" />
-    <Compile Include="Services\UserSystemPreferencesService.cs" />
-    <Compile Include="Services\WhatsNewDisplayService.cs" />
-    <Compile Include="TrayIcon.cs" />
-    <Compile Include="ViewModels\AppItemViewModel.cs" />
+    <Compile Include="Interop\Helpers\KeyboardHook.cs" />
+    <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
+    <Compile Include="UI\Controls\ThemeManager.cs" />
+    <Compile Include="DataModel\SystemSettings.cs" />
+    <Compile Include="UI\Controls\TrayIcon.cs" />
+    <Compile Include="UI\ViewModels\AppExpandedEventArgs.cs" />
+    <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Models\EarTrumpetAudioSessionModel.cs" />
-    <Compile Include="Services\EarTrumpetAudioSessionService.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="ViewModels\AppItemViewModelComparer.cs" />
-    <Compile Include="ViewModels\AudioMixerViewModel.cs" />
-    <Compile Include="ViewModels\BindableBase.cs" />
-    <Compile Include="ViewModels\DeviceAppItemViewModel.cs" />
-    <Compile Include="ViewModels\IAudioMixerViewModelCallback.cs" />
-    <Compile Include="ViewModels\TrayIconViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="UI\ViewModels\DeviceViewModel.cs" />
+    <Compile Include="UI\ViewModels\FlyoutViewModel.cs" />
+    <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
+    <Compile Include="UI\ViewModels\MainViewModel.cs" />
+    <Compile Include="UI\ViewModels\BindableBase.cs" />
+    <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />
+    <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
+    <Compile Include="UI\Views\AppVolumeControl.xaml.cs">
+      <DependentUpon>AppVolumeControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="UI\Views\HotkeySelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\SystemThemeColors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Views\DeviceAndAppsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\FullWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\FlyoutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -131,10 +255,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="UI\Views\FlyoutWindow.xaml.cs">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Views\AppVolumeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\VolumeControlPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -146,43 +278,40 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Application.ico" />
-    <Resource Include="Tray.ico" />
+    <Resource Include="Assets\Application.ico" />
+    <Resource Include="Assets\Tray.ico" />
     <None Include="App.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Color Types.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.ru-ru.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.ru-ru.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.zh-Hans.resx" />
-    <EmbeddedResource Include="Properties\Resources.zh-Hant.resx" />
-    <EmbeddedResource Include="Properties\Resources.de.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nn-no.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.nn-no.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nb-no.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.nb-no.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
+    <EmbeddedResource Include="Properties\Resources.fr-FR.resx" />
+    <EmbeddedResource Include="Properties\Resources.it.resx" />
+    <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="Properties\Resources.nb-NO.resx" />
+    <EmbeddedResource Include="Properties\Resources.nl.resx" />
+    <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
+    <EmbeddedResource Include="Properties\Resources.pt-PT.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.fr.resx" />
-    <EmbeddedResource Include="Properties\Resources.it.resx" />
+    <EmbeddedResource Include="Properties\Resources.ro.resx" />
+    <EmbeddedResource Include="Properties\Resources.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Logo-Dark.png" />
+    <Resource Include="Assets\Logo-Light.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,37 +117,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContextMenuAboutTitle" xml:space="preserve">
-    <value>Info su</value>
-  </data>
   <data name="ContextMenuExitTitle" xml:space="preserve">
     <value>Esci</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Nessun dispositivo trovato</value>
+    <value>Nessun dispositivo di riproduzione disponibile</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Invia feedback...</value>
+    <value>Invia feedback</value>
   </data>
-  <data name="ContextMenuShowDesktopAppsTitle" xml:space="preserve">
-    <value>Mostra le app del desktop</value>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mixer volume di EarTrumpet</value>
   </data>
-  <data name="NoAppsPanelContent" xml:space="preserve">
-    <value>Sembra che tu non abbia alcuna app aperta.</value>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mixer volume classico</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Sembra che tu non abbia alcun dispositivo audio.</value>
+    <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
   </data>
-  <data name="SpeechRuntimeDisplayName" xml:space="preserve">
-    <value>Speech Runtime</value>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Nessun dispositivo di riproduzione.</value>
   </data>
-  <data name="SystemSoundsDisplayName" xml:space="preserve">
-    <value>Suoni di sistema</value>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Dispositivi di riproduzione</value>
   </data>
-  <data name="TrayIconTooltipText" xml:space="preserve">
-    <value>Controllo volume per Windows</value>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Dispositivi di registrazione</value>
   </data>
-  <data name="UseOldIconText" xml:space="preserve">
-    <value>Usare l'icona di EarTrumpet</value>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Impostazioni / Informazioni su EarTrumpet</value>
   </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Suoni</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Raccogli dati per la risoluzione dei problemi</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>La tua combinazione di tasti</value>
+  </data>
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Scegli una combinazione di tasti</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Usa sempre il dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Informazioni</value>
+  </data>
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Inserisci una combinazione di tasti:</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Scopri di più</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>Volume al {1} percento - {0}</value>
+    <comment>0 = localized app name, 1 = volume 0-100</comment>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Audio Disattivato - {0}</value>
+    <comment>0 = localized app name</comment>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Applicazioni</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Riduci per mostrare solamente il dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Combinazione predefinita</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Espandi per mostrare tutti i dispositivi di riproduzione</value>
+  </data>
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Assegna questa app ad un dispositivo di riproduzione</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Apri il menu di EarTrumpet</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Usa l'icona classica di EarTrumpet</value>
+  </data>
+
 </root>

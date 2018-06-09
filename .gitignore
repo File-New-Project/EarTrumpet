@@ -137,7 +137,7 @@ publish/
 # NuGet Packages
 #*.nupkg
 # The packages folder can be ignored because of Package Restore
-#**/packages/*
+**/packages/*
 # except build/, which is used as an MSBuild target.
 #!**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
@@ -211,6 +211,8 @@ EarTrumpet.UWP/EarTrumpet.exe
 EarTrumpet.UWP/EarTrumpet.Interop.lib
 EarTrumpet.UWP/EarTrumpet.Interop.exp
 EarTrumpet.UWP/EarTrumpet.Interop.dll
+EarTrumpet.UWP/Interop.MMDeviceAPI.dll
+EarTrumpet.UWP/Interop.SoundControlAPI.dll
 EarTrumpet.UWP/nb-no/EarTrumpet.resources.dll
 EarTrumpet.UWP/fr/EarTrumpet.resources.dll
 EarTrumpet.UWP/zh-Hant/EarTrumpet.resources.dll
@@ -220,10 +222,8 @@ EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 *.CodeAnalysisLog.xml
 *.filters
 
-# Auto-generated headers
-EarTrumpet.Interop/callbacks.h
-EarTrumpet.Interop/handlers.h
+# Auto-generated files
 EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
-
-#nuget packages
-/packages
+EarTrumpet.Interop/mmdeviceapi.h
+/EarTrumpet.Package/BundleArtifacts
+/EarTrumpet.Package/_pkginfo.txt

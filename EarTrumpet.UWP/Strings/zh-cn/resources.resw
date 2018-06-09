@@ -117,22 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewItem1.Text" xml:space="preserve">
-    <value>通知区域的图标现在更加具有 Windows 10 风格</value>
+  <data name="CloseButton.Content" xml:space="preserve">
+    <value>关闭</value>
   </data>
-  <data name="NewItem2.Text" xml:space="preserve">
-    <value>我们为高 DPI 的用户更新了通知区域的图标</value>
+  <data name="MoreInformationText.Text" xml:space="preserve">
+    <value>了解更多</value>
   </data>
-  <data name="NewItem3.Text" xml:space="preserve">
-    <value>我们改进了本应用主窗口的文本渲染</value>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>欢迎使用 EarTrumpet</value>
   </data>
-  <data name="NewItem4.Text" xml:space="preserve">
-    <value>修复 Windows 音量混合器的变化不在 EarTrumpet 中呈现的问题（例如 静音）</value>
-  </data>
-  <data name="NewItem5.Text" xml:space="preserve">
-    <value>增加了对简体中文和繁体中文的支持（感谢殷越）</value>
-  </data>
-  <data name="WhatsNew.Text" xml:space="preserve">
-    <value>EarTrumpet {0} 更新内容</value>
-  </data>
+
 </root>
