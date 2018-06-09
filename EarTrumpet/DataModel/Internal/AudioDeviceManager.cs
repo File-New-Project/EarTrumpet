@@ -197,7 +197,11 @@ namespace EarTrumpet.DataModel.Internal
 
                         _dispatcher.BeginInvoke((Action)(() =>
                         {
-                            _devices.Add(newDevice);
+                            // We must check again on the UI thread to avoid adding a duplicate device.
+                            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused1))
+                            {
+                                _devices.Add(newDevice);
+                            }
                         }));
                     }
                 }
