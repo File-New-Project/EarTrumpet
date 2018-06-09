@@ -15,6 +15,7 @@ namespace EarTrumpet.UI.Views
         private static FullWindow Instance;
 
         private FullWindowViewModel _viewModel;
+        private bool _isClosing;
 
         public FullWindow(MainViewModel viewModel)
         {
@@ -132,8 +133,12 @@ namespace EarTrumpet.UI.Views
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Trace.WriteLine("FullWindow CloseButton_Click");
-
-            WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
+            if (!_isClosing)
+            {
+                // Ensure we don't double-animate if the user is able to close us multiple ways before the window stops accepting input.
+                _isClosing = true;
+                WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
+            }
         }
 
         private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)

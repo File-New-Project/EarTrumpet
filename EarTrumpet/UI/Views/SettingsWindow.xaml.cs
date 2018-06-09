@@ -14,6 +14,7 @@ namespace EarTrumpet.UI.Views
         private static SettingsWindow Instance;
 
         private SettingsViewModel _viewModel;
+        private bool _isClosing;
 
         internal SettingsWindow()
         {
@@ -67,7 +68,12 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("SettingsWindow CloseButton_Click");
 
-            WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
+            if (!_isClosing)
+            {
+                // Ensure we don't double-animate if the user is able to close us multiple ways before the window stops accepting input.
+                _isClosing = true;
+                WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
+            }
         }
 
         private void HotkeySelect_Click(object sender, RoutedEventArgs e)
