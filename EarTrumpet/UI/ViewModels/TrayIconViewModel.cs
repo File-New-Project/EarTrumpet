@@ -207,7 +207,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartLegacyMixer()
         {
-            using (Process.Start("sndvol.exe")) { }
+            using (ProcessHelper.StartNoThrowAndLogWarning("sndvol.exe")) { }
         }
 
         private static Icon GetIconFromFile(string path, int iconOrdinal = 0)

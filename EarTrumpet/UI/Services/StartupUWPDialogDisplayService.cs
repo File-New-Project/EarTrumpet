@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
 using System;
 using System.Diagnostics;
 
@@ -63,14 +64,7 @@ namespace EarTrumpet.UI.Services
         {
             Trace.WriteLine($"StartupUWPDialogDisplayService ProtocolLaunchEarTrumpet {more}");
 
-            try
-            {
-                using (Process.Start($"eartrumpet://{more}")) { }
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"{ex}");
-            }
+            using (ProcessHelper.StartNoThrowAndLogWarning($"eartrumpet://{more}")) { }
         }
 
         private static bool HasKey(string key)
