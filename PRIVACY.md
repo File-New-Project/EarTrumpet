@@ -25,6 +25,7 @@ Includes:
 * Right-to-Left configuration (on/off)
 * Transparency configuration (on/off)
 * Accent color configuration (on/off)
+* System Animations configuration (on/off)
 
 ℹ We filed a bug with Bugsnag on the lack of filtering for these items. We don't want this data and we're actively working to remove the collection of this data.
 
