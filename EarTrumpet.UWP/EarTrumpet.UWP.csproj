@@ -114,9 +114,6 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\el-gr\resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\it-it\resources.resw" />
   </ItemGroup>
   <ItemGroup>
