@@ -119,8 +119,8 @@ namespace EarTrumpet.UI.Controls
         public void Show()
         {
             Trace.WriteLine("TrayIcon Show");
-
             _trayIcon.Visible = true;
+            Trace.WriteLine("TrayIcon Shown");
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

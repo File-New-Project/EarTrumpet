@@ -168,6 +168,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _isDisconnected;
         private bool _isMoved;
         private bool _moveOnInactive;
+        private bool _isRegistered;
         private Task _refreshDisplayNameTask;
 
         public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
@@ -187,6 +188,7 @@ namespace EarTrumpet.DataModel.Internal
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
+            _isRegistered = true;
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
@@ -205,11 +207,14 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                _session.UnregisterAudioSessionNotification(this);
+                if (_isRegistered)
+                {
+                    _session.UnregisterAudioSessionNotification(this);
+                }
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 

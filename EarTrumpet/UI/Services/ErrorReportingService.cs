@@ -35,12 +35,14 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
+                // No point in AppTrace.LogWarning here because bugsnag is broken.
                 Trace.WriteLine(ex);
             }
         }
 
         private static void OnWarningException(Exception ex)
         {
+            Trace.WriteLine($"BUGSNAG Warning Notify: {ex}");
             WPFClient.Notify(ex, Severity.Warning);
         }
 
@@ -70,6 +72,7 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
+                // NOTE: Do not use AppTrace.LogWarning here - it would go into a loop.
                 return $"{ex}";
             }
         }

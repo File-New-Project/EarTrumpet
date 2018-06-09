@@ -40,7 +40,7 @@ namespace EarTrumpet.DataModel.Internal
                         CreateAndAddSession(enumerator.GetSession(i));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     AppTrace.LogWarning(ex);
                 }
@@ -82,11 +82,13 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (ZombieProcessException ex)
             {
+                // No need to log these to the cloud, but the debug output
+                // can still be helpful for troubleshooting.
                 Trace.TraceError($"{ex}");
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -129,7 +131,7 @@ namespace EarTrumpet.DataModel.Internal
 
         internal void UnHideSessionsForProcessId(int processId)
         {
-            foreach(var session in _movedSessions.ToArray())
+            foreach (var session in _movedSessions.ToArray())  // Use snapshot since enumeration will be modified.
             {
                 if (session.ProcessId == processId)
                 {
@@ -145,7 +147,7 @@ namespace EarTrumpet.DataModel.Internal
 
         internal void MoveHiddenAppsToDevice(string appId, string id)
         {
-            foreach(var session in _movedSessions)
+            foreach (var session in _movedSessions)
             {
                 if (session.AppId == appId)
                 {

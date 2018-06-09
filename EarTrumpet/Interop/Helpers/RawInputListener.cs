@@ -50,8 +50,7 @@ namespace EarTrumpet.Interop.Helpers
 
             if (User32.RegisterRawInputDevices(devicePtr, 1, (uint)Marshal.SizeOf(mouseRawDevice)) == false)
             {
-                int err = Marshal.GetLastWin32Error();
-                Trace.TraceError($"Couldn't register for raw input: {flags} {err} {_hwnd}");
+                AppTrace.LogWarning(new Exception($"Couldn't register for raw input: {flags} {Marshal.GetLastWin32Error()} {_hwnd}"));
             }
 
             Marshal.FreeHGlobal(devicePtr);

@@ -53,28 +53,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             _mainViewModel = mainViewModel;
 
-            var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
-            try
-            {
-                _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
-                _icons.Add(IconId.Muted, GetIconFromFile(_trayIconPath, (int)IconId.Muted));
-                _icons.Add(IconId.SpeakerZeroBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
-                _icons.Add(IconId.SpeakerOneBar, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
-                _icons.Add(IconId.SpeakerTwoBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
-                _icons.Add(IconId.SpeakerThreeBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
-            }
-            catch
-            {
-                _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, originalIcon);
-                _icons.Add(IconId.Muted, originalIcon);
-                _icons.Add(IconId.SpeakerZeroBars, originalIcon);
-                _icons.Add(IconId.SpeakerOneBar, originalIcon);
-                _icons.Add(IconId.SpeakerTwoBars, originalIcon);
-                _icons.Add(IconId.SpeakerThreeBars, originalIcon);
-            }
+            LoadIconResources();
 
             _useLegacyIcon = SettingsService.UseLegacyIcon;
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
@@ -92,6 +71,34 @@ namespace EarTrumpet.UI.ViewModels
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
+        }
+
+        private void LoadIconResources()
+        {
+            var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
+            try
+            {
+                _icons.Add(IconId.OriginalIcon, originalIcon);
+                _icons.Add(IconId.NoDevice, GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
+                _icons.Add(IconId.Muted, GetIconFromFile(_trayIconPath, (int)IconId.Muted));
+                _icons.Add(IconId.SpeakerZeroBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
+                _icons.Add(IconId.SpeakerOneBar, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
+                _icons.Add(IconId.SpeakerTwoBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
+                _icons.Add(IconId.SpeakerThreeBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+            }
+            catch (Exception ex)
+            {
+                AppTrace.LogWarning(ex);
+
+                _icons.Clear();
+                _icons.Add(IconId.OriginalIcon, originalIcon);
+                _icons.Add(IconId.NoDevice, originalIcon);
+                _icons.Add(IconId.Muted, originalIcon);
+                _icons.Add(IconId.SpeakerZeroBars, originalIcon);
+                _icons.Add(IconId.SpeakerOneBar, originalIcon);
+                _icons.Add(IconId.SpeakerTwoBars, originalIcon);
+                _icons.Add(IconId.SpeakerThreeBars, originalIcon);
+            }
         }
 
         private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
