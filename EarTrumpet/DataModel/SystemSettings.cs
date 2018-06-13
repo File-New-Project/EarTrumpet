@@ -28,7 +28,8 @@ namespace EarTrumpet.DataModel
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
             {
-                return ((int)subKey.GetValue(key, defaultValue)) > 0;
+                var value = subKey.GetValue(key, defaultValue) as int?;
+                return value.GetValueOrDefault() > 0;
             }
         }
     }
