@@ -170,7 +170,7 @@ namespace EarTrumpet.DataModel.Internal
                 return false;
             }
 
-            found = _devices.FirstOrDefault(d => d.Id == deviceId);
+            found = _devices.ToArray().FirstOrDefault(d => d.Id == deviceId);
             return found != null;
         }
 

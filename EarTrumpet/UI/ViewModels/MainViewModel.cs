@@ -157,8 +157,8 @@ namespace EarTrumpet.UI.ViewModels
             {
                 searchId = _deviceManager.DefaultPlaybackDevice.Id;
             }
-            DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
-            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
+            DeviceViewModel oldDevice = AllDevices.FirstOrDefault(d => d.Apps.Contains(app));
+            DeviceViewModel newDevice = AllDevices.FirstOrDefault(d => searchId == d.Id);
 
             try
             {
@@ -171,8 +171,8 @@ namespace EarTrumpet.UI.ViewModels
                 // Update the UI if the device logically changed places.
                 if (isLogicallyMovingDevices)
                 {
-                    oldDevice.AppVirtuallyLeavingFromThisDevice(app);
-                    newDevice.AppVirtuallMovingToThisDevice(tempApp);
+                    oldDevice?.AppVirtuallyLeavingFromThisDevice(app);
+                    newDevice?.AppVirtuallMovingToThisDevice(tempApp);
                 }
             }
             catch (Exception ex)
