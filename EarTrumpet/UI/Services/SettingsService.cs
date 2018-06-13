@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Extensions;
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -62,11 +63,19 @@ namespace EarTrumpet.UI.Services
 
         static string ReadSetting(string key)
         {
-            string ret;
+            string ret = null;
 
             if (App.Current.HasIdentity())
             {
-                ret = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
+                try
+                {
+                    ret = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError($"{ex}");
+                    return ret;
+                }
             }
             else
             {
@@ -109,7 +118,15 @@ namespace EarTrumpet.UI.Services
         {
             if (App.Current.HasIdentity())
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
+                try
+                {
+                    Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError($"{ex}");
+                    // Windows Bug: Windows Storage APIs are not yet available.
+                }
             }
             else
             {
