@@ -15,12 +15,13 @@ namespace EarTrumpet.UI.Helpers
             public Screen ContainingScreen;
         }
 
+        // Must match AppBarEdge enum
         public enum Position
         {
-            Left,
-            Top,
-            Right,
-            Bottom
+            Left = 0,
+            Top = 1,
+            Right = 2,
+            Bottom = 3
         }
 
         public static State Current
