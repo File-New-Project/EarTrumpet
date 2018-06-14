@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using EarTrumpet.UI.Helpers;
+using System.Diagnostics;
 
 namespace EarTrumpet.UI.Services
 {
@@ -8,7 +9,7 @@ namespace EarTrumpet.UI.Services
         {
             Trace.WriteLine($"FeedbackService OpenFeedbackHub");
 
-            using (Process.Start("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet")) { }
+            using (ProcessHelper.StartNoThrowAndLogWarning("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet")) { }
         }
     }
 }

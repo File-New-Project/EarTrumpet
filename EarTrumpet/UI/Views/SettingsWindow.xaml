@@ -26,6 +26,7 @@
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextWrapping" Value="Wrap" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,16,0" />
             <Setter Property="Foreground" Value="{DynamicResource SecondaryText}" />
         </Style>
 
@@ -72,7 +73,7 @@
                         Content="&#xE8BB;"
                         Style="{DynamicResource CloseButtonStyle}" />
             </Grid>
-            <StackPanel Margin="14,0,0,14" Orientation="Vertical">
+            <StackPanel Margin="14,0,14,14" Orientation="Vertical">
                 <StackPanel Margin="0,18,0,14" Orientation="Horizontal">
                     <Border Width="40"
                             Height="30"

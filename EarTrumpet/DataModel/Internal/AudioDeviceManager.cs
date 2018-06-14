@@ -68,9 +68,9 @@ namespace EarTrumpet.DataModel.Internal
             {
                 _enumerator.UnregisterEndpointNotificationCallback(this);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -158,7 +158,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -170,13 +170,13 @@ namespace EarTrumpet.DataModel.Internal
                 return false;
             }
 
-            found = _devices.FirstOrDefault(d => d.Id == deviceId);
+            found = _devices.ToArray().FirstOrDefault(d => d.Id == deviceId);
             return found != null;
         }
 
         public void MoveHiddenAppsToDevice(string appId, string id)
         {
-            foreach(var device in _devices)
+            foreach (var device in _devices)
             {
                 device.MoveHiddenAppsToDevice(appId, id);
             }
@@ -197,7 +197,11 @@ namespace EarTrumpet.DataModel.Internal
 
                         _dispatcher.BeginInvoke((Action)(() =>
                         {
-                            _devices.Add(newDevice);
+                            // We must check again on the UI thread to avoid adding a duplicate device.
+                            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused1))
+                            {
+                                _devices.Add(newDevice);
+                            }
                         }));
                     }
                 }
@@ -205,7 +209,7 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
                     // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
-                    Trace.TraceError($"{ex}");
+                    AppTrace.LogWarning(ex);
                 }
             }
         }
@@ -267,7 +271,7 @@ namespace EarTrumpet.DataModel.Internal
                     }
                     catch (Exception ex)
                     {
-                        Trace.TraceError($"{ex}");
+                        AppTrace.LogWarning(ex);
                     }
                 }
             }

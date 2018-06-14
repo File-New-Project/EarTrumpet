@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet.UI.Helpers;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -12,7 +11,7 @@ namespace EarTrumpet.Extensions
     {
         public static void Move(this Window window, double top, double left, double height, double width)
         {
-            User32.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, (int)left, (int)top, (int)width, (int)height, User32.SWP_NOZORDER);
+            User32.SetWindowPos(new WindowInteropHelper(window).Handle, IntPtr.Zero, (int)left, (int)top, (int)width, (int)height, User32.SWP_NOZORDER | User32.SWP_NOACTIVATE);
         }
 
         public static void RaiseWindow(this Window window)

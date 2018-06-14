@@ -23,6 +23,7 @@ namespace EarTrumpet.DataModel.Internal
         private string _displayName;
         private float _volume;
         private bool _isMuted;
+        private bool _isRegistered;
 
         public AudioDevice(IMMDevice device)
         {
@@ -35,6 +36,7 @@ namespace EarTrumpet.DataModel.Internal
             _deviceVolume = device.Activate<IAudioEndpointVolume>();
 
             _deviceVolume.RegisterControlChangeNotify(this);
+            _isRegistered = true;
             _meter = device.Activate<IAudioMeterInformation>();
             _sessions = new AudioDeviceSessionCollection(this, _device);
 
@@ -48,11 +50,14 @@ namespace EarTrumpet.DataModel.Internal
         {
             try
             {
-                _deviceVolume.UnregisterControlChangeNotify(this);
+                if (_isRegistered)
+                {
+                    _deviceVolume.UnregisterControlChangeNotify(this);
+                }
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 

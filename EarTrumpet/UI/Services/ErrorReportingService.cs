@@ -8,6 +8,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Services
@@ -16,7 +17,7 @@ namespace EarTrumpet.UI.Services
     {
         internal static void Initialize()
         {
-            AppTraceListener.Initialize();
+            AppTrace.Initialize(OnWarningException);
 
             try
             {
@@ -34,8 +35,15 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
+                // No point in AppTrace.LogWarning here because bugsnag is broken.
                 Trace.WriteLine(ex);
             }
+        }
+
+        private static void OnWarningException(Exception ex)
+        {
+            Trace.WriteLine($"BUGSNAG Warning Notify: {ex}");
+            WPFClient.Notify(ex, Severity.Warning);
         }
 
         private static bool OnBeforeNotify(Event error)
@@ -44,23 +52,15 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("Device", "machineName", "<redacted>");
             error.Metadata.AddToTab("Device", "hostname", "<redacted>");
 
-            error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => GetBuildLabel()));
+            error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => SystemSettings.BuildLabel));
 
             error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
             error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
             error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
             error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
+            error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
 
             return true;
-        }
-
-        private static string GetBuildLabel()
-        {
-            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-            using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
-            {
-                return (string)subKey.GetValue("BuildLabEx", "No BuildLabEx set");
-            }
         }
 
         private static string GetNoError(Func<object> get)
@@ -72,6 +72,7 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
+                // NOTE: Do not use AppTrace.LogWarning here - it would go into a loop.
                 return $"{ex}";
             }
         }

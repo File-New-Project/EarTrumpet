@@ -168,6 +168,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _isDisconnected;
         private bool _isMoved;
         private bool _moveOnInactive;
+        private bool _isRegistered;
         private Task _refreshDisplayNameTask;
 
         public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
@@ -176,25 +177,18 @@ namespace EarTrumpet.DataModel.Internal
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
-            ProcessId = (int)((IAudioSessionControl2)_session).GetProcessId();
-            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             _state = _session.GetState();
             GroupingParam = _session.GetGroupingParam();
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
-
-            // NOTE: This is a workaround for what seems to be a Windows 10 OS bug.
-            // Sometimes the session (which is IsSystemSoundsSession) has a nonzero PID.
-            // The PID refers to taskhostw.exe.  In these cases the session is correctly
-            // wired up and does reflect the system sounds.  If we restart the app the system
-            // will give us a session which has IsSystemSounds=true/pid=0, so this seems to be a bug
-            // in letting system sounds played through taskhostw.exe bleed through.
-            ProcessId = IsSystemSoundsSession ? 0 : ProcessId;
+            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            ProcessId = ReadProcessId();
 
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
+            _isRegistered = true;
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
@@ -206,68 +200,21 @@ namespace EarTrumpet.DataModel.Internal
 
             ReadRawDisplayName();
             RefreshDisplayName();
-
-            // NOTE: This is to work around what we believe to be a Windows 10 OS bug!
-            // The audio session redirection feature became available in 1803 and this bug appears
-            // to impact some or all UWP applications.
-            //
-            // Repro:
-            // - Using a UWP app like Minesweeper
-            // - Open the app on default device A and play a sound (observe sound plays on A)
-            // - Move the app to device B
-            // - Play a sound (observe the sound plays on B)
-            // - Close app
-            // - Open app again and play a sound
-            // EXPECTED: App plays on device B since it is configured and available
-            // ACTUAL: App plays on device A which is incorrect.
-            //
-            // We work around this by attempting to move the session to the specified persisted endpoint.
-            // If we fail for any reason (including that device no longer being available at all), we expect
-            // to continue without issue using the current parent device.
-            var persistedDeviceId = PersistedDefaultEndPointId;
-            if (!string.IsNullOrWhiteSpace(persistedDeviceId))
-            {
-                if (parent.Id != persistedDeviceId)
-                {
-                    Trace.WriteLine($"FORCE-MOVE: {_state} {parent.Id} -> {persistedDeviceId}");
-
-                    MoveToDevice(persistedDeviceId, false);
-
-                    // There is an inherence race condition in the system when calling the API to move the session to
-                    // another endpoint.  The system will very quickly make the session Active and then Inactive.  This
-                    // event causes us to lose the _isMoved/_moveOnInactive state, which means the session becomes visible again.
-                    // In order to work around this, we add a short delay so the system will have issued the events and either the
-                    // session is still playing (in which case the user will see it) or it is back to Inactive and we can hide it.
-                    var delay = Task.Delay(TimeSpan.FromMilliseconds(200));
-                    delay.ContinueWith((_) =>
-                    {
-                        _dispatcher.BeginInvoke((Action)(() =>
-                        {
-                            if (_state == AudioSessionState.Active)
-                            {
-                                _moveOnInactive = true;
-                            }
-                            else
-                            {
-                                _isMoved = true;
-                            }
-
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
-                        }));
-                    });
-                }
-            }
+            SyncPersistedEndpoint(parent);
         }
 
         ~AudioDeviceSession()
         {
             try
             {
-                _session.UnregisterAudioSessionNotification(this);
+                if (_isRegistered)
+                {
+                    _session.UnregisterAudioSessionNotification(this);
+                }
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -358,6 +305,79 @@ namespace EarTrumpet.DataModel.Internal
 
                 PeakValue1 = 0;
                 PeakValue2 = 0;
+            }
+        }
+
+        private int ReadProcessId()
+        {
+            var hr = ((IAudioSessionControl2)_session).GetProcessId(out uint pid);
+
+            if (hr == (int)Error.AUDCLNT_S_NO_SINGLE_PROCESS ||
+                hr == (int)Error.S_OK)
+            {
+                // NOTE: This is a workaround for what seems to be a Windows 10 OS bug.
+                // Sometimes the session (which is IsSystemSoundsSession) has a nonzero PID.
+                // The PID refers to taskhostw.exe.  In these cases the session is correctly
+                // wired up and does reflect the system sounds.  If we restart the app the system
+                // will give us a session which has IsSystemSounds=true/pid=0, so this seems to be a bug
+                // in letting system sounds played through taskhostw.exe bleed through.
+                return IsSystemSoundsSession ? 0 : (int)pid;
+            }
+
+            throw new COMException($"Failed: 0x{hr.ToString("X")}", hr);
+        }
+
+        private void SyncPersistedEndpoint(IAudioDevice parent)
+        {
+            // NOTE: This is to work around what we believe to be a Windows 10 OS bug!
+            // The audio session redirection feature became available in 1803 and this bug appears
+            // to impact some or all UWP applications.
+            //
+            // Repro:
+            // - Using a UWP app like Minesweeper
+            // - Open the app on default device A and play a sound (observe sound plays on A)
+            // - Move the app to device B
+            // - Play a sound (observe the sound plays on B)
+            // - Close app
+            // - Open app again and play a sound
+            // EXPECTED: App plays on device B since it is configured and available
+            // ACTUAL: App plays on device A which is incorrect.
+            //
+            // We work around this by attempting to move the session to the specified persisted endpoint.
+            // If we fail for any reason (including that device no longer being available at all), we expect
+            // to continue without issue using the current parent device.
+            var persistedDeviceId = PersistedDefaultEndPointId;
+            if (!string.IsNullOrWhiteSpace(persistedDeviceId))
+            {
+                if (parent.Id != persistedDeviceId)
+                {
+                    Trace.WriteLine($"FORCE-MOVE: {_state} {parent.Id} -> {persistedDeviceId}");
+
+                    MoveToDevice(persistedDeviceId, false);
+
+                    // There is an inherence race condition in the system when calling the API to move the session to
+                    // another endpoint.  The system will very quickly make the session Active and then Inactive.  This
+                    // event causes us to lose the _isMoved/_moveOnInactive state, which means the session becomes visible again.
+                    // In order to work around this, we add a short delay so the system will have issued the events and either the
+                    // session is still playing (in which case the user will see it) or it is back to Inactive and we can hide it.
+                    var delay = Task.Delay(TimeSpan.FromMilliseconds(200));
+                    delay.ContinueWith((_) =>
+                    {
+                        _dispatcher.BeginInvoke((Action)(() =>
+                        {
+                            if (_state == AudioSessionState.Active)
+                            {
+                                _moveOnInactive = true;
+                            }
+                            else
+                            {
+                                _isMoved = true;
+                            }
+
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                        }));
+                    });
+                }
             }
         }
 

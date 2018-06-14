@@ -52,9 +52,9 @@ namespace EarTrumpet.DataModel.Internal.Services
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia, hstring);
                 s_sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eConsole, hstring);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Trace.TraceError($"SetDefaultEndPoint Failed: {ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -69,7 +69,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"GetDefaultEndPoint Failed: {ex}");
+                AppTrace.LogWarning(ex);
             }
 
             return null;
