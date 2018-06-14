@@ -40,11 +40,7 @@ namespace EarTrumpet.UI.Helpers
                 // SHAppBarMessage: Understands Taskbar auto-hide
                 // state (the window is positioned across screens).
 
-                // IsRunningOnCairo: Cairo's Taskbar and Notification
-                // Area are separate appbars, so SHAppBarMessage is
-                // unnecessary here.
-
-                if (!IsRunningOnCairo() && Shell32.SHAppBarMessage(AppBarMessage.GetTaskbarPos, ref appBarData))
+                if (Shell32.SHAppBarMessage(AppBarMessage.GetTaskbarPos, ref appBarData))
                 {
                     state.Size = appBarData.rect;
                     state.Location = (Position)appBarData.uEdge;
@@ -82,36 +78,6 @@ namespace EarTrumpet.UI.Helpers
                 rect.Right - rect.Left,
                 rect.Bottom - rect.Top)
             ));
-        }
-
-        private static bool? _isRunningOnCairo;
-        public static bool IsRunningOnCairo()
-        {
-            if (_isRunningOnCairo.HasValue)
-            {
-                return _isRunningOnCairo.Value;
-            }
-
-            _isRunningOnCairo = false;
-
-            try
-            {
-                var processes = Process.GetProcessesByName("cairodesktop");
-                if(processes.Any())
-                {
-                    _isRunningOnCairo = true;
-                }
-
-                foreach(var process in processes)
-                {
-                    process.Dispose();
-                }
-            }
-            catch
-            {
-            }
-
-            return _isRunningOnCairo.Value;
         }
     }
 }
