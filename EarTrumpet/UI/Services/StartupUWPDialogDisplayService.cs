@@ -76,6 +76,7 @@ namespace EarTrumpet.UI.Services
             catch (Exception ex)
             {
                 Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
             return false;
         }
@@ -89,6 +90,7 @@ namespace EarTrumpet.UI.Services
             catch (Exception ex)
             {
                 Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
         }
 
@@ -101,6 +103,7 @@ namespace EarTrumpet.UI.Services
             catch (Exception ex)
             {
                 Trace.TraceError($"{ex}");
+                AppTrace.LogWarning(ex);
             }
             return default(T);
         }

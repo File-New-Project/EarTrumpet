@@ -74,6 +74,7 @@ namespace EarTrumpet.UI.Services
                 catch (Exception ex)
                 {
                     Trace.TraceError($"{ex}");
+                    AppTrace.LogWarning(ex);
                     return ret;
                 }
             }
@@ -124,8 +125,9 @@ namespace EarTrumpet.UI.Services
                 }
                 catch (Exception ex)
                 {
+                    // Windows Bug: Windows Storage APIs are still unreliable
                     Trace.TraceError($"{ex}");
-                    // Windows Bug: Windows Storage APIs are not yet available.
+                    AppTrace.LogWarning(ex);
                 }
             }
             else
