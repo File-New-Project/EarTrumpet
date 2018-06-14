@@ -14,5 +14,11 @@ namespace EarTrumpet.Interop
             uint dwKFFlags,
             [MarshalAs(UnmanagedType.LPWStr)]string pszItem,
             ref Guid riid);
+
+        [DllImport("shell32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SHAppBarMessage(
+            AppBarMessage dwMessage, 
+            ref APPBARDATA pData);
     }
 }
