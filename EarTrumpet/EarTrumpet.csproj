@@ -97,7 +97,7 @@
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
-    <Compile Include="Interop\AppBarMesage.cs" />
+    <Compile Include="Interop\AppBarMessage.cs" />
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
