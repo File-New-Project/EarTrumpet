@@ -18,8 +18,9 @@ Includes:
 Includes:
 * Architecture (e.g. 32-bit)
 * Version (e.g. Windows 10)
+* Build (e.g. 17134.1.amd64fre.rs4_release.180410-1804)
 * Available processors/cores (e.g. 8 cores)
-* Computer Name (e.g. MyFastPC) ℹ
+* Machine Name (e.g. MyFastPC) ℹ
 * .NET Framework Common Language Runtime version (e.g. 4.0.30319.42000)
 * Light/Dark mode configuration (light/dark)
 * Right-to-Left configuration (on/off)
