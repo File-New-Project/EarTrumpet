@@ -94,7 +94,8 @@ namespace EarTrumpet.DataModel.Internal.Services
                         {
                             case Kernel32.WAIT_ABANDONED:
                             case Kernel32.WAIT_FAILED:
-                                AppTrace.LogWarningIfFailed(returnValue);
+                                // NOTE: We aren't logging here because this occurs a lot in the wild, we need
+                                // to investigate.
                                 Debug.Assert(false);
                                 break;
                             case Kernel32.WAIT_TIMEOUT:
