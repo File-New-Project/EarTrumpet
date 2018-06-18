@@ -35,6 +35,12 @@ namespace EarTrumpet.UI.ViewModels
             set => SettingsService.UseLegacyIcon = value;
         }
 
+        public bool UseLogarithmicVolume
+        {
+            get => SettingsService.UseLogarithmicVolume;
+            set => SettingsService.UseLogarithmicVolume = value;
+        }
+
         public string AboutText { get; private set; }
 
         internal SettingsViewModel()

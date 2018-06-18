@@ -91,11 +91,16 @@
                 </StackPanel>
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
-
-                <CheckBox Margin="0,12,0,18"
+                <CheckBox Margin="0,12,0,0"
                           HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                           IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
+                          Style="{StaticResource CheckboxStyle}" />
+
+                <CheckBox Margin="0,6,0,18"
+                          HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.UseLogarithmicVolume}"
+                          IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}"
                           Style="{StaticResource CheckboxStyle}" />
 
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />

@@ -17,12 +17,28 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         public float Volume
         {
-            get => _volume;
+            get
+            {
+                if (_useLogarithmicVolume)
+                {
+                    return LogarithmicVolume.volumeToDisplay(_volume);
+                }
+                else
+                {
+                    return _volume;
+                }
+            }
             set
             {
                 value = value.Bound(0, 1f);
+
+                if (_useLogarithmicVolume)
+                {
+                    value = LogarithmicVolume.displayToVolume(value);
+                }
 
                 if (value != _volume)
                 {
@@ -36,7 +52,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         // Expected in some cases.
                     }
-                    IsMuted = _volume.ToVolumeInt() == 0;
+                    IsMuted = _volume.ToVolumeInt() < LogarithmicVolume.displayToVolume(1 / 100f);
                 }
 
             }
@@ -170,6 +186,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _moveOnInactive;
         private bool _isRegistered;
         private Task _refreshDisplayNameTask;
+        private bool _useLogarithmicVolume = false;
 
         public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
         {
@@ -473,5 +490,18 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext) { }
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
+
+        public bool UseLogarithmicVolume
+        {
+            get => _useLogarithmicVolume;
+            set
+            {
+                _useLogarithmicVolume = value;
+                _dispatcher.BeginInvoke((Action)(() =>
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+                }));
+            }
+        }
     }
 }

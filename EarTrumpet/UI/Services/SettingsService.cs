@@ -23,6 +23,7 @@ namespace EarTrumpet.UI.Services
         }
 
         public static event EventHandler<bool> UseLegacyIconChanged;
+        public static event EventHandler<bool> UseLogarithmicVolumeChanged;
 
         public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = System.Windows.Forms.Keys.Q };
 
@@ -60,6 +61,27 @@ namespace EarTrumpet.UI.Services
             }
         }
 
+
+        public static bool UseLogarithmicVolume
+        {
+            get
+            {
+                var ret = ReadSetting("UseLogarithmicVolume");
+                if (ret == null)
+                {
+                    return false;
+                }
+
+                bool.TryParse(ret, out bool isUseLogarithmicVolume);
+                return isUseLogarithmicVolume;
+            }
+            set
+            {
+                WriteSetting("UseLogarithmicVolume", value.ToString());
+
+                UseLogarithmicVolumeChanged?.Invoke(null, UseLogarithmicVolume);
+            }
+        }
 
         static string ReadSetting(string key)
         {

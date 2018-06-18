@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.UI.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -31,6 +32,9 @@ namespace EarTrumpet.UI.ViewModels
 
             _device.PropertyChanged += Device_PropertyChanged;
             _device.Groups.CollectionChanged += Sessions_CollectionChanged;
+            SettingsService.UseLogarithmicVolumeChanged += SettingService_UseLogarithmicVolumeChanged;
+            _device.UseLogarithmicVolume = SettingsService.UseLogarithmicVolume;
+
 
             foreach (var session in _device.Groups)
             {
@@ -38,6 +42,11 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             UpdateMasterVolumeIcon();
+        }
+
+        private void SettingService_UseLogarithmicVolumeChanged(object sender, bool e)
+        {
+            _device.UseLogarithmicVolume= e;
         }
 
         ~DeviceViewModel()

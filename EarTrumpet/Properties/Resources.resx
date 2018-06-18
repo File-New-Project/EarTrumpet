@@ -212,4 +212,7 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
   </data>
+  <data name="UseLogarithmicVolume" xml:space="preserve">
+    <value>Use logarithmic scaling for volume control</value>
+  </data>
 </root>

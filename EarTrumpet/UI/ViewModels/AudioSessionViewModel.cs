@@ -1,5 +1,7 @@
-﻿using EarTrumpet.DataModel;
+﻿using System;
+using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.UI.Services;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -11,6 +13,13 @@ namespace EarTrumpet.UI.ViewModels
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;
+            SettingsService.UseLogarithmicVolumeChanged += SettingService_UseLogarithmicVolumeChanged;
+            _stream.UseLogarithmicVolume = SettingsService.UseLogarithmicVolume;
+        }
+
+        private void SettingService_UseLogarithmicVolumeChanged(object sender, bool e)
+        {
+            _stream.UseLogarithmicVolume = e;
         }
 
         ~AudioSessionViewModel()

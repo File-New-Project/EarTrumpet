@@ -68,6 +68,18 @@ namespace EarTrumpet.DataModel.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
+        public bool UseLogarithmicVolume
+        {
+            get => _sessions.Count > 0 ? _sessions[0].UseLogarithmicVolume : false;
+            set
+            {
+                foreach (var session in _sessions)
+                {
+                    session.UseLogarithmicVolume = value;
+                }
+            }
+        }
+
         public void Hide()
         {
             foreach (var session in _sessions.ToArray())

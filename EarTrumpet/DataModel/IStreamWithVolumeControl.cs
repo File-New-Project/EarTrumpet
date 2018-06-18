@@ -9,5 +9,7 @@ namespace EarTrumpet.DataModel
         float Volume { get; set; }
         float PeakValue1 { get; }
         float PeakValue2 { get; }
+
+        bool UseLogarithmicVolume { get; set; }
     }
 }
