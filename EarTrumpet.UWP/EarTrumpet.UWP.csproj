@@ -141,9 +141,6 @@
     <PRIResource Include="Strings\ar\resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\da-dk\resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\es\resources.resw" />
   </ItemGroup>
   <ItemGroup>
