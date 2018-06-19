@@ -293,10 +293,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.ar.resx" />
+    <EmbeddedResource Include="Properties\Resources.da-DK.resx" />
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
+    <EmbeddedResource Include="Properties\Resources.es.resx" />
     <EmbeddedResource Include="Properties\Resources.fr-FR.resx" />
+    <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.it.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
     <EmbeddedResource Include="Properties\Resources.nb-NO.resx" />
     <EmbeddedResource Include="Properties\Resources.nl.resx" />
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
@@ -307,6 +312,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ro.resx" />
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.tr-TR.resx" />
+    <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
   </ItemGroup>
