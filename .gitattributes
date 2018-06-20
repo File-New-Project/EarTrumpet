@@ -24,3 +24,4 @@
 *.bz2 binary
 *.swp binary
 *.pfx binary
+*.manifest binary
