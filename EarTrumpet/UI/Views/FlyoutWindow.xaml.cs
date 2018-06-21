@@ -82,11 +82,17 @@ namespace EarTrumpet.UI.Views
             _rawListener = new RawInputListener(this);
             _rawListener.MouseWheel += RawListener_MouseWheel;
             MouseEnter += FlyoutWindow_MouseEnter;
+            MouseLeave += FlyoutWindow_MouseLeave;
         }
 
         private void ThemeChanged()
         {
             AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
+        }
+
+        private void FlyoutWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            _rawListener.Start();
         }
 
         private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)
