@@ -302,7 +302,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Settings  / About.
         /// </summary>
@@ -327,6 +327,15 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use logarithmic scaling for volume control.
+        /// </summary>
+        public static string UseLogarithmicVolume {
+            get {
+                return ResourceManager.GetString("UseLogarithmicVolume", resourceCulture);
             }
         }
         
