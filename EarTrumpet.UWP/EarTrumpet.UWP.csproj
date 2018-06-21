@@ -137,6 +137,24 @@
   <ItemGroup>
     <PRIResource Include="Strings\zh-tw\resources.resw" />
   </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ar\resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\es\resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\hu-hu\resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ko-kr\resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\tr-tr\resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\uk-ua\resources.resw" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

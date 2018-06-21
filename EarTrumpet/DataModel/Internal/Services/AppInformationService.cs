@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using EarTrumpet.UI.Services;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -41,17 +42,25 @@ namespace EarTrumpet.DataModel.Internal.Services
                 appInfo.PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 appInfo.ExeName = appInfo.PackageInstallPath;
 
-                string rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
-                if (Uri.IsWellFormedUriString(rawSmallLogoPath, UriKind.RelativeOrAbsolute))
+                try
                 {
-                    appInfo.SmallLogoPath = new Uri(rawSmallLogoPath).LocalPath;
+                    var rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
+                    var smallLogoPath = Path.Combine(appInfo.PackageInstallPath, rawSmallLogoPath);
+                    if (File.Exists(smallLogoPath))
+                    {
+                        appInfo.SmallLogoPath = smallLogoPath;
+                    }
+                    else
+                    {
+                        var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
+                        mrtResourceManager.InitializeForPackage(shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName));
+                        var map = mrtResourceManager.GetMainResourceMap();
+                        appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, map.GetFilePath(rawSmallLogoPath));
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
-                    mrtResourceManager.InitializeForPackage(shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName));
-                    var map = mrtResourceManager.GetMainResourceMap();
-                    appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, map.GetFilePath(rawSmallLogoPath));
+                    Trace.TraceError($"{ex}");
                 }
             }
             else
