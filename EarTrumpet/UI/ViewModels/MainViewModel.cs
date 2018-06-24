@@ -215,5 +215,17 @@ namespace EarTrumpet.UI.ViewModels
             Trace.WriteLine($"MainViewModel OpenFlyout");
             FlyoutShowRequested(this, null);
         }
+
+        public void ResetChannels()
+        {
+            foreach (var device in AllDevices)
+            {
+                foreach (var app in device.Apps)
+                {
+                    app.Volume = 100;
+                    Trace.WriteLine($"Volume of {app.DisplayName} is reset to max");
+                }
+            }
+        }
     }
 }
