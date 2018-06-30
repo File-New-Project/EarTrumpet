@@ -369,7 +369,6 @@
                 <Setter Property="MinWidth" Value="311" />
                 <Setter Property="HasDropShadow" Value="True" />
                 <Setter Property="FontSize" Value="12" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
