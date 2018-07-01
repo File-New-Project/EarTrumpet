@@ -111,6 +111,12 @@ namespace EarTrumpet.UI.Controls
                     VisualStateManager.GoToState((FrameworkElement)sender, "Normal", true);
                 }
 
+                VolumeSlider slider = sender as VolumeSlider;
+                if ("System.SystemSoundsSession".Equals(slider?.Tag))
+                {
+                    System.Media.SystemSounds.Asterisk.Play();
+                }
+
                 ReleaseMouseCapture();
                 e.Handled = true;
             }

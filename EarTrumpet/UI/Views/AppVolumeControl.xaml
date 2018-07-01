@@ -89,7 +89,8 @@
                           PeakValue1="{Binding PeakValue1}"
                           PeakValue2="{Binding PeakValue2}"
                           Style="{DynamicResource VolumeSliderStyle}"
-                          Value="{Binding Volume, Mode=TwoWay}" />
+                          Value="{Binding Volume, Mode=TwoWay}"
+                          Tag="{Binding AppId}"/>
 
         <TextBlock Grid.Column="2"
                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
