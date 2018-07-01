@@ -212,4 +212,7 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
   </data>
+  <data name="ResetChannelsText" xml:space="preserve">
+    <value>Reset Channels</value>
+  </data>
 </root>

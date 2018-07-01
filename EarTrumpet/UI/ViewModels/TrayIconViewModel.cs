@@ -39,6 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
+        public RelayCommand ResetChannelsCommand { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly MainViewModel _mainViewModel;
@@ -71,6 +72,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
+            ResetChannelsCommand = new RelayCommand(_mainViewModel.ResetChannels);
         }
 
         private void LoadIconResources()

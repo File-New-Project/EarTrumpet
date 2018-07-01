@@ -259,6 +259,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Channels.
+        /// </summary>
+        public static string ResetChannelsText {
+            get {
+                return ResourceManager.GetString("ResetChannelsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string SelectHotkeySaveButtonText {
