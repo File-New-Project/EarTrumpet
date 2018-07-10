@@ -124,24 +124,36 @@ namespace EarTrumpet.Interop
             public IntPtr wParam;
         };
 
+        [Flags]
+        internal enum RAWMOUSE_FLAGS : ushort
+        {
+            MOUSE_MOVE_RELATIVE = 0,
+            MOUSE_MOVE_ABSOLUTE = 1,
+            // ...
+        }
+
         [StructLayout(LayoutKind.Explicit)]
         internal struct RAWMOUSE
         {
             [FieldOffset(0)]
-            public ushort usFlags;
-            [FieldOffset(2)]
-            public uint ulButtons;
-            [FieldOffset(4)]
-            public ushort usButtonFlags;
-            [FieldOffset(6)]
-            public short usButtonData;
-            [FieldOffset(6)]
+            public RAWMOUSE_FLAGS usFlags;
+            // union {
+                [FieldOffset(2)]
+                public uint ulButtons;
+                // struct {
+                    [FieldOffset(4)]
+                    public ushort usButtonFlags;
+                    [FieldOffset(6)]
+                    public short usButtonData;
+                    // }
+            // }
+            [FieldOffset(8)]
             public uint ulRawButtons;
-            [FieldOffset(10)]
+            [FieldOffset(12)]
             public int lLastX;
-            [FieldOffset(14)]
+            [FieldOffset(16)]
             public int lLastY;
-            [FieldOffset(18)]
+            [FieldOffset(20)]
             public uint ulExtraInformation;
         }
 
