@@ -21,7 +21,6 @@ namespace EarTrumpet.DataModel.Internal
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
-        private IAudioDevice _defaultCommunicationsDevice;
         private ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
         private Dispatcher _dispatcher;
 
@@ -49,7 +48,6 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         QueryDefaultPlaybackDevice();
-                        QueryDefaultCommunicationsDevice();
                         PlaybackDevicesLoaded?.Invoke(this, null);
                     }));
                 }
@@ -97,27 +95,6 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        private void QueryDefaultCommunicationsDevice()
-        {
-            Trace.WriteLine("AudioDeviceManager QueryDefaultCommunicationsDevice");
-            IMMDevice device = null;
-            try
-            {
-                device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications);
-            }
-            catch (Exception ex) when (ex.Is(Error.ERROR_NOT_FOUND))
-            {
-                // Expected.
-            }
-
-            string newDeviceId = device?.GetId();
-            var currentDeviceId = _defaultCommunicationsDevice?.Id;
-            if (currentDeviceId != newDeviceId)
-            {
-                FindDevice(newDeviceId, out _defaultCommunicationsDevice);
-            }
-        }
-
         public IAudioDevice DefaultPlaybackDevice
         {
             get => _defaultPlaybackDevice;
@@ -126,18 +103,6 @@ namespace EarTrumpet.DataModel.Internal
                 if (_defaultPlaybackDevice == null || value.Id != _defaultPlaybackDevice.Id)
                 {
                     SetDefaultDevice(value);
-                }
-            }
-        }
-
-        public IAudioDevice DefaultCommunicationDevice
-        {
-            get => _defaultCommunicationsDevice;
-            set
-            {
-                if (_defaultCommunicationsDevice == null || value.Id != _defaultCommunicationsDevice.Id)
-                {
-                    SetDefaultDevice(value, ERole.eCommunications);
                 }
             }
         }
@@ -234,7 +199,6 @@ namespace EarTrumpet.DataModel.Internal
             _dispatcher.BeginInvoke((Action)(() =>
             {
                 QueryDefaultPlaybackDevice();
-                QueryDefaultCommunicationsDevice();
             }));
         }
 

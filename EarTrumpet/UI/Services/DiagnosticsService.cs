@@ -102,7 +102,6 @@ namespace EarTrumpet.UI.Services
             foreach (var device in manager.Devices)
             {
                 sb.Append(device == manager.DefaultPlaybackDevice ? "[Playback Default] " : "");
-                sb.Append(device == manager.DefaultCommunicationDevice ? "[Communications Default] " : "");
                 sb.AppendLine(DumpDevice(device));
             }
             return sb.ToString();
