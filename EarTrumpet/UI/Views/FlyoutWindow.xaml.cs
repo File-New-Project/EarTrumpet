@@ -132,7 +132,10 @@ namespace EarTrumpet.UI.Views
             switch (_viewModel.State)
             {
                 case FlyoutViewModel.ViewState.Opening:
-                    _rawListener.Start();
+                    if (_viewModel.ShowOptions == FlyoutShowOptions.Pointer)
+                    {
+                        _rawListener.Start();
+                    }
                     Show();
 
                     // We need the theme to be updated on show because the window borders will be set based on taskbar position.

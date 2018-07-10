@@ -69,7 +69,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
+            OpenFlyoutCommand = new RelayCommand(() => _mainViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 

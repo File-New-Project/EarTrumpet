@@ -15,7 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         public static MainViewModel Instance { get; private set; }
 
         public event EventHandler Ready;
-        public event EventHandler FlyoutShowRequested;
+        public event EventHandler<FlyoutShowOptions> FlyoutShowRequested;
         public event EventHandler<DeviceViewModel> DefaultPlaybackDeviceChanged;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
@@ -210,10 +210,10 @@ namespace EarTrumpet.UI.ViewModels
             StartOrStopPeakTimer();
         }
 
-        public void OpenFlyout()
+        public void OpenFlyout(FlyoutShowOptions options)
         {
-            Trace.WriteLine($"MainViewModel OpenFlyout");
-            FlyoutShowRequested(this, null);
+            Trace.WriteLine($"MainViewModel OpenFlyout {options}");
+            FlyoutShowRequested(this, options);
         }
     }
 }

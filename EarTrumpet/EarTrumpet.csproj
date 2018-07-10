@@ -138,6 +138,7 @@
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
+    <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\ThemeData.cs" />
