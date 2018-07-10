@@ -138,14 +138,14 @@ namespace EarTrumpet.Interop
             [FieldOffset(0)]
             public RAWMOUSE_FLAGS usFlags;
             // union {
-                [FieldOffset(2)]
+                [FieldOffset(4)]
                 public uint ulButtons;
                 // struct {
                     [FieldOffset(4)]
                     public ushort usButtonFlags;
                     [FieldOffset(6)]
                     public short usButtonData;
-                    // }
+                // }
             // }
             [FieldOffset(8)]
             public uint ulRawButtons;
