@@ -134,7 +134,27 @@ namespace EarTrumpet.UI.Views
 
         public void PositionAndShow(Window relativeTo, AppExpandedEventArgs e)
         {
+            if (relativeTo == null)
+            {
+                throw new ArgumentException("relativeTo");
+            }
+
+            if (e.ViewModel == null)
+            {
+                throw new ArgumentException("ViewModel");
+            }
+
+            if (e.Container == null)
+            {
+                throw new ArgumentException("Container");
+            }
+
             var taskbarState = WindowsTaskbar.Current;
+            if (taskbarState.ContainingScreen == null)
+            {
+                throw new ArgumentException("taskbarState.ContainingScreen");
+            }
+
             var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
             var ITEM_SIZE = (double)App.Current.Resources["AppItemCellHeight"];
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
