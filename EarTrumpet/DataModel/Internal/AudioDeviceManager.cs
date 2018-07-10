@@ -12,8 +12,8 @@ namespace EarTrumpet.DataModel.Internal
 {
     class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
-        public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
-        public event EventHandler PlaybackDevicesLoaded;
+        public event EventHandler<IAudioDevice> DefaultChanged;
+        public event EventHandler Loaded;
 
         public ObservableCollection<IAudioDevice> Devices => _devices;
 
@@ -48,7 +48,7 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         QueryDefaultPlaybackDevice();
-                        PlaybackDevicesLoaded?.Invoke(this, null);
+                        Loaded?.Invoke(this, null);
                     }));
                 }
                 catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
@@ -91,11 +91,11 @@ namespace EarTrumpet.DataModel.Internal
             {
                 FindDevice(newDeviceId, out _defaultPlaybackDevice);
 
-                DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
+                DefaultChanged?.Invoke(this, _defaultPlaybackDevice);
             }
         }
 
-        public IAudioDevice DefaultPlaybackDevice
+        public IAudioDevice Default
         {
             get => _defaultPlaybackDevice;
             set

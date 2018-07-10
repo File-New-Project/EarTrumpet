@@ -5,10 +5,10 @@ namespace EarTrumpet.DataModel
 {
     interface IAudioDeviceManager
     {
-        event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
-        event EventHandler PlaybackDevicesLoaded;
+        event EventHandler<IAudioDevice> DefaultChanged;
+        event EventHandler Loaded;
 
-        IAudioDevice DefaultPlaybackDevice { get; set; }
+        IAudioDevice Default { get; set; }
         ObservableCollection<IAudioDevice> Devices { get; }
 
         void MoveHiddenAppsToDevice(string appId, string id);

@@ -101,7 +101,7 @@ namespace EarTrumpet.UI.Services
             StringBuilder sb = new StringBuilder();
             foreach (var device in manager.Devices)
             {
-                sb.Append(device == manager.DefaultPlaybackDevice ? "[Playback Default] " : "");
+                sb.Append(device == manager.Default ? "[Playback Default] " : "");
                 sb.AppendLine(DumpDevice(device));
             }
             return sb.ToString();

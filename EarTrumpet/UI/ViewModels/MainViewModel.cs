@@ -34,8 +34,8 @@ namespace EarTrumpet.UI.ViewModels
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
             _deviceManager = deviceManager;
-            _deviceManager.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
-            _deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
+            _deviceManager.DefaultChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            _deviceManager.Loaded += DeviceManager_PlaybackDevicesLoaded;
             _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
@@ -155,7 +155,7 @@ namespace EarTrumpet.UI.ViewModels
             var searchId = dev?.Id;
             if (dev == null)
             {
-                searchId = _deviceManager.DefaultPlaybackDevice.Id;
+                searchId = _deviceManager.Default.Id;
             }
             DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
             DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
