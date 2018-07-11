@@ -88,7 +88,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
 
                 _icons.Clear();
                 _icons.Add(IconId.OriginalIcon, originalIcon);
@@ -214,7 +214,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartLegacyMixer()
         {
-            using (ProcessHelper.StartNoThrowAndLogWarning("sndvol.exe")) { }
+            using (ProcessHelper.StartNoThrow("sndvol.exe")) { }
         }
 
         private static Icon GetIconFromFile(string path, int iconOrdinal = 0)

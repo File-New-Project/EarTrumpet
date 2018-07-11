@@ -42,7 +42,7 @@ namespace EarTrumpet.DataModel.Internal
                 }
                 catch (Exception ex)
                 {
-                    AppTrace.LogWarning(ex);
+                    Trace.TraceError($"{ex}");
                 }
             });
         }
@@ -80,15 +80,9 @@ namespace EarTrumpet.DataModel.Internal
                     }
                 }));
             }
-            catch (ZombieProcessException ex)
-            {
-                // No need to log these to the cloud, but the debug output
-                // can still be helpful for troubleshooting.
-                Trace.TraceError($"{ex}");
-            }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 

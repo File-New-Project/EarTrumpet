@@ -64,7 +64,7 @@ namespace EarTrumpet.UI.Services
         {
             Trace.WriteLine($"StartupUWPDialogDisplayService ProtocolLaunchEarTrumpet {more}");
 
-            using (ProcessHelper.StartNoThrowAndLogWarning($"eartrumpet://{more}")) { }
+            using (ProcessHelper.StartNoThrow($"eartrumpet://{more}")) { }
         }
 
         private static bool HasKey(string key)

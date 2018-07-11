@@ -32,7 +32,6 @@ namespace EarTrumpet.Interop.Helpers
             data.Data = accentPtr;
 
             var ret = User32.SetWindowCompositionAttribute(handle, ref data);
-            AppTrace.LogWarningIfFailed(ret);
             Debug.Assert(ret == 0 || ret == 1);
 
             Marshal.FreeHGlobal(accentPtr);

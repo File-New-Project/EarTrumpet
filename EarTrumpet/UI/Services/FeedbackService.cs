@@ -9,7 +9,7 @@ namespace EarTrumpet.UI.Services
         {
             Trace.WriteLine($"FeedbackService OpenFeedbackHub");
 
-            using (ProcessHelper.StartNoThrowAndLogWarning("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet")) { }
+            using (ProcessHelper.StartNoThrow("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet")) { }
         }
     }
 }

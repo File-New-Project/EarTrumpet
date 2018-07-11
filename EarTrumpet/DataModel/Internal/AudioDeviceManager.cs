@@ -68,7 +68,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -123,7 +123,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -174,7 +174,7 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
                     // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
-                    AppTrace.LogWarning(ex);
+                    Trace.TraceError($"{ex}");
                 }
             }
         }
@@ -235,7 +235,7 @@ namespace EarTrumpet.DataModel.Internal
                     }
                     catch (Exception ex)
                     {
-                        AppTrace.LogWarning(ex);
+                        Trace.TraceError($"{ex}");
                     }
                 }
             }

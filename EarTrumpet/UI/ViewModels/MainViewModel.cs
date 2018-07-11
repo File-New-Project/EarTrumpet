@@ -126,9 +126,9 @@ namespace EarTrumpet.UI.ViewModels
             var apps = new List<IAppItemViewModel>();
             apps.Add(app);
 
-            foreach(var device in AllDevices)
+            foreach (var device in AllDevices)
             {
-                foreach(var deviceApp in device.Apps)
+                foreach (var deviceApp in device.Apps)
                 {
                     if (deviceApp.DoesGroupWith(app))
                     {
@@ -141,7 +141,7 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
-            foreach(var foundApp in apps)
+            foreach (var foundApp in apps)
             {
                 MoveAppToDeviceInternal(foundApp, dev);
             }
@@ -157,16 +157,17 @@ namespace EarTrumpet.UI.ViewModels
             {
                 searchId = _deviceManager.Default.Id;
             }
-            DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
-            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
 
             try
             {
+                DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
+                DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
+
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 
                 var tempApp = new TemporaryAppItemViewModel(app);
 
-                app.MoveToDevice(dev?.Id, hide:isLogicallyMovingDevices);
+                app.MoveToDevice(dev?.Id, hide: isLogicallyMovingDevices);
 
                 // Update the UI if the device logically changed places.
                 if (isLogicallyMovingDevices)
@@ -177,7 +178,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 

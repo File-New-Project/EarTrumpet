@@ -34,7 +34,7 @@ namespace EarTrumpet.UI.Services
 
             var fileName = $"{Path.GetTempFileName()}.txt";
             File.WriteAllText(fileName, allText);
-            using (ProcessHelper.StartNoThrowAndLogWarning(fileName)) { }
+            using (ProcessHelper.StartNoThrow(fileName)) { }
         }
 
         static string DumpSession(string indent, IAudioDeviceSession session)

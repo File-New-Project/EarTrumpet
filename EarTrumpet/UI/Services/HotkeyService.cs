@@ -27,7 +27,7 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 

@@ -54,7 +54,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -69,7 +69,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
 
             return null;
