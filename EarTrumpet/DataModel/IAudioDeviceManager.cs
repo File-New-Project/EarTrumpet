@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
@@ -9,7 +8,7 @@ namespace EarTrumpet.DataModel
         event EventHandler Loaded;
 
         IAudioDevice Default { get; set; }
-        ObservableCollection<IAudioDevice> Devices { get; }
+        IAudioDeviceCollection Devices { get; }
 
         void MoveHiddenAppsToDevice(string appId, string id);
     }

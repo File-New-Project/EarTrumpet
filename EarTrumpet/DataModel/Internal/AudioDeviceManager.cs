@@ -15,13 +15,12 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler<IAudioDevice> DefaultChanged;
         public event EventHandler Loaded;
 
-        public ObservableCollection<IAudioDevice> Devices => _devices;
+        public IAudioDeviceCollection Devices { get; }
 
         private static IPolicyConfig s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
-        private ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
         private Dispatcher _dispatcher;
 
         public AudioDeviceManager(Dispatcher dispatcher)
@@ -29,6 +28,7 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine("AudioDeviceManager Create");
 
             _dispatcher = dispatcher;
+            Devices = new AudioDeviceCollection();
 
             Task.Factory.StartNew(() =>
             {
@@ -135,13 +135,13 @@ namespace EarTrumpet.DataModel.Internal
                 return false;
             }
 
-            found = _devices.ToArray().FirstOrDefault(d => d.Id == deviceId);
+            found = Devices.FirstOrDefault(d => d.Id == deviceId);
             return found != null;
         }
 
         public void MoveHiddenAppsToDevice(string appId, string id)
         {
-            foreach (var device in _devices)
+            foreach (var device in Devices)
             {
                 device.MoveHiddenAppsToDevice(appId, id);
             }
@@ -165,7 +165,7 @@ namespace EarTrumpet.DataModel.Internal
                             // We must check again on the UI thread to avoid adding a duplicate device.
                             if (!FindDevice(pwstrDeviceId, out IAudioDevice unused1))
                             {
-                                _devices.Add(newDevice);
+                                Devices.Add(newDevice);
                             }
                         }));
                     }
@@ -187,7 +187,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
                 {
-                    _devices.Remove(dev);
+                    Devices.Remove(dev);
                 }
             }));
         }

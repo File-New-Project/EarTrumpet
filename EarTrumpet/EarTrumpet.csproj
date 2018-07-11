@@ -89,7 +89,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
