@@ -2,9 +2,7 @@
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -15,20 +13,21 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler<IAudioDevice> DefaultChanged;
         public event EventHandler Loaded;
 
-        public IAudioDeviceCollection Devices { get; }
+        public IAudioDeviceCollection Devices => _devices;
 
         private static IPolicyConfig s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
-        private Dispatcher _dispatcher;
+        private readonly Dispatcher _dispatcher;
+        private readonly AudioDeviceCollection _devices;
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
             Trace.WriteLine("AudioDeviceManager Create");
 
             _dispatcher = dispatcher;
-            Devices = new AudioDeviceCollection();
+            _devices = new AudioDeviceCollection();
 
             Task.Factory.StartNew(() =>
             {
@@ -89,7 +88,7 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultPlaybackDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                FindDevice(newDeviceId, out _defaultPlaybackDevice);
+                _devices.TryFind(newDeviceId, out _defaultPlaybackDevice);
 
                 DefaultChanged?.Invoke(this, _defaultPlaybackDevice);
             }
@@ -127,21 +126,9 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        private bool FindDevice(string deviceId, out IAudioDevice found)
-        {
-            if (deviceId == null)
-            {
-                found = null;
-                return false;
-            }
-
-            found = Devices.FirstOrDefault(d => d.Id == deviceId);
-            return found != null;
-        }
-
         public void MoveHiddenAppsToDevice(string appId, string id)
         {
-            foreach (var device in Devices)
+            foreach (var device in _devices)
             {
                 device.MoveHiddenAppsToDevice(appId, id);
             }
@@ -151,7 +138,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             Trace.WriteLine($"AudioDeviceManager OnDeviceAdded {pwstrDeviceId}");
 
-            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
+            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused))
             {
                 try
                 {
@@ -163,9 +150,9 @@ namespace EarTrumpet.DataModel.Internal
                         _dispatcher.BeginInvoke((Action)(() =>
                         {
                             // We must check again on the UI thread to avoid adding a duplicate device.
-                            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused1))
+                            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused1))
                             {
-                                Devices.Add(newDevice);
+                                _devices.Add(newDevice);
                             }
                         }));
                     }
@@ -185,9 +172,9 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
+                if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
                 {
-                    Devices.Remove(dev);
+                    _devices.Remove(dev);
                 }
             }));
         }
@@ -224,7 +211,7 @@ namespace EarTrumpet.DataModel.Internal
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
         {
             Trace.WriteLine($"AudioDeviceManager OnPropertyValueChanged {pwstrDeviceId} {key.fmtid}{key.pid}");
-            if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
+            if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
                 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 
 namespace EarTrumpet.DataModel.Internal
 {
@@ -9,38 +9,37 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        private List<IAudioDevice> _devices = new List<IAudioDevice>();
-        private object _lock = new object();
-
-        public IEnumerator<IAudioDevice> GetEnumerator()
-        {
-            lock (_lock)
-            {
-                return _devices.ToList().GetEnumerator();
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((AudioDeviceCollection)this).GetEnumerator();
-        }
+        private readonly ConcurrentDictionary<string, IAudioDevice> _devices = new ConcurrentDictionary<string, IAudioDevice>();
 
         public void Add(AudioDevice device)
         {
-            lock (_lock)
+            if (_devices.TryAdd(device.Id, device))
             {
-                _devices.Add(device);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, device));
             }
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, device));
         }
 
         public void Remove(IAudioDevice device)
         {
-            lock (_lock)
+            if (_devices.TryRemove(device.Id, out var foundDevice))
             {
-                _devices.Remove(device);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, foundDevice));
             }
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, device));
         }
+
+        public bool TryFind(string deviceId, out IAudioDevice found)
+        {
+            if (deviceId == null)
+            {
+                found = null;
+                return false;
+            }
+
+            return _devices.TryGetValue(deviceId, out found);
+        }
+
+        public IEnumerator<IAudioDevice> GetEnumerator() => _devices.Values.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
     }
 }
