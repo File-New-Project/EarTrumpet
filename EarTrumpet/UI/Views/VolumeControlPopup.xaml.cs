@@ -13,6 +13,7 @@ namespace EarTrumpet.UI.Views
     public partial class VolumeControlPopup : Popup
     {
         private bool _useDarkTheme = false;
+        private MainViewModel _viewModel;
 
         public VolumeControlPopup()
         {
@@ -70,7 +71,6 @@ namespace EarTrumpet.UI.Views
 
         private void MoveToAnotherDevice_Click(object sender, RoutedEventArgs e)
         {
-            var viewModel = MainViewModel.Instance;
             var selectedApp = (IAppItemViewModel)((FrameworkElement)sender).DataContext;
             var persistedDeviceId = selectedApp.PersistedOutputDevice;
 
@@ -81,7 +81,7 @@ namespace EarTrumpet.UI.Views
             }
 
             var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
-            foreach (var dev in viewModel.AllDevices)
+            foreach (var dev in _viewModel.AllDevices)
             {
                 var newItem = new MenuItem { Header = dev.DisplayName };
                 if(_useDarkTheme)
@@ -90,7 +90,7 @@ namespace EarTrumpet.UI.Views
                 }
                 newItem.Click += (_, __) =>
                 {
-                    viewModel.MoveAppToDevice(selectedApp, dev);
+                    _viewModel.MoveAppToDevice(selectedApp, dev);
 
                     HideWithAnimation();
                 };
@@ -110,7 +110,7 @@ namespace EarTrumpet.UI.Views
             defaultItem.IsChecked = (string.IsNullOrWhiteSpace(persistedDeviceId));
             defaultItem.Click += (_, __) =>
             {
-                viewModel.MoveAppToDevice(selectedApp, null);
+                _viewModel.MoveAppToDevice(selectedApp, null);
                 HideWithAnimation();
             };
             moveMenu.Items.Insert(0, defaultItem);
@@ -132,8 +132,10 @@ namespace EarTrumpet.UI.Views
             moveMenu.IsOpen = true;
         }
 
-        public void PositionAndShow(Window relativeTo, AppExpandedEventArgs e)
+        public void PositionAndShow(MainViewModel viewModel, Window relativeTo, AppExpandedEventArgs e)
         {
+            _viewModel = viewModel;
+
             if (relativeTo == null)
             {
                 throw new ArgumentException("relativeTo");

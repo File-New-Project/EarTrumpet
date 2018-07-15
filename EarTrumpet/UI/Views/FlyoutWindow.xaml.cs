@@ -111,7 +111,7 @@ namespace EarTrumpet.UI.Views
 
         private void ViewModel_AppExpanded(object sender, AppExpandedEventArgs e)
         {
-            AppPopup.PositionAndShow(this, e);
+            AppPopup.PositionAndShow(_mainViewModel, this, e);
         }
 
         private void ViewModel_WindowSizeInvalidated(object sender, object e)

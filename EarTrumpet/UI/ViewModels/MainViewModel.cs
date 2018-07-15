@@ -12,8 +12,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class MainViewModel : BindableBase
     {
-        public static MainViewModel Instance { get; private set; }
-
         public event EventHandler Ready;
         public event EventHandler<FlyoutShowOptions> FlyoutShowRequested;
         public event EventHandler<DeviceViewModel> DefaultPlaybackDeviceChanged;
@@ -28,9 +26,6 @@ namespace EarTrumpet.UI.ViewModels
 
         internal MainViewModel(IAudioDeviceManager deviceManager)
         {
-            Debug.Assert(Instance == null);
-            Instance = this;
-
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
             _deviceManager = deviceManager;
@@ -160,8 +155,14 @@ namespace EarTrumpet.UI.ViewModels
 
             try
             {
-                DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
-                DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
+                DeviceViewModel oldDevice = AllDevices.FirstOrDefault(d => d.Apps.Contains(app));
+                DeviceViewModel newDevice = AllDevices.FirstOrDefault(d => searchId == d.Id);
+
+                if (oldDevice == null || newDevice == null)
+                {
+                    // We lost a race with device removal.
+                    return;
+                }
 
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 

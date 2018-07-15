@@ -66,7 +66,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
             OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
             OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
-            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
+            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(() => _mainViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
