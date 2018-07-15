@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
@@ -21,6 +22,7 @@ namespace EarTrumpet.DataModel.Internal
         private IAudioDevice _defaultPlaybackDevice;
         private readonly Dispatcher _dispatcher;
         private readonly AudioDeviceCollection _devices;
+        private readonly AudioPolicyConfigService _policyConfigService;
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
@@ -28,6 +30,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher = dispatcher;
             _devices = new AudioDeviceCollection();
+            _policyConfigService = new AudioPolicyConfigService();
 
             Task.Factory.StartNew(() =>
             {
@@ -145,7 +148,7 @@ namespace EarTrumpet.DataModel.Internal
                     IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
                     if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                     {
-                        var newDevice = new AudioDevice(device);
+                        var newDevice = new AudioDevice(this, device);
 
                         _dispatcher.BeginInvoke((Action)(() =>
                         {
@@ -226,6 +229,16 @@ namespace EarTrumpet.DataModel.Internal
                     }
                 }
             }
+        }
+
+        public void SetDefaultEndPoint(string id, int pid)
+        {
+            _policyConfigService.SetDefaultEndPoint(id, pid);
+        }
+
+        public string GetDefaultEndPoint(int processId)
+        {
+            return _policyConfigService.GetDefaultEndPoint(processId);
         }
     }
 }

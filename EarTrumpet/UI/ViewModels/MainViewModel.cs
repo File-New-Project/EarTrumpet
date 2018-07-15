@@ -166,7 +166,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 
-                var tempApp = new TemporaryAppItemViewModel(app);
+                var tempApp = new TemporaryAppItemViewModel(_deviceManager, app);
 
                 app.MoveToDevice(dev?.Id, hide: isLogicallyMovingDevices);
 

@@ -98,29 +98,32 @@ namespace EarTrumpet.DataModel.Internal
 
             session.PropertyChanged += Session_PropertyChanged;
 
-            foreach (AudioDeviceSessionGroup appGroup in _sessions)
+            if (_parent.TryGetTarget(out var parent))
             {
-                if (appGroup.ExeName == session.ExeName)
+                foreach (AudioDeviceSessionGroup appGroup in _sessions)
                 {
-                    foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
+                    if (appGroup.ExeName == session.ExeName)
                     {
-                        if (appSessionGroup.GroupingParam == session.GroupingParam)
+                        foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
                         {
-                            // If there is a session in the same process, inherit safely.
-                            // (Avoids a minesweeper ad playing at max volume when app should be muted)
-                            session.IsMuted = session.IsMuted || appSessionGroup.IsMuted;
-                            appSessionGroup.AddSession(session);
-                            return;
+                            if (appSessionGroup.GroupingParam == session.GroupingParam)
+                            {
+                                // If there is a session in the same process, inherit safely.
+                                // (Avoids a minesweeper ad playing at max volume when app should be muted)
+                                session.IsMuted = session.IsMuted || appSessionGroup.IsMuted;
+                                appSessionGroup.AddSession(session);
+                                return;
+                            }
                         }
+
+                        session.IsMuted = session.IsMuted || appGroup.IsMuted;
+                        appGroup.AddSession(new AudioDeviceSessionGroup(parent, session));
+                        return;
                     }
-
-                    session.IsMuted = session.IsMuted || appGroup.IsMuted;
-                    appGroup.AddSession(new AudioDeviceSessionGroup(session));
-                    return;
                 }
-            }
 
-            _sessions.Add(new AudioDeviceSessionGroup(new AudioDeviceSessionGroup(session)));
+                _sessions.Add(new AudioDeviceSessionGroup(parent, new AudioDeviceSessionGroup(parent, session)));
+            }
         }
 
         internal void UnHideSessionsForProcessId(int processId)
