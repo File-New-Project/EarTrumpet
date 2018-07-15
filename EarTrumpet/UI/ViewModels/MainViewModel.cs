@@ -155,14 +155,8 @@ namespace EarTrumpet.UI.ViewModels
 
             try
             {
-                DeviceViewModel oldDevice = AllDevices.FirstOrDefault(d => d.Apps.Contains(app));
-                DeviceViewModel newDevice = AllDevices.FirstOrDefault(d => searchId == d.Id);
-
-                if (oldDevice == null || newDevice == null)
-                {
-                    // We lost a race with device removal.
-                    return;
-                }
+                DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
+                DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
 
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 
@@ -173,8 +167,8 @@ namespace EarTrumpet.UI.ViewModels
                 // Update the UI if the device logically changed places.
                 if (isLogicallyMovingDevices)
                 {
-                    oldDevice.AppVirtuallyLeavingFromThisDevice(app);
-                    newDevice.AppVirtuallMovingToThisDevice(tempApp);
+                    oldDevice.AppLeavingFromThisDevice(app);
+                    newDevice.AppMovingToThisDevice(tempApp);
                 }
             }
             catch (Exception ex)

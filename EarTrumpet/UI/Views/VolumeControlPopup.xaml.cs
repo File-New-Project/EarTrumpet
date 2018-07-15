@@ -177,8 +177,7 @@ namespace EarTrumpet.UI.Views
             var scaledWorkArea = new Rect(taskbarState.ContainingScreen.WorkingArea.Left / this.DpiWidthFactor(),
                 taskbarState.ContainingScreen.WorkingArea.Top / this.DpiHeightFactor(),
                 taskbarState.ContainingScreen.WorkingArea.Width / this.DpiWidthFactor(),
-                taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor()
-                );
+                taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor());
 
             // If we flow off the bottom
             if (popupOriginYScreenCoordinates + popupHeight > scaledWorkArea.Bottom)

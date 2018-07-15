@@ -49,13 +49,11 @@ namespace EarTrumpet.UI.Views
                 { "ControlSliderTrackFillRest", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillRest"), new Lookup("ImmersiveControlDarkSliderTrackFillRest")) },
                 { "ControlSliderTrackFillDisabled", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled")) },
                 { "ControlSliderThumbHover", new LightOrDark(new Lookup("ImmersiveControlLightSliderThumbHover"), new Lookup("ImmersiveControlDarkSliderThumbHover")) },
-                { "ChromeBlackMedium",
-                    new LightOrDark(
-                        new TransparentOrNot(
-                            new Lookup("ImmersiveLightChromeWhite", 0.7),
-                            new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
-                        new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))
-                },
+                { "ChromeBlackMedium", new LightOrDark(
+                                            new TransparentOrNot(
+                                                new Lookup("ImmersiveLightChromeWhite", 0.7),
+                                                new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
+                                            new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))},
                 { "ContextMenuBackground", new LightOrDark(new Lookup("ImmersiveLightChromeMediumLow"), new Lookup("ImmersiveDarkChromeMediumLow")) },
                 { "ContextMenuBorder", new LightOrDark(new Lookup("ImmersiveLightChromeHigh"), new Lookup("ImmersiveControlDarkAppButtonTextDisabled", 0.9)) },
                 { "ContextMenuItemBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightListLow"), new Lookup("ImmersiveDarkListLow")) },
@@ -64,7 +62,6 @@ namespace EarTrumpet.UI.Views
                 { "ContextMenuItemTextDisabled", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
                 { "ContextMenuItemGlyph", new LightOrDark(new Lookup("ImmersiveLightBaseMedium"), new Lookup("ImmersiveDarkBaseMedium")) },
                 { "ContextMenuSeparator", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
-
                 { "ContextMenuBackgroundDarkOnly", new Lookup("ImmersiveDarkChromeMediumLow") },
                 { "ContextMenuBorderDarkOnly", new Lookup("ImmersiveControlDarkAppButtonTextDisabled", 0.9) },
                 { "ContextMenuItemBackgroundHoverDarkOnly", new Lookup("ImmersiveDarkListLow") },
@@ -73,7 +70,6 @@ namespace EarTrumpet.UI.Views
                 { "ContextMenuItemTextDisabledDarkOnly", new Lookup("ImmersiveDarkBaseMediumLow") },
                 { "ContextMenuItemGlyphDarkOnly", new Lookup("ImmersiveDarkBaseMedium") },
                 { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow") },
-
                 { "CheckBoxBorder",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh")) },
                 { "CheckBoxBorderHover",  new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
                 { "CheckBoxBorderPressed",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium")) },

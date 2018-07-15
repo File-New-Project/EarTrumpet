@@ -67,7 +67,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OpenAbout()
         {
-            using (ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet")) { }
+            ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
         }
     }
 }
