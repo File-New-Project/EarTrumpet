@@ -15,7 +15,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public IAudioDeviceCollection Devices => _devices;
 
-        private static IPolicyConfig s_PolicyConfigClient = null;
+        private static AutoPolicyConfigClient s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
@@ -112,7 +112,7 @@ namespace EarTrumpet.DataModel.Internal
 
             if (s_PolicyConfigClient == null)
             {
-                s_PolicyConfigClient = (IPolicyConfig)new PolicyConfigClient();
+                s_PolicyConfigClient = new AutoPolicyConfigClient();
             }
 
             // Racing with the system, the device may not be valid anymore.
