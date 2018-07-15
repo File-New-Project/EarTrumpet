@@ -10,7 +10,7 @@ namespace EarTrumpet.UI.Services
 
         private static KeyboardHook s_hook;
 
-        public static void Register(SettingsService.HotkeyData hotkey)
+        public static void Register(HotkeyData hotkey)
         {
             Trace.WriteLine($"HotkeyService Register {hotkey}");
             if (s_hook != null)

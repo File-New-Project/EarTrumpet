@@ -11,17 +11,6 @@ namespace EarTrumpet.UI.Services
 {
     public class SettingsService
     {
-        public class HotkeyData
-        {
-            public System.Windows.Forms.Keys Modifiers;
-            public System.Windows.Forms.Keys Key;
-
-            public override string ToString()
-            {
-                return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
-            }
-        }
-
         public static event EventHandler<bool> UseLegacyIconChanged;
 
         public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = System.Windows.Forms.Keys.Q };
@@ -59,7 +48,6 @@ namespace EarTrumpet.UI.Services
                 UseLegacyIconChanged?.Invoke(null, UseLegacyIcon);
             }
         }
-
 
         static string ReadSetting(string key)
         {

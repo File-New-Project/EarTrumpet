@@ -1,7 +1,5 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System.Windows;
 using System.Windows.Input;
@@ -10,11 +8,11 @@ namespace EarTrumpet.UI.Views
 {
     public partial class HotkeySelectionWindow : Window
     {
-        public SettingsService.HotkeyData Hotkey { get; private set; }
+        public HotkeyData Hotkey { get; private set; }
 
         public HotkeySelectionWindow()
         {
-            Hotkey = new SettingsService.HotkeyData();
+            Hotkey = new HotkeyData();
             InitializeComponent();
 
             UpdateText();
