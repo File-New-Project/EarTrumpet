@@ -238,7 +238,11 @@ namespace EarTrumpet.DataModel.Internal
 
         public string GetDefaultEndPoint(int processId)
         {
-            return _policyConfigService.GetDefaultEndPoint(processId);
+            if (Environment.OSVersion.Version.Build >= 17134)
+            {
+                return _policyConfigService.GetDefaultEndPoint(processId);
+            }
+            return null;
         }
     }
 }
