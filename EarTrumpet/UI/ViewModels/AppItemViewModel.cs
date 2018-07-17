@@ -67,7 +67,13 @@ namespace EarTrumpet.UI.ViewModels
                 }
                 else
                 {
-                    Icon = new BitmapImage(new Uri(session.IconPath));
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.UriSource = new Uri(session.IconPath);
+                    bitmap.EndInit();
+
+                    Icon = bitmap;
                 }
             }
             catch (Exception ex)
