@@ -131,6 +131,11 @@ namespace EarTrumpet.UI.ViewModels
                 IsExpanded = false;
             }
 
+            RaiseDevicesChanged();
+        }
+
+        private void RaiseDevicesChanged()
+        {
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
@@ -157,7 +162,8 @@ namespace EarTrumpet.UI.ViewModels
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
-                    InvalidateWindowSize();
+
+                    RaiseDevicesChanged();
                 }
             }
         }
