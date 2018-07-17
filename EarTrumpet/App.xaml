@@ -461,6 +461,7 @@
                     </Trigger>
                     <Trigger Property="IsHighlighted" Value="true">
                         <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextHover}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabled}" />
@@ -523,6 +524,7 @@
                     </Trigger>
                     <Trigger Property="IsHighlighted" Value="true">
                         <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHoverDarkOnly}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextHoverDarkOnly}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />

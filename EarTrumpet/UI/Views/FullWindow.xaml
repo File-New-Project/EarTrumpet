@@ -105,7 +105,7 @@
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
                                       Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource ControlSliderTrackFillRest}"
+                                      Foreground="{DynamicResource SliderTrackFillLeft}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
@@ -125,7 +125,7 @@
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource ControlSliderTrackFillDisabled}"
+                                      Foreground="{DynamicResource SliderTrackFillRight}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
