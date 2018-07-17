@@ -89,11 +89,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
+    <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
@@ -137,7 +140,9 @@
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
+    <Compile Include="UI\Services\HotkeyData.cs" />
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
+    <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\ThemeData.cs" />
@@ -304,6 +309,7 @@
     <EmbeddedResource Include="Properties\Resources.nb-NO.resx" />
     <EmbeddedResource Include="Properties\Resources.nl.resx" />
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
+    <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
     <EmbeddedResource Include="Properties\Resources.pt-PT.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

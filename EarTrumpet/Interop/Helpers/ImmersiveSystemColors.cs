@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;

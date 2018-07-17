@@ -66,10 +66,10 @@ namespace EarTrumpet.UI.ViewModels
             OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
             OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
             OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
-            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(FullWindow.ActivateSingleInstance);
+            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(_mainViewModel.OpenFlyout);
+            OpenFlyoutCommand = new RelayCommand(() => _mainViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 
@@ -88,7 +88,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
 
                 _icons.Clear();
                 _icons.Add(IconId.OriginalIcon, originalIcon);
@@ -214,7 +214,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartLegacyMixer()
         {
-            using (ProcessHelper.StartNoThrowAndLogWarning("sndvol.exe")) { }
+            ProcessHelper.StartNoThrow("sndvol.exe");
         }
 
         private static Icon GetIconFromFile(string path, int iconOrdinal = 0)

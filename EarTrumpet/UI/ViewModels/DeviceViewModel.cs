@@ -147,7 +147,7 @@ namespace EarTrumpet.UI.ViewModels
             Apps.AddSorted(newSession, AppItemViewModel.CompareByExeName);
         }
 
-        public void AppVirtuallMovingToThisDevice(TemporaryAppItemViewModel app)
+        public void AppMovingToThisDevice(TemporaryAppItemViewModel app)
         {
             app.Expired += App_Expired;
 
@@ -168,7 +168,6 @@ namespace EarTrumpet.UI.ViewModels
 
             if (!hasExistingAppGroup)
             {
-                // Add a fake app entry.
                 Apps.AddSorted(app, AppItemViewModel.CompareByExeName);
             }
         }
@@ -183,7 +182,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        internal void AppVirtuallyLeavingFromThisDevice(IAppItemViewModel app)
+        internal void AppLeavingFromThisDevice(IAppItemViewModel app)
         {
             if (app is TemporaryAppItemViewModel)
             {
@@ -193,7 +192,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public void MakeDefaultPlaybackDevice()
         {
-            _deviceManager.DefaultPlaybackDevice = _device;
+            _deviceManager.Default = _device;
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);

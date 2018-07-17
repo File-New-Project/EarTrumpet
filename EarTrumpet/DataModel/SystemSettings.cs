@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Globalization;
+using EarTrumpet.Extensions;
 
 namespace EarTrumpet.DataModel
 {
@@ -23,13 +24,12 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        private static bool ReadPersonalizationSetting(string key, int defaultValue = 0)
+        private static bool ReadPersonalizationSetting(string valueName, int defaultValue = 0)
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
             {
-                var value = subKey.GetValue(key, defaultValue) as int?;
-                return value.GetValueOrDefault() > 0;
+                return subKey.GetValue<int>(valueName, defaultValue) > 0;
             }
         }
     }

@@ -2,7 +2,6 @@
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
 using Windows.ApplicationModel;
 
@@ -10,8 +9,9 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class SettingsViewModel : BindableBase
     {
-        SettingsService.HotkeyData _hotkey;
-        internal SettingsService.HotkeyData Hotkey
+        private HotkeyData _hotkey;
+
+        internal HotkeyData Hotkey
         {
             get => _hotkey;
             set
@@ -67,7 +67,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OpenAbout()
         {
-            using (ProcessHelper.StartNoThrowAndLogWarning("https://github.com/File-New-Project/EarTrumpet")) { }
+            ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
         }
     }
 }
