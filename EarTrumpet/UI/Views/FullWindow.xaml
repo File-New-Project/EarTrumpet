@@ -125,7 +125,7 @@
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillRight}"
+                                      Foreground="{DynamicResource ControlSliderTrackFillRight}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>

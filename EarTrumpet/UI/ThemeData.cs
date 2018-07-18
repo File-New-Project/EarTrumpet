@@ -23,6 +23,7 @@ namespace EarTrumpet.UI.Views
                 { "CottonSwabSliderThumbPressed", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
                 { "SliderTrackFillLeft", new Lookup("ImmersiveSystemAccentLight1") },
                 { "SliderTrackFillRight", new Static(Color.FromArgb(0x39, 0xFF, 0xFF, 0xFF), SystemColors.ControlLightColor) },
+                { "ControlSliderTrackFillRight", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled"), new Static(SystemColors.ControlLightColor)) },
                 { "WindowBackground", new WindowBackground(0.7, opacityNotTransparent: 1) },
                 { "PopupBackground", new WindowBackground(0.7, opacityNotTransparent: 1) },
                 { "BlurBackground", new WindowBackground(1, opacityNotTransparent: 0.9) },
