@@ -46,16 +46,21 @@ namespace EarTrumpet.DataModel.Internal
                         ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
                     }
 
-                    // Trigger default logic to register for volume change
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         QueryDefaultPlaybackDevice();
                         Loaded?.Invoke(this, null);
                     }));
                 }
-                catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                catch (Exception ex)
                 {
-                    // Expected in some cases.
+                    // Even through we're going to be broken, show the tray icon so the user can collect debug data.
+                    AppTrace.LogWarning(ex);
+
+                    _dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        Loaded?.Invoke(this, null);
+                    }));
                 }
             });
 
