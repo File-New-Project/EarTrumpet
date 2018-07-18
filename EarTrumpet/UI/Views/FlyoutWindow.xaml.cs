@@ -187,7 +187,14 @@ namespace EarTrumpet.UI.Views
             }
             else
             {
-                KeyboardNavigator.OnKeyDown(this, ref e);
+                if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
+                {
+                    e.Handled = true;
+                }
+                else
+                {
+                    KeyboardNavigator.OnKeyDown(this, ref e);
+                }
             }
         }
 
