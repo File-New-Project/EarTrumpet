@@ -142,41 +142,9 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValueBackground()
         {
-            try
-            {
-                uint chanCount = _meter.GetMeteringChannelCount();
-                if (chanCount == 0)
-                {
-                    PeakValue1 = 0;
-                    PeakValue2 = 0;
-                }
-                else
-                {
-                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
-                    _meter.GetChannelsPeakValues(chanCount, arrayPtr);
-
-                    var values = new float[chanCount];
-                    Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
-
-                    if (chanCount == 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[0];
-                    }
-                    else if (chanCount > 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[1];
-                    }
-                }
-            }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
-            {
-                // Expected in some cases.
-
-                PeakValue1 = 0;
-                PeakValue2 = 0;
-            }
+            var newValues = Helpers.ReadPeakValues(_meter);
+            PeakValue1 = newValues[0];
+            PeakValue2 = newValues[1];
         }
 
         public void UnhideSessionsForProcessId(int processId)

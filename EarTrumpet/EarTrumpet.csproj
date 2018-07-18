@@ -92,6 +92,7 @@
     <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
+    <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
