@@ -30,7 +30,7 @@ namespace EarTrumpet.UI.Services
             allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
             allText += $"AnimationsEnabled: {SystemParameters.MenuAnimation}" + Environment.NewLine;
             allText += Environment.NewLine;
-            allText += AppTrace.Instance.Log.ToString();
+            allText += AppTrace.GetLogText();
 
             var fileName = $"{Path.GetTempFileName()}.txt";
             File.WriteAllText(fileName, allText);
