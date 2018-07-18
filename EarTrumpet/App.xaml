@@ -3,17 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
-             xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
-             xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:themes="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="UI\Views\SystemThemeColors.xaml" />
+                <ResourceDictionary Source="UI\Themes\SystemThemeColors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <ctl:ThemeManager x:Key="ThemeManager" />
+            <themes:ThemeManager x:Key="ThemeManager" />
 
             <conv:InvertableVisibilityConverter x:Key="visConverter" />
             <conv:OpacityConverter x:Key="opacityConverter"

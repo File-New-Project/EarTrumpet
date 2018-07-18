@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Linq;
