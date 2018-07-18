@@ -146,7 +146,7 @@
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
-    <Compile Include="UI\ThemeData.cs" />
+    <Compile Include="UI\Themes\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
@@ -220,7 +220,7 @@
     </Compile>
     <Compile Include="Interop\Helpers\KeyboardHook.cs" />
     <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
-    <Compile Include="UI\Controls\ThemeManager.cs" />
+    <Compile Include="UI\Themes\ThemeManager.cs" />
     <Compile Include="DataModel\SystemSettings.cs" />
     <Compile Include="UI\Controls\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppExpandedEventArgs.cs" />
@@ -246,7 +246,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Views\SystemThemeColors.xaml">
+    <Page Include="UI\Themes\SystemThemeColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
