@@ -81,26 +81,6 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string AppDisplayName
-        {
-            get
-            {
-                if (IsSystemSoundsSession)
-                {
-                    return _rawDisplayName;
-                }
-
-                if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
-                {
-                    return _resolvedAppDisplayName;
-                }
-                else
-                {
-                    return _appInfo.ExeName;
-                }
-            }
-        }
-
         public string ExeName => _appInfo.ExeName;
 
         public string IconPath => _appInfo.SmallLogoPath;
@@ -198,6 +178,11 @@ namespace EarTrumpet.DataModel.Internal
 
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
+            if (string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath))
+            {
+                _appInfo.SmallLogoPath = session.GetIconPath();
+            }
+
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
             _isRegistered = true;
@@ -241,7 +226,6 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
                     }));
                 });
@@ -446,7 +430,6 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
             }));
         }

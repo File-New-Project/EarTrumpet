@@ -5,7 +5,6 @@ namespace EarTrumpet.DataModel
 {
     interface IAudioDeviceSession : IStreamWithVolumeControl
     {
-        string AppDisplayName { get; }
         string SessionDisplayName { get; }
         void RefreshDisplayName();
         string ExeName { get; }
