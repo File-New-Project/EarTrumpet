@@ -1,10 +1,13 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -28,7 +31,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
-        public string DisplayName => IsExpanded ? _session.SessionDisplayName : _session.AppDisplayName;
+        public string DisplayName => _session.SessionDisplayName;
 
         public string ExeName => _session.ExeName;
         public string AppId => _session.AppId;
@@ -63,7 +66,14 @@ namespace EarTrumpet.UI.ViewModels
             {
                 if (session.IsDesktopApp)
                 {
-                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                    if (session.IconPath.Contains(","))
+                    {
+                        Icon = GetIconFromFile(session.IconPath.Split(',')[0], int.Parse(session.IconPath.Split(',')[1]));
+                    }
+                    else
+                    {
+                        Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                    }
                 }
                 else
                 {
@@ -87,10 +97,23 @@ namespace EarTrumpet.UI.ViewModels
             _session.PropertyChanged -= Session_PropertyChanged;
         }
 
+        private ImageSource GetIconFromFile(string path, int iconIndex = 0)
+        {
+            IntPtr iconHandle = IntPtr.Zero;
+            try
+            {
+                iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
+                return Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally
+            {
+                User32.DestroyIcon(iconHandle);
+            }
+        }
+
         private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_session.SessionDisplayName) ||
-                e.PropertyName == nameof(_session.AppDisplayName))
+            if (e.PropertyName == nameof(_session.SessionDisplayName))
             {
                 RaisePropertyChanged(nameof(DisplayName));
             }

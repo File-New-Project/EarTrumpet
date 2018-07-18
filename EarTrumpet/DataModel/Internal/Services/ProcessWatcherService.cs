@@ -27,14 +27,6 @@ namespace EarTrumpet.DataModel.Internal.Services
 
         public static void WatchProcess(int processId, Action<int> processQuit)
         {
-            lock (_lock)
-            {
-                if (s_watchers.Any(w => w.Value.processId == processId))
-                {
-                    return;
-                }
-            }
-
             Trace.WriteLine($"ProcessWatcherService WatchProcess {processId}");
 
             var data = new ProcessWatcherData

@@ -238,5 +238,9 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DestroyIcon(IntPtr iconHandle);
     }
 }
