@@ -5,7 +5,9 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid MaxWidth="420"
               MaxHeight="500"
-              Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+              Margin="20"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
