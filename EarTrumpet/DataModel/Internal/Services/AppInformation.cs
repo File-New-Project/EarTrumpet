@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EarTrumpet.DataModel
+namespace EarTrumpet.DataModel.Internal.Services
 {
     class AppInformation
     {
