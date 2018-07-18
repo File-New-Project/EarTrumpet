@@ -54,6 +54,11 @@ namespace EarTrumpet.DataModel.Internal
                 session.PropertyChanged -= Session_PropertyChanged;
             }
 
+            foreach (var session in _movedSessions)
+            {
+                session.PropertyChanged -= MovedSession_PropertyChanged;
+            }
+
             _sessionManager.UnregisterSessionNotification(this);
         }
 
