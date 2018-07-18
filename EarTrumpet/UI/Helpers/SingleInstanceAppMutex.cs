@@ -4,14 +4,14 @@ using System.Threading;
 
 namespace EarTrumpet.UI.Helpers
 {
-    class SingleInstanceAppMutex
+    class SingleInstanceAppMutex 
     {
         private static Mutex _mutex;
 
         public static bool TakeExclusivity()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var mutexName = string.Format(CultureInfo.InvariantCulture, "Local\\{{{0}}}{{{1}}}", assembly.GetType().GUID, assembly.GetName().Name);
+            var mutexName = $"Local\\{assembly.GetName().Name}-0e510f7b-aed2-40b0-ad72-d2d3fdc89a02";
 
             _mutex = new Mutex(true, mutexName, out bool mutexCreated);
             if (!mutexCreated)
