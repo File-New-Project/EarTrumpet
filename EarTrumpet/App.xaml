@@ -49,7 +49,7 @@
                 <Setter Property="Height" Value="31" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
@@ -86,8 +86,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid>
-                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
-                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
+                                <Rectangle Stroke="{DynamicResource LightOrDark_Background}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource LightOrDark_Text}" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -99,8 +99,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid Margin="-4" SnapsToDevicePixels="True">
-                                <Rectangle Stroke="{DynamicResource NormalWindowBackground}" StrokeThickness="3" />
-                                <Rectangle Stroke="{DynamicResource NormalWindowForeground}" StrokeThickness="2" />
+                                <Rectangle Stroke="{DynamicResource LightOrDark_Background}" StrokeThickness="3" />
+                                <Rectangle Stroke="{DynamicResource LightOrDark_Text}" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -296,8 +296,8 @@
 
             <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="AllowsTransparency" Value="True" />
-                <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
-                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
                 <Setter Property="ShowInTaskbar" Value="True" />
@@ -308,7 +308,7 @@
                     </Setter.Value>
                 </Setter>
 
-                <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ActiveWindowBorder}" />
                 <Style.Triggers>
                     <Trigger Property="IsActive" Value="false">
                         <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
@@ -338,7 +338,7 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Opacity" Value="0" />
-                <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+                <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -537,7 +537,7 @@
             </Style>
 
             <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
-                <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />

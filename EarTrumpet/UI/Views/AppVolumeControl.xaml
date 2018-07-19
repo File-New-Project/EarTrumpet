@@ -52,7 +52,7 @@
                                    VerticalAlignment="Center"
                                    FontSize="16"
                                    FontWeight="SemiBold"
-                                   Foreground="{DynamicResource WindowForeground}"
+                                   Foreground="{DynamicResource Unicolor_Text}"
                                    Text="{Binding IconText}"
                                    TextAlignment="Center" />
                     </Border>

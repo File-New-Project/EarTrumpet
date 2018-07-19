@@ -11,54 +11,56 @@ namespace EarTrumpet.UI.Themes
         {
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
-                { "WindowForeground", new Lookup("ImmersiveApplicationTextDarkTheme") },
-                { "SecondaryDarkFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
-                { "HeaderBackground", new Lookup("ImmersiveSystemAccent", 0.3, 0.5, SystemColors.WindowColor)},
-                { "HeaderBackground2", new NormalOrHC(new WindowBackground(0.6, opacityNotTransparent: 1), new Static(Colors.Transparent)) },
-                { "HeaderBackgroundSolid", new Lookup("ImmersiveSystemAccent", 1, 1, SystemColors.WindowColor) },
-                { "CottonSwabSliderThumb", new Lookup("ImmersiveSystemAccent", SystemColors.ControlLightColor) },
-                { "ActiveBorder", new Lookup("ImmersiveSystemAccent") },
-                { "ExpandCollapseButtonMouseOverBackground", new Static(Color.FromArgb(0x20, 0xff, 0xff, 0xff)) },
-                { "ExpandCollapseButtonPressedBackground", new Static(Color.FromArgb(0x2f, 0xff, 0xff, 0xff)) },
-                { "CottonSwabSliderThumbHover", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
-                { "CottonSwabSliderThumbPressed", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
-                { "SliderTrackFillLeft", new Lookup("ImmersiveSystemAccentLight1") },
-                { "SliderTrackFillRight", new Static(Color.FromArgb(0x39, 0xFF, 0xFF, 0xFF), SystemColors.ControlLightColor) },
-                { "ControlSliderTrackFillRight", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled"), new Static(SystemColors.ControlLightColor)) },
-                { "WindowBackground", new WindowBackground(0.7, opacityNotTransparent: 1) },
-                { "PopupBackground", new WindowBackground(0.7, opacityNotTransparent: 1) },
-                { "BlurBackground", new WindowBackground(1, opacityNotTransparent: 0.9) },
-                { "PeakMeterHotColor", new Static(Colors.White) },
-                { "NormalWindowForeground", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
-                { "NormalWindowBackground", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34)), new Static(SystemColors.WindowColor)) },
+                // Independent colors.
+                { "SystemAccent", new Lookup("ImmersiveSystemAccent") },
+                { "ActiveWindowBorder", new Lookup("ImmersiveSystemAccent") },
                 { "InactiveWindowBorder", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34))) },
+                { "CloseButtonForeground", new LightOrDark(new Lookup("ImmersiveSystemText"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
+                // Flyout window "Unicolor" theme.
+                { "Unicolor_Text", new Lookup("ImmersiveApplicationTextDarkTheme") },
+                { "Unicolor_SecondaryDarkFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
+                { "Unicolor_ExpandCollapseButtonMouseOverBackground", new Static(Color.FromArgb(0x20, 0xff, 0xff, 0xff)) },
+                { "Unicolor_ExpandCollapseButtonPressedBackground", new Static(Color.FromArgb(0x2f, 0xff, 0xff, 0xff)) },
+                { "Unicolor_DevicePaneBackgroundLayer1", new Lookup("ImmersiveSystemAccent", 0.3, 0.5, SystemColors.WindowColor)},
+                { "Unicolor_DevicePaneBackgroundLayer2", new NormalOrHC(new Unicolor_WinBackground(0.6, opacityNotTransparent: 1), new Static(Colors.Transparent)) },
+                { "Unicolor_SliderThumb", new Lookup("ImmersiveSystemAccent", SystemColors.ControlLightColor) },
+                { "Unicolor_SliderThumbHover", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
+                { "Unicolor_SliderThumbPressed", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
+                { "Unicolor_SliderTrackLeft", new Lookup("ImmersiveSystemAccentLight1") },
+                { "Unicolor_SliderTrackRight", new Static(Color.FromArgb(0x39, 0xFF, 0xFF, 0xFF), SystemColors.ControlLightColor) },
+                { "Unicolor_Background", new Unicolor_WinBackground(0.7, opacityNotTransparent: 1) },
+                { "Unicolor_BlurBackground", new Unicolor_WinBackground(1, opacityNotTransparent: 0.9) },
+                { "Unicolor_PeakMeterColor", new Static(Colors.White) },
+                { "LightOrDark_PeakMeterColor", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
+                { "LightOrDark_Text", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
+                { "LightOrDark_Background", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34)), new Static(SystemColors.WindowColor)) },
+                { "LightOrDark_SettingsHeaderBackground", new LightOrDark(new Lookup("ImmersiveLightChromeMediumLow"), new Static(Color.FromArgb(255, 48, 48, 48)), new Static(SystemColors.WindowColor)) },
+                { "LightOrDark_SecondaryText", new LightOrDark(new Lookup("ImmersiveLightSecondaryText"), new Lookup("ImmersiveLightDisabledText")) },
+                { "LightOrDark_VirtualTitleBarBackground", new LightOrDark(new Lookup("ImmersiveLightListLow"), new Lookup("ImmersiveDarkChromeMediumLow"), new Static(System.Windows.SystemColors.WindowColor)) },
+                { "LightOrDark_VirtualTitleBarButtonHover", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow", 0.2), new Lookup("ImmersiveDarkBaseMediumLow", 0.2)) },
+                { "LightOrDark_AcrylicBackgroundFallback", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback"), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 1)) },
+                { "LightOrDark_SliderTrack", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillRest"), new Lookup("ImmersiveControlDarkSliderTrackFillRest")) },
+                { "LightOrDark_SliderThumbHover", new LightOrDark(new Lookup("ImmersiveControlLightSliderThumbHover"), new Lookup("ImmersiveControlDarkSliderThumbHover")) },
+                { "LightOrDark_SliderTrackRight", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled"), new Static(SystemColors.ControlLightColor)) },
+                { "LightOrDark_ActiveAcrylicBackground", new LightOrDark(
+                                            new TransparentOrNot(
+                                                new Lookup("ImmersiveLightChromeWhite", 0.7),
+                                                new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
+                                            new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))},
+                // Button is Light/Dark.
                 { "ButtonBackground", new LightOrDark(new Lookup("ImmersiveLightBaseLow"), new Lookup("ImmersiveDarkBaseLow")) },
                 { "ButtonBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightBaseLow"), new Lookup("ImmersiveDarkBaseLow")) },
                 { "ButtonBackgroundPressed", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
                 { "ButtonBorder", new NormalOrHC(new Static(Colors.Transparent), new Static(SystemColors.ControlTextColor)) },
                 { "ButtonBorderHover", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow"), new Static(SystemColors.ControlTextColor)) },
-                { "VirtualTitleBarButtonHover", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow", 0.2), new Lookup("ImmersiveDarkBaseMediumLow", 0.2)) },
                 { "ButtonBorderPressed", new Static(Colors.Transparent) },
                 { "ButtonForeground", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
                 { "ButtonForegroundHover", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
                 { "ButtonForegroundPressed", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh")) },
+                // Hyperlink is Light/Dark.
                 { "HyperlinkTextForeground", new NormalOrHC(new Lookup("ImmersiveSystemAccent"), new Lookup("ImmersiveControlDarkLinkRest")) },
                 { "HyperlinkTextForegroundHover", new LightOrDark(new Lookup("ImmersiveLightBaseMedium"), new Lookup("ImmersiveDarkBaseMedium"), new Lookup("ImmersiveControlDarkLinkHover")) },
-                { "PeakMeterBackground", new LightOrDark(new Lookup("ImmersiveSystemAccentDark3"), new Static(Colors.White)) },
-                { "CloseButtonForeground", new LightOrDark(new Lookup("ImmersiveSystemText"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
-                { "SettingsHeaderBackground", new LightOrDark(new Lookup("ImmersiveLightChromeMediumLow"), new Static(Color.FromArgb(255, 48, 48, 48)), new Static(SystemColors.WindowColor)) },
-                { "SecondaryText", new LightOrDark(new Lookup("ImmersiveLightSecondaryText"), new Lookup("ImmersiveLightDisabledText")) },
-                { "SystemAccent", new Lookup("ImmersiveSystemAccent") },
-                { "FullWindowDeviceBackground", new LightOrDark(new Lookup("ImmersiveLightListLow"), new Lookup("ImmersiveDarkChromeMediumLow"), new Static(System.Windows.SystemColors.WindowColor)) },
-                { "AcrylicWindowBackdropFallback", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback"), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 1)) },
-                { "ControlSliderTrackFillRest", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillRest"), new Lookup("ImmersiveControlDarkSliderTrackFillRest")) },
-                { "ControlSliderTrackFillDisabled", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled")) },
-                { "ControlSliderThumbHover", new LightOrDark(new Lookup("ImmersiveControlLightSliderThumbHover"), new Lookup("ImmersiveControlDarkSliderThumbHover")) },
-                { "ChromeBlackMedium", new LightOrDark(
-                                            new TransparentOrNot(
-                                                new Lookup("ImmersiveLightChromeWhite", 0.7),
-                                                new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
-                                            new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))},
+                // ContextMenu is Light/Dark.
                 { "ContextMenuBackground", new LightOrDark(new Lookup("ImmersiveLightChromeMediumLow"), new Lookup("ImmersiveDarkChromeMediumLow"), new Static(SystemColors.MenuColor)) },
                 { "ContextMenuBorder", new LightOrDark(new Lookup("ImmersiveLightChromeHigh"), new Lookup("ImmersiveControlDarkAppButtonTextDisabled", 0.9), new Static(SystemColors.ControlTextColor)) },
                 { "ContextMenuItemBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightListLow"), new Lookup("ImmersiveDarkListLow"), new Static(SystemColors.HighlightColor)) },
@@ -75,6 +77,7 @@ namespace EarTrumpet.UI.Themes
                 { "ContextMenuItemTextDisabledDarkOnly", new Lookup("ImmersiveDarkBaseMediumLow") },
                 { "ContextMenuItemGlyphDarkOnly", new Lookup("ImmersiveDarkBaseMedium", SystemColors.MenuTextColor) },
                 { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow", SystemColors.MenuTextColor) },
+                // CheckBox is Light/Dark.
                 { "CheckBoxBorder",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh"), new Static(SystemColors.HighlightColor)) },
                 { "CheckBoxBorderHover",  new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh"), new Static(SystemColors.HighlightColor)) },
                 { "CheckBoxBorderPressed",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium"), new Static(SystemColors.HighlightColor)) },
@@ -86,12 +89,12 @@ namespace EarTrumpet.UI.Themes
             };
         }
 
-        private class WindowBackground : ThemeManager.IResolvableThemeBrush
+        private class Unicolor_WinBackground : ThemeManager.IResolvableThemeBrush
         {
             private readonly double _opacityTransparent;
             private readonly double _opacityNotTransparent;
 
-            public WindowBackground(double opacityTransparent, double opacityNotTransparent)
+            public Unicolor_WinBackground(double opacityTransparent, double opacityNotTransparent)
             {
                 _opacityTransparent = opacityTransparent;
                 _opacityNotTransparent = opacityNotTransparent;

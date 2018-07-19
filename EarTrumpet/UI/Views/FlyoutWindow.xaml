@@ -8,7 +8,7 @@
         Width="{StaticResource WindowAndItemSize}"
         AllowsTransparency="True"
         Background="Transparent"
-        Foreground="{DynamicResource WindowForeground}"
+        Foreground="{DynamicResource Unicolor_Text}"
         Icon="pack://application:,,,/Assets/Application.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
         ResizeMode="NoResize"
@@ -21,11 +21,11 @@
         <clr:String x:Key="ContextMenuTheme">DarkOnly</clr:String>
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
 
-        <Style x:Key="DeviceHeaderBackgroundBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground2}" />
+        <Style x:Key="DeviceUnicolor_DevicePaneBackgroundLayer1BorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer2}" />
         </Style>
 
         <Style x:Key="AppListStyle"
@@ -37,20 +37,20 @@
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ActiveWindowBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
 
         <Style x:Key="Windows10FocusVisualStyleDarkOnly">
@@ -58,8 +58,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Rectangle Stroke="{DynamicResource SecondaryDarkFocusVisual}" StrokeThickness="3" />
-                            <Rectangle Stroke="{DynamicResource WindowForeground}" StrokeThickness="2" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryDarkFocusVisual}" StrokeThickness="3" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_Text}" StrokeThickness="2" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -70,7 +70,7 @@
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="Background">
@@ -85,37 +85,37 @@
         <Style x:Key="VirtualTitleBarTextStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="PerThemeGlyphTextBlockStyle"
                BasedOn="{StaticResource GlyphTextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="DeviceVolumeTextStyle"
                BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="AppVolumeTextStyle"
                BasedOn="{StaticResource BaseAppVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="DeviceTitleTextStyle"
                BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
@@ -126,18 +126,18 @@
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
                                       Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillLeft}"
+                                      Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
                         <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource CottonSwabSliderThumb}"
+                               Foreground="{DynamicResource Unicolor_SliderThumb}"
                                Style="{StaticResource SliderThumbStyle}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillRight}"
+                                      Foreground="{DynamicResource Unicolor_SliderTrackRight}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
@@ -146,13 +146,13 @@
                         Height="2"
                         Margin="0,-2,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PeakMeterHotColor}" />
+                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
 
                 <Border Name="PeakMeter2"
                         Height="2"
                         Margin="0,1,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PeakMeterHotColor}" />
+                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
@@ -163,14 +163,14 @@
                         <VisualState x:Name="MouseOver">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbPressed}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
@@ -195,7 +195,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -210,10 +210,10 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource ExpandCollapseButtonMouseOverBackground}" />
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonMouseOverBackground}" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource ExpandCollapseButtonPressedBackground}" />
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedBackground}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -238,7 +238,7 @@
 
                 <Border Height="{StaticResource NoItemsPaneHeight}"
                         VerticalAlignment="Center"
-                        Background="{DynamicResource WindowBackground}"
+                        Background="{DynamicResource Unicolor_Background}"
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
                                HorizontalAlignment="Center"
@@ -276,7 +276,7 @@
             </Grid>
         </ScrollViewer>
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource BlurBackground}"
+                Background="{DynamicResource Unicolor_BlurBackground}"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
