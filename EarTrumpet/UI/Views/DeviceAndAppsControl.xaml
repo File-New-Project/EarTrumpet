@@ -22,7 +22,7 @@
                     <TextBlock Style="{DynamicResource DeviceTitleTextStyle}"
                                Text="{Binding Device.DisplayName}"
                                TextTrimming="CharacterEllipsis"
-                               Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter},ConverterParameter=Normal}" />
+                               Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
                 </Border>
 
                 <ListViewItem Name="DeviceListItem"

@@ -73,7 +73,12 @@
             <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHover}" />
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverText}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedText}" />
                 </Trigger>
             </Style.Triggers>
         </Style>

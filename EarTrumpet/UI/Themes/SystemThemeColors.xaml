@@ -23,13 +23,19 @@
     <SolidColorBrush x:Key="Unicolor_PrimaryFocusVisual">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SecondaryFocusVisual">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_AppIconPlateBackground">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHover">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHoverBackground">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHoverText">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonPressedBackground">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonPressedText">Blue</SolidColorBrush>
 
     <SolidColorBrush x:Key="LightOrDark_PeakMeterColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SliderTrackRight">Pink</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_Text">White</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_Background">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonHover">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonHoverBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonHoverText">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonPressedBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonPressedText">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SecondaryText">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_AcrylicBackgroundFallback">Red</SolidColorBrush>
