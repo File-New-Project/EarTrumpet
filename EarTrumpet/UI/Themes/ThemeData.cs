@@ -69,6 +69,7 @@ namespace EarTrumpet.UI.Themes
                 { "ContextMenuItemTextHover", new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh"), new Static(SystemColors.HighlightTextColor)) },
                 { "ContextMenuItemTextDisabled", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow")) },
                 { "ContextMenuItemGlyph", new LightOrDark(new Lookup("ImmersiveLightBaseMedium"), new Lookup("ImmersiveDarkBaseMedium"), new Static(SystemColors.MenuTextColor)) },
+                { "ContextMenuItemGlyphHover", new LightOrDark(new Lookup("ImmersiveLightBaseMedium"), new Lookup("ImmersiveDarkBaseMedium"), new Static(SystemColors.HighlightTextColor)) },
                 { "ContextMenuSeparator", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow"), new Lookup("ImmersiveDarkBaseMediumLow"), new Static(SystemColors.MenuTextColor)) },
                 { "ContextMenuBackgroundDarkOnly", new Lookup("ImmersiveDarkChromeMediumLow", SystemColors.MenuColor) },
                 { "ContextMenuBorderDarkOnly", new Lookup("ImmersiveControlDarkAppButtonTextDisabled", 0.9, 0, SystemColors.ControlTextColor) },
@@ -77,6 +78,7 @@ namespace EarTrumpet.UI.Themes
                 { "ContextMenuItemTextHoverDarkOnly", new Lookup("ImmersiveDarkBaseHigh", SystemColors.HighlightTextColor) },
                 { "ContextMenuItemTextDisabledDarkOnly", new Lookup("ImmersiveDarkBaseMediumLow") },
                 { "ContextMenuItemGlyphDarkOnly", new Lookup("ImmersiveDarkBaseMedium", SystemColors.MenuTextColor) },
+                { "ContextMenuItemGlyphHoverDarkOnly", new Lookup("ImmersiveDarkBaseMedium", SystemColors.HighlightTextColor) },
                 { "ContextMenuSeparatorDarkOnly",  new Lookup("ImmersiveDarkBaseMediumLow", SystemColors.MenuTextColor) },
                 // CheckBox is Light/Dark.
                 { "CheckBoxBorder",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh"), new Static(SystemColors.HighlightColor)) },
