@@ -25,7 +25,7 @@
                                 <Setter Property="Opacity" Value="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
-                                <Setter Property="Background" Value="{DynamicResource SystemAccent}" />
+                                <Setter Property="Background" Value="{DynamicResource Unicolor_AppIconPlateBackground}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

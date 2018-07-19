@@ -75,7 +75,7 @@
                 <Setter Property="Margin" Value="0,1,0,0" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Foreground" Value="{DynamicResource CloseButtonForeground}" />
+                        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_CloseButtonText}" />
                         <Setter Property="Background" Value="#FFE81123" />
                     </Trigger>
                 </Style.Triggers>
@@ -308,10 +308,10 @@
                     </Setter.Value>
                 </Setter>
 
-                <Setter Property="BorderBrush" Value="{DynamicResource ActiveWindowBorder}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                 <Style.Triggers>
                     <Trigger Property="IsActive" Value="false">
-                        <Setter Property="BorderBrush" Value="{DynamicResource InactiveWindowBorder}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_InactiveWindowBorder}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

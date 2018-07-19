@@ -44,7 +44,7 @@
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveWindowBorder}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
