@@ -21,6 +21,7 @@
     <SolidColorBrush x:Key="Unicolor_PrimaryFocusVisual">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SecondaryFocusVisual">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_AppIconPlateBackground">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHover">Blue</SolidColorBrush>
 
     <SolidColorBrush x:Key="LightOrDark_PeakMeterColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SliderTrackRight">Pink</SolidColorBrush>

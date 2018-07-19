@@ -28,6 +28,7 @@ namespace EarTrumpet.UI.Themes
                 { "Unicolor_BlurBackground", new UnicolorWindowBackground(1, opacityNotTransparent: 0.9) },
                 { "Unicolor_PeakMeterColor", new Static(Colors.White) },
                 { "Unicolor_AppIconPlateBackground", new Lookup("ImmersiveSystemAccent") },
+                { "Unicolor_VirtualTitleBarButtonHover", new Static(Color.FromArgb(0x22,0xff,0xff,0xff)) },
                 { "LightOrDark_PeakMeterColor", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 { "LightOrDark_Text", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 { "LightOrDark_Background", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34)), new Static(SystemColors.WindowColor)) },

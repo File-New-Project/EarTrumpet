@@ -73,11 +73,7 @@
             <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#22FFFFFF" />
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHover}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
