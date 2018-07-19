@@ -117,7 +117,7 @@
                         <Thumb Name="SliderThumb">
                             <Thumb.Style>
                                 <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
-                                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderTrack}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderTrackLeft}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
                                             <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderThumbHover}" />
