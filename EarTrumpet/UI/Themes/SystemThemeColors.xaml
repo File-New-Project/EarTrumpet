@@ -5,15 +5,11 @@
         This dictionay is replaced wholesale by ThemeManager
     -->
 
-    <SolidColorBrush x:Key="ActiveWindowBorder">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="InactiveWindowBorder">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="SystemAccent">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="CloseButtonForeground">Red</SolidColorBrush>
-
     <SolidColorBrush x:Key="Unicolor_Text">White</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_Background">Black</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_BlurBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer1">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer2">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderThumb">White</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderThumbHover">Green</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderThumbPressed">Blue</SolidColorBrush>
@@ -23,7 +19,7 @@
     <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonMouseOverBackground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SecondaryDarkFocusVisual">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer2">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_AppIconPlateBackground">Blue</SolidColorBrush>
 
     <SolidColorBrush x:Key="LightOrDark_PeakMeterColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SliderTrackRight">Pink</SolidColorBrush>
@@ -37,6 +33,9 @@
     <SolidColorBrush x:Key="LightOrDark_ActiveAcrylicBackground">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SliderTrack">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SettingsHeaderBackground">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_ActiveWindowBorder">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_InactiveWindowBorder">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_CloseButtonText">Red</SolidColorBrush>
 
     <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Red</SolidColorBrush>

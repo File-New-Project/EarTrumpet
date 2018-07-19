@@ -11,26 +11,22 @@ namespace EarTrumpet.UI.Themes
         {
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
-                // Independent colors.
-                { "SystemAccent", new Lookup("ImmersiveSystemAccent") },
-                { "ActiveWindowBorder", new Lookup("ImmersiveSystemAccent") },
-                { "InactiveWindowBorder", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34))) },
-                { "CloseButtonForeground", new LightOrDark(new Lookup("ImmersiveSystemText"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 // Flyout window "Unicolor" theme.
                 { "Unicolor_Text", new Lookup("ImmersiveApplicationTextDarkTheme") },
                 { "Unicolor_SecondaryDarkFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
                 { "Unicolor_ExpandCollapseButtonMouseOverBackground", new Static(Color.FromArgb(0x20, 0xff, 0xff, 0xff)) },
                 { "Unicolor_ExpandCollapseButtonPressedBackground", new Static(Color.FromArgb(0x2f, 0xff, 0xff, 0xff)) },
                 { "Unicolor_DevicePaneBackgroundLayer1", new Lookup("ImmersiveSystemAccent", 0.3, 0.5, SystemColors.WindowColor)},
-                { "Unicolor_DevicePaneBackgroundLayer2", new NormalOrHC(new Unicolor_WinBackground(0.6, opacityNotTransparent: 1), new Static(Colors.Transparent)) },
+                { "Unicolor_DevicePaneBackgroundLayer2", new NormalOrHC(new UnicolorWindowBackground(0.6, opacityNotTransparent: 1), new Static(Colors.Transparent)) },
                 { "Unicolor_SliderThumb", new Lookup("ImmersiveSystemAccent", SystemColors.ControlLightColor) },
                 { "Unicolor_SliderThumbHover", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
                 { "Unicolor_SliderThumbPressed", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
                 { "Unicolor_SliderTrackLeft", new Lookup("ImmersiveSystemAccentLight1") },
                 { "Unicolor_SliderTrackRight", new Static(Color.FromArgb(0x39, 0xFF, 0xFF, 0xFF), SystemColors.ControlLightColor) },
-                { "Unicolor_Background", new Unicolor_WinBackground(0.7, opacityNotTransparent: 1) },
-                { "Unicolor_BlurBackground", new Unicolor_WinBackground(1, opacityNotTransparent: 0.9) },
+                { "Unicolor_Background", new UnicolorWindowBackground(0.7, opacityNotTransparent: 1) },
+                { "Unicolor_BlurBackground", new UnicolorWindowBackground(1, opacityNotTransparent: 0.9) },
                 { "Unicolor_PeakMeterColor", new Static(Colors.White) },
+                { "Unicolor_AppIconPlateBackground", new Lookup("ImmersiveSystemAccent") },
                 { "LightOrDark_PeakMeterColor", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 { "LightOrDark_Text", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 { "LightOrDark_Background", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34)), new Static(SystemColors.WindowColor)) },
@@ -47,6 +43,9 @@ namespace EarTrumpet.UI.Themes
                                                 new Lookup("ImmersiveLightChromeWhite", 0.7),
                                                 new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1)),
                                             new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6, 1))},
+                { "LightOrDark_ActiveWindowBorder", new Lookup("ImmersiveSystemAccent") },
+                { "LightOrDark_InactiveWindowBorder", new LightOrDark(new Lookup("ImmersiveApplicationBackground"), new Static(Color.FromArgb(255, 34, 34, 34))) },
+                { "LightOrDark_CloseButtonText", new LightOrDark(new Lookup("ImmersiveSystemText"), new Lookup("ImmersiveApplicationTextDarkTheme")) },
                 // Button is Light/Dark.
                 { "ButtonBackground", new LightOrDark(new Lookup("ImmersiveLightBaseLow"), new Lookup("ImmersiveDarkBaseLow")) },
                 { "ButtonBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightBaseLow"), new Lookup("ImmersiveDarkBaseLow")) },
@@ -89,12 +88,12 @@ namespace EarTrumpet.UI.Themes
             };
         }
 
-        private class Unicolor_WinBackground : ThemeManager.IResolvableThemeBrush
+        private class UnicolorWindowBackground : ThemeManager.IResolvableThemeBrush
         {
             private readonly double _opacityTransparent;
             private readonly double _opacityNotTransparent;
 
-            public Unicolor_WinBackground(double opacityTransparent, double opacityNotTransparent)
+            public UnicolorWindowBackground(double opacityTransparent, double opacityNotTransparent)
             {
                 _opacityTransparent = opacityTransparent;
                 _opacityNotTransparent = opacityNotTransparent;
