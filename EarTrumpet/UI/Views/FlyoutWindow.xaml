@@ -24,7 +24,7 @@
             <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
 
-        <Style x:Key="DeviceUnicolor_DevicePaneBackgroundLayer1BorderStyle" TargetType="{x:Type Border}">
+        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer2}" />
         </Style>
 

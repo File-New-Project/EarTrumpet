@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Style="{DynamicResource DeviceUnicolor_DevicePaneBackgroundLayer1BorderStyle}">
+        <Border Style="{DynamicResource DeviceHeaderBorderStyle}">
             <Grid Style="{DynamicResource DeviceHeaderGridStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
