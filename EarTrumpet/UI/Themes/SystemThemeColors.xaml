@@ -18,6 +18,8 @@
     <SolidColorBrush x:Key="ControlSliderTrackFillRight">Pink</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterHotColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="ActiveBorder">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="ExpandCollapseButtonMouseOverBackground">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
 
     <SolidColorBrush x:Key="NormalWindowForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="NormalWindowBackground">Black</SolidColorBrush>

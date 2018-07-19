@@ -9,7 +9,6 @@ namespace EarTrumpet.UI.Themes
     {
         public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetBrushData()
         {
-
             return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
             {
                 { "WindowForeground", new Lookup("ImmersiveApplicationTextDarkTheme") },
@@ -19,6 +18,8 @@ namespace EarTrumpet.UI.Themes
                 { "HeaderBackgroundSolid", new Lookup("ImmersiveSystemAccent", 1, 1, SystemColors.WindowColor) },
                 { "CottonSwabSliderThumb", new Lookup("ImmersiveSystemAccent", SystemColors.ControlLightColor) },
                 { "ActiveBorder", new Lookup("ImmersiveSystemAccent") },
+                { "ExpandCollapseButtonMouseOverBackground", new Static(Color.FromArgb(0x20, 0xff, 0xff, 0xff)) },
+                { "ExpandCollapseButtonPressedBackground", new Static(Color.FromArgb(0x2f, 0xff, 0xff, 0xff)) },
                 { "CottonSwabSliderThumbHover", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
                 { "CottonSwabSliderThumbPressed", new Lookup("ImmersiveControlDarkSliderThumbHover", SystemColors.HighlightColor) },
                 { "SliderTrackFillLeft", new Lookup("ImmersiveSystemAccentLight1") },
