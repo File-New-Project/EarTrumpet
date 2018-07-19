@@ -210,7 +210,10 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="#22FFFFFF" />
+                    <Setter Property="Background" Value="#20FFFFFF" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="#2FFFFFFF" />
                 </Trigger>
             </Style.Triggers>
         </Style>
