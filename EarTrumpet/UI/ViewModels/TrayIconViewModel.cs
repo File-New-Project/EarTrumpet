@@ -45,6 +45,7 @@ namespace EarTrumpet.UI.ViewModels
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.Invalid;
         private bool _useLegacyIcon;
+        private bool _useLargeIcon;
         private DeviceViewModel _defaultPlaybackDevice;
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
@@ -75,6 +76,9 @@ namespace EarTrumpet.UI.ViewModels
 
         private void LoadIconResources()
         {
+            _useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
+            Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={_useLargeIcon}");
+
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
             {
@@ -184,6 +188,15 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        internal void DpiChanged()
+        {
+            Trace.WriteLine("TrayViewModel DpiChanged");
+            _icons.Clear();
+            LoadIconResources();
+            _currentIcon = IconId.Invalid;
+            UpdateTrayIcon();
+        }
+
         private void UpdateToolTip()
         {
             string toolTipText;
@@ -217,7 +230,7 @@ namespace EarTrumpet.UI.ViewModels
             ProcessHelper.StartNoThrow("sndvol.exe");
         }
 
-        private static Icon GetIconFromFile(string path, int iconOrdinal = 0)
+        private Icon GetIconFromFile(string path, int iconOrdinal = 0)
         {
             var moduleHandle = Kernel32.LoadLibraryEx(path, IntPtr.Zero,
                 Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
@@ -225,7 +238,7 @@ namespace EarTrumpet.UI.ViewModels
             IntPtr iconHandle = IntPtr.Zero;
             try
             {
-                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
+                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), _useLargeIcon ? Comctl32.LI_METRIC.LIM_LARGE : Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
             }
             finally
             {

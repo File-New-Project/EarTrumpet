@@ -124,6 +124,7 @@
     <Compile Include="Interop\PropVariant.cs" />
     <Compile Include="Interop\PropVariantUnion.cs" />
     <Compile Include="Interop\SFGAO.cs" />
+    <Compile Include="Interop\Shcore.cs" />
     <Compile Include="Interop\Shell32.cs" />
     <Compile Include="Interop\Shlwapi.cs" />
     <Compile Include="Interop\SICHINT.cs" />
