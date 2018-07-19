@@ -66,13 +66,16 @@ namespace EarTrumpet.UI.ViewModels
             {
                 if (session.IsDesktopApp)
                 {
-                    if (session.IconPath.Contains(","))
+                    if (!string.IsNullOrWhiteSpace(session.IconPath))
                     {
-                        Icon = GetIconFromFile(session.IconPath.Split(',')[0], int.Parse(session.IconPath.Split(',')[1]));
-                    }
-                    else
-                    {
-                        Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                        if (session.IconPath.Contains(","))
+                        {
+                            Icon = GetIconFromFile(session.IconPath.Split(',')[0], int.Parse(session.IconPath.Split(',')[1]));
+                        }
+                        else
+                        {
+                            Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                        }
                     }
                 }
                 else
