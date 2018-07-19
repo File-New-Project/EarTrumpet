@@ -135,7 +135,8 @@ namespace EarTrumpet.UI.Themes
                     break;
                 case WM_SETTINGCHANGE:
                     var settingChanged = Marshal.PtrToStringUni(lParam);
-                    if (settingChanged == "ImmersiveColorSet")
+                    if (settingChanged == "ImmersiveColorSet" || // Accent color
+                        settingChanged == "WindowsThemeElement") // High contrast
                     {
                         OnThemeColorsChanged();
                     }
