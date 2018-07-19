@@ -45,7 +45,7 @@ namespace EarTrumpet.UI.Themes
                 { "LightOrDark_VirtualTitleBarButtonPressedBackground", new LightOrDark(new Lookup("ImmersiveLightBaseMediumLow", 0.2), new Lookup("ImmersiveDarkBaseMediumLow", 0.2), new Static(SystemColors.HighlightColor)) },
                 { "LightOrDark_VirtualTitleBarButtonPressedText", new LightOrDark(new Lookup("ImmersiveApplicationTextLightTheme"), new Lookup("ImmersiveApplicationTextDarkTheme"), new Static(SystemColors.HighlightTextColor)) },
                 { "LightOrDark_AcrylicBackgroundFallback", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback"), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 1)) },
-                { "LightOrDark_SliderTrack", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillRest"), new Lookup("ImmersiveControlDarkSliderTrackFillRest")) },
+                { "LightOrDark_SliderTrackLeft", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillRest"), new Lookup("ImmersiveControlDarkSliderTrackFillRest")) },
                 { "LightOrDark_SliderThumbHover", new LightOrDark(new Lookup("ImmersiveControlLightSliderThumbHover"), new Lookup("ImmersiveControlDarkSliderThumbHover")) },
                 { "LightOrDark_SliderTrackRight", new LightOrDark(new Lookup("ImmersiveControlLightSliderTrackFillDisabled"), new Lookup("ImmersiveControlDarkSliderTrackFillDisabled"), new Static(SystemColors.ControlLightColor)) },
                 { "LightOrDark_ActiveAcrylicBackground", new LightOrDark(
