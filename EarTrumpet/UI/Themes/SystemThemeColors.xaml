@@ -18,7 +18,8 @@
     <SolidColorBrush x:Key="Unicolor_PeakMeterColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonMouseOverBackground">Green</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_SecondaryDarkFocusVisual">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_PrimaryFocusVisual">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SecondaryFocusVisual">Red</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_AppIconPlateBackground">Blue</SolidColorBrush>
 
     <SolidColorBrush x:Key="LightOrDark_PeakMeterColor">Aqua</SolidColorBrush>

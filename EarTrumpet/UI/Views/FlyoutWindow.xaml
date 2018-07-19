@@ -58,8 +58,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryDarkFocusVisual}" StrokeThickness="3" />
-                            <Rectangle Stroke="{DynamicResource Unicolor_Text}" StrokeThickness="2" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryFocusVisual}" StrokeThickness="3" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_PrimaryFocusVisual}" StrokeThickness="2" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

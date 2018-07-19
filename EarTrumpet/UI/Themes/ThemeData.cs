@@ -13,7 +13,8 @@ namespace EarTrumpet.UI.Themes
             {
                 // Flyout window "Unicolor" theme.
                 { "Unicolor_Text", new Lookup("ImmersiveApplicationTextDarkTheme") },
-                { "Unicolor_SecondaryDarkFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
+                { "Unicolor_PrimaryFocusVisual", new Lookup("ImmersiveApplicationTextDarkTheme") },
+                { "Unicolor_SecondaryFocusVisual", new Lookup("ImmersiveApplicationBackgroundDarkTheme") },
                 { "Unicolor_ExpandCollapseButtonMouseOverBackground", new Static(Color.FromArgb(0x20, 0xff, 0xff, 0xff)) },
                 { "Unicolor_ExpandCollapseButtonPressedBackground", new Static(Color.FromArgb(0x2f, 0xff, 0xff, 0xff)) },
                 { "Unicolor_DevicePaneBackgroundLayer1", new Lookup("ImmersiveSystemAccent", 0.3, 0.5, SystemColors.WindowColor)},
