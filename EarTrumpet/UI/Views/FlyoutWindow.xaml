@@ -110,9 +110,7 @@
 
         <Style x:Key="DeviceTitleTextStyle"
                BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
+               TargetType="{x:Type TextBlock}" />
 
         <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
             <Grid>
@@ -206,10 +204,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonMouseOverBackground}" />
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverText}" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
                     <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedText}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -250,7 +250,9 @@
                                   ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
+                                <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded"
+                                                            Device="{Binding}"
+                                                            IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -261,11 +263,20 @@
                             IsEnabled="{Binding CanExpand}"
                             Style="{StaticResource ExpandCollapseButtonStyle}">
                         <Button.Content>
-                            <TextBlock Margin="{StaticResource WindowMargin}"
-                                       HorizontalAlignment="Right"
-                                       FontSize="12"
-                                       Style="{StaticResource GlyphTextBlockStyle}"
-                                       Text="{Binding ExpandText}" />
+                            <Grid>
+                                <TextBlock Margin="12,0,32,0"
+                                           HorizontalAlignment="Left"
+                                           Style="{DynamicResource DeviceTitleTextStyle}"
+                                           Text="{Binding DeviceNameText}"
+                                           TextTrimming="CharacterEllipsis" />
+
+                                <TextBlock Margin="{StaticResource WindowMargin}"
+                                           HorizontalAlignment="Right"
+                                           FontSize="12"
+                                           Style="{StaticResource GlyphTextBlockStyle}"
+                                           Text="{Binding ExpandText}" />
+                            </Grid>
+
                         </Button.Content>
                     </Button>
                 </Grid>

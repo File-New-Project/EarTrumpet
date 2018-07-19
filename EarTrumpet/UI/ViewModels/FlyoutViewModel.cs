@@ -37,6 +37,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsEmpty => Devices.Count == 0;
         public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
         public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
+        public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
@@ -139,6 +140,7 @@ namespace EarTrumpet.UI.ViewModels
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
+            RaisePropertyChanged(nameof(DeviceNameText));
             RaisePropertyChanged(nameof(ExpandAccessibleText));
             InvalidateWindowSize();
         }
@@ -162,9 +164,17 @@ namespace EarTrumpet.UI.ViewModels
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
-
-                    RaiseDevicesChanged();
                 }
+            }
+            UpdateTextVisibility();
+            RaiseDevicesChanged();
+        }
+
+        private void UpdateTextVisibility()
+        {
+            for (var i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].IsDisplayNameVisible = i > 0;
             }
         }
 
@@ -199,6 +209,8 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
+            UpdateTextVisibility();
+
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(ExpandText));
             RaisePropertyChanged(nameof(ExpandAccessibleText));
@@ -208,7 +220,8 @@ namespace EarTrumpet.UI.ViewModels
         private void InvalidateWindowSize()
         {
             // We must be async because otherwise SetWindowPos will pump messages before the UI has updated.
-            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+            App.Current.Dispatcher.BeginInvoke((Action)(() =>
+            {
                 WindowSizeInvalidated?.Invoke(this, null);
             }));
         }
@@ -218,11 +231,11 @@ namespace EarTrumpet.UI.ViewModels
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
             var oldState = State;
 
-            bool isValidStateTransition = 
-                oldState == ViewState.NotLoaded &&      state == ViewState.Hidden ||
-                oldState == ViewState.Hidden &&         state == ViewState.Opening ||
-                oldState == ViewState.Opening &&        state == ViewState.Open ||
-                oldState == ViewState.Open &&           state == ViewState.Closing_Stage1 ||
+            bool isValidStateTransition =
+                oldState == ViewState.NotLoaded && state == ViewState.Hidden ||
+                oldState == ViewState.Hidden && state == ViewState.Opening ||
+                oldState == ViewState.Opening && state == ViewState.Open ||
+                oldState == ViewState.Open && state == ViewState.Closing_Stage1 ||
                 oldState == ViewState.Closing_Stage1 && state == ViewState.Closing_Stage2 ||
                 oldState == ViewState.Closing_Stage1 && state == ViewState.Hidden ||
                 oldState == ViewState.Closing_Stage2 && state == ViewState.Hidden;

@@ -19,16 +19,16 @@
                 </Grid.RowDefinitions>
 
                 <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                    <TextBlock Margin="0,0,20,0"
-                               Style="{DynamicResource DeviceTitleTextStyle}"
-                               Text="{Binding DisplayName}"
-                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Style="{DynamicResource DeviceTitleTextStyle}"
+                               Text="{Binding Device.DisplayName}"
+                               TextTrimming="CharacterEllipsis"
+                               Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter},ConverterParameter=Normal}" />
                 </Border>
 
                 <ListViewItem Name="DeviceListItem"
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
-                              AutomationProperties.Name="{Binding}">
+                              AutomationProperties.Name="{Binding Device}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource IconCellWidth}" />
@@ -40,31 +40,31 @@
                                 HorizontalAlignment="Center"
                                 Background="Transparent"
                                 MouseDown="Icon_MouseDown"
-                                Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}">
+                                Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
 
                             <Grid>
                                 <TextBlock FontSize="24"
                                            Opacity="0.4"
                                            Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding DeviceIconTextBackground}" />
+                                           Text="{Binding Device.DeviceIconTextBackground}" />
                                 <TextBlock FontSize="24"
                                            Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding DeviceIconText}" />
+                                           Text="{Binding Device.DeviceIconText}" />
                             </Grid>
                         </Border>
 
                         <ctl:VolumeSlider Grid.Column="1"
-                                          Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                                          PeakValue1="{Binding PeakValue1}"
-                                          PeakValue2="{Binding PeakValue2}"
+                                          Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
+                                          PeakValue1="{Binding Device.PeakValue1}"
+                                          PeakValue2="{Binding Device.PeakValue2}"
                                           PreviewMouseUp="TouchSlider_MouseUp"
                                           PreviewTouchUp="TouchSlider_TouchUp"
                                           Style="{DynamicResource VolumeSliderStyle}"
-                                          Value="{Binding Volume, Mode=TwoWay}" />
+                                          Value="{Binding Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
-                                   Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
+                                   Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
                                    Style="{DynamicResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Volume, Mode=OneWay}" />
+                                   Text="{Binding Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </ListViewItem>
             </Grid>
@@ -73,7 +73,7 @@
         <Border Grid.Row="1" Style="{DynamicResource AppListBorderStyle}">
             <ListView Name="AppList"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
-                      ItemsSource="{Binding Apps, Mode=OneWay}"
+                      ItemsSource="{Binding Device.Apps, Mode=OneWay}"
                       Style="{DynamicResource AppListStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
