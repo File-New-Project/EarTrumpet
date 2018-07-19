@@ -17,6 +17,10 @@ namespace EarTrumpet.UI.Views
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
 
+        public bool IsDisplayNameVisible { get { return (bool)GetValue(IsDisplayNameVisibleProperty); } set { SetValue(IsDisplayNameVisibleProperty, value); } }
+        public static readonly DependencyProperty IsDisplayNameVisibleProperty =
+            DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceAndAppsControl), new PropertyMetadata(true));
+
         public DeviceAndAppsControl()
         {
             InitializeComponent();
@@ -25,7 +29,7 @@ namespace EarTrumpet.UI.Views
         private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var self = (DeviceAndAppsControl)d;
-            self.GridRoot.DataContext = self.Device;
+            self.GridRoot.DataContext = self;
         }
 
         private void Mute_MouseDown(object sender, MouseButtonEventArgs e)

@@ -14,6 +14,19 @@ namespace EarTrumpet.UI.ViewModels
         public string DeviceIconText { get; private set; }
         public string DeviceIconTextBackground { get; private set; }
 
+        public bool IsDisplayNameVisible
+        {
+            get => _isDisplayNameVisible;
+            set
+            {
+                if (_isDisplayNameVisible != value)
+                {
+                    _isDisplayNameVisible = value;
+                    RaisePropertyChanged(nameof(IsDisplayNameVisible));
+                }
+            }
+        }
+
         private readonly string s_Sound3BarsIcon = "\xE995";
         private readonly string s_Sound2BarsIcon = "\xE994";
         private readonly string s_Sound1BarIcon = "\xE993";
@@ -21,6 +34,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
+        private bool _isDisplayNameVisible;
 
         internal DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
