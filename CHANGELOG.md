@@ -4,6 +4,12 @@
 - Fixed System Sounds icon on ARM64
 - High Contrast colors updated
 - Enable collecting debug logs when we fail to enumerate devices
+- Disable Alt+Space on the flyout window
+- Limit the internal log buffer
+- Fix a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
+- Fix a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
+- Fix the icon and name of recording devices in 'Listen' mode
+- More High Contrast theme color updates
 
 ## 2.0.4.0
 - Scoped the mouse wheel scrolling to only over the Notification Area icon.
