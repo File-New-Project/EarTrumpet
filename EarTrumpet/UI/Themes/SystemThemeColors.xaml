@@ -4,25 +4,43 @@
         NOTE: Only theme-specific colors belong in this file.
         This dictionay is replaced wholesale by ThemeManager
     -->
-    <SolidColorBrush x:Key="WindowForeground">White</SolidColorBrush>
-    <SolidColorBrush x:Key="WindowBackground">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="BlurBackground">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="HeaderBackground">Gray</SolidColorBrush>
-    <SolidColorBrush x:Key="PopupBackground">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="HeaderBackgroundSolid">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumb">White</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumbHover">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderThumbPressed">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="SliderTrackFillLeft">Purple</SolidColorBrush>
-    <SolidColorBrush x:Key="SliderTrackFillRight">Pink</SolidColorBrush>
-    <SolidColorBrush x:Key="ControlSliderTrackFillRight">Pink</SolidColorBrush>
-    <SolidColorBrush x:Key="PeakMeterHotColor">Aqua</SolidColorBrush>
-    <SolidColorBrush x:Key="ActiveBorder">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="ExpandCollapseButtonMouseOverBackground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
 
-    <SolidColorBrush x:Key="NormalWindowForeground">White</SolidColorBrush>
-    <SolidColorBrush x:Key="NormalWindowBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="ActiveWindowBorder">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="InactiveWindowBorder">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="SystemAccent">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonForeground">Red</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Unicolor_Text">White</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_Background">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_BlurBackground">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer1">Gray</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SliderThumb">White</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SliderThumbHover">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SliderThumbPressed">Blue</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SliderTrackLeft">Purple</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SliderTrackRight">Pink</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_PeakMeterColor">Aqua</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonMouseOverBackground">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_SecondaryDarkFocusVisual">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer2">Red</SolidColorBrush>
+
+    <SolidColorBrush x:Key="LightOrDark_PeakMeterColor">Aqua</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_SliderTrackRight">Pink</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_Text">White</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_Background">Black</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarButtonHover">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_SecondaryText">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_AcrylicBackgroundFallback">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_SliderThumbHover">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_ActiveAcrylicBackground">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_SliderTrack">Red</SolidColorBrush>
+    <SolidColorBrush x:Key="LightOrDark_SettingsHeaderBackground">Blue</SolidColorBrush>
+
+    <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Red</SolidColorBrush>
+
     <SolidColorBrush x:Key="ButtonBackground">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonBackgroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonBackgroundPressed">White</SolidColorBrush>
@@ -32,25 +50,6 @@
     <SolidColorBrush x:Key="ButtonForeground">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundHover">White</SolidColorBrush>
     <SolidColorBrush x:Key="ButtonForegroundPressed">White</SolidColorBrush>
-    <SolidColorBrush x:Key="InactiveWindowBorder">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryDarkFocusVisual">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="HeaderBackground2">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="VirtualTitleBarButtonHover">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="CloseButtonForeground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryText">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="FullWindowDeviceBackground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="AcrylicWindowBackdropFallback">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ControlSliderTrackFillDisabled">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ControlSliderThumbHover">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="ChromeBlackMedium">Red</SolidColorBrush>
-
-    <SolidColorBrush x:Key="HyperlinkTextForeground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="HyperlinkTextForegroundHover">Red</SolidColorBrush>
-
-    <SolidColorBrush x:Key="ControlSliderTrackFillRest">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="PeakMeterBackground">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="SettingsHeaderBackground">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="SystemAccent">Blue</SolidColorBrush>
 
     <SolidColorBrush x:Key="ContextMenuBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="ContextMenuBorder">White</SolidColorBrush>
@@ -78,5 +77,4 @@
     <SolidColorBrush x:Key="CheckBoxBackgroundHover">Transparent</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundPressed">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundChecked">Green</SolidColorBrush>
-
 </ResourceDictionary>
