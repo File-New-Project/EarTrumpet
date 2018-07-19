@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -68,9 +69,11 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     if (!string.IsNullOrWhiteSpace(session.IconPath))
                     {
-                        if (session.IconPath.Contains(","))
+                        var iconPath = new StringBuilder(session.IconPath);
+                        int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
+                        if (iconIndex != 0)
                         {
-                            Icon = GetIconFromFile(session.IconPath.Split(',')[0], int.Parse(session.IconPath.Split(',')[1]));
+                            Icon = GetIconFromFile(iconPath.ToString(), iconIndex);
                         }
                         else
                         {
@@ -157,7 +160,6 @@ namespace EarTrumpet.UI.ViewModels
 
             base.UpdatePeakValueForeground();
         }
-
 
         public void UpdatePeakValueBackground()
         {

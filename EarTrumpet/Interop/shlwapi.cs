@@ -12,5 +12,10 @@ namespace EarTrumpet.Interop
             StringBuilder pszOutBuf, 
             int cchOutBuf, 
             IntPtr ppvReserved);
+
+        [DllImport("shlwapi.dll", ExactSpelling = true, PreserveSig = true)]
+        internal static extern int PathParseIconLocationW(
+            [MarshalAs(UnmanagedType.LPWStr)]
+            StringBuilder pszIconFile);
     }
 }
