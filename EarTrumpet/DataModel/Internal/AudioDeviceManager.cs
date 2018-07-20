@@ -30,7 +30,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher = dispatcher;
             _devices = new AudioDeviceCollection();
-            _policyConfigService = new AudioPolicyConfigService();
+            _policyConfigService = new AudioPolicyConfigService(EDataFlow.eRender);
 
             Task.Factory.StartNew(() =>
             {
