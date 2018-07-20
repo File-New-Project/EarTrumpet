@@ -57,6 +57,7 @@ namespace EarTrumpet
             Trace.WriteLine("App Application_Startup MainViewModel_Ready");
             _trayIcon.Show();
 
+            Hosting.AddonHostService.Instance.InitializeSettings();
             Hosting.AddonHostService.Instance.OnApplicationLifecycleEvent(Extensibility.ApplicationLifecycleEvent.Startup);
         }
     }

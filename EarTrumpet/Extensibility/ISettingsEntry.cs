@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Extensibility
 {
-    public interface IHaveSettings
+    public interface ISettingsEntry
     {
         string DisplayName { get; }
         object Content { get; }

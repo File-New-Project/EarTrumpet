@@ -98,7 +98,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             var ret = new List<Tuple<string, object>>();
 
-            foreach(var ext in Hosting.AddonHostService.Instance.GetEntryPoints())
+            foreach(var ext in Hosting.AddonHostService.Instance.EntryPoints)
             {
                 ret.Add(new Tuple<string, object>(ext.DisplayName, new RelayCommand(() =>
                     AddonSettingsWindow.ShowForAddon(ext))));

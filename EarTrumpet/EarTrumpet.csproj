@@ -98,8 +98,10 @@
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="Extensibility\IApplicationLifecycle.cs" />
     <Compile Include="Extensibility\IContextMenuItems.cs" />
-    <Compile Include="Extensibility\IHaveSettings.cs" />
+    <Compile Include="Extensibility\ISettingsBag.cs" />
+    <Compile Include="Extensibility\ISettingsEntry.cs" />
     <Compile Include="Extensibility\IPlaybackDevicesDataModel.cs" />
+    <Compile Include="Extensibility\ISettingsStorage.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\OperatingSystemExtensions.cs" />
@@ -107,6 +109,8 @@
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Hosting\AddonHostService.cs" />
+    <Compile Include="Hosting\GlobalSettingsBag.cs" />
+    <Compile Include="Hosting\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />

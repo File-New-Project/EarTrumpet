@@ -20,11 +20,14 @@ namespace EarTrumpet.Hosting
         [ImportMany(typeof(IPlaybackDevicesDataModel))]
         private List<IPlaybackDevicesDataModel> _playbackDataModel { get; set; }
 
-        [ImportMany(typeof(IHaveSettings))]
-        private List<IHaveSettings> _entryPoints { get; set; }
+        [ImportMany(typeof(ISettingsEntry))]
+        public List<ISettingsEntry> EntryPoints { get; set; }
 
         [ImportMany(typeof(IContextMenuItems))]
-        private List<IContextMenuItems> _contextMenuItems { get; set; }
+        public List<IContextMenuItems> ContextMenuItems { get; set; }
+
+        [ImportMany(typeof(ISettingsStorage))]
+        private List<ISettingsStorage> _settings { get; set; }
 
         public AddonHostService()
         {
@@ -43,14 +46,13 @@ namespace EarTrumpet.Hosting
             _playbackDataModel.ForEach(x => x.InitializeDataModel(manager));
         }
 
-        public IEnumerable<IHaveSettings> GetEntryPoints()
+        public void InitializeSettings()
         {
-            return _entryPoints;
-        }
-
-        public IEnumerable<IContextMenuItems> GetContextMenuExtensions()
-        {
-            return _contextMenuItems;
+            var globalSettings = new GlobalSettingsBag();
+            foreach(var plugin in _settings)
+            {
+                plugin.InitializeSettings(new NamespacedSettingsBag(plugin.Namespace, globalSettings));
+            }
         }
     }
 }

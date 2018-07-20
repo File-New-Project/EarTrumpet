@@ -79,7 +79,7 @@ namespace EarTrumpet.UI.Controls
             var staticItems = _trayViewModel.StaticCommands.ToList();
             var addonItems = _trayViewModel.GetAddons();
 
-            foreach (var contextMenuExtension in Hosting.AddonHostService.Instance.GetContextMenuExtensions())
+            foreach (var contextMenuExtension in Hosting.AddonHostService.Instance.ContextMenuItems)
             {
                 var extensionSubItems = new List<Tuple<string, object>>();
                 foreach (var ext in contextMenuExtension.Items)

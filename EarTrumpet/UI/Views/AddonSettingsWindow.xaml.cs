@@ -7,8 +7,8 @@ namespace EarTrumpet.UI.Views
 {
     public partial class AddonSettingsWindow : Window
     {
-        private readonly IHaveSettings _addon;
-        public AddonSettingsWindow(IHaveSettings addon)
+        private readonly ISettingsEntry _addon;
+        public AddonSettingsWindow(ISettingsEntry addon)
         {
             _addon = addon;
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace EarTrumpet.UI.Views
             Close();
         }
 
-        public static void ShowForAddon(IHaveSettings addon)
+        public static void ShowForAddon(ISettingsEntry addon)
         {
             var win = new AddonSettingsWindow(addon);
             win.Show();
