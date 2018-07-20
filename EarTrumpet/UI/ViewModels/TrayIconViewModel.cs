@@ -39,7 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
-        public IEnumerable<Tuple<string, RelayCommand>>[] StaticCommands { get; }
+        public IEnumerable<Tuple<string, object>>[] StaticCommands { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -71,27 +71,40 @@ namespace EarTrumpet.UI.ViewModels
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(openFlyout);
-            ExitCommand = new RelayCommand(App.Current.Shutdown);
+            ExitCommand = new RelayCommand(DoExit);
 
-            var staticCommands = new List<List<Tuple<string, RelayCommand>>>();
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            var staticCommands = new List<List<Tuple<string, object>>>();
+            staticCommands.Add(new List<Tuple<string, object>>()
             {
-                new Tuple<string,RelayCommand>(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
-                new Tuple<string,RelayCommand>(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
+                new Tuple<string,object>(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
+                new Tuple<string,object>(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
             });
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            staticCommands.Add(new List<Tuple<string, object>>()
             {
-                new Tuple<string,RelayCommand>(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
-                new Tuple<string,RelayCommand>(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
-                new Tuple<string,RelayCommand>(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
+                new Tuple<string,object>(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
+                new Tuple<string,object>(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
+                new Tuple<string,object>(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
             });
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            staticCommands.Add(new List<Tuple<string, object>>()
             {
-                new Tuple<string,RelayCommand>(Resources.SettingsWindowText, OpenSettingsCommand),
-                new Tuple<string,RelayCommand>(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
-                new Tuple<string,RelayCommand>(Resources.ContextMenuExitTitle, ExitCommand),
+                new Tuple<string,object>(Resources.SettingsWindowText, OpenSettingsCommand),
+                new Tuple<string,object>(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
+                new Tuple<string,object>(Resources.ContextMenuExitTitle, ExitCommand),
             });
             StaticCommands = staticCommands.ToArray();
+        }
+
+        public List<Tuple<string, object>> GetAddons()
+        {
+            var ret = new List<Tuple<string, object>>();
+
+            foreach(var ext in Hosting.AddonHostService.Instance.GetEntryPoints())
+            {
+                ret.Add(new Tuple<string, object>(ext.DisplayName, new RelayCommand(() =>
+                    AddonSettingsWindow.ShowForAddon(ext))));
+            }
+
+            return ret;
         }
 
         private void LoadIconResources()
@@ -120,6 +133,12 @@ namespace EarTrumpet.UI.ViewModels
                 _icons.Add(IconId.SpeakerTwoBars, originalIcon);
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
             }
+        }
+
+        private void DoExit()
+        {
+            Hosting.AddonHostService.Instance.OnApplicationLifecycleEvent(Extensibility.ApplicationLifecycleEvent.Shutdown);
+            App.Current.Shutdown();
         }
 
         private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel e)

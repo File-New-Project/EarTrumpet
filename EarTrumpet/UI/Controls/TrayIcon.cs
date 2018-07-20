@@ -11,6 +11,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using EarTrumpet.DataModel;
+using System.Collections.Generic;
+using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -48,15 +50,6 @@ namespace EarTrumpet.UI.Controls
             cm.StaysOpen = true; // To be removed on open.
 
             var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
-            var AddItem = new Action<string, ICommand>((displayName, action) =>
-            {
-                cm.Items.Add(new MenuItem
-                {
-                    Header = displayName,
-                    Command = action,
-                    Style = menuItemStyle
-                });
-            });
 
             // Add devices
             var audioDevices = _trayViewModel.AllDevices.OrderBy(x => x.DisplayName);
@@ -83,20 +76,76 @@ namespace EarTrumpet.UI.Controls
                 }
             }
 
-            // Static items
-            var separatorStyle = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
+            var staticItems = _trayViewModel.StaticCommands.ToList();
+            var addonItems = _trayViewModel.GetAddons();
 
-            foreach (var bucket in _trayViewModel.StaticCommands)
+            foreach (var contextMenuExtension in Hosting.AddonHostService.Instance.GetContextMenuExtensions())
             {
-                cm.Items.Add(new Separator { Style = separatorStyle });
+                var extensionSubItems = new List<Tuple<string, object>>();
+                foreach (var ext in contextMenuExtension.Items)
+                {
+                    extensionSubItems.Add(new Tuple<string, object>(ext.Item1, new RelayCommand(ext.Item2)));
+                }
+
+                addonItems.Add(new Tuple<string, object>(contextMenuExtension.DisplayName, extensionSubItems));
+            }
+
+            if (addonItems.Count > 0)
+            {
+                var addonSection = new List<Tuple<string, object>>();
+                addonSection.Add(new Tuple<string, object>("Addons", addonItems)); // TODO: localize
+                staticItems.Add(addonSection);
+            }
+
+            AddItems(cm, staticItems);
+
+            return cm;
+        }
+
+        private void AddItems(ItemsControl menu, List<IEnumerable<Tuple<string, object>>> items)
+        {
+            foreach (var bucket in items)
+            {
+                if (items.Count > 1)
+                {
+                    menu.Items.Add(new Separator { Style = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly") });
+                }
 
                 foreach (var item in bucket)
                 {
-                    AddItem(item.Item1, item.Item2);
+                    if (item.Item2 is RelayCommand)
+                    {
+                        AddItem(menu, item.Item1, (RelayCommand)item.Item2);
+                    }
+                    else
+                    {
+                        var subItems = (IEnumerable<Tuple<string, object>>)item.Item2;
+                        var subItemWrapper = new List<IEnumerable<Tuple<string, object>>>();
+                        subItemWrapper.Add(subItems);
+
+                        var pivotNode = AddItem(menu, item.Item1, null);
+                        AddItems(pivotNode, subItemWrapper);
+                    }
                 }
             }
+        }
 
-            return cm;
+        private MenuItem AddItem(ItemsControl menu, string displayName, ICommand action)
+        {
+            if (displayName == "-")
+            {
+                menu.Items.Add(new Separator());
+                return null;
+            }
+
+            var item = new MenuItem
+            {
+                Header = displayName,
+                Command = action,
+                Style = (Style)Application.Current.FindResource("MenuItemDarkOnly")
+            };
+            menu.Items.Add(item);
+            return item;
         }
 
         private void ContextMenu_Closed(object sender, RoutedEventArgs e)

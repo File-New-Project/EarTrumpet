@@ -66,6 +66,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
@@ -95,12 +96,17 @@
     <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="Extensibility\IApplicationLifecycle.cs" />
+    <Compile Include="Extensibility\IContextMenuItems.cs" />
+    <Compile Include="Extensibility\IHaveSettings.cs" />
+    <Compile Include="Extensibility\IPlaybackDevicesDataModel.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\OperatingSystemExtensions.cs" />
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
+    <Compile Include="Hosting\AddonHostService.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />
@@ -152,6 +158,9 @@
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
+    <Compile Include="UI\Views\AddonSettingsWindow.xaml.cs">
+      <DependentUpon>AddonSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\HotkeySelectionWindow.xaml.cs">
       <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
     </Compile>
@@ -240,6 +249,10 @@
     <Compile Include="UI\Views\AppVolumeControl.xaml.cs">
       <DependentUpon>AppVolumeControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="UI\Views\AddonSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Views\HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
