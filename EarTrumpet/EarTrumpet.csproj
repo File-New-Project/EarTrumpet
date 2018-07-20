@@ -232,7 +232,7 @@
     <Compile Include="UI\ViewModels\DeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\FlyoutViewModel.cs" />
     <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
-    <Compile Include="UI\ViewModels\MainViewModel.cs" />
+    <Compile Include="UI\ViewModels\DeviceCollectionViewModel.cs" />
     <Compile Include="UI\ViewModels\BindableBase.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />

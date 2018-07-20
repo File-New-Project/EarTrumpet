@@ -41,7 +41,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand ExitCommand { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
         private IconId _currentIcon = IconId.Invalid;
         private bool _useLegacyIcon;
@@ -49,7 +49,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
 
-        internal TrayViewModel(MainViewModel mainViewModel)
+        internal TrayViewModel(DeviceCollectionViewModel mainViewModel, Action openFlyout)
         {
             _mainViewModel = mainViewModel;
 
@@ -58,7 +58,7 @@ namespace EarTrumpet.UI.ViewModels
             _useLegacyIcon = SettingsService.UseLegacyIcon;
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
 
-            _mainViewModel.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            _mainViewModel.DefaultChanged += DeviceManager_DefaultPlaybackDeviceChanged;
             DeviceManager_DefaultPlaybackDeviceChanged(this, null);
 
             OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
@@ -69,7 +69,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
             ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(() => _mainViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            OpenFlyoutCommand = new RelayCommand(openFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
         }
 

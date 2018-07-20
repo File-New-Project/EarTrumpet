@@ -14,11 +14,11 @@ namespace EarTrumpet.UI.Views
 {
     public partial class FlyoutWindow
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
         private RawInputListener _rawListener;
 
-        internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
+        internal FlyoutWindow(DeviceCollectionViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 

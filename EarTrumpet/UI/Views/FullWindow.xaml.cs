@@ -14,11 +14,11 @@ namespace EarTrumpet.UI.Views
     {
         private static FullWindow Instance;
 
-        private MainViewModel _mainViewModel;
+        private DeviceCollectionViewModel _mainViewModel;
         private FullWindowViewModel _viewModel;
         private bool _isClosing;
 
-        public FullWindow(MainViewModel viewModel)
+        public FullWindow(DeviceCollectionViewModel viewModel)
         {
             _mainViewModel = viewModel;
             Trace.WriteLine("FullWindow .ctor");
@@ -97,7 +97,7 @@ namespace EarTrumpet.UI.Views
             AppPopup.PositionAndShow(_mainViewModel, this, e);
         }
 
-        public static void ActivateSingleInstance(MainViewModel mainViewModel)
+        public static void ActivateSingleInstance(DeviceCollectionViewModel mainViewModel)
         {
             Trace.WriteLine("FullWindow ActivateSingleInstance");
             if (Instance == null)

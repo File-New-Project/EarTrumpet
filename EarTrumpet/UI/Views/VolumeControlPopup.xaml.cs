@@ -13,7 +13,7 @@ namespace EarTrumpet.UI.Views
     public partial class VolumeControlPopup : Popup
     {
         private bool _useDarkTheme = false;
-        private MainViewModel _viewModel;
+        private DeviceCollectionViewModel _viewModel;
 
         public VolumeControlPopup()
         {
@@ -132,7 +132,7 @@ namespace EarTrumpet.UI.Views
             moveMenu.IsOpen = true;
         }
 
-        public void PositionAndShow(MainViewModel viewModel, Window relativeTo, AppExpandedEventArgs e)
+        public void PositionAndShow(DeviceCollectionViewModel viewModel, Window relativeTo, AppExpandedEventArgs e)
         {
             _viewModel = viewModel;
 

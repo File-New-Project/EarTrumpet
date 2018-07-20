@@ -44,18 +44,17 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
 
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
 
-        internal FlyoutViewModel(MainViewModel mainViewModel)
+        internal FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
         {
             Devices = new ObservableCollection<DeviceViewModel>();
 
             _mainViewModel = mainViewModel;
-            _mainViewModel.FlyoutShowRequested += (_, options) => OpenFlyout(options);
-            _mainViewModel.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
+            _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
 
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
@@ -120,7 +119,7 @@ namespace EarTrumpet.UI.ViewModels
                         AddDevice(device);
                     }
 
-                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.DefaultPlaybackDevice);
+                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.Default);
                     break;
 
                 default:
@@ -201,7 +200,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     var device = Devices[i];
 
-                    if (device.Id != _mainViewModel.DefaultPlaybackDevice?.Id)
+                    if (device.Id != _mainViewModel.Default?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
@@ -324,7 +323,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void OpenFlyout(FlyoutShowOptions options)
+        public void OpenFlyout(FlyoutShowOptions options)
         {
             ShowOptions = options;
 

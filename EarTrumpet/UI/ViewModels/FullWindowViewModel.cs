@@ -12,9 +12,9 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
         public bool IsShowingModalDialog { get; private set; }
 
-        MainViewModel _mainViewModel;
+        DeviceCollectionViewModel _mainViewModel;
 
-        public FullWindowViewModel(MainViewModel mainViewModel)
+        public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
 

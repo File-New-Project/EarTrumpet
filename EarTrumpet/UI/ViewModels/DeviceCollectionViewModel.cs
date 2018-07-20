@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,27 +9,26 @@ using System.Timers;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public class DeviceCollectionViewModel : BindableBase
     {
         public event EventHandler Ready;
-        public event EventHandler<FlyoutShowOptions> FlyoutShowRequested;
-        public event EventHandler<DeviceViewModel> DefaultPlaybackDeviceChanged;
+        public event EventHandler<DeviceViewModel> DefaultChanged;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
-        public DeviceViewModel DefaultPlaybackDevice { get; private set; }
+        public DeviceViewModel Default { get; private set; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly Timer _peakMeterTimer;
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
 
-        internal MainViewModel(IAudioDeviceManager deviceManager)
+        internal DeviceCollectionViewModel(IAudioDeviceManager deviceManager)
         {
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
             _deviceManager = deviceManager;
-            _deviceManager.DefaultChanged += DeviceManager_DefaultPlaybackDeviceChanged;
-            _deviceManager.Loaded += DeviceManager_PlaybackDevicesLoaded;
+            _deviceManager.DefaultChanged += DeviceManager_DefaultDeviceChanged;
+            _deviceManager.Loaded += DeviceManager_Loaded;
             _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
@@ -39,25 +37,25 @@ namespace EarTrumpet.UI.ViewModels
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
         }
 
-        private void DeviceManager_PlaybackDevicesLoaded(object sender, EventArgs e)
+        private void DeviceManager_Loaded(object sender, EventArgs e)
         {
             Ready?.Invoke(this, null);
         }
 
-        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, IAudioDevice e)
+        private void DeviceManager_DefaultDeviceChanged(object sender, IAudioDevice e)
         {
             if (e == null)
             {
-                DefaultPlaybackDevice = null;
-                DefaultPlaybackDeviceChanged?.Invoke(this, DefaultPlaybackDevice);
+                Default = null;
+                DefaultChanged?.Invoke(this, Default);
             }
             else
             {
                 var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 if (dev != null)
                 {
-                    DefaultPlaybackDevice = dev;
-                    DefaultPlaybackDeviceChanged?.Invoke(this, DefaultPlaybackDevice);
+                    Default = dev;
+                    DefaultChanged?.Invoke(this, Default);
                 }
             }
         }
@@ -204,12 +202,6 @@ namespace EarTrumpet.UI.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
-        }
-
-        public void OpenFlyout(FlyoutShowOptions options)
-        {
-            Trace.WriteLine($"MainViewModel OpenFlyout {options}");
-            FlyoutShowRequested(this, options);
         }
     }
 }
