@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -343,7 +344,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
 
             bool is64bit = false;
-            if (Environment.OSVersion.Version.Build >= 16299)
+            if (Environment.OSVersion.IsAtLeast(OSVersions.RS3))
             {
                 if (Kernel32.IsWow64Process2(Process.GetCurrentProcess().Handle,
                     out Kernel32.IMAGE_FILE_MACHINE processMachine,
