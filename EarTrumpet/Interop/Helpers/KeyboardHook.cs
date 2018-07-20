@@ -56,6 +56,7 @@ namespace EarTrumpet.Interop.Helpers
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
 
         private Window _window;
+        private int _lastId = 0;
 
         public KeyboardHook()
         {
@@ -66,15 +67,18 @@ namespace EarTrumpet.Interop.Helpers
 
         public void RegisterHotKey(Keys key, Keys modifiers)
         {
-            if (!User32.RegisterHotKey(_window.Handle, 1, (uint)KeysToModifiers(modifiers), (uint)key))
+            if (!User32.RegisterHotKey(_window.Handle, ++_lastId, (uint)KeysToModifiers(modifiers), (uint)key))
             {
-                throw new Exception($"Couldn't register hotkey: {Marshal.GetLastWin32Error()}");
+                throw new Exception($"Couldn't register hotkey: LastError={Marshal.GetLastWin32Error()}");
             }
         }
 
         public void Dispose()
         {
-            User32.UnregisterHotKey(_window.Handle, 1);
+            for (var i = 1; i <= _lastId; i++)
+            {
+                User32.UnregisterHotKey(_window.Handle, i);
+            }
 
             _window.Dispose();
         }
