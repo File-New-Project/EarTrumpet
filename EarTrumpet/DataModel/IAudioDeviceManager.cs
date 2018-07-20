@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel
 {
-    interface IAudioDeviceManager
+    public interface IAudioDeviceManager
     {
         event EventHandler<IAudioDevice> DefaultChanged;
         event EventHandler Loaded;

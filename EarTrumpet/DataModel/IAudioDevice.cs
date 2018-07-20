@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel
 {
-    interface IAudioDevice : IStreamWithVolumeControl
+    public interface IAudioDevice : IStreamWithVolumeControl
     {
         string DisplayName { get; }
         IAudioDeviceManager Parent { get; }

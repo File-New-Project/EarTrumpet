@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace EarTrumpet.DataModel
 {
-    interface IAudioDeviceCollection : IEnumerable<IAudioDevice>, INotifyCollectionChanged
+    public interface IAudioDeviceCollection : IEnumerable<IAudioDevice>, INotifyCollectionChanged
     {
     }
 }
