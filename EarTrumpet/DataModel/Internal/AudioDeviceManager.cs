@@ -218,7 +218,7 @@ namespace EarTrumpet.DataModel.Internal
 
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
         {
-            Trace.WriteLine($"AudioDeviceManager OnPropertyValueChanged {pwstrDeviceId} {key.fmtid}{key.pid}");
+            Trace.WriteLine($"AudioDeviceManager OnPropertyValueChanged {pwstrDeviceId} {key.fmtid},{key.pid}");
             if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
