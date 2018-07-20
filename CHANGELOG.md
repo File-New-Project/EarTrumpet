@@ -4,6 +4,9 @@
 - Fixed System Sounds icon on ARM64
 - High Contrast colors updated
 - Enable collecting debug logs when we fail to enumerate devices
+- Per-Monitor DPI support
+- Fixes to Notification Area icon scaling
+- Fix overflow flyout at greater than 100% DPI
 
 ## 2.0.4.0
 - Scoped the mouse wheel scrolling to only over the Notification Area icon.
