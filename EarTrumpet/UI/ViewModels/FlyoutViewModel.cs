@@ -210,11 +210,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             UpdateTextVisibility();
-
-            RaisePropertyChanged(nameof(IsExpanded));
-            RaisePropertyChanged(nameof(ExpandText));
-            RaisePropertyChanged(nameof(ExpandAccessibleText));
-            InvalidateWindowSize();
+            RaiseDevicesChanged();
         }
 
         private void InvalidateWindowSize()
