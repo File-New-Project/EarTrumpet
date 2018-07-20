@@ -86,17 +86,15 @@ namespace EarTrumpet.UI.Controls
             // Static items
             var separatorStyle = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
 
-            cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(Resources.FullWindowTitleText, _trayViewModel.OpenEarTrumpetVolumeMixerCommand);
-            AddItem(Resources.LegacyVolumeMixerText, _trayViewModel.OpenLegacyVolumeMixerCommand);
-            cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(Resources.PlaybackDevicesText, _trayViewModel.OpenPlaybackDevicesCommand);
-            AddItem(Resources.RecordingDevicesText, _trayViewModel.OpenRecordingDevicesCommand);
-            AddItem(Resources.SoundsControlPanelText, _trayViewModel.OpenSoundsControlPanelCommand);
-            cm.Items.Add(new Separator { Style = separatorStyle });
-            AddItem(Resources.SettingsWindowText, _trayViewModel.OpenSettingsCommand);
-            AddItem(Resources.ContextMenuSendFeedback, _trayViewModel.OpenFeedbackHubCommand);
-            AddItem(Resources.ContextMenuExitTitle, _trayViewModel.ExitCommand);
+            foreach (var bucket in _trayViewModel.StaticCommands)
+            {
+                cm.Items.Add(new Separator { Style = separatorStyle });
+
+                foreach (var item in bucket)
+                {
+                    AddItem(item.Item1, item.Item2);
+                }
+            }
 
             return cm;
         }

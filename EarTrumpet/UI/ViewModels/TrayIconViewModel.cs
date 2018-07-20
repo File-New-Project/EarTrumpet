@@ -39,6 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
+        public IEnumerable<Tuple<string, RelayCommand>>[] StaticCommands { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -71,6 +72,26 @@ namespace EarTrumpet.UI.ViewModels
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(openFlyout);
             ExitCommand = new RelayCommand(App.Current.Shutdown);
+
+            var staticCommands = new List<List<Tuple<string, RelayCommand>>>();
+            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            {
+                new Tuple<string,RelayCommand>(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
+                new Tuple<string,RelayCommand>(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
+            });
+            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            {
+                new Tuple<string,RelayCommand>(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
+                new Tuple<string,RelayCommand>(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
+                new Tuple<string,RelayCommand>(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
+            });
+            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            {
+                new Tuple<string,RelayCommand>(Resources.SettingsWindowText, OpenSettingsCommand),
+                new Tuple<string,RelayCommand>(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
+                new Tuple<string,RelayCommand>(Resources.ContextMenuExitTitle, ExitCommand),
+            });
+            StaticCommands = staticCommands.ToArray();
         }
 
         private void LoadIconResources()
