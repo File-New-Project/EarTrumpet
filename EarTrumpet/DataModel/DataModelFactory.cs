@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.DataModel.Internal;
-using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
@@ -7,7 +6,7 @@ namespace EarTrumpet.DataModel
     {
         public static IAudioDeviceManager CreateAudioDeviceManager()
         {
-            return new AudioDeviceManager(Dispatcher.CurrentDispatcher);
+            return new AudioDeviceManager(AudioDeviceKind.Playback);
         }
     }
 }
