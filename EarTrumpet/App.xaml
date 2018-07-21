@@ -555,14 +555,9 @@
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />
                     </Trigger>
-                    <Trigger Property="Role"
-                             Value="SubmenuHeader">
-                        <Setter Property="Text"
-                                TargetName="CheckMark"
-                                Value="&#xE0E2;" />
-                        <Setter TargetName="CheckMark"
-                                Property="Visibility"
-                                Value="Visible" />
+                    <Trigger Property="Role" Value="SubmenuHeader">
+                        <Setter TargetName="CheckMark" Property="Text" Value="&#xE0E2;" />
+                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
