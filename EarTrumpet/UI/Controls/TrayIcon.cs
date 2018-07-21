@@ -94,7 +94,7 @@ namespace EarTrumpet.UI.Controls
             {
                 var addonSection = new List<Tuple<string, object>>();
                 addonSection.Add(new Tuple<string, object>("Addons", addonItems)); // TODO: localize
-                staticItems.Add(addonSection);
+                staticItems.Insert(staticItems.Count - 1, addonSection);
             }
 
             AddItems(cm, staticItems);
