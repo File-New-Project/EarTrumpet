@@ -102,62 +102,10 @@
             <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
-        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
-            <Grid>
-                <Border Name="TrackBackground" Height="2" />
-
-                <Track Name="PART_Track">
-                    <Track.DecreaseRepeatButton>
-                        <RepeatButton Name="SliderLeft"
-                                      Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.DecreaseRepeatButton>
-                    <Track.Thumb>
-                        <Thumb Name="SliderThumb">
-                            <Thumb.Style>
-                                <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
-                                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderTrackLeft}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
-                                            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderThumbHover}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Thumb.Style>
-                        </Thumb>
-                    </Track.Thumb>
-                    <Track.IncreaseRepeatButton>
-                        <RepeatButton Name="SliderRight"
-                                      Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource LightOrDark_SliderTrackRight}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.IncreaseRepeatButton>
-                </Track>
-
-                <Border Name="PeakMeter1"
-                        Height="2"
-                        Margin="0,-2,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource LightOrDark_PeakMeterColor}" />
-
-                <Border Name="PeakMeter2"
-                        Height="2"
-                        Margin="0,1,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource LightOrDark_PeakMeterColor}" />
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
         <Style x:Key="VolumeSliderStyle"
                BasedOn="{StaticResource BaseVolumeSliderStyle}"
                TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{DynamicResource VolumeSliderTemplate}" />
+            <Setter Property="Template" Value="{DynamicResource LighOrDark_VolumeSliderTemplate}" />
         </Style>
 
         <Style x:Key="{x:Type ListViewItem}"

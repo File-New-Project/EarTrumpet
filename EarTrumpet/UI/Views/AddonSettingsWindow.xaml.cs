@@ -2,12 +2,13 @@
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Services;
 using System.Collections.Generic;
 using System.Windows;
 
 namespace EarTrumpet.UI.Views
 {
-    public partial class AddonSettingsWindow : Window
+    public partial class AddonSettingsWindow : Window, ISettingsWindowHost
     {
         private static Dictionary<ISettingsEntry, AddonSettingsWindow> s_windows = new Dictionary<ISettingsEntry, AddonSettingsWindow>();
 
@@ -19,6 +20,7 @@ namespace EarTrumpet.UI.Views
 
             Title = addon.DisplayName;
 
+            addon.Advise(this);
             AddonHostGrid.Children.Add((UIElement)addon.Content);
 
             SourceInitialized += (_, __) => AccentPolicyLibrary.SetWindowBlur(this, true, true);
@@ -57,6 +59,18 @@ namespace EarTrumpet.UI.Views
                 win.Show();
                 s_windows.Add(addon, win);
             }
+        }
+
+        public HotkeyData GetHotkeyFromUser()
+        {
+            var win = new HotkeySelectionWindow();
+            win.Owner = this;
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            if ((bool)win.ShowDialog())
+            {
+                return win.Hotkey;
+            }
+            return null;
         }
     }
 }
