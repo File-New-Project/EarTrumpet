@@ -1,21 +1,4 @@
 ﻿<Application x:Class="EarTrumpet.UWP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:EarTrumpet.UWP">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <Style x:Key="AppIcon" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Square44x44Logo.png" />
-                    </Style>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Light">
-                    <Style x:Key="AppIcon" TargetType="Image">
-                        <Setter Property="Source" Value="ms-appx:///Assets/Square44x44LogoDark.png" />
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 </Application>
