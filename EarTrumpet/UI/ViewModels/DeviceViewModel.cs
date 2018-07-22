@@ -204,7 +204,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void MakeDefaultPlaybackDevice()
+        public void MakeDefaultDevice()
         {
             _deviceManager.Default = _device;
         }

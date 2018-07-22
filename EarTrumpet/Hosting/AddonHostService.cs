@@ -17,9 +17,6 @@ namespace EarTrumpet.Hosting
         [ImportMany(typeof(IApplicationLifecycle))]
         private List<IApplicationLifecycle> _appLifecycle { get; set; }
 
-        [ImportMany(typeof(IPlaybackDevicesDataModel))]
-        private List<IPlaybackDevicesDataModel> _playbackDataModel { get; set; }
-
         [ImportMany(typeof(ISettingsEntry))]
         public List<ISettingsEntry> EntryPoints { get; set; }
 
@@ -39,11 +36,6 @@ namespace EarTrumpet.Hosting
         public void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt)
         {
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(evt));
-        }
-
-        public void InitializePlaybackDataModel(IAudioDeviceManager manager)
-        {
-            _playbackDataModel.ForEach(x => x.InitializeDataModel(manager));
         }
 
         public void InitializeSettings()

@@ -3,6 +3,7 @@ using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -10,18 +11,22 @@ using System.Windows;
 
 namespace EarTrumpet.UI.Services
 {
-    class DiagnosticsService
+    public class DiagnosticsService
     {
-        private static IAudioDeviceManager _deviceManager;
+        private static List<IAudioDeviceManager> _deviceManagers = new List<IAudioDeviceManager>();
 
         public static void Advise(IAudioDeviceManager deviceManager)
         {
-            _deviceManager = deviceManager;
+            _deviceManagers.Add(deviceManager);
         }
 
         public static void DumpAndShowData()
         {
-            var allText = DumpDevices(_deviceManager);
+            var allText = "";
+            foreach(var devMgr in _deviceManagers)
+            {
+                allText += DumpDevices(devMgr);
+            }
             allText += Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;

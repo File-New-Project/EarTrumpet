@@ -1,18 +1,13 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet.Properties;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Interop;
-using EarTrumpet.DataModel;
-using System.Collections.Generic;
-using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -42,36 +37,27 @@ namespace EarTrumpet.UI.Controls
 
         private ContextMenu BuildContextMenu()
         {
-            var cm = new ContextMenu { Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly") };
-
-            cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            cm.Opened += ContextMenu_Opened;
-            cm.Closed += ContextMenu_Closed;
-            cm.StaysOpen = true; // To be removed on open.
-
-            var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
+            var cm = ThemedContextMenu.CreateThemedContextMenu();
 
             // Add devices
             var audioDevices = _trayViewModel.AllDevices.OrderBy(x => x.DisplayName);
             if (!audioDevices.Any())
             {
-                cm.Items.Add(new MenuItem
+                ThemedContextMenu.AddItem(cm, new MenuItem
                 {
                     Header = Resources.ContextMenuNoDevices,
                     IsEnabled = false,
-                    Style = menuItemStyle
                 });
             }
             else
             {
                 foreach (var device in audioDevices)
                 {
-                    cm.Items.Add(new MenuItem
+                    ThemedContextMenu.AddItem(cm, new MenuItem
                     {
                         Header = device.DisplayName,
                         IsChecked = device.Id == _trayViewModel.DefaultDeviceId,
                         Command = new RelayCommand(() => _trayViewModel.ChangeDeviceCommand.Execute(device)),
-                        Style = menuItemStyle
                     });
                 }
             }
@@ -115,7 +101,7 @@ namespace EarTrumpet.UI.Controls
                 {
                     if (item.Item2 is RelayCommand)
                     {
-                        AddItem(menu, item.Item1, (RelayCommand)item.Item2);
+                        ThemedContextMenu.AddItem(menu, item.Item1, (RelayCommand)item.Item2);
                     }
                     else
                     {
@@ -123,44 +109,11 @@ namespace EarTrumpet.UI.Controls
                         var subItemWrapper = new List<IEnumerable<Tuple<string, object>>>();
                         subItemWrapper.Add(subItems);
 
-                        var pivotNode = AddItem(menu, item.Item1, null);
+                        var pivotNode = ThemedContextMenu.AddItem(menu, item.Item1, null);
                         AddItems(pivotNode, subItemWrapper);
                     }
                 }
             }
-        }
-
-        private MenuItem AddItem(ItemsControl menu, string displayName, ICommand action)
-        {
-            if (displayName == "-")
-            {
-                menu.Items.Add(new Separator());
-                return null;
-            }
-
-            var item = new MenuItem
-            {
-                Header = displayName,
-                Command = action,
-                Style = (Style)Application.Current.FindResource("MenuItemDarkOnly")
-            };
-            menu.Items.Add(item);
-            return item;
-        }
-
-        private void ContextMenu_Closed(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("TrayIcon ContextMenu_Closed");
-        }
-
-        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("TrayIcon ContextMenu_Opened");
-            var cm = (ContextMenu)sender;
-            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-            cm.Focus();
-            cm.StaysOpen = false;
-            ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
         }
 
         public void Show()

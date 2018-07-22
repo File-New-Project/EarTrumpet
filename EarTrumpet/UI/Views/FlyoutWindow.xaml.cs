@@ -18,7 +18,7 @@ namespace EarTrumpet.UI.Views
         private readonly FlyoutViewModel _viewModel;
         private RawInputListener _rawListener;
 
-        internal FlyoutWindow(DeviceCollectionViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
+        public FlyoutWindow(DeviceCollectionViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 

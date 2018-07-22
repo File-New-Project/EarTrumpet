@@ -33,9 +33,7 @@ namespace EarTrumpet
 
             Hosting.AddonHostService.Initialize();
 
-            var deviceManager = DataModelFactory.CreateAudioDeviceManager();
-            DiagnosticsService.Advise(deviceManager);
-            Hosting.AddonHostService.Instance.InitializePlaybackDataModel(deviceManager);
+            var deviceManager = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
 
             _viewModel = new DeviceCollectionViewModel(deviceManager);
             _viewModel.Ready += MainViewModel_Ready;

@@ -22,7 +22,7 @@ namespace EarTrumpet.UI.ViewModels
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
 
-        internal DeviceCollectionViewModel(IAudioDeviceManager deviceManager)
+        public DeviceCollectionViewModel(IAudioDeviceManager deviceManager)
         {
             AllDevices = new ObservableCollection<DeviceViewModel>();
 

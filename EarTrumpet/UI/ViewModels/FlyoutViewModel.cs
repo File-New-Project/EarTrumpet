@@ -49,7 +49,7 @@ namespace EarTrumpet.UI.ViewModels
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
 
-        internal FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
+        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
         {
             Devices = new ObservableCollection<DeviceViewModel>();
 

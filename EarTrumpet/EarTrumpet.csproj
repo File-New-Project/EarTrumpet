@@ -100,7 +100,6 @@
     <Compile Include="Extensibility\IContextMenuItems.cs" />
     <Compile Include="Extensibility\ISettingsBag.cs" />
     <Compile Include="Extensibility\ISettingsEntry.cs" />
-    <Compile Include="Extensibility\IPlaybackDevicesDataModel.cs" />
     <Compile Include="Extensibility\ISettingsStorage.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
@@ -150,6 +149,7 @@
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
     <Compile Include="UI\Helpers\ProcessHelper.cs" />
+    <Compile Include="UI\Helpers\ThemedContextMenu.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
