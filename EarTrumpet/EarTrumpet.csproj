@@ -107,9 +107,9 @@
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
-    <Compile Include="Hosting\AddonHostService.cs" />
-    <Compile Include="Hosting\GlobalSettingsBag.cs" />
-    <Compile Include="Hosting\NamespacedSettingsBag.cs" />
+    <Compile Include="Extensibility\Hosting\AddonHostService.cs" />
+    <Compile Include="Extensibility\Hosting\GlobalSettingsBag.cs" />
+    <Compile Include="Extensibility\Hosting\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />

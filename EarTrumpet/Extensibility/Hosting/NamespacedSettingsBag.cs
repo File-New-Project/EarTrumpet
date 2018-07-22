@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 
-namespace EarTrumpet.Hosting
+namespace EarTrumpet.Extensibility.Hosting
 {
     class NamespacedSettingsBag : ISettingsBag
     {

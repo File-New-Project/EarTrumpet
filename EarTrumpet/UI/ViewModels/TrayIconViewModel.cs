@@ -98,7 +98,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             var ret = new List<Tuple<string, object>>();
 
-            foreach(var ext in Hosting.AddonHostService.Instance.EntryPoints)
+            foreach(var ext in Extensibility.Hosting.AddonHostService.Instance.EntryPoints)
             {
                 ret.Add(new Tuple<string, object>(ext.DisplayName, new RelayCommand(() =>
                     AddonSettingsWindow.ShowForAddon(ext))));
@@ -137,7 +137,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void DoExit()
         {
-            Hosting.AddonHostService.Instance.OnApplicationLifecycleEvent(Extensibility.ApplicationLifecycleEvent.Shutdown);
+            Extensibility.Hosting.AddonHostService.Instance.Close();
             App.Current.Shutdown();
         }
 

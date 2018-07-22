@@ -1,13 +1,11 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensibility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace EarTrumpet.Hosting
+namespace EarTrumpet.Extensibility.Hosting
 {
     class AddonHostService : IApplicationLifecycle
     {
@@ -45,6 +43,17 @@ namespace EarTrumpet.Hosting
             {
                 plugin.InitializeSettings(new NamespacedSettingsBag(plugin.Namespace, globalSettings));
             }
+        }
+
+        public void Load()
+        {
+            InitializeSettings();
+            OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup);
+        }
+
+        public void Close()
+        {
+            OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown);
         }
     }
 }

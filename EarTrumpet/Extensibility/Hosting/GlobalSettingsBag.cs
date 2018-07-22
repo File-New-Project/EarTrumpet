@@ -7,7 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace EarTrumpet.Hosting
+namespace EarTrumpet.Extensibility.Hosting
 {
     class GlobalSettingsBag : ISettingsBag
     {
