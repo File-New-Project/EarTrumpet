@@ -90,31 +90,38 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateMasterVolumeIcon()
         {
-            string icon;
-            if (_device.IsMuted)
+            if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
             {
-                icon = s_SoundMuteIcon;
-            }
-            else if (_device.Volume >= 0.65f)
-            {
-                icon = s_Sound3BarsIcon;
-            }
-            else if (_device.Volume >= 0.33f)
-            {
-                icon = s_Sound2BarsIcon;
-            }
-            else if (_device.Volume > 0f)
-            {
-                icon = s_Sound1BarIcon;
+                DeviceIconText = "\xEC72";
+                DeviceIconTextBackground = "";
             }
             else
             {
-                icon = s_SoundMuteIcon;
+                string icon;
+                if (_device.IsMuted)
+                {
+                    icon = s_SoundMuteIcon;
+                }
+                else if (_device.Volume >= 0.65f)
+                {
+                    icon = s_Sound3BarsIcon;
+                }
+                else if (_device.Volume >= 0.33f)
+                {
+                    icon = s_Sound2BarsIcon;
+                }
+                else if (_device.Volume > 0f)
+                {
+                    icon = s_Sound1BarIcon;
+                }
+                else
+                {
+                    icon = s_SoundMuteIcon;
+                }
+
+                DeviceIconText = icon;
+                DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
             }
-
-            DeviceIconText = icon;
-            DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
-
             RaisePropertyChanged(nameof(DeviceIconText));
             RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }

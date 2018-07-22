@@ -17,6 +17,18 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public IAudioDevice Parent
+        {
+            get
+            {
+                if (_parent.TryGetTarget(out var parent))
+                {
+                    return parent;
+                }
+                return null;
+            }
+        }
+
         public float Volume
         {
             get => _volume;

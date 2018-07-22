@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Internal.Services;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +10,8 @@ namespace EarTrumpet.DataModel.Internal
     class AudioDeviceSessionGroup : IAudioDeviceSession
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
 
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
 
