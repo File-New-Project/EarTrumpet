@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 
-namespace EarTrumpet.Extensibility.Hosting
+namespace EarTrumpet.DataModel.Storage
 {
     class NamespacedSettingsBag : ISettingsBag
     {
@@ -16,6 +16,11 @@ namespace EarTrumpet.Extensibility.Hosting
         public T Get<T>(string key, T defaultValue)
         {
             return _globalBag.Get($"{_nameSpace}.{key}", defaultValue);
+        }
+
+        public bool HasKey(string key)
+        {
+            return _globalBag.HasKey($"{_nameSpace}.{key}");
         }
 
         public void Set<T>(string key, T value)

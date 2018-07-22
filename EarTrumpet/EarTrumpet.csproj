@@ -96,11 +96,11 @@
     <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="Extensibility\IApplicationLifecycle.cs" />
     <Compile Include="Extensibility\IContextMenuItems.cs" />
-    <Compile Include="Extensibility\ISettingsBag.cs" />
+    <Compile Include="DataModel\Storage\ISettingsBag.cs" />
     <Compile Include="Extensibility\ISettingsEntry.cs" />
-    <Compile Include="Extensibility\ISettingsStorage.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\OperatingSystemExtensions.cs" />
@@ -108,8 +108,8 @@
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHostService.cs" />
-    <Compile Include="Extensibility\Hosting\GlobalSettingsBag.cs" />
-    <Compile Include="Extensibility\Hosting\NamespacedSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\GlobalSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />

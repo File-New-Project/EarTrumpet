@@ -1,8 +1,8 @@
-﻿namespace EarTrumpet.Extensibility
+﻿namespace EarTrumpet.DataModel.Storage
 {
-    // Not to be implemented in add-on.
     public interface ISettingsBag
     {
+        bool HasKey(string key);
         T Get<T>(string key, T defaultValue);
         void Set<T>(string key, T value);
     }

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
-    class AddonHostService : IApplicationLifecycle
+    class AddonHostService
     {
         public static AddonHostService Instance { get; private set; }
         public static void Initialize() => Instance = new AddonHostService();
@@ -21,9 +21,6 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IContextMenuItems))]
         public List<IContextMenuItems> ContextMenuItems { get; set; }
 
-        [ImportMany(typeof(ISettingsStorage))]
-        private List<ISettingsStorage> _settings { get; set; }
-
         public AddonHostService()
         {
             var cat = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll");
@@ -36,18 +33,8 @@ namespace EarTrumpet.Extensibility.Hosting
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(evt));
         }
 
-        public void InitializeSettings()
-        {
-            var globalSettings = new GlobalSettingsBag();
-            foreach(var plugin in _settings)
-            {
-                plugin.InitializeSettings(new NamespacedSettingsBag(plugin.Namespace, globalSettings));
-            }
-        }
-
         public void Load()
         {
-            InitializeSettings();
             OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup);
         }
 

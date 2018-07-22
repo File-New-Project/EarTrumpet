@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -7,13 +6,45 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace EarTrumpet.Extensibility.Hosting
+namespace EarTrumpet.DataModel.Storage
 {
     class GlobalSettingsBag : ISettingsBag
     {
+        public bool HasKey(string key)
+        {
+            var ret = false;
+            if (App.Current.HasIdentity())
+            {
+                try
+                {
+                    ret = Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError($"{ex}");
+                    AppTrace.LogWarning(ex);
+                    return ret;
+                }
+            }
+            else
+            {
+                using (var regKey = Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true))
+                {
+                    ret = regKey.GetValue(key) != null;
+                }
+            }
+            return ret;
+        }
+
         public T Get<T>(string key, T defaultValue)
         {
-            var data = ReadSetting(key);
+            if (defaultValue is bool ||
+                defaultValue is string)
+            {
+                return ReadSetting<T>(key);
+            }
+
+            var data = ReadSetting<string>(key);
             if (string.IsNullOrWhiteSpace(data))
             {
                 return defaultValue;
@@ -28,6 +59,12 @@ namespace EarTrumpet.Extensibility.Hosting
 
         public void Set<T>(string key, T value)
         {
+            if (value is bool | value is string)
+            {
+                WriteSetting<T>(key, value);
+                return;
+            }
+
             var xmlserializer = new XmlSerializer(typeof(T));
             var stringWriter = new StringWriter();
             using (var writer = XmlWriter.Create(stringWriter))
@@ -37,35 +74,33 @@ namespace EarTrumpet.Extensibility.Hosting
             }
         }
 
-        static string ReadSetting(string key)
+        static T ReadSetting<T>(string key)
         {
-            string ret = null;
+            T ret = default(T);
 
             if (App.Current.HasIdentity())
             {
                 try
                 {
-                    ret = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
+                    ret = (T)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
                 }
                 catch (Exception ex)
                 {
                     Trace.TraceError($"{ex}");
                     AppTrace.LogWarning(ex);
-                    return ret;
                 }
             }
             else
             {
                 using (var regKey = Registry.CurrentUser.CreateSubKey(@"Software\EarTrumpet", true))
                 {
-                    ret = (string)regKey.GetValue(key);
+                    ret = (T)regKey.GetValue(key);
                 }
             }
-
             return ret;
         }
 
-        static void WriteSetting(string key, string value)
+        static void WriteSetting<T>(string key, T value)
         {
             if (App.Current.HasIdentity())
             {
@@ -88,5 +123,7 @@ namespace EarTrumpet.Extensibility.Hosting
                 }
             }
         }
+
+
     }
 }
