@@ -1,16 +1,12 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet.Properties;
-using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Interop;
-using EarTrumpet.DataModel;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -40,78 +36,117 @@ namespace EarTrumpet.UI.Controls
 
         private ContextMenu BuildContextMenu()
         {
-            var cm = new ContextMenu { Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly") };
-
-            cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            cm.Opened += ContextMenu_Opened;
-            cm.Closed += ContextMenu_Closed;
-            cm.StaysOpen = true; // To be removed on open.
-
-            var menuItemStyle = (Style)Application.Current.FindResource("MenuItemDarkOnly");
-            var AddItem = new Action<string, ICommand>((displayName, action) =>
-            {
-                cm.Items.Add(new MenuItem
-                {
-                    Header = displayName,
-                    Command = action,
-                    Style = menuItemStyle
-                });
-            });
+            var cm = ThemedContextMenu.CreateThemedContextMenu();
 
             // Add devices
             var audioDevices = _trayViewModel.AllDevices.OrderBy(x => x.DisplayName);
             if (!audioDevices.Any())
             {
-                cm.Items.Add(new MenuItem
+                ThemedContextMenu.AddItem(cm, new MenuItem
                 {
                     Header = Resources.ContextMenuNoDevices,
                     IsEnabled = false,
-                    Style = menuItemStyle
                 });
             }
             else
             {
                 foreach (var device in audioDevices)
                 {
-                    cm.Items.Add(new MenuItem
+                    ThemedContextMenu.AddItem(cm, new MenuItem
                     {
                         Header = device.DisplayName,
                         IsChecked = device.Id == _trayViewModel.DefaultDeviceId,
                         Command = new RelayCommand(() => _trayViewModel.ChangeDeviceCommand.Execute(device)),
-                        Style = menuItemStyle
                     });
                 }
             }
 
-            // Static items
-            var separatorStyle = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly");
+            var staticItems = _trayViewModel.StaticCommands.ToList();
+            var contextMenuExtensionGroups = Extensibility.Hosting.AddonHost.Current.ContextMenuItems;
 
-            foreach (var bucket in _trayViewModel.StaticCommands)
+            if (contextMenuExtensionGroups.SelectMany(a => a.Items).Any())
             {
-                cm.Items.Add(new Separator { Style = separatorStyle });
+                var addonEntries = new List<ContextMenuItem>();
 
-                foreach (var item in bucket)
+                foreach(var ext in contextMenuExtensionGroups)
                 {
-                    AddItem(item.Item1, item.Item2);
+                    if (ext.Items.Count() > 1)
+                    {
+                        addonEntries.Add(new ContextMenuItem("-"));
+                    }
+
+                    foreach (var item in ext.Items)
+                    {
+                        addonEntries.Add(item);
+                    }
+
+                    if (ext.Items.Count() > 1)
+                    {
+                        addonEntries.Add(new ContextMenuItem("-"));
+                    }
                 }
+
+                bool prevItemWasSep = false;
+                for (var i = addonEntries.Count - 1; i >= 0; i--)
+                {
+                    var itemIsSep = addonEntries[i].DisplayName == "-";
+
+                    if (i == addonEntries.Count - 1 ||
+                        i == 0)
+                    {
+                        if (itemIsSep)
+                        {
+                            addonEntries.Remove(addonEntries[i]);
+                        }
+                    }
+
+                    if (prevItemWasSep && itemIsSep)
+                    {
+                        addonEntries.Remove(addonEntries[i]);
+                    }
+
+                    prevItemWasSep = itemIsSep;
+                }
+
+                var addonSection = new List<ContextMenuItem>();
+                addonSection.Add(new ContextMenuItem("Addons", addonEntries));
+                staticItems.Insert(staticItems.Count - 1, addonSection);
             }
+
+            AddItems(cm, staticItems);
 
             return cm;
         }
 
-        private void ContextMenu_Closed(object sender, RoutedEventArgs e)
+        private void AddItems(ItemsControl menu, List<IEnumerable<ContextMenuItem>> items)
         {
-            Trace.WriteLine("TrayIcon ContextMenu_Closed");
-        }
+            foreach (var bucket in items)
+            {
+                if (items.Count > 1)
+                {
+                    menu.Items.Add(new Separator { Style = (Style)Application.Current.FindResource("MenuItemSeparatorDarkOnly") });
+                }
 
-        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("TrayIcon ContextMenu_Opened");
-            var cm = (ContextMenu)sender;
-            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-            cm.Focus();
-            cm.StaysOpen = false;
-            ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
+                foreach (var item in bucket)
+                {
+                    if (item.Children == null)
+                    {
+                        var newItem = ThemedContextMenu.AddItem(menu, item.DisplayName, item.InvokeAction);
+                        if (newItem != null)
+                        {
+                            newItem.IsChecked = item.IsChecked;
+                        }
+                    }
+                    else
+                    {
+                        var subItemWrapper = new List<IEnumerable<ContextMenuItem>>();
+                        subItemWrapper.Add(item.Children);
+
+                        var pivotNode = ThemedContextMenu.AddItem(menu, item.DisplayName, null);
+                        AddItems(pivotNode, subItemWrapper);
+                    }
+                }
+            }
         }
 
         public void Show()

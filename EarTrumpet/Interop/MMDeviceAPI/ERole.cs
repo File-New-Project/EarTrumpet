@@ -3,7 +3,7 @@
 namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Flags]
-    enum ERole
+    public enum ERole
     {
         eConsole = 0,
         eMultimedia = 1,

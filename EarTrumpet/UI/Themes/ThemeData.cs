@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.UI.Themes
 {
-    internal class ThemeData
+    public class ThemeData
     {
         public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetBrushData()
         {

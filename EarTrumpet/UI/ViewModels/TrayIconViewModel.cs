@@ -39,7 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
-        public IEnumerable<Tuple<string, RelayCommand>>[] StaticCommands { get; }
+        public IEnumerable<ContextMenuItem>[] StaticCommands { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -69,28 +69,28 @@ namespace EarTrumpet.UI.ViewModels
             OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
             OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
             OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
-            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
+            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultDevice());
             OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
             OpenFlyoutCommand = new RelayCommand(openFlyout);
-            ExitCommand = new RelayCommand(App.Current.Shutdown);
+            ExitCommand = new RelayCommand(DoExit);
 
-            var staticCommands = new List<List<Tuple<string, RelayCommand>>>();
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            var staticCommands = new List<List<ContextMenuItem>>();
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,RelayCommand>(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
-                new Tuple<string,RelayCommand>(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
+                new ContextMenuItem(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
+                new ContextMenuItem(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
             });
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,RelayCommand>(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
-                new Tuple<string,RelayCommand>(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
-                new Tuple<string,RelayCommand>(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
+                new ContextMenuItem(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
+                new ContextMenuItem(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
+                new ContextMenuItem(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
             });
-            staticCommands.Add(new List<Tuple<string, RelayCommand>>()
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,RelayCommand>(Resources.SettingsWindowText, OpenSettingsCommand),
-                new Tuple<string,RelayCommand>(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
-                new Tuple<string,RelayCommand>(Resources.ContextMenuExitTitle, ExitCommand),
+                new ContextMenuItem(Resources.SettingsWindowText, OpenSettingsCommand),
+                new ContextMenuItem(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
+                new ContextMenuItem(Resources.ContextMenuExitTitle, ExitCommand),
             });
             StaticCommands = staticCommands.ToArray();
         }
@@ -124,6 +124,12 @@ namespace EarTrumpet.UI.ViewModels
                 _icons.Add(IconId.SpeakerTwoBars, originalIcon);
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
             }
+        }
+
+        private void DoExit()
+        {
+            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Shutdown);
+            App.Current.Shutdown();
         }
 
         private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel e)

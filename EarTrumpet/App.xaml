@@ -515,6 +515,31 @@
                                           Margin="0,0,8,0"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
+
+                        <Popup x:Name="Popup"
+                               MinWidth="200"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               HorizontalOffset="-2"
+                               IsOpen="{TemplateBinding IsSubmenuOpen}"
+                               Placement="Right"
+                               PopupAnimation="Fade">
+
+                            <Border x:Name="SubmenuBorder"
+                                    Background="{DynamicResource ContextMenuBackgroundDarkOnly}"
+                                    BorderBrush="{DynamicResource ContextMenuBorderDarkOnly}"
+                                    BorderThickness="1"
+                                    SnapsToDevicePixels="True">
+                                <Border Padding="2,6"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1">
+                                    <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Border>
+                        </Popup>
                     </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
@@ -529,6 +554,10 @@
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />
+                    </Trigger>
+                    <Trigger Property="Role" Value="SubmenuHeader">
+                        <Setter TargetName="CheckMark" Property="Text" Value="&#xE0E2;" />
+                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -621,6 +650,58 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <ControlTemplate x:Key="LighOrDark_VolumeSliderTemplate" TargetType="{x:Type Slider}">
+                <Grid>
+                    <Border Name="TrackBackground" Height="2" />
+
+                    <Track Name="PART_Track">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Name="SliderLeft"
+                                          Command="Slider.DecreaseLarge"
+                                          Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
+                                          Style="{StaticResource SliderButtonStyle}" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb Name="SliderThumb">
+                                <Thumb.Style>
+                                    <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
+                                        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderTrackLeft}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
+                                                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SliderThumbHover}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Thumb.Style>
+                            </Thumb>
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Name="SliderRight"
+                                          Command="Slider.IncreaseLarge"
+                                          Foreground="{DynamicResource LightOrDark_SliderTrackRight}"
+                                          Style="{StaticResource SliderButtonStyle}" />
+                        </Track.IncreaseRepeatButton>
+                    </Track>
+
+                    <Border Name="PeakMeter1"
+                            Height="2"
+                            Margin="0,-2,0,0"
+                            HorizontalAlignment="Left"
+                            Background="{DynamicResource LightOrDark_PeakMeterColor}" />
+
+                    <Border Name="PeakMeter2"
+                            Height="2"
+                            Margin="0,1,0,0"
+                            HorizontalAlignment="Left"
+                            Background="{DynamicResource LightOrDark_PeakMeterColor}" />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
