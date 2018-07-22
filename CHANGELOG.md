@@ -10,6 +10,9 @@
 - Fix a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
 - Fix the icon and name of recording devices in 'Listen' mode
 - More High Contrast theme color updates
+- Per-Monitor DPI support
+- Fixes to Notification Area icon scaling
+- Fix overflow flyout at greater than 100% DPI
 
 ## 2.0.4.0
 - Scoped the mouse wheel scrolling to only over the Notification Area icon.

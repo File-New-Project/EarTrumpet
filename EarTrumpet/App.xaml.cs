@@ -39,7 +39,9 @@ namespace EarTrumpet
 
             var flyoutViewModel = new FlyoutViewModel(_viewModel);
             _flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel);
-            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel, () => flyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer)));
+            var trayViewModel = new TrayViewModel(_viewModel, () => flyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            _trayIcon = new TrayIcon(trayViewModel);
+            _flyoutWindow.DpiChanged += (_, __) => trayViewModel.DpiChanged();
 
             HotkeyService.Register(SettingsService.Hotkey);
             HotkeyService.KeyPressed += (_, __) => flyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);

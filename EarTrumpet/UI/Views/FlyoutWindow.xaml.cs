@@ -233,10 +233,11 @@ namespace EarTrumpet.UI.Views
                 }
             }
 
+            var scaledWorkAreaHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
             bool isOverflowing = false;
-            if (newHeight > taskbarState.ContainingScreen.WorkingArea.Height)
+            if (newHeight > scaledWorkAreaHeight)
             {
-                newHeight = taskbarState.ContainingScreen.WorkingArea.Height;
+                newHeight = scaledWorkAreaHeight;
                 isOverflowing = true;
             }
 
