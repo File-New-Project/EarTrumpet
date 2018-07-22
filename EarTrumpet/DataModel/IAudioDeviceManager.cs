@@ -9,6 +9,7 @@ namespace EarTrumpet.DataModel
 
         IAudioDevice Default { get; set; }
         IAudioDeviceCollection Devices { get; }
+        AudioDeviceKind DeviceKind { get; }
 
         void MoveHiddenAppsToDevice(string appId, string id);
         void SetDefaultEndPoint(string id, int pid);

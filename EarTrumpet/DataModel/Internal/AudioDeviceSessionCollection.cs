@@ -79,7 +79,7 @@ namespace EarTrumpet.DataModel.Internal
                         _movedSessions.Add(newSession);
                         newSession.PropertyChanged += MovedSession_PropertyChanged;
                     }
-                    else
+                    else if (newSession.State != SessionState.Expired)
                     {
                         AddSession(newSession);
                     }

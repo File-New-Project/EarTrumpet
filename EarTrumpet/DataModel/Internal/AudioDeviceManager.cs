@@ -14,6 +14,7 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler Loaded;
 
         public IAudioDeviceCollection Devices => _devices;
+        public AudioDeviceKind DeviceKind => _kind;
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
 
