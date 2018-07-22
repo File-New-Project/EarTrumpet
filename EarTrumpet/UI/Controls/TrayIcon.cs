@@ -70,20 +70,14 @@ namespace EarTrumpet.UI.Controls
 
                 foreach(var ext in contextMenuExtensionGroups)
                 {
-                    if (ext.Items.Count() > 1)
-                    {
-                        addonEntries.Add(new ContextMenuItem("-"));
-                    }
+                    addonEntries.Add(new ContextMenuItem("-"));
 
                     foreach (var item in ext.Items)
                     {
                         addonEntries.Add(item);
                     }
 
-                    if (ext.Items.Count() > 1)
-                    {
-                        addonEntries.Add(new ContextMenuItem("-"));
-                    }
+                    addonEntries.Add(new ContextMenuItem("-"));
                 }
 
                 bool prevItemWasSep = false;

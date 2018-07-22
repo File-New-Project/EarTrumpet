@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AudioDeviceKind.cs" />
+    <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
     <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />

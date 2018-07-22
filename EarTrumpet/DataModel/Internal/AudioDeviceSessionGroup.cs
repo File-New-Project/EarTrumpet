@@ -50,7 +50,25 @@ namespace EarTrumpet.DataModel.Internal
 
         public int ProcessId => _sessions.Count > 0 ? _sessions[0].ProcessId : -1;
 
-        public SessionState State => _sessions.Count > 0 ? _sessions[0].State : SessionState.Invalid;
+        public SessionState State
+        {
+            get
+            {
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Active) != null)
+                {
+                    return SessionState.Active;
+                }
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Inactive) != null)
+                {
+                    return SessionState.Inactive;
+                }
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Moved) != null)
+                {
+                    return SessionState.Moved;
+                }
+                return SessionState.Expired;
+            }
+        }
 
         public float Volume
         {

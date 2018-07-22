@@ -10,13 +10,14 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice, IAudioDeviceInternal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly Dispatcher _dispatcher;
         private readonly IAudioEndpointVolume _deviceVolume;
         private readonly AudioDeviceSessionCollection _sessions;
+        private readonly FilteredCollectionChain<IAudioDeviceSession> _sessionFilter;
         private readonly IAudioMeterInformation _meter;
         private readonly WeakReference<IAudioDeviceManager> _deviceManager;
         private readonly string _id;
@@ -41,7 +42,7 @@ namespace EarTrumpet.DataModel.Internal
             _isRegistered = true;
             _meter = device.Activate<IAudioMeterInformation>();
             _sessions = new AudioDeviceSessionCollection(this, _device);
-
+            _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
             _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
             _isMuted = _deviceVolume.GetMute() != 0;
 
@@ -124,7 +125,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string Id => _id;
 
-        public ObservableCollection<IAudioDeviceSession> Groups => _sessions.Sessions;
+        public ObservableCollection<IAudioDeviceSession> Groups => _sessionFilter.Sessions;
 
         public string DisplayName => _displayName;
 
@@ -183,6 +184,11 @@ namespace EarTrumpet.DataModel.Internal
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
             }));
+        }
+
+        public void AddSessionFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter)
+        {
+            _sessionFilter.AddFilter(filter);
         }
     }
 }
