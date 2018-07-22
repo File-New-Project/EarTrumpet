@@ -49,7 +49,7 @@ namespace EarTrumpet.DataModel.Internal
                         ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
                     }
 
-                    _dispatcher.BeginInvoke((Action)(() =>
+                    _dispatcher.Invoke((Action)(() =>
                     {
                         QueryDefaultDevice();
                         Loaded?.Invoke(this, null);
@@ -60,7 +60,7 @@ namespace EarTrumpet.DataModel.Internal
                     // Even through we're going to be broken, show the tray icon so the user can collect debug data.
                     AppTrace.LogWarning(ex);
 
-                    _dispatcher.BeginInvoke((Action)(() =>
+                    _dispatcher.Invoke((Action)(() =>
                     {
                         Loaded?.Invoke(this, null);
                     }));
@@ -158,7 +158,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         var newDevice = new AudioDevice(this, device);
 
-                        _dispatcher.BeginInvoke((Action)(() =>
+                        _dispatcher.Invoke((Action)(() =>
                         {
                             // We must check again on the UI thread to avoid adding a duplicate device.
                             if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused1))
@@ -181,7 +181,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             TraceLine($"OnDeviceRemoved {pwstrDeviceId}");
 
-            _dispatcher.BeginInvoke((Action)(() =>
+            _dispatcher.Invoke((Action)(() =>
             {
                 if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
                 {
@@ -196,7 +196,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 TraceLine($"OnDefaultDeviceChanged {pwstrDefaultDeviceId}");
 
-                _dispatcher.BeginInvoke((Action)(() =>
+                _dispatcher.Invoke((Action)(() =>
                 {
                     QueryDefaultDevice();
                 }));

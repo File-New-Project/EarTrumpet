@@ -68,7 +68,7 @@ namespace EarTrumpet.DataModel.Internal
             _volume = pNotify.fMasterVolume;
             _isMuted = pNotify.bMuted != 0;
 
-            _dispatcher.BeginInvoke((Action)(() =>
+            _dispatcher.Invoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
@@ -179,7 +179,7 @@ namespace EarTrumpet.DataModel.Internal
             _device = dev;
             ReadDisplayName();
 
-            _dispatcher.BeginInvoke((Action)(() =>
+            _dispatcher.Invoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
             }));
