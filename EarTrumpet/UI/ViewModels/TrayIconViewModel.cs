@@ -39,7 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackHubCommand { get; }
         public RelayCommand OpenFlyoutCommand { get; }
         public RelayCommand ExitCommand { get; }
-        public IEnumerable<Tuple<string, object>>[] StaticCommands { get; }
+        public IEnumerable<ContextMenuItem>[] StaticCommands { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -73,38 +73,25 @@ namespace EarTrumpet.UI.ViewModels
             OpenFlyoutCommand = new RelayCommand(openFlyout);
             ExitCommand = new RelayCommand(DoExit);
 
-            var staticCommands = new List<List<Tuple<string, object>>>();
-            staticCommands.Add(new List<Tuple<string, object>>()
+            var staticCommands = new List<List<ContextMenuItem>>();
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,object>(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
-                new Tuple<string,object>(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
+                new ContextMenuItem(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
+                new ContextMenuItem(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
             });
-            staticCommands.Add(new List<Tuple<string, object>>()
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,object>(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
-                new Tuple<string,object>(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
-                new Tuple<string,object>(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
+                new ContextMenuItem(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
+                new ContextMenuItem(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
+                new ContextMenuItem(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
             });
-            staticCommands.Add(new List<Tuple<string, object>>()
+            staticCommands.Add(new List<ContextMenuItem>()
             {
-                new Tuple<string,object>(Resources.SettingsWindowText, OpenSettingsCommand),
-                new Tuple<string,object>(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
-                new Tuple<string,object>(Resources.ContextMenuExitTitle, ExitCommand),
+                new ContextMenuItem(Resources.SettingsWindowText, OpenSettingsCommand),
+                new ContextMenuItem(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
+                new ContextMenuItem(Resources.ContextMenuExitTitle, ExitCommand),
             });
             StaticCommands = staticCommands.ToArray();
-        }
-
-        public List<Tuple<string, object>> GetAddons()
-        {
-            var ret = new List<Tuple<string, object>>();
-
-            foreach(var ext in Extensibility.Hosting.AddonHostService.Instance.EntryPoints)
-            {
-                ret.Add(new Tuple<string, object>(ext.DisplayName, new RelayCommand(() =>
-                    AddonSettingsWindow.ShowForAddon(ext))));
-            }
-
-            return ret;
         }
 
         private void LoadIconResources()
@@ -137,7 +124,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void DoExit()
         {
-            Extensibility.Hosting.AddonHostService.Instance.Close();
+            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Shutdown);
             App.Current.Shutdown();
         }
 

@@ -31,11 +31,7 @@ namespace EarTrumpet
 
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
-            Extensibility.Hosting.AddonHostService.Initialize();
-
-            var deviceManager = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
-
-            _viewModel = new DeviceCollectionViewModel(deviceManager);
+            _viewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
             _viewModel.Ready += MainViewModel_Ready;
 
             var flyoutViewModel = new FlyoutViewModel(_viewModel);
@@ -55,7 +51,7 @@ namespace EarTrumpet
             Trace.WriteLine("App Application_Startup MainViewModel_Ready");
             _trayIcon.Show();
 
-            Extensibility.Hosting.AddonHostService.Instance.Load();
+            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Startup);
         }
     }
 }

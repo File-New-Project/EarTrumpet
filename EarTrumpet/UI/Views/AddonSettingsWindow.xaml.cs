@@ -1,27 +1,22 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensibility;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Services;
 using System.Collections.Generic;
 using System.Windows;
 
 namespace EarTrumpet.UI.Views
 {
-    public partial class AddonSettingsWindow : Window, ISettingsWindowHost
+    public partial class AddonSettingsWindow : Window
     {
-        private static Dictionary<ISettingsEntry, AddonSettingsWindow> s_windows = new Dictionary<ISettingsEntry, AddonSettingsWindow>();
+        private static Dictionary<object, AddonSettingsWindow> s_windows = new Dictionary<object, AddonSettingsWindow>();
 
-        private readonly ISettingsEntry _addon;
-        public AddonSettingsWindow(ISettingsEntry addon)
+        public AddonSettingsWindow(object addon, string displayName)
         {
-            _addon = addon;
             InitializeComponent();
 
-            Title = addon.DisplayName;
+            Title = displayName;
 
-            addon.Advise(this);
-            AddonHostGrid.Children.Add((UIElement)addon.Content);
+            AddonHostGrid.Children.Add((UIElement)addon);
 
             SourceInitialized += (_, __) => AccentPolicyLibrary.SetWindowBlur(this, true, true);
 
@@ -47,7 +42,7 @@ namespace EarTrumpet.UI.Views
             Close();
         }
 
-        public static void ShowForAddon(ISettingsEntry addon)
+        public static void ShowForAddon(object addon, string displayName)
         {
             if (s_windows.ContainsKey(addon))
             {
@@ -55,22 +50,10 @@ namespace EarTrumpet.UI.Views
             }
             else
             {
-                var win = new AddonSettingsWindow(addon);
+                var win = new AddonSettingsWindow(addon, displayName);
                 win.Show();
                 s_windows.Add(addon, win);
             }
-        }
-
-        public HotkeyData GetHotkeyFromUser()
-        {
-            var win = new HotkeySelectionWindow();
-            win.Owner = this;
-            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            if ((bool)win.ShowDialog())
-            {
-                return win.Hotkey;
-            }
-            return null;
         }
     }
 }

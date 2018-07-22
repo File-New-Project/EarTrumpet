@@ -6,7 +6,7 @@
         Shutdown,
     }
 
-    public interface IApplicationLifecycle
+    public interface IAddonLifecycle
     {
         void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt);
     }

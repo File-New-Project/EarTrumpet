@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -63,23 +62,12 @@ namespace EarTrumpet.UI.Controls
             }
 
             var staticItems = _trayViewModel.StaticCommands.ToList();
-            var addonItems = _trayViewModel.GetAddons();
+            var addonItems = Extensibility.Hosting.AddonHost.Current.ContextMenuItems.SelectMany(f => f.Items);
 
-            foreach (var contextMenuExtension in Extensibility.Hosting.AddonHostService.Instance.ContextMenuItems)
+            if (addonItems.Any())
             {
-                var extensionSubItems = new List<Tuple<string, object>>();
-                foreach (var ext in contextMenuExtension.Items)
-                {
-                    extensionSubItems.Add(new Tuple<string, object>(ext.Item1, new RelayCommand(ext.Item2)));
-                }
-
-                addonItems.Add(new Tuple<string, object>(contextMenuExtension.DisplayName, extensionSubItems));
-            }
-
-            if (addonItems.Count > 0)
-            {
-                var addonSection = new List<Tuple<string, object>>();
-                addonSection.Add(new Tuple<string, object>("Addons", addonItems)); // TODO: localize
+                var addonSection = new List<ContextMenuItem>();
+                addonSection.Add(new ContextMenuItem("Addons", addonItems));
                 staticItems.Insert(staticItems.Count - 1, addonSection);
             }
 
@@ -88,7 +76,7 @@ namespace EarTrumpet.UI.Controls
             return cm;
         }
 
-        private void AddItems(ItemsControl menu, List<IEnumerable<Tuple<string, object>>> items)
+        private void AddItems(ItemsControl menu, List<IEnumerable<ContextMenuItem>> items)
         {
             foreach (var bucket in items)
             {
@@ -99,17 +87,16 @@ namespace EarTrumpet.UI.Controls
 
                 foreach (var item in bucket)
                 {
-                    if (item.Item2 is RelayCommand)
+                    if (item.Children == null)
                     {
-                        ThemedContextMenu.AddItem(menu, item.Item1, (RelayCommand)item.Item2);
+                        ThemedContextMenu.AddItem(menu, item.DisplayName, item.InvokeAction);
                     }
                     else
                     {
-                        var subItems = (IEnumerable<Tuple<string, object>>)item.Item2;
-                        var subItemWrapper = new List<IEnumerable<Tuple<string, object>>>();
-                        subItemWrapper.Add(subItems);
+                        var subItemWrapper = new List<IEnumerable<ContextMenuItem>>();
+                        subItemWrapper.Add(item.Children);
 
-                        var pivotNode = ThemedContextMenu.AddItem(menu, item.Item1, null);
+                        var pivotNode = ThemedContextMenu.AddItem(menu, item.DisplayName, null);
                         AddItems(pivotNode, subItemWrapper);
                     }
                 }

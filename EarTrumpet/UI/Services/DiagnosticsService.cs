@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
+using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Services
 {
@@ -28,7 +29,9 @@ namespace EarTrumpet.UI.Services
                 allText += DumpDevices(devMgr);
             }
             allText += Environment.NewLine;
+            allText += $"App: {(App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "dev")}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
+            allText += $"Addons: {string.Join(" ", Extensibility.Hosting.AddonHost.Current.LoadedAddons)}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
@@ -70,7 +73,7 @@ namespace EarTrumpet.UI.Services
             var persisted = session.PersistedDefaultEndPointId;
             if (!string.IsNullOrWhiteSpace(persisted))
             {
-                sb.AppendLine(indent + $"  Persisted Playback Endpoint: {persisted}");
+                sb.AppendLine(indent + $"  Persisted Endpoint: {persisted}");
             }
 
             return sb.ToString();
@@ -105,7 +108,7 @@ namespace EarTrumpet.UI.Services
             StringBuilder sb = new StringBuilder();
             foreach (var device in manager.Devices)
             {
-                sb.Append(device == manager.Default ? "[Playback Default] " : "");
+                sb.Append(device == manager.Default ? $"[Default {manager.DeviceKind}] " : "");
                 sb.AppendLine(DumpDevice(device));
             }
             return sb.ToString();
