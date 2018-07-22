@@ -38,7 +38,7 @@ namespace EarTrumpet.DataModel.Storage
 
         public T Get<T>(string key, T defaultValue)
         {
-            if (defaultValue is bool ||
+            if ((defaultValue is bool && App.Current.HasIdentity()) ||
                 defaultValue is string)
             {
                 return ReadSetting<T>(key);
@@ -59,7 +59,8 @@ namespace EarTrumpet.DataModel.Storage
 
         public void Set<T>(string key, T value)
         {
-            if (value is bool | value is string)
+            if ((value is bool && App.Current.HasIdentity())
+                || value is string)
             {
                 WriteSetting<T>(key, value);
                 return;

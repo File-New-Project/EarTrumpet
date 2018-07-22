@@ -62,12 +62,54 @@ namespace EarTrumpet.UI.Controls
             }
 
             var staticItems = _trayViewModel.StaticCommands.ToList();
-            var addonItems = Extensibility.Hosting.AddonHost.Current.ContextMenuItems.SelectMany(f => f.Items);
+            var contextMenuExtensionGroups = Extensibility.Hosting.AddonHost.Current.ContextMenuItems;
 
-            if (addonItems.Any())
+            if (contextMenuExtensionGroups.SelectMany(a => a.Items).Any())
             {
+                var addonEntries = new List<ContextMenuItem>();
+
+                foreach(var ext in contextMenuExtensionGroups)
+                {
+                    if (ext.Items.Count() > 1)
+                    {
+                        addonEntries.Add(new ContextMenuItem("-"));
+                    }
+
+                    foreach (var item in ext.Items)
+                    {
+                        addonEntries.Add(item);
+                    }
+
+                    if (ext.Items.Count() > 1)
+                    {
+                        addonEntries.Add(new ContextMenuItem("-"));
+                    }
+                }
+
+                bool prevItemWasSep = false;
+                for (var i = addonEntries.Count - 1; i >= 0; i--)
+                {
+                    var itemIsSep = addonEntries[i].DisplayName == "-";
+
+                    if (i == addonEntries.Count - 1 ||
+                        i == 0)
+                    {
+                        if (itemIsSep)
+                        {
+                            addonEntries.Remove(addonEntries[i]);
+                        }
+                    }
+
+                    if (prevItemWasSep && itemIsSep)
+                    {
+                        addonEntries.Remove(addonEntries[i]);
+                    }
+
+                    prevItemWasSep = itemIsSep;
+                }
+
                 var addonSection = new List<ContextMenuItem>();
-                addonSection.Add(new ContextMenuItem("Addons", addonItems));
+                addonSection.Add(new ContextMenuItem("Addons", addonEntries));
                 staticItems.Insert(staticItems.Count - 1, addonSection);
             }
 
@@ -89,7 +131,11 @@ namespace EarTrumpet.UI.Controls
                 {
                     if (item.Children == null)
                     {
-                        ThemedContextMenu.AddItem(menu, item.DisplayName, item.InvokeAction);
+                        var newItem = ThemedContextMenu.AddItem(menu, item.DisplayName, item.InvokeAction);
+                        if (newItem != null)
+                        {
+                            newItem.IsChecked = item.IsChecked;
+                        }
                     }
                     else
                     {

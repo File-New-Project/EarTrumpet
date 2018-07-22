@@ -40,7 +40,6 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
         public bool IsMovable => !_session.IsSystemSoundsSession && 
-                                  _session.Parent.Parent.DeviceKind == AudioDeviceKind.Playback && 
                                   Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 
         public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;

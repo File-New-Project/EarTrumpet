@@ -8,7 +8,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
+    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerInternal
     {
         public event EventHandler<IAudioDevice> DefaultChanged;
         public event EventHandler Loaded;
@@ -118,7 +118,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        private void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
+        public void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
         {
             TraceLine($"SetDefaultDevice {device.Id}");
 

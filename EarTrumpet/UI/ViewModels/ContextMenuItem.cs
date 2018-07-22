@@ -13,6 +13,11 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsChecked;
         public ContextMenuItem[] Children;
 
+        public ContextMenuItem(string displayName)
+        {
+            DisplayName = displayName;
+        }
+
         public ContextMenuItem(string displayName, ICommand cmd)
         {
             InvokeAction = cmd;
