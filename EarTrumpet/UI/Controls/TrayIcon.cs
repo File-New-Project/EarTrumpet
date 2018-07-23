@@ -69,7 +69,7 @@ namespace EarTrumpet.UI.Controls
                 var addonEntries = new List<ContextMenuItem>();
 
                 // Add a line before and after each extension group.
-                foreach(var ext in contextMenuExtensionGroups)
+                foreach (var ext in contextMenuExtensionGroups.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                 {
                     addonEntries.Add(new ContextMenuSeparator());
 
