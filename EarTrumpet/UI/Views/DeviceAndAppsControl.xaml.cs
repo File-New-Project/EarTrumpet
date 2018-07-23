@@ -1,8 +1,4 @@
-﻿using EarTrumpet.UI.Services;
-using EarTrumpet.UI.ViewModels;
-using EarTrumpet.UI.Views;
-using System;
-using System.Diagnostics;
+﻿using EarTrumpet.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,8 +7,6 @@ namespace EarTrumpet.UI.Views
 {
     public partial class DeviceAndAppsControl : UserControl
     {
-        public event EventHandler<AppVolumeControlExpandedEventArgs> AppExpanded;
-
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
@@ -61,11 +55,6 @@ namespace EarTrumpet.UI.Views
             {
                 System.Media.SystemSounds.Beep.Play();
             }
-        }
-
-        private void AppVolumeControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
-        {
-            AppExpanded?.Invoke(sender, e);
         }
     }
 }

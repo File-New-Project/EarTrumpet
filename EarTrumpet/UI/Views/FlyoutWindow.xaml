@@ -255,9 +255,7 @@
                                   ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded"
-                                                            Device="{Binding}"
-                                                            IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
+                                <views:DeviceAndAppsControl Device="{Binding}" IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

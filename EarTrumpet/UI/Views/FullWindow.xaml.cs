@@ -143,13 +143,6 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
-        {
-            Trace.WriteLine("FullWindow DeviceAndAppsControl_AppExpanded");
-
-            _viewModel.ExpandApp(e.ViewModel, e.Container);
-        }
-
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             AppPopup.HideWithAnimation();

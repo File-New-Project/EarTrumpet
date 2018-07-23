@@ -277,10 +277,5 @@ namespace EarTrumpet.UI.Views
             AppPopup.HideWithAnimation();
             e.Handled = true;
         }
-
-        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
-        {
-            _viewModel.BeginExpandApp(e.ViewModel, e.Container);
-        }
     }
 }

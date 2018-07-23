@@ -56,7 +56,7 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel = mainViewModel;
             _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
-
+            _mainViewModel.AppPopup += OnAppPopup;
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
@@ -276,8 +276,13 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void BeginExpandApp(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(IAppItemViewModel vm, UIElement container)
         {
+            if (Window.GetWindow(container).DataContext != this)
+            {
+                return;
+            }
+
             if (IsShowingModalDialog)
             {
                 CollapseApp();

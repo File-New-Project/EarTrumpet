@@ -77,7 +77,7 @@
                       Style="{DynamicResource AppListStyle}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <views:AppVolumeControl App="{Binding}" AppExpanded="AppVolumeControl_AppExpanded" />
+                        <views:AppVolumeControl App="{Binding}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

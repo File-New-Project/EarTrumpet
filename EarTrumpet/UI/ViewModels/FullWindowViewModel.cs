@@ -17,7 +17,7 @@ namespace EarTrumpet.UI.ViewModels
         public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-
+            _mainViewModel.AppPopup += OnAppPopup;
             _mainViewModel.OnFullWindowOpened();
         }
 
@@ -27,8 +27,13 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void ExpandApp(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(IAppItemViewModel vm, UIElement container)
         {
+            if (Window.GetWindow(container).DataContext != this)
+            {
+                return;
+            }
+
             if (IsShowingModalDialog)
             {
                 CollapseApp();

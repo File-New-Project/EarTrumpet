@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
+using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -13,6 +14,7 @@ namespace EarTrumpet.UI.ViewModels
     {
         public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
+        public event Action<IAppItemViewModel, UIElement> AppPopup;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
         public DeviceViewModel Default { get; private set; }
@@ -62,7 +64,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void AddDevice(IAudioDevice device)
         {
-            var newDevice = new DeviceViewModel(_deviceManager, device);
+            var newDevice = new DeviceViewModel(this, _deviceManager, device);
             AllDevices.Add(newDevice);
         }
 
@@ -158,7 +160,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 
-                var tempApp = new TemporaryAppItemViewModel(_deviceManager, app);
+                var tempApp = new TemporaryAppItemViewModel(this, _deviceManager, app);
 
                 app.MoveToDevice(dev?.Id, hide: isLogicallyMovingDevices);
 
@@ -202,6 +204,11 @@ namespace EarTrumpet.UI.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
+        }
+
+        public void OpenPopup(IAppItemViewModel app, UIElement container)
+        {
+            AppPopup?.Invoke(app, container);
         }
     }
 }

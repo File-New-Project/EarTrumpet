@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -35,11 +36,13 @@ namespace EarTrumpet.UI.ViewModels
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
         private bool _isDisplayNameVisible;
+        private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
+            _parent = new WeakReference<DeviceCollectionViewModel>(parent);
 
             Apps = new ObservableCollection<IAppItemViewModel>();
 
@@ -48,7 +51,7 @@ namespace EarTrumpet.UI.ViewModels
 
             foreach (var session in _device.Groups)
             {
-                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModel.CompareByExeName);
+                Apps.AddSorted(new AppItemViewModel(this, session), AppItemViewModel.CompareByExeName);
             }
 
             UpdateMasterVolumeIcon();
@@ -151,7 +154,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void AddSession(IAudioDeviceSession session)
         {
-            var newSession = new AppItemViewModel(session);
+            var newSession = new AppItemViewModel(this, session);
 
             foreach(var a in Apps)
             {
@@ -217,5 +220,13 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void OpenPopup(IAppItemViewModel app, UIElement container)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(app, container);
+            }
+        }
     }
 }

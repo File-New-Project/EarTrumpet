@@ -7,8 +7,6 @@ namespace EarTrumpet.UI.Views
 {
     public partial class AppVolumeControl : UserControl
     {
-        public event EventHandler<AppVolumeControlExpandedEventArgs> AppExpanded;
-
         public IAppItemViewModel App { get { return (IAppItemViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
         public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
           "App", typeof(IAppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(new PropertyChangedCallback(AppChanged)));
@@ -39,22 +37,12 @@ namespace EarTrumpet.UI.Views
 
         public void ExpandApp()
         {
-            AppExpanded?.Invoke(this, new AppVolumeControlExpandedEventArgs
-            {
-                ViewModel = App,
-                Container = (UIElement)this,
-            });
+            App.OpenPopup((UIElement)this);
         }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             App.RefreshDisplayName();
         }
-    }
-
-    public class AppVolumeControlExpandedEventArgs
-    {
-        public IAppItemViewModel ViewModel;
-        public UIElement Container;
     }
 }

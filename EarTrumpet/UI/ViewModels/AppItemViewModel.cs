@@ -49,53 +49,62 @@ namespace EarTrumpet.UI.ViewModels
         public int ProcessId => _session.ProcessId;
 
         private IAudioDeviceSession _session;
+        private WeakReference<DeviceViewModel> _parent;
 
-        internal AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
+        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false, ImageSource icon = null) : base(session)
         {
             IsExpanded = isChild;
             _session = session;
             _session.PropertyChanged += Session_PropertyChanged;
+            _parent = new WeakReference<DeviceViewModel>(parent);
+
+            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
+
+            if (icon != null)
+            {
+                Icon = icon;
+            }
+            else
+            {
+                try
+                {
+                    if (session.IsDesktopApp)
+                    {
+                        if (!string.IsNullOrWhiteSpace(session.IconPath))
+                        {
+                            var iconPath = new StringBuilder(session.IconPath);
+                            int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
+                            if (iconIndex != 0)
+                            {
+                                Icon = GetIconFromFile(iconPath.ToString(), iconIndex);
+                            }
+                            else
+                            {
+                                Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.UriSource = new Uri(session.IconPath);
+                        bitmap.EndInit();
+
+                        Icon = bitmap;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError($"Failed to load icon: {ex}");
+                }
+            }
 
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;
-                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
-            }
-
-            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
-
-            try
-            {
-                if (session.IsDesktopApp)
-                {
-                    if (!string.IsNullOrWhiteSpace(session.IconPath))
-                    {
-                        var iconPath = new StringBuilder(session.IconPath);
-                        int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
-                        if (iconIndex != 0)
-                        {
-                            Icon = GetIconFromFile(iconPath.ToString(), iconIndex);
-                        }
-                        else
-                        {
-                            Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-                        }
-                    }
-                }
-                else
-                {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.UriSource = new Uri(session.IconPath);
-                    bitmap.EndInit();
-
-                    Icon = bitmap;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"Failed to load icon: {ex}");
+                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(parent, t, true, Icon)));
             }
         }
 
@@ -128,19 +137,22 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            if (_parent.TryGetTarget(out var parent))
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Debug.Assert(e.NewItems.Count == 1);
-                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0], isChild:true));
-                    break;
+                switch (e.Action)
+                {
+                    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                        Debug.Assert(e.NewItems.Count == 1);
+                        ChildApps.Add(new AppItemViewModel(parent, (IAudioDeviceSession)e.NewItems[0], true, Icon));
+                        break;
 
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    Debug.Assert(e.OldItems.Count == 1);
-                    ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
-                    break;
-                default:
-                    throw new NotImplementedException();
+                    case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                        Debug.Assert(e.OldItems.Count == 1);
+                        ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
             }
         }
 
@@ -184,5 +196,13 @@ namespace EarTrumpet.UI.ViewModels
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void OpenPopup(UIElement container)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(this, container);
+            }
+        }
     }
 }

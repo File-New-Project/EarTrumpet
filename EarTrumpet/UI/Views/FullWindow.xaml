@@ -211,9 +211,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <ItemContainerTemplate>
-                                <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
-                                                            AppExpanded="DeviceAndAppsControl_AppExpanded"
-                                                            Device="{Binding}" />
+                                <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}" Device="{Binding}" />
                             </ItemContainerTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
