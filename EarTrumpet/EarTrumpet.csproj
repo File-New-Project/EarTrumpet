@@ -253,8 +253,8 @@
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />
     <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
-    <Compile Include="UI\Views\AppVolumeControl.xaml.cs">
-      <DependentUpon>AppVolumeControl.xaml</DependentUpon>
+    <Compile Include="UI\Views\AppItemView.xaml.cs">
+      <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
     <Page Include="UI\Views\HotkeySelectionWindow.xaml">
       <SubType>Designer</SubType>
@@ -292,7 +292,7 @@
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\Views\AppVolumeControl.xaml">
+    <Page Include="UI\Views\AppItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

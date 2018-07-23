@@ -4,11 +4,11 @@ using System.Windows.Controls;
 
 namespace EarTrumpet.UI.Views
 {
-    public partial class AppVolumeControl : UserControl
+    public partial class AppItemView : UserControl
     {
         private AppItemViewModel App => (AppItemViewModel)DataContext;
 
-        public AppVolumeControl()
+        public AppItemView()
         {
             InitializeComponent();
 

@@ -747,7 +747,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
-                <views:AppVolumeControl />
+                <views:AppItemView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

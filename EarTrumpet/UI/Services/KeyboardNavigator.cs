@@ -37,7 +37,7 @@ namespace EarTrumpet.UI.Views
                             evt.Handled = true;
                             break;
                         case Key.Space:
-                            var volControl = listItem.FindVisualChild<AppVolumeControl>();
+                            var volControl = listItem.FindVisualChild<AppItemView>();
                             volControl.ExpandApp();
                             evt.Handled = true;
                             break;
