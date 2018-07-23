@@ -131,6 +131,7 @@ namespace EarTrumpet.UI.ViewModels
                 IsExpanded = false;
             }
 
+            UpdateTextVisibility();
             RaiseDevicesChanged();
         }
 
