@@ -44,13 +44,7 @@
                       FocusVisualStyle="{x:Null}"
                       ItemsSource="{Binding ChildApps, Mode=OneWay}"
                       ScrollViewer.CanContentScroll="True"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <views:AppVolumeControl App="{Binding}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" />
         </Grid>
     </Border>
 </Popup>

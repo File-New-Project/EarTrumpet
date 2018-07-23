@@ -745,6 +745,10 @@
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
+                <views:AppVolumeControl />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

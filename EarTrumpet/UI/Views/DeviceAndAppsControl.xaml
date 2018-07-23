@@ -74,13 +74,7 @@
             <ListView Name="AppList"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
                       ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      Style="{DynamicResource AppListStyle}">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="viewModels:AppItemViewModel">
-                        <views:AppVolumeControl App="{Binding}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                      Style="{DynamicResource AppListStyle}" />
         </Border>
     </Grid>
 </UserControl>

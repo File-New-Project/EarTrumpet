@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,21 +6,13 @@ namespace EarTrumpet.UI.Views
 {
     public partial class AppVolumeControl : UserControl
     {
-        public IAppItemViewModel App { get { return (IAppItemViewModel)GetValue(StreamProperty); } set { SetValue(StreamProperty, value); } }
-        public static readonly DependencyProperty StreamProperty = DependencyProperty.Register(
-          "App", typeof(IAppItemViewModel), typeof(AppVolumeControl), new PropertyMetadata(new PropertyChangedCallback(AppChanged)));
+        private AppItemViewModel App => (AppItemViewModel)DataContext;
 
         public AppVolumeControl()
         {
             InitializeComponent();
 
             PreviewMouseRightButtonUp += AppVolumeControl_PreviewMouseRightButtonUp;
-        }
-
-        private static void AppChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var self = (AppVolumeControl)d;
-            self.GridRoot.DataContext = self.App;
         }
 
         private void AppVolumeControl_PreviewMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -37,7 +28,7 @@ namespace EarTrumpet.UI.Views
 
         public void ExpandApp()
         {
-            App.OpenPopup((UIElement)this);
+            App.OpenPopup(this);
         }
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
