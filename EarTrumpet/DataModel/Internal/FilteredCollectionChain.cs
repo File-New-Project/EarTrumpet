@@ -46,9 +46,9 @@ namespace EarTrumpet.DataModel.Internal
         public void AddFilter(Func<ObservableCollection<T>, ObservableCollection<T>> filter)
         {
             Free();
-            for (var i = _sessions.Count - 1; i >= 0; i--)
+            for (var i = Sessions.Count - 1; i >= 0; i--)
             {
-                _sessions.RemoveAt(i);
+                Sessions.RemoveAt(i);
             }
 
             _sessions = filter(_sessions);

@@ -184,7 +184,7 @@ namespace EarTrumpet.DataModel.Internal
             GroupingParam = _session.GetGroupingParam();
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
-            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == Error.S_OK;
             ProcessId = ReadProcessId();
             _parent = new WeakReference<IAudioDevice>(parent);
 

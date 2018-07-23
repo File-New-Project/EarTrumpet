@@ -43,7 +43,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public bool IsSystemSoundsSession => _sessions.Count > 0 ? _sessions[0].IsSystemSoundsSession : false;
+        public bool IsSystemSoundsSession => _sessions.Any(s => s.IsSystemSoundsSession);
 
         public float PeakValue1 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue1) : 0;
         public float PeakValue2 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue2) : 0;
