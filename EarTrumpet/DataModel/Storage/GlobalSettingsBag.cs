@@ -10,6 +10,8 @@ namespace EarTrumpet.DataModel.Storage
 {
     class GlobalSettingsBag : ISettingsBag
     {
+        public event EventHandler<string> SettingChanged;
+
         public bool HasKey(string key)
         {
             var ret = false;
@@ -73,6 +75,7 @@ namespace EarTrumpet.DataModel.Storage
                 xmlserializer.Serialize(writer, value);
                 WriteSetting(key, stringWriter.ToString());
             }
+            SettingChanged?.Invoke(this, key);
         }
 
         static T ReadSetting<T>(string key)

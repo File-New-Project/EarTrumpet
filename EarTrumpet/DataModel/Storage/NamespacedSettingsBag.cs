@@ -1,9 +1,11 @@
-﻿using EarTrumpet.Extensibility;
+﻿using System;
 
 namespace EarTrumpet.DataModel.Storage
 {
     class NamespacedSettingsBag : ISettingsBag
     {
+        public event EventHandler<string> SettingChanged;
+
         private readonly string _nameSpace;
         private readonly ISettingsBag _globalBag;
 
@@ -12,6 +14,7 @@ namespace EarTrumpet.DataModel.Storage
             _nameSpace = nameSpace;
             _globalBag = bag;
         }
+
 
         public T Get<T>(string key, T defaultValue)
         {
@@ -26,6 +29,7 @@ namespace EarTrumpet.DataModel.Storage
         public void Set<T>(string key, T value)
         {
             _globalBag.Set($"{_nameSpace}.{key}", value);
+            SettingChanged?.Invoke(this, key);
         }
     }
 }
