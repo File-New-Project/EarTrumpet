@@ -21,12 +21,6 @@ namespace EarTrumpet.UI.Helpers
 
         public static MenuItem AddItem(ItemsControl menu, string displayName, ICommand action)
         {
-            if (displayName == "-")
-            {
-                menu.Items.Add(new Separator());
-                return null;
-            }
-
             var item = new MenuItem
             {
                 Header = displayName,

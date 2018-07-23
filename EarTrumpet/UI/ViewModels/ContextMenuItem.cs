@@ -1,33 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class ContextMenuItem
     {
-        public string DisplayName;
-        public ICommand InvokeAction;
-        public bool IsChecked;
-        public ContextMenuItem[] Children;
+        public string DisplayName { get; set; }
+        public ICommand Command { get; set; }
+        public bool IsChecked { get; set; }
+        public IEnumerable<ContextMenuItem> Children { get; set; }
+    }
 
-        public ContextMenuItem(string displayName)
-        {
-            DisplayName = displayName;
-        }
-
-        public ContextMenuItem(string displayName, ICommand cmd)
-        {
-            InvokeAction = cmd;
-            DisplayName = displayName;
-        }
-
-        public ContextMenuItem(string displayName, IEnumerable<ContextMenuItem> children)
-        {
-            DisplayName = displayName;
-            Children = children.ToArray();
-        }
+    public class ContextMenuSeparator : ContextMenuItem
+    {
     }
 }

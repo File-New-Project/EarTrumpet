@@ -68,22 +68,24 @@ namespace EarTrumpet.UI.Controls
             {
                 var addonEntries = new List<ContextMenuItem>();
 
+                // Add a line before and after each extension group.
                 foreach(var ext in contextMenuExtensionGroups)
                 {
-                    addonEntries.Add(new ContextMenuItem("-"));
+                    addonEntries.Add(new ContextMenuSeparator());
 
                     foreach (var item in ext.Items)
                     {
                         addonEntries.Add(item);
                     }
 
-                    addonEntries.Add(new ContextMenuItem("-"));
+                    addonEntries.Add(new ContextMenuSeparator());
                 }
 
+                // Remove duplicate lines (extensions may also add lines)
                 bool prevItemWasSep = false;
                 for (var i = addonEntries.Count - 1; i >= 0; i--)
                 {
-                    var itemIsSep = addonEntries[i].DisplayName == "-";
+                    var itemIsSep = addonEntries[i] is ContextMenuSeparator;
 
                     if (i == addonEntries.Count - 1 ||
                         i == 0)
@@ -102,9 +104,10 @@ namespace EarTrumpet.UI.Controls
                     prevItemWasSep = itemIsSep;
                 }
 
-                var addonSection = new List<ContextMenuItem>();
-                addonSection.Add(new ContextMenuItem("Addons", addonEntries));
-                staticItems.Insert(staticItems.Count - 1, addonSection);
+                staticItems.Insert(staticItems.Count - 1, 
+                    new List<ContextMenuItem> {
+                        new ContextMenuItem { DisplayName = "Addons", Children = addonEntries }
+                    });
             }
 
             AddItems(cm, staticItems);
@@ -123,13 +126,14 @@ namespace EarTrumpet.UI.Controls
 
                 foreach (var item in bucket)
                 {
-                    if (item.Children == null)
+                    if (item is ContextMenuSeparator)
                     {
-                        var newItem = ThemedContextMenu.AddItem(menu, item.DisplayName, item.InvokeAction);
-                        if (newItem != null)
-                        {
-                            newItem.IsChecked = item.IsChecked;
-                        }
+                        menu.Items.Add(new Separator());
+                    }
+                    else if (item.Children == null)
+                    {
+                        var newItem = ThemedContextMenu.AddItem(menu, item.DisplayName, item.Command);
+                        newItem.IsChecked = item.IsChecked;
                     }
                     else
                     {

@@ -77,20 +77,20 @@ namespace EarTrumpet.UI.ViewModels
             var staticCommands = new List<List<ContextMenuItem>>();
             staticCommands.Add(new List<ContextMenuItem>()
             {
-                new ContextMenuItem(Resources.FullWindowTitleText, OpenEarTrumpetVolumeMixerCommand),
-                new ContextMenuItem(Resources.LegacyVolumeMixerText, OpenLegacyVolumeMixerCommand),
+                new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command = OpenEarTrumpetVolumeMixerCommand },
+                new ContextMenuItem{ DisplayName =Resources.LegacyVolumeMixerText, Command = OpenLegacyVolumeMixerCommand },
             });
             staticCommands.Add(new List<ContextMenuItem>()
             {
-                new ContextMenuItem(Resources.PlaybackDevicesText, OpenPlaybackDevicesCommand),
-                new ContextMenuItem(Resources.RecordingDevicesText, OpenRecordingDevicesCommand),
-                new ContextMenuItem(Resources.SoundsControlPanelText, OpenSoundsControlPanelCommand),
+                new ContextMenuItem{ DisplayName = Resources.PlaybackDevicesText,    Command = OpenPlaybackDevicesCommand },
+                new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = OpenRecordingDevicesCommand },
+                new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = OpenSoundsControlPanelCommand },
             });
             staticCommands.Add(new List<ContextMenuItem>()
             {
-                new ContextMenuItem(Resources.SettingsWindowText, OpenSettingsCommand),
-                new ContextMenuItem(Resources.ContextMenuSendFeedback, OpenFeedbackHubCommand),
-                new ContextMenuItem(Resources.ContextMenuExitTitle, ExitCommand),
+                new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = OpenSettingsCommand },
+                new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = OpenFeedbackHubCommand },
+                new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = ExitCommand },
             });
             StaticCommands = staticCommands.ToArray();
         }
