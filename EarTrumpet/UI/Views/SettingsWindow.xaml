@@ -3,51 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         Name="WindowRoot"
-        Width="600"
-        Height="500"
+        Title="{Binding Title}"
         MinWidth="600"
+        MinHeight="400"
         ResizeMode="NoResize"
-        SizeToContent="Height"
+        SizeToContent="WidthAndHeight"
         Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <Style x:Key="HeadingText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="Margin" Value="0,24,0,18" />
-        </Style>
-
-        <Style x:Key="BodyText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style x:Key="BodySubText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,0,16,0" />
-            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
-        </Style>
-
-        <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-            <Setter Property="Margin" Value="0,6,0,6" />
-        </Style>
-
-        <Style TargetType="{x:Type Hyperlink}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForegroundHover}" />
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForeground}" />
-            <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
-        </Style>
-    </Window.Resources>
+    <Window.Resources />
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -58,14 +21,14 @@
             <Border Background="{DynamicResource LightOrDark_SettingsHeaderBackground}" />
         </Grid>
 
-        <DockPanel>
+        <DockPanel LastChildFill="True">
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Margin="14,0,0,0"
-                           Text="{Binding ElementName=WindowRoot, Path=Title}"
+                           Text="{Binding Title}"
                            TextAlignment="Left" />
                 <Button x:Name="CloseButton"
                         Grid.Column="1"
@@ -73,6 +36,7 @@
                         Content="&#xE8BB;"
                         Style="{DynamicResource CloseButtonStyle}" />
             </Grid>
+
             <StackPanel Margin="14,0,14,14" Orientation="Vertical">
                 <StackPanel Margin="0,18,0,14" Orientation="Horizontal">
                     <Border Width="40"
@@ -90,77 +54,10 @@
                     <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
                 </StackPanel>
 
-                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
+                <ContentControl x:Name="ComponentHost" />
 
-                <CheckBox Margin="0,12,0,18"
-                          HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                          Style="{StaticResource CheckboxStyle}" />
-
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="34" />
-                        <RowDefinition Height="34" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="140" />
-                        <ColumnDefinition Width="Auto" MinWidth="140" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultHotKey}" />
-
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            MinWidth="140"
-                            HorizontalAlignment="Left"
-                            Click="HotkeySelect_Click"
-                            Content="{Binding HotkeyText}"
-                            Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                            Style="{StaticResource Windows10ButtonStyle}" />
-
-
-                </Grid>
-
-                <StackPanel Orientation="Horizontal" />
-                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
-                <StackPanel Orientation="Horizontal">
-
-                    <StackPanel Margin="0,0,0,6">
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding AboutText}" />
-                        <TextBlock Margin="0,0,0,12"
-                                   VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="© File-New-Project" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
-                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}">
-                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
-                            </Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}">
-                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink></TextBlock>
-                    </StackPanel>
-                </StackPanel>
             </StackPanel>
+
         </DockPanel>
     </Grid>
 </Window>

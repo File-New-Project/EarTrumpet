@@ -7,7 +7,7 @@ using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsViewModel : BindableBase
+    public class SettingsViewModel : BindableBase, ISettingsViewModel
     {
         private HotkeyData _hotkey;
 
@@ -23,11 +23,15 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public event Func<HotkeyData, HotkeyData> RequestHotkey;
+
+        public string Title => Properties.Resources.SettingsWindowText;
         public string HotkeyText => _hotkey.ToString();
         public string DefaultHotKey => SettingsService.s_defaultHotkey.ToString();
         public RelayCommand OpenDiagnosticsCommand { get; }
         public RelayCommand OpenAboutCommand { get; }
         public RelayCommand OpenFeedbackCommand { get; }
+        public RelayCommand SelectHotkey { get; }
 
         public bool UseLegacyIcon
         {
@@ -43,6 +47,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
+            SelectHotkey = new RelayCommand(OnSelectHotkey);
 
             string aboutFormat = "EarTrumpet {0}";
             if (App.Current.HasIdentity())
@@ -68,6 +73,18 @@ namespace EarTrumpet.UI.ViewModels
         private void OpenAbout()
         {
             ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
+        }
+
+        private void OnSelectHotkey()
+        {
+            HotkeyService.Unregister();
+
+            var ret = RequestHotkey.Invoke(Hotkey);
+            if (ret != null)
+            {
+                Hotkey = ret;
+            }
+            HotkeyService.Register(Hotkey);
         }
     }
 }

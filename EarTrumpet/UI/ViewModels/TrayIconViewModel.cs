@@ -48,6 +48,7 @@ namespace EarTrumpet.UI.ViewModels
         private bool _useLegacyIcon;
         private bool _useLargeIcon;
         private DeviceViewModel _defaultDevice;
+        private SettingsViewModel _settingsViewModel = new SettingsViewModel();
 
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
 
@@ -63,7 +64,7 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
             DeviceManager_DefaultDeviceChanged(this, null);
 
-            OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
+            OpenSettingsCommand = new RelayCommand(() => SettingsWindow.ActivateSingleInstance(_settingsViewModel));
             OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
             OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
             OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));

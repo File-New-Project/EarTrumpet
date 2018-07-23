@@ -4,6 +4,7 @@ using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using EarTrumpet.UI.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 
@@ -11,26 +12,36 @@ namespace EarTrumpet.UI.Views
 {
     public partial class SettingsWindow : Window
     {
-        private static SettingsWindow Instance;
+        private static Dictionary<ISettingsViewModel, SettingsWindow> s_windows = new Dictionary<ISettingsViewModel, SettingsWindow>();
 
-        private SettingsViewModel _viewModel;
+        private ISettingsViewModel _viewModel;
         private bool _isClosing;
 
-        internal SettingsWindow()
+        internal SettingsWindow(ISettingsViewModel viewModel)
         {
             Trace.WriteLine("SettingsWindow .ctor");
-            Instance = this;
+            s_windows.Add(viewModel, this);
 
             InitializeComponent();
 
-            Title = Properties.Resources.SettingsWindowText;
-            _viewModel = new SettingsViewModel();
+            _viewModel = viewModel;
+            _viewModel.RequestHotkey += OnRequestHotkey;
+
+            ComponentHost.Content = _viewModel;
             DataContext = _viewModel;
 
             Closing += SettingsWindow_Closing;
             SourceInitialized += SettingsWindow_SourceInitialized;
 
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+        }
+
+        private HotkeyData OnRequestHotkey(HotkeyData arg)
+        {
+            Trace.WriteLine("SettingsWindow HotkeySelect_Click");
+
+            var win = new HotkeySelectionWindow { Owner = this, WindowStartupLocation = WindowStartupLocation.CenterOwner };
+            return win.ShowDialog() == true ? win.Hotkey : null;
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
@@ -45,22 +56,22 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("SettingsWindow SettingsWindow_Closing");
 
-            Instance = null;
+            s_windows.Remove(_viewModel);
         }
 
-        public static void ActivateSingleInstance()
+        public static void ActivateSingleInstance(ISettingsViewModel viewModel)
         {
             Trace.WriteLine("SettingsWindow ActivateSingleInstance");
 
-            if (Instance == null)
+            if (!s_windows.TryGetValue(viewModel, out var instance))
             {
-                var window = new SettingsWindow();
+                var window = new SettingsWindow(viewModel);
                 window.Show();
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
             }
             else
             {
-                Instance.RaiseWindow();
+                instance.RaiseWindow();
             }
         }
 
@@ -74,23 +85,6 @@ namespace EarTrumpet.UI.Views
                 _isClosing = true;
                 WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
             }
-        }
-
-        private void HotkeySelect_Click(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("SettingsWindow HotkeySelect_Click");
-
-            HotkeyService.Unregister();
-
-            var win = new HotkeySelectionWindow();
-            win.Owner = this;
-            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            if ((bool)win.ShowDialog())
-            {
-                _viewModel.Hotkey = win.Hotkey;
-            }
-
-            HotkeyService.Register(_viewModel.Hotkey);
         }
     }
 }
