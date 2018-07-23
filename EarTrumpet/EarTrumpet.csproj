@@ -218,8 +218,8 @@
     <Compile Include="DataModel\IAudioDeviceSession.cs" />
     <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
-    <Compile Include="UI\Views\DeviceAndAppsControl.xaml.cs">
-      <DependentUpon>DeviceAndAppsControl.xaml</DependentUpon>
+    <Compile Include="UI\Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
@@ -272,7 +272,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Views\DeviceAndAppsControl.xaml">
+    <Page Include="UI\Views\DeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

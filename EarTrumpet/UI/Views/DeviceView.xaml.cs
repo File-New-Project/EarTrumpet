@@ -5,24 +5,24 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UI.Views
 {
-    public partial class DeviceAndAppsControl : UserControl
+    public partial class DeviceView : UserControl
     {
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
-            DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceAndAppsControl), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
+            DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
 
         public bool IsDisplayNameVisible { get { return (bool)GetValue(IsDisplayNameVisibleProperty); } set { SetValue(IsDisplayNameVisibleProperty, value); } }
         public static readonly DependencyProperty IsDisplayNameVisibleProperty =
-            DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceAndAppsControl), new PropertyMetadata(true));
+            DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
 
-        public DeviceAndAppsControl()
+        public DeviceView()
         {
             InitializeComponent();
         }
 
         private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var self = (DeviceAndAppsControl)d;
+            var self = (DeviceView)d;
             self.GridRoot.DataContext = self;
         }
 
