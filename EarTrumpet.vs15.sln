@@ -9,15 +9,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.UWP", "EarTrumpe
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "EarTrumpet.Package", "EarTrumpet.Package\EarTrumpet.Package.wapproj", "{EA5510ED-F014-4587-A505-64C59D5B2627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Actions", "..\EarTrumpet-Actions\EarTrumpet-Actions.csproj", "{54B44364-A3DA-4AE6-B166-683730122313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Actions", "..\EarTrumpet-addons\EarTrumpet-Actions\EarTrumpet-Actions.csproj", "{54B44364-A3DA-4AE6-B166-683730122313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-MouthTrumpet", "..\EarTrumpet-MouthTrumpet\EarTrumpet-MouthTrumpet.csproj", "{C84E871A-7320-406D-8345-DFF047F93CBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-MouthTrumpet", "..\EarTrumpet-addons\EarTrumpet-MouthTrumpet\EarTrumpet-MouthTrumpet.csproj", "{C84E871A-7320-406D-8345-DFF047F93CBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Themes", "..\EarTrumpet-Themes\EarTrumpet-Themes.csproj", "{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Themes", "..\EarTrumpet-addons\EarTrumpet-Themes\EarTrumpet-Themes.csproj", "{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-CommunicationsDefault", "..\EarTrumpet-CommunicationsDefault\EarTrumpet-CommunicationsDefault.csproj", "{D108A488-178C-4FCA-AE43-09716FA72D24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-CommunicationsDefault", "..\EarTrumpet-addons\EarTrumpet-CommunicationsDefault\EarTrumpet-CommunicationsDefault.csproj", "{D108A488-178C-4FCA-AE43-09716FA72D24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Hide", "..\EarTrumpet-Hide\EarTrumpet-Hide.csproj", "{829D4EDD-E47A-44D1-84E1-7AB3B933D215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Hide", "..\EarTrumpet-addons\EarTrumpet-Hide\EarTrumpet-Hide.csproj", "{829D4EDD-E47A-44D1-84E1-7AB3B933D215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

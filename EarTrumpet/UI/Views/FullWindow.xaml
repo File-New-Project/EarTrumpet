@@ -220,7 +220,7 @@
                 </ScrollViewer>
 
                 <views:VolumeControlPopup x:Name="AppPopup"
-                                          IsPopupVisible="{Binding IsShowingModalDialog,Mode=TwoWay}"
+                                          IsPopupVisible="{Binding IsShowingModalDialog, Mode=TwoWay}"
                                           Tag="{Binding FocusedSource}">
                     <ContentControl Content="{Binding Focused}" />
                 </views:VolumeControlPopup>
