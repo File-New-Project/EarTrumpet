@@ -1,12 +1,9 @@
-﻿using EarTrumpet;
-using EarTrumpet.UI.Views;
-using EarTrumpet_Actions.DataModel;
+﻿using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using EarTrumpet_Actions.ViewModel;
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

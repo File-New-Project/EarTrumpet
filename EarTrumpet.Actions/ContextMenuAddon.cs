@@ -15,12 +15,12 @@ namespace EarTrumpet_Actions
             get
             {
                 var ret = new List<ContextMenuItem>();
-                ret.Add(new ContextMenuItem { DisplayName = "Edit actions and hotkeys", Command = new RelayCommand(() => OpenActionEditor()) });
+                ret.Add(new ContextMenuItem { DisplayName = Properties.Resources.EditActionsAndHotkeysText, Command = new RelayCommand(() => OpenActionEditor()) });
                 if (ActionsManager.Instance.Actions.Any())
                 {
                     ret.Add(new ContextMenuItem
                     {
-                        DisplayName = "My actions",
+                        DisplayName = Properties.Resources.MyActionsText,
                         Children = ActionsManager.Instance.Actions.
                         Select(a => new ContextMenuItem { DisplayName = a.DisplayName, Command = new RelayCommand(() => a.ManualTrigger()) })
                     });
