@@ -9,6 +9,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand Command { get; set; }
         public bool IsChecked { get; set; }
         public IEnumerable<ContextMenuItem> Children { get; set; }
+        public bool IsEnabled { get; set; } = true;
     }
 
     public class ContextMenuSeparator : ContextMenuItem

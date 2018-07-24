@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class TrayViewModel : BindableBase
+    public class TrayViewModel : BindableBase, ITrayViewModel
     {
         public enum IconId
         {
@@ -26,20 +27,13 @@ namespace EarTrumpet.UI.ViewModels
             OriginalIcon
         }
 
+        public event Action ContextMenuRequested;
+
         public Icon TrayIcon { get; private set; }
         public string ToolTip { get; private set; }
-        public string DefaultDeviceId => _defaultDevice?.Id;
-        public RelayCommand OpenSettingsCommand { get; }
-        public RelayCommand OpenPlaybackDevicesCommand { get; }
-        public RelayCommand OpenRecordingDevicesCommand { get; }
-        public RelayCommand OpenSoundsControlPanelCommand { get; }
-        public RelayCommand OpenLegacyVolumeMixerCommand { get; }
-        public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
-        public RelayCommand<DeviceViewModel> ChangeDeviceCommand { get; }
-        public RelayCommand OpenFeedbackHubCommand { get; }
-        public RelayCommand OpenFlyoutCommand { get; }
-        public RelayCommand ExitCommand { get; }
-        public IEnumerable<ContextMenuItem>[] StaticCommands { get; }
+        public RelayCommand RightClick { get; }
+        public RelayCommand MiddleClick { get; }
+        public RelayCommand LeftClick { get; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -50,11 +44,13 @@ namespace EarTrumpet.UI.ViewModels
         private DeviceViewModel _defaultDevice;
         private SettingsViewModel _settingsViewModel = new SettingsViewModel();
 
-        public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
-
         internal TrayViewModel(DeviceCollectionViewModel mainViewModel, Action openFlyout)
         {
             _mainViewModel = mainViewModel;
+
+            LeftClick = new RelayCommand(openFlyout);
+            RightClick = new RelayCommand(() => ContextMenuRequested?.Invoke());
+            MiddleClick = new RelayCommand(ToggleMute);
 
             LoadIconResources();
 
@@ -63,37 +59,95 @@ namespace EarTrumpet.UI.ViewModels
 
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
             DeviceManager_DefaultDeviceChanged(this, null);
+        }
 
-            OpenSettingsCommand = new RelayCommand(() => SettingsWindow.ActivateSingleInstance(_settingsViewModel));
-            OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
-            OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
-            OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
-            OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
-            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
-            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultDevice());
-            OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(openFlyout);
-            ExitCommand = new RelayCommand(DoExit);
+        public IEnumerable<ContextMenuItem> MenuItems
+        {
+            get
+            {
+                var ret = new List<ContextMenuItem>(_mainViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+                {
+                    DisplayName = dev.DisplayName,
+                    IsChecked = dev.Id == _defaultDevice?.Id,
+                    Command = new RelayCommand(() => dev.MakeDefaultDevice()),
+                }));
 
-            var staticCommands = new List<List<ContextMenuItem>>();
-            staticCommands.Add(new List<ContextMenuItem>()
-            {
-                new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command = OpenEarTrumpetVolumeMixerCommand },
-                new ContextMenuItem{ DisplayName =Resources.LegacyVolumeMixerText, Command = OpenLegacyVolumeMixerCommand },
-            });
-            staticCommands.Add(new List<ContextMenuItem>()
-            {
-                new ContextMenuItem{ DisplayName = Resources.PlaybackDevicesText,    Command = OpenPlaybackDevicesCommand },
-                new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = OpenRecordingDevicesCommand },
-                new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = OpenSoundsControlPanelCommand },
-            });
-            staticCommands.Add(new List<ContextMenuItem>()
-            {
-                new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = OpenSettingsCommand },
-                new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = OpenFeedbackHubCommand },
-                new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = ExitCommand },
-            });
-            StaticCommands = staticCommands.ToArray();
+                if (!ret.Any())
+                {
+                    ret.Add(new ContextMenuItem
+                    {
+                        DisplayName = Resources.ContextMenuNoDevices,
+                        IsEnabled = false,
+                    });
+                }
+                else
+                {
+                    ret.Add(new ContextMenuSeparator { });
+                }
+
+                ret.AddRange(new List<ContextMenuItem>
+                {
+                    new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command =  new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel)) },
+                    new ContextMenuItem{ DisplayName =Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
+                    new ContextMenuSeparator{ },
+                    new ContextMenuItem{ DisplayName = Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
+                    new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
+                    new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
+                    new ContextMenuSeparator{ },
+                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = new RelayCommand(() => SettingsWindow.ActivateSingleInstance(_settingsViewModel)) },
+                    new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
+                    new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(DoExit) },
+                });
+
+                var addonEntries = new List<ContextMenuItem>();
+                var contextMenuExtensionGroups = Extensibility.Hosting.AddonHost.Current.ContextMenuItems;
+                if (contextMenuExtensionGroups.SelectMany(a => a.Items).Any())
+                {
+                    // Add a line before and after each extension group.
+                    foreach (var ext in contextMenuExtensionGroups.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
+                    {
+                        addonEntries.Add(new ContextMenuSeparator());
+
+                        foreach (var item in ext.Items)
+                        {
+                            addonEntries.Add(item);
+                        }
+
+                        addonEntries.Add(new ContextMenuSeparator());
+                    }
+
+                    // Remove duplicate lines (extensions may also add lines)
+                    bool prevItemWasSep = false;
+                    for (var i = addonEntries.Count - 1; i >= 0; i--)
+                    {
+                        var itemIsSep = addonEntries[i] is ContextMenuSeparator;
+
+                        if ((i == addonEntries.Count - 1 || i == 0) && itemIsSep)
+                        {
+                            addonEntries.Remove(addonEntries[i]);
+                        }
+
+                        if (prevItemWasSep && itemIsSep)
+                        {
+                            addonEntries.Remove(addonEntries[i]);
+                        }
+
+                        prevItemWasSep = itemIsSep;
+                    }
+                }
+
+                if (addonEntries.Any())
+                {
+                    ret.Insert(ret.Count - 3, new ContextMenuItem
+                    {
+                        DisplayName = "Addons",
+                        Children = addonEntries,
+                    });
+                    ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
+                }
+
+                return ret;
+            }
         }
 
         private void LoadIconResources()
@@ -208,7 +262,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        internal void ToggleMute()
+        private void ToggleMute()
         {
             if (_defaultDevice != null)
             {

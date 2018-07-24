@@ -27,11 +27,11 @@ namespace EarTrumpet.UI.ViewModels
             CloseThenOpen,
         }
 
-        public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
         public event EventHandler<object> WindowSizeInvalidated = delegate { };
-        public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<CloseReason> StateChanged = delegate { };
 
+        public FocusedAppItemViewModel Focused { get; private set; }
+        public UIElement FocusedSource { get; private set; }
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
@@ -39,7 +39,28 @@ namespace EarTrumpet.UI.ViewModels
         public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
-        public bool IsShowingModalDialog { get; private set; }
+        public bool IsShowingModalDialog
+        {
+            get => _isShowingModalDialog;
+            set
+            {
+                if (_isShowingModalDialog != value)
+                {
+                    _isShowingModalDialog = value;
+                    RaisePropertyChanged(nameof(IsShowingModalDialog));
+
+                    if (!_isShowingModalDialog)
+                    {
+                        Focused = null;
+                        FocusedSource = null;
+
+                        RaisePropertyChanged(nameof(Focused));
+                        RaisePropertyChanged(nameof(FocusedSource));
+                    }
+                }
+            }
+        }
+        
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
@@ -48,6 +69,7 @@ namespace EarTrumpet.UI.ViewModels
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
+        private bool _isShowingModalDialog;
 
         public FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
         {
@@ -265,10 +287,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _mainViewModel.OnTrayFlyoutHidden();
 
-                if (IsShowingModalDialog)
-                {
-                    CollapseApp();
-                }
+                IsShowingModalDialog = false;
             }
             else if (state == ViewState.Closing_Stage2)
             {
@@ -283,25 +302,15 @@ namespace EarTrumpet.UI.ViewModels
                 return;
             }
 
-            if (IsShowingModalDialog)
-            {
-                CollapseApp();
-            }
+            IsShowingModalDialog = false;
 
-            AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
+            Focused = new FocusedAppItemViewModel(_mainViewModel, vm);
+            Focused.RequestClose += () => IsShowingModalDialog = false;
+            FocusedSource = container;
+            RaisePropertyChanged(nameof(Focused));
+            RaisePropertyChanged(nameof(FocusedSource));
 
             IsShowingModalDialog = true;
-            RaisePropertyChanged(nameof(IsShowingModalDialog));
-        }
-
-        public void CollapseApp()
-        {
-            if (IsShowingModalDialog)
-            {
-                AppCollapsed?.Invoke(this, null);
-                IsShowingModalDialog = false;
-                RaisePropertyChanged(nameof(IsShowingModalDialog));
-            }
         }
 
         public void BeginOpen()

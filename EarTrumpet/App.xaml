@@ -499,6 +499,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Border x:Name="Check"
                                 Width="14"
@@ -517,6 +518,19 @@
                                           Margin="0,0,8,0"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True" />
+
+                        <Border x:Name="OpenGlyph"
+                                Grid.Column="2"
+                                Width="20"
+                                Height="14"
+                                BorderThickness="1"
+                                Visibility="Collapsed">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource ContextMenuItemGlyphDarkOnly}"
+                                       SnapsToDevicePixels="False"
+                                       Text="&#xE0E3;" />
+                        </Border>
 
                         <Popup x:Name="Popup"
                                MinWidth="200"
@@ -558,8 +572,7 @@
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />
                     </Trigger>
                     <Trigger Property="Role" Value="SubmenuHeader">
-                        <Setter TargetName="CheckMark" Property="Text" Value="&#xE0E2;" />
-                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="OpenGlyph" Property="Visibility" Value="Visible" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -749,6 +762,63 @@
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TemporaryAppItemViewModel}">
+                <views:AppItemView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
+                <views:ModalDialogChrome>
+                    <ListView Margin="{StaticResource VolumeAppListMargin}"
+                              VerticalAlignment="Center"
+                              FocusVisualStyle="{x:Null}"
+                              ItemsSource="{Binding App.ChildApps, Mode=OneWay}"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </views:ModalDialogChrome>
+
+            </DataTemplate>
+
+            <DataTemplate x:Key="ContextMenuItemTemplate">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          IsCheckable="True"
+                          IsChecked="{Binding IsChecked}"
+                          IsEnabled="{Binding IsEnabled}" />
+            </DataTemplate>
+
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
+                          UsesItemContainerTemplate="true" />
+            </HierarchicalDataTemplate>
+
+            <DataTemplate x:Key="ContextMenuSeparatorTemplate">
+                <Separator />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ContextMenuItemTemplateDarkOnly">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          IsCheckable="True"
+                          IsChecked="{Binding IsChecked}"
+                          IsEnabled="{Binding IsEnabled}"
+                          Style="{StaticResource MenuItemDarkOnly}" />
+            </DataTemplate>
+
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly" ItemsSource="{Binding Children}">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
+                          ItemsSource="{Binding Children}"
+                          Style="{StaticResource MenuItemDarkOnly}"
+                          UsesItemContainerTemplate="true" />
+            </HierarchicalDataTemplate>
+
+            <DataTemplate x:Key="ContextMenuSeparatorTemplateDarkOnly">
+                <Separator Style="{StaticResource MenuItemSeparatorDarkOnly}" />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

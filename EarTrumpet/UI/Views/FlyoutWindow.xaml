@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
@@ -18,7 +19,9 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <clr:String x:Key="ContextMenuTheme">DarkOnly</clr:String>
+        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="DarkOnly" />
+
+        <Style BasedOn="{StaticResource ContextMenuDarkOnly}" TargetType="{x:Type ContextMenu}" />
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
@@ -234,7 +237,7 @@
 
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer Name="BaseVisual">
+        <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
                 <Border Height="{StaticResource NoItemsPaneHeight}"
@@ -376,6 +379,10 @@
             </Border>
         </Border>
 
-        <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+        <views:VolumeControlPopup x:Name="AppPopup"
+                                  IsPopupVisible="{Binding IsShowingModalDialog, Mode=TwoWay}"
+                                  Tag="{Binding FocusedSource}">
+            <ContentControl Content="{Binding Focused}" />
+        </views:VolumeControlPopup>
     </Grid>
 </Window>

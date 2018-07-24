@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
@@ -9,6 +10,7 @@
         Style="{DynamicResource FullWindowDialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
+        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="LightOrDark" />
 
         <Style x:Key="FullWindowDialogWindowStyle"
                BasedOn="{StaticResource DialogWindowStyle}"
@@ -217,7 +219,11 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+                <views:VolumeControlPopup x:Name="AppPopup"
+                                          IsPopupVisible="{Binding IsShowingModalDialog,Mode=TwoWay}"
+                                          Tag="{Binding FocusedSource}">
+                    <ContentControl Content="{Binding Focused}" />
+                </views:VolumeControlPopup>
             </Grid>
         </DockPanel>
 

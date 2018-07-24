@@ -4,49 +4,27 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace EarTrumpet.UI.Helpers
 {
     public class ThemedContextMenu
     {
-        public static MenuItem CreateThemedMenuItem()
+        public static ContextMenu CreateThemedContextMenu(ThemeKind theme)
         {
-            return new MenuItem
+
+            var cm = new ContextMenu { };
+            cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector { Theme = theme };
+            cm.UsesItemContainerTemplate = true;
+            if (theme == ThemeKind.DarkOnly)
             {
-                Style = (Style)Application.Current.FindResource("MenuItemDarkOnly")
-            };
-        }
-
-        public static MenuItem AddItem(ItemsControl menu, string displayName, ICommand action)
-        {
-            var item = new MenuItem
-            {
-                Header = displayName,
-                Command = action,
-                Style = (Style)Application.Current.FindResource("MenuItemDarkOnly")
-            };
-            menu.Items.Add(item);
-            return item;
-        }
-
-        public static MenuItem AddItem(ItemsControl menu, MenuItem item)
-        {
-            item.Style = (Style)Application.Current.FindResource("MenuItemDarkOnly");
-            menu.Items.Add(item);
-            return item;
-        }
-
-        public static ContextMenu CreateThemedContextMenu()
-        {
-            var cm = new ContextMenu { Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly") };
+                cm.Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly");
+            }
 
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += ContextMenu_Opened;
             cm.Closed += ContextMenu_Closed;
             cm.StaysOpen = true; // To be removed on open.
-
             return cm;
         }
 
