@@ -40,8 +40,28 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("SettingsWindow HotkeySelect_Click");
 
-            var win = new HotkeySelectionWindow { Owner = this, WindowStartupLocation = WindowStartupLocation.CenterOwner };
-            return win.ShowDialog() == true ? win.Hotkey : null;
+            bool userSaved = false;
+
+
+            var win = new DialogWindow { Owner = this };
+            var w = new HotkeySelectViewModel
+            {
+                Save = new RelayCommand(() =>
+                {
+                    userSaved = true;
+                    win.Close();
+                })
+            };
+            win.DataContext = w;
+            win.PreviewKeyDown += w.Window_PreviewKeyDown;
+            win.ShowDialog();
+
+            if (userSaved)
+            {
+                return w.Hotkey;
+            }
+
+            return arg;
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)

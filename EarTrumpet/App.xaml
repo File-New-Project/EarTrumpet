@@ -765,6 +765,9 @@
             <DataTemplate DataType="{x:Type vm:TemporaryAppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:HotkeySelectViewModel}">
+                <views:HotkeySelectView />
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>

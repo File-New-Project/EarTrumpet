@@ -1,33 +1,25 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Interop.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
-using System.Windows;
 using System.Windows.Input;
 
-namespace EarTrumpet.UI.Views
+namespace EarTrumpet.UI.ViewModels
 {
-    public partial class HotkeySelectionWindow : Window
+    public class HotkeySelectViewModel : BindableBase
     {
-        public HotkeyData Hotkey { get; private set; }
+        public ICommand Save { get; set; }
 
-        public HotkeySelectionWindow()
+        public string Title => Properties.Resources.SelectHotkeyWindowTitle;
+
+        public string HotkeyText => Hotkey.ToString();
+
+        public HotkeyData Hotkey { get; }
+
+        public HotkeySelectViewModel()
         {
             Hotkey = new HotkeyData();
-            InitializeComponent();
-
-            UpdateText();
-
-            SourceInitialized += (_, __) => AccentPolicyLibrary.SetWindowBlur(this, true, true);
-
-            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
-        void UpdateText()
-        {
-            HotkeyText.Text = Hotkey.ToString();
-        }
-
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) return;
             if (e.Key == Key.Tab) return;
@@ -62,19 +54,7 @@ namespace EarTrumpet.UI.Views
                 Hotkey.Key = (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(e.Key);
             }
 
-            UpdateText();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-            Close();
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-            Close();
+            RaisePropertyChanged(nameof(HotkeyText));
         }
     }
 }

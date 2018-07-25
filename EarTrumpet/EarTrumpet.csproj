@@ -160,6 +160,7 @@
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
@@ -170,8 +171,8 @@
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItem.cs" />
-    <Compile Include="UI\Views\HotkeySelectionWindow.xaml.cs">
-      <DependentUpon>HotkeySelectionWindow.xaml</DependentUpon>
+    <Compile Include="UI\Views\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
@@ -181,6 +182,9 @@
     <Compile Include="UI\Services\HotkeyService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
     <Compile Include="UI\Services\KeyboardNavigator.cs" />
+    <Compile Include="UI\Views\HotkeySelectView.xaml.cs">
+      <DependentUpon>HotkeySelectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\ModalDialogChrome.xaml.cs">
       <DependentUpon>ModalDialogChrome.xaml</DependentUpon>
     </Compile>
@@ -263,7 +267,11 @@
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\Views\HotkeySelectionWindow.xaml">
+    <Page Include="UI\Views\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\HotkeySelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
