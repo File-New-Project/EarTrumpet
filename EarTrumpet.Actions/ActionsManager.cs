@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility;
 using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.Collections.Generic;

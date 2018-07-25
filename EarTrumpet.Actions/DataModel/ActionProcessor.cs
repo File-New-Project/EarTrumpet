@@ -27,14 +27,14 @@ namespace EarTrumpet_Actions.DataModel
             {
                 var action = (ChangeAppVolumeAction)a;
 
-                if (action.Device.Id == Device.AnyDevice.Id)
+                if (action.Device?.Id == Device.AnyDevice.Id)
                 {
                     foreach (var d in PlaybackDataModelHost.DeviceManager.Devices)
                     {
                         InvokeOnDevice(action, d);
                     }
                 }
-                else if (action.Device.Id == null)
+                else if (action.Device?.Id == null)
                 {
                     if (PlaybackDataModelHost.DeviceManager.Default != null)
                     {

@@ -107,7 +107,7 @@
     <Compile Include="DataModel\Triggers\EventTrigger.cs" />
     <Compile Include="DataModel\Triggers\HotkeyTrigger.cs" />
     <Compile Include="DataModel\Triggers\ProcessTrigger.cs" />
-    <Compile Include="PlaybackDataModelHost.cs" />
+    <Compile Include="DataModel\PlaybackDataModelHost.cs" />
     <Compile Include="ViewModel\Actions\ChangeAppVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\ChangeDeviceVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />

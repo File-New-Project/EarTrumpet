@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using System;
 
-namespace EarTrumpet_Actions
+namespace EarTrumpet_Actions.DataModel
 {
     public class PlaybackDataModelHost
     {
