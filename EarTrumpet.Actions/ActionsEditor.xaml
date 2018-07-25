@@ -138,8 +138,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <Button Grid.Row="1"
-                            Content="TODO" />
+                    <Button Grid.Row="1" Content="TODO" />
                 </Grid>
             </DataTemplate>
 

@@ -111,44 +111,13 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public Device[] Devices
-        {
-            get
-            {
-                var ret = new List<Device>();
-                ret.Add(new Device { Id = null });
-                foreach (var d in PlaybackDataModelHost.DeviceManager.Devices)
-                {
-                    ret.Add(new Device { Id = d.Id });
-                }
-                return ret.ToArray();
-            }
-        }
-
-        public App[] Apps
-        {
-            get
-            {
-                var ret = new HashSet<App>();
-                foreach (var s in PlaybackDataModelHost.DeviceManager.Devices.SelectMany(d => d.Groups))
-                {
-                    ret.Add(new App { Id = s.Id });
-                }
-                return ret.ToArray();
-            }
-        }
-
         public ActionsEditorViewModel()
         {
             EarTrumpetActions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(a)));
 
             NewEarTrumpetAction = new RelayCommand(() =>
             {
-                var action = new EarTrumpetAction();
-                action.DisplayName = "New Action";
-                action.Loaded();
-                var vm = new EarTrumpetActionViewModel(action);
-                // TODO: name collide 1,2,...
+                var vm = new EarTrumpetActionViewModel(new EarTrumpetAction { DisplayName = "New Action" });
                 EarTrumpetActions.Add(vm);
                 SelectedAction = vm;
             });
@@ -168,7 +137,6 @@ namespace EarTrumpet_Actions.ViewModel
             });
             UnselectPart = new RelayCommand(() =>
             {
-             //   SelectedPart.IsExpanded = false;
                 SelectedPart = null;
             });
         }

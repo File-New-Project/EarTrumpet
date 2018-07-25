@@ -20,6 +20,8 @@ namespace EarTrumpet_Actions.DataModel
             Triggers = new ObservableCollection<BaseTrigger>();
             Conditions = new ObservableCollection<BaseCondition>();
             Actions = new ObservableCollection<BaseAction>();
+
+            Triggers.CollectionChanged += TriggerCollectionChanged;
         }
 
         public override string ToString()
@@ -34,11 +36,9 @@ namespace EarTrumpet_Actions.DataModel
 
         public void Loaded()
         {
-            Triggers.CollectionChanged += TriggerCollectionChanged;
-            
             foreach(var t in Triggers)
             {
-                t.Triggered += Trigger_Triggered;
+                Register(t);
                 t.Loaded();
             }
 
