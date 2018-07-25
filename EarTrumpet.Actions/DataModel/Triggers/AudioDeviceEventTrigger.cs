@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
@@ -12,33 +10,25 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         LeavingDefault,
     }
 
-    public class AudioDeviceEventTrigger : BaseTrigger
+    public class AudioDeviceEventTrigger : BaseTrigger, IPartWithDevice
     {
         public Device Device { get; set; }
         public AudioDeviceEventTriggerType TriggerType { get; set; }
 
+        public override string Describe() => $"When {Device} {Options[0].DisplayName}";
+
         public AudioDeviceEventTrigger()
         {
-            DisplayName = "When an audio device is (added, removed, becomes or leaves default)";
-            Options = new List<Option>
-            {
-                new Option("is added", AudioDeviceEventTriggerType.Added),
-                new Option("is removed", AudioDeviceEventTriggerType.Removed),
-                new Option("becomes default", AudioDeviceEventTriggerType.BecomingDefault),
-                new Option("is no longer default", AudioDeviceEventTriggerType.LeavingDefault),
-            };
-        }
-
-        public override void Close()
-        {
-
-        }
-
-        public override void Loaded()
-        {
-            var selected = Options.First(o => (AudioDeviceEventTriggerType)o.Value == TriggerType);
-            Option = selected.Value;
-            DisplayName = $"When {Device} {Option}";
+            Description = "When an audio device is (added, removed, becomes or leaves default)";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
+                    new Option("is added", AudioDeviceEventTriggerType.Added),
+                    new Option("is removed", AudioDeviceEventTriggerType.Removed),
+                    new Option("becomes default", AudioDeviceEventTriggerType.BecomingDefault),
+                    new Option("is no longer default", AudioDeviceEventTriggerType.LeavingDefault),
+                },
+                (newValue) => TriggerType = (AudioDeviceEventTriggerType)newValue.Value,
+                () => TriggerType) });
         }
     }
 }

@@ -9,15 +9,17 @@ namespace EarTrumpet_Actions.DataModel.Triggers
     [XmlInclude(typeof(AudioDeviceEventTrigger))]
     [XmlInclude(typeof(AudioDeviceSessionEventTrigger))]
     [XmlInclude(typeof(ProcessTrigger))]
-    public abstract class BaseTrigger : Part
+    public abstract class BaseTrigger : PartWithOptions
     {
         public event Action Triggered;
 
-        public abstract void Close();
-
-        protected void OnTriggered()
+        public virtual void Close()
         {
-            Trace.WriteLine("Triggered!!!!!");
+
+        }
+
+        protected void RaiseTriggered()
+        {
             Triggered?.Invoke();
         }
     }

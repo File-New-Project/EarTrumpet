@@ -1,63 +1,62 @@
 ﻿using EarTrumpet_Actions.DataModel.Conditions;
 using System.Collections.Generic;
-using System.Linq;
+using System.Xml.Serialization;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public class ProcessTrigger : BaseTrigger
+    public class ProcessTrigger : BaseTrigger, IPartWithText
     {
-        public string ProcessName { get; set; }
+        public string Text { get; set; }
+
+        [XmlIgnore]
+        public string PromptText { get; private set; }
         public ProcessConditionType ConditionType { get; set; }
 
         public ProcessTrigger()
         {
-            DisplayName = "When a process starts or stops";
-            Options = new List<Option>
-            {
-                new Option("starts", ProcessConditionType.IsRunning),
-                new Option("stops", ProcessConditionType.IsNotRunning),
-            };
-            ActionsManager.Instance.ProcessWatcher.ProcessStarted += ProcessWatcher_ProcessStarted;
-            ActionsManager.Instance.ProcessWatcher.ProcessStopped += ProcessWatcher_ProcessStopped;
+            PromptText = "Process name (e.g. notepad)";
+
+            Description = "When a process starts or stops";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
+                    new Option("starts", ProcessConditionType.IsRunning),
+                    new Option("stops", ProcessConditionType.IsNotRunning),
+                },
+                (newValue) => ConditionType = (ProcessConditionType)newValue.Value,
+                () => ConditionType) });
+
+            Addon.Current.Manager.ProcessWatcher.ProcessStarted += ProcessWatcher_ProcessStarted;
+            Addon.Current.Manager.ProcessWatcher.ProcessStopped += ProcessWatcher_ProcessStopped;
         }
 
-        private void ProcessWatcher_ProcessStopped(string obj)
+        private void ProcessWatcher_ProcessStopped(string processName)
         {
-            if (ConditionType == ProcessConditionType.IsNotRunning && obj == ProcessName)
+            if (ConditionType == ProcessConditionType.IsNotRunning && processName == Text)
             {
-                OnTriggered();
+                RaiseTriggered();
             }
         }
 
-        private void ProcessWatcher_ProcessStarted(string obj)
+        private void ProcessWatcher_ProcessStarted(string processName)
         {
-            if (ConditionType == ProcessConditionType.IsRunning && obj == ProcessName)
+            if (ConditionType == ProcessConditionType.IsRunning && processName == Text)
             {
-                OnTriggered();
+                RaiseTriggered();
             }
-        }
-
-        public override void Close()
-        {
-
         }
 
         public override void Loaded()
         {
-            var selected = Options.First(o => (ProcessConditionType)o.Value == ConditionType);
-            Option = selected.Value;
-
-
-            if (ActionsManager.Instance.ProcessWatcher.ProcessNames.Contains(ProcessName))
+            if (Addon.Current.Manager.ProcessWatcher.ProcessNames.Contains(Text))
             {
-                ProcessWatcher_ProcessStarted(ProcessName);
+                ProcessWatcher_ProcessStarted(Text);
             }
             else
             {
-                ProcessWatcher_ProcessStopped(ProcessName);
+                ProcessWatcher_ProcessStopped(Text);
             }
-
-            DisplayName = $"{ProcessName} {selected.DisplayName}";
         }
+
+        public override string Describe() => $"{Text} {Options[0].DisplayName}";
     }
 }

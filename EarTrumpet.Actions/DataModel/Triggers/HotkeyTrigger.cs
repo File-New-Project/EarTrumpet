@@ -6,17 +6,9 @@
 
         public HotkeyTrigger()
         {
-            DisplayName = "When a hotkey is pressed";
+            Description = "When a hotkey is pressed";
         }
 
-        public override void Close()
-        {
-
-        }
-
-        public override void Loaded()
-        {
-            DisplayName = $"When {Hotkey} is pressed";
-        }
+        public override string Describe() => $"When {Hotkey} is pressed";
     }
 }

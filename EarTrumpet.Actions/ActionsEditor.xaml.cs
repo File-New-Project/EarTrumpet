@@ -40,6 +40,7 @@ namespace EarTrumpet_Actions
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var item = (MenuItem)sender;
+            
             var dt = (PartViewModel)item.DataContext;
             if (dt.Part is BaseTrigger)
             {
@@ -54,8 +55,8 @@ namespace EarTrumpet_Actions
                 _viewModel.SelectedAction.Actions.Add(dt);
             }
             dt.Part.Loaded();
-            dt.IsExpanded = true;
             _viewModel.SelectedPart = dt;
+            
         }
 
         private void PartView_SelectionChanged(object sender, RoutedEventArgs e)
@@ -65,7 +66,6 @@ namespace EarTrumpet_Actions
             if (item != null)
             {
                 item.Part.Loaded();
-                item.IsExpanded = true;
                 _viewModel.SelectedPart = item;
             }
         }
@@ -73,7 +73,6 @@ namespace EarTrumpet_Actions
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
-
             if (btn.DataContext is PartViewModel)
             {
                 var dt = (PartViewModel)btn.DataContext;

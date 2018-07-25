@@ -1,10 +1,16 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.Services;
+using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using EarTrumpet_Actions.ViewModel;
+using EarTrumpet_Actions.ViewModel.Actions;
+using EarTrumpet_Actions.ViewModel.Conditions;
+using EarTrumpet_Actions.ViewModel.Triggers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,9 +19,15 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class ActionsEditorViewModel : INotifyPropertyChanged
+    public class ActionsEditorViewModel : INotifyPropertyChanged, ISettingsViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string Title => "Actions & hotkeys";
+
+#pragma warning disable CS0067
+        public event Func<HotkeyData, HotkeyData> RequestHotkey;
+#pragma warning restore CS0067
 
         private EarTrumpetActionViewModel _selectedAction;
         private PartViewModel _selectedPart;
@@ -57,17 +69,17 @@ namespace EarTrumpet_Actions.ViewModel
         public ICommand UnselectPart { get; }
         public ICommand DeleteAction { get; }
 
-        public List<PartViewModel> AllTriggers
+        public List<object> AllTriggers
         {
             get
             {
-                return new List<PartViewModel>
+                return new List<object>
                 {
-                    new PartViewModel(new EventTrigger{}),
-                    new PartViewModel(new HotkeyTrigger{  }),
-                    new PartViewModel(new AudioDeviceEventTrigger{ }),
-                    new PartViewModel(new AudioDeviceSessionEventTrigger{  }),
-                    new PartViewModel(new ProcessTrigger{ }),
+                    new EventTriggerViewModel(new EventTrigger{}),
+                    new AudioDeviceEventTriggerViewModel(new AudioDeviceEventTrigger{ }),                    
+                    new AudioDeviceSessionEventTriggerViewModel(new AudioDeviceSessionEventTrigger{ }),     
+                    new ProcessTriggerViewModel(new ProcessTrigger{ }),
+                    new HotkeyTriggerViewModel(new HotkeyTrigger{ }),
                 };
             }
         }
@@ -78,8 +90,9 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 return new List<PartViewModel>
                 {
-                    new PartViewModel(new DefaultPlaybackDeviceCondition{  }),
-                    new PartViewModel(new ProcessCondition{  }),
+                    new DefaultPlaybackDeviceConditionViewModel(new DefaultPlaybackDeviceCondition{ }),
+                    new ProcessConditionViewModel(new ProcessCondition{ }),
+                    new VariableConditionViewModel(new VariableCondition{ }),
                 };
             }
         }
@@ -90,9 +103,10 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 return new List<PartViewModel>
                 {
-                    new PartViewModel(new ChangeAppVolumeAction{}),
-                    new PartViewModel(new ChangeDeviceVolumeAction{ }),
-                    new PartViewModel(new SetDefaultDeviceAction{ }),
+                    new ChangeAppVolumeActionViewModel(new ChangeAppVolumeAction{ }),
+                    new ChangeDeviceVolumeActionViewModel(new ChangeDeviceVolumeAction{ }),
+                    new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ }),
+                    new SetVariableActionViewModel(new SetVariableAction{ }),
                 };
             }
         }
@@ -126,7 +140,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         public ActionsEditorViewModel()
         {
-            EarTrumpetActions = new ObservableCollection<EarTrumpetActionViewModel>(ActionsManager.Instance.Actions.Select(a => new EarTrumpetActionViewModel(a)));
+            EarTrumpetActions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(a)));
 
             NewEarTrumpetAction = new RelayCommand(() =>
             {
@@ -154,7 +168,7 @@ namespace EarTrumpet_Actions.ViewModel
             });
             UnselectPart = new RelayCommand(() =>
             {
-                SelectedPart.IsExpanded = false;
+             //   SelectedPart.IsExpanded = false;
                 SelectedPart = null;
             });
         }

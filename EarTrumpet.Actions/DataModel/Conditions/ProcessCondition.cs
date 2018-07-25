@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Conditions
 {
@@ -10,34 +9,30 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         IsNotRunning
     }
 
-    public class ProcessCondition : BaseCondition
+    public class ProcessCondition : BaseCondition, IPartWithText
     {
-        public string ProcessName { get; set; }
+        public string PromptText => "Process name (e.g. notepad)";
+        public string Text { get; set; }
 
         public ProcessConditionType ConditionType { get; set; }
         
         public ProcessCondition()
         {
-            DisplayName = "If a process is (running, not running)";
-            Options = new List<Option>
-            {
-                new Option("is running", ProcessConditionType. IsNotRunning),
-                new Option("is not running", ProcessConditionType.IsRunning),
-            };
+            Description = "If a process is (running, not running)";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
+                 new Option("is running", ProcessConditionType. IsNotRunning),
+                 new Option("is not running", ProcessConditionType.IsRunning),
+                },
+                (newValue) => ConditionType = (ProcessConditionType)newValue.Value,
+                () => ConditionType) });
         }
 
-        public override void Loaded()
-        {
-            var selected = Options.First(o => (ProcessConditionType)o.Value == ConditionType);
-            Option = selected.Value;
-
-
-            DisplayName = $"{ProcessName} {Options}";
-        }
+        public override string Describe() => $"{Text} {Options[0].DisplayName}";
 
         public override bool IsMet()
         {
-            bool ret = ActionsManager.Instance.ProcessWatcher.ProcessNames.Contains(ProcessName);
+            bool ret = Addon.Current.Manager.ProcessWatcher.ProcessNames.Contains(Text);
             
             switch(ConditionType)
             {

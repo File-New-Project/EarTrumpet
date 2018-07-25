@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace EarTrumpet_Actions.DataModel
 {
-    class ProcessWatcher
+    public class ProcessWatcher
     {
         public List<string> ProcessNames { get; private set; }
 

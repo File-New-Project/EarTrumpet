@@ -4,8 +4,8 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 {
     [XmlInclude(typeof(DefaultPlaybackDeviceCondition))]
     [XmlInclude(typeof(ProcessCondition))]
-    [XmlInclude(typeof(TimeCondition))]
-    public abstract class BaseCondition : Part
+    [XmlInclude(typeof(VariableCondition))]
+    public abstract class BaseCondition : PartWithOptions
     {
         public abstract bool IsMet();
     }

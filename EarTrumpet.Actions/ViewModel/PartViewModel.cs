@@ -1,12 +1,5 @@
-﻿using EarTrumpet.UI.Services;
-using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Actions;
-using EarTrumpet_Actions.DataModel.Conditions;
-using EarTrumpet_Actions.DataModel.Triggers;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using EarTrumpet_Actions.DataModel;
 using System.ComponentModel;
-using System.Linq;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -14,6 +7,41 @@ namespace EarTrumpet_Actions.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public Part Part { get; }
+        public string Description => Part.Description;
+
+        private string _currentDescription;
+        public string CurrentDescription
+        {
+            get => _currentDescription;
+            set
+            {
+                if (_currentDescription != value)
+                {
+                    _currentDescription = value;
+                    RaisePropertyChanged(nameof(CurrentDescription));
+                }
+            }
+        }
+
+        protected void RaisePropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public PartViewModel(Part part)
+        {
+            Part = part;
+
+            UpdateDescription();
+        }
+
+        protected void UpdateDescription()
+        {
+            CurrentDescription = Part.Describe();
+        }
+
+        /*
         internal Part Part => _part;
 
         public bool IsShowApp => _isShowApp && IsExpanded;
@@ -167,10 +195,6 @@ namespace EarTrumpet_Actions.ViewModel
             RaisePropertyChanged(nameof(DisplayName));
         }
 
-        protected void RaisePropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
 
         protected virtual void ExpandChanged(bool isExpanding)
         {
@@ -358,5 +382,7 @@ namespace EarTrumpet_Actions.ViewModel
             }
             RaisePropertyChanged(nameof(AllApps));
         }
+
+    */
     }
 }

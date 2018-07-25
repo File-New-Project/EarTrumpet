@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
+﻿using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
-    public class SetDefaultDeviceAction : BaseAction
+    public class SetDefaultDeviceAction : BaseAction, IPartWithDevice
     {
         public Device Device { get; set; }
         
         public SetDefaultDeviceAction()
         {
-            DisplayName = "Set a device to be the default playback device";
+            Description = "Set a device to be the default playback device";
         }
 
         public override void Invoke()
@@ -22,9 +20,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
             }
         }
 
-        public override void Loaded()
-        {
-            DisplayName = $"Set {Device} as playback default";
-        }
+        public override string Describe() => $"Set {Device} as playback default";
     }
 }

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace EarTrumpet_Actions.DataModel
 {
     public abstract class Part
     {
-        [XmlIgnore]
-        public object Option { get; set; }
-        [XmlIgnore]
-        public List<Option> Options { get; protected set; }
-        [XmlIgnore]
-        public string DisplayName { get; set; }
+        public abstract string Describe();
 
-        public abstract void Loaded();
+        [XmlIgnore]
+        public string Description { get; protected set; }
+
+        public virtual void Loaded()
+        {
+
+        }
     }
 }

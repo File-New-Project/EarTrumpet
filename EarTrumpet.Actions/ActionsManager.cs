@@ -8,29 +8,15 @@ using System.Diagnostics;
 
 namespace EarTrumpet_Actions
 {
-    class ActionsManager
+    public class ActionsManager
     {
-        public static ActionsManager Instance = new ActionsManager();
-
         public ProcessWatcher ProcessWatcher { get; private set; }
 
         public ObservableCollection<EarTrumpetAction> Actions { get; private set; }
 
         private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
 
-        public void OnEvent(ApplicationLifecycleEvent evt)
-        {
-            if (evt == ApplicationLifecycleEvent.Startup)
-            {
-                OnStartup();
-            }
-            else if (evt == ApplicationLifecycleEvent.Shutdown)
-            {
-                OnShuttingDown();
-            }
-        }
-
-        private void OnStartup()
+        public void OnStartup()
         {
             PlaybackDataModelHost.InitializeDataModel();
 
@@ -60,7 +46,7 @@ namespace EarTrumpet_Actions
             }
         }
 
-        private void OnShuttingDown()
+        public void OnShuttingDown()
         {
             foreach (var a in Actions)
             {

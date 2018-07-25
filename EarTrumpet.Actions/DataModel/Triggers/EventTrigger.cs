@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
@@ -20,25 +19,19 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         public EventTrigger()
         {
-            OnEvent += (t) => OnTriggered();
-            DisplayName = "When EarTrumpet is started or stopped";
-            Options = new List<Option>
-            {
-                new Option("starts up", EventTriggerType.EarTrumpet_Startup),
-                new Option("is shutting down", EventTriggerType.EarTrumpet_Shutdown),
-            };
+            OnEvent += (t) => RaiseTriggered();
+
+
+            Description = "When EarTrumpet is started or stopped";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
+                    new Option("starts up", EventTriggerType.EarTrumpet_Startup),
+                    new Option("is shutting down", EventTriggerType.EarTrumpet_Shutdown),
+                },
+                (newValue) => TriggerType = (EventTriggerType)newValue.Value,
+                () => TriggerType) });
         }
 
-        public override void Close()
-        {
-
-        }
-
-        public override void Loaded()
-        {
-            var selected = Options.First(o => (EventTriggerType)o.Value == TriggerType);
-            Option = selected.Value;
-            DisplayName = $"When EarTrumpet {selected}";
-        }
+        public override string Describe() => $"When EarTrumpet {Options[0].DisplayName}";
     }
 }

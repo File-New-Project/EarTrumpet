@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EarTrumpet_Actions.DataModel.Actions
+namespace EarTrumpet_Actions.DataModel
 {
-    class StartProgramAction
+    interface IPartWithVolume
     {
+        double Volume { get; set; }
     }
 }

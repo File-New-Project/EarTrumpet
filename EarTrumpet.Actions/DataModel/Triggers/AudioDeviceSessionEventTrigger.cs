@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         Unmuted,
     }
 
-    public class AudioDeviceSessionEventTrigger : BaseTrigger
+    public class AudioDeviceSessionEventTrigger : BaseTrigger, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
         public App DeviceSession { get; set; }
@@ -23,16 +23,18 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         
         public AudioDeviceSessionEventTrigger()
         {
-            DisplayName = "When an app session is (added, removed, plays sound, ...)";
-            Options =  new List<Option>
-            {
-                new Option("is added", AudioDeviceSessionEventTriggerType.Added),
-                new Option("is removed", AudioDeviceSessionEventTriggerType.Removed),
-                new Option("is muted", AudioDeviceSessionEventTriggerType.Muted),
-                new Option("is unmuted", AudioDeviceSessionEventTriggerType.Unmuted),
-                new Option("begins playing sound", AudioDeviceSessionEventTriggerType.PlayingSound),
-                new Option("stops playing sound", AudioDeviceSessionEventTriggerType.NotPlayingSound),
-            };
+            Description = "When an app session is (added, removed, plays sound, ...)";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
+                    new Option("is added", AudioDeviceSessionEventTriggerType.Added),
+                    new Option("is removed", AudioDeviceSessionEventTriggerType.Removed),
+                    new Option("is muted", AudioDeviceSessionEventTriggerType.Muted),
+                    new Option("is unmuted", AudioDeviceSessionEventTriggerType.Unmuted),
+                    new Option("begins playing sound", AudioDeviceSessionEventTriggerType.PlayingSound),
+                    new Option("stops playing sound", AudioDeviceSessionEventTriggerType.NotPlayingSound),
+                },
+                (newValue) => TriggerType = (AudioDeviceSessionEventTriggerType)newValue.Value,
+                () => TriggerType) });
 
             PlaybackDataModelHost.AppPropertyChanged += PlaybackDataModelHost_AppPropertyChanged;
             PlaybackDataModelHost.AppAdded += PlaybackDataModelHost_AppAdded;
@@ -48,7 +50,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 switch (this.TriggerType)
                 {
                     case AudioDeviceSessionEventTriggerType.Removed:
-                        OnTriggered();
+                        RaiseTriggered();
                         break;
                 }
             }
@@ -63,12 +65,12 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 switch (this.TriggerType)
                 {
                     case AudioDeviceSessionEventTriggerType.Added:
-                        OnTriggered();
+                        RaiseTriggered();
                         break;
                     case AudioDeviceSessionEventTriggerType.PlayingSound:
                         if (app.State == EarTrumpet.DataModel.SessionState.Active)
                         {
-                            OnTriggered();
+                            RaiseTriggered();
                         }
                         break;
                 }
@@ -87,44 +89,35 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                         if (propertyName == nameof(app.IsMuted)
                             && app.IsMuted)
                         {
-                            OnTriggered();
+                            RaiseTriggered();
                         }
                         break;
                     case AudioDeviceSessionEventTriggerType.Unmuted:
                         if (propertyName == nameof(app.IsMuted)
                             && !app.IsMuted)
                         {
-                            OnTriggered();
+                            RaiseTriggered();
                         }
                         break;
                     case AudioDeviceSessionEventTriggerType.PlayingSound:
                         if (propertyName == nameof(app.State)
                             && app.State == EarTrumpet.DataModel.SessionState.Active)
                         {
-                            OnTriggered();
+                            RaiseTriggered();
                         }
                         break;
                     case AudioDeviceSessionEventTriggerType.NotPlayingSound:
                         if (propertyName == nameof(app.State)
                             && app.State != EarTrumpet.DataModel.SessionState.Active)
                         {
-                            OnTriggered();
+                            RaiseTriggered();
                         }
                         break;
                 }
             }
         }
 
-        public override void Close()
-        {
+        public override string Describe() => $"When {DeviceSession} on {Device} {Options[0].DisplayName}";
 
-        }
-
-        public override void Loaded()
-        {
-            var selected = Options.First(o => (AudioDeviceSessionEventTriggerType)o.Value == TriggerType);
-            Option = selected.Value;
-            DisplayName = $"When {DeviceSession} on {Device} {Option}";
-        }
     }
 }

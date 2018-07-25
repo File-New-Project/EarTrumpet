@@ -15,23 +15,26 @@ namespace EarTrumpet_Actions
             get
             {
                 var ret = new List<ContextMenuItem>();
-                ret.Add(new ContextMenuItem { DisplayName = Properties.Resources.EditActionsAndHotkeysText, Command = new RelayCommand(() => OpenActionEditor()) });
-                if (ActionsManager.Instance.Actions.Any())
+                ret.Add(new ContextMenuItem
+                {
+                    DisplayName = Properties.Resources.EditActionsAndHotkeysText,
+                    Command = new RelayCommand(() => Addon.Current.OpenSettingsWindow())
+                });
+                if (Addon.Current.Manager.Actions.Any())
                 {
                     ret.Add(new ContextMenuItem
                     {
                         DisplayName = Properties.Resources.MyActionsText,
-                        Children = ActionsManager.Instance.Actions.
-                        Select(a => new ContextMenuItem { DisplayName = a.DisplayName, Command = new RelayCommand(() => a.ManualTrigger()) })
+                        Children = Addon.Current.Manager.Actions.
+                        Select(a => new ContextMenuItem
+                        {
+                            DisplayName = a.DisplayName,
+                            Command = new RelayCommand(() => a.ManualTrigger())
+                        })
                     });
                 }
                 return ret;
             }
-        }
-
-        private void OpenActionEditor()
-        {
-          //  SettingsWindow.ActivateSingleInstance(new ActionsEditor(), "Edit Actions");
         }
     }
 }

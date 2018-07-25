@@ -2,6 +2,10 @@
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.ViewModel.Actions;
+using EarTrumpet_Actions.ViewModel.Conditions;
+using EarTrumpet_Actions.ViewModel.Triggers;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -14,12 +18,12 @@ namespace EarTrumpet_Actions.ViewModel
 
         public string DisplayName
         {
-            get => _displayName;
+            get => _action.DisplayName;
             set
             {
-                if (_displayName != value)
+                if (DisplayName != value)
                 {
-                    _displayName = value;
+                    _action.DisplayName = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
                 }
             }
@@ -29,16 +33,15 @@ namespace EarTrumpet_Actions.ViewModel
         public ObservableCollection<PartViewModel> Conditions { get;}
         public ObservableCollection<PartViewModel> Actions { get; }
 
-        private string _displayName;
         private readonly EarTrumpetAction _action;
 
         public EarTrumpetActionViewModel(EarTrumpetAction action)
         {
             _action = action;
             DisplayName = _action.DisplayName;
-            Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => new PartViewModel(t)));
-            Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => new PartViewModel(t)));
-            Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => new PartViewModel(t)));
+            Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
+            Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
+            Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
 
             Triggers.CollectionChanged += Triggers_CollectionChanged;
             Conditions.CollectionChanged += Conditions_CollectionChanged;
@@ -91,6 +94,60 @@ namespace EarTrumpet_Actions.ViewModel
             _action.Conditions = new ObservableCollection<BaseCondition>(Conditions.Select(t => (BaseCondition)t.Part));
             _action.Actions = new ObservableCollection<BaseAction>(Actions.Select(t => (BaseAction)t.Part));
             return _action;
+        }
+
+        private PartViewModel CreatePartViewModel(Part part)
+        {
+            if (part is EventTrigger)
+            {
+                return new EventTriggerViewModel((EventTrigger)part);
+            }
+            else if (part is ProcessTrigger)
+            {
+                return new ProcessTriggerViewModel((ProcessTrigger)part);
+            }
+            else if (part is HotkeyTrigger)
+            {
+                return new HotkeyTriggerViewModel((HotkeyTrigger)part);
+            }
+            else if (part is AudioDeviceEventTrigger)
+            {
+                return new AudioDeviceEventTriggerViewModel((AudioDeviceEventTrigger)part);
+            }
+            else if (part is AudioDeviceSessionEventTrigger)
+            {
+                return new AudioDeviceSessionEventTriggerViewModel((AudioDeviceSessionEventTrigger)part);
+            }
+            else if (part is DefaultPlaybackDeviceCondition)
+            {
+                return new DefaultPlaybackDeviceConditionViewModel((DefaultPlaybackDeviceCondition)part);
+            }
+            else if (part is VariableCondition)
+            {
+                return new VariableConditionViewModel((VariableCondition)part);
+            }
+            else if (part is ProcessCondition)
+            {
+                return new ProcessConditionViewModel((ProcessCondition)part);
+            }
+            else if (part is SetVariableAction)
+            {
+                return new SetVariableActionViewModel((SetVariableAction)part);
+            }
+            else if (part is SetDefaultDeviceAction)
+            {
+                return new SetDefaultDeviceActionViewModel((SetDefaultDeviceAction)part);
+            }
+            else if (part is ChangeDeviceVolumeAction)
+            {
+                return new ChangeDeviceVolumeActionViewModel((ChangeDeviceVolumeAction)part);
+            }
+            else if (part is ChangeAppVolumeAction)
+            {
+                return new ChangeAppVolumeActionViewModel((ChangeAppVolumeAction)part);
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

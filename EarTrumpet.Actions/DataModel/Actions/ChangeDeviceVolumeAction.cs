@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
         ToggleMute,
     }
 
-    public class ChangeDeviceVolumeAction : BaseAction
+    public class ChangeDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
     {
         public Device Device { get; set; }
         public ChangeDeviceVolumeActionKind Operation { get; set; }
@@ -20,14 +20,16 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public ChangeDeviceVolumeAction()
         {
-            DisplayName = "Change a device volume or mute";
-            Options = new List<Option>
-            {
+            Description = "Change a device volume or mute";
+            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+                {
                 new Option("mute", ChangeDeviceVolumeActionKind.Mute),
                 new Option("set volume", ChangeDeviceVolumeActionKind.SetVolume),
                 new Option("toggle mute", ChangeDeviceVolumeActionKind.ToggleMute),
                 new Option("unmute", ChangeDeviceVolumeActionKind.Unmute),
-            };
+                },
+                (newValue) => Operation = (ChangeDeviceVolumeActionKind)newValue.Value,
+                () => Operation) });
         }
 
         public override void Invoke()
@@ -53,18 +55,15 @@ namespace EarTrumpet_Actions.DataModel.Actions
             }
         }
 
-        public override void Loaded()
+        public override string Describe()
         {
-            var selected = Options.First(o => (ChangeDeviceVolumeActionKind)o.Value == Operation);
-            Option = selected.Value;
-
             if (Operation == ChangeDeviceVolumeActionKind.SetVolume)
             {
-                DisplayName = $"Set volume to {Math.Round(Volume)}% on {Device}";
+                return $"Set volume to {Math.Round(Volume)}% on {Device}";
             }
             else
             {
-                DisplayName = $"Set {selected} on {Device}";
+                return $"Set {Options[0].DisplayName} on {Device}";
             }
         }
     }
