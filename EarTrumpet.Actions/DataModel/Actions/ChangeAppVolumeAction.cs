@@ -27,56 +27,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 () => Operation) });
         }
 
-        private void InvokeOnDevice(IAudioDevice device)
-        {
-            var apps = device.Groups.Where(a => a.AppId == DeviceSession.Id || DeviceSession.Id == App.AnySession.Id);
-
-            foreach (var app in apps)
-            {
-                switch (Operation)
-                {
-                    case ChangeDeviceVolumeActionKind.Mute:
-                        app.IsMuted = true;
-                        break;
-                    case ChangeDeviceVolumeActionKind.ToggleMute:
-                        app.IsMuted = !device.IsMuted;
-                        break;
-                    case ChangeDeviceVolumeActionKind.Unmute:
-                        app.IsMuted = false;
-                        break;
-                    case ChangeDeviceVolumeActionKind.SetVolume:
-                        app.Volume = (float)(Volume / 100f);
-                        break;
-                }
-            }
-        }
-
-        public override void Invoke()
-        {
-            if (Device.Id == Device.AnyDevice.Id)
-            {
-                foreach (var d in PlaybackDataModelHost.DeviceManager.Devices)
-                {
-                    InvokeOnDevice(d);
-                }
-            }
-            else if (Device.Id == null)
-            {
-                if (PlaybackDataModelHost.DeviceManager.Default != null)
-                {
-                    InvokeOnDevice(PlaybackDataModelHost.DeviceManager.Default);
-                }
-            }
-            else
-            {
-                var device = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == Device.Id);
-                if (device != null)
-                {
-                    InvokeOnDevice(device);
-                }
-            }
-        }
-
         public override string Describe()
         {
             if (Operation == ChangeDeviceVolumeActionKind.SetVolume)

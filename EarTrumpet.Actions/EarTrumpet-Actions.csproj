@@ -73,12 +73,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\ActionProcessor.cs" />
+    <Compile Include="DataModel\ConditionProcessor.cs" />
     <Compile Include="DataModel\IPartWithApp.cs" />
     <Compile Include="DataModel\IPartWithDevice.cs" />
     <Compile Include="DataModel\IPartWithOption.cs" />
     <Compile Include="DataModel\IPartWithText.cs" />
     <Compile Include="DataModel\IPartWithVolume.cs" />
     <Compile Include="DataModel\PartWithOptions.cs" />
+    <Compile Include="DataModel\TriggerManager.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
     <Compile Include="ActionsManager.cs" />
     <Compile Include="DataModel\Actions\BaseAction.cs" />

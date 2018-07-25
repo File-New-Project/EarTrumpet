@@ -22,6 +22,7 @@ namespace EarTrumpet_Actions.ViewModel
     public class ActionsEditorViewModel : INotifyPropertyChanged, ISettingsViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action<EarTrumpetAction[]> RequestApplyChanges;
 
         public string Title => "Actions & hotkeys";
 
@@ -124,7 +125,7 @@ namespace EarTrumpet_Actions.ViewModel
 
             Save = new RelayCommand(() =>
             {
-                _settings.Set("ActionsData", EarTrumpetActions.Select(a => a.GetAction()).ToArray());
+                RequestApplyChanges?.Invoke(EarTrumpetActions.Select(a => a.GetAction()).ToArray());
             });
             UnselectAction = new RelayCommand(() =>
             {

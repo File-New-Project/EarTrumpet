@@ -11,17 +11,10 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
     public class EventTrigger : BaseTrigger
     {
-        private static event Action<EventTriggerType> OnEvent;
-
-        public void RaiseEvent(EventTriggerType et) => OnEvent?.Invoke(et);
-
         public EventTriggerType TriggerType { get; set; }
 
         public EventTrigger()
         {
-            OnEvent += (t) => RaiseTriggered();
-
-
             Description = "When EarTrumpet is started or stopped";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {

@@ -12,13 +12,11 @@ namespace EarTrumpet_Actions
 {
     public partial class ActionsEditor : UserControl
     {
-        private readonly ActionsEditorViewModel _viewModel;
+        private ActionsEditorViewModel _viewModel => (ActionsEditorViewModel)DataContext;
 
         public ActionsEditor()
         {
             InitializeComponent();
-            _viewModel = new ActionsEditorViewModel();
-            DataContext = _viewModel;
         }
 
         private void OpenContextMenu_Click(object sender, System.Windows.RoutedEventArgs e)

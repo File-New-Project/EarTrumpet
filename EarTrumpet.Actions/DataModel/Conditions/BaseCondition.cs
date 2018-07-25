@@ -7,6 +7,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
     [XmlInclude(typeof(VariableCondition))]
     public abstract class BaseCondition : PartWithOptions
     {
-        public abstract bool IsMet();
     }
 }

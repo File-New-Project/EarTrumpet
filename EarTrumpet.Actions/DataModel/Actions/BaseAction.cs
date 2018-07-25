@@ -9,6 +9,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
     [XmlInclude(typeof(SetVariableAction))]
     public abstract class BaseAction : PartWithOptions
     {
-        public abstract void Invoke();
+
     }
 }

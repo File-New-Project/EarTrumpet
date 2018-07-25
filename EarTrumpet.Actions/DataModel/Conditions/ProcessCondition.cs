@@ -29,20 +29,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         }
 
         public override string Describe() => $"{Text} {Options[0].DisplayName}";
-
-        public override bool IsMet()
-        {
-            bool ret = Addon.Current.Manager.ProcessWatcher.ProcessNames.Contains(Text);
-            
-            switch(ConditionType)
-            {
-                case ProcessConditionType.IsRunning:
-                    return ret;
-                case ProcessConditionType.IsNotRunning:
-                    return !ret;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
     }
 }

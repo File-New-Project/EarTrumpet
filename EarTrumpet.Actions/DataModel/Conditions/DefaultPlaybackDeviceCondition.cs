@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         IsNot,
     }
 
-    public class DefaultPlaybackDeviceCondition : BaseCondition
+    public class DefaultPlaybackDeviceCondition : BaseCondition, IPartWithDevice
     {
         public Device Device { get; set; }
         public ComparisonOperation Operation { get; set; }
@@ -27,19 +27,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         }
 
         public override string Describe() => $"The default playback device {Options[0].DisplayName} {Device}";
-
-        public override bool IsMet()
-        {
-            var ret = Device.Id == PlaybackDataModelHost.DeviceManager.Default?.Id;
-            switch (Operation)
-            {
-                case ComparisonOperation.Is:
-                    return ret;
-                case ComparisonOperation.IsNot:
-                    return !ret;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
     }
 }

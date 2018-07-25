@@ -22,10 +22,5 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 (newValue) => Value = (bool)newValue.Value,
                 () => Value) });
         }
-
-        public override void Invoke()
-        {
-            // TODO
-        }
     }
 }

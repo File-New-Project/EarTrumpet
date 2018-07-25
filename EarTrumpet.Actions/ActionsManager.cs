@@ -1,30 +1,40 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility;
 using EarTrumpet_Actions.DataModel;
+using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace EarTrumpet_Actions
 {
     public class ActionsManager
     {
-        public ProcessWatcher ProcessWatcher { get; private set; }
-
         public ObservableCollection<EarTrumpetAction> Actions { get; private set; }
 
         private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
+        private TriggerManager _triggerManager = new TriggerManager();
+
+        public ActionsManager()
+        {
+            PlaybackDataModelHost.InitializeDataModel();
+            _triggerManager.Triggered += OnTriggered;
+        }
 
         public void OnStartup()
         {
-            PlaybackDataModelHost.InitializeDataModel();
+            LoadFromDisk();
 
-            ProcessWatcher = new ProcessWatcher();
+            _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
+        }
 
+        private void LoadFromDisk()
+        {
             try
             {
-                var data = _settings.Get<EarTrumpetAction[]>("ActionsData", new EarTrumpetAction[] { });
+                var data = _settings.Get("ActionsData", new EarTrumpetAction[] { });
                 Actions = new ObservableCollection<EarTrumpetAction>(data);
             }
             catch (Exception ex)
@@ -33,31 +43,37 @@ namespace EarTrumpet_Actions
                 Actions = new ObservableCollection<EarTrumpetAction>();
             }
 
-            foreach (var a in Actions)
+            foreach (var t in Actions.SelectMany(a => a.Triggers))
             {
-                a.Loaded();
-                foreach (var t in a.Triggers)
-                {
-                    if (t is EventTrigger)
-                    {
-                        ((EventTrigger)t).RaiseEvent(EventTriggerType.EarTrumpet_Startup);
-                    }
-                }
+                _triggerManager.Register(t);
+            }
+        }
+
+        public void Apply(EarTrumpetAction[] newActions)
+        {
+            _settings.Set("ActionsData", newActions);
+
+            Actions = new ObservableCollection<EarTrumpetAction>(newActions);
+
+            foreach (var t in Actions.SelectMany(a => a.Triggers))
+            {
+                _triggerManager.Register(t);
+            }
+        }
+
+        private void OnTriggered(BaseTrigger trigger)
+        {
+            var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));
+
+            if (action.Conditions.All(c => ConditionProcessor.IsMet(c)))
+            {
+                action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
             }
         }
 
         public void OnShuttingDown()
         {
-            foreach (var a in Actions)
-            {
-                foreach (var t in a.Triggers)
-                {
-                    if (t is EventTrigger)
-                    {
-                        ((EventTrigger)t).RaiseEvent(EventTriggerType.EarTrumpet_Shutdown);
-                    }
-                }
-            }
+            _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
         }
     }
 }

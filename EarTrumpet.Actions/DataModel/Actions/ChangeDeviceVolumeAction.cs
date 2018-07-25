@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
@@ -30,29 +29,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 },
                 (newValue) => Operation = (ChangeDeviceVolumeActionKind)newValue.Value,
                 () => Operation) });
-        }
-
-        public override void Invoke()
-        {
-            var device = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == Device.Id);
-            if (device != null)
-            {
-                switch (Operation)
-                {
-                    case ChangeDeviceVolumeActionKind.Mute:
-                        device.IsMuted = true;
-                        break;
-                    case ChangeDeviceVolumeActionKind.ToggleMute:
-                        device.IsMuted = !device.IsMuted;
-                        break;
-                    case ChangeDeviceVolumeActionKind.Unmute:
-                        device.IsMuted = false;
-                        break;
-                    case ChangeDeviceVolumeActionKind.SetVolume:
-                        device.Volume = (float)(Volume / 100f);
-                        break;
-                }
-            }
         }
 
         public override string Describe()

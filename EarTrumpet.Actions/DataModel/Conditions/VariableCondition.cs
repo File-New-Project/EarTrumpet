@@ -22,11 +22,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
                 (newValue) => Value = (bool)newValue.Value,
                 () => Value) });
         }
-
-        public override bool IsMet()
-        {
-            // TODO: lookup
-            return false;
-        }
     }
 }

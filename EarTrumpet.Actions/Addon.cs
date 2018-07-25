@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.UI.Views;
+using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.ViewModel;
 using System;
 using System.ComponentModel.Composition;
@@ -14,6 +15,7 @@ namespace EarTrumpet_Actions
 
         public ActionsEditorViewModel ViewModel { get; private set; }
         public ActionsManager Manager { get; private set; }
+        public ProcessWatcher ProcessWatcher { get; private set; }
 
         public void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt)
         {
@@ -21,9 +23,11 @@ namespace EarTrumpet_Actions
             {
                 Current = this;
                 Manager = new ActionsManager();
+                ProcessWatcher = new ProcessWatcher();
                 Manager.OnStartup();
 
                 ViewModel = new ActionsEditorViewModel();
+                ViewModel.RequestApplyChanges += ViewModel_RequestApplyChanges;
 
                 Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
                 {
@@ -34,6 +38,11 @@ namespace EarTrumpet_Actions
             {
                 Manager.OnShuttingDown();
             }
+        }
+
+        private void ViewModel_RequestApplyChanges(EarTrumpetAction[] newActions)
+        {
+            Manager.Apply(newActions);
         }
 
         public void OpenSettingsWindow()

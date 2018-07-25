@@ -29,7 +29,7 @@ namespace EarTrumpet_Actions
                         Select(a => new ContextMenuItem
                         {
                             DisplayName = a.DisplayName,
-                            Command = new RelayCommand(() => a.ManualTrigger())
+                            Command = null, //new RelayCommand(() => /* a.ManualTrigger() */)
                         })
                     });
                 }
