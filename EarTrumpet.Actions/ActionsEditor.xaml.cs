@@ -1,4 +1,6 @@
-﻿using EarTrumpet.UI.Views;
+﻿using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
@@ -99,12 +101,23 @@ namespace EarTrumpet_Actions
             var btn = (Button)sender;
             var dt = (HotkeyTrigger)btn.DataContext;
 
-            var win = new HotkeySelectionWindow();
-            win.Owner = Window.GetWindow(this);
-            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            if ((bool)win.ShowDialog())
+            bool userSaved = false;
+            var win = new DialogWindow { Owner = Window.GetWindow(this) };
+            var w = new HotkeySelectViewModel
             {
-                dt.Hotkey = win.Hotkey;
+                Save = new RelayCommand(() =>
+                {
+                    userSaved = true;
+                    win.Close();
+                })
+            };
+            win.DataContext = w;
+            win.PreviewKeyDown += w.Window_PreviewKeyDown;
+            win.ShowDialog();
+
+            if (userSaved)
+            {
+                dt.Hotkey = w.Hotkey;
             }
         }
     }
