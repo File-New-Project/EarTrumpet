@@ -55,7 +55,7 @@ namespace EarTrumpet_Actions.DataModel
                 var action = (ChangeDeviceVolumeAction)a;
 
                 IAudioDevice device;
-                if (action.Device.Id == null)
+                if (action.Device?.Id == null)
                 {
                     device = PlaybackDataModelHost.DeviceManager.Default;
                 }

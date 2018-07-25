@@ -138,7 +138,9 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <Button Grid.Row="1" Content="TODO" />
+                    <Button Grid.Row="1"
+                            Command="{Binding SetHotkey}"
+                            Content="{Binding Hotkey}" />
                 </Grid>
             </DataTemplate>
 

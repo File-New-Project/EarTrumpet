@@ -34,9 +34,11 @@ namespace EarTrumpet_Actions.ViewModel
         public ObservableCollection<PartViewModel> Actions { get; }
 
         private readonly EarTrumpetAction _action;
+        private ActionsEditorViewModel _parent;
 
-        public EarTrumpetActionViewModel(EarTrumpetAction action)
+        public EarTrumpetActionViewModel(ActionsEditorViewModel parent, EarTrumpetAction action)
         {
+            _parent = parent;
             _action = action;
             DisplayName = _action.DisplayName;
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
@@ -108,7 +110,7 @@ namespace EarTrumpet_Actions.ViewModel
             }
             else if (part is HotkeyTrigger)
             {
-                return new HotkeyTriggerViewModel((HotkeyTrigger)part);
+                return new HotkeyTriggerViewModel(_parent, (HotkeyTrigger)part);
             }
             else if (part is AudioDeviceEventTrigger)
             {

@@ -6,7 +6,6 @@ using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
-using EarTrumpet_Actions.ViewModel;
 using EarTrumpet_Actions.ViewModel.Actions;
 using EarTrumpet_Actions.ViewModel.Conditions;
 using EarTrumpet_Actions.ViewModel.Triggers;
@@ -80,7 +79,7 @@ namespace EarTrumpet_Actions.ViewModel
                     new AudioDeviceEventTriggerViewModel(new AudioDeviceEventTrigger{ }),                    
                     new AudioDeviceSessionEventTriggerViewModel(new AudioDeviceSessionEventTrigger{ }),     
                     new ProcessTriggerViewModel(new ProcessTrigger{ }),
-                    new HotkeyTriggerViewModel(new HotkeyTrigger{ }),
+                    new HotkeyTriggerViewModel(this, new HotkeyTrigger{ }),
                 };
             }
         }
@@ -114,11 +113,11 @@ namespace EarTrumpet_Actions.ViewModel
 
         public ActionsEditorViewModel()
         {
-            EarTrumpetActions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(a)));
+            EarTrumpetActions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
 
             NewEarTrumpetAction = new RelayCommand(() =>
             {
-                var vm = new EarTrumpetActionViewModel(new EarTrumpetAction { DisplayName = "New Action" });
+                var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = "New Action" });
                 EarTrumpetActions.Add(vm);
                 SelectedAction = vm;
             });
@@ -140,6 +139,11 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 SelectedPart = null;
             });
+        }
+
+        internal HotkeyData GetHotkey(HotkeyData hotkey)
+        {
+            return RequestHotkey(hotkey);
         }
     }
 }

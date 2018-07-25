@@ -7,6 +7,7 @@
         public HotkeyTrigger()
         {
             Description = "When a hotkey is pressed";
+            Hotkey = new EarTrumpet.UI.Services.HotkeyData();
         }
 
         public override string Describe() => $"When {Hotkey} is pressed";

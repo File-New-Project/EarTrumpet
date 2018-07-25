@@ -33,7 +33,6 @@ namespace EarTrumpet_Actions
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     FreeDevice((IAudioDevice)e.OldItems[0]);
-
                     break;
                 default: throw new NotImplementedException();
             }
