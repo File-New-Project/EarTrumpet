@@ -4,6 +4,7 @@ using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -13,12 +14,14 @@ namespace EarTrumpet_Actions
     public class ActionsManager
     {
         public ObservableCollection<EarTrumpetAction> Actions { get; private set; }
+        public Dictionary<string, bool> LocalVariables { get; }
 
         private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
         private TriggerManager _triggerManager = new TriggerManager();
 
         public ActionsManager()
         {
+            LocalVariables = new Dictionary<string, bool>();
             PlaybackDataModelHost.InitializeDataModel();
             _triggerManager.Triggered += OnTriggered;
         }

@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel
             if (a is SetVariableAction)
             {
                 var action = (SetVariableAction)a;
-                // TODO
+                Addon.Current.Manager.LocalVariables[action.Text] = action.Value;
             }
             else if (a is SetDefaultDeviceAction)
             {

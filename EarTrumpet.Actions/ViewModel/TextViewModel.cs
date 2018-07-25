@@ -7,6 +7,8 @@ namespace EarTrumpet_Actions.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public string PromptText => _part.PromptText;
+
         public string Text
         {
             get => _part.Text;

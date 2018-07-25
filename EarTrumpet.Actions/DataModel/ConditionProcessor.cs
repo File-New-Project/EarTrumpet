@@ -37,7 +37,11 @@ namespace EarTrumpet_Actions.DataModel
                         throw new NotImplementedException();
                 }
             }
-
+            else if (condition is VariableCondition)
+            {
+                var cond = (VariableCondition)condition;
+                return (Addon.Current.Manager.LocalVariables[cond.Text] == cond.Value);
+            }
             throw new NotImplementedException();
         }
     }
