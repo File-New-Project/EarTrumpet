@@ -12,6 +12,8 @@ namespace EarTrumpet
 {
     public partial class App
     {
+        public FlyoutViewModel FlyoutViewModel { get; private set; }
+
         private DeviceCollectionViewModel _viewModel;
         private TrayIcon _trayIcon;
         private FlyoutWindow _flyoutWindow;
@@ -34,14 +36,14 @@ namespace EarTrumpet
             _viewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
             _viewModel.Ready += MainViewModel_Ready;
 
-            var flyoutViewModel = new FlyoutViewModel(_viewModel);
-            _flyoutWindow = new FlyoutWindow(_viewModel, flyoutViewModel);
-            var trayViewModel = new TrayViewModel(_viewModel, () => flyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            FlyoutViewModel = new FlyoutViewModel(_viewModel);
+            _flyoutWindow = new FlyoutWindow(_viewModel, FlyoutViewModel);
+            var trayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
             _trayIcon = new TrayIcon(trayViewModel);
             _flyoutWindow.DpiChanged += (_, __) => trayViewModel.DpiChanged();
 
             HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => flyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+            HotkeyService.KeyPressed += (_, __) => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 

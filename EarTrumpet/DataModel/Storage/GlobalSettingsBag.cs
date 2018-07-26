@@ -2,9 +2,6 @@
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace EarTrumpet.DataModel.Storage
 {
@@ -52,11 +49,7 @@ namespace EarTrumpet.DataModel.Storage
                 return defaultValue;
             }
 
-            using (TextReader reader = new StringReader(data))
-            {
-                XmlSerializer xs = new XmlSerializer(typeof(T));
-                return (T)xs.Deserialize(reader);
-            }
+            return Serializer.FromString<T>(data);
         }
 
         public void Set<T>(string key, T value)
@@ -68,13 +61,8 @@ namespace EarTrumpet.DataModel.Storage
                 return;
             }
 
-            var xmlserializer = new XmlSerializer(typeof(T));
-            var stringWriter = new StringWriter();
-            using (var writer = XmlWriter.Create(stringWriter))
-            {
-                xmlserializer.Serialize(writer, value);
-                WriteSetting(key, stringWriter.ToString());
-            }
+            WriteSetting(key, Serializer.ToString(key, value));
+
             SettingChanged?.Invoke(this, key);
         }
 
@@ -127,7 +115,5 @@ namespace EarTrumpet.DataModel.Storage
                 }
             }
         }
-
-
     }
 }

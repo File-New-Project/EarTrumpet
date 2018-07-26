@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -46,14 +47,14 @@ namespace EarTrumpet.UI.Views
 
         private void TouchSlider_TouchUp(object sender, TouchEventArgs e)
         {
-            System.Media.SystemSounds.Beep.Play();
+            SystemSoundsHelper.PlayBeepSound.Execute(null);
         }
 
         private void TouchSlider_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                System.Media.SystemSounds.Beep.Play();
+                SystemSoundsHelper.PlayBeepSound.Execute(null);
             }
         }
     }

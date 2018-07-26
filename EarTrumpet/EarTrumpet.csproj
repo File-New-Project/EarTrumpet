@@ -97,6 +97,7 @@
     <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
     <Compile Include="Extensibility\IAddonContextMenu.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
     <Compile Include="UI\Helpers\ProcessHelper.cs" />
+    <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
     <Compile Include="UI\Helpers\ThemedContextMenu.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />

@@ -18,7 +18,8 @@ namespace EarTrumpet.Extensibility.Shared
 
         public static object Get(string name)
         {
-            return _services[name];
+            _services.TryGetValue(name, out var ret);
+            return ret;
         }
 
         public static bool Exists(string name) => Get(name) != null;
