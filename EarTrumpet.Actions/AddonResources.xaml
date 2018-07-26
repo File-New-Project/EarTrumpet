@@ -290,4 +290,21 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type avm:SetThemeActionViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock VerticalAlignment="Center"
+                       Text="{Binding CurrentDescription}" />
+
+            <ComboBox Grid.Row="1"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Option.All}"
+                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
+        </Grid>
+    </DataTemplate>
+
 </ResourceDictionary>

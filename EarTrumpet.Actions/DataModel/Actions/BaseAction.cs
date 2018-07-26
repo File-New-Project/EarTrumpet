@@ -7,6 +7,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     [XmlInclude(typeof(ChangeDeviceVolumeAction))]
     [XmlInclude(typeof(SetDefaultDeviceAction))]
     [XmlInclude(typeof(SetVariableAction))]
+    [XmlInclude(typeof(SetThemeAction))]
     public abstract class BaseAction : PartWithOptions
     {
 

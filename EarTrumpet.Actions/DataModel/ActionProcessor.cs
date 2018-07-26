@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility.Shared;
 using EarTrumpet_Actions.DataModel.Actions;
 using System;
 using System.Linq;
@@ -87,6 +88,15 @@ namespace EarTrumpet_Actions.DataModel
                             device.Volume -= 0.05f;
                             break;
                     }
+                }
+            }
+            else if (a is SetThemeAction)
+            {
+                var action = (SetThemeAction)a;
+                var svc = (dynamic)ServiceBus.Get("EarTrumpet-Themes");
+                if (svc != null)
+                {
+                    svc.Theme = action.Theme;
                 }
             }
             else throw new NotImplementedException();

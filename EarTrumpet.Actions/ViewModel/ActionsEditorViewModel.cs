@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using EarTrumpet.UI.ViewModels;
@@ -112,13 +113,19 @@ namespace EarTrumpet_Actions.ViewModel
         {
             get
             {
-                return new List<PartViewModel>
+                var ret = new List<PartViewModel>
                 {
                     new ChangeAppVolumeActionViewModel(new ChangeAppVolumeAction{ }),
                     new ChangeDeviceVolumeActionViewModel(new ChangeDeviceVolumeAction{ }),
                     new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ }),
                     new SetVariableActionViewModel(new SetVariableAction{ }),
                 };
+
+                if (ServiceBus.Exists("EarTrumpet-Themes"))
+                {
+                    ret.Add(new SetThemeActionViewModel(new SetThemeAction { }));
+                }
+                return ret;
             }
         }
 
