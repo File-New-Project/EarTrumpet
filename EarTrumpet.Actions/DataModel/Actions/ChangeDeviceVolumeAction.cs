@@ -9,6 +9,8 @@ namespace EarTrumpet_Actions.DataModel.Actions
         Unmute,
         SetVolume,
         ToggleMute,
+        Increment5,
+        Decrement5,
     }
 
     public class ChangeDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
@@ -26,6 +28,8 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 new Option("set volume", ChangeDeviceVolumeActionKind.SetVolume),
                 new Option("toggle mute", ChangeDeviceVolumeActionKind.ToggleMute),
                 new Option("unmute", ChangeDeviceVolumeActionKind.Unmute),
+                new Option("increment volume by 5%", ChangeDeviceVolumeActionKind.Increment5),
+                new Option("decrement volume by 5%", ChangeDeviceVolumeActionKind.Decrement5),
                 },
                 (newValue) => Operation = (ChangeDeviceVolumeActionKind)newValue.Value,
                 () => Operation) });

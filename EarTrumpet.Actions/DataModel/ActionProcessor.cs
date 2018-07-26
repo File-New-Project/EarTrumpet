@@ -80,6 +80,12 @@ namespace EarTrumpet_Actions.DataModel
                         case ChangeDeviceVolumeActionKind.SetVolume:
                             device.Volume = (float)(action.Volume / 100f);
                             break;
+                        case ChangeDeviceVolumeActionKind.Increment5:
+                            device.Volume += 0.05f;
+                            break;
+                        case ChangeDeviceVolumeActionKind.Decrement5:
+                            device.Volume -= 0.05f;
+                            break;
                     }
                 }
             }
@@ -105,6 +111,12 @@ namespace EarTrumpet_Actions.DataModel
                         break;
                     case ChangeDeviceVolumeActionKind.SetVolume:
                         app.Volume = (float)(action.Volume / 100f);
+                        break;
+                    case ChangeDeviceVolumeActionKind.Increment5:
+                        app.Volume += 0.05f;
+                        break;
+                    case ChangeDeviceVolumeActionKind.Decrement5:
+                        app.Volume -= 0.05f;
                         break;
                 }
             }
