@@ -148,6 +148,14 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 return new ChangeAppVolumeActionViewModel((ChangeAppVolumeAction)part);
             }
+            else if (part is SetThemeAction)
+            {
+                return new SetThemeActionViewModel((SetThemeAction)part);
+            }
+            else if (part is SetAddonEarTrumpetSettingsAction)
+            {
+                return new SetAddonEarTrumpetSettingsActionViewModel((SetAddonEarTrumpetSettingsAction)part);
+            }
 
             throw new NotImplementedException();
         }

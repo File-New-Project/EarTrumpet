@@ -25,7 +25,7 @@ namespace EarTrumpet_Actions
 
         public void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt)
         {
-            if (evt == ApplicationLifecycleEvent.Startup)
+            if (evt == ApplicationLifecycleEvent.Startup2)
             {
                 Current = this;
                 Manager = new ActionsManager();

@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModel\ActionProcessor.cs" />
+    <Compile Include="DataModel\Actions\SetAddonEarTrumpetSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />
     <Compile Include="DataModel\ConditionProcessor.cs" />
     <Compile Include="DataModel\IPartWithApp.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="DataModel\PlaybackDataModelHost.cs" />
     <Compile Include="ViewModel\Actions\ChangeAppVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\ChangeDeviceVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetAddonEarTrumpetSettingsActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetThemeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetVariableActionViewModel.cs" />

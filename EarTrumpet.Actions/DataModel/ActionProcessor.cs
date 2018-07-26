@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet_Actions.DataModel.Actions;
 using System;
@@ -97,6 +98,21 @@ namespace EarTrumpet_Actions.DataModel
                 if (svc != null)
                 {
                     svc.Theme = action.Theme;
+                }
+            }
+            else if (a is SetAddonEarTrumpetSettingsAction)
+            {
+                var action = (SetAddonEarTrumpetSettingsAction)a;
+
+                var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
+                if (addonValues != null)
+                {
+                    var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
+                    var value = values.FirstOrDefault(v => v.Id == action.Option);
+                    if (value != null)
+                    {
+                        value.Value = action.BoolValue;
+                    }
                 }
             }
             else throw new NotImplementedException();

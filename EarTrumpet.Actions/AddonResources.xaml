@@ -306,4 +306,24 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
+            <ComboBox Grid.Row="1"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Option1.All}"
+                      SelectedItem="{Binding Option1.Selected, Mode=TwoWay}" />
+            <ComboBox Grid.Row="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Option2.All}"
+                      SelectedItem="{Binding Option2.Selected, Mode=TwoWay}" />
+        </Grid>
+    </DataTemplate>
+
 </ResourceDictionary>

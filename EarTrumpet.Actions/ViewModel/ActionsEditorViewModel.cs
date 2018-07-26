@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
@@ -121,7 +122,13 @@ namespace EarTrumpet_Actions.ViewModel
                     new SetVariableActionViewModel(new SetVariableAction{ }),
                 };
 
-                if (ServiceBus.Exists("EarTrumpet-Themes"))
+                var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
+                if (addonValues != null && addonValues.Any())
+                {
+                    ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAddonEarTrumpetSettingsAction()));
+                }
+
+                if (ServiceBus.Get("EarTrumpet-Themes") != null)
                 {
                     ret.Add(new SetThemeActionViewModel(new SetThemeAction { }));
                 }

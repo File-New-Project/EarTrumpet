@@ -11,7 +11,7 @@ namespace EarTrumpet_Actions.DataModel
 
         public Option Selected
         {
-            get => Options.First(o => o.Value.Equals(GetSelected()));
+            get => Options.FirstOrDefault(o => o.Value.Equals(GetSelected()));
             set => SetSelected(value);
         }
 
@@ -20,11 +20,17 @@ namespace EarTrumpet_Actions.DataModel
 
         public string DisplayName => Selected.DisplayName;
 
-        public OptionData(List<Option> options, Action<Option> setSelected, Func<object> getSelected)
+        public OptionData(IEnumerable<Option> options, Action<Option> setSelected, Func<object> getSelected)
         {
-            Options = options;
+            Options = options.ToList();
             SetSelected = setSelected;
             GetSelected = getSelected;
+            /*
+            if (Selected == null && getSelected() != null)
+            {
+                Options.Add(new Option(getSelected().ToString(), getSelected()));
+            }
+            */
         }
     }
 
