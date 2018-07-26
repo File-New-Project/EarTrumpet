@@ -19,7 +19,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class ActionsEditorViewModel : INotifyPropertyChanged, ISettingsViewModel
+    public class ActionsEditorViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action<EarTrumpetAction[]> RequestApplyChanges;

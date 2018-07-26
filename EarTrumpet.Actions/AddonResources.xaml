@@ -297,8 +297,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center"
-                       Text="{Binding CurrentDescription}" />
+            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
 
             <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
