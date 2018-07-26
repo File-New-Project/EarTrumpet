@@ -167,7 +167,6 @@
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
-    <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\Themes\ThemeData.cs" />

@@ -7,7 +7,7 @@ using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsViewModel : BindableBase, ISettingsViewModel
+    public class SettingsViewModel : BindableBase
     {
         private HotkeyData _hotkey;
 

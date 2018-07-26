@@ -54,7 +54,7 @@
                     <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
                 </StackPanel>
 
-                <ContentControl x:Name="ComponentHost" />
+                <ContentControl Content="{Binding}" />
 
             </StackPanel>
 

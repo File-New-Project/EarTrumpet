@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
@@ -42,7 +43,7 @@ namespace EarTrumpet.UI.ViewModels
         private bool _useLegacyIcon;
         private bool _useLargeIcon;
         private DeviceViewModel _defaultDevice;
-        private SettingsViewModel _settingsViewModel = new SettingsViewModel();
+        private SettingsWindow _openSettingsWindow;
 
         internal TrayViewModel(DeviceCollectionViewModel mainViewModel, Action openFlyout)
         {
@@ -94,7 +95,7 @@ namespace EarTrumpet.UI.ViewModels
                     new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
                     new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
                     new ContextMenuSeparator{ },
-                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = new RelayCommand(() => SettingsWindow.ActivateSingleInstance(_settingsViewModel)) },
+                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = new RelayCommand(OpenSettings) },
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(DoExit) },
                 });
@@ -148,6 +149,49 @@ namespace EarTrumpet.UI.ViewModels
 
                 return ret;
             }
+        }
+
+        private void OpenSettings()
+        {
+            if (_openSettingsWindow != null)
+            {
+                _openSettingsWindow.RaiseWindow();
+            }
+            else
+            {
+                var viewModel = new SettingsViewModel();
+                viewModel.RequestHotkey += ViewModel_RequestHotkey;
+                _openSettingsWindow = new SettingsWindow();
+                _openSettingsWindow.DataContext = viewModel;
+                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
+                _openSettingsWindow.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
+            }
+        }
+
+        private HotkeyData ViewModel_RequestHotkey(HotkeyData currentHotkey)
+        {
+            Trace.WriteLine("TrayViewModel ViewModel_RequestHotkey");
+
+            bool userSaved = false;
+            var win = new DialogWindow { Owner = _openSettingsWindow };
+            var w = new HotkeySelectViewModel
+            {
+                Save = new RelayCommand(() =>
+                {
+                    userSaved = true;
+                    win.Close();
+                })
+            };
+            win.DataContext = w;
+            win.PreviewKeyDown += w.Window_PreviewKeyDown;
+            win.ShowDialog();
+
+            if (userSaved)
+            {
+                return w.Hotkey;
+            }
+            return currentHotkey;
         }
 
         private void LoadIconResources()
