@@ -7,6 +7,8 @@ namespace EarTrumpet.DataModel.Storage
 {
     class GlobalSettingsBag : ISettingsBag
     {
+        public string Namespace => "";
+
         public event EventHandler<string> SettingChanged;
 
         public bool HasKey(string key)

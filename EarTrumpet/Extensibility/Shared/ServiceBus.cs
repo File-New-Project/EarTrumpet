@@ -11,9 +11,15 @@ namespace EarTrumpet.Extensibility.Shared
             _services[name] = service;
         }
 
-        public static void Unregister(string name, object service)
+        public static void RegisterMany(string name, object service)
         {
-            _services[name] = null;
+            if (_services.ContainsKey(name))
+            {
+                ((List<object>)_services[name]).Add(service);
+                return;
+            }
+
+            _services[name] = new List<object>(new object[] { service });
         }
 
         public static object Get(string name)
@@ -22,6 +28,10 @@ namespace EarTrumpet.Extensibility.Shared
             return ret;
         }
 
-        public static bool Exists(string name) => Get(name) != null;
+        public static List<object> GetMany(string name)
+        {
+            _services.TryGetValue(name, out var ret);
+            return (List<object>)ret;
+        }
     }
 }

@@ -3,6 +3,7 @@
     public enum ApplicationLifecycleEvent
     {
         Startup,
+        Startup2,
         Shutdown,
     }
 

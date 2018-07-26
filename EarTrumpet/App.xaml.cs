@@ -56,6 +56,7 @@ namespace EarTrumpet
             _trayIcon.Show();
 
             Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Startup);
+            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Startup2);
         }
     }
 }
