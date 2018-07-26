@@ -67,7 +67,7 @@ namespace EarTrumpet_Actions
         {
             var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));
 
-            if (action.Conditions.All(c => ConditionProcessor.IsMet(c)))
+            if (action != null && action.Conditions.All(c => ConditionProcessor.IsMet(c)))
             {
                 action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
             }

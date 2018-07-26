@@ -9,13 +9,12 @@
              xmlns:dm="clr-namespace:EarTrumpet_Actions.DataModel"
              xmlns:svc="clr-namespace:EarTrumpet.UI.Services;assembly=EarTrumpet"
              xmlns:tvm="clr-namespace:EarTrumpet_Actions.ViewModel.Triggers"
-             xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel"
-             >
+             xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
     <UserControl.Resources>
         <ResourceDictionary>
 
 
-    
+
             <Style x:Key="{x:Type ListView}" TargetType="{x:Type ListView}">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />

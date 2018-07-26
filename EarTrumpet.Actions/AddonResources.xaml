@@ -129,9 +129,9 @@
 
             <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
             <Button Grid.Row="1"
-                    Style="{StaticResource Windows10ButtonStyle}"
                     Command="{Binding SetHotkey}"
-                    Content="{Binding Hotkey}" />
+                    Content="{Binding Hotkey}"
+                    Style="{StaticResource Windows10ButtonStyle}" />
         </Grid>
     </DataTemplate>
 
