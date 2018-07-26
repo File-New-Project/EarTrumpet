@@ -22,6 +22,7 @@ namespace EarTrumpet_Actions.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action<EarTrumpetAction[]> RequestApplyChanges;
+        public event Action<PartViewModel> PartSelected;
 
         public string Title => "Actions & hotkeys";
 
@@ -57,6 +58,16 @@ namespace EarTrumpet_Actions.ViewModel
                     _selectedPart = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedPart)));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectingPart)));
+
+                    // Clear viewmodels since one may be in use now.
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllTriggers)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllConditions)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllActions)));
+
+                    if (SelectedPart != null)
+                    {
+                        PartSelected?.Invoke(SelectedPart);
+                    }
                 }
             }
         }
@@ -134,10 +145,6 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 EarTrumpetActions.Remove(SelectedAction);
                 SelectedAction = null;
-            });
-            UnselectPart = new RelayCommand(() =>
-            {
-                SelectedPart = null;
             });
         }
 

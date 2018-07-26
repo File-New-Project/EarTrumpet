@@ -10,344 +10,25 @@
              xmlns:svc="clr-namespace:EarTrumpet.UI.Services;assembly=EarTrumpet"
              xmlns:tvm="clr-namespace:EarTrumpet_Actions.ViewModel.Triggers"
              xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel"
-             MinWidth="500"
-             MinHeight="300">
+             >
     <UserControl.Resources>
         <ResourceDictionary>
 
-            <conv:InvertableVisibilityConverter x:Key="addonVisConverter" />
 
-            <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
-                <Setter Property="Margin" Value="4" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-
-            <Style x:Key="{x:Type StackPanel}" TargetType="{x:Type StackPanel}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-
+    
             <Style x:Key="{x:Type ListView}" TargetType="{x:Type ListView}">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <!--
                 <Setter Property="ItemContainerStyle" Value="{DynamicResource BaseListViewItemStyle}" />
+                -->
             </Style>
 
-            <DataTemplate DataType="{x:Type dm:Option}">
-                <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
-            </DataTemplate>
 
-            <DataTemplate DataType="{x:Type svc:HotkeyData}">
-                <TextBlock VerticalAlignment="Center" Text="KEY DATA" />
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
-                <TextBlock Text="{Binding DisplayName}" />
-            </DataTemplate>
-
-            <!--  Triggers  -->
-
-            <DataTemplate DataType="{x:Type tvm:EventTriggerViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type tvm:AudioDeviceEventTriggerViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type tvm:AudioDeviceSessionEventTriggerViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding App.All}"
-                              SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type tvm:ProcessTriggerViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-
-                    <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-                    <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type tvm:HotkeyTriggerViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <Button Grid.Row="1"
-                            Command="{Binding SetHotkey}"
-                            Content="{Binding Hotkey}" />
-                </Grid>
-            </DataTemplate>
-
-            <!--  Conditions  -->
-
-            <DataTemplate DataType="{x:Type cvm:DefaultPlaybackDeviceConditionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type cvm:ProcessConditionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-                    <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type cvm:VariableConditionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-                    <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <!--  Actions  -->
-
-            <DataTemplate DataType="{x:Type avm:SetDefaultDeviceActionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type avm:ChangeAppVolumeActionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding App.All}"
-                              SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-
-                    <Slider Grid.Row="4"
-                            Maximum="100"
-                            Minimum="0"
-                            Style="{DynamicResource VolumeSliderStyle}"
-                            Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                            Value="{Binding Volume.Volume, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type avm:ChangeDeviceVolumeActionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <ComboBox Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Device.All}"
-                              SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-
-                    <Slider Grid.Row="4"
-                            Maximum="100"
-                            Minimum="0"
-                            Style="{DynamicResource VolumeSliderStyle}"
-                            Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                            Value="{Binding Volume.Volume, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type avm:SetVariableActionViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-                    <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-                    <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Option.All}"
-                              SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>
-
-            <!--
-            <DataTemplate DataType="{x:Type vm:PartViewModel}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
-                    <ComboBox Grid.Row="1"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding AllApps}"
-                              SelectedItem="{Binding SelectedApp, Mode=TwoWay}"
-                              Visibility="{Binding IsShowApp, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <ComboBox Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding AllDevices}"
-                              SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-                              Visibility="{Binding IsShowDevice, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <ComboBox Grid.Row="3"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Options}"
-                              SelectedItem="{Binding Selected, Mode=TwoWay}"
-                              Visibility="{Binding IsShowOption, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <Button Grid.Row="4"
-                            Click="HotkeySelect_Click"
-                            Content="{Binding HotkeyText}"
-                            Style="{StaticResource Windows10ButtonStyle}"
-                            Visibility="{Binding IsShowHotkey, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <TextBlock Grid.Row="5"
-                               Text="{Binding PromptText}"
-                               Visibility="{Binding IsShowText, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <TextBox Grid.Row="6"
-                             Text="{Binding Text, Mode=TwoWay}"
-                             Visibility="{Binding IsShowText, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}" />
-                    <Slider Grid.Row="7"
-                            Maximum="100"
-                            Minimum="0"
-                            Style="{DynamicResource VolumeSliderStyle}"
-                            Visibility="{Binding IsShowSlider, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                            Value="{Binding Volume, Mode=TwoWay}" />
-                </Grid>
-            </DataTemplate>-->
             <DataTemplate x:Key="EarTrumpetActionListItemTemplate">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -358,7 +39,7 @@
                     <Button Grid.Column="1"
                             Click="Button_Click"
                             Style="{DynamicResource Windows10ButtonStyle}">
-                        Remove
+                        X
                     </Button>
 
                     <ContentControl VerticalAlignment="Center" Content="{Binding}" />
@@ -368,17 +49,24 @@
             <DataTemplate x:Key="PartListItemTemplate">
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="1"
+                    <Button Grid.Column="2"
                             Click="Button_Click"
                             Style="{DynamicResource Windows10ButtonStyle}">
-                        Remove
+                        X
                     </Button>
 
-                    <TextBlock Grid.Column="0"
+                    <TextBlock Margin="0,0,12,0"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Text="{Binding Verb}" />
+
+                    <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Text="{Binding CurrentDescription}" />
                 </Grid>
@@ -415,102 +103,153 @@
                       SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionMode="Single" />
 
-            <Button Command="{Binding NewEarTrumpetAction}" Style="{DynamicResource Windows10ButtonStyle}">Create new action</Button>
-            <Button Command="{Binding Save}" Style="{DynamicResource Windows10ButtonStyle}">Apply changes</Button>
+            <Grid Grid.Row="7"
+                  Grid.ColumnSpan="2"
+                  Margin="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1"
+                        Command="{Binding NewEarTrumpetAction}"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    Create new action
+                </Button>
+                <Button Grid.Column="2"
+                        Command="{Binding Save}"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    Apply changes
+                </Button>
+            </Grid>
+
+
         </StackPanel>
 
-        <StackPanel Orientation="Vertical">
-            <StackPanel.Style>
-                <Style TargetType="{x:Type StackPanel}">
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Visible" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding SelectedAction}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding SelectingPart}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </StackPanel.Style>
+            </Grid.Style>
 
-            <TextBlock FontSize="28" Text="Editing EarTrumpet action" />
-            <TextBox Text="{Binding SelectedAction.DisplayName, Mode=TwoWay}" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <TextBlock>Trigger: (when any one of the following occurs)</TextBlock>
-            <ListView ItemTemplate="{StaticResource PartListItemTemplate}"
+            <TextBox Grid.ColumnSpan="2"
+                     FontSize="24"
+                     Text="{Binding SelectedAction.DisplayName, Mode=TwoWay}" />
+
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding SelectedAction.Triggers}"
                       MouseLeftButtonUp="PartView_SelectionChanged" />
-            <Button Click="OpenContextMenu_Click"
-                    Content="+ Trigger"
-                    Style="{DynamicResource Windows10ButtonStyle}">
-                <Button.ContextMenu>
-                    <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}">
-                        <ContextMenu.ItemContainerStyle>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <EventSetter Event="Click" Handler="MenuItem_Click" />
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-
-            <TextBlock>Conditions: (only proceed if all of the following are true)</TextBlock>
-            <ListView ItemTemplate="{StaticResource PartListItemTemplate}"
+            <ListView Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding SelectedAction.Conditions}"
                       MouseLeftButtonUp="PartView_SelectionChanged" />
-            <Button Name="btnNewCondition"
-                    Click="OpenContextMenu_Click"
-                    Content="+ Condition"
-                    Style="{DynamicResource Windows10ButtonStyle}">
-                <Button.ContextMenu>
-                    <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}">
-                        <ContextMenu.ItemContainerStyle>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <EventSetter Event="Click" Handler="MenuItem_Click" />
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-
-            <TextBlock>Actions (do these things)</TextBlock>
-            <ListView ItemTemplate="{StaticResource PartListItemTemplate}"
+            <ListView Grid.Row="3"
+                      Grid.ColumnSpan="2"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding SelectedAction.Actions}"
                       MouseLeftButtonUp="PartView_SelectionChanged" />
-            <Button Name="btnNewAction"
-                    Click="OpenContextMenu_Click"
-                    Content="+ Action"
-                    Style="{DynamicResource Windows10ButtonStyle}">
-                <Button.ContextMenu>
-                    <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
-                        <ContextMenu.ItemContainerStyle>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <EventSetter Event="Click" Handler="MenuItem_Click" />
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
 
-            <Button Command="{Binding UnselectAction}" Style="{DynamicResource Windows10ButtonStyle}">Save</Button>
-        </StackPanel>
+            <Grid Grid.Row="4"
+                  Grid.ColumnSpan="3"
+                  Margin="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical">
-            <StackPanel.Style>
-                <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedPart}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
+                <Button Grid.Column="1"
+                        Click="OpenContextMenu_Click"
+                        Content="+ Trigger"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}">
+                            <ContextMenu.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <EventSetter Event="Click" Handler="MenuItem_Click" />
+                                </Style>
+                            </ContextMenu.ItemContainerStyle>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button Name="btnNewCondition"
+                        Grid.Column="2"
+                        Click="OpenContextMenu_Click"
+                        Content="+ Condition (optional)"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}">
+                            <ContextMenu.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <EventSetter Event="Click" Handler="MenuItem_Click" />
+                                </Style>
+                            </ContextMenu.ItemContainerStyle>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button Name="btnNewAction"
+                        Grid.Column="3"
+                        Click="OpenContextMenu_Click"
+                        Content="+ Action"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
+                            <ContextMenu.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <EventSetter Event="Click" Handler="MenuItem_Click" />
+                                </Style>
+                            </ContextMenu.ItemContainerStyle>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </Grid>
 
-            <ContentControl Content="{Binding SelectedPart}" />
+            <Grid Grid.Row="5"
+                  Grid.ColumnSpan="2"
+                  Margin="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button Command="{Binding UnselectPart}" Style="{DynamicResource Windows10ButtonStyle}">Save</Button>
-        </StackPanel>
+                <Button Grid.Column="1"
+                        Command="{Binding UnselectAction}"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    Save
+                </Button>
+            </Grid>
+
+
+        </Grid>
+
     </Grid>
 </UserControl>

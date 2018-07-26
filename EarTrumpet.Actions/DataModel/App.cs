@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel
@@ -53,7 +54,7 @@ namespace EarTrumpet_Actions.DataModel
                 return "Any app";
             }
 
-            return Id;
+            return Path.GetFileName(Id);
         }
 
         public override int GetHashCode()

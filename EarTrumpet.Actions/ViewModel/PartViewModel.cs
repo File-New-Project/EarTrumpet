@@ -1,4 +1,8 @@
 ﻿using EarTrumpet_Actions.DataModel;
+using EarTrumpet_Actions.DataModel.Actions;
+using EarTrumpet_Actions.DataModel.Conditions;
+using EarTrumpet_Actions.DataModel.Triggers;
+using System;
 using System.ComponentModel;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -21,6 +25,27 @@ namespace EarTrumpet_Actions.ViewModel
                     _currentDescription = value;
                     RaisePropertyChanged(nameof(CurrentDescription));
                 }
+            }
+        }
+
+        public string Verb
+
+        {
+            get
+            {
+                if (Part is BaseTrigger)
+                {
+                    return "When";
+                }
+                else if (Part is BaseCondition)
+                {
+                    return "If";
+                }
+                else if (Part is BaseAction)
+                {
+                    return "Do";
+                }
+                else throw new NotImplementedException();
             }
         }
 

@@ -19,6 +19,29 @@ namespace EarTrumpet_Actions
         public ActionsEditor()
         {
             InitializeComponent();
+
+            DataContextChanged += ActionsEditor_DataContextChanged;
+        }
+
+        private void ActionsEditor_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            _viewModel.PartSelected += _viewModel_PartSelected;
+        }
+
+        private void _viewModel_PartSelected(PartViewModel obj)
+        {
+            var win = new DialogWindow { Owner = Window.GetWindow(this) };
+            var w = new OpenPartViewModel
+            {
+                Part = obj,
+                UnselectPart = new RelayCommand(() =>
+                {
+                    win.Close();
+                })
+            };
+            win.DataContext = w;
+            win.ShowDialog();
+            _viewModel.SelectedPart = null;
         }
 
         private void OpenContextMenu_Click(object sender, System.Windows.RoutedEventArgs e)
