@@ -17,7 +17,7 @@ namespace EarTrumpet.UI.Views
         private ISettingsViewModel _viewModel;
         private bool _isClosing;
 
-        internal SettingsWindow(ISettingsViewModel viewModel)
+        public SettingsWindow(ISettingsViewModel viewModel)
         {
             Trace.WriteLine("SettingsWindow .ctor");
             s_windows.Add(viewModel, this);

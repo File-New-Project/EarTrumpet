@@ -1,5 +1,4 @@
-﻿using EarTrumpet.UI.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -7,9 +6,9 @@ namespace EarTrumpet.UI.Themes
 {
     public class ThemeData
     {
-        public static Dictionary<string, ThemeManager.IResolvableThemeBrush> GetBrushData()
+        public static Dictionary<string, IResolveColor> GetBrushData()
         {
-            return new Dictionary<string, ThemeManager.IResolvableThemeBrush>
+            return new Dictionary<string, IResolveColor>
             {
                 // Flyout window "Unicolor" theme.
                 { "Unicolor_Text", new Lookup("ImmersiveApplicationTextDarkTheme") },
@@ -100,7 +99,7 @@ namespace EarTrumpet.UI.Themes
             };
         }
 
-        private class UnicolorWindowBackground : ThemeManager.IResolvableThemeBrush
+        private class UnicolorWindowBackground : IResolveColor
         {
             private readonly double _opacityTransparent;
             private readonly double _opacityNotTransparent;
@@ -111,7 +110,7 @@ namespace EarTrumpet.UI.Themes
                 _opacityNotTransparent = opacityNotTransparent;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 string resource;
                 if (data.IsHighContrast)
@@ -138,7 +137,7 @@ namespace EarTrumpet.UI.Themes
             }
         }
 
-        private class Static : ThemeManager.IResolvableThemeBrush
+        private class Static : IResolveColor
         {
             private readonly Color _color;
             private readonly Color _highContrastColor;
@@ -149,7 +148,7 @@ namespace EarTrumpet.UI.Themes
                 _highContrastColor = highContrastColor;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 if (data.IsHighContrast && _highContrastColor != default(Color))
                 {
@@ -159,7 +158,7 @@ namespace EarTrumpet.UI.Themes
             }
         }
 
-        private class Lookup : ThemeManager.IResolvableThemeBrush
+        private class Lookup : IResolveColor
         {
             private readonly string _color;
             private readonly double _opacity;
@@ -187,7 +186,7 @@ namespace EarTrumpet.UI.Themes
                 _highContrastColor = highContrastColor;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 if (_highContrastColor != default(Color) && data.IsHighContrast)
                 {
@@ -207,37 +206,37 @@ namespace EarTrumpet.UI.Themes
             }
         }
 
-        private class TransparentOrNot : ThemeManager.IResolvableThemeBrush
+        private class TransparentOrNot : IResolveColor
         {
-            readonly ThemeManager.IResolvableThemeBrush _transparentColor;
-            readonly ThemeManager.IResolvableThemeBrush _notTransparentColor;
+            readonly IResolveColor _transparentColor;
+            readonly IResolveColor _notTransparentColor;
 
-            public TransparentOrNot(ThemeManager.IResolvableThemeBrush transparentColor, ThemeManager.IResolvableThemeBrush notTransparentColor)
+            public TransparentOrNot(IResolveColor transparentColor, IResolveColor notTransparentColor)
             {
                 _transparentColor = transparentColor;
                 _notTransparentColor = notTransparentColor;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 return data.IsTransparencyEnabled ? _transparentColor.Resolve(data) : _notTransparentColor.Resolve(data);
             }
         }
 
-        private class LightOrDark : ThemeManager.IResolvableThemeBrush
+        private class LightOrDark : IResolveColor
         {
-            readonly ThemeManager.IResolvableThemeBrush _lightColor;
-            readonly ThemeManager.IResolvableThemeBrush _darkColor;
-            readonly ThemeManager.IResolvableThemeBrush _highContrastColor;
+            readonly IResolveColor _lightColor;
+            readonly IResolveColor _darkColor;
+            readonly IResolveColor _highContrastColor;
 
-            public LightOrDark(ThemeManager.IResolvableThemeBrush lightcolor, ThemeManager.IResolvableThemeBrush darkColor, ThemeManager.IResolvableThemeBrush highContrastColor = null)
+            public LightOrDark(IResolveColor lightcolor, IResolveColor darkColor, IResolveColor highContrastColor = null)
             {
                 _lightColor = lightcolor;
                 _darkColor = darkColor;
                 _highContrastColor = highContrastColor;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 if (_highContrastColor != null && data.IsHighContrast)
                 {
@@ -253,18 +252,18 @@ namespace EarTrumpet.UI.Themes
             }
         }
 
-        private class NormalOrHC : ThemeManager.IResolvableThemeBrush
+        private class NormalOrHC : IResolveColor
         {
-            readonly ThemeManager.IResolvableThemeBrush _normal;
-            readonly ThemeManager.IResolvableThemeBrush _highContrast;
+            readonly IResolveColor _normal;
+            readonly IResolveColor _highContrast;
 
-            public NormalOrHC(ThemeManager.IResolvableThemeBrush normal, ThemeManager.IResolvableThemeBrush highContrast)
+            public NormalOrHC(IResolveColor normal, IResolveColor highContrast)
             {
                 _normal = normal;
                 _highContrast = highContrast;
             }
 
-            public Color Resolve(ThemeManager.ThemeResolveData data)
+            public Color Resolve(IResolveColorOptions data)
             {
                 return data.IsHighContrast ? _highContrast.Resolve(data) : _normal.Resolve(data);
             }

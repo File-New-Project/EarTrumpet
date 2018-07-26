@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Extensions
 {
-    internal static class WindowExtensions
+    public static class WindowExtensions
     {
         public static void Move(this Window window, double top, double left, double height, double width)
         {

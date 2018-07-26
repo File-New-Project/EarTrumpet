@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FocusedAppItemViewModel : IWindowHostedViewModel
+    public class FocusedAppItemViewModel
     {
         public event Action RequestClose;
 
