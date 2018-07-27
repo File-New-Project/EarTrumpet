@@ -10,7 +10,7 @@ namespace EarTrumpet.UI.ViewModels
         public event Action RequestClose;
 
         public IAppItemViewModel App { get; }
-        public ObservableCollection<ToolbarItem> Toolbar { get; }
+        public ObservableCollection<ToolbarItemViewModel> Toolbar { get; }
         public string DisplayName => App.DisplayName;
         public bool IsMovable => App.IsMovable;
 
@@ -18,8 +18,8 @@ namespace EarTrumpet.UI.ViewModels
         {
             App = app;
 
-            Toolbar = new ObservableCollection<ToolbarItem>();
-            Toolbar.Add(new ToolbarItem
+            Toolbar = new ObservableCollection<ToolbarItemViewModel>();
+            Toolbar.Add(new ToolbarItemViewModel
             {
                 GlyphFontSize = 10,
                 DisplayName = Properties.Resources.CloseButtonAccessibleText,
@@ -53,7 +53,7 @@ namespace EarTrumpet.UI.ViewModels
                     }),
                 });
                 items.Insert(1, new ContextMenuSeparator());
-                Toolbar.Insert(0, new ToolbarItem
+                Toolbar.Insert(0, new ToolbarItemViewModel
                 {
                     GlyphFontSize = 16,
                     DisplayName = Properties.Resources.MoveButtonAccessibleText,

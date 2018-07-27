@@ -4,7 +4,7 @@
     {
         private static GlobalSettingsBag s_globalSettings = new GlobalSettingsBag();
 
-        public static ISettingsBag GetSettings(string nameSpace=null)
+        public static ISettingsBag GetSettings(string nameSpace = null)
         {
             if (nameSpace == null)
             {

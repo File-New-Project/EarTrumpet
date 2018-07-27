@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class ToolbarItem
+    public class ToolbarItemViewModel
     {
         public string DisplayName { get; set; }
         public string Glyph { get; set; }

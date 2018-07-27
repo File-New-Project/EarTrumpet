@@ -216,7 +216,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public void MakeDefaultDevice()
         {
-            _deviceManager.Default = _device;
+            _deviceManager.SetDefaultDevice(_device);
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);

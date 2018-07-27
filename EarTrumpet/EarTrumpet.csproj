@@ -178,7 +178,7 @@
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
-    <Compile Include="UI\ViewModels\ToolbarItem.cs" />
+    <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="UI\Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>

@@ -8,17 +8,12 @@ namespace EarTrumpet.DataModel
         event EventHandler<IAudioDevice> DefaultChanged;
         event EventHandler Loaded;
 
-        IAudioDevice Default { get; set; }
+        IAudioDevice Default { get; }
         IAudioDeviceCollection Devices { get; }
         AudioDeviceKind DeviceKind { get; }
-
+        void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia);
         void MoveHiddenAppsToDevice(string appId, string id);
         void SetDefaultEndPoint(string id, int pid);
         string GetDefaultEndPoint(int processId);
-    }
-
-    public interface IAudioDeviceManagerInternal
-    {
-        void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia);
     }
 }

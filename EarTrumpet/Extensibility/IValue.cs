@@ -8,6 +8,6 @@ namespace EarTrumpet.Extensibility
 
         string DisplayName { get; }
 
-        String Id { get; }
+        string Id { get; }
     }
 }

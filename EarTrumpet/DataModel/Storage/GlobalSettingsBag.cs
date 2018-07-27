@@ -80,6 +80,7 @@ namespace EarTrumpet.DataModel.Storage
                 }
                 catch (Exception ex)
                 {
+                    // Windows Bug: Windows Storage APIs are still unreliable
                     Trace.TraceError($"{ex}");
                     AppTrace.LogWarning(ex);
                 }

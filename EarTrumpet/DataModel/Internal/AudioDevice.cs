@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice, IAudioDeviceInternal
+    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

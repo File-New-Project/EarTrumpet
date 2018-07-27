@@ -27,7 +27,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:ToolbarItem}">
+                            <DataTemplate DataType="{x:Type vm:ToolbarItemViewModel}">
                                 <Button VerticalAlignment="Center"
                                         HorizontalContentAlignment="Stretch"
                                         AutomationProperties.Name="{Binding DisplayName}"

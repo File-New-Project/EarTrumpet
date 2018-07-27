@@ -12,7 +12,6 @@ namespace EarTrumpet.UI.Helpers
     {
         public static ContextMenu CreateThemedContextMenu(ThemeKind theme)
         {
-
             var cm = new ContextMenu { };
             cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector { Theme = theme };
             cm.UsesItemContainerTemplate = true;
@@ -30,12 +29,12 @@ namespace EarTrumpet.UI.Helpers
 
         private static void ContextMenu_Closed(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("TrayIcon ContextMenu_Closed");
+            Trace.WriteLine("ThemedContextMenu ContextMenu_Closed");
         }
 
         private static void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("TrayIcon ContextMenu_Opened");
+            Trace.WriteLine("ThemedContextMenu ContextMenu_Opened");
             var cm = (ContextMenu)sender;
             User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
             cm.Focus();
