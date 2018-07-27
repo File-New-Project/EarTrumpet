@@ -1,9 +1,9 @@
 # Changelog
 
-## vNext
+## 2.0.5.0
 - Fixed System Sounds icon on ARM64
 - High Contrast colors updated
-- Enable collecting debug logs when we fail to enumerate devices
+- Added collection of debug information when device enumeration fails
 
 ## 2.0.4.0
 - Scoped the mouse wheel scrolling to only over the Notification Area icon.
