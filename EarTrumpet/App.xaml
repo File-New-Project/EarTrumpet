@@ -109,7 +109,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="Windows10ButtonStyle" TargetType="Button">
+            <Style TargetType="Button">
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="14,0" />
@@ -147,7 +147,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
 
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -582,7 +581,7 @@
                 <Setter Property="Template" Value="{StaticResource MenuItemTemplateDarkOnly}" />
             </Style>
 
-            <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
+            <Style TargetType="{x:Type CheckBox}">
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
@@ -758,7 +757,6 @@
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
@@ -768,11 +766,9 @@
             <DataTemplate DataType="{x:Type vm:HotkeySelectViewModel}">
                 <views:HotkeySelectView />
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type vm:AddonManagerViewModel}">
                 <views:AddonManagerView />
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>
                     <ListView Margin="{StaticResource VolumeAppListMargin}"
@@ -782,9 +778,7 @@
                               ScrollViewer.CanContentScroll="True"
                               ScrollViewer.VerticalScrollBarVisibility="Auto" />
                 </views:ModalDialogChrome>
-
             </DataTemplate>
-
             <DataTemplate x:Key="ContextMenuItemTemplate">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
@@ -792,18 +786,16 @@
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}" />
             </DataTemplate>
-
-            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate"
+                                      ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
                           UsesItemContainerTemplate="true" />
             </HierarchicalDataTemplate>
-
             <DataTemplate x:Key="ContextMenuSeparatorTemplate">
                 <Separator />
             </DataTemplate>
-
             <DataTemplate x:Key="ContextMenuItemTemplateDarkOnly">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
@@ -812,8 +804,8 @@
                           IsEnabled="{Binding IsEnabled}"
                           Style="{StaticResource MenuItemDarkOnly}" />
             </DataTemplate>
-
-            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly" ItemsSource="{Binding Children}">
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly"
+                                      ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
@@ -821,11 +813,9 @@
                           Style="{StaticResource MenuItemDarkOnly}"
                           UsesItemContainerTemplate="true" />
             </HierarchicalDataTemplate>
-
             <DataTemplate x:Key="ContextMenuSeparatorTemplateDarkOnly">
                 <Separator Style="{StaticResource MenuItemSeparatorDarkOnly}" />
             </DataTemplate>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

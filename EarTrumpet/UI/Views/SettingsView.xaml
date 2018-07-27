@@ -11,7 +11,7 @@
                   HorizontalAlignment="Left"
                   Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                   IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                  Style="{StaticResource CheckboxStyle}" />
+                   />
 
         <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
 
@@ -46,15 +46,13 @@
                     HorizontalAlignment="Left"
                     Command="{Binding SelectHotkey}"
                     Content="{Binding HotkeyText}"
-                    Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                    Style="{StaticResource Windows10ButtonStyle}" />
+                    Foreground="{Binding ElementName=WindowRoot, Path=Foreground}" />
 
         </Grid>
 
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
             <Button Command="{Binding OpenAddonManager}"
-                    Content="{x:Static resx:Resources.OpenAddonManagerText}"
-                    Style="{StaticResource Windows10ButtonStyle}" />
+                    Content="{x:Static resx:Resources.OpenAddonManagerText}" />
         </StackPanel>
         <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
         <StackPanel Orientation="Horizontal">

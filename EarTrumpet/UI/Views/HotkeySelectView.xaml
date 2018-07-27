@@ -21,6 +21,6 @@
                 Command="{Binding Save}"
                 Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}"
                 Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                Style="{DynamicResource Windows10ButtonStyle}" />
+                  />
     </Grid>
 </UserControl>

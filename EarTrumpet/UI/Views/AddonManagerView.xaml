@@ -25,8 +25,7 @@
                         VerticalAlignment="Center"
                         Command="{Binding Remove}"
                         CommandParameter="{Binding}"
-                        Content="{x:Static resx:Resources.RemoveAddonText}"
-                        Style="{DynamicResource Windows10ButtonStyle}" />
+                        Content="{x:Static resx:Resources.RemoveAddonText}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -55,8 +54,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Command="{Binding Add}"
-                    Content="{x:Static resx:Resources.AddAddonText}"
-                    Style="{StaticResource Windows10ButtonStyle}" />
+                    Content="{x:Static resx:Resources.AddAddonText}"/>
         </Grid>
 
     </Grid>
