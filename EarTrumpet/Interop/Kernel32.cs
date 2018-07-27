@@ -27,6 +27,16 @@ namespace EarTrumpet.Interop
             LOAD_LIBRARY_AS_IMAGE_RESOURCE = 0x20
         }
 
+        [Flags]
+        internal enum IMAGE_FILE_MACHINE : int
+        {
+            // ...
+            IMAGE_FILE_MACHINE_I386 = 0x014c,
+            IMAGE_FILE_MACHINE_AMD64 = 0x8664,
+            IMAGE_FILE_MACHINE_ARM64 = 0xAA64
+            // ...
+        }
+
         internal const int WAIT_OBJECT_0 = 0x00000000;
         internal const int WAIT_FAILED = unchecked((int)0xFFFFFFFF);
         internal const int WAIT_TIMEOUT = 0x00000102;
@@ -121,5 +131,12 @@ namespace EarTrumpet.Interop
         internal static extern int WaitForSingleObject(
             IntPtr lpHandle,
             int dwMilliseconds);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        [return:MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool IsWow64Process2(
+            IntPtr hProcess,
+            out IMAGE_FILE_MACHINE pProcessMachine,
+            out IMAGE_FILE_MACHINE pNativeMachine);
     }
 }

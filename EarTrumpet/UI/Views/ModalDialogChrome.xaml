@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="EarTrumpet.UI.Views.ModalDialogChrome"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:EarTrumpet.Properties"
+             xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type ContentControl}">
+            <Border Style="{DynamicResource VolumeControlPopupBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.ColumnSpan="3" Style="{DynamicResource VirtualTitleBarBorderStyle}" />
+                    <TextBlock Style="{DynamicResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
+
+                    <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:ToolbarItemViewModel}">
+                                <Button VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Stretch"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        BorderThickness="0"
+                                        Click="Button_Click"
+                                        Command="{Binding Command}"
+                                        FontSize="{Binding GlyphFontSize}"
+                                        Style="{DynamicResource VirtualTitleBarButtonStyle}"
+                                        Tag="{Binding Glyph}">
+                                    <Button.ContextMenu>
+                                        <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
+                                                     ItemsSource="{Binding Menu}"
+                                                     UsesItemContainerTemplate="True" />
+                                    </Button.ContextMenu>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <ContentPresenter Grid.Row="1"
+                                      Grid.ColumnSpan="3"
+                                      Content="{TemplateBinding Content}" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

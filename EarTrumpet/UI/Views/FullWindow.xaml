@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
@@ -9,6 +10,7 @@
         Style="{DynamicResource FullWindowDialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
+        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="LightOrDark" />
 
         <Style x:Key="FullWindowDialogWindowStyle"
                BasedOn="{StaticResource DialogWindowStyle}"
@@ -21,7 +23,7 @@
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
-        <Style x:Key="DeviceHeaderBackgroundBorderStyle" TargetType="{x:Type Border}">
+        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="Transparent" />
         </Style>
 
@@ -34,29 +36,34 @@
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
+            <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource NormalWindowBackground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+            <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource FullWindowDeviceBackground}" />
+            <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarBackground}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarButtonStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource VirtualTitleBarButtonHover}" />
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverText}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonPressedBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonPressedText}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -64,95 +71,43 @@
         <Style x:Key="PerThemeGlyphTextBlockStyle"
                BasedOn="{StaticResource GlyphTextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarTextStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
         <Style x:Key="DeviceVolumeTextStyle"
                BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
         <Style x:Key="AppVolumeTextStyle"
                BasedOn="{StaticResource BaseAppVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
 
         <Style x:Key="DeviceTitleTextStyle"
                BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource NormalWindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
         </Style>
-
-        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
-            <Grid>
-                <Border Name="TrackBackground" Height="2" />
-
-                <Track Name="PART_Track">
-                    <Track.DecreaseRepeatButton>
-                        <RepeatButton Name="SliderLeft"
-                                      Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillLeft}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.DecreaseRepeatButton>
-                    <Track.Thumb>
-                        <Thumb Name="SliderThumb">
-                            <Thumb.Style>
-                                <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
-                                    <Setter Property="Foreground" Value="{DynamicResource ControlSliderTrackFillRest}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
-                                            <Setter Property="Foreground" Value="{DynamicResource ControlSliderThumbHover}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Thumb.Style>
-                        </Thumb>
-                    </Track.Thumb>
-                    <Track.IncreaseRepeatButton>
-                        <RepeatButton Name="SliderRight"
-                                      Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource ControlSliderTrackFillRight}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.IncreaseRepeatButton>
-                </Track>
-
-                <Border Name="PeakMeter1"
-                        Height="2"
-                        Margin="0,-2,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource NormalWindowForeground}" />
-
-                <Border Name="PeakMeter2"
-                        Height="2"
-                        Margin="0,1,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource NormalWindowForeground}" />
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
 
         <Style x:Key="VolumeSliderStyle"
                BasedOn="{StaticResource BaseVolumeSliderStyle}"
                TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{DynamicResource VolumeSliderTemplate}" />
+            <Setter Property="Template" Value="{DynamicResource LighOrDark_VolumeSliderTemplate}" />
         </Style>
 
         <Style x:Key="{x:Type ListViewItem}"
@@ -161,12 +116,12 @@
     </Window.Resources>
 
     <Grid>
-        <Border Name="AcrylicBackgroundActive" Background="{DynamicResource ChromeBlackMedium}" />
+        <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
 
         <Border Name="AcrylicBackgroundInactive">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
-                    <Setter Property="Background" Value="{DynamicResource AcrylicWindowBackdropFallback}" />
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
                     <Setter Property="Opacity" Value="1" />
                     <Style.Triggers>
                         <MultiDataTrigger>
@@ -258,20 +213,22 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <ItemContainerTemplate>
-                                <views:DeviceAndAppsControl Width="{StaticResource WindowAndItemSize}"
-                                                            AppExpanded="DeviceAndAppsControl_AppExpanded"
-                                                            Device="{Binding}" />
+                                <views:DeviceView Width="{StaticResource WindowAndItemSize}" Device="{Binding}" />
                             </ItemContainerTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
 
-                <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+                <views:VolumeControlPopup x:Name="AppPopup"
+                                          IsPopupVisible="{Binding IsShowingModalDialog, Mode=TwoWay}"
+                                          Tag="{Binding FocusedSource}">
+                    <ContentControl Content="{Binding Focused}" />
+                </views:VolumeControlPopup>
             </Grid>
         </DockPanel>
 
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource NormalWindowBackground}"
+                Background="{DynamicResource LightOrDark_Background}"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">

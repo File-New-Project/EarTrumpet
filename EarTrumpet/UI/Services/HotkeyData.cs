@@ -11,5 +11,7 @@ namespace EarTrumpet.UI.Services
         {
             return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
         }
+
+        public bool IsEmpty => Key == Keys.None &&Modifiers == Keys.None;
     }
 }

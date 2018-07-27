@@ -1,13 +1,34 @@
 ﻿using EarTrumpet.DataModel.Internal;
-using System.Windows.Threading;
+using EarTrumpet.UI.Services;
 
 namespace EarTrumpet.DataModel
 {
-    class DataModelFactory
+    public class DataModelFactory
     {
-        public static IAudioDeviceManager CreateAudioDeviceManager()
+        static IAudioDeviceManager s_playbackDevices;
+        static IAudioDeviceManager s_recordingDevices;
+
+        public static IAudioDeviceManager CreateAudioDeviceManager(AudioDeviceKind kind)
         {
-            return new AudioDeviceManager(Dispatcher.CurrentDispatcher);
+            if (kind == AudioDeviceKind.Playback)
+            {
+                if (s_playbackDevices == null)
+                {
+                    s_playbackDevices = new AudioDeviceManager(AudioDeviceKind.Playback);
+                    DiagnosticsService.Advise(s_playbackDevices);
+
+                }
+                return s_playbackDevices;
+            }
+            else
+            {
+                if (s_recordingDevices == null)
+                {
+                    s_recordingDevices = new AudioDeviceManager(AudioDeviceKind.Recording);
+                    DiagnosticsService.Advise(s_recordingDevices);
+                }
+                return s_recordingDevices;
+            }
         }
     }
 }

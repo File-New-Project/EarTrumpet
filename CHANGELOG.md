@@ -1,5 +1,16 @@
 # Changelog
 
+## vNext
+- Disable Alt+Space on the flyout window
+- Limit the internal log buffer
+- Fix a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
+- Fix a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
+- Fix the icon and name of recording devices in 'Listen' mode
+- More High Contrast theme color updates
+- Per-Monitor DPI support
+- Fixes to Notification Area icon scaling
+- Fix overflow flyout at greater than 100% DPI
+
 ## 2.0.5.0
 - Fixed System Sounds icon on ARM64
 - High Contrast colors updated

@@ -35,6 +35,17 @@ namespace EarTrumpet.Interop
             int cy,
             uint uFlags);
 
+        [Flags]
+        public enum MONITOR_DEFAULT : uint
+        {
+            MONITOR_DEFAULTTONULL = 0,
+            MONITOR_DEFAULTTOPRIMARY = 1,
+            MONITOR_DEFAULTTONEAREST = 2,
+        }
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        internal static extern IntPtr MonitorFromWindow(IntPtr hWnd, MONITOR_DEFAULT flags);
+
         [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int SetWindowCompositionAttribute(
             IntPtr hwnd,
@@ -138,14 +149,14 @@ namespace EarTrumpet.Interop
             [FieldOffset(0)]
             public RAWMOUSE_FLAGS usFlags;
             // union {
-                [FieldOffset(4)]
-                public uint ulButtons;
-                // struct {
-                    [FieldOffset(4)]
-                    public ushort usButtonFlags;
-                    [FieldOffset(6)]
-                    public short usButtonData;
-                // }
+            [FieldOffset(4)]
+            public uint ulButtons;
+            // struct {
+            [FieldOffset(4)]
+            public ushort usButtonFlags;
+            [FieldOffset(6)]
+            public short usButtonData;
+            // }
             // }
             [FieldOffset(8)]
             public uint ulRawButtons;
@@ -238,5 +249,9 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DestroyIcon(IntPtr iconHandle);
     }
 }

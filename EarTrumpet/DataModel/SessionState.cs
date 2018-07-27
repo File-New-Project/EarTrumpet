@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.DataModel
 {
-    enum SessionState
+    public enum SessionState
     {
         Invalid = 0,
         Expired = 1,

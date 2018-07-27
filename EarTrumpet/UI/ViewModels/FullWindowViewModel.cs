@@ -6,48 +6,63 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class FullWindowViewModel : BindableBase
     {
-        public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
-        public event EventHandler<object> AppCollapsed = delegate { };
-
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
-        public bool IsShowingModalDialog { get; private set; }
+        public bool IsShowingModalDialog
+        {
+            get => _isShowingModalDialog;
+            set
+            {
+                if (_isShowingModalDialog != value)
+                {
+                    _isShowingModalDialog = value;
+                    RaisePropertyChanged(nameof(IsShowingModalDialog));
 
-        MainViewModel _mainViewModel;
+                    if (!_isShowingModalDialog)
+                    {
+                        Focused = null;
+                        FocusedSource = null;
 
-        public FullWindowViewModel(MainViewModel mainViewModel)
+                        RaisePropertyChanged(nameof(Focused));
+                        RaisePropertyChanged(nameof(FocusedSource));
+                    }
+                }
+            }
+        }
+        public FocusedAppItemViewModel Focused { get; private set; }
+        public UIElement FocusedSource { get; private set; }
+
+        private DeviceCollectionViewModel _mainViewModel;
+        private bool _isShowingModalDialog;
+
+        public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-
+            _mainViewModel.AppPopup += OnAppPopup;
             _mainViewModel.OnFullWindowOpened();
         }
 
         public void Close()
         {
-            CollapseApp();
+            IsShowingModalDialog = false;
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void ExpandApp(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(IAppItemViewModel vm, UIElement container)
         {
-            if (IsShowingModalDialog)
+            if (Window.GetWindow(container).DataContext != this)
             {
-                CollapseApp();
+                return;
             }
 
-            AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
+            IsShowingModalDialog = false;
+
+            Focused = new FocusedAppItemViewModel(_mainViewModel, vm);
+            Focused.RequestClose += () => IsShowingModalDialog = false;
+            FocusedSource = container;
+            RaisePropertyChanged(nameof(Focused));
+            RaisePropertyChanged(nameof(FocusedSource));
 
             IsShowingModalDialog = true;
-            RaisePropertyChanged(nameof(IsShowingModalDialog));
-        }
-
-        public void CollapseApp()
-        {
-            if (IsShowingModalDialog)
-            {
-                AppCollapsed?.Invoke(this, null);
-                IsShowingModalDialog = false;
-                RaisePropertyChanged(nameof(IsShowingModalDialog));
-            }
         }
     }
 }

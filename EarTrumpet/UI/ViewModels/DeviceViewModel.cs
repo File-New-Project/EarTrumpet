@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -14,6 +15,19 @@ namespace EarTrumpet.UI.ViewModels
         public string DeviceIconText { get; private set; }
         public string DeviceIconTextBackground { get; private set; }
 
+        public bool IsDisplayNameVisible
+        {
+            get => _isDisplayNameVisible;
+            set
+            {
+                if (_isDisplayNameVisible != value)
+                {
+                    _isDisplayNameVisible = value;
+                    RaisePropertyChanged(nameof(IsDisplayNameVisible));
+                }
+            }
+        }
+
         private readonly string s_Sound3BarsIcon = "\xE995";
         private readonly string s_Sound2BarsIcon = "\xE994";
         private readonly string s_Sound1BarIcon = "\xE993";
@@ -21,11 +35,14 @@ namespace EarTrumpet.UI.ViewModels
 
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
+        private bool _isDisplayNameVisible;
+        private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
+            _parent = new WeakReference<DeviceCollectionViewModel>(parent);
 
             Apps = new ObservableCollection<IAppItemViewModel>();
 
@@ -34,7 +51,7 @@ namespace EarTrumpet.UI.ViewModels
 
             foreach (var session in _device.Groups)
             {
-                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModel.CompareByExeName);
+                Apps.AddSorted(new AppItemViewModel(this, session), AppItemViewModel.CompareByExeName);
             }
 
             UpdateMasterVolumeIcon();
@@ -76,31 +93,38 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateMasterVolumeIcon()
         {
-            string icon;
-            if (_device.IsMuted)
+            if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
             {
-                icon = s_SoundMuteIcon;
-            }
-            else if (_device.Volume >= 0.65f)
-            {
-                icon = s_Sound3BarsIcon;
-            }
-            else if (_device.Volume >= 0.33f)
-            {
-                icon = s_Sound2BarsIcon;
-            }
-            else if (_device.Volume > 0f)
-            {
-                icon = s_Sound1BarIcon;
+                DeviceIconText = "\xEC72";
+                DeviceIconTextBackground = "";
             }
             else
             {
-                icon = s_SoundMuteIcon;
+                string icon;
+                if (_device.IsMuted)
+                {
+                    icon = s_SoundMuteIcon;
+                }
+                else if (_device.Volume >= 0.65f)
+                {
+                    icon = s_Sound3BarsIcon;
+                }
+                else if (_device.Volume >= 0.33f)
+                {
+                    icon = s_Sound2BarsIcon;
+                }
+                else if (_device.Volume > 0f)
+                {
+                    icon = s_Sound1BarIcon;
+                }
+                else
+                {
+                    icon = s_SoundMuteIcon;
+                }
+
+                DeviceIconText = icon;
+                DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
             }
-
-            DeviceIconText = icon;
-            DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
-
             RaisePropertyChanged(nameof(DeviceIconText));
             RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
@@ -130,7 +154,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void AddSession(IAudioDeviceSession session)
         {
-            var newSession = new AppItemViewModel(session);
+            var newSession = new AppItemViewModel(this, session);
 
             foreach(var a in Apps)
             {
@@ -190,11 +214,19 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void MakeDefaultPlaybackDevice()
+        public void MakeDefaultDevice()
         {
-            _deviceManager.Default = _device;
+            _deviceManager.SetDefaultDevice(_device);
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void OpenPopup(IAppItemViewModel app, UIElement container)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(app, container);
+            }
+        }
     }
 }

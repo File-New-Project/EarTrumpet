@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -66,15 +67,17 @@ namespace EarTrumpet.UI.ViewModels
         private int _volume;
         private bool _isMuted;
         private IAudioDeviceManager _deviceManager;
+        private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal TemporaryAppItemViewModel(IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
+        internal TemporaryAppItemViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
         {
+            _parent = new WeakReference<DeviceCollectionViewModel>(parent);
             if (!isChild)
             {
                 ChildApps = new ObservableCollection<IAppItemViewModel>();
                 foreach(var childApp in app.ChildApps)
                 {
-                    var vm = new TemporaryAppItemViewModel(deviceManager, childApp, true);
+                    var vm = new TemporaryAppItemViewModel(parent, deviceManager, childApp, true);
                     vm.PropertyChanged += ChildApp_PropertyChanged;
                     ChildApps.Add(vm);
                 }
@@ -164,5 +167,13 @@ namespace EarTrumpet.UI.ViewModels
         public void RefreshDisplayName() { }
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
+
+        public void OpenPopup(UIElement uIElement)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(this, uIElement);
+            }
+        }
     }
 }

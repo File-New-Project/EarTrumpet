@@ -27,36 +27,58 @@ namespace EarTrumpet.UI.ViewModels
             CloseThenOpen,
         }
 
-        public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
         public event EventHandler<object> WindowSizeInvalidated = delegate { };
-        public event EventHandler<object> AppCollapsed = delegate { };
         public event EventHandler<CloseReason> StateChanged = delegate { };
 
+        public FocusedAppItemViewModel Focused { get; private set; }
+        public UIElement FocusedSource { get; private set; }
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
         public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
         public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
+        public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
-        public bool IsShowingModalDialog { get; private set; }
+        public bool IsShowingModalDialog
+        {
+            get => _isShowingModalDialog;
+            set
+            {
+                if (_isShowingModalDialog != value)
+                {
+                    _isShowingModalDialog = value;
+                    RaisePropertyChanged(nameof(IsShowingModalDialog));
+
+                    if (!_isShowingModalDialog)
+                    {
+                        Focused = null;
+                        FocusedSource = null;
+
+                        RaisePropertyChanged(nameof(Focused));
+                        RaisePropertyChanged(nameof(FocusedSource));
+                    }
+                }
+            }
+        }
+        
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
 
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
+        private bool _isShowingModalDialog;
 
-        internal FlyoutViewModel(MainViewModel mainViewModel)
+        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
         {
             Devices = new ObservableCollection<DeviceViewModel>();
 
             _mainViewModel = mainViewModel;
-            _mainViewModel.FlyoutShowRequested += (_, options) => OpenFlyout(options);
-            _mainViewModel.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
+            _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
-
+            _mainViewModel.AppPopup += OnAppPopup;
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
@@ -119,7 +141,7 @@ namespace EarTrumpet.UI.ViewModels
                         AddDevice(device);
                     }
 
-                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.DefaultPlaybackDevice);
+                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.Default);
                     break;
 
                 default:
@@ -131,6 +153,7 @@ namespace EarTrumpet.UI.ViewModels
                 IsExpanded = false;
             }
 
+            UpdateTextVisibility();
             RaiseDevicesChanged();
         }
 
@@ -139,6 +162,7 @@ namespace EarTrumpet.UI.ViewModels
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
+            RaisePropertyChanged(nameof(DeviceNameText));
             RaisePropertyChanged(nameof(ExpandAccessibleText));
             InvalidateWindowSize();
         }
@@ -162,9 +186,17 @@ namespace EarTrumpet.UI.ViewModels
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
-
-                    RaiseDevicesChanged();
                 }
+            }
+            UpdateTextVisibility();
+            RaiseDevicesChanged();
+        }
+
+        private void UpdateTextVisibility()
+        {
+            for (var i = 0; i < Devices.Count; i++)
+            {
+                Devices[i].IsDisplayNameVisible = i > 0;
             }
         }
 
@@ -191,7 +223,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     var device = Devices[i];
 
-                    if (device.Id != _mainViewModel.DefaultPlaybackDevice?.Id)
+                    if (device.Id != _mainViewModel.Default?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
                         Devices.Remove(device);
@@ -199,16 +231,15 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
-            RaisePropertyChanged(nameof(IsExpanded));
-            RaisePropertyChanged(nameof(ExpandText));
-            RaisePropertyChanged(nameof(ExpandAccessibleText));
-            InvalidateWindowSize();
+            UpdateTextVisibility();
+            RaiseDevicesChanged();
         }
 
         private void InvalidateWindowSize()
         {
             // We must be async because otherwise SetWindowPos will pump messages before the UI has updated.
-            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+            App.Current.Dispatcher.BeginInvoke((Action)(() =>
+            {
                 WindowSizeInvalidated?.Invoke(this, null);
             }));
         }
@@ -218,11 +249,11 @@ namespace EarTrumpet.UI.ViewModels
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
             var oldState = State;
 
-            bool isValidStateTransition = 
-                oldState == ViewState.NotLoaded &&      state == ViewState.Hidden ||
-                oldState == ViewState.Hidden &&         state == ViewState.Opening ||
-                oldState == ViewState.Opening &&        state == ViewState.Open ||
-                oldState == ViewState.Open &&           state == ViewState.Closing_Stage1 ||
+            bool isValidStateTransition =
+                oldState == ViewState.NotLoaded && state == ViewState.Hidden ||
+                oldState == ViewState.Hidden && state == ViewState.Opening ||
+                oldState == ViewState.Opening && state == ViewState.Open ||
+                oldState == ViewState.Open && state == ViewState.Closing_Stage1 ||
                 oldState == ViewState.Closing_Stage1 && state == ViewState.Closing_Stage2 ||
                 oldState == ViewState.Closing_Stage1 && state == ViewState.Hidden ||
                 oldState == ViewState.Closing_Stage2 && state == ViewState.Hidden;
@@ -256,10 +287,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _mainViewModel.OnTrayFlyoutHidden();
 
-                if (IsShowingModalDialog)
-                {
-                    CollapseApp();
-                }
+                IsShowingModalDialog = false;
             }
             else if (state == ViewState.Closing_Stage2)
             {
@@ -267,27 +295,22 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void BeginExpandApp(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(IAppItemViewModel vm, UIElement container)
         {
-            if (IsShowingModalDialog)
+            if (Window.GetWindow(container).DataContext != this)
             {
-                CollapseApp();
+                return;
             }
 
-            AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
+            IsShowingModalDialog = false;
+
+            Focused = new FocusedAppItemViewModel(_mainViewModel, vm);
+            Focused.RequestClose += () => IsShowingModalDialog = false;
+            FocusedSource = container;
+            RaisePropertyChanged(nameof(Focused));
+            RaisePropertyChanged(nameof(FocusedSource));
 
             IsShowingModalDialog = true;
-            RaisePropertyChanged(nameof(IsShowingModalDialog));
-        }
-
-        public void CollapseApp()
-        {
-            if (IsShowingModalDialog)
-            {
-                AppCollapsed?.Invoke(this, null);
-                IsShowingModalDialog = false;
-                RaisePropertyChanged(nameof(IsShowingModalDialog));
-            }
         }
 
         public void BeginOpen()
@@ -315,7 +338,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void OpenFlyout(FlyoutShowOptions options)
+        public void OpenFlyout(FlyoutShowOptions options)
         {
             ShowOptions = options;
 

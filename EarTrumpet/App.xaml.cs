@@ -2,6 +2,7 @@
 using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
+using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using System.Diagnostics;
@@ -11,7 +12,10 @@ namespace EarTrumpet
 {
     public partial class App
     {
-        private MainViewModel _viewModel;
+        public FlyoutViewModel FlyoutViewModel { get; private set; }
+        public TrayViewModel TrayViewModel { get; private set; }
+
+        private DeviceCollectionViewModel _viewModel;
         private TrayIcon _trayIcon;
         private FlyoutWindow _flyoutWindow;
 
@@ -30,17 +34,17 @@ namespace EarTrumpet
 
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
-            var deviceManager = DataModelFactory.CreateAudioDeviceManager();
-            DiagnosticsService.Advise(deviceManager);
-
-            _viewModel = new MainViewModel(deviceManager);
+            _viewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
             _viewModel.Ready += MainViewModel_Ready;
 
-            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel));
-            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel));
+            FlyoutViewModel = new FlyoutViewModel(_viewModel);
+            _flyoutWindow = new FlyoutWindow(_viewModel, FlyoutViewModel);
+            TrayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            _trayIcon = new TrayIcon(TrayViewModel);
+            _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
 
             HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+            HotkeyService.KeyPressed += (_, __) => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
@@ -51,6 +55,8 @@ namespace EarTrumpet
         {
             Trace.WriteLine("App Application_Startup MainViewModel_Ready");
             _trayIcon.Show();
+
+            Extensibility.Hosting.AddonManager.Current.Load();
         }
     }
 }

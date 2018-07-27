@@ -14,11 +14,11 @@ namespace EarTrumpet.UI.Views
     {
         private static FullWindow Instance;
 
-        private MainViewModel _mainViewModel;
+        private DeviceCollectionViewModel _mainViewModel;
         private FullWindowViewModel _viewModel;
         private bool _isClosing;
 
-        public FullWindow(MainViewModel viewModel)
+        public FullWindow(DeviceCollectionViewModel viewModel)
         {
             _mainViewModel = viewModel;
             Trace.WriteLine("FullWindow .ctor");
@@ -27,10 +27,8 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             _viewModel = new FullWindowViewModel(viewModel);
-            _viewModel.AppExpanded += ViewModel_AppExpanded;
-            _viewModel.AppCollapsed += ViewModel_AppCollapsed;
 
-            AppPopup.Closed += AppPopup_Closed;
+
             SourceInitialized += FullWindow_SourceInitialized;
             LocationChanged += FullWindow_LocationChanged;
             SizeChanged += FullWindow_SizeChanged;
@@ -47,7 +45,7 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("FullWindow SystemEvents_DisplaySettingsChanged");
 
-            Dispatcher.BeginInvoke((Action)(() => _viewModel.CollapseApp()));
+            Dispatcher.BeginInvoke((Action)(() => _viewModel.IsShowingModalDialog = false));
         }
 
         private void FullWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -68,36 +66,16 @@ namespace EarTrumpet.UI.Views
 
         private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _viewModel.CollapseApp();
+            _viewModel.IsShowingModalDialog = false;
         }
 
         private void FullWindow_LocationChanged(object sender, EventArgs e)
         {
-            _viewModel.CollapseApp();
+            _viewModel.IsShowingModalDialog = false;
         }
+        
 
-        private void AppPopup_Closed(object sender, EventArgs e)
-        {
-            Trace.WriteLine("FullWindow AppPopup_Closed");
-
-            _viewModel.CollapseApp();
-        }
-
-        private void ViewModel_AppCollapsed(object sender, object e)
-        {
-            Trace.WriteLine("FullWindow ViewModel_AppCollapsed");
-
-            AppPopup.HideWithAnimation();
-        }
-
-        private void ViewModel_AppExpanded(object sender, AppExpandedEventArgs e)
-        {
-            Trace.WriteLine("FullWindow ViewModel_AppExpanded");
-
-            AppPopup.PositionAndShow(_mainViewModel, this, e);
-        }
-
-        public static void ActivateSingleInstance(MainViewModel mainViewModel)
+        public static void ActivateSingleInstance(DeviceCollectionViewModel mainViewModel)
         {
             Trace.WriteLine("FullWindow ActivateSingleInstance");
             if (Instance == null)
@@ -119,7 +97,7 @@ namespace EarTrumpet.UI.Views
             {
                 if (_viewModel.IsShowingModalDialog)
                 {
-                    _viewModel.CollapseApp();
+                    _viewModel.IsShowingModalDialog = false;
                 }
                 else
                 {
@@ -143,16 +121,9 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
-        {
-            Trace.WriteLine("FullWindow DeviceAndAppsControl_AppExpanded");
-
-            _viewModel.ExpandApp(e.ViewModel, e.Container);
-        }
-
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            AppPopup.HideWithAnimation();
+            _viewModel.IsShowingModalDialog = false;
             e.Handled = true;
         }
     }

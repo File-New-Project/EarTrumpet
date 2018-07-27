@@ -9,45 +9,20 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace EarTrumpet.UI.Controls
+namespace EarTrumpet.UI.Themes
 {
     public class ThemeManager : INotifyPropertyChanged
     {
-        private class Window : System.Windows.Forms.NativeWindow, IDisposable
+        public static ThemeManager Current { get; private set; }
+
+        public static IResolveColorOptions DefaultResolver { get; private set; }
+
+        class ThemeResolveData : IResolveColorOptions
         {
-            Action<System.Windows.Forms.Message> _wndProc;
-
-            public void Initialize(Action<System.Windows.Forms.Message> wndProc)
-            {
-                _wndProc = wndProc;
-
-                CreateHandle(new System.Windows.Forms.CreateParams());
-            }
-
-            protected override void WndProc(ref System.Windows.Forms.Message m)
-            {
-                _wndProc(m);
-
-                base.WndProc(ref m);
-            }
-
-            public void Dispose()
-            {
-                this.DestroyHandle();
-            }
-        }
-
-        public interface IResolvableThemeBrush
-        {
-            Color Resolve(ThemeResolveData data);
-        }
-
-        public class ThemeResolveData
-        {
-            public bool IsHighContrast = SystemParameters.HighContrast;
-            public bool IsTransparencyEnabled = !SystemParameters.HighContrast && SystemSettings.IsTransparencyEnabled;
-            public bool IsLightTheme = SystemSettings.IsLightTheme;
-            public bool UseAccentColor = SystemSettings.UseAccentColor;
+            public bool IsHighContrast => SystemParameters.HighContrast;
+            public bool IsTransparencyEnabled => !SystemParameters.HighContrast && SystemSettings.IsTransparencyEnabled;
+            public bool IsLightTheme => SystemSettings.IsLightTheme;
+            public bool UseAccentColor => SystemSettings.UseAccentColor;
             public Color LookupThemeColor(string color) => ImmersiveSystemColors.Lookup(color);
         }
 
@@ -57,12 +32,15 @@ namespace EarTrumpet.UI.Controls
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
 
-        private Dictionary<string, IResolvableThemeBrush> _themeData;
+        private Dictionary<string, IResolveColor> _themeData;
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
-        private Window _messageWindow;
+        private Win32Window _messageWindow;
 
         public ThemeManager()
         {
+            Debug.Assert(Current == null);
+            Current = this;
+            DefaultResolver = new ThemeResolveData();
             _themeChangeTimer.Tick += ThemeChangeTimer_Tick;
         }
 
@@ -71,11 +49,11 @@ namespace EarTrumpet.UI.Controls
             _themeChangeTimer.Tick -= ThemeChangeTimer_Tick;
         }
 
-        public void SetTheme(Dictionary<string, ThemeManager.IResolvableThemeBrush> data)
+        public void SetTheme(Dictionary<string, IResolveColor> data)
         {
             _themeData = data;
 
-            _messageWindow = new Window();
+            _messageWindow = new Win32Window();
             _messageWindow.Initialize((m) => WndProc(m.Msg, m.WParam, m.LParam));
 
             RebuildTheme();
@@ -106,7 +84,7 @@ namespace EarTrumpet.UI.Controls
 #if DEBUG
             foreach (var key in oldDictionary.Keys)
             {
-                // Verify the new diction has the old entry. i.e. fix ThemeData.cs
+                // Verify the new dictionary has the old entry. i.e. fix ThemeData.cs
                 var newEntry = newDictionary[key];
                 if (newEntry == null)
                 {
@@ -135,7 +113,8 @@ namespace EarTrumpet.UI.Controls
                     break;
                 case WM_SETTINGCHANGE:
                     var settingChanged = Marshal.PtrToStringUni(lParam);
-                    if (settingChanged == "ImmersiveColorSet")
+                    if (settingChanged == "ImmersiveColorSet" || // Accent color
+                        settingChanged == "WindowsThemeElement") // High contrast
                     {
                         OnThemeColorsChanged();
                     }

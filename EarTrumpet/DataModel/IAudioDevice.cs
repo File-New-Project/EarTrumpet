@@ -1,16 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
-    interface IAudioDevice : IStreamWithVolumeControl
+    public interface IAudioDevice : IStreamWithVolumeControl
     {
         string DisplayName { get; }
         IAudioDeviceManager Parent { get; }
-
         ObservableCollection<IAudioDeviceSession> Groups { get; }
-
         void UpdatePeakValueBackground();
         void UnhideSessionsForProcessId(int processId);
         void MoveHiddenAppsToDevice(string appId, string id);
+        void AddSessionFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter);
     }
 }

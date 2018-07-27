@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="EarTrumpet.UI.Views.AddonManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels">
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="Height"
+                    Value="40" />
+        </Style>
+        
+        <DataTemplate DataType="{x:Type vm:AddonViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="{Binding DisplayName}" />
+
+                <Button Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Command="{Binding Remove}"
+                        CommandParameter="{Binding}"
+                        Style="{DynamicResource Windows10ButtonStyle}">
+                    Remove
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{Binding BuiltIn}" VerticalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding DisplayName}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="1" ItemsSource="{Binding ThirdParty}" />
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding Add}" Content="+ Add" Style="{StaticResource Windows10ButtonStyle}" />
+        </Grid>
+
+    </Grid>
+</UserControl>

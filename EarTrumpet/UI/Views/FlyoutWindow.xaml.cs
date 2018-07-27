@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Linq;
@@ -13,11 +13,11 @@ namespace EarTrumpet.UI.Views
 {
     public partial class FlyoutWindow
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly FlyoutViewModel _viewModel;
         private RawInputListener _rawListener;
 
-        internal FlyoutWindow(MainViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
+        public FlyoutWindow(DeviceCollectionViewModel mainViewModel, FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 
@@ -26,12 +26,9 @@ namespace EarTrumpet.UI.Views
 
             _viewModel.StateChanged += ViewModel_OnStateChanged;
             _viewModel.WindowSizeInvalidated += ViewModel_WindowSizeInvalidated;
-            _viewModel.AppExpanded += ViewModel_AppExpanded;
-            _viewModel.AppCollapsed += ViewModel_AppCollapsed;
 
             DataContext = _viewModel;
 
-            AppPopup.Closed += AppPopup_Closed;
             Deactivated += FlyoutWindow_Deactivated;
             SourceInitialized += FlyoutWindow_SourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
@@ -57,10 +54,7 @@ namespace EarTrumpet.UI.Views
         {
             _viewModel.StateChanged -= ViewModel_OnStateChanged;
             _viewModel.WindowSizeInvalidated -= ViewModel_WindowSizeInvalidated;
-            _viewModel.AppExpanded -= ViewModel_AppExpanded;
-            _viewModel.AppCollapsed -= ViewModel_AppCollapsed;
 
-            AppPopup.Closed -= AppPopup_Closed;
             Deactivated -= FlyoutWindow_Deactivated;
             SourceInitialized -= FlyoutWindow_SourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= SystemEvents_DisplaySettingsChanged;
@@ -75,8 +69,7 @@ namespace EarTrumpet.UI.Views
         {
             this.Cloak();
 
-            var themeManager = (ThemeManager)App.Current.Resources["ThemeManager"];
-            themeManager.ThemeChanged += ThemeChanged;
+            ThemeManager.Current.ThemeChanged += ThemeChanged;
             ThemeChanged();
 
             _rawListener = new RawInputListener(this);
@@ -94,24 +87,9 @@ namespace EarTrumpet.UI.Views
             _rawListener.Stop();
         }
 
-        private void AppPopup_Closed(object sender, EventArgs e)
-        {
-            _viewModel.CollapseApp();
-        }
-
         private void FlyoutWindow_Deactivated(object sender, EventArgs e)
         {
             _viewModel.BeginClose();
-        }
-
-        private void ViewModel_AppCollapsed(object sender, object e)
-        {
-            AppPopup.HideWithAnimation();
-        }
-
-        private void ViewModel_AppExpanded(object sender, AppExpandedEventArgs e)
-        {
-            AppPopup.PositionAndShow(_mainViewModel, this, e);
         }
 
         private void ViewModel_WindowSizeInvalidated(object sender, object e)
@@ -178,7 +156,7 @@ namespace EarTrumpet.UI.Views
             {
                 if (_viewModel.IsShowingModalDialog)
                 {
-                    _viewModel.CollapseApp();
+                    _viewModel.IsShowingModalDialog = false;
                 }
                 else
                 {
@@ -187,7 +165,14 @@ namespace EarTrumpet.UI.Views
             }
             else
             {
-                KeyboardNavigator.OnKeyDown(this, ref e);
+                if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
+                {
+                    e.Handled = true;
+                }
+                else
+                {
+                    KeyboardNavigator.OnKeyDown(this, ref e);
+                }
             }
         }
 
@@ -201,38 +186,16 @@ namespace EarTrumpet.UI.Views
                 return;
             }
 
-            double newHeight = 0;
-            if (_viewModel.IsEmpty)
+            UpdateLayout();
+            LayoutRoot.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            double newHeight = LayoutRoot.DesiredSize.Height;
+
+            var scaledWorkAreaHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
+            if (newHeight > scaledWorkAreaHeight)
             {
-                newHeight = (double)App.Current.Resources["NoItemsPaneHeight"];
+                newHeight = scaledWorkAreaHeight;
             }
-            else
-            {
-                var DeviceItemCellHeight = (double)App.Current.Resources["DeviceItemCellHeight"];
-                var DeviceTitleCellHeight = (double)App.Current.Resources["DeviceTitleCellHeight"];
-                var AppItemCellHeight = (double)App.Current.Resources["AppItemCellHeight"];
-
-                var VolumeAppListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
-                foreach (var device in _viewModel.Devices)
-                {
-                    newHeight += DeviceTitleCellHeight + DeviceItemCellHeight;
-                    newHeight += VolumeAppListMargin.Bottom + VolumeAppListMargin.Top;
-
-                    foreach(var app in device.Apps)
-                    {
-                        newHeight += AppItemCellHeight;
-                    }
-                }
-            }
-
-            bool isOverflowing = false;
-            if (newHeight > taskbarState.ContainingScreen.WorkingArea.Height)
-            {
-                newHeight = taskbarState.ContainingScreen.WorkingArea.Height;
-                isOverflowing = true;
-            }
-
-            BaseVisual.VerticalScrollBarVisibility = isOverflowing ? System.Windows.Controls.ScrollBarVisibility.Visible : System.Windows.Controls.ScrollBarVisibility.Hidden;
 
             bool isRTL = SystemSettings.IsRTL;
             double newTop = 0;
@@ -265,13 +228,8 @@ namespace EarTrumpet.UI.Views
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            AppPopup.HideWithAnimation();
+            _viewModel.IsShowingModalDialog = false;
             e.Handled = true;
-        }
-
-        private void DeviceAndAppsControl_AppExpanded(object sender, AppVolumeControlExpandedEventArgs e)
-        {
-            _viewModel.BeginExpandApp(e.ViewModel, e.Container);
         }
     }
 }

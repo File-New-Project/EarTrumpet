@@ -17,6 +17,18 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public IAudioDevice Parent
+        {
+            get
+            {
+                if (_parent.TryGetTarget(out var parent))
+                {
+                    return parent;
+                }
+                return null;
+            }
+        }
+
         public float Volume
         {
             get => _volume;
@@ -71,26 +83,6 @@ namespace EarTrumpet.DataModel.Internal
                     return _rawDisplayName;
                 }
                 else if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
-                {
-                    return _resolvedAppDisplayName;
-                }
-                else
-                {
-                    return _appInfo.ExeName;
-                }
-            }
-        }
-
-        public string AppDisplayName
-        {
-            get
-            {
-                if (IsSystemSoundsSession)
-                {
-                    return _rawDisplayName;
-                }
-
-                if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
                 {
                     return _resolvedAppDisplayName;
                 }
@@ -192,11 +184,16 @@ namespace EarTrumpet.DataModel.Internal
             GroupingParam = _session.GetGroupingParam();
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
-            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
+            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == Error.S_OK;
             ProcessId = ReadProcessId();
             _parent = new WeakReference<IAudioDevice>(parent);
 
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
+
+            if (string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath))
+            {
+                _appInfo.SmallLogoPath = session.GetIconPath();
+            }
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
@@ -212,7 +209,15 @@ namespace EarTrumpet.DataModel.Internal
 
             ReadRawDisplayName();
             RefreshDisplayName();
-            SyncPersistedEndpoint(parent);
+
+            if (parent.Parent.DeviceKind == AudioDeviceKind.Recording)
+            {
+                _isDisconnected = IsSystemSoundsSession;
+            }
+            else
+            {
+                SyncPersistedEndpoint(parent);
+            }
         }
 
         ~AudioDeviceSession()
@@ -241,7 +246,6 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
                     }));
                 });
@@ -285,42 +289,9 @@ namespace EarTrumpet.DataModel.Internal
 
         public void UpdatePeakValueBackground()
         {
-            try
-            {
-                uint chanCount = _meter.GetMeteringChannelCount();
-                if (chanCount == 0)
-                {
-                    PeakValue1 = 0;
-                    PeakValue2 = 0;
-                }
-                else
-                {
-                    
-                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
-                    _meter.GetChannelsPeakValues(chanCount, arrayPtr);
-
-                    var values = new float[chanCount];
-                    Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
-
-                    if (chanCount == 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[0];
-                    }
-                    else if (chanCount > 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[1];
-                    }
-                }
-            }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
-            {
-                // Expected in some cases.
-
-                PeakValue1 = 0;
-                PeakValue2 = 0;
-            }
+            var newValues = Helpers.ReadPeakValues(_meter);
+            PeakValue1 = newValues[0];
+            PeakValue2 = newValues[1];
         }
 
         private int ReadProcessId()
@@ -479,7 +450,6 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AppDisplayName)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
             }));
         }
