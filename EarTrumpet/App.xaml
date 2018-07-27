@@ -116,7 +116,7 @@
                 <Setter Property="MinWidth" Value="90" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorder}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -461,6 +461,7 @@
                     </Trigger>
                     <Trigger Property="IsHighlighted" Value="true">
                         <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextHover}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabled}" />
@@ -523,6 +524,7 @@
                     </Trigger>
                     <Trigger Property="IsHighlighted" Value="true">
                         <Setter TargetName="Border" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHoverDarkOnly}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextHoverDarkOnly}" />
                     </Trigger>
                     <Trigger Property="IsEnabled" Value="false">
                         <Setter Property="Foreground" Value="{DynamicResource ContextMenuItemTextDisabledDarkOnly}" />

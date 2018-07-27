@@ -53,8 +53,12 @@ namespace EarTrumpet.DataModel.Internal.Services
                     {
                         var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
                         mrtResourceManager.InitializeForPackage(shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName));
+
                         var map = mrtResourceManager.GetMainResourceMap();
                         appInfo.SmallLogoPath = Path.Combine(appInfo.PackageInstallPath, map.GetFilePath(rawSmallLogoPath));
+
+                        Marshal.ReleaseComObject(map);
+                        Marshal.ReleaseComObject(mrtResourceManager);
                     }
                 }
                 catch(Exception ex)
