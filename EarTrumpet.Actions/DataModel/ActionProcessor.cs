@@ -22,7 +22,7 @@ namespace EarTrumpet_Actions.DataModel
                 var dev = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (dev != null)
                 {
-                    PlaybackDataModelHost.DeviceManager.Default = dev;
+                    PlaybackDataModelHost.DeviceManager.SetDefaultDevice(dev);
                 }
             }
             else if (a is ChangeAppVolumeAction)
