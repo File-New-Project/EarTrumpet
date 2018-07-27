@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModel;
+using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;

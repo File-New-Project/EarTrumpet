@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModel;
+using EarTrumpet.UI.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
