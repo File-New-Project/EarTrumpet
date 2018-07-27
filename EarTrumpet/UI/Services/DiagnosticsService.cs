@@ -3,7 +3,6 @@ using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,20 +14,10 @@ namespace EarTrumpet.UI.Services
 {
     public class DiagnosticsService
     {
-        private static List<IAudioDeviceManager> _deviceManagers = new List<IAudioDeviceManager>();
-
-        public static void Advise(IAudioDeviceManager deviceManager)
-        {
-            _deviceManagers.Add(deviceManager);
-        }
-
         public static void DumpAndShowData()
         {
-            var allText = "";
-            foreach(var devMgr in _deviceManagers)
-            {
-                allText += DumpDevices(devMgr);
-            }
+            var allText = DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
+            allText += DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording));
             allText += Environment.NewLine;
             allText += $"App: {(App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "dev")}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;

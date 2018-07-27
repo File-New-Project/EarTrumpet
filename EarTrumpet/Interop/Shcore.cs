@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop
 {
     class Shcore
     {
-        public enum DpiType
+        public enum DpiType : int
         {
             Effective = 0,
             Angular = 1,
@@ -13,7 +13,7 @@ namespace EarTrumpet.Interop
         }
 
         [DllImport("Shcore.dll", PreserveSig = true)]
-        internal static extern Error GetDpiForMonitor(
+        internal static extern HRESULT GetDpiForMonitor(
             IntPtr hMonitor, 
             DpiType dpiType, 
             out uint dpiX, 

@@ -15,8 +15,6 @@ namespace EarTrumpet.DataModel
                 if (s_playbackDevices == null)
                 {
                     s_playbackDevices = new AudioDeviceManager(AudioDeviceKind.Playback);
-                    DiagnosticsService.Advise(s_playbackDevices);
-
                 }
                 return s_playbackDevices;
             }
@@ -25,7 +23,6 @@ namespace EarTrumpet.DataModel
                 if (s_recordingDevices == null)
                 {
                     s_recordingDevices = new AudioDeviceManager(AudioDeviceKind.Recording);
-                    DiagnosticsService.Advise(s_recordingDevices);
                 }
                 return s_recordingDevices;
             }

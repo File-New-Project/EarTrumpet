@@ -6,10 +6,9 @@
     <UserControl.Resources>
 
         <Style TargetType="{x:Type ListViewItem}">
-            <Setter Property="Height"
-                    Value="40" />
+            <Setter Property="Height" Value="40" />
         </Style>
-        
+
         <DataTemplate DataType="{x:Type vm:AddonViewModel}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -38,12 +37,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource="{Binding BuiltIn}" VerticalContentAlignment="Stretch">
+        <ListView VerticalContentAlignment="Stretch" ItemsSource="{Binding BuiltIn}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding DisplayName}" />
+                        <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -56,7 +54,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Command="{Binding Add}" Content="+ Add" Style="{StaticResource Windows10ButtonStyle}" />
+            <Button Command="{Binding Add}"
+                    Content="+ Add"
+                    Style="{StaticResource Windows10ButtonStyle}" />
         </Grid>
 
     </Grid>

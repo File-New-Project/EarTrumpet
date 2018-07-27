@@ -33,7 +33,7 @@ namespace EarTrumpet.UI.Helpers
                 var state = new State();
                 var hWnd = User32.FindWindow("Shell_TrayWnd", null);
 
-                if (Error.S_OK == Shcore.GetDpiForMonitor(User32.MonitorFromWindow(hWnd, User32.MONITOR_DEFAULT.MONITOR_DEFAULTTONEAREST), Shcore.DpiType.Effective, out uint dpiX, out uint dpiY))
+                if (HRESULT.S_OK == Shcore.GetDpiForMonitor(User32.MonitorFromWindow(hWnd, User32.MONITOR_DEFAULT.MONITOR_DEFAULTTONEAREST), Shcore.DpiType.Effective, out uint dpiX, out uint dpiY))
                 {
                     state.Dpi = dpiY / 96f;
                 }

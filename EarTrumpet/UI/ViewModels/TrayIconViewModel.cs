@@ -164,22 +164,22 @@ namespace EarTrumpet.UI.ViewModels
                 viewModel.RequestHotkey += ViewModel_RequestHotkey;
                 viewModel.OpenAddonManager = new RelayCommand(() =>
                 {
-                    var win = new DialogWindow { Owner = _openSettingsWindow };
-                    var w = new AddonManagerViewModel(Extensibility.Hosting.AddonManager.Current);
-                    w.Added += (a) =>
+                    var window = new DialogWindow { Owner = _openSettingsWindow };
+                    var addonManagerViewModel = new AddonManagerViewModel(Extensibility.Hosting.AddonManager.Current);
+                    addonManagerViewModel.Added += (a) =>
                     {
                         var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
                         paths.Add(a.DisplayName);
                         Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
                     };
-                    w.Removed += (a) =>
+                    addonManagerViewModel.Removed += (a) =>
                     {
                         var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
                         paths.Remove(paths.First(p => p.ToLower() == a.DisplayName.ToLower()));
                         Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
                     };
-                    win.DataContext = w;
-                    win.ShowDialog();
+                    window.DataContext = addonManagerViewModel;
+                    window.ShowDialog();
                 });
                 _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;
@@ -194,22 +194,22 @@ namespace EarTrumpet.UI.ViewModels
             Trace.WriteLine("TrayViewModel ViewModel_RequestHotkey");
 
             bool userSaved = false;
-            var win = new DialogWindow { Owner = _openSettingsWindow };
-            var w = new HotkeySelectViewModel
+            var window = new DialogWindow { Owner = _openSettingsWindow };
+            var viewModel = new HotkeySelectViewModel
             {
                 Save = new RelayCommand(() =>
                 {
                     userSaved = true;
-                    win.Close();
+                    window.Close();
                 })
             };
-            win.DataContext = w;
-            win.PreviewKeyDown += w.Window_PreviewKeyDown;
-            win.ShowDialog();
+            window.DataContext = viewModel;
+            window.PreviewKeyDown += viewModel.Window_PreviewKeyDown;
+            window.ShowDialog();
 
             if (userSaved)
             {
-                return w.Hotkey;
+                return viewModel.Hotkey;
             }
             return currentHotkey;
         }

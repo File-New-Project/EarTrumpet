@@ -17,7 +17,7 @@ namespace EarTrumpet.DataModel.Internal
                 if (chanCount > 0)
                 {
                     var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
-                    if (meter.GetChannelsPeakValues(chanCount, arrayPtr) == Error.S_OK)
+                    if (meter.GetChannelsPeakValues(chanCount, arrayPtr) == HRESULT.S_OK)
                     {
                         var values = new float[chanCount];
                         Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
@@ -35,7 +35,7 @@ namespace EarTrumpet.DataModel.Internal
                     }
                 }
             }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
             }

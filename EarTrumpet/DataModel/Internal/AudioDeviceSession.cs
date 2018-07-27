@@ -44,7 +44,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _simpleVolume.SetMasterVolume(value, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -66,7 +66,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _simpleVolume.SetMute(value ? 1 : 0, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -184,7 +184,7 @@ namespace EarTrumpet.DataModel.Internal
             GroupingParam = _session.GetGroupingParam();
             _simpleVolume.GetMasterVolume(out _volume);
             _isMuted = _simpleVolume.GetMute() != 0;
-            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == Error.S_OK;
+            IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == HRESULT.S_OK;
             ProcessId = ReadProcessId();
             _parent = new WeakReference<IAudioDevice>(parent);
 
@@ -298,8 +298,8 @@ namespace EarTrumpet.DataModel.Internal
         {
             var hr = ((IAudioSessionControl2)_session).GetProcessId(out uint pid);
 
-            if (hr == (int)Error.AUDCLNT_S_NO_SINGLE_PROCESS ||
-                hr == (int)Error.S_OK)
+            if (hr == (int)HRESULT.AUDCLNT_S_NO_SINGLE_PROCESS ||
+                hr == (int)HRESULT.S_OK)
             {
                 // NOTE: This is a workaround for what seems to be a Windows 10 OS bug.
                 // Sometimes the session (which is IsSystemSoundsSession) has a nonzero PID.
@@ -383,7 +383,7 @@ namespace EarTrumpet.DataModel.Internal
 
                 _rawDisplayName = displayName;
             }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
             }

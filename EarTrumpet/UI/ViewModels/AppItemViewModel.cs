@@ -4,6 +4,7 @@ using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.ComponentModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -127,7 +129,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_session.SessionDisplayName))
             {
@@ -135,18 +137,18 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (_parent.TryGetTarget(out var parent))
             {
                 switch (e.Action)
                 {
-                    case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    case NotifyCollectionChangedAction.Add:
                         Debug.Assert(e.NewItems.Count == 1);
                         ChildApps.Add(new AppItemViewModel(parent, (IAudioDeviceSession)e.NewItems[0], true, Icon));
                         break;
 
-                    case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    case NotifyCollectionChangedAction.Remove:
                         Debug.Assert(e.OldItems.Count == 1);
                         ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
                         break;

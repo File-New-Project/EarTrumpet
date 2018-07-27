@@ -21,7 +21,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         [PreserveSig]
         int GetProcessId(out uint processId);
         [PreserveSig]
-        Error IsSystemSoundsSession();
+        HRESULT IsSystemSoundsSession();
         void SetDuckingPreference(int optOut);
     }
 }

@@ -9,7 +9,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     {
         float GetPeakValue();
         uint GetMeteringChannelCount();
-        Error GetChannelsPeakValues(uint u32ChannelCount, IntPtr afPeakValues);
+        HRESULT GetChannelsPeakValues(uint u32ChannelCount, IntPtr afPeakValues);
         void QueryHardwareSupport(out uint pdwHardwareSupportMask);
     }
 }

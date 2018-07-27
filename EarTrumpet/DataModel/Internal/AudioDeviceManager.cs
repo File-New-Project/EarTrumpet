@@ -93,7 +93,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 device = _enumerator.GetDefaultAudioEndpoint(Flow, ERole.eMultimedia);
             }
-            catch (Exception ex) when (ex.Is(Error.ERROR_NOT_FOUND))
+            catch (Exception ex) when (ex.Is(HRESULT.ERROR_NOT_FOUND))
             {
                 // Expected.
             }

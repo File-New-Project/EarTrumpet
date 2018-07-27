@@ -91,7 +91,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -115,7 +115,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -167,7 +167,7 @@ namespace EarTrumpet.DataModel.Internal
                 _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
                 Ole32.PropVariantClear(ref pv);
             }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
             }
