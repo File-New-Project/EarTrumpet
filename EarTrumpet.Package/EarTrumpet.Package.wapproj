@@ -27,8 +27,8 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>ea5510ed-f014-4587-a505-64c59d5b2627</ProjectGuid>
-    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>EarTrumpet.Package_StoreKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\EarTrumpet\EarTrumpet.csproj</EntryPointProjectUniqueName>
