@@ -99,6 +99,8 @@
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
+    <Compile Include="Extensibility\Hosting\Addon.cs" />
+    <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
     <Compile Include="Extensibility\IAddonContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />
@@ -167,6 +169,8 @@
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="UI\Themes\IResolveColor.cs" />
     <Compile Include="UI\Themes\IResolveColorOptions.cs" />
+    <Compile Include="UI\ViewModels\AddonManagerViewModel.cs" />
+    <Compile Include="UI\ViewModels\AddonViewModel.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
@@ -179,6 +183,9 @@
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
+    <Compile Include="UI\Views\AddonManagerView.xaml.cs">
+      <DependentUpon>AddonManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -275,6 +282,10 @@
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
+    <Page Include="UI\Views\AddonManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Views\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

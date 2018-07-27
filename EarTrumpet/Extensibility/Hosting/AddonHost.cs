@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,27 +10,32 @@ namespace EarTrumpet.Extensibility.Hosting
 {
     class AddonHost
     {
-        public static AddonHost Current { get; } = new AddonHost();
-
         [ImportMany(typeof(IAddonLifecycle))]
         private List<IAddonLifecycle> _appLifecycle { get; set; }
 
         [ImportMany(typeof(IAddonContextMenu))]
-        public List<IAddonContextMenu> ContextMenuItems { get; set; }
+        public List<IAddonContextMenu> _contextMenuItems { get; set; }
 
-        public IEnumerable<string> LoadedAddons { get; }
-
-        public AddonHost()
+        public string[] Initialize(string[] additionals)
         {
-            var cat = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll");
-            LoadedAddons = cat.LoadedFiles.Select(f => Path.GetFileName(f));
-            var container = new CompositionContainer(cat);
+            var catalogs = new List<ComposablePartCatalog>();
+            catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll"));
+            
+            foreach(var additional in additionals)
+            {
+                catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)));
+            }
+
+            var container = new CompositionContainer(new AggregateCatalog(catalogs));
             container.ComposeParts(this);
-        }
 
-        public void RaiseEvent(ApplicationLifecycleEvent evt)
-        {
-            _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(evt));
+            ((App)App.Current).TrayViewModel.AddonItems = _contextMenuItems.ToArray();
+
+            _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
+            _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
+            App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
+
+            return catalogs.SelectMany(a => ((DirectoryCatalog)a).LoadedFiles).ToArray();
         }
     }
 }

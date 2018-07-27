@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
@@ -35,6 +36,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand RightClick { get; }
         public RelayCommand MiddleClick { get; }
         public RelayCommand LeftClick { get; }
+        public IAddonContextMenu[] AddonItems { get; set; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -97,15 +99,14 @@ namespace EarTrumpet.UI.ViewModels
                     new ContextMenuSeparator{ },
                     new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = new RelayCommand(OpenSettings) },
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
-                    new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(DoExit) },
+                    new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
                 var addonEntries = new List<ContextMenuItem>();
-                var contextMenuExtensionGroups = Extensibility.Hosting.AddonHost.Current.ContextMenuItems;
-                if (contextMenuExtensionGroups.SelectMany(a => a.Items).Any())
+                if (AddonItems.SelectMany(a => a.Items).Any())
                 {
                     // Add a line before and after each extension group.
-                    foreach (var ext in contextMenuExtensionGroups.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
+                    foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                     {
                         addonEntries.Add(new ContextMenuSeparator());
 
@@ -161,6 +162,25 @@ namespace EarTrumpet.UI.ViewModels
             {
                 var viewModel = new SettingsViewModel();
                 viewModel.RequestHotkey += ViewModel_RequestHotkey;
+                viewModel.OpenAddonManager = new RelayCommand(() =>
+                {
+                    var win = new DialogWindow { Owner = _openSettingsWindow };
+                    var w = new AddonManagerViewModel(Extensibility.Hosting.AddonManager.Current);
+                    w.Added += (a) =>
+                    {
+                        var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
+                        paths.Add(a.DisplayName);
+                        Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
+                    };
+                    w.Removed += (a) =>
+                    {
+                        var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
+                        paths.Remove(paths.First(p => p.ToLower() == a.DisplayName.ToLower()));
+                        Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
+                    };
+                    win.DataContext = w;
+                    win.ShowDialog();
+                });
                 _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;
                 _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
@@ -223,12 +243,6 @@ namespace EarTrumpet.UI.ViewModels
                 _icons.Add(IconId.SpeakerTwoBars, originalIcon);
                 _icons.Add(IconId.SpeakerThreeBars, originalIcon);
             }
-        }
-
-        private void DoExit()
-        {
-            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Shutdown);
-            App.Current.Shutdown();
         }
 
         private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel e)

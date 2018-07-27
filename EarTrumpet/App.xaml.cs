@@ -13,6 +13,7 @@ namespace EarTrumpet
     public partial class App
     {
         public FlyoutViewModel FlyoutViewModel { get; private set; }
+        public TrayViewModel TrayViewModel { get; private set; }
 
         private DeviceCollectionViewModel _viewModel;
         private TrayIcon _trayIcon;
@@ -38,9 +39,9 @@ namespace EarTrumpet
 
             FlyoutViewModel = new FlyoutViewModel(_viewModel);
             _flyoutWindow = new FlyoutWindow(_viewModel, FlyoutViewModel);
-            var trayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
-            _trayIcon = new TrayIcon(trayViewModel);
-            _flyoutWindow.DpiChanged += (_, __) => trayViewModel.DpiChanged();
+            TrayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            _trayIcon = new TrayIcon(TrayViewModel);
+            _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
 
             HotkeyService.Register(SettingsService.Hotkey);
             HotkeyService.KeyPressed += (_, __) => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
@@ -55,8 +56,7 @@ namespace EarTrumpet
             Trace.WriteLine("App Application_Startup MainViewModel_Ready");
             _trayIcon.Show();
 
-            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Startup);
-            Extensibility.Hosting.AddonHost.Current.RaiseEvent(Extensibility.ApplicationLifecycleEvent.Startup2);
+            Extensibility.Hosting.AddonManager.Current.Load();
         }
     }
 }

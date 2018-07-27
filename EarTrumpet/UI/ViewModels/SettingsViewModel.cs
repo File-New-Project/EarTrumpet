@@ -32,6 +32,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenAboutCommand { get; }
         public RelayCommand OpenFeedbackCommand { get; }
         public RelayCommand SelectHotkey { get; }
+        public RelayCommand OpenAddonManager { get; set; }
 
         public bool UseLegacyIcon
         {

@@ -51,7 +51,11 @@
 
         </Grid>
 
-        <StackPanel Orientation="Horizontal" />
+        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+            <Button Command="{Binding OpenAddonManager}"
+                    Content="Open Addon Manager"
+                    Style="{StaticResource Windows10ButtonStyle}" />
+        </StackPanel>
         <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
         <StackPanel Orientation="Horizontal">
 

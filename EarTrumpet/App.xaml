@@ -769,6 +769,10 @@
                 <views:HotkeySelectView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type vm:AddonManagerViewModel}">
+                <views:AddonManagerView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>
                     <ListView Margin="{StaticResource VolumeAppListMargin}"
