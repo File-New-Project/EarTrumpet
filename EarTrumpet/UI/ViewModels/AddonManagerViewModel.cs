@@ -12,7 +12,7 @@ namespace EarTrumpet.UI.ViewModels
         public event Action<Addon> Added;
         public event Action<Addon> Removed;
 
-        public string Title => "Addon Manager";
+        public string Title => Properties.Resources.AddonManagerTitleText;
 
         public ICommand Add { get; }
 
@@ -29,7 +29,7 @@ namespace EarTrumpet.UI.ViewModels
                 var dlg = new Microsoft.Win32.OpenFileDialog();
                 dlg.FileName = "addon.dll";
                 dlg.DefaultExt = ".dll";
-                dlg.Filter = "EarTrumpet Addons (.DLL)|*.dll";
+                dlg.Filter = $"{Properties.Resources.LoadAddonAddonsText} (.DLL)|*.dll";
 
                 if (dlg.ShowDialog() == true)
                 {

@@ -7,7 +7,6 @@ using EarTrumpet.UI.Services;
 using EarTrumpet.UI.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
