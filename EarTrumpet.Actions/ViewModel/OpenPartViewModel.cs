@@ -1,4 +1,4 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.UI.ViewModel;
 using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel

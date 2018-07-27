@@ -3,7 +3,7 @@ using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
-using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.ViewModel;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;

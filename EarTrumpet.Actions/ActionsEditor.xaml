@@ -37,7 +37,7 @@
 
                     <Button Grid.Column="1"
                             Click="Button_Click"
-                            Style="{DynamicResource Windows10ButtonStyle}">
+                             >
                         X
                     </Button>
 
@@ -55,7 +55,7 @@
 
                     <Button Grid.Column="2"
                             Click="Button_Click"
-                            Style="{DynamicResource Windows10ButtonStyle}">
+                             >
                         X
                     </Button>
 
@@ -114,12 +114,12 @@
 
                 <Button Grid.Column="1"
                         Command="{Binding NewEarTrumpetAction}"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     Create new action
                 </Button>
                 <Button Grid.Column="2"
                         Command="{Binding Save}"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     Apply changes
                 </Button>
             </Grid>
@@ -188,7 +188,7 @@
                 <Button Grid.Column="1"
                         Click="OpenContextMenu_Click"
                         Content="+ Trigger"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}">
                             <ContextMenu.ItemContainerStyle>
@@ -203,7 +203,7 @@
                         Grid.Column="2"
                         Click="OpenContextMenu_Click"
                         Content="+ Condition (optional)"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}">
                             <ContextMenu.ItemContainerStyle>
@@ -218,7 +218,7 @@
                         Grid.Column="3"
                         Click="OpenContextMenu_Click"
                         Content="+ Action"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
                             <ContextMenu.ItemContainerStyle>
@@ -242,7 +242,7 @@
 
                 <Button Grid.Column="1"
                         Command="{Binding UnselectAction}"
-                        Style="{DynamicResource Windows10ButtonStyle}">
+                         >
                     Save
                 </Button>
             </Grid>

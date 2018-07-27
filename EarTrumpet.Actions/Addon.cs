@@ -3,14 +3,12 @@ using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
-using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.ViewModel;
 using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.ViewModel;
-using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
-using System.Windows;
 
 namespace EarTrumpet_Actions
 {

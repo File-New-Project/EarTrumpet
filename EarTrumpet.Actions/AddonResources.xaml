@@ -20,7 +20,7 @@
 
             <Button Margin="0,12,0,0"
                     Command="{Binding UnselectPart}"
-                    Style="{DynamicResource Windows10ButtonStyle}">
+                     >
                 Save
             </Button>
         </StackPanel>
@@ -130,8 +130,7 @@
             <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
             <Button Grid.Row="1"
                     Command="{Binding SetHotkey}"
-                    Content="{Binding Hotkey}"
-                    Style="{StaticResource Windows10ButtonStyle}" />
+                    Content="{Binding Hotkey}" />
         </Grid>
     </DataTemplate>
 

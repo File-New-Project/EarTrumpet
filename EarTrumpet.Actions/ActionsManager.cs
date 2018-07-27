@@ -2,10 +2,8 @@
 using EarTrumpet.Extensibility;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Triggers;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 
 namespace EarTrumpet_Actions
@@ -27,40 +25,22 @@ namespace EarTrumpet_Actions
 
         public void OnStartup()
         {
-            LoadFromDisk();
+            Load(_settings.Get("ActionsData", new EarTrumpetAction[] { }));
 
             _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
-        }
-
-        private void LoadFromDisk()
-        {
-            try
-            {
-                var data = _settings.Get("ActionsData", new EarTrumpetAction[] { });
-                Actions = new ObservableCollection<EarTrumpetAction>(data);
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"Failure loading settings: {ex}");
-                Actions = new ObservableCollection<EarTrumpetAction>();
-            }
-
-            foreach (var t in Actions.SelectMany(a => a.Triggers))
-            {
-                _triggerManager.Register(t);
-            }
         }
 
         public void Apply(EarTrumpetAction[] newActions)
         {
             _settings.Set("ActionsData", newActions);
 
-            Actions = new ObservableCollection<EarTrumpetAction>(newActions);
+            Load(newActions);
+        }
 
-            foreach (var t in Actions.SelectMany(a => a.Triggers))
-            {
-                _triggerManager.Register(t);
-            }
+        public void Load(EarTrumpetAction[] newActions)
+        {
+            Actions = new ObservableCollection<EarTrumpetAction>(newActions);
+            Actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 
         private void OnTriggered(BaseTrigger trigger)
@@ -73,9 +53,6 @@ namespace EarTrumpet_Actions
             }
         }
 
-        public void OnShuttingDown()
-        {
-            _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
-        }
+        public void OnShuttingDown() => _triggerManager.OnEvent(ApplicationLifecycleEvent.Shutdown);
     }
 }
