@@ -116,6 +116,7 @@
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetThemeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetVariableActionViewModel.cs" />
+    <Compile Include="ViewModel\AddNewPartViewModel.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\Conditions\DefaultPlaybackDeviceConditionViewModel.cs" />
     <Compile Include="ViewModel\Conditions\ProcessConditionViewModel.cs" />

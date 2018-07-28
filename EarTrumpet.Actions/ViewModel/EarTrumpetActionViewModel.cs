@@ -1,6 +1,4 @@
-﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensibility.Shared;
-using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
@@ -10,9 +8,7 @@ using EarTrumpet_Actions.ViewModel.Actions;
 using EarTrumpet_Actions.ViewModel.Conditions;
 using EarTrumpet_Actions.ViewModel.Triggers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -25,6 +21,7 @@ namespace EarTrumpet_Actions.ViewModel
         public ICommand Open { get; set; }
         public ICommand OpenDialog { get; set; }
         public ICommand Remove { get; set; }
+        public ICommand AddPart { get; }
 
         public string DisplayName
         {
@@ -50,64 +47,6 @@ namespace EarTrumpet_Actions.ViewModel
                     _isExpanded = value;
                     RaisePropertyChanged(nameof(IsExpanded));
                 }
-            }
-        }
-
-
-        public List<object> AllTriggers
-        {
-            get
-            {
-                var hotkeyTriggerViewModel = new HotkeyTriggerViewModel(new HotkeyTrigger { });
-                hotkeyTriggerViewModel.SetHotkey = _selectHotkey;
-
-                return new List<object>
-                {
-                    new EventTriggerViewModel(new EventTrigger{}),
-                    new AudioDeviceEventTriggerViewModel(new AudioDeviceEventTrigger{ }),
-                    new AudioDeviceSessionEventTriggerViewModel(new AudioDeviceSessionEventTrigger{ }),
-                    new ProcessTriggerViewModel(new ProcessTrigger{ }),
-                    hotkeyTriggerViewModel,
-                };
-            }
-        }
-
-        public List<PartViewModel> AllConditions
-        {
-            get
-            {
-                return new List<PartViewModel>
-                {
-                    new DefaultPlaybackDeviceConditionViewModel(new DefaultPlaybackDeviceCondition{ }),
-                    new ProcessConditionViewModel(new ProcessCondition{ }),
-                    new VariableConditionViewModel(new VariableCondition{ }),
-                };
-            }
-        }
-
-        public List<PartViewModel> AllActions
-        {
-            get
-            {
-                var ret = new List<PartViewModel>
-                {
-                    new ChangeAppVolumeActionViewModel(new ChangeAppVolumeAction{ }),
-                    new ChangeDeviceVolumeActionViewModel(new ChangeDeviceVolumeAction{ }),
-                    new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ }),
-                    new SetVariableActionViewModel(new SetVariableAction{ }),
-                };
-
-                var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
-                if (addonValues != null && addonValues.Any())
-                {
-                    ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAddonEarTrumpetSettingsAction()));
-                }
-
-                if (ServiceBus.Get("EarTrumpet-Themes") != null)
-                {
-                    ret.Add(new SetThemeActionViewModel(new SetThemeAction { }));
-                }
-                return ret;
             }
         }
 
@@ -199,6 +138,33 @@ namespace EarTrumpet_Actions.ViewModel
                 vm.Hotkey = hotkeyVm.Hotkey;
             });
 
+            AddPart = new RelayCommand(() =>
+            {
+                var vm = new AddNewPartViewModel();
+                vm.SetHotkey = _selectHotkey;
+                OpenDialog.Execute(vm);
+
+                if (vm.SelectedPart == null)
+                {
+                    return;
+                }
+
+                if (vm.SelectedPart.Part is BaseTrigger)
+                {
+                    Triggers.Add(vm.SelectedPart);
+                }
+                else if (vm.SelectedPart.Part is BaseCondition)
+                {
+                    Conditions.Add(vm.SelectedPart);
+                }
+                else if (vm.SelectedPart.Part is BaseAction)
+                {
+                    Actions.Add(vm.SelectedPart);
+                }
+
+                InitializeViewModel(vm.SelectedPart);
+            });
+
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
             Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
@@ -206,16 +172,6 @@ namespace EarTrumpet_Actions.ViewModel
             Triggers.CollectionChanged += Triggers_CollectionChanged;
             Conditions.CollectionChanged += Conditions_CollectionChanged;
             Actions.CollectionChanged += Actions_CollectionChanged;
-
-            /*
-             * 
-                    // Clear viewmodels since one may be in use now.
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllTriggers)));
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllConditions)));
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllActions)));
-
-
-    */
         }
 
         private void Actions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -332,9 +288,31 @@ namespace EarTrumpet_Actions.ViewModel
                 throw new NotImplementedException();
             }
 
-            ret.Open = new RelayCommand<PartViewModel>((vm) => OpenDialog.Execute(vm));
+            InitializeViewModel(ret);
 
             return ret;
+        }
+
+        private void InitializeViewModel(PartViewModel part)
+        {
+            var removeTrigger = new RelayCommand<PartViewModel>((p) => Triggers.Remove(p));
+            var removeCondition = new RelayCommand<PartViewModel>((p) => Conditions.Remove(p));
+            var removeAction = new RelayCommand<PartViewModel>((p) => Actions.Remove(p));
+
+            part.Open = new RelayCommand<PartViewModel>((vm) => OpenDialog.Execute(vm));
+
+            if (part.Part is BaseTrigger)
+            {
+                part.Remove = removeTrigger;
+            }
+            else if (part.Part is BaseCondition)
+            {
+                part.Remove = removeCondition;
+            }
+            else if (part.Part is BaseAction)
+            {
+                part.Remove = removeAction;
+            }
         }
     }
 }

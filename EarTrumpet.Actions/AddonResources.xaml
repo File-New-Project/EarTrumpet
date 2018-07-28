@@ -62,10 +62,48 @@
         </Grid>
     </DataTemplate>
 
+
+    <DataTemplate x:Key="AddPartItemTemplate">
+
+        <Grid>
+
+            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.Select}"
+                    CommandParameter="{Binding}"
+                    Background="Transparent"
+                    BorderThickness="0"/>
+            <TextBlock Margin="12"
+                       IsHitTestVisible="False"
+                       Text="{Binding Description}" />
+        </Grid>
+
+
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AddNewPartViewModel}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ListView ItemTemplate="{StaticResource AddPartItemTemplate}"
+                      ItemsSource="{Binding Triggers}"
+                      Style="{DynamicResource SettingsListView}" />
+            <ListView Grid.Row="1"
+                      ItemTemplate="{StaticResource AddPartItemTemplate}"
+                      ItemsSource="{Binding Conditions}"
+                      Style="{DynamicResource SettingsListView}" />
+            <ListView Grid.Row="2"
+                      ItemTemplate="{StaticResource AddPartItemTemplate}"
+                      ItemsSource="{Binding Actions}"
+                      Style="{DynamicResource SettingsListView}" />
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
-
         <Grid Margin="12">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -111,43 +149,15 @@
                   Grid.ColumnSpan="3"
                   Margin="12">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1" Content="+ Trigger">
-                    <Button.ContextMenu>
-                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}" />
-                    </Button.ContextMenu>
-                </Button>
-                <Button Name="btnNewCondition"
-                        Grid.Column="2"
-                        Content="+ Condition (optional)">
-                    <Button.ContextMenu>
-                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}" />
-                    </Button.ContextMenu>
-                </Button>
-                <Button Name="btnNewAction"
-                        Grid.Column="3"
-                        Content="+ Action">
-                    <Button.ContextMenu>
-                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
-                            <!--
-                            <ContextMenu.ItemContainerStyle>
+                <Button Command="{Binding AddPart}" Content="+ Parts" />
 
-                                <Style TargetType="{x:Type MenuItem}">
-                                    <EventSetter Event="Click"
-                                                 Handler="MenuItem_Click" />
-                                </Style>
-
-                            </ContextMenu.ItemContainerStyle>
-                            -->
-                        </ContextMenu>
-                    </Button.ContextMenu>
-                </Button>
             </Grid>
 
 

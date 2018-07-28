@@ -61,6 +61,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add triggers, conditions and actions.
+        /// </summary>
+        public static string AddDialogTitleText {
+            get {
+                return ResourceManager.GetString("AddDialogTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit actions and hotkeys.
         /// </summary>
         public static string EditActionsAndHotkeysText {

@@ -62,6 +62,10 @@ namespace EarTrumpet_Actions
                         win.PreviewKeyDown += ((HotkeySelectViewModel)dialogVm).Window_PreviewKeyDown;
                         ((HotkeySelectViewModel)dialogVm).Save = new RelayCommand(() => win.Close());
                     }
+                    if (dialogVm is AddNewPartViewModel)
+                    {
+                        ((AddNewPartViewModel)dialogVm).Close += () => win.Close();
+                    }
                     
                     win.ShowDialog();
                 });
