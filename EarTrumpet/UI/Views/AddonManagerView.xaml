@@ -53,8 +53,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Command="{Binding Add}"
-                    Content="{x:Static resx:Resources.AddAddonText}"/>
+            <Button Command="{Binding Add}" Content="{x:Static resx:Resources.AddAddonText}" />
         </Grid>
 
     </Grid>

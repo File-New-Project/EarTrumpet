@@ -10,8 +10,7 @@
         <CheckBox Margin="0,12,0,18"
                   HorizontalAlignment="Left"
                   Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                  IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}"
-                   />
+                  IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
 
         <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
 
@@ -51,8 +50,7 @@
         </Grid>
 
         <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
-            <Button Command="{Binding OpenAddonManager}"
-                    Content="{x:Static resx:Resources.OpenAddonManagerText}" />
+            <Button Command="{Binding OpenAddonManager}" Content="{x:Static resx:Resources.OpenAddonManagerText}" />
         </StackPanel>
         <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
         <StackPanel Orientation="Horizontal">

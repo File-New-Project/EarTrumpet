@@ -786,8 +786,7 @@
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}" />
             </DataTemplate>
-            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate"
-                                      ItemsSource="{Binding Children}">
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
@@ -804,8 +803,7 @@
                           IsEnabled="{Binding IsEnabled}"
                           Style="{StaticResource MenuItemDarkOnly}" />
             </DataTemplate>
-            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly"
-                                      ItemsSource="{Binding Children}">
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly" ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
@@ -816,6 +814,64 @@
             <DataTemplate x:Key="ContextMenuSeparatorTemplateDarkOnly">
                 <Separator Style="{StaticResource MenuItemSeparatorDarkOnly}" />
             </DataTemplate>
+
+            <Style x:Key="SettingsListViewItem" TargetType="{x:Type ListViewItem}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border x:Name="Bd"
+                                    Background="{TemplateBinding Background}"
+                                    SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource PanelBackgroundHover}" />
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsSelected" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource PanelBackgroundSelected}" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SettingsListView" TargetType="{x:Type ListView}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+                <Setter Property="ItemContainerStyle" Value="{StaticResource SettingsListViewItem}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListView}">
+                            <Border x:Name="Bd"
+                                    Background="{TemplateBinding Background}"
+                                    SnapsToDevicePixels="true">
+                                <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

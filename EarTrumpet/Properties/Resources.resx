@@ -227,4 +227,7 @@
   <data name="RemoveAddonText" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="AddonsMenuText" xml:space="preserve">
+    <value>Addons</value>
+  </data>
 </root>

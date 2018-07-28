@@ -88,6 +88,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Addons.
+        /// </summary>
+        public static string AddonsMenuText {
+            get {
+                return ResourceManager.GetString("AddonsMenuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
         /// </summary>
         public static string AppOrDeviceFormatAccessibleText {

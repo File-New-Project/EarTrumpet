@@ -101,6 +101,7 @@ namespace EarTrumpet.UI.ViewModels
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
+#if DEBUG
                 var addonEntries = new List<ContextMenuItem>();
                 if (AddonItems.SelectMany(a => a.Items).Any())
                 {
@@ -141,12 +142,12 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ret.Insert(ret.Count - 3, new ContextMenuItem
                     {
-                        DisplayName = "Addons",
+                        DisplayName = Properties.Resources.AddonsMenuText,
                         Children = addonEntries,
                     });
                     ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
                 }
-
+#endif
                 return ret;
             }
         }

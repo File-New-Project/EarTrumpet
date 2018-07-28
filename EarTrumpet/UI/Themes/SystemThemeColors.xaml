@@ -88,4 +88,6 @@
     <SolidColorBrush x:Key="CheckBoxBackgroundHover">Transparent</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundPressed">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="CheckBoxBackgroundChecked">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelBackgroundHover">Green</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelBackgroundSelected">Green</SolidColorBrush>
 </ResourceDictionary>

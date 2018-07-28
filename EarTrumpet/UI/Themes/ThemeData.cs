@@ -95,7 +95,9 @@ namespace EarTrumpet.UI.Themes
                 { "CheckBoxBackground",  new Static(Colors.Transparent) },
                 { "CheckBoxBackgroundHover",  new Static(Colors.Transparent) },
                 { "CheckBoxBackgroundPressed",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium")) },
-                { "CheckBoxBackgroundChecked",  new Lookup("ImmersiveSystemAccent") }
+                { "CheckBoxBackgroundChecked",  new Lookup("ImmersiveSystemAccent") },
+                { "PanelBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 0.5), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.3)) },
+                { "PanelBackgroundSelected", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6)) },
             };
         }
 
