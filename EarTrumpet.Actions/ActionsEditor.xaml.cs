@@ -20,16 +20,17 @@ namespace EarTrumpet_Actions
         {
             InitializeComponent();
 
-            DataContextChanged += ActionsEditor_DataContextChanged;
+           DataContextChanged += ActionsEditor_DataContextChanged;
         }
-
+        
         private void ActionsEditor_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            _viewModel.PartSelected += _viewModel_PartSelected;
+         //   _viewModel.PartSelected += _viewModel_PartSelected;
         }
 
         private void _viewModel_PartSelected(PartViewModel obj)
         {
+            /*
             var win = new DialogWindow { Owner = Window.GetWindow(this) };
             var w = new OpenPartViewModel
             {
@@ -42,10 +43,12 @@ namespace EarTrumpet_Actions
             win.DataContext = w;
             win.ShowDialog();
             _viewModel.SelectedPart = null;
+            */
         }
 
         private void OpenContextMenu_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            /*
             var btn = (Button)sender;
             if (!btn.ContextMenu.IsOpen)
             {
@@ -58,10 +61,12 @@ namespace EarTrumpet_Actions
                 };
                 InputManager.Current.ProcessInput(mouseRightClickEvent);
             }
+            */
         }
 
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            /*
             var item = (MenuItem)sender;
             
             var dt = (PartViewModel)item.DataContext;
@@ -79,11 +84,12 @@ namespace EarTrumpet_Actions
             }
             dt.Part.Loaded();
             _viewModel.SelectedPart = dt;
-            
+            */
         }
 
         private void PartView_SelectionChanged(object sender, RoutedEventArgs e)
         {
+            /*
             var lst = (ListView)sender;
             var item = (PartViewModel)lst.SelectedItem;
             if (item != null)
@@ -91,10 +97,12 @@ namespace EarTrumpet_Actions
                 item.Part.Loaded();
                 _viewModel.SelectedPart = item;
             }
+            */
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var btn = (Button)sender;
             if (btn.DataContext is PartViewModel)
             {
@@ -117,10 +125,12 @@ namespace EarTrumpet_Actions
                 var actionViewModel = (EarTrumpetActionViewModel)btn.DataContext;
                 _viewModel.EarTrumpetActions.Remove(actionViewModel);
             }
+            */
         }
 
         private void HotkeySelect_Click(object sender, RoutedEventArgs e)
         {
+            /*
             var btn = (Button)sender;
             var dt = (HotkeyTrigger)btn.DataContext;
 
@@ -142,6 +152,8 @@ namespace EarTrumpet_Actions
             {
                 dt.Hotkey = w.Hotkey;
             }
+            */
         }
+        
     }
 }

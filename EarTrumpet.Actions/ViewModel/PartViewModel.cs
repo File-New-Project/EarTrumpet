@@ -4,6 +4,7 @@ using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -28,6 +29,21 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
+
+        private bool _isExpanded;
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set
+            {
+                if (_isExpanded != value)
+                {
+                    _isExpanded = value;
+                    RaisePropertyChanged(nameof(IsExpanded));
+                }
+            }
+        }
+
         public string Verb
 
         {
@@ -48,6 +64,9 @@ namespace EarTrumpet_Actions.ViewModel
                 else throw new NotImplementedException();
             }
         }
+
+        public ICommand Open { get; set; }
+        public ICommand Remove { get; set; }
 
         protected void RaisePropertyChanged(string name)
         {

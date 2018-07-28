@@ -122,7 +122,6 @@
     <Compile Include="ViewModel\Conditions\VariableConditionViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModel.cs" />
     <Compile Include="ViewModel\EarTrumpetActionViewModel.cs" />
-    <Compile Include="ViewModel\OpenPartViewModel.cs" />
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
     <Compile Include="ViewModel\TextViewModel.cs" />
@@ -161,7 +160,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

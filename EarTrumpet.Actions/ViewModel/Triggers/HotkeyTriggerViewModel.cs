@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.Services;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System.Windows.Input;
 
@@ -6,22 +7,30 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 {
     class HotkeyTriggerViewModel : PartViewModel
     {
-        public string Hotkey => _trigger.Hotkey.IsEmpty ? "Choose a key" : _trigger.Hotkey.ToString();
+        public string HotkeyText => _trigger.Hotkey.IsEmpty ? "Choose a key" : _trigger.Hotkey.ToString();
 
-        public ICommand SetHotkey { get; }
+        public HotkeyData Hotkey
+        {
+            get => _trigger.Hotkey;
+            set
+            {
+                if (Hotkey != value)
+                {
+                    _trigger.Hotkey = value;
+                    RaisePropertyChanged(nameof(Hotkey));
+                    RaisePropertyChanged(nameof(HotkeyText));
+                    UpdateDescription();
+                }
+            }
+        }
+
+        public ICommand SetHotkey { get; set; }
 
         private HotkeyTrigger _trigger;
 
-        public HotkeyTriggerViewModel(ActionsEditorViewModel parent, HotkeyTrigger trigger) : base(trigger)
+        public HotkeyTriggerViewModel(HotkeyTrigger trigger) : base(trigger)
         {
             _trigger = trigger;
-
-            SetHotkey = new RelayCommand(() =>
-            {
-                _trigger.Hotkey = parent.GetHotkey(_trigger.Hotkey);
-                RaisePropertyChanged(nameof(Hotkey));
-                UpdateDescription();
-            });
         }
     }
 }

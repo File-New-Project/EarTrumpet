@@ -13,20 +13,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
 
-
-
-            <Style x:Key="{x:Type ListView}" TargetType="{x:Type ListView}">
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <!--
-                <Setter Property="ItemContainerStyle" Value="{DynamicResource BaseListViewItemStyle}" />
-                -->
-            </Style>
-
+            <Style x:Key="{x:Type ListView}"
+                   BasedOn="{StaticResource SettingsListView}"
+                   TargetType="{x:Type ListView}" />
 
             <DataTemplate x:Key="EarTrumpetActionListItemTemplate">
                 <Grid>
@@ -35,10 +24,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="1"
-                            Click="Button_Click"
-                             >
-                        X
+                    <Button Grid.Column="1" Click="Button_Click">
+                        Remove
                     </Button>
 
                     <ContentControl VerticalAlignment="Center" Content="{Binding}" />
@@ -53,10 +40,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="2"
-                            Click="Button_Click"
-                             >
-                        X
+                    <Button Grid.Column="2" Click="Button_Click">
+                        Remove
                     </Button>
 
                     <TextBlock Margin="0,0,12,0"
@@ -112,14 +97,10 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1"
-                        Command="{Binding NewEarTrumpetAction}"
-                         >
+                <Button Grid.Column="1" Command="{Binding NewEarTrumpetAction}">
                     Create new action
                 </Button>
-                <Button Grid.Column="2"
-                        Command="{Binding Save}"
-                         >
+                <Button Grid.Column="2" Command="{Binding Save}">
                     Apply changes
                 </Button>
             </Grid>
@@ -187,8 +168,7 @@
 
                 <Button Grid.Column="1"
                         Click="OpenContextMenu_Click"
-                        Content="+ Trigger"
-                         >
+                        Content="+ Trigger">
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}">
                             <ContextMenu.ItemContainerStyle>
@@ -202,8 +182,7 @@
                 <Button Name="btnNewCondition"
                         Grid.Column="2"
                         Click="OpenContextMenu_Click"
-                        Content="+ Condition (optional)"
-                         >
+                        Content="+ Condition (optional)">
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}">
                             <ContextMenu.ItemContainerStyle>
@@ -217,8 +196,7 @@
                 <Button Name="btnNewAction"
                         Grid.Column="3"
                         Click="OpenContextMenu_Click"
-                        Content="+ Action"
-                         >
+                        Content="+ Action">
                     <Button.ContextMenu>
                         <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
                             <ContextMenu.ItemContainerStyle>
@@ -240,9 +218,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1"
-                        Command="{Binding UnselectAction}"
-                         >
+                <Button Grid.Column="1" Command="{Binding UnselectAction}">
                     Save
                 </Button>
             </Grid>

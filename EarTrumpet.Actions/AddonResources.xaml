@@ -7,24 +7,10 @@
                     xmlns:cvm="clr-namespace:EarTrumpet_Actions.ViewModel.Conditions"
                     xmlns:dm="clr-namespace:EarTrumpet_Actions.DataModel"
                     xmlns:local="clr-namespace:EarTrumpet_Actions"
+                    xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:svc="clr-namespace:EarTrumpet.UI.Services;assembly=EarTrumpet"
                     xmlns:tvm="clr-namespace:EarTrumpet_Actions.ViewModel.Triggers"
                     xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
-    <DataTemplate DataType="{x:Type vm:ActionsEditorViewModel}">
-        <local:ActionsEditor />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:OpenPartViewModel}">
-        <StackPanel Margin="12" Orientation="Vertical">
-            <ContentControl Content="{Binding Part}" />
-
-            <Button Margin="0,12,0,0"
-                    Command="{Binding UnselectPart}"
-                     >
-                Save
-            </Button>
-        </StackPanel>
-    </DataTemplate>
 
     <conv:InvertableVisibilityConverter x:Key="addonVisConverter" />
 
@@ -32,14 +18,207 @@
         <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
-        <TextBlock Text="{Binding DisplayName}" />
+    <DataTemplate x:Key="PartMenuItemTemplate">
+        <ContentControl VerticalAlignment="Center" Content="{Binding Description}" />
     </DataTemplate>
+
+    <DataTemplate x:Key="PartListItemTemplate">
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Command="{Binding Open}"
+                    CommandParameter="{Binding}"
+                    Content="{x:Static resx:Resources.EditText}"
+                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+            <Button Grid.Row="1"
+                    Grid.Column="3"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding}"
+                    Content="{x:Static resx:Resources.RemoveText}"
+                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+            <TextBlock Margin="0,0,12,0"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Text="{Binding Verb}" />
+
+            <TextBlock Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding CurrentDescription}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
+
+        <Grid Margin="12">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.ColumnSpan="2"
+                     FontSize="24"
+                     Text="{Binding DisplayName, Mode=TwoWay}" />
+
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemsSource="{Binding Triggers}"
+                      SelectedItem="{Binding SelectedTrigger, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{DynamicResource SettingsListView}" />
+            <ListView Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemsSource="{Binding Conditions}"
+                      SelectedItem="{Binding SelectedCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{DynamicResource SettingsListView}" />
+            <ListView Grid.Row="3"
+                      Grid.ColumnSpan="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemsSource="{Binding Actions}"
+                      SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{DynamicResource SettingsListView}" />
+
+            <Grid Grid.Row="4"
+                  Grid.ColumnSpan="3"
+                  Margin="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Content="+ Trigger">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllTriggers}" />
+                    </Button.ContextMenu>
+                </Button>
+                <Button Name="btnNewCondition"
+                        Grid.Column="2"
+                        Content="+ Condition (optional)">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllConditions}" />
+                    </Button.ContextMenu>
+                </Button>
+                <Button Name="btnNewAction"
+                        Grid.Column="3"
+                        Content="+ Action">
+                    <Button.ContextMenu>
+                        <ContextMenu ItemTemplate="{StaticResource PartMenuItemTemplate}" ItemsSource="{Binding AllActions}">
+                            <!--
+                            <ContextMenu.ItemContainerStyle>
+
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <EventSetter Event="Click"
+                                                 Handler="MenuItem_Click" />
+                                </Style>
+
+                            </ContextMenu.ItemContainerStyle>
+                            -->
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+            </Grid>
+
+
+        </Grid>
+
+
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ActionsEditorViewModel}">
+        <StackPanel Margin="12" Orientation="Vertical">
+
+            <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.MyActionsText}" />
+            <ListView ItemsSource="{Binding Actions}"
+                      SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"
+                      Style="{DynamicResource SettingsListView}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
+                        <Grid Margin="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Button Grid.Row="1"
+                                    Grid.Column="1"
+                                    Command="{Binding Open}"
+                                    Content="{x:Static resx:Resources.EditText}"
+                                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+                            <Button Grid.Row="1"
+                                    Grid.Column="2"
+                                    Command="{Binding Remove}"
+                                    Content="{x:Static resx:Resources.RemoveText}"
+                                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+                            <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid Grid.Row="7"
+                  Grid.ColumnSpan="2"
+                  Margin="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1"
+                        Command="{Binding New}"
+                        Content="{x:Static resx:Resources.NewActionText}" />
+            </Grid>
+
+        </StackPanel>
+    </DataTemplate>
+
+
 
     <!--  Triggers  -->
 
     <DataTemplate DataType="{x:Type tvm:EventTriggerViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -55,7 +234,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type tvm:AudioDeviceEventTriggerViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -75,7 +254,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type tvm:AudioDeviceSessionEventTriggerViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -100,7 +279,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type tvm:ProcessTriggerViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -121,7 +300,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type tvm:HotkeyTriggerViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -130,14 +309,15 @@
             <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
             <Button Grid.Row="1"
                     Command="{Binding SetHotkey}"
-                    Content="{Binding Hotkey}" />
+                    CommandParameter="{Binding}"
+                    Content="{Binding HotkeyText}" />
         </Grid>
     </DataTemplate>
 
     <!--  Conditions  -->
 
     <DataTemplate DataType="{x:Type cvm:DefaultPlaybackDeviceConditionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -154,7 +334,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type cvm:ProcessConditionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -173,7 +353,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type cvm:VariableConditionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -194,7 +374,7 @@
     <!--  Actions  -->
 
     <DataTemplate DataType="{x:Type avm:SetDefaultDeviceActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -209,7 +389,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type avm:ChangeAppVolumeActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -242,7 +422,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type avm:ChangeDeviceVolumeActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -271,7 +451,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type avm:SetVariableActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -290,7 +470,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type avm:SetThemeActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -306,7 +486,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

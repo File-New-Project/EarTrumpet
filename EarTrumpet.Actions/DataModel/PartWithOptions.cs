@@ -18,7 +18,7 @@ namespace EarTrumpet_Actions.DataModel
         public Action<Option> SetSelected { get; }
         public Func<object> GetSelected { get; }
 
-        public string DisplayName => Selected.DisplayName;
+        public string DisplayName => Selected?.DisplayName;
 
         public OptionData(IEnumerable<Option> options, Action<Option> setSelected, Func<object> getSelected)
         {

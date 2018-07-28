@@ -120,7 +120,16 @@
   <data name="EditActionsAndHotkeysText" xml:space="preserve">
     <value>Edit actions and hotkeys</value>
   </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="MyActionsText" xml:space="preserve">
     <value>My actions</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>New action</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Remove</value>
   </data>
 </root>

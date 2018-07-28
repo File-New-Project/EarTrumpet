@@ -9,6 +9,7 @@ using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.ViewModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Linq;
 
 namespace EarTrumpet_Actions
 {
@@ -36,11 +37,6 @@ namespace EarTrumpet_Actions
             }
         }
 
-        private void ViewModel_RequestApplyChanges(EarTrumpetAction[] newActions)
-        {
-            Manager.Apply(newActions);
-        }
-
         public void OpenSettingsWindow()
         {
             if (_openSettingsWindow != null)
@@ -52,40 +48,35 @@ namespace EarTrumpet_Actions
                 ResourceLoader.Load("EarTrumpet-Actions");
 
                 var viewModel = new ActionsEditorViewModel();
-                viewModel.RequestApplyChanges += ViewModel_RequestApplyChanges;
-                viewModel.RequestHotkey += ViewModel_RequestHotkey;
+                viewModel.OpenDialog = new RelayCommand<object>((dialogVm) =>
+                {
+                    var win = new DialogWindow
+                    {
+                        Owner = _openSettingsWindow,
+                        DataContext = dialogVm
+                    };
+
+                    // HACK: remove this
+                    if (dialogVm is HotkeySelectViewModel)
+                    {
+                        win.PreviewKeyDown += ((HotkeySelectViewModel)dialogVm).Window_PreviewKeyDown;
+                        ((HotkeySelectViewModel)dialogVm).Save = new RelayCommand(() => win.Close());
+                    }
+                    
+                    win.ShowDialog();
+                });
 
                 _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;
-                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
+                _openSettingsWindow.Closing += (_, __) =>
+                {
+                    Manager.Apply(viewModel.Actions.Select(a => a.GetAction()).ToArray());
+
+                    _openSettingsWindow = null;
+                };
                 _openSettingsWindow.Show();
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }
-        }
-
-        private HotkeyData ViewModel_RequestHotkey(HotkeyData currentHotkey)
-        {
-            Trace.WriteLine("EarTrumpet_Actions.Addon ViewModel_RequestHotkey");
-
-            bool userSaved = false;
-            var win = new DialogWindow { Owner = _openSettingsWindow };
-            var w = new HotkeySelectViewModel
-            {
-                Save = new RelayCommand(() =>
-                {
-                    userSaved = true;
-                    win.Close();
-                })
-            };
-            win.DataContext = w;
-            win.PreviewKeyDown += w.Window_PreviewKeyDown;
-            win.ShowDialog();
-
-            if (userSaved)
-            {
-                return w.Hotkey;
-            }
-            return currentHotkey;
         }
     }
 }
