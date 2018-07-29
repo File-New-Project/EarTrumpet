@@ -22,6 +22,7 @@
                            Text="{Binding DisplayName}" />
 
                 <Button Grid.Column="1"
+                        Margin="12,0"
                         VerticalAlignment="Center"
                         Command="{Binding Remove}"
                         CommandParameter="{Binding}"
@@ -36,16 +37,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView VerticalContentAlignment="Stretch" ItemsSource="{Binding BuiltIn}">
+        <ListView VerticalContentAlignment="Stretch"
+                  ItemsSource="{Binding BuiltIn}"
+                  Style="{DynamicResource SettingsListView}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
+                        <TextBlock Margin="6"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding DisplayName}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="1" ItemsSource="{Binding ThirdParty}" />
+        <ListView Grid.Row="1"
+                  VerticalContentAlignment="Stretch"
+                  ItemsSource="{Binding ThirdParty}"
+                  Style="{DynamicResource SettingsListView}" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

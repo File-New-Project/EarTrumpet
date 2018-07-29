@@ -22,19 +22,22 @@ namespace EarTrumpet.Extensibility.Hosting
 
         public void Load()
         {
-            _host = new AddonHost();
-            var paths = _host.Initialize(AdditionalPaths);
-
-            var ourPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToLower();
-            foreach (var path in paths)
+            if (Features.IsEnabled(Feature.Addons))
             {
-                if (Path.GetDirectoryName(path).ToLower() == ourPath)
+                _host = new AddonHost();
+                var paths = _host.Initialize(AdditionalPaths);
+
+                var ourPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToLower();
+                foreach (var path in paths)
                 {
-                    BuiltIn.Add(new Addon(Path.GetFileName(path)));
-                }
-                else
-                {
-                    ThirdParty.Add(new Addon(path));
+                    if (Path.GetDirectoryName(path).ToLower() == ourPath)
+                    {
+                        BuiltIn.Add(new Addon(Path.GetFileName(path)));
+                    }
+                    else
+                    {
+                        ThirdParty.Add(new Addon(path));
+                    }
                 }
             }
         }

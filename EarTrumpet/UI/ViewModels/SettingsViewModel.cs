@@ -35,6 +35,7 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand SelectHotkey { get; }
         public RelayCommand OpenAddonManager { get; set; }
 
+        public bool IsAddonsEnabled => Features.IsEnabled(Feature.Addons);
         public bool UseLegacyIcon
         {
             get => SettingsService.UseLegacyIcon;

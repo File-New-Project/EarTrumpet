@@ -49,7 +49,9 @@
 
         </Grid>
 
-        <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+        <StackPanel Margin="0,24,0,12"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsAddonsEnabled, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
             <Button Command="{Binding OpenAddonManager}" Content="{x:Static resx:Resources.OpenAddonManagerText}" />
         </StackPanel>
         <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />

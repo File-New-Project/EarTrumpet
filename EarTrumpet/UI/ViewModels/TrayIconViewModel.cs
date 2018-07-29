@@ -102,53 +102,55 @@ namespace EarTrumpet.UI.ViewModels
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
-#if DEBUG
-                var addonEntries = new List<ContextMenuItem>();
-                if (AddonItems.SelectMany(a => a.Items).Any())
+                if (Features.IsEnabled(Feature.Addons))
                 {
-                    // Add a line before and after each extension group.
-                    foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
+                    var addonEntries = new List<ContextMenuItem>();
+                    if (AddonItems.SelectMany(a => a.Items).Any())
                     {
-                        addonEntries.Add(new ContextMenuSeparator());
-
-                        foreach (var item in ext.Items)
+                        // Add a line before and after each extension group.
+                        foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                         {
-                            addonEntries.Add(item);
+                            addonEntries.Add(new ContextMenuSeparator());
+
+                            foreach (var item in ext.Items)
+                            {
+                                addonEntries.Add(item);
+                            }
+
+                            addonEntries.Add(new ContextMenuSeparator());
                         }
 
-                        addonEntries.Add(new ContextMenuSeparator());
+                        // Remove duplicate lines (extensions may also add lines)
+                        bool prevItemWasSep = false;
+                        for (var i = addonEntries.Count - 1; i >= 0; i--)
+                        {
+                            var itemIsSep = addonEntries[i] is ContextMenuSeparator;
+
+                            if ((i == addonEntries.Count - 1 || i == 0) && itemIsSep)
+                            {
+                                addonEntries.Remove(addonEntries[i]);
+                            }
+
+                            if (prevItemWasSep && itemIsSep)
+                            {
+                                addonEntries.Remove(addonEntries[i]);
+                            }
+
+                            prevItemWasSep = itemIsSep;
+                        }
                     }
 
-                    // Remove duplicate lines (extensions may also add lines)
-                    bool prevItemWasSep = false;
-                    for (var i = addonEntries.Count - 1; i >= 0; i--)
+                    if (addonEntries.Any())
                     {
-                        var itemIsSep = addonEntries[i] is ContextMenuSeparator;
-
-                        if ((i == addonEntries.Count - 1 || i == 0) && itemIsSep)
+                        ret.Insert(ret.Count - 3, new ContextMenuItem
                         {
-                            addonEntries.Remove(addonEntries[i]);
-                        }
-
-                        if (prevItemWasSep && itemIsSep)
-                        {
-                            addonEntries.Remove(addonEntries[i]);
-                        }
-
-                        prevItemWasSep = itemIsSep;
+                            DisplayName = Properties.Resources.AddonsMenuText,
+                            Children = addonEntries,
+                        });
+                        ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
                     }
                 }
 
-                if (addonEntries.Any())
-                {
-                    ret.Insert(ret.Count - 3, new ContextMenuItem
-                    {
-                        DisplayName = Properties.Resources.AddonsMenuText,
-                        Children = addonEntries,
-                    });
-                    ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
-                }
-#endif
                 return ret;
             }
         }
