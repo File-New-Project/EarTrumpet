@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
@@ -8,6 +9,7 @@ using EarTrumpet_Actions.ViewModel.Actions;
 using EarTrumpet_Actions.ViewModel.Conditions;
 using EarTrumpet_Actions.ViewModel.Triggers;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -16,6 +18,36 @@ namespace EarTrumpet_Actions.ViewModel
 {
     public class EarTrumpetActionViewModel : BindableBase
     {
+        public class SplitListComparer : IComparer<PartViewModel>
+        {
+            private int GetCost(PartViewModel part)
+            {
+                if (part.Part is BaseTrigger)
+                {
+                    return 2;
+                }
+                else if (part.Part is BaseCondition)
+                {
+                    return 1;
+                }
+                return 0;
+            }
+
+            public int Compare(PartViewModel one, PartViewModel two)
+            {
+                var oneCost = GetCost(one);
+                var twoCost = GetCost(two);
+                if (oneCost != twoCost)
+                {
+                    return twoCost - oneCost;
+                }
+
+                return string.Compare(one.Description, two.Description, StringComparison.Ordinal);
+            }
+        }
+
+        private static SplitListComparer s_PartComparer = new SplitListComparer();
+
         public string Title => DisplayName;
 
         public ICommand Open { get; set; }
@@ -50,76 +82,30 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-
-        private PartViewModel _selectedTrigger;
-        public PartViewModel SelectedTrigger
+        private PartViewModel _selected;
+        public PartViewModel Selected
         {
-            get => _selectedTrigger;
+            get => _selected;
             set
             {
-                if (_selectedTrigger != value)
+                if (_selected != value)
                 {
-                    if (_selectedTrigger != null)
+                    if (_selected != null)
                     {
-                        _selectedTrigger.IsExpanded = false;
+                        _selected.IsExpanded = false;
                     }
-                    _selectedTrigger = value;
-                    if (_selectedTrigger != null)
+                    _selected = value;
+                    if (_selected != null)
                     {
-                        _selectedTrigger.IsExpanded = true;
+                        _selected.IsExpanded = true;
                     }
-                    RaisePropertyChanged(nameof(SelectedTrigger));
+                    RaisePropertyChanged(nameof(Selected));
                 }
             }
         }
 
-        private PartViewModel _selectedCondition;
-        public PartViewModel SelectedCondition
-        {
-            get => _selectedCondition;
-            set
-            {
-                if (_selectedCondition != value)
-                {
-                    if (_selectedCondition != null)
-                    {
-                        _selectedCondition.IsExpanded = false;
-                    }
-                    _selectedCondition = value;
-                    if (_selectedCondition != null)
-                    {
-                        _selectedCondition.IsExpanded = true;
-                    }
-                    RaisePropertyChanged(nameof(SelectedCondition));
-                }
-            }
-        }
 
-        private PartViewModel _selectedAction;
-        public PartViewModel SelectedAction
-        {
-            get => _selectedAction;
-            set
-            {
-                if (_selectedAction != value)
-                {
-                    if (_selectedAction != null)
-                    {
-                        _selectedAction.IsExpanded = false;
-                    }
-                    _selectedAction = value;
-                    if (_selectedAction != null)
-                    {
-                        _selectedAction.IsExpanded = true;
-                    }
-                    RaisePropertyChanged(nameof(SelectedAction));
-                }
-            }
-        }
-
-        public ObservableCollection<PartViewModel> Triggers { get; }
-        public ObservableCollection<PartViewModel> Conditions { get;}
-        public ObservableCollection<PartViewModel> Actions { get; }
+        public ObservableCollection<PartViewModel> Parts { get; }
 
         private readonly EarTrumpetAction _action;
         private ActionsEditorViewModel _parent;
@@ -149,76 +135,33 @@ namespace EarTrumpet_Actions.ViewModel
                     return;
                 }
 
-                if (vm.SelectedPart.Part is BaseTrigger)
-                {
-                    Triggers.Add(vm.SelectedPart);
-                }
-                else if (vm.SelectedPart.Part is BaseCondition)
-                {
-                    Conditions.Add(vm.SelectedPart);
-                }
-                else if (vm.SelectedPart.Part is BaseAction)
-                {
-                    Actions.Add(vm.SelectedPart);
-                }
+                Parts.AddSorted(vm.SelectedPart, s_PartComparer);
 
                 InitializeViewModel(vm.SelectedPart);
+                Selected = vm.SelectedPart;
             });
 
-            Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
-            Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
-            Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
-
-            Triggers.CollectionChanged += Triggers_CollectionChanged;
-            Conditions.CollectionChanged += Conditions_CollectionChanged;
-            Actions.CollectionChanged += Actions_CollectionChanged;
-        }
-
-        private void Actions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch(e.Action)
+            Parts = new ObservableCollection<PartViewModel>();
+            foreach(var part in action.Triggers.Select(t => CreatePartViewModel(t)))
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    _action.Actions.Add((BaseAction)((PartViewModel)e.NewItems[0]).Part);
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    _action.Actions.Remove((BaseAction)((PartViewModel)e.OldItems[0]).Part);
-                    break;
+                Parts.AddSorted(part, s_PartComparer);
             }
-        }
-
-        private void Conditions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
+            foreach (var part in action.Conditions.Select(t => CreatePartViewModel(t)))
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    _action.Conditions.Add((BaseCondition)((PartViewModel)e.NewItems[0]).Part);
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    _action.Conditions.Remove((BaseCondition)((PartViewModel)e.OldItems[0]).Part);
-                    break;
+                Parts.AddSorted(part, s_PartComparer);
             }
-        }
-
-        private void Triggers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
+            foreach (var part in action.Actions.Select(t => CreatePartViewModel(t)))
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    _action.Triggers.Add((BaseTrigger)((PartViewModel)e.NewItems[0]).Part);
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    _action.Triggers.Remove((BaseTrigger)((PartViewModel)e.OldItems[0]).Part);
-                    break;
+                Parts.AddSorted(part, s_PartComparer);
             }
         }
 
         public EarTrumpetAction GetAction()
         {
             _action.DisplayName = DisplayName;
-            _action.Triggers = new ObservableCollection<BaseTrigger>(Triggers.Select(t => (BaseTrigger)t.Part));
-            _action.Conditions = new ObservableCollection<BaseCondition>(Conditions.Select(t => (BaseCondition)t.Part));
-            _action.Actions = new ObservableCollection<BaseAction>(Actions.Select(t => (BaseAction)t.Part));
+            _action.Triggers = new ObservableCollection<BaseTrigger>(Parts.Where(t => t.Part is BaseTrigger).Select(t => (BaseTrigger)t.Part));
+            _action.Conditions = new ObservableCollection<BaseCondition>(Parts.Where(t => t.Part is BaseCondition).Select(t => (BaseCondition)t.Part));
+            _action.Actions = new ObservableCollection<BaseAction>(Parts.Where(t => t.Part is BaseAction).Select(t => (BaseAction)t.Part));
             return _action;
         }
 
@@ -295,24 +238,8 @@ namespace EarTrumpet_Actions.ViewModel
 
         private void InitializeViewModel(PartViewModel part)
         {
-            var removeTrigger = new RelayCommand<PartViewModel>((p) => Triggers.Remove(p));
-            var removeCondition = new RelayCommand<PartViewModel>((p) => Conditions.Remove(p));
-            var removeAction = new RelayCommand<PartViewModel>((p) => Actions.Remove(p));
-
+            part.Remove = new RelayCommand<PartViewModel>((p) => Parts.Remove(p));
             part.Open = new RelayCommand<PartViewModel>((vm) => OpenDialog.Execute(vm));
-
-            if (part.Part is BaseTrigger)
-            {
-                part.Remove = removeTrigger;
-            }
-            else if (part.Part is BaseCondition)
-            {
-                part.Remove = removeCondition;
-            }
-            else if (part.Part is BaseAction)
-            {
-                part.Remove = removeAction;
-            }
         }
     }
 }

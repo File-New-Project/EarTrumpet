@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
         public VariableCondition()
         {
-            Description = "Compare a local variable to True or False";
+            Description = "If a local variable is True or False";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
                      new Option("True", true),

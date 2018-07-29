@@ -127,22 +127,8 @@
                       Grid.ColumnSpan="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
-                      ItemsSource="{Binding Triggers}"
-                      SelectedItem="{Binding SelectedTrigger, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource SettingsListView}" />
-            <ListView Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemTemplate="{StaticResource PartListItemTemplate}"
-                      ItemsSource="{Binding Conditions}"
-                      SelectedItem="{Binding SelectedCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource SettingsListView}" />
-            <ListView Grid.Row="3"
-                      Grid.ColumnSpan="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemTemplate="{StaticResource PartListItemTemplate}"
-                      ItemsSource="{Binding Actions}"
-                      SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Parts}"
+                      SelectedItem="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource SettingsListView}" />
 
             <Button Grid.Row="4"
@@ -337,8 +323,8 @@
             <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
             <ComboBox Grid.Row="3"
                       IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
+                      ItemsSource="{Binding Option.All}"
+                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
 
