@@ -98,6 +98,18 @@ namespace EarTrumpet.UI.Themes
                 { "CheckBoxBackgroundChecked",  new Lookup("ImmersiveSystemAccent") },
                 { "PanelBackgroundHover", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 0.5), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.3)) },
                 { "PanelBackgroundSelected", new LightOrDark(new Lookup("ImmersiveLightAcrylicWindowBackdropFallback", 1), new Lookup("ImmersiveDarkAcrylicWindowBackdropFallback", 0.6)) },
+
+                { "ComboBox.Static.Border",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh"), new Static(SystemColors.HighlightColor)) },
+                { "ComboBox.MouseOver.Border",  new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh"), new Static(SystemColors.HighlightColor)) },
+                { "ComboBox.Pressed.Border",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium"), new Static(SystemColors.HighlightColor)) },
+
+                { "ComboBox.Static.Background",  new Static(Colors.Transparent) },
+                { "ComboBox.MouseOver.Background",  new Static(Colors.Transparent) },
+                { "ComboBox.Pressed.Background",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium")) },
+
+                { "ComboBox.Static.Glyph",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMediumHigh"), new Static(SystemColors.HighlightColor)) },
+                { "ComboBox.MouseOver.Glyph",  new LightOrDark(new Lookup("ImmersiveLightBaseHigh"), new Lookup("ImmersiveDarkBaseHigh"), new Static(SystemColors.HighlightColor)) },
+                { "ComboBox.Pressed.Glyph",  new LightOrDark(new Lookup("ImmersiveLightBaseMediumHigh"), new Lookup("ImmersiveDarkBaseMedium"), new Static(SystemColors.HighlightColor)) },
             };
         }
 

@@ -90,4 +90,16 @@
     <SolidColorBrush x:Key="CheckBoxBackgroundChecked">Green</SolidColorBrush>
     <SolidColorBrush x:Key="PanelBackgroundHover">Green</SolidColorBrush>
     <SolidColorBrush x:Key="PanelBackgroundSelected">Green</SolidColorBrush>
+
+    <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060" />
+    <SolidColorBrush x:Key="ComboBox.Static.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC" />
+
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF999999" />
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF999999" />
+
+    <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000" />
+    <SolidColorBrush x:Key="ComboBox.Pressed.Background" Color="#FF222222" />
+    <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF222222" />
 </ResourceDictionary>
