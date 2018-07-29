@@ -15,9 +15,12 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class AddNewPartViewModel : BindableBase
+    class AddNewPartViewModel : BindableBase, IWindowHostedViewModel
     {
         public event Action Close;
+#pragma warning disable CS0067
+        public event Action<object> HostDialog;
+#pragma warning restore CS0067
 
         public string Title => Properties.Resources.AddDialogTitleText;
         public ICommand SetHotkey { get; set; }
@@ -88,6 +91,16 @@ namespace EarTrumpet_Actions.ViewModel
                 SelectedPart = part;
                 Close?.Invoke();
             });
+        }
+
+        public void OnClosing()
+        {
+
+        }
+
+        public void OnPreviewKeyDown(KeyEventArgs e)
+        {
+
         }
     }
 }

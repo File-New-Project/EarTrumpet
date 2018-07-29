@@ -1,6 +1,8 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -8,9 +10,13 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class ActionsEditorViewModel : INotifyPropertyChanged
+    public class ActionsEditorViewModel : INotifyPropertyChanged, IWindowHostedViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning disable CS0067
+        public event Action Close;
+#pragma warning restore CS0067
+        public event Action<object> HostDialog;
 
         public string Title => "Actions & hotkeys";
 
@@ -40,10 +46,11 @@ namespace EarTrumpet_Actions.ViewModel
         public ICommand New { get; }
         public ICommand RemoveItem { get; }
         public ICommand OpenItem { get; }
-        public ICommand OpenDialog { get; set; }
+
 
         private EarTrumpetActionViewModel _selectedAction;
         private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
+        private ICommand _openDialog;
 
         public ActionsEditorViewModel()
         {
@@ -52,7 +59,7 @@ namespace EarTrumpet_Actions.ViewModel
                 var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = "New Action" });
                 vm.Remove = RemoveItem;
                 vm.Open = OpenItem;
-                vm.OpenDialog = OpenDialog;
+                vm.OpenDialog = _openDialog;
                 Actions.Add(vm);
                 SelectedAction = vm;
             });
@@ -65,7 +72,12 @@ namespace EarTrumpet_Actions.ViewModel
 
             OpenItem = new RelayCommand(() =>
             {
-                OpenDialog.Execute(SelectedAction);
+                _openDialog.Execute(SelectedAction);
+            });
+
+            _openDialog = new RelayCommand<object>((o) =>
+            {
+                HostDialog(o);
             });
 
             Actions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
@@ -73,8 +85,18 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 action.Remove = RemoveItem;
                 action.Open = OpenItem;
-                action.OpenDialog = new RelayCommand<object>((o) => OpenDialog.Execute(o));
+                action.OpenDialog = new RelayCommand<object>((o) => _openDialog.Execute(o));
             }
+        }
+
+        public void OnClosing()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

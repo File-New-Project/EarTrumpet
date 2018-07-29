@@ -49,35 +49,6 @@ namespace EarTrumpet_Actions
                 ResourceLoader.Load("EarTrumpet-Actions");
 
                 var viewModel = new ActionsEditorViewModel();
-                viewModel.OpenDialog = new RelayCommand<object>((dialogVm) =>
-                {
-                    var win = new DialogWindow
-                    {
-                        Owner = _openSettingsWindow,
-                        DataContext = dialogVm
-                    };
-
-                    // HACK: rework this somehow so this work is scripted by the VM
-                    if (dialogVm is HotkeySelectViewModel)
-                    {
-                        win.PreviewKeyDown += ((HotkeySelectViewModel)dialogVm).Window_PreviewKeyDown;
-                        ((HotkeySelectViewModel)dialogVm).Save = new RelayCommand(() => win.Close());
-
-                        HotkeyManager.Current.Pause();
-                    }
-                    if (dialogVm is AddNewPartViewModel)
-                    {
-                        ((AddNewPartViewModel)dialogVm).Close += () => win.Close();
-                    }
-                    
-                    win.ShowDialog();
-
-                    if (dialogVm is HotkeySelectViewModel)
-                    {
-                        HotkeyManager.Current.Resume();
-                    }
-                });
-
                 _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;
                 _openSettingsWindow.Closing += (_, __) =>

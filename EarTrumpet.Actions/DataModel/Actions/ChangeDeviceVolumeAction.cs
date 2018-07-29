@@ -21,7 +21,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public ChangeDeviceVolumeAction()
         {
-            Description = "Change a device volume or mute";
+            Description = "Set a device volume or mute";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
                 new Option("mute", ChangeDeviceVolumeActionKind.Mute),

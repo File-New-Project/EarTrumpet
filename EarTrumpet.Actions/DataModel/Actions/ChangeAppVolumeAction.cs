@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public ChangeAppVolumeAction()
         {
-            Description = "Change an app volume or mute";
+            Description = "Set an app volume or mute";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
                 new Option("mute", ChangeDeviceVolumeActionKind.Mute),

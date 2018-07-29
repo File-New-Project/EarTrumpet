@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public SetVariableAction()
         {
-            Description = "Set a local variable to True or False";
+            Description = "Set a local variable";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
                      new Option("True", true),

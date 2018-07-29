@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public SetAddonEarTrumpetSettingsAction()
         {
-            Description = "Turn on or off addon EarTrumpet settings";
+            Description = "Set additional EarTrumpet settings";
 
             var boolOpt = new OptionData(
                 new List<Option>(new Option[]
