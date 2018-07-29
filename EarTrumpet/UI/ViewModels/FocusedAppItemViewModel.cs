@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Extensibility;
+using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,6 +8,8 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class FocusedAppItemViewModel
     {
+        public static IAddonAppContextMenu[] AddonItems { get; set; }
+
         public event Action RequestClose;
 
         public IAppItemViewModel App { get; }
@@ -44,7 +47,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 items.Insert(0, new ContextMenuItem
                 {
-                    DisplayName = EarTrumpet.Properties.Resources.DefaultDeviceText,
+                    DisplayName = Properties.Resources.DefaultDeviceText,
                     IsChecked = (string.IsNullOrWhiteSpace(persistedDeviceId)),
                     Command = new RelayCommand(() =>
                     {
@@ -61,6 +64,21 @@ namespace EarTrumpet.UI.ViewModels
                     Menu = new ObservableCollection<ContextMenuItem>(items)
                 });
             }
+
+            if (Features.IsEnabled(Feature.Addons) &&
+                AddonItems != null && AddonItems.Any())
+            {
+                var menuItems = AddonItems.SelectMany(a => a.GetItemsForApp(null, app.AppId));
+
+                Toolbar.Insert(0, new ToolbarItemViewModel
+                {
+                    GlyphFontSize = 16,
+                    DisplayName = "TODO",
+                    Glyph = "\uE10C",
+                    Menu = new ObservableCollection<ContextMenuItem>(menuItems)
+                });
+            }
+
         }
     }
 }

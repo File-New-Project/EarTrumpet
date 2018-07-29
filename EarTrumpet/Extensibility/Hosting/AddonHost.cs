@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EarTrumpet.UI.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
@@ -16,6 +17,9 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonContextMenu))]
         public List<IAddonContextMenu> _contextMenuItems { get; set; }
 
+        [ImportMany(typeof(IAddonAppContextMenu))]
+        public List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
+
         public string[] Initialize(string[] additionals)
         {
             var catalogs = new List<ComposablePartCatalog>();
@@ -30,6 +34,7 @@ namespace EarTrumpet.Extensibility.Hosting
             container.ComposeParts(this);
 
             ((App)App.Current).TrayViewModel.AddonItems = _contextMenuItems.ToArray();
+            FocusedAppItemViewModel.AddonItems = _appContextMenuItems.ToArray();
 
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
