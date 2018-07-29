@@ -8,7 +8,7 @@ using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsViewModel : BindableBase
+    public class SettingsViewModel : BindableBase, IWindowHostedViewModel
     {
         private HotkeyData _hotkey;
 
@@ -24,7 +24,10 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public event Func<HotkeyData, HotkeyData> RequestHotkey;
+#pragma warning disable CS0067
+        public event Action Close;
+#pragma warning restore CS0067
+        public event Action<object> HostDialog;
 
         public string Title => Properties.Resources.SettingsWindowText;
         public string HotkeyText => _hotkey.ToString();
@@ -80,13 +83,24 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OnSelectHotkey()
         {
-            var ret = RequestHotkey.Invoke(Hotkey);
-            if (ret != null)
+            var vm = new HotkeySelectViewModel();
+            HostDialog.Invoke(vm);
+            if (vm.Saved)
             {
                 HotkeyManager.Current.Unregister(Hotkey);
-                Hotkey = ret;
+                Hotkey = vm.Hotkey;
                 HotkeyManager.Current.Register(Hotkey);
             }
+        }
+
+        public void OnClosing()
+        {
+
+        }
+
+        public void OnPreviewKeyDown(KeyEventArgs e)
+        {
+
         }
     }
 }

@@ -164,7 +164,6 @@ namespace EarTrumpet.UI.ViewModels
             else
             {
                 var viewModel = new SettingsViewModel();
-                viewModel.RequestHotkey += ViewModel_RequestHotkey;
                 viewModel.OpenAddonManager = new RelayCommand(() =>
                 {
                     var window = new DialogWindow { Owner = _openSettingsWindow };
@@ -190,33 +189,6 @@ namespace EarTrumpet.UI.ViewModels
                 _openSettingsWindow.Show();
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }
-        }
-
-        private HotkeyData ViewModel_RequestHotkey(HotkeyData currentHotkey)
-        {
-            Trace.WriteLine("TrayViewModel ViewModel_RequestHotkey");
-
-            bool userSaved = false;
-            var window = new DialogWindow { Owner = _openSettingsWindow };
-            var viewModel = new HotkeySelectViewModel
-            {
-                Save = new RelayCommand(() =>
-                {
-                    userSaved = true;
-                    window.Close();
-                })
-            };
-            window.DataContext = viewModel;
-            window.PreviewKeyDown += viewModel.Window_PreviewKeyDown;
-
-            HotkeyManager.Current.Pause();
-            window.ShowDialog();
-            HotkeyManager.Current.Resume();
-            if (userSaved)
-            {
-                return viewModel.Hotkey;
-            }
-            return currentHotkey;
         }
 
         private void LoadIconResources()

@@ -181,6 +181,7 @@
     <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
+    <Compile Include="UI\ViewModels\IWindowHostedViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\Themes\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />

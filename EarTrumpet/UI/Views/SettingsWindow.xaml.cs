@@ -2,6 +2,7 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using System.Diagnostics;
 using System.Windows;
 
@@ -20,8 +21,27 @@ namespace EarTrumpet.UI.Views
             SourceInitialized += SettingsWindow_SourceInitialized;
 
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+            DataContextChanged += SettingsWindow_DataContextChanged;
         }
-        
+
+        private void SettingsWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is IWindowHostedViewModel)
+            {
+                var vm = (IWindowHostedViewModel)e.NewValue;
+                vm.Close += () => Close();
+                vm.HostDialog += (dialogDataContext) =>
+                {
+                    var dialog = new DialogWindow { Owner = this };
+                    dialog.DataContext = dialogDataContext;
+                    dialog.ShowDialog();
+                };
+                Closing += (_, __) => vm.OnClosing();
+                PreviewKeyDown += (_, eKey) => vm.OnPreviewKeyDown(eKey);
+            }
+        }
+
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
         {
             Trace.WriteLine("SettingsWindow SettingsWindow_SourceInitialized");

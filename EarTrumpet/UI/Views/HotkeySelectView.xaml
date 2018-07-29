@@ -20,7 +20,6 @@
         <Button Grid.Row="2"
                 Command="{Binding Save}"
                 Content="{x:Static resx:Resources.SelectHotkeySaveButtonText}"
-                Foreground="{Binding ElementName=WindowRoot, Path=Foreground}"
-                  />
+                Foreground="{Binding ElementName=WindowRoot, Path=Foreground}" />
     </Grid>
 </UserControl>

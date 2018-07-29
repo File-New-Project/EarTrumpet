@@ -1158,12 +1158,10 @@
             </Style>
 
             <Style x:Key="AddButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="FocusVisualStyle"
-                        Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="VerticalContentAlignment" Value="Top" />
                 <Setter Property="Padding" Value="0,12,12,12" />
@@ -1200,9 +1198,7 @@
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter TargetName="root"
-                                            Property="Background"
-                                            Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                                    <Setter TargetName="root" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

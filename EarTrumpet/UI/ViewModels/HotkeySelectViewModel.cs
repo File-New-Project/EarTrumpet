@@ -1,13 +1,20 @@
 ﻿using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
+using System;
 using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class HotkeySelectViewModel : BindableBase
+    public class HotkeySelectViewModel : BindableBase, IWindowHostedViewModel
     {
-        public ICommand Save { get; set; }
+        public event Action Close;
+#pragma warning disable CS0067
+        public event Action<object> HostDialog;
+#pragma warning restore CS0067
+
+        public ICommand Save { get; }
+
+        public bool Saved { get; private set; }
 
         public string Title => Properties.Resources.SelectHotkeyWindowTitle;
 
@@ -18,9 +25,16 @@ namespace EarTrumpet.UI.ViewModels
         public HotkeySelectViewModel()
         {
             Hotkey = new HotkeyData();
+            HotkeyManager.Current.Pause();
+
+            Save = new RelayCommand(() =>
+            {
+                Saved = true;
+                Close();
+            });
         }
 
-        public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        public void OnPreviewKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Enter) return;
             if (e.Key == Key.Tab) return;
@@ -56,6 +70,11 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             RaisePropertyChanged(nameof(HotkeyText));
+        }
+
+        public void OnClosing()
+        {
+            HotkeyManager.Current.Resume();
         }
     }
 }
