@@ -1117,8 +1117,7 @@
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxBorder}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="SelectionBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Padding" Value="4" />
@@ -1143,23 +1142,67 @@
                                               VerticalScrollBarVisibility="Hidden" />
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled"
-                                         Value="false">
-                                    <Setter TargetName="border"
-                                            Property="Opacity"
-                                            Value="0.56" />
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
-                                <Trigger Property="IsMouseOver"
-                                         Value="true">
-                                    <Setter TargetName="border"
-                                            Property="BorderBrush"
-                                            Value="{DynamicResource CheckBoxBorderHover}" />
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderHover}" />
                                 </Trigger>
-                                <Trigger Property="IsKeyboardFocused"
-                                         Value="true">
-                                    <Setter TargetName="border"
-                                            Property="BorderBrush"
-                                            Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="AddButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle"
+                        Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+                <Setter Property="Padding" Value="0,12,12,12" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid Name="root" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid>
+                                    <Rectangle Width="40"
+                                               Height="40"
+                                               Margin="12"
+                                               Fill="{DynamicResource ButtonBackground}" />
+
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontSize="15"
+                                               Text="&#xE109;" />
+                                </Grid>
+
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Grid.Column="1"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Focusable="False"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="root"
+                                            Property="Background"
+                                            Value="{DynamicResource ContextMenuItemBackgroundHover}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
