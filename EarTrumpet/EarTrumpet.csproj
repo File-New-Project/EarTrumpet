@@ -97,8 +97,10 @@
     <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
+    <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />
     <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
@@ -116,7 +118,6 @@
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
-    <Compile Include="DataModel\Storage\GlobalSettingsBag.cs" />
     <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />

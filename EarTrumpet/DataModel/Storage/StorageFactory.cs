@@ -1,19 +1,20 @@
-﻿namespace EarTrumpet.DataModel.Storage
+﻿using EarTrumpet.Extensions;
+
+namespace EarTrumpet.DataModel.Storage
 {
     public class StorageFactory
     {
-        private static GlobalSettingsBag s_globalSettings = new GlobalSettingsBag();
+        private static ISettingsBag s_globalSettings;
+
+        static StorageFactory()
+        {
+            s_globalSettings = App.Current.HasIdentity() ? (ISettingsBag)new WindowsStorageSettingsBag() : new RegistrySettingsBag();
+        }
 
         public static ISettingsBag GetSettings(string nameSpace = null)
         {
-            if (nameSpace == null)
-            {
-                return s_globalSettings;
-            }
-            else
-            {
-                return new NamespacedSettingsBag(nameSpace, s_globalSettings);
-            }
+            return (nameSpace == null) ? s_globalSettings :
+                new NamespacedSettingsBag(nameSpace, s_globalSettings);
         }
     }
 }
