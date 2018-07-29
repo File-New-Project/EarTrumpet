@@ -353,6 +353,7 @@
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   Focusable="False"
+                                                  Content="{TemplateBinding Content}"
                                                   RecognizesAccessKey="True"
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Border>

@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System;
@@ -78,14 +79,13 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OnSelectHotkey()
         {
-            HotkeyService.Unregister();
-
             var ret = RequestHotkey.Invoke(Hotkey);
             if (ret != null)
             {
+                HotkeyManager.Current.Unregister(Hotkey);
                 Hotkey = ret;
+                HotkeyManager.Current.Register(Hotkey);
             }
-            HotkeyService.Register(Hotkey);
         }
     }
 }

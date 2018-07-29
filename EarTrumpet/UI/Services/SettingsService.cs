@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Windows.Forms;
 
@@ -8,7 +9,7 @@ namespace EarTrumpet.UI.Services
     {
         public static event EventHandler<bool> UseLegacyIconChanged;
 
-        public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = System.Windows.Forms.Keys.Q };
+        public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = Keys.Q };
 
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 

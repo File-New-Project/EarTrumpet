@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System.Windows.Input;
 

@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
@@ -205,8 +206,10 @@ namespace EarTrumpet.UI.ViewModels
             };
             window.DataContext = viewModel;
             window.PreviewKeyDown += viewModel.Window_PreviewKeyDown;
-            window.ShowDialog();
 
+            HotkeyManager.Current.Pause();
+            window.ShowDialog();
+            HotkeyManager.Current.Resume();
             if (userSaved)
             {
                 return viewModel.Hotkey;

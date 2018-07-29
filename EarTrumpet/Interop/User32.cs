@@ -5,6 +5,7 @@ namespace EarTrumpet.Interop
 {
     class User32
     {
+        public const int WM_HOTKEY = 0x0312;
         public const int WM_USERMAGIC = 1120;
         public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
 

@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
@@ -43,8 +44,14 @@ namespace EarTrumpet
             _trayIcon = new TrayIcon(TrayViewModel);
             _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
 
-            HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+            HotkeyManager.Current.Register(SettingsService.Hotkey);
+            HotkeyManager.Current.KeyPressed += (hotkey) =>
+            {
+                if (hotkey.Equals(SettingsService.Hotkey))
+                {
+                    FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+                }
+            };
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 

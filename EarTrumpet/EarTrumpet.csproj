@@ -124,6 +124,8 @@
     <Compile Include="Interop\Combase.cs" />
     <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
+    <Compile Include="Interop\Helpers\HotkeyData.cs" />
+    <Compile Include="Interop\Helpers\HotkeyManager.cs" />
     <Compile Include="Interop\HRESULT.cs" />
     <Compile Include="Interop\FolderIds.cs" />
     <Compile Include="Interop\Gdi32.cs" />
@@ -165,7 +167,6 @@
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
-    <Compile Include="UI\Services\HotkeyData.cs" />
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="UI\Themes\IResolveColor.cs" />
     <Compile Include="UI\Themes\IResolveColorOptions.cs" />
@@ -194,7 +195,6 @@
     <Compile Include="UI\Services\FeedbackService.cs" />
     <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
     <Compile Include="UI\Services\DiagnosticsService.cs" />
-    <Compile Include="UI\Services\HotkeyService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
     <Compile Include="UI\Services\KeyboardNavigator.cs" />
     <Compile Include="UI\Views\HotkeySelectView.xaml.cs">
@@ -263,7 +263,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Interop\Helpers\KeyboardHook.cs" />
     <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
     <Compile Include="DataModel\SystemSettings.cs" />
