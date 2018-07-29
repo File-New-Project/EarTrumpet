@@ -39,6 +39,7 @@ namespace EarTrumpet_Actions
 
         public void Load(EarTrumpetAction[] newActions)
         {
+            _triggerManager.Clear();
             Actions = new ObservableCollection<EarTrumpetAction>(newActions);
             Actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }

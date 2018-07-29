@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using EarTrumpet.UI.ViewModels;
@@ -56,11 +57,13 @@ namespace EarTrumpet_Actions
                         DataContext = dialogVm
                     };
 
-                    // HACK: remove this
+                    // HACK: rework this somehow so this work is scripted by the VM
                     if (dialogVm is HotkeySelectViewModel)
                     {
                         win.PreviewKeyDown += ((HotkeySelectViewModel)dialogVm).Window_PreviewKeyDown;
                         ((HotkeySelectViewModel)dialogVm).Save = new RelayCommand(() => win.Close());
+
+                        HotkeyManager.Current.Pause();
                     }
                     if (dialogVm is AddNewPartViewModel)
                     {
@@ -68,6 +71,11 @@ namespace EarTrumpet_Actions
                     }
                     
                     win.ShowDialog();
+
+                    if (dialogVm is HotkeySelectViewModel)
+                    {
+                        HotkeyManager.Current.Resume();
+                    }
                 });
 
                 _openSettingsWindow = new SettingsWindow();

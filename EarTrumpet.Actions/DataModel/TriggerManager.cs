@@ -14,7 +14,6 @@ namespace EarTrumpet_Actions.DataModel
         private List<AudioDeviceSessionEventTrigger> _appTriggers = new List<AudioDeviceSessionEventTrigger>();
         private List<AudioDeviceEventTrigger> _deviceTriggers = new List<AudioDeviceEventTrigger>();
         private EarTrumpet.DataModel.IAudioDevice _defaultPlaybackDevice;
-        private KeyboardHook s_hook;
 
         public TriggerManager()
         {
@@ -27,8 +26,13 @@ namespace EarTrumpet_Actions.DataModel
             PlaybackDataModelHost.DevicePropertyChanged += PlaybackDataModelHost_DevicePropertyChanged;
             PlaybackDataModelHost.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
             _defaultPlaybackDevice = PlaybackDataModelHost.DeviceManager.Default;
+        }
 
-            s_hook = new KeyboardHook();
+        public void Clear()
+        {
+            _appTriggers.Clear();
+            _eventTriggers.Clear();
+            _deviceTriggers.Clear();
         }
 
         private void PlaybackDeviceManager_DefaultChanged(object sender, EarTrumpet.DataModel.IAudioDevice newDefault)
@@ -239,10 +243,10 @@ namespace EarTrumpet_Actions.DataModel
                 var trigger = (HotkeyTrigger)trig;
                 Trace.WriteLine($"HOTKEY: {trigger.Hotkey}");
 
-                s_hook.RegisterHotKey(trigger.Hotkey.Key, trigger.Hotkey.Modifiers);
-                s_hook.KeyPressed += (s, e) =>
+                HotkeyManager.Current.Register(trigger.Hotkey);
+                HotkeyManager.Current.KeyPressed += (data) =>
                 {
-                    if (e.Key == trigger.Hotkey.Key && e.Modifiers == trigger.Hotkey.Modifiers)
+                    if (data.Equals(trigger.Hotkey))
                     {
                         Trace.WriteLine($"HOTKEY-TRIGGER: {trigger.Hotkey}");
                         Triggered?.Invoke(trig);
