@@ -39,7 +39,7 @@ namespace EarTrumpet
             _viewModel.Ready += MainViewModel_Ready;
 
             FlyoutViewModel = new FlyoutViewModel(_viewModel);
-            _flyoutWindow = new FlyoutWindow(_viewModel, FlyoutViewModel);
+            _flyoutWindow = new FlyoutWindow(FlyoutViewModel);
             TrayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
             _trayIcon = new TrayIcon(TrayViewModel);
             _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
