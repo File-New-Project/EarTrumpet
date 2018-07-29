@@ -132,13 +132,6 @@
     <Compile Include="ViewModel\Triggers\HotkeyTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\ProcessTriggerViewModel.cs" />
     <Compile Include="ViewModel\VolumeViewModel.cs" />
-    <Page Include="ActionsEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Compile Include="ActionsEditor.xaml.cs">
-      <DependentUpon>ActionsEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Addon.cs" />
     <Page Include="AddonResources.xaml">
       <SubType>Designer</SubType>

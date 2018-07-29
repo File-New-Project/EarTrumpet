@@ -67,10 +67,10 @@
 
         <Grid>
 
-            <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.Select}"
-                    CommandParameter="{Binding}"
-                    Background="Transparent"
-                    BorderThickness="0"/>
+            <Button Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.Select}"
+                    CommandParameter="{Binding}" />
             <TextBlock Margin="12"
                        IsHitTestVisible="False"
                        Text="{Binding Description}" />
@@ -145,21 +145,11 @@
                       SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource SettingsListView}" />
 
-            <Grid Grid.Row="4"
-                  Grid.ColumnSpan="3"
-                  Margin="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Button Command="{Binding AddPart}" Content="+ Parts" />
-
-            </Grid>
-
+            <Button Grid.Row="4"
+                    Grid.ColumnSpan="3"
+                    Command="{Binding AddPart}"
+                    Content="Add triggers, conditions and actions"
+                    Style="{DynamicResource AddButtonStyle}" />
 
         </Grid>
 
@@ -206,19 +196,9 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Grid Grid.Row="7"
-                  Grid.ColumnSpan="2"
-                  Margin="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="1"
-                        Command="{Binding New}"
-                        Content="{x:Static resx:Resources.NewActionText}" />
-            </Grid>
+            <Button Command="{Binding New}"
+                    Content="{x:Static resx:Resources.NewActionText}"
+                    Style="{DynamicResource AddButtonStyle}" />
 
         </StackPanel>
     </DataTemplate>
