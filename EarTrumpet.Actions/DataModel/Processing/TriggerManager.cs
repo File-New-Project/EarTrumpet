@@ -13,20 +13,19 @@ namespace EarTrumpet_Actions.DataModel.Processing
         public event Action<BaseTrigger> Triggered;
 
         private List<EventTrigger> _eventTriggers = new List<EventTrigger>();
-        private List<AudioDeviceSessionEventTrigger> _appTriggers = new List<AudioDeviceSessionEventTrigger>();
-        private List<AudioDeviceEventTrigger> _deviceTriggers = new List<AudioDeviceEventTrigger>();
+        private List<AppEventTrigger> _appTriggers = new List<AppEventTrigger>();
+        private List<DeviceEventTrigger> _deviceTriggers = new List<DeviceEventTrigger>();
         private IAudioDevice _defaultPlaybackDevice;
         private PlaybackDataModelHost _playbackMgr;
 
         public TriggerManager()
         {
             _playbackMgr = new PlaybackDataModelHost();
-            _playbackMgr.AppPropertyChanged += PlaybackDataModelHost_AppPropertyChanged;
-            _playbackMgr.AppAdded += PlaybackDataModelHost_AppAdded;
-            _playbackMgr.AppRemoved += PlaybackDataModelHost_AppRemoved;
-            _playbackMgr.DeviceAdded += PlaybackDataModelHost_DeviceAdded;
-            _playbackMgr.DeviceRemoved += PlaybackDataModelHost_DeviceRemoved;
-            _playbackMgr.DevicePropertyChanged += PlaybackDataModelHost_DevicePropertyChanged;
+            _playbackMgr.AppPropertyChanged += OnAppPropertyChanged;
+            _playbackMgr.AppAdded += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Added);
+            _playbackMgr.AppRemoved += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Removed);
+            _playbackMgr.DeviceAdded += (d) => OnDeviceAddOrRemove(d, AudioDeviceEventKind.Added);
+            _playbackMgr.DeviceRemoved += (d) => OnDeviceAddOrRemove(d, AudioDeviceEventKind.Removed);
             _playbackMgr.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
             _defaultPlaybackDevice = _playbackMgr.DeviceManager.Default;
         }
@@ -44,39 +43,30 @@ namespace EarTrumpet_Actions.DataModel.Processing
 
             foreach (var trigger in _deviceTriggers)
             {
-                if (trigger.Device.Id == newDefault.Id)
+                if (trigger.Device.Id == _defaultPlaybackDevice?.Id &&
+                    trigger.Option == AudioDeviceEventKind.LeavingDefault)
                 {
-                    if (trigger.Option == AudioDeviceEventKind.BecomingDefault)
-                    {
-                        Triggered?.Invoke(trigger);
-                    }
+                    Triggered?.Invoke(trigger);
                 }
 
-                if (trigger.Device.Id == _defaultPlaybackDevice?.Id)
+                if (trigger.Device.Id == newDefault.Id &&
+                    trigger.Option == AudioDeviceEventKind.BecomingDefault)
                 {
-                    if (trigger.Option == AudioDeviceEventKind.LeavingDefault)
-                    {
-                        Triggered?.Invoke(trigger);
-                    }
+                    Triggered?.Invoke(trigger);
                 }
             }
 
             _defaultPlaybackDevice = newDefault;
         }
 
-        private void PlaybackDataModelHost_DevicePropertyChanged(IAudioDevice device, string propName)
-        {
-            // Muted, Unumuted, Volume changed
-        }
-
-        private void PlaybackDataModelHost_DeviceRemoved(IAudioDevice oldDevice)
+        private void OnDeviceAddOrRemove(IAudioDevice device, AudioDeviceEventKind option)
         {
             foreach (var trigger in _deviceTriggers)
             {
-                if (trigger.Option == AudioDeviceEventKind.Removed)
+                if (trigger.Option == option)
                 {
                     // Default device: not supported
-                    if (trigger.Device.Id == oldDevice.Id)
+                    if (trigger.Device.Id == device.Id)
                     {
                         Triggered?.Invoke(trigger);
                     }
@@ -84,30 +74,15 @@ namespace EarTrumpet_Actions.DataModel.Processing
             }
         }
 
-        private void PlaybackDataModelHost_DeviceAdded(IAudioDevice newDevice)
-        {
-            foreach(var trigger in _deviceTriggers)
-            {
-                if (trigger.Option == AudioDeviceEventKind.Added)
-                {
-                    // Default device: not supported
-                    if (trigger.Device.Id == newDevice.Id)
-                    {
-                        Triggered?.Invoke(trigger);
-                    }
-                }
-            }
-        }
-
-        private void PlaybackDataModelHost_AppRemoved(IAudioDeviceSession app)
+        private void OnAppAddOrRemove(IAudioDeviceSession app, AudioAppEventKind option)
         {
             foreach (var trigger in _appTriggers)
             {
-                if (trigger.Option == AudioAppEventKind.Removed)
+                if (trigger.Option == option)
                 {
                     var device = app.Parent;
-                    if (trigger.Device.Id == device.Id || 
-                        (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
+                    if ((trigger.Device?.Id == null && device == _playbackMgr.DeviceManager.Default) || 
+                         trigger.Device.Id == device.Id)
                     {
                         if (trigger.App.Id == app.Id)
                         {
@@ -118,30 +93,12 @@ namespace EarTrumpet_Actions.DataModel.Processing
             }
         }
 
-        private void PlaybackDataModelHost_AppAdded(IAudioDeviceSession app)
-        {
-            foreach (var trigger in _appTriggers)
-            {
-                if (trigger.Option == AudioAppEventKind.Added)
-                {
-                    var device = app.Parent;
-                    if (trigger.Device.Id == device.Id || (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
-                    {
-                        if (trigger.App.Id == app.Id)
-                        {
-                            Triggered?.Invoke(trigger);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void PlaybackDataModelHost_AppPropertyChanged(IAudioDeviceSession app, string propertyName)
+        private void OnAppPropertyChanged(IAudioDeviceSession app, string propertyName)
         {
             foreach (var trigger in _appTriggers)
             {
                 var device = app.Parent;
-                if (trigger.Device.Id == device.Id || (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
+                if ((trigger.Device?.Id == null && device == _playbackMgr.DeviceManager.Default) || trigger.Device?.Id == device.Id)
                 {
                     if (trigger.App.Id == app.AppId)
                     {
@@ -179,7 +136,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
 
         public void OnEvent(ApplicationLifecycleEvent evt)
         {
-            foreach(var trigger in _eventTriggers)
+            foreach (var trigger in _eventTriggers)
             {
                 if ((trigger.Option == EarTrumpetEventKind.Startup && evt == ApplicationLifecycleEvent.Startup) ||
                     (trigger.Option == EarTrumpetEventKind.Shutdown && evt == ApplicationLifecycleEvent.Shutdown))
@@ -211,25 +168,18 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 {
                     ProcessWatcher.Current.ProcessStopped += triggerIfApplicable;
                 }
-
-                bool isRunning = ProcessWatcher.Current.ProcessNames.Contains(trigger.Text);
-                if (isRunning && trigger.Option == ProcessEventKind.Start ||
-                    !isRunning && trigger.Option == ProcessEventKind.Stop)
-                {
-                    triggerIfApplicable(trigger.Text);
-                }
             }
             else if (trig is EventTrigger)
             {
                 _eventTriggers.Add((EventTrigger)trig);
             }
-            else if (trig is AudioDeviceEventTrigger)
+            else if (trig is DeviceEventTrigger)
             {
-                _deviceTriggers.Add((AudioDeviceEventTrigger)trig);
+                _deviceTriggers.Add((DeviceEventTrigger)trig);
             }
-            else if (trig is AudioDeviceSessionEventTrigger)
+            else if (trig is AppEventTrigger)
             {
-                _appTriggers.Add((AudioDeviceSessionEventTrigger)trig);
+                _appTriggers.Add((AppEventTrigger)trig);
             }
             else if (trig is HotkeyTrigger)
             {

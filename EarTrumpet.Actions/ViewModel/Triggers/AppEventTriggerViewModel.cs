@@ -2,7 +2,7 @@
 
 namespace EarTrumpet_Actions.ViewModel.Triggers
 {
-    class AudioDeviceSessionEventTriggerViewModel : PartViewModel
+    class AppEventTriggerViewModel : PartViewModel
     {
         public OptionViewModel Option { get; }
 
@@ -10,7 +10,7 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 
         public AppViewModel App { get; }
 
-        public AudioDeviceSessionEventTriggerViewModel(AudioDeviceSessionEventTrigger trigger) : base(trigger)
+        public AppEventTriggerViewModel(AppEventTrigger trigger) : base(trigger)
         {
             Option = new OptionViewModel(trigger);
             Option.PropertyChanged += (_, __) => UpdateDescription();

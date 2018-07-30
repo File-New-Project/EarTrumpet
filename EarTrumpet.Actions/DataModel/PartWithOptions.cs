@@ -25,12 +25,6 @@ namespace EarTrumpet_Actions.DataModel
             Options = options.ToList();
             SetSelected = setSelected;
             GetSelected = getSelected;
-            /*
-            if (Selected == null && getSelected() != null)
-            {
-                Options.Add(new Option(getSelected().ToString(), getSelected()));
-            }
-            */
         }
     }
 

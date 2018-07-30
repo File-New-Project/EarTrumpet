@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace EarTrumpet_Actions.ViewModel.Conditions
 {
-    class DefaultPlaybackDeviceConditionViewModel : PartViewModel
+    class DefaultDeviceConditionViewModel : PartViewModel
     {
         public DeviceViewModel Device { get; }
 
         public OptionViewModel Option { get; }
 
-        public DefaultPlaybackDeviceConditionViewModel(DefaultPlaybackDeviceCondition condition) : base(condition)
+        public DefaultDeviceConditionViewModel(DefaultDeviceCondition condition) : base(condition)
         {
             Option = new OptionViewModel(condition);
             Option.PropertyChanged += (_, __) => UpdateDescription();

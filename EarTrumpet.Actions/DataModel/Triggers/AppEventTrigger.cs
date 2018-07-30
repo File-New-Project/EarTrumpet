@@ -15,13 +15,13 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         Unmuted,
     }
 
-    public class AudioDeviceSessionEventTrigger : BaseTrigger, IPartWithDevice, IPartWithApp
+    public class AppEventTrigger : BaseTrigger, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
         public App App { get; set; }
         public AudioAppEventKind Option { get; set; }
         
-        public AudioDeviceSessionEventTrigger()
+        public AppEventTrigger()
         {
             Description = "When an app session is (added, removed, plays sound, ...)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>

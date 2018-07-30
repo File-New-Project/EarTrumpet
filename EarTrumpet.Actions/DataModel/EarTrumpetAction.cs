@@ -21,15 +21,5 @@ namespace EarTrumpet_Actions.DataModel
             Conditions = new ObservableCollection<BaseCondition>();
             Actions = new ObservableCollection<BaseAction>();
         }
-
-        public override string ToString()
-        {
-            return $"Action {DisplayName} with {Triggers.Count} triggers, {Conditions.Count} conditions and {Actions.Count} actions";
-        }
-
-        public override int GetHashCode()
-        {
-            return ToString().GetHashCode();
-        }
     }
 }

@@ -2,13 +2,13 @@
 
 namespace EarTrumpet_Actions.ViewModel.Triggers
 {
-    class AudioDeviceEventTriggerViewModel : PartViewModel
+    class DeviceEventTriggerViewModel : PartViewModel
     {
         public OptionViewModel Option { get; }
 
         public DeviceViewModel Device { get; }
 
-        public AudioDeviceEventTriggerViewModel(AudioDeviceEventTrigger trigger) : base(trigger)
+        public DeviceEventTriggerViewModel(DeviceEventTrigger trigger) : base(trigger)
         {
             Option = new OptionViewModel(trigger);
             Option.PropertyChanged += (_, __) => UpdateDescription();

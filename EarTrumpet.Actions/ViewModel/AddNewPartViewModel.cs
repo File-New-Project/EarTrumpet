@@ -37,8 +37,8 @@ namespace EarTrumpet_Actions.ViewModel
                 return new List<PartViewModel>
                 {
                     new EventTriggerViewModel(new EventTrigger{}),
-                    new AudioDeviceEventTriggerViewModel(new AudioDeviceEventTrigger{ }),
-                    new AudioDeviceSessionEventTriggerViewModel(new AudioDeviceSessionEventTrigger{ }),
+                    new DeviceEventTriggerViewModel(new DeviceEventTrigger{ }),
+                    new AppEventTriggerViewModel(new AppEventTrigger{ }),
                     new ProcessTriggerViewModel(new ProcessTrigger{ }),
                     hotkeyTriggerViewModel,
                 };
@@ -51,7 +51,7 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 return new List<PartViewModel>
                 {
-                    new DefaultPlaybackDeviceConditionViewModel(new DefaultPlaybackDeviceCondition{ }),
+                    new DefaultDeviceConditionViewModel(new DefaultDeviceCondition{ }),
                     new ProcessConditionViewModel(new ProcessCondition{ }),
                     new VariableConditionViewModel(new VariableCondition{ }),
                 };
@@ -64,8 +64,8 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 var ret = new List<PartViewModel>
                 {
-                    new ChangeAppVolumeActionViewModel(new ChangeAppVolumeAction{ }),
-                    new ChangeDeviceVolumeActionViewModel(new ChangeDeviceVolumeAction{ }),
+                    new SetAppVolumeActionViewModel(new SetAppVolumeAction{ }),
+                    new SetDeviceVolumeActionViewModel(new SetDeviceVolumeAction{ }),
                     new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ }),
                     new SetVariableActionViewModel(new SetVariableAction{ }),
                 };
@@ -73,7 +73,7 @@ namespace EarTrumpet_Actions.ViewModel
                 var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
                 if (addonValues != null && addonValues.Any())
                 {
-                    ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAddonEarTrumpetSettingsAction()));
+                    ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAdditionalSettingsAction()));
                 }
 
                 if (ServiceBus.Get("EarTrumpet-Themes") != null)

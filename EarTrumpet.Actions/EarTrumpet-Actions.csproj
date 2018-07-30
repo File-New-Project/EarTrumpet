@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
-    <Compile Include="DataModel\Actions\SetAddonEarTrumpetSettingsAction.cs" />
+    <Compile Include="DataModel\Actions\SetAdditionalSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />
     <Compile Include="DataModel\Processing\ConditionProcessor.cs" />
     <Compile Include="DataModel\IPartWithApp.cs" />
@@ -89,12 +89,12 @@
     <Compile Include="DataModel\Processing\TriggerManager.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
     <Compile Include="DataModel\Actions\BaseAction.cs" />
-    <Compile Include="DataModel\Actions\ChangeAppVolumeAction.cs" />
-    <Compile Include="DataModel\Actions\ChangeDeviceVolumeAction.cs" />
+    <Compile Include="DataModel\Actions\SetAppVolumeAction.cs" />
+    <Compile Include="DataModel\Actions\SetDeviceVolumeAction.cs" />
     <Compile Include="DataModel\Actions\SetDefaultDeviceAction.cs" />
     <Compile Include="DataModel\Actions\SetVariableAction.cs" />
     <Compile Include="DataModel\Conditions\BaseCondition.cs" />
-    <Compile Include="DataModel\Conditions\DefaultPlaybackDeviceCondition.cs" />
+    <Compile Include="DataModel\Conditions\DefaultDeviceCondition.cs" />
     <Compile Include="DataModel\Conditions\ProcessCondition.cs" />
     <Compile Include="DataModel\Conditions\VariableCondition.cs" />
     <Compile Include="DataModel\Device.cs" />
@@ -103,22 +103,22 @@
     <Compile Include="DataModel\Option.cs" />
     <Compile Include="DataModel\Part.cs" />
     <Compile Include="DataModel\ProcessWatcher.cs" />
-    <Compile Include="DataModel\Triggers\AudioDeviceEventTrigger.cs" />
-    <Compile Include="DataModel\Triggers\AudioDeviceSessionEventTrigger.cs" />
+    <Compile Include="DataModel\Triggers\DeviceEventTrigger.cs" />
+    <Compile Include="DataModel\Triggers\AppEventTrigger.cs" />
     <Compile Include="DataModel\Triggers\BaseTrigger.cs" />
     <Compile Include="DataModel\Triggers\EventTrigger.cs" />
     <Compile Include="DataModel\Triggers\HotkeyTrigger.cs" />
     <Compile Include="DataModel\Triggers\ProcessTrigger.cs" />
     <Compile Include="DataModel\PlaybackDataModelHost.cs" />
-    <Compile Include="ViewModel\Actions\ChangeAppVolumeActionViewModel.cs" />
-    <Compile Include="ViewModel\Actions\ChangeDeviceVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetDeviceVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAddonEarTrumpetSettingsActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetThemeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetVariableActionViewModel.cs" />
     <Compile Include="ViewModel\AddNewPartViewModel.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
-    <Compile Include="ViewModel\Conditions\DefaultPlaybackDeviceConditionViewModel.cs" />
+    <Compile Include="ViewModel\Conditions\DefaultDeviceConditionViewModel.cs" />
     <Compile Include="ViewModel\Conditions\ProcessConditionViewModel.cs" />
     <Compile Include="ViewModel\Conditions\VariableConditionViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModel.cs" />
@@ -126,8 +126,8 @@
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
     <Compile Include="ViewModel\TextViewModel.cs" />
-    <Compile Include="ViewModel\Triggers\AudioDeviceEventTriggerViewModel.cs" />
-    <Compile Include="ViewModel\Triggers\AudioDeviceSessionEventTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\DeviceEventTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\AppEventTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\EventTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\HotkeyTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\ProcessTriggerViewModel.cs" />

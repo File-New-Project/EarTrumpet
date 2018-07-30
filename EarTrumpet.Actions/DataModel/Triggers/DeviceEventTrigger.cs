@@ -10,14 +10,14 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         LeavingDefault,
     }
 
-    public class AudioDeviceEventTrigger : BaseTrigger, IPartWithDevice
+    public class DeviceEventTrigger : BaseTrigger, IPartWithDevice
     {
         public Device Device { get; set; }
         public AudioDeviceEventKind Option { get; set; }
 
         public override string Describe() => $"When {Device} {Options[0].DisplayName}";
 
-        public AudioDeviceEventTrigger()
+        public DeviceEventTrigger()
         {
             Description = "When an audio device is (added, removed, becomes or leaves default)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>

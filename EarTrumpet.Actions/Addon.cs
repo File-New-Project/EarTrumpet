@@ -31,7 +31,7 @@ namespace EarTrumpet_Actions
         }
 
         private readonly string c_actionsSettingKey = "ActionsData";
-        private EarTrumpetAction[] _actions;
+        private EarTrumpetAction[] _actions = new EarTrumpetAction[] { };
         private SettingsWindow _openSettingsWindow;
         private ISettingsBag _settings = StorageFactory.GetSettings(Namespace);
         private TriggerManager _triggerManager = new TriggerManager();

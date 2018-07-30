@@ -8,10 +8,5 @@ namespace EarTrumpet_Actions.DataModel
 
         [XmlIgnore]
         public string Description { get; protected set; }
-
-        public virtual void Loaded()
-        {
-
-        }
     }
 }

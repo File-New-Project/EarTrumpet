@@ -13,13 +13,13 @@ namespace EarTrumpet_Actions.DataModel.Actions
         Decrement5,
     }
 
-    public class ChangeDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
+    public class SetDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
     {
         public Device Device { get; set; }
         public StreamActionKind Option { get; set; }
         public double Volume { get; set; }
 
-        public ChangeDeviceVolumeAction()
+        public SetDeviceVolumeAction()
         {
             Description = "Set a device volume or mute";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>

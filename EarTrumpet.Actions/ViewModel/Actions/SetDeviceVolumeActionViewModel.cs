@@ -2,7 +2,7 @@
 
 namespace EarTrumpet_Actions.ViewModel.Actions
 {
-    class ChangeDeviceVolumeActionViewModel : PartViewModel
+    class SetDeviceVolumeActionViewModel : PartViewModel
     {
         private bool _isShowingVolume;
         public bool IsShowingVolume
@@ -22,9 +22,9 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         public DeviceViewModel Device { get; }
         public VolumeViewModel Volume { get; }
 
-        private ChangeDeviceVolumeAction _action;
+        private SetDeviceVolumeAction _action;
 
-        public ChangeDeviceVolumeActionViewModel(ChangeDeviceVolumeAction action) : base(action)
+        public SetDeviceVolumeActionViewModel(SetDeviceVolumeAction action) : base(action)
         {
             _action = action;
             Option = new OptionViewModel(action);

@@ -1,10 +1,8 @@
-﻿using EarTrumpet.DataModel.Storage;
-using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -46,7 +44,6 @@ namespace EarTrumpet_Actions.ViewModel
         public ICommand OpenItem { get; }
 
         private EarTrumpetActionViewModel _selectedAction;
-        private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
         private ICommand _openDialog;
 
         public ActionsEditorViewModel(EarTrumpetAction[] actions)
@@ -59,6 +56,7 @@ namespace EarTrumpet_Actions.ViewModel
                 vm.OpenDialog = _openDialog;
                 Actions.Add(vm);
                 SelectedAction = vm;
+                _openDialog.Execute(SelectedAction);
             });
 
             RemoveItem = new RelayCommand(() =>

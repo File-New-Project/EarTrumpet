@@ -9,12 +9,12 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         IsNot,
     }
 
-    public class DefaultPlaybackDeviceCondition : BaseCondition, IPartWithDevice
+    public class DefaultDeviceCondition : BaseCondition, IPartWithDevice
     {
         public Device Device { get; set; }
         public ValueComparisonKind Option { get; set; }
 
-        public DefaultPlaybackDeviceCondition()
+        public DefaultDeviceCondition()
         {
             Description = "If the default playback device (is, is not)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>

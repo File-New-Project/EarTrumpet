@@ -7,8 +7,8 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         public OptionViewModel Option1 { get; set; }
         public OptionViewModel Option2 { get; set; }
 
-        SetAddonEarTrumpetSettingsAction _part;
-        public SetAddonEarTrumpetSettingsActionViewModel(SetAddonEarTrumpetSettingsAction part) : base(part)
+        SetAdditionalSettingsAction _part;
+        public SetAddonEarTrumpetSettingsActionViewModel(SetAdditionalSettingsAction part) : base(part)
         {
             _part = part;
             Option1 = new OptionViewModel(part);

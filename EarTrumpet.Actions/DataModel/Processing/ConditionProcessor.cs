@@ -21,10 +21,10 @@ namespace EarTrumpet_Actions.DataModel.Processing
                         throw new NotImplementedException();
                 }
             }
-            else if (condition is DefaultPlaybackDeviceCondition)
+            else if (condition is DefaultDeviceCondition)
             {
-                var isDeviceCurrentlyDefault = ((DefaultPlaybackDeviceCondition)condition).Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
-                switch (((DefaultPlaybackDeviceCondition)condition).Option)
+                var isDeviceCurrentlyDefault = ((DefaultDeviceCondition)condition).Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
+                switch (((DefaultDeviceCondition)condition).Option)
                 {
                     case ValueComparisonKind.Is:
                         return isDeviceCurrentlyDefault;

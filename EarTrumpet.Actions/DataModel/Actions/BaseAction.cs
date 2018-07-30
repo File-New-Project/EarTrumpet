@@ -3,14 +3,13 @@
 namespace EarTrumpet_Actions.DataModel.Actions
 {
     // Ideas: Delay, StartProgram, SetTrayIcon
-    [XmlInclude(typeof(ChangeAppVolumeAction))]
-    [XmlInclude(typeof(ChangeDeviceVolumeAction))]
+    [XmlInclude(typeof(SetAppVolumeAction))]
+    [XmlInclude(typeof(SetDeviceVolumeAction))]
     [XmlInclude(typeof(SetDefaultDeviceAction))]
     [XmlInclude(typeof(SetVariableAction))]
     [XmlInclude(typeof(SetThemeAction))]
-    [XmlInclude(typeof(SetAddonEarTrumpetSettingsAction))]
+    [XmlInclude(typeof(SetAdditionalSettingsAction))]
     public abstract class BaseAction : PartWithOptions
     {
-
     }
 }

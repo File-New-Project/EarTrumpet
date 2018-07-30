@@ -25,43 +25,28 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     playbackMgr.SetDefaultDevice(dev);
                 }
             }
-            else if (a is ChangeAppVolumeAction)
+            else if (a is SetAppVolumeAction)
             {
-                var action = (ChangeAppVolumeAction)a;
+                var action = (SetAppVolumeAction)a;
 
-                if (action.Device?.Id == null)
+                var device = (action.Device?.Id == null) ? 
+                    playbackMgr.Default : playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                if (device != null)
                 {
-                    if (playbackMgr.Default != null)
+                    foreach (var app in device.Groups.Where(app => app.AppId == action.App.Id))
                     {
-                        InvokeOnDevice(action, playbackMgr.Default);
-                    }
-                }
-                else
-                {
-                    var device = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
-                    if (device != null)
-                    {
-                        InvokeOnDevice(action, device);
+                        DoAudioAction(action.Option, app, action);
                     }
                 }
             }
-            else if (a is ChangeDeviceVolumeAction)
+            else if (a is SetDeviceVolumeAction)
             {
-                var action = (ChangeDeviceVolumeAction)a;
-
-                IAudioDevice device;
-                if (action.Device?.Id == null)
-                {
-                    device = playbackMgr.Default;
-                }
-                else
-                {
-                    device = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
-                }
-
+                var action = (SetDeviceVolumeAction)a;
+                var device = (action.Device?.Id == null) ?
+                    playbackMgr.Default : playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
-                    DoAction(action.Option, device, action);
+                    DoAudioAction(action.Option, device, action);
                 }
             }
             else if (a is SetThemeAction)
@@ -73,33 +58,28 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     svc.Theme = action.Theme;
                 }
             }
-            else if (a is SetAddonEarTrumpetSettingsAction)
+            else if (a is SetAdditionalSettingsAction)
             {
-                var action = (SetAddonEarTrumpetSettingsAction)a;
-
-                var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
-                if (addonValues != null)
-                {
-                    var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
-                    var value = values.FirstOrDefault(v => v.Id == action.Option);
-                    if (value != null)
-                    {
-                        value.Value = action.Value;
-                    }
-                }
+                DoSetAddonEarTrumpetSettingsAction((SetAdditionalSettingsAction)a);
             }
             else throw new NotImplementedException();
         }
 
-        private static void InvokeOnDevice(ChangeAppVolumeAction action, IAudioDevice device)
+        private static void DoSetAddonEarTrumpetSettingsAction(SetAdditionalSettingsAction action)
         {
-            foreach (var app in device.Groups.Where(a => a.AppId == action.App.Id))
+            var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
+            if (addonValues != null)
             {
-                DoAction(action.Option, app, action);
+                var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
+                var value = values.FirstOrDefault(v => v.Id == action.SettingId);
+                if (value != null)
+                {
+                    value.Value = action.Value;
+                }
             }
         }
 
-        private static void DoAction(StreamActionKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
+        private static void DoAudioAction(StreamActionKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
         {
             switch (action)
             {

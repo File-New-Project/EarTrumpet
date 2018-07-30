@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
-    public class ChangeAppVolumeAction : BaseAction, IPartWithVolume, IPartWithDevice, IPartWithApp
+    public class SetAppVolumeAction : BaseAction, IPartWithVolume, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
         public App App { get; set; }
         public StreamActionKind Option { get; set; }
         public double Volume { get; set; }
 
-        public ChangeAppVolumeAction()
+        public SetAppVolumeAction()
         {
             Description = "Set an app volume or mute";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>

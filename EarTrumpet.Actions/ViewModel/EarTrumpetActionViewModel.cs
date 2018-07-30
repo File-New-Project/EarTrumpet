@@ -182,17 +182,17 @@ namespace EarTrumpet_Actions.ViewModel
                 hotkeyVm.SetHotkey = _selectHotkey;
                 ret = hotkeyVm;
             }
-            else if (part is AudioDeviceEventTrigger)
+            else if (part is DeviceEventTrigger)
             {
-                ret = new AudioDeviceEventTriggerViewModel((AudioDeviceEventTrigger)part);
+                ret = new DeviceEventTriggerViewModel((DeviceEventTrigger)part);
             }
-            else if (part is AudioDeviceSessionEventTrigger)
+            else if (part is AppEventTrigger)
             {
-                ret = new AudioDeviceSessionEventTriggerViewModel((AudioDeviceSessionEventTrigger)part);
+                ret = new AppEventTriggerViewModel((AppEventTrigger)part);
             }
-            else if (part is DefaultPlaybackDeviceCondition)
+            else if (part is DefaultDeviceCondition)
             {
-                ret = new DefaultPlaybackDeviceConditionViewModel((DefaultPlaybackDeviceCondition)part);
+                ret = new DefaultDeviceConditionViewModel((DefaultDeviceCondition)part);
             }
             else if (part is VariableCondition)
             {
@@ -210,21 +210,21 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 ret = new SetDefaultDeviceActionViewModel((SetDefaultDeviceAction)part);
             }
-            else if (part is ChangeDeviceVolumeAction)
+            else if (part is SetDeviceVolumeAction)
             {
-                ret = new ChangeDeviceVolumeActionViewModel((ChangeDeviceVolumeAction)part);
+                ret = new SetDeviceVolumeActionViewModel((SetDeviceVolumeAction)part);
             }
-            else if (part is ChangeAppVolumeAction)
+            else if (part is SetAppVolumeAction)
             {
-                ret = new ChangeAppVolumeActionViewModel((ChangeAppVolumeAction)part);
+                ret = new SetAppVolumeActionViewModel((SetAppVolumeAction)part);
             }
             else if (part is SetThemeAction)
             {
                 ret = new SetThemeActionViewModel((SetThemeAction)part);
             }
-            else if (part is SetAddonEarTrumpetSettingsAction)
+            else if (part is SetAdditionalSettingsAction)
             {
-                ret = new SetAddonEarTrumpetSettingsActionViewModel((SetAddonEarTrumpetSettingsAction)part);
+                ret = new SetAddonEarTrumpetSettingsActionViewModel((SetAdditionalSettingsAction)part);
             }
             else
             {
