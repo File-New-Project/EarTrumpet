@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace EarTrumpet.Interop.Helpers
@@ -32,7 +33,9 @@ namespace EarTrumpet.Interop.Helpers
         {
             if (msg.Msg == User32.WM_HOTKEY)
             {
-                KeyPressed?.Invoke(new HotkeyData(msg));
+                var hotkey = new HotkeyData(msg);
+                Trace.WriteLine($"HotkeyManager: KeyPressed: {hotkey}");
+                KeyPressed?.Invoke(hotkey);
             }
         }
 
@@ -50,6 +53,8 @@ namespace EarTrumpet.Interop.Helpers
             }
 
             entry.RefCount++;
+
+            Trace.WriteLine($"HotkeyManager: Register: {hotkey}");
         }
 
         public void Unregister(HotkeyData hotkey)
@@ -57,15 +62,18 @@ namespace EarTrumpet.Interop.Helpers
             var entry = _data[hotkey];
             entry.RefCount--;
 
+            Trace.WriteLine($"HotkeyManager: Unregister: {hotkey} {entry.RefCount}");
             if (entry.RefCount == 0)
             {
                 User32.UnregisterHotKey(_window.Handle, entry.Id);
                 _data.Remove(hotkey);
             }
+
         }
 
         public void Pause()
         {
+            Trace.WriteLine($"HotkeyManager: Pause");
             foreach (var entry in _data.Values)
             {
                 User32.UnregisterHotKey(_window.Handle, entry.Id);
@@ -74,6 +82,7 @@ namespace EarTrumpet.Interop.Helpers
 
         public void Resume()
         {
+            Trace.WriteLine($"HotkeyManager: Resume");
             foreach (var entry in _data.Values)
             {
                 User32.RegisterHotKey(_window.Handle, entry.Id, entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
