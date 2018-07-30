@@ -18,7 +18,7 @@ namespace EarTrumpet_Actions.ViewModel
 #pragma warning restore CS0067
         public event Action<object> HostDialog;
 
-        public string Title => "Actions & hotkeys";
+        public string Title => Properties.Resources.EditActionsAndHotkeysText;
 
         public EarTrumpetActionViewModel SelectedAction
         {
@@ -42,17 +42,15 @@ namespace EarTrumpet_Actions.ViewModel
         }
         
         public ObservableCollection<EarTrumpetActionViewModel> Actions { get; }
-
         public ICommand New { get; }
         public ICommand RemoveItem { get; }
         public ICommand OpenItem { get; }
-
 
         private EarTrumpetActionViewModel _selectedAction;
         private ISettingsBag _settings = StorageFactory.GetSettings("Eartrumpet.Actions");
         private ICommand _openDialog;
 
-        public ActionsEditorViewModel()
+        public ActionsEditorViewModel(EarTrumpetAction[] actions)
         {
             New = new RelayCommand(() =>
             {
@@ -80,7 +78,7 @@ namespace EarTrumpet_Actions.ViewModel
                 HostDialog(o);
             });
 
-            Actions = new ObservableCollection<EarTrumpetActionViewModel>(Addon.Current.Manager.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
+            Actions = new ObservableCollection<EarTrumpetActionViewModel>(actions.Select(a => new EarTrumpetActionViewModel(this, a)));
             foreach (var action in Actions)
             {
                 action.Remove = RemoveItem;
@@ -91,12 +89,12 @@ namespace EarTrumpet_Actions.ViewModel
 
         public void OnClosing()
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnPreviewKeyDown(KeyEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

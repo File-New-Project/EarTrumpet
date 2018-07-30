@@ -14,18 +14,19 @@ namespace EarTrumpet_Actions.DataModel
         private List<AudioDeviceSessionEventTrigger> _appTriggers = new List<AudioDeviceSessionEventTrigger>();
         private List<AudioDeviceEventTrigger> _deviceTriggers = new List<AudioDeviceEventTrigger>();
         private EarTrumpet.DataModel.IAudioDevice _defaultPlaybackDevice;
+        private PlaybackDataModelHost _playbackMgr;
 
         public TriggerManager()
         {
-            PlaybackDataModelHost.AppPropertyChanged += PlaybackDataModelHost_AppPropertyChanged;
-            PlaybackDataModelHost.AppAdded += PlaybackDataModelHost_AppAdded;
-            PlaybackDataModelHost.AppRemoved += PlaybackDataModelHost_AppRemoved;
-
-            PlaybackDataModelHost.DeviceAdded += PlaybackDataModelHost_DeviceAdded;
-            PlaybackDataModelHost.DeviceRemoved += PlaybackDataModelHost_DeviceRemoved;
-            PlaybackDataModelHost.DevicePropertyChanged += PlaybackDataModelHost_DevicePropertyChanged;
-            PlaybackDataModelHost.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
-            _defaultPlaybackDevice = PlaybackDataModelHost.DeviceManager.Default;
+            _playbackMgr = new PlaybackDataModelHost();
+            _playbackMgr.AppPropertyChanged += PlaybackDataModelHost_AppPropertyChanged;
+            _playbackMgr.AppAdded += PlaybackDataModelHost_AppAdded;
+            _playbackMgr.AppRemoved += PlaybackDataModelHost_AppRemoved;
+            _playbackMgr.DeviceAdded += PlaybackDataModelHost_DeviceAdded;
+            _playbackMgr.DeviceRemoved += PlaybackDataModelHost_DeviceRemoved;
+            _playbackMgr.DevicePropertyChanged += PlaybackDataModelHost_DevicePropertyChanged;
+            _playbackMgr.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
+            _defaultPlaybackDevice = _playbackMgr.DeviceManager.Default;
         }
 
         public void Clear()
@@ -106,7 +107,7 @@ namespace EarTrumpet_Actions.DataModel
                 {
                     var device = app.Parent;
                     if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id || 
-                        (trigger.Device.Id == null && device == PlaybackDataModelHost.DeviceManager.Default))
+                        (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
                         if (app.Id == App.AnySession.Id || trigger.DeviceSession.Id == app.Id)
                         {
@@ -125,7 +126,7 @@ namespace EarTrumpet_Actions.DataModel
                 {
                     var device = app.Parent;
                     if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
-                        (trigger.Device.Id == null && device == PlaybackDataModelHost.DeviceManager.Default))
+                        (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
                         if (app.Id == App.AnySession.Id || trigger.DeviceSession.Id == app.Id)
                         {
@@ -142,7 +143,7 @@ namespace EarTrumpet_Actions.DataModel
             {
                 var device = app.Parent;
                 if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
-                    (trigger.Device.Id == null && device == PlaybackDataModelHost.DeviceManager.Default))
+                    (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                 {
                     if (app.AppId == App.AnySession.Id || trigger.DeviceSession.Id == app.AppId)
                     {
@@ -212,14 +213,14 @@ namespace EarTrumpet_Actions.DataModel
 
                 if (trigger.ConditionType == ProcessTriggerConditionType.Starts)
                 {
-                    Addon.Current.ProcessWatcher.ProcessStarted += triggerIfApplicable;
+                    ProcessWatcher.Current.ProcessStarted += triggerIfApplicable;
                 }
                 else
                 {
-                    Addon.Current.ProcessWatcher.ProcessStopped += triggerIfApplicable;
+                    ProcessWatcher.Current.ProcessStopped += triggerIfApplicable;
                 }
 
-                bool isRunning = Addon.Current.ProcessWatcher.ProcessNames.Contains(trigger.Text);
+                bool isRunning = ProcessWatcher.Current.ProcessNames.Contains(trigger.Text);
                 if (isRunning && trigger.ConditionType == ProcessTriggerConditionType.Starts ||
                     !isRunning && trigger.ConditionType == ProcessTriggerConditionType.Stops)
                 {

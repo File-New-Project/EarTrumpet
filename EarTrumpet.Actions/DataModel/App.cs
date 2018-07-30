@@ -19,7 +19,7 @@ namespace EarTrumpet_Actions.DataModel
                 var ret = new ObservableCollection<Option>();
                 ret.Add(new Option("Every app", null));
                 ret.Add(new Option("Any app", AnySession));
-                foreach (var device in PlaybackDataModelHost.DeviceManager.Devices.SelectMany(d => d.Groups))
+                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
                 {
                     ret.Add(new Option(device.SessionDisplayName, new App(device)));
                 }
@@ -39,7 +39,7 @@ namespace EarTrumpet_Actions.DataModel
 
         public override string ToString()
         {
-            var appSession = PlaybackDataModelHost.DeviceManager.Devices.SelectMany(c => c.Groups).FirstOrDefault(d => d.AppId == Id);
+            var appSession = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(c => c.Groups).FirstOrDefault(d => d.AppId == Id);
             if (appSession != null)
             {
                 return appSession.SessionDisplayName;

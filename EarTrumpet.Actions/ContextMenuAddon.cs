@@ -20,16 +20,16 @@ namespace EarTrumpet_Actions
                     DisplayName = Properties.Resources.EditActionsAndHotkeysText,
                     Command = new RelayCommand(() => Addon.Current.OpenSettingsWindow())
                 });
-                if (Addon.Current.Manager.Actions.Any())
+                if (Addon.Current.Actions.Any())
                 {
                     ret.Add(new ContextMenuItem
                     {
                         DisplayName = Properties.Resources.MyActionsText,
-                        Children = Addon.Current.Manager.Actions.
+                        Children = Addon.Current.Actions.
                         Select(a => new ContextMenuItem
                         {
                             DisplayName = a.DisplayName,
-                            Command = null, //new RelayCommand(() => /* a.ManualTrigger() */)
+                            Command = new RelayCommand(() => Addon.Current.TriggerAction(a))
                         })
                     });
                 }

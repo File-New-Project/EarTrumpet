@@ -87,7 +87,6 @@
     <Compile Include="DataModel\PartWithOptions.cs" />
     <Compile Include="DataModel\TriggerManager.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
-    <Compile Include="ActionsManager.cs" />
     <Compile Include="DataModel\Actions\BaseAction.cs" />
     <Compile Include="DataModel\Actions\ChangeAppVolumeAction.cs" />
     <Compile Include="DataModel\Actions\ChangeDeviceVolumeAction.cs" />

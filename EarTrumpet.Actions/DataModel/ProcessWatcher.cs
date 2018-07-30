@@ -8,6 +8,8 @@ namespace EarTrumpet_Actions.DataModel
 {
     public class ProcessWatcher
     {
+        public static ProcessWatcher Current { get; } = new ProcessWatcher();
+
         public List<string> ProcessNames { get; private set; }
 
         public event Action<string> ProcessStarted;

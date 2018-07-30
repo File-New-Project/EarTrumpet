@@ -1,15 +1,14 @@
-﻿using EarTrumpet.Extensibility;
+﻿using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.Extensions;
-using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
-using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel;
+using EarTrumpet_Actions.DataModel.Triggers;
 using EarTrumpet_Actions.ViewModel;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Linq;
 
 namespace EarTrumpet_Actions
@@ -18,24 +17,48 @@ namespace EarTrumpet_Actions
     public class Addon : IAddonLifecycle
     {
         public static Addon Current { get; private set; }
-        public ActionsManager Manager { get; private set; }
-        public ProcessWatcher ProcessWatcher { get; private set; }
+        public static string Namespace => "EarTrumpet-Actions";
+        public Dictionary<string, bool> LocalVariables { get; private set; }
 
+        public EarTrumpetAction[] Actions
+        {
+            get => _actions;
+            set
+            {
+                _settings.Set(c_actionsSettingKey, value);
+                LoadAndRegister();
+            }
+        }
+
+        private readonly string c_actionsSettingKey = "ActionsData";
+        private EarTrumpetAction[] _actions;
         private SettingsWindow _openSettingsWindow;
+        private ISettingsBag _settings = StorageFactory.GetSettings(Namespace);
+        private TriggerManager _triggerManager = new TriggerManager();
 
         public void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt)
         {
             if (evt == ApplicationLifecycleEvent.Startup2)
             {
                 Current = this;
-                Manager = new ActionsManager();
-                ProcessWatcher = new ProcessWatcher();
-                Manager.OnStartup();
+                LocalVariables = new Dictionary<string, bool>();
+
+                LoadAndRegister();
+
+                _triggerManager.Triggered += OnTriggered;
+                _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
             }
             else if (evt == ApplicationLifecycleEvent.Shutdown)
             {
-                Manager.OnShuttingDown();
+                _triggerManager.OnEvent(ApplicationLifecycleEvent.Shutdown);
             }
+        }
+
+        private void LoadAndRegister()
+        {
+            _triggerManager.Clear();
+            _actions = _settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
+            _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 
         public void OpenSettingsWindow()
@@ -46,20 +69,32 @@ namespace EarTrumpet_Actions
             }
             else
             {
-                ResourceLoader.Load("EarTrumpet-Actions");
+                ResourceLoader.Load(Namespace);
 
-                var viewModel = new ActionsEditorViewModel();
-                _openSettingsWindow = new SettingsWindow();
-                _openSettingsWindow.DataContext = viewModel;
+                var viewModel = new ActionsEditorViewModel(Actions);
+                _openSettingsWindow = new SettingsWindow { DataContext = viewModel };
                 _openSettingsWindow.Closing += (_, __) =>
                 {
-                    Manager.Apply(viewModel.Actions.Select(a => a.GetAction()).ToArray());
-
+                    Actions = viewModel.Actions.Select(a => a.GetAction()).ToArray();
                     _openSettingsWindow = null;
                 };
                 _openSettingsWindow.Show();
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }
+        }
+
+        private void OnTriggered(BaseTrigger trigger)
+        {
+            var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));
+            if (action != null && action.Conditions.All(c => ConditionProcessor.IsMet(c)))
+            {
+                TriggerAction(action);
+            }
+        }
+
+        public void TriggerAction(EarTrumpetAction action)
+        {
+            action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
         }
     }
 }

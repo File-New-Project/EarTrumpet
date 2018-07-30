@@ -62,11 +62,8 @@
         </Grid>
     </DataTemplate>
 
-
     <DataTemplate x:Key="AddPartItemTemplate">
-
         <Grid>
-
             <Button Background="Transparent"
                     BorderThickness="0"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=DataContext.Select}"
@@ -75,12 +72,9 @@
                        IsHitTestVisible="False"
                        Text="{Binding Description}" />
         </Grid>
-
-
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:AddNewPartViewModel}">
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -136,15 +130,11 @@
                     Command="{Binding AddPart}"
                     Content="Add triggers, conditions and actions"
                     Style="{DynamicResource AddButtonStyle}" />
-
         </Grid>
-
-
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:ActionsEditorViewModel}">
         <StackPanel Margin="12" Orientation="Vertical">
-
             <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.MyActionsText}" />
             <ListView ItemsSource="{Binding Actions}"
                       SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -181,15 +171,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
             <Button Command="{Binding New}"
                     Content="{x:Static resx:Resources.NewActionText}"
                     Style="{DynamicResource AddButtonStyle}" />
-
         </StackPanel>
     </DataTemplate>
-
-
 
     <!--  Triggers  -->
 
@@ -199,9 +185,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
             <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-
             <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
@@ -480,5 +464,4 @@
                       SelectedItem="{Binding Option2.Selected, Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
-
 </ResourceDictionary>

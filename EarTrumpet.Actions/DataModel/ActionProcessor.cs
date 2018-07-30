@@ -11,18 +11,20 @@ namespace EarTrumpet_Actions.DataModel
     {
         public static void Invoke(BaseAction a)
         {
+            var playbackMgr = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
+
             if (a is SetVariableAction)
             {
                 var action = (SetVariableAction)a;
-                Addon.Current.Manager.LocalVariables[action.Text] = action.Value;
+                Addon.Current.LocalVariables[action.Text] = action.Value;
             }
             else if (a is SetDefaultDeviceAction)
             {
                 var action = (SetDefaultDeviceAction)a;
-                var dev = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                var dev = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (dev != null)
                 {
-                    PlaybackDataModelHost.DeviceManager.SetDefaultDevice(dev);
+                    playbackMgr.SetDefaultDevice(dev);
                 }
             }
             else if (a is ChangeAppVolumeAction)
@@ -31,21 +33,21 @@ namespace EarTrumpet_Actions.DataModel
 
                 if (action.Device?.Id == Device.AnyDevice.Id)
                 {
-                    foreach (var d in PlaybackDataModelHost.DeviceManager.Devices)
+                    foreach (var d in playbackMgr.Devices)
                     {
                         InvokeOnDevice(action, d);
                     }
                 }
                 else if (action.Device?.Id == null)
                 {
-                    if (PlaybackDataModelHost.DeviceManager.Default != null)
+                    if (playbackMgr.Default != null)
                     {
-                        InvokeOnDevice(action, PlaybackDataModelHost.DeviceManager.Default);
+                        InvokeOnDevice(action, playbackMgr.Default);
                     }
                 }
                 else
                 {
-                    var device = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                    var device = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                     if (device != null)
                     {
                         InvokeOnDevice(action, device);
@@ -59,11 +61,11 @@ namespace EarTrumpet_Actions.DataModel
                 IAudioDevice device;
                 if (action.Device?.Id == null)
                 {
-                    device = PlaybackDataModelHost.DeviceManager.Default;
+                    device = playbackMgr.Default;
                 }
                 else
                 {
-                    device = PlaybackDataModelHost.DeviceManager.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                    device = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 }
 
                 if (device != null)

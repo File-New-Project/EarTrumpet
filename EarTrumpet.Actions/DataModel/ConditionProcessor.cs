@@ -1,4 +1,5 @@
-﻿using EarTrumpet_Actions.DataModel.Conditions;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet_Actions.DataModel.Conditions;
 using System;
 
 namespace EarTrumpet_Actions.DataModel
@@ -11,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel
             {
                 var cond = (ProcessCondition)condition;
 
-                bool ret = Addon.Current.ProcessWatcher.ProcessNames.Contains(cond.Text);
+                bool ret = ProcessWatcher.Current.ProcessNames.Contains(cond.Text);
 
                 switch (cond.ConditionType)
                 {
@@ -26,7 +27,7 @@ namespace EarTrumpet_Actions.DataModel
             else if (condition is DefaultPlaybackDeviceCondition)
             {
                 var cond = (DefaultPlaybackDeviceCondition)condition;
-                var ret = cond.Device.Id == PlaybackDataModelHost.DeviceManager.Default?.Id;
+                var ret = cond.Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
                 switch (cond.Operation)
                 {
                     case ComparisonOperation.Is:
@@ -40,7 +41,7 @@ namespace EarTrumpet_Actions.DataModel
             else if (condition is VariableCondition)
             {
                 var cond = (VariableCondition)condition;
-                return (Addon.Current.Manager.LocalVariables[cond.Text] == cond.Value);
+                return (Addon.Current.LocalVariables[cond.Text] == cond.Value);
             }
             throw new NotImplementedException();
         }
