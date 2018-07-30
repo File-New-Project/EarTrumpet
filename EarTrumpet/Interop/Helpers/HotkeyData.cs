@@ -15,8 +15,8 @@ namespace EarTrumpet.Interop.Helpers
             Win = 8
         }
 
-        public Keys Modifiers;
-        public Keys Key;
+        public Keys Modifiers { get; set; }
+        public Keys Key { get; set; }
 
         public HotkeyData(Message msg)
         {
