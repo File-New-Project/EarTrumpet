@@ -31,6 +31,10 @@ namespace EarTrumpet.Extensibility.Shared
         public static List<object> GetMany(string name)
         {
             _services.TryGetValue(name, out var ret);
+            if (ret == null)
+            {
+                ret = new List<object>();
+            }
             return (List<object>)ret;
         }
     }
