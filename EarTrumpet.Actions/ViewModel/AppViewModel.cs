@@ -13,12 +13,12 @@ namespace EarTrumpet_Actions.ViewModel
 
         public Option Selected
         {
-            get => All.FirstOrDefault(d => ((App)d.Value)?.Id == _part.DeviceSession?.Id);
+            get => All.FirstOrDefault(d => ((App)d.Value)?.Id == _part.App?.Id);
             set
             {
                 if (Selected != value)
                 {
-                    _part.DeviceSession = (App)value.Value;
+                    _part.App = (App)value.Value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((nameof(Selected))));
                 }
             }
@@ -32,7 +32,7 @@ namespace EarTrumpet_Actions.ViewModel
             All = App.AllApps;
             if (Selected == null)
             {
-                All.Add(new Option(_part.DeviceSession.Id, _part.DeviceSession));
+                All.Add(new Option(_part.App.Id, _part.App));
             }
         }
     }

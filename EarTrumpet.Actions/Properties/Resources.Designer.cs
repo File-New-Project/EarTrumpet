@@ -61,11 +61,29 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do.
+        /// </summary>
+        public static string ActionVerbText {
+            get {
+                return ResourceManager.GetString("ActionVerbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add triggers, conditions and actions.
         /// </summary>
         public static string AddDialogTitleText {
             get {
                 return ResourceManager.GetString("AddDialogTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If.
+        /// </summary>
+        public static string ConditionVerbText {
+            get {
+                return ResourceManager.GetString("ConditionVerbText", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string RemoveText {
             get {
                 return ResourceManager.GetString("RemoveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When.
+        /// </summary>
+        public static string TriggerVerbText {
+            get {
+                return ResourceManager.GetString("TriggerVerbText", resourceCulture);
             }
         }
     }

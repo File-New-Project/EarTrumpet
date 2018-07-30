@@ -8,16 +8,16 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 {
     class HotkeyTriggerViewModel : PartViewModel
     {
-        public string HotkeyText => _trigger.Hotkey.IsEmpty ? "Choose a key" : _trigger.Hotkey.ToString();
+        public string HotkeyText => _trigger.Option.IsEmpty ? "Choose a key" : _trigger.Option.ToString();
 
         public HotkeyData Hotkey
         {
-            get => _trigger.Hotkey;
+            get => _trigger.Option;
             set
             {
                 if (Hotkey != value)
                 {
-                    _trigger.Hotkey = value;
+                    _trigger.Option = value;
                     RaisePropertyChanged(nameof(Hotkey));
                     RaisePropertyChanged(nameof(HotkeyText));
                     UpdateDescription();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
-    public enum ChangeDeviceVolumeActionKind
+    public enum StreamActionKind
     {
         Mute,
         Unmute,
@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     public class ChangeDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
     {
         public Device Device { get; set; }
-        public ChangeDeviceVolumeActionKind Operation { get; set; }
+        public StreamActionKind Option { get; set; }
         public double Volume { get; set; }
 
         public ChangeDeviceVolumeAction()
@@ -24,20 +24,20 @@ namespace EarTrumpet_Actions.DataModel.Actions
             Description = "Set a device volume or mute";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                new Option("mute", ChangeDeviceVolumeActionKind.Mute),
-                new Option("set volume", ChangeDeviceVolumeActionKind.SetVolume),
-                new Option("toggle mute", ChangeDeviceVolumeActionKind.ToggleMute),
-                new Option("unmute", ChangeDeviceVolumeActionKind.Unmute),
-                new Option("increment volume by 5%", ChangeDeviceVolumeActionKind.Increment5),
-                new Option("decrement volume by 5%", ChangeDeviceVolumeActionKind.Decrement5),
+                new Option("mute", StreamActionKind.Mute),
+                new Option("set volume", StreamActionKind.SetVolume),
+                new Option("toggle mute", StreamActionKind.ToggleMute),
+                new Option("unmute", StreamActionKind.Unmute),
+                new Option("increment volume by 5%", StreamActionKind.Increment5),
+                new Option("decrement volume by 5%", StreamActionKind.Decrement5),
                 },
-                (newValue) => Operation = (ChangeDeviceVolumeActionKind)newValue.Value,
-                () => Operation) });
+                (newValue) => Option = (StreamActionKind)newValue.Value,
+                () => Option) });
         }
 
         public override string Describe()
         {
-            if (Operation == ChangeDeviceVolumeActionKind.SetVolume)
+            if (Option == StreamActionKind.SetVolume)
             {
                 return $"Set volume to {Math.Round(Volume)}% on {Device}";
             }

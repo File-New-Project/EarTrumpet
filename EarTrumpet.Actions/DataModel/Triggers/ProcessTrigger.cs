@@ -3,10 +3,10 @@ using System.Xml.Serialization;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum ProcessTriggerConditionType
+    public enum ProcessEventKind
     {
-        Starts,
-        Stops,
+        Start,
+        Stop,
     }
 
     public class ProcessTrigger : BaseTrigger, IPartWithText
@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         [XmlIgnore]
         public string PromptText { get; private set; }
-        public ProcessTriggerConditionType ConditionType { get; set; }
+        public ProcessEventKind Option { get; set; }
 
         public ProcessTrigger()
         {
@@ -24,11 +24,11 @@ namespace EarTrumpet_Actions.DataModel.Triggers
             Description = "When a process starts or stops";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("starts", ProcessTriggerConditionType.Starts),
-                    new Option("stops", ProcessTriggerConditionType.Stops),
+                    new Option("starts", ProcessEventKind.Start),
+                    new Option("stops", ProcessEventKind.Stop),
                 },
-                (newValue) => ConditionType = (ProcessTriggerConditionType)newValue.Value,
-                () => ConditionType) });
+                (newValue) => Option = (ProcessEventKind)newValue.Value,
+                () => Option) });
         }
 
         public override string Describe() => $"{Text} {Options[0].DisplayName}";

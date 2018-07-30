@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Conditions
 {
-    public enum ProcessConditionType
+    public enum ProcessStateKind
     {
-        IsRunning,
-        IsNotRunning
+        Running,
+        NotRunning
     }
 
     public class ProcessCondition : BaseCondition, IPartWithText
@@ -14,18 +14,18 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public string PromptText => "Process name (e.g. notepad)";
         public string Text { get; set; }
 
-        public ProcessConditionType ConditionType { get; set; }
+        public ProcessStateKind Option { get; set; }
         
         public ProcessCondition()
         {
             Description = "If a process is (running, not running)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                 new Option("is running", ProcessConditionType. IsNotRunning),
-                 new Option("is not running", ProcessConditionType.IsRunning),
+                 new Option("is running", ProcessStateKind. NotRunning),
+                 new Option("is not running", ProcessStateKind.Running),
                 },
-                (newValue) => ConditionType = (ProcessConditionType)newValue.Value,
-                () => ConditionType) });
+                (newValue) => Option = (ProcessStateKind)newValue.Value,
+                () => Option) });
         }
 
         public override string Describe() => $"{Text} {Options[0].DisplayName}";

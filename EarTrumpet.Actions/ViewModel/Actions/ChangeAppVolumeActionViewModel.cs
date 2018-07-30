@@ -45,7 +45,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
 
         private void Option_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            IsShowingVolume = _action.Operation == ChangeDeviceVolumeActionKind.SetVolume;
+            IsShowingVolume = _action.Option == StreamActionKind.SetVolume;
         }
     }
 }

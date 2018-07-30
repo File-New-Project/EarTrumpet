@@ -2,7 +2,7 @@
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum AudioDeviceEventTriggerType
+    public enum AudioDeviceEventKind
     {
         Added,
         Removed,
@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
     public class AudioDeviceEventTrigger : BaseTrigger, IPartWithDevice
     {
         public Device Device { get; set; }
-        public AudioDeviceEventTriggerType TriggerType { get; set; }
+        public AudioDeviceEventKind Option { get; set; }
 
         public override string Describe() => $"When {Device} {Options[0].DisplayName}";
 
@@ -22,13 +22,13 @@ namespace EarTrumpet_Actions.DataModel.Triggers
             Description = "When an audio device is (added, removed, becomes or leaves default)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("is added", AudioDeviceEventTriggerType.Added),
-                    new Option("is removed", AudioDeviceEventTriggerType.Removed),
-                    new Option("becomes default", AudioDeviceEventTriggerType.BecomingDefault),
-                    new Option("is no longer default", AudioDeviceEventTriggerType.LeavingDefault),
+                    new Option("is added", AudioDeviceEventKind.Added),
+                    new Option("is removed", AudioDeviceEventKind.Removed),
+                    new Option("becomes default", AudioDeviceEventKind.BecomingDefault),
+                    new Option("is no longer default", AudioDeviceEventKind.LeavingDefault),
                 },
-                (newValue) => TriggerType = (AudioDeviceEventTriggerType)newValue.Value,
-                () => TriggerType) });
+                (newValue) => Option = (AudioDeviceEventKind)newValue.Value,
+                () => Option) });
         }
     }
 }

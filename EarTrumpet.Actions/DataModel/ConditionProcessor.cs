@@ -14,11 +14,11 @@ namespace EarTrumpet_Actions.DataModel
 
                 bool ret = ProcessWatcher.Current.ProcessNames.Contains(cond.Text);
 
-                switch (cond.ConditionType)
+                switch (cond.Option)
                 {
-                    case ProcessConditionType.IsRunning:
+                    case ProcessStateKind.Running:
                         return ret;
-                    case ProcessConditionType.IsNotRunning:
+                    case ProcessStateKind.NotRunning:
                         return !ret;
                     default:
                         throw new NotImplementedException();
@@ -28,11 +28,11 @@ namespace EarTrumpet_Actions.DataModel
             {
                 var cond = (DefaultPlaybackDeviceCondition)condition;
                 var ret = cond.Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
-                switch (cond.Operation)
+                switch (cond.Option)
                 {
-                    case ComparisonOperation.Is:
+                    case ValueComparisonKind.Is:
                         return ret;
-                    case ComparisonOperation.IsNot:
+                    case ValueComparisonKind.IsNot:
                         return !ret;
                     default:
                         throw new NotImplementedException();

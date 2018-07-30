@@ -70,24 +70,24 @@ namespace EarTrumpet_Actions.DataModel
 
                 if (device != null)
                 {
-                    switch (action.Operation)
+                    switch (action.Option)
                     {
-                        case ChangeDeviceVolumeActionKind.Mute:
+                        case StreamActionKind.Mute:
                             device.IsMuted = true;
                             break;
-                        case ChangeDeviceVolumeActionKind.ToggleMute:
+                        case StreamActionKind.ToggleMute:
                             device.IsMuted = !device.IsMuted;
                             break;
-                        case ChangeDeviceVolumeActionKind.Unmute:
+                        case StreamActionKind.Unmute:
                             device.IsMuted = false;
                             break;
-                        case ChangeDeviceVolumeActionKind.SetVolume:
+                        case StreamActionKind.SetVolume:
                             device.Volume = (float)(action.Volume / 100f);
                             break;
-                        case ChangeDeviceVolumeActionKind.Increment5:
+                        case StreamActionKind.Increment5:
                             device.Volume += 0.05f;
                             break;
-                        case ChangeDeviceVolumeActionKind.Decrement5:
+                        case StreamActionKind.Decrement5:
                             device.Volume -= 0.05f;
                             break;
                     }
@@ -113,7 +113,7 @@ namespace EarTrumpet_Actions.DataModel
                     var value = values.FirstOrDefault(v => v.Id == action.Option);
                     if (value != null)
                     {
-                        value.Value = action.BoolValue;
+                        value.Value = action.Value;
                     }
                 }
             }
@@ -122,28 +122,28 @@ namespace EarTrumpet_Actions.DataModel
 
         private static void InvokeOnDevice(ChangeAppVolumeAction action, IAudioDevice device)
         {
-            var apps = device.Groups.Where(a => a.AppId == action.DeviceSession.Id || action.DeviceSession.Id == App.AnySession.Id);
+            var apps = device.Groups.Where(a => a.AppId == action.App.Id || action.App.Id == App.AnySession.Id);
 
             foreach (var app in apps)
             {
-                switch (action.Operation)
+                switch (action.Option)
                 {
-                    case ChangeDeviceVolumeActionKind.Mute:
+                    case StreamActionKind.Mute:
                         app.IsMuted = true;
                         break;
-                    case ChangeDeviceVolumeActionKind.ToggleMute:
+                    case StreamActionKind.ToggleMute:
                         app.IsMuted = !device.IsMuted;
                         break;
-                    case ChangeDeviceVolumeActionKind.Unmute:
+                    case StreamActionKind.Unmute:
                         app.IsMuted = false;
                         break;
-                    case ChangeDeviceVolumeActionKind.SetVolume:
+                    case StreamActionKind.SetVolume:
                         app.Volume = (float)(action.Volume / 100f);
                         break;
-                    case ChangeDeviceVolumeActionKind.Increment5:
+                    case StreamActionKind.Increment5:
                         app.Volume += 0.05f;
                         break;
-                    case ChangeDeviceVolumeActionKind.Decrement5:
+                    case StreamActionKind.Decrement5:
                         app.Volume -= 0.05f;
                         break;
                 }

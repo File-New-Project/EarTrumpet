@@ -2,6 +2,6 @@
 {
     interface IPartWithApp
     {
-        App DeviceSession { get; set; }
+        App App { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Conditions
 {
-    public enum ComparisonOperation
+    public enum ValueComparisonKind
     {
         Is,
         IsNot,
@@ -12,18 +12,18 @@ namespace EarTrumpet_Actions.DataModel.Conditions
     public class DefaultPlaybackDeviceCondition : BaseCondition, IPartWithDevice
     {
         public Device Device { get; set; }
-        public ComparisonOperation Operation { get; set; }
+        public ValueComparisonKind Option { get; set; }
 
         public DefaultPlaybackDeviceCondition()
         {
             Description = "If the default playback device (is, is not)";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                new Option("is", ComparisonOperation.Is),
-                new Option("is not", ComparisonOperation.IsNot),
+                new Option("is", ValueComparisonKind.Is),
+                new Option("is not", ValueComparisonKind.IsNot),
                 },
-                (newValue) => Operation = (ComparisonOperation)newValue.Value,
-                () => Operation) });
+                (newValue) => Option = (ValueComparisonKind)newValue.Value,
+                () => Option) });
         }
 
         public override string Describe() => $"The default playback device {Options[0].DisplayName} {Device}";

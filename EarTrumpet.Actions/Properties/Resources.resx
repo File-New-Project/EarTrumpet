@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Do</value>
+  </data>
   <data name="AddDialogTitleText" xml:space="preserve">
     <value>Add triggers, conditions and actions</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>If</value>
   </data>
   <data name="EditActionsAndHotkeysText" xml:space="preserve">
     <value>Edit actions and hotkeys</value>
@@ -134,5 +140,8 @@
   </data>
   <data name="RemoveText" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>When</value>
   </data>
 </root>

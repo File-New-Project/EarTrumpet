@@ -26,11 +26,11 @@ namespace EarTrumpet_Actions
                     {
                         DisplayName = Properties.Resources.MyActionsText,
                         Children = Addon.Current.Actions.
-                        Select(a => new ContextMenuItem
-                        {
-                            DisplayName = a.DisplayName,
-                            Command = new RelayCommand(() => Addon.Current.TriggerAction(a))
-                        })
+                            Select(a => new ContextMenuItem
+                            {
+                                DisplayName = a.DisplayName,
+                                Command = new RelayCommand(() => Addon.Current.TriggerAction(a))
+                            })
                     });
                 }
                 return ret;

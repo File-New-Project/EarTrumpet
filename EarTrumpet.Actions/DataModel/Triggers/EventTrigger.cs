@@ -3,26 +3,26 @@ using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum EventTriggerType
+    public enum EarTrumpetEventKind
     {
-        EarTrumpet_Startup,
-        EarTrumpet_Shutdown,
+        Startup,
+        Shutdown,
     };
 
     public class EventTrigger : BaseTrigger
     {
-        public EventTriggerType TriggerType { get; set; }
+        public EarTrumpetEventKind Option { get; set; }
 
         public EventTrigger()
         {
             Description = "When EarTrumpet is started or stopped";
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("starts up", EventTriggerType.EarTrumpet_Startup),
-                    new Option("is shutting down", EventTriggerType.EarTrumpet_Shutdown),
+                    new Option("starts up", EarTrumpetEventKind.Startup),
+                    new Option("is shutting down", EarTrumpetEventKind.Shutdown),
                 },
-                (newValue) => TriggerType = (EventTriggerType)newValue.Value,
-                () => TriggerType) });
+                (newValue) => Option = (EarTrumpetEventKind)newValue.Value,
+                () => Option) });
         }
 
         public override string Describe() => $"When EarTrumpet {Options[0].DisplayName}";

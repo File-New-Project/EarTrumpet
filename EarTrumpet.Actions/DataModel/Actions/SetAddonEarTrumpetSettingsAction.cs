@@ -7,7 +7,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 {
     public class SetAddonEarTrumpetSettingsAction : BaseAction
     {
-        public bool BoolValue { get; set; }
+        public bool Value { get; set; }
 
         public string Option { get; set; }
 
@@ -24,8 +24,8 @@ namespace EarTrumpet_Actions.DataModel.Actions
                     new Option("on", true),
                     new Option("off", false),
                 }),
-                (v) => BoolValue = (bool)v.Value,
-                () => BoolValue);
+                (v) => Value = (bool)v.Value,
+                () => Value);
 
             var values = new List<IValue<bool>>();
             var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
@@ -33,8 +33,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
             {
                 values = addonValues.Where(a => a is IValue<bool>).Select(a => (IValue<bool>)a).ToList();
             }
-
-
 
             var optionOpt = new OptionData(values.Select(v => new Option(v.DisplayName, v.Id)),
             (v) => Option = (string)v.Value,

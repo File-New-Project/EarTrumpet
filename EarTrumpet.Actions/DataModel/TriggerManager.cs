@@ -44,7 +44,7 @@ namespace EarTrumpet_Actions.DataModel
             {
                 if (newDefault.Id == Device.AnyDevice.Id || trigger.Device.Id == newDefault.Id)
                 {
-                    if (trigger.TriggerType == AudioDeviceEventTriggerType.BecomingDefault)
+                    if (trigger.Option == AudioDeviceEventKind.BecomingDefault)
                     {
                         Triggered?.Invoke(trigger);
                     }
@@ -52,7 +52,7 @@ namespace EarTrumpet_Actions.DataModel
 
                 if (_defaultPlaybackDevice?.Id == Device.AnyDevice.Id || trigger.Device.Id == _defaultPlaybackDevice?.Id)
                 {
-                    if (trigger.TriggerType == AudioDeviceEventTriggerType.LeavingDefault)
+                    if (trigger.Option == AudioDeviceEventKind.LeavingDefault)
                     {
                         Triggered?.Invoke(trigger);
                     }
@@ -71,7 +71,7 @@ namespace EarTrumpet_Actions.DataModel
         {
             foreach (var trigger in _deviceTriggers)
             {
-                if (trigger.TriggerType == AudioDeviceEventTriggerType.Removed)
+                if (trigger.Option == AudioDeviceEventKind.Removed)
                 {
                     // Default device: not supported
                     if (oldDevice.Id == Device.AnyDevice.Id ||
@@ -87,7 +87,7 @@ namespace EarTrumpet_Actions.DataModel
         {
             foreach(var trigger in _deviceTriggers)
             {
-                if (trigger.TriggerType == AudioDeviceEventTriggerType.Added)
+                if (trigger.Option == AudioDeviceEventKind.Added)
                 {
                     // Default device: not supported
                     if (newDevice.Id == Device.AnyDevice.Id ||
@@ -103,13 +103,13 @@ namespace EarTrumpet_Actions.DataModel
         {
             foreach (var trigger in _appTriggers)
             {
-                if (trigger.TriggerType == AudioDeviceSessionEventTriggerType.Removed)
+                if (trigger.Option == AudioAppEventKind.Removed)
                 {
                     var device = app.Parent;
                     if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id || 
                         (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
-                        if (app.Id == App.AnySession.Id || trigger.DeviceSession.Id == app.Id)
+                        if (app.Id == App.AnySession.Id || trigger.App.Id == app.Id)
                         {
                             Triggered?.Invoke(trigger);
                         }
@@ -122,13 +122,13 @@ namespace EarTrumpet_Actions.DataModel
         {
             foreach (var trigger in _appTriggers)
             {
-                if (trigger.TriggerType == AudioDeviceSessionEventTriggerType.Added)
+                if (trigger.Option == AudioAppEventKind.Added)
                 {
                     var device = app.Parent;
                     if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
                         (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
-                        if (app.Id == App.AnySession.Id || trigger.DeviceSession.Id == app.Id)
+                        if (app.Id == App.AnySession.Id || trigger.App.Id == app.Id)
                         {
                             Triggered?.Invoke(trigger);
                         }
@@ -145,32 +145,32 @@ namespace EarTrumpet_Actions.DataModel
                 if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
                     (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                 {
-                    if (app.AppId == App.AnySession.Id || trigger.DeviceSession.Id == app.AppId)
+                    if (app.AppId == App.AnySession.Id || trigger.App.Id == app.AppId)
                     {
-                        switch (trigger.TriggerType)
+                        switch (trigger.Option)
                         {
-                            case AudioDeviceSessionEventTriggerType.Muted:
+                            case AudioAppEventKind.Muted:
                                 if (propertyName == nameof(app.IsMuted)
                                     && app.IsMuted)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
-                            case AudioDeviceSessionEventTriggerType.Unmuted:
+                            case AudioAppEventKind.Unmuted:
                                 if (propertyName == nameof(app.IsMuted)
                                     && !app.IsMuted)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
-                            case AudioDeviceSessionEventTriggerType.PlayingSound:
+                            case AudioAppEventKind.PlayingSound:
                                 if (propertyName == nameof(app.State)
                                     && app.State == EarTrumpet.DataModel.SessionState.Active)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
-                            case AudioDeviceSessionEventTriggerType.NotPlayingSound:
+                            case AudioAppEventKind.NotPlayingSound:
                                 if (propertyName == nameof(app.State)
                                     && app.State != EarTrumpet.DataModel.SessionState.Active)
                                 {
@@ -187,9 +187,9 @@ namespace EarTrumpet_Actions.DataModel
         {
             foreach(var trigger in _eventTriggers)
             {
-                if ((trigger.TriggerType == EventTriggerType.EarTrumpet_Startup && 
+                if ((trigger.Option == EarTrumpetEventKind.Startup && 
                     evt == EarTrumpet.Extensibility.ApplicationLifecycleEvent.Startup) ||
-                    (trigger.TriggerType == EventTriggerType.EarTrumpet_Shutdown &&
+                    (trigger.Option == EarTrumpetEventKind.Shutdown &&
                     evt == EarTrumpet.Extensibility.ApplicationLifecycleEvent.Shutdown))
                 {
                     Triggered?.Invoke(trigger);
@@ -211,7 +211,7 @@ namespace EarTrumpet_Actions.DataModel
                     }
                 });
 
-                if (trigger.ConditionType == ProcessTriggerConditionType.Starts)
+                if (trigger.Option == ProcessEventKind.Start)
                 {
                     ProcessWatcher.Current.ProcessStarted += triggerIfApplicable;
                 }
@@ -221,8 +221,8 @@ namespace EarTrumpet_Actions.DataModel
                 }
 
                 bool isRunning = ProcessWatcher.Current.ProcessNames.Contains(trigger.Text);
-                if (isRunning && trigger.ConditionType == ProcessTriggerConditionType.Starts ||
-                    !isRunning && trigger.ConditionType == ProcessTriggerConditionType.Stops)
+                if (isRunning && trigger.Option == ProcessEventKind.Start ||
+                    !isRunning && trigger.Option == ProcessEventKind.Stop)
                 {
                     triggerIfApplicable(trigger.Text);
                 }
@@ -242,14 +242,14 @@ namespace EarTrumpet_Actions.DataModel
             else if (trig is HotkeyTrigger)
             {
                 var trigger = (HotkeyTrigger)trig;
-                Trace.WriteLine($"HOTKEY: {trigger.Hotkey}");
+                Trace.WriteLine($"HOTKEY: {trigger.Option}");
 
-                HotkeyManager.Current.Register(trigger.Hotkey);
+                HotkeyManager.Current.Register(trigger.Option);
                 HotkeyManager.Current.KeyPressed += (data) =>
                 {
-                    if (data.Equals(trigger.Hotkey))
+                    if (data.Equals(trigger.Option))
                     {
-                        Trace.WriteLine($"HOTKEY-TRIGGER: {trigger.Hotkey}");
+                        Trace.WriteLine($"HOTKEY-TRIGGER: {trigger.Option}");
                         Triggered?.Invoke(trig);
                     }
                 };
