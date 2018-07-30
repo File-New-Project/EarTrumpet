@@ -15,13 +15,11 @@ namespace EarTrumpet_Actions.DataModel
 
             if (a is SetVariableAction)
             {
-                var action = (SetVariableAction)a;
-                Addon.Current.LocalVariables[action.Text] = action.Value;
+                Addon.Current.LocalVariables[((SetVariableAction)a).Text] = ((SetVariableAction)a).Value;
             }
             else if (a is SetDefaultDeviceAction)
             {
-                var action = (SetDefaultDeviceAction)a;
-                var dev = playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                var dev = playbackMgr.Devices.FirstOrDefault(d => d.Id == ((SetDefaultDeviceAction)a).Device.Id);
                 if (dev != null)
                 {
                     playbackMgr.SetDefaultDevice(dev);
@@ -70,27 +68,7 @@ namespace EarTrumpet_Actions.DataModel
 
                 if (device != null)
                 {
-                    switch (action.Option)
-                    {
-                        case StreamActionKind.Mute:
-                            device.IsMuted = true;
-                            break;
-                        case StreamActionKind.ToggleMute:
-                            device.IsMuted = !device.IsMuted;
-                            break;
-                        case StreamActionKind.Unmute:
-                            device.IsMuted = false;
-                            break;
-                        case StreamActionKind.SetVolume:
-                            device.Volume = (float)(action.Volume / 100f);
-                            break;
-                        case StreamActionKind.Increment5:
-                            device.Volume += 0.05f;
-                            break;
-                        case StreamActionKind.Decrement5:
-                            device.Volume -= 0.05f;
-                            break;
-                    }
+                    DoAction(action.Option, device, action);
                 }
             }
             else if (a is SetThemeAction)
@@ -126,27 +104,32 @@ namespace EarTrumpet_Actions.DataModel
 
             foreach (var app in apps)
             {
-                switch (action.Option)
-                {
-                    case StreamActionKind.Mute:
-                        app.IsMuted = true;
-                        break;
-                    case StreamActionKind.ToggleMute:
-                        app.IsMuted = !device.IsMuted;
-                        break;
-                    case StreamActionKind.Unmute:
-                        app.IsMuted = false;
-                        break;
-                    case StreamActionKind.SetVolume:
-                        app.Volume = (float)(action.Volume / 100f);
-                        break;
-                    case StreamActionKind.Increment5:
-                        app.Volume += 0.05f;
-                        break;
-                    case StreamActionKind.Decrement5:
-                        app.Volume -= 0.05f;
-                        break;
-                }
+                DoAction(action.Option, app, action);
+            }
+        }
+
+        private static void DoAction(StreamActionKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
+        {
+            switch (action)
+            {
+                case StreamActionKind.Mute:
+                    stream.IsMuted = true;
+                    break;
+                case StreamActionKind.ToggleMute:
+                    stream.IsMuted = !stream.IsMuted;
+                    break;
+                case StreamActionKind.Unmute:
+                    stream.IsMuted = false;
+                    break;
+                case StreamActionKind.SetVolume:
+                    stream.Volume = (float)(part.Volume / 100f);
+                    break;
+                case StreamActionKind.Increment5:
+                    stream.Volume += 0.05f;
+                    break;
+                case StreamActionKind.Decrement5:
+                    stream.Volume -= 0.05f;
+                    break;
             }
         }
     }

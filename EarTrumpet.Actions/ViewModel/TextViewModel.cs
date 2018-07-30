@@ -1,12 +1,10 @@
-﻿using EarTrumpet_Actions.DataModel;
-using System.ComponentModel;
+﻿using EarTrumpet.UI.ViewModels;
+using EarTrumpet_Actions.DataModel;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class TextViewModel : INotifyPropertyChanged
+    class TextViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string PromptText => _part.PromptText;
 
         public string Text
@@ -15,7 +13,7 @@ namespace EarTrumpet_Actions.ViewModel
             set
             {
                 _part.Text = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+                RaisePropertyChanged(nameof(Text));
             }
         }
 

@@ -84,6 +84,7 @@
     <Compile Include="DataModel\IPartWithOption.cs" />
     <Compile Include="DataModel\IPartWithText.cs" />
     <Compile Include="DataModel\IPartWithVolume.cs" />
+    <Compile Include="DataModel\LocalVariablesContainer.cs" />
     <Compile Include="DataModel\PartWithOptions.cs" />
     <Compile Include="DataModel\TriggerManager.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />

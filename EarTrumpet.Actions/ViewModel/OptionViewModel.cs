@@ -1,13 +1,12 @@
-﻿using EarTrumpet_Actions.DataModel;
+﻿using EarTrumpet.UI.ViewModels;
+using EarTrumpet_Actions.DataModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class OptionViewModel : INotifyPropertyChanged
+    class OptionViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ObservableCollection<Option> All { get; }
 
         public Option Selected
@@ -18,7 +17,7 @@ namespace EarTrumpet_Actions.ViewModel
                 if (Selected != value)
                 {
                     _part.Options[_index].Selected = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((nameof(Selected))));
+                    RaisePropertyChanged(nameof(Selected));
                 }
             }
         }

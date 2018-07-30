@@ -7,7 +7,6 @@ using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Triggers;
 using EarTrumpet_Actions.ViewModel;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 
@@ -18,7 +17,7 @@ namespace EarTrumpet_Actions
     {
         public static Addon Current { get; private set; }
         public static string Namespace => "EarTrumpet-Actions";
-        public Dictionary<string, bool> LocalVariables { get; private set; }
+        public LocalVariablesContainer LocalVariables { get; private set; }
 
         public EarTrumpetAction[] Actions
         {
@@ -41,7 +40,7 @@ namespace EarTrumpet_Actions
             if (evt == ApplicationLifecycleEvent.Startup2)
             {
                 Current = this;
-                LocalVariables = new Dictionary<string, bool>();
+                LocalVariables = new LocalVariablesContainer(_settings);
 
                 LoadAndRegister();
 

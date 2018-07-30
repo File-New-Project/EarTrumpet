@@ -10,38 +10,33 @@ namespace EarTrumpet_Actions.DataModel
         {
             if (condition is ProcessCondition)
             {
-                var cond = (ProcessCondition)condition;
-
-                bool ret = ProcessWatcher.Current.ProcessNames.Contains(cond.Text);
-
-                switch (cond.Option)
+                bool isProcessRunning = ProcessWatcher.Current.ProcessNames.Contains(((ProcessCondition)condition).Text);
+                switch (((ProcessCondition)condition).Option)
                 {
                     case ProcessStateKind.Running:
-                        return ret;
+                        return isProcessRunning;
                     case ProcessStateKind.NotRunning:
-                        return !ret;
+                        return !isProcessRunning;
                     default:
                         throw new NotImplementedException();
                 }
             }
             else if (condition is DefaultPlaybackDeviceCondition)
             {
-                var cond = (DefaultPlaybackDeviceCondition)condition;
-                var ret = cond.Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
-                switch (cond.Option)
+                var isDeviceCurrentlyDefault = ((DefaultPlaybackDeviceCondition)condition).Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
+                switch (((DefaultPlaybackDeviceCondition)condition).Option)
                 {
                     case ValueComparisonKind.Is:
-                        return ret;
+                        return isDeviceCurrentlyDefault;
                     case ValueComparisonKind.IsNot:
-                        return !ret;
+                        return !isDeviceCurrentlyDefault;
                     default:
                         throw new NotImplementedException();
                 }
             }
             else if (condition is VariableCondition)
             {
-                var cond = (VariableCondition)condition;
-                return (Addon.Current.LocalVariables[cond.Text] == cond.Value);
+                return (Addon.Current.LocalVariables[((VariableCondition)condition).Text] == ((VariableCondition)condition).Value);
             }
             throw new NotImplementedException();
         }

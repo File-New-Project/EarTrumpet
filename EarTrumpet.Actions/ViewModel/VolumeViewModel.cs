@@ -1,19 +1,17 @@
-﻿using EarTrumpet_Actions.DataModel;
-using System.ComponentModel;
+﻿using EarTrumpet.UI.ViewModels;
+using EarTrumpet_Actions.DataModel;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class VolumeViewModel : INotifyPropertyChanged
+    class VolumeViewModel : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public double Volume
         {
             get => _part.Volume;
             set
             {
                 _part.Volume = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
+                RaisePropertyChanged(nameof(Volume));
             }
         }
 

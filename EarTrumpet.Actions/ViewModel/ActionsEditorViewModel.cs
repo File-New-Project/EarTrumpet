@@ -10,9 +10,8 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class ActionsEditorViewModel : INotifyPropertyChanged, IWindowHostedViewModel
+    public class ActionsEditorViewModel : BindableBase, IWindowHostedViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning disable CS0067
         public event Action Close;
 #pragma warning restore CS0067
@@ -36,7 +35,7 @@ namespace EarTrumpet_Actions.ViewModel
                     {
                         _selectedAction.IsExpanded = true;
                     }
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedAction)));
+                    RaisePropertyChanged(nameof(SelectedAction));
                 }
             }
         }

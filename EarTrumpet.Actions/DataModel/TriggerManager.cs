@@ -1,4 +1,6 @@
-﻿using EarTrumpet.Interop.Helpers;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel
         private List<EventTrigger> _eventTriggers = new List<EventTrigger>();
         private List<AudioDeviceSessionEventTrigger> _appTriggers = new List<AudioDeviceSessionEventTrigger>();
         private List<AudioDeviceEventTrigger> _deviceTriggers = new List<AudioDeviceEventTrigger>();
-        private EarTrumpet.DataModel.IAudioDevice _defaultPlaybackDevice;
+        private IAudioDevice _defaultPlaybackDevice;
         private PlaybackDataModelHost _playbackMgr;
 
         public TriggerManager()
@@ -62,12 +64,12 @@ namespace EarTrumpet_Actions.DataModel
             _defaultPlaybackDevice = newDefault;
         }
 
-        private void PlaybackDataModelHost_DevicePropertyChanged(EarTrumpet.DataModel.IAudioDevice arg1, string arg2)
+        private void PlaybackDataModelHost_DevicePropertyChanged(IAudioDevice device, string propName)
         {
             // Muted, Unumuted, Volume changed
         }
 
-        private void PlaybackDataModelHost_DeviceRemoved(EarTrumpet.DataModel.IAudioDevice oldDevice)
+        private void PlaybackDataModelHost_DeviceRemoved(IAudioDevice oldDevice)
         {
             foreach (var trigger in _deviceTriggers)
             {
@@ -83,7 +85,7 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        private void PlaybackDataModelHost_DeviceAdded(EarTrumpet.DataModel.IAudioDevice newDevice)
+        private void PlaybackDataModelHost_DeviceAdded(IAudioDevice newDevice)
         {
             foreach(var trigger in _deviceTriggers)
             {
@@ -99,7 +101,7 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        private void PlaybackDataModelHost_AppRemoved(EarTrumpet.DataModel.IAudioDeviceSession app)
+        private void PlaybackDataModelHost_AppRemoved(IAudioDeviceSession app)
         {
             foreach (var trigger in _appTriggers)
             {
@@ -118,7 +120,7 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        private void PlaybackDataModelHost_AppAdded(EarTrumpet.DataModel.IAudioDeviceSession app)
+        private void PlaybackDataModelHost_AppAdded(IAudioDeviceSession app)
         {
             foreach (var trigger in _appTriggers)
             {
@@ -137,7 +139,7 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        private void PlaybackDataModelHost_AppPropertyChanged(EarTrumpet.DataModel.IAudioDeviceSession app, string propertyName)
+        private void PlaybackDataModelHost_AppPropertyChanged(IAudioDeviceSession app, string propertyName)
         {
             foreach (var trigger in _appTriggers)
             {
@@ -150,29 +152,25 @@ namespace EarTrumpet_Actions.DataModel
                         switch (trigger.Option)
                         {
                             case AudioAppEventKind.Muted:
-                                if (propertyName == nameof(app.IsMuted)
-                                    && app.IsMuted)
+                                if (propertyName == nameof(app.IsMuted) && app.IsMuted)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
                             case AudioAppEventKind.Unmuted:
-                                if (propertyName == nameof(app.IsMuted)
-                                    && !app.IsMuted)
+                                if (propertyName == nameof(app.IsMuted) && !app.IsMuted)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
                             case AudioAppEventKind.PlayingSound:
-                                if (propertyName == nameof(app.State)
-                                    && app.State == EarTrumpet.DataModel.SessionState.Active)
+                                if (propertyName == nameof(app.State) && app.State == SessionState.Active)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
                                 break;
                             case AudioAppEventKind.NotPlayingSound:
-                                if (propertyName == nameof(app.State)
-                                    && app.State != EarTrumpet.DataModel.SessionState.Active)
+                                if (propertyName == nameof(app.State) && app.State != SessionState.Active)
                                 {
                                     Triggered?.Invoke(trigger);
                                 }
@@ -183,14 +181,12 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        public void OnEvent(EarTrumpet.Extensibility.ApplicationLifecycleEvent evt)
+        public void OnEvent(ApplicationLifecycleEvent evt)
         {
             foreach(var trigger in _eventTriggers)
             {
-                if ((trigger.Option == EarTrumpetEventKind.Startup && 
-                    evt == EarTrumpet.Extensibility.ApplicationLifecycleEvent.Startup) ||
-                    (trigger.Option == EarTrumpetEventKind.Shutdown &&
-                    evt == EarTrumpet.Extensibility.ApplicationLifecycleEvent.Shutdown))
+                if ((trigger.Option == EarTrumpetEventKind.Startup && evt == ApplicationLifecycleEvent.Startup) ||
+                    (trigger.Option == EarTrumpetEventKind.Shutdown && evt == ApplicationLifecycleEvent.Shutdown))
                 {
                     Triggered?.Invoke(trigger);
                 }
@@ -242,7 +238,6 @@ namespace EarTrumpet_Actions.DataModel
             else if (trig is HotkeyTrigger)
             {
                 var trigger = (HotkeyTrigger)trig;
-                Trace.WriteLine($"HOTKEY: {trigger.Option}");
 
                 HotkeyManager.Current.Register(trigger.Option);
                 HotkeyManager.Current.KeyPressed += (data) =>

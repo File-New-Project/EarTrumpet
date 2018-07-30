@@ -43,7 +43,6 @@ namespace EarTrumpet_Actions.ViewModel
         }
 
         public string Verb
-
         {
             get
             {
