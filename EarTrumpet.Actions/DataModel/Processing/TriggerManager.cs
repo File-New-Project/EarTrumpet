@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.DataModel.Processing
 {
     class TriggerManager
     {
@@ -44,7 +44,7 @@ namespace EarTrumpet_Actions.DataModel
 
             foreach (var trigger in _deviceTriggers)
             {
-                if (newDefault.Id == Device.AnyDevice.Id || trigger.Device.Id == newDefault.Id)
+                if (trigger.Device.Id == newDefault.Id)
                 {
                     if (trigger.Option == AudioDeviceEventKind.BecomingDefault)
                     {
@@ -52,7 +52,7 @@ namespace EarTrumpet_Actions.DataModel
                     }
                 }
 
-                if (_defaultPlaybackDevice?.Id == Device.AnyDevice.Id || trigger.Device.Id == _defaultPlaybackDevice?.Id)
+                if (trigger.Device.Id == _defaultPlaybackDevice?.Id)
                 {
                     if (trigger.Option == AudioDeviceEventKind.LeavingDefault)
                     {
@@ -76,8 +76,7 @@ namespace EarTrumpet_Actions.DataModel
                 if (trigger.Option == AudioDeviceEventKind.Removed)
                 {
                     // Default device: not supported
-                    if (oldDevice.Id == Device.AnyDevice.Id ||
-                        trigger.Device.Id == oldDevice.Id)
+                    if (trigger.Device.Id == oldDevice.Id)
                     {
                         Triggered?.Invoke(trigger);
                     }
@@ -92,8 +91,7 @@ namespace EarTrumpet_Actions.DataModel
                 if (trigger.Option == AudioDeviceEventKind.Added)
                 {
                     // Default device: not supported
-                    if (newDevice.Id == Device.AnyDevice.Id ||
-                        trigger.Device.Id == newDevice.Id)
+                    if (trigger.Device.Id == newDevice.Id)
                     {
                         Triggered?.Invoke(trigger);
                     }
@@ -108,10 +106,10 @@ namespace EarTrumpet_Actions.DataModel
                 if (trigger.Option == AudioAppEventKind.Removed)
                 {
                     var device = app.Parent;
-                    if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id || 
+                    if (trigger.Device.Id == device.Id || 
                         (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
-                        if (app.Id == App.AnySession.Id || trigger.App.Id == app.Id)
+                        if (trigger.App.Id == app.Id)
                         {
                             Triggered?.Invoke(trigger);
                         }
@@ -127,10 +125,9 @@ namespace EarTrumpet_Actions.DataModel
                 if (trigger.Option == AudioAppEventKind.Added)
                 {
                     var device = app.Parent;
-                    if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
-                        (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
+                    if (trigger.Device.Id == device.Id || (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                     {
-                        if (app.Id == App.AnySession.Id || trigger.App.Id == app.Id)
+                        if (trigger.App.Id == app.Id)
                         {
                             Triggered?.Invoke(trigger);
                         }
@@ -144,10 +141,9 @@ namespace EarTrumpet_Actions.DataModel
             foreach (var trigger in _appTriggers)
             {
                 var device = app.Parent;
-                if (device.Id == Device.AnyDevice.Id || trigger.Device.Id == device.Id ||
-                    (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
+                if (trigger.Device.Id == device.Id || (trigger.Device.Id == null && device == _playbackMgr.DeviceManager.Default))
                 {
-                    if (app.AppId == App.AnySession.Id || trigger.App.Id == app.AppId)
+                    if (trigger.App.Id == app.AppId)
                     {
                         switch (trigger.Option)
                         {

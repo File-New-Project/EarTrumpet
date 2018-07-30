@@ -2,7 +2,7 @@
 using EarTrumpet_Actions.DataModel.Conditions;
 using System;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.DataModel.Processing
 {
     class ConditionProcessor
     {

@@ -7,15 +7,12 @@ namespace EarTrumpet_Actions.DataModel
 {
     public class Device
     {
-        public static Device AnyDevice = new Device { Id = "ANY_DEVICE_ID" };
-
         public static ObservableCollection<Option> AllDevices
         {
             get
             {
                 var ret = new ObservableCollection<Option>();
                 ret.Add(new Option("Default playback device", null));
-                ret.Add(new Option("Any playback device", AnyDevice));
                 foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices)
                 {
                     ret.Add(new Option(device.DisplayName, new Device(device)));
@@ -40,11 +37,7 @@ namespace EarTrumpet_Actions.DataModel
         {
             if (Id == null)
             {
-                return "Default device";
-            }
-            if (Id == AnyDevice.Id)
-            {
-                return "any device";
+                return "Default playback device";
             }
 
             var device = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.FirstOrDefault(d => d.Id == Id);

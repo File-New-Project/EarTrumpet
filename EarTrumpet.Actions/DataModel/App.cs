@@ -8,8 +8,6 @@ namespace EarTrumpet_Actions.DataModel
 {
     public class App : IEquatable<App>
     {
-        public static App AnySession = new App { Id = "ANY_SESSION_ID" };
-
         public string Id { get; set; }
 
         public static ObservableCollection<Option> AllApps
@@ -17,8 +15,7 @@ namespace EarTrumpet_Actions.DataModel
             get
             {
                 var ret = new ObservableCollection<Option>();
-                ret.Add(new Option("Every app", null));
-                ret.Add(new Option("Any app", AnySession));
+                ret.Add(new Option("Choose an app", null));
                 foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
                 {
                     ret.Add(new Option(device.SessionDisplayName, new App(device)));
@@ -47,11 +44,7 @@ namespace EarTrumpet_Actions.DataModel
 
             if (Id == null)
             {
-                return "Every app";
-            }
-            else if (Id == AnySession.Id)
-            {
-                return "Any app";
+                return "(Choose an app)";
             }
 
             return Path.GetFileName(Id);

@@ -5,7 +5,7 @@ using EarTrumpet_Actions.DataModel.Actions;
 using System;
 using System.Linq;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.DataModel.Processing
 {
     class ActionProcessor
     {
@@ -29,14 +29,7 @@ namespace EarTrumpet_Actions.DataModel
             {
                 var action = (ChangeAppVolumeAction)a;
 
-                if (action.Device?.Id == Device.AnyDevice.Id)
-                {
-                    foreach (var d in playbackMgr.Devices)
-                    {
-                        InvokeOnDevice(action, d);
-                    }
-                }
-                else if (action.Device?.Id == null)
+                if (action.Device?.Id == null)
                 {
                     if (playbackMgr.Default != null)
                     {
@@ -100,9 +93,7 @@ namespace EarTrumpet_Actions.DataModel
 
         private static void InvokeOnDevice(ChangeAppVolumeAction action, IAudioDevice device)
         {
-            var apps = device.Groups.Where(a => a.AppId == action.App.Id || action.App.Id == App.AnySession.Id);
-
-            foreach (var app in apps)
+            foreach (var app in device.Groups.Where(a => a.AppId == action.App.Id))
             {
                 DoAction(action.Option, app, action);
             }
