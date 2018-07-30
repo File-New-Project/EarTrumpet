@@ -139,6 +139,7 @@ namespace EarTrumpet_Actions.ViewModel
 
                 InitializeViewModel(vm.SelectedPart);
                 Selected = vm.SelectedPart;
+                OpenDialog.Execute(Selected);
             });
 
             Parts = new ObservableCollection<PartViewModel>();

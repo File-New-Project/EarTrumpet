@@ -16,7 +16,9 @@ namespace EarTrumpet_Actions.DataModel.Processing
         private List<AppEventTrigger> _appTriggers = new List<AppEventTrigger>();
         private List<DeviceEventTrigger> _deviceTriggers = new List<DeviceEventTrigger>();
         private IAudioDevice _defaultPlaybackDevice;
+        private IAudioDevice _defaultRecordingDevice;
         private PlaybackDataModelHost _playbackMgr;
+        private IAudioDeviceManager _recordingMgr;
 
         public TriggerManager()
         {
@@ -28,6 +30,10 @@ namespace EarTrumpet_Actions.DataModel.Processing
             _playbackMgr.DeviceRemoved += (d) => OnDeviceAddOrRemove(d, AudioDeviceEventKind.Removed);
             _playbackMgr.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
             _defaultPlaybackDevice = _playbackMgr.DeviceManager.Default;
+
+            _recordingMgr = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording);
+            _recordingMgr.DefaultChanged += RecordingMgr_DefaultChanged;
+            _defaultRecordingDevice = _recordingMgr.Default;
         }
 
         public void Clear()
@@ -41,6 +47,22 @@ namespace EarTrumpet_Actions.DataModel.Processing
         {
             if (newDefault == null) return;
 
+            ProcessDefaultChanged(newDefault);
+
+            _defaultPlaybackDevice = newDefault;
+        }
+
+        private void RecordingMgr_DefaultChanged(object sender, IAudioDevice newDefault)
+        {
+            if (newDefault == null) return;
+
+            ProcessDefaultChanged(newDefault);
+
+            _defaultRecordingDevice = newDefault;
+        }
+
+        private void ProcessDefaultChanged(IAudioDevice newDefault)
+        {
             foreach (var trigger in _deviceTriggers)
             {
                 if (trigger.Device.Id == _defaultPlaybackDevice?.Id &&
@@ -55,8 +77,6 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     Triggered?.Invoke(trigger);
                 }
             }
-
-            _defaultPlaybackDevice = newDefault;
         }
 
         private void OnDeviceAddOrRemove(IAudioDevice device, AudioDeviceEventKind option)

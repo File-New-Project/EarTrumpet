@@ -23,7 +23,9 @@ namespace EarTrumpet_Actions.DataModel.Processing
             }
             else if (condition is DefaultDeviceCondition)
             {
-                var isDeviceCurrentlyDefault = ((DefaultDeviceCondition)condition).Device.Id == DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Default?.Id;
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((DefaultDeviceCondition)condition).Device.Kind);
+
+                var isDeviceCurrentlyDefault = ((DefaultDeviceCondition)condition).Device.Id == mgr.Default?.Id;
                 switch (((DefaultDeviceCondition)condition).Option)
                 {
                     case ValueComparisonKind.Is:

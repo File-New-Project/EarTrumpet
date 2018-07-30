@@ -1,24 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using EarTrumpet.DataModel;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using EarTrumpet.DataModel;
 
 namespace EarTrumpet_Actions.DataModel
 {
     public class Device
     {
-        public static ObservableCollection<Option> AllDevices
+        [Flags]
+        public enum DeviceListKind
         {
-            get
+            Playback = 0,
+            Recording = 1,
+            DefaultPlayback = 2
+        }
+
+        public static ObservableCollection<Option> GetDevices(DeviceListKind flags)
+        {
+            var ret = new ObservableCollection<Option>();
+
+            bool isRecording = (flags & DeviceListKind.Recording) == DeviceListKind.Recording;
+
+            if ((flags & DeviceListKind.DefaultPlayback) == DeviceListKind.DefaultPlayback)
             {
-                var ret = new ObservableCollection<Option>();
-                ret.Add(new Option("Default playback device", null));
-                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices)
-                {
-                    ret.Add(new Option(device.DisplayName, new Device(device)));
-                }
-                return ret;
+                ret.Add(new Option("Default playback device", new Device { Kind = AudioDeviceKind.Playback }));
             }
+
+            foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices)
+            {
+                ret.Add(new Option(isRecording ? $"Playback: {device.DisplayName}" : device.DisplayName, new Device(device)));
+            }
+
+            if (isRecording)
+            {
+                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording).Devices)
+                {
+                    ret.Add(new Option($"Recording: {device.DisplayName}", new Device(device)));
+                }
+            }
+            return ret;
         }
 
         public Device()
@@ -29,9 +49,12 @@ namespace EarTrumpet_Actions.DataModel
         public Device(IAudioDevice device)
         {
             Id = device.Id;
+            Kind = device.Parent.DeviceKind;
         }
 
         public string Id { get; set; }
+
+        public AudioDeviceKind Kind { get; set; }
 
         public override string ToString()
         {
@@ -40,7 +63,7 @@ namespace EarTrumpet_Actions.DataModel
                 return "Default playback device";
             }
 
-            var device = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.FirstOrDefault(d => d.Id == Id);
+            var device = DataModelFactory.CreateAudioDeviceManager(Kind).Devices.FirstOrDefault(d => d.Id == Id);
             if (device != null)
             {
                 return device.DisplayName;
@@ -50,7 +73,7 @@ namespace EarTrumpet_Actions.DataModel
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Id == null ? 0 : Id.GetHashCode();
         }
     }
 }

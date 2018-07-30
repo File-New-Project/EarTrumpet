@@ -11,7 +11,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         public Option Selected
         {
-            get => All.First(d => ((Device)d.Value)?.Id == _part.Device?.Id);
+            get => All.FirstOrDefault(d => ((Device)d.Value)?.Id == _part.Device?.Id);
             set
             {
                 if (Selected != value)
@@ -24,11 +24,11 @@ namespace EarTrumpet_Actions.ViewModel
 
         private IPartWithDevice _part;
 
-        public DeviceViewModel(IPartWithDevice part)
+        public DeviceViewModel(IPartWithDevice part, Device.DeviceListKind flags)
         {
             _part = part;
-            All = Device.AllDevices;
-            if (Selected == null)
+            All = Device.GetDevices(flags);
+            if (Selected == null && _part.Device?.Id != null)
             {
                 All.Add(new Option(_part.Device.Id, _part.Device.Id));
             }

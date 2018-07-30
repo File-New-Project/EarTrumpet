@@ -11,26 +11,27 @@ namespace EarTrumpet_Actions.DataModel.Processing
     {
         public static void Invoke(BaseAction a)
         {
-            var playbackMgr = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
-
             if (a is SetVariableAction)
             {
                 Addon.Current.LocalVariables[((SetVariableAction)a).Text] = ((SetVariableAction)a).Value;
             }
             else if (a is SetDefaultDeviceAction)
             {
-                var dev = playbackMgr.Devices.FirstOrDefault(d => d.Id == ((SetDefaultDeviceAction)a).Device.Id);
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDefaultDeviceAction)a).Device.Kind);
+
+                var dev = mgr.Devices.FirstOrDefault(d => d.Id == ((SetDefaultDeviceAction)a).Device.Id);
                 if (dev != null)
                 {
-                    playbackMgr.SetDefaultDevice(dev);
+                    mgr.SetDefaultDevice(dev);
                 }
             }
             else if (a is SetAppVolumeAction)
             {
                 var action = (SetAppVolumeAction)a;
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetAppVolumeAction)a).Device.Kind);
 
-                var device = (action.Device?.Id == null) ? 
-                    playbackMgr.Default : playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                var device = (action.Device?.Id == null) ?
+                    mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
                     foreach (var app in device.Groups.Where(app => app.AppId == action.App.Id))
@@ -42,8 +43,11 @@ namespace EarTrumpet_Actions.DataModel.Processing
             else if (a is SetDeviceVolumeAction)
             {
                 var action = (SetDeviceVolumeAction)a;
+
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDeviceVolumeAction)a).Device.Kind);
+
                 var device = (action.Device?.Id == null) ?
-                    playbackMgr.Default : playbackMgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                    mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
                     DoAudioAction(action.Option, device, action);

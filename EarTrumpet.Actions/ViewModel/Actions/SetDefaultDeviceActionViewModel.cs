@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
 
         public SetDefaultDeviceActionViewModel(SetDefaultDeviceAction action) : base(action)
         {
-            Device = new DeviceViewModel(action);
+            Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.Recording);
             Device.PropertyChanged += (_, __) => UpdateDescription();
             UpdateDescription();
         }

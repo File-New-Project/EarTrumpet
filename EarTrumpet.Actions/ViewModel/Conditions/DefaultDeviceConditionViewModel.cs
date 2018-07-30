@@ -1,9 +1,4 @@
 ﻿using EarTrumpet_Actions.DataModel.Conditions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet_Actions.ViewModel.Conditions
 {
@@ -17,7 +12,7 @@ namespace EarTrumpet_Actions.ViewModel.Conditions
         {
             Option = new OptionViewModel(condition);
             Option.PropertyChanged += (_, __) => UpdateDescription();
-            Device = new DeviceViewModel(condition);
+            Device = new DeviceViewModel(condition, DataModel.Device.DeviceListKind.Recording);
             Device.PropertyChanged += (_, __) => UpdateDescription();
             UpdateDescription();
         }
