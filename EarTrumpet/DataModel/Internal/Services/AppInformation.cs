@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.DataModel.Internal.Services
 {
-    class AppInformation
+    public class AppInformation
     {
         public UInt32 BackgroundColor;
         public string ExeName;

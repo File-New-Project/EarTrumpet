@@ -13,7 +13,7 @@ namespace EarTrumpet.DataModel.Internal.Services
         public ZombieProcessException(int processId) : base($"Process is a zombie: {processId}") { }
     }
 
-    class AppInformationService
+    public class AppInformationService
     {
         private static IShellItem2 GetShellItemForAppByAumid(string aumid)
         {
@@ -21,7 +21,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             return Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
         }
 
-        internal static AppInformation GetInformationForAppByPid(int processId)
+        public static AppInformation GetInformationForAppByPid(int processId)
         {
             Trace.WriteLine($"AppInformationService GetInformationForAppByPid {processId}");
 

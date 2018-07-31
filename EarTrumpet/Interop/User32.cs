@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
-    class User32
+    public class User32
     {
         public const int WM_HOTKEY = 0x0312;
         public const int WM_USERMAGIC = 1120;
@@ -254,5 +254,11 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DestroyIcon(IntPtr iconHandle);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
     }
 }

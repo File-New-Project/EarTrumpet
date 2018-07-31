@@ -3,7 +3,7 @@
 namespace EarTrumpet.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    struct RECT
+    public struct RECT
     {
         public int Left;
         public int Top;
