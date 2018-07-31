@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace EarTrumpet.Interop
 {
@@ -260,5 +261,19 @@ namespace EarTrumpet.Interop
 
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll", PreserveSig = true, CharSet = CharSet.Unicode)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576.aspx
+        // The maximum length for lpszClassName is 256. If lpszClassName is greater than the maximum length, the RegisterClass function will fail.
+        public static readonly int MAX_CLASSNAME_LENGTH = 256;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern IntPtr FindWindowEx(
+            IntPtr hWndParent,
+            IntPtr hWndChildAfter,
+            [MarshalAs(UnmanagedType.LPWStr)]string lpClassName,
+            IntPtr lpWindowName);
     }
 }
