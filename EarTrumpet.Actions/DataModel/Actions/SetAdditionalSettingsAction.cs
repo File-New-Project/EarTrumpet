@@ -10,13 +10,12 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public bool Value { get; set; }
 
         public string SettingId { get; set; }
-
-        public override string Describe() => $"Set '{Options[0].DisplayName}' to {Options[1].DisplayName}";
+        
+        public override string Describe() => string.Format(Properties.Resources.SetAdditionalSettingsActionDescribeFormatText, Options[0].DisplayName, Options[1].DisplayName);
 
         public SetAdditionalSettingsAction()
         {
-            Description = "Set additional EarTrumpet settings";
-
+            Description = Properties.Resources.SetAdditionalSettingsActionDescriptionText;
             Options = new List<OptionData>(new OptionData[]
             {
                 new OptionData(ServiceBus.GetMany(KnownServices.ValueService).Where(
@@ -28,8 +27,8 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 new OptionData(
                     new List<Option>(new Option[]
                     {
-                        new Option("on", true),
-                        new Option("off", false),
+                        new Option(Properties.Resources.BoolTrueText, true),
+                        new Option(Properties.Resources.BoolFalseText, false),
                     }),
                 (v) => Value = (bool)v.Value,
                 () => Value)

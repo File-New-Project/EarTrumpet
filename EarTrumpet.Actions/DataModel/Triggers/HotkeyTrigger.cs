@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         public HotkeyTrigger()
         {
-            Description = "When a hotkey is pressed";
+            Description = Properties.Resources.HotkeyTriggerDescriptionText;
             Option = new HotkeyData();
         }
 

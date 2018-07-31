@@ -7,17 +7,17 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public string Text { get; set; }
         public bool Value { get; set; }
 
-        public string PromptText => "Enter a variable name (e.g. IsInGameMode)";
+        public string PromptText => Properties.Resources.VariableConditionPromptText;
 
         public override string Describe() => $"Compare variable '{Text}' to {Options[0].DisplayName}";
 
         public VariableCondition()
         {
-            Description = "If a local variable is True or False";
+            Description = Properties.Resources.VariableConditionDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                     new Option("True", true),
-                     new Option("False", false),
+                     new Option(Properties.Resources.BoolTrueText, true),
+                     new Option(Properties.Resources.BoolFalseText, false),
                 },
                 (newValue) => Value = (bool)newValue.Value,
                 () => Value) });

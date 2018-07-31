@@ -123,11 +123,62 @@
   <data name="AddDialogTitleText" xml:space="preserve">
     <value>Add triggers, conditions and actions</value>
   </data>
+  <data name="AppEventTriggerDescriptionText" xml:space="preserve">
+    <value>When an app session is (added, removed, plays sound, ...)</value>
+  </data>
+  <data name="AudioAppEventKindAddedText" xml:space="preserve">
+    <value>is added</value>
+  </data>
+  <data name="AudioAppEventKindBeginPlaySoundText" xml:space="preserve">
+    <value>begins playing sound</value>
+  </data>
+  <data name="AudioAppEventKindEndsPlaySoundText" xml:space="preserve">
+    <value>stops playing sound</value>
+  </data>
+  <data name="AudioAppEventKindMutedText" xml:space="preserve">
+    <value>is muted</value>
+  </data>
+  <data name="AudioAppEventKindRemovedText" xml:space="preserve">
+    <value>is removed</value>
+  </data>
+  <data name="AudioAppEventKindUnmutedText" xml:space="preserve">
+    <value>is unmuted</value>
+  </data>
+  <data name="AudioDeviceEventKindAddedText" xml:space="preserve">
+    <value>is added</value>
+  </data>
+  <data name="AudioDeviceEventKindBecomesDefaultText" xml:space="preserve">
+    <value>becomes default</value>
+  </data>
+  <data name="AudioDeviceEventKindLeavesDefaultText" xml:space="preserve">
+    <value>leaves default</value>
+  </data>
+  <data name="AudioDeviceEventKindRemovedText" xml:space="preserve">
+    <value>is removed</value>
+  </data>
+  <data name="BoolFalseText" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="BoolTrueText" xml:space="preserve">
+    <value>True</value>
+  </data>
   <data name="ConditionVerbText" xml:space="preserve">
     <value>If</value>
   </data>
+  <data name="DefaultDeviceConditionDescriptionText" xml:space="preserve">
+    <value>If the default playback device (is, is not)</value>
+  </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
     <value>Default playback device</value>
+  </data>
+  <data name="DeviceEventTriggerDescriptionText" xml:space="preserve">
+    <value>When an audio device is (added, removed, becomes or leaves default)</value>
+  </data>
+  <data name="EarTrumpetEventKindShutdownText" xml:space="preserve">
+    <value>shuts down</value>
+  </data>
+  <data name="EarTrumpetEventKindStartupText" xml:space="preserve">
+    <value>starts up</value>
   </data>
   <data name="EditActionsAndHotkeysText" xml:space="preserve">
     <value>Edit actions and hotkeys</value>
@@ -135,11 +186,17 @@
   <data name="EditText" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EventTriggerDescriptionText" xml:space="preserve">
+    <value>When EarTrumpet is started or stopped</value>
+  </data>
   <data name="EveryAppText" xml:space="preserve">
     <value>Every app</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Foreground app</value>
+  </data>
+  <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
+    <value>When a hotkey is pressed</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
     <value>My actions</value>
@@ -150,13 +207,91 @@
   <data name="PlaybackDeviceFormatStringText" xml:space="preserve">
     <value>Playback: {0}</value>
   </data>
+  <data name="ProcessConditionDescriptionText" xml:space="preserve">
+    <value>If a process is (running, not running)</value>
+  </data>
+  <data name="ProcessConditionPromptText" xml:space="preserve">
+    <value>Process name (e.g. notepad)</value>
+  </data>
+  <data name="ProcessEventKindStartsText" xml:space="preserve">
+    <value>starts</value>
+  </data>
+  <data name="ProcessEventKindStopsText" xml:space="preserve">
+    <value>stops</value>
+  </data>
+  <data name="ProcessStateKindNotRunningText" xml:space="preserve">
+    <value>not running</value>
+  </data>
+  <data name="ProcessStateKindRunningText" xml:space="preserve">
+    <value>running</value>
+  </data>
+  <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
+    <value>Process name (e.g. notepad)</value>
+  </data>
+  <data name="ProcessTriggerDescriptonText" xml:space="preserve">
+    <value>When a process starts or stops</value>
+  </data>
   <data name="RecordingDeviceFormatStringText" xml:space="preserve">
     <value>Recording: {0}</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="SetAdditionalSettingsActionDescribeFormatText" xml:space="preserve">
+    <value>Set {0} to {1}</value>
+  </data>
+  <data name="SetAdditionalSettingsActionDescriptionText" xml:space="preserve">
+    <value>Set additional EarTrumpet settings</value>
+  </data>
+  <data name="SetAppVolumeActionDescriptionText" xml:space="preserve">
+    <value>Set an app volume or mute</value>
+  </data>
+  <data name="SetDefaultDeviceActionDescriptionText" xml:space="preserve">
+    <value>Set the default playback device</value>
+  </data>
+  <data name="SetDeviceVolumeActionDescriptionText" xml:space="preserve">
+    <value>Set a device volume or mute</value>
+  </data>
+  <data name="SetThemeActionDescriptionText" xml:space="preserve">
+    <value>Set the EarTrumpet app theme</value>
+  </data>
+  <data name="SetVariableActionDescriptionText" xml:space="preserve">
+    <value>Set a local variable</value>
+  </data>
+  <data name="SetVariableActionPromptText" xml:space="preserve">
+    <value>Enter a variable name (e.g. IsInGameMode)</value>
+  </data>
+  <data name="StreamActionKindDecrement5Text" xml:space="preserve">
+    <value>decrement volume 5%</value>
+  </data>
+  <data name="StreamActionKindIncrement5Text" xml:space="preserve">
+    <value>increment volume 5%</value>
+  </data>
+  <data name="StreamActionKindMuteText" xml:space="preserve">
+    <value>mute</value>
+  </data>
+  <data name="StreamActionKindSetVolumeText" xml:space="preserve">
+    <value>set volume</value>
+  </data>
+  <data name="StreamActionKindToggleMuteText" xml:space="preserve">
+    <value>toggle mute</value>
+  </data>
+  <data name="StreamActionKindUnuteText" xml:space="preserve">
+    <value>unmute</value>
+  </data>
   <data name="TriggerVerbText" xml:space="preserve">
     <value>When</value>
+  </data>
+  <data name="ValueComparisonKindIsNotText" xml:space="preserve">
+    <value>is not</value>
+  </data>
+  <data name="ValueComparisonKindIsText" xml:space="preserve">
+    <value>is</value>
+  </data>
+  <data name="VariableConditionDescriptionText" xml:space="preserve">
+    <value>If a local variable is True or False</value>
+  </data>
+  <data name="VariableConditionPromptText" xml:space="preserve">
+    <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
 </root>

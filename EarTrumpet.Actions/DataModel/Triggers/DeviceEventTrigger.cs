@@ -19,13 +19,13 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         public DeviceEventTrigger()
         {
-            Description = "When an audio device is (added, removed, becomes or leaves default)";
+            Description = Properties.Resources.DeviceEventTriggerDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("is added", AudioDeviceEventKind.Added),
-                    new Option("is removed", AudioDeviceEventKind.Removed),
-                    new Option("becomes default", AudioDeviceEventKind.BecomingDefault),
-                    new Option("is no longer default", AudioDeviceEventKind.LeavingDefault),
+                    new Option(Properties.Resources.AudioDeviceEventKindAddedText, AudioDeviceEventKind.Added),
+                    new Option(Properties.Resources.AudioDeviceEventKindRemovedText, AudioDeviceEventKind.Removed),
+                    new Option(Properties.Resources.AudioDeviceEventKindBecomesDefaultText, AudioDeviceEventKind.BecomingDefault),
+                    new Option(Properties.Resources.AudioDeviceEventKindLeavesDefaultText, AudioDeviceEventKind.LeavingDefault),
                 },
                 (newValue) => Option = (AudioDeviceEventKind)newValue.Value,
                 () => Option) });

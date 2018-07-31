@@ -19,13 +19,12 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         public ProcessTrigger()
         {
-            PromptText = "Process name (e.g. notepad)";
-
-            Description = "When a process starts or stops";
+            PromptText = Properties.Resources.ProcessTriggerDescriptonPromptText;
+            Description = Properties.Resources.ProcessTriggerDescriptonText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("starts", ProcessEventKind.Start),
-                    new Option("stops", ProcessEventKind.Stop),
+                    new Option(Properties.Resources.ProcessEventKindStartsText, ProcessEventKind.Start),
+                    new Option(Properties.Resources.ProcessEventKindStopsText, ProcessEventKind.Stop),
                 },
                 (newValue) => Option = (ProcessEventKind)newValue.Value,
                 () => Option) });

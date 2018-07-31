@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
         
         public SetDefaultDeviceAction()
         {
-            Description = "Set the default playback device";
+            Description = Properties.Resources.SetDefaultDeviceActionDescriptionText;
         }
 
         public override string Describe() => $"Set {Device} as playback default";

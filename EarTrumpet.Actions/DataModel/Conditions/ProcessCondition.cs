@@ -11,18 +11,18 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
     public class ProcessCondition : BaseCondition, IPartWithText
     {
-        public string PromptText => "Process name (e.g. notepad)";
+        public string PromptText => Properties.Resources.ProcessConditionPromptText;
         public string Text { get; set; }
 
         public ProcessStateKind Option { get; set; }
         
         public ProcessCondition()
         {
-            Description = "If a process is (running, not running)";
+            Description = Properties.Resources.ProcessConditionDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                 new Option("is running", ProcessStateKind. NotRunning),
-                 new Option("is not running", ProcessStateKind.Running),
+                 new Option(Properties.Resources.ProcessStateKindNotRunningText, ProcessStateKind. NotRunning),
+                 new Option(Properties.Resources.ProcessStateKindRunningText, ProcessStateKind.Running),
                 },
                 (newValue) => Option = (ProcessStateKind)newValue.Value,
                 () => Option) });

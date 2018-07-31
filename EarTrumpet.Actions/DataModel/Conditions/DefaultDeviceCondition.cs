@@ -16,11 +16,11 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
         public DefaultDeviceCondition()
         {
-            Description = "If the default playback device (is, is not)";
+            Description = Properties.Resources.DefaultDeviceConditionDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                new Option("is", ValueComparisonKind.Is),
-                new Option("is not", ValueComparisonKind.IsNot),
+                new Option(Properties.Resources.ValueComparisonKindIsText, ValueComparisonKind.Is),
+                new Option(Properties.Resources.ValueComparisonKindIsNotText, ValueComparisonKind.IsNot),
                 },
                 (newValue) => Option = (ValueComparisonKind)newValue.Value,
                 () => Option) });

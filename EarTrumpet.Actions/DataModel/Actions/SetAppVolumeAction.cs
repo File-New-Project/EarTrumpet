@@ -12,15 +12,15 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public SetAppVolumeAction()
         {
-            Description = "Set an app volume or mute";
+            Description = Properties.Resources.SetAppVolumeActionDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                new Option("mute", StreamActionKind.Mute),
-                new Option("set volume", StreamActionKind.SetVolume),
-                new Option("toggle mute", StreamActionKind.ToggleMute),
-                new Option("unmute", StreamActionKind.Unmute),
-                new Option("increment volume by 5%", StreamActionKind.Increment5),
-                new Option("decrement volume by 5%", StreamActionKind.Decrement5),
+                    new Option(Properties.Resources.StreamActionKindMuteText, StreamActionKind.Mute),
+                    new Option(Properties.Resources.StreamActionKindSetVolumeText, StreamActionKind.SetVolume),
+                    new Option(Properties.Resources.StreamActionKindToggleMuteText, StreamActionKind.ToggleMute),
+                    new Option(Properties.Resources.StreamActionKindUnuteText, StreamActionKind.Unmute),
+                    new Option(Properties.Resources.StreamActionKindIncrement5Text, StreamActionKind.Increment5),
+                    new Option(Properties.Resources.StreamActionKindDecrement5Text, StreamActionKind.Decrement5),
                 },
                 (newValue) => Option = (StreamActionKind)newValue.Value,
                 () => Option) });

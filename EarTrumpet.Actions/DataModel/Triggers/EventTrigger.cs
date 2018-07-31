@@ -15,11 +15,11 @@ namespace EarTrumpet_Actions.DataModel.Triggers
 
         public EventTrigger()
         {
-            Description = "When EarTrumpet is started or stopped";
+            Description = Properties.Resources.EventTriggerDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("starts up", EarTrumpetEventKind.Startup),
-                    new Option("is shutting down", EarTrumpetEventKind.Shutdown),
+                    new Option(Properties.Resources.EarTrumpetEventKindStartupText, EarTrumpetEventKind.Startup),
+                    new Option(Properties.Resources.EarTrumpetEventKindShutdownText, EarTrumpetEventKind.Shutdown),
                 },
                 (newValue) => Option = (EarTrumpetEventKind)newValue.Value,
                 () => Option) });

@@ -20,7 +20,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 Theme = themeService.Theme;
             }
 
-            Description = "Set the EarTrumpet app theme";
+            Description = Properties.Resources.SetThemeActionDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(
                 new List<Option>(themes.Select(t => new Option(t, t))),
                 (newValue) => Theme = (string)newValue.Value,

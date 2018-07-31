@@ -23,24 +23,20 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         
         public AppEventTrigger()
         {
-            Description = "When an app session is (added, removed, plays sound, ...)";
+            Description = Properties.Resources.AppEventTriggerDescriptionText;
             Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
                 {
-                    new Option("is added", AudioAppEventKind.Added),
-                    new Option("is removed", AudioAppEventKind.Removed),
-                    new Option("is muted", AudioAppEventKind.Muted),
-                    new Option("is unmuted", AudioAppEventKind.Unmuted),
-                    new Option("begins playing sound", AudioAppEventKind.PlayingSound),
-                    new Option("stops playing sound", AudioAppEventKind.NotPlayingSound),
+                    new Option(Properties.Resources.AudioAppEventKindAddedText, AudioAppEventKind.Added),
+                    new Option(Properties.Resources.AudioAppEventKindRemovedText, AudioAppEventKind.Removed),
+                    new Option(Properties.Resources.AudioAppEventKindMutedText, AudioAppEventKind.Muted),
+                    new Option(Properties.Resources.AudioAppEventKindUnmutedText, AudioAppEventKind.Unmuted),
+                    new Option(Properties.Resources.AudioAppEventKindBeginPlaySoundText, AudioAppEventKind.PlayingSound),
+                    new Option(Properties.Resources.AudioAppEventKindEndsPlaySoundText, AudioAppEventKind.NotPlayingSound),
                 },
                 (newValue) => Option = (AudioAppEventKind)newValue.Value,
                 () => Option) });
-
-
         }
 
-
         public override string Describe() => $"When {App} on {Device} {Options[0].DisplayName}";
-
     }
 }
