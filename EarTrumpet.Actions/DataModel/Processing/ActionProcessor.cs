@@ -8,6 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace EarTrumpet_Actions.DataModel.Processing
 {
@@ -87,7 +88,29 @@ namespace EarTrumpet_Actions.DataModel.Processing
         private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
         {
             var hWnd = User32.GetForegroundWindow();
+            var foregroundClassName = new StringBuilder(User32.MAX_CLASSNAME_LENGTH);
+            User32.GetClassName(hWnd, foregroundClassName, foregroundClassName.Capacity);
+
+            if (hWnd == IntPtr.Zero)
+            {
+                Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (1)");
+                return null;
+            }
+
+            // ApplicationFrameWindow.exe, find the real hosted process in the child CoreWindow.
+            if (foregroundClassName.ToString() == "ApplicationFrameWindow")
+            {
+                hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "Windows.UI.Core.CoreWindow", IntPtr.Zero);
+            }
+
+            if (hWnd == IntPtr.Zero)
+            {
+                Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (2)");
+                return null;
+            }
+
             User32.GetWindowThreadProcessId(hWnd, out uint processId);
+
             try
             {
                 var appInfo = AppInformationService.GetInformationForAppByPid((int)processId);
