@@ -32,6 +32,11 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 All.Add(new Option(_part.Device.Id, _part.Device.Id));
             }
+            
+            if (_part.Device == null)
+            {
+                Selected = All[0];
+            }
         }
     }
 }

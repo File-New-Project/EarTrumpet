@@ -78,6 +78,7 @@
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
     <Compile Include="DataModel\Actions\SetAdditionalSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />
+    <Compile Include="DataModel\Processing\AudioTriggerManager.cs" />
     <Compile Include="DataModel\Processing\ConditionProcessor.cs" />
     <Compile Include="DataModel\IPartWithApp.cs" />
     <Compile Include="DataModel\IPartWithDevice.cs" />

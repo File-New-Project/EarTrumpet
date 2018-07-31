@@ -1,10 +1,8 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensibility;
+﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace EarTrumpet_Actions.DataModel.Processing
 {
@@ -13,145 +11,18 @@ namespace EarTrumpet_Actions.DataModel.Processing
         public event Action<BaseTrigger> Triggered;
 
         private List<EventTrigger> _eventTriggers = new List<EventTrigger>();
-        private List<AppEventTrigger> _appTriggers = new List<AppEventTrigger>();
-        private List<DeviceEventTrigger> _deviceTriggers = new List<DeviceEventTrigger>();
-        private IAudioDevice _defaultPlaybackDevice;
-        private IAudioDevice _defaultRecordingDevice;
-        private PlaybackDataModelHost _playbackMgr;
-        private IAudioDeviceManager _recordingMgr;
+        private AudioTriggerManager _audioManager;
 
         public TriggerManager()
         {
-            _playbackMgr = new PlaybackDataModelHost();
-            _playbackMgr.AppPropertyChanged += OnAppPropertyChanged;
-            _playbackMgr.AppAdded += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Added);
-            _playbackMgr.AppRemoved += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Removed);
-            _playbackMgr.DeviceAdded += (d) => OnDeviceAddOrRemove(d, AudioDeviceEventKind.Added);
-            _playbackMgr.DeviceRemoved += (d) => OnDeviceAddOrRemove(d, AudioDeviceEventKind.Removed);
-            _playbackMgr.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
-            _defaultPlaybackDevice = _playbackMgr.DeviceManager.Default;
-
-            _recordingMgr = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording);
-            _recordingMgr.DefaultChanged += RecordingMgr_DefaultChanged;
-            _defaultRecordingDevice = _recordingMgr.Default;
+            _audioManager = new AudioTriggerManager();
+            _audioManager.Triggered += (t) => Triggered?.Invoke(t);
         }
 
         public void Clear()
         {
-            _appTriggers.Clear();
             _eventTriggers.Clear();
-            _deviceTriggers.Clear();
-        }
-
-        private void PlaybackDeviceManager_DefaultChanged(object sender, EarTrumpet.DataModel.IAudioDevice newDefault)
-        {
-            if (newDefault == null) return;
-
-            ProcessDefaultChanged(newDefault);
-
-            _defaultPlaybackDevice = newDefault;
-        }
-
-        private void RecordingMgr_DefaultChanged(object sender, IAudioDevice newDefault)
-        {
-            if (newDefault == null) return;
-
-            ProcessDefaultChanged(newDefault);
-
-            _defaultRecordingDevice = newDefault;
-        }
-
-        private void ProcessDefaultChanged(IAudioDevice newDefault)
-        {
-            foreach (var trigger in _deviceTriggers)
-            {
-                if (trigger.Device.Id == _defaultPlaybackDevice?.Id &&
-                    trigger.Option == AudioDeviceEventKind.LeavingDefault)
-                {
-                    Triggered?.Invoke(trigger);
-                }
-
-                if (trigger.Device.Id == newDefault.Id &&
-                    trigger.Option == AudioDeviceEventKind.BecomingDefault)
-                {
-                    Triggered?.Invoke(trigger);
-                }
-            }
-        }
-
-        private void OnDeviceAddOrRemove(IAudioDevice device, AudioDeviceEventKind option)
-        {
-            foreach (var trigger in _deviceTriggers)
-            {
-                if (trigger.Option == option)
-                {
-                    // Default device: not supported
-                    if (trigger.Device.Id == device.Id)
-                    {
-                        Triggered?.Invoke(trigger);
-                    }
-                }
-            }
-        }
-
-        private void OnAppAddOrRemove(IAudioDeviceSession app, AudioAppEventKind option)
-        {
-            foreach (var trigger in _appTriggers)
-            {
-                if (trigger.Option == option)
-                {
-                    var device = app.Parent;
-                    if ((trigger.Device?.Id == null && device == _playbackMgr.DeviceManager.Default) || 
-                         trigger.Device.Id == device.Id)
-                    {
-                        if (trigger.App.Id == app.Id)
-                        {
-                            Triggered?.Invoke(trigger);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void OnAppPropertyChanged(IAudioDeviceSession app, string propertyName)
-        {
-            foreach (var trigger in _appTriggers)
-            {
-                var device = app.Parent;
-                if ((trigger.Device?.Id == null && device == _playbackMgr.DeviceManager.Default) || trigger.Device?.Id == device.Id)
-                {
-                    if (trigger.App.Id == app.AppId)
-                    {
-                        switch (trigger.Option)
-                        {
-                            case AudioAppEventKind.Muted:
-                                if (propertyName == nameof(app.IsMuted) && app.IsMuted)
-                                {
-                                    Triggered?.Invoke(trigger);
-                                }
-                                break;
-                            case AudioAppEventKind.Unmuted:
-                                if (propertyName == nameof(app.IsMuted) && !app.IsMuted)
-                                {
-                                    Triggered?.Invoke(trigger);
-                                }
-                                break;
-                            case AudioAppEventKind.PlayingSound:
-                                if (propertyName == nameof(app.State) && app.State == SessionState.Active)
-                                {
-                                    Triggered?.Invoke(trigger);
-                                }
-                                break;
-                            case AudioAppEventKind.NotPlayingSound:
-                                if (propertyName == nameof(app.State) && app.State != SessionState.Active)
-                                {
-                                    Triggered?.Invoke(trigger);
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
+            _audioManager.Clear();
         }
 
         public void OnEvent(ApplicationLifecycleEvent evt)
@@ -195,11 +66,11 @@ namespace EarTrumpet_Actions.DataModel.Processing
             }
             else if (trig is DeviceEventTrigger)
             {
-                _deviceTriggers.Add((DeviceEventTrigger)trig);
+                _audioManager.Register(trig);
             }
             else if (trig is AppEventTrigger)
             {
-                _appTriggers.Add((AppEventTrigger)trig);
+                _audioManager.Register(trig);
             }
             else if (trig is HotkeyTrigger)
             {
@@ -210,7 +81,6 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 {
                     if (data.Equals(trigger.Option))
                     {
-                        Trace.WriteLine($"HOTKEY-TRIGGER: {trigger.Option}");
                         Triggered?.Invoke(trig);
                     }
                 };
