@@ -32,7 +32,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             Option = new OptionViewModel(action);
             Option.PropertyChanged += (_, __) => UpdateDescription();
             Option.PropertyChanged += Option_PropertyChanged;
-            App = new AppViewModel(action);
+            App = new AppViewModel(action, DataModel.App.AppKind.EveryApp);
             App.PropertyChanged += (_, __) => UpdateDescription();
             Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.DefaultPlayback);
             Device.PropertyChanged += (_, __) => UpdateDescription();

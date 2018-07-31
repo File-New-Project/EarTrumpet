@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
             Option.PropertyChanged += (_, __) => UpdateDescription();
             Device = new DeviceViewModel(trigger, DataModel.Device.DeviceListKind.DefaultPlayback);
             Device.PropertyChanged += (_, __) => UpdateDescription();
-            App = new AppViewModel(trigger);
+            App = new AppViewModel(trigger, DataModel.App.AppKind.Default);
             App.PropertyChanged += (_, __) => UpdateDescription();
             UpdateDescription();
         }

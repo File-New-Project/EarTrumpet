@@ -6,22 +6,32 @@ using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel
 {
-    public class App : IEquatable<App>
+    public class App
     {
+        public static readonly string EveryAppId = "EarTrumpet.EveryApp";
+
+        [Flags]
+        public enum AppKind
+        {
+            Default = 0,
+            EveryApp = 1,
+        }
+
         public string Id { get; set; }
 
-        public static ObservableCollection<Option> AllApps
+        public static ObservableCollection<Option> GetApps(AppKind flags)
         {
-            get
+            var ret = new ObservableCollection<Option>();
+            if ((flags & AppKind.EveryApp) == AppKind.EveryApp)
             {
-                var ret = new ObservableCollection<Option>();
-                ret.Add(new Option("Choose an app", new App { }));
-                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
-                {
-                    ret.Add(new Option(device.SessionDisplayName, new App(device)));
-                }
-                return ret;
+                ret.Add(new Option("Every app", new App { }));
             }
+            
+            foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
+            {
+                ret.Add(new Option(device.SessionDisplayName, new App(device)));
+            }
+            return ret;
         }
 
         public App()
@@ -44,7 +54,7 @@ namespace EarTrumpet_Actions.DataModel
 
             if (Id == null)
             {
-                return "(Choose an app)";
+                return "Every app";
             }
 
             return Path.GetFileName(Id);

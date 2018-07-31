@@ -33,9 +33,9 @@ namespace EarTrumpet_Actions.ViewModel
                 All.Add(new Option(_part.Device.Id, _part.Device.Id));
             }
             
-            if (_part.Device == null)
+            if (_part.Device?.Id == null)
             {
-                Selected = All[0];
+                _part.Device = (Device)All[0].Value;
             }
         }
     }

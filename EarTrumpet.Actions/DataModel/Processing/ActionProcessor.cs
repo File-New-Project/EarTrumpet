@@ -34,7 +34,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
-                    foreach (var app in device.Groups.Where(app => app.AppId == action.App.Id))
+                    foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
                     {
                         DoAudioAction(action.Option, app, action);
                     }

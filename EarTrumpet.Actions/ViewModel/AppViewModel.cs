@@ -25,13 +25,18 @@ namespace EarTrumpet_Actions.ViewModel
 
         private IPartWithApp _part;
 
-        public AppViewModel(IPartWithApp part)
+        public AppViewModel(IPartWithApp part, App.AppKind flags)
         {
             _part = part;
-            All = App.AllApps;
-            if (Selected == null)
+            All = App.GetApps(flags);
+            if (Selected == null && _part.App?.Id != null)
             {
-                All.Add(new Option(_part.App.Id, _part.App));
+                All.Add(new Option(_part.App.Id, _part.App.Id));
+            }
+
+            if (_part.App?.Id == null)
+            {
+                _part.App = (App)All[0].Value;
             }
         }
     }
