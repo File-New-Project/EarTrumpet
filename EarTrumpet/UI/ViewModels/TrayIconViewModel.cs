@@ -35,7 +35,9 @@ namespace EarTrumpet.UI.ViewModels
         public string ToolTip { get; private set; }
         public RelayCommand RightClick { get; }
         public RelayCommand MiddleClick { get; }
-        public RelayCommand LeftClick { get; }
+        public RelayCommand LeftClick { get; set; }
+        public RelayCommand OpenMixer { get; set; }
+        public RelayCommand OpenSettings { get; set; }
         public IAddonContextMenu[] AddonItems { get; set; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
@@ -45,13 +47,11 @@ namespace EarTrumpet.UI.ViewModels
         private bool _useLegacyIcon;
         private bool _useLargeIcon;
         private DeviceViewModel _defaultDevice;
-        private SettingsWindow _openSettingsWindow;
 
-        internal TrayViewModel(DeviceCollectionViewModel mainViewModel, Action openFlyout)
+        internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
 
-            LeftClick = new RelayCommand(openFlyout);
             RightClick = new RelayCommand(() => ContextMenuRequested?.Invoke());
             MiddleClick = new RelayCommand(ToggleMute);
 
@@ -90,14 +90,14 @@ namespace EarTrumpet.UI.ViewModels
 
                 ret.AddRange(new List<ContextMenuItem>
                 {
-                    new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command =  new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel)) },
+                    new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command =  OpenMixer },
                     new ContextMenuItem{ DisplayName =Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
                     new ContextMenuSeparator{ },
                     new ContextMenuItem{ DisplayName = Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
                     new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
                     new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
                     new ContextMenuSeparator{ },
-                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = new RelayCommand(OpenSettings) },
+                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = OpenSettings },
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
                     new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
@@ -152,42 +152,6 @@ namespace EarTrumpet.UI.ViewModels
                 }
 
                 return ret;
-            }
-        }
-
-        private void OpenSettings()
-        {
-            if (_openSettingsWindow != null)
-            {
-                _openSettingsWindow.RaiseWindow();
-            }
-            else
-            {
-                var viewModel = new SettingsViewModel();
-                viewModel.OpenAddonManager = new RelayCommand(() =>
-                {
-                    var window = new DialogWindow { Owner = _openSettingsWindow };
-                    var addonManagerViewModel = new AddonManagerViewModel(Extensibility.Hosting.AddonManager.Current);
-                    addonManagerViewModel.Added += (a) =>
-                    {
-                        var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
-                        paths.Add(a.DisplayName);
-                        Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
-                    };
-                    addonManagerViewModel.Removed += (a) =>
-                    {
-                        var paths = Extensibility.Hosting.AddonManager.Current.AdditionalPaths.ToList();
-                        paths.Remove(paths.First(p => p.ToLower() == a.DisplayName.ToLower()));
-                        Extensibility.Hosting.AddonManager.Current.AdditionalPaths = paths.ToArray();
-                    };
-                    window.DataContext = addonManagerViewModel;
-                    window.ShowDialog();
-                });
-                _openSettingsWindow = new SettingsWindow();
-                _openSettingsWindow.DataContext = viewModel;
-                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
-                _openSettingsWindow.Show();
-                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }
         }
 

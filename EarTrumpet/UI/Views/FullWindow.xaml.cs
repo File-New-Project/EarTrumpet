@@ -12,31 +12,20 @@ namespace EarTrumpet.UI.Views
 {
     public partial class FullWindow : Window
     {
-        private static FullWindow Instance;
-
-        private DeviceCollectionViewModel _mainViewModel;
-        private FullWindowViewModel _viewModel;
+        private FullWindowViewModel ViewModel => (FullWindowViewModel)DataContext;
         private bool _isClosing;
 
-        public FullWindow(DeviceCollectionViewModel viewModel)
+        public FullWindow()
         {
-            _mainViewModel = viewModel;
             Trace.WriteLine("FullWindow .ctor");
-            Instance = this;
 
             InitializeComponent();
-
-            _viewModel = new FullWindowViewModel(viewModel);
-
 
             SourceInitialized += FullWindow_SourceInitialized;
             LocationChanged += FullWindow_LocationChanged;
             SizeChanged += FullWindow_SizeChanged;
             PreviewKeyDown += FullWindow_PreviewKeyDown;
-            Closing += FullWindow_Closing;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-            DataContext = _viewModel;
 
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
@@ -45,15 +34,7 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("FullWindow SystemEvents_DisplaySettingsChanged");
 
-            Dispatcher.BeginInvoke((Action)(() => _viewModel.IsShowingModalDialog = false));
-        }
-
-        private void FullWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Trace.WriteLine("FullWindow FullWindow_Closing");
-
-            Instance = null;
-            _viewModel.Close();
+            Dispatcher.BeginInvoke((Action)(() => ViewModel.IsShowingModalDialog = false));
         }
 
         private void FullWindow_SourceInitialized(object sender, EventArgs e)
@@ -66,38 +47,21 @@ namespace EarTrumpet.UI.Views
 
         private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _viewModel.IsShowingModalDialog = false;
+            ViewModel.IsShowingModalDialog = false;
         }
 
         private void FullWindow_LocationChanged(object sender, EventArgs e)
         {
-            _viewModel.IsShowingModalDialog = false;
-        }
-        
-
-        public static void ActivateSingleInstance(DeviceCollectionViewModel mainViewModel)
-        {
-            Trace.WriteLine("FullWindow ActivateSingleInstance");
-            if (Instance == null)
-            {
-                var window = new FullWindow(mainViewModel);
-
-                window.Show();
-                WindowAnimationLibrary.BeginWindowEntranceAnimation(window, () => { });
-            }
-            else
-            {
-                Instance.RaiseWindow();
-            }
+            ViewModel.IsShowingModalDialog = false;
         }
 
         private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                if (_viewModel.IsShowingModalDialog)
+                if (ViewModel.IsShowingModalDialog)
                 {
-                    _viewModel.IsShowingModalDialog = false;
+                    ViewModel.IsShowingModalDialog = false;
                 }
                 else
                 {
@@ -123,7 +87,7 @@ namespace EarTrumpet.UI.Views
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _viewModel.IsShowingModalDialog = false;
+            ViewModel.IsShowingModalDialog = false;
             e.Handled = true;
         }
     }

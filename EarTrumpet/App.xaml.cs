@@ -1,4 +1,6 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility.Hosting;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
@@ -7,6 +9,7 @@ using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace EarTrumpet
@@ -19,6 +22,8 @@ namespace EarTrumpet
         private DeviceCollectionViewModel _viewModel;
         private TrayIcon _trayIcon;
         private FlyoutWindow _flyoutWindow;
+        private SettingsWindow _openSettingsWindow;
+        private FullWindow _openMixerWindow;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -40,7 +45,12 @@ namespace EarTrumpet
 
             FlyoutViewModel = new FlyoutViewModel(_viewModel);
             _flyoutWindow = new FlyoutWindow(FlyoutViewModel);
-            TrayViewModel = new TrayViewModel(_viewModel, () => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+
+            TrayViewModel = new TrayViewModel(_viewModel);
+            TrayViewModel.LeftClick = new RelayCommand(() => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            TrayViewModel.OpenMixer = new RelayCommand(OpenMixer);
+            TrayViewModel.OpenSettings = new RelayCommand(OpenSettings);
+
             _trayIcon = new TrayIcon(TrayViewModel);
             _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
 
@@ -60,10 +70,68 @@ namespace EarTrumpet
 
         private void MainViewModel_Ready(object sender, System.EventArgs e)
         {
-            Trace.WriteLine("App Application_Startup MainViewModel_Ready");
+            Trace.WriteLine("App MainViewModel_Ready");
             _trayIcon.Show();
 
-            Extensibility.Hosting.AddonManager.Current.Load();
+            Trace.WriteLine("App MainViewModel_Ready Before Load");
+            AddonManager.Current.Load();
+            Trace.WriteLine("App MainViewModel_Ready After Load");
+        }
+
+        private void OpenMixer()
+        {
+            if (_openMixerWindow != null)
+            {
+                _openMixerWindow.RaiseWindow();
+            }
+            else
+            {
+                var viewModel = new FullWindowViewModel(_viewModel);
+                _openMixerWindow = new FullWindow();
+                _openMixerWindow.DataContext = viewModel;
+                _openMixerWindow.Closing += (_, __) =>
+                {
+                    _openMixerWindow = null;
+                    viewModel.Close();
+                };
+                _openMixerWindow.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openMixerWindow, () => { });
+            }
+        }
+
+        private void OpenSettings()
+        {
+            if (_openSettingsWindow != null)
+            {
+                _openSettingsWindow.RaiseWindow();
+            }
+            else
+            {
+                var viewModel = new SettingsViewModel();
+                viewModel.OpenAddonManager = new RelayCommand(() =>
+                {
+                    var window = new DialogWindow { Owner = _openSettingsWindow };
+                    var addonManagerViewModel = new AddonManagerViewModel(AddonManager.Current);
+                    addonManagerViewModel.Added += (a) =>
+                    {
+                        var paths = AddonManager.Current.AdditionalPaths.ToList();
+                        paths.Add(a.DisplayName);
+                        AddonManager.Current.AdditionalPaths = paths.ToArray();
+                    };
+                    addonManagerViewModel.Removed += (a) =>
+                    {
+                        AddonManager.Current.AdditionalPaths = AddonManager.Current.AdditionalPaths.Where(
+                            p => p.ToLower() != a.DisplayName.ToLower()).ToArray();
+                    };
+                    window.DataContext = addonManagerViewModel;
+                    window.ShowDialog();
+                });
+                _openSettingsWindow = new SettingsWindow();
+                _openSettingsWindow.DataContext = viewModel;
+                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
+                _openSettingsWindow.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
+            }
         }
     }
 }
