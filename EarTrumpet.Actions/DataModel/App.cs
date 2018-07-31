@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel
             get
             {
                 var ret = new ObservableCollection<Option>();
-                ret.Add(new Option("Choose an app", null));
+                ret.Add(new Option("Choose an app", new App { }));
                 foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
                 {
                     ret.Add(new Option(device.SessionDisplayName, new App(device)));
@@ -52,7 +52,7 @@ namespace EarTrumpet_Actions.DataModel
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Id == null ? 0 : Id.GetHashCode();
         }
 
         public bool Equals(App other)
