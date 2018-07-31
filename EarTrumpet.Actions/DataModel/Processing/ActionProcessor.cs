@@ -1,8 +1,12 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
+using EarTrumpet.Interop;
 using EarTrumpet_Actions.DataModel.Actions;
 using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Processing
@@ -34,9 +38,20 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
-                    foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
+                    if (action.App.Id == App.ForegroundAppId)
                     {
-                        DoAudioAction(action.Option, app, action);
+                        var app = FindForegroundApp(device.Groups);
+                        if (app != null)
+                        {
+                            DoAudioAction(action.Option, app, action);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
+                        {
+                            DoAudioAction(action.Option, app, action);
+                        }
                     }
                 }
             }
@@ -67,6 +82,31 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 DoSetAddonEarTrumpetSettingsAction((SetAdditionalSettingsAction)a);
             }
             else throw new NotImplementedException();
+        }
+
+        private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
+        {
+            var hWnd = User32.GetForegroundWindow();
+            User32.GetWindowThreadProcessId(hWnd, out uint processId);
+            try
+            {
+                var appInfo = AppInformationService.GetInformationForAppByPid((int)processId);
+
+                foreach(var group in groups)
+                {
+                    if (group.AppId == appInfo.PackageInstallPath)
+                    {
+                        Trace.WriteLine($"ActionProcessor FindForegroundApp: {group.SessionDisplayName}");
+                        return group;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+            Trace.WriteLine("ActionProcessor FindForegroundApp Didn't locate foreground app");
+            return null;
         }
 
         private static void DoSetAddonEarTrumpetSettingsAction(SetAdditionalSettingsAction action)

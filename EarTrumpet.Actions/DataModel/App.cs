@@ -9,12 +9,14 @@ namespace EarTrumpet_Actions.DataModel
     public class App
     {
         public static readonly string EveryAppId = "EarTrumpet.EveryApp";
-
+        public static readonly string ForegroundAppId = "EarTrumpet.ForegroundApp";
+        
         [Flags]
         public enum AppKind
         {
             Default = 0,
             EveryApp = 1,
+            ForegroundApp = 2,
         }
 
         public string Id { get; set; }
@@ -26,7 +28,11 @@ namespace EarTrumpet_Actions.DataModel
             {
                 ret.Add(new Option("Every app", new App { }));
             }
-            
+            if ((flags & AppKind.ForegroundApp) == AppKind.ForegroundApp)
+            {
+                ret.Add(new Option("Foreground app", new App { Id = ForegroundAppId }));
+            }
+
             foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
             {
                 ret.Add(new Option(device.SessionDisplayName, new App(device)));
@@ -52,9 +58,13 @@ namespace EarTrumpet_Actions.DataModel
                 return appSession.SessionDisplayName;
             }
 
-            if (Id == null)
+            if (Id == EveryAppId)
             {
                 return "Every app";
+            }
+            if (Id == ForegroundAppId)
+            {
+                return "Foreground app";
             }
 
             return Path.GetFileName(Id);
