@@ -104,6 +104,16 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Apps_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            switch(e.Action)
+            {
+                case NotifyCollectionChangedAction.Remove:
+                    if ((IAppItemViewModel)e.OldItems[0] == Focused?.App)
+                    {
+                        IsShowingModalDialog = false;
+                    }
+                    break;
+            }
+
             InvalidateWindowSize();
         }
 
