@@ -41,6 +41,11 @@ namespace EarTrumpet.Interop.Helpers
 
         public void Register(HotkeyData hotkey)
         {
+            if (hotkey.IsEmpty)
+            {
+                return;
+            }
+
             Entry entry;
             if (_data.ContainsKey(hotkey))
             {

@@ -15,17 +15,17 @@ namespace EarTrumpet.Extensibility.Hosting
         private List<IAddonLifecycle> _appLifecycle { get; set; }
 
         [ImportMany(typeof(IAddonContextMenu))]
-        public List<IAddonContextMenu> _contextMenuItems { get; set; }
+        private List<IAddonContextMenu> _contextMenuItems { get; set; }
 
         [ImportMany(typeof(IAddonAppContextMenu))]
-        public List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
+        private List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
 
-        public string[] Initialize(string[] additionals)
+        public string[] Initialize(string[] additionalFilePaths)
         {
             var catalogs = new List<ComposablePartCatalog>();
             catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll"));
             
-            foreach(var additional in additionals)
+            foreach(var additional in additionalFilePaths)
             {
                 catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)));
             }
