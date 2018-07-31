@@ -26,11 +26,11 @@ namespace EarTrumpet_Actions.DataModel
             var ret = new ObservableCollection<Option>();
             if ((flags & AppKind.EveryApp) == AppKind.EveryApp)
             {
-                ret.Add(new Option("Every app", new App { }));
+                ret.Add(new Option(Properties.Resources.EveryAppText, new App { }));
             }
             if ((flags & AppKind.ForegroundApp) == AppKind.ForegroundApp)
             {
-                ret.Add(new Option("Foreground app", new App { Id = ForegroundAppId }));
+                ret.Add(new Option(Properties.Resources.ForegroundAppText, new App { Id = ForegroundAppId }));
             }
 
             foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups))
@@ -60,11 +60,11 @@ namespace EarTrumpet_Actions.DataModel
 
             if (Id == EveryAppId)
             {
-                return "Every app";
+                return Properties.Resources.EveryAppText;
             }
             if (Id == ForegroundAppId)
             {
-                return "Foreground app";
+                return Properties.Resources.ForegroundAppText;
             }
 
             return Path.GetFileName(Id);

@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace EarTrumpet_Actions.ViewModel
 {

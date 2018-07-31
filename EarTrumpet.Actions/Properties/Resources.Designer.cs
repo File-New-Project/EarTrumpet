@@ -88,6 +88,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default playback device.
+        /// </summary>
+        public static string DefaultPlaybackDeviceText {
+            get {
+                return ResourceManager.GetString("DefaultPlaybackDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit actions and hotkeys.
         /// </summary>
         public static string EditActionsAndHotkeysText {
@@ -106,6 +115,24 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Every app.
+        /// </summary>
+        public static string EveryAppText {
+            get {
+                return ResourceManager.GetString("EveryAppText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foreground app.
+        /// </summary>
+        public static string ForegroundAppText {
+            get {
+                return ResourceManager.GetString("ForegroundAppText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My actions.
         /// </summary>
         public static string MyActionsText {
@@ -120,6 +147,24 @@ namespace EarTrumpet_Actions.Properties {
         public static string NewActionText {
             get {
                 return ResourceManager.GetString("NewActionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playback: {0}.
+        /// </summary>
+        public static string PlaybackDeviceFormatStringText {
+            get {
+                return ResourceManager.GetString("PlaybackDeviceFormatStringText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording: {0}.
+        /// </summary>
+        public static string RecordingDeviceFormatStringText {
+            get {
+                return ResourceManager.GetString("RecordingDeviceFormatStringText", resourceCulture);
             }
         }
         
