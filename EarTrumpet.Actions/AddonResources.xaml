@@ -458,6 +458,20 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type avm:InvokeAddonCommandActionViewModel}">
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ComboBox Grid.Row="0"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Option.All}"
+                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
+        </Grid>
+    </DataTemplate>
+
+    
     <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
         <Grid Margin="12">
             <Grid.RowDefinitions>

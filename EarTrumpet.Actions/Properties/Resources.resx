@@ -198,6 +198,9 @@
   <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
   </data>
+  <data name="InvokeAdditionalCommandsText" xml:space="preserve">
+    <value>Invoke additional actions</value>
+  </data>
   <data name="MyActionsText" xml:space="preserve">
     <value>My actions</value>
   </data>

@@ -304,6 +304,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invoke additional actions.
+        /// </summary>
+        public static string InvokeAdditionalCommandsText {
+            get {
+                return ResourceManager.GetString("InvokeAdditionalCommandsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My actions.
         /// </summary>
         public static string MyActionsText {

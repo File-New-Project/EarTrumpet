@@ -9,6 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     [XmlInclude(typeof(SetVariableAction))]
     [XmlInclude(typeof(SetThemeAction))]
     [XmlInclude(typeof(SetAdditionalSettingsAction))]
+    [XmlInclude(typeof(InvokeAddonCommandAction))]
     public abstract class BaseAction : PartWithOptions
     {
     }

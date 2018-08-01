@@ -71,9 +71,15 @@ namespace EarTrumpet_Actions.ViewModel
                 };
 
                 var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
-                if (addonValues != null && addonValues.Any())
+                if (addonValues.Any())
                 {
                     ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAdditionalSettingsAction()));
+                }
+
+                var addonCommands = ServiceBus.GetMany(KnownServices.Command);
+                if (addonCommands.Any())
+                {
+                    ret.Add(new InvokeAddonCommandActionViewModel(new InvokeAddonCommandAction()));
                 }
 
                 if (ServiceBus.Get("EarTrumpet-Themes") != null)

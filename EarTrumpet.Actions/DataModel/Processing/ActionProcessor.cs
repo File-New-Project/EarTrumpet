@@ -82,6 +82,17 @@ namespace EarTrumpet_Actions.DataModel.Processing
             {
                 DoSetAddonEarTrumpetSettingsAction((SetAdditionalSettingsAction)a);
             }
+            else if (a is InvokeAddonCommandAction)
+            {
+                var action = (InvokeAddonCommandAction)a;
+                Trace.WriteLine($"ActionProcessor Execute {action.OptionId}");
+                var cmd = ServiceBus.GetMany(KnownServices.Command).Select(s => (SimpleCommand)s).FirstOrDefault(s => s.Id == action.OptionId);
+                if (cmd != null)
+                {
+                    Trace.WriteLine($"ActionProcessor Found, executing {cmd.Id}");
+                    cmd.Command.Execute(null);
+                }
+            }
             else throw new NotImplementedException();
         }
 
@@ -135,27 +146,25 @@ namespace EarTrumpet_Actions.DataModel.Processing
         private static void DoSetAddonEarTrumpetSettingsAction(SetAdditionalSettingsAction action)
         {
             var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
-            if (addonValues != null)
+            var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
+            var value = values.FirstOrDefault(v => v.Id == action.SettingId);
+            if (value != null)
             {
-                var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
-                var value = values.FirstOrDefault(v => v.Id == action.SettingId);
-                if (value != null)
+                switch(action.Value)
                 {
-                    switch(action.Value)
-                    {
-                        case TriStateMute.True:
-                            value.Value = true;
-                            break;
-                        case TriStateMute.False:
-                            value.Value = false;
-                            break;
-                        case TriStateMute.Toggle:
-                            value.Value = !value.Value;
-                            break;
-                        default: throw new NotImplementedException();
-                    }
+                    case TriStateMute.True:
+                        value.Value = true;
+                        break;
+                    case TriStateMute.False:
+                        value.Value = false;
+                        break;
+                    case TriStateMute.Toggle:
+                        value.Value = !value.Value;
+                        break;
+                    default: throw new NotImplementedException();
                 }
             }
+            
         }
 
         private static void DoAudioAction(StreamActionKind action, IStreamWithVolumeControl stream, IPartWithVolume part)

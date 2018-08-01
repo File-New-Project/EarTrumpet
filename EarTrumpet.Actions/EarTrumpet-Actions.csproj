@@ -75,6 +75,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Actions\InvokeAddonCommandAction.cs" />
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
     <Compile Include="DataModel\Actions\SetAdditionalSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="DataModel\Triggers\HotkeyTrigger.cs" />
     <Compile Include="DataModel\Triggers\ProcessTrigger.cs" />
     <Compile Include="DataModel\PlaybackDataModelHost.cs" />
+    <Compile Include="ViewModel\Actions\InvokeAddonCommandActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDeviceVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAddonEarTrumpetSettingsActionViewModel.cs" />
