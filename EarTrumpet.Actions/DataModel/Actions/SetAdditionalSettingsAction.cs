@@ -5,9 +5,16 @@ using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
+    public enum TriStateMute
+    {
+        True,
+        False,
+        Toggle,
+    }
+
     public class SetAdditionalSettingsAction : BaseAction
     {
-        public bool Value { get; set; }
+        public TriStateMute Value { get; set; }
 
         public string SettingId { get; set; }
         
@@ -27,10 +34,11 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 new OptionData(
                     new List<Option>(new Option[]
                     {
-                        new Option(Properties.Resources.BoolTrueText, true),
-                        new Option(Properties.Resources.BoolFalseText, false),
+                        new Option(Properties.Resources.BoolTrueText, TriStateMute.True),
+                        new Option(Properties.Resources.BoolFalseText, TriStateMute.False),
+                        new Option(Properties.Resources.ToggleText, TriStateMute.Toggle),
                     }),
-                (v) => Value = (bool)v.Value,
+                (v) => Value = (TriStateMute)v.Value,
                 () => Value)
             });
         }

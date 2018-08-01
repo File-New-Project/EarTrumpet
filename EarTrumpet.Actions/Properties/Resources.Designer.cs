@@ -547,6 +547,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to toggle.
+        /// </summary>
+        public static string ToggleText {
+            get {
+                return ResourceManager.GetString("ToggleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When.
         /// </summary>
         public static string TriggerVerbText {

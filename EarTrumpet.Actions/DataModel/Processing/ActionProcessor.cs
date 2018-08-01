@@ -141,7 +141,19 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 var value = values.FirstOrDefault(v => v.Id == action.SettingId);
                 if (value != null)
                 {
-                    value.Value = action.Value;
+                    switch(action.Value)
+                    {
+                        case TriStateMute.True:
+                            value.Value = true;
+                            break;
+                        case TriStateMute.False:
+                            value.Value = false;
+                            break;
+                        case TriStateMute.Toggle:
+                            value.Value = !value.Value;
+                            break;
+                        default: throw new NotImplementedException();
+                    }
                 }
             }
         }

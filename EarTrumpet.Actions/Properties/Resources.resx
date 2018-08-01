@@ -279,6 +279,9 @@
   <data name="StreamActionKindUnuteText" xml:space="preserve">
     <value>unmute</value>
   </data>
+  <data name="ToggleText" xml:space="preserve">
+    <value>toggle</value>
+  </data>
   <data name="TriggerVerbText" xml:space="preserve">
     <value>When</value>
   </data>
