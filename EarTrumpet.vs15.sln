@@ -13,11 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Actions", "..\Ea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-MouthTrumpet", "..\EarTrumpet-addons\EarTrumpet-MouthTrumpet\EarTrumpet-MouthTrumpet.csproj", "{C84E871A-7320-406D-8345-DFF047F93CBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Themes", "..\EarTrumpet-addons\EarTrumpet-Themes\EarTrumpet-Themes.csproj", "{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-CommunicationsDefault", "..\EarTrumpet-addons\EarTrumpet-CommunicationsDefault\EarTrumpet-CommunicationsDefault.csproj", "{D108A488-178C-4FCA-AE43-09716FA72D24}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Hide", "..\EarTrumpet-addons\EarTrumpet-Hide\EarTrumpet-Hide.csproj", "{829D4EDD-E47A-44D1-84E1-7AB3B933D215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet-Advanced", "..\EarTrumpet-addons\EarTrumpet-Advanced\EarTrumpet-Advanced.csproj", "{D108A488-178C-4FCA-AE43-09716FA72D24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,18 +85,6 @@ Global
 		{C84E871A-7320-406D-8345-DFF047F93CBB}.VSDebug|Any CPU.Build.0 = Debug|Any CPU
 		{C84E871A-7320-406D-8345-DFF047F93CBB}.VSDebug|x86.ActiveCfg = Debug|x86
 		{C84E871A-7320-406D-8345-DFF047F93CBB}.VSDebug|x86.Build.0 = Debug|x86
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Debug|x86.ActiveCfg = Debug|x86
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Debug|x86.Build.0 = Debug|x86
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Release|x86.ActiveCfg = Release|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.Release|x86.Build.0 = Release|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.VSDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.VSDebug|Any CPU.Build.0 = Debug|Any CPU
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.VSDebug|x86.ActiveCfg = Debug|x86
-		{DE7A833A-7CEF-4DCA-BA4F-F56CB7A7481C}.VSDebug|x86.Build.0 = Debug|x86
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.Debug|x86.ActiveCfg = Debug|x86
@@ -113,18 +97,6 @@ Global
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.VSDebug|Any CPU.Build.0 = Debug|Any CPU
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.VSDebug|x86.ActiveCfg = Debug|x86
 		{D108A488-178C-4FCA-AE43-09716FA72D24}.VSDebug|x86.Build.0 = Debug|x86
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Debug|x86.ActiveCfg = Debug|x86
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Debug|x86.Build.0 = Debug|x86
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Release|Any CPU.Build.0 = Release|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Release|x86.ActiveCfg = Release|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.Release|x86.Build.0 = Release|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.VSDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.VSDebug|Any CPU.Build.0 = Debug|Any CPU
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.VSDebug|x86.ActiveCfg = Debug|x86
-		{829D4EDD-E47A-44D1-84E1-7AB3B933D215}.VSDebug|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

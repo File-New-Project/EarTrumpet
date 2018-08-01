@@ -6,22 +6,23 @@ namespace EarTrumpet.Extensibility.Shared
     {
         public T Value
         {
-            get => _settings.Get<T>(_key, default(T));
-            set => _settings.Set(_key, value);
+            get => _simple.Value;
+            set => _simple.Value = value;
         }
 
-        public string Id => _settings.Namespace + _key;
+        public string Id => _simple.Id;
 
-        public string DisplayName { get; }
+        public string DisplayName => _simple.DisplayName;
 
-        private ISettingsBag _settings;
-        private string _key;
+        private SimpleValue<T> _simple;
 
         public SettingsValue(string displayName, string key, ISettingsBag settings)
         {
-            DisplayName = displayName;
-            _key = key;
-            _settings = settings;
+            _simple = new SimpleValue<T>(
+                settings.Namespace + key,
+                displayName,
+                () => settings.Get(key, default(T)),
+                (v) => settings.Set(key, v));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Diagnostics;
@@ -23,9 +24,7 @@ namespace EarTrumpet.DataModel.Internal.Services
         {
             if (_sharedPolicyConfig == null)
             {
-                Guid iid = typeof(IAudioPolicyConfigFactory).GUID;
-                Combase.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
-                _sharedPolicyConfig = (IAudioPolicyConfigFactory)factory;
+                _sharedPolicyConfig = AudioPolicyConfigFactory.Create();
             }
         }
 
