@@ -25,7 +25,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
             Description = Properties.Resources.SetAdditionalSettingsActionDescriptionText;
             Options = new List<OptionData>(new OptionData[]
             {
-                new OptionData(ServiceBus.GetMany(KnownServices.ValueService).Where(
+                new OptionData(ServiceBus.GetMany(KnownServices.BoolValue).Where(
                     a => a is IValue<bool>).Select(
                     a => (IValue<bool>)a).Select(
                     v => new Option(v.DisplayName, v.Id)),

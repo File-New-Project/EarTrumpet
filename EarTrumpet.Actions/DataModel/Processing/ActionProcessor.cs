@@ -134,7 +134,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
 
         private static void DoSetAddonEarTrumpetSettingsAction(SetAdditionalSettingsAction action)
         {
-            var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
+            var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
             if (addonValues != null)
             {
                 var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();

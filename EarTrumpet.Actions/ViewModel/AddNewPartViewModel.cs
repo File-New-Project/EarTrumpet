@@ -70,7 +70,7 @@ namespace EarTrumpet_Actions.ViewModel
                     new SetVariableActionViewModel(new SetVariableAction{ }),
                 };
 
-                var addonValues = ServiceBus.GetMany(KnownServices.ValueService);
+                var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
                 if (addonValues != null && addonValues.Any())
                 {
                     ret.Add(new SetAddonEarTrumpetSettingsActionViewModel(new SetAdditionalSettingsAction()));
