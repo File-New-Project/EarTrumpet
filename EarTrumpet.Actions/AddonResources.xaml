@@ -471,7 +471,7 @@
         </Grid>
     </DataTemplate>
 
-    
+
     <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
         <Grid Margin="12">
             <Grid.RowDefinitions>
