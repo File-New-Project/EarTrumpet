@@ -173,7 +173,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
 
                 _icons.Clear();
                 _icons.Add(IconId.OriginalIcon, originalIcon);

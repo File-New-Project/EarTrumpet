@@ -41,7 +41,7 @@ namespace EarTrumpet.DataModel.Internal
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError($"{ex}");
+                    Trace.WriteLine($"{ex}");
                 }
             });
         }
@@ -86,7 +86,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
             }
         }
 

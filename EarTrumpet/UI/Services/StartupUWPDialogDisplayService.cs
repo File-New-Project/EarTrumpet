@@ -35,7 +35,7 @@ namespace EarTrumpet.UI.Services
                     }
                     catch (Exception ex)
                     {
-                        Trace.TraceError($"{ex}");
+                        Trace.WriteLine($"{ex}");
                     }
                     finally
                     {
@@ -45,7 +45,7 @@ namespace EarTrumpet.UI.Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
             }
         }
 
