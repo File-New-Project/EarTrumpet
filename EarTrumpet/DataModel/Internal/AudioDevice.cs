@@ -164,7 +164,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
                 var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
-                _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
+                _displayName = Marshal.PtrToStringUni(pv.pwszVal);
                 Ole32.PropVariantClear(ref pv);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))

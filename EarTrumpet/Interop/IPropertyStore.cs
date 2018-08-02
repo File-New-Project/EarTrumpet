@@ -37,7 +37,7 @@ namespace EarTrumpet.Interop
         int GetAt([In] uint iProp, out PROPERTYKEY pkey);
         PropVariant GetValue([In] ref PROPERTYKEY key);
         [PreserveSig]
-        int SetValue([In] ref PROPERTYKEY key, [In] ref object pv);
+        int SetValue([In] ref PROPERTYKEY key, [In] ref PropVariant pv);
         [PreserveSig]
         int Commit();
     }
