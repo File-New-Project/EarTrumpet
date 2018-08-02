@@ -227,6 +227,10 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 ret = new SetAddonEarTrumpetSettingsActionViewModel((SetAdditionalSettingsAction)part);
             }
+            else if (part is InvokeAddonCommandAction)
+            {
+                ret = new InvokeAddonCommandActionViewModel((InvokeAddonCommandAction)part);
+            }
             else
             {
                 throw new NotImplementedException();
