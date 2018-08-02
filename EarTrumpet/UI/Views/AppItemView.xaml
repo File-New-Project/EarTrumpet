@@ -19,12 +19,16 @@
                     HorizontalAlignment="Center">
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Background" Value="{Binding Background, Mode=OneTime}" />
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="{Binding Background, Mode=OneTime}" />
+                            </Setter.Value>
+                        </Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
+                            <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
                                 <Setter Property="Background" Value="{DynamicResource Unicolor_AppIconPlateBackground}" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -33,14 +37,14 @@
                 <Grid>
                     <Image Width="{StaticResource AppIconSize}"
                            Height="{StaticResource AppIconSize}"
-                           Source="{Binding Icon, Mode=OneTime}"
+                           Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
                            Stretch="Fill" />
                     <Border>
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>

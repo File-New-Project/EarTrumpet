@@ -1,18 +1,14 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.ComponentModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -28,9 +24,9 @@ namespace EarTrumpet.UI.ViewModels
 
         public static readonly ExeNameComparer CompareByExeName = new ExeNameComparer();
 
-        public ImageSource Icon { get; private set; }
+        public IconLoadInfo Icon { get; private set; }
 
-        public SolidColorBrush Background { get; private set; }
+        public Color Background { get; private set; }
 
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
@@ -53,55 +49,20 @@ namespace EarTrumpet.UI.ViewModels
         private IAudioDeviceSession _session;
         private WeakReference<DeviceViewModel> _parent;
 
-        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false, ImageSource icon = null) : base(session)
+        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false, IconLoadInfo icon = null) : base(session)
         {
             IsExpanded = isChild;
             _session = session;
             _session.PropertyChanged += Session_PropertyChanged;
             _parent = new WeakReference<DeviceViewModel>(parent);
 
-            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
+            Background = session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor();
 
-            if (isChild)
+            Icon = new IconLoadInfo
             {
-                Icon = icon;
-            }
-            else
-            {
-                try
-                {
-                    if (session.IsDesktopApp)
-                    {
-                        if (!string.IsNullOrWhiteSpace(session.IconPath))
-                        {
-                            var iconPath = new StringBuilder(session.IconPath);
-                            int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
-                            if (iconIndex != 0)
-                            {
-                                Icon = GetIconFromFile(iconPath.ToString(), iconIndex);
-                            }
-                            else
-                            {
-                                Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmap.UriSource = new Uri(session.IconPath);
-                        bitmap.EndInit();
-
-                        Icon = bitmap;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine($"Failed to load icon: {ex}");
-                }
-            }
+                IsDesktopApp = session.IsDesktopApp,
+                IconPath = session.IconPath,
+            };
 
             if (_session.Children != null)
             {
@@ -113,20 +74,6 @@ namespace EarTrumpet.UI.ViewModels
         ~AppItemViewModel()
         {
             _session.PropertyChanged -= Session_PropertyChanged;
-        }
-
-        private ImageSource GetIconFromFile(string path, int iconIndex = 0)
-        {
-            IntPtr iconHandle = IntPtr.Zero;
-            try
-            {
-                iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
-                return Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }
-            finally
-            {
-                User32.DestroyIcon(iconHandle);
-            }
         }
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -49,12 +49,12 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
         }
-        public SolidColorBrush Background { get; }
+        public Color Background { get; }
         public ObservableCollection<IAppItemViewModel> ChildApps { get; }
         public string DisplayName { get; }
         public string ExeName { get; }
         public string AppId { get; }
-        public ImageSource Icon { get; }
+        public IconLoadInfo Icon { get; }
         public char IconText { get; }
         public bool IsExpanded { get; }
         public bool IsMovable { get; }
@@ -131,7 +131,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
 #if VSDEBUG
-            Background = new SolidColorBrush(Colors.Red);
+            Background = Colors.Red;
 #endif
         }
 

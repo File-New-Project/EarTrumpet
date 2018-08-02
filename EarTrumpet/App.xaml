@@ -17,6 +17,7 @@
             <themes:ThemeManager x:Key="ThemeManager" />
 
             <conv:InvertableVisibilityConverter x:Key="visConverter" />
+            <conv:IconConverter x:Key="iconConverter" />
             <conv:OpacityConverter x:Key="opacityConverter"
                                    FalseOpacity="1.0"
                                    TrueOpacity="0.4" />

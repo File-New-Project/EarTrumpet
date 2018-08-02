@@ -10,12 +10,12 @@ namespace EarTrumpet.UI.ViewModels
         string Id { get; }
         bool IsMuted { get; set; }
         int Volume { get; set; }
-        SolidColorBrush Background { get; }
+        Color Background { get; }
         ObservableCollection<IAppItemViewModel> ChildApps { get; }
         string DisplayName { get; }
         string ExeName { get; }
         string AppId { get; }
-        ImageSource Icon { get; }
+        IconLoadInfo Icon { get; }
         char IconText { get; }
         bool IsExpanded { get; }
         bool IsMovable { get; }
