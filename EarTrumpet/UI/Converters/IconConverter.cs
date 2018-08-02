@@ -19,7 +19,7 @@ namespace EarTrumpet.UI.Converters
             ImageSource ret = null;
             var iconInfo = (IconLoadInfo)value;
 
-            if (iconInfo.CachedValue != null)
+            if (iconInfo.IsLoadComplete)
             {
                 return iconInfo.CachedValue;
             }
@@ -57,6 +57,7 @@ namespace EarTrumpet.UI.Converters
                 Trace.WriteLine($"Failed to load icon: {ex}");
             }
 
+            iconInfo.IsLoadComplete = true;
             iconInfo.CachedValue = ret;
             return ret;
         }
