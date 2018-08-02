@@ -789,10 +789,13 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
                 <views:ModalDialogChrome>
-                    <Rectangle Width="200"
-                               Height="200"
-                               Margin="12"
-                               Fill="DarkBlue" />
+
+                    <TextBlock Margin="24"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="100"
+                               Text="&#xE822;" />
                 </views:ModalDialogChrome>
             </DataTemplate>
             <DataTemplate x:Key="ContextMenuItemTemplate">
