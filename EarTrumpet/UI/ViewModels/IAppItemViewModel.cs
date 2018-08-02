@@ -29,6 +29,6 @@ namespace EarTrumpet.UI.ViewModels
         void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
-        void OpenPopup(UIElement uIElement);
+        void OpenPopup(FrameworkElement uIElement);
     }
 }

@@ -30,8 +30,8 @@ namespace EarTrumpet.UI.ViewModels
         public event EventHandler<object> WindowSizeInvalidated = delegate { };
         public event EventHandler<CloseReason> StateChanged = delegate { };
 
-        public FocusedAppItemViewModel Focused { get; private set; }
-        public UIElement FocusedSource { get; private set; }
+        public ModalDialogViewModel Dialog { get; }
+
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
@@ -39,28 +39,7 @@ namespace EarTrumpet.UI.ViewModels
         public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
-        public bool IsShowingModalDialog
-        {
-            get => _isShowingModalDialog;
-            set
-            {
-                if (_isShowingModalDialog != value)
-                {
-                    _isShowingModalDialog = value;
-                    RaisePropertyChanged(nameof(IsShowingModalDialog));
 
-                    if (!_isShowingModalDialog)
-                    {
-                        Focused = null;
-                        FocusedSource = null;
-
-                        RaisePropertyChanged(nameof(Focused));
-                        RaisePropertyChanged(nameof(FocusedSource));
-                    }
-                }
-            }
-        }
-        
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
@@ -69,10 +48,10 @@ namespace EarTrumpet.UI.ViewModels
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private bool _closedOnOpen;
         private bool _expandOnCloseThenOpen;
-        private bool _isShowingModalDialog;
 
         public FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
         {
+            Dialog = new ModalDialogViewModel();
             Devices = new ObservableCollection<DeviceViewModel>();
 
             _mainViewModel = mainViewModel;
@@ -107,9 +86,10 @@ namespace EarTrumpet.UI.ViewModels
             switch(e.Action)
             {
                 case NotifyCollectionChangedAction.Remove:
-                    if ((IAppItemViewModel)e.OldItems[0] == Focused?.App)
+                    if (Dialog.Focused is FocusedAppItemViewModel && 
+                        (IAppItemViewModel)e.OldItems[0] == ((FocusedAppItemViewModel)Dialog.Focused)?.App)
                     {
-                        IsShowingModalDialog = false;
+                        Dialog.IsVisible = false;
                     }
                     break;
             }
@@ -297,7 +277,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _mainViewModel.OnTrayFlyoutHidden();
 
-                IsShowingModalDialog = false;
+                Dialog.IsVisible = false;
             }
             else if (state == ViewState.Closing_Stage2)
             {
@@ -305,22 +285,28 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void OnAppPopup(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(object vm, FrameworkElement container)
         {
             if (Window.GetWindow(container).DataContext != this)
             {
                 return;
             }
 
-            IsShowingModalDialog = false;
+            Dialog.IsVisible = false;
 
-            Focused = new FocusedAppItemViewModel(_mainViewModel, vm);
-            Focused.RequestClose += () => IsShowingModalDialog = false;
-            FocusedSource = container;
-            RaisePropertyChanged(nameof(Focused));
-            RaisePropertyChanged(nameof(FocusedSource));
+            if (vm is IAppItemViewModel)
+            {
+                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+            }
+            else
+            {
+                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+            }
 
-            IsShowingModalDialog = true;
+            Dialog.Source = container;
+            Dialog.IsVisible = true;
         }
 
         public void BeginOpen()

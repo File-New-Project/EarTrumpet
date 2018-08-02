@@ -57,5 +57,13 @@ namespace EarTrumpet.UI.Views
                 SystemSoundsHelper.PlayBeepSound.Execute(null);
             }
         }
+
+        private void DeviceListItem_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Features.IsEnabled(Feature.DevicePopup))
+            {
+                Device.OpenPopup(Device, (FrameworkElement)sender);
+            }
+        }
     }
 }

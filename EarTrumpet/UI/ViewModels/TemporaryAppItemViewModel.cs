@@ -168,7 +168,7 @@ namespace EarTrumpet.UI.ViewModels
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
 
-        public void OpenPopup(UIElement uIElement)
+        public void OpenPopup(FrameworkElement uIElement)
         {
             if (_parent.TryGetTarget(out var parent))
             {

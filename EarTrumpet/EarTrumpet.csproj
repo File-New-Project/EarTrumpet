@@ -183,10 +183,13 @@
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\FocusedDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModel.cs" />
+    <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\Themes\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />

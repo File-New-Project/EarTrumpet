@@ -152,9 +152,9 @@ namespace EarTrumpet.UI.Views
         {
             if (e.Key == Key.Escape)
             {
-                if (_viewModel.IsShowingModalDialog)
+                if (_viewModel.Dialog.IsVisible)
                 {
-                    _viewModel.IsShowingModalDialog = false;
+                    _viewModel.Dialog.IsVisible = false;
                 }
                 else
                 {
@@ -226,7 +226,7 @@ namespace EarTrumpet.UI.Views
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _viewModel.IsShowingModalDialog = false;
+            _viewModel.Dialog.IsVisible = false;
             e.Handled = true;
         }
     }

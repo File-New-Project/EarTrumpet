@@ -787,6 +787,14 @@
                               ScrollViewer.VerticalScrollBarVisibility="Auto" />
                 </views:ModalDialogChrome>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
+                <views:ModalDialogChrome>
+                    <Rectangle Fill="DarkBlue"
+                               Width="200"
+                               Height="200"
+                               Margin="12" />
+                </views:ModalDialogChrome>
+            </DataTemplate>
             <DataTemplate x:Key="ContextMenuItemTemplate">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"

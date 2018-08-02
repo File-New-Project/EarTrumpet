@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FocusedAppItemViewModel
+    public class FocusedAppItemViewModel : IFocusedViewModel
     {
         public static IAddonAppContextMenu[] AddonItems { get; set; }
 

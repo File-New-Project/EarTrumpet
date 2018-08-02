@@ -38,7 +38,6 @@ namespace EarTrumpet.UI.Themes
 
         public ThemeManager()
         {
-            Debug.Assert(Current == null);
             Current = this;
             DefaultResolver = new ThemeResolveData();
             _themeChangeTimer.Tick += ThemeChangeTimer_Tick;

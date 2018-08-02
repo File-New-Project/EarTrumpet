@@ -5,6 +5,7 @@ namespace EarTrumpet
     enum Feature
     {
         Addons = 1,
+        DevicePopup = 2,
     }
 
     class Features
@@ -14,6 +15,12 @@ namespace EarTrumpet
             switch (feature)
             {
                 case Feature.Addons:
+#if VSDEBUG
+                    return true;
+#else
+                    return false;
+#endif
+                case Feature.DevicePopup:
 #if VSDEBUG
                     return true;
 #else

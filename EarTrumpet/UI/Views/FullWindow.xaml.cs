@@ -34,7 +34,7 @@ namespace EarTrumpet.UI.Views
         {
             Trace.WriteLine("FullWindow SystemEvents_DisplaySettingsChanged");
 
-            Dispatcher.BeginInvoke((Action)(() => ViewModel.IsShowingModalDialog = false));
+            Dispatcher.BeginInvoke((Action)(() => ViewModel.Dialog.IsVisible = false));
         }
 
         private void FullWindow_SourceInitialized(object sender, EventArgs e)
@@ -47,21 +47,21 @@ namespace EarTrumpet.UI.Views
 
         private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ViewModel.IsShowingModalDialog = false;
+            ViewModel.Dialog.IsVisible = false;
         }
 
         private void FullWindow_LocationChanged(object sender, EventArgs e)
         {
-            ViewModel.IsShowingModalDialog = false;
+            ViewModel.Dialog.IsVisible = false;
         }
 
         private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                if (ViewModel.IsShowingModalDialog)
+                if (ViewModel.Dialog.IsVisible)
                 {
-                    ViewModel.IsShowingModalDialog = false;
+                    ViewModel.Dialog.IsVisible = false;
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace EarTrumpet.UI.Views
 
         private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            ViewModel.IsShowingModalDialog = false;
+            ViewModel.Dialog.IsVisible = false;
             e.Handled = true;
         }
     }

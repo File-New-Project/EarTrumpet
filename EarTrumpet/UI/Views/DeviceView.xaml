@@ -28,7 +28,8 @@
                 <ListViewItem Name="DeviceListItem"
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
-                              AutomationProperties.Name="{Binding Device}">
+                              AutomationProperties.Name="{Binding Device}"
+                              PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource IconCellWidth}" />

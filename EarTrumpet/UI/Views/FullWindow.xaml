@@ -220,9 +220,9 @@
                 </ScrollViewer>
 
                 <views:VolumeControlPopup x:Name="AppPopup"
-                                          IsPopupVisible="{Binding IsShowingModalDialog, Mode=TwoWay}"
-                                          Tag="{Binding FocusedSource}">
-                    <ContentControl Content="{Binding Focused}" />
+                                          IsPopupVisible="{Binding Dialog.IsVisible, Mode=TwoWay}"
+                                          Tag="{Binding Dialog.Source}">
+                    <ContentControl Content="{Binding Dialog.Focused}" />
                 </views:VolumeControlPopup>
             </Grid>
         </DockPanel>
@@ -236,7 +236,7 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Dialog.IsVisible}" Value="True" />
                                 <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
@@ -273,7 +273,7 @@
 
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Dialog.IsVisible}" Value="True" />
                                 <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>

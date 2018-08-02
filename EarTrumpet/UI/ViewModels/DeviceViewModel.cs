@@ -221,7 +221,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
 
-        public void OpenPopup(IAppItemViewModel app, UIElement container)
+        public void OpenPopup(object app, FrameworkElement container)
         {
             if (_parent.TryGetTarget(out var parent))
             {

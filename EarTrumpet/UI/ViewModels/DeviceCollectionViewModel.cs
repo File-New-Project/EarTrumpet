@@ -14,7 +14,7 @@ namespace EarTrumpet.UI.ViewModels
     {
         public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
-        public event Action<IAppItemViewModel, UIElement> AppPopup;
+        public event Action<object, FrameworkElement> AppPopup;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
         public DeviceViewModel Default { get; private set; }
@@ -206,9 +206,9 @@ namespace EarTrumpet.UI.ViewModels
             StartOrStopPeakTimer();
         }
 
-        public void OpenPopup(IAppItemViewModel app, UIElement container)
+        public void OpenPopup(object viewModel, FrameworkElement container)
         {
-            AppPopup?.Invoke(app, container);
+            AppPopup?.Invoke(viewModel, container);
         }
     }
 }
