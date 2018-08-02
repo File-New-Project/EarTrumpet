@@ -308,7 +308,16 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartLegacyMixer()
         {
-            ProcessHelper.StartNoThrow("sndvol.exe");
+            try
+            {
+                var pos = System.Windows.Forms.Cursor.Position;
+                using (Process.Start("sndvol.exe", $"-a {User32.MAKEWPARAM((ushort)pos.X, (ushort)pos.Y)}"))
+                { }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"{ex}");
+            }
         }
 
         private Icon GetIconFromFile(string path, int iconOrdinal = 0)
