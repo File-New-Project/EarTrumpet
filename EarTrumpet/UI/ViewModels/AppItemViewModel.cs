@@ -62,7 +62,7 @@ namespace EarTrumpet.UI.ViewModels
 
             Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
 
-            if (icon != null)
+            if (isChild)
             {
                 Icon = icon;
             }
