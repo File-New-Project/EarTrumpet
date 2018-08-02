@@ -230,4 +230,7 @@
   <data name="AddonsMenuText" xml:space="preserve">
     <value>Addons</value>
   </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>More commands</value>
+  </data>
 </root>

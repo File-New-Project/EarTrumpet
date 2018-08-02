@@ -156,14 +156,14 @@ namespace EarTrumpet.UI.ViewModels
         {
             var newSession = new AppItemViewModel(this, session);
 
-            foreach(var a in Apps)
+            foreach(var app in Apps)
             {
-                if (a.DoesGroupWith(newSession))
+                if (app.DoesGroupWith(newSession))
                 {
                     // Remove the fake app entry after copying any changes the user did.
-                    newSession.Volume = a.Volume;
-                    newSession.IsMuted = a.IsMuted;
-                    Apps.Remove(a);
+                    newSession.Volume = app.Volume;
+                    newSession.IsMuted = app.IsMuted;
+                    Apps.Remove(app);
                     break;
                 }
             }

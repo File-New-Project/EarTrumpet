@@ -15,7 +15,6 @@ namespace EarTrumpet.UI.ViewModels
         public IAppItemViewModel App { get; }
         public ObservableCollection<ToolbarItemViewModel> Toolbar { get; }
         public string DisplayName => App.DisplayName;
-        public bool IsMovable => App.IsMovable;
 
         public FocusedAppItemViewModel(DeviceCollectionViewModel parent, IAppItemViewModel app)
         {
@@ -73,7 +72,7 @@ namespace EarTrumpet.UI.ViewModels
                 Toolbar.Insert(0, new ToolbarItemViewModel
                 {
                     GlyphFontSize = 16,
-                    DisplayName = "TODO",
+                    DisplayName = Properties.Resources.MoreCommandsAccessibleText,
                     Glyph = "\uE10C",
                     Menu = new ObservableCollection<ContextMenuItem>(menuItems)
                 });

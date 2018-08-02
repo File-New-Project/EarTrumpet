@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
@@ -36,14 +35,13 @@ namespace EarTrumpet.UI.ViewModels
             if (vm is IAppItemViewModel)
             {
                 Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
-                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             }
             else
             {
                 Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
-                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             }
 
+            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             Dialog.Source = container;
             Dialog.IsVisible = true;
         }

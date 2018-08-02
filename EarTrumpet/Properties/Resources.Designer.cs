@@ -250,6 +250,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More commands.
+        /// </summary>
+        public static string MoreCommandsAccessibleText {
+            get {
+                return ResourceManager.GetString("MoreCommandsAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign this app to a playback device.
         /// </summary>
         public static string MoveButtonAccessibleText {

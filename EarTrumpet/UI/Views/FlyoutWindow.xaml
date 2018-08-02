@@ -264,10 +264,28 @@
                     </ItemsControl>
 
                     <Button Height="{StaticResource DeviceTitleCellHeight}"
-                            AutomationProperties.Name="{Binding ExpandAccessibleText}"
                             Command="{Binding ExpandCollapse}"
-                            IsEnabled="{Binding CanExpand}"
-                            Style="{StaticResource ExpandCollapseButtonStyle}">
+                            IsEnabled="{Binding CanExpand}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.CollapseAccessibleText}" />
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.ExpandAccessibleText}" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <Button.Content>
                             <Grid>
                                 <TextBlock Margin="12,0,32,0"
@@ -275,14 +293,38 @@
                                            Style="{DynamicResource DeviceTitleTextStyle}"
                                            Text="{Binding DeviceNameText}"
                                            TextTrimming="CharacterEllipsis" />
-
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
-                                           FontSize="12"
-                                           Style="{StaticResource GlyphTextBlockStyle}"
-                                           Text="{Binding ExpandText}" />
+                                           FontSize="12">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}"
+                                               TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding CanExpand}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}"
+                                                                   Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Text"
+                                                            Value="&#xe011;" />
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding CanExpand}"
+                                                                   Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}"
+                                                                   Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Text"
+                                                            Value="&#xe010;" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
-
                         </Button.Content>
                     </Button>
                 </Grid>

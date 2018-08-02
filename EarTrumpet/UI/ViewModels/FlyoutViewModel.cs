@@ -31,15 +31,11 @@ namespace EarTrumpet.UI.ViewModels
         public event EventHandler<CloseReason> StateChanged = delegate { };
 
         public ModalDialogViewModel Dialog { get; }
-
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public bool IsEmpty => Devices.Count == 0;
-        public string ExpandText => CanExpand ? (IsExpanded ? "\ue011" : "\ue010") : "";
-        public string ExpandAccessibleText => CanExpand ? (IsExpanded ? Properties.Resources.CollapseAccessibleText : Properties.Resources.ExpandAccessibleText) : "";
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
-
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
@@ -120,7 +116,6 @@ namespace EarTrumpet.UI.ViewModels
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-
                     for (int i = Devices.Count - 1; i >= 0; i--)
                     {
                         RemoveDevice(Devices[i].Id);
@@ -150,10 +145,9 @@ namespace EarTrumpet.UI.ViewModels
         private void RaiseDevicesChanged()
         {
             RaisePropertyChanged(nameof(IsEmpty));
+            RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(CanExpand));
-            RaisePropertyChanged(nameof(ExpandText));
             RaisePropertyChanged(nameof(DeviceNameText));
-            RaisePropertyChanged(nameof(ExpandAccessibleText));
             InvalidateWindowSize();
         }
 
@@ -297,14 +291,13 @@ namespace EarTrumpet.UI.ViewModels
             if (vm is IAppItemViewModel)
             {
                 Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
-                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             }
             else
             {
                 Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
-                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             }
 
+            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
             Dialog.Source = container;
             Dialog.IsVisible = true;
         }
