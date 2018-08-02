@@ -95,7 +95,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
             {
-                DeviceIconText = "\xEC72";
+                DeviceIconText = "\xE720";
                 DeviceIconTextBackground = "";
             }
             else
