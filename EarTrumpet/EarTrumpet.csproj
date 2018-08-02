@@ -132,6 +132,7 @@
     <Compile Include="Interop\Helpers\AudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\Helpers\HotkeyData.cs" />
     <Compile Include="Interop\Helpers\HotkeyManager.cs" />
+    <Compile Include="Interop\Helpers\IconUtils.cs" />
     <Compile Include="Interop\HRESULT.cs" />
     <Compile Include="Interop\FolderIds.cs" />
     <Compile Include="Interop\Gdi32.cs" />

@@ -789,10 +789,10 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
                 <views:ModalDialogChrome>
-                    <Rectangle Fill="DarkBlue"
-                               Width="200"
+                    <Rectangle Width="200"
                                Height="200"
-                               Margin="12" />
+                               Margin="12"
+                               Fill="DarkBlue" />
                 </views:ModalDialogChrome>
             </DataTemplate>
             <DataTemplate x:Key="ContextMenuItemTemplate">

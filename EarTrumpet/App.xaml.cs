@@ -71,7 +71,7 @@ namespace EarTrumpet
         private void MainViewModel_Ready(object sender, System.EventArgs e)
         {
             Trace.WriteLine("App MainViewModel_Ready");
-            _trayIcon.Show();
+            _trayIcon.IsVisible = true;
 
             Trace.WriteLine("App MainViewModel_Ready Before Load");
             AddonManager.Current.Load();

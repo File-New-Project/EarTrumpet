@@ -1,11 +1,9 @@
 ﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
-using EarTrumpet.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -155,6 +153,15 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public void DpiChanged()
+        {
+            Trace.WriteLine("TrayViewModel DpiChanged");
+            _icons.Clear();
+            LoadIconResources();
+            _currentIcon = IconId.Invalid;
+            UpdateTrayIcon();
+        }
+
         private void LoadIconResources()
         {
             _useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
@@ -164,12 +171,12 @@ namespace EarTrumpet.UI.ViewModels
             try
             {
                 _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
-                _icons.Add(IconId.Muted, GetIconFromFile(_trayIconPath, (int)IconId.Muted));
-                _icons.Add(IconId.SpeakerZeroBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
-                _icons.Add(IconId.SpeakerOneBar, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
-                _icons.Add(IconId.SpeakerTwoBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
-                _icons.Add(IconId.SpeakerThreeBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
+                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted));
+                _icons.Add(IconId.SpeakerZeroBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
             }
             catch (Exception ex)
             {
@@ -269,15 +276,6 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        internal void DpiChanged()
-        {
-            Trace.WriteLine("TrayViewModel DpiChanged");
-            _icons.Clear();
-            LoadIconResources();
-            _currentIcon = IconId.Invalid;
-            UpdateTrayIcon();
-        }
-
         private void UpdateToolTip()
         {
             string toolTipText;
@@ -318,24 +316,6 @@ namespace EarTrumpet.UI.ViewModels
             {
                 Trace.WriteLine($"{ex}");
             }
-        }
-
-        private Icon GetIconFromFile(string path, int iconOrdinal = 0)
-        {
-            var moduleHandle = Kernel32.LoadLibraryEx(path, IntPtr.Zero,
-                Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-
-            IntPtr iconHandle = IntPtr.Zero;
-            try
-            {
-                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), _useLargeIcon ? Comctl32.LI_METRIC.LIM_LARGE : Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
-            }
-            finally
-            {
-                Kernel32.FreeLibrary(moduleHandle);
-            }
-
-            return Icon.FromHandle(iconHandle);
         }
     }
 }

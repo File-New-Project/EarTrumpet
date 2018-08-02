@@ -297,28 +297,21 @@
                                            HorizontalAlignment="Right"
                                            FontSize="12">
                                     <TextBlock.Style>
-                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}"
-                                               TargetType="{x:Type TextBlock}">
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding CanExpand}"
-                                                                   Value="True" />
-                                                        <Condition Binding="{Binding IsExpanded}"
-                                                                   Value="True" />
+                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}" Value="True" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Text"
-                                                            Value="&#xe011;" />
+                                                    <Setter Property="Text" Value="&#xe011;" />
                                                 </MultiDataTrigger>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding CanExpand}"
-                                                                   Value="True" />
-                                                        <Condition Binding="{Binding IsExpanded}"
-                                                                   Value="False" />
+                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}" Value="False" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Text"
-                                                            Value="&#xe010;" />
+                                                    <Setter Property="Text" Value="&#xe010;" />
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>

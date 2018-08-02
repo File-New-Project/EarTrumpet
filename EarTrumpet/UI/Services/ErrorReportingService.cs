@@ -2,8 +2,6 @@
 using Bugsnag.Clients;
 using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Helpers;
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -43,7 +41,9 @@ namespace EarTrumpet.UI.Services
         private static void OnWarningException(Exception ex)
         {
             Trace.WriteLine($"BUGSNAG Warning Notify: {ex}");
-            WPFClient.Notify(ex, Severity.Warning);
+            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+                WPFClient.Notify(ex, Severity.Warning);
+            }));
         }
 
         private static bool OnBeforeNotify(Event error)

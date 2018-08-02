@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Interop;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,7 +6,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Helpers
 {
-    sealed class WindowsTaskbar
+    public sealed class WindowsTaskbar
     {
         public struct State
         {

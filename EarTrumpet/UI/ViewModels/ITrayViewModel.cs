@@ -14,6 +14,7 @@ namespace EarTrumpet.UI.ViewModels
         RelayCommand RightClick { get; }
         string ToolTip { get; }
         Icon TrayIcon { get; }
+        void DpiChanged();
 
         event Action ContextMenuRequested;
     }

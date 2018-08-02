@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Controls
 {
-    class TrayIcon
+    public class TrayIcon
     {
         private readonly NotifyIcon _trayIcon;
         private readonly ITrayViewModel _trayViewModel;
@@ -18,7 +18,7 @@ namespace EarTrumpet.UI.Controls
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
             _trayViewModel.ContextMenuRequested += OnContextMenuRequested;
 
-            _trayIcon = new System.Windows.Forms.NotifyIcon();
+            _trayIcon = new NotifyIcon();
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = _trayViewModel.ToolTip;
@@ -26,12 +26,24 @@ namespace EarTrumpet.UI.Controls
             App.Current.Exit += App_Exit;
         }
 
+        public bool IsVisible
+        {
+            get => _trayIcon.Visible;
+            set
+            {
+                Trace.WriteLine("TrayIcon Show");
+                _trayIcon.Visible = value;
+                Trace.WriteLine("TrayIcon Shown");
+            }
+        }
+
         private void OnContextMenuRequested()
         {
-            var cm = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.DarkOnly);
-            cm.ItemsSource = _trayViewModel.MenuItems;
-            cm.Placement = PlacementMode.Mouse;
-            cm.IsOpen = true;
+            Trace.WriteLine("TrayIcon OnContextMenuRequested");
+            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.DarkOnly);
+            contextMenu.ItemsSource = _trayViewModel.MenuItems;
+            contextMenu.Placement = PlacementMode.Mouse;
+            contextMenu.IsOpen = true;
             Trace.WriteLine("TrayIcon OnContextMenuRequested (ContextMenu now open)");
         }
 
@@ -39,13 +51,6 @@ namespace EarTrumpet.UI.Controls
         {
             _trayIcon.Visible = false;
             _trayIcon.Dispose();
-        }
-
-        public void Show()
-        {
-            Trace.WriteLine("TrayIcon Show");
-            _trayIcon.Visible = true;
-            Trace.WriteLine("TrayIcon Shown");
         }
 
         private void TrayViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -60,7 +65,7 @@ namespace EarTrumpet.UI.Controls
             }
         }
 
-        void TrayIcon_MouseClick(object sender, MouseEventArgs e)
+        private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Trace.WriteLine($"TrayIcon TrayIcon_MouseClick {e.Button}");
 
