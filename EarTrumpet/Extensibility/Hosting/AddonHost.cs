@@ -20,6 +20,9 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonAppContextMenu))]
         private List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
 
+        [ImportMany(typeof(IAddonDeviceContent))]
+        private List<IAddonDeviceContent> _deviceContentItems { get; set; }
+
         public string[] Initialize(string[] additionalFilePaths)
         {
             var catalogs = new List<ComposablePartCatalog>();
@@ -35,6 +38,7 @@ namespace EarTrumpet.Extensibility.Hosting
 
             ((App)App.Current).TrayViewModel.AddonItems = _contextMenuItems.ToArray();
             FocusedAppItemViewModel.AddonItems = _appContextMenuItems.ToArray();
+            FocusedDeviceViewModel.AddonItems = _deviceContentItems.ToArray();
 
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));

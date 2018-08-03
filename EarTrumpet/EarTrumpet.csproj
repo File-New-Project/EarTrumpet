@@ -104,6 +104,7 @@
     <Compile Include="Extensibility\Hosting\Addon.cs" />
     <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="Extensibility\IAddonAppContextMenu.cs" />
+    <Compile Include="Extensibility\IAddonDeviceContent.cs" />
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
     <Compile Include="Extensibility\IAddonContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />

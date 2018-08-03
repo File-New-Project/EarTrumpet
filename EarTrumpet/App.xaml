@@ -789,13 +789,13 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
                 <views:ModalDialogChrome>
-
-                    <TextBlock Margin="24"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontFamily="Segoe MDL2 Assets"
-                               FontSize="100"
-                               Text="&#xE822;" />
+                    <ItemsControl Margin="{StaticResource WindowMargin}" ItemsSource="{Binding Addons}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </views:ModalDialogChrome>
             </DataTemplate>
             <DataTemplate x:Key="ContextMenuItemTemplate">
