@@ -19,6 +19,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public FocusedDeviceViewModel(DeviceCollectionViewModel mainViewModel, DeviceViewModel device)
         {
+            DisplayName = device.DisplayName;
             Toolbar = new ObservableCollection<ToolbarItemViewModel>();
             Toolbar.Add(new ToolbarItemViewModel
             {

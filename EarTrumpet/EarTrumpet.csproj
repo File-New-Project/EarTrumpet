@@ -142,6 +142,7 @@
     <Compile Include="Interop\Gdi32.cs" />
     <Compile Include="Interop\GPS.cs" />
     <Compile Include="Interop\Helpers\Win32Window.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IDeviceTopology.cs" />
     <Compile Include="Interop\MMDeviceAPI\IMMEndpoint.cs" />
     <Compile Include="Interop\IMrtResourceManager.cs" />
     <Compile Include="Interop\MMDeviceAPI\IPolicyConfig.cs" />

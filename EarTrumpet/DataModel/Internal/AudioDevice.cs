@@ -28,6 +28,7 @@ namespace EarTrumpet.DataModel.Internal
         private float _volume;
         private bool _isMuted;
         private bool _isRegistered;
+        private uint _speakerConfig;
 
         public AudioDevice(IAudioDeviceManager deviceManager, IMMDevice device)
         {
@@ -50,6 +51,7 @@ namespace EarTrumpet.DataModel.Internal
             _isMuted = _deviceVolume.GetMute() != 0;
 
             ReadDisplayName();
+            ReadSpeakerConfiguration();
         }
 
         ~AudioDevice()
@@ -172,6 +174,21 @@ namespace EarTrumpet.DataModel.Internal
                 var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
                 var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
                 _displayName = Marshal.PtrToStringUni(pv.pwszVal);
+                Ole32.PropVariantClear(ref pv);
+            }
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
+            }
+        }
+
+        private void ReadSpeakerConfiguration()
+        {
+            try
+            {
+                var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
+                var pv = propStore.GetValue(ref PropertyKeys.PKEY_AudioEndpoint_PhysicalSpeakers);
+                _speakerConfig = pv.uintVal;
                 Ole32.PropVariantClear(ref pv);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))

@@ -25,12 +25,9 @@ namespace EarTrumpet.DataModel.Internal
 
         public void OnNotify(AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
         {
-            var values = new float[pNotify.nChannels];
-            Marshal.Copy(pNotify.afChannelVolumes, values, 0, (int)pNotify.nChannels);
-
             for (var i = 0; i < pNotify.nChannels; i++)
             {
-                Channels[i].OnNotify(values[i]);
+                Channels[i].OnNotify();
             }
         }
     }

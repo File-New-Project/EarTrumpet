@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("D666063F-1587-4E43-81F1-B948E807363F")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IMMDevice
+    public interface IMMDevice
     {
         void Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
         [return: MarshalAs(UnmanagedType.Interface)]
@@ -15,7 +15,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         void GetState(out uint pdwState);
     }
 
-    static class IMMDeviceExtensions
+    public static class IMMDeviceExtensions
     {
         public static T Activate<T>(this IMMDevice device)
         {

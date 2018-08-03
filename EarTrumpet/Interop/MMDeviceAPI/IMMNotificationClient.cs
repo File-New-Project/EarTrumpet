@@ -4,7 +4,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("7991EEC9-7E89-4D85-8390-6C703CEC60C0")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IMMNotificationClient
+    public interface IMMNotificationClient
     {
         void OnDeviceStateChanged([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId, DeviceState dwNewState);
         void OnDeviceAdded([MarshalAs(UnmanagedType.LPWStr)]string pwstrDeviceId);
