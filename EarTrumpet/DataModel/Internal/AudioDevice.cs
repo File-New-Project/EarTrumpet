@@ -2,6 +2,7 @@
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,6 +22,7 @@ namespace EarTrumpet.DataModel.Internal
         private readonly IAudioMeterInformation _meter;
         private readonly WeakReference<IAudioDeviceManager> _deviceManager;
         private readonly string _id;
+        private readonly AudioDeviceChannelCollection _channels;
         private IMMDevice _device;
         private string _displayName;
         private float _volume;
@@ -37,6 +39,7 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine($"AudioDevice Create {_id}");
 
             _deviceVolume = device.Activate<IAudioEndpointVolume>();
+            _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
 
             _deviceVolume.RegisterControlChangeNotify(this);
             _isRegistered = true;
@@ -68,6 +71,8 @@ namespace EarTrumpet.DataModel.Internal
         {
             _volume = pNotify.fMasterVolume;
             _isMuted = pNotify.bMuted != 0;
+
+            _channels.OnNotify(pNotify);
 
             _dispatcher.Invoke((Action)(() =>
             {
@@ -140,6 +145,8 @@ namespace EarTrumpet.DataModel.Internal
                 return null;
             }
         }
+
+        public IEnumerable<IAudioDeviceChannel> Channels => _channels.Channels;
 
         public void UpdatePeakValueBackground()
         {
