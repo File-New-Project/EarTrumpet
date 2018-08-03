@@ -10,6 +10,9 @@
 - Per-Monitor DPI support
 - Fixes to Notification Area icon scaling
 - Fix overflow flyout at greater than 100% DPI
+## (Disabled by default)
+- Added 'Open system sounds' open to tray context menu
+- Added a muted state to the tray icon tooltip text 
 
 ## 2.0.5.0
 - Fixed System Sounds icon on ARM64

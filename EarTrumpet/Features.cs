@@ -6,6 +6,8 @@ namespace EarTrumpet
     {
         Addons = 1,
         DevicePopup = 2,
+        SoundSettingsMoSetPageOnTrayIcon = 3,
+        TrayIconToolTipHasMuteState = 4,
     }
 
     class Features
@@ -14,13 +16,10 @@ namespace EarTrumpet
         {
             switch (feature)
             {
-                case Feature.Addons:
-#if VSDEBUG
-                    return true;
-#else
-                    return false;
-#endif
                 case Feature.DevicePopup:
+                case Feature.Addons:
+                case Feature.SoundSettingsMoSetPageOnTrayIcon:
+                case Feature.TrayIconToolTipHasMuteState:
 #if VSDEBUG
                     return true;
 #else

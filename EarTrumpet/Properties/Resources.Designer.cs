@@ -268,6 +268,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Muted.
+        /// </summary>
+        public static string MutedText {
+            get {
+                return ResourceManager.GetString("MutedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It doesn&apos;t look like you have any playback devices..
         /// </summary>
         public static string NoDevicesPanelContent {
@@ -291,6 +300,15 @@ namespace EarTrumpet.Properties {
         public static string OpenAddonManagerText {
             get {
                 return ResourceManager.GetString("OpenAddonManagerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open sound settings.
+        /// </summary>
+        public static string OpenSoundSettingsText {
+            get {
+                return ResourceManager.GetString("OpenSoundSettingsText", resourceCulture);
             }
         }
         

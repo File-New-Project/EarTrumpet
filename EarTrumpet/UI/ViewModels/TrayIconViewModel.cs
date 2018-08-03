@@ -124,6 +124,15 @@ namespace EarTrumpet.UI.ViewModels
                     new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
+                if (Features.IsEnabled(Feature.SoundSettingsMoSetPageOnTrayIcon))
+                {
+                    ret.Insert(ret.Count - 4, new ContextMenuItem
+                    {
+                        DisplayName = Properties.Resources.OpenSoundSettingsText,
+                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:sound")),
+                    });
+                }
+
                 if (Features.IsEnabled(Feature.Addons))
                 {
                     var addonEntries = new List<ContextMenuItem>();
@@ -258,7 +267,7 @@ namespace EarTrumpet.UI.ViewModels
             else
             {
                 var iconKind = _defaultDevice.IconKind;
-                switch(iconKind)
+                switch (iconKind)
                 {
                     case DeviceIconKind.Mute:
                         TrayIcon = _icons[IconId.Muted];
@@ -289,11 +298,12 @@ namespace EarTrumpet.UI.ViewModels
         {
             if (_defaultDevice != null)
             {
-                var otherText = "EarTrumpet: 100% - ";
-                var dev = _defaultDevice.DisplayName;
+                var stateText = _defaultDevice.IsMuted && Features.IsEnabled(Feature.TrayIconToolTipHasMuteState) ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
+                var prefixText = $"EarTrumpet: {stateText} - ";
+                var deviceName = _defaultDevice.DisplayName;
                 // API Limitation: "less than 64 chars" for the tooltip.
-                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                ToolTip = $"EarTrumpet: {_defaultDevice.Volume}% - {dev}";
+                deviceName = deviceName.Substring(0, Math.Min(63 - prefixText.Length, deviceName.Length));
+                ToolTip = prefixText + deviceName;
             }
             else
             {
