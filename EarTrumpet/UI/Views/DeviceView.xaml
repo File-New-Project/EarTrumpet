@@ -26,6 +26,7 @@
                 </Border>
 
                 <ListViewItem Name="DeviceListItem"
+                              Tag="DeviceListItemKey"
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
                               AutomationProperties.Name="{Binding Device}"

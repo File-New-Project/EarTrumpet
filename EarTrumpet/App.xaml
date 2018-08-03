@@ -789,7 +789,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
                 <views:ModalDialogChrome>
-                    <ItemsControl Margin="{StaticResource WindowMargin}" ItemsSource="{Binding Addons}">
+                    <ItemsControl ItemsSource="{Binding Addons}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Vertical" />

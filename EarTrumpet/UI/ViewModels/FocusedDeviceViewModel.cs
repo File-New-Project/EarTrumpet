@@ -8,7 +8,8 @@ namespace EarTrumpet.UI.ViewModels
 {
     class FocusedDeviceViewModel : IFocusedViewModel
     {
-        public static IAddonDeviceContent[] AddonItems { get; set; }
+        public static IAddonDeviceContextMenu[] AddonContextMenuItems { get; set; }
+        public static IAddonDeviceContent[] AddonContentItems { get; set; }
 
         public event Action RequestClose;
 
@@ -29,9 +30,23 @@ namespace EarTrumpet.UI.ViewModels
                 Command = new RelayCommand(() => RequestClose.Invoke())
             });
 
-            if (AddonItems != null)
+            if (AddonContentItems != null)
             {
-                Addons = new ObservableCollection<object>(AddonItems.Select(a => a.GetContentForDevice(device.Id)).ToArray());
+                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id)).ToArray());
+            }
+
+            if (Features.IsEnabled(Feature.Addons) &&
+                    AddonContextMenuItems != null && AddonContextMenuItems.Any())
+            {
+                var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForDevice(device.Id));
+
+                Toolbar.Insert(0, new ToolbarItemViewModel
+                {
+                    GlyphFontSize = 16,
+                    DisplayName = Properties.Resources.MoreCommandsAccessibleText,
+                    Glyph = "\uE10C",
+                    Menu = new ObservableCollection<ContextMenuItem>(menuItems)
+                });
             }
         }
     }

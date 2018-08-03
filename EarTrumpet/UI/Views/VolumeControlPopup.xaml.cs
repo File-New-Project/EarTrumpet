@@ -103,7 +103,7 @@ namespace EarTrumpet.UI.Views
 
         public void PositionAndShow()
         {
-            var container = (UIElement)Tag;
+            var container = (FrameworkElement)Tag;
             var relativeTo = Window.GetWindow(this);
 
             if (relativeTo == null)
@@ -120,6 +120,12 @@ namespace EarTrumpet.UI.Views
             var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
             var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
+
+            if ((string)container.Tag == "DeviceListItemKey")
+            {
+                // TODO: Somehow express this relationship and calculation
+                volumeListMargin.Bottom = 0;
+            }
 
             Point offsetFromWindow = container.TranslatePoint(new Point(0, 0), relativeTo);
             // Adjust for the title bar, top border and top margin on the app list.
