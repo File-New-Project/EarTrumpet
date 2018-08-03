@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -39,19 +39,20 @@ namespace EarTrumpet.DataModel.Internal
 
             Trace.WriteLine($"AudioDevice Create {_id}");
 
-            _deviceVolume = device.Activate<IAudioEndpointVolume>();
-            _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
-
-            _deviceVolume.RegisterControlChangeNotify(this);
-            _isRegistered = true;
-            _meter = device.Activate<IAudioMeterInformation>();
-            _sessions = new AudioDeviceSessionCollection(this, _device);
-            _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
-            _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
-            _isMuted = _deviceVolume.GetMute() != 0;
+            if (_device.GetState() == DeviceState.ACTIVE)
+            {
+                _deviceVolume = device.Activate<IAudioEndpointVolume>();
+                _deviceVolume.RegisterControlChangeNotify(this);
+                _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
+                _isMuted = _deviceVolume.GetMute() != 0;
+                _isRegistered = true;
+                _meter = device.Activate<IAudioMeterInformation>();
+                _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
+                _sessions = new AudioDeviceSessionCollection(this, _device);
+                _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
+            }
 
             ReadDisplayName();
-            ReadSpeakerConfiguration();
         }
 
         ~AudioDevice()
@@ -179,6 +180,10 @@ namespace EarTrumpet.DataModel.Internal
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
             }
         }
 

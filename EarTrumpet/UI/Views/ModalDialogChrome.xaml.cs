@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using EarTrumpet.UI.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace EarTrumpet.UI.Views
@@ -13,15 +16,19 @@ namespace EarTrumpet.UI.Views
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var btn = (Button)sender;
+            var dt = (ToolbarItemViewModel)btn.DataContext;
 
-            btn.ContextMenu.Opened += (_, __) =>
+            if (dt.Menu != null)
             {
-                ((Popup)btn.ContextMenu.Parent).PopupAnimation = PopupAnimation.None;
-            };
+                btn.ContextMenu.Opened += (_, __) =>
+                {
+                    ((Popup)btn.ContextMenu.Parent).PopupAnimation = PopupAnimation.None;
+                };
 
-            btn.ContextMenu.PlacementTarget = btn;
-            btn.ContextMenu.Placement = PlacementMode.Bottom;
-            btn.ContextMenu.IsOpen = true;
+                btn.ContextMenu.PlacementTarget = btn;
+                btn.ContextMenu.Placement = PlacementMode.Bottom;
+                btn.ContextMenu.IsOpen = true;
+            }
         }
     }
 }

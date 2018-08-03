@@ -12,7 +12,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         IPropertyStore OpenPropertyStore(STGM stgmAccess);
         [return: MarshalAs(UnmanagedType.LPWStr)]
         string GetId();
-        void GetState(out uint pdwState);
+        DeviceState GetState();
     }
 
     public static class IMMDeviceExtensions

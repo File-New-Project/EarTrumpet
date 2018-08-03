@@ -129,6 +129,7 @@
                                     BorderThickness="{TemplateBinding BorderThickness}">
                                 <TextBlock HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
+                                           FontFamily="{TemplateBinding FontFamily}"
                                            Foreground="{TemplateBinding Foreground}"
                                            Text="{TemplateBinding Content}" />
                             </Border>

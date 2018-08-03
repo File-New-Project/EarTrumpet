@@ -219,7 +219,7 @@ namespace EarTrumpet.UI.Helpers
             storyboard.Begin(window);
         }
 
-        public static void BeginWindowEntranceAnimation(Window window, Action completed)
+        public static void BeginWindowEntranceAnimation(Window window, Action completed, double fromOpacity = 0.5)
         {
             var onCompleted = new EventHandler((s, e) =>
             {
@@ -238,7 +238,7 @@ namespace EarTrumpet.UI.Helpers
                 Duration = new Duration(TimeSpan.FromMilliseconds(250)),
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0.5,
+                From = fromOpacity,
                 To = 1,
             };
             fadeAnimation.Completed += (s, e) => { window.Opacity = 1; };

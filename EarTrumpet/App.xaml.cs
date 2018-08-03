@@ -18,10 +18,10 @@ namespace EarTrumpet
     {
         public FlyoutViewModel FlyoutViewModel { get; private set; }
         public TrayViewModel TrayViewModel { get; private set; }
+        public FlyoutWindow FlyoutWindow { get; private set; }
+        public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
 
-        private DeviceCollectionViewModel _viewModel;
         private TrayIcon _trayIcon;
-        private FlyoutWindow _flyoutWindow;
         private SettingsWindow _openSettingsWindow;
         private FullWindow _openMixerWindow;
 
@@ -40,19 +40,19 @@ namespace EarTrumpet
 
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
-            _viewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
-            _viewModel.Ready += MainViewModel_Ready;
+            PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
+            PlaybackDevicesViewModel.Ready += MainViewModel_Ready;
 
-            FlyoutViewModel = new FlyoutViewModel(_viewModel);
-            _flyoutWindow = new FlyoutWindow(FlyoutViewModel);
+            FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel);
+            FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
 
-            TrayViewModel = new TrayViewModel(_viewModel);
+            TrayViewModel = new TrayViewModel(PlaybackDevicesViewModel);
             TrayViewModel.LeftClick = new RelayCommand(() => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
             TrayViewModel.OpenMixer = new RelayCommand(OpenMixer);
             TrayViewModel.OpenSettings = new RelayCommand(OpenSettings);
 
             _trayIcon = new TrayIcon(TrayViewModel);
-            _flyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
+            FlyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
 
             HotkeyManager.Current.Register(SettingsService.Hotkey);
             HotkeyManager.Current.KeyPressed += (hotkey) =>
@@ -86,7 +86,7 @@ namespace EarTrumpet
             }
             else
             {
-                var viewModel = new FullWindowViewModel(_viewModel);
+                var viewModel = new FullWindowViewModel(PlaybackDevicesViewModel);
                 _openMixerWindow = new FullWindow();
                 _openMixerWindow.DataContext = viewModel;
                 _openMixerWindow.Closing += (_, __) =>

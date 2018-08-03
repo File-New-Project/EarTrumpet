@@ -292,9 +292,13 @@ namespace EarTrumpet.UI.ViewModels
             {
                 Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
             }
-            else
+            else if (vm is DeviceViewModel)
             {
                 Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+            }
+            else
+            {
+                Dialog.Focused = (IFocusedViewModel)vm;
             }
 
             Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;

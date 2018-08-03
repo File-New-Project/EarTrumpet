@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Interop.MMDeviceAPI;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal

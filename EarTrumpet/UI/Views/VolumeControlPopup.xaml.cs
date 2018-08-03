@@ -121,18 +121,25 @@ namespace EarTrumpet.UI.Views
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
             var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
+            Point offsetFromWindow = container.TranslatePoint(new Point(0, 0), relativeTo);
+
+            // HACK: This is a poor relationship between the popup and these children.
             if ((string)container.Tag == "DeviceListItemKey")
             {
-                // TODO: Somehow express this relationship and calculation
-                volumeListMargin.Bottom = 0;
+                // Adjust for the title bar, top border and top margin on the app list.
+                offsetFromWindow.Y -= (HEADER_SIZE + PopupBorderSize.Top);
+            }
+            else if (container is FlyoutWindow)
+            {
+                // No adjustment.
+            }
+            else
+            {
+                // Adjust for the title bar, top border and top margin on the app list.
+                offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom + PopupBorderSize.Top);
             }
 
-            Point offsetFromWindow = container.TranslatePoint(new Point(0, 0), relativeTo);
-            // Adjust for the title bar, top border and top margin on the app list.
-            offsetFromWindow.Y -= (HEADER_SIZE + volumeListMargin.Bottom + PopupBorderSize.Top);
-
             var root = ((FrameworkElement)Child);
-
             root.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var popupHeight = root.DesiredSize.Height;
 
