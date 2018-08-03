@@ -36,7 +36,7 @@ namespace EarTrumpet.Extensibility.Hosting
             var container = new CompositionContainer(new AggregateCatalog(catalogs));
             container.ComposeParts(this);
 
-            ((App)App.Current).TrayViewModel.AddonItems = _contextMenuItems.ToArray();
+            TrayViewModel.AddonItems = _contextMenuItems.ToArray();
             FocusedAppItemViewModel.AddonItems = _appContextMenuItems.ToArray();
             FocusedDeviceViewModel.AddonItems = _deviceContentItems.ToArray();
 

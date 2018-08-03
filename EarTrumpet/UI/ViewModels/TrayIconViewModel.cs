@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.Properties;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System;
@@ -27,24 +26,49 @@ namespace EarTrumpet.UI.ViewModels
             OriginalIcon
         }
 
+        internal static IAddonContextMenu[] AddonItems { get; set; }
+
         public event Action ContextMenuRequested;
 
-        public Icon TrayIcon { get; private set; }
-        public string ToolTip { get; private set; }
+        public Icon TrayIcon
+        {
+            get => _trayIcon;
+            set
+            {
+                if (_trayIcon != value)
+                {
+                    _trayIcon = value;
+                    RaisePropertyChanged(nameof(TrayIcon));
+                }
+            }
+        }
+
+        public string ToolTip
+        {
+            get => _toolTip;
+            set
+            {
+                if (_toolTip != value)
+                {
+                    _toolTip = value;
+                    RaisePropertyChanged(nameof(ToolTip));
+                }
+            }
+        }
+
         public RelayCommand RightClick { get; }
         public RelayCommand MiddleClick { get; }
         public RelayCommand LeftClick { get; set; }
         public RelayCommand OpenMixer { get; set; }
         public RelayCommand OpenSettings { get; set; }
-        public IAddonContextMenu[] AddonItems { get; set; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
-        private IconId _currentIcon = IconId.Invalid;
-        private bool _useLegacyIcon;
-        private bool _useLargeIcon;
         private DeviceViewModel _defaultDevice;
+        private bool _useLegacyIcon;
+        private Icon _trayIcon;
+        private string _toolTip;
 
         internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
@@ -77,7 +101,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ret.Add(new ContextMenuItem
                     {
-                        DisplayName = Resources.ContextMenuNoDevices,
+                        DisplayName = Properties.Resources.ContextMenuNoDevices,
                         IsEnabled = false,
                     });
                 }
@@ -88,16 +112,16 @@ namespace EarTrumpet.UI.ViewModels
 
                 ret.AddRange(new List<ContextMenuItem>
                 {
-                    new ContextMenuItem{ DisplayName =Resources.FullWindowTitleText,   Command =  OpenMixer },
-                    new ContextMenuItem{ DisplayName =Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.FullWindowTitleText,   Command =  OpenMixer },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
                     new ContextMenuSeparator{ },
-                    new ContextMenuItem{ DisplayName = Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
-                    new ContextMenuItem{ DisplayName = Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
-                    new ContextMenuItem{ DisplayName = Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
                     new ContextMenuSeparator{ },
-                    new ContextMenuItem{ DisplayName = Resources.SettingsWindowText,     Command = OpenSettings },
-                    new ContextMenuItem{ DisplayName = Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
-                    new ContextMenuItem{ DisplayName = Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText,     Command = OpenSettings },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
                 if (Features.IsEnabled(Feature.Addons))
@@ -105,7 +129,7 @@ namespace EarTrumpet.UI.ViewModels
                     var addonEntries = new List<ContextMenuItem>();
                     if (AddonItems.SelectMany(a => a.Items).Any())
                     {
-                        // Add a line before and after each extension group.
+                        // Add a separator before and after each extension group.
                         foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                         {
                             addonEntries.Add(new ContextMenuSeparator());
@@ -118,23 +142,23 @@ namespace EarTrumpet.UI.ViewModels
                             addonEntries.Add(new ContextMenuSeparator());
                         }
 
-                        // Remove duplicate lines (extensions may also add lines)
-                        bool prevItemWasSep = false;
+                        // Remove duplicate separators (extensions may also add separators)
+                        bool previousItemWasSeparator = false;
                         for (var i = addonEntries.Count - 1; i >= 0; i--)
                         {
-                            var itemIsSep = addonEntries[i] is ContextMenuSeparator;
+                            var currentItemIsSeparator = addonEntries[i] is ContextMenuSeparator;
 
-                            if ((i == addonEntries.Count - 1 || i == 0) && itemIsSep)
+                            if ((i == addonEntries.Count - 1 || i == 0) && currentItemIsSeparator)
                             {
                                 addonEntries.Remove(addonEntries[i]);
                             }
 
-                            if (prevItemWasSep && itemIsSep)
+                            if (previousItemWasSeparator && currentItemIsSeparator)
                             {
                                 addonEntries.Remove(addonEntries[i]);
                             }
 
-                            prevItemWasSep = itemIsSep;
+                            previousItemWasSeparator = currentItemIsSeparator;
                         }
                     }
 
@@ -156,27 +180,26 @@ namespace EarTrumpet.UI.ViewModels
         public void DpiChanged()
         {
             Trace.WriteLine("TrayViewModel DpiChanged");
-            _icons.Clear();
+
             LoadIconResources();
-            _currentIcon = IconId.Invalid;
             UpdateTrayIcon();
         }
 
         private void LoadIconResources()
         {
-            _useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
-            Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={_useLargeIcon}");
+            _icons.Clear();
+            var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
+            Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
 
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
             {
                 _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
-                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted));
-                _icons.Add(IconId.SpeakerZeroBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
-                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
-                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
-                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon));
+                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon));
             }
             catch (Exception ex)
             {
@@ -193,14 +216,14 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel e)
+        private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel newDefaultDevice)
         {
             if (_defaultDevice != null)
             {
                 _defaultDevice.PropertyChanged -= DefaultDevice_PropertyChanged;
             }
 
-            _defaultDevice = e;
+            _defaultDevice = newDefaultDevice;
 
             if (_defaultDevice != null)
             {
@@ -216,55 +239,41 @@ namespace EarTrumpet.UI.ViewModels
             UpdateToolTip();
         }
 
-        private void SettingsService_UseLegacyIconChanged(object sender, bool e)
+        private void SettingsService_UseLegacyIconChanged(object sender, bool newSetting)
         {
-            _useLegacyIcon = e;
+            _useLegacyIcon = newSetting;
             UpdateTrayIcon();
         }
 
         private void UpdateTrayIcon()
         {
-            IconId desiredIcon = IconId.OriginalIcon;
-
             if (_useLegacyIcon)
             {
-                desiredIcon = IconId.OriginalIcon;
+                TrayIcon = _icons[IconId.OriginalIcon];
+            }
+            else if (_defaultDevice == null)
+            {
+                TrayIcon = _icons[IconId.NoDevice];
             }
             else
             {
-                int volume = _defaultDevice != null ? _defaultDevice.Volume : 0;
-
-                if (_defaultDevice == null)
+                var iconKind = _defaultDevice.IconKind;
+                switch(iconKind)
                 {
-                    desiredIcon = IconId.NoDevice;
+                    case DeviceIconKind.Mute:
+                        TrayIcon = _icons[IconId.Muted];
+                        break;
+                    case DeviceIconKind.Bar1:
+                        TrayIcon = _icons[IconId.SpeakerOneBar];
+                        break;
+                    case DeviceIconKind.Bar2:
+                        TrayIcon = _icons[IconId.SpeakerTwoBars];
+                        break;
+                    case DeviceIconKind.Bar3:
+                        TrayIcon = _icons[IconId.SpeakerThreeBars];
+                        break;
+                    default: throw new NotImplementedException();
                 }
-                else if (_defaultDevice.IsMuted)
-                {
-                    desiredIcon = IconId.Muted;
-                }
-                else if (volume == 0)
-                {
-                    desiredIcon = IconId.SpeakerZeroBars;
-                }
-                else if (volume >= 1 && volume < 33)
-                {
-                    desiredIcon = IconId.SpeakerOneBar;
-                }
-                else if (volume >= 33 && volume < 66)
-                {
-                    desiredIcon = IconId.SpeakerTwoBars;
-                }
-                else if (volume >= 66 && volume <= 100)
-                {
-                    desiredIcon = IconId.SpeakerThreeBars;
-                }
-            }
-
-            if (desiredIcon != _currentIcon)
-            {
-                _currentIcon = desiredIcon;
-                TrayIcon = _icons[_currentIcon];
-                RaisePropertyChanged(nameof(TrayIcon));
             }
         }
 
@@ -278,30 +287,31 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateToolTip()
         {
-            string toolTipText;
             if (_defaultDevice != null)
             {
                 var otherText = "EarTrumpet: 100% - ";
                 var dev = _defaultDevice.DisplayName;
                 // API Limitation: "less than 64 chars" for the tooltip.
                 dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                toolTipText = $"EarTrumpet: {_defaultDevice.Volume}% - {dev}";
+                ToolTip = $"EarTrumpet: {_defaultDevice.Volume}% - {dev}";
             }
             else
             {
-                toolTipText = Resources.NoDeviceTrayText;
-            }
-
-            if (toolTipText != ToolTip)
-            {
-                ToolTip = toolTipText;
-                RaisePropertyChanged(nameof(ToolTip));
+                ToolTip = Properties.Resources.NoDeviceTrayText;
             }
         }
 
         private void OpenControlPanel(string panel)
         {
-            using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}")) { }
+            try
+            {
+                using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
+                { }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"{ex}");
+            }
         }
 
         private void StartLegacyMixer()
