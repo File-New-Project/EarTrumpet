@@ -39,7 +39,6 @@ namespace EarTrumpet.UI.ViewModels
                     AddonContextMenuItems != null && AddonContextMenuItems.Any())
             {
                 var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForDevice(device.Id));
-
                 Toolbar.Insert(0, new ToolbarItemViewModel
                 {
                     GlyphFontSize = 16,

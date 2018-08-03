@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class DeviceViewModel : AudioSessionViewModel
+    public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
         public string DisplayName => _device.DisplayName;
         public ObservableCollection<IAppItemViewModel> Apps { get; }

@@ -194,6 +194,7 @@
     <Compile Include="UI\ViewModels\FocusedDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
+    <Compile Include="UI\ViewModels\IDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModel.cs" />

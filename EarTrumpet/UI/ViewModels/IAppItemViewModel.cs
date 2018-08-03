@@ -23,12 +23,12 @@ namespace EarTrumpet.UI.ViewModels
         float PeakValue2 { get; }
         string PersistedOutputDevice { get; }
         int ProcessId { get; }
-
         bool DoesGroupWith(IAppItemViewModel app);
         void MoveToDevice(string id, bool hide);
         void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
         void OpenPopup(FrameworkElement uIElement);
+        IDeviceViewModel Parent { get; }
     }
 }

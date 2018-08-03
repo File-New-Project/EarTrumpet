@@ -62,6 +62,7 @@ namespace EarTrumpet.UI.ViewModels
         public float PeakValue2 { get; }
         public string PersistedOutputDevice => _deviceManager.GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
+        public IDeviceViewModel Parent { get; }
 
         private int[] _processIds;
         private int _volume;
@@ -98,6 +99,7 @@ namespace EarTrumpet.UI.ViewModels
             PeakValue1 = 0;
             PeakValue2 = 0;
             ProcessId = app.ProcessId;
+            Parent = app.Parent;
 
             if (ChildApps != null)
             {

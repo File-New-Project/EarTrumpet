@@ -37,7 +37,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
-        public bool IsMovable => !_session.IsSystemSoundsSession && 
+        public bool IsMovable => !_session.IsSystemSoundsSession &&
                                   Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 
         public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;
@@ -45,6 +45,18 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsExpanded { get; private set; }
 
         public int ProcessId => _session.ProcessId;
+
+        public IDeviceViewModel Parent
+        {
+            get
+            {
+                if (_parent.TryGetTarget(out var parent))
+                {
+                    return parent;
+                }
+                return null;
+            }
+        }
 
         private IAudioDeviceSession _session;
         private WeakReference<DeviceViewModel> _parent;

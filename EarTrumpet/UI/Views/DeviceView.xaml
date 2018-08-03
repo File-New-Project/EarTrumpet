@@ -26,11 +26,11 @@
                 </Border>
 
                 <ListViewItem Name="DeviceListItem"
-                              Tag="DeviceListItemKey"
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
                               AutomationProperties.Name="{Binding Device}"
-                              PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
+                              PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp"
+                              Tag="DeviceListItemKey">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{StaticResource IconCellWidth}" />

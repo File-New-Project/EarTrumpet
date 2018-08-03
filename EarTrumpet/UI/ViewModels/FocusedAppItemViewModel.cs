@@ -67,7 +67,7 @@ namespace EarTrumpet.UI.ViewModels
             if (Features.IsEnabled(Feature.Addons) &&
                 AddonItems != null && AddonItems.Any())
             {
-                var menuItems = AddonItems.SelectMany(a => a.GetItemsForApp(null, app.AppId));
+                var menuItems = AddonItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
 
                 Toolbar.Insert(0, new ToolbarItemViewModel
                 {
