@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
     interface IAudioDeviceManager
     {
-        event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
-        event EventHandler PlaybackDevicesLoaded;
+        event EventHandler<IAudioDevice> DefaultChanged;
+        event EventHandler Loaded;
 
-        IAudioDevice DefaultPlaybackDevice { get; set; }
-        IAudioDevice DefaultCommunicationDevice { get; set; }
-        ObservableCollection<IAudioDevice> Devices { get; }
+        IAudioDevice Default { get; set; }
+        IAudioDeviceCollection Devices { get; }
 
         void MoveHiddenAppsToDevice(string appId, string id);
+        void SetDefaultEndPoint(string id, int pid);
+        string GetDefaultEndPoint(int processId);
     }
 }

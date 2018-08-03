@@ -165,7 +165,17 @@ namespace EarTrumpet.DataModel.Internal
 
         public bool IsSystemSoundsSession { get; }
 
-        public string PersistedDefaultEndPointId => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
+        public string PersistedDefaultEndPointId
+        {
+            get
+            {
+                if (_parent.TryGetTarget(out var parent))
+                {
+                    return parent.Parent.GetDefaultEndPoint(ProcessId);
+                }
+                return null;
+            }
+        }
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
 
@@ -187,6 +197,7 @@ namespace EarTrumpet.DataModel.Internal
         private bool _isRegistered;
         private Task _refreshDisplayNameTask;
         private bool _useLogarithmicVolume = false;
+        private WeakReference<IAudioDevice> _parent;
 
         public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
         {
@@ -200,6 +211,7 @@ namespace EarTrumpet.DataModel.Internal
             _isMuted = _simpleVolume.GetMute() != 0;
             IsSystemSoundsSession = ((IAudioSessionControl2)_session).IsSystemSoundsSession() == 0;
             ProcessId = ReadProcessId();
+            _parent = new WeakReference<IAudioDevice>(parent);
 
             _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
 
@@ -231,7 +243,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -282,7 +294,10 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveToDevice(string id, bool hide)
         {
-            AudioPolicyConfigService.SetDefaultEndPoint(id, ProcessId);
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.Parent.SetDefaultEndPoint(id, ProcessId);
+            }
         }
 
         public void UpdatePeakValueBackground()

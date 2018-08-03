@@ -14,21 +14,23 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private readonly Dispatcher _dispatcher;
+        private readonly IAudioEndpointVolume _deviceVolume;
+        private readonly AudioDeviceSessionCollection _sessions;
+        private readonly IAudioMeterInformation _meter;
+        private readonly WeakReference<IAudioDeviceManager> _deviceManager;
+        private readonly string _id;
         private IMMDevice _device;
-        private Dispatcher _dispatcher;
-        private IAudioEndpointVolume _deviceVolume;
-        private AudioDeviceSessionCollection _sessions;
-        private IAudioMeterInformation _meter;
-        private string _id;
         private string _displayName;
         private float _volume;
         private bool _isMuted;
         private bool _isRegistered;
         private bool _useLogarithmicVolume = false;
 
-        public AudioDevice(IMMDevice device)
+        public AudioDevice(IAudioDeviceManager deviceManager, IMMDevice device)
         {
             _device = device;
+            _deviceManager = new WeakReference<IAudioDeviceManager>(deviceManager);
             _dispatcher = App.Current.Dispatcher;
             _id = device.GetId();
 
@@ -57,7 +59,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -139,6 +141,18 @@ namespace EarTrumpet.DataModel.Internal
         public ObservableCollection<IAudioDeviceSession> Groups => _sessions.Sessions;
 
         public string DisplayName => _displayName;
+
+        public IAudioDeviceManager Parent
+        {
+            get
+            {
+                if (_deviceManager.TryGetTarget(out var parent))
+                {
+                    return parent;
+                }
+                return null;
+            }
+        }
 
         public void UpdatePeakValueBackground()
         {

@@ -35,7 +35,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
-        public bool IsMovable => !_session.IsSystemSoundsSession;
+        public bool IsMovable => !_session.IsSystemSoundsSession && Environment.OSVersion.Version.Build >= 17134;
 
         public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;
 
@@ -67,7 +67,13 @@ namespace EarTrumpet.UI.ViewModels
                 }
                 else
                 {
-                    Icon = new BitmapImage(new Uri(session.IconPath));
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.UriSource = new Uri(session.IconPath);
+                    bitmap.EndInit();
+
+                    Icon = bitmap;
                 }
             }
             catch (Exception ex)

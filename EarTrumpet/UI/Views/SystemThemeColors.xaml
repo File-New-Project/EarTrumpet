@@ -13,7 +13,9 @@
     <SolidColorBrush x:Key="CottonSwabSliderThumb">White</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderThumbHover">Green</SolidColorBrush>
     <SolidColorBrush x:Key="CottonSwabSliderThumbPressed">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="CottonSwabSliderTrackFill">Purple</SolidColorBrush>
+    <SolidColorBrush x:Key="SliderTrackFillLeft">Purple</SolidColorBrush>
+    <SolidColorBrush x:Key="SliderTrackFillRight">Pink</SolidColorBrush>
+    <SolidColorBrush x:Key="ControlSliderTrackFillRight">Pink</SolidColorBrush>
     <SolidColorBrush x:Key="PeakMeterHotColor">Aqua</SolidColorBrush>
     <SolidColorBrush x:Key="ActiveBorder">Green</SolidColorBrush>
 

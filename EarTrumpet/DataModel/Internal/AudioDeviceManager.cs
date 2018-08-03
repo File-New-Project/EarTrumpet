@@ -1,10 +1,9 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -12,24 +11,26 @@ namespace EarTrumpet.DataModel.Internal
 {
     class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
     {
-        public event EventHandler<IAudioDevice> DefaultPlaybackDeviceChanged;
-        public event EventHandler PlaybackDevicesLoaded;
+        public event EventHandler<IAudioDevice> DefaultChanged;
+        public event EventHandler Loaded;
 
-        public ObservableCollection<IAudioDevice> Devices => _devices;
+        public IAudioDeviceCollection Devices => _devices;
 
-        private static IPolicyConfig s_PolicyConfigClient = null;
+        private static AutoPolicyConfigClient s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _defaultPlaybackDevice;
-        private IAudioDevice _defaultCommunicationsDevice;
-        private ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
-        private Dispatcher _dispatcher;
+        private readonly Dispatcher _dispatcher;
+        private readonly AudioDeviceCollection _devices;
+        private readonly AudioPolicyConfigService _policyConfigService;
 
         public AudioDeviceManager(Dispatcher dispatcher)
         {
             Trace.WriteLine("AudioDeviceManager Create");
 
             _dispatcher = dispatcher;
+            _devices = new AudioDeviceCollection();
+            _policyConfigService = new AudioPolicyConfigService();
 
             Task.Factory.StartNew(() =>
             {
@@ -45,17 +46,21 @@ namespace EarTrumpet.DataModel.Internal
                         ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
                     }
 
-                    // Trigger default logic to register for volume change
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         QueryDefaultPlaybackDevice();
-                        QueryDefaultCommunicationsDevice();
-                        PlaybackDevicesLoaded?.Invoke(this, null);
+                        Loaded?.Invoke(this, null);
                     }));
                 }
-                catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                catch (Exception ex)
                 {
-                    // Expected in some cases.
+                    // Even through we're going to be broken, show the tray icon so the user can collect debug data.
+                    AppTrace.LogWarning(ex);
+
+                    _dispatcher.BeginInvoke((Action)(() =>
+                    {
+                        Loaded?.Invoke(this, null);
+                    }));
                 }
             });
 
@@ -70,7 +75,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -91,34 +96,13 @@ namespace EarTrumpet.DataModel.Internal
             var currentDeviceId = _defaultPlaybackDevice?.Id;
             if (currentDeviceId != newDeviceId)
             {
-                FindDevice(newDeviceId, out _defaultPlaybackDevice);
+                _devices.TryFind(newDeviceId, out _defaultPlaybackDevice);
 
-                DefaultPlaybackDeviceChanged?.Invoke(this, _defaultPlaybackDevice);
+                DefaultChanged?.Invoke(this, _defaultPlaybackDevice);
             }
         }
 
-        private void QueryDefaultCommunicationsDevice()
-        {
-            Trace.WriteLine("AudioDeviceManager QueryDefaultCommunicationsDevice");
-            IMMDevice device = null;
-            try
-            {
-                device = _enumerator.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eCommunications);
-            }
-            catch (Exception ex) when (ex.Is(Error.ERROR_NOT_FOUND))
-            {
-                // Expected.
-            }
-
-            string newDeviceId = device?.GetId();
-            var currentDeviceId = _defaultCommunicationsDevice?.Id;
-            if (currentDeviceId != newDeviceId)
-            {
-                FindDevice(newDeviceId, out _defaultCommunicationsDevice);
-            }
-        }
-
-        public IAudioDevice DefaultPlaybackDevice
+        public IAudioDevice Default
         {
             get => _defaultPlaybackDevice;
             set
@@ -130,25 +114,13 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public IAudioDevice DefaultCommunicationDevice
-        {
-            get => _defaultCommunicationsDevice;
-            set
-            {
-                if (_defaultCommunicationsDevice == null || value.Id != _defaultCommunicationsDevice.Id)
-                {
-                    SetDefaultDevice(value, ERole.eCommunications);
-                }
-            }
-        }
-
         private void SetDefaultDevice(IAudioDevice device, ERole role = ERole.eMultimedia)
         {
             Trace.WriteLine($"AudioDeviceManager SetDefaultDevice {device.Id}");
 
             if (s_PolicyConfigClient == null)
             {
-                s_PolicyConfigClient = (IPolicyConfig)new PolicyConfigClient();
+                s_PolicyConfigClient = new AutoPolicyConfigClient();
             }
 
             // Racing with the system, the device may not be valid anymore.
@@ -158,20 +130,8 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
-        }
-
-        private bool FindDevice(string deviceId, out IAudioDevice found)
-        {
-            if (deviceId == null)
-            {
-                found = null;
-                return false;
-            }
-
-            found = _devices.ToArray().FirstOrDefault(d => d.Id == deviceId);
-            return found != null;
         }
 
         public void MoveHiddenAppsToDevice(string appId, string id)
@@ -186,19 +146,19 @@ namespace EarTrumpet.DataModel.Internal
         {
             Trace.WriteLine($"AudioDeviceManager OnDeviceAdded {pwstrDeviceId}");
 
-            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused))
+            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused))
             {
                 try
                 {
                     IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
                     if (((IMMEndpoint)device).GetDataFlow() == EDataFlow.eRender)
                     {
-                        var newDevice = new AudioDevice(device);
+                        var newDevice = new AudioDevice(this, device);
 
                         _dispatcher.BeginInvoke((Action)(() =>
                         {
                             // We must check again on the UI thread to avoid adding a duplicate device.
-                            if (!FindDevice(pwstrDeviceId, out IAudioDevice unused1))
+                            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused1))
                             {
                                 _devices.Add(newDevice);
                             }
@@ -209,7 +169,7 @@ namespace EarTrumpet.DataModel.Internal
                 {
                     // We catch Exception here because IMMDevice::Activate can return E_POINTER/NullReferenceException, as well as other expcetions listed here:
                     // https://docs.microsoft.com/en-us/dotnet/framework/interop/how-to-map-hresults-and-exceptions
-                    AppTrace.LogWarning(ex);
+                    Trace.TraceError($"{ex}");
                 }
             }
         }
@@ -220,7 +180,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
+                if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
                 {
                     _devices.Remove(dev);
                 }
@@ -234,7 +194,6 @@ namespace EarTrumpet.DataModel.Internal
             _dispatcher.BeginInvoke((Action)(() =>
             {
                 QueryDefaultPlaybackDevice();
-                QueryDefaultCommunicationsDevice();
             }));
         }
 
@@ -260,7 +219,7 @@ namespace EarTrumpet.DataModel.Internal
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
         {
             Trace.WriteLine($"AudioDeviceManager OnPropertyValueChanged {pwstrDeviceId} {key.fmtid}{key.pid}");
-            if (FindDevice(pwstrDeviceId, out IAudioDevice dev))
+            if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
                 {
@@ -271,10 +230,24 @@ namespace EarTrumpet.DataModel.Internal
                     }
                     catch (Exception ex)
                     {
-                        AppTrace.LogWarning(ex);
+                        Trace.TraceError($"{ex}");
                     }
                 }
             }
+        }
+
+        public void SetDefaultEndPoint(string id, int pid)
+        {
+            _policyConfigService.SetDefaultEndPoint(id, pid);
+        }
+
+        public string GetDefaultEndPoint(int processId)
+        {
+            if (Environment.OSVersion.Version.Build >= 17134)
+            {
+                return _policyConfigService.GetDefaultEndPoint(processId);
+            }
+            return null;
         }
     }
 }

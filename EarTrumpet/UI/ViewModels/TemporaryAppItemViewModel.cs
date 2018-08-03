@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel.Internal.Services;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -58,26 +59,28 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsMovable { get; }
         public float PeakValue1 { get; }
         public float PeakValue2 { get; }
-        public string PersistedOutputDevice => AudioPolicyConfigService.GetDefaultEndPoint(ProcessId);
+        public string PersistedOutputDevice => _deviceManager.GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
 
         private int[] _processIds;
         private int _volume;
         private bool _isMuted;
+        private IAudioDeviceManager _deviceManager;
 
-        public TemporaryAppItemViewModel(IAppItemViewModel app, bool isChild = false)
+        internal TemporaryAppItemViewModel(IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
         {
             if (!isChild)
             {
                 ChildApps = new ObservableCollection<IAppItemViewModel>();
                 foreach(var childApp in app.ChildApps)
                 {
-                    var vm = new TemporaryAppItemViewModel(childApp, true);
+                    var vm = new TemporaryAppItemViewModel(deviceManager, childApp, true);
                     vm.PropertyChanged += ChildApp_PropertyChanged;
                     ChildApps.Add(vm);
                 }
             }
 
+            _deviceManager = deviceManager;
             Id = app.Id;
             _isMuted = app.IsMuted;
             _volume = app.Volume;
@@ -144,7 +147,7 @@ namespace EarTrumpet.UI.ViewModels
             // Update the output for all processes represented by this app.
             foreach (var pid in _processIds)
             {
-                AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
+                _deviceManager.SetDefaultEndPoint(id, pid);
             }
 
             if (hide)

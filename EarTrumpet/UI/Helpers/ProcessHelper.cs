@@ -5,17 +5,18 @@ namespace EarTrumpet.UI.Helpers
 {
     class ProcessHelper
     {
-        internal static IDisposable StartNoThrowAndLogWarning(string fileName)
+        internal static void StartNoThrow(string fileName)
         {
             try
             {
-                return Process.Start(fileName);
+                using (Process.Start(fileName))
+                {
+                }
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
-            return null;
         }
     }
 }

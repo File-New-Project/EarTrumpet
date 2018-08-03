@@ -45,7 +45,7 @@ namespace EarTrumpet.UI.Controls
         public class ThemeResolveData
         {
             public bool IsHighContrast = SystemParameters.HighContrast;
-            public bool IsTransparencyEnabled = SystemSettings.IsTransparencyEnabled;
+            public bool IsTransparencyEnabled = !SystemParameters.HighContrast && SystemSettings.IsTransparencyEnabled;
             public bool IsLightTheme = SystemSettings.IsLightTheme;
             public bool UseAccentColor = SystemSettings.UseAccentColor;
             public Color LookupThemeColor(string color) => ImmersiveSystemColors.Lookup(color);

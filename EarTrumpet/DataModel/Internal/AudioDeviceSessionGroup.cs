@@ -98,15 +98,18 @@ namespace EarTrumpet.DataModel.Internal
 
         public void MoveToDevice(string id, bool hideExistingSessions)
         {
-            // Update the output for all processes represented by this app.
-            foreach (var pid in _sessions.Select(c => c.ProcessId).ToSet())
+            if (_parent.TryGetTarget(out var parent))
             {
-                AudioPolicyConfigService.SetDefaultEndPoint(id, pid);
-            }
+                // Update the output for all processes represented by this app.
+                foreach (var pid in _sessions.Select(c => c.ProcessId).ToSet())
+                {
+                    parent.Parent.SetDefaultEndPoint(id, pid);
+                }
 
-            if (hideExistingSessions)
-            {
-                Hide();
+                if (hideExistingSessions)
+                {
+                    Hide();
+                }
             }
         }
 
@@ -119,11 +122,13 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        private ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
+        private readonly ObservableCollection<IAudioDeviceSession> _sessions = new ObservableCollection<IAudioDeviceSession>();
         private string _id;
+        private readonly WeakReference<IAudioDevice> _parent;
 
-        public AudioDeviceSessionGroup(IAudioDeviceSession session)
+        public AudioDeviceSessionGroup(IAudioDevice parent, IAudioDeviceSession session)
         {
+            _parent = new WeakReference<IAudioDevice>(parent);
             GroupingParam = session.GroupingParam; // can change at runtime
             AppId = session.AppId;
 

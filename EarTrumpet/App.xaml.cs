@@ -40,7 +40,7 @@ namespace EarTrumpet
             _trayIcon = new TrayIcon(new TrayViewModel(_viewModel));
 
             HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout();
+            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace EarTrumpet
@@ -23,16 +22,6 @@ namespace EarTrumpet
         public static void LogWarning(Exception ex)
         {
             _warningCallback.Invoke(ex);
-        }
-
-        public static void LogWarningIfFailed(int hresult)
-        {
-            if (hresult == 0 || hresult == 1) // S_OK, S_FALSE
-            {
-                return;
-            }
-
-            _warningCallback.Invoke(new COMException($"Failed: 0x{hresult.ToString("x")}", hresult));
         }
 
         public AppTrace()

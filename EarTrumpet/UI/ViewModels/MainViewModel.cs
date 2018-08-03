@@ -12,10 +12,8 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class MainViewModel : BindableBase
     {
-        public static MainViewModel Instance { get; private set; }
-
         public event EventHandler Ready;
-        public event EventHandler FlyoutShowRequested;
+        public event EventHandler<FlyoutShowOptions> FlyoutShowRequested;
         public event EventHandler<DeviceViewModel> DefaultPlaybackDeviceChanged;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
@@ -28,14 +26,11 @@ namespace EarTrumpet.UI.ViewModels
 
         internal MainViewModel(IAudioDeviceManager deviceManager)
         {
-            Debug.Assert(Instance == null);
-            Instance = this;
-
             AllDevices = new ObservableCollection<DeviceViewModel>();
 
             _deviceManager = deviceManager;
-            _deviceManager.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
-            _deviceManager.PlaybackDevicesLoaded += DeviceManager_PlaybackDevicesLoaded;
+            _deviceManager.DefaultChanged += DeviceManager_DefaultPlaybackDeviceChanged;
+            _deviceManager.Loaded += DeviceManager_PlaybackDevicesLoaded;
             _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
             Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
@@ -126,9 +121,9 @@ namespace EarTrumpet.UI.ViewModels
             var apps = new List<IAppItemViewModel>();
             apps.Add(app);
 
-            foreach(var device in AllDevices)
+            foreach (var device in AllDevices)
             {
-                foreach(var deviceApp in device.Apps)
+                foreach (var deviceApp in device.Apps)
                 {
                     if (deviceApp.DoesGroupWith(app))
                     {
@@ -141,7 +136,7 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
-            foreach(var foundApp in apps)
+            foreach (var foundApp in apps)
             {
                 MoveAppToDeviceInternal(foundApp, dev);
             }
@@ -155,29 +150,30 @@ namespace EarTrumpet.UI.ViewModels
             var searchId = dev?.Id;
             if (dev == null)
             {
-                searchId = _deviceManager.DefaultPlaybackDevice.Id;
+                searchId = _deviceManager.Default.Id;
             }
-            DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
-            DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
 
             try
             {
+                DeviceViewModel oldDevice = AllDevices.First(d => d.Apps.Contains(app));
+                DeviceViewModel newDevice = AllDevices.First(d => searchId == d.Id);
+
                 bool isLogicallyMovingDevices = (oldDevice != newDevice);
 
-                var tempApp = new TemporaryAppItemViewModel(app);
+                var tempApp = new TemporaryAppItemViewModel(_deviceManager, app);
 
-                app.MoveToDevice(dev?.Id, hide:isLogicallyMovingDevices);
+                app.MoveToDevice(dev?.Id, hide: isLogicallyMovingDevices);
 
                 // Update the UI if the device logically changed places.
                 if (isLogicallyMovingDevices)
                 {
-                    oldDevice.AppVirtuallyLeavingFromThisDevice(app);
-                    newDevice.AppVirtuallMovingToThisDevice(tempApp);
+                    oldDevice.AppLeavingFromThisDevice(app);
+                    newDevice.AppMovingToThisDevice(tempApp);
                 }
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                Trace.TraceError($"{ex}");
             }
         }
 
@@ -210,10 +206,10 @@ namespace EarTrumpet.UI.ViewModels
             StartOrStopPeakTimer();
         }
 
-        public void OpenFlyout()
+        public void OpenFlyout(FlyoutShowOptions options)
         {
-            Trace.WriteLine($"MainViewModel OpenFlyout");
-            FlyoutShowRequested(this, null);
+            Trace.WriteLine($"MainViewModel OpenFlyout {options}");
+            FlyoutShowRequested(this, options);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace EarTrumpet.UI.Views
 
         private void ViewModel_AppExpanded(object sender, AppExpandedEventArgs e)
         {
-            AppPopup.PositionAndShow(this, e);
+            AppPopup.PositionAndShow(_mainViewModel, this, e);
         }
 
         private void ViewModel_WindowSizeInvalidated(object sender, object e)
@@ -132,7 +132,10 @@ namespace EarTrumpet.UI.Views
             switch (_viewModel.State)
             {
                 case FlyoutViewModel.ViewState.Opening:
-                    _rawListener.Start();
+                    if (_viewModel.ShowOptions == FlyoutShowOptions.Pointer)
+                    {
+                        _rawListener.Start();
+                    }
                     Show();
 
                     // We need the theme to be updated on show because the window borders will be set based on taskbar position.
@@ -213,11 +216,7 @@ namespace EarTrumpet.UI.Views
                 foreach (var device in _viewModel.Devices)
                 {
                     newHeight += DeviceTitleCellHeight + DeviceItemCellHeight;
-
-                    if (device.Apps.Count > 0)
-                    {
-                        newHeight += VolumeAppListMargin.Bottom + VolumeAppListMargin.Top;
-                    }
+                    newHeight += VolumeAppListMargin.Bottom + VolumeAppListMargin.Top;
 
                     foreach(var app in device.Apps)
                     {

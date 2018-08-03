@@ -11,17 +11,6 @@ namespace EarTrumpet.UI.Services
 {
     public class SettingsService
     {
-        public class HotkeyData
-        {
-            public System.Windows.Forms.Keys Modifiers;
-            public System.Windows.Forms.Keys Key;
-
-            public override string ToString()
-            {
-                return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
-            }
-        }
-
         public static event EventHandler<bool> UseLegacyIconChanged;
         public static event EventHandler<bool> UseLogarithmicVolumeChanged;
 
@@ -60,7 +49,6 @@ namespace EarTrumpet.UI.Services
                 UseLegacyIconChanged?.Invoke(null, UseLegacyIcon);
             }
         }
-
 
         public static bool UseLogarithmicVolume
         {

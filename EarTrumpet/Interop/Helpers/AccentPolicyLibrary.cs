@@ -9,6 +9,7 @@ namespace EarTrumpet.Interop.Helpers
 {
     static class AccentPolicyLibrary
     {
+        private static readonly bool _isRunningOnRs4OrHigher = Environment.OSVersion.Version.Build >= 17134;
         private static readonly uint _defaultTintBackgroundColor = 0x000000; // BGR Black
         private static readonly uint _defaultTintOpacity = 42;
 
@@ -18,8 +19,12 @@ namespace EarTrumpet.Interop.Helpers
             {
                 AccentState = accentState,
                 AccentFlags = (showBorders) ? User32.AccentFlags.DrawAllBorders : User32.AccentFlags.None,
-                GradientColor = (_defaultTintOpacity << 24) | (_defaultTintBackgroundColor & 0xFFFFFF)
             };
+
+            if (_isRunningOnRs4OrHigher)
+            {
+                accent.GradientColor = (_defaultTintOpacity << 24) | (_defaultTintBackgroundColor & 0xFFFFFF);
+            }
 
             var accentStructSize = Marshal.SizeOf(accent);
 
@@ -32,7 +37,6 @@ namespace EarTrumpet.Interop.Helpers
             data.Data = accentPtr;
 
             var ret = User32.SetWindowCompositionAttribute(handle, ref data);
-            AppTrace.LogWarningIfFailed(ret);
             Debug.Assert(ret == 0 || ret == 1);
 
             Marshal.FreeHGlobal(accentPtr);
@@ -42,7 +46,7 @@ namespace EarTrumpet.Interop.Helpers
         {
             if (isEnabled)
             {
-                SetInternal(handle, User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND, withBorders, _defaultTintOpacity);
+                SetInternal(handle, _isRunningOnRs4OrHigher ? User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : User32.AccentState.ACCENT_ENABLE_BLURBEHIND, withBorders, _defaultTintOpacity);
             }
             else
             {

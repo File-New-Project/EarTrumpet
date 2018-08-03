@@ -24,6 +24,5 @@ namespace EarTrumpet.DataModel
         void UnHide();
         void MoveToDevice(string id, bool hide);
         void UpdatePeakValueBackground();
-
     }
 }

@@ -41,6 +41,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsShowingModalDialog { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
+        public FlyoutShowOptions ShowOptions { get; private set; }
 
         private readonly MainViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
@@ -52,7 +53,7 @@ namespace EarTrumpet.UI.ViewModels
             Devices = new ObservableCollection<DeviceViewModel>();
 
             _mainViewModel = mainViewModel;
-            _mainViewModel.FlyoutShowRequested += (_, __) => OpenFlyout();
+            _mainViewModel.FlyoutShowRequested += (_, options) => OpenFlyout(options);
             _mainViewModel.DefaultPlaybackDeviceChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
 
@@ -130,6 +131,11 @@ namespace EarTrumpet.UI.ViewModels
                 IsExpanded = false;
             }
 
+            RaiseDevicesChanged();
+        }
+
+        private void RaiseDevicesChanged()
+        {
             RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(ExpandText));
@@ -156,7 +162,8 @@ namespace EarTrumpet.UI.ViewModels
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
-                    InvalidateWindowSize();
+
+                    RaiseDevicesChanged();
                 }
             }
         }
@@ -308,8 +315,10 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void OpenFlyout()
+        private void OpenFlyout(FlyoutShowOptions options)
         {
+            ShowOptions = options;
+
             if (State == ViewState.Closing_Stage2)
             {
                 return;
