@@ -168,6 +168,7 @@
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
     <Compile Include="UI\Converters\IconConverter.cs" />
+    <Compile Include="UI\DeviceIconKind.cs" />
     <Compile Include="UI\Helpers\ProcessHelper.cs" />
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
     <Compile Include="UI\Helpers\ThemedContextMenu.cs" />

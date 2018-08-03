@@ -11,9 +11,7 @@ namespace EarTrumpet.UI.ViewModels
     public class DeviceViewModel : AudioSessionViewModel
     {
         public string DisplayName => _device.DisplayName;
-        public ObservableCollection<IAppItemViewModel> Apps { get; private set; }
-        public string DeviceIconText { get; private set; }
-        public string DeviceIconTextBackground { get; private set; }
+        public ObservableCollection<IAppItemViewModel> Apps { get; }
 
         public bool IsDisplayNameVisible
         {
@@ -28,14 +26,23 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private readonly string s_Sound3BarsIcon = "\xE995";
-        private readonly string s_Sound2BarsIcon = "\xE994";
-        private readonly string s_Sound1BarIcon = "\xE993";
-        private readonly string s_SoundMuteIcon = "\xE74F";
+        public DeviceIconKind IconKind
+        {
+            get => _iconKind;
+            set
+            {
+                if (_iconKind != value)
+                {
+                    _iconKind = value;
+                    RaisePropertyChanged(nameof(IconKind));
+                }
+            }
+        }
 
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
         private bool _isDisplayNameVisible;
+        private DeviceIconKind _iconKind;
         private WeakReference<DeviceCollectionViewModel> _parent;
 
         internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
@@ -95,38 +102,31 @@ namespace EarTrumpet.UI.ViewModels
         {
             if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
             {
-                DeviceIconText = "\xE720";
-                DeviceIconTextBackground = "";
+                IconKind = DeviceIconKind.Microphone;
             }
             else
             {
-                string icon;
                 if (_device.IsMuted)
                 {
-                    icon = s_SoundMuteIcon;
+                    IconKind = DeviceIconKind.Mute;
                 }
                 else if (_device.Volume >= 0.65f)
                 {
-                    icon = s_Sound3BarsIcon;
+                    IconKind = DeviceIconKind.Bar3;
                 }
                 else if (_device.Volume >= 0.33f)
                 {
-                    icon = s_Sound2BarsIcon;
+                    IconKind = DeviceIconKind.Bar2;
                 }
                 else if (_device.Volume > 0f)
                 {
-                    icon = s_Sound1BarIcon;
+                    IconKind = DeviceIconKind.Bar1;
                 }
                 else
                 {
-                    icon = s_SoundMuteIcon;
+                    IconKind = DeviceIconKind.Mute;
                 }
-
-                DeviceIconText = icon;
-                DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
             }
-            RaisePropertyChanged(nameof(DeviceIconText));
-            RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

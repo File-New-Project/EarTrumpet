@@ -42,15 +42,45 @@
                                 Background="Transparent"
                                 MouseDown="Icon_MouseDown"
                                 Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
-
                             <Grid>
-                                <TextBlock FontSize="24"
-                                           Opacity="0.4"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconTextBackground}" />
-                                <TextBlock FontSize="24"
-                                           Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
-                                           Text="{Binding Device.DeviceIconText}" />
+                                <TextBlock FontSize="24" Opacity="0.4">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Text" Value="&#xE995;" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Mute">
+                                                    <Setter Property="Text" Value="&#xE74F;" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Microphone">
+                                                    <Setter Property="Text" Value="&#xE720;" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock FontSize="24">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Mute">
+                                                    <Setter Property="Text" Value="&#xE74F;" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Microphone">
+                                                    <Setter Property="Text" Value="&#xE720;" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Bar1">
+                                                    <Setter Property="Text" Value="&#xE993;" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Bar2">
+                                                    <Setter Property="Text" Value="&#xE994;" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Device.IconKind}" Value="Bar3">
+                                                    <Setter Property="Text" Value="&#xE995;" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Border>
 
