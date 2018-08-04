@@ -27,6 +27,7 @@ namespace EarTrumpet.DataModel.Internal
         private string _displayName;
         private string _iconPath;
         private string _enumeratorName;
+        private string _interfaceName;
         private string _deviceDescription;
         private float _volume;
         private bool _isMuted;
@@ -142,6 +143,7 @@ namespace EarTrumpet.DataModel.Internal
         public string DisplayName => _displayName;
         public string IconPath => _iconPath;
         public string EnumeratorName => _enumeratorName;
+        public string InterfaceName => _interfaceName;
         public string DeviceDescription => _deviceDescription;
 
         public IAudioDeviceManager Parent
@@ -183,6 +185,7 @@ namespace EarTrumpet.DataModel.Internal
                 _displayName = propStore.GetValue<string>(PropertyKeys.PKEY_Device_FriendlyName);
                 _iconPath = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceClass_IconPath);
                 _enumeratorName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_EnumeratorName);
+                _interfaceName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceInterface_FriendlyName);
                 _deviceDescription = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_DeviceDesc);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))

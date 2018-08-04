@@ -11,6 +11,7 @@ namespace EarTrumpet.DataModel
         string DisplayName { get; }
         string IconPath { get; }
         string EnumeratorName { get; }
+        string InterfaceName { get; }
         string DeviceDescription { get; }
         IAudioDeviceManager Parent { get; }
         ObservableCollection<IAudioDeviceSession> Groups { get; }
