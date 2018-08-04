@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop.MMDeviceAPI
 {
@@ -6,6 +7,6 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     interface IAudioEndpointVolumeCallback
     {
-        void OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify);
+        void OnNotify(IntPtr pNotify);
     }
 }

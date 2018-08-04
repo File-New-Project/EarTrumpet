@@ -70,12 +70,13 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
+        void IAudioEndpointVolumeCallback.OnNotify(IntPtr pNotify)
         {
-            _volume = pNotify.fMasterVolume;
-            _isMuted = pNotify.bMuted != 0;
+            var data = Marshal.PtrToStructure<AUDIO_VOLUME_NOTIFICATION_DATA>(pNotify);
+            _volume = data.fMasterVolume;
+            _isMuted = data.bMuted != 0;
 
-            _channels.OnNotify(pNotify);
+            _channels.OnNotify(pNotify, data);
 
             _dispatcher.Invoke((Action)(() =>
             {

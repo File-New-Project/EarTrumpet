@@ -1,5 +1,7 @@
 ﻿using EarTrumpet.Interop.MMDeviceAPI;
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -22,11 +24,15 @@ namespace EarTrumpet.DataModel.Internal
             Channels = ret;
         }
 
-        public void OnNotify(AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
+        public void OnNotify(IntPtr pNotify, AUDIO_VOLUME_NOTIFICATION_DATA data)
         {
-            for (var i = 0; i < pNotify.nChannels; i++)
+            var afChannelVolumesOffset = Marshal.OffsetOf<AUDIO_VOLUME_NOTIFICATION_DATA>(nameof(data.afChannelVolumes));
+            var channelVolumesValues = new float[data.nChannels];
+            Marshal.Copy(IntPtr.Add(pNotify, afChannelVolumesOffset.ToInt32()), channelVolumesValues, 0, (int)data.nChannels);
+
+            for (var i = 0; i < data.nChannels; i++)
             {
-                Channels[i].OnNotify();
+                Channels[i].OnNotify(channelVolumesValues[i]);
             }
         }
     }

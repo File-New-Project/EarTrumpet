@@ -35,9 +35,9 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        internal void OnNotify()
+        internal void OnNotify(float newLevel)
         {
-            var newLevel = _deviceVolume.GetChannelVolumeLevelScalar(_index);
+          //  var newLevel = _deviceVolume.GetChannelVolumeLevelScalar(_index);
             if (newLevel != _level)
             {
                 _level = newLevel;
