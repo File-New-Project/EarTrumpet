@@ -12,6 +12,11 @@ namespace EarTrumpet.UI.ViewModels
             {
                 if (_focused != value)
                 {
+                    if (_focused != null)
+                    {
+                        _focused.Closing();
+                    }
+
                     _focused = value;
                     RaisePropertyChanged(nameof(Focused));
                 }

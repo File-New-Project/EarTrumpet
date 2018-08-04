@@ -8,5 +8,6 @@ namespace EarTrumpet.UI.ViewModels
         event Action RequestClose;
         string DisplayName { get; }
         ObservableCollection<ToolbarItemViewModel> Toolbar { get; }
+        void Closing();
     }
 }

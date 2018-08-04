@@ -9,6 +9,9 @@ namespace EarTrumpet.DataModel
     {
         IEnumerable<IAudioDeviceChannel> Channels { get; }
         string DisplayName { get; }
+        string IconPath { get; }
+        string EnumeratorName { get; }
+        string DeviceDescription { get; }
         IAudioDeviceManager Parent { get; }
         ObservableCollection<IAudioDeviceSession> Groups { get; }
         void UpdatePeakValueBackground();

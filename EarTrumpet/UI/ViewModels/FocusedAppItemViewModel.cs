@@ -77,6 +77,10 @@ namespace EarTrumpet.UI.ViewModels
                     Menu = new ObservableCollection<ContextMenuItem>(menuItems)
                 });
             }
+        }
+
+        public void Closing()
+        {
 
         }
     }

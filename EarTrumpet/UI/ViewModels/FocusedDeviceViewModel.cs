@@ -48,5 +48,10 @@ namespace EarTrumpet.UI.ViewModels
                 });
             }
         }
+
+        public void Closing()
+        {
+
+        }
     }
 }

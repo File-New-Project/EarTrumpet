@@ -25,6 +25,9 @@ namespace EarTrumpet.DataModel.Internal
         private readonly AudioDeviceChannelCollection _channels;
         private IMMDevice _device;
         private string _displayName;
+        private string _iconPath;
+        private string _enumeratorName;
+        private string _deviceDescription;
         private float _volume;
         private bool _isMuted;
         private bool _isRegistered;
@@ -52,7 +55,7 @@ namespace EarTrumpet.DataModel.Internal
                 _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
             }
 
-            ReadDisplayName();
+            ReadProperties();
         }
 
         ~AudioDevice()
@@ -137,6 +140,9 @@ namespace EarTrumpet.DataModel.Internal
         public ObservableCollection<IAudioDeviceSession> Groups => _sessionFilter.Sessions;
 
         public string DisplayName => _displayName;
+        public string IconPath => _iconPath;
+        public string EnumeratorName => _enumeratorName;
+        public string DeviceDescription => _deviceDescription;
 
         public IAudioDeviceManager Parent
         {
@@ -169,14 +175,15 @@ namespace EarTrumpet.DataModel.Internal
             _sessions.MoveHiddenAppsToDevice(appId, id);
         }
 
-        private void ReadDisplayName()
+        private void ReadProperties()
         {
             try
             {
                 var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
-                var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
-                _displayName = Marshal.PtrToStringUni(pv.pwszVal);
-                Ole32.PropVariantClear(ref pv);
+                _displayName = propStore.GetValue<string>(PropertyKeys.PKEY_Device_FriendlyName);
+                _iconPath = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceClass_IconPath);
+                _enumeratorName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_EnumeratorName);
+                _deviceDescription = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_DeviceDesc);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
@@ -208,7 +215,7 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine($"AudioDevice DevicePropertiesChanged {_id}");
 
             _device = dev;
-            ReadDisplayName();
+            ReadProperties();
 
             _dispatcher.Invoke((Action)(() =>
             {
