@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarTrumpet.Extensibility.Shared
 {
-    class SimpleValue<T> : IValue<T>
+    public class SimpleValue<T> : IValue<T>
     {
         public T Value
         {
