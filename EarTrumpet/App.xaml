@@ -802,7 +802,7 @@
             <DataTemplate x:Key="ContextMenuItemTemplate">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
-                          IsCheckable="True"
+                          IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}" />
             </DataTemplate>
@@ -818,7 +818,7 @@
             <DataTemplate x:Key="ContextMenuItemTemplateDarkOnly">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
-                          IsCheckable="True"
+                          IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}"
                           Style="{StaticResource MenuItemDarkOnly}" />

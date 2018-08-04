@@ -26,12 +26,11 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         int __incomplete__GetCurrentChatApplications();
         int __incomplete__add_ChatContextChanged();
         int __incomplete__remove_ChatContextChanged();
-
-
-        int SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
-
         [PreserveSig]
-        int GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
-        int ClearAllPersistedApplicationDefaultEndpoints();
+        HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
+        [PreserveSig]
+        HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
+        [PreserveSig]
+        HRESULT ClearAllPersistedApplicationDefaultEndpoints();
     }
 }

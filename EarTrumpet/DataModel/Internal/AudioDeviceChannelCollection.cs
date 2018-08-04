@@ -11,6 +11,7 @@ namespace EarTrumpet.DataModel.Internal
         public List<AudioDeviceChannel> Channels { get; }
 
         private readonly Dispatcher _dispatcher;
+        private readonly int _afChannelVolumesOffset;
 
         public AudioDeviceChannelCollection(IAudioEndpointVolume deviceVolume, Dispatcher dispatcher)
         {
@@ -22,13 +23,15 @@ namespace EarTrumpet.DataModel.Internal
                 ret.Add(new AudioDeviceChannel(deviceVolume, i));
             }
             Channels = ret;
+
+            AUDIO_VOLUME_NOTIFICATION_DATA dummy;
+            _afChannelVolumesOffset = Marshal.OffsetOf<AUDIO_VOLUME_NOTIFICATION_DATA>(nameof(dummy.afChannelVolumes)).ToInt32();
         }
 
         public void OnNotify(IntPtr pNotify, AUDIO_VOLUME_NOTIFICATION_DATA data)
         {
-            var afChannelVolumesOffset = Marshal.OffsetOf<AUDIO_VOLUME_NOTIFICATION_DATA>(nameof(data.afChannelVolumes));
             var channelVolumesValues = new float[data.nChannels];
-            Marshal.Copy(IntPtr.Add(pNotify, afChannelVolumesOffset.ToInt32()), channelVolumesValues, 0, (int)data.nChannels);
+            Marshal.Copy(IntPtr.Add(pNotify, _afChannelVolumesOffset), channelVolumesValues, 0, (int)data.nChannels);
 
             for (var i = 0; i < data.nChannels; i++)
             {
