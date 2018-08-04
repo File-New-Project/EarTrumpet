@@ -18,7 +18,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
 
-        private static AutoPolicyConfigClient s_PolicyConfigClient = null;
+        private static AutoPolicyConfigClientWin7 s_PolicyConfigClient = null;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _default;
@@ -103,7 +103,7 @@ namespace EarTrumpet.DataModel.Internal
 
             if (s_PolicyConfigClient == null)
             {
-                s_PolicyConfigClient = new AutoPolicyConfigClient();
+                s_PolicyConfigClient = new AutoPolicyConfigClientWin7();
             }
 
             // Racing with the system, the device may not be valid anymore.

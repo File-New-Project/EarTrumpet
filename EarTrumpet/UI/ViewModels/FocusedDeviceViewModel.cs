@@ -32,7 +32,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (AddonContentItems != null)
             {
-                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id)).ToArray());
+                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).ToArray());
             }
 
             if (Features.IsEnabled(Feature.Addons) &&
