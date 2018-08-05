@@ -11,6 +11,9 @@ namespace EarTrumpet.UI.ViewModels
     public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
         public string DisplayName => _device.DisplayName;
+        public string EnumeratorName => _device.EnumeratorName;
+        public string DeviceDescription => _device.DeviceDescription;
+
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
         public bool IsDisplayNameVisible
