@@ -4,6 +4,7 @@
                     xmlns:avm="clr-namespace:EarTrumpet_Actions.ViewModel.Actions"
                     xmlns:conditions="clr-namespace:EarTrumpet_Actions.DataModel.Conditions"
                     xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
+                    xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
                     xmlns:cvm="clr-namespace:EarTrumpet_Actions.ViewModel.Conditions"
                     xmlns:dm="clr-namespace:EarTrumpet_Actions.DataModel"
                     xmlns:local="clr-namespace:EarTrumpet_Actions"
@@ -192,11 +193,8 @@
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
         </Grid>
@@ -207,15 +205,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -228,19 +223,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding App.All}"
                       SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -253,15 +245,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
+            <TextBlock Text="{Binding Text.PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
 
-            <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-
-            <ComboBox Grid.Row="3"
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -272,12 +261,9 @@
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <Button Grid.Row="1"
-                    Command="{Binding SetHotkey}"
+            <Button Command="{Binding SetHotkey}"
                     CommandParameter="{Binding}"
                     Content="{Binding HotkeyText}" />
         </Grid>
@@ -290,16 +276,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -312,13 +294,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <TextBlock Text="{Binding Text.PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -331,13 +311,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <TextBlock Text="{Binding Text.PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -350,12 +328,9 @@
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
         </Grid>
@@ -368,29 +343,26 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding App.All}"
                       SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
 
-            <Slider Grid.Row="4"
-                    Maximum="100"
-                    Minimum="0"
-                    Style="{DynamicResource VolumeSliderStyle}"
-                    Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                    Value="{Binding Volume.Volume, Mode=TwoWay}" />
+            <ctl:VolumeSlider Grid.Row="3"
+                              Maximum="100"
+                              Minimum="0"
+                              Style="{StaticResource {x:Type Slider}}"
+                              Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
+                              Value="{Binding Volume.Volume, Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
 
@@ -400,26 +372,22 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Device.All}"
                       SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
 
-            <Slider Grid.Row="4"
-                    Maximum="100"
-                    Minimum="0"
-                    Style="{DynamicResource VolumeSliderStyle}"
-                    Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                    Value="{Binding Volume.Volume, Mode=TwoWay}" />
+            <ctl:VolumeSlider Grid.Row="2"
+                              Maximum="100"
+                              Minimum="0"
+                              Style="{StaticResource {x:Type Slider}}"
+                              Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
+                              Value="{Binding Volume.Volume, Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
 
@@ -429,13 +397,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <TextBlock Grid.Row="1" Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="2" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="3"
+            <TextBlock Text="{Binding Text.PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
+            <ComboBox Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
@@ -446,13 +412,9 @@
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
         </Grid>
@@ -464,28 +426,23 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option.All}"
                       SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
-
 
     <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock VerticalAlignment="Center" Text="{Binding CurrentDescription}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
+            <ComboBox IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option1.All}"
                       SelectedItem="{Binding Option1.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
+            <ComboBox Grid.Row="1"
                       IsSynchronizedWithCurrentItem="True"
                       ItemsSource="{Binding Option2.All}"
                       SelectedItem="{Binding Option2.Selected, Mode=TwoWay}" />

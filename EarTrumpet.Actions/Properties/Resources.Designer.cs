@@ -376,7 +376,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to not running.
+        ///   Looks up a localized string similar to is not running.
         /// </summary>
         public static string ProcessStateKindNotRunningText {
             get {
@@ -385,7 +385,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to running.
+        ///   Looks up a localized string similar to is running.
         /// </summary>
         public static string ProcessStateKindRunningText {
             get {

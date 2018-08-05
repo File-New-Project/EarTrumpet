@@ -223,10 +223,10 @@
     <value>stops</value>
   </data>
   <data name="ProcessStateKindNotRunningText" xml:space="preserve">
-    <value>not running</value>
+    <value>is not running</value>
   </data>
   <data name="ProcessStateKindRunningText" xml:space="preserve">
-    <value>running</value>
+    <value>is running</value>
   </data>
   <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>

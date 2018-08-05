@@ -31,7 +31,7 @@ namespace EarTrumpet_Actions.ViewModel
             All = App.GetApps(flags);
             if (Selected == null && _part.App?.Id != null)
             {
-                All.Add(new Option(_part.App.Id, _part.App.Id));
+                All.Add(new Option(_part.App.Id, _part.App));
             }
 
             if (_part.App?.Id == null)
