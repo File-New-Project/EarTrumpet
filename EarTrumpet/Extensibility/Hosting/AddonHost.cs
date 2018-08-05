@@ -1,8 +1,10 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -32,8 +34,23 @@ namespace EarTrumpet.Extensibility.Hosting
         public string[] Initialize(string[] additionalFilePaths)
         {
             var catalogs = new List<ComposablePartCatalog>();
-            catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll"));
-            
+
+            if (App.Current.HasIdentity())
+            {
+                foreach (var package in Windows.ApplicationModel.Package.Current.Dependencies)
+                {
+                    if (package.IsOptional)
+                    {
+                        Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
+                        catalogs.Add(new DirectoryCatalog(package.InstalledLocation.Path, "*.dll"));
+                    }
+                }
+            }
+            else
+            {
+                catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll"));
+            }
+
             foreach(var additional in additionalFilePaths)
             {
                 catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)));

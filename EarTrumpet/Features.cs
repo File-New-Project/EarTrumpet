@@ -20,7 +20,7 @@ namespace EarTrumpet
                 case Feature.Addons:
                 case Feature.SoundSettingsMoSetPageOnTrayIcon:
                 case Feature.TrayIconToolTipHasMuteState:
-#if VSDEBUG
+#if DEBUG
                     return true;
 #else
                     return false;
