@@ -62,7 +62,7 @@ namespace EarTrumpet.UI.Views
         {
             if (Features.IsEnabled(Feature.DevicePopup))
             {
-                Device.OpenPopup(Device, (FrameworkElement)sender);
+                Device.OpenPopup(Device, DeviceListItem);
             }
         }
     }

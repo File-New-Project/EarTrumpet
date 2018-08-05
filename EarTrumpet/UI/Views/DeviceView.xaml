@@ -12,7 +12,8 @@
         </Grid.RowDefinitions>
 
         <Border Style="{DynamicResource DeviceHeaderBorderStyle}">
-            <Grid Style="{DynamicResource DeviceHeaderGridStyle}">
+            <Grid Style="{DynamicResource DeviceHeaderGridStyle}"
+                  PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -29,7 +30,6 @@
                               Grid.Row="1"
                               Height="{StaticResource DeviceItemCellHeight}"
                               AutomationProperties.Name="{Binding Device}"
-                              PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp"
                               Tag="DeviceListItemKey">
                     <Grid>
                         <Grid.ColumnDefinitions>
