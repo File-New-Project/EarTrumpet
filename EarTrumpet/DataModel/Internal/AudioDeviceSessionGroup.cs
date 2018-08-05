@@ -13,6 +13,19 @@ namespace EarTrumpet.DataModel.Internal
 
         public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
 
+
+        public IEnumerable<IAudioDeviceSessionChannel> Channels
+        {
+            get
+            {
+                var ret = new List<IAudioDeviceSessionChannel>();
+                foreach(var session in _sessions)
+                {
+                    ret.AddRange(session.Channels);
+                }
+                return ret;
+            }
+        }
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
 
         public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;

@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -154,6 +155,7 @@ namespace EarTrumpet.DataModel.Internal
         }
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
+        public IEnumerable<IAudioDeviceSessionChannel> Channels => _channels.Channels;
 
         private readonly string _id;
         private readonly IAudioSessionControl _session;
@@ -161,7 +163,7 @@ namespace EarTrumpet.DataModel.Internal
         private readonly IAudioMeterInformation _meter;
         private readonly Dispatcher _dispatcher;
         private readonly AppInformation _appInfo;
-
+        private readonly AudioDeviceSessionChannelCollection _channels;
         private string _resolvedAppDisplayName;
         private string _rawDisplayName;
         private float _volume;
@@ -180,6 +182,7 @@ namespace EarTrumpet.DataModel.Internal
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;
+            _channels = new AudioDeviceSessionChannelCollection((IChannelAudioVolume)session, _dispatcher);
             _state = _session.GetState();
             GroupingParam = _session.GetGroupingParam();
             _simpleVolume.GetMasterVolume(out _volume);
@@ -309,8 +312,8 @@ namespace EarTrumpet.DataModel.Internal
                 // in letting system sounds played through taskhostw.exe bleed through.
                 return IsSystemSoundsSession ? 0 : (int)pid;
             }
-
-            throw new COMException($"Failed: 0x{hr.ToString("X")}", hr);
+            
+            throw Marshal.GetExceptionForHR(hr);
         }
 
         private void SyncPersistedEndpoint(IAudioDevice parent)
@@ -456,7 +459,16 @@ namespace EarTrumpet.DataModel.Internal
 
         void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason) => DisconnectSession();
 
-        void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, ref float NewChannelVolumeArray, uint ChangedChannel, ref Guid EventContext) { }
+        void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, IntPtr afNewChannelVolume, uint ChangedChannel, ref Guid EventContext)
+        {
+            var channelVolumesValues = new float[ChannelCount];
+            Marshal.Copy(afNewChannelVolume, channelVolumesValues, 0, (int)ChannelCount);
+
+            for (var i = 0; i < ChannelCount; i++)
+            {
+                _channels.Channels[i].SetLevel(channelVolumesValues[i]);
+            }
+        }
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
     }
 }

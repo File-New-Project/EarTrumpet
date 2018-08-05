@@ -92,8 +92,11 @@
     <Compile Include="DataModel\AudioDeviceKind.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannel.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelCollection.cs" />
     <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
     <Compile Include="DataModel\IAudioDeviceChannel.cs" />
+    <Compile Include="DataModel\IAudioDeviceSessionChannel.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
     <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="Interop\Gdi32.cs" />
     <Compile Include="Interop\GPS.cs" />
     <Compile Include="Interop\Helpers\Win32Window.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IChannelAudioVolume.cs" />
     <Compile Include="Interop\MMDeviceAPI\IDeviceTopology.cs" />
     <Compile Include="Interop\MMDeviceAPI\IMMEndpoint.cs" />
     <Compile Include="Interop\IMrtResourceManager.cs" />

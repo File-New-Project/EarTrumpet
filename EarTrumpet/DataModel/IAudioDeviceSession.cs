@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
     public interface IAudioDeviceSession : IStreamWithVolumeControl
     {
+        IEnumerable<IAudioDeviceSessionChannel> Channels { get; }
         IAudioDevice Parent { get; }
         string SessionDisplayName { get; }
         void RefreshDisplayName();
