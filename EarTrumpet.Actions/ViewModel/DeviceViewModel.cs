@@ -30,7 +30,7 @@ namespace EarTrumpet_Actions.ViewModel
             All = Device.GetDevices(flags);
             if (Selected == null && _part.Device?.Id != null)
             {
-                All.Add(new Option(_part.Device.Id, _part.Device.Id));
+                All.Add(new Option(_part.Device.Id, _part.Device));
             }
             
             if (_part.Device?.Id == null)
