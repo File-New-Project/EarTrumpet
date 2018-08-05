@@ -1044,7 +1044,7 @@
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="Padding" Value="12,4,12,7" />
-                <Setter Property="Margin" Value="6" />
+                <Setter Property="Margin" Value="0,6" />
                 <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
                 <Setter Property="ScrollViewer.PanningMode" Value="Both" />
                 <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
