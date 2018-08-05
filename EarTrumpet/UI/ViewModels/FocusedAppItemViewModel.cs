@@ -8,13 +8,15 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class FocusedAppItemViewModel : IFocusedViewModel
     {
-        public static IAddonAppContextMenu[] AddonItems { get; set; }
+        public static IAddonAppContent[] AddonContentItems { get; set; }
+        public static IAddonAppContextMenu[] AddonContextMenuItems { get; set; }
 
         public event Action RequestClose;
 
         public IAppItemViewModel App { get; }
         public ObservableCollection<ToolbarItemViewModel> Toolbar { get; }
         public string DisplayName => App.DisplayName;
+        public ObservableCollection<object> Addons { get; }
 
         public FocusedAppItemViewModel(DeviceCollectionViewModel parent, IAppItemViewModel app)
         {
@@ -64,10 +66,15 @@ namespace EarTrumpet.UI.ViewModels
                 });
             }
 
-            if (Features.IsEnabled(Feature.Addons) &&
-                AddonItems != null && AddonItems.Any())
+            if (AddonContentItems != null)
             {
-                var menuItems = AddonItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
+                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForApp(App.Parent.Id, App.Id, () => RequestClose.Invoke())).ToArray());
+            }
+
+            if (Features.IsEnabled(Feature.Addons) &&
+                AddonContextMenuItems != null && AddonContextMenuItems.Any())
+            {
+                var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
 
                 Toolbar.Insert(0, new ToolbarItemViewModel
                 {

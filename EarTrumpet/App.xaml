@@ -780,12 +780,27 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>
-                    <ListView Margin="{StaticResource VolumeAppListMargin}"
-                              VerticalAlignment="Center"
-                              FocusVisualStyle="{x:Null}"
-                              ItemsSource="{Binding App.ChildApps, Mode=OneWay}"
-                              ScrollViewer.CanContentScroll="True"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <ListView Margin="{StaticResource VolumeAppListMargin}"
+                                  VerticalAlignment="Center"
+                                  FocusVisualStyle="{x:Null}"
+                                  ItemsSource="{Binding App.ChildApps, Mode=OneWay}"
+                                  ScrollViewer.CanContentScroll="True"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Addons}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
                 </views:ModalDialogChrome>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">

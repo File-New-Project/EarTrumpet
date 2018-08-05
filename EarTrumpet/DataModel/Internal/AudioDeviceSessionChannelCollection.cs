@@ -11,10 +11,11 @@ namespace EarTrumpet.DataModel.Internal
         public AudioDeviceSessionChannelCollection(IChannelAudioVolume session, Dispatcher dispatcher)
         {
             var ret = new List<AudioDeviceSessionChannel>();
-            for(var i = 0; i < session.GetChannelCount(); i++)
+            for(uint i = 0; i < session.GetChannelCount(); i++)
             {
                 ret.Add(new AudioDeviceSessionChannel(session, i, dispatcher));
             }
+            Channels = ret;
         }
     }
 }

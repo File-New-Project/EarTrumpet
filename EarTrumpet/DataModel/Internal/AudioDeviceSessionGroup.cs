@@ -13,7 +13,6 @@ namespace EarTrumpet.DataModel.Internal
 
         public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
 
-
         public IEnumerable<IAudioDeviceSessionChannel> Channels
         {
             get

@@ -7,14 +7,14 @@ namespace EarTrumpet.Interop.MMDeviceAPI
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IChannelAudioVolume
     {
-        int GetChannelCount();
+        uint GetChannelCount();
         [PreserveSig]
-        HRESULT SetChannelVolume(int index, float level);
+        HRESULT SetChannelVolume(uint index, float level, ref Guid eventContent);
         [PreserveSig]
-        HRESULT GetChannelVolume(int Index, out float level);
+        HRESULT GetChannelVolume(uint Index, out float level);
         [PreserveSig]
-        HRESULT SetAllVolumes(int count, IntPtr afLevels);
+        HRESULT SetAllVolumes(uint count, IntPtr afLevels, ref Guid eventContent);
         [PreserveSig]
-        HRESULT GetAllVolumes(int count, IntPtr afLevels);
+        HRESULT GetAllVolumes(uint count, IntPtr afLevels);
     }
 }

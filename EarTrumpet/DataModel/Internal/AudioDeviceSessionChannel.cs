@@ -19,36 +19,32 @@ namespace EarTrumpet.DataModel.Internal
                 if (_level != value)
                 {
                     _level = value;
-                    try
-                    {
-                        _session.SetChannelVolume(_index, value);
-                    }
-                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
-                    {
-                        // Expected in some cases.
-                    }
-                    
+                    Guid dummy = Guid.Empty;
+                    _session.SetChannelVolume(_index, value, ref dummy);
+
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
                 }
             }
         }
 
         private readonly IChannelAudioVolume _session;
-        private readonly int _index;
+        private readonly uint _index;
         private readonly Dispatcher _dispatcher;
         private float _level;
 
-        public AudioDeviceSessionChannel(IChannelAudioVolume session, int index, Dispatcher dispatcher)
+        public AudioDeviceSessionChannel(IChannelAudioVolume session, uint index, Dispatcher dispatcher)
         {
             _session = session;
             _index = index;
             _dispatcher = dispatcher;
+            session.GetChannelVolume(index, out _level);
         }
 
         internal void SetLevel(float newLevel)
         {
             _level = newLevel;
-            _dispatcher.BeginInvoke(((Action)(() => {
+            _dispatcher.BeginInvoke(((Action)(() =>
+            {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
             })));
         }

@@ -17,6 +17,9 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonContextMenu))]
         private List<IAddonContextMenu> _contextMenuItems { get; set; }
 
+        [ImportMany(typeof(IAddonAppContent))]
+        private List<IAddonAppContent> _appContentItems { get; set; }
+
         [ImportMany(typeof(IAddonAppContextMenu))]
         private List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
 
@@ -40,9 +43,10 @@ namespace EarTrumpet.Extensibility.Hosting
             container.ComposeParts(this);
 
             TrayViewModel.AddonItems = _contextMenuItems.ToArray();
-            FocusedAppItemViewModel.AddonItems = _appContextMenuItems.ToArray();
-            FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
+            FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
+            FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
             FocusedDeviceViewModel.AddonContextMenuItems = _deviceContextMenuItems.ToArray();
+            FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
 
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
