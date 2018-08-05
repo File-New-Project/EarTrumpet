@@ -26,10 +26,8 @@
     <DataTemplate x:Key="PartListItemTemplate">
         <Grid Margin="12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="80" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -37,27 +35,33 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="1"
-                    Grid.Column="2"
-                    Command="{Binding Open}"
-                    CommandParameter="{Binding}"
-                    Content="{x:Static resx:Resources.EditText}"
-                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+            <Grid Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  Margin="0,12,0,0"
+                  HorizontalAlignment="Right"
+                  Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="1"
-                    Grid.Column="3"
-                    Command="{Binding Remove}"
-                    CommandParameter="{Binding}"
-                    Content="{x:Static resx:Resources.RemoveText}"
-                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                <Button Command="{Binding Open}"
+                        CommandParameter="{Binding}"
+                        Content="{x:Static resx:Resources.EditText}" />
+                <Button Grid.Column="1"
+                        Command="{Binding Remove}"
+                        CommandParameter="{Binding}"
+                        Content="{x:Static resx:Resources.RemoveText}" />
+            </Grid>
 
-            <TextBlock Margin="0,0,12,0"
+            <TextBlock Margin="12"
                        VerticalAlignment="Center"
                        FontSize="14"
                        FontWeight="Bold"
                        Text="{Binding Verb}" />
 
             <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{Binding CurrentDescription}" />
         </Grid>

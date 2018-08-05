@@ -25,6 +25,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 () => Option) });
         }
 
-        public override string Describe() => $"When EarTrumpet {Options[0].DisplayName}";
+        public override string Describe() => $"EarTrumpet {Options[0].DisplayName}";
     }
 }

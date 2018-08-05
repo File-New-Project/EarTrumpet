@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public Device Device { get; set; }
         public AudioDeviceEventKind Option { get; set; }
 
-        public override string Describe() => $"When {Device} {Options[0].DisplayName}";
+        public override string Describe() => $"{Device} {Options[0].DisplayName}";
 
         public DeviceEventTrigger()
         {

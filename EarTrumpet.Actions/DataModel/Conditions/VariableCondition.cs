@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
         public string PromptText => Properties.Resources.VariableConditionPromptText;
 
-        public override string Describe() => $"Compare variable '{Text}' to {Options[0].DisplayName}";
+        public override string Describe() => $"Variable '{Text}' is {Options[0].DisplayName}";
 
         public VariableCondition()
         {

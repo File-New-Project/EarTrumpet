@@ -37,6 +37,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 () => Option) });
         }
 
-        public override string Describe() => $"When {App} on {Device} {Options[0].DisplayName}";
+        public override string Describe() => $"{App} on {Device} {Options[0].DisplayName}";
     }
 }
