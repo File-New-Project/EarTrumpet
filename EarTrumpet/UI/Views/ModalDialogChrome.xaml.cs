@@ -30,5 +30,16 @@ namespace EarTrumpet.UI.Views
                 btn.ContextMenu.IsOpen = true;
             }
         }
+
+        private void Button_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var btn = (Button)sender;
+            var dt = (ToolbarItemViewModel)btn.DataContext;
+
+            if (dt.Menu == null)
+            {
+                btn.ContextMenu = null;
+            }
+        }
     }
 }
