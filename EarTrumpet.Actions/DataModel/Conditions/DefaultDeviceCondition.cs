@@ -21,6 +21,6 @@ namespace EarTrumpet_Actions.DataModel.Conditions
                 () => Option) });
         }
 
-        public override string Describe() => $"The default playback device {Options[0].DisplayName} {Device}";
+        public override string Describe() => string.Format(Properties.Resources.DefaultDeviceConditionDescribeFormatText, Options[0].DisplayName, Device);
     }
 }

@@ -79,6 +79,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} on {1} {2}.
+        /// </summary>
+        public static string AppEventTriggerDescribeFormatText {
+            get {
+                return ResourceManager.GetString("AppEventTriggerDescribeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When an app session is (added, removed, plays sound, ...).
         /// </summary>
         public static string AppEventTriggerDescriptionText {
@@ -205,6 +214,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The default playback device {0} {1}.
+        /// </summary>
+        public static string DefaultDeviceConditionDescribeFormatText {
+            get {
+                return ResourceManager.GetString("DefaultDeviceConditionDescribeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If the default playback device (is, is not).
         /// </summary>
         public static string DefaultDeviceConditionDescriptionText {
@@ -219,6 +237,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string DefaultPlaybackDeviceText {
             get {
                 return ResourceManager.GetString("DefaultPlaybackDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1}.
+        /// </summary>
+        public static string DeviceEventTriggerDescribeFormatText {
+            get {
+                return ResourceManager.GetString("DeviceEventTriggerDescribeFormatText", resourceCulture);
             }
         }
         
@@ -268,6 +295,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet {0}.
+        /// </summary>
+        public static string EventTriggerDescribeFormatText {
+            get {
+                return ResourceManager.GetString("EventTriggerDescribeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When EarTrumpet is started or stopped.
         /// </summary>
         public static string EventTriggerDescriptionText {
@@ -291,6 +327,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string ForegroundAppText {
             get {
                 return ResourceManager.GetString("ForegroundAppText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is pressed.
+        /// </summary>
+        public static string HotkeyTriggerDescribeFormatText {
+            get {
+                return ResourceManager.GetString("HotkeyTriggerDescribeFormatText", resourceCulture);
             }
         }
         
@@ -336,6 +381,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string PlaybackDeviceFormatStringText {
             get {
                 return ResourceManager.GetString("PlaybackDeviceFormatStringText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1}.
+        /// </summary>
+        public static string ProcessConditionDescribeFormatText {
+            get {
+                return ResourceManager.GetString("ProcessConditionDescribeFormatText", resourceCulture);
             }
         }
         
@@ -394,6 +448,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} {1}.
+        /// </summary>
+        public static string ProcessTriggerDescribeFormatText {
+            get {
+                return ResourceManager.GetString("ProcessTriggerDescribeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process name (e.g. notepad).
         /// </summary>
         public static string ProcessTriggerDescriptonPromptText {
@@ -448,6 +511,24 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set volume to {0}% for {1} on {2}.
+        /// </summary>
+        public static string SetAppVolumeActionDescribeSetVolumeFormatText {
+            get {
+                return ResourceManager.GetString("SetAppVolumeActionDescribeSetVolumeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set {0} for {1} on {2}.
+        /// </summary>
+        public static string SetAppVolumeActionDescribeValueFormatText {
+            get {
+                return ResourceManager.GetString("SetAppVolumeActionDescribeValueFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set an app volume or mute.
         /// </summary>
         public static string SetAppVolumeActionDescriptionText {
@@ -457,11 +538,38 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set {0} as playback default.
+        /// </summary>
+        public static string SetDefaultDeviceActionDescribeFormatText {
+            get {
+                return ResourceManager.GetString("SetDefaultDeviceActionDescribeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set the default playback device.
         /// </summary>
         public static string SetDefaultDeviceActionDescriptionText {
             get {
                 return ResourceManager.GetString("SetDefaultDeviceActionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set volume to {0}% on {1}.
+        /// </summary>
+        public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
+            get {
+                return ResourceManager.GetString("SetDeviceVolumeActionDescribeSetVolumeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set {0} on {1}.
+        /// </summary>
+        public static string SetDeviceVolumeActionDescribeValueFormatText {
+            get {
+                return ResourceManager.GetString("SetDeviceVolumeActionDescribeValueFormatText", resourceCulture);
             }
         }
         
@@ -480,6 +588,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string SetThemeActionDescriptionText {
             get {
                 return ResourceManager.GetString("SetThemeActionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set variable &apos;{0}&apos; to {1}.
+        /// </summary>
+        public static string SetVariableActionDescribeFormatText {
+            get {
+                return ResourceManager.GetString("SetVariableActionDescribeFormatText", resourceCulture);
             }
         }
         
@@ -588,6 +705,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string ValueComparisonKindIsText {
             get {
                 return ResourceManager.GetString("ValueComparisonKindIsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable &apos;{0}&apos; is {1}.
+        /// </summary>
+        public static string VariableConditionDescribeFormatText {
+            get {
+                return ResourceManager.GetString("VariableConditionDescribeFormatText", resourceCulture);
             }
         }
         

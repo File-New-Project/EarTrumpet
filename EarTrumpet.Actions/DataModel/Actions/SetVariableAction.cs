@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public string PromptText => Properties.Resources.SetVariableActionPromptText;
 
-        public override string Describe() => $"Set variable '{Text}' to {Options[0].DisplayName}";
+        public override string Describe() => string.Format(Properties.Resources.SetVariableActionDescribeFormatText, Text, Options[0].DisplayName);
 
         public SetVariableAction()
         {

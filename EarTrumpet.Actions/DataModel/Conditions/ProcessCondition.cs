@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public string Text { get; set; }
 
         public ProcessStateKind Option { get; set; }
-        
+
         public ProcessCondition()
         {
             Description = Properties.Resources.ProcessConditionDescriptionText;
@@ -22,6 +22,6 @@ namespace EarTrumpet_Actions.DataModel.Conditions
                 () => Option) });
         }
 
-        public override string Describe() => $"{Text} {Options[0].DisplayName}";
+        public override string Describe() => string.Format(Properties.Resources.ProcessConditionDescribeFormatText, Text, Options[0].DisplayName);
     }
 }

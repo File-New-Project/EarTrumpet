@@ -12,6 +12,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
             Option = new HotkeyData();
         }
 
-        public override string Describe() => $"{Option} is pressed";
+        public override string Describe() => string.Format(Properties.Resources.HotkeyTriggerDescribeFormatText, Option);
     }
 }
