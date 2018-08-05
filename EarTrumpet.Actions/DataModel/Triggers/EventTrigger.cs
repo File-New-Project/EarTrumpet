@@ -1,14 +1,8 @@
-﻿using System;
+﻿using EarTrumpet_Actions.DataModel.Enum;
 using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum EarTrumpetEventKind
-    {
-        Startup,
-        Shutdown,
-    };
-
     public class EventTrigger : BaseTrigger
     {
         public EarTrumpetEventKind Option { get; set; }

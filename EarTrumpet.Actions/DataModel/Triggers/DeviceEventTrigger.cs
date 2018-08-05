@@ -1,15 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using EarTrumpet_Actions.DataModel.Enum;
+using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum AudioDeviceEventKind
-    {
-        Added,
-        Removed,
-        BecomingDefault,
-        LeavingDefault,
-    }
-
     public class DeviceEventTrigger : BaseTrigger, IPartWithDevice
     {
         public Device Device { get; set; }

@@ -1,14 +1,8 @@
-﻿using System;
+﻿using EarTrumpet_Actions.DataModel.Enum;
 using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Conditions
 {
-    public enum ProcessStateKind
-    {
-        Running,
-        NotRunning
-    }
-
     public class ProcessCondition : BaseCondition, IPartWithText
     {
         public string PromptText => Properties.Resources.ProcessConditionPromptText;

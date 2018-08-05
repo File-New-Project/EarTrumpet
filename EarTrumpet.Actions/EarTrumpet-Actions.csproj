@@ -76,6 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModel\Actions\InvokeAddonCommandAction.cs" />
+    <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
+    <Compile Include="DataModel\Enum\AudioDeviceEventKind.cs" />
+    <Compile Include="DataModel\Enum\ComparisonBoolKind.cs" />
+    <Compile Include="DataModel\Enum\EarTrumpetEventKind.cs" />
+    <Compile Include="DataModel\Enum\ProcessEventKind.cs" />
+    <Compile Include="DataModel\Enum\ProcessStateKind.cs" />
+    <Compile Include="DataModel\Enum\StreamActionKind.cs" />
+    <Compile Include="DataModel\Enum\ToggleBoolKind.cs" />
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
     <Compile Include="DataModel\Actions\SetAdditionalSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />

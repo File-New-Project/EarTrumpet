@@ -1,20 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Xml.Serialization;
+﻿using EarTrumpet_Actions.DataModel.Enum;
+using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum AudioAppEventKind
-    {
-        Added,
-        Removed,
-        PlayingSound,
-        NotPlayingSound,
-        Muted,
-        Unmuted,
-    }
-
     public class AppEventTrigger : BaseTrigger, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }

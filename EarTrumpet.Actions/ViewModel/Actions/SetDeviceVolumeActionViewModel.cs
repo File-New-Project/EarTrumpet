@@ -1,4 +1,5 @@
 ﻿using EarTrumpet_Actions.DataModel.Actions;
+using EarTrumpet_Actions.DataModel.Enum;
 
 namespace EarTrumpet_Actions.ViewModel.Actions
 {

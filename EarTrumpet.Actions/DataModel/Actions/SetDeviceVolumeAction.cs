@@ -1,18 +1,9 @@
-﻿using System;
+﻿using EarTrumpet_Actions.DataModel.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
-    public enum StreamActionKind
-    {
-        Mute,
-        Unmute,
-        SetVolume,
-        ToggleMute,
-        Increment5,
-        Decrement5,
-    }
-
     public class SetDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
     {
         public Device Device { get; set; }

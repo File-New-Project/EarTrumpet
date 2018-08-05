@@ -1,20 +1,14 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
+using EarTrumpet_Actions.DataModel.Enum;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel.Actions
 {
-    public enum TriStateMute
-    {
-        True,
-        False,
-        Toggle,
-    }
-
     public class SetAdditionalSettingsAction : BaseAction
     {
-        public TriStateMute Value { get; set; }
+        public ToggleBoolKind Value { get; set; }
 
         public string SettingId { get; set; }
         
@@ -25,8 +19,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
             Description = Properties.Resources.SetAdditionalSettingsActionDescriptionText;
             Options = new List<OptionData>(new OptionData[]
             {
-                new OptionData(ServiceBus.GetMany(KnownServices.BoolValue).Where(
-                    a => a is IValue<bool>).Select(
+                new OptionData(ServiceBus.GetMany(KnownServices.BoolValue).Select(
                     a => (IValue<bool>)a).Select(
                     v => new Option(v.DisplayName, v.Id)),
                 (v) => SettingId = (string)v.Value,
@@ -34,11 +27,11 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 new OptionData(
                     new List<Option>(new Option[]
                     {
-                        new Option(Properties.Resources.BoolTrueText, TriStateMute.True),
-                        new Option(Properties.Resources.BoolFalseText, TriStateMute.False),
-                        new Option(Properties.Resources.ToggleText, TriStateMute.Toggle),
+                        new Option(Properties.Resources.BoolTrueText, ToggleBoolKind.True),
+                        new Option(Properties.Resources.BoolFalseText, ToggleBoolKind.False),
+                        new Option(Properties.Resources.ToggleText, ToggleBoolKind.Toggle),
                     }),
-                (v) => Value = (TriStateMute)v.Value,
+                (v) => Value = (ToggleBoolKind)v.Value,
                 () => Value)
             });
         }

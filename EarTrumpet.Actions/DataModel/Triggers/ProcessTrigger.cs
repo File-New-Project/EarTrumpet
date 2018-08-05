@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using EarTrumpet_Actions.DataModel.Enum;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace EarTrumpet_Actions.DataModel.Triggers
 {
-    public enum ProcessEventKind
-    {
-        Start,
-        Stop,
-    }
-
     public class ProcessTrigger : BaseTrigger, IPartWithText
     {
         public string Text { get; set; }

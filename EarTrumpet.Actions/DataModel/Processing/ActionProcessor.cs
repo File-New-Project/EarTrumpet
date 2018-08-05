@@ -4,6 +4,7 @@ using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.Interop;
 using EarTrumpet_Actions.DataModel.Actions;
+using EarTrumpet_Actions.DataModel.Enum;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -152,13 +153,13 @@ namespace EarTrumpet_Actions.DataModel.Processing
             {
                 switch(action.Value)
                 {
-                    case TriStateMute.True:
+                    case ToggleBoolKind.True:
                         value.Value = true;
                         break;
-                    case TriStateMute.False:
+                    case ToggleBoolKind.False:
                         value.Value = false;
                         break;
-                    case TriStateMute.Toggle:
+                    case ToggleBoolKind.Toggle:
                         value.Value = !value.Value;
                         break;
                     default: throw new NotImplementedException();

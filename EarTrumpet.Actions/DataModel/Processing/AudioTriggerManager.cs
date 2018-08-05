@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet_Actions.DataModel.Enum;
 using EarTrumpet_Actions.DataModel.Triggers;
 using System;
 using System.Collections.Generic;

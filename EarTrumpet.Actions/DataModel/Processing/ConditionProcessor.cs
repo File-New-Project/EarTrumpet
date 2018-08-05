@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet_Actions.DataModel.Conditions;
+using EarTrumpet_Actions.DataModel.Enum;
 using System;
 
 namespace EarTrumpet_Actions.DataModel.Processing
@@ -28,9 +29,9 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 var isDeviceCurrentlyDefault = ((DefaultDeviceCondition)condition).Device.Id == mgr.Default?.Id;
                 switch (((DefaultDeviceCondition)condition).Option)
                 {
-                    case ValueComparisonKind.Is:
+                    case ComparisonBoolKind.Is:
                         return isDeviceCurrentlyDefault;
-                    case ValueComparisonKind.IsNot:
+                    case ComparisonBoolKind.IsNot:
                         return !isDeviceCurrentlyDefault;
                     default:
                         throw new NotImplementedException();
