@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EarTrumpet-Actions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("EarTrumpet-Actions")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("EarTrumpet-Actions")]
