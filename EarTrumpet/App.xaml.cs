@@ -112,17 +112,6 @@ namespace EarTrumpet
                 {
                     var window = new DialogWindow { Owner = _openSettingsWindow };
                     var addonManagerViewModel = new AddonManagerViewModel(AddonManager.Current);
-                    addonManagerViewModel.Added += (a) =>
-                    {
-                        var paths = AddonManager.Current.AdditionalPaths.ToList();
-                        paths.Add(a.DisplayName);
-                        AddonManager.Current.AdditionalPaths = paths.ToArray();
-                    };
-                    addonManagerViewModel.Removed += (a) =>
-                    {
-                        AddonManager.Current.AdditionalPaths = AddonManager.Current.AdditionalPaths.Where(
-                            p => p.ToLower() != a.DisplayName.ToLower()).ToArray();
-                    };
                     window.DataContext = addonManagerViewModel;
                     window.ShowDialog();
                 });

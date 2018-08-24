@@ -13,6 +13,12 @@ namespace EarTrumpet.Extensibility.Hosting
 {
     class AddonHost
     {
+        public class Entry
+        {
+            public bool IsThirdParty;
+            public DirectoryCatalog Catalog;
+        }
+
         [ImportMany(typeof(IAddonLifecycle))]
         private List<IAddonLifecycle> _appLifecycle { get; set; }
 
@@ -31,9 +37,9 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonDeviceContextMenu))]
         private List<IAddonDeviceContextMenu> _deviceContextMenuItems { get; set; }
 
-        public string[] Initialize(string[] additionalFilePaths)
+        public IEnumerable<Entry> Initialize(string[] additionalFilePaths)
         {
-            var catalogs = new List<ComposablePartCatalog>();
+            var catalogs = new List<Entry>();
 
             if (App.Current.HasIdentity())
             {
@@ -42,21 +48,21 @@ namespace EarTrumpet.Extensibility.Hosting
                     if (package.IsOptional)
                     {
                         Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
-                        catalogs.Add(new DirectoryCatalog(package.InstalledLocation.Path, "*.dll"));
+                        catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(package.InstalledLocation.Path, "*.dll") });
                     }
                 }
             }
             else
             {
-                catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll"));
+                catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll") });
             }
 
-            foreach(var additional in additionalFilePaths)
+            foreach (var additional in additionalFilePaths)
             {
-                catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)));
+                catalogs.Add(new Entry { IsThirdParty = true, Catalog = new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)) });
             }
 
-            var container = new CompositionContainer(new AggregateCatalog(catalogs));
+            var container = new CompositionContainer(new AggregateCatalog(catalogs.Select(c => c.Catalog)));
             container.ComposeParts(this);
 
             TrayViewModel.AddonItems = _contextMenuItems.ToArray();
@@ -69,7 +75,7 @@ namespace EarTrumpet.Extensibility.Hosting
             _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
             App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
 
-            return catalogs.SelectMany(a => ((DirectoryCatalog)a).LoadedFiles).ToArray();
+            return catalogs;
         }
     }
 }

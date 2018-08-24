@@ -136,7 +136,7 @@ namespace EarTrumpet.UI.ViewModels
                 if (Features.IsEnabled(Feature.Addons))
                 {
                     var addonEntries = new List<ContextMenuItem>();
-                    if (AddonItems.SelectMany(a => a.Items).Any())
+                    if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
                     {
                         // Add a separator before and after each extension group.
                         foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))

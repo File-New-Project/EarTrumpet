@@ -12,7 +12,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public List<Addon> BuiltIn { get; } = new List<Addon>();
         public List<Addon> ThirdParty { get; } = new List<Addon>();
 
-        public string[] AdditionalPaths
+        public string[] UserDefinedAddons
         {
             get => StorageFactory.GetSettings().Get("Addons", new string[] { });
             set => StorageFactory.GetSettings().Set("Addons", value);
@@ -25,18 +25,18 @@ namespace EarTrumpet.Extensibility.Hosting
             if (Features.IsEnabled(Feature.Addons))
             {
                 _host = new AddonHost();
-                var paths = _host.Initialize(AdditionalPaths);
+                var entries = _host.Initialize(UserDefinedAddons);
 
                 var ourPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToLower();
-                foreach (var path in paths)
+                foreach (var entry in entries)
                 {
-                    if (Path.GetDirectoryName(path).ToLower() == ourPath)
+                    if (entry.IsThirdParty)
                     {
-                        BuiltIn.Add(new Addon(Path.GetFileName(path)));
+                        ThirdParty.Add(new Addon(entry.Catalog));
                     }
                     else
                     {
-                        ThirdParty.Add(new Addon(path));
+                        BuiltIn.Add(new Addon(entry.Catalog));
                     }
                 }
             }

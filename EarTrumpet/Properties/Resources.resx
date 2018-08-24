@@ -239,4 +239,7 @@
   <data name="OpenSoundSettingsText" xml:space="preserve">
     <value>Open sound settings</value>
   </data>
+  <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
+    <value>No Files were found in {0}</value>
+  </data>
 </root>

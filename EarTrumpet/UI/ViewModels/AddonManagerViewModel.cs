@@ -2,6 +2,8 @@
 using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 
@@ -9,9 +11,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     class AddonManagerViewModel
     {
-        public event Action<Addon> Added;
-        public event Action<Addon> Removed;
-
         public string Title => Properties.Resources.AddonManagerTitleText;
 
         public ICommand Add { get; }
@@ -19,8 +18,11 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<AddonViewModel> BuiltIn { get; }
         public ObservableCollection<AddonViewModel> ThirdParty { get; }
 
+        private AddonManager _manager;
+
         public AddonManagerViewModel(AddonManager manager)
         {
+            _manager = manager;
             BuiltIn = new ObservableCollection<AddonViewModel>(manager.BuiltIn.Select(a => Create(a)));
             ThirdParty = new ObservableCollection<AddonViewModel>(manager.ThirdParty.Select(a => Create(a)));
 
@@ -33,20 +35,24 @@ namespace EarTrumpet.UI.ViewModels
 
                 if (dlg.ShowDialog() == true)
                 {
-                    var a = new Addon(dlg.FileName);
-                    ThirdParty.Add(Create(a));
-                    Added(a);
+                    var newAddon = new Addon(new DirectoryCatalog(Path.GetDirectoryName(dlg.FileName), Path.GetFileName(dlg.FileName)));
+                    ThirdParty.Add(Create(newAddon));
+
+                    var paths = _manager.UserDefinedAddons.ToList();
+                    paths.Add(newAddon.DisplayName);
+                    _manager.UserDefinedAddons = paths.ToArray();
                 }
             });
         }
 
-        private AddonViewModel Create(Addon a)
+        private AddonViewModel Create(Addon addon)
         {
-            var ret = new AddonViewModel(a);
+            var ret = new AddonViewModel(addon);
             ret.Remove = new RelayCommand(() =>
             {
                 ThirdParty.Remove(ret);
-                Removed.Invoke(a);
+                _manager.UserDefinedAddons = _manager.UserDefinedAddons.Where(
+                    p => p.ToLower() != addon.DisplayName.ToLower()).ToArray();
             });
             return ret;
         }

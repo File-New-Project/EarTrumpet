@@ -295,6 +295,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Files were found in {0}.
+        /// </summary>
+        public static string NoFilesLoadedFromAddonFormatText {
+            get {
+                return ResourceManager.GetString("NoFilesLoadedFromAddonFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Addon Manager.
         /// </summary>
         public static string OpenAddonManagerText {
