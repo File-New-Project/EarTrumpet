@@ -94,6 +94,7 @@
     <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionChannelCollection.cs" />
+    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelMultiplexer.cs" />
     <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
     <Compile Include="DataModel\IAudioDeviceChannel.cs" />
     <Compile Include="DataModel\IAudioDeviceSessionChannel.cs" />

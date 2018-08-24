@@ -54,6 +54,11 @@ namespace EarTrumpet.DataModel.Internal
                 _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
                 _sessions = new AudioDeviceSessionCollection(this, _device);
                 _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
+                Groups = _sessionFilter.Sessions;
+            }
+            else
+            {
+                Groups = new ObservableCollection<IAudioDeviceSession>();
             }
 
             ReadProperties();
@@ -138,7 +143,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public string Id => _id;
 
-        public ObservableCollection<IAudioDeviceSession> Groups => _sessionFilter.Sessions;
+        public ObservableCollection<IAudioDeviceSession> Groups { get; }
 
         public string DisplayName => _displayName;
         public string IconPath => _iconPath;

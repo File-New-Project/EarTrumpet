@@ -17,11 +17,27 @@ namespace EarTrumpet.DataModel.Internal
         {
             get
             {
-                var ret = new List<IAudioDeviceSessionChannel>();
+                var buckets = new List<List<IAudioDeviceSessionChannel>>();
                 foreach(var session in _sessions)
                 {
-                    ret.AddRange(session.Channels);
+                    var sessionChannels = session.Channels.ToList();
+                    for (var i = 0; i < sessionChannels.Count; i++)
+                    {
+                        if (buckets.Count <= i)
+                        {
+                            buckets.Add(new List<IAudioDeviceSessionChannel>());
+                        }
+
+                        buckets[i].Add(sessionChannels[i]);
+                    }
                 }
+
+                var ret = new List<IAudioDeviceSessionChannel>();
+                foreach(var bucket in buckets)
+                {
+                    ret.Add(new AudioDeviceSessionChannelMultiplexer(bucket.ToArray()));
+                }
+
                 return ret;
             }
         }

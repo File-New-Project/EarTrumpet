@@ -138,16 +138,12 @@ namespace EarTrumpet.UI.ViewModels
                     var addonEntries = new List<ContextMenuItem>();
                     if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
                     {
-                        // Add a separator before and after each extension group.
+                        
                         foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                         {
+                            // Add a separator before and after each extension group.
                             addonEntries.Add(new ContextMenuSeparator());
-
-                            foreach (var item in ext.Items)
-                            {
-                                addonEntries.Add(item);
-                            }
-
+                            addonEntries.AddRange(ext.Items);
                             addonEntries.Add(new ContextMenuSeparator());
                         }
 
