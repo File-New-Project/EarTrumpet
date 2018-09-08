@@ -38,7 +38,10 @@ namespace EarTrumpet.UI.Converters
                         }
                         else
                         {
-                            ret = System.Drawing.Icon.ExtractAssociatedIcon(iconInfo.IconPath).ToImageSource();
+                            using (var icon = System.Drawing.Icon.ExtractAssociatedIcon(iconInfo.IconPath))
+                            {
+                                ret = icon.ToImageSource();
+                            }
                         }
                     }
                 }
