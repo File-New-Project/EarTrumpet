@@ -296,7 +296,14 @@ namespace EarTrumpet.UI.ViewModels
             {
                 var stateText = _defaultDevice.IsMuted && Features.IsEnabled(Feature.TrayIconToolTipHasMuteState) ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
                 var prefixText = $"EarTrumpet: {stateText} - ";
-                var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";
+                var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";   
+                
+                // Note: Remote Desktop has an empty description and empty enumerator, but the friendly name is set.
+                if (string.IsNullOrWhiteSpace(_defaultDevice.DeviceDescription) && string.IsNullOrWhiteSpace(_defaultDevice.EnumeratorName))
+                {
+                    deviceName = _defaultDevice.DisplayName;
+                }
+
                 // API Limitation: "less than 64 chars" for the tooltip.
                 deviceName = deviceName.Substring(0, Math.Min(63 - prefixText.Length, deviceName.Length));
                 ToolTip = prefixText + deviceName;
