@@ -28,11 +28,12 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 
 ## Supported operating systems ##
 - Windows 10 1803 (April 2018 Update)
+- Windows 10 1809 (October 2018 Update)
 
 ## Known issues ##
-- Skype appears to have multiple audio sessions but only one is active ([#42](https://github.com/File-New-Project/EarTrumpet/issues/42))
-- Netflix audio control is inconsistent ([#34](https://github.com/File-New-Project/EarTrumpet/issues/34))
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
+- Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
+- EarTrumpet holds some programs in use (Twitch, Spotify, Telegram, etc.) ([#273](https://github.com/File-New-Project/EarTrumpet/issues/273))
 
 ## Credits ##
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
