@@ -5,28 +5,55 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class DeviceViewModel : AudioSessionViewModel
+    public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
         public string DisplayName => _device.DisplayName;
-        public ObservableCollection<IAppItemViewModel> Apps { get; private set; }
-        public string DeviceIconText { get; private set; }
-        public string DeviceIconTextBackground { get; private set; }
+        public string EnumeratorName => _device.EnumeratorName;
+        public string DeviceDescription => _device.DeviceDescription;
 
-        private readonly string s_Sound3BarsIcon = "\xE995";
-        private readonly string s_Sound2BarsIcon = "\xE994";
-        private readonly string s_Sound1BarIcon = "\xE993";
-        private readonly string s_SoundMuteIcon = "\xE74F";
+        public ObservableCollection<IAppItemViewModel> Apps { get; }
+
+        public bool IsDisplayNameVisible
+        {
+            get => _isDisplayNameVisible;
+            set
+            {
+                if (_isDisplayNameVisible != value)
+                {
+                    _isDisplayNameVisible = value;
+                    RaisePropertyChanged(nameof(IsDisplayNameVisible));
+                }
+            }
+        }
+
+        public DeviceIconKind IconKind
+        {
+            get => _iconKind;
+            set
+            {
+                if (_iconKind != value)
+                {
+                    _iconKind = value;
+                    RaisePropertyChanged(nameof(IconKind));
+                }
+            }
+        }
 
         private IAudioDevice _device;
         private IAudioDeviceManager _deviceManager;
+        private bool _isDisplayNameVisible;
+        private DeviceIconKind _iconKind;
+        private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal DeviceViewModel(IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
+            _parent = new WeakReference<DeviceCollectionViewModel>(parent);
 
             Apps = new ObservableCollection<IAppItemViewModel>();
 
@@ -38,7 +65,7 @@ namespace EarTrumpet.UI.ViewModels
 
             foreach (var session in _device.Groups)
             {
-                Apps.AddSorted(new AppItemViewModel(session), AppItemViewModel.CompareByExeName);
+                Apps.AddSorted(new AppItemViewModel(this, session), AppItemViewModel.CompareByExeName);
             }
 
             UpdateMasterVolumeIcon();
@@ -85,33 +112,33 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateMasterVolumeIcon()
         {
-            string icon;
-            if (_device.IsMuted)
+            if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
             {
-                icon = s_SoundMuteIcon;
-            }
-            else if (_device.Volume >= 0.65f)
-            {
-                icon = s_Sound3BarsIcon;
-            }
-            else if (_device.Volume >= 0.33f)
-            {
-                icon = s_Sound2BarsIcon;
-            }
-            else if (_device.Volume > 0f)
-            {
-                icon = s_Sound1BarIcon;
+                IconKind = DeviceIconKind.Microphone;
             }
             else
             {
-                icon = s_SoundMuteIcon;
+                if (_device.IsMuted)
+                {
+                    IconKind = DeviceIconKind.Mute;
+                }
+                else if (_device.Volume >= 0.65f)
+                {
+                    IconKind = DeviceIconKind.Bar3;
+                }
+                else if (_device.Volume >= 0.33f)
+                {
+                    IconKind = DeviceIconKind.Bar2;
+                }
+                else if (_device.Volume > 0f)
+                {
+                    IconKind = DeviceIconKind.Bar1;
+                }
+                else
+                {
+                    IconKind = DeviceIconKind.Mute;
+                }
             }
-
-            DeviceIconText = icon;
-            DeviceIconTextBackground = (icon == s_SoundMuteIcon) ? s_SoundMuteIcon : s_Sound3BarsIcon;
-
-            RaisePropertyChanged(nameof(DeviceIconText));
-            RaisePropertyChanged(nameof(DeviceIconTextBackground));
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -139,16 +166,16 @@ namespace EarTrumpet.UI.ViewModels
 
         private void AddSession(IAudioDeviceSession session)
         {
-            var newSession = new AppItemViewModel(session);
+            var newSession = new AppItemViewModel(this, session);
 
-            foreach(var a in Apps)
+            foreach(var app in Apps)
             {
-                if (a.DoesGroupWith(newSession))
+                if (app.DoesGroupWith(newSession))
                 {
                     // Remove the fake app entry after copying any changes the user did.
-                    newSession.Volume = a.Volume;
-                    newSession.IsMuted = a.IsMuted;
-                    Apps.Remove(a);
+                    newSession.Volume = app.Volume;
+                    newSession.IsMuted = app.IsMuted;
+                    Apps.Remove(app);
                     break;
                 }
             }
@@ -199,11 +226,19 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void MakeDefaultPlaybackDevice()
+        public void MakeDefaultDevice()
         {
-            _deviceManager.Default = _device;
+            _deviceManager.SetDefaultDevice(_device);
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void OpenPopup(object app, FrameworkElement container)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(app, container);
+            }
+        }
     }
 }

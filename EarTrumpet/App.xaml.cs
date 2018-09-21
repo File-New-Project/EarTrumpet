@@ -1,19 +1,29 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility.Hosting;
+using EarTrumpet.Extensions;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
+using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 namespace EarTrumpet
 {
     public partial class App
     {
-        private MainViewModel _viewModel;
+        public FlyoutViewModel FlyoutViewModel { get; private set; }
+        public TrayViewModel TrayViewModel { get; private set; }
+        public FlyoutWindow FlyoutWindow { get; private set; }
+        public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
+
         private TrayIcon _trayIcon;
-        private FlyoutWindow _flyoutWindow;
+        private SettingsWindow _openSettingsWindow;
+        private FullWindow _openMixerWindow;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -30,17 +40,28 @@ namespace EarTrumpet
 
             ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
-            var deviceManager = DataModelFactory.CreateAudioDeviceManager();
-            DiagnosticsService.Advise(deviceManager);
+            PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
+            PlaybackDevicesViewModel.Ready += MainViewModel_Ready;
 
-            _viewModel = new MainViewModel(deviceManager);
-            _viewModel.Ready += MainViewModel_Ready;
+            FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel);
+            FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
 
-            _flyoutWindow = new FlyoutWindow(_viewModel, new FlyoutViewModel(_viewModel));
-            _trayIcon = new TrayIcon(new TrayViewModel(_viewModel));
+            TrayViewModel = new TrayViewModel(PlaybackDevicesViewModel);
+            TrayViewModel.LeftClick = new RelayCommand(() => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            TrayViewModel.OpenMixer = new RelayCommand(OpenMixer);
+            TrayViewModel.OpenSettings = new RelayCommand(OpenSettings);
 
-            HotkeyService.Register(SettingsService.Hotkey);
-            HotkeyService.KeyPressed += (_, __) => _viewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+            _trayIcon = new TrayIcon(TrayViewModel);
+            FlyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
+
+            HotkeyManager.Current.Register(SettingsService.Hotkey);
+            HotkeyManager.Current.KeyPressed += (hotkey) =>
+            {
+                if (hotkey.Equals(SettingsService.Hotkey))
+                {
+                    FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+                }
+            };
 
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
@@ -49,8 +70,57 @@ namespace EarTrumpet
 
         private void MainViewModel_Ready(object sender, System.EventArgs e)
         {
-            Trace.WriteLine("App Application_Startup MainViewModel_Ready");
-            _trayIcon.Show();
+            Trace.WriteLine("App MainViewModel_Ready");
+            _trayIcon.IsVisible = true;
+
+            Trace.WriteLine("App MainViewModel_Ready Before Load");
+            AddonManager.Current.Load();
+            Trace.WriteLine("App MainViewModel_Ready After Load");
+        }
+
+        private void OpenMixer()
+        {
+            if (_openMixerWindow != null)
+            {
+                _openMixerWindow.RaiseWindow();
+            }
+            else
+            {
+                var viewModel = new FullWindowViewModel(PlaybackDevicesViewModel);
+                _openMixerWindow = new FullWindow();
+                _openMixerWindow.DataContext = viewModel;
+                _openMixerWindow.Closing += (_, __) =>
+                {
+                    _openMixerWindow = null;
+                    viewModel.Close();
+                };
+                _openMixerWindow.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openMixerWindow, () => { });
+            }
+        }
+
+        private void OpenSettings()
+        {
+            if (_openSettingsWindow != null)
+            {
+                _openSettingsWindow.RaiseWindow();
+            }
+            else
+            {
+                var viewModel = new SettingsViewModel();
+                viewModel.OpenAddonManager = new RelayCommand(() =>
+                {
+                    var window = new DialogWindow { Owner = _openSettingsWindow };
+                    var addonManagerViewModel = new AddonManagerViewModel(AddonManager.Current);
+                    window.DataContext = addonManagerViewModel;
+                    window.ShowDialog();
+                });
+                _openSettingsWindow = new SettingsWindow();
+                _openSettingsWindow.DataContext = viewModel;
+                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
+                _openSettingsWindow.Show();
+                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
+            }
         }
     }
 }

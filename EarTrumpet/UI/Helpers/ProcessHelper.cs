@@ -15,7 +15,7 @@ namespace EarTrumpet.UI.Helpers
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
             }
         }
     }

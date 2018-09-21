@@ -2,6 +2,7 @@
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,22 +11,29 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly Dispatcher _dispatcher;
         private readonly IAudioEndpointVolume _deviceVolume;
         private readonly AudioDeviceSessionCollection _sessions;
+        private readonly FilteredCollectionChain<IAudioDeviceSession> _sessionFilter;
         private readonly IAudioMeterInformation _meter;
         private readonly WeakReference<IAudioDeviceManager> _deviceManager;
         private readonly string _id;
+        private readonly AudioDeviceChannelCollection _channels;
         private IMMDevice _device;
         private string _displayName;
+        private string _iconPath;
+        private string _enumeratorName;
+        private string _interfaceName;
+        private string _deviceDescription;
         private float _volume;
         private bool _isMuted;
         private bool _isRegistered;
         private bool _useLogarithmicVolume = false;
+        private uint _speakerConfig;
 
         public AudioDevice(IAudioDeviceManager deviceManager, IMMDevice device)
         {
@@ -36,16 +44,25 @@ namespace EarTrumpet.DataModel.Internal
 
             Trace.WriteLine($"AudioDevice Create {_id}");
 
-            _deviceVolume = device.Activate<IAudioEndpointVolume>();
-            _deviceVolume.RegisterControlChangeNotify(this);
-            _isRegistered = true;
-            _meter = device.Activate<IAudioMeterInformation>();
-            _sessions = new AudioDeviceSessionCollection(this, _device);
+            if (_device.GetState() == DeviceState.ACTIVE)
+            {
+                _deviceVolume = device.Activate<IAudioEndpointVolume>();
+                _deviceVolume.RegisterControlChangeNotify(this);
+                _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
+                _isMuted = _deviceVolume.GetMute() != 0;
+                _isRegistered = true;
+                _meter = device.Activate<IAudioMeterInformation>();
+                _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
+                _sessions = new AudioDeviceSessionCollection(this, _device);
+                _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
+                Groups = _sessionFilter.Sessions;
+            }
+            else
+            {
+                Groups = new ObservableCollection<IAudioDeviceSession>();
+            }
 
-            _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
-            _isMuted = _deviceVolume.GetMute() != 0;
-
-            ReadDisplayName();
+            ReadProperties();
         }
 
         ~AudioDevice()
@@ -59,16 +76,19 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
             }
         }
 
-        void IAudioEndpointVolumeCallback.OnNotify(ref AUDIO_VOLUME_NOTIFICATION_DATA pNotify)
+        void IAudioEndpointVolumeCallback.OnNotify(IntPtr pNotify)
         {
-            _volume = pNotify.fMasterVolume;
-            _isMuted = pNotify.bMuted != 0;
+            var data = Marshal.PtrToStructure<AUDIO_VOLUME_NOTIFICATION_DATA>(pNotify);
+            _volume = data.fMasterVolume;
+            _isMuted = data.bMuted != 0;
 
-            _dispatcher.BeginInvoke((Action)(() =>
+            _channels.OnNotify(pNotify, data);
+
+            _dispatcher.Invoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
@@ -104,7 +124,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -128,7 +148,7 @@ namespace EarTrumpet.DataModel.Internal
                         Guid dummy = Guid.Empty;
                         _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
                     }
-                    catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+                    catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
                         // Expected in some cases.
                     }
@@ -138,9 +158,13 @@ namespace EarTrumpet.DataModel.Internal
 
         public string Id => _id;
 
-        public ObservableCollection<IAudioDeviceSession> Groups => _sessions.Sessions;
+        public ObservableCollection<IAudioDeviceSession> Groups { get; }
 
         public string DisplayName => _displayName;
+        public string IconPath => _iconPath;
+        public string EnumeratorName => _enumeratorName;
+        public string InterfaceName => _interfaceName;
+        public string DeviceDescription => _deviceDescription;
 
         public IAudioDeviceManager Parent
         {
@@ -154,43 +178,13 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
+        public IEnumerable<IAudioDeviceChannel> Channels => _channels.Channels;
+
         public void UpdatePeakValueBackground()
         {
-            try
-            {
-                uint chanCount = _meter.GetMeteringChannelCount();
-                if (chanCount == 0)
-                {
-                    PeakValue1 = 0;
-                    PeakValue2 = 0;
-                }
-                else
-                {
-                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
-                    _meter.GetChannelsPeakValues(chanCount, arrayPtr);
-
-                    var values = new float[chanCount];
-                    Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
-
-                    if (chanCount == 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[0];
-                    }
-                    else if (chanCount > 1)
-                    {
-                        PeakValue1 = values[0];
-                        PeakValue2 = values[1];
-                    }
-                }
-            }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
-            {
-                // Expected in some cases.
-
-                PeakValue1 = 0;
-                PeakValue2 = 0;
-            }
+            var newValues = Helpers.ReadPeakValues(_meter);
+            PeakValue1 = newValues[0];
+            PeakValue2 = newValues[1];
         }
 
         public void UnhideSessionsForProcessId(int processId)
@@ -203,16 +197,37 @@ namespace EarTrumpet.DataModel.Internal
             _sessions.MoveHiddenAppsToDevice(appId, id);
         }
 
-        private void ReadDisplayName()
+        private void ReadProperties()
         {
             try
             {
                 var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
-                var pv = propStore.GetValue(ref PropertyKeys.PKEY_Device_FriendlyName);
-                _displayName = Marshal.PtrToStringUni(pv.union.pwszVal);
+                _displayName = propStore.GetValue<string>(PropertyKeys.PKEY_Device_FriendlyName);
+                _iconPath = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceClass_IconPath);
+                _enumeratorName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_EnumeratorName);
+                _interfaceName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceInterface_FriendlyName);
+                _deviceDescription = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_DeviceDesc);
+            }
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+        }
+
+        private void ReadSpeakerConfiguration()
+        {
+            try
+            {
+                var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
+                var pv = propStore.GetValue(ref PropertyKeys.PKEY_AudioEndpoint_PhysicalSpeakers);
+                _speakerConfig = pv.uintVal;
                 Ole32.PropVariantClear(ref pv);
             }
-            catch (Exception ex) when (ex.Is(Error.AUDCLNT_E_DEVICE_INVALIDATED))
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
             }
@@ -223,9 +238,9 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine($"AudioDevice DevicePropertiesChanged {_id}");
 
             _device = dev;
-            ReadDisplayName();
+            ReadProperties();
 
-            _dispatcher.BeginInvoke((Action)(() =>
+            _dispatcher.Invoke((Action)(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
             }));
@@ -245,5 +260,9 @@ namespace EarTrumpet.DataModel.Internal
         }
 
 
+        public void AddSessionFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter)
+        {
+            _sessionFilter.AddFilter(filter);
+        }
     }
 }

@@ -215,4 +215,34 @@
   <data name="UseLogarithmicVolume" xml:space="preserve">
     <value>Use logarithmic scaling for volume control</value>
   </data>
+  <data name="AddAddonText" xml:space="preserve">
+    <value>+ Add</value>
+  </data>
+  <data name="AddonManagerTitleText" xml:space="preserve">
+    <value>Addon Manager</value>
+  </data>
+  <data name="LoadAddonAddonsText" xml:space="preserve">
+    <value>EarTrumpet Addons</value>
+  </data>
+  <data name="OpenAddonManagerText" xml:space="preserve">
+    <value>Open Addon Manager</value>
+  </data>
+  <data name="RemoveAddonText" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="AddonsMenuText" xml:space="preserve">
+    <value>Addons</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>More commands</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Muted</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Open sound settings</value>
+  </data>
+  <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
+    <value>No Files were found in {0}</value>
+  </data>
 </root>

@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Internal.Services;
-using EarTrumpet.Interop.MMDeviceAPI;
+﻿using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,7 +41,7 @@ namespace EarTrumpet.DataModel.Internal
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError($"{ex}");
+                    Trace.WriteLine($"{ex}");
                 }
             });
         }
@@ -52,6 +51,11 @@ namespace EarTrumpet.DataModel.Internal
             foreach (var session in _sessions)
             {
                 session.PropertyChanged -= Session_PropertyChanged;
+            }
+
+            foreach (var session in _movedSessions)
+            {
+                session.PropertyChanged -= MovedSession_PropertyChanged;
             }
 
             _sessionManager.UnregisterSessionNotification(this);
@@ -74,7 +78,7 @@ namespace EarTrumpet.DataModel.Internal
                         _movedSessions.Add(newSession);
                         newSession.PropertyChanged += MovedSession_PropertyChanged;
                     }
-                    else
+                    else if (newSession.State != SessionState.Expired)
                     {
                         AddSession(newSession);
                     }
@@ -82,7 +86,7 @@ namespace EarTrumpet.DataModel.Internal
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
             }
         }
 

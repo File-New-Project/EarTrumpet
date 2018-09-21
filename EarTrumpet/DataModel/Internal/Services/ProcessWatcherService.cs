@@ -27,14 +27,6 @@ namespace EarTrumpet.DataModel.Internal.Services
 
         public static void WatchProcess(int processId, Action<int> processQuit)
         {
-            lock (_lock)
-            {
-                if (s_watchers.Any(w => w.Value.processId == processId))
-                {
-                    return;
-                }
-            }
-
             Trace.WriteLine($"ProcessWatcherService WatchProcess {processId}");
 
             var data = new ProcessWatcherData
@@ -43,6 +35,13 @@ namespace EarTrumpet.DataModel.Internal.Services
                 processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.SYNCHRONIZE, false, processId)
             };
             data.quitActions.Add(processQuit);
+
+            if (Kernel32.WaitForSingleObject(data.processHandle, 0) != Kernel32.WAIT_TIMEOUT)
+            {
+                Trace.WriteLine($"ProcessWatcherService WatchProcess Error: Unwatchable handle: {processId}");
+                Kernel32.CloseHandle(data.processHandle);
+                return;
+            }
 
             lock (_lock)
             {
@@ -92,10 +91,10 @@ namespace EarTrumpet.DataModel.Internal.Services
                         var returnValue = Kernel32.WaitForMultipleObjects(handles.Length, handles, false, (int)TimeSpan.FromSeconds(5).TotalMilliseconds);
                         switch(returnValue)
                         {
+                            // We never expect to see WAIT_ABANDONED since we are only waiting on process handles.
                             case Kernel32.WAIT_ABANDONED:
+                            // We don't expect WAIT_FAILED here since we did a test WaitForSingleObject on each handle before ingestion.
                             case Kernel32.WAIT_FAILED:
-                                // NOTE: We aren't logging here because this occurs a lot in the wild, we need
-                                // to investigate.
                                 Debug.Assert(false);
                                 break;
                             case Kernel32.WAIT_TIMEOUT:

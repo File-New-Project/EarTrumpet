@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop.MMDeviceAPI
 {
-    enum EDataFlow
+    public enum EDataFlow
     {
         eRender = 0,
         eCapture = 1,

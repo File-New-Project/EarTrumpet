@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.Extensions
 {
-    static class FloatExtensions
+    public static class FloatExtensions
     {
         public static Int32 ToVolumeInt(this float val)
         {

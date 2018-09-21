@@ -3,10 +3,12 @@ using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -22,20 +24,21 @@ namespace EarTrumpet.UI.ViewModels
 
         public static readonly ExeNameComparer CompareByExeName = new ExeNameComparer();
 
-        public ImageSource Icon { get; private set; }
+        public IconLoadInfo Icon { get; private set; }
 
-        public SolidColorBrush Background { get; private set; }
+        public Color Background { get; private set; }
 
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
-        public string DisplayName => IsExpanded ? _session.SessionDisplayName : _session.AppDisplayName;
+        public string DisplayName => _session.SessionDisplayName;
 
         public string ExeName => _session.ExeName;
         public string AppId => _session.AppId;
 
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
-        public bool IsMovable => !_session.IsSystemSoundsSession && Environment.OSVersion.Version.Build >= 17134;
+        public bool IsMovable => !_session.IsSystemSoundsSession &&
+                                  Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 
         public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;
 
@@ -43,42 +46,40 @@ namespace EarTrumpet.UI.ViewModels
 
         public int ProcessId => _session.ProcessId;
 
-        private IAudioDeviceSession _session;
+        public IDeviceViewModel Parent
+        {
+            get
+            {
+                if (_parent.TryGetTarget(out var parent))
+                {
+                    return parent;
+                }
+                return null;
+            }
+        }
 
-        internal AppItemViewModel(IAudioDeviceSession session, bool isChild = false) : base(session)
+        private IAudioDeviceSession _session;
+        private WeakReference<DeviceViewModel> _parent;
+
+        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false, IconLoadInfo icon = null) : base(session)
         {
             IsExpanded = isChild;
             _session = session;
             _session.PropertyChanged += Session_PropertyChanged;
+            _parent = new WeakReference<DeviceViewModel>(parent);
+
+            Background = session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor();
+
+            Icon = new IconLoadInfo
+            {
+                IsDesktopApp = session.IsDesktopApp,
+                IconPath = session.IconPath,
+            };
 
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;
-                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(t, isChild: true)));
-            }
-
-            Background = new SolidColorBrush(session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor());
-
-            try
-            {
-                if (session.IsDesktopApp)
-                {
-                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(session.IconPath).ToImageSource();
-                }
-                else
-                {
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.UriSource = new Uri(session.IconPath);
-                    bitmap.EndInit();
-
-                    Icon = bitmap;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError($"Failed to load icon: {ex}");
+                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(parent, t, true, Icon)));
             }
         }
 
@@ -87,30 +88,32 @@ namespace EarTrumpet.UI.ViewModels
             _session.PropertyChanged -= Session_PropertyChanged;
         }
 
-        private void Session_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_session.SessionDisplayName) ||
-                e.PropertyName == nameof(_session.AppDisplayName))
+            if (e.PropertyName == nameof(_session.SessionDisplayName))
             {
                 RaisePropertyChanged(nameof(DisplayName));
             }
         }
 
-        private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Children_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            if (_parent.TryGetTarget(out var parent))
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Debug.Assert(e.NewItems.Count == 1);
-                    ChildApps.Add(new AppItemViewModel((IAudioDeviceSession)e.NewItems[0], isChild:true));
-                    break;
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        Debug.Assert(e.NewItems.Count == 1);
+                        ChildApps.Add(new AppItemViewModel(parent, (IAudioDeviceSession)e.NewItems[0], true, Icon));
+                        break;
 
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    Debug.Assert(e.OldItems.Count == 1);
-                    ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
-                    break;
-                default:
-                    throw new NotImplementedException();
+                    case NotifyCollectionChangedAction.Remove:
+                        Debug.Assert(e.OldItems.Count == 1);
+                        ChildApps.Remove(ChildApps.First(x => x.Id == ((IAudioDeviceSession)e.OldItems[0]).Id));
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
             }
         }
 
@@ -131,7 +134,6 @@ namespace EarTrumpet.UI.ViewModels
 
             base.UpdatePeakValueForeground();
         }
-
 
         public void UpdatePeakValueBackground()
         {
@@ -155,5 +157,13 @@ namespace EarTrumpet.UI.ViewModels
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+
+        public void OpenPopup(FrameworkElement container)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(this, container);
+            }
+        }
     }
 }

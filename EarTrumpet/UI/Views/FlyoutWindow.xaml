@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         AllowsTransparency="True"
         Background="Transparent"
-        Foreground="{DynamicResource WindowForeground}"
+        Foreground="{DynamicResource Unicolor_Text}"
         Icon="pack://application:,,,/Assets/Application.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
         ResizeMode="NoResize"
@@ -18,14 +19,16 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <clr:String x:Key="ContextMenuTheme">DarkOnly</clr:String>
+        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="DarkOnly" />
+
+        <Style BasedOn="{StaticResource ContextMenuDarkOnly}" TargetType="{x:Type ContextMenu}" />
 
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
 
-        <Style x:Key="DeviceHeaderBackgroundBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground2}" />
+        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer2}" />
         </Style>
 
         <Style x:Key="AppListStyle"
@@ -37,20 +40,20 @@
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource PopupBackground}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource ActiveBorder}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource HeaderBackground}" />
+            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
 
         <Style x:Key="Windows10FocusVisualStyleDarkOnly">
@@ -58,8 +61,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Rectangle Stroke="{DynamicResource SecondaryDarkFocusVisual}" StrokeThickness="3" />
-                            <Rectangle Stroke="{DynamicResource WindowForeground}" StrokeThickness="2" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryFocusVisual}" StrokeThickness="3" />
+                            <Rectangle Stroke="{DynamicResource Unicolor_PrimaryFocusVisual}" StrokeThickness="2" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -70,14 +73,15 @@
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#22FFFFFF" />
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverText}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedText}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -85,38 +89,36 @@
         <Style x:Key="VirtualTitleBarTextStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="PerThemeGlyphTextBlockStyle"
                BasedOn="{StaticResource GlyphTextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="DeviceVolumeTextStyle"
                BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="AppVolumeTextStyle"
                BasedOn="{StaticResource BaseAppVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
         </Style>
 
         <Style x:Key="DeviceTitleTextStyle"
                BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
-        </Style>
+               TargetType="{x:Type TextBlock}" />
 
         <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
             <Grid>
@@ -126,18 +128,18 @@
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
                                       Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillLeft}"
+                                      Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
                         <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource CottonSwabSliderThumb}"
+                               Foreground="{DynamicResource Unicolor_SliderThumb}"
                                Style="{StaticResource SliderThumbStyle}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource SliderTrackFillRight}"
+                                      Foreground="{DynamicResource Unicolor_SliderTrackRight}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
@@ -146,13 +148,13 @@
                         Height="2"
                         Margin="0,-2,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PeakMeterHotColor}" />
+                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
 
                 <Border Name="PeakMeter2"
                         Height="2"
                         Margin="0,1,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource PeakMeterHotColor}" />
+                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
@@ -163,14 +165,14 @@
                         <VisualState x:Name="MouseOver">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbHover}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbHover}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                             <Storyboard>
                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource CottonSwabSliderThumbPressed}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbPressed}" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
@@ -195,7 +197,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
+            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
             <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -210,7 +212,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="#22FFFFFF" />
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverText}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedText}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -230,12 +237,12 @@
 
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer Name="BaseVisual">
+        <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
                 <Border Height="{StaticResource NoItemsPaneHeight}"
                         VerticalAlignment="Center"
-                        Background="{DynamicResource WindowBackground}"
+                        Background="{DynamicResource Unicolor_Background}"
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
                                HorizontalAlignment="Center"
@@ -251,29 +258,73 @@
                                   ItemsSource="{Binding Devices}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <views:DeviceAndAppsControl AppExpanded="DeviceAndAppsControl_AppExpanded" Device="{Binding}" />
+                                <views:DeviceView Device="{Binding}" IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
                     <Button Height="{StaticResource DeviceTitleCellHeight}"
-                            AutomationProperties.Name="{Binding ExpandAccessibleText}"
                             Command="{Binding ExpandCollapse}"
-                            IsEnabled="{Binding CanExpand}"
-                            Style="{StaticResource ExpandCollapseButtonStyle}">
+                            IsEnabled="{Binding CanExpand}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.CollapseAccessibleText}" />
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CanExpand}" Value="True" />
+                                            <Condition Binding="{Binding IsExpanded}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="AutomationProperties.Name" Value="{x:Static resx:Resources.ExpandAccessibleText}" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
                         <Button.Content>
-                            <TextBlock Margin="{StaticResource WindowMargin}"
-                                       HorizontalAlignment="Right"
-                                       FontSize="12"
-                                       Style="{StaticResource GlyphTextBlockStyle}"
-                                       Text="{Binding ExpandText}" />
+                            <Grid>
+                                <TextBlock Margin="12,0,32,0"
+                                           HorizontalAlignment="Left"
+                                           Style="{DynamicResource DeviceTitleTextStyle}"
+                                           Text="{Binding DeviceNameText}"
+                                           TextTrimming="CharacterEllipsis" />
+                                <TextBlock Margin="{StaticResource WindowMargin}"
+                                           HorizontalAlignment="Right"
+                                           FontSize="12">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}" Value="True" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Text" Value="&#xe011;" />
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding CanExpand}" Value="True" />
+                                                        <Condition Binding="{Binding IsExpanded}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Text" Value="&#xe010;" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
                         </Button.Content>
                     </Button>
                 </Grid>
             </Grid>
         </ScrollViewer>
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource BlurBackground}"
+                Background="{DynamicResource Unicolor_BlurBackground}"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
@@ -281,7 +332,7 @@
                     <Style.Triggers>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Dialog.IsVisible}" Value="True" />
                                 <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
@@ -318,7 +369,7 @@
 
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsShowingModalDialog}" Value="True" />
+                                <Condition Binding="{Binding Dialog.IsVisible}" Value="True" />
                                 <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="False" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
@@ -363,6 +414,10 @@
             </Border>
         </Border>
 
-        <views:VolumeControlPopup x:Name="AppPopup" DataContext="{x:Null}" />
+        <views:VolumeControlPopup x:Name="AppPopup"
+                                  IsPopupVisible="{Binding Dialog.IsVisible, Mode=TwoWay}"
+                                  Tag="{Binding Dialog.Source}">
+            <ContentControl Content="{Binding Dialog.Focused}" />
+        </views:VolumeControlPopup>
     </Grid>
 </Window>

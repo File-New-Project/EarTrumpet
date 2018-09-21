@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace EarTrumpet.Interop
 {
-    class User32
+    public class User32
     {
+        public const int WM_HOTKEY = 0x0312;
         public const int WM_USERMAGIC = 1120;
         public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
 
@@ -34,6 +36,17 @@ namespace EarTrumpet.Interop
             int cx,
             int cy,
             uint uFlags);
+
+        [Flags]
+        public enum MONITOR_DEFAULT : uint
+        {
+            MONITOR_DEFAULTTONULL = 0,
+            MONITOR_DEFAULTTOPRIMARY = 1,
+            MONITOR_DEFAULTTONEAREST = 2,
+        }
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        internal static extern IntPtr MonitorFromWindow(IntPtr hWnd, MONITOR_DEFAULT flags);
 
         [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int SetWindowCompositionAttribute(
@@ -138,14 +151,14 @@ namespace EarTrumpet.Interop
             [FieldOffset(0)]
             public RAWMOUSE_FLAGS usFlags;
             // union {
-                [FieldOffset(4)]
-                public uint ulButtons;
-                // struct {
-                    [FieldOffset(4)]
-                    public ushort usButtonFlags;
-                    [FieldOffset(6)]
-                    public short usButtonData;
-                // }
+            [FieldOffset(4)]
+            public uint ulButtons;
+            // struct {
+            [FieldOffset(4)]
+            public ushort usButtonFlags;
+            [FieldOffset(6)]
+            public short usButtonData;
+            // }
             // }
             [FieldOffset(8)]
             public uint ulRawButtons;
@@ -238,5 +251,29 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DestroyIcon(IntPtr iconHandle);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("user32.dll", PreserveSig = true, CharSet = CharSet.Unicode)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576.aspx
+        // The maximum length for lpszClassName is 256. If lpszClassName is greater than the maximum length, the RegisterClass function will fail.
+        public static readonly int MAX_CLASSNAME_LENGTH = 256;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern IntPtr FindWindowEx(
+            IntPtr hWndParent,
+            IntPtr hWndChildAfter,
+            [MarshalAs(UnmanagedType.LPWStr)]string lpClassName,
+            IntPtr lpWindowName);
     }
 }

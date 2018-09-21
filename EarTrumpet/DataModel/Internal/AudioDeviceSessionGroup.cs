@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Internal.Services;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,11 +11,40 @@ namespace EarTrumpet.DataModel.Internal
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
+
+        public IEnumerable<IAudioDeviceSessionChannel> Channels
+        {
+            get
+            {
+                var buckets = new List<List<IAudioDeviceSessionChannel>>();
+                foreach(var session in _sessions)
+                {
+                    var sessionChannels = session.Channels.ToList();
+                    for (var i = 0; i < sessionChannels.Count; i++)
+                    {
+                        if (buckets.Count <= i)
+                        {
+                            buckets.Add(new List<IAudioDeviceSessionChannel>());
+                        }
+
+                        buckets[i].Add(sessionChannels[i]);
+                    }
+                }
+
+                var ret = new List<IAudioDeviceSessionChannel>();
+                foreach(var bucket in buckets)
+                {
+                    ret.Add(new AudioDeviceSessionChannelMultiplexer(bucket.ToArray()));
+                }
+
+                return ret;
+            }
+        }
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
 
         public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;
 
-        public string AppDisplayName => _sessions.Count > 0 ? _sessions[0].AppDisplayName : null;
         public string SessionDisplayName => _sessions.Count > 0 ? _sessions[0].SessionDisplayName : null;
 
         public string ExeName => _sessions.Count > 0 ? _sessions[0].ExeName : null;
@@ -43,14 +71,32 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public bool IsSystemSoundsSession => _sessions.Count > 0 ? _sessions[0].IsSystemSoundsSession : false;
+        public bool IsSystemSoundsSession => _sessions.Any(s => s.IsSystemSoundsSession);
 
         public float PeakValue1 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue1) : 0;
         public float PeakValue2 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue2) : 0;
 
         public int ProcessId => _sessions.Count > 0 ? _sessions[0].ProcessId : -1;
 
-        public SessionState State => _sessions.Count > 0 ? _sessions[0].State : SessionState.Invalid;
+        public SessionState State
+        {
+            get
+            {
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Active) != null)
+                {
+                    return SessionState.Active;
+                }
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Inactive) != null)
+                {
+                    return SessionState.Inactive;
+                }
+                if (_sessions.FirstOrDefault(s => s.State == SessionState.Moved) != null)
+                {
+                    return SessionState.Moved;
+                }
+                return SessionState.Expired;
+            }
+        }
 
         public float Volume
         {

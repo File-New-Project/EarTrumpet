@@ -5,7 +5,9 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid MaxWidth="420"
               MaxHeight="500"
-              Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+              Margin="20"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -18,10 +20,12 @@
             <StackPanel Grid.Row="0"
                         Grid.ColumnSpan="2"
                         Orientation="Horizontal">
-                <Image Width="32"
-                       Height="32"
-                       Margin="0"
-                       Style="{ThemeResource AppIcon}" />
+                <Path Fill="{ThemeResource TextControlForeground}" Stretch="Uniform" 
+                      Width="32"
+                      Height="32"
+                      Margin="0"
+                      Data="M64.1,24.9c-0.8,6.8-5.5,21.5-10.2,26.1c1.2-2.3,1.8-4.9,1.7-7.7c-0.3-7.9-6.8-14.5-14.8-14.8  c-8.8-0.4-16,6.7-16,15.4c0,3.3,1.1,6.4,2.9,9C17.8,48.3,10,41.2,9.3,40.7c-1.2-0.4-3.2,2.9-2.5,4.1c53,45,74.7-10.4,75.4-12  C75.2,31.4,74.8,25.5,64.1,24.9z M38.7,31.9c7.9-1,14.6,5.7,13.6,13.6c-0.7,5.4-5,9.8-10.4,10.4c-7.9,1-14.6-5.7-13.6-13.6  C28.9,37,33.3,32.6,38.7,31.9z" 
+                  />
                 <TextBlock x:Name="Welcome"
                            x:Uid="WelcomeText"
                            Margin="20,20,0,20"

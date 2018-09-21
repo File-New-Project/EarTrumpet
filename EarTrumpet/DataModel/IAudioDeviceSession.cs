@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel
 {
-    interface IAudioDeviceSession : IStreamWithVolumeControl
+    public interface IAudioDeviceSession : IStreamWithVolumeControl
     {
-        string AppDisplayName { get; }
+        IEnumerable<IAudioDeviceSessionChannel> Channels { get; }
+        IAudioDevice Parent { get; }
         string SessionDisplayName { get; }
         void RefreshDisplayName();
         string ExeName { get; }
@@ -19,7 +21,6 @@ namespace EarTrumpet.DataModel
         SessionState State { get; }
         ObservableCollection<IAudioDeviceSession> Children { get; }
         string PersistedDefaultEndPointId { get; }
-
         void Hide();
         void UnHide();
         void MoveToDevice(string id, bool hide);

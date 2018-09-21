@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -48,12 +49,12 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
         }
-        public SolidColorBrush Background { get; }
+        public Color Background { get; }
         public ObservableCollection<IAppItemViewModel> ChildApps { get; }
         public string DisplayName { get; }
         public string ExeName { get; }
         public string AppId { get; }
-        public ImageSource Icon { get; }
+        public IconLoadInfo Icon { get; }
         public char IconText { get; }
         public bool IsExpanded { get; }
         public bool IsMovable { get; }
@@ -61,20 +62,23 @@ namespace EarTrumpet.UI.ViewModels
         public float PeakValue2 { get; }
         public string PersistedOutputDevice => _deviceManager.GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
+        public IDeviceViewModel Parent { get; }
 
         private int[] _processIds;
         private int _volume;
         private bool _isMuted;
         private IAudioDeviceManager _deviceManager;
+        private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal TemporaryAppItemViewModel(IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
+        internal TemporaryAppItemViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
         {
+            _parent = new WeakReference<DeviceCollectionViewModel>(parent);
             if (!isChild)
             {
                 ChildApps = new ObservableCollection<IAppItemViewModel>();
                 foreach(var childApp in app.ChildApps)
                 {
-                    var vm = new TemporaryAppItemViewModel(deviceManager, childApp, true);
+                    var vm = new TemporaryAppItemViewModel(parent, deviceManager, childApp, true);
                     vm.PropertyChanged += ChildApp_PropertyChanged;
                     ChildApps.Add(vm);
                 }
@@ -95,6 +99,7 @@ namespace EarTrumpet.UI.ViewModels
             PeakValue1 = 0;
             PeakValue2 = 0;
             ProcessId = app.ProcessId;
+            Parent = app.Parent;
 
             if (ChildApps != null)
             {
@@ -128,7 +133,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
 #if VSDEBUG
-            Background = new SolidColorBrush(Colors.Red);
+            Background = Colors.Red;
 #endif
         }
 
@@ -164,5 +169,13 @@ namespace EarTrumpet.UI.ViewModels
         public void RefreshDisplayName() { }
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
+
+        public void OpenPopup(FrameworkElement uIElement)
+        {
+            if (_parent.TryGetTarget(out var parent))
+            {
+                parent.OpenPopup(this, uIElement);
+            }
+        }
     }
 }

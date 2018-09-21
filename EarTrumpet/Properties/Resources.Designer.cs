@@ -70,6 +70,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to + Add.
+        /// </summary>
+        public static string AddAddonText {
+            get {
+                return ResourceManager.GetString("AddAddonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Addon Manager.
+        /// </summary>
+        public static string AddonManagerTitleText {
+            get {
+                return ResourceManager.GetString("AddonManagerTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Addons.
+        /// </summary>
+        public static string AddonsMenuText {
+            get {
+                return ResourceManager.GetString("AddonsMenuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
         /// </summary>
         public static string AppOrDeviceFormatAccessibleText {
@@ -214,11 +241,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Addons.
+        /// </summary>
+        public static string LoadAddonAddonsText {
+            get {
+                return ResourceManager.GetString("LoadAddonAddonsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More commands.
+        /// </summary>
+        public static string MoreCommandsAccessibleText {
+            get {
+                return ResourceManager.GetString("MoreCommandsAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign this app to a playback device.
         /// </summary>
         public static string MoveButtonAccessibleText {
             get {
                 return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Muted.
+        /// </summary>
+        public static string MutedText {
+            get {
+                return ResourceManager.GetString("MutedText", resourceCulture);
             }
         }
         
@@ -241,6 +295,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Files were found in {0}.
+        /// </summary>
+        public static string NoFilesLoadedFromAddonFormatText {
+            get {
+                return ResourceManager.GetString("NoFilesLoadedFromAddonFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Addon Manager.
+        /// </summary>
+        public static string OpenAddonManagerText {
+            get {
+                return ResourceManager.GetString("OpenAddonManagerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open sound settings.
+        /// </summary>
+        public static string OpenSoundSettingsText {
+            get {
+                return ResourceManager.GetString("OpenSoundSettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playback devices.
         /// </summary>
         public static string PlaybackDevicesText {
@@ -255,6 +336,15 @@ namespace EarTrumpet.Properties {
         public static string RecordingDevicesText {
             get {
                 return ResourceManager.GetString("RecordingDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string RemoveAddonText {
+            get {
+                return ResourceManager.GetString("RemoveAddonText", resourceCulture);
             }
         }
         

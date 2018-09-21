@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Interop;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,13 +6,14 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Helpers
 {
-    sealed class WindowsTaskbar
+    public sealed class WindowsTaskbar
     {
         public struct State
         {
             public Position Location;
             public RECT Size;
             public Screen ContainingScreen;
+            public double Dpi;
         }
 
         // Must match AppBarEdge enum
@@ -31,6 +31,12 @@ namespace EarTrumpet.UI.Helpers
             {
                 var state = new State();
                 var hWnd = User32.FindWindow("Shell_TrayWnd", null);
+
+                if (HRESULT.S_OK == Shcore.GetDpiForMonitor(User32.MonitorFromWindow(hWnd, User32.MONITOR_DEFAULT.MONITOR_DEFAULTTONEAREST), Shcore.DpiType.Effective, out uint dpiX, out uint dpiY))
+                {
+                    state.Dpi = dpiY / 96f;
+                }
+
                 var appBarData = new APPBARDATA
                 {
                     cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)),

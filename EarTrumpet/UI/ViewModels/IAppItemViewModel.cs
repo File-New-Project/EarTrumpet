@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -9,12 +10,12 @@ namespace EarTrumpet.UI.ViewModels
         string Id { get; }
         bool IsMuted { get; set; }
         int Volume { get; set; }
-        SolidColorBrush Background { get; }
+        Color Background { get; }
         ObservableCollection<IAppItemViewModel> ChildApps { get; }
         string DisplayName { get; }
         string ExeName { get; }
         string AppId { get; }
-        ImageSource Icon { get; }
+        IconLoadInfo Icon { get; }
         char IconText { get; }
         bool IsExpanded { get; }
         bool IsMovable { get; }
@@ -22,11 +23,12 @@ namespace EarTrumpet.UI.ViewModels
         float PeakValue2 { get; }
         string PersistedOutputDevice { get; }
         int ProcessId { get; }
-
         bool DoesGroupWith(IAppItemViewModel app);
         void MoveToDevice(string id, bool hide);
         void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
+        void OpenPopup(FrameworkElement uIElement);
+        IDeviceViewModel Parent { get; }
     }
 }

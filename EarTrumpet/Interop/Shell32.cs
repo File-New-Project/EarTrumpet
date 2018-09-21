@@ -20,5 +20,11 @@ namespace EarTrumpet.Interop
         public static extern bool SHAppBarMessage(
             AppBarMessage dwMessage, 
             ref APPBARDATA pData);
+
+        [DllImport("shell32.dll", PreserveSig = true)]
+        public static extern IntPtr ExtractIcon(
+            IntPtr instanceHandle, 
+            string path, 
+            int iconIndex);
     }
 }

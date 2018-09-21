@@ -5,7 +5,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("2a59116d-6c4f-45e0-a74f-707e3fef9258")]
     [InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
-    interface IAudioPolicyConfigFactory
+    public interface IAudioPolicyConfigFactory
     {
         int __incomplete__add_CtxVolumeChange();
         int __incomplete__remove_CtxVolumeChanged();
@@ -26,12 +26,11 @@ namespace EarTrumpet.Interop.MMDeviceAPI
         int __incomplete__GetCurrentChatApplications();
         int __incomplete__add_ChatContextChanged();
         int __incomplete__remove_ChatContextChanged();
-
-
-        int SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
-
         [PreserveSig]
-        int GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
-        int ClearAllPersistedApplicationDefaultEndpoints();
+        HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
+        [PreserveSig]
+        HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, [Out, MarshalAs(UnmanagedType.HString)] out string deviceId);
+        [PreserveSig]
+        HRESULT ClearAllPersistedApplicationDefaultEndpoints();
     }
 }

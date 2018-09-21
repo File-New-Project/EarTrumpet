@@ -1,53 +1,49 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class FullWindowViewModel : BindableBase
     {
-        public event EventHandler<AppExpandedEventArgs> AppExpanded = delegate { };
-        public event EventHandler<object> AppCollapsed = delegate { };
-
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
-        public bool IsShowingModalDialog { get; private set; }
+        public ModalDialogViewModel Dialog { get; }
+        private DeviceCollectionViewModel _mainViewModel;
 
-        MainViewModel _mainViewModel;
-
-        public FullWindowViewModel(MainViewModel mainViewModel)
+        public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {
+            Dialog = new ModalDialogViewModel();
             _mainViewModel = mainViewModel;
-
+            _mainViewModel.AppPopup += OnAppPopup;
             _mainViewModel.OnFullWindowOpened();
         }
 
         public void Close()
         {
-            CollapseApp();
+            Dialog.IsVisible = false;
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void ExpandApp(IAppItemViewModel vm, UIElement container)
+        public void OnAppPopup(object vm, FrameworkElement container)
         {
-            if (IsShowingModalDialog)
+            if (Window.GetWindow(container).DataContext != this)
             {
-                CollapseApp();
+                return;
             }
 
-            AppExpanded?.Invoke(this, new AppExpandedEventArgs { Container = container, ViewModel = vm });
+            Dialog.IsVisible = false;
 
-            IsShowingModalDialog = true;
-            RaisePropertyChanged(nameof(IsShowingModalDialog));
-        }
-
-        public void CollapseApp()
-        {
-            if (IsShowingModalDialog)
+            if (vm is IAppItemViewModel)
             {
-                AppCollapsed?.Invoke(this, null);
-                IsShowingModalDialog = false;
-                RaisePropertyChanged(nameof(IsShowingModalDialog));
+                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
             }
+            else
+            {
+                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+            }
+
+            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+            Dialog.Source = container;
+            Dialog.IsVisible = true;
         }
     }
 }

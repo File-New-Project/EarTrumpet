@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Interop;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,7 @@ namespace EarTrumpet.DataModel.Internal.Services
         public ZombieProcessException(int processId) : base($"Process is a zombie: {processId}") { }
     }
 
-    class AppInformationService
+    public class AppInformationService
     {
         private static IShellItem2 GetShellItemForAppByAumid(string aumid)
         {
@@ -20,7 +21,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             return Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
         }
 
-        internal static AppInformation GetInformationForAppByPid(int processId)
+        public static AppInformation GetInformationForAppByPid(int processId)
         {
             Trace.WriteLine($"AppInformationService GetInformationForAppByPid {processId}");
 
@@ -61,9 +62,9 @@ namespace EarTrumpet.DataModel.Internal.Services
                         Marshal.ReleaseComObject(mrtResourceManager);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Trace.TraceError($"{ex}");
+                    Trace.WriteLine($"{ex}");
                 }
             }
             else
@@ -122,7 +123,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 0,
                 out int requiredBufferLength);
 
-            if(ntstatus == Ntdll.NTSTATUS.STATUS_INFO_LENGTH_MISMATCH)
+            if (ntstatus == Ntdll.NTSTATUS.STATUS_INFO_LENGTH_MISMATCH)
             {
                 var buffer = Marshal.AllocHGlobal(requiredBufferLength);
                 ntstatus = Ntdll.NtQuerySystemInformation(
@@ -178,7 +179,7 @@ namespace EarTrumpet.DataModel.Internal.Services
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError($"{ex}");
+                    Trace.WriteLine($"{ex}");
                 }
                 return null;
             }
@@ -220,7 +221,7 @@ namespace EarTrumpet.DataModel.Internal.Services
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
                 return false;
             }
         }
@@ -321,6 +322,9 @@ namespace EarTrumpet.DataModel.Internal.Services
 
         private static AppInformation GetInformationForSystemProcess()
         {
+            var audiosrvPath = Is64BitOperatingSystem() ?
+                @"%windir%\sysnative\audiosrv.dll" : @"%windir%\system32\audiosrv.dll";
+
             return new AppInformation()
             {
                 ExeName = "*SystemSounds",
@@ -328,9 +332,31 @@ namespace EarTrumpet.DataModel.Internal.Services
                 PackageInstallPath = "System.SystemSoundsSession",
                 IsDesktopApp = true,
                 CanTrack = false,
-                SmallLogoPath = Environment.ExpandEnvironmentVariables(
-                    $"%windir%\\{(Environment.Is64BitOperatingSystem ? "sysnative" : "system32")}\\audiosrv.dll")
+                SmallLogoPath = Environment.ExpandEnvironmentVariables(audiosrvPath)
             };
+        }
+
+        private static bool Is64BitOperatingSystem()
+        {
+            if (Environment.Is64BitOperatingSystem)
+            {
+                return true; // Shortcut for AMD64 machines
+            }
+
+            bool is64bit = false;
+            if (Environment.OSVersion.IsAtLeast(OSVersions.RS3))
+            {
+                if (Kernel32.IsWow64Process2(Process.GetCurrentProcess().Handle,
+                    out Kernel32.IMAGE_FILE_MACHINE processMachine,
+                    out Kernel32.IMAGE_FILE_MACHINE nativeMachine))
+                {
+                    is64bit =
+                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64 ||
+                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64;
+                }
+            }
+
+            return is64bit;
         }
     }
 }

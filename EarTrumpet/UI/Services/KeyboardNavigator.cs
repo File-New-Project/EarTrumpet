@@ -37,7 +37,7 @@ namespace EarTrumpet.UI.Views
                             evt.Handled = true;
                             break;
                         case Key.Space:
-                            var volControl = listItem.FindVisualChild<AppVolumeControl>();
+                            var volControl = listItem.FindVisualChild<AppItemView>();
                             volControl.ExpandApp();
                             evt.Handled = true;
                             break;
@@ -45,7 +45,7 @@ namespace EarTrumpet.UI.Views
                 }
                 else
                 {
-                    var device = (DeviceViewModel)listItem.DataContext;
+                    var device = ((DeviceView)listItem.DataContext).Device;
                     switch (evt.Key)
                     {
                         case Key.M:
@@ -62,6 +62,13 @@ namespace EarTrumpet.UI.Views
                         case Key.OemMinus:
                             device.Volume--;
                             evt.Handled = true;
+                            break;
+                        case Key.Space:
+                            if (Features.IsEnabled(Feature.DevicePopup))
+                            {
+                                device.OpenPopup(device, listItem);
+                                evt.Handled = true;
+                            }
                             break;
                     }
                 }

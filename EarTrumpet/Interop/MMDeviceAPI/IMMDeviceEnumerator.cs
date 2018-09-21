@@ -4,7 +4,7 @@ namespace EarTrumpet.Interop.MMDeviceAPI
 {
     [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IMMDeviceEnumerator
+    public interface IMMDeviceEnumerator
     {
         [return: MarshalAs(UnmanagedType.Interface)]
         IMMDeviceCollection EnumAudioEndpoints(EDataFlow dataFlow, DeviceState dwStateMask);

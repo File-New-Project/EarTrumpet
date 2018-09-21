@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.Interop.MMDeviceAPI
 {
-    enum DeviceState : uint
+    public enum DeviceState : uint
     {
         ACTIVE = 0x00000001,
         DISABLED = 0x00000002,

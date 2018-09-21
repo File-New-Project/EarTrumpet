@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.Extensions;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -9,7 +10,6 @@ namespace EarTrumpet.Interop.Helpers
 {
     static class AccentPolicyLibrary
     {
-        private static readonly bool _isRunningOnRs4OrHigher = Environment.OSVersion.Version.Build >= 17134;
         private static readonly uint _defaultTintBackgroundColor = 0x000000; // BGR Black
         private static readonly uint _defaultTintOpacity = 42;
 
@@ -21,7 +21,7 @@ namespace EarTrumpet.Interop.Helpers
                 AccentFlags = (showBorders) ? User32.AccentFlags.DrawAllBorders : User32.AccentFlags.None,
             };
 
-            if (_isRunningOnRs4OrHigher)
+            if (Environment.OSVersion.IsAtLeast(OSVersions.RS4))
             {
                 accent.GradientColor = (_defaultTintOpacity << 24) | (_defaultTintBackgroundColor & 0xFFFFFF);
             }
@@ -46,7 +46,7 @@ namespace EarTrumpet.Interop.Helpers
         {
             if (isEnabled)
             {
-                SetInternal(handle, _isRunningOnRs4OrHigher ? User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : User32.AccentState.ACCENT_ENABLE_BLURBEHIND, withBorders, _defaultTintOpacity);
+                SetInternal(handle, Environment.OSVersion.IsAtLeast(OSVersions.RS4) ? User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : User32.AccentState.ACCENT_ENABLE_BLURBEHIND, withBorders, _defaultTintOpacity);
             }
             else
             {

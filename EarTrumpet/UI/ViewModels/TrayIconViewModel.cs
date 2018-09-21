@@ -1,18 +1,18 @@
-﻿using EarTrumpet.Interop;
-using EarTrumpet.Properties;
+﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
-using EarTrumpet.UI.Views;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class TrayViewModel : BindableBase
+    public class TrayViewModel : BindableBase, ITrayViewModel
     {
         public enum IconId
         {
@@ -26,69 +26,189 @@ namespace EarTrumpet.UI.ViewModels
             OriginalIcon
         }
 
-        public Icon TrayIcon { get; private set; }
-        public string ToolTip { get; private set; }
-        public string DefaultDeviceId => _defaultPlaybackDevice?.Id;
-        public RelayCommand OpenSettingsCommand { get; }
-        public RelayCommand OpenPlaybackDevicesCommand { get; }
-        public RelayCommand OpenRecordingDevicesCommand { get; }
-        public RelayCommand OpenSoundsControlPanelCommand { get; }
-        public RelayCommand OpenLegacyVolumeMixerCommand { get; }
-        public RelayCommand OpenEarTrumpetVolumeMixerCommand { get; }
-        public RelayCommand<DeviceViewModel> ChangeDeviceCommand { get; }
-        public RelayCommand OpenFeedbackHubCommand { get; }
-        public RelayCommand OpenFlyoutCommand { get; }
-        public RelayCommand ExitCommand { get; }
+        internal static IAddonContextMenu[] AddonItems { get; set; }
+
+        public event Action ContextMenuRequested;
+
+        public Icon TrayIcon
+        {
+            get => _trayIcon;
+            set
+            {
+                if (_trayIcon != value)
+                {
+                    _trayIcon = value;
+                    RaisePropertyChanged(nameof(TrayIcon));
+                }
+            }
+        }
+
+        public string ToolTip
+        {
+            get => _toolTip;
+            set
+            {
+                if (_toolTip != value)
+                {
+                    _toolTip = value;
+                    RaisePropertyChanged(nameof(ToolTip));
+                }
+            }
+        }
+
+        public RelayCommand RightClick { get; }
+        public RelayCommand MiddleClick { get; }
+        public RelayCommand LeftClick { get; set; }
+        public RelayCommand OpenMixer { get; set; }
+        public RelayCommand OpenSettings { get; set; }
 
         private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
-        private readonly MainViewModel _mainViewModel;
+        private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
-        private IconId _currentIcon = IconId.Invalid;
+        private DeviceViewModel _defaultDevice;
         private bool _useLegacyIcon;
-        private DeviceViewModel _defaultPlaybackDevice;
+        private Icon _trayIcon;
+        private string _toolTip;
 
-        public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
-
-        internal TrayViewModel(MainViewModel mainViewModel)
+        internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
+
+            RightClick = new RelayCommand(() => ContextMenuRequested?.Invoke());
+            MiddleClick = new RelayCommand(ToggleMute);
 
             LoadIconResources();
 
             _useLegacyIcon = SettingsService.UseLegacyIcon;
             SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
 
-            _mainViewModel.DefaultPlaybackDeviceChanged += DeviceManager_DefaultPlaybackDeviceChanged;
-            DeviceManager_DefaultPlaybackDeviceChanged(this, null);
+            _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
+            DeviceManager_DefaultDeviceChanged(this, null);
+        }
 
-            OpenSettingsCommand = new RelayCommand(SettingsWindow.ActivateSingleInstance);
-            OpenPlaybackDevicesCommand = new RelayCommand(() => OpenControlPanel("playback"));
-            OpenRecordingDevicesCommand = new RelayCommand(() => OpenControlPanel("recording"));
-            OpenSoundsControlPanelCommand = new RelayCommand(() => OpenControlPanel("sounds"));
-            OpenLegacyVolumeMixerCommand = new RelayCommand(StartLegacyMixer);
-            OpenEarTrumpetVolumeMixerCommand = new RelayCommand(() => FullWindow.ActivateSingleInstance(_mainViewModel));
-            ChangeDeviceCommand = new RelayCommand<DeviceViewModel>((device) => device.MakeDefaultPlaybackDevice());
-            OpenFeedbackHubCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            OpenFlyoutCommand = new RelayCommand(() => _mainViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
-            ExitCommand = new RelayCommand(App.Current.Shutdown);
+        public IEnumerable<ContextMenuItem> MenuItems
+        {
+            get
+            {
+                var ret = new List<ContextMenuItem>(_mainViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+                {
+                    DisplayName = dev.DisplayName,
+                    IsChecked = dev.Id == _defaultDevice?.Id,
+                    Command = new RelayCommand(() => dev.MakeDefaultDevice()),
+                }));
+
+                if (!ret.Any())
+                {
+                    ret.Add(new ContextMenuItem
+                    {
+                        DisplayName = Properties.Resources.ContextMenuNoDevices,
+                        IsEnabled = false,
+                    });
+                }
+                else
+                {
+                    ret.Add(new ContextMenuSeparator { });
+                }
+
+                ret.AddRange(new List<ContextMenuItem>
+                {
+                    new ContextMenuItem{ DisplayName = Properties.Resources.FullWindowTitleText,   Command =  OpenMixer },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
+                    new ContextMenuSeparator{ },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
+                    new ContextMenuSeparator{ },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText,     Command = OpenSettings },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
+                });
+
+                if (Features.IsEnabled(Feature.SoundSettingsMoSetPageOnTrayIcon))
+                {
+                    ret.Insert(ret.Count - 4, new ContextMenuItem
+                    {
+                        DisplayName = Properties.Resources.OpenSoundSettingsText,
+                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:sound")),
+                    });
+                }
+
+                if (Features.IsEnabled(Feature.Addons))
+                {
+                    var addonEntries = new List<ContextMenuItem>();
+                    if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
+                    {
+                        
+                        foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
+                        {
+                            // Add a separator before and after each extension group.
+                            addonEntries.Add(new ContextMenuSeparator());
+                            addonEntries.AddRange(ext.Items);
+                            addonEntries.Add(new ContextMenuSeparator());
+                        }
+
+                        // Remove duplicate separators (extensions may also add separators)
+                        bool previousItemWasSeparator = false;
+                        for (var i = addonEntries.Count - 1; i >= 0; i--)
+                        {
+                            var currentItemIsSeparator = addonEntries[i] is ContextMenuSeparator;
+
+                            if ((i == addonEntries.Count - 1 || i == 0) && currentItemIsSeparator)
+                            {
+                                addonEntries.Remove(addonEntries[i]);
+                            }
+
+                            if (previousItemWasSeparator && currentItemIsSeparator)
+                            {
+                                addonEntries.Remove(addonEntries[i]);
+                            }
+
+                            previousItemWasSeparator = currentItemIsSeparator;
+                        }
+                    }
+
+                    if (addonEntries.Any())
+                    {
+                        ret.Insert(ret.Count - 3, new ContextMenuItem
+                        {
+                            DisplayName = Properties.Resources.AddonsMenuText,
+                            Children = addonEntries,
+                        });
+                        ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
+                    }
+                }
+
+                return ret;
+            }
+        }
+
+        public void DpiChanged()
+        {
+            Trace.WriteLine("TrayViewModel DpiChanged");
+
+            LoadIconResources();
+            UpdateTrayIcon();
         }
 
         private void LoadIconResources()
         {
+            _icons.Clear();
+            var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
+            Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
+
             var originalIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
             try
             {
                 _icons.Add(IconId.OriginalIcon, originalIcon);
-                _icons.Add(IconId.NoDevice, GetIconFromFile(_trayIconPath, (int)IconId.NoDevice));
-                _icons.Add(IconId.Muted, GetIconFromFile(_trayIconPath, (int)IconId.Muted));
-                _icons.Add(IconId.SpeakerZeroBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerZeroBars));
-                _icons.Add(IconId.SpeakerOneBar, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar));
-                _icons.Add(IconId.SpeakerTwoBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars));
-                _icons.Add(IconId.SpeakerThreeBars, GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars));
+                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon));
+                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon));
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"{ex}");
+                Trace.WriteLine($"{ex}");
 
                 _icons.Clear();
                 _icons.Add(IconId.OriginalIcon, originalIcon);
@@ -101,138 +221,124 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void DeviceManager_DefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
+        private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel newDefaultDevice)
         {
-            if (_defaultPlaybackDevice != null)
+            if (_defaultDevice != null)
             {
-                _defaultPlaybackDevice.PropertyChanged -= DefaultPlaybackDevice_PropertyChanged;
+                _defaultDevice.PropertyChanged -= DefaultDevice_PropertyChanged;
             }
 
-            _defaultPlaybackDevice = e;
+            _defaultDevice = newDefaultDevice;
 
-            if (_defaultPlaybackDevice != null)
+            if (_defaultDevice != null)
             {
-                _defaultPlaybackDevice.PropertyChanged += DefaultPlaybackDevice_PropertyChanged;
+                _defaultDevice.PropertyChanged += DefaultDevice_PropertyChanged;
             }
 
-            DefaultPlaybackDevice_PropertyChanged(sender, null);
+            DefaultDevice_PropertyChanged(sender, null);
         }
 
-        private void DefaultPlaybackDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void DefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             UpdateTrayIcon();
             UpdateToolTip();
         }
 
-        private void SettingsService_UseLegacyIconChanged(object sender, bool e)
+        private void SettingsService_UseLegacyIconChanged(object sender, bool newSetting)
         {
-            _useLegacyIcon = e;
+            _useLegacyIcon = newSetting;
             UpdateTrayIcon();
         }
 
         private void UpdateTrayIcon()
         {
-            IconId desiredIcon = IconId.OriginalIcon;
-
             if (_useLegacyIcon)
             {
-                desiredIcon = IconId.OriginalIcon;
+                TrayIcon = _icons[IconId.OriginalIcon];
+            }
+            else if (_defaultDevice == null)
+            {
+                TrayIcon = _icons[IconId.NoDevice];
             }
             else
             {
-                int volume = _defaultPlaybackDevice != null ? _defaultPlaybackDevice.Volume : 0;
-
-                if (_defaultPlaybackDevice == null)
+                var iconKind = _defaultDevice.IconKind;
+                switch (iconKind)
                 {
-                    desiredIcon = IconId.NoDevice;
+                    case DeviceIconKind.Mute:
+                        TrayIcon = _icons[IconId.Muted];
+                        break;
+                    case DeviceIconKind.Bar1:
+                        TrayIcon = _icons[IconId.SpeakerOneBar];
+                        break;
+                    case DeviceIconKind.Bar2:
+                        TrayIcon = _icons[IconId.SpeakerTwoBars];
+                        break;
+                    case DeviceIconKind.Bar3:
+                        TrayIcon = _icons[IconId.SpeakerThreeBars];
+                        break;
+                    default: throw new NotImplementedException();
                 }
-                else if (_defaultPlaybackDevice.IsMuted)
-                {
-                    desiredIcon = IconId.Muted;
-                }
-                else if (volume == 0)
-                {
-                    desiredIcon = IconId.SpeakerZeroBars;
-                }
-                else if (volume >= 1 && volume < 33)
-                {
-                    desiredIcon = IconId.SpeakerOneBar;
-                }
-                else if (volume >= 33 && volume < 66)
-                {
-                    desiredIcon = IconId.SpeakerTwoBars;
-                }
-                else if (volume >= 66 && volume <= 100)
-                {
-                    desiredIcon = IconId.SpeakerThreeBars;
-                }
-            }
-
-            if (desiredIcon != _currentIcon)
-            {
-                _currentIcon = desiredIcon;
-                TrayIcon = _icons[_currentIcon];
-                RaisePropertyChanged(nameof(TrayIcon));
             }
         }
 
-        internal void ToggleMute()
+        private void ToggleMute()
         {
-            if (_defaultPlaybackDevice != null)
+            if (_defaultDevice != null)
             {
-                _defaultPlaybackDevice.IsMuted = !_defaultPlaybackDevice.IsMuted;
+                _defaultDevice.IsMuted = !_defaultDevice.IsMuted;
             }
         }
 
         private void UpdateToolTip()
         {
-            string toolTipText;
-            if (_defaultPlaybackDevice != null)
+            if (_defaultDevice != null)
             {
-                var otherText = "EarTrumpet: 100% - ";
-                var dev = _defaultPlaybackDevice.DisplayName;
+                var stateText = _defaultDevice.IsMuted && Features.IsEnabled(Feature.TrayIconToolTipHasMuteState) ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
+                var prefixText = $"EarTrumpet: {stateText} - ";
+                var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";   
+                
+                // Note: Remote Desktop has an empty description and empty enumerator, but the friendly name is set.
+                if (string.IsNullOrWhiteSpace(_defaultDevice.DeviceDescription) && string.IsNullOrWhiteSpace(_defaultDevice.EnumeratorName))
+                {
+                    deviceName = _defaultDevice.DisplayName;
+                }
+
                 // API Limitation: "less than 64 chars" for the tooltip.
-                dev = dev.Substring(0, Math.Min(63 - otherText.Length, dev.Length));
-                toolTipText = $"EarTrumpet: {_defaultPlaybackDevice.Volume}% - {dev}";
+                deviceName = deviceName.Substring(0, Math.Min(63 - prefixText.Length, deviceName.Length));
+                ToolTip = prefixText + deviceName;
             }
             else
             {
-                toolTipText = Resources.NoDeviceTrayText;
-            }
-
-            if (toolTipText != ToolTip)
-            {
-                ToolTip = toolTipText;
-                RaisePropertyChanged(nameof(ToolTip));
+                ToolTip = Properties.Resources.NoDeviceTrayText;
             }
         }
 
         private void OpenControlPanel(string panel)
         {
-            using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}")) { }
+            try
+            {
+                using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
+                { }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"{ex}");
+            }
         }
 
         private void StartLegacyMixer()
         {
-            ProcessHelper.StartNoThrow("sndvol.exe");
-        }
-
-        private static Icon GetIconFromFile(string path, int iconOrdinal = 0)
-        {
-            var moduleHandle = Kernel32.LoadLibraryEx(path, IntPtr.Zero,
-                Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-
-            IntPtr iconHandle = IntPtr.Zero;
             try
             {
-                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
+                var pos = System.Windows.Forms.Cursor.Position;
+                using (Process.Start("sndvol.exe", $"-a {User32.MAKEWPARAM((ushort)pos.X, (ushort)pos.Y)}"))
+                { }
             }
-            finally
+            catch (Exception ex)
             {
-                Kernel32.FreeLibrary(moduleHandle);
+                Trace.WriteLine($"{ex}");
             }
-
-            return Icon.FromHandle(iconHandle);
         }
     }
 }
