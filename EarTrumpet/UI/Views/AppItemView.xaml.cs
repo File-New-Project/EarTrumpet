@@ -6,7 +6,7 @@ namespace EarTrumpet.UI.Views
 {
     public partial class AppItemView : UserControl
     {
-        private AppItemViewModel App => (AppItemViewModel)DataContext;
+        private IAppItemViewModel App => (IAppItemViewModel)DataContext;
 
         public AppItemView()
         {
