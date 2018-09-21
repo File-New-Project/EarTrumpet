@@ -149,8 +149,9 @@ namespace EarTrumpet.DataModel.Internal
             {
                 try
                 {
-                    IMMDevice device = _enumerator.GetDevice(pwstrDeviceId);
-                    if (((IMMEndpoint)device).GetDataFlow() == Flow)
+                    var device = _enumerator.GetDevice(pwstrDeviceId);
+                    if (((IMMEndpoint)device).GetDataFlow() == Flow &&
+                        device.GetState() == DeviceState.ACTIVE)
                     {
                         var newDevice = new AudioDevice(this, device);
 
