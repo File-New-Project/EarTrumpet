@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EarTrumpet.Extensions
 {
@@ -12,6 +14,21 @@ namespace EarTrumpet.Extensions
                 ret.Add(element);
             }
             return ret;
+        }
+
+        public static void ForEachNoThrow<T>(this List<T> list, Action<T> action)
+        {
+            foreach (var item in list)
+            {
+                try
+                {
+                    action(item);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"ForEachNoThrow: {ex}");
+                }
+            }
         }
     }
 }

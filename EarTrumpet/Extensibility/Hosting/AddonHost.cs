@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -40,41 +41,47 @@ namespace EarTrumpet.Extensibility.Hosting
         public IEnumerable<Entry> Initialize(string[] additionalFilePaths)
         {
             var catalogs = new List<Entry>();
-
-            if (App.Current.HasIdentity())
+            Trace.WriteLine($"AddonHost Initialize");
+            try
             {
-                foreach (var package in Windows.ApplicationModel.Package.Current.Dependencies)
+                if (App.Current.HasIdentity())
                 {
-                    if (package.IsOptional)
+                    foreach (var package in Windows.ApplicationModel.Package.Current.Dependencies)
                     {
-                        Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
-                        catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(package.InstalledLocation.Path, "*.dll") });
+                        if (package.IsOptional)
+                        {
+                            Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
+                            catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(package.InstalledLocation.Path, "*.dll") });
+                        }
                     }
                 }
+                else
+                {
+                    catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll") });
+                }
+
+                foreach (var additional in additionalFilePaths)
+                {
+                    catalogs.Add(new Entry { IsThirdParty = true, Catalog = new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)) });
+                }
+
+                var container = new CompositionContainer(new AggregateCatalog(catalogs.Select(c => c.Catalog)));
+                container.ComposeParts(this);
+
+                TrayViewModel.AddonItems = _contextMenuItems.ToArray();
+                FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
+                FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
+                FocusedDeviceViewModel.AddonContextMenuItems = _deviceContextMenuItems.ToArray();
+                FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
+
+                _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
+                _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
+                App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
             }
-            else
+            catch(Exception ex)
             {
-                catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll") });
+                Trace.WriteLine($"AddonHost Initialize: {ex}");
             }
-
-            foreach (var additional in additionalFilePaths)
-            {
-                catalogs.Add(new Entry { IsThirdParty = true, Catalog = new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)) });
-            }
-
-            var container = new CompositionContainer(new AggregateCatalog(catalogs.Select(c => c.Catalog)));
-            container.ComposeParts(this);
-
-            TrayViewModel.AddonItems = _contextMenuItems.ToArray();
-            FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
-            FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
-            FocusedDeviceViewModel.AddonContextMenuItems = _deviceContextMenuItems.ToArray();
-            FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
-
-            _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
-            _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
-            App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEach(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
-
             return catalogs;
         }
     }
