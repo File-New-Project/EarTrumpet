@@ -15,15 +15,20 @@ namespace EarTrumpet.UI.Views
     {
         private readonly FlyoutViewModel _viewModel;
         private RawInputListener _rawListener;
+        private bool _needsExpandOrCollapse;
 
         public FlyoutWindow(FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 
             _viewModel = flyoutViewModel;
-
             _viewModel.StateChanged += ViewModel_OnStateChanged;
             _viewModel.WindowSizeInvalidated += ViewModel_WindowSizeInvalidated;
+            _viewModel.ExpandCollapse = new RelayCommand(() =>
+            {
+                _needsExpandOrCollapse = true;
+                _viewModel.BeginClose();
+            });
 
             DataContext = _viewModel;
 
@@ -110,7 +115,7 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void ViewModel_OnStateChanged(object sender, FlyoutViewModel.CloseReason e)
+        private void ViewModel_OnStateChanged(object sender, object e)
         {
             switch (_viewModel.State)
             {
@@ -135,7 +140,7 @@ namespace EarTrumpet.UI.Views
                 case FlyoutViewModel.ViewState.Closing_Stage1:
                     _rawListener.Stop();
 
-                    if (e == FlyoutViewModel.CloseReason.CloseThenOpen)
+                    if (_needsExpandOrCollapse)
                     {
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
@@ -150,6 +155,15 @@ namespace EarTrumpet.UI.Views
                         this.Cloak();
                         Hide();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
+                    }
+                    break;
+                case FlyoutViewModel.ViewState.Hidden:
+                    if (_needsExpandOrCollapse)
+                    {
+                        _needsExpandOrCollapse = false;
+
+                        _viewModel.DoExpandCollapse();
+                        _viewModel.BeginOpen();
                     }
                     break;
             }
