@@ -106,7 +106,7 @@ namespace EarTrumpet.DataModel.Internal
             {
                 foreach (AudioDeviceSessionGroup appGroup in _sessions)
                 {
-                    if (appGroup.ExeName == session.ExeName)
+                    if (appGroup.AppId == session.AppId)
                     {
                         foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
                         {
