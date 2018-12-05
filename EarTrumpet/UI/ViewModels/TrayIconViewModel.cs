@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 
@@ -319,7 +320,11 @@ namespace EarTrumpet.UI.ViewModels
         {
             try
             {
-                using (Process.Start("rundll32.exe", $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
+                var rundllPath = Path.Combine(
+                    Environment.GetEnvironmentVariable("SystemRoot"),
+                    (Environment.Is64BitOperatingSystem ? @"sysnative\rundll32.exe" : @"system32\rundll32.exe"));
+
+                using (Process.Start(rundllPath, $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
                 { }
             }
             catch (Exception ex)
