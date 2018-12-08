@@ -98,7 +98,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -113,14 +112,42 @@
                       Grid.ColumnSpan="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
-                      ItemsSource="{Binding Parts}"
+                      ItemsSource="{Binding Triggers}"
+                      Style="{DynamicResource SettingsListView}" />
+
+            <Button Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    Margin="0,6,0,0"
+                    Command="{Binding AddTrigger}"
+                    Content="Add triggers"
+                    Style="{DynamicResource AddButtonStyle}" />
+
+            <ListView Grid.Row="3"
+                      Grid.ColumnSpan="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemsSource="{Binding Conditions}"
                       Style="{DynamicResource SettingsListView}" />
 
             <Button Grid.Row="4"
                     Grid.ColumnSpan="3"
                     Margin="0,6,0,0"
-                    Command="{Binding AddPart}"
-                    Content="Add triggers, conditions and actions"
+                    Command="{Binding AddCondition}"
+                    Content="Add conditions"
+                    Style="{DynamicResource AddButtonStyle}" />
+
+            <ListView Grid.Row="5"
+                      Grid.ColumnSpan="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemsSource="{Binding Actions}"
+                      Style="{DynamicResource SettingsListView}" />
+
+            <Button Grid.Row="6"
+                    Grid.ColumnSpan="3"
+                    Margin="0,6,0,0"
+                    Command="{Binding AddAction}"
+                    Content="Add actions"
                     Style="{DynamicResource AddButtonStyle}" />
         </Grid>
     </DataTemplate>

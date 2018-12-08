@@ -17,6 +17,13 @@ namespace EarTrumpet_Actions.ViewModel
 {
     class AddNewPartViewModel : BindableBase, IWindowHostedViewModel
     {
+        public enum Mode
+        {
+            Triggers,
+            Conditions,
+            Actions
+        }
+
         public event Action Close;
 #pragma warning disable CS0067
         public event Action<object> HostDialog;
@@ -31,6 +38,8 @@ namespace EarTrumpet_Actions.ViewModel
         {
             get
             {
+                if (_mode != Mode.Triggers) return null;
+
                 var hotkeyTriggerViewModel = new HotkeyTriggerViewModel(new HotkeyTrigger { });
                 hotkeyTriggerViewModel.SetHotkey = SetHotkey;
 
@@ -50,6 +59,8 @@ namespace EarTrumpet_Actions.ViewModel
         {
             get
             {
+                if (_mode != Mode.Conditions) return null;
+
                 return new List<PartViewModel>
                 {
                     new DefaultDeviceConditionViewModel(new DefaultDeviceCondition{ }),
@@ -63,6 +74,8 @@ namespace EarTrumpet_Actions.ViewModel
         {
             get
             {
+                if (_mode != Mode.Actions) return null;
+
                 var ret = new List<PartViewModel>
                 {
                     new SetAppVolumeActionViewModel(new SetAppVolumeAction{ }),
@@ -91,8 +104,11 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public AddNewPartViewModel()
+        private Mode _mode;
+
+        public AddNewPartViewModel(Mode mode)
         {
+            _mode = mode;
             Select = new RelayCommand<PartViewModel>((part) =>
             {
                 SelectedPart = part;

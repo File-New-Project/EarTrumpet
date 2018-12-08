@@ -18,42 +18,14 @@ namespace EarTrumpet_Actions.ViewModel
 {
     public class EarTrumpetActionViewModel : BindableBase
     {
-        public class SplitListComparer : IComparer<PartViewModel>
-        {
-            private int GetCost(PartViewModel part)
-            {
-                if (part.Part is BaseTrigger)
-                {
-                    return 2;
-                }
-                else if (part.Part is BaseCondition)
-                {
-                    return 1;
-                }
-                return 0;
-            }
-
-            public int Compare(PartViewModel one, PartViewModel two)
-            {
-                var oneCost = GetCost(one);
-                var twoCost = GetCost(two);
-                if (oneCost != twoCost)
-                {
-                    return twoCost - oneCost;
-                }
-
-                return string.Compare(one.Description, two.Description, StringComparison.Ordinal);
-            }
-        }
-
-        private static SplitListComparer s_PartComparer = new SplitListComparer();
-
         public string Title => DisplayName;
 
         public ICommand Open { get; set; }
         public ICommand OpenDialog { get; set; }
         public ICommand Remove { get; set; }
-        public ICommand AddPart { get; }
+        public ICommand AddTrigger { get; }
+        public ICommand AddCondition { get; }
+        public ICommand AddAction { get; }
 
         public string DisplayName
         {
@@ -82,7 +54,9 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public ObservableCollection<PartViewModel> Parts { get; }
+        public ObservableCollection<PartViewModel> Triggers { get; }
+        public ObservableCollection<PartViewModel> Conditions { get; }
+        public ObservableCollection<PartViewModel> Actions { get; }
 
         private readonly EarTrumpetAction _action;
         private ActionsEditorViewModel _parent;
@@ -101,43 +75,59 @@ namespace EarTrumpet_Actions.ViewModel
                 vm.Hotkey = hotkeyVm.Hotkey;
             });
 
-            AddPart = new RelayCommand(() =>
+            AddTrigger = new RelayCommand(() =>
             {
-                var vm = new AddNewPartViewModel();
+                var vm = new AddNewPartViewModel(AddNewPartViewModel.Mode.Triggers);
                 vm.SetHotkey = _selectHotkey;
                 OpenDialog.Execute(vm);
 
-                if (vm.SelectedPart == null)
+                if (vm.SelectedPart != null)
                 {
-                    return;
+                    Triggers.Add(vm.SelectedPart);
+
+                    InitializeViewModel(vm.SelectedPart);
                 }
-
-                Parts.AddSorted(vm.SelectedPart, s_PartComparer);
-
-                InitializeViewModel(vm.SelectedPart);
             });
 
-            Parts = new ObservableCollection<PartViewModel>();
-            foreach(var part in action.Triggers.Select(t => CreatePartViewModel(t)))
+            AddCondition = new RelayCommand(() =>
             {
-                Parts.AddSorted(part, s_PartComparer);
-            }
-            foreach (var part in action.Conditions.Select(t => CreatePartViewModel(t)))
+                var vm = new AddNewPartViewModel(AddNewPartViewModel.Mode.Conditions);
+                vm.SetHotkey = _selectHotkey;
+                OpenDialog.Execute(vm);
+
+                if (vm.SelectedPart != null)
+                {
+                    Conditions.Add(vm.SelectedPart);
+
+                    InitializeViewModel(vm.SelectedPart);
+                }
+            });
+
+            AddAction = new RelayCommand(() =>
             {
-                Parts.AddSorted(part, s_PartComparer);
-            }
-            foreach (var part in action.Actions.Select(t => CreatePartViewModel(t)))
-            {
-                Parts.AddSorted(part, s_PartComparer);
-            }
+                var vm = new AddNewPartViewModel(AddNewPartViewModel.Mode.Actions);
+                vm.SetHotkey = _selectHotkey;
+                OpenDialog.Execute(vm);
+
+                if (vm.SelectedPart != null)
+                {
+                    Actions.Add(vm.SelectedPart);
+
+                    InitializeViewModel(vm.SelectedPart);
+                }
+            });
+
+            Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
+            Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
+            Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
         }
 
         public EarTrumpetAction GetAction()
         {
             _action.DisplayName = DisplayName;
-            _action.Triggers = new ObservableCollection<BaseTrigger>(Parts.Where(t => t.Part is BaseTrigger).Select(t => (BaseTrigger)t.Part));
-            _action.Conditions = new ObservableCollection<BaseCondition>(Parts.Where(t => t.Part is BaseCondition).Select(t => (BaseCondition)t.Part));
-            _action.Actions = new ObservableCollection<BaseAction>(Parts.Where(t => t.Part is BaseAction).Select(t => (BaseAction)t.Part));
+            _action.Triggers = new ObservableCollection<BaseTrigger>(Triggers.Select(t => (BaseTrigger)t.Part));
+            _action.Conditions = new ObservableCollection<BaseCondition>(Conditions.Select(t => (BaseCondition)t.Part));
+            _action.Actions = new ObservableCollection<BaseAction>(Actions.Select(t => (BaseAction)t.Part));
             return _action;
         }
 
@@ -222,7 +212,21 @@ namespace EarTrumpet_Actions.ViewModel
 
         private void InitializeViewModel(PartViewModel part)
         {
-            part.Remove = new RelayCommand<PartViewModel>((p) => Parts.Remove(p));
+            part.Remove = new RelayCommand<PartViewModel>((p) =>
+            {
+                if (p.Part is BaseTrigger)
+                {
+                    Triggers.Remove(p);
+                }
+                else if (p.Part is BaseCondition)
+                {
+                    Conditions.Remove(p);
+                }
+                if (p.Part is BaseAction)
+                {
+                    Actions.Remove(p);
+                }
+            });
             part.Open = new RelayCommand<PartViewModel>((vm) => OpenDialog.Execute(vm));
         }
     }
