@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     {
         public string Theme { get; set; }
 
-        public override string Describe() => $"Set Theme to {Options[0].DisplayName}";
+        public override string Describe() => $"Set Theme to {Options[0]}";
 
         public SetThemeAction()
         {

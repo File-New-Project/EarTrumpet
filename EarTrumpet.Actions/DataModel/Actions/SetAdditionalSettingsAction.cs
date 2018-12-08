@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
 
         public string SettingId { get; set; }
         
-        public override string Describe() => string.Format(Properties.Resources.SetAdditionalSettingsActionDescribeFormatText, Options[0].DisplayName, Options[1].DisplayName);
+        public override string Describe() => string.Format(Properties.Resources.SetAdditionalSettingsActionDescribeFormatText, Options[0], Options[1]);
 
         public SetAdditionalSettingsAction()
         {

@@ -17,13 +17,16 @@ namespace EarTrumpet_Actions.DataModel
         public Action<Option> SetSelected { get; }
         public Func<object> GetSelected { get; }
 
-        public string DisplayName => Selected?.DisplayName;
-
         public OptionCollection(IEnumerable<Option> options, Action<Option> setSelected, Func<object> getSelected)
         {
             Options = options.ToList();
             SetSelected = setSelected;
             GetSelected = getSelected;
+        }
+
+        public override string ToString()
+        {
+            return Selected?.DisplayName;
         }
     }
 }

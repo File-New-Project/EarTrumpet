@@ -37,7 +37,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
             else
             {
                 return string.Format(Properties.Resources.SetAppVolumeActionDescribeValueFormatText,
-                    Options[0].DisplayName, App, Device);
+                    Options[0], App, Device);
             }
         }
     }

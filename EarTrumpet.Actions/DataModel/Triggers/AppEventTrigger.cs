@@ -25,6 +25,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 () => Option) });
         }
 
-        public override string Describe() => string.Format(Properties.Resources.AppEventTriggerDescribeFormatText, App, Device, Options[0].DisplayName);
+        public override string Describe() => string.Format(Properties.Resources.AppEventTriggerDescribeFormatText, App, Device, Options[0]);
     }
 }
