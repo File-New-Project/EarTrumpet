@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         {
             PromptText = Properties.Resources.ProcessTriggerDescriptonPromptText;
             Description = Properties.Resources.ProcessTriggerDescriptonText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                     new Option(Properties.Resources.ProcessEventKindStartsText, ProcessEventKind.Start),
                     new Option(Properties.Resources.ProcessEventKindStopsText, ProcessEventKind.Stop),

@@ -13,6 +13,6 @@ namespace EarTrumpet_Actions.DataModel
         }
 
         [XmlIgnore]
-        public List<OptionData> Options { get; protected set; }
+        public List<OptionCollection> Options { get; protected set; }
     }
 }

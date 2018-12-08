@@ -14,7 +14,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public VariableCondition()
         {
             Description = Properties.Resources.VariableConditionDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                      new Option(Properties.Resources.BoolTrueText, true),
                      new Option(Properties.Resources.BoolFalseText, false),

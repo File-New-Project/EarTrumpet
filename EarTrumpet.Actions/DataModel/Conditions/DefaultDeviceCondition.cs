@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public DefaultDeviceCondition()
         {
             Description = Properties.Resources.DefaultDeviceConditionDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                 new Option(Properties.Resources.ValueComparisonKindIsText, ComparisonBoolKind.Is),
                 new Option(Properties.Resources.ValueComparisonKindIsNotText, ComparisonBoolKind.IsNot),

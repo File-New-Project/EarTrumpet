@@ -10,7 +10,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public EventTrigger()
         {
             Description = Properties.Resources.EventTriggerDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                     new Option(Properties.Resources.EarTrumpetEventKindStartupText, EarTrumpetEventKind.Startup),
                     new Option(Properties.Resources.EarTrumpetEventKindShutdownText, EarTrumpetEventKind.Shutdown),

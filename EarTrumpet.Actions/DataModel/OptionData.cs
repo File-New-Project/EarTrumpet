@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace EarTrumpet_Actions.DataModel
 {
-    public class OptionData
+    public class OptionCollection
     {
         public List<Option> Options { get; }
 
@@ -19,7 +19,7 @@ namespace EarTrumpet_Actions.DataModel
 
         public string DisplayName => Selected?.DisplayName;
 
-        public OptionData(IEnumerable<Option> options, Action<Option> setSelected, Func<object> getSelected)
+        public OptionCollection(IEnumerable<Option> options, Action<Option> setSelected, Func<object> getSelected)
         {
             Options = options.ToList();
             SetSelected = setSelected;

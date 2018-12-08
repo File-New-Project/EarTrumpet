@@ -17,14 +17,14 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public SetAdditionalSettingsAction()
         {
             Description = Properties.Resources.SetAdditionalSettingsActionDescriptionText;
-            Options = new List<OptionData>(new OptionData[]
+            Options = new List<OptionCollection>(new OptionCollection[]
             {
-                new OptionData(ServiceBus.GetMany(KnownServices.BoolValue).Select(
+                new OptionCollection(ServiceBus.GetMany(KnownServices.BoolValue).Select(
                     a => (IValue<bool>)a).Select(
                     v => new Option(v.DisplayName, v.Id)),
                 (v) => SettingId = (string)v.Value,
                 () => SettingId),
-                new OptionData(
+                new OptionCollection(
                     new List<Option>(new Option[]
                     {
                         new Option(Properties.Resources.BoolTrueText, ToggleBoolKind.True),

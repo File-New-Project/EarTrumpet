@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
             var commands = ServiceBus.GetMany(KnownServices.Command).Select(c => (SimpleCommand)c);
 
             Description = Properties.Resources.InvokeAdditionalCommandsText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(
                 new List<Option>(commands.Select(c => new Option(c.DisplayName, c.Id))),
                 (newValue) => OptionId = (string)newValue.Value,
                 () => OptionId) });

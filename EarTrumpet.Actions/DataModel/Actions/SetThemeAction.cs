@@ -21,7 +21,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
             }
 
             Description = Properties.Resources.SetThemeActionDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(
                 new List<Option>(themes.Select(t => new Option(t, t))),
                 (newValue) => Theme = (string)newValue.Value,
                 () => Theme) });

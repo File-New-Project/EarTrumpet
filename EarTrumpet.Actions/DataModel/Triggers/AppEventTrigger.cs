@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public AppEventTrigger()
         {
             Description = Properties.Resources.AppEventTriggerDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                     new Option(Properties.Resources.AudioAppEventKindAddedText, AudioAppEventKind.Added),
                     new Option(Properties.Resources.AudioAppEventKindRemovedText, AudioAppEventKind.Removed),

@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public SetDeviceVolumeAction()
         {
             Description = Properties.Resources.SetDeviceVolumeActionDescriptionText;
-            Options = new List<OptionData>(new OptionData[]{ new OptionData(new List<Option>
+            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
                     new Option(Properties.Resources.StreamActionKindMuteText, StreamActionKind.Mute),
                     new Option(Properties.Resources.StreamActionKindSetVolumeText, StreamActionKind.SetVolume),
