@@ -31,13 +31,11 @@ namespace EarTrumpet_Actions.DataModel.Actions
         {
             if (Option == StreamActionKind.SetVolume)
             {
-                return string.Format(Properties.Resources.SetAppVolumeActionDescribeSetVolumeFormatText,
-                    Math.Round(Volume), App, Device);
+                return Properties.Resources.SetAppVolumeActionDescribeSetVolumeFormatText;
             }
             else
             {
-                return string.Format(Properties.Resources.SetAppVolumeActionDescribeValueFormatText,
-                    Options[0], App, Device);
+                return Properties.Resources.SetAppVolumeActionDescribeValueFormatText;
             }
         }
     }

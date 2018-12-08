@@ -30,5 +30,10 @@ namespace EarTrumpet_Actions.ViewModel
             _part = part;
             All = new ObservableCollection<Option>(part.Options[_index].Options);
         }
+
+        public override string ToString()
+        {
+            return Selected?.DisplayName;
+        }
     }
 }

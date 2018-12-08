@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     {
         public string OptionId { get; set; }
 
-        public override string Describe() => $"{Options[0]}";
+        public override string Describe() => "{Option}";
 
         public InvokeAddonCommandAction()
         {

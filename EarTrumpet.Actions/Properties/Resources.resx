@@ -124,7 +124,7 @@
     <value>Add triggers, conditions and actions</value>
   </data>
   <data name="AppEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>{0} on {1} {2}</value>
+    <value>{App} on {Device} {Option}</value>
   </data>
   <data name="AppEventTriggerDescriptionText" xml:space="preserve">
     <value>When an app session is (added, removed, plays sound, ...)</value>
@@ -175,7 +175,7 @@
     <value>When the context menu item is invoked</value>
   </data>
   <data name="DefaultDeviceConditionDescribeFormatText" xml:space="preserve">
-    <value>The default playback device {0} {1}</value>
+    <value>The default playback device {Option} {Device}</value>
   </data>
   <data name="DefaultDeviceConditionDescriptionText" xml:space="preserve">
     <value>If the default playback device (is, is not)</value>
@@ -184,7 +184,7 @@
     <value>Default playback device</value>
   </data>
   <data name="DeviceEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>{Device} {Option}</value>
   </data>
   <data name="DeviceEventTriggerDescriptionText" xml:space="preserve">
     <value>When an audio device is (added, removed, becomes or leaves default)</value>
@@ -202,7 +202,7 @@
     <value>Edit</value>
   </data>
   <data name="EventTriggerDescribeFormatText" xml:space="preserve">
-    <value>EarTrumpet {0}</value>
+    <value>EarTrumpet {Option}</value>
   </data>
   <data name="EventTriggerDescriptionText" xml:space="preserve">
     <value>When EarTrumpet is started or stopped</value>
@@ -214,7 +214,7 @@
     <value>Foreground app</value>
   </data>
   <data name="HotkeyTriggerDescribeFormatText" xml:space="preserve">
-    <value>{0} is pressed</value>
+    <value>{HotkeyText} is pressed</value>
   </data>
   <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
@@ -253,7 +253,7 @@
     <value>is running</value>
   </data>
   <data name="ProcessTriggerDescribeFormatText" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>{Text} {Option}</value>
   </data>
   <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
@@ -268,31 +268,31 @@
     <value>Remove</value>
   </data>
   <data name="SetAdditionalSettingsActionDescribeFormatText" xml:space="preserve">
-    <value>Set {0} to {1}</value>
+    <value>Set {Option1} to {Option2}</value>
   </data>
   <data name="SetAdditionalSettingsActionDescriptionText" xml:space="preserve">
     <value>Set additional EarTrumpet settings</value>
   </data>
   <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>Set volume to {0}% for {1} on {2}</value>
+    <value>Set volume to {Volume}% for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
-    <value>Set {0} for {1} on {2}</value>
+    <value>Set {Option} for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescriptionText" xml:space="preserve">
     <value>Set an app volume or mute</value>
   </data>
   <data name="SetDefaultDeviceActionDescribeFormatText" xml:space="preserve">
-    <value>Set {0} as playback default</value>
+    <value>Set {Device} as playback default</value>
   </data>
   <data name="SetDefaultDeviceActionDescriptionText" xml:space="preserve">
     <value>Set the default playback device</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>Set volume to {0}% on {1}</value>
+    <value>Set volume to {Volume}% on {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
-    <value>Set {0} on {1}</value>
+    <value>Set {Option} on {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescriptionText" xml:space="preserve">
     <value>Set a device volume or mute</value>
@@ -301,7 +301,7 @@
     <value>Set the EarTrumpet app theme</value>
   </data>
   <data name="SetVariableActionDescribeFormatText" xml:space="preserve">
-    <value>Set variable '{0}' to {1}</value>
+    <value>Set variable '{Text}' to {Value}</value>
   </data>
   <data name="SetVariableActionDescriptionText" xml:space="preserve">
     <value>Set a local variable</value>
@@ -340,7 +340,7 @@
     <value>is</value>
   </data>
   <data name="VariableConditionDescribeFormatText" xml:space="preserve">
-    <value>Variable '{0}' is {1}</value>
+    <value>Variable '{Text}' is {Value}</value>
   </data>
   <data name="VariableConditionDescriptionText" xml:space="preserve">
     <value>If a local variable is True or False</value>

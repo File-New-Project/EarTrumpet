@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public Device Device { get; set; }
         public AudioDeviceEventKind Option { get; set; }
 
-        public override string Describe() =>string.Format(Properties.Resources.DeviceEventTriggerDescribeFormatText, Device, Options[0]);
+        public override string Describe() => Properties.Resources.DeviceEventTriggerDescribeFormatText;
 
         public DeviceEventTrigger()
         {

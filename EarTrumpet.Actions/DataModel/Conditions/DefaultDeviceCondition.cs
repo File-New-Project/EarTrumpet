@@ -21,6 +21,6 @@ namespace EarTrumpet_Actions.DataModel.Conditions
                 () => Option) });
         }
 
-        public override string Describe() => string.Format(Properties.Resources.DefaultDeviceConditionDescribeFormatText, Options[0], Device);
+        public override string Describe() => Properties.Resources.DefaultDeviceConditionDescribeFormatText;
     }
 }

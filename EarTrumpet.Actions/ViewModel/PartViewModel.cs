@@ -15,11 +15,11 @@ namespace EarTrumpet_Actions.ViewModel
             get => _currentDescription;
             set
             {
-                if (_currentDescription != value)
-                {
-                    _currentDescription = value;
-                    RaisePropertyChanged(nameof(CurrentDescription));
-                }
+                // HACK: We need to raise here because the format string won't have changed
+                _currentDescription = "";
+                RaisePropertyChanged(nameof(CurrentDescription));
+                _currentDescription = value;
+                RaisePropertyChanged(nameof(CurrentDescription));
             }
         }
 

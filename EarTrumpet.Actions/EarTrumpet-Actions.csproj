@@ -78,6 +78,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\LinkedTextBlock.cs" />
     <Compile Include="DataModel\Actions\InvokeAddonCommandAction.cs" />
     <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
     <Compile Include="DataModel\Enum\AudioDeviceEventKind.cs" />

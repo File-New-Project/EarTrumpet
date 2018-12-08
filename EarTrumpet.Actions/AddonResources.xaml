@@ -7,6 +7,7 @@
                     xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
                     xmlns:cvm="clr-namespace:EarTrumpet_Actions.ViewModel.Conditions"
                     xmlns:dm="clr-namespace:EarTrumpet_Actions.DataModel"
+                    xmlns:etctl="clr-namespace:EarTrumpet_Actions.Controls"
                     xmlns:local="clr-namespace:EarTrumpet_Actions"
                     xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:svc="clr-namespace:EarTrumpet.UI.Services;assembly=EarTrumpet"
@@ -46,9 +47,10 @@
                         CommandParameter="{Binding}"
                         Content="{x:Static resx:Resources.RemoveText}" />
             </Grid>
-            <TextBlock HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Text="{Binding CurrentDescription}" />
+
+            <etctl:LinkedTextBlock HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FormatText="{Binding CurrentDescription}" />
         </Grid>
     </DataTemplate>
 

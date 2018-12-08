@@ -11,8 +11,8 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public ToggleBoolKind Value { get; set; }
 
         public string SettingId { get; set; }
-        
-        public override string Describe() => string.Format(Properties.Resources.SetAdditionalSettingsActionDescribeFormatText, Options[0], Options[1]);
+
+        public override string Describe() => Properties.Resources.SetAdditionalSettingsActionDescribeFormatText;
 
         public SetAdditionalSettingsAction()
         {

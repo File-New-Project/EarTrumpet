@@ -39,5 +39,10 @@ namespace EarTrumpet_Actions.ViewModel
                 _part.App = (App)All[0].Value;
             }
         }
+
+        public override string ToString()
+        {
+            return Selected?.DisplayName;
+        }
     }
 }

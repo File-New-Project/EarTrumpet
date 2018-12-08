@@ -11,6 +11,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
             Description = Properties.Resources.SetDefaultDeviceActionDescriptionText;
         }
 
-        public override string Describe() => string.Format(Properties.Resources.SetDefaultDeviceActionDescribeFormatText, Device);
+        public override string Describe() => Properties.Resources.SetDefaultDeviceActionDescribeFormatText;
     }
 }

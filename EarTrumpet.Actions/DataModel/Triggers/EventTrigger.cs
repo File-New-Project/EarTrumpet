@@ -19,6 +19,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
                 () => Option) });
         }
 
-        public override string Describe() => string.Format(Properties.Resources.EventTriggerDescribeFormatText, Options[0]);
+        public override string Describe() => Properties.Resources.EventTriggerDescribeFormatText;
     }
 }

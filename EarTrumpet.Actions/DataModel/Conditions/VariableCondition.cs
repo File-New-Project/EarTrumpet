@@ -9,7 +9,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
         public string PromptText => Properties.Resources.VariableConditionPromptText;
 
-        public override string Describe() => string.Format(Properties.Resources.VariableConditionDescribeFormatText, Text, Options[0]);
+        public override string Describe() => Properties.Resources.VariableConditionDescribeFormatText;
 
         public VariableCondition()
         {
