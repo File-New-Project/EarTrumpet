@@ -82,29 +82,6 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        private PartViewModel _selected;
-        public PartViewModel Selected
-        {
-            get => _selected;
-            set
-            {
-                if (_selected != value)
-                {
-                    if (_selected != null)
-                    {
-                        _selected.IsExpanded = false;
-                    }
-                    _selected = value;
-                    if (_selected != null)
-                    {
-                        _selected.IsExpanded = true;
-                    }
-                    RaisePropertyChanged(nameof(Selected));
-                }
-            }
-        }
-
-
         public ObservableCollection<PartViewModel> Parts { get; }
 
         private readonly EarTrumpetAction _action;
@@ -138,8 +115,6 @@ namespace EarTrumpet_Actions.ViewModel
                 Parts.AddSorted(vm.SelectedPart, s_PartComparer);
 
                 InitializeViewModel(vm.SelectedPart);
-                Selected = vm.SelectedPart;
-                OpenDialog.Execute(Selected);
             });
 
             Parts = new ObservableCollection<PartViewModel>();

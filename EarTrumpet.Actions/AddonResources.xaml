@@ -25,21 +25,14 @@
 
     <DataTemplate x:Key="PartListItemTemplate">
         <Grid Margin="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="80" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1"
-                  Grid.ColumnSpan="2"
                   Margin="0,12,0,0"
-                  HorizontalAlignment="Right"
-                  Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                  HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -53,15 +46,7 @@
                         CommandParameter="{Binding}"
                         Content="{x:Static resx:Resources.RemoveText}" />
             </Grid>
-
-            <TextBlock Margin="12"
-                       VerticalAlignment="Center"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Text="{Binding Verb}" />
-
-            <TextBlock Grid.Column="1"
-                       HorizontalAlignment="Left"
+            <TextBlock HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{Binding CurrentDescription}" />
         </Grid>
@@ -129,7 +114,6 @@
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Parts}"
-                      SelectedItem="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource SettingsListView}" />
 
             <Button Grid.Row="4"
