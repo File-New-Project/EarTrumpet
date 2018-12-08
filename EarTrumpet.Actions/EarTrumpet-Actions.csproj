@@ -88,7 +88,7 @@
     <Compile Include="DataModel\Enum\ProcessStateKind.cs" />
     <Compile Include="DataModel\Enum\StreamActionKind.cs" />
     <Compile Include="DataModel\Enum\ToggleBoolKind.cs" />
-    <Compile Include="DataModel\OptionData.cs" />
+    <Compile Include="DataModel\OptionCollection.cs" />
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
     <Compile Include="DataModel\Actions\SetAdditionalSettingsAction.cs" />
     <Compile Include="DataModel\Actions\SetThemeAction.cs" />

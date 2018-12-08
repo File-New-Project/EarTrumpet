@@ -214,7 +214,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I use the context menu option.
+        ///   Looks up a localized string similar to I click a context menu item in EarTrumpet.
         /// </summary>
         public static string ContextMenuTriggerCurrentDescriptionText {
             get {
@@ -223,7 +223,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When the context menu item is invoked.
+        ///   Looks up a localized string similar to Create a context menu item in EarTrumpet.
         /// </summary>
         public static string ContextMenuTriggerDescriptionText {
             get {
@@ -736,7 +736,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Variable &apos;{Text}&apos; is {Value}.
+        ///   Looks up a localized string similar to Variable &apos;{Text}&apos; is {Option}.
         /// </summary>
         public static string VariableConditionDescribeFormatText {
             get {
@@ -745,7 +745,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a local variable is True or False.
+        ///   Looks up a localized string similar to If a local variable is (true or false).
         /// </summary>
         public static string VariableConditionDescriptionText {
             get {

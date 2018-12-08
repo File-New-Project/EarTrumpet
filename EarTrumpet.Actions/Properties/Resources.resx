@@ -169,10 +169,10 @@
     <value>If</value>
   </data>
   <data name="ContextMenuTriggerCurrentDescriptionText" xml:space="preserve">
-    <value>I use the context menu option</value>
+    <value>I click a context menu item in EarTrumpet</value>
   </data>
   <data name="ContextMenuTriggerDescriptionText" xml:space="preserve">
-    <value>When the context menu item is invoked</value>
+    <value>Create a context menu item in EarTrumpet</value>
   </data>
   <data name="DefaultDeviceConditionDescribeFormatText" xml:space="preserve">
     <value>The default playback device {Option} {Device}</value>
@@ -343,10 +343,10 @@
     <value>is</value>
   </data>
   <data name="VariableConditionDescribeFormatText" xml:space="preserve">
-    <value>Variable '{Text}' is {Value}</value>
+    <value>Variable '{Text}' is {Option}</value>
   </data>
   <data name="VariableConditionDescriptionText" xml:space="preserve">
-    <value>If a local variable is True or False</value>
+    <value>If a local variable is (true or false)</value>
   </data>
   <data name="VariableConditionEmptyText" xml:space="preserve">
     <value>(enter a variable name)</value>
