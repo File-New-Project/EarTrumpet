@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public bool Value { get; set; }
 
         public string PromptText => Properties.Resources.SetVariableActionPromptText;
-
+        public string EmptyText => Properties.Resources.VariableConditionEmptyText;
         public override string Describe() => Properties.Resources.SetVariableActionDescribeFormatText;
 
         public SetVariableAction()

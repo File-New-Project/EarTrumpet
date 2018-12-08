@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 
 namespace EarTrumpet_Actions.Controls
@@ -43,9 +44,21 @@ namespace EarTrumpet_Actions.Controls
                 else
                 {
                     var prop = ((Link)element).Data;
-                    var resolved = DataContext.GetType().GetProperty(prop).GetValue(DataContext, null).ToString();
+                    var propData = DataContext.GetType().GetProperty(prop).GetValue(DataContext, null);
+                    var link = new Hyperlink(new Run(propData.ToString()));
+                    link.NavigateUri = new Uri("about:none");
+                    link.RequestNavigate += (s, e) =>
+                    {
+                        var p = (Popup)Application.Current.Resources["ActionsPopup"];
+                        p.DataContext = propData;
+                        p.Placement = PlacementMode.MousePoint;
+                        p.StaysOpen = false;
+                        p.IsOpen = true;
 
-                    this.Inlines.Add(new Hyperlink(new Run(resolved)));
+
+
+                    };
+                    this.Inlines.Add(link);
                 }
                 this.Inlines.Add(new Run(" "));
             }

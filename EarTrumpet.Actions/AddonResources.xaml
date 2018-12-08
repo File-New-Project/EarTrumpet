@@ -16,6 +16,23 @@
 
     <conv:InvertableVisibilityConverter x:Key="addonVisConverter" />
 
+    <Popup x:Key="ActionsPopup"
+           MinWidth="200"
+           AllowsTransparency="False"
+           Placement="Right"
+           PopupAnimation="None">
+
+        <Border x:Name="SubmenuBorder"
+                Background="{DynamicResource ContextMenuBackground}"
+                BorderBrush="{DynamicResource ContextMenuBorder}"
+                BorderThickness="1"
+                SnapsToDevicePixels="True">
+            <Grid>
+                <ContentControl Content="{Binding}" />
+            </Grid>
+        </Border>
+    </Popup>
+
     <DataTemplate DataType="{x:Type dm:Option}">
         <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
     </DataTemplate>
@@ -26,27 +43,18 @@
 
     <DataTemplate x:Key="PartListItemTemplate">
         <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="1"
-                  Margin="0,12,0,0"
-                  HorizontalAlignment="Right">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Button Command="{Binding Open}"
-                        CommandParameter="{Binding}"
-                        Content="{x:Static resx:Resources.EditText}" />
-                <Button Grid.Column="1"
-                        Command="{Binding Remove}"
-                        CommandParameter="{Binding}"
-                        Content="{x:Static resx:Resources.RemoveText}" />
-            </Grid>
+            <Button Grid.Column="1"
+                    Width="80"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding}"
+                    Content="-" />
 
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
@@ -100,57 +108,87 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <TextBox Grid.ColumnSpan="2"
-                     FontSize="24"
-                     Text="{Binding DisplayName, Mode=TwoWay}" />
 
-            <ListView Grid.Row="1"
-                      Grid.ColumnSpan="2"
+            <TextBox FontSize="24" Text="{Binding DisplayName, Mode=TwoWay}" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="20" Text="Triggers" />
+
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Command="{Binding AddTrigger}"
+                        Style="{DynamicResource AddButtonStyle}" />
+            </Grid>
+
+            <ListView Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Triggers}"
                       Style="{DynamicResource SettingsListView}" />
 
-            <Button Grid.Row="2"
-                    Grid.ColumnSpan="3"
-                    Margin="0,6,0,0"
-                    Command="{Binding AddTrigger}"
-                    Content="Add triggers"
-                    Style="{DynamicResource AddButtonStyle}" />
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="3"
-                      Grid.ColumnSpan="2"
+                <TextBlock FontSize="20" Text="Filters" />
+
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Command="{Binding AddCondition}"
+                        Style="{DynamicResource AddButtonStyle}" />
+            </Grid>
+
+            <ListView Grid.Row="4"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Conditions}"
                       Style="{DynamicResource SettingsListView}" />
 
-            <Button Grid.Row="4"
-                    Grid.ColumnSpan="3"
-                    Margin="0,6,0,0"
-                    Command="{Binding AddCondition}"
-                    Content="Add conditions"
-                    Style="{DynamicResource AddButtonStyle}" />
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <ListView Grid.Row="5"
-                      Grid.ColumnSpan="2"
+                <TextBlock FontSize="20" Text="Actions" />
+
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Command="{Binding AddAction}"
+                        Style="{DynamicResource AddButtonStyle}" />
+            </Grid>
+
+            <ListView Grid.Row="6"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Actions}"
                       Style="{DynamicResource SettingsListView}" />
 
-            <Button Grid.Row="6"
-                    Grid.ColumnSpan="3"
-                    Margin="0,6,0,0"
-                    Command="{Binding AddAction}"
-                    Content="Add actions"
-                    Style="{DynamicResource AddButtonStyle}" />
+            <Grid Grid.Row="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1"
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Save}"
+                        Content="Save"
+                        IsEnabled="False" />
+            </Grid>
+
+
         </Grid>
     </DataTemplate>
 
@@ -204,265 +242,40 @@
         </StackPanel>
     </DataTemplate>
 
-    <!--  Triggers  -->
-
-    <DataTemplate DataType="{x:Type tvm:EventTriggerViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
+    <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
+        <ctl:VolumeSlider Maximum="100"
+                          Minimum="0"
+                          Style="{StaticResource {x:Type Slider}}"
+                          Value="{Binding Volume, Mode=TwoWay}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type tvm:DeviceEventTriggerViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
+    <DataTemplate DataType="{x:Type vm:AppViewModel}">
+        <ComboBox IsSynchronizedWithCurrentItem="True"
+                  ItemsSource="{Binding All}"
+                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type tvm:AppEventTriggerViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding App.All}"
-                      SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
+    <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
+        <ComboBox IsSynchronizedWithCurrentItem="True"
+                  ItemsSource="{Binding All}"
+                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type tvm:ProcessTriggerViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
-
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
+    <DataTemplate DataType="{x:Type vm:OptionViewModel}">
+        <ComboBox IsSynchronizedWithCurrentItem="True"
+                  ItemsSource="{Binding All}"
+                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type tvm:HotkeyTriggerViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <Button Command="{Binding SetHotkey}"
-                    CommandParameter="{Binding}"
-                    Content="{Binding HotkeyText}" />
-        </Grid>
-    </DataTemplate>
-
-    <!--  Conditions  -->
-
-    <DataTemplate DataType="{x:Type cvm:DefaultDeviceConditionViewModel}">
+    <DataTemplate DataType="{x:Type vm:TextViewModel}">
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type cvm:ProcessConditionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type cvm:VariableConditionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <!--  Actions  -->
-
-    <DataTemplate DataType="{x:Type avm:SetDefaultDeviceActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:SetAppVolumeActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding App.All}"
-                      SelectedItem="{Binding App.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-
-            <ctl:VolumeSlider Grid.Row="3"
-                              Maximum="100"
-                              Minimum="0"
-                              Style="{StaticResource {x:Type Slider}}"
-                              Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                              Value="{Binding Volume.Volume, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:SetDeviceVolumeActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Device.All}"
-                      SelectedItem="{Binding Device.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-
-            <ctl:VolumeSlider Grid.Row="2"
-                              Maximum="100"
-                              Minimum="0"
-                              Style="{StaticResource {x:Type Slider}}"
-                              Visibility="{Binding IsShowingVolume, Converter={StaticResource addonVisConverter}, ConverterParameter=Normal}"
-                              Value="{Binding Volume.Volume, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:SetVariableActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="{Binding Text.PromptText}" />
-            <TextBox Grid.Row="1" Text="{Binding Text.Text, Mode=TwoWay}" />
-            <ComboBox Grid.Row="2"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:SetThemeActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:InvokeAddonCommandActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option.All}"
-                      SelectedItem="{Binding Option.Selected, Mode=TwoWay}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type avm:SetAddonEarTrumpetSettingsActionViewModel}">
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option1.All}"
-                      SelectedItem="{Binding Option1.Selected, Mode=TwoWay}" />
-            <ComboBox Grid.Row="1"
-                      IsSynchronizedWithCurrentItem="True"
-                      ItemsSource="{Binding Option2.All}"
-                      SelectedItem="{Binding Option2.Selected, Mode=TwoWay}" />
+            <TextBlock Text="{Binding PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

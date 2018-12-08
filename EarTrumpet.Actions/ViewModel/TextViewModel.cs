@@ -22,5 +22,17 @@ namespace EarTrumpet_Actions.ViewModel
         {
             _part = part;
         }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(_part.Text))
+            {
+                return _part.EmptyText;
+            }
+            else
+            { 
+                return _part.Text;
+            }
+        }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
+using System;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class VolumeViewModel : BindableBase
+    public class VolumeViewModel : BindableBase
     {
         public double Volume
         {
@@ -19,6 +20,11 @@ namespace EarTrumpet_Actions.ViewModel
         public VolumeViewModel(IPartWithVolume part)
         {
             _part = part;
+        }
+
+        public override string ToString()
+        {
+            return "" + Math.Round(Volume);
         }
     }
 }

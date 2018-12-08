@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EarTrumpet_Actions.DataModel
+﻿namespace EarTrumpet_Actions.DataModel
 {
-    interface IPartWithVolume
+    public interface IPartWithVolume
     {
         double Volume { get; set; }
     }

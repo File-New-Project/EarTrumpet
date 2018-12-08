@@ -16,11 +16,12 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class EarTrumpetActionViewModel : BindableBase
+    public class EarTrumpetActionViewModel : BindableBase, IWindowHostedViewModel
     {
         public string Title => DisplayName;
 
         public ICommand Open { get; set; }
+        public ICommand Save { get; set; }
         public ICommand OpenDialog { get; set; }
         public ICommand Remove { get; set; }
         public ICommand AddTrigger { get; }
@@ -61,6 +62,11 @@ namespace EarTrumpet_Actions.ViewModel
         private readonly EarTrumpetAction _action;
         private ActionsEditorViewModel _parent;
         private ICommand _selectHotkey;
+
+#pragma warning disable CS0067
+        public event Action Close;
+        public event Action<object> HostDialog;
+#pragma warning restore CS0067
 
         public EarTrumpetActionViewModel(ActionsEditorViewModel parent, EarTrumpetAction action)
         {
@@ -228,6 +234,16 @@ namespace EarTrumpet_Actions.ViewModel
                 }
             });
             part.Open = new RelayCommand<PartViewModel>((vm) => OpenDialog.Execute(vm));
+        }
+
+        public void OnClosing()
+        {
+
+        }
+
+        public void OnPreviewKeyDown(KeyEventArgs e)
+        {
+
         }
     }
 }

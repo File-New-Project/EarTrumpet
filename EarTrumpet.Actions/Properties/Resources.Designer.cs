@@ -403,7 +403,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1}.
+        ///   Looks up a localized string similar to {Text} {Option}.
         /// </summary>
         public static string ProcessConditionDescribeFormatText {
             get {
@@ -417,6 +417,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string ProcessConditionDescriptionText {
             get {
                 return ResourceManager.GetString("ProcessConditionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (enter a process name).
+        /// </summary>
+        public static string ProcessConditionEmptyText {
+            get {
+                return ResourceManager.GetString("ProcessConditionEmptyText", resourceCulture);
             }
         }
         
@@ -610,7 +619,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set variable &apos;{Text}&apos; to {Value}.
+        ///   Looks up a localized string similar to Set variable &apos;{Text}&apos; to {Option}.
         /// </summary>
         public static string SetVariableActionDescribeFormatText {
             get {
@@ -741,6 +750,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string VariableConditionDescriptionText {
             get {
                 return ResourceManager.GetString("VariableConditionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (enter a variable name).
+        /// </summary>
+        public static string VariableConditionEmptyText {
+            get {
+                return ResourceManager.GetString("VariableConditionEmptyText", resourceCulture);
             }
         }
         

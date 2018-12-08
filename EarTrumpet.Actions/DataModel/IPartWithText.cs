@@ -4,5 +4,6 @@
     {
         string Text { get; set; }
         string PromptText { get; }
+        string EmptyText { get; }
     }
 }

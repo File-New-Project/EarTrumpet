@@ -9,12 +9,12 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public string Text { get; set; }
 
         [XmlIgnore]
-        public string PromptText { get; private set; }
+        public string PromptText => Properties.Resources.ProcessTriggerDescriptonPromptText;
+        public string EmptyText => Properties.Resources.ProcessConditionEmptyText;
         public ProcessEventKind Option { get; set; }
 
         public ProcessTrigger()
         {
-            PromptText = Properties.Resources.ProcessTriggerDescriptonPromptText;
             Description = Properties.Resources.ProcessTriggerDescriptonText;
             Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {

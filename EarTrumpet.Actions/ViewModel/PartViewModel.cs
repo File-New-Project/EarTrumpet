@@ -16,7 +16,7 @@ namespace EarTrumpet_Actions.ViewModel
             set
             {
                 // HACK: We need to raise here because the format string won't have changed
-                _currentDescription = "";
+                _currentDescription = "empty";
                 RaisePropertyChanged(nameof(CurrentDescription));
                 _currentDescription = value;
                 RaisePropertyChanged(nameof(CurrentDescription));

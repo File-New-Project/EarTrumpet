@@ -232,10 +232,13 @@
     <value>Playback: {0}</value>
   </data>
   <data name="ProcessConditionDescribeFormatText" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>{Text} {Option}</value>
   </data>
   <data name="ProcessConditionDescriptionText" xml:space="preserve">
     <value>If a process is (running, not running)</value>
+  </data>
+  <data name="ProcessConditionEmptyText" xml:space="preserve">
+    <value>(enter a process name)</value>
   </data>
   <data name="ProcessConditionPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
@@ -301,7 +304,7 @@
     <value>Set the EarTrumpet app theme</value>
   </data>
   <data name="SetVariableActionDescribeFormatText" xml:space="preserve">
-    <value>Set variable '{Text}' to {Value}</value>
+    <value>Set variable '{Text}' to {Option}</value>
   </data>
   <data name="SetVariableActionDescriptionText" xml:space="preserve">
     <value>Set a local variable</value>
@@ -344,6 +347,9 @@
   </data>
   <data name="VariableConditionDescriptionText" xml:space="preserve">
     <value>If a local variable is True or False</value>
+  </data>
+  <data name="VariableConditionEmptyText" xml:space="preserve">
+    <value>(enter a variable name)</value>
   </data>
   <data name="VariableConditionPromptText" xml:space="preserve">
     <value>Enter a variable name (e.g. IsInGameMode)</value>

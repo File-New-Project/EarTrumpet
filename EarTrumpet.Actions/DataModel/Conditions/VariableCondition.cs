@@ -8,6 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public bool Value { get; set; }
 
         public string PromptText => Properties.Resources.VariableConditionPromptText;
+        public string EmptyText => Properties.Resources.VariableConditionEmptyText;
 
         public override string Describe() => Properties.Resources.VariableConditionDescribeFormatText;
 
