@@ -214,6 +214,24 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I use the context menu option.
+        /// </summary>
+        public static string ContextMenuTriggerCurrentDescriptionText {
+            get {
+                return ResourceManager.GetString("ContextMenuTriggerCurrentDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When the context menu item is invoked.
+        /// </summary>
+        public static string ContextMenuTriggerDescriptionText {
+            get {
+                return ResourceManager.GetString("ContextMenuTriggerDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The default playback device {0} {1}.
         /// </summary>
         public static string DefaultDeviceConditionDescribeFormatText {

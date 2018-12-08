@@ -17,6 +17,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
     {
         public static void Invoke(BaseAction a)
         {
+            Trace.WriteLine($"ActionProcessor Invoke: {a.Describe()}");
             if (a is SetVariableAction)
             {
                 Addon.Current.LocalVariables[((SetVariableAction)a).Text] = ((SetVariableAction)a).Value;

@@ -101,6 +101,7 @@
     <Compile Include="DataModel\LocalVariablesContainer.cs" />
     <Compile Include="DataModel\PartWithOptions.cs" />
     <Compile Include="DataModel\Processing\TriggerManager.cs" />
+    <Compile Include="DataModel\Triggers\ContextMenuTrigger.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
     <Compile Include="DataModel\Actions\BaseAction.cs" />
     <Compile Include="DataModel\Actions\SetAppVolumeAction.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
     <Compile Include="ViewModel\TextViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\ContextMenuTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\DeviceEventTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\AppEventTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\EventTriggerViewModel.cs" />

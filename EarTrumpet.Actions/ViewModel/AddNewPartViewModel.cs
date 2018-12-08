@@ -40,6 +40,7 @@ namespace EarTrumpet_Actions.ViewModel
                     new DeviceEventTriggerViewModel(new DeviceEventTrigger{ }),
                     new AppEventTriggerViewModel(new AppEventTrigger{ }),
                     new ProcessTriggerViewModel(new ProcessTrigger{ }),
+                    new ContextMenuTriggerViewModel(new ContextMenuTrigger{ }),
                     hotkeyTriggerViewModel,
                 };
             }

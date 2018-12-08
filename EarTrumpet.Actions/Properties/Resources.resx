@@ -168,6 +168,12 @@
   <data name="ConditionVerbText" xml:space="preserve">
     <value>If</value>
   </data>
+  <data name="ContextMenuTriggerCurrentDescriptionText" xml:space="preserve">
+    <value>I use the context menu option</value>
+  </data>
+  <data name="ContextMenuTriggerDescriptionText" xml:space="preserve">
+    <value>When the context menu item is invoked</value>
+  </data>
   <data name="DefaultDeviceConditionDescribeFormatText" xml:space="preserve">
     <value>The default playback device {0} {1}</value>
   </data>

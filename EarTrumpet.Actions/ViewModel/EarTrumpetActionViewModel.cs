@@ -177,6 +177,10 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 ret = new ProcessTriggerViewModel((ProcessTrigger)part);
             }
+            else if (part is ContextMenuTrigger)
+            {
+                ret = new ContextMenuTriggerViewModel((ContextMenuTrigger)part);
+            }
             else if (part is HotkeyTrigger)
             {
                 var hotkeyVm = new HotkeyTriggerViewModel((HotkeyTrigger)part);

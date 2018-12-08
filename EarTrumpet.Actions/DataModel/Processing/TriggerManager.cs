@@ -86,6 +86,10 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     }
                 };
             }
+            else if (trig is ContextMenuTrigger)
+            {
+                // Nothing to do.
+            }
             else throw new NotImplementedException();
         }
     }
