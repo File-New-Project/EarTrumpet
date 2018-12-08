@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class DeviceViewModel : BindableBase
+    class DeviceViewModel : BindableBase, IOptionViewModel
     {
         public ObservableCollection<Option> All { get; }
 

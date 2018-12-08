@@ -23,7 +23,6 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public ICommand Open { get; set; }
         public ICommand Remove { get; set; }
 
         public PartViewModel(Part part)

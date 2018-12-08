@@ -1,4 +1,8 @@
-﻿using System;
+﻿using EarTrumpet.UI;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
+using EarTrumpet_Actions.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,19 +53,45 @@ namespace EarTrumpet_Actions.Controls
                     link.NavigateUri = new Uri("about:none");
                     link.RequestNavigate += (s, e) =>
                     {
-                        var p = (Popup)Application.Current.Resources["ActionsPopup"];
-                        p.DataContext = propData;
-                        p.Placement = PlacementMode.MousePoint;
-                        p.StaysOpen = false;
-                        p.IsOpen = true;
 
-
-
+                        if (propData is IOptionViewModel)
+                        {
+                            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.LightOrDark, false);
+                            contextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)propData);
+                            contextMenu.Placement = PlacementMode.Mouse;
+                            contextMenu.IsOpen = true;
+                        }
+                        else
+                        {
+                            var p = (Popup)Application.Current.Resources["ActionsPopup"];
+                            p.DataContext = propData;
+                            p.Placement = PlacementMode.MousePoint;
+                            p.StaysOpen = false;
+                            p.IsOpen = true;
+                        } 
                     };
                     this.Inlines.Add(link);
                 }
                 this.Inlines.Add(new Run(" "));
             }
+        }
+
+        private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
+        {
+            var ret = new List<ContextMenuItem>();
+            foreach(var item in options.All)
+            {
+                ret.Add(new ContextMenuItem
+                {
+                    DisplayName = item.DisplayName,
+                    Command = new RelayCommand(() =>
+                    {
+                        options.Selected = item;
+                    }),
+                    IsChecked = (item == options.Selected),
+                });
+            }
+            return ret;
         }
 
         private List<object> GetInlines(string text)

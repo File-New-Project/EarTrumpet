@@ -53,7 +53,6 @@ namespace EarTrumpet_Actions.ViewModel
                 var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = "New Action" });
                 vm.Remove = RemoveItem;
                 vm.Open = OpenItem;
-                vm.OpenDialog = _openDialog;
                 Actions.Add(vm);
                 SelectedAction = vm;
                 _openDialog.Execute(SelectedAction);
@@ -80,7 +79,6 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 action.Remove = RemoveItem;
                 action.Open = OpenItem;
-                action.OpenDialog = new RelayCommand<object>((o) => _openDialog.Execute(o));
             }
         }
 

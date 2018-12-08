@@ -78,6 +78,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\LinkedTextBlock.cs" />
     <Compile Include="DataModel\Actions\InvokeAddonCommandAction.cs" />
     <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
@@ -133,13 +134,13 @@
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetThemeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetVariableActionViewModel.cs" />
-    <Compile Include="ViewModel\AddNewPartViewModel.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\Conditions\DefaultDeviceConditionViewModel.cs" />
     <Compile Include="ViewModel\Conditions\ProcessConditionViewModel.cs" />
     <Compile Include="ViewModel\Conditions\VariableConditionViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModel.cs" />
     <Compile Include="ViewModel\EarTrumpetActionViewModel.cs" />
+    <Compile Include="ViewModel\IOptionViewModel.cs" />
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
     <Compile Include="ViewModel\TextViewModel.cs" />

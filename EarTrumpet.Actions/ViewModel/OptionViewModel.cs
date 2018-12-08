@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class OptionViewModel : BindableBase
+    class OptionViewModel : BindableBase, IOptionViewModel
     {
         public ObservableCollection<Option> All { get; }
 
