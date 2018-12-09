@@ -94,7 +94,7 @@ namespace EarTrumpet_Actions.ViewModel
         private void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var col = (ObservableCollection<PartViewModel>)sender;
-            
+
             for (var i = 0; i < col.Count; i++)
             {
                 col[i].IsShowingAdditionalText = i != 0;
@@ -109,19 +109,7 @@ namespace EarTrumpet_Actions.ViewModel
                 Command = new RelayCommand(() =>
                 {
                     InitializeViewModel(part);
-
-                    if (part.Part is BaseTrigger)
-                    {
-                        Triggers.Add(part);
-                    }
-                    else if (part.Part is BaseCondition)
-                    {
-                        Conditions.Add(part);
-                    }
-                    else if (part.Part is BaseAction)
-                    {
-                        Actions.Add(part);
-                    }
+                    GetListFromPart(part).Add(part);
                 }),
             };
         }
@@ -135,32 +123,31 @@ namespace EarTrumpet_Actions.ViewModel
 
         private void InitializeViewModel(PartViewModel part)
         {
-            part.Remove = new RelayCommand(() =>
+            part.Remove = new RelayCommand(() => GetListFromPart(part).Remove(part));
+        }
+
+        private ObservableCollection<PartViewModel> GetListFromPart(PartViewModel part)
+        {
+            if (part.Part is BaseTrigger)
             {
-                if (part.Part is BaseTrigger)
-                {
-                    Triggers.Remove(part);
-                }
-                else if (part.Part is BaseCondition)
-                {
-                    Conditions.Remove(part);
-                }
-                else if (part.Part is BaseAction)
-                {
-                    Actions.Remove(part);
-                }
-            });
+                return Triggers;
+            }
+            else if (part.Part is BaseCondition)
+            {
+                return Conditions;
+            }
+            else if (part.Part is BaseAction)
+            {
+                return Actions;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public void OnClosing()
-        {
-
-        }
-
-        public void OnPreviewKeyDown(KeyEventArgs e)
-        {
-
-        }
+        public void OnClosing() { }
+        public void OnPreviewKeyDown(KeyEventArgs e) { }
 
         void IWindowHostedViewModelInternal.HostDialog(object dialog) => HostDialog(dialog);
     }
