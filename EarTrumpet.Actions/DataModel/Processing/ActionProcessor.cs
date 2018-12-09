@@ -58,6 +58,32 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     }
                 }
             }
+            else if (a is SetAppMuteAction)
+            {
+                var action = (SetAppMuteAction)a;
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetAppVolumeAction)a).Device.Kind);
+
+                var device = (action.Device?.Id == null) ?
+                    mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                if (device != null)
+                {
+                    if (action.App.Id == App.ForegroundAppId)
+                    {
+                        var app = FindForegroundApp(device.Groups);
+                        if (app != null)
+                        {
+                            DoAudioAction(action.Option, app);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
+                        {
+                            DoAudioAction(action.Option, app);
+                        }
+                    }
+                }
+            }
             else if (a is SetDeviceVolumeAction)
             {
                 var action = (SetDeviceVolumeAction)a;
@@ -69,6 +95,19 @@ namespace EarTrumpet_Actions.DataModel.Processing
                 if (device != null)
                 {
                     DoAudioAction(action.Option, device, action);
+                }
+            }
+            else if (a is SetDeviceMuteAction)
+            {
+                var action = (SetDeviceMuteAction)a;
+
+                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDeviceMuteAction)a).Device.Kind);
+
+                var device = (action.Device?.Id == null) ?
+                    mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
+                if (device != null)
+                {
+                    DoAudioAction(action.Option, device);
                 }
             }
             else if (a is SetThemeAction)
@@ -169,27 +208,35 @@ namespace EarTrumpet_Actions.DataModel.Processing
             
         }
 
-        private static void DoAudioAction(StreamActionKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
+        private static void DoAudioAction(MuteKind action, IStreamWithVolumeControl stream)
         {
             switch (action)
             {
-                case StreamActionKind.Mute:
+                case MuteKind.Mute:
                     stream.IsMuted = true;
                     break;
-                case StreamActionKind.ToggleMute:
+                case MuteKind.ToggleMute:
                     stream.IsMuted = !stream.IsMuted;
                     break;
-                case StreamActionKind.Unmute:
+                case MuteKind.Unmute:
                     stream.IsMuted = false;
                     break;
-                case StreamActionKind.SetVolume:
-                    stream.Volume = (float)(part.Volume / 100f);
+            }
+        }
+
+        private static void DoAudioAction(SetVolumeKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
+        {
+            var vol = (float)(part.Volume / 100f);
+            switch (action)
+            {
+                case SetVolumeKind.Set:
+                    stream.Volume = vol;
                     break;
-                case StreamActionKind.Increment5:
-                    stream.Volume += 0.05f;
+                case SetVolumeKind.Increment:
+                    stream.Volume += vol;
                     break;
-                case StreamActionKind.Decrement5:
-                    stream.Volume -= 0.05f;
+                case SetVolumeKind.Decrement:
+                    stream.Volume -= vol;
                     break;
             }
         }

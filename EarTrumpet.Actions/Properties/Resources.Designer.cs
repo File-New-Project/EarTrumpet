@@ -538,6 +538,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mute or unmute an app.
+        /// </summary>
+        public static string SetAppMuteActionDescriptionText {
+            get {
+                return ResourceManager.GetString("SetAppMuteActionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set volume to {Volume}% for {App} on {Device}.
         /// </summary>
         public static string SetAppVolumeActionDescribeSetVolumeFormatText {
@@ -556,7 +565,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set an app volume or mute.
+        ///   Looks up a localized string similar to Set an app volume.
         /// </summary>
         public static string SetAppVolumeActionDescriptionText {
             get {
@@ -583,6 +592,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mute or unmute a device.
+        /// </summary>
+        public static string SetDeviceMuteActionDescriptionText {
+            get {
+                return ResourceManager.GetString("SetDeviceMuteActionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set volume to {Volume}% on {Device}.
         /// </summary>
         public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
@@ -601,7 +619,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set a device volume or mute.
+        ///   Looks up a localized string similar to Set a device volume.
         /// </summary>
         public static string SetDeviceVolumeActionDescriptionText {
             get {

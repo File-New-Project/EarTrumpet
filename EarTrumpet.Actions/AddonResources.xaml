@@ -23,7 +23,8 @@
            MinWidth="200"
            AllowsTransparency="False"
            Placement="Right"
-           PopupAnimation="None">
+           PopupAnimation="None"
+           StaysOpen="False">
 
         <Border x:Name="SubmenuBorder"
                 Background="{DynamicResource ContextMenuBackground}"

@@ -81,13 +81,16 @@
     <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\LinkedTextBlock.cs" />
     <Compile Include="DataModel\Actions\InvokeAddonCommandAction.cs" />
+    <Compile Include="DataModel\Actions\SetAppMuteAction.cs" />
+    <Compile Include="DataModel\Actions\SetDeviceMuteAction.cs" />
     <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
     <Compile Include="DataModel\Enum\AudioDeviceEventKind.cs" />
     <Compile Include="DataModel\Enum\ComparisonBoolKind.cs" />
     <Compile Include="DataModel\Enum\EarTrumpetEventKind.cs" />
     <Compile Include="DataModel\Enum\ProcessEventKind.cs" />
     <Compile Include="DataModel\Enum\ProcessStateKind.cs" />
-    <Compile Include="DataModel\Enum\StreamActionKind.cs" />
+    <Compile Include="DataModel\Enum\MuteKind.cs" />
+    <Compile Include="DataModel\Enum\SetVolumeKind.cs" />
     <Compile Include="DataModel\Enum\ToggleBoolKind.cs" />
     <Compile Include="DataModel\OptionCollection.cs" />
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
@@ -128,7 +131,9 @@
     <Compile Include="DataModel\Triggers\ProcessTrigger.cs" />
     <Compile Include="DataModel\PlaybackDataModelHost.cs" />
     <Compile Include="ViewModel\Actions\InvokeAddonCommandActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetAppMuteActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetDeviceMuteActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDeviceVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAddonEarTrumpetSettingsActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />

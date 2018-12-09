@@ -1,5 +1,4 @@
 ﻿using EarTrumpet_Actions.DataModel.Enum;
-using System;
 using System.Collections.Generic;
 
 namespace EarTrumpet_Actions.DataModel.Actions
@@ -7,7 +6,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     public class SetDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolume
     {
         public Device Device { get; set; }
-        public StreamActionKind Option { get; set; }
+        public SetVolumeKind Option { get; set; }
         public double Volume { get; set; }
 
         public SetDeviceVolumeAction()
@@ -15,27 +14,14 @@ namespace EarTrumpet_Actions.DataModel.Actions
             Description = Properties.Resources.SetDeviceVolumeActionDescriptionText;
             Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
                 {
-                    new Option(Properties.Resources.StreamActionKindMuteText, StreamActionKind.Mute),
-                    new Option(Properties.Resources.StreamActionKindSetVolumeText, StreamActionKind.SetVolume),
-                    new Option(Properties.Resources.StreamActionKindToggleMuteText, StreamActionKind.ToggleMute),
-                    new Option(Properties.Resources.StreamActionKindUnuteText, StreamActionKind.Unmute),
-                    new Option(Properties.Resources.StreamActionKindIncrement5Text, StreamActionKind.Increment5),
-                    new Option(Properties.Resources.StreamActionKindDecrement5Text, StreamActionKind.Decrement5),
+                    new Option(Properties.Resources.StreamActionKindSetVolumeText, SetVolumeKind.Set),
+                    new Option(Properties.Resources.StreamActionKindIncrement5Text, SetVolumeKind.Increment),
+                    new Option(Properties.Resources.StreamActionKindDecrement5Text, SetVolumeKind.Decrement),
                 },
-                (newValue) => Option = (StreamActionKind)newValue.Value,
+                (newValue) => Option = (SetVolumeKind)newValue.Value,
                 () => Option) });
         }
 
-        public override string Describe()
-        {
-            if (Option == StreamActionKind.SetVolume)
-            {
-                return Properties.Resources.SetDeviceVolumeActionDescribeSetVolumeFormatText;
-            }
-            else
-            {
-                return Properties.Resources.SetDeviceVolumeActionDescribeValueFormatText;
-            }
-        }
+        public override string Describe() => Properties.Resources.SetDeviceVolumeActionDescribeSetVolumeFormatText;
     }
 }

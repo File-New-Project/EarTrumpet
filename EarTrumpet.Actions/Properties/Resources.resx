@@ -276,6 +276,9 @@
   <data name="SetAdditionalSettingsActionDescriptionText" xml:space="preserve">
     <value>Set additional EarTrumpet settings</value>
   </data>
+  <data name="SetAppMuteActionDescriptionText" xml:space="preserve">
+    <value>Mute or unmute an app</value>
+  </data>
   <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
     <value>Set volume to {Volume}% for {App} on {Device}</value>
   </data>
@@ -283,13 +286,16 @@
     <value>Set {Option} for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescriptionText" xml:space="preserve">
-    <value>Set an app volume or mute</value>
+    <value>Set an app volume</value>
   </data>
   <data name="SetDefaultDeviceActionDescribeFormatText" xml:space="preserve">
     <value>Set {Device} as playback default</value>
   </data>
   <data name="SetDefaultDeviceActionDescriptionText" xml:space="preserve">
     <value>Set the default playback device</value>
+  </data>
+  <data name="SetDeviceMuteActionDescriptionText" xml:space="preserve">
+    <value>Mute or unmute a device</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
     <value>Set volume to {Volume}% on {Device}</value>
@@ -298,7 +304,7 @@
     <value>Set {Option} on {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescriptionText" xml:space="preserve">
-    <value>Set a device volume or mute</value>
+    <value>Set a device volume</value>
   </data>
   <data name="SetThemeActionDescriptionText" xml:space="preserve">
     <value>Set the EarTrumpet app theme</value>

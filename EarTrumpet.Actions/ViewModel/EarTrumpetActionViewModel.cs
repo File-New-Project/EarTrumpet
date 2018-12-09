@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
-using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
@@ -89,7 +88,9 @@ namespace EarTrumpet_Actions.ViewModel
                 var ret = new List<ContextMenuItem>
                 {
                     MakeItem(new SetAppVolumeActionViewModel(new SetAppVolumeAction{ })),
+                    MakeItem(new SetAppMuteActionViewModel(new SetAppMuteAction{ })),
                     MakeItem(new SetDeviceVolumeActionViewModel(new SetDeviceVolumeAction{ })),
+                    MakeItem(new SetDeviceMuteActionViewModel(new SetDeviceMuteAction{ })),
                     MakeItem(new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ })),
                     MakeItem(new SetVariableActionViewModel(new SetVariableAction{ })),
                 };
@@ -213,9 +214,17 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 ret = new SetDeviceVolumeActionViewModel((SetDeviceVolumeAction)part);
             }
+            else if (part is SetDeviceMuteAction)
+            {
+                ret = new SetDeviceMuteActionViewModel((SetDeviceMuteAction)part);
+            }
             else if (part is SetAppVolumeAction)
             {
                 ret = new SetAppVolumeActionViewModel((SetAppVolumeAction)part);
+            }
+            else if (part is SetAppMuteAction)
+            {
+                ret = new SetAppMuteActionViewModel((SetAppMuteAction)part);
             }
             else if (part is SetThemeAction)
             {

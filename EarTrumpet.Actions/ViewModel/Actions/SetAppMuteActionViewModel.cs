@@ -1,18 +1,16 @@
 ﻿using EarTrumpet_Actions.DataModel.Actions;
-using EarTrumpet_Actions.DataModel.Enum;
 
 namespace EarTrumpet_Actions.ViewModel.Actions
 {
-    class SetAppVolumeActionViewModel : PartViewModel
+    class SetAppMuteActionViewModel : PartViewModel
     {
         public OptionViewModel Option { get; }
         public DeviceViewModel Device { get; }
         public AppViewModel App { get; }
-        public VolumeViewModel Volume { get; }
 
-        private SetAppVolumeAction _action;
+        private SetAppMuteAction _action;
 
-        public SetAppVolumeActionViewModel(SetAppVolumeAction action) : base(action)
+        public SetAppMuteActionViewModel(SetAppMuteAction action) : base(action)
         {
             _action = action;
 
@@ -22,8 +20,6 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             App.PropertyChanged += (_, __) => UpdateDescription();
             Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.DefaultPlayback);
             Device.PropertyChanged += (_, __) => UpdateDescription();
-            Volume = new VolumeViewModel(action);
-            Volume.PropertyChanged += (_, __) => UpdateDescription();
         }
     }
 }
