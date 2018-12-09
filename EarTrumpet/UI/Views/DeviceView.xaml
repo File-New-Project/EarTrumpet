@@ -12,8 +12,7 @@
         </Grid.RowDefinitions>
 
         <Border Style="{DynamicResource DeviceHeaderBorderStyle}">
-            <Grid Style="{DynamicResource DeviceHeaderGridStyle}"
-                  PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
+            <Grid PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp" Style="{DynamicResource DeviceHeaderGridStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

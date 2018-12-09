@@ -33,9 +33,9 @@
                                         AutomationProperties.Name="{Binding DisplayName}"
                                         BorderThickness="0"
                                         Click="Button_Click"
-                                        PreviewMouseRightButtonDown="Button_PreviewMouseRightButtonDown"
                                         Command="{Binding Command}"
                                         FontSize="{Binding GlyphFontSize}"
+                                        PreviewMouseRightButtonDown="Button_PreviewMouseRightButtonDown"
                                         Style="{DynamicResource VirtualTitleBarButtonStyle}"
                                         Tag="{Binding Glyph}">
                                     <Button.ContextMenu>

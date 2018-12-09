@@ -10,7 +10,7 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ThemedContextMenu
     {
-        public static ContextMenu CreateThemedContextMenu(ThemeKind theme)
+        public static ContextMenu CreateThemedContextMenu(ThemeKind theme, bool displayOffWPF = true)
         {
             var cm = new ContextMenu { };
             cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector { Theme = theme };
@@ -23,7 +23,7 @@ namespace EarTrumpet.UI.Helpers
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += ContextMenu_Opened;
             cm.Closed += ContextMenu_Closed;
-            cm.StaysOpen = true; // To be removed on open.
+            cm.StaysOpen = displayOffWPF; // To be removed on open.
             return cm;
         }
 
@@ -36,9 +36,12 @@ namespace EarTrumpet.UI.Helpers
         {
             Trace.WriteLine("ThemedContextMenu ContextMenu_Opened");
             var cm = (ContextMenu)sender;
-            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-            cm.Focus();
-            cm.StaysOpen = false;
+            if (cm.StaysOpen)
+            {
+                User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
+                cm.Focus();
+                cm.StaysOpen = false;
+            }
             ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
         }
     }

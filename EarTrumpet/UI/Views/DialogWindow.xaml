@@ -23,6 +23,10 @@
                     Style="{DynamicResource CloseButtonStyle}" />
         </Grid>
 
-        <ContentControl Content="{Binding}" />
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      IsTabStop="False"
+                      VerticalScrollBarVisibility="Auto">
+            <ContentControl Content="{Binding}" />
+        </ScrollViewer>
     </DockPanel>
 </Window>
