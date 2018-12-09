@@ -37,20 +37,117 @@
         </Border>
     </Popup>
 
+    <Style x:Key="HeaderAddButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Name="root" Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid>
+                            <Rectangle Width="32"
+                                       Height="32"
+                                       Margin="12"
+                                       Fill="{DynamicResource ButtonBackground}" />
+
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="12"
+                                       Text="&#xE109;" />
+                        </Grid>
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Grid.Column="1"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Focusable="False"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="root" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RemoveButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Name="root" Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid>
+                            <Rectangle Width="32"
+                                       Height="32"
+                                       Margin="12"
+                                       Fill="{DynamicResource ButtonBackground}" />
+
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="12"
+                                       Text="&#xE108;" />
+                        </Grid>
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Grid.Column="1"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Focusable="False"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="root" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <DataTemplate x:Key="PartListItemTemplate">
-        <Grid Margin="12">
+        <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="1"
-                    Width="80"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Command="{Binding Remove}"
                     CommandParameter="{Binding}"
-                    Content="-" />
+                    Style="{StaticResource RemoveButtonStyle}" />
 
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
@@ -58,11 +155,48 @@
         </Grid>
     </DataTemplate>
 
+    <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border Background="{TemplateBinding Background}">
+                        <ItemsPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TablePromptTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
         <Grid MinWidth="400"
               MinHeight="400"
               Margin="12">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -81,76 +215,146 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock FontSize="20" Text="Triggers" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock FontSize="20" Text="{x:Static resx:Resources.TriggerVerbText}" />
 
                 <etctl:MenuButton Grid.Column="1"
                                   HorizontalAlignment="Right"
-                                  Style="{DynamicResource AddButtonStyle}">
+                                  Style="{DynamicResource HeaderAddButtonStyle}">
                     <etctl:MenuButton.ContextMenu>
                         <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
                                      ItemsSource="{Binding NewTriggers}"
                                      UsesItemContainerTemplate="True" />
                     </etctl:MenuButton.ContextMenu>
                 </etctl:MenuButton>
+
+                <Rectangle Grid.Row="1"
+                           Stroke="{DynamicResource LightOrDark_SecondaryText}"
+                           StrokeThickness="1" />
             </Grid>
 
             <ListView Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Triggers}"
-                      Style="{DynamicResource SettingsListView}" />
+                      Style="{DynamicResource ThinListStyle}" />
 
             <Grid Grid.Row="3">
+                <TextBlock Text="{x:Static resx:Resources.RequiredText}">
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource TablePromptTextStyle}" TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Triggers.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <TextBlock FontSize="20" Text="Filters" />
+                <TextBlock FontSize="20" Text="{x:Static resx:Resources.ConditionVerbText}" />
 
                 <etctl:MenuButton Grid.Column="1"
                                   HorizontalAlignment="Right"
-                                  Style="{DynamicResource AddButtonStyle}">
+                                  Style="{DynamicResource HeaderAddButtonStyle}">
                     <etctl:MenuButton.ContextMenu>
                         <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
                                      ItemsSource="{Binding NewConditions}"
                                      UsesItemContainerTemplate="True" />
                     </etctl:MenuButton.ContextMenu>
                 </etctl:MenuButton>
+
+                <Rectangle Grid.Row="1"
+                           Stroke="{DynamicResource LightOrDark_SecondaryText}"
+                           StrokeThickness="1" />
             </Grid>
 
-            <ListView Grid.Row="4"
+            <ListView Grid.Row="5"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Conditions}"
-                      Style="{DynamicResource SettingsListView}" />
+                      Style="{DynamicResource ThinListStyle}" />
 
-            <Grid Grid.Row="5">
+            <Grid Grid.Row="6">
+                <TextBlock Text="{x:Static resx:Resources.OptionalText}">
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource TablePromptTextStyle}" TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Conditions.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="7">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <TextBlock FontSize="20" Text="Actions" />
+                <TextBlock FontSize="20" Text="{x:Static resx:Resources.ActionVerbText}" />
 
                 <etctl:MenuButton Grid.Column="1"
                                   HorizontalAlignment="Right"
-                                  Style="{DynamicResource AddButtonStyle}">
+                                  Style="{DynamicResource HeaderAddButtonStyle}">
                     <etctl:MenuButton.ContextMenu>
                         <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
                                      ItemsSource="{Binding NewActions}"
                                      UsesItemContainerTemplate="True" />
                     </etctl:MenuButton.ContextMenu>
                 </etctl:MenuButton>
+
+                <Rectangle Grid.Row="1"
+                           Stroke="{DynamicResource LightOrDark_SecondaryText}"
+                           StrokeThickness="1" />
             </Grid>
 
-            <ListView Grid.Row="6"
+            <ListView Grid.Row="8"
                       IsSynchronizedWithCurrentItem="True"
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Actions}"
-                      Style="{DynamicResource SettingsListView}" />
+                      Style="{DynamicResource ThinListStyle}" />
 
-            <Grid Grid.Row="7">
+            <Grid Grid.Row="9">
+                <TextBlock Text="{x:Static resx:Resources.RequiredText}">
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource TablePromptTextStyle}" TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Actions.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />

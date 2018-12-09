@@ -70,15 +70,6 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add triggers, conditions and actions.
-        /// </summary>
-        public static string AddDialogTitleText {
-            get {
-                return ResourceManager.GetString("AddDialogTitleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {App} on {Device} {Option}.
         /// </summary>
         public static string AppEventTriggerDescribeFormatText {
@@ -205,7 +196,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If.
+        ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string ConditionVerbText {
             get {
@@ -250,7 +241,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default playback device.
+        ///   Looks up a localized string similar to default playback device.
         /// </summary>
         public static string DefaultPlaybackDeviceText {
             get {
@@ -394,6 +385,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (optional).
+        /// </summary>
+        public static string OptionalText {
+            get {
+                return ResourceManager.GetString("OptionalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playback: {0}.
         /// </summary>
         public static string PlaybackDeviceFormatStringText {
@@ -520,6 +520,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (required).
+        /// </summary>
+        public static string RequiredText {
+            get {
+                return ResourceManager.GetString("RequiredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set {Option1} to {Option2}.
         /// </summary>
         public static string SetAdditionalSettingsActionDescribeFormatText {
@@ -547,7 +556,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume}% for {App} on {Device}.
+        ///   Looks up a localized string similar to {Option} volume to {Volume} for {App} on {Device}.
         /// </summary>
         public static string SetAppVolumeActionDescribeSetVolumeFormatText {
             get {
@@ -601,7 +610,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume}% on {Device}.
+        ///   Looks up a localized string similar to {Option} volume to {Volume} for {Device}.
         /// </summary>
         public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
             get {

@@ -120,9 +120,6 @@
   <data name="ActionVerbText" xml:space="preserve">
     <value>Do</value>
   </data>
-  <data name="AddDialogTitleText" xml:space="preserve">
-    <value>Add triggers, conditions and actions</value>
-  </data>
   <data name="AppEventTriggerDescribeFormatText" xml:space="preserve">
     <value>{App} on {Device} {Option}</value>
   </data>
@@ -166,7 +163,7 @@
     <value>True</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>If</value>
+    <value>Filter</value>
   </data>
   <data name="ContextMenuTriggerCurrentDescriptionText" xml:space="preserve">
     <value>I click a context menu item in EarTrumpet</value>
@@ -181,7 +178,7 @@
     <value>If the default playback device (is, is not)</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Default playback device</value>
+    <value>default playback device</value>
   </data>
   <data name="DeviceEventTriggerDescribeFormatText" xml:space="preserve">
     <value>{Device} {Option}</value>
@@ -228,6 +225,9 @@
   <data name="NewActionText" xml:space="preserve">
     <value>New action</value>
   </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(optional)</value>
+  </data>
   <data name="PlaybackDeviceFormatStringText" xml:space="preserve">
     <value>Playback: {0}</value>
   </data>
@@ -270,6 +270,9 @@
   <data name="RemoveText" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(required)</value>
+  </data>
   <data name="SetAdditionalSettingsActionDescribeFormatText" xml:space="preserve">
     <value>Set {Option1} to {Option2}</value>
   </data>
@@ -280,7 +283,7 @@
     <value>Mute or unmute an app</value>
   </data>
   <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>{Option} volume to {Volume}% for {App} on {Device}</value>
+    <value>{Option} volume to {Volume} for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} for {App} on {Device}</value>
@@ -298,7 +301,7 @@
     <value>Mute or unmute a device</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>{Option} volume to {Volume}% on {Device}</value>
+    <value>{Option} volume to {Volume} for {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} on {Device}</value>
