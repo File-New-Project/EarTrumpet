@@ -128,7 +128,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         private PartViewModel CreatePartViewModel(Part part)
         {
-            var ret = PartViewModelFactory.From(part);
+            var ret = PartViewModelFactory.Create(part);
             InitializeViewModel(ret);
             return ret;
         }

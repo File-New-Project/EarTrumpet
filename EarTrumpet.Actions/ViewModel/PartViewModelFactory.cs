@@ -21,7 +21,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         private static List<TypeInfo> s_partViewModelClasses;
 
-        public static PartViewModel From(Part part)
+        public static PartViewModel Create(Part part)
         {
             PopulateCache();
 
