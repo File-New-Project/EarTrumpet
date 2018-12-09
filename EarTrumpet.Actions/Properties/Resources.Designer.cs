@@ -79,7 +79,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {App} on {Device} {Option}.
+        ///   Looks up a localized string similar to When {App} {Option} on {Device}.
         /// </summary>
         public static string AppEventTriggerDescribeFormatText {
             get {
@@ -241,7 +241,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default playback device {Option} {Device}.
+        ///   Looks up a localized string similar to  {Device} {Option} the default device.
         /// </summary>
         public static string DefaultDeviceConditionDescribeFormatText {
             get {
@@ -268,7 +268,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Device} {Option}.
+        ///   Looks up a localized string similar to When {Device} {Option}.
         /// </summary>
         public static string DeviceEventTriggerDescribeFormatText {
             get {
@@ -322,7 +322,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet {Option}.
+        ///   Looks up a localized string similar to When EarTrumpet {Option}.
         /// </summary>
         public static string EventTriggerDescribeFormatText {
             get {
@@ -358,7 +358,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Hotkey} is pressed.
+        ///   Looks up a localized string similar to When {Hotkey} is pressed.
         /// </summary>
         public static string HotkeyTriggerDescribeFormatText {
             get {
@@ -385,7 +385,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My actions.
+        ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string MyActionsText {
             get {
@@ -421,7 +421,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Text} {Option}.
+        ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
         public static string ProcessConditionDescribeFormatText {
             get {
@@ -493,7 +493,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Text} {Option}.
+        ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
         public static string ProcessTriggerDescribeFormatText {
             get {
@@ -592,7 +592,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set {Option} for {App} on {Device}.
+        ///   Looks up a localized string similar to {Option} {App} on {Device}.
         /// </summary>
         public static string SetAppVolumeActionDescribeValueFormatText {
             get {
@@ -655,7 +655,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set {Option} on {Device}.
+        ///   Looks up a localized string similar to {Option} {Device}.
         /// </summary>
         public static string SetDeviceVolumeActionDescribeValueFormatText {
             get {
@@ -682,7 +682,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set variable &apos;{Text}&apos; to {Option}.
+        ///   Looks up a localized string similar to Set variable {Text} to {Option}.
         /// </summary>
         public static string SetVariableActionDescribeFormatText {
             get {
@@ -709,7 +709,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to decrement.
+        ///   Looks up a localized string similar to Decrement.
         /// </summary>
         public static string StreamActionKindDecrement5Text {
             get {
@@ -718,7 +718,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to increment.
+        ///   Looks up a localized string similar to Increment.
         /// </summary>
         public static string StreamActionKindIncrement5Text {
             get {
@@ -727,7 +727,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mute.
+        ///   Looks up a localized string similar to Mute.
         /// </summary>
         public static string StreamActionKindMuteText {
             get {
@@ -736,7 +736,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to set.
+        ///   Looks up a localized string similar to Set.
         /// </summary>
         public static string StreamActionKindSetVolumeText {
             get {
@@ -745,7 +745,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to toggle mute.
+        ///   Looks up a localized string similar to Toggle mute.
         /// </summary>
         public static string StreamActionKindToggleMuteText {
             get {
@@ -754,7 +754,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unmute.
+        ///   Looks up a localized string similar to Unmute.
         /// </summary>
         public static string StreamActionKindUnuteText {
             get {
@@ -808,7 +808,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Variable &apos;{Text}&apos; is {Option}.
+        ///   Looks up a localized string similar to Variable {Text} is {Option}.
         /// </summary>
         public static string VariableConditionDescribeFormatText {
             get {

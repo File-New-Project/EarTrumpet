@@ -124,7 +124,7 @@
     <value>Do</value>
   </data>
   <data name="AppEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>{App} on {Device} {Option}</value>
+    <value>When {App} {Option} on {Device}</value>
   </data>
   <data name="AppEventTriggerDescriptionText" xml:space="preserve">
     <value>When an app session is (added, removed, plays sound, ...)</value>
@@ -178,7 +178,7 @@
     <value>Create a context menu item in EarTrumpet</value>
   </data>
   <data name="DefaultDeviceConditionDescribeFormatText" xml:space="preserve">
-    <value>The default playback device {Option} {Device}</value>
+    <value> {Device} {Option} the default device</value>
   </data>
   <data name="DefaultDeviceConditionDescriptionText" xml:space="preserve">
     <value>If the default playback device (is, is not)</value>
@@ -187,7 +187,7 @@
     <value>default playback device</value>
   </data>
   <data name="DeviceEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>{Device} {Option}</value>
+    <value>When {Device} {Option}</value>
   </data>
   <data name="DeviceEventTriggerDescriptionText" xml:space="preserve">
     <value>When an audio device is (added, removed, becomes or leaves default)</value>
@@ -205,7 +205,7 @@
     <value>Edit</value>
   </data>
   <data name="EventTriggerDescribeFormatText" xml:space="preserve">
-    <value>EarTrumpet {Option}</value>
+    <value>When EarTrumpet {Option}</value>
   </data>
   <data name="EventTriggerDescriptionText" xml:space="preserve">
     <value>When EarTrumpet is started or stopped</value>
@@ -217,7 +217,7 @@
     <value>Foreground app</value>
   </data>
   <data name="HotkeyTriggerDescribeFormatText" xml:space="preserve">
-    <value>{Hotkey} is pressed</value>
+    <value>When {Hotkey} is pressed</value>
   </data>
   <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
@@ -226,7 +226,7 @@
     <value>Invoke additional actions</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>My actions</value>
+    <value>Actions</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
     <value>New action</value>
@@ -238,7 +238,7 @@
     <value>Playback: {0}</value>
   </data>
   <data name="ProcessConditionDescribeFormatText" xml:space="preserve">
-    <value>{Text} {Option}</value>
+    <value>When {Text} {Option}</value>
   </data>
   <data name="ProcessConditionDescriptionText" xml:space="preserve">
     <value>If a process is (running, not running)</value>
@@ -262,7 +262,7 @@
     <value>is running</value>
   </data>
   <data name="ProcessTriggerDescribeFormatText" xml:space="preserve">
-    <value>{Text} {Option}</value>
+    <value>When {Text} {Option}</value>
   </data>
   <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
@@ -295,7 +295,7 @@
     <value>{Option} volume by {Volume} for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
-    <value>Set {Option} for {App} on {Device}</value>
+    <value>{Option} {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescriptionText" xml:space="preserve">
     <value>Set an app volume</value>
@@ -316,7 +316,7 @@
     <value>{Option} volume by {Volume} for {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
-    <value>Set {Option} on {Device}</value>
+    <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescriptionText" xml:space="preserve">
     <value>Set a device volume</value>
@@ -325,7 +325,7 @@
     <value>Set the EarTrumpet app theme</value>
   </data>
   <data name="SetVariableActionDescribeFormatText" xml:space="preserve">
-    <value>Set variable '{Text}' to {Option}</value>
+    <value>Set variable {Text} to {Option}</value>
   </data>
   <data name="SetVariableActionDescriptionText" xml:space="preserve">
     <value>Set a local variable</value>
@@ -334,22 +334,22 @@
     <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
   <data name="StreamActionKindDecrement5Text" xml:space="preserve">
-    <value>decrement</value>
+    <value>Decrement</value>
   </data>
   <data name="StreamActionKindIncrement5Text" xml:space="preserve">
-    <value>increment</value>
+    <value>Increment</value>
   </data>
   <data name="StreamActionKindMuteText" xml:space="preserve">
-    <value>mute</value>
+    <value>Mute</value>
   </data>
   <data name="StreamActionKindSetVolumeText" xml:space="preserve">
-    <value>set</value>
+    <value>Set</value>
   </data>
   <data name="StreamActionKindToggleMuteText" xml:space="preserve">
-    <value>toggle mute</value>
+    <value>Toggle mute</value>
   </data>
   <data name="StreamActionKindUnuteText" xml:space="preserve">
-    <value>unmute</value>
+    <value>Unmute</value>
   </data>
   <data name="ToggleText" xml:space="preserve">
     <value>toggle</value>
@@ -367,7 +367,7 @@
     <value>is</value>
   </data>
   <data name="VariableConditionDescribeFormatText" xml:space="preserve">
-    <value>Variable '{Text}' is {Option}</value>
+    <value>Variable {Text} is {Option}</value>
   </data>
   <data name="VariableConditionDescriptionText" xml:space="preserve">
     <value>If a local variable is (true or false)</value>

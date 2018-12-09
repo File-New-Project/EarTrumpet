@@ -16,20 +16,31 @@ namespace EarTrumpet_Actions.Controls
     {
         public string FormatText
         {
-            get { return (string)this.GetValue(PeakValue1Property); }
-            set { this.SetValue(PeakValue1Property, value); }
+            get { return (string)this.GetValue(FormatTextProperty); }
+            set { this.SetValue(FormatTextProperty, value); }
         }
-        public static readonly DependencyProperty PeakValue1Property = DependencyProperty.Register(
+        public static readonly DependencyProperty FormatTextProperty = DependencyProperty.Register(
           "FormatText", typeof(string), typeof(LinkedTextBlock), new PropertyMetadata("", new PropertyChangedCallback(FormatTextChanged)));
 
-        private static void FormatTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).FormatTextChanged();
+        private static void FormatTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).PropertiesChanged();
 
-        private void FormatTextChanged()
+        public Style HyperlinkStyle
+        {
+            get { return (Style)this.GetValue(HyperlinkStyleProperty); }
+            set { this.SetValue(HyperlinkStyleProperty, value); }
+        }
+        public static readonly DependencyProperty HyperlinkStyleProperty = DependencyProperty.Register(
+          "HyperlinkStyle", typeof(Style), typeof(LinkedTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(HyperlinkStyleChanged)));
+
+        private static void HyperlinkStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).PropertiesChanged();
+
+        private void PropertiesChanged()
         {
             this.Inlines.Clear();
 
             ReadLinksAndText(FormatText, (text, isLink) =>
             {
+                text = text.Trim();
                 if (!isLink)
                 {
                     this.Inlines.Add(new Run(text));
@@ -39,6 +50,7 @@ namespace EarTrumpet_Actions.Controls
                     var resolvedPropertyObject = DataContext.GetType().GetProperty(text).GetValue(DataContext, null);
                     var link = new Hyperlink(new Run(resolvedPropertyObject.ToString()));
                     link.NavigateUri = new Uri("about:none");
+                    link.Style = HyperlinkStyle;
                     link.RequestNavigate += (s, e) =>
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
