@@ -24,7 +24,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         public override string ToString()
         {
-            return "" + Math.Round(Volume);
+            return Math.Round(Volume) + "%";
         }
     }
 }

@@ -22,6 +22,16 @@ namespace EarTrumpet_Actions.DataModel.Actions
                 () => Option) });
         }
 
-        public override string Describe() => Properties.Resources.SetDeviceVolumeActionDescribeSetVolumeFormatText;
+        public override string Describe()
+        {
+            if (Option == SetVolumeKind.Set)
+            {
+                return Properties.Resources.SetDeviceVolumeActionDescribeSetVolumeFormatText;
+            }
+            else
+            {
+                return Properties.Resources.SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText;
+            }
+        }
     }
 }

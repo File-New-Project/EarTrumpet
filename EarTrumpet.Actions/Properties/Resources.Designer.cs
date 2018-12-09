@@ -583,6 +583,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {Option} volume by {Volume} for {App} on {Device}.
+        /// </summary>
+        public static string SetAppVolumeActionDescribeSetVolumeIncrementFormatText {
+            get {
+                return ResourceManager.GetString("SetAppVolumeActionDescribeSetVolumeIncrementFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set {Option} for {App} on {Device}.
         /// </summary>
         public static string SetAppVolumeActionDescribeValueFormatText {
@@ -633,6 +642,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
             get {
                 return ResourceManager.GetString("SetDeviceVolumeActionDescribeSetVolumeFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {Option} volume by {Volume} for {Device}.
+        /// </summary>
+        public static string SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText {
+            get {
+                return ResourceManager.GetString("SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText", resourceCulture);
             }
         }
         

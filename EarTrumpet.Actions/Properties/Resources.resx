@@ -291,6 +291,9 @@
   <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
     <value>{Option} volume to {Volume} for {App} on {Device}</value>
   </data>
+  <data name="SetAppVolumeActionDescribeSetVolumeIncrementFormatText" xml:space="preserve">
+    <value>{Option} volume by {Volume} for {App} on {Device}</value>
+  </data>
   <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} for {App} on {Device}</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
     <value>{Option} volume to {Volume} for {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText" xml:space="preserve">
+    <value>{Option} volume by {Volume} for {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} on {Device}</value>
