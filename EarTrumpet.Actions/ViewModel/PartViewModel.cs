@@ -45,20 +45,20 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                     if (Part is BaseTrigger)
                     {
-                        _additionalText = Properties.Resources.TriggerAdditionalText;
+                        AdditionalText = Properties.Resources.TriggerAdditionalText;
                     }
                     else if (Part is BaseCondition)
                     {
-                        _additionalText = Properties.Resources.ConditionAdditionalText;
+                        AdditionalText = Properties.Resources.ConditionAdditionalText;
                     }
                     else
                     {
-                        _additionalText = Properties.Resources.ActionAdditionalText;
+                        AdditionalText = Properties.Resources.ActionAdditionalText;
                     }
                 }
                 else
                 {
-                    _additionalText = null;
+                    AdditionalText = null;
                 }
             }
         }
