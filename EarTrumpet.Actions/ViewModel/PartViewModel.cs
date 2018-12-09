@@ -1,5 +1,7 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
+using EarTrumpet_Actions.DataModel.Conditions;
+using EarTrumpet_Actions.DataModel.Triggers;
 using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -20,6 +22,44 @@ namespace EarTrumpet_Actions.ViewModel
                 RaisePropertyChanged(nameof(CurrentDescription));
                 _currentDescription = value;
                 RaisePropertyChanged(nameof(CurrentDescription));
+            }
+        }
+
+        private string _additionalText;
+        public string AdditionalText
+        {
+            get => _additionalText;
+            set
+            {
+                _additionalText = value;
+                RaisePropertyChanged(nameof(AdditionalText));
+            }
+        }
+
+        public bool IsShowingAdditionalText
+        {
+            get => !string.IsNullOrWhiteSpace(_additionalText);
+            set
+            {
+                if (value)
+                {
+                    if (Part is BaseTrigger)
+                    {
+                        _additionalText = Properties.Resources.TriggerAdditionalText;
+                    }
+                    else if (Part is BaseCondition)
+                    {
+                        _additionalText = Properties.Resources.ConditionAdditionalText;
+                    }
+                    else
+                    {
+                        _additionalText = Properties.Resources.ActionAdditionalText;
+                    }
+                }
+                else
+                {
+                    _additionalText = null;
+                }
             }
         }
 

@@ -152,6 +152,24 @@ namespace EarTrumpet_Actions.ViewModel
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
             Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
+
+            Triggers.CollectionChanged += Parts_CollectionChanged;
+            Conditions.CollectionChanged += Parts_CollectionChanged;
+            Actions.CollectionChanged += Parts_CollectionChanged;
+
+            Parts_CollectionChanged(Triggers, null);
+            Parts_CollectionChanged(Conditions, null);
+            Parts_CollectionChanged(Actions, null);
+        }
+
+        private void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            var col = (ObservableCollection<PartViewModel>)sender;
+            
+            for (var i = 0; i < col.Count; i++)
+            {
+                col[i].IsShowingAdditionalText = i != 0;
+            }
         }
 
         public EarTrumpetAction GetAction()

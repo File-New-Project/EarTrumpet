@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>and then</value>
+  </data>
   <data name="ActionVerbText" xml:space="preserve">
     <value>Do</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="BoolTrueText" xml:space="preserve">
     <value>True</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>and</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
     <value>Filter</value>
@@ -341,6 +347,9 @@
   </data>
   <data name="ToggleText" xml:space="preserve">
     <value>toggle</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>or</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
     <value>When</value>

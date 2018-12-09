@@ -61,6 +61,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and then.
+        /// </summary>
+        public static string ActionAdditionalText {
+            get {
+                return ResourceManager.GetString("ActionAdditionalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do.
         /// </summary>
         public static string ActionVerbText {
@@ -192,6 +201,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string BoolTrueText {
             get {
                 return ResourceManager.GetString("BoolTrueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string ConditionAdditionalText {
+            get {
+                return ResourceManager.GetString("ConditionAdditionalText", resourceCulture);
             }
         }
         
@@ -732,6 +750,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string ToggleText {
             get {
                 return ResourceManager.GetString("ToggleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to or.
+        /// </summary>
+        public static string TriggerAdditionalText {
+            get {
+                return ResourceManager.GetString("TriggerAdditionalText", resourceCulture);
             }
         }
         

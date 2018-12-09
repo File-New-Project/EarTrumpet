@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:actions="clr-namespace:EarTrumpet_Actions.DataModel.Actions"
-                    xmlns:avm="clr-namespace:EarTrumpet_Actions.ViewModel.Actions"
                     xmlns:conditions="clr-namespace:EarTrumpet_Actions.DataModel.Conditions"
                     xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
                     xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
@@ -135,12 +134,17 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="PartListItemTemplate">
+    <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
+            <TextBlock Margin="0,-9,0,0"
+                       IsHitTestVisible="False"
+                       Style="{DynamicResource AdditionalTextStyle}"
+                       Text="{Binding AdditionalText}" />
 
             <Button Grid.Column="1"
                     HorizontalAlignment="Right"
@@ -152,11 +156,12 @@
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    FormatText="{Binding CurrentDescription}" />
+
         </Grid>
     </DataTemplate>
 
     <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="Margin" Value="6,0,0,0" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -185,7 +190,12 @@
 
     <Style x:Key="TablePromptTextStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="AdditionalTextStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
 
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
