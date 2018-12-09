@@ -4,6 +4,7 @@ using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -79,7 +80,7 @@ namespace EarTrumpet_Actions.Controls
                             p.Placement = PlacementMode.MousePoint;
                             p.StaysOpen = false;
                             p.IsOpen = true;
-                        } 
+                        }
                     };
                     this.Inlines.Add(link);
                 }
@@ -89,20 +90,12 @@ namespace EarTrumpet_Actions.Controls
 
         private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
         {
-            var ret = new List<ContextMenuItem>();
-            foreach(var item in options.All)
+            return options.All.Select(item => new ContextMenuItem
             {
-                ret.Add(new ContextMenuItem
-                {
-                    DisplayName = item.DisplayName,
-                    Command = new RelayCommand(() =>
-                    {
-                        options.Selected = item;
-                    }),
-                    IsChecked = (item == options.Selected),
-                });
-            }
-            return ret;
+                DisplayName = item.DisplayName,
+                IsChecked = (item == options.Selected),
+                Command = new RelayCommand(() => options.Selected = item),
+            }).ToList();
         }
 
         private List<object> GetInlines(string text)
