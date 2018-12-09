@@ -154,6 +154,7 @@
 
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
+                                   TextWrapping="Wrap"
                                    FormatText="{Binding CurrentDescription}"
                                    HyperlinkStyle="{DynamicResource HyperlinkStyle}" />
 
