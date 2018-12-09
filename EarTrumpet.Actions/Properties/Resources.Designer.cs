@@ -547,7 +547,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set volume to {Volume}% for {App} on {Device}.
+        ///   Looks up a localized string similar to {Option} volume to {Volume}% for {App} on {Device}.
         /// </summary>
         public static string SetAppVolumeActionDescribeSetVolumeFormatText {
             get {
@@ -601,7 +601,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set volume to {Volume}% on {Device}.
+        ///   Looks up a localized string similar to {Option} volume to {Volume}% on {Device}.
         /// </summary>
         public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
             get {
@@ -664,7 +664,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to decrement volume 5%.
+        ///   Looks up a localized string similar to decrement.
         /// </summary>
         public static string StreamActionKindDecrement5Text {
             get {
@@ -673,7 +673,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to increment volume 5%.
+        ///   Looks up a localized string similar to increment.
         /// </summary>
         public static string StreamActionKindIncrement5Text {
             get {
@@ -691,7 +691,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to set volume.
+        ///   Looks up a localized string similar to set.
         /// </summary>
         public static string StreamActionKindSetVolumeText {
             get {

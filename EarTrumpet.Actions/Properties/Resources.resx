@@ -280,7 +280,7 @@
     <value>Mute or unmute an app</value>
   </data>
   <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>Set volume to {Volume}% for {App} on {Device}</value>
+    <value>{Option} volume to {Volume}% for {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} for {App} on {Device}</value>
@@ -298,7 +298,7 @@
     <value>Mute or unmute a device</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>Set volume to {Volume}% on {Device}</value>
+    <value>{Option} volume to {Volume}% on {Device}</value>
   </data>
   <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
     <value>Set {Option} on {Device}</value>
@@ -319,16 +319,16 @@
     <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
   <data name="StreamActionKindDecrement5Text" xml:space="preserve">
-    <value>decrement volume 5%</value>
+    <value>decrement</value>
   </data>
   <data name="StreamActionKindIncrement5Text" xml:space="preserve">
-    <value>increment volume 5%</value>
+    <value>increment</value>
   </data>
   <data name="StreamActionKindMuteText" xml:space="preserve">
     <value>mute</value>
   </data>
   <data name="StreamActionKindSetVolumeText" xml:space="preserve">
-    <value>set volume</value>
+    <value>set</value>
   </data>
   <data name="StreamActionKindToggleMuteText" xml:space="preserve">
     <value>toggle mute</value>
