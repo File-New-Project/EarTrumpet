@@ -14,16 +14,6 @@ namespace EarTrumpet_Actions.Controls
 {
     public class LinkedTextBlock : TextBlock
     {
-        class TText
-        {
-            public string Data;
-        }
-
-        class Link
-        {
-            public string Data;
-        }
-
         public string FormatText
         {
             get { return (string)this.GetValue(PeakValue1Property); }
@@ -38,54 +28,48 @@ namespace EarTrumpet_Actions.Controls
         {
             this.Inlines.Clear();
 
-            var inlines = GetInlines(FormatText);
-
-            foreach (var element in inlines)
+            ReadLinksAndText(FormatText, (text, isLink) =>
             {
-                if (element is TText)
+                if (!isLink)
                 {
-                    this.Inlines.Add(new Run(((TText)element).Data));
+                    this.Inlines.Add(new Run(text));
                 }
                 else
                 {
-                    var prop = ((Link)element).Data;
-                    var propData = DataContext.GetType().GetProperty(prop).GetValue(DataContext, null);
-                    var link = new Hyperlink(new Run(propData.ToString()));
+                    var resolvedPropertyObject = DataContext.GetType().GetProperty(text).GetValue(DataContext, null);
+                    var link = new Hyperlink(new Run(resolvedPropertyObject.ToString()));
                     link.NavigateUri = new Uri("about:none");
                     link.RequestNavigate += (s, e) =>
                     {
-
-                        if (propData is IOptionViewModel)
+                        if (resolvedPropertyObject is IOptionViewModel)
                         {
                             var contextMenu = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.LightOrDark, false);
-                            contextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)propData);
+                            contextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
                             contextMenu.Placement = PlacementMode.Mouse;
                             contextMenu.IsOpen = true;
                         }
-                        else if (propData is HotkeyViewModel)
+                        else if (resolvedPropertyObject is HotkeyViewModel)
                         {
                             var windowVm = (IWindowHostedViewModelInternal)Window.GetWindow(this).DataContext;
-
                             var vm = new HotkeySelectViewModel();
                             windowVm.HostDialog(vm);
                             if (vm.Saved)
                             {
-                                ((HotkeyViewModel)propData).Hotkey = vm.Hotkey;
+                                ((HotkeyViewModel)resolvedPropertyObject).Hotkey = vm.Hotkey;
                             }
                         }
                         else
                         {
                             var p = (Popup)Application.Current.Resources["ActionsPopup"];
-                            p.DataContext = propData;
-                            p.Placement = PlacementMode.MousePoint;
-                            p.StaysOpen = false;
+                            p.DataContext = resolvedPropertyObject;
+                            p.Placement = PlacementMode.Mouse;
                             p.IsOpen = true;
                         }
                     };
                     this.Inlines.Add(link);
                 }
                 this.Inlines.Add(new Run(" "));
-            }
+            });
         }
 
         private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
@@ -98,36 +82,30 @@ namespace EarTrumpet_Actions.Controls
             }).ToList();
         }
 
-        private List<object> GetInlines(string text)
+        private void ReadLinksAndText(string text, Action<string, bool> callback)
         {
-            var ret = new List<object>();
             int ptr = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                switch (text[i])
+                if (text[i] == '{')
                 {
-                    case '{':
-                        if (i > 0)
-                        {
-                            ret.Add(new TText { Data = text.Substring(ptr, i - 1 - ptr) });
-                        }
-                        ptr = i + 1;
-                        break;
-                    case '}':
-                        ret.Add(new Link { Data = text.Substring(ptr, i - ptr) });
-                        ptr = i + 1;
-                        break;
-                    default:
-                        break;
+                    if (i > 0)
+                    {
+                        callback(text.Substring(ptr, i - 1 - ptr), false);
+                    }
+                    ptr = i + 1;
+                }
+                else if (text[i] == '}')
+                {
+                    callback(text.Substring(ptr, i - ptr), true);
+                    ptr = i + 1;
                 }
             }
 
             if (ptr < text.Length - 1)
             {
-                ret.Add(new TText { Data = text.Substring(ptr, text.Length - ptr) });
+                callback(text.Substring(ptr, text.Length - ptr), false);
             }
-
-            return ret;
         }
     }
 }
