@@ -214,7 +214,7 @@
     <value>Foreground app</value>
   </data>
   <data name="HotkeyTriggerDescribeFormatText" xml:space="preserve">
-    <value>{HotkeyText} is pressed</value>
+    <value>{Hotkey} is pressed</value>
   </data>
   <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
     <value>When a hotkey is pressed</value>

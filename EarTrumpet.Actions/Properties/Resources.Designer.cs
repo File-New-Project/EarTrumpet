@@ -349,7 +349,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {HotkeyText} is pressed.
+        ///   Looks up a localized string similar to {Hotkey} is pressed.
         /// </summary>
         public static string HotkeyTriggerDescribeFormatText {
             get {

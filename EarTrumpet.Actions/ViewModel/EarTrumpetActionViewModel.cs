@@ -18,7 +18,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class EarTrumpetActionViewModel : BindableBase, IWindowHostedViewModel
+    public class EarTrumpetActionViewModel : BindableBase, IWindowHostedViewModel, IWindowHostedViewModelInternal
     {
         public string Title => DisplayName;
 
@@ -267,5 +267,7 @@ namespace EarTrumpet_Actions.ViewModel
         {
 
         }
+
+        void IWindowHostedViewModelInternal.HostDialog(object dialog) => HostDialog(dialog);
     }
 }

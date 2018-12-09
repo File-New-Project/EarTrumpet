@@ -140,6 +140,7 @@
     <Compile Include="ViewModel\Conditions\VariableConditionViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModel.cs" />
     <Compile Include="ViewModel\EarTrumpetActionViewModel.cs" />
+    <Compile Include="ViewModel\HotkeyViewModel.cs" />
     <Compile Include="ViewModel\IOptionViewModel.cs" />
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
