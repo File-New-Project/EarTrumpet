@@ -160,10 +160,10 @@
     <value>is removed</value>
   </data>
   <data name="BoolFalseText" xml:space="preserve">
-    <value>False</value>
+    <value>false</value>
   </data>
   <data name="BoolTrueText" xml:space="preserve">
-    <value>True</value>
+    <value>true</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
     <value>and</value>
@@ -222,9 +222,6 @@
   <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
   </data>
-  <data name="InvokeAdditionalCommandsText" xml:space="preserve">
-    <value>Invoke additional actions</value>
-  </data>
   <data name="MyActionsText" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -278,12 +275,6 @@
   </data>
   <data name="RequiredText" xml:space="preserve">
     <value>(required)</value>
-  </data>
-  <data name="SetAdditionalSettingsActionDescribeFormatText" xml:space="preserve">
-    <value>Set {Option1} to {Option2}</value>
-  </data>
-  <data name="SetAdditionalSettingsActionDescriptionText" xml:space="preserve">
-    <value>Set additional EarTrumpet settings</value>
   </data>
   <data name="SetAppMuteActionDescriptionText" xml:space="preserve">
     <value>Mute or unmute an app</value>
@@ -350,9 +341,6 @@
   </data>
   <data name="StreamActionKindUnuteText" xml:space="preserve">
     <value>Unmute</value>
-  </data>
-  <data name="ToggleText" xml:space="preserve">
-    <value>toggle</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
     <value>or</value>

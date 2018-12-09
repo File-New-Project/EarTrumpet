@@ -85,7 +85,7 @@ namespace EarTrumpet_Actions.ViewModel
         {
             get
             {
-                var ret = new List<ContextMenuItem>
+                return new List<ContextMenuItem>
                 {
                     MakeItem(new SetAppVolumeActionViewModel(new SetAppVolumeAction{ })),
                     MakeItem(new SetAppMuteActionViewModel(new SetAppMuteAction{ })),
@@ -94,24 +94,6 @@ namespace EarTrumpet_Actions.ViewModel
                     MakeItem(new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ })),
                     MakeItem(new SetVariableActionViewModel(new SetVariableAction{ })),
                 };
-
-                var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
-                if (addonValues.Any())
-                {
-                    ret.Add(MakeItem(new SetAddonEarTrumpetSettingsActionViewModel(new SetAdditionalSettingsAction())));
-                }
-
-                var addonCommands = ServiceBus.GetMany(KnownServices.Command);
-                if (addonCommands.Any())
-                {
-                    ret.Add(MakeItem(new InvokeAddonCommandActionViewModel(new InvokeAddonCommandAction())));
-                }
-
-                if (ServiceBus.Get("EarTrumpet-Themes") != null)
-                {
-                    ret.Add(MakeItem(new SetThemeActionViewModel(new SetThemeAction { })));
-                }
-                return ret;
             }
         }
 
@@ -243,18 +225,6 @@ namespace EarTrumpet_Actions.ViewModel
             else if (part is SetAppMuteAction)
             {
                 ret = new SetAppMuteActionViewModel((SetAppMuteAction)part);
-            }
-            else if (part is SetThemeAction)
-            {
-                ret = new SetThemeActionViewModel((SetThemeAction)part);
-            }
-            else if (part is SetAdditionalSettingsAction)
-            {
-                ret = new SetAddonEarTrumpetSettingsActionViewModel((SetAdditionalSettingsAction)part);
-            }
-            else if (part is InvokeAddonCommandAction)
-            {
-                ret = new InvokeAddonCommandActionViewModel((InvokeAddonCommandAction)part);
             }
             else
             {

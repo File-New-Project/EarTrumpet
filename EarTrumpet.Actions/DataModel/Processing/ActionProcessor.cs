@@ -110,31 +110,10 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     DoAudioAction(action.Option, device);
                 }
             }
-            else if (a is SetThemeAction)
+            else
             {
-                var action = (SetThemeAction)a;
-                var svc = (dynamic)ServiceBus.Get("EarTrumpet-Themes");
-                if (svc != null)
-                {
-                    svc.Theme = action.Theme;
-                }
+                throw new NotImplementedException();
             }
-            else if (a is SetAdditionalSettingsAction)
-            {
-                DoSetAddonEarTrumpetSettingsAction((SetAdditionalSettingsAction)a);
-            }
-            else if (a is InvokeAddonCommandAction)
-            {
-                var action = (InvokeAddonCommandAction)a;
-                Trace.WriteLine($"ActionProcessor Execute {action.OptionId}");
-                var cmd = ServiceBus.GetMany(KnownServices.Command).Select(s => (SimpleCommand)s).FirstOrDefault(s => s.Id == action.OptionId);
-                if (cmd != null)
-                {
-                    Trace.WriteLine($"ActionProcessor Found, executing {cmd.Id}");
-                    cmd.Command.Execute(null);
-                }
-            }
-            else throw new NotImplementedException();
         }
 
         private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
@@ -182,30 +161,6 @@ namespace EarTrumpet_Actions.DataModel.Processing
             }
             Trace.WriteLine("ActionProcessor FindForegroundApp Didn't locate foreground app");
             return null;
-        }
-
-        private static void DoSetAddonEarTrumpetSettingsAction(SetAdditionalSettingsAction action)
-        {
-            var addonValues = ServiceBus.GetMany(KnownServices.BoolValue);
-            var values = addonValues.Where(v => v is IValue<bool>).Select(v => (IValue<bool>)v).ToList();
-            var value = values.FirstOrDefault(v => v.Id == action.SettingId);
-            if (value != null)
-            {
-                switch(action.Value)
-                {
-                    case ToggleBoolKind.True:
-                        value.Value = true;
-                        break;
-                    case ToggleBoolKind.False:
-                        value.Value = false;
-                        break;
-                    case ToggleBoolKind.Toggle:
-                        value.Value = !value.Value;
-                        break;
-                    default: throw new NotImplementedException();
-                }
-            }
-            
         }
 
         private static void DoAudioAction(MuteKind action, IStreamWithVolumeControl stream)

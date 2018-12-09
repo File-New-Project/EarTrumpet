@@ -187,7 +187,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to False.
+        ///   Looks up a localized string similar to false.
         /// </summary>
         public static string BoolFalseText {
             get {
@@ -196,7 +196,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to True.
+        ///   Looks up a localized string similar to true.
         /// </summary>
         public static string BoolTrueText {
             get {
@@ -376,15 +376,6 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoke additional actions.
-        /// </summary>
-        public static string InvokeAdditionalCommandsText {
-            get {
-                return ResourceManager.GetString("InvokeAdditionalCommandsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string MyActionsText {
@@ -543,24 +534,6 @@ namespace EarTrumpet_Actions.Properties {
         public static string RequiredText {
             get {
                 return ResourceManager.GetString("RequiredText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set {Option1} to {Option2}.
-        /// </summary>
-        public static string SetAdditionalSettingsActionDescribeFormatText {
-            get {
-                return ResourceManager.GetString("SetAdditionalSettingsActionDescribeFormatText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set additional EarTrumpet settings.
-        /// </summary>
-        public static string SetAdditionalSettingsActionDescriptionText {
-            get {
-                return ResourceManager.GetString("SetAdditionalSettingsActionDescriptionText", resourceCulture);
             }
         }
         
@@ -759,15 +732,6 @@ namespace EarTrumpet_Actions.Properties {
         public static string StreamActionKindUnuteText {
             get {
                 return ResourceManager.GetString("StreamActionKindUnuteText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to toggle.
-        /// </summary>
-        public static string ToggleText {
-            get {
-                return ResourceManager.GetString("ToggleText", resourceCulture);
             }
         }
         
