@@ -142,6 +142,7 @@
     <Compile Include="ViewModel\IOptionViewModel.cs" />
     <Compile Include="ViewModel\OptionViewModel.cs" />
     <Compile Include="ViewModel\PartViewModel.cs" />
+    <Compile Include="ViewModel\PartViewModelFactory.cs" />
     <Compile Include="ViewModel\TextViewModel.cs" />
     <Compile Include="ViewModel\Triggers\ContextMenuTriggerViewModel.cs" />
     <Compile Include="ViewModel\Triggers\DeviceEventTriggerViewModel.cs" />

@@ -1,14 +1,9 @@
-﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensibility.Shared;
-using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Actions;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
-using EarTrumpet_Actions.ViewModel.Actions;
-using EarTrumpet_Actions.ViewModel.Conditions;
-using EarTrumpet_Actions.ViewModel.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,66 +47,9 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public List<ContextMenuItem> NewTriggers
-        {
-            get
-            {
-                return new List<ContextMenuItem>
-                {
-                    MakeItem(new EventTriggerViewModel(new EventTrigger{})),
-                    MakeItem(new DeviceEventTriggerViewModel(new DeviceEventTrigger{ })),
-                    MakeItem(new AppEventTriggerViewModel(new AppEventTrigger{ })),
-                    MakeItem(new ProcessTriggerViewModel(new ProcessTrigger{ })),
-                    MakeItem(new ContextMenuTriggerViewModel(new ContextMenuTrigger{ })),
-                    MakeItem(new HotkeyTriggerViewModel(new HotkeyTrigger { })),
-                };
-            }
-        }
-
-        public List<ContextMenuItem> NewConditions
-        {
-            get
-            {
-                return new List<ContextMenuItem>
-                {
-                    MakeItem(new DefaultDeviceConditionViewModel(new DefaultDeviceCondition{ })),
-                    MakeItem(new ProcessConditionViewModel(new ProcessCondition{ })),
-                    MakeItem(new VariableConditionViewModel(new VariableCondition{ })),
-                };
-            }
-        }
-
-        public List<ContextMenuItem> NewActions
-        {
-            get
-            {
-                return new List<ContextMenuItem>
-                {
-                    MakeItem(new SetAppVolumeActionViewModel(new SetAppVolumeAction{ })),
-                    MakeItem(new SetAppMuteActionViewModel(new SetAppMuteAction{ })),
-                    MakeItem(new SetDeviceVolumeActionViewModel(new SetDeviceVolumeAction{ })),
-                    MakeItem(new SetDeviceMuteActionViewModel(new SetDeviceMuteAction{ })),
-                    MakeItem(new SetDefaultDeviceActionViewModel(new SetDefaultDeviceAction{ })),
-                    MakeItem(new SetVariableActionViewModel(new SetVariableAction{ })),
-                };
-            }
-        }
-
-        private ContextMenuItem MakeItem(PartViewModel part)
-        {
-            return new ContextMenuItem
-            {
-                DisplayName = part.Description,
-                Command = new RelayCommand(() =>
-                {
-                    InitializeViewModel(part);
-
-                    if (part.Part is BaseTrigger) Triggers.Add(part);
-                    else if (part.Part is BaseCondition) Conditions.Add(part);
-                    else if (part.Part is BaseAction) Actions.Add(part);
-                }),
-            };
-        }
+        public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).ToList();
+        public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).ToList();
+        public List<ContextMenuItem> NewActions => PartViewModelFactory.Create<BaseAction>().Select(t => MakeItem(t)).ToList();
 
         public ObservableCollection<PartViewModel> Triggers { get; }
         public ObservableCollection<PartViewModel> Conditions { get; }
@@ -144,6 +82,15 @@ namespace EarTrumpet_Actions.ViewModel
             Parts_CollectionChanged(Actions, null);
         }
 
+        public EarTrumpetAction GetAction()
+        {
+            _action.DisplayName = DisplayName;
+            _action.Triggers = new ObservableCollection<BaseTrigger>(Triggers.Select(t => (BaseTrigger)t.Part));
+            _action.Conditions = new ObservableCollection<BaseCondition>(Conditions.Select(t => (BaseCondition)t.Part));
+            _action.Actions = new ObservableCollection<BaseAction>(Actions.Select(t => (BaseAction)t.Part));
+            return _action;
+        }
+
         private void Parts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var col = (ObservableCollection<PartViewModel>)sender;
@@ -154,85 +101,35 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public EarTrumpetAction GetAction()
+        private ContextMenuItem MakeItem(PartViewModel part)
         {
-            _action.DisplayName = DisplayName;
-            _action.Triggers = new ObservableCollection<BaseTrigger>(Triggers.Select(t => (BaseTrigger)t.Part));
-            _action.Conditions = new ObservableCollection<BaseCondition>(Conditions.Select(t => (BaseCondition)t.Part));
-            _action.Actions = new ObservableCollection<BaseAction>(Actions.Select(t => (BaseAction)t.Part));
-            return _action;
+            return new ContextMenuItem
+            {
+                DisplayName = part.Description,
+                Command = new RelayCommand(() =>
+                {
+                    InitializeViewModel(part);
+
+                    if (part.Part is BaseTrigger)
+                    {
+                        Triggers.Add(part);
+                    }
+                    else if (part.Part is BaseCondition)
+                    {
+                        Conditions.Add(part);
+                    }
+                    else if (part.Part is BaseAction)
+                    {
+                        Actions.Add(part);
+                    }
+                }),
+            };
         }
 
         private PartViewModel CreatePartViewModel(Part part)
         {
-            PartViewModel ret;
-            if (part is EventTrigger)
-            {
-                ret = new EventTriggerViewModel((EventTrigger)part);
-            }
-            else if (part is ProcessTrigger)
-            {
-                ret = new ProcessTriggerViewModel((ProcessTrigger)part);
-            }
-            else if (part is ContextMenuTrigger)
-            {
-                ret = new ContextMenuTriggerViewModel((ContextMenuTrigger)part);
-            }
-            else if (part is HotkeyTrigger)
-            {
-                ret = new HotkeyTriggerViewModel((HotkeyTrigger)part);
-            }
-            else if (part is DeviceEventTrigger)
-            {
-                ret = new DeviceEventTriggerViewModel((DeviceEventTrigger)part);
-            }
-            else if (part is AppEventTrigger)
-            {
-                ret = new AppEventTriggerViewModel((AppEventTrigger)part);
-            }
-            else if (part is DefaultDeviceCondition)
-            {
-                ret = new DefaultDeviceConditionViewModel((DefaultDeviceCondition)part);
-            }
-            else if (part is VariableCondition)
-            {
-                ret = new VariableConditionViewModel((VariableCondition)part);
-            }
-            else if (part is ProcessCondition)
-            {
-                ret = new ProcessConditionViewModel((ProcessCondition)part);
-            }
-            else if (part is SetVariableAction)
-            {
-                ret = new SetVariableActionViewModel((SetVariableAction)part);
-            }
-            else if (part is SetDefaultDeviceAction)
-            {
-                ret = new SetDefaultDeviceActionViewModel((SetDefaultDeviceAction)part);
-            }
-            else if (part is SetDeviceVolumeAction)
-            {
-                ret = new SetDeviceVolumeActionViewModel((SetDeviceVolumeAction)part);
-            }
-            else if (part is SetDeviceMuteAction)
-            {
-                ret = new SetDeviceMuteActionViewModel((SetDeviceMuteAction)part);
-            }
-            else if (part is SetAppVolumeAction)
-            {
-                ret = new SetAppVolumeActionViewModel((SetAppVolumeAction)part);
-            }
-            else if (part is SetAppMuteAction)
-            {
-                ret = new SetAppMuteActionViewModel((SetAppMuteAction)part);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-
+            var ret = PartViewModelFactory.From(part);
             InitializeViewModel(ret);
-
             return ret;
         }
 
@@ -248,7 +145,7 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                     Conditions.Remove(part);
                 }
-                if (part.Part is BaseAction)
+                else if (part.Part is BaseAction)
                 {
                     Actions.Remove(part);
                 }
