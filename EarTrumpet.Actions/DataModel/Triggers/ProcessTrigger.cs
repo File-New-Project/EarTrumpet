@@ -16,13 +16,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public ProcessTrigger()
         {
             Description = Properties.Resources.ProcessTriggerDescriptonText;
-            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
-                {
-                    new Option(Properties.Resources.ProcessEventKindStartsText, ProcessEventKind.Start),
-                    new Option(Properties.Resources.ProcessEventKindStopsText, ProcessEventKind.Stop),
-                },
-                (newValue) => Option = (ProcessEventKind)newValue.Value,
-                () => Option) });
         }
 
         public override string Describe() => Properties.Resources.ProcessTriggerDescribeFormatText;

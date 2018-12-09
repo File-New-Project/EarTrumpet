@@ -1,6 +1,9 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
+using System;
+using System.Linq;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -10,30 +13,49 @@ namespace EarTrumpet_Actions.ViewModel
 
         public Option Selected
         {
-            get => _part.Options[_index].Selected;
+            get
+            {
+                var value = (int)_target.GetType().GetProperty(_property).GetValue(_target);
+                return All.First(o => o.Value.Equals(value));
+            }
             set
             {
                 if (Selected != value)
                 {
-                    _part.Options[_index].Selected = value;
+                    _target.GetType().GetProperty(_property).SetValue(_target, value.Value);
                     RaisePropertyChanged(nameof(Selected));
                 }
             }
         }
 
-        private PartWithOptions _part;
-        private int _index;
+        private readonly object _target;
+        private readonly string _property;
 
-        public OptionViewModel(PartWithOptions part, int index = 0)
+        public OptionViewModel(object target, string property)
         {
-            _index = index;
-            _part = part;
-            All = new ObservableCollection<Option>(part.Options[_index].Options);
+            _target = target;
+            _property = property;
+
+            var propType = target.GetType().GetProperty(property).PropertyType;
+            All = new ObservableCollection<Option>(Enum.GetValues(propType).Cast<int>().Select(v => 
+            new Option(GetLocalizedString(Enum.GetName(propType, v)), v)));
         }
 
         public override string ToString()
         {
             return Selected?.DisplayName;
+        }
+
+        private string GetLocalizedString(string name)
+        {
+            var propType = _target.GetType().GetProperty(_property).PropertyType;
+            var resourceName = $"{propType.Name}_{name}";
+            var ret = Properties.Resources.ResourceManager.GetString(resourceName);
+            if (string.IsNullOrWhiteSpace(ret))
+            {
+                throw new NotImplementedException(resourceName);
+            }
+            return ret;
         }
     }
 }

@@ -10,11 +10,11 @@ namespace EarTrumpet_Actions.ViewModel.Conditions
 
         public ProcessConditionViewModel(ProcessCondition condition) : base(condition)
         {
-            Option = new OptionViewModel(condition);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(condition, nameof(condition.Option));
             Text = new TextViewModel(condition);
-            Text.PropertyChanged += (_, __) => UpdateDescription();
-            UpdateDescription();
+
+            Attach(Option);
+            Attach(Text);
         }
     }
 }

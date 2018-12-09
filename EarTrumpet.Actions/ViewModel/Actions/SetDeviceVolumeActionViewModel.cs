@@ -14,12 +14,13 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         public SetDeviceVolumeActionViewModel(SetDeviceVolumeAction action) : base(action)
         {
             _action = action;
-            Option = new OptionViewModel(action);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(action, nameof(action.Option));
             Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.Recording | DataModel.Device.DeviceListKind.DefaultPlayback);
-            Device.PropertyChanged += (_, __) => UpdateDescription();
             Volume = new VolumeViewModel(action);
-            Volume.PropertyChanged += (_, __) => UpdateDescription();
+
+            Attach(Option);
+            Attach(Device);
+            Attach(Volume);
         }
     }
 }

@@ -13,14 +13,6 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public SetAppVolumeAction()
         {
             Description = Properties.Resources.SetAppVolumeActionDescriptionText;
-            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
-                {
-                    new Option(Properties.Resources.StreamActionKindSetVolumeText, SetVolumeKind.Set),
-                    new Option(Properties.Resources.StreamActionKindIncrement5Text, SetVolumeKind.Increment),
-                    new Option(Properties.Resources.StreamActionKindDecrement5Text, SetVolumeKind.Decrement),
-                },
-                (newValue) => Option = (SetVolumeKind)newValue.Value,
-                () => Option) });
         }
 
         public override string Describe()

@@ -12,17 +12,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public AppEventTrigger()
         {
             Description = Properties.Resources.AppEventTriggerDescriptionText;
-            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
-                {
-                    new Option(Properties.Resources.AudioAppEventKindAddedText, AudioAppEventKind.Added),
-                    new Option(Properties.Resources.AudioAppEventKindRemovedText, AudioAppEventKind.Removed),
-                    new Option(Properties.Resources.AudioAppEventKindMutedText, AudioAppEventKind.Muted),
-                    new Option(Properties.Resources.AudioAppEventKindUnmutedText, AudioAppEventKind.Unmuted),
-                    new Option(Properties.Resources.AudioAppEventKindBeginPlaySoundText, AudioAppEventKind.PlayingSound),
-                    new Option(Properties.Resources.AudioAppEventKindEndsPlaySoundText, AudioAppEventKind.NotPlayingSound),
-                },
-                (newValue) => Option = (AudioAppEventKind)newValue.Value,
-                () => Option) });
         }
 
         public override string Describe() => Properties.Resources.AppEventTriggerDescribeFormatText;

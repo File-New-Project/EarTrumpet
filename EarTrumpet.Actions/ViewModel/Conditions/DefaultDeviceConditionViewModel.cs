@@ -10,11 +10,11 @@ namespace EarTrumpet_Actions.ViewModel.Conditions
 
         public DefaultDeviceConditionViewModel(DefaultDeviceCondition condition) : base(condition)
         {
-            Option = new OptionViewModel(condition);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(condition, nameof(condition.Option));
             Device = new DeviceViewModel(condition, DataModel.Device.DeviceListKind.Recording);
-            Device.PropertyChanged += (_, __) => UpdateDescription();
-            UpdateDescription();
+
+            Attach(Option);
+            Attach(Device);
         }
     }
 }

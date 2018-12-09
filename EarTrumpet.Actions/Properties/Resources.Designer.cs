@@ -99,108 +99,126 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to is added.
         /// </summary>
-        public static string AudioAppEventKindAddedText {
+        public static string AudioAppEventKind_Added {
             get {
-                return ResourceManager.GetString("AudioAppEventKindAddedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to begins playing sound.
-        /// </summary>
-        public static string AudioAppEventKindBeginPlaySoundText {
-            get {
-                return ResourceManager.GetString("AudioAppEventKindBeginPlaySoundText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to stops playing sound.
-        /// </summary>
-        public static string AudioAppEventKindEndsPlaySoundText {
-            get {
-                return ResourceManager.GetString("AudioAppEventKindEndsPlaySoundText", resourceCulture);
+                return ResourceManager.GetString("AudioAppEventKind_Added", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is muted.
         /// </summary>
-        public static string AudioAppEventKindMutedText {
+        public static string AudioAppEventKind_Muted {
             get {
-                return ResourceManager.GetString("AudioAppEventKindMutedText", resourceCulture);
+                return ResourceManager.GetString("AudioAppEventKind_Muted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stops playing sound.
+        /// </summary>
+        public static string AudioAppEventKind_NotPlayingSound {
+            get {
+                return ResourceManager.GetString("AudioAppEventKind_NotPlayingSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to begins playing sound.
+        /// </summary>
+        public static string AudioAppEventKind_PlayingSound {
+            get {
+                return ResourceManager.GetString("AudioAppEventKind_PlayingSound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is removed.
         /// </summary>
-        public static string AudioAppEventKindRemovedText {
+        public static string AudioAppEventKind_Removed {
             get {
-                return ResourceManager.GetString("AudioAppEventKindRemovedText", resourceCulture);
+                return ResourceManager.GetString("AudioAppEventKind_Removed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is unmuted.
         /// </summary>
-        public static string AudioAppEventKindUnmutedText {
+        public static string AudioAppEventKind_Unmuted {
             get {
-                return ResourceManager.GetString("AudioAppEventKindUnmutedText", resourceCulture);
+                return ResourceManager.GetString("AudioAppEventKind_Unmuted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is added.
         /// </summary>
-        public static string AudioDeviceEventKindAddedText {
+        public static string AudioDeviceEventKind_Added {
             get {
-                return ResourceManager.GetString("AudioDeviceEventKindAddedText", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceEventKind_Added", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to becomes default.
         /// </summary>
-        public static string AudioDeviceEventKindBecomesDefaultText {
+        public static string AudioDeviceEventKind_BecomingDefault {
             get {
-                return ResourceManager.GetString("AudioDeviceEventKindBecomesDefaultText", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceEventKind_BecomingDefault", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to leaves default.
         /// </summary>
-        public static string AudioDeviceEventKindLeavesDefaultText {
+        public static string AudioDeviceEventKind_LeavingDefault {
             get {
-                return ResourceManager.GetString("AudioDeviceEventKindLeavesDefaultText", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceEventKind_LeavingDefault", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is removed.
         /// </summary>
-        public static string AudioDeviceEventKindRemovedText {
+        public static string AudioDeviceEventKind_Removed {
             get {
-                return ResourceManager.GetString("AudioDeviceEventKindRemovedText", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceEventKind_Removed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to false.
         /// </summary>
-        public static string BoolFalseText {
+        public static string BoolValue_False {
             get {
-                return ResourceManager.GetString("BoolFalseText", resourceCulture);
+                return ResourceManager.GetString("BoolValue_False", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to true.
         /// </summary>
-        public static string BoolTrueText {
+        public static string BoolValue_True {
             get {
-                return ResourceManager.GetString("BoolTrueText", resourceCulture);
+                return ResourceManager.GetString("BoolValue_True", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to is.
+        /// </summary>
+        public static string ComparisonBoolKind_Is {
+            get {
+                return ResourceManager.GetString("ComparisonBoolKind_Is", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to is not.
+        /// </summary>
+        public static string ComparisonBoolKind_IsNot {
+            get {
+                return ResourceManager.GetString("ComparisonBoolKind_IsNot", resourceCulture);
             }
         }
         
@@ -288,18 +306,18 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to shuts down.
         /// </summary>
-        public static string EarTrumpetEventKindShutdownText {
+        public static string EarTrumpetEventKind_Shutdown {
             get {
-                return ResourceManager.GetString("EarTrumpetEventKindShutdownText", resourceCulture);
+                return ResourceManager.GetString("EarTrumpetEventKind_Shutdown", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to starts up.
         /// </summary>
-        public static string EarTrumpetEventKindStartupText {
+        public static string EarTrumpetEventKind_Startup {
             get {
-                return ResourceManager.GetString("EarTrumpetEventKindStartupText", resourceCulture);
+                return ResourceManager.GetString("EarTrumpetEventKind_Startup", resourceCulture);
             }
         }
         
@@ -372,6 +390,33 @@ namespace EarTrumpet_Actions.Properties {
         public static string HotkeyTriggerDescriptionText {
             get {
                 return ResourceManager.GetString("HotkeyTriggerDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute.
+        /// </summary>
+        public static string MuteKind_Mute {
+            get {
+                return ResourceManager.GetString("MuteKind_Mute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle mute.
+        /// </summary>
+        public static string MuteKind_ToggleMute {
+            get {
+                return ResourceManager.GetString("MuteKind_ToggleMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmute.
+        /// </summary>
+        public static string MuteKind_Unmute {
+            get {
+                return ResourceManager.GetString("MuteKind_Unmute", resourceCulture);
             }
         }
         
@@ -450,36 +495,36 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to starts.
         /// </summary>
-        public static string ProcessEventKindStartsText {
+        public static string ProcessEventKind_Start {
             get {
-                return ResourceManager.GetString("ProcessEventKindStartsText", resourceCulture);
+                return ResourceManager.GetString("ProcessEventKind_Start", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to stops.
         /// </summary>
-        public static string ProcessEventKindStopsText {
+        public static string ProcessEventKind_Stop {
             get {
-                return ResourceManager.GetString("ProcessEventKindStopsText", resourceCulture);
+                return ResourceManager.GetString("ProcessEventKind_Stop", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is not running.
         /// </summary>
-        public static string ProcessStateKindNotRunningText {
+        public static string ProcessStateKind_NotRunning {
             get {
-                return ResourceManager.GetString("ProcessStateKindNotRunningText", resourceCulture);
+                return ResourceManager.GetString("ProcessStateKind_NotRunning", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to is running.
         /// </summary>
-        public static string ProcessStateKindRunningText {
+        public static string ProcessStateKind_Running {
             get {
-                return ResourceManager.GetString("ProcessStateKindRunningText", resourceCulture);
+                return ResourceManager.GetString("ProcessStateKind_Running", resourceCulture);
             }
         }
         
@@ -684,54 +729,27 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Decrement.
         /// </summary>
-        public static string StreamActionKindDecrement5Text {
+        public static string SetVolumeKind_Decrement {
             get {
-                return ResourceManager.GetString("StreamActionKindDecrement5Text", resourceCulture);
+                return ResourceManager.GetString("SetVolumeKind_Decrement", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Increment.
         /// </summary>
-        public static string StreamActionKindIncrement5Text {
+        public static string SetVolumeKind_Increment {
             get {
-                return ResourceManager.GetString("StreamActionKindIncrement5Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mute.
-        /// </summary>
-        public static string StreamActionKindMuteText {
-            get {
-                return ResourceManager.GetString("StreamActionKindMuteText", resourceCulture);
+                return ResourceManager.GetString("SetVolumeKind_Increment", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set.
         /// </summary>
-        public static string StreamActionKindSetVolumeText {
+        public static string SetVolumeKind_Set {
             get {
-                return ResourceManager.GetString("StreamActionKindSetVolumeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle mute.
-        /// </summary>
-        public static string StreamActionKindToggleMuteText {
-            get {
-                return ResourceManager.GetString("StreamActionKindToggleMuteText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unmute.
-        /// </summary>
-        public static string StreamActionKindUnuteText {
-            get {
-                return ResourceManager.GetString("StreamActionKindUnuteText", resourceCulture);
+                return ResourceManager.GetString("SetVolumeKind_Set", resourceCulture);
             }
         }
         
@@ -750,24 +768,6 @@ namespace EarTrumpet_Actions.Properties {
         public static string TriggerVerbText {
             get {
                 return ResourceManager.GetString("TriggerVerbText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to is not.
-        /// </summary>
-        public static string ValueComparisonKindIsNotText {
-            get {
-                return ResourceManager.GetString("ValueComparisonKindIsNotText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to is.
-        /// </summary>
-        public static string ValueComparisonKindIsText {
-            get {
-                return ResourceManager.GetString("ValueComparisonKindIsText", resourceCulture);
             }
         }
         

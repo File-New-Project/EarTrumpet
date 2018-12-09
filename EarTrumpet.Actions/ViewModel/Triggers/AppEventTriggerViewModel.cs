@@ -12,13 +12,13 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 
         public AppEventTriggerViewModel(AppEventTrigger trigger) : base(trigger)
         {
-            Option = new OptionViewModel(trigger);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(trigger, nameof(trigger.Option));
             Device = new DeviceViewModel(trigger, DataModel.Device.DeviceListKind.DefaultPlayback);
-            Device.PropertyChanged += (_, __) => UpdateDescription();
             App = new AppViewModel(trigger, DataModel.App.AppKind.Default);
-            App.PropertyChanged += (_, __) => UpdateDescription();
-            UpdateDescription();
+
+            Attach(Option);
+            Attach(Device);
+            Attach(App);
         }
     }
 }

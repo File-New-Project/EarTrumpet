@@ -84,13 +84,13 @@
     <Compile Include="DataModel\Actions\SetDeviceMuteAction.cs" />
     <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
     <Compile Include="DataModel\Enum\AudioDeviceEventKind.cs" />
+    <Compile Include="DataModel\Enum\BoolValue.cs" />
     <Compile Include="DataModel\Enum\ComparisonBoolKind.cs" />
     <Compile Include="DataModel\Enum\EarTrumpetEventKind.cs" />
     <Compile Include="DataModel\Enum\ProcessEventKind.cs" />
     <Compile Include="DataModel\Enum\ProcessStateKind.cs" />
     <Compile Include="DataModel\Enum\MuteKind.cs" />
     <Compile Include="DataModel\Enum\SetVolumeKind.cs" />
-    <Compile Include="DataModel\OptionCollection.cs" />
     <Compile Include="DataModel\Processing\ActionProcessor.cs" />
     <Compile Include="DataModel\Processing\AudioTriggerManager.cs" />
     <Compile Include="DataModel\Processing\ConditionProcessor.cs" />
@@ -100,7 +100,6 @@
     <Compile Include="DataModel\IPartWithText.cs" />
     <Compile Include="DataModel\IPartWithVolume.cs" />
     <Compile Include="DataModel\LocalVariablesContainer.cs" />
-    <Compile Include="DataModel\PartWithOptions.cs" />
     <Compile Include="DataModel\Processing\TriggerManager.cs" />
     <Compile Include="DataModel\Triggers\ContextMenuTrigger.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />

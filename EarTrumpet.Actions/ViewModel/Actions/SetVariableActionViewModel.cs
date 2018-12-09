@@ -9,10 +9,11 @@ namespace EarTrumpet_Actions.ViewModel.Actions
 
         public SetVariableActionViewModel(SetVariableAction action) : base(action)
         {
-            Option = new OptionViewModel(action);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(action, nameof(action.Value));
             Text = new TextViewModel(action);
-            Text.PropertyChanged += (_, __) => UpdateDescription();
+
+            Attach(Option);
+            Attach(Text);
         }
     }
 }

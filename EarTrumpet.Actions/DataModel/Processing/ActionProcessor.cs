@@ -20,7 +20,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
             Trace.WriteLine($"ActionProcessor Invoke: {a.Describe()}");
             if (a is SetVariableAction)
             {
-                Addon.Current.LocalVariables[((SetVariableAction)a).Text] = ((SetVariableAction)a).Value;
+                Addon.Current.LocalVariables[((SetVariableAction)a).Text] = (((SetVariableAction)a).Value == BoolValue.True);
             }
             else if (a is SetDefaultDeviceAction)
             {

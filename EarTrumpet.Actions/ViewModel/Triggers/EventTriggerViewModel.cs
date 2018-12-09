@@ -8,9 +8,8 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 
         public EventTriggerViewModel(EventTrigger trigger) : base(trigger)
         {
-            Option = new OptionViewModel(trigger);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
-            UpdateDescription();
+            Option = new OptionViewModel(trigger, nameof(trigger.Option));
+            Attach(Option);
         }
     }
 }

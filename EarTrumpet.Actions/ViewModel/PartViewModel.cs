@@ -2,6 +2,7 @@
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -75,6 +76,11 @@ namespace EarTrumpet_Actions.ViewModel
         protected void UpdateDescription()
         {
             CurrentDescription = Part.Describe();
+        }
+
+        protected void Attach(INotifyPropertyChanged obj)
+        {
+            obj.PropertyChanged += (s, e) => UpdateDescription();
         }
     }
 }

@@ -10,11 +10,11 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 
         public DeviceEventTriggerViewModel(DeviceEventTrigger trigger) : base(trigger)
         {
-            Option = new OptionViewModel(trigger);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(trigger, nameof(trigger.Option));
             Device = new DeviceViewModel(trigger, DataModel.Device.DeviceListKind.DefaultPlayback | DataModel.Device.DeviceListKind.Recording);
-            Device.PropertyChanged += (_, __) => UpdateDescription();
-            UpdateDescription();
+
+            Attach(Option);
+            Attach(Device);
         }
     }
 }

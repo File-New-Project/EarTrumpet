@@ -14,13 +14,6 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public ProcessCondition()
         {
             Description = Properties.Resources.ProcessConditionDescriptionText;
-            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
-                {
-                 new Option(Properties.Resources.ProcessStateKindNotRunningText, ProcessStateKind. NotRunning),
-                 new Option(Properties.Resources.ProcessStateKindRunningText, ProcessStateKind.Running),
-                },
-                (newValue) => Option = (ProcessStateKind)newValue.Value,
-                () => Option) });
         }
 
         public override string Describe() => Properties.Resources.ProcessConditionDescribeFormatText;

@@ -14,12 +14,11 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 
         public ProcessTriggerViewModel(ProcessTrigger trigger) : base(trigger)
         {
-            Option = new OptionViewModel(trigger);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(trigger, nameof(trigger.Option));
             Text = new TextViewModel(trigger);
-            Text.PropertyChanged += (_, __) => UpdateDescription();
 
-            UpdateDescription();
+            Attach(Option);
+            Attach(Text);
         }
     }
 }

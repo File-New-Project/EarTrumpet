@@ -8,7 +8,7 @@ namespace EarTrumpet_Actions.DataModel.Actions
     [XmlInclude(typeof(SetDeviceMuteAction))]
     [XmlInclude(typeof(SetDefaultDeviceAction))]
     [XmlInclude(typeof(SetVariableAction))]
-    public abstract class BaseAction : PartWithOptions
+    public abstract class BaseAction : Part
     {
     }
 }

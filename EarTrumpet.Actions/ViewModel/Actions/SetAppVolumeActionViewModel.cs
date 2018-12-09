@@ -16,14 +16,15 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         {
             _action = action;
 
-            Option = new OptionViewModel(action);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(action, nameof(action.Option));
             App = new AppViewModel(action, DataModel.App.AppKind.EveryApp | DataModel.App.AppKind.ForegroundApp);
-            App.PropertyChanged += (_, __) => UpdateDescription();
             Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.DefaultPlayback);
-            Device.PropertyChanged += (_, __) => UpdateDescription();
             Volume = new VolumeViewModel(action);
-            Volume.PropertyChanged += (_, __) => UpdateDescription();
+
+            Attach(Option);
+            Attach(App);
+            Attach(Device);
+            Attach(Volume);
         }
     }
 }

@@ -9,10 +9,11 @@ namespace EarTrumpet_Actions.ViewModel.Conditions
 
         public VariableConditionViewModel(VariableCondition condition) : base(condition)
         {
-            Option = new OptionViewModel(condition);
-            Option.PropertyChanged += (_, __) => UpdateDescription();
+            Option = new OptionViewModel(condition, nameof(condition.Value));
             Text = new TextViewModel(condition);
-            Text.PropertyChanged += (_, __) => UpdateDescription();
+
+            Attach(Option);
+            Attach(Text);
         }
     }
 }

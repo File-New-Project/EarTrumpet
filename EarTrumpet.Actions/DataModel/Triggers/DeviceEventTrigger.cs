@@ -13,15 +13,6 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public DeviceEventTrigger()
         {
             Description = Properties.Resources.DeviceEventTriggerDescriptionText;
-            Options = new List<OptionCollection>(new OptionCollection[]{ new OptionCollection(new List<Option>
-                {
-                    new Option(Properties.Resources.AudioDeviceEventKindAddedText, AudioDeviceEventKind.Added),
-                    new Option(Properties.Resources.AudioDeviceEventKindRemovedText, AudioDeviceEventKind.Removed),
-                    new Option(Properties.Resources.AudioDeviceEventKindBecomesDefaultText, AudioDeviceEventKind.BecomingDefault),
-                    new Option(Properties.Resources.AudioDeviceEventKindLeavesDefaultText, AudioDeviceEventKind.LeavingDefault),
-                },
-                (newValue) => Option = (AudioDeviceEventKind)newValue.Value,
-                () => Option) });
         }
     }
 }
