@@ -37,7 +37,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
                 }
                 else
                 {
-                    return Properties.Resources.SetAppVolumeActionLinkTextIncrement;
+                    return Properties.Resources.SetAppVolumeAction_LinkTextIncrement;
                 }
             }
         }

@@ -249,17 +249,17 @@
   <data name="PlaybackDeviceFormatStringText" xml:space="preserve">
     <value>Playback: {0}</value>
   </data>
-  <data name="ProcessConditionEmptyText" xml:space="preserve">
-    <value>(enter a process name)</value>
-  </data>
-  <data name="ProcessConditionPromptText" xml:space="preserve">
-    <value>Process name (e.g. notepad)</value>
-  </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
     <value>If a process is (running, not running)</value>
   </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(enter a process name)</value>
+  </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
     <value>When {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Process name (e.g. notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
     <value>starts</value>
@@ -273,14 +273,17 @@
   <data name="ProcessStateKind_Running" xml:space="preserve">
     <value>is running</value>
   </data>
-  <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
-    <value>Process name (e.g. notepad)</value>
-  </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
     <value>When a process starts or stops</value>
   </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(enter a process name)</value>
+  </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
     <value>When {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Process name (e.g. notepad)</value>
   </data>
   <data name="RecordingDeviceFormatStringText" xml:space="preserve">
     <value>Recording: {0}</value>
@@ -297,14 +300,14 @@
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {App} on {Device}</value>
   </data>
-  <data name="SetAppVolumeActionLinkTextIncrement" xml:space="preserve">
-    <value>{Option} volume by {Volume} for {App} on {Device}</value>
-  </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
     <value>Set an app volume</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
     <value>{Option} volume to {Volume} for {App} on {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} volume by {Volume} for {App} on {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Set the default playback device</value>
@@ -327,14 +330,17 @@
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
     <value>{Option} volume by {Volume} for {Device}</value>
   </data>
-  <data name="SetVariableActionPromptText" xml:space="preserve">
-    <value>Enter a variable name (e.g. IsInGameMode)</value>
-  </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Set a local variable</value>
   </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(set variable name)</value>
+  </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
     <value>Set variable {Text} to {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
     <value>Decrement</value>
@@ -351,16 +357,16 @@
   <data name="TriggerVerbText" xml:space="preserve">
     <value>When</value>
   </data>
-  <data name="VariableConditionEmptyText" xml:space="preserve">
-    <value>(enter a variable name)</value>
-  </data>
-  <data name="VariableConditionPromptText" xml:space="preserve">
-    <value>Enter a variable name (e.g. IsInGameMode)</value>
-  </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
     <value>If a local variable is (true or false)</value>
   </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(enter a variable name)</value>
+  </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
     <value>Variable {Text} is {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
 </root>

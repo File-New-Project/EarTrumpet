@@ -16,10 +16,7 @@ namespace EarTrumpet_Actions.DataModel.Serialization
 
     public class ProcessCondition : BaseCondition, IPartWithText
     {
-        public string PromptText => Properties.Resources.ProcessConditionPromptText;
-        public string EmptyText => Properties.Resources.ProcessConditionEmptyText;
         public string Text { get; set; }
-
         public ProcessStateKind Option { get; set; }
     }
 
@@ -27,8 +24,5 @@ namespace EarTrumpet_Actions.DataModel.Serialization
     {
         public string Text { get; set; }
         public BoolValue Value { get; set; }
-
-        public string PromptText => Properties.Resources.VariableConditionPromptText;
-        public string EmptyText => Properties.Resources.VariableConditionEmptyText;
     }
 }

@@ -78,6 +78,7 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 ret.Add(new Option(Properties.Resources.EveryAppText, new App { Id = App.EveryAppId }));
             }
+
             if ((flags & AppKind.ForegroundApp) == AppKind.ForegroundApp)
             {
                 ret.Add(new Option(Properties.Resources.ForegroundAppText, new App { Id = App.ForegroundAppId }));

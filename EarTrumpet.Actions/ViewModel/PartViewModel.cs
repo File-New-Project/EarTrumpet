@@ -1,9 +1,9 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Input;
 using EarTrumpet_Actions.DataModel.Serialization;
+using System;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -73,8 +73,7 @@ namespace EarTrumpet_Actions.ViewModel
             var ret = Properties.Resources.ResourceManager.GetString(res);
             if (string.IsNullOrWhiteSpace(ret))
             {
-                // throw new NotImplementedException($"Missing resource: {res}");
-                Trace.WriteLine("############ " + res);
+                throw new NotImplementedException($"Missing resource: {res}");
             }
             return ret;
         }

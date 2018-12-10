@@ -466,6 +466,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (enter a process name).
+        /// </summary>
+        public static string ProcessCondition_EmptyText {
+            get {
+                return ResourceManager.GetString("ProcessCondition_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
         public static string ProcessCondition_LinkText {
@@ -475,20 +484,11 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (enter a process name).
-        /// </summary>
-        public static string ProcessConditionEmptyText {
-            get {
-                return ResourceManager.GetString("ProcessConditionEmptyText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Process name (e.g. notepad).
         /// </summary>
-        public static string ProcessConditionPromptText {
+        public static string ProcessCondition_PromptText {
             get {
-                return ResourceManager.GetString("ProcessConditionPromptText", resourceCulture);
+                return ResourceManager.GetString("ProcessCondition_PromptText", resourceCulture);
             }
         }
         
@@ -538,6 +538,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (enter a process name).
+        /// </summary>
+        public static string ProcessTrigger_EmptyText {
+            get {
+                return ResourceManager.GetString("ProcessTrigger_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
         public static string ProcessTrigger_LinkText {
@@ -549,9 +558,9 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Process name (e.g. notepad).
         /// </summary>
-        public static string ProcessTriggerDescriptonPromptText {
+        public static string ProcessTrigger_PromptText {
             get {
-                return ResourceManager.GetString("ProcessTriggerDescriptonPromptText", resourceCulture);
+                return ResourceManager.GetString("ProcessTrigger_PromptText", resourceCulture);
             }
         }
         
@@ -621,9 +630,9 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {Option} volume by {Volume} for {App} on {Device}.
         /// </summary>
-        public static string SetAppVolumeActionLinkTextIncrement {
+        public static string SetAppVolumeAction_LinkTextIncrement {
             get {
-                return ResourceManager.GetString("SetAppVolumeActionLinkTextIncrement", resourceCulture);
+                return ResourceManager.GetString("SetAppVolumeAction_LinkTextIncrement", resourceCulture);
             }
         }
         
@@ -700,6 +709,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (set variable name).
+        /// </summary>
+        public static string SetVariableAction_EmptyText {
+            get {
+                return ResourceManager.GetString("SetVariableAction_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set variable {Text} to {Option}.
         /// </summary>
         public static string SetVariableAction_LinkText {
@@ -711,9 +729,9 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enter a variable name (e.g. IsInGameMode).
         /// </summary>
-        public static string SetVariableActionPromptText {
+        public static string SetVariableAction_PromptText {
             get {
-                return ResourceManager.GetString("SetVariableActionPromptText", resourceCulture);
+                return ResourceManager.GetString("SetVariableAction_PromptText", resourceCulture);
             }
         }
         
@@ -772,6 +790,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (enter a variable name).
+        /// </summary>
+        public static string VariableCondition_EmptyText {
+            get {
+                return ResourceManager.GetString("VariableCondition_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variable {Text} is {Option}.
         /// </summary>
         public static string VariableCondition_LinkText {
@@ -781,20 +808,11 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (enter a variable name).
-        /// </summary>
-        public static string VariableConditionEmptyText {
-            get {
-                return ResourceManager.GetString("VariableConditionEmptyText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter a variable name (e.g. IsInGameMode).
         /// </summary>
-        public static string VariableConditionPromptText {
+        public static string VariableCondition_PromptText {
             get {
-                return ResourceManager.GetString("VariableConditionPromptText", resourceCulture);
+                return ResourceManager.GetString("VariableCondition_PromptText", resourceCulture);
             }
         }
     }

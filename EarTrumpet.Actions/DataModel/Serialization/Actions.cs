@@ -48,8 +48,5 @@ namespace EarTrumpet_Actions.DataModel.Serialization
     {
         public string Text { get; set; }
         public BoolValue Value { get; set; }
-
-        public string PromptText => Properties.Resources.SetVariableActionPromptText;
-        public string EmptyText => Properties.Resources.VariableConditionEmptyText;
     }
 }
