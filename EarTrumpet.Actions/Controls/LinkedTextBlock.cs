@@ -4,6 +4,7 @@ using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,16 @@ namespace EarTrumpet_Actions.Controls
 {
     public class LinkedTextBlock : TextBlock
     {
+        public object DataItem
+        {
+            get { return (object)this.GetValue(DataItemProperty); }
+            set { this.SetValue(DataItemProperty, value); }
+        }
+        public static readonly DependencyProperty DataItemProperty = DependencyProperty.Register(
+          "DataItem", typeof(object), typeof(LinkedTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(DataItemChanged)));
+
+        private static void DataItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).DataItemChanged();
+
         public string FormatText
         {
             get { return (string)this.GetValue(FormatTextProperty); }
@@ -34,6 +45,11 @@ namespace EarTrumpet_Actions.Controls
 
         private static void HyperlinkStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).PropertiesChanged();
 
+        private void DataItemChanged()
+        {
+            ((INotifyPropertyChanged)DataItem).PropertyChanged += (s, e) => PropertiesChanged();
+        }
+
         private void PropertiesChanged()
         {
             this.Inlines.Clear();
@@ -47,7 +63,7 @@ namespace EarTrumpet_Actions.Controls
                 }
                 else
                 {
-                    var resolvedPropertyObject = DataContext.GetType().GetProperty(text).GetValue(DataContext, null);
+                    var resolvedPropertyObject = DataItem.GetType().GetProperty(text).GetValue(DataItem, null);
                     var link = new Hyperlink(new Run(resolvedPropertyObject.ToString()));
                     link.NavigateUri = new Uri("about:none");
                     link.Style = HyperlinkStyle;

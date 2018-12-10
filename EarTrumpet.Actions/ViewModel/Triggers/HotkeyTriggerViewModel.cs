@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
             _trigger = trigger;
 
             Hotkey = new HotkeyViewModel(trigger);
-            Hotkey.PropertyChanged += (_, __) => UpdateDescription();
+            Attach(Hotkey);
         }
     }
 }

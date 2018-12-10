@@ -22,5 +22,20 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             Attach(Device);
             Attach(Volume);
         }
+
+        public override string LinkText
+        {
+            get
+            {
+                if (_action.Option == SetVolumeKind.Set)
+                {
+                    return base.LinkText;
+                }
+                else
+                {
+                    return Properties.Resources.SetDeviceVolumeAction_LinkTextIncrement;
+                }
+            }
+        }
     }
 }

@@ -105,7 +105,7 @@ namespace EarTrumpet_Actions.ViewModel
         {
             return new ContextMenuItem
             {
-                DisplayName = part.Description,
+                DisplayName = part.AddText,
                 Command = new RelayCommand(() =>
                 {
                     InitializeViewModel(part);

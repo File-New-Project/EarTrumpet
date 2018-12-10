@@ -2,7 +2,9 @@
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Triggers;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -10,21 +12,8 @@ namespace EarTrumpet_Actions.ViewModel
     public class PartViewModel : BindableBase
     {
         public Part Part { get; }
-        public string Description => Part.Description;
-
-        private string _currentDescription;
-        public string CurrentDescription
-        {
-            get => _currentDescription;
-            set
-            {
-                // HACK: We need to raise here because the format string won't have changed
-                _currentDescription = "empty";
-                RaisePropertyChanged(nameof(CurrentDescription));
-                _currentDescription = value;
-                RaisePropertyChanged(nameof(CurrentDescription));
-            }
-        }
+        public string AddText => ResolveResource("AddText");
+        public virtual string LinkText => ResolveResource("LinkText");
 
         private string _additionalText;
         public string AdditionalText
@@ -69,18 +58,27 @@ namespace EarTrumpet_Actions.ViewModel
         public PartViewModel(Part part)
         {
             Part = part;
-
-            UpdateDescription();
-        }
-
-        protected void UpdateDescription()
-        {
-            CurrentDescription = Part.Describe();
         }
 
         protected void Attach(INotifyPropertyChanged obj)
         {
-            obj.PropertyChanged += (s, e) => UpdateDescription();
+            obj.PropertyChanged += (s, e) =>
+            {
+                RaisePropertyChanged(e.PropertyName);
+                RaisePropertyChanged(nameof(LinkText));
+            };
+        }
+
+        private string ResolveResource(string suffix)
+        {
+            var res = $"{Part.GetType().Name}_{suffix}";
+            var ret = Properties.Resources.ResourceManager.GetString(res);
+            if (string.IsNullOrWhiteSpace(ret))
+            {
+                // throw new NotImplementedException($"Missing resource: {res}");
+                Trace.WriteLine("############ " + res);
+            }
+            return ret;
         }
     }
 }

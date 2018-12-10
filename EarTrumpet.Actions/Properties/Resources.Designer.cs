@@ -79,20 +79,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {App} {Option} on {Device}.
+        ///   Looks up a localized string similar to When an app session is (added, removed, plays sound, ...).
         /// </summary>
-        public static string AppEventTriggerDescribeFormatText {
+        public static string AppEventTrigger_AddText {
             get {
-                return ResourceManager.GetString("AppEventTriggerDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("AppEventTrigger_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When an app session is (added, removed, plays sound, ...).
+        ///   Looks up a localized string similar to When {App} {Option} on {Device}.
         /// </summary>
-        public static string AppEventTriggerDescriptionText {
+        public static string AppEventTrigger_LinkText {
             get {
-                return ResourceManager.GetString("AppEventTriggerDescriptionText", resourceCulture);
+                return ResourceManager.GetString("AppEventTrigger_LinkText", resourceCulture);
             }
         }
         
@@ -241,38 +241,38 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I click a context menu item in EarTrumpet.
-        /// </summary>
-        public static string ContextMenuTriggerCurrentDescriptionText {
-            get {
-                return ResourceManager.GetString("ContextMenuTriggerCurrentDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create a context menu item in EarTrumpet.
         /// </summary>
-        public static string ContextMenuTriggerDescriptionText {
+        public static string ContextMenuTrigger_AddText {
             get {
-                return ResourceManager.GetString("ContextMenuTriggerDescriptionText", resourceCulture);
+                return ResourceManager.GetString("ContextMenuTrigger_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  {Device} {Option} the default device.
+        ///   Looks up a localized string similar to I click a context menu item in EarTrumpet.
         /// </summary>
-        public static string DefaultDeviceConditionDescribeFormatText {
+        public static string ContextMenuTrigger_LinkText {
             get {
-                return ResourceManager.GetString("DefaultDeviceConditionDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("ContextMenuTrigger_LinkText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to If the default playback device (is, is not).
         /// </summary>
-        public static string DefaultDeviceConditionDescriptionText {
+        public static string DefaultDeviceCondition_AddText {
             get {
-                return ResourceManager.GetString("DefaultDeviceConditionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("DefaultDeviceCondition_AddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  {Device} {Option} the default device.
+        /// </summary>
+        public static string DefaultDeviceCondition_LinkText {
+            get {
+                return ResourceManager.GetString("DefaultDeviceCondition_LinkText", resourceCulture);
             }
         }
         
@@ -286,20 +286,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {Device} {Option}.
+        ///   Looks up a localized string similar to When an audio device is (added, removed, becomes or leaves default).
         /// </summary>
-        public static string DeviceEventTriggerDescribeFormatText {
+        public static string DeviceEventTrigger_AddText {
             get {
-                return ResourceManager.GetString("DeviceEventTriggerDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("DeviceEventTrigger_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When an audio device is (added, removed, becomes or leaves default).
+        ///   Looks up a localized string similar to When {Device} {Option}.
         /// </summary>
-        public static string DeviceEventTriggerDescriptionText {
+        public static string DeviceEventTrigger_LinkText {
             get {
-                return ResourceManager.GetString("DeviceEventTriggerDescriptionText", resourceCulture);
+                return ResourceManager.GetString("DeviceEventTrigger_LinkText", resourceCulture);
             }
         }
         
@@ -340,20 +340,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When EarTrumpet {Option}.
+        ///   Looks up a localized string similar to When EarTrumpet is started or stopped.
         /// </summary>
-        public static string EventTriggerDescribeFormatText {
+        public static string EventTrigger_AddText {
             get {
-                return ResourceManager.GetString("EventTriggerDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("EventTrigger_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When EarTrumpet is started or stopped.
+        ///   Looks up a localized string similar to When EarTrumpet {Option}.
         /// </summary>
-        public static string EventTriggerDescriptionText {
+        public static string EventTrigger_LinkText {
             get {
-                return ResourceManager.GetString("EventTriggerDescriptionText", resourceCulture);
+                return ResourceManager.GetString("EventTrigger_LinkText", resourceCulture);
             }
         }
         
@@ -376,20 +376,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {Hotkey} is pressed.
+        ///   Looks up a localized string similar to When a hotkey is pressed.
         /// </summary>
-        public static string HotkeyTriggerDescribeFormatText {
+        public static string HotkeyTrigger_AddText {
             get {
-                return ResourceManager.GetString("HotkeyTriggerDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("HotkeyTrigger_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When a hotkey is pressed.
+        ///   Looks up a localized string similar to When {Hotkey} is pressed.
         /// </summary>
-        public static string HotkeyTriggerDescriptionText {
+        public static string HotkeyTrigger_LinkText {
             get {
-                return ResourceManager.GetString("HotkeyTriggerDescriptionText", resourceCulture);
+                return ResourceManager.GetString("HotkeyTrigger_LinkText", resourceCulture);
             }
         }
         
@@ -457,20 +457,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {Text} {Option}.
+        ///   Looks up a localized string similar to If a process is (running, not running).
         /// </summary>
-        public static string ProcessConditionDescribeFormatText {
+        public static string ProcessCondition_AddText {
             get {
-                return ResourceManager.GetString("ProcessConditionDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("ProcessCondition_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a process is (running, not running).
+        ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
-        public static string ProcessConditionDescriptionText {
+        public static string ProcessCondition_LinkText {
             get {
-                return ResourceManager.GetString("ProcessConditionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("ProcessCondition_LinkText", resourceCulture);
             }
         }
         
@@ -529,11 +529,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When a process starts or stops.
+        /// </summary>
+        public static string ProcessTrigger_AddText {
+            get {
+                return ResourceManager.GetString("ProcessTrigger_AddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When {Text} {Option}.
         /// </summary>
-        public static string ProcessTriggerDescribeFormatText {
+        public static string ProcessTrigger_LinkText {
             get {
-                return ResourceManager.GetString("ProcessTriggerDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("ProcessTrigger_LinkText", resourceCulture);
             }
         }
         
@@ -543,15 +552,6 @@ namespace EarTrumpet_Actions.Properties {
         public static string ProcessTriggerDescriptonPromptText {
             get {
                 return ResourceManager.GetString("ProcessTriggerDescriptonPromptText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to When a process starts or stops.
-        /// </summary>
-        public static string ProcessTriggerDescriptonText {
-            get {
-                return ResourceManager.GetString("ProcessTriggerDescriptonText", resourceCulture);
             }
         }
         
@@ -585,135 +585,126 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Mute or unmute an app.
         /// </summary>
-        public static string SetAppMuteActionDescriptionText {
+        public static string SetAppMuteAction_AddText {
             get {
-                return ResourceManager.GetString("SetAppMuteActionDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume} for {App} on {Device}.
-        /// </summary>
-        public static string SetAppVolumeActionDescribeSetVolumeFormatText {
-            get {
-                return ResourceManager.GetString("SetAppVolumeActionDescribeSetVolumeFormatText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {Option} volume by {Volume} for {App} on {Device}.
-        /// </summary>
-        public static string SetAppVolumeActionDescribeSetVolumeIncrementFormatText {
-            get {
-                return ResourceManager.GetString("SetAppVolumeActionDescribeSetVolumeIncrementFormatText", resourceCulture);
+                return ResourceManager.GetString("SetAppMuteAction_AddText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {Option} {App} on {Device}.
         /// </summary>
-        public static string SetAppVolumeActionDescribeValueFormatText {
+        public static string SetAppMuteAction_LinkText {
             get {
-                return ResourceManager.GetString("SetAppVolumeActionDescribeValueFormatText", resourceCulture);
+                return ResourceManager.GetString("SetAppMuteAction_LinkText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set an app volume.
         /// </summary>
-        public static string SetAppVolumeActionDescriptionText {
+        public static string SetAppVolumeAction_AddText {
             get {
-                return ResourceManager.GetString("SetAppVolumeActionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SetAppVolumeAction_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set {Device} as playback default.
+        ///   Looks up a localized string similar to {Option} volume to {Volume} for {App} on {Device}.
         /// </summary>
-        public static string SetDefaultDeviceActionDescribeFormatText {
+        public static string SetAppVolumeAction_LinkText {
             get {
-                return ResourceManager.GetString("SetDefaultDeviceActionDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("SetAppVolumeAction_LinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {Option} volume by {Volume} for {App} on {Device}.
+        /// </summary>
+        public static string SetAppVolumeActionLinkTextIncrement {
+            get {
+                return ResourceManager.GetString("SetAppVolumeActionLinkTextIncrement", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set the default playback device.
         /// </summary>
-        public static string SetDefaultDeviceActionDescriptionText {
+        public static string SetDefaultDeviceAction_AddText {
             get {
-                return ResourceManager.GetString("SetDefaultDeviceActionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SetDefaultDeviceAction_AddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set {Device} as playback default.
+        /// </summary>
+        public static string SetDefaultDeviceAction_LinkText {
+            get {
+                return ResourceManager.GetString("SetDefaultDeviceAction_LinkText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mute or unmute a device.
         /// </summary>
-        public static string SetDeviceMuteActionDescriptionText {
+        public static string SetDeviceMuteAction_AddText {
             get {
-                return ResourceManager.GetString("SetDeviceMuteActionDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume} for {Device}.
-        /// </summary>
-        public static string SetDeviceVolumeActionDescribeSetVolumeFormatText {
-            get {
-                return ResourceManager.GetString("SetDeviceVolumeActionDescribeSetVolumeFormatText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {Option} volume by {Volume} for {Device}.
-        /// </summary>
-        public static string SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText {
-            get {
-                return ResourceManager.GetString("SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText", resourceCulture);
+                return ResourceManager.GetString("SetDeviceMuteAction_AddText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {Option} {Device}.
         /// </summary>
-        public static string SetDeviceVolumeActionDescribeValueFormatText {
+        public static string SetDeviceMuteAction_LinkText {
             get {
-                return ResourceManager.GetString("SetDeviceVolumeActionDescribeValueFormatText", resourceCulture);
+                return ResourceManager.GetString("SetDeviceMuteAction_LinkText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set a device volume.
         /// </summary>
-        public static string SetDeviceVolumeActionDescriptionText {
+        public static string SetDeviceVolumeAction_AddText {
             get {
-                return ResourceManager.GetString("SetDeviceVolumeActionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SetDeviceVolumeAction_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set the EarTrumpet app theme.
+        ///   Looks up a localized string similar to {Option} volume to {Volume} for {Device}.
         /// </summary>
-        public static string SetThemeActionDescriptionText {
+        public static string SetDeviceVolumeAction_LinkText {
             get {
-                return ResourceManager.GetString("SetThemeActionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SetDeviceVolumeAction_LinkText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set variable {Text} to {Option}.
+        ///   Looks up a localized string similar to {Option} volume by {Volume} for {Device}.
         /// </summary>
-        public static string SetVariableActionDescribeFormatText {
+        public static string SetDeviceVolumeAction_LinkTextIncrement {
             get {
-                return ResourceManager.GetString("SetVariableActionDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("SetDeviceVolumeAction_LinkTextIncrement", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set a local variable.
         /// </summary>
-        public static string SetVariableActionDescriptionText {
+        public static string SetVariableAction_AddText {
             get {
-                return ResourceManager.GetString("SetVariableActionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("SetVariableAction_AddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set variable {Text} to {Option}.
+        /// </summary>
+        public static string SetVariableAction_LinkText {
+            get {
+                return ResourceManager.GetString("SetVariableAction_LinkText", resourceCulture);
             }
         }
         
@@ -772,20 +763,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Variable {Text} is {Option}.
+        ///   Looks up a localized string similar to If a local variable is (true or false).
         /// </summary>
-        public static string VariableConditionDescribeFormatText {
+        public static string VariableCondition_AddText {
             get {
-                return ResourceManager.GetString("VariableConditionDescribeFormatText", resourceCulture);
+                return ResourceManager.GetString("VariableCondition_AddText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a local variable is (true or false).
+        ///   Looks up a localized string similar to Variable {Text} is {Option}.
         /// </summary>
-        public static string VariableConditionDescriptionText {
+        public static string VariableCondition_LinkText {
             get {
-                return ResourceManager.GetString("VariableConditionDescriptionText", resourceCulture);
+                return ResourceManager.GetString("VariableCondition_LinkText", resourceCulture);
             }
         }
         

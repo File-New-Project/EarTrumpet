@@ -10,12 +10,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
 
         public string PromptText => Properties.Resources.VariableConditionPromptText;
         public string EmptyText => Properties.Resources.VariableConditionEmptyText;
-
-        public override string Describe() => Properties.Resources.VariableConditionDescribeFormatText;
-
-        public VariableCondition()
-        {
-            Description = Properties.Resources.VariableConditionDescriptionText;
-        }
     }
 }

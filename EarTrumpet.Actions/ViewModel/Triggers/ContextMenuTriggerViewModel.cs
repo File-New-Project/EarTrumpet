@@ -4,9 +4,6 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
 {
     class ContextMenuTriggerViewModel : PartViewModel
     {
-        public ContextMenuTriggerViewModel(ContextMenuTrigger trigger) : base(trigger)
-        {
-            UpdateDescription();
-        }
+        public ContextMenuTriggerViewModel(ContextMenuTrigger trigger) : base(trigger) { }
     }
 }

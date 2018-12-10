@@ -147,7 +147,8 @@
 
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   FormatText="{Binding CurrentDescription}"
+                                   DataItem="{Binding}"
+                                   FormatText="{Binding LinkText}"
                                    HyperlinkStyle="{DynamicResource HyperlinkStyle}"
                                    TextWrapping="Wrap" />
 

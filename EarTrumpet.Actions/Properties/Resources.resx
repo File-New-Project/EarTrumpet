@@ -123,11 +123,11 @@
   <data name="ActionVerbText" xml:space="preserve">
     <value>Do</value>
   </data>
-  <data name="AppEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>When {App} {Option} on {Device}</value>
-  </data>
-  <data name="AppEventTriggerDescriptionText" xml:space="preserve">
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
     <value>When an app session is (added, removed, plays sound, ...)</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>When {App} {Option} on {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
     <value>is added</value>
@@ -177,26 +177,26 @@
   <data name="ConditionVerbText" xml:space="preserve">
     <value>Filter</value>
   </data>
-  <data name="ContextMenuTriggerCurrentDescriptionText" xml:space="preserve">
-    <value>I click a context menu item in EarTrumpet</value>
-  </data>
-  <data name="ContextMenuTriggerDescriptionText" xml:space="preserve">
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
     <value>Create a context menu item in EarTrumpet</value>
   </data>
-  <data name="DefaultDeviceConditionDescribeFormatText" xml:space="preserve">
-    <value> {Device} {Option} the default device</value>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>I click a context menu item in EarTrumpet</value>
   </data>
-  <data name="DefaultDeviceConditionDescriptionText" xml:space="preserve">
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
     <value>If the default playback device (is, is not)</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value> {Device} {Option} the default device</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
     <value>default playback device</value>
   </data>
-  <data name="DeviceEventTriggerDescribeFormatText" xml:space="preserve">
-    <value>When {Device} {Option}</value>
-  </data>
-  <data name="DeviceEventTriggerDescriptionText" xml:space="preserve">
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
     <value>When an audio device is (added, removed, becomes or leaves default)</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>When {Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
     <value>shuts down</value>
@@ -210,11 +210,11 @@
   <data name="EditText" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="EventTriggerDescribeFormatText" xml:space="preserve">
-    <value>When EarTrumpet {Option}</value>
-  </data>
-  <data name="EventTriggerDescriptionText" xml:space="preserve">
+  <data name="EventTrigger_AddText" xml:space="preserve">
     <value>When EarTrumpet is started or stopped</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value>When EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
     <value>Every app</value>
@@ -222,11 +222,11 @@
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Foreground app</value>
   </data>
-  <data name="HotkeyTriggerDescribeFormatText" xml:space="preserve">
-    <value>When {Hotkey} is pressed</value>
-  </data>
-  <data name="HotkeyTriggerDescriptionText" xml:space="preserve">
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>When {Hotkey} is pressed</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
     <value>Mute</value>
@@ -249,17 +249,17 @@
   <data name="PlaybackDeviceFormatStringText" xml:space="preserve">
     <value>Playback: {0}</value>
   </data>
-  <data name="ProcessConditionDescribeFormatText" xml:space="preserve">
-    <value>When {Text} {Option}</value>
-  </data>
-  <data name="ProcessConditionDescriptionText" xml:space="preserve">
-    <value>If a process is (running, not running)</value>
-  </data>
   <data name="ProcessConditionEmptyText" xml:space="preserve">
     <value>(enter a process name)</value>
   </data>
   <data name="ProcessConditionPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>If a process is (running, not running)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>When {Text} {Option}</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
     <value>starts</value>
@@ -273,14 +273,14 @@
   <data name="ProcessStateKind_Running" xml:space="preserve">
     <value>is running</value>
   </data>
-  <data name="ProcessTriggerDescribeFormatText" xml:space="preserve">
-    <value>When {Text} {Option}</value>
-  </data>
   <data name="ProcessTriggerDescriptonPromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
   </data>
-  <data name="ProcessTriggerDescriptonText" xml:space="preserve">
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
     <value>When a process starts or stops</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>When {Text} {Option}</value>
   </data>
   <data name="RecordingDeviceFormatStringText" xml:space="preserve">
     <value>Recording: {0}</value>
@@ -291,53 +291,50 @@
   <data name="RequiredText" xml:space="preserve">
     <value>(required)</value>
   </data>
-  <data name="SetAppMuteActionDescriptionText" xml:space="preserve">
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
     <value>Mute or unmute an app</value>
   </data>
-  <data name="SetAppVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>{Option} volume to {Volume} for {App} on {Device}</value>
-  </data>
-  <data name="SetAppVolumeActionDescribeSetVolumeIncrementFormatText" xml:space="preserve">
-    <value>{Option} volume by {Volume} for {App} on {Device}</value>
-  </data>
-  <data name="SetAppVolumeActionDescribeValueFormatText" xml:space="preserve">
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {App} on {Device}</value>
   </data>
-  <data name="SetAppVolumeActionDescriptionText" xml:space="preserve">
+  <data name="SetAppVolumeActionLinkTextIncrement" xml:space="preserve">
+    <value>{Option} volume by {Volume} for {App} on {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
     <value>Set an app volume</value>
   </data>
-  <data name="SetDefaultDeviceActionDescribeFormatText" xml:space="preserve">
-    <value>Set {Device} as playback default</value>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} volume to {Volume} for {App} on {Device}</value>
   </data>
-  <data name="SetDefaultDeviceActionDescriptionText" xml:space="preserve">
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Set the default playback device</value>
   </data>
-  <data name="SetDeviceMuteActionDescriptionText" xml:space="preserve">
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Set {Device} as playback default</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
     <value>Mute or unmute a device</value>
   </data>
-  <data name="SetDeviceVolumeActionDescribeSetVolumeFormatText" xml:space="preserve">
-    <value>{Option} volume to {Volume} for {Device}</value>
-  </data>
-  <data name="SetDeviceVolumeActionDescribeSetVolumeIncrementFormatText" xml:space="preserve">
-    <value>{Option} volume by {Volume} for {Device}</value>
-  </data>
-  <data name="SetDeviceVolumeActionDescribeValueFormatText" xml:space="preserve">
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
-  <data name="SetDeviceVolumeActionDescriptionText" xml:space="preserve">
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
     <value>Set a device volume</value>
   </data>
-  <data name="SetThemeActionDescriptionText" xml:space="preserve">
-    <value>Set the EarTrumpet app theme</value>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} volume to {Volume} for {Device}</value>
   </data>
-  <data name="SetVariableActionDescribeFormatText" xml:space="preserve">
-    <value>Set variable {Text} to {Option}</value>
-  </data>
-  <data name="SetVariableActionDescriptionText" xml:space="preserve">
-    <value>Set a local variable</value>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} volume by {Volume} for {Device}</value>
   </data>
   <data name="SetVariableActionPromptText" xml:space="preserve">
     <value>Enter a variable name (e.g. IsInGameMode)</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Set a local variable</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Set variable {Text} to {Option}</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
     <value>Decrement</value>
@@ -354,16 +351,16 @@
   <data name="TriggerVerbText" xml:space="preserve">
     <value>When</value>
   </data>
-  <data name="VariableConditionDescribeFormatText" xml:space="preserve">
-    <value>Variable {Text} is {Option}</value>
-  </data>
-  <data name="VariableConditionDescriptionText" xml:space="preserve">
-    <value>If a local variable is (true or false)</value>
-  </data>
   <data name="VariableConditionEmptyText" xml:space="preserve">
     <value>(enter a variable name)</value>
   </data>
   <data name="VariableConditionPromptText" xml:space="preserve">
     <value>Enter a variable name (e.g. IsInGameMode)</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>If a local variable is (true or false)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Variable {Text} is {Option}</value>
   </data>
 </root>

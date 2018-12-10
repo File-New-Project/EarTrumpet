@@ -8,12 +8,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
     {
         public Device Device { get; set; }
         public ComparisonBoolKind Option { get; set; }
-
-        public DefaultDeviceCondition()
-        {
-            Description = Properties.Resources.DefaultDeviceConditionDescriptionText;
-        }
-
-        public override string Describe() => Properties.Resources.DefaultDeviceConditionDescribeFormatText;
     }
 }

@@ -10,12 +10,5 @@ namespace EarTrumpet_Actions.DataModel.Conditions
         public string Text { get; set; }
 
         public ProcessStateKind Option { get; set; }
-
-        public ProcessCondition()
-        {
-            Description = Properties.Resources.ProcessConditionDescriptionText;
-        }
-
-        public override string Describe() => Properties.Resources.ProcessConditionDescribeFormatText;
     }
 }

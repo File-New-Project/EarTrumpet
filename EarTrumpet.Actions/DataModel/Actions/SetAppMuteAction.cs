@@ -8,12 +8,5 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public Device Device { get; set; }
         public App App { get; set; }
         public MuteKind Option { get; set; }
-
-        public SetAppMuteAction()
-        {
-            Description = Properties.Resources.SetAppMuteActionDescriptionText;
-        }
-
-        public override string Describe() => Properties.Resources.SetAppVolumeActionDescribeValueFormatText;
     }
 }

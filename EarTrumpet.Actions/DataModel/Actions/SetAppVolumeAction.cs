@@ -9,22 +9,5 @@ namespace EarTrumpet_Actions.DataModel.Actions
         public App App { get; set; }
         public SetVolumeKind Option { get; set; }
         public double Volume { get; set; }
-
-        public SetAppVolumeAction()
-        {
-            Description = Properties.Resources.SetAppVolumeActionDescriptionText;
-        }
-
-        public override string Describe()
-        {
-            if (Option == SetVolumeKind.Set)
-            {
-                return Properties.Resources.SetAppVolumeActionDescribeSetVolumeFormatText;
-            }
-            else
-            {
-                return Properties.Resources.SetAppVolumeActionDescribeSetVolumeIncrementFormatText;
-            }
-        }
     }
 }

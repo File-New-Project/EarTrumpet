@@ -12,12 +12,5 @@ namespace EarTrumpet_Actions.DataModel.Triggers
         public string PromptText => Properties.Resources.ProcessTriggerDescriptonPromptText;
         public string EmptyText => Properties.Resources.ProcessConditionEmptyText;
         public ProcessEventKind Option { get; set; }
-
-        public ProcessTrigger()
-        {
-            Description = Properties.Resources.ProcessTriggerDescriptonText;
-        }
-
-        public override string Describe() => Properties.Resources.ProcessTriggerDescribeFormatText;
     }
 }
