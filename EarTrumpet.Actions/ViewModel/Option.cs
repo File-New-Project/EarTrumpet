@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.ViewModel
 {
     public class Option : IEquatable<Option>
     {

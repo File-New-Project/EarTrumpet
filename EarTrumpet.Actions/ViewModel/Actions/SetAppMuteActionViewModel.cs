@@ -15,8 +15,8 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             _action = action;
 
             Option = new OptionViewModel(action, nameof(action.Option));
-            App = new AppViewModel(action, DataModel.App.AppKind.EveryApp | DataModel.App.AppKind.ForegroundApp);
-            Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.DefaultPlayback);
+            App = new AppViewModel(action, AppViewModel.AppKind.EveryApp | AppViewModel.AppKind.ForegroundApp);
+            Device = new DeviceViewModel(action, DeviceViewModel.DeviceListKind.DefaultPlayback);
 
             Attach(Option);
             Attach(App);

@@ -13,8 +13,8 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
         public AppEventTriggerViewModel(AppEventTrigger trigger) : base(trigger)
         {
             Option = new OptionViewModel(trigger, nameof(trigger.Option));
-            Device = new DeviceViewModel(trigger, DataModel.Device.DeviceListKind.DefaultPlayback);
-            App = new AppViewModel(trigger, DataModel.App.AppKind.Default);
+            Device = new DeviceViewModel(trigger, DeviceViewModel.DeviceListKind.DefaultPlayback);
+            App = new AppViewModel(trigger, AppViewModel.AppKind.Default);
 
             Attach(Option);
             Attach(Device);

@@ -7,39 +7,6 @@ namespace EarTrumpet_Actions.DataModel
 {
     public class Device
     {
-        [Flags]
-        public enum DeviceListKind
-        {
-            Playback = 0,
-            Recording = 1,
-            DefaultPlayback = 2
-        }
-
-        public static ObservableCollection<Option> GetDevices(DeviceListKind flags)
-        {
-            var ret = new ObservableCollection<Option>();
-
-            bool isRecording = (flags & DeviceListKind.Recording) == DeviceListKind.Recording;
-
-            if ((flags & DeviceListKind.DefaultPlayback) == DeviceListKind.DefaultPlayback)
-            {
-                ret.Add(new Option(Properties.Resources.DefaultPlaybackDeviceText, new Device { Kind = AudioDeviceKind.Playback }));
-            }
-
-            foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices)
-            {
-                ret.Add(new Option(isRecording ? string.Format(Properties.Resources.PlaybackDeviceFormatStringText, device.DisplayName) : device.DisplayName, new Device(device)));
-            }
-
-            if (isRecording)
-            {
-                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording).Devices)
-                {
-                    ret.Add(new Option(string.Format(Properties.Resources.RecordingDeviceFormatStringText, device.DisplayName), new Device(device)));
-                }
-            }
-            return ret;
-        }
 
         public Device()
         {
@@ -55,21 +22,6 @@ namespace EarTrumpet_Actions.DataModel
         public string Id { get; set; }
 
         public AudioDeviceKind Kind { get; set; }
-
-        public override string ToString()
-        {
-            if (Id == null)
-            {
-                return Properties.Resources.DefaultPlaybackDeviceText;
-            }
-
-            var device = DataModelFactory.CreateAudioDeviceManager(Kind).Devices.FirstOrDefault(d => d.Id == Id);
-            if (device != null)
-            {
-                return device.DisplayName;
-            }
-            return Id;
-        }
 
         public override int GetHashCode()
         {

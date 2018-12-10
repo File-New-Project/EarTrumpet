@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         {
             _action = action;
             Option = new OptionViewModel(action, nameof(action.Option));
-            Device = new DeviceViewModel(action, DataModel.Device.DeviceListKind.Recording | DataModel.Device.DeviceListKind.DefaultPlayback);
+            Device = new DeviceViewModel(action, DeviceViewModel.DeviceListKind.Recording | DeviceViewModel.DeviceListKind.DefaultPlayback);
 
             Attach(Option);
             Attach(Device);

@@ -11,7 +11,7 @@ namespace EarTrumpet_Actions.ViewModel.Conditions
         public DefaultDeviceConditionViewModel(DefaultDeviceCondition condition) : base(condition)
         {
             Option = new OptionViewModel(condition, nameof(condition.Option));
-            Device = new DeviceViewModel(condition, DataModel.Device.DeviceListKind.Recording);
+            Device = new DeviceViewModel(condition, DeviceViewModel.DeviceListKind.Recording);
 
             Attach(Option);
             Attach(Device);

@@ -96,7 +96,6 @@
     <Compile Include="DataModel\Processing\ConditionProcessor.cs" />
     <Compile Include="DataModel\IPartWithApp.cs" />
     <Compile Include="DataModel\IPartWithDevice.cs" />
-    <Compile Include="DataModel\IPartWithOption.cs" />
     <Compile Include="DataModel\IPartWithText.cs" />
     <Compile Include="DataModel\IPartWithVolume.cs" />
     <Compile Include="DataModel\LocalVariablesContainer.cs" />
@@ -115,7 +114,7 @@
     <Compile Include="DataModel\Device.cs" />
     <Compile Include="DataModel\EarTrumpetAction.cs" />
     <Compile Include="DataModel\App.cs" />
-    <Compile Include="DataModel\Option.cs" />
+    <Compile Include="ViewModel\Option.cs" />
     <Compile Include="DataModel\Part.cs" />
     <Compile Include="DataModel\ProcessWatcher.cs" />
     <Compile Include="DataModel\Triggers\DeviceEventTrigger.cs" />
