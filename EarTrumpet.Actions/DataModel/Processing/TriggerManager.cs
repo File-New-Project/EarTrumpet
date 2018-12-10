@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet_Actions.DataModel.Enum;
-using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 

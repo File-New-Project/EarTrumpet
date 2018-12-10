@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.DataModel.Serialization;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;

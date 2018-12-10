@@ -6,7 +6,7 @@ using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Processing;
-using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.DataModel.Serialization;
 using EarTrumpet_Actions.ViewModel;
 using System.ComponentModel.Composition;
 using System.Linq;

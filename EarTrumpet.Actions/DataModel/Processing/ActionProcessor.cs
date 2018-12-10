@@ -1,9 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.DataModel.Internal.Services;
-using EarTrumpet.Extensibility;
-using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.Interop;
-using EarTrumpet_Actions.DataModel.Actions;
+using EarTrumpet_Actions.DataModel.Serialization;
 using EarTrumpet_Actions.DataModel.Enum;
 using System;
 using System.Collections.ObjectModel;

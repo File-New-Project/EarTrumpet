@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.DataModel.Serialization;
 
 namespace EarTrumpet_Actions.ViewModel
 {

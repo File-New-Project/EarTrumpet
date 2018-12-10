@@ -1,4 +1,4 @@
-﻿using EarTrumpet_Actions.DataModel.Triggers;
+﻿using EarTrumpet_Actions.DataModel.Serialization;
 
 namespace EarTrumpet_Actions.ViewModel.Triggers
 {

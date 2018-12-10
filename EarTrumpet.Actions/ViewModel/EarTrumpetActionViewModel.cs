@@ -1,9 +1,7 @@
 ﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Actions;
-using EarTrumpet_Actions.DataModel.Conditions;
-using EarTrumpet_Actions.DataModel.Triggers;
+using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.DataModel.Serialization
 {
     public class App
     {

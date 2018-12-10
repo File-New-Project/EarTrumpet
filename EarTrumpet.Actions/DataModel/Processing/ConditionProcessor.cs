@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet_Actions.DataModel.Conditions;
 using EarTrumpet_Actions.DataModel.Enum;
+using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 
 namespace EarTrumpet_Actions.DataModel.Processing

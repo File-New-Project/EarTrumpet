@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
+using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

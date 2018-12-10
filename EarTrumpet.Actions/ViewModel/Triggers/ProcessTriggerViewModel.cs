@@ -1,4 +1,4 @@
-﻿using EarTrumpet_Actions.DataModel.Triggers;
+﻿using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;

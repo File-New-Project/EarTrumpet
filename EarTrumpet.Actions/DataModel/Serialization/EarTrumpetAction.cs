@@ -1,10 +1,7 @@
-﻿using EarTrumpet_Actions.DataModel.Actions;
-using EarTrumpet_Actions.DataModel.Conditions;
-using EarTrumpet_Actions.DataModel.Triggers;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet_Actions.DataModel.Serialization
 {
     public class EarTrumpetAction
     {

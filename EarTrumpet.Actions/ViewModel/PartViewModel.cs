@@ -1,11 +1,9 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Conditions;
-using EarTrumpet_Actions.DataModel.Triggers;
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using EarTrumpet_Actions.DataModel.Serialization;
 
 namespace EarTrumpet_Actions.ViewModel
 {
