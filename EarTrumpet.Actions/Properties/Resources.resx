@@ -225,6 +225,9 @@
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
     <value>When a hotkey is pressed</value>
   </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(choose a hotkey)</value>
+  </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
     <value>When {Hotkey} is pressed</value>
   </data>

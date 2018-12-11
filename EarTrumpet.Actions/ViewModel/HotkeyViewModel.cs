@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
+using System;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -30,13 +31,23 @@ namespace EarTrumpet_Actions.ViewModel
         {
             if (Hotkey.IsEmpty)
             {
-                // TODO loc
-                return "(choose a hotkey)";
+                return ResolveResource("EmptyText");
             }
             else
             {
                 return Hotkey.ToString();
             }
+        }
+
+        private string ResolveResource(string suffix)
+        {
+            var res = $"{_trigger.GetType().Name}_{suffix}";
+            var ret = Properties.Resources.ResourceManager.GetString(res);
+            if (string.IsNullOrWhiteSpace(ret))
+            {
+                throw new NotImplementedException($"Missing resource: {res}");
+            }
+            return ret;
         }
     }
 }

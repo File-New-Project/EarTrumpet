@@ -385,6 +385,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (choose a hotkey).
+        /// </summary>
+        public static string HotkeyTrigger_EmptyText {
+            get {
+                return ResourceManager.GetString("HotkeyTrigger_EmptyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When {Hotkey} is pressed.
         /// </summary>
         public static string HotkeyTrigger_LinkText {
