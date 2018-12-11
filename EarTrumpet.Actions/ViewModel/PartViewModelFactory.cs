@@ -19,7 +19,8 @@ namespace EarTrumpet_Actions.ViewModel
         {
             PopulateCache();
 
-            return Create(s_partViewModelClasses.First(t => t.ConstructorType == part.GetType()));
+            var type = (s_partViewModelClasses.First(t => t.ConstructorType == part.GetType()));
+            return (PartViewModel)Activator.CreateInstance(type.Type, part);
         }
 
         public static IEnumerable<PartViewModel> Create<T>() where T : Part
