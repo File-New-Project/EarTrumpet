@@ -1,10 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-
-namespace EarTrumpet_Actions.DataModel.Serialization
+﻿namespace EarTrumpet_Actions.DataModel.Serialization
 {
     public class App
     {

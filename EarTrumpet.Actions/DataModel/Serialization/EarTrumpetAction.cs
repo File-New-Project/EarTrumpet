@@ -6,17 +6,9 @@ namespace EarTrumpet_Actions.DataModel.Serialization
     public class EarTrumpetAction
     {
         public string DisplayName { get; set; }
-        public Guid Id { get; set; }
-        public ObservableCollection<BaseTrigger> Triggers { get; set; }
-        public ObservableCollection<BaseCondition> Conditions { get; set; }
-        public ObservableCollection<BaseAction> Actions { get; set; }
-
-        public EarTrumpetAction()
-        {
-            Id = Guid.NewGuid();
-            Triggers = new ObservableCollection<BaseTrigger>();
-            Conditions = new ObservableCollection<BaseCondition>();
-            Actions = new ObservableCollection<BaseAction>();
-        }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public ObservableCollection<BaseTrigger> Triggers { get; set; } = new ObservableCollection<BaseTrigger>();
+        public ObservableCollection<BaseCondition> Conditions { get; set; } = new ObservableCollection<BaseCondition>();
+        public ObservableCollection<BaseAction> Actions { get; set; } = new ObservableCollection<BaseAction>();
     }
 }
