@@ -50,7 +50,7 @@ namespace EarTrumpet_Actions.ViewModel
         {
             New = new RelayCommand(() =>
             {
-                var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = "New Action" });
+                var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = Properties.Resources.NewActionText });
                 vm.Remove = RemoveItem;
                 vm.Open = OpenItem;
                 Actions.Add(vm);
