@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="EarTrumpet.UI.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:resx="clr-namespace:EarTrumpet.Properties">
+    <StackPanel Orientation="Vertical">
+
+        <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
+
+        <CheckBox Margin="0,12,0,0"
+                  HorizontalAlignment="Left"
+                  Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
+                  IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
+        <CheckBox Margin="0,12,0,15"
+                              Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.Startup}"
+                          IsChecked="{Binding StartUp, Mode=TwoWay}"/>
+        <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34" />
+                <RowDefinition Height="34" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="140" />
+                <ColumnDefinition Width="Auto" MinWidth="140" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock VerticalAlignment="Center"
+                       Style="{StaticResource BodySubText}"
+                       Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+
+            <TextBlock Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource BodyText}"
+                       Text="{Binding DefaultHotKey}" />
+
+            <TextBlock Grid.Row="1"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource BodySubText}"
+                       Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    MinWidth="140"
+                    HorizontalAlignment="Left"
+                    Command="{Binding SelectHotkey}"
+                    Content="{Binding HotkeyText}"
+                    Foreground="{Binding ElementName=WindowRoot, Path=Foreground}" />
+
+        </Grid>
+
+        <StackPanel Margin="0,24,0,12"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsAddonsEnabled, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+            <Button Command="{Binding OpenAddonManager}" Content="{x:Static resx:Resources.OpenAddonManagerText}" />
+        </StackPanel>
+        <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsLanguages}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="Auto"  />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{x:Static resx:Resources.SettingsLanguages}" VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"  Grid.Column="0"/>
+            <ComboBox Name="ComboBoxLanguages" Grid.Column="1" Tag="{Binding Language, Mode=TwoWay}" VerticalContentAlignment="Center" SelectionChanged="ComboBoxLanguages_SelectionChanged" Width="180">
+                <ComboBoxItem Tag="Auto" Content="Auto" />
+                <ComboBoxItem Tag="ar" Content="Arabic" />
+                <ComboBoxItem Tag="fa-IR" Content="Farsi" />
+                <ComboBoxItem Tag="en-US" Content="English" />
+                <ComboBoxItem Tag="es-ES" Content="Spanish" />
+                <ComboBoxItem Tag="he-IL" Content="Hebrew" />
+                <ComboBoxItem Tag="de-DE" Content="de-DE" />
+                <ComboBoxItem Tag="de-DE" Content="fr-FR" />
+                <ComboBoxItem Tag="it" Content="italia" />
+                <ComboBoxItem Tag="ja-JP" Content="japon" />
+                <ComboBoxItem Tag="ko-KR" Content="ko-KR" />
+                <ComboBoxItem Tag="nb-NO" Content="nb-NO" />
+                <ComboBoxItem Tag="pt-BR" Content="pt-BR" />
+                <ComboBoxItem Tag="pl-PL" Content="pl-PL" />
+                <ComboBoxItem Tag="pt-PT" Content="pt-PT" />
+                <ComboBoxItem Tag="ro" Content="Romanian" />
+                <ComboBoxItem Tag="tr-TR" Content="tr-TR" />
+                <ComboBoxItem Tag="uk-UA" Content="uk-UA" />
+                <ComboBoxItem Tag="zh-CN" Content="zh-CN" />
+                <ComboBoxItem Tag="zh-TW" Content="zh-TW" />
+            </ComboBox>
+        </Grid>
+        <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AboutTitle}" />
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Margin="0,0,0,6">
+                <TextBlock VerticalAlignment="Center"
+                           Style="{StaticResource BodyText}"
+                           Text="{Binding AboutText}" />
+                <TextBlock Margin="0,0,0,12"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource BodyText}"
+                           Text="© مدیریت صدا" />
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
+                        <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                    </Hyperlink></TextBlock>
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}">
+                        <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
+                    </Hyperlink></TextBlock>
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}">
+                        <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
+                    </Hyperlink></TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
