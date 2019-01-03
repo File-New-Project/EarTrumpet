@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("مدیریت صدا")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Editor Hamerstandr")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("File-New-Project")]
 [assembly: AssemblyProduct("EarTrumpet")]
