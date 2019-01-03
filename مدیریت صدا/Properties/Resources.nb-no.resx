@@ -127,7 +127,7 @@
     <value>Send tilbakemelding</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond volum mikser</value>
+    <value>EarTrumpet volum mikser</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy volum mikser</value>
@@ -136,7 +136,7 @@
     <value>Det ser ikke ut som om du har noen avspillingsenheter</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Ingen avspillingenheter</value>
+    <value>EarTrumpet: Ingen avspillingenheter</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Avspillingsenheter</value>
@@ -145,7 +145,7 @@
     <value>Opptaksenheter</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond Innstillinger / Om</value>
+    <value>EarTrumpet Innstillinger / Om</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Lyder</value>
@@ -172,7 +172,7 @@
     <value>Tast inn knappe kombinasjon</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Lær mer</value>
@@ -207,10 +207,10 @@
     <value>Tilordne denne appen til en avspillingsenhet</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Åpne MenegerSond flyout</value>
+    <value>Åpne EarTrumpet flyout</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Bruk gammelt MenegerSond ikon</value>
+    <value>Bruk gammelt EarTrumpet ikon</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

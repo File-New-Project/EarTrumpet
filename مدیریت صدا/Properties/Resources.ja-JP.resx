@@ -127,7 +127,7 @@
     <value>フィードバックを送る</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond ボリューム ミキサー</value>
+    <value>EarTrumpet ボリューム ミキサー</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>レガシー ボリューム ミキサー</value>
@@ -136,7 +136,7 @@
     <value>再生デバイスが見つかりません。</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: 再生デバイス無し</value>
+    <value>EarTrumpet: 再生デバイス無し</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>再生デバイス</value>
@@ -145,7 +145,7 @@
     <value>録音デバイス</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond 設定 / 詳細</value>
+    <value>EarTrumpet 設定 / 詳細</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>音</value>
@@ -172,7 +172,7 @@
     <value>キーの組み合わせを入力して下さい</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>もっと詳しく</value>
@@ -207,7 +207,7 @@
     <value>このアプリを再生デバイスに登録する</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>MenegerSond フライアウトを開く</value>
+    <value>EarTrumpet フライアウトを開く</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>以前のEarTrumpet アイコンを使用する</value>

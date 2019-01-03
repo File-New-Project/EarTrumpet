@@ -127,7 +127,7 @@
     <value>Feedback senden</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond Lautstärkemixer</value>
+    <value>EarTrumpet Lautstärkemixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Alter Lautstärkemixer</value>
@@ -136,7 +136,7 @@
     <value>Es sind keine Wiedergabegeräte vorhanden</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Keine Wiedergabegeräte</value>
+    <value>EarTrumpet: Keine Wiedergabegeräte</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Wiedergabegeräte</value>
@@ -145,7 +145,7 @@
     <value>Aufnahmegeräte</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond Einstellungen / Über</value>
+    <value>EarTrumpet Einstellungen / Über</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
@@ -172,7 +172,7 @@
     <value>Geben Sie eine Tastenkombination ein:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Mehr erfahren</value>
@@ -207,10 +207,10 @@
     <value>Wiedergabegerät für diese App auswählen</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>MenegerSond Flyout öffnen</value>
+    <value>EarTrumpet Flyout öffnen</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Altes MenegerSond Symbol verwenden</value>
+    <value>Altes EarTrumpet Symbol verwenden</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value />

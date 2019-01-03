@@ -127,7 +127,7 @@
     <value>Invia feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mixer volume di MenegerSond</value>
+    <value>Mixer volume di EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Mixer volume classico</value>
@@ -136,7 +136,7 @@
     <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Nessun dispositivo di riproduzione.</value>
+    <value>EarTrumpet: Nessun dispositivo di riproduzione.</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Dispositivi di riproduzione</value>
@@ -145,7 +145,7 @@
     <value>Dispositivi di registrazione</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Impostazioni / Informazioni su MenegerSond</value>
+    <value>Impostazioni / Informazioni su EarTrumpet</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Suoni</value>
@@ -172,7 +172,7 @@
     <value>Inserisci una combinazione di tasti:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Scopri di più</value>
@@ -207,10 +207,10 @@
     <value>Assegna questa app ad un dispositivo di riproduzione</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Apri il menu di MenegerSond</value>
+    <value>Apri il menu di EarTrumpet</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Usa l'icona classica di MenegerSond</value>
+    <value>Usa l'icona classica di EarTrumpet</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>
