@@ -127,7 +127,7 @@
     <value>發送反饋</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet 音量合成器</value>
+    <value>MenegerSond 音量合成器</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>原生音量合成器</value>
@@ -136,7 +136,7 @@
     <value>似乎你沒有任何播放設備。</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: 沒有播放設備</value>
+    <value>MenegerSond: 沒有播放設備</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>播放設備</value>
@@ -145,7 +145,7 @@
     <value>錄音設備</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet 設置 / 關於</value>
+    <value>MenegerSond 設置 / 關於</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>聲音</value>
@@ -172,7 +172,7 @@
     <value>鍵入一個組合鍵：</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>瞭解更多</value>
@@ -207,10 +207,10 @@
     <value>指定該應用的播放設備</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>打開 EarTrumpet 浮動框</value>
+    <value>打開 MenegerSond 浮動框</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>使用經典 EarTrumpet 圖標</value>
+    <value>使用經典 MenegerSond 圖標</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

@@ -127,7 +127,7 @@
     <value>Trimite feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mixer EarTrumpet</value>
+    <value>Mixer MenegerSond</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Mixer clasic</value>
@@ -136,7 +136,7 @@
     <value>Se pare că nu ai niciun dispozitiv de redare conectat.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Niciun dispozitiv de redare</value>
+    <value>MenegerSond: Niciun dispozitiv de redare</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Dispozitive de redare</value>
@@ -145,7 +145,7 @@
     <value>Dispozitive de înregistrare</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Setări EarTrumpet / Despre</value>
+    <value>Setări MenegerSond / Despre</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sunete</value>
@@ -166,7 +166,7 @@
     <value>Tastează comanda de tastatură:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Află mai multe</value>
@@ -184,7 +184,7 @@
     <value>Setări</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Deschide panoul EarTrumpet</value>
+    <value>Deschide panoul MenegerSond</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

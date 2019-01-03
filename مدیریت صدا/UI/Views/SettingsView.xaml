@@ -103,7 +103,7 @@
                 <TextBlock Margin="0,0,0,12"
                            VerticalAlignment="Center"
                            Style="{StaticResource BodyText}"
-                           Text="© EarTrumpet" />
+                           Text="© مدیریت صدا" />
                 <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
                         <Run Text="{x:Static resx:Resources.WebsiteText}" />
                     </Hyperlink></TextBlock>

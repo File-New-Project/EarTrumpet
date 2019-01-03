@@ -136,7 +136,7 @@
     <value>Wygląda na to, że nie masz żadnych urządzeń do odtwarzania.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Brak urządzeń do odtwarzania</value>
+    <value>MenegerSond: Brak urządzeń do odtwarzania</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Urządzenia do odtwarzania</value>
@@ -145,7 +145,7 @@
     <value>Urządzenia do nagrywania</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Ustawienia / O programie EarTrumpet</value>
+    <value>Ustawienia / O programie MenegerSond</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Dźwięki</value>
@@ -172,7 +172,7 @@
     <value>Wprowadź kombinację klawiszy:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Dowiedz się więcej</value>

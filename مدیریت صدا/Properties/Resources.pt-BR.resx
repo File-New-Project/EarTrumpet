@@ -127,7 +127,7 @@
     <value>Enviar comentários</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Misturador de volume EarTrumpet</value>
+    <value>Misturador de volume MenegerSond</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Misturador de volume antigo</value>
@@ -136,7 +136,7 @@
     <value>Não há nenhum dispositivo de reprodução</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Nenhum dispositivo de reprodução</value>
+    <value>MenegerSond: Nenhum dispositivo de reprodução</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Dispositivos de reprodução</value>
@@ -145,7 +145,7 @@
     <value>Dispositivos de gravação</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Configurações EarTrumpet / Sobre</value>
+    <value>Configurações MenegerSond / Sobre</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sons</value>
@@ -172,7 +172,7 @@
     <value>Digite uma combinação de teclas</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Mais informações</value>
@@ -207,10 +207,10 @@
     <value>Definir dispositivo de reprodução da aplicação</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Abrir informações do EarTrumpet</value>
+    <value>Abrir informações do MenegerSond</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Usar o ícone antigo do EarTrumpet</value>
+    <value>Usar o ícone antigo do MenegerSond</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

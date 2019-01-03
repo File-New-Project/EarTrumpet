@@ -127,7 +127,7 @@
     <value>Envoyer des commentaires</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mélangeur de volume EarTrumpet</value>
+    <value>Mélangeur de volume MenegerSond</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Mélangeur de volume original</value>
@@ -136,7 +136,7 @@
     <value>Il semblerait que vous n'avez aucun périphérique de lecture.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Aucun périphérique de lecture</value>
+    <value>MenegerSond: Aucun périphérique de lecture</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Périphériques de lecture</value>
@@ -145,7 +145,7 @@
     <value>Périphériques d'enregistrement</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Paramètres / À propos</value>
+    <value>MenegerSond Paramètres / À propos</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sons</value>
@@ -172,7 +172,7 @@
     <value>Tapez une combinaison de touches</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>En savoir plus</value>

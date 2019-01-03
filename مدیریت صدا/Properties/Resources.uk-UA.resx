@@ -127,7 +127,7 @@
     <value>Надіслати відгук</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Мікшер гучності EarTrumpet</value>
+    <value>Мікшер гучності MenegerSond</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Мікшер гучності Legacy</value>
@@ -136,7 +136,7 @@
     <value>Здається, у вас немає пристроїв для відтворення.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: незнайдено пристроїв для відтворення</value>
+    <value>MenegerSond: незнайдено пристроїв для відтворення</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Пристрої для відтворення</value>
@@ -145,7 +145,7 @@
     <value>Пристрої для запису</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Налаштування/ Про нас EarTrumpet</value>
+    <value>Налаштування/ Про нас MenegerSond</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Звук</value>
@@ -172,7 +172,7 @@
     <value>Введіть комбінацію клавіш:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Дізнатися більше</value>
@@ -207,10 +207,10 @@
     <value>Застосувати цей додаток до пристрою для відтворення</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Відкрити меню EarTrumpet</value>
+    <value>Відкрити меню MenegerSond</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Використовувати значок legacy EarTrumpet</value>
+    <value>Використовувати значок legacy MenegerSond</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

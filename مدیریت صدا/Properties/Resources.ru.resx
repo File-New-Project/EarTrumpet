@@ -127,7 +127,7 @@
     <value>Отправить отзыв</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Микшер громкости</value>
+    <value>MenegerSond Микшер громкости</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Старый микшер громкости</value>
@@ -136,7 +136,7 @@
     <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Нет устройств воспроизведения</value>
+    <value>MenegerSond: Нет устройств воспроизведения</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Устройства воспроизведения</value>
@@ -145,7 +145,7 @@
     <value>Записывающие устройства</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Параметры EarTrumpet / О приложении</value>
+    <value>Параметры MenegerSond / О приложении</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Звуки</value>
@@ -172,7 +172,7 @@
     <value>Введите комбинацию клавиш:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>MenegerSond</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Узнать больше</value>
@@ -207,10 +207,10 @@
     <value>Назначить приложению устройство воспроизведения</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Открыть всплывающее окно EarTrumpet</value>
+    <value>Открыть всплывающее окно MenegerSond</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Использовать старую иконку EarTrumpet</value>
+    <value>Использовать старую иконку MenegerSond</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

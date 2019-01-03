@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -196,7 +196,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
+        ///   Looks up a localized string similar to MenegerSond Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
             get {
@@ -241,7 +241,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Addons.
+        ///   Looks up a localized string similar to MenegerSond Addons.
         /// </summary>
         public static string LoadAddonAddonsText {
             get {
@@ -286,7 +286,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet: No playback devices.
+        ///   Looks up a localized string similar to MenegerSond: No playback devices.
         /// </summary>
         public static string NoDeviceTrayText {
             get {
@@ -376,7 +376,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open EarTrumpet flyout.
+        ///   Looks up a localized string similar to Open MenegerSond flyout.
         /// </summary>
         public static string SettingsOpenEarTrumpetText {
             get {
@@ -385,7 +385,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to MenegerSond.
         /// </summary>
         public static string SettingsTitle {
             get {
@@ -394,7 +394,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
+        ///   Looks up a localized string similar to Use legacy MenegerSond icon.
         /// </summary>
         public static string SettingsUseLegacyEarTrumpetIcon {
             get {
@@ -403,7 +403,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Settings  / About.
+        ///   Looks up a localized string similar to MenegerSond Settings  / About.
         /// </summary>
         public static string SettingsWindowText {
             get {
