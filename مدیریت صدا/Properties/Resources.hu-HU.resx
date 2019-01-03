@@ -127,7 +127,7 @@
     <value>Visszajelzés küldése</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond hangmixer</value>
+    <value>EarTrumpet hangmixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Klasszikus hangmixer</value>
@@ -136,7 +136,7 @@
     <value>Úgy tűnik, nem létezik egy lejátszási eszköz sem</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Nincs lejátszási eszköz</value>
+    <value>EarTrumpet: Nincs lejátszási eszköz</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Lejátszási eszközök</value>
@@ -145,7 +145,7 @@
     <value>Felvételi eszközök</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond beállítások / Rólunk</value>
+    <value>EarTrumpet beállítások / Rólunk</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Hangok</value>
@@ -172,7 +172,7 @@
     <value>Billentyűkombináció megadása:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Bővebben</value>
@@ -207,10 +207,10 @@
     <value>Alkalmazás hozzárenedelése lejátszási eszközhöz</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>MenegerSond menü megjelenítése</value>
+    <value>EarTrumpet menü megjelenítése</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Klasszikus MenegerSond ikon használata</value>
+    <value>Klasszikus EarTrumpet ikon használata</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

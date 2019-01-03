@@ -127,7 +127,7 @@
     <value>Send feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond Volume Mixer</value>
+    <value>EarTrumpet Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy Volume Mixer</value>
@@ -136,7 +136,7 @@
     <value>It doesn't look like you have any playback devices.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: No playback devices</value>
+    <value>EarTrumpet: No playback devices</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Playback devices</value>
@@ -145,7 +145,7 @@
     <value>Recording devices</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond Settings  / About</value>
+    <value>EarTrumpet Settings  / About</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
@@ -172,7 +172,7 @@
     <value>Type a key combination:</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Learn more</value>
@@ -207,10 +207,10 @@
     <value>Assign this app to a playback device</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Open MenegerSond flyout</value>
+    <value>Open EarTrumpet flyout</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Use legacy MenegerSond icon</value>
+    <value>Use legacy EarTrumpet icon</value>
   </data>
   <data name="AddAddonText" xml:space="preserve">
     <value>+ Add</value>
@@ -219,7 +219,7 @@
     <value>Addon Manager</value>
   </data>
   <data name="LoadAddonAddonsText" xml:space="preserve">
-    <value>MenegerSond Addons</value>
+    <value>EarTrumpet Addons</value>
   </data>
   <data name="OpenAddonManagerText" xml:space="preserve">
     <value>Open Addon Manager</value>

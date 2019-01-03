@@ -127,7 +127,7 @@
     <value>Geribildirim gönder</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond Ses Düzeyi Karıştırıcı</value>
+    <value>EarTrumpet Ses Düzeyi Karıştırıcı</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Eski Ses Düzeyi Karıştırıcı</value>
@@ -136,7 +136,7 @@
     <value>Herhangi bir oynatma aygıtı var gibi görünmüyor.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Oynatma aygıtı yok</value>
+    <value>EarTrumpet: Oynatma aygıtı yok</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Oynatma aygıtı</value>
@@ -145,7 +145,7 @@
     <value>Kayıt aygıtı</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond Ayarları / Hakkında</value>
+    <value>EarTrumpet Ayarları / Hakkında</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sesler</value>
@@ -172,7 +172,7 @@
     <value>Bir düğme kombinasyonu gir</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Daha fazla bilgi edin</value>
@@ -207,10 +207,10 @@
     <value>Bu uygulamayı bir oynatma aygıtına ata</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>MenegerSond açılır menüyü aç</value>
+    <value>EarTrumpet açılır menüyü aç</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Eski MenegerSond simgesini kullan</value>
+    <value>Eski EarTrumpet simgesini kullan</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>

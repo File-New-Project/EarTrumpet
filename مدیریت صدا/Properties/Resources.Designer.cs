@@ -196,7 +196,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MenegerSond Volume Mixer.
+        ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
             get {
@@ -241,7 +241,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MenegerSond Addons.
+        ///   Looks up a localized string similar to EarTrumpet Addons.
         /// </summary>
         public static string LoadAddonAddonsText {
             get {
@@ -286,7 +286,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MenegerSond: No playback devices.
+        ///   Looks up a localized string similar to EarTrumpet: No playback devices.
         /// </summary>
         public static string NoDeviceTrayText {
             get {
@@ -376,7 +376,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open MenegerSond flyout.
+        ///   Looks up a localized string similar to Open EarTrumpet flyout.
         /// </summary>
         public static string SettingsOpenEarTrumpetText {
             get {
@@ -385,7 +385,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MenegerSond.
+        ///   Looks up a localized string similar to EarTrumpet.
         /// </summary>
         public static string SettingsTitle {
             get {
@@ -394,7 +394,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use legacy MenegerSond icon.
+        ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
         /// </summary>
         public static string SettingsUseLegacyEarTrumpetIcon {
             get {
@@ -403,7 +403,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MenegerSond Settings  / About.
+        ///   Looks up a localized string similar to EarTrumpet Settings  / About.
         /// </summary>
         public static string SettingsWindowText {
             get {

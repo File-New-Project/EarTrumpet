@@ -127,7 +127,7 @@
     <value>إرسال مراجعة</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>مهندس الصوت الخاص ب MenegerSond</value>
+    <value>مهندس الصوت الخاص ب EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>مهندس الصوت الافتراضي/ويندوز</value>
@@ -172,7 +172,7 @@
     <value>ادخل تركيبة مفاتيح</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>لمزيد من المعلومات</value>

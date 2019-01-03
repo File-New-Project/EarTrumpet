@@ -127,7 +127,7 @@
     <value>Stuur feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>MenegerSond Volume Mixer</value>
+    <value>EarTrumpet Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy Volume Mixer</value>
@@ -136,7 +136,7 @@
     <value>Het ziet er niet naar uit dat u geen afspeelapparaten hebt.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>MenegerSond: Geen afspeelapparaten</value>
+    <value>EarTrumpet: Geen afspeelapparaten</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Afspeelapparaten </value>
@@ -145,7 +145,7 @@
     <value>Opname-apparaten </value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>MenegerSond Instellingen/Over</value>
+    <value>EarTrumpet Instellingen/Over</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Geluiden</value>
@@ -172,7 +172,7 @@
     <value>Typ een toetsencombinatie</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>MenegerSond</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Leer meer</value>
@@ -207,10 +207,10 @@
     <value>Voeg deze app toe aan een afspeelapparaat</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Open MenegerSond flyout</value>
+    <value>Open EarTrumpet flyout</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Gebruik het oude MenegerSond icoon</value>
+    <value>Gebruik het oude EarTrumpet icoon</value>
   </data>
   <data name="Startup" xml:space="preserve">
     <value>Startup</value>
