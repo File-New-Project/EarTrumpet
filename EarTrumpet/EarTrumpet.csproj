@@ -163,6 +163,7 @@
     <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\Kernel32.cs" />
     <Compile Include="Interop\MrtResourceManager.cs" />
+    <Compile Include="Interop\NotifyIconInfo.cs" />
     <Compile Include="Interop\Ntdll.cs" />
     <Compile Include="Interop\Ole32.cs" />
     <Compile Include="Interop\MMDeviceAPI\PolicyConfigClient.cs" />

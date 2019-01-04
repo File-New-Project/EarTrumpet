@@ -13,12 +13,9 @@ namespace EarTrumpet.UI.Controls
     {
         private readonly NotifyIcon _trayIcon;
         private readonly ITrayViewModel _trayViewModel;
-        private readonly IKeyboardMouseEvents _mouseGlobalHook;
 
         public TrayIcon(ITrayViewModel trayViewModel)
         {
-            _mouseGlobalHook = Hook.GlobalEvents();
-
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
             _trayViewModel.ContextMenuRequested += OnContextMenuRequested;
@@ -28,7 +25,7 @@ namespace EarTrumpet.UI.Controls
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = _trayViewModel.ToolTip;
 
-            _mouseGlobalHook.MouseWheel += MouseGlobalHook_MouseWheel;
+            Hook.GlobalEvents().MouseWheel += MouseGlobalHook_MouseWheel;
 
             App.Current.Exit += App_Exit;
         }
@@ -99,13 +96,14 @@ namespace EarTrumpet.UI.Controls
                 notifyIconLocation.top <= Cursor.Position.Y &&
                 notifyIconLocation.bottom >= Cursor.Position.Y)
             {
+                Trace.WriteLine($"TrayIcon MouseGlobalHook_MouseWheel {e.Delta}");
                 if (e.Delta > 0)
                 {
-                    // Volume Up
+                    _trayViewModel.WheelUp?.Execute();
                 }
                 else
                 {
-                    // Volume Down
+                    _trayViewModel.WheelDown?.Execute();
                 }
             }
         }

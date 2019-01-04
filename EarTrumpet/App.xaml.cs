@@ -48,6 +48,8 @@ namespace EarTrumpet
 
             TrayViewModel = new TrayViewModel(PlaybackDevicesViewModel);
             TrayViewModel.LeftClick = new RelayCommand(() => FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Pointer));
+            TrayViewModel.WheelUp = new RelayCommand(() => ChangeVolumeOfDefaultDevice(1));
+            TrayViewModel.WheelDown = new RelayCommand(() => ChangeVolumeOfDefaultDevice(-1));
             TrayViewModel.OpenMixer = new RelayCommand(OpenMixer);
             TrayViewModel.OpenSettings = new RelayCommand(OpenSettings);
 
@@ -66,6 +68,19 @@ namespace EarTrumpet
             StartupUWPDialogDisplayService.ShowIfAppropriate();
 
             Trace.WriteLine($"App Application_Startup Exit");
+        }
+
+        private void ChangeVolumeOfDefaultDevice(int delta)
+        {
+            var targetLevel = PlaybackDevicesViewModel.Default.Volume + delta;
+            if (targetLevel < 0 || targetLevel > 100)
+            {
+                return;
+            }
+
+            PlaybackDevicesViewModel.Default.Volume = targetLevel;
+            TrayViewModel.UpdateToolTip();
+            TrayViewModel.UpdateTrayIcon();
         }
 
         private void MainViewModel_Ready(object sender, System.EventArgs e)

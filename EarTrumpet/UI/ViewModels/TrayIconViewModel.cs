@@ -60,6 +60,8 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand RightClick { get; }
         public RelayCommand MiddleClick { get; }
         public RelayCommand LeftClick { get; set; }
+        public RelayCommand WheelUp { get; set; }
+        public RelayCommand WheelDown { get; set; }
         public RelayCommand OpenMixer { get; set; }
         public RelayCommand OpenSettings { get; set; }
 
@@ -252,7 +254,7 @@ namespace EarTrumpet.UI.ViewModels
             UpdateTrayIcon();
         }
 
-        private void UpdateTrayIcon()
+        public void UpdateTrayIcon()
         {
             if (_useLegacyIcon)
             {
@@ -292,7 +294,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void UpdateToolTip()
+        public void UpdateToolTip()
         {
             if (_defaultDevice != null)
             {

@@ -12,6 +12,8 @@ namespace EarTrumpet.UI.ViewModels
         IEnumerable<ContextMenuItem> MenuItems { get; }
         RelayCommand MiddleClick { get; }
         RelayCommand RightClick { get; }
+        RelayCommand WheelUp { get; set; }
+        RelayCommand WheelDown { get; set; }
         string ToolTip { get; }
         Icon TrayIcon { get; }
         void DpiChanged();
