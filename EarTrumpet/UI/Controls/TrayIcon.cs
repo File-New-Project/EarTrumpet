@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using EarTrumpet.Interop;
+using Gma.System.MouseKeyHook;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -11,9 +13,12 @@ namespace EarTrumpet.UI.Controls
     {
         private readonly NotifyIcon _trayIcon;
         private readonly ITrayViewModel _trayViewModel;
+        private readonly IKeyboardMouseEvents _mouseGlobalHook;
 
         public TrayIcon(ITrayViewModel trayViewModel)
         {
+            _mouseGlobalHook = Hook.GlobalEvents();
+
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
             _trayViewModel.ContextMenuRequested += OnContextMenuRequested;
@@ -22,6 +27,8 @@ namespace EarTrumpet.UI.Controls
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = _trayViewModel.ToolTip;
+
+            _mouseGlobalHook.MouseWheel += MouseGlobalHook_MouseWheel;
 
             App.Current.Exit += App_Exit;
         }
@@ -80,6 +87,26 @@ namespace EarTrumpet.UI.Controls
             else if (e.Button == MouseButtons.Middle)
             {
                 _trayViewModel.MiddleClick.Execute();
+            }
+        }
+
+        private void MouseGlobalHook_MouseWheel(object sender, MouseEventArgs e)
+        {
+            var notifyIconLocation = NotifyIconInfo.GetNotifyIconLocation(_trayIcon);
+
+            if (notifyIconLocation.left <= Cursor.Position.X &&
+                notifyIconLocation.right >= Cursor.Position.Y &&
+                notifyIconLocation.top <= Cursor.Position.Y &&
+                notifyIconLocation.bottom >= Cursor.Position.Y)
+            {
+                if (e.Delta > 0)
+                {
+                    // Volume Up
+                }
+                else
+                {
+                    // Volume Down
+                }
             }
         }
     }
