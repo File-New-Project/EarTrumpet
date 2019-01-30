@@ -1,15 +1,23 @@
 # Changelog
 
+## 2.0.8.0
+- Changed grouping behavior to key off app install paths vice executable name
+- Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher
+- Fixed an issue where the Enhancements tab was missing in playback devices dialog
+- Fixed an issue where the flyout was too tall when the taskbar is configured to auto-hide
+- Added 'Open sound settings' link to context menu
+- Added text to notification area icon to indicate mute state
+
 ## 2.0.7.0
-- Disable Alt+Space on the flyout window
-- Limit the internal log buffer
-- Fix a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
-- Fix a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
-- Fix the icon and name of recording devices in 'Listen' mode
-- High contrast theme updates
-- Per-monitor DPI support
-- Fixes to Notification Area icon scaling
-- Fix overflow flyout at greater than 100% DPI
+- Added additional support for high contrast themes
+- Added per-monitor DPI support
+- Added internal diagnostic logging buffer limit
+- Disabled Alt+Space on the flyout window
+- Fixed a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
+- Fixed a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
+- Fixed the icon and name of recording devices in 'Listen' mode
+- Fixed Notification Area icon scaling
+- Fixed overflow flyout at greater than 100% DPI
 
 ## 2.0.6.0
 - Fixed an issue that affected localization on non-English systems
