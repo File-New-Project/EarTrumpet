@@ -89,7 +89,16 @@ namespace EarTrumpet.UI.Views
 
         private void ThemeChanged()
         {
+            EnableBlurIfApplicable();
+        }
+
+        private void EnableBlurIfApplicable()
+        {
             AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
+        }
+        private void DisableBlur()
+        {
+            AccentPolicyLibrary.SetWindowBlur(this, false);
         }
 
         private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)
@@ -154,6 +163,7 @@ namespace EarTrumpet.UI.Views
                     {
                         this.Cloak();
                         Hide();
+                        DisableBlur();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
                     }
                     break;
