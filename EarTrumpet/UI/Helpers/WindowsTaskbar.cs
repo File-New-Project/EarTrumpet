@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Interop;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,6 +15,7 @@ namespace EarTrumpet.UI.Helpers
             public RECT Size;
             public Screen ContainingScreen;
             public double Dpi;
+            public bool IsAutoHideEnabled;
         }
 
         // Must match AppBarEdge enum
@@ -46,7 +48,7 @@ namespace EarTrumpet.UI.Helpers
                 // SHAppBarMessage: Understands Taskbar auto-hide
                 // state (the window is positioned across screens).
 
-                if (Shell32.SHAppBarMessage(AppBarMessage.GetTaskbarPos, ref appBarData))
+                if (Shell32.SHAppBarMessage(AppBarMessage.GetTaskbarPos, ref appBarData) != UIntPtr.Zero)
                 {
                     state.Size = appBarData.rect;
                     state.Location = (Position)appBarData.uEdge;
@@ -70,6 +72,9 @@ namespace EarTrumpet.UI.Helpers
                         }
                     }
                 }
+
+                var appBarState = (Shell32.AppBarState)Shell32.SHAppBarMessage(AppBarMessage.GetState, ref appBarData);
+                state.IsAutoHideEnabled = appBarState.HasFlag(Shell32.AppBarState.ABS_AUTOHIDE);
 
                 return state;
             }

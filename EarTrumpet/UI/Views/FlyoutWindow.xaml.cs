@@ -211,6 +211,11 @@ namespace EarTrumpet.UI.Views
             double newHeight = LayoutRoot.DesiredSize.Height;
 
             var scaledWorkAreaHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
+            if (taskbarState.IsAutoHideEnabled && (taskbarState.Location == WindowsTaskbar.Position.Top || taskbarState.Location == WindowsTaskbar.Position.Bottom))
+            {
+                scaledWorkAreaHeight -= taskbarState.Size.Bottom - taskbarState.Size.Top;
+            }
+
             if (newHeight > scaledWorkAreaHeight)
             {
                 newHeight = scaledWorkAreaHeight;

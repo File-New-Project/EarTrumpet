@@ -7,6 +7,12 @@ namespace EarTrumpet.Interop
     {
         public const int KF_FLAG_DONT_VERIFY = 0x00004000;
 
+        [Flags]
+        public enum AppBarState
+        {
+            ABS_AUTOHIDE = 1
+        }
+
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
         [return: MarshalAs(UnmanagedType.Interface)]
         public static extern IShellItem2 SHCreateItemInKnownFolder(
@@ -16,8 +22,7 @@ namespace EarTrumpet.Interop
             ref Guid riid);
 
         [DllImport("shell32.dll", PreserveSig = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SHAppBarMessage(
+        public static extern UIntPtr SHAppBarMessage(
             AppBarMessage dwMessage, 
             ref APPBARDATA pData);
 
