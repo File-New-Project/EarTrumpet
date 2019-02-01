@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
@@ -60,6 +61,11 @@ namespace EarTrumpet.UI.Views
                 _isClosing = true;
                 WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ((SettingsViewModel)DataContext).Selected = null;
         }
     }
 }

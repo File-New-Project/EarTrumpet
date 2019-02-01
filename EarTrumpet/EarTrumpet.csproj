@@ -117,6 +117,7 @@
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
     <Compile Include="Extensibility\IAddonContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />
+    <Compile Include="Extensibility\IAddonSettingsPage.cs" />
     <Compile Include="Extensibility\IValue.cs" />
     <Compile Include="Extensibility\KnownServices.cs" />
     <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
@@ -180,6 +181,11 @@
     <Compile Include="AppTrace.cs" />
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
+    <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsCategoryViewModel.cs" />
     <Compile Include="UI\Converters\IconConverter.cs" />
     <Compile Include="UI\DeviceIconKind.cs" />
     <Compile Include="UI\Helpers\ProcessHelper.cs" />
@@ -303,7 +309,6 @@
     <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
     <Compile Include="UI\ViewModels\DeviceCollectionViewModel.cs" />
     <Compile Include="UI\ViewModels\BindableBase.cs" />
-    <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />
     <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
     <Compile Include="UI\Views\AppItemView.xaml.cs">

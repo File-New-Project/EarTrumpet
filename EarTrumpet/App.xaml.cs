@@ -8,6 +8,7 @@ using EarTrumpet.UI.Services;
 using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -76,6 +77,11 @@ namespace EarTrumpet
             Trace.WriteLine("App MainViewModel_Ready Before Load");
             AddonManager.Current.Load();
             Trace.WriteLine("App MainViewModel_Ready After Load");
+
+
+            // TODO: NOT FOR CHECKIN
+            OpenSettings();
+
         }
 
         private void OpenMixer()
@@ -107,6 +113,7 @@ namespace EarTrumpet
             }
             else
             {
+                /*
                 var viewModel = new SettingsViewModel();
                 viewModel.OpenAddonManager = new RelayCommand(() =>
                 {
@@ -115,7 +122,23 @@ namespace EarTrumpet
                     window.DataContext = addonManagerViewModel;
                     window.ShowDialog();
                 });
+                */
+
                 _openSettingsWindow = new SettingsWindow();
+                
+                var defaultCategory = new SettingsCategoryViewModel("Settings", "\xE115", "Settings, About, Help",
+                    new SettingsPageViewModel[] {
+                        new EarTrumpetLegacySettingsPageViewModel(),
+                        new EarTrumpetAboutPageViewModel("Information")
+                    }.ToList());
+
+                var allCategories = new List<SettingsCategoryViewModel>();
+                allCategories.Add(defaultCategory);
+                if (SettingsViewModel.AddonItems != null)
+                {
+                    allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get()));
+                }
+                var viewModel = new SettingsViewModel("Settings", allCategories);
                 _openSettingsWindow.DataContext = viewModel;
                 _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
                 _openSettingsWindow.Show();
