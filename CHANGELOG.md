@@ -5,6 +5,7 @@
 - Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher
 - Fixed an issue where the Enhancements tab was missing in playback devices dialog
 - Fixed an issue where the flyout was too tall when the taskbar is configured to auto-hide
+- Fixed a crash when no default audio endpoint was present
 - Added 'Open sound settings' link to context menu
 - Added text to notification area icon to indicate mute state
 
