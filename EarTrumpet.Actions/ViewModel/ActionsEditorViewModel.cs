@@ -8,6 +8,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
+    /*
     public class ActionsEditorViewModel : BindableBase, IWindowHostedViewModel
     {
 #pragma warning disable CS0067
@@ -92,4 +93,5 @@ namespace EarTrumpet_Actions.ViewModel
 
         }
     }
+    */
 }

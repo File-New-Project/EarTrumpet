@@ -32,7 +32,6 @@ namespace EarTrumpet_Actions
 
         private readonly string c_actionsSettingKey = "ActionsData";
         private EarTrumpetAction[] _actions = new EarTrumpetAction[] { };
-        private SettingsWindow _openSettingsWindow;
         private ISettingsBag _settings = StorageFactory.GetSettings(Namespace);
         private TriggerManager _triggerManager = new TriggerManager();
 
@@ -61,6 +60,7 @@ namespace EarTrumpet_Actions
             _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 
+        /*
         public void OpenSettingsWindow()
         {
             if (_openSettingsWindow != null)
@@ -82,6 +82,7 @@ namespace EarTrumpet_Actions
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }
         }
+        */
 
         private void OnTriggered(BaseTrigger trigger)
         {

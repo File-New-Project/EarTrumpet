@@ -2,6 +2,7 @@
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet_Actions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,13 +11,9 @@ using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    public class EarTrumpetActionViewModel : BindableBase, IWindowHostedViewModel, IWindowHostedViewModelInternal
+    public class EarTrumpetActionViewModel : SettingsPageViewModel
     {
-        public string Title => DisplayName;
-
-        public ICommand Open { get; set; }
-        public ICommand Save { get; set; }
-        public ICommand Remove { get; set; }
+        public ToolbarItemViewModel[] Toolbar { get; private set; }
 
         public string DisplayName
         {
@@ -27,6 +24,7 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                     _action.DisplayName = value;
                     RaisePropertyChanged(nameof(DisplayName));
+                    Title = DisplayName;
                 }
             }
         }
@@ -54,18 +52,14 @@ namespace EarTrumpet_Actions.ViewModel
         public ObservableCollection<PartViewModel> Actions { get; }
 
         private readonly EarTrumpetAction _action;
-        private ActionsEditorViewModel _parent;
+        private ActionsCategoryViewModel _parent;
 
-#pragma warning disable CS0067
-        public event Action Close;
-        public event Action<object> HostDialog;
-#pragma warning restore CS0067
-
-        public EarTrumpetActionViewModel(ActionsEditorViewModel parent, EarTrumpetAction action)
+        public EarTrumpetActionViewModel(ActionsCategoryViewModel parent, EarTrumpetAction action) : base("Saved Actions")
         {
             _parent = parent;
             _action = action;
             DisplayName = _action.DisplayName;
+            Title = DisplayName;
 
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
@@ -78,6 +72,30 @@ namespace EarTrumpet_Actions.ViewModel
             Parts_CollectionChanged(Triggers, null);
             Parts_CollectionChanged(Conditions, null);
             Parts_CollectionChanged(Actions, null);
+
+            Toolbar = new ToolbarItemViewModel[]
+            {
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
+                         _parent.Save(this);
+                     }),
+                     DisplayName = "Save",
+                     Glyph = "\xE105",
+                     GlyphFontSize = 20,
+                },
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
+                         _parent.Delete(this);
+                     }),
+                     DisplayName = "Delete",
+                     Glyph = "\xE107",
+                     GlyphFontSize = 20,
+                }
+            };
         }
 
         public EarTrumpetAction GetAction()
@@ -143,10 +161,5 @@ namespace EarTrumpet_Actions.ViewModel
                 throw new NotImplementedException();
             }
         }
-
-        public void OnClosing() { }
-        public void OnPreviewKeyDown(KeyEventArgs e) { }
-
-        void IWindowHostedViewModelInternal.HostDialog(object dialog) => HostDialog(dialog);
     }
 }

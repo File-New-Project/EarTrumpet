@@ -3,6 +3,7 @@
                     xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
                     xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
                     xmlns:etctl="clr-namespace:EarTrumpet_Actions.Controls"
+                    xmlns:etvm="clr-namespace:EarTrumpet.UI.ViewModels;assembly=EarTrumpet"
                     xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
                     xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
@@ -217,7 +218,34 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox FontSize="24" Text="{Binding DisplayName, Mode=TwoWay}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox FontSize="24" Text="{Binding DisplayName, Mode=TwoWay}" />
+
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type etvm:ToolbarItemViewModel}">
+                            <Button VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    AutomationProperties.Name="{Binding DisplayName}"
+                                    BorderThickness="0"
+                                    Command="{Binding Command}"
+                                    FontSize="{Binding GlyphFontSize}"
+                                    Style="{DynamicResource BaseVirtualTitleBarButtonStyle}"
+                                    Tag="{Binding Glyph}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -363,23 +391,10 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
-
-            <Grid Grid.Row="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="1"
-                        Margin="0,12,0,0"
-                        HorizontalAlignment="Right"
-                        Command="{Binding Save}"
-                        Content="Save"
-                        IsEnabled="False" />
-            </Grid>
         </Grid>
     </DataTemplate>
 
+    <!--
     <DataTemplate DataType="{x:Type vm:ActionsEditorViewModel}">
         <StackPanel MinWidth="400"
                     MinHeight="400"
@@ -428,8 +443,7 @@
                     Content="{x:Static resx:Resources.NewActionText}"
                     Style="{DynamicResource AddButtonStyle}" />
         </StackPanel>
-    </DataTemplate>
-
+    </DataTemplate>-->
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
         <ctl:VolumeSlider Maximum="100"
                           Minimum="0"
