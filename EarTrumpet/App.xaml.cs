@@ -113,23 +113,10 @@ namespace EarTrumpet
             }
             else
             {
-                /*
-                var viewModel = new SettingsViewModel();
-                viewModel.OpenAddonManager = new RelayCommand(() =>
-                {
-                    var window = new DialogWindow { Owner = _openSettingsWindow };
-                    var addonManagerViewModel = new AddonManagerViewModel(AddonManager.Current);
-                    window.DataContext = addonManagerViewModel;
-                    window.ShowDialog();
-                });
-                */
-
-                _openSettingsWindow = new SettingsWindow();
-                
                 var defaultCategory = new SettingsCategoryViewModel("Settings", "\xE115", "Settings, About, Help",
                     new SettingsPageViewModel[] {
                         new EarTrumpetLegacySettingsPageViewModel(),
-                        new EarTrumpetAboutPageViewModel("Information")
+                        new EarTrumpetAboutPageViewModel()
                     }.ToList());
 
                 var allCategories = new List<SettingsCategoryViewModel>();
@@ -139,6 +126,7 @@ namespace EarTrumpet
                     allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get()));
                 }
                 var viewModel = new SettingsViewModel("Settings", allCategories);
+                _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;
                 _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
                 _openSettingsWindow.Show();

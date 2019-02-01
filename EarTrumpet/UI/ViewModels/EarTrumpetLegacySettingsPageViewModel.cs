@@ -31,9 +31,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public string HotkeyText => _hotkey.ToString();
         public string DefaultHotKey => SettingsService.s_defaultHotkey.ToString();
-        public RelayCommand OpenDiagnosticsCommand { get; }
-        public RelayCommand OpenAboutCommand { get; }
-        public RelayCommand OpenFeedbackCommand { get; }
+
         public RelayCommand SelectHotkey { get; }
         public RelayCommand OpenAddonManager { get; set; }
 
@@ -44,42 +42,16 @@ namespace EarTrumpet.UI.ViewModels
             set => SettingsService.UseLegacyIcon = value;
         }
 
-        public string AboutText { get; private set; }
 
-        public EarTrumpetLegacySettingsPageViewModel() : base("Info")
+        public EarTrumpetLegacySettingsPageViewModel() : base("")
         {
             Title = "Legacy Settings";
 
             Hotkey = SettingsService.Hotkey;
-            OpenAboutCommand = new RelayCommand(OpenAbout);
-            OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
-            OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
+
             SelectHotkey = new RelayCommand(OnSelectHotkey);
 
-            string aboutFormat = "EarTrumpet {0}";
-            if (App.Current.HasIdentity())
-            {
-                AboutText = string.Format(aboutFormat, Package.Current.Id.Version.ToVersionString());
-            }
-            else
-            {
-                AboutText = string.Format(aboutFormat, "0.0.0.0");
-            }
-        }
 
-        private void OpenDiagnostics()
-        {
-            if (Keyboard.IsKeyDown(Key.LeftShift) && Keyboard.IsKeyDown(Key.LeftCtrl))
-            {
-                throw new Exception("This is an intentional crash.");
-            }
-
-            DiagnosticsService.DumpAndShowData();
-        }
-
-        private void OpenAbout()
-        {
-            ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
         }
 
         private void OnSelectHotkey()

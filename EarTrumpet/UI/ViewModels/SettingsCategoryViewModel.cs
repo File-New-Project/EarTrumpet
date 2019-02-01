@@ -1,13 +1,18 @@
 ﻿using EarTrumpet.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsCategoryViewModel : BindableBase
+    public class SettingsCategoryViewModel : BindableBase, IWindowHostedViewModel
     {
         SettingsPageViewModel _selected;
+#pragma warning disable CS0067
+        public event Action Close;
+        public event Action<object> HostDialog;
+
         public SettingsPageViewModel Selected
         {
             get => _selected;
@@ -16,6 +21,11 @@ namespace EarTrumpet.UI.ViewModels
                 if (_selected != value)
                 {
                     _selected = value;
+                    if (_selected != null && _selected is IWindowHostedViewModel)
+                    {
+                        ((IWindowHostedViewModel)_selected).HostDialog += (d) => HostDialog(d);
+                    }
+
                     RaisePropertyChanged(nameof(Selected));
                 }
             }
@@ -23,8 +33,8 @@ namespace EarTrumpet.UI.ViewModels
 
         public string Title { get; protected set; }
         public string Glyph { get; protected set; }
-
         public string Description { get; protected set; }
+        public ToolbarItemViewModel[] Toolbar { get;  protected set; }
 
         public ObservableCollection<SettingsPageViewModel> Pages { get; protected set; }
 
@@ -36,6 +46,22 @@ namespace EarTrumpet.UI.ViewModels
             Glyph = glyph;
             Description = description;
             Pages = new ObservableCollection<SettingsPageViewModel>(pages);
+        }
+
+        public virtual void OnClosing()
+        {
+            foreach (var page in Pages)
+            {
+                if (page is IWindowHostedViewModel)
+                {
+                    ((IWindowHostedViewModel)page).OnClosing();
+                }
+            }
+        }
+
+        public void OnPreviewKeyDown(KeyEventArgs e)
+        {
+    
         }
     }
 }

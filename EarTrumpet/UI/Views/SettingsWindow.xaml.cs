@@ -63,7 +63,18 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = (WindowState == WindowState.Maximized) ?
+                WindowState.Normal : WindowState.Maximized;
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             ((SettingsViewModel)DataContext).Selected = null;
         }

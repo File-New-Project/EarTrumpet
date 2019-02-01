@@ -172,11 +172,10 @@ namespace EarTrumpet.UI.ViewModels
 
                     if (addonEntries.Any())
                     {
-                        ret.Insert(ret.Count - 3, new ContextMenuItem
+                        foreach(var entry in addonEntries)
                         {
-                            DisplayName = Properties.Resources.AddonsMenuText,
-                            Children = addonEntries,
-                        });
+                            ret.Insert(ret.Count - 3, entry);
+                        }
                         ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
                     }
                 }
