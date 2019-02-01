@@ -101,6 +101,8 @@
     <Compile Include="DataModel\Serialization\Actions.cs" />
     <Compile Include="DataModel\Serialization\Conditions.cs" />
     <Compile Include="DataModel\Serialization\Triggers.cs" />
+    <Compile Include="SettingsPageAddon.cs" />
+    <Compile Include="Settings\ActionsCategoryViewModel.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
     <Compile Include="DataModel\Serialization\Device.cs" />
     <Compile Include="DataModel\Serialization\EarTrumpetAction.cs" />

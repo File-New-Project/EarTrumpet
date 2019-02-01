@@ -16,19 +16,7 @@ namespace EarTrumpet_Actions
             get
             {
                 var ret = new List<ContextMenuItem>();
-                ret.Add(new ContextMenuItem
-                {
-                    DisplayName = Properties.Resources.EditActionsAndHotkeysText,
-                    Command = new RelayCommand(() => Addon.Current.OpenSettingsWindow())
-                });
-
-                var items = Addon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null);
-                if (items.Any())
-                {
-                    ret.Add(new ContextMenuSeparator { });
-                }
-
-                foreach (var item in items)
+                foreach (var item in Addon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
                 {
                     ret.Add(new ContextMenuItem
                     {
