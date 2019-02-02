@@ -234,6 +234,61 @@
             </Setter>
         </Style>
 
+        <Style x:Key="MainListItem" TargetType="{x:Type ListViewItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="36" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="true">
+
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MainList" TargetType="{x:Type ListView}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource MainListItem}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="true">
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="HomeButtonStyle" TargetType="Button">
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
 
@@ -344,18 +399,27 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock HorizontalAlignment="Center" Style="{DynamicResource HeadingText}">EarTrumpet Settings</TextBlock>
+                    <TextBlock HorizontalAlignment="Center"
+                               FontFamily="Segoe UI Light"
+                               FontSize="26"
+                               FontWeight="Light"
+                               Style="{DynamicResource HeadingText}">
+                        Windows Settings
+                    </TextBlock>
 
                     <TextBox Grid.Row="1"
-                             Width="330"
-                             HorizontalAlignment="Center">
-                        Search
+                             Width="332"
+                             Height="32"
+                             HorizontalAlignment="Center"
+                             FontSize="15">
+                        Find a setting
                     </TextBox>
 
                     <ListView Grid.Row="2"
                               IsSynchronizedWithCurrentItem="True"
                               ItemsSource="{Binding Categories}"
-                              SelectedItem="{Binding Selected, Mode=TwoWay}">
+                              SelectedItem="{Binding Selected, Mode=TwoWay}"
+                              Style="{StaticResource MainList}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -447,6 +511,7 @@
 
                         <ListView Grid.Row="4"
                                   IsSynchronizedWithCurrentItem="True"
+                                  ScrollViewer.CanContentScroll="False"
                                   ItemsSource="{Binding Source={StaticResource cvs}}"
                                   SelectedItem="{Binding Selected.Selected}"
                                   Style="{StaticResource SettingsListView}">
