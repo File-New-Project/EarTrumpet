@@ -7,6 +7,7 @@ namespace EarTrumpet.UI.ViewModels
     public class SettingsPageViewModel : BindableBase
     {
         public string GroupName { get; }
+        public string Glyph { get; protected set; }
 
         private string _title;
         public string Title

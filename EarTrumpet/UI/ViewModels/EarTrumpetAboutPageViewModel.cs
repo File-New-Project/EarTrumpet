@@ -22,6 +22,7 @@ namespace EarTrumpet.UI.ViewModels
         public EarTrumpetAboutPageViewModel() : base(null)
         {
             Title = "About";
+            Glyph = "\xE783";
 
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);

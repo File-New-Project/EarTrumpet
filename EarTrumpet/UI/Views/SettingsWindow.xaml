@@ -65,8 +65,7 @@
                             Orientation="Horizontal"
                             Visibility="{Binding IsAddonsEnabled, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <Button Command="{Binding OpenAddonManager}" Content="{x:Static resx:Resources.OpenAddonManagerText}" />
-                </StackPanel>
--->
+                </StackPanel>-->
             </StackPanel>
         </DataTemplate>
 
@@ -406,8 +405,8 @@
 
                         <TextBox Grid.Row="2"
                                  Height="32"
-                                 FontSize="15"
-                                 Margin="16,2,16,0">
+                                 Margin="16,2,16,0"
+                                 FontSize="15">
                             Find a setting
                         </TextBox>
 
@@ -453,7 +452,22 @@
                                   Style="{StaticResource SettingsListView}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="15" Text="{Binding Title}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock FontSize="16"
+                                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                                   Text="{Binding Glyph}" />
+
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="12,0,0,0"
+                                                   FontSize="15"
+                                                   Text="{Binding Title}" />
+                                    </Grid>
+
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.GroupStyle>
@@ -487,11 +501,13 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Margin="24,0,0,0" FontSize="20" Text="{Binding Selected.Selected.Title}" />
+                        <TextBlock Margin="24,0,0,0"
+                                   FontSize="20"
+                                   Text="{Binding Selected.Selected.Title}" />
 
                         <ScrollViewer Grid.Row="1"
                                       Margin="24,0,0,0"
-                                      Padding="0,0,24,24"
+                                      Padding="0,0,24,0"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <ContentControl Content="{Binding Selected.Selected}" />

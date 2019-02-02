@@ -16,6 +16,7 @@ namespace EarTrumpet.UI.ViewModels
         public AddonAboutPageViewModel(object addonObject) : base("Management")
         {
             Title = "About this add-on";
+            Glyph = "\xE783";
             _addon = AddonManager.Current.FindAddonForObject(addonObject);
         }
     }

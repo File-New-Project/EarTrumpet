@@ -46,7 +46,7 @@ namespace EarTrumpet.UI.ViewModels
         public EarTrumpetLegacySettingsPageViewModel() : base(null)
         {
             Title = Properties.Resources.KeyboardShortcutsTitle;
-
+            Glyph = "\xE713";
             Hotkey = SettingsService.Hotkey;
 
             SelectHotkey = new RelayCommand(OnSelectHotkey);

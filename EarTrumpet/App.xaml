@@ -821,8 +821,8 @@
                           Header="{Binding DisplayName}"
                           IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
-                          Tag="{Binding Glyph}"
-                          IsEnabled="{Binding IsEnabled}" />
+                          IsEnabled="{Binding IsEnabled}"
+                          Tag="{Binding Glyph}" />
             </DataTemplate>
             <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
@@ -839,8 +839,8 @@
                           IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}"
-                          Tag="{Binding Glyph}"
-                          Style="{StaticResource MenuItemDarkOnly}" />
+                          Style="{StaticResource MenuItemDarkOnly}"
+                          Tag="{Binding Glyph}" />
             </DataTemplate>
             <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly" ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
