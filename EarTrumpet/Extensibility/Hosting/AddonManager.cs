@@ -1,6 +1,8 @@
 ﻿using EarTrumpet.DataModel.Storage;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace EarTrumpet.Extensibility.Hosting
@@ -16,6 +18,17 @@ namespace EarTrumpet.Extensibility.Hosting
         {
             get => StorageFactory.GetSettings().Get("Addons", new string[] { });
             set => StorageFactory.GetSettings().Set("Addons", value);
+        }
+
+        internal Addon FindAddonForObject(object addonObject)
+        {
+            var asm = addonObject.GetType().Assembly;
+            var ret = BuiltIn.FirstOrDefault(a => a.IsAssembly(asm));
+            if (ret == null)
+            {
+                ret = ThirdParty.FirstOrDefault(a => a.IsAssembly(asm));
+            }
+            return ret;
         }
 
         private AddonHost _host;

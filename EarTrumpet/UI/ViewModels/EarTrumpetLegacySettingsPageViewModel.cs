@@ -43,9 +43,9 @@ namespace EarTrumpet.UI.ViewModels
         }
 
 
-        public EarTrumpetLegacySettingsPageViewModel() : base("")
+        public EarTrumpetLegacySettingsPageViewModel() : base(null)
         {
-            Title = "Legacy Settings";
+            Title = Properties.Resources.KeyboardShortcutsTitle;
 
             Hotkey = SettingsService.Hotkey;
 

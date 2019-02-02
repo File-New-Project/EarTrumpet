@@ -19,7 +19,7 @@ namespace EarTrumpet.UI.ViewModels
         public string AboutText { get; private set; }
 
 
-        public EarTrumpetAboutPageViewModel() : base("")
+        public EarTrumpetAboutPageViewModel() : base(null)
         {
             Title = "About";
 

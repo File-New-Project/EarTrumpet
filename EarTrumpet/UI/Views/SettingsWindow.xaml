@@ -18,9 +18,6 @@
 
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
             <StackPanel Orientation="Vertical">
-
-                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.KeyboardShortcutsTitle}" />
-
                 <CheckBox Margin="0,12,0,18"
                           HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
@@ -63,12 +60,13 @@
 
                 </Grid>
 
+                <!--
                 <StackPanel Margin="0,24,0,12"
                             Orientation="Horizontal"
                             Visibility="{Binding IsAddonsEnabled, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <Button Command="{Binding OpenAddonManager}" Content="{x:Static resx:Resources.OpenAddonManagerText}" />
                 </StackPanel>
-
+-->
             </StackPanel>
         </DataTemplate>
 
@@ -110,6 +108,12 @@
                             </Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddonAboutPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding DisplayName}" />
             </StackPanel>
         </DataTemplate>
 
@@ -184,6 +188,7 @@
                                         Height="24" />
 
                                 <ContentPresenter Grid.Column="1"
+                                                  Margin="12,0,0,0"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -195,7 +200,7 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource PanelBackgroundHover}" />
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -250,13 +255,14 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock FontSize="20"
+                                <TextBlock Margin="16,0,16,0"
+                                           FontSize="16"
                                            Style="{StaticResource GlyphTextBlockStyle}"
                                            Text="&#xE10F;" />
 
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
-                                           FontSize="20"
+                                           FontSize="14"
                                            Text="Home" />
                             </Grid>
                         </Border>
@@ -334,8 +340,8 @@
                         </Style>
                     </Grid.Style>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="100" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="46" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
@@ -387,26 +393,35 @@
                             </CollectionViewSource>
                         </Grid.Resources>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="16" />
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
                             <RowDefinition Height="48" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Button Click="HomeButton_Click" Style="{StaticResource HomeButtonStyle}" />
+                        <Button Grid.Row="1"
+                                Click="HomeButton_Click"
+                                Style="{StaticResource HomeButtonStyle}" />
 
-                        <TextBox Grid.Row="1">
-                            Search
+                        <TextBox Grid.Row="2"
+                                 Height="32"
+                                 FontSize="15"
+                                 Margin="16,2,16,0">
+                            Find a setting
                         </TextBox>
 
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="3">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding Selected.Title}" />
+                            <TextBlock Margin="16,0,0,0"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Text="{Binding Selected.Title}" />
 
                             <ItemsControl Grid.Column="1" ItemsSource="{Binding Selected.Toolbar}">
                                 <ItemsControl.ItemsPanel>
@@ -431,23 +446,34 @@
                         </Grid>
 
 
-                        <ListView Grid.Row="3"
+                        <ListView Grid.Row="4"
                                   IsSynchronizedWithCurrentItem="True"
                                   ItemsSource="{Binding Source={StaticResource cvs}}"
                                   SelectedItem="{Binding Selected.Selected}"
                                   Style="{StaticResource SettingsListView}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Title}" />
+                                    <TextBlock FontSize="15" Text="{Binding Title}" />
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.GroupStyle>
                                 <GroupStyle>
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
-                                            <TextBlock FontSize="15"
+                                            <TextBlock Margin="16,12,0,6"
+                                                       FontSize="15"
                                                        Foreground="{DynamicResource LightOrDark_SecondaryText}"
-                                                       Text="{Binding Name}" />
+                                                       Text="{Binding Name}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </DataTemplate>
                                     </GroupStyle.HeaderTemplate>
                                 </GroupStyle>
@@ -461,9 +487,11 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock FontSize="20" Text="{Binding Selected.Selected.Title}" />
+                        <TextBlock Margin="24,0,0,0" FontSize="20" Text="{Binding Selected.Selected.Title}" />
 
                         <ScrollViewer Grid.Row="1"
+                                      Margin="24,0,0,0"
+                                      Padding="0,0,24,24"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <ContentControl Content="{Binding Selected.Selected}" />

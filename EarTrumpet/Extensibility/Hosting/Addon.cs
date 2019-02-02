@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿using System;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
@@ -22,6 +24,11 @@ namespace EarTrumpet.Extensibility.Hosting
             {
                 DisplayName = string.Join(", \r\n", catalog.LoadedFiles.Select(f => Path.GetFileNameWithoutExtension(f))).TrimEnd(',').Trim();
             }
+        }
+
+        public bool IsAssembly(Assembly asm)
+        {
+            return _catalog.LoadedFiles.Any(file => file.ToLower() == asm.Location.ToLower());
         }
     }
 }
