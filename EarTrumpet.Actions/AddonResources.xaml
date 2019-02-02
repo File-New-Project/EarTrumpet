@@ -127,6 +127,64 @@
         </Setter>
     </Style>
 
+    <DataTemplate DataType="{x:Type vm:EarTrumpetActionPageHeaderViewModel}">
+        <Border BorderThickness="0" BorderBrush="Transparent">
+            <Grid Height="96"
+                  Background="{DynamicResource LightOrDark_VirtualTitleBarBackground}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="24,0,6,6"
+                               VerticalAlignment="Bottom"
+                               FontSize="26"
+                               Text="{Binding Title}" />
+
+                    <Button VerticalAlignment="Bottom"
+                            HorizontalContentAlignment="Stretch"
+                            AutomationProperties.Name="TODO"
+                            BorderThickness="0"
+                            Command="{Binding Rename}"
+                            Style="{DynamicResource ToolbarButtonStyle}">
+                        <TextBlock FontSize="20"
+                                   Style="{DynamicResource GlyphTextBlockStyle}"
+                                   Text="&#xE1C2;" />
+                    </Button>
+                </StackPanel>
+
+
+                <ItemsControl Grid.Column="2"
+                              IsTabStop="False"
+                              VerticalAlignment="Top"
+                              ItemsSource="{Binding Toolbar}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type etvm:ToolbarItemViewModel}">
+                            <Button VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    AutomationProperties.Name="{Binding DisplayName}"
+                                    BorderThickness="0"
+                                    Command="{Binding Command}"
+                                    Style="{DynamicResource ToolbarButtonStyle}">
+                                <TextBlock FontSize="{Binding GlyphFontSize}"
+                                           Style="{DynamicResource GlyphTextBlockStyle}"
+                                           Text="{Binding Glyph}" />
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+
+        </Border>
+    </DataTemplate>
+
     <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
@@ -231,25 +289,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type etvm:ToolbarItemViewModel}">
-                            <Button VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Stretch"
-                                    AutomationProperties.Name="{Binding DisplayName}"
-                                    BorderThickness="0"
-                                    Command="{Binding Command}"
-                                    FontSize="{Binding GlyphFontSize}"
-                                    Style="{DynamicResource BaseVirtualTitleBarButtonStyle}"
-                                    Tag="{Binding Glyph}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+
             </Grid>
 
             <Grid Grid.Row="1">

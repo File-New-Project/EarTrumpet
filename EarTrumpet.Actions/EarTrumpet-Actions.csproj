@@ -107,6 +107,7 @@
     <Compile Include="DataModel\Serialization\Device.cs" />
     <Compile Include="DataModel\Serialization\EarTrumpetAction.cs" />
     <Compile Include="DataModel\Serialization\App.cs" />
+    <Compile Include="ViewModel\EarTrumpetActionPageHeaderViewModel.cs" />
     <Compile Include="ViewModel\ImportExportPageViewModel.cs" />
     <Compile Include="ViewModel\Option.cs" />
     <Compile Include="DataModel\Part.cs" />

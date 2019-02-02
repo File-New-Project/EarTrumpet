@@ -59,6 +59,7 @@ namespace EarTrumpet_Actions.ViewModel
             DisplayName = _action.DisplayName;
             Title = DisplayName;
             Glyph = "\xE1CE";
+            Header = new EarTrumpetActionPageHeaderViewModel(this);
 
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
