@@ -20,6 +20,8 @@ namespace EarTrumpet_Actions
                 {
                     ret.Add(new ContextMenuItem
                     {
+                        Glyph = "\xE00A",
+                        IsChecked = true,
                         DisplayName = item.DisplayName,
                         Command = new RelayCommand(() => Addon.Current.TriggerAction(item))
                     });
