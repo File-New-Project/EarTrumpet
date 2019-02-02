@@ -102,11 +102,12 @@
     <Compile Include="DataModel\Serialization\Conditions.cs" />
     <Compile Include="DataModel\Serialization\Triggers.cs" />
     <Compile Include="SettingsPageAddon.cs" />
-    <Compile Include="Settings\ActionsCategoryViewModel.cs" />
+    <Compile Include="ViewModel\ActionsCategoryViewModel.cs" />
     <Compile Include="ViewModel\ActionsEditorViewModel.cs" />
     <Compile Include="DataModel\Serialization\Device.cs" />
     <Compile Include="DataModel\Serialization\EarTrumpetAction.cs" />
     <Compile Include="DataModel\Serialization\App.cs" />
+    <Compile Include="ViewModel\ImportExportPageViewModel.cs" />
     <Compile Include="ViewModel\Option.cs" />
     <Compile Include="DataModel\Part.cs" />
     <Compile Include="DataModel\ProcessWatcher.cs" />

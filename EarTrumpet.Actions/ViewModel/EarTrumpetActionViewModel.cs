@@ -2,12 +2,10 @@
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Serialization;
-using EarTrumpet_Actions.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -60,6 +58,7 @@ namespace EarTrumpet_Actions.ViewModel
             _action = action;
             DisplayName = _action.DisplayName;
             Title = DisplayName;
+            Glyph = "\xE1CE";
 
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));

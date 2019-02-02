@@ -4,7 +4,7 @@ using EarTrumpet_Actions.DataModel.Serialization;
 using EarTrumpet_Actions.ViewModel;
 using System.Linq;
 
-namespace EarTrumpet_Actions.Settings
+namespace EarTrumpet_Actions.ViewModel
 {
     public class ActionsCategoryViewModel : SettingsCategoryViewModel
     {
@@ -16,6 +16,7 @@ namespace EarTrumpet_Actions.Settings
 
             Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(Addon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
 
+            Pages.Add(new ImportExportPageViewModel());
             Pages.Add(new AddonAboutPageViewModel(this));
 
             Toolbar = new ToolbarItemViewModel[] { new ToolbarItemViewModel{

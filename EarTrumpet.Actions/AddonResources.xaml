@@ -135,10 +135,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid.Resources>
-                <Style TargetType="Run"
-                       x:Key="{x:Type Run}">
-                    <Setter Property="FontSize"
-                            Value="15" />
+                <Style x:Key="{x:Type Run}" TargetType="Run">
+                    <Setter Property="FontSize" Value="15" />
                 </Style>
             </Grid.Resources>
 
@@ -156,13 +154,11 @@
 
             <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   LineHeight="1.5"
                                    DataItem="{Binding}"
                                    FormatText="{Binding LinkText}"
                                    HyperlinkStyle="{DynamicResource HyperlinkStyle}"
-                                   TextWrapping="Wrap">
-
-            </etctl:LinkedTextBlock>
+                                   LineHeight="1.5"
+                                   TextWrapping="Wrap" />
 
         </Grid>
     </DataTemplate>
@@ -403,8 +399,7 @@
 
             <Grid Grid.Row="10">
 
-                <TextBox FontSize="15"
-                         Text="{Binding DisplayName, Mode=TwoWay}" />
+                <TextBox FontSize="15" Text="{Binding DisplayName, Mode=TwoWay}" />
 
             </Grid>
         </Grid>

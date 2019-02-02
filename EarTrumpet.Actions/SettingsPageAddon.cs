@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EarTrumpet.Extensibility;
+﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Shared;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.Settings;
+using EarTrumpet_Actions.ViewModel;
+using System.ComponentModel.Composition;
 
 namespace EarTrumpet_Actions
 {
