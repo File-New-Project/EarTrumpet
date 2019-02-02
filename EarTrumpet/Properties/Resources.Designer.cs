@@ -196,7 +196,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Volume Mixer.
+        ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
             get {
@@ -394,7 +394,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Settings  / About.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsWindowText {
             get {
@@ -426,6 +426,15 @@ namespace EarTrumpet.Properties {
         public static string WebsiteText {
             get {
                 return ResourceManager.GetString("WebsiteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Legacy.
+        /// </summary>
+        public static string WindowsLegacyMenuText {
+            get {
+                return ResourceManager.GetString("WindowsLegacyMenuText", resourceCulture);
             }
         }
     }

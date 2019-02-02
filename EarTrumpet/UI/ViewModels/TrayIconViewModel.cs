@@ -113,35 +113,41 @@ namespace EarTrumpet.UI.ViewModels
                     ret.Add(new ContextMenuSeparator { });
                 }
 
-                ret.AddRange(new List<ContextMenuItem>
+                var legacyItems = new List<ContextMenuItem>
                 {
-                    new ContextMenuItem{ DisplayName = Properties.Resources.FullWindowTitleText,   Command =  OpenMixer },
                     new ContextMenuItem{ DisplayName = Properties.Resources.LegacyVolumeMixerText, Command =  new RelayCommand(StartLegacyMixer) },
-                    new ContextMenuSeparator{ },
                     new ContextMenuItem{ DisplayName = Properties.Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
                     new ContextMenuItem{ DisplayName = Properties.Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
                     new ContextMenuItem{ DisplayName = Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
-                    new ContextMenuSeparator{ },
-                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText,     Command = OpenSettings },
-                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuSendFeedback,Command = new RelayCommand(FeedbackService.OpenFeedbackHub) },
-                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
-                });
+                };
+                var legacyMenu = new ContextMenuItem
+                {
+                    DisplayName = Properties.Resources.WindowsLegacyMenuText,
+                    Children = legacyItems,
+                };
 
                 if (Features.IsEnabled(Feature.SoundSettingsMoSetPageOnTrayIcon))
                 {
-                    ret.Insert(ret.Count - 4, new ContextMenuItem
+                    legacyItems.Add(new ContextMenuItem
                     {
                         DisplayName = Properties.Resources.OpenSoundSettingsText,
                         Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:sound")),
                     });
                 }
 
+                ret.AddRange(new List<ContextMenuItem>
+                {
+                    legacyMenu,
+                    new ContextMenuItem{ DisplayName = Properties.Resources.FullWindowTitleText,   Command =  OpenMixer },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText, Command = OpenSettings, Glyph = "\xE713", IsChecked = true },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
+                });
+
                 if (Features.IsEnabled(Feature.Addons))
                 {
                     var addonEntries = new List<ContextMenuItem>();
                     if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
                     {
-                        
                         foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                         {
                             // Add a separator before and after each extension group.
@@ -174,9 +180,9 @@ namespace EarTrumpet.UI.ViewModels
                     {
                         foreach(var entry in addonEntries)
                         {
-                            ret.Insert(ret.Count - 3, entry);
+                            ret.Insert(ret.Count - 4, entry);
                         }
-                        ret.Insert(ret.Count - 3, new ContextMenuSeparator { });
+                        ret.Insert(ret.Count - 4, new ContextMenuSeparator { });
                     }
                 }
 

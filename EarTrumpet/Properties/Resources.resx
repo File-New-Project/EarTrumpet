@@ -127,7 +127,7 @@
     <value>Send feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Legacy Volume Mixer</value>
@@ -145,7 +145,7 @@
     <value>Recording devices</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Settings  / About</value>
+    <value>Settings</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
@@ -241,5 +241,8 @@
   </data>
   <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
     <value>No Files were found in {0}</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows Legacy</value>
   </data>
 </root>
