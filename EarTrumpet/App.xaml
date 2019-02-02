@@ -123,7 +123,7 @@
                 <Setter Property="MinWidth" Value="90" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Foreground" Value="{DynamicResource ButtonForeground}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorder}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
                 <Setter Property="Template">
                     <Setter.Value>
