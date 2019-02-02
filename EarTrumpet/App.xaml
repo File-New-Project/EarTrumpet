@@ -523,7 +523,7 @@
                                        FontSize="12"
                                        Foreground="{DynamicResource ContextMenuItemGlyphDarkOnly}"
                                        SnapsToDevicePixels="False"
-                                       Text="&#xE0E7;"
+                                       Text="{TemplateBinding Tag}"
                                        Visibility="Hidden" />
                         </Border>
                         <ContentPresenter x:Name="HeaderHost"
@@ -821,6 +821,7 @@
                           Header="{Binding DisplayName}"
                           IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
+                          Tag="{Binding Glyph}"
                           IsEnabled="{Binding IsEnabled}" />
             </DataTemplate>
             <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
@@ -838,6 +839,7 @@
                           IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}"
+                          Tag="{Binding Glyph}"
                           Style="{StaticResource MenuItemDarkOnly}" />
             </DataTemplate>
             <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplateDarkOnly" ItemsSource="{Binding Children}">
