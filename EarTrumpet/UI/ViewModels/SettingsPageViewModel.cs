@@ -23,9 +23,12 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public SettingsPageHeaderViewModel Header { get; protected set; }
+
         public SettingsPageViewModel(string groupName)
         {
             GroupName = groupName;
+            Header = new SettingsPageHeaderViewModel(this);
         }
     }
 }

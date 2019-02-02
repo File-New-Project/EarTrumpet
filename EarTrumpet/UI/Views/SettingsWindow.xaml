@@ -15,7 +15,6 @@
         Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <CheckBox Margin="0,12,0,18"
@@ -68,10 +67,9 @@
                 </StackPanel>-->
             </StackPanel>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">
             <StackPanel>
-                <StackPanel Margin="0,18,0,14" Orientation="Horizontal">
+                <StackPanel Margin="0,24" Orientation="Horizontal">
                     <Border Width="40"
                             Height="30"
                             Margin="0,0,8,0">
@@ -84,16 +82,15 @@
                         </Canvas>
                     </Border>
 
-                    <TextBlock FontSize="29" Text="{x:Static resx:Resources.SettingsTitle}" />
+                    <TextBlock FontSize="24" Text="{x:Static resx:Resources.SettingsTitle}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0,0,0,6">
+                    <StackPanel>
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"
                                    Text="{Binding AboutText}" />
-                        <TextBlock Margin="0,0,0,12"
-                                   VerticalAlignment="Center"
+                        <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"
                                    Text="© File-New-Project" />
                         <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
@@ -108,6 +105,15 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SettingsPageHeaderViewModel}">
+            <Grid Height="64">
+                <TextBlock Margin="24,0,0,6"
+                           VerticalAlignment="Bottom"
+                           FontSize="26"
+                           Text="{Binding Title}" />
+            </Grid>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:AddonAboutPageViewModel}">
@@ -136,7 +142,6 @@
                            Foreground="{DynamicResource LightOrDark_ActiveWindowBorder}"
                            Style="{DynamicResource GlyphTextBlockStyle}"
                            Text="{Binding Glyph}" />
-
                 <TextBlock Grid.Column="1"
                            FontSize="25"
                            Text="{Binding Title}" />
@@ -331,6 +336,33 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="Width" Value="48" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Margin="0,-1,0,0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     <Grid>
         <Grid>
@@ -487,7 +519,9 @@
                                        FontWeight="Bold"
                                        Text="{Binding Selected.Title}" />
 
-                            <ItemsControl Grid.Column="1" ItemsSource="{Binding Selected.Toolbar}">
+                            <ItemsControl Grid.Column="1"
+                                          IsTabStop="False"
+                                          ItemsSource="{Binding Selected.Toolbar}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal" />
@@ -500,15 +534,16 @@
                                                 AutomationProperties.Name="{Binding DisplayName}"
                                                 BorderThickness="0"
                                                 Command="{Binding Command}"
-                                                FontSize="{Binding GlyphFontSize}"
-                                                Style="{DynamicResource BaseVirtualTitleBarButtonStyle}"
-                                                Tag="{Binding Glyph}" />
+                                                Style="{DynamicResource ToolbarButtonStyle}">
+                                            <TextBlock FontSize="{Binding GlyphFontSize}"
+                                                       Style="{DynamicResource GlyphTextBlockStyle}"
+                                                       Text="{Binding Glyph}" />
+                                        </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
 
                         </Grid>
-
 
                         <ListView Grid.Row="4"
                                   IsSynchronizedWithCurrentItem="True"
@@ -563,13 +598,11 @@
 
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="64" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Margin="24,0,0,0"
-                                   FontSize="20"
-                                   Text="{Binding Selected.Selected.Title}" />
+                        <ContentControl Content="{Binding Selected.Selected.Header}" />
 
                         <ScrollViewer Grid.Row="1"
                                       Padding="0,0,24,0"
@@ -580,7 +613,6 @@
                     </Grid>
                 </Grid>
             </Grid>
-
         </DockPanel>
     </Grid>
 </Window>

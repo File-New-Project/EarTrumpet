@@ -186,6 +186,7 @@
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModelInternal.cs" />
+    <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsCategoryViewModel.cs" />
