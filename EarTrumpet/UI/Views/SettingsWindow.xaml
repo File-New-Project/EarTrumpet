@@ -112,10 +112,12 @@
 
         <DataTemplate DataType="{x:Type vm:AddonAboutPageViewModel}">
             <StackPanel Orientation="Vertical">
+                <!--  TODO: add more information  -->
                 <TextBlock Text="{Binding DisplayName}" />
             </StackPanel>
         </DataTemplate>
 
+        <!--  TODO: once stable, add a specialization for AdvertisedCategorySettingsViewModel  -->
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid Width="250" Height="85">
                 <Grid.RowDefinitions>
@@ -143,12 +145,11 @@
                            Foreground="{DynamicResource LightOrDark_SecondaryText}"
                            Text="{Binding Description}"
                            TextWrapping="Wrap" />
-
             </Grid>
         </DataTemplate>
 
-        <Style xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" TargetType="{x:Type GroupItem}">
-            <Setter Property="Control.Template">
+        <Style TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type GroupItem}">
                         <StackPanel>
@@ -291,7 +292,7 @@
 
         <Style x:Key="HomeButtonStyle" TargetType="Button">
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -511,8 +512,8 @@
 
                         <ListView Grid.Row="4"
                                   IsSynchronizedWithCurrentItem="True"
-                                  ScrollViewer.CanContentScroll="False"
                                   ItemsSource="{Binding Source={StaticResource cvs}}"
+                                  ScrollViewer.CanContentScroll="False"
                                   SelectedItem="{Binding Selected.Selected}"
                                   Style="{StaticResource SettingsListView}">
                             <ListView.ItemTemplate>
@@ -571,17 +572,12 @@
                                    Text="{Binding Selected.Selected.Title}" />
 
                         <ScrollViewer Grid.Row="1"
-                                      Margin="24,0,0,0"
                                       Padding="0,0,24,0"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
-                            <ContentControl Content="{Binding Selected.Selected}" />
+                            <ContentControl Margin="24,0,0,0" Content="{Binding Selected.Selected}" />
                         </ScrollViewer>
-
-
                     </Grid>
-
-
                 </Grid>
             </Grid>
 

@@ -125,6 +125,18 @@ namespace EarTrumpet
                 {
                     allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get()));
                 }
+
+                allCategories.Insert(0, new AdvertisedCategorySettingsViewModel(
+                    "System", "\xE770", "Display, sound, notifications, power", "ms-settings:system"));
+                allCategories.Insert(1, new AdvertisedCategorySettingsViewModel(
+                    "Devices", "\xE772", "Bluetooth, printers, mouse", "ms-settings:devices"));
+                allCategories.Insert(2, new AdvertisedCategorySettingsViewModel(
+                    "Ease of Access", "\xE776", "Narrator, magnifier, high contrast", "ms-settings:easeofaccess"));
+                allCategories.Insert(3, new AdvertisedCategorySettingsViewModel(
+                    "Network and Internet", "\xE776", "Wi-Fi, airplane mode, VPN", "ms-settings:network"));
+                allCategories.Insert(4, new AdvertisedCategorySettingsViewModel(
+                    "Personalization", "\xE771", "Background, lock screen, colors", "ms-settings:personalization"));
+
                 var viewModel = new SettingsViewModel("Settings", allCategories);
                 _openSettingsWindow = new SettingsWindow();
                 _openSettingsWindow.DataContext = viewModel;

@@ -24,7 +24,15 @@ namespace EarTrumpet.UI.ViewModels
             {
                 if (_selected != value)
                 {
+                    if (value != null && value is AdvertisedCategorySettingsViewModel)
+                    {
+                        ((AdvertisedCategorySettingsViewModel)value).Activate();
+                        RaisePropertyChanged(nameof(Selected));
+                        return;
+                    }
+
                     _selected = value;
+                    
                     if (_selected != null && _selected.Pages.Count > 0)
                     {
                         _selected.Selected = _selected.Pages[0];
