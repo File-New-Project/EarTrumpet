@@ -17,8 +17,7 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
             <StackPanel Orientation="Vertical">
-                <CheckBox Margin="0,12,0,18"
-                          HorizontalAlignment="Left"
+                <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                           IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
 
@@ -129,8 +128,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{DynamicResource BodyText}"
-                               Text="{x:Static resx:Resources.AddonNameText}" />
+                    <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.AddonNameText}" />
                     <TextBlock Grid.Row="1"
                                Style="{DynamicResource BodyText}"
                                Text="{x:Static resx:Resources.PublisherText}" />
@@ -482,7 +480,9 @@
                     <TextBox Grid.Row="1"
                              Width="332"
                              Height="32"
+                             Margin="0"
                              HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
                              FontSize="15">
                         Find a setting
                     </TextBox>

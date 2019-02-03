@@ -12,6 +12,7 @@ namespace EarTrumpet.UI.ViewModels
 #pragma warning disable CS0067
         public event Action Close;
         public event Action<object> HostDialog;
+        public string Id { get; protected set; }
 
         public SettingsPageViewModel Selected
         {
@@ -40,11 +41,12 @@ namespace EarTrumpet.UI.ViewModels
 
         public SettingsCategoryViewModel() { }
 
-        public SettingsCategoryViewModel(string title, string glyph, string description, IEnumerable<SettingsPageViewModel> pages)
+        public SettingsCategoryViewModel(string title, string glyph, string description, string id, IEnumerable<SettingsPageViewModel> pages)
         {
             Title = title;
             Glyph = glyph;
             Description = description;
+            Id = id;
             Pages = new ObservableCollection<SettingsPageViewModel>(pages);
         }
 

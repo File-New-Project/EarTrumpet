@@ -6,17 +6,15 @@ namespace EarTrumpet.UI.ViewModels
     {
         string _link;
 
-        public AdvertisedCategorySettingsViewModel(string title, string glyph, string description, string link)
+        public AdvertisedCategorySettingsViewModel(string title, string glyph, string description, string id, string link)
         {
             Title = title;
             Glyph = glyph;
             Description = description;
             _link = link;
+            Id = id;
         }
 
-        internal void Activate()
-        {
-            ProcessHelper.StartNoThrow(_link);
-        }
+        public void Activate() => ProcessHelper.StartNoThrow(_link);
     }
 }

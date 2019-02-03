@@ -599,6 +599,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
+                <Setter Property="Margin" Value="0,12" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -777,9 +778,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:HotkeySelectViewModel}">
                 <views:HotkeySelectView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AddonManagerViewModel}">
-                <views:AddonManagerView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>
@@ -1097,7 +1095,7 @@
                 <Setter Property="SelectionBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Padding" Value="4" />
-                <Setter Property="Margin" Value="0,6" />
+                <Setter Property="Margin" Value="0,12" />
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />

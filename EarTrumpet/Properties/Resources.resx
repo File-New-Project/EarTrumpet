@@ -212,12 +212,6 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
   </data>
-  <data name="AddAddonText" xml:space="preserve">
-    <value>+ Add</value>
-  </data>
-  <data name="AddonManagerTitleText" xml:space="preserve">
-    <value>Addon Manager</value>
-  </data>
   <data name="LoadAddonAddonsText" xml:space="preserve">
     <value>EarTrumpet Addons</value>
   </data>
@@ -226,9 +220,6 @@
   </data>
   <data name="RemoveAddonText" xml:space="preserve">
     <value>Remove</value>
-  </data>
-  <data name="AddonsMenuText" xml:space="preserve">
-    <value>Addons</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>More commands</value>

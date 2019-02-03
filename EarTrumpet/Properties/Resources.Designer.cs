@@ -79,38 +79,11 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to + Add.
-        /// </summary>
-        public static string AddAddonText {
-            get {
-                return ResourceManager.GetString("AddAddonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Addon Manager.
-        /// </summary>
-        public static string AddonManagerTitleText {
-            get {
-                return ResourceManager.GetString("AddonManagerTitleText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string AddonNameText {
             get {
                 return ResourceManager.GetString("AddonNameText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Addons.
-        /// </summary>
-        public static string AddonsMenuText {
-            get {
-                return ResourceManager.GetString("AddonsMenuText", resourceCulture);
             }
         }
         

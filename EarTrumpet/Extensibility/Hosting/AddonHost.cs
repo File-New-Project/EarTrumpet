@@ -77,7 +77,23 @@ namespace EarTrumpet.Extensibility.Hosting
                 }
                 else
                 {
-                    catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EarTrumpet-*.dll") });
+                    try
+                    {
+                        var rootAddonDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "addons");
+                        if (Directory.Exists(rootAddonDir))
+                        {
+                            foreach (var directoryPath in Directory.GetDirectories(rootAddonDir))
+                            {
+                                catalogs.Add(new Entry {
+                                    IsThirdParty = false,
+                                    Catalog = new DirectoryCatalog(directoryPath, "EarTrumpet-*.dll") });
+                            }
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Trace.WriteLine(ex);
+                    }
                 }
 
                 foreach (var additional in additionalFilePaths)

@@ -115,6 +115,7 @@ namespace EarTrumpet
             {
                 var defaultCategory = new SettingsCategoryViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, "\xE115", 
                     EarTrumpet.Properties.Resources.SettingsDescriptionText,
+                    null,
                     new SettingsPageViewModel[] {
                         new EarTrumpetLegacySettingsPageViewModel(),
                         new EarTrumpetAboutPageViewModel()
@@ -127,12 +128,20 @@ namespace EarTrumpet
                     allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get()));
                 }
 
-                allCategories.Add(new AdvertisedCategorySettingsViewModel(
-                "Flight Simulator", "\xEB4C", "Fly airplanes in EarTrumpet", "https://github.com/File-New-Project/EarTrumpet"));
-                allCategories.Add(new AdvertisedCategorySettingsViewModel(
-                "HoloTrumpet", "\xEBD2", "Ears everywhere", "https://github.com/File-New-Project/EarTrumpet"));
-                allCategories.Add(new AdvertisedCategorySettingsViewModel(
-                "EcoTrumpet", "\xE8BE", "For home and garden", "https://github.com/File-New-Project/EarTrumpet"));
+                var ads = new AdvertisedCategorySettingsViewModel[]
+                {
+                    new AdvertisedCategorySettingsViewModel("Flight Simulator", "\xEB4C", "Fly airplanes in EarTrumpet", "eartrumpet-project-eta", "https://github.com/File-New-Project/EarTrumpet"),
+                    new AdvertisedCategorySettingsViewModel("HoloTrumpet", "\xEBD2", "Ears everywhere", "eartrumpet-project-mt", "https://github.com/File-New-Project/EarTrumpet"),
+                    new AdvertisedCategorySettingsViewModel("EcoTrumpet", "\xE8BE", "For home and garden", "eartrumpet-project-advset", "https://github.com/File-New-Project/EarTrumpet"),
+                };
+
+                foreach(var ad in ads)
+                {
+                    if (!allCategories.Any(c => c.Id == ad.Id))
+                    {
+                        allCategories.Add(ad);
+                    }
+                }
 
                 var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
                 _openSettingsWindow = new SettingsWindow();
