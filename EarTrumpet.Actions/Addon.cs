@@ -1,13 +1,8 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility;
-using EarTrumpet.Extensibility.Shared;
-using EarTrumpet.Extensions;
-using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Views;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Processing;
 using EarTrumpet_Actions.DataModel.Serialization;
-using EarTrumpet_Actions.ViewModel;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;

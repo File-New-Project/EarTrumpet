@@ -14,7 +14,7 @@ namespace EarTrumpet_Actions.ViewModel
             Title = Properties.Resources.MyActionsText;
             Description = Properties.Resources.AddonDescriptionText;
             Glyph = "\xE164";
-
+            Id = Addon.Current.Info.Id;
             Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(Addon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
 
             Pages.Add(new ImportExportPageViewModel(this));

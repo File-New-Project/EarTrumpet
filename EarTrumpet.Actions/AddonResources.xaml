@@ -98,11 +98,11 @@
 
                         <Grid>
 
-                            <TextBlock HorizontalAlignment="Center"
+                            <TextBlock Margin="12"
+                                       HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontFamily="Segoe MDL2 Assets"
                                        FontSize="12"
-                                       Margin="12"
                                        Text="&#xE108;" />
                         </Grid>
 
@@ -192,10 +192,10 @@
                     CommandParameter="{Binding}"
                     Style="{StaticResource RemoveButtonStyle}" />
 
-            <etctl:LinkedTextBlock HorizontalAlignment="Left"
+            <etctl:LinkedTextBlock Margin="0,12"
+                                   HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    DataItem="{Binding}"
-                                   Margin="0,12"
                                    FormatText="{Binding LinkText}"
                                    HyperlinkStyle="{DynamicResource HyperlinkStyle}"
                                    RunStyle="{DynamicResource RunStyle}"
