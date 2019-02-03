@@ -118,7 +118,9 @@
             <Style TargetType="Button">
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
-                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="Padding"
+                        Value="14,0" />
+                <Setter Property="Margin" Value="12" />
                 <Setter Property="Height" Value="32" />
                 <Setter Property="MinWidth" Value="90" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
@@ -599,7 +601,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
-                <Setter Property="Margin" Value="0,12" />
+                <Setter Property="Margin" Value="12" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -734,12 +736,12 @@
 
             <Style x:Key="HeadingText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="20" />
-                <Setter Property="Margin" Value="0,12" />
+                <Setter Property="Margin" Value="12,24,12,12" />
             </Style>
 
             <Style x:Key="BodyText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
-                <Setter Property="Margin" Value="0,6,6,6" />
+                <Setter Property="Margin" Value="12,6" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
@@ -748,14 +750,14 @@
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0,6" />
+                <Setter Property="Margin" Value="12,6" />
                 <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
             </Style>
 
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="Margin" Value="0,6" />
+                <Setter Property="Margin" Value="12,12,12,6" />
             </Style>
 
             <Style TargetType="{x:Type Hyperlink}">

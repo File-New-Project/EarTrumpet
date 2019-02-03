@@ -25,13 +25,13 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="34" />
-                        <RowDefinition Height="34" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" MinWidth="140" />
-                        <ColumnDefinition Width="Auto" MinWidth="140" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock VerticalAlignment="Center"
@@ -68,7 +68,7 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">
             <StackPanel>
-                <StackPanel Margin="0,24" Orientation="Horizontal">
+                <StackPanel Margin="12,24" Orientation="Horizontal">
                     <Border Width="40"
                             Height="30"
                             Margin="0,0,8,0">
@@ -644,10 +644,10 @@
                         <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
 
                         <ScrollViewer Grid.Row="1"
-                                      Padding="0,0,24,0"
+                                      Padding="0,0,6,0"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
-                            <ContentControl Margin="24,0,0,0"
+                            <ContentControl Margin="12,0,0,0"
                                             Content="{Binding Selected.Selected}"
                                             IsTabStop="False" />
                         </ScrollViewer>
