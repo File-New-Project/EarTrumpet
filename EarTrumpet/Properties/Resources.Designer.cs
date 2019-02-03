@@ -61,6 +61,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About this add-on.
+        /// </summary>
+        public static string AboutThisAddonText {
+            get {
+                return ResourceManager.GetString("AboutThisAddonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string AboutTitle {
@@ -84,6 +93,15 @@ namespace EarTrumpet.Properties {
         public static string AddonManagerTitleText {
             get {
                 return ResourceManager.GetString("AddonManagerTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string AddonNameText {
+            get {
+                return ResourceManager.GetString("AddonNameText", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace EarTrumpet.Properties {
         public static string DefaultHotkeyDescriptionText {
             get {
                 return ResourceManager.GetString("DefaultHotkeyDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management.
+        /// </summary>
+        public static string DefaultManagementGroupName {
+            get {
+                return ResourceManager.GetString("DefaultManagementGroupName", resourceCulture);
             }
         }
         
@@ -331,6 +358,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publisher:.
+        /// </summary>
+        public static string PublisherText {
+            get {
+                return ResourceManager.GetString("PublisherText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recording devices.
         /// </summary>
         public static string RecordingDevicesText {
@@ -367,6 +403,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings, About, Help.
+        /// </summary>
+        public static string SettingsDescriptionText {
+            get {
+                return ResourceManager.GetString("SettingsDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open EarTrumpet flyout.
         /// </summary>
         public static string SettingsOpenEarTrumpetText {
@@ -376,7 +421,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet.
+        ///   Looks up a localized string similar to EarTrumpet Settings.
         /// </summary>
         public static string SettingsTitle {
             get {
@@ -417,6 +462,15 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version:.
+        /// </summary>
+        public static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
             }
         }
         

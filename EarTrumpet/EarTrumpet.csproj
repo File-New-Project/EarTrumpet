@@ -108,6 +108,7 @@
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />
     <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="Extensibility\IAddonAppContent.cs" />

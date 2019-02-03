@@ -6,6 +6,8 @@ namespace EarTrumpet.UI.ViewModels
     // Intended to be used as a base class for every type of settings page
     public class SettingsPageViewModel : BindableBase
     {
+        public static readonly string DefaultManagementGroupName = Properties.Resources.DefaultManagementGroupName;
+
         public string GroupName { get; }
         public string Glyph { get; protected set; }
 

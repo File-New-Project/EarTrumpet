@@ -82,7 +82,7 @@
                         </Canvas>
                     </Border>
 
-                    <TextBlock FontSize="24" Text="{x:Static resx:Resources.SettingsTitle}" />
+                    <TextBlock FontSize="24" Text="EarTrumpet" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -118,35 +118,73 @@
 
         <DataTemplate DataType="{x:Type vm:AddonAboutPageViewModel}">
             <StackPanel Orientation="Vertical">
-                <!--  TODO: add more information  -->
-                <TextBlock Text="{Binding DisplayName}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{DynamicResource BodyText}"
+                               Text="{x:Static resx:Resources.AddonNameText}" />
+                    <TextBlock Grid.Row="1"
+                               Style="{DynamicResource BodyText}"
+                               Text="{x:Static resx:Resources.PublisherText}" />
+                    <TextBlock Grid.Row="2"
+                               Style="{DynamicResource BodyText}"
+                               Text="{x:Static resx:Resources.VersionText}" />
+
+                    <TextBlock Grid.Column="1"
+                               Style="{DynamicResource BodySubText}"
+                               Text="{Binding DisplayName}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Style="{DynamicResource BodySubText}"
+                               Text="{Binding PublisherName}" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Style="{DynamicResource BodySubText}"
+                               Text="{Binding Version}" />
+                </Grid>
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}">
+                        <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                    </Hyperlink></TextBlock>
             </StackPanel>
         </DataTemplate>
 
         <!--  TODO: once stable, add a specialization for AdvertisedCategorySettingsViewModel  -->
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
-            <Grid Width="250" Height="85">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="24" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="58" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.RowSpan="2"
-                           Margin="0,10,0,0"
+                           Margin="0,6,0,0"
                            VerticalAlignment="Top"
-                           FontSize="25"
+                           FontSize="30"
                            Foreground="{DynamicResource LightOrDark_ActiveWindowBorder}"
                            Style="{DynamicResource GlyphTextBlockStyle}"
                            Text="{Binding Glyph}" />
                 <TextBlock Grid.Column="1"
-                           FontSize="25"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Bottom"
+                           FontSize="15"
                            Text="{Binding Title}" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
+                           Margin="4,0,8,6"
+                           VerticalAlignment="Top"
+                           FontSize="12"
                            Foreground="{DynamicResource LightOrDark_SecondaryText}"
                            Text="{Binding Description}"
                            TextWrapping="Wrap" />
@@ -245,7 +283,9 @@
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Margin" Value="36" />
+            <Setter Property="Height" Value="86" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Margin" Value="12" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
@@ -253,7 +293,7 @@
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                         <Border x:Name="Bd"
                                 Background="{TemplateBinding Background}"
-                                BorderThickness="1"
+                                BorderThickness="2"
                                 SnapsToDevicePixels="true">
 
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -276,7 +316,7 @@
 
         <Style x:Key="MainList" TargetType="{x:Type ListView}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
             <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
             <Setter Property="ItemContainerStyle" Value="{StaticResource MainListItem}" />
@@ -287,7 +327,7 @@
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="true">
                             <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
@@ -436,9 +476,8 @@
                                FontFamily="Segoe UI Light"
                                FontSize="26"
                                FontWeight="Light"
-                               Style="{DynamicResource HeadingText}">
-                        Windows Settings
-                    </TextBlock>
+                               Style="{DynamicResource HeadingText}"
+                               Text="{x:Static resx:Resources.SettingsTitle}" />
 
                     <TextBox Grid.Row="1"
                              Width="332"
@@ -549,7 +588,7 @@
                                   IsSynchronizedWithCurrentItem="True"
                                   ItemsSource="{Binding Source={StaticResource cvs}}"
                                   ScrollViewer.CanContentScroll="False"
-                                  SelectedItem="{Binding Selected.Selected}"
+                                  SelectedItem="{Binding Selected.Selected, Mode=TwoWay}"
                                   Style="{StaticResource SettingsListView}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -602,13 +641,15 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <ContentControl Content="{Binding Selected.Selected.Header}" />
+                        <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
 
                         <ScrollViewer Grid.Row="1"
                                       Padding="0,0,24,0"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
-                            <ContentControl Margin="24,0,0,0" Content="{Binding Selected.Selected}" />
+                            <ContentControl Margin="24,0,0,0"
+                                            Content="{Binding Selected.Selected}"
+                                            IsTabStop="False" />
                         </ScrollViewer>
                     </Grid>
                 </Grid>

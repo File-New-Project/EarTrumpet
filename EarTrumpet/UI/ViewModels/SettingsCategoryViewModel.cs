@@ -50,6 +50,8 @@ namespace EarTrumpet.UI.ViewModels
 
         public virtual void OnClosing()
         {
+            if (Pages == null) return;
+
             foreach (var page in Pages)
             {
                 if (page is IWindowHostedViewModel)

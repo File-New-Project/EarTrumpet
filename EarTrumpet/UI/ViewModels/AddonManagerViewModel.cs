@@ -35,12 +35,15 @@ namespace EarTrumpet.UI.ViewModels
 
                 if (dlg.ShowDialog() == true)
                 {
+                    // TODO: fix this
+                    /*
                     var newAddon = new Addon(new DirectoryCatalog(Path.GetDirectoryName(dlg.FileName), Path.GetFileName(dlg.FileName)));
                     ThirdParty.Add(Create(newAddon));
-
+                    */
                     var paths = _manager.UserDefinedAddons.ToList();
-                    paths.Add(newAddon.DisplayName);
+                    //paths.Add(newAddon.DisplayName);
                     _manager.UserDefinedAddons = paths.ToArray();
+                    
                 }
             });
         }

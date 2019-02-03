@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition.Hosting;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -8,22 +7,19 @@ namespace EarTrumpet.Extensibility.Hosting
 {
     public class Addon
     {
-        public string DisplayName { get; }
+        public string DisplayName => _info.DisplayName;
+        public string PublisherName => _info.PublisherName;
+        public string HelpLink => _info.HelpLink;
+        public Version Version => _info.AddonVersion;
+        public Version MinVersion => _info.EarTrumpetMinVersion;
 
         private DirectoryCatalog _catalog;
+        private AddonInfo _info;
 
-        public Addon(DirectoryCatalog catalog)
+        public Addon(DirectoryCatalog catalog, AddonInfo info)
         {
             _catalog = catalog;
-
-            if (catalog.LoadedFiles.Count == 0)
-            {
-                DisplayName = string.Format(Properties.Resources.NoFilesLoadedFromAddonFormatText, catalog.Path);
-            }
-            else
-            {
-                DisplayName = string.Join(", \r\n", catalog.LoadedFiles.Select(f => Path.GetFileNameWithoutExtension(f))).TrimEnd(',').Trim();
-            }
+            _info = info;
         }
 
         public bool IsAssembly(Assembly asm)

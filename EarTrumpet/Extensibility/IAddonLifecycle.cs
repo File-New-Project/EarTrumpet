@@ -1,4 +1,6 @@
-﻿namespace EarTrumpet.Extensibility
+﻿using System;
+
+namespace EarTrumpet.Extensibility
 {
     public enum ApplicationLifecycleEvent
     {
@@ -9,6 +11,8 @@
 
     public interface IAddonLifecycle
     {
+        AddonInfo Info { get; }
+
         void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt);
     }
 }

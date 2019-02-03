@@ -45,11 +45,11 @@ namespace EarTrumpet.Extensibility.Hosting
                 {
                     if (entry.IsThirdParty)
                     {
-                        ThirdParty.Add(new Addon(entry.Catalog));
+                        ThirdParty.Add(new Addon(entry.Catalog, entry.Info));
                     }
                     else
                     {
-                        BuiltIn.Add(new Addon(entry.Catalog));
+                        BuiltIn.Add(new Addon(entry.Catalog, entry.Info));
                     }
                 }
             }

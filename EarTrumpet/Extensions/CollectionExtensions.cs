@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace EarTrumpet.Extensions
 {
@@ -14,6 +15,14 @@ namespace EarTrumpet.Extensions
             }
 
             collection.Insert(i, item);
+        }
+
+        public static void InsertRange<T>(this ObservableCollection<T> collection, int startIndex, IEnumerable<T> items)
+        {
+            foreach(var item in items.Reverse())
+            {
+                collection.Insert(startIndex, item);
+            }
         }
     }
 }

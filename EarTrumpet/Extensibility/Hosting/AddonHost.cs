@@ -18,6 +18,7 @@ namespace EarTrumpet.Extensibility.Hosting
         {
             public bool IsThirdParty;
             public DirectoryCatalog Catalog;
+            public AddonInfo Info;
         }
 
         [ImportMany(typeof(IAddonLifecycle))]
@@ -40,6 +41,22 @@ namespace EarTrumpet.Extensibility.Hosting
 
         [ImportMany(typeof(IAddonSettingsPage))]
         private List<IAddonSettingsPage> _settingsPages { get; set; }
+
+        private AddonInfo FindInfo(DirectoryCatalog catalog)
+        {
+            foreach (var file in catalog.LoadedFiles)
+            {
+                foreach (var a in _appLifecycle)
+                {
+                    var asmLocation = a.GetType().Assembly.Location;
+                    if (asmLocation.ToLower() == file.ToLower())
+                    {
+                        return a.Info;
+                    }
+                }
+            }
+            return null;
+        }
 
         public IEnumerable<Entry> Initialize(string[] additionalFilePaths)
         {
@@ -70,6 +87,11 @@ namespace EarTrumpet.Extensibility.Hosting
 
                 var container = new CompositionContainer(new AggregateCatalog(catalogs.Select(c => c.Catalog)));
                 container.ComposeParts(this);
+
+                foreach(var cat in catalogs)
+                {
+                    cat.Info = FindInfo(cat.Catalog);
+                }
 
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
