@@ -7,6 +7,7 @@ namespace EarTrumpet_Actions.ViewModel
         EarTrumpetActionViewModel _parent;
 
         public ToolbarItemViewModel[] Toolbar => _parent.Toolbar;
+        public string DisplayName { get => _parent.DisplayName; set => _parent.DisplayName = value; }
 
         public EarTrumpetActionPageHeaderViewModel(EarTrumpetActionViewModel parent) : base(parent)
         {

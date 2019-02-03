@@ -1,7 +1,8 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
-using EarTrumpet_Actions.ViewModel;
+using System;
 using System.Linq;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -10,13 +11,13 @@ namespace EarTrumpet_Actions.ViewModel
     {
         public ActionsCategoryViewModel()
         {
-            Title = "Actions";
-            Description = "Create hotkeys and macros to control your audio experience";
+            Title = Properties.Resources.MyActionsText;
+            Description = Properties.Resources.AddonDescriptionText;
             Glyph = "\xE164";
 
             Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(Addon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a)));
 
-            Pages.Add(new ImportExportPageViewModel());
+            Pages.Add(new ImportExportPageViewModel(this));
             Pages.Add(new AddonAboutPageViewModel(this));
 
             Toolbar = new ToolbarItemViewModel[] { new ToolbarItemViewModel{
@@ -26,10 +27,21 @@ namespace EarTrumpet_Actions.ViewModel
                     Pages.Add(vm);
                     Selected = vm;
                 }),
-                DisplayName = "Add new action",
+                DisplayName = Properties.Resources.NewActionText,
                 Glyph = "\xE948",
                 GlyphFontSize = 15,
             } };
+        }
+
+        internal void ReloadSavedPages()
+        {
+            foreach(var item in Pages.Where(p => p is EarTrumpetActionViewModel).ToList())
+            {
+                Pages.Remove(item);
+            }
+
+            Pages.InsertRange(0, new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(Addon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a))));
+            Selected = Pages[0];
         }
 
         internal void Delete(EarTrumpetActionViewModel earTrumpetActionViewModel)

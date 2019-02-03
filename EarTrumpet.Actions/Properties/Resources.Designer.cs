@@ -79,6 +79,42 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add action.
+        /// </summary>
+        public static string AddActionText {
+            get {
+                return ResourceManager.GetString("AddActionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add condition.
+        /// </summary>
+        public static string AddConditionText {
+            get {
+                return ResourceManager.GetString("AddConditionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure hotkeys and macros.
+        /// </summary>
+        public static string AddonDescriptionText {
+            get {
+                return ResourceManager.GetString("AddonDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add trigger.
+        /// </summary>
+        public static string AddTriggerText {
+            get {
+                return ResourceManager.GetString("AddTriggerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When an app session is (added, removed, plays sound, ...).
         /// </summary>
         public static string AppEventTrigger_AddText {
@@ -88,7 +124,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {App} {Option} on {Device}.
+        ///   Looks up a localized string similar to {App} {Option} on {Device}.
         /// </summary>
         public static string AppEventTrigger_LinkText {
             get {
@@ -268,7 +304,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  {Device} {Option} the default device.
+        ///   Looks up a localized string similar to {Device} {Option} the default device.
         /// </summary>
         public static string DefaultDeviceCondition_LinkText {
             get {
@@ -295,7 +331,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {Device} {Option}.
+        ///   Looks up a localized string similar to {Device} {Option}.
         /// </summary>
         public static string DeviceEventTrigger_LinkText {
             get {
@@ -340,6 +376,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet Actions Save File.
+        /// </summary>
+        public static string EtaXmlFileText {
+            get {
+                return ResourceManager.GetString("EtaXmlFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When EarTrumpet is started or stopped.
         /// </summary>
         public static string EventTrigger_AddText {
@@ -349,7 +394,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When EarTrumpet {Option}.
+        ///   Looks up a localized string similar to  EarTrumpet {Option}.
         /// </summary>
         public static string EventTrigger_LinkText {
             get {
@@ -394,11 +439,20 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When {Hotkey} is pressed.
+        ///   Looks up a localized string similar to {Hotkey} is typed.
         /// </summary>
         public static string HotkeyTrigger_LinkText {
             get {
                 return ResourceManager.GetString("HotkeyTrigger_LinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import and export.
+        /// </summary>
+        public static string ImportAndExportTitle {
+            get {
+                return ResourceManager.GetString("ImportAndExportTitle", resourceCulture);
             }
         }
         
@@ -678,6 +732,15 @@ namespace EarTrumpet_Actions.Properties {
         public static string SetDeviceMuteAction_LinkText {
             get {
                 return ResourceManager.GetString("SetDeviceMuteAction_LinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {Option} on {Device}.
+        /// </summary>
+        public static string SetDeviceMuteAction_LinkTextToggle {
+            get {
+                return ResourceManager.GetString("SetDeviceMuteAction_LinkTextToggle", resourceCulture);
             }
         }
         

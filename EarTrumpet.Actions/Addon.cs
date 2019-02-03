@@ -8,7 +8,9 @@ using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Processing;
 using EarTrumpet_Actions.DataModel.Serialization;
 using EarTrumpet_Actions.ViewModel;
+using System;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 
 namespace EarTrumpet_Actions
@@ -28,6 +30,19 @@ namespace EarTrumpet_Actions
                 _settings.Set(c_actionsSettingKey, value);
                 LoadAndRegister();
             }
+        }
+
+        public AddonInfo Info
+        {
+            get => new AddonInfo
+            {
+                DisplayName = Properties.Resources.MyActionsText,
+                PublisherName = "File-New-Project",
+                Id = "eartrumpet-project-eta",
+                HelpLink = "https://github.com/File-New-Project/EarTrumpet",
+                AddonVersion = new System.Version(1, 0, 0, 0),
+                EarTrumpetMinVersion = new Version(2, 0, 0, 0)
+            };
         }
 
         private readonly string c_actionsSettingKey = "ActionsData";
@@ -58,6 +73,22 @@ namespace EarTrumpet_Actions
             _triggerManager.Clear();
             _actions = _settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
             _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
+        }
+
+        public void Import(string fileName)
+        {
+            var imported = Serializer.FromString<EarTrumpetAction[]>(File.ReadAllText(fileName)).ToList();
+            foreach(var imp in imported)
+            {
+                imp.Id = Guid.NewGuid();
+            }
+            imported.AddRange(Actions);
+            Actions = imported.ToArray();
+        }
+
+        public string Export()
+        {
+            return _settings.Get(c_actionsSettingKey, "");
         }
 
         /*

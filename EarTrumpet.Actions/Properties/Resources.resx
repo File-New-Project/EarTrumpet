@@ -123,11 +123,23 @@
   <data name="ActionVerbText" xml:space="preserve">
     <value>Do</value>
   </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Add condition</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Configure hotkeys and macros</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Add trigger</value>
+  </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
     <value>When an app session is (added, removed, plays sound, ...)</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>When {App} {Option} on {Device}</value>
+    <value>{App} {Option} on {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
     <value>is added</value>
@@ -187,7 +199,7 @@
     <value>If the default playback device (is, is not)</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value> {Device} {Option} the default device</value>
+    <value>{Device} {Option} the default device</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
     <value>default playback device</value>
@@ -196,7 +208,7 @@
     <value>When an audio device is (added, removed, becomes or leaves default)</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
-    <value>When {Device} {Option}</value>
+    <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
     <value>shuts down</value>
@@ -210,11 +222,14 @@
   <data name="EditText" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Actions Save File</value>
+  </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
     <value>When EarTrumpet is started or stopped</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
-    <value>When EarTrumpet {Option}</value>
+    <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
     <value>Every app</value>
@@ -229,7 +244,10 @@
     <value>(choose a hotkey)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>When {Hotkey} is pressed</value>
+    <value>{Hotkey} is typed</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Import and export</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
     <value>Mute</value>
@@ -323,6 +341,9 @@
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} on {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
     <value>Set a device volume</value>

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -41,6 +42,8 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
+        public ICommand AddFilterSection { get; }
+
         public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).ToList();
         public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).ToList();
         public List<ContextMenuItem> NewActions => PartViewModelFactory.Create<BaseAction>().Select(t => MakeItem(t)).ToList();
@@ -64,6 +67,8 @@ namespace EarTrumpet_Actions.ViewModel
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
             Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
+
+            IsExpanded = Conditions.Count > 0;
 
             Triggers.CollectionChanged += Parts_CollectionChanged;
             Conditions.CollectionChanged += Parts_CollectionChanged;
@@ -96,6 +101,8 @@ namespace EarTrumpet_Actions.ViewModel
                      GlyphFontSize = 20,
                 }
             };
+
+            AddFilterSection = new RelayCommand(() => IsExpanded = true);
         }
 
         public EarTrumpetAction GetAction()

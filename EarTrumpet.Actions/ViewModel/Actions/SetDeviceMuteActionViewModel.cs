@@ -18,5 +18,20 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             Attach(Option);
             Attach(Device);
         }
+
+        public override string LinkText
+        {
+            get
+            {
+                if (_action.Option == DataModel.Enum.MuteKind.ToggleMute)
+                {
+                    return Properties.Resources.SetDeviceMuteAction_LinkTextToggle;
+                }
+                else
+                {
+                    return base.LinkText;
+                }
+            }
+        }
     }
 }

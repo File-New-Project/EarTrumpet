@@ -43,7 +43,17 @@ namespace EarTrumpet_Actions.Controls
         public static readonly DependencyProperty HyperlinkStyleProperty = DependencyProperty.Register(
           "HyperlinkStyle", typeof(Style), typeof(LinkedTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(HyperlinkStyleChanged)));
 
+        public Style RunStyle
+        {
+            get { return (Style)this.GetValue(RunStyleProperty); }
+            set { this.SetValue(RunStyleProperty, value); }
+        }
+        public static readonly DependencyProperty RunStyleProperty = DependencyProperty.Register(
+          "RunStyle", typeof(Style), typeof(LinkedTextBlock), new PropertyMetadata(null, new PropertyChangedCallback(RunStyleChanged)));
+
+
         private static void HyperlinkStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).PropertiesChanged();
+        private static void RunStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LinkedTextBlock)d).PropertiesChanged();
 
         private void DataItemChanged()
         {
@@ -59,7 +69,9 @@ namespace EarTrumpet_Actions.Controls
                 text = text.Trim();
                 if (!isLink)
                 {
-                    this.Inlines.Add(new Run(text));
+                    var run = new Run(text);
+                    run.Style = RunStyle;
+                    this.Inlines.Add(run);
                 }
                 else
                 {
