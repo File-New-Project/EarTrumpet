@@ -438,17 +438,17 @@
                 <Button x:Name="MinimizeButton"
                         Grid.Column="1"
                         Click="MinimizeButton_Click"
-                        Content="&#xEF2D;"
+                        Content="&#xE921;"
                         Style="{DynamicResource CaptionButtonStyle}" />
                 <Button x:Name="MaximizeButton"
                         Grid.Column="2"
                         Click="MaximizeButton_Click"
-                        Content="&#xEF2E;"
+                        Content="&#xE922;"
                         Style="{DynamicResource CaptionButtonStyle}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="3"
                         Click="CloseButton_Click"
-                        Content="&#xEF2C;"
+                        Content="&#xE8BB;"
                         Style="{DynamicResource CloseButtonStyle}" />
             </Grid>
 
