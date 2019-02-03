@@ -205,7 +205,7 @@
     </DataTemplate>
 
     <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
-        <Setter Property="Margin" Value="6,0,0,0" />
+        <Setter Property="Margin" Value="12,0,0,0" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
@@ -316,22 +316,7 @@
                       ItemTemplate="{StaticResource PartListItemTemplate}"
                       ItemsSource="{Binding Triggers}"
                       Style="{DynamicResource ThinListStyle}" />
-            <!--
-            <Grid Grid.Row="3">
-                <TextBlock Text="{x:Static resx:Resources.RequiredText}">
-                    <TextBlock.Style>
-                        <Style BasedOn="{StaticResource TablePromptTextStyle}" TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Triggers.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-            -->
+
             <etctl:MenuButton Grid.Row="4"
                               HorizontalAlignment="Stretch"
                               Content="{x:Static resx:Resources.AddTriggerText}"
@@ -359,7 +344,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-
 
                 <TextBlock Grid.Row="0"
                            Style="{DynamicResource HeadingText}"
@@ -431,56 +415,6 @@
         </Grid>
     </DataTemplate>
 
-    <!--
-    <DataTemplate DataType="{x:Type vm:ActionsEditorViewModel}">
-        <StackPanel MinWidth="400"
-                    MinHeight="400"
-                    Margin="12"
-                    Orientation="Vertical">
-            <TextBlock Margin="6"
-                       Style="{DynamicResource HeadingText}"
-                       Text="{x:Static resx:Resources.MyActionsText}" />
-            <ListView ItemsSource="{Binding Actions}"
-                      SelectedItem="{Binding SelectedAction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionMode="Single"
-                      Style="{DynamicResource SettingsListView}">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
-                        <Grid Margin="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Button Grid.Row="1"
-                                    Grid.Column="1"
-                                    Command="{Binding Open}"
-                                    Content="{x:Static resx:Resources.EditText}"
-                                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
-
-                            <Button Grid.Row="1"
-                                    Grid.Column="2"
-                                    Command="{Binding Remove}"
-                                    Content="{x:Static resx:Resources.RemoveText}"
-                                    Visibility="{Binding IsExpanded, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
-
-                            <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Margin="0,6,0,0"
-                    Command="{Binding New}"
-                    Content="{x:Static resx:Resources.NewActionText}"
-                    Style="{DynamicResource AddButtonStyle}" />
-        </StackPanel>
-    </DataTemplate>-->
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
         <ctl:VolumeSlider Maximum="100"
                           Minimum="0"
