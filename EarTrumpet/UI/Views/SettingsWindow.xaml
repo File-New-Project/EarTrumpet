@@ -158,7 +158,7 @@
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -167,20 +167,20 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.RowSpan="2"
-                           Margin="0,6,0,0"
-                           VerticalAlignment="Top"
+                           Margin="0,-6,0,0"
+                           VerticalAlignment="Center"
                            FontSize="30"
                            Foreground="{DynamicResource LightOrDark_ActiveWindowBorder}"
                            Style="{DynamicResource GlyphTextBlockStyle}"
                            Text="{Binding Glyph}" />
                 <TextBlock Grid.Column="1"
-                           Margin="4,0,0,0"
-                           VerticalAlignment="Bottom"
+                           Margin="6,12,0,0"
+                           VerticalAlignment="Top"
                            FontSize="15"
                            Text="{Binding Title}" />
                 <TextBlock Grid.Row="1"
                            Grid.Column="1"
-                           Margin="4,0,8,6"
+                           Margin="6,2,8,6"
                            VerticalAlignment="Top"
                            FontSize="12"
                            Foreground="{DynamicResource LightOrDark_SecondaryText}"
@@ -279,8 +279,8 @@
         <Style x:Key="MainListItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
             <Setter Property="Height" Value="86" />
             <Setter Property="Width" Value="250" />
             <Setter Property="Margin" Value="12" />
