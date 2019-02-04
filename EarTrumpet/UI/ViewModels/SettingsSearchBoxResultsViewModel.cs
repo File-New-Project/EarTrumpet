@@ -1,21 +1,15 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class SettingsSearchBoxResultsViewModel
+    class SettingsSearchBoxResultsViewModel : BindableBase
     {
         public ObservableCollection<SettingsSearchBoxResultsItemViewModel> Results { get; } = new ObservableCollection<SettingsSearchBoxResultsItemViewModel>();
 
-        public SettingsSearchBoxResultsItemViewModel Selected
-        {
-            get => Results.Count > 0 ? Results[0] : null;
-            set
-            {
-                value.Invoke();
-            }
-        }
+        public bool IsDone { get; private set; }
 
-        public SettingsSearchBoxResultsViewModel(SettingsViewModel viewModel, string text)
+        public SettingsSearchBoxResultsViewModel(SettingsViewModel viewModel, string text, Action beforeInvoke)
         {
             text = text.ToLower();
 
@@ -31,6 +25,7 @@ namespace EarTrumpet.UI.ViewModels
                             Glyph = page.Glyph,
                             Invoke = () =>
                             {
+                                beforeInvoke();
                                 viewModel.InvokeSearchResult(cat, page);
                             }
                         });
@@ -45,8 +40,17 @@ namespace EarTrumpet.UI.ViewModels
 
             if (Results.Count == 0)
             {
-                Results.Add(new SettingsSearchBoxResultsItemViewModel { DisplayName = Properties.Resources.SearchBoxNoResultsText });
+                Results.Add(new SettingsSearchBoxResultsItemViewModel { DisplayName = Properties.Resources.SearchBoxNoResultsText, Invoke = () => {
+                    beforeInvoke();
+                } });
             }
+        }
+
+        public void Invoked(object sender, object viewModel)
+        {
+            IsDone = true;
+            RaisePropertyChanged(nameof(IsDone));
+            ((SettingsSearchBoxResultsItemViewModel)viewModel).Invoke();
         }
     }
 }
