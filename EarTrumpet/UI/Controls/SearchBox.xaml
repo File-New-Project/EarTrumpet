@@ -20,8 +20,8 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock FontSize="15"
-                           Style="{StaticResource GlyphTextBlockStyle}"
                            Foreground="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                           Style="{StaticResource GlyphTextBlockStyle}"
                            Text="{Binding Glyph}" />
                 <TextBlock Grid.Column="1"
                            FontSize="15"
@@ -63,8 +63,7 @@
             </Setter>
         </Style>
         <Style TargetType="{x:Type ctl:ListView}">
-            <Setter Property="Background"
-                    Value="Transparent" />
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />

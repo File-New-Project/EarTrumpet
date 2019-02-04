@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
         xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -49,6 +50,39 @@
                     <ContentControl Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{Binding OpenFlyoutHotkey}"
+                                    IsTabStop="False" />
+                </Grid>
+
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenMixerText}" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{Binding DefaultMixerHotKey}" />
+
+                    <TextBlock Grid.Row="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+
+                    <ContentControl Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{Binding OpenMixerHotkey}"
                                     IsTabStop="False" />
                 </Grid>
             </StackPanel>
@@ -151,7 +185,7 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
-            <Grid>
+            <Grid Background="Transparent" PreviewMouseRightButtonDown="{Event:HandledBinding}">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -673,7 +707,6 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-
                         </Grid>
 
                         <ListView Grid.Row="4"

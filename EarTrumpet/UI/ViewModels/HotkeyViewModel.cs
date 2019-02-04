@@ -88,8 +88,16 @@ namespace EarTrumpet.UI.ViewModels
         {
             if (_hotkey != _savedHotkey)
             {
-                _save(_hotkey);
-                _savedHotkey = new HotkeyData { Key = _hotkey.Key, Modifiers = _hotkey.Modifiers };
+                if (_hotkey.Key != System.Windows.Forms.Keys.None)
+                {
+                    _save(_hotkey);
+                    _savedHotkey = new HotkeyData { Key = _hotkey.Key, Modifiers = _hotkey.Modifiers };
+                }
+                else
+                {
+                    _hotkey.Modifiers = System.Windows.Forms.Keys.None;
+                    SetHotkeyText();
+                }
             }
             HotkeyManager.Current.Resume();
         }

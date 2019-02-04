@@ -109,6 +109,7 @@
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
+    <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="UI\Controls\ListView.cs" />
     <Compile Include="UI\Controls\ListViewItem.cs" />

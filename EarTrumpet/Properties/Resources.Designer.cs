@@ -430,11 +430,20 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open EarTrumpet flyout.
+        ///   Looks up a localized string similar to Open Taskbar flyout.
         /// </summary>
         public static string SettingsOpenEarTrumpetText {
             get {
                 return ResourceManager.GetString("SettingsOpenEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Mixer.
+        /// </summary>
+        public static string SettingsOpenMixerText {
+            get {
+                return ResourceManager.GetString("SettingsOpenMixerText", resourceCulture);
             }
         }
         

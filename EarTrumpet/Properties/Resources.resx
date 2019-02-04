@@ -204,7 +204,7 @@
     <value>Assign this app to a playback device</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Open EarTrumpet flyout</value>
+    <value>Open Taskbar flyout</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
@@ -271,5 +271,8 @@
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
     <value>No results</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Open Mixer</value>
   </data>
 </root>
