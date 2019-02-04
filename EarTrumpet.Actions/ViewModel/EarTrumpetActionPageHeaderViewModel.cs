@@ -10,7 +10,7 @@ namespace EarTrumpet_Actions.ViewModel
         public ToolbarItemViewModel[] Toolbar => _parent.Toolbar;
         public string DisplayName { get => _parent.DisplayName; set => _parent.DisplayName = value; }
         public bool IsExpanded { get => _parent.IsExpanded; set => _parent.IsExpanded = value; }
-
+        public bool IsWorkSaved => _parent.IsWorkSaved;
         public EarTrumpetActionPageHeaderViewModel(EarTrumpetActionViewModel parent) : base(parent)
         {
             _parent = parent;

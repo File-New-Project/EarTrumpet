@@ -408,4 +408,13 @@
   <data name="VariableCondition_PromptText" xml:space="preserve">
     <value>Enter a variable name (e.g. IsInGameMode)</value>
   </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

@@ -7,11 +7,8 @@
                     xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
                     xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
-
     <conv:InvertableVisibilityConverter x:Key="addonVisConverter" />
-
     <ui:MenuItemTemplateSelector x:Key="MenuTemplateSelector" Theme="LightOrDark" />
-
     <Popup x:Key="ActionsPopup"
            MinWidth="200"
            AllowsTransparency="False"
@@ -29,7 +26,6 @@
             </Grid>
         </Border>
     </Popup>
-
     <Style x:Key="RemoveButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -58,7 +54,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionPageHeaderViewModel}">
         <Border BorderBrush="Transparent" BorderThickness="0">
             <Grid Height="64">
@@ -72,22 +67,18 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <TextBox Name="txtHeader"
                              Margin="12,0,6,0"
                              VerticalAlignment="Bottom"
                              FontSize="26"
                              Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.Style>
-                            <Style BasedOn="{StaticResource {x:Type TextBox}}"
-                                   TargetType="TextBox">
-                                <Setter Property="BorderBrush"
-                                        Value="Transparent" />
+                            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                                <Setter Property="BorderBrush" Value="Transparent" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsExpanded}"
-                                                 Value="True">
-                                        <Setter Property="FocusManager.FocusedElement"
-                                                Value="{Binding ElementName=txtHeader}" />
+                                    <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=txtHeader}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -95,10 +86,12 @@
                     </TextBox>
                 </Grid>
 
-                <ItemsControl Grid.Column="2"
+                <ItemsControl Name="Toolbar"
+                              Grid.Column="2"
                               VerticalAlignment="Bottom"
                               IsTabStop="False"
-                              ItemsSource="{Binding Toolbar}">
+                              ItemsSource="{Binding Toolbar}"
+                              Tag="{Binding IsWorkSaved}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -112,9 +105,23 @@
                                     BorderThickness="0"
                                     Command="{Binding Command}"
                                     Style="{DynamicResource ToolbarButtonStyle}">
-                                <TextBlock FontSize="{Binding GlyphFontSize}"
-                                           Style="{DynamicResource GlyphTextBlockStyle}"
-                                           Text="{Binding Glyph}" />
+                                <TextBlock FontSize="{Binding GlyphFontSize}" Text="{Binding Glyph}">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Id}" Value="Save" />
+                                                        <Condition Binding="{Binding ElementName=Toolbar, Path=Tag}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -123,12 +130,10 @@
 
         </Border>
     </DataTemplate>
-
     <Style x:Key="RunStyle" TargetType="Run">
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
     </Style>
-
     <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
@@ -161,7 +166,6 @@
 
         </Grid>
     </DataTemplate>
-
     <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
         <Setter Property="Margin" Value="12,0,0,0" />
         <Setter Property="Background" Value="Transparent" />
@@ -190,12 +194,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style x:Key="AdditionalTextStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
-
     <Style x:Key="HyperlinkStyle" TargetType="{x:Type Hyperlink}">
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForeground}" />
@@ -207,7 +209,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <DataTemplate DataType="{x:Type vm:ImportExportPageViewModel}">
         <StackPanel Orientation="Vertical">
             <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.ExportHeaderText}" />
@@ -222,7 +223,6 @@
                     Content="{x:Static resx:Resources.ImportHeaderText}" />
         </StackPanel>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
         <Grid>
             <Grid.RowDefinitions>
@@ -306,32 +306,27 @@
             </Grid>
         </Grid>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
         <ctl:VolumeSlider Maximum="100"
                           Minimum="0"
                           Style="{StaticResource {x:Type Slider}}"
                           Value="{Binding Volume, Mode=TwoWay}" />
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
         <ComboBox IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding All}"
                   SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
         <ComboBox IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding All}"
                   SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:OptionViewModel}">
         <ComboBox IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding All}"
                   SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:TextViewModel}">
         <Grid Margin="12">
             <Grid.RowDefinitions>

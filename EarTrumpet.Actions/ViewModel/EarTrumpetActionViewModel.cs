@@ -13,6 +13,7 @@ namespace EarTrumpet_Actions.ViewModel
     public class EarTrumpetActionViewModel : SettingsPageViewModel
     {
         public ToolbarItemViewModel[] Toolbar { get; private set; }
+        public Guid Id => _action.Id;
 
         public string DisplayName
         {
@@ -24,10 +25,13 @@ namespace EarTrumpet_Actions.ViewModel
                     _action.DisplayName = value;
                     RaisePropertyChanged(nameof(DisplayName));
                     Title = DisplayName;
+
+                    IsWorkSaved = false;
                 }
             }
         }
 
+        // TODO: rename to IsEditClicked
         private bool _isExpanded;
         public bool IsExpanded
         {
@@ -44,26 +48,81 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
+        private bool _isWorkSaved;
+        public bool IsWorkSaved
+        {
+            get => _isWorkSaved;
+            set
+            {
+                if (_isWorkSaved != value)
+                {
+                    _isWorkSaved = value;
+                    RaisePropertyChanged(nameof(IsWorkSaved));
+                }
+            }
+        }
+
         public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).ToList();
         public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).ToList();
         public List<ContextMenuItem> NewActions => PartViewModelFactory.Create<BaseAction>().Select(t => MakeItem(t)).ToList();
 
-        public ObservableCollection<PartViewModel> Triggers { get; }
-        public ObservableCollection<PartViewModel> Conditions { get; }
-        public ObservableCollection<PartViewModel> Actions { get; }
+        public ObservableCollection<PartViewModel> Triggers { get; private set; }
+        public ObservableCollection<PartViewModel> Conditions { get; private set; }
+        public ObservableCollection<PartViewModel> Actions { get; private set; }
 
-        private readonly EarTrumpetAction _action;
+        private EarTrumpetAction _action;
         private ActionsCategoryViewModel _parent;
 
         public EarTrumpetActionViewModel(ActionsCategoryViewModel parent, EarTrumpetAction action) : base("Saved Actions")
         {
             _parent = parent;
-            _action = action;
-            DisplayName = _action.DisplayName;
-            Title = DisplayName;
-            Glyph = "\xE1CE";
+            Reset(action);
             Header = new EarTrumpetActionPageHeaderViewModel(this);
+            Toolbar = new ToolbarItemViewModel[]
+            {
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
+                         IsExpanded = true;
+                     }),
+                     DisplayName = Properties.Resources.ToolbarEditText,
+                     Glyph = "\xE70F",
+                     GlyphFontSize = 14,
+                },
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
+                         _parent.Save(this);
+                     }),
+                     DisplayName = Properties.Resources.ToolbarSaveText,
+                     Id = "Save", // String is not for display
+                     Glyph = "\xE105",
+                     GlyphFontSize = 14,
+                },
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
+                         _parent.Delete(this);
+                     }),
+                     DisplayName = Properties.Resources.ToolbarDeleteText,
+                     Glyph = "\xE107",
+                     GlyphFontSize = 14,
+                },
+            };
 
+            Glyph = "\xE1CE";
+            Title = DisplayName;
+            IsWorkSaved = true;
+        }
+
+        public void Reset(EarTrumpetAction action)
+        {
+            _action = action;
+
+            Title = DisplayName;
             Triggers = new ObservableCollection<PartViewModel>(action.Triggers.Select(t => CreatePartViewModel(t)));
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
             Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
@@ -75,40 +134,26 @@ namespace EarTrumpet_Actions.ViewModel
             Parts_CollectionChanged(Triggers, null);
             Parts_CollectionChanged(Conditions, null);
             Parts_CollectionChanged(Actions, null);
+            RaisePropertyChanged(nameof(Triggers));
+            RaisePropertyChanged(nameof(Conditions));
+            RaisePropertyChanged(nameof(Actions));
+            RaisePropertyChanged(nameof(DisplayName));
+            IsWorkSaved = true;
+        }
 
-            Toolbar = new ToolbarItemViewModel[]
+
+        public override bool NavigatingFrom(NavigationCookie cookie)
+        {
+            if (!IsWorkSaved)
             {
-                new ToolbarItemViewModel
+                _parent.ShowDialog("Title", "Leave without saving", "Yes", () =>
                 {
-                     Command = new RelayCommand(() =>
-                     {
-                         IsExpanded = true;
-                     }),
-                     DisplayName = "Edit",
-                     Glyph = "\xE70F",
-                     GlyphFontSize = 14,
-                },
-                new ToolbarItemViewModel
-                {
-                     Command = new RelayCommand(() =>
-                     {
-                         _parent.Save(this);
-                     }),
-                     DisplayName = "Save",
-                     Glyph = "\xE105",
-                     GlyphFontSize = 14,
-                },
-                new ToolbarItemViewModel
-                {
-                     Command = new RelayCommand(() =>
-                     {
-                         _parent.Delete(this);
-                     }),
-                     DisplayName = "Delete",
-                     Glyph = "\xE107",
-                     GlyphFontSize = 14,
-                },
-            };
+                    Reset(Addon.Current.Actions.FirstOrDefault(a => a.Id == Id));
+                    _parent.CompleteNavigation(cookie);
+                }, "No", () => { });
+                return false;
+            }
+            return base.NavigatingFrom(cookie);
         }
 
         public EarTrumpetAction GetAction()
@@ -128,6 +173,7 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 col[i].IsShowingAdditionalText = i != 0;
             }
+            IsWorkSaved = false;
         }
 
         private ContextMenuItem MakeItem(PartViewModel part)
@@ -152,6 +198,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         private void InitializeViewModel(PartViewModel part)
         {
+            part.PropertyChanged += (_, __) => IsWorkSaved = false;
             part.Remove = new RelayCommand(() => GetListFromPart(part).Remove(part));
         }
 

@@ -880,6 +880,33 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ToolbarDeleteText {
+            get {
+                return ResourceManager.GetString("ToolbarDeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string ToolbarEditText {
+            get {
+                return ResourceManager.GetString("ToolbarEditText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ToolbarSaveText {
+            get {
+                return ResourceManager.GetString("ToolbarSaveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or.
         /// </summary>
         public static string TriggerAdditionalText {
