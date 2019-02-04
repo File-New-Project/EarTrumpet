@@ -268,7 +268,16 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter.
+        ///   Looks up a localized string similar to Add an optional filter condition to build more advanced actions. Filters must all be true for the Do&apos;s to be run..
+        /// </summary>
+        public static string ConditionsHelpText {
+            get {
+                return ResourceManager.GetString("ConditionsHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Filter.
         /// </summary>
         public static string ConditionVerbText {
             get {
@@ -412,6 +421,24 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string ExportHeaderText {
+            get {
+                return ResourceManager.GetString("ExportHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import your actions previously exported by EarTrumpet..
+        /// </summary>
+        public static string ExportHelpText {
+            get {
+                return ResourceManager.GetString("ExportHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foreground app.
         /// </summary>
         public static string ForegroundAppText {
@@ -453,6 +480,24 @@ namespace EarTrumpet_Actions.Properties {
         public static string ImportAndExportTitle {
             get {
                 return ResourceManager.GetString("ImportAndExportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string ImportHeaderText {
+            get {
+                return ResourceManager.GetString("ImportHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a file that contains a copy of your saved actions.  This file can be imported on this or another PC later..
+        /// </summary>
+        public static string ImportHelpText {
+            get {
+                return ResourceManager.GetString("ImportHelpText", resourceCulture);
             }
         }
         

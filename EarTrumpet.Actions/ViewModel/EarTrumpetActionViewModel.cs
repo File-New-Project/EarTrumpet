@@ -38,11 +38,11 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                     _isExpanded = value;
                     RaisePropertyChanged(nameof(IsExpanded));
+                    _isExpanded = false;
+                    RaisePropertyChanged(nameof(IsExpanded));
                 }
             }
         }
-
-        public ICommand AddFilterSection { get; }
 
         public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).ToList();
         public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).ToList();
@@ -68,8 +68,6 @@ namespace EarTrumpet_Actions.ViewModel
             Conditions = new ObservableCollection<PartViewModel>(action.Conditions.Select(t => CreatePartViewModel(t)));
             Actions = new ObservableCollection<PartViewModel>(action.Actions.Select(t => CreatePartViewModel(t)));
 
-            IsExpanded = Conditions.Count > 0;
-
             Triggers.CollectionChanged += Parts_CollectionChanged;
             Conditions.CollectionChanged += Parts_CollectionChanged;
             Actions.CollectionChanged += Parts_CollectionChanged;
@@ -84,11 +82,21 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                      Command = new RelayCommand(() =>
                      {
+                         IsExpanded = true;
+                     }),
+                     DisplayName = "Edit",
+                     Glyph = "\xE70F",
+                     GlyphFontSize = 14,
+                },
+                new ToolbarItemViewModel
+                {
+                     Command = new RelayCommand(() =>
+                     {
                          _parent.Save(this);
                      }),
                      DisplayName = "Save",
                      Glyph = "\xE105",
-                     GlyphFontSize = 20,
+                     GlyphFontSize = 14,
                 },
                 new ToolbarItemViewModel
                 {
@@ -98,11 +106,9 @@ namespace EarTrumpet_Actions.ViewModel
                      }),
                      DisplayName = "Delete",
                      Glyph = "\xE107",
-                     GlyphFontSize = 20,
-                }
+                     GlyphFontSize = 14,
+                },
             };
-
-            AddFilterSection = new RelayCommand(() => IsExpanded = true);
         }
 
         public EarTrumpetAction GetAction()

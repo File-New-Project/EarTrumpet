@@ -186,8 +186,11 @@
   <data name="ConditionAdditionalText" xml:space="preserve">
     <value>and</value>
   </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Add an optional filter condition to build more advanced actions. Filters must all be true for the Do's to be run.</value>
+  </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Filter</value>
+    <value>Advanced Filter</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
     <value>Create a context menu item in EarTrumpet</value>
@@ -234,6 +237,12 @@
   <data name="EveryAppText" xml:space="preserve">
     <value>Every app</value>
   </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Import your actions previously exported by EarTrumpet.</value>
+  </data>
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Foreground app</value>
   </data>
@@ -248,6 +257,12 @@
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
     <value>Import and export</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Create a file that contains a copy of your saved actions.  This file can be imported on this or another PC later.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
     <value>Mute</value>
