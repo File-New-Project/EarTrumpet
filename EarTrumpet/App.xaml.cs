@@ -113,10 +113,11 @@ namespace EarTrumpet
             }
             else
             {
-                var defaultCategory = new SettingsCategoryViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, "\xE115", 
+                var defaultCategory = new SettingsCategoryViewModel(EarTrumpet.Properties.Resources.SettingsCategoryTitle, "\xE71D", 
                     EarTrumpet.Properties.Resources.SettingsDescriptionText,
                     null,
                     new SettingsPageViewModel[] {
+                        new EarTrumpetShortcutsPageViewModel(),
                         new EarTrumpetLegacySettingsPageViewModel(),
                         new EarTrumpetAboutPageViewModel()
                     }.ToList());

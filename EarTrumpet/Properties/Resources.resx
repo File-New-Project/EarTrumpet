@@ -130,7 +130,7 @@
     <value>Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Legacy Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any playback devices.</value>
@@ -171,9 +171,6 @@
   <data name="HotKeySelectionText" xml:space="preserve">
     <value>Type a key combination:</value>
   </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet Settings</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Learn more</value>
   </data>
@@ -200,8 +197,8 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Expand to show all playback devices</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Settings</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Assign this app to a playback device</value>
@@ -215,9 +212,6 @@
   <data name="LoadAddonAddonsText" xml:space="preserve">
     <value>EarTrumpet Addons</value>
   </data>
-  <data name="OpenAddonManagerText" xml:space="preserve">
-    <value>Open Addon Manager</value>
-  </data>
   <data name="RemoveAddonText" xml:space="preserve">
     <value>Remove</value>
   </data>
@@ -228,7 +222,7 @@
     <value>Muted</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Open sound settings</value>
+    <value>Sound settings</value>
   </data>
   <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
     <value>No Files were found in {0}</value>
@@ -242,14 +236,32 @@
   <data name="AddonNameText" xml:space="preserve">
     <value>Name:</value>
   </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Open Windows Settings</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>This add-on can be uninstalled from the system by going to the Windows Settings app.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
     <value>Management</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Legacy settings</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>Publisher:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Settings, About, Help</value>
+    <value>Shortcuts, Help, About</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet Settings</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Shortcuts</value>
   </data>
   <data name="VersionText" xml:space="preserve">
     <value>Version:</value>

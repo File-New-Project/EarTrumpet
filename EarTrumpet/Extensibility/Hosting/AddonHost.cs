@@ -14,13 +14,6 @@ namespace EarTrumpet.Extensibility.Hosting
 {
     class AddonHost
     {
-        public class Entry
-        {
-            public bool IsThirdParty;
-            public DirectoryCatalog Catalog;
-            public AddonInfo Info;
-        }
-
         [ImportMany(typeof(IAddonLifecycle))]
         private List<IAddonLifecycle> _appLifecycle { get; set; }
 
@@ -58,9 +51,9 @@ namespace EarTrumpet.Extensibility.Hosting
             return null;
         }
 
-        public IEnumerable<Entry> Initialize(string[] additionalFilePaths)
+        public IEnumerable<Addon> Initialize()
         {
-            var catalogs = new List<Entry>();
+            var catalogs = new List<DirectoryCatalog>();
             Trace.WriteLine($"AddonHost Initialize");
             try
             {
@@ -71,12 +64,13 @@ namespace EarTrumpet.Extensibility.Hosting
                         if (package.IsOptional)
                         {
                             Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
-                            catalogs.Add(new Entry { IsThirdParty = false, Catalog = new DirectoryCatalog(package.InstalledLocation.Path, "*.dll") });
+                            catalogs.Add(new DirectoryCatalog(package.InstalledLocation.Path, "*.dll"));
                         }
                     }
                 }
                 else
                 {
+#if DEBUG
                     try
                     {
                         var rootAddonDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "addons");
@@ -84,9 +78,7 @@ namespace EarTrumpet.Extensibility.Hosting
                         {
                             foreach (var directoryPath in Directory.GetDirectories(rootAddonDir))
                             {
-                                catalogs.Add(new Entry {
-                                    IsThirdParty = false,
-                                    Catalog = new DirectoryCatalog(directoryPath, "EarTrumpet-*.dll") });
+                                catalogs.Add(new DirectoryCatalog(directoryPath, "EarTrumpet-*.dll"));
                             }
                         }
                     }
@@ -94,20 +86,13 @@ namespace EarTrumpet.Extensibility.Hosting
                     {
                         Trace.WriteLine(ex);
                     }
+#endif
                 }
 
-                foreach (var additional in additionalFilePaths)
-                {
-                    catalogs.Add(new Entry { IsThirdParty = true, Catalog = new DirectoryCatalog(Path.GetDirectoryName(additional), Path.GetFileName(additional)) });
-                }
-
-                var container = new CompositionContainer(new AggregateCatalog(catalogs.Select(c => c.Catalog)));
+                var container = new CompositionContainer(new AggregateCatalog(catalogs));
                 container.ComposeParts(this);
 
-                foreach(var cat in catalogs)
-                {
-                    cat.Info = FindInfo(cat.Catalog);
-                }
+                var ret = catalogs.Select(c => new Addon(c, FindInfo(c))).ToList();
 
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
@@ -119,12 +104,14 @@ namespace EarTrumpet.Extensibility.Hosting
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
                 App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
+
+                return ret;
             }
             catch(Exception ex)
             {
                 Trace.WriteLine($"AddonHost Initialize: {ex}");
             }
-            return catalogs;
+            return null;
         }
     }
 }

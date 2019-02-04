@@ -21,8 +21,7 @@ namespace EarTrumpet.UI.Services
             allText += Environment.NewLine;
             allText += $"App: {(App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "dev")}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
-            allText += $"First Party Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.BuiltIn.Select(a => a.DisplayName))}" + Environment.NewLine;
-            allText += $"Third Party Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.ThirdParty.Select(a => a.DisplayName))}" + Environment.NewLine;
+            allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;

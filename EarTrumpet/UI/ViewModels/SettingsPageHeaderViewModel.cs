@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsPageHeaderViewModel
+    public class SettingsPageHeaderViewModel : BindableBase
     {
         public string Title => _settingsPageViewModel.Title;
 

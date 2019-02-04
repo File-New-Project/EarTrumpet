@@ -139,7 +139,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     legacyMenu,
                     new ContextMenuItem{ DisplayName = Properties.Resources.FullWindowTitleText,   Command =  OpenMixer },
-                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText, Command = OpenSettings, Glyph = "\xE713", IsChecked = true },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.SettingsWindowText, Command = OpenSettings },
                     new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 

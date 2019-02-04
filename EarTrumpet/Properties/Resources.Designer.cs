@@ -88,6 +88,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Windows Settings.
+        /// </summary>
+        public static string AddonUninstallButtonText {
+            get {
+                return ResourceManager.GetString("AddonUninstallButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This add-on can be uninstalled from the system by going to the Windows Settings app..
+        /// </summary>
+        public static string AddonUninstallDescriptionText {
+            get {
+                return ResourceManager.GetString("AddonUninstallDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall.
+        /// </summary>
+        public static string AddonUninstallTitle {
+            get {
+                return ResourceManager.GetString("AddonUninstallTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
         /// </summary>
         public static string AppOrDeviceFormatAccessibleText {
@@ -223,16 +250,16 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Legacy settings.
         /// </summary>
-        public static string KeyboardShortcutsTitle {
+        public static string LegacySettingsPageText {
             get {
-                return ResourceManager.GetString("KeyboardShortcutsTitle", resourceCulture);
+                return ResourceManager.GetString("LegacySettingsPageText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Legacy Volume Mixer.
+        ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         public static string LegacyVolumeMixerText {
             get {
@@ -304,16 +331,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Addon Manager.
-        /// </summary>
-        public static string OpenAddonManagerText {
-            get {
-                return ResourceManager.GetString("OpenAddonManagerText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open sound settings.
+        ///   Looks up a localized string similar to Sound settings.
         /// </summary>
         public static string OpenSoundSettingsText {
             get {
@@ -376,7 +394,16 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings, About, Help.
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string SettingsCategoryTitle {
+            get {
+                return ResourceManager.GetString("SettingsCategoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcuts, Help, About.
         /// </summary>
         public static string SettingsDescriptionText {
             get {
@@ -417,6 +444,15 @@ namespace EarTrumpet.Properties {
         public static string SettingsWindowText {
             get {
                 return ResourceManager.GetString("SettingsWindowText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shortcuts.
+        /// </summary>
+        public static string ShortcutsPageText {
+            get {
+                return ResourceManager.GetString("ShortcutsPageText", resourceCulture);
             }
         }
         

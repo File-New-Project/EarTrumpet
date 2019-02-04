@@ -116,10 +116,10 @@
             </Style>
 
             <Style TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
-                <Setter Property="Padding"
-                        Value="14,0" />
+                <Setter Property="Padding" Value="14,0" />
                 <Setter Property="Margin" Value="12" />
                 <Setter Property="Height" Value="32" />
                 <Setter Property="MinWidth" Value="90" />
