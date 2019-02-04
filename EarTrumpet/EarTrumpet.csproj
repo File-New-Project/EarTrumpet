@@ -108,6 +108,8 @@
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="UI\Helpers\NavigationCookie.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="UI\ViewModels\AdvertisedCategorySettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModelInternal.cs" />
     <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
@@ -216,6 +219,7 @@
     <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModel.cs" />
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
+    <Compile Include="UI\ViewModels\SimpleDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="UI\Themes\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />

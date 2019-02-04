@@ -1,4 +1,6 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using System;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 
 
 namespace EarTrumpet.UI.ViewModels
@@ -27,10 +29,20 @@ namespace EarTrumpet.UI.ViewModels
 
         public SettingsPageHeaderViewModel Header { get; protected set; }
 
+        public virtual bool NavigatingFrom(NavigationCookie cookie)
+        {
+            return true;
+        }
+
         public SettingsPageViewModel(string groupName)
         {
             GroupName = groupName;
             Header = new SettingsPageHeaderViewModel(this);
+        }
+
+        public void NavigatedTo()
+        {
+
         }
     }
 }

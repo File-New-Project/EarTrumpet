@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class SettingsCategoryViewModel : BindableBase, IWindowHostedViewModel
     {
+        protected ISettingsViewModel _parent;
         SettingsPageViewModel _selected;
 #pragma warning disable CS0067
         public event Action Close;
@@ -22,14 +24,37 @@ namespace EarTrumpet.UI.ViewModels
             {
                 if (_selected != value)
                 {
-                    _selected = value;
-                    if (_selected != null && _selected is IWindowHostedViewModel)
+                    if (_selected != null)
                     {
-                        ((IWindowHostedViewModel)_selected).HostDialog += (d) => HostDialog(d);
+                        if (!_selected.NavigatingFrom(new NavigationCookie(() =>
+                        {
+                            SelectImpl(value);
+                        })))
+                        {
+                            RaisePropertyChanged(nameof(Selected));
+
+                            return;
+                        }
                     }
 
-                    RaisePropertyChanged(nameof(Selected));
+                    SelectImpl(value);
                 }
+            }
+        }
+
+        private void SelectImpl(SettingsPageViewModel page)
+        {
+            _selected = page;
+            if (_selected != null && _selected is IWindowHostedViewModel)
+            {
+                ((IWindowHostedViewModel)_selected).HostDialog += (d) => HostDialog(d);
+            }
+
+            RaisePropertyChanged(nameof(Selected));
+
+            if (_selected != null)
+            {
+                _selected.NavigatedTo();
             }
         }
 
@@ -67,6 +92,25 @@ namespace EarTrumpet.UI.ViewModels
         public void OnPreviewKeyDown(KeyEventArgs e)
         {
     
+        }
+
+        public void NavigatedTo(ISettingsViewModel settingsViewModel)
+        {
+            _parent = settingsViewModel;
+        }
+
+        public bool NavigatingFrom(NavigationCookie cookie)
+        {
+            if (_selected != null)
+            {
+                return _selected.NavigatingFrom(cookie);
+            }
+            return true;
+        }
+
+        public void ShowDialog(string title, string description, string btn1, Action btn1Clicked, string btn2, Action btn2Clicked)
+        {
+            _parent.ShowDialog(title, description, btn1, btn2, btn1Clicked, btn2Clicked);
         }
     }
 }

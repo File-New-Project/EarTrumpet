@@ -154,7 +154,6 @@
                 <Button Command="{Binding Uninstall}" Content="{x:Static resx:Resources.AddonUninstallButtonText}" />
             </StackPanel>
         </DataTemplate>
-        <!--  TODO: once stable, add a specialization for AdvertisedCategorySettingsViewModel  -->
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid>
                 <Grid.Style>
@@ -197,15 +196,11 @@
                                FontSize="30"
                                Text="{Binding Glyph}">
                         <TextBlock.Style>
-                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}"
-                                   TargetType="TextBlock">
-                                <Setter Property="Foreground"
-                                        Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsAd}"
-                                                 Value="True">
-                                        <Setter Property="Foreground"
-                                                Value="DarkGray" />
+                                    <DataTrigger Binding="{Binding IsAd}" Value="True">
+                                        <Setter Property="Foreground" Value="DarkGray" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -441,7 +436,6 @@
             </Grid.ColumnDefinitions>
 
             <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
-
             <Border Name="AcrylicBackgroundInactive">
                 <Border.Style>
                     <Style TargetType="{x:Type Border}">
@@ -512,7 +506,6 @@
                     </Style>
                 </Border.Style>
             </Border>
-
             <Border Background="{DynamicResource LightOrDark_Background}">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -758,6 +751,63 @@
                         </ScrollViewer>
                     </Grid>
                 </Grid>
+
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Dialog}"
+                                             Value="{x:Null}">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid Background="LightGray" Opacity="0.5" />
+
+                    <Border MinWidth="300"
+                            MinHeight="200"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BorderBrush="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                            BorderThickness="1">
+                        <Grid Background="{DynamicResource LightOrDark_Background}">
+                            <Grid Margin="12">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
+                                    <TextBlock Style="{DynamicResource HeadingText}" Text="{Binding Dialog.Title}" />
+
+                                    <TextBlock Style="{DynamicResource BodyText}" Text="{Binding Dialog.Description}" />
+
+                                </StackPanel>
+
+                                <Button Grid.Row="1"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                                        Foreground="{DynamicResource Unicolor_Text}"
+                                        Command="{Binding Dialog.Button1Command}"
+                                        Content="{Binding Dialog.Button1Text}" />
+                                <Button Grid.Row="1"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding Dialog.Button2Command}"
+                                        Content="{Binding Dialog.Button2Text}" />
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+
             </Grid>
         </DockPanel>
     </Grid>

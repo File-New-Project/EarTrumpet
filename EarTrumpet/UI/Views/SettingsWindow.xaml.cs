@@ -31,7 +31,7 @@ namespace EarTrumpet.UI.Views
             if (e.NewValue is IWindowHostedViewModel)
             {
                 var vm = (IWindowHostedViewModel)e.NewValue;
-                vm.Close += () => Close();
+                vm.Close += () => SafeClose();
                 vm.HostDialog += (dialogDataContext) =>
                 {
                     var dialog = new DialogWindow { Owner = this };
@@ -50,10 +50,22 @@ namespace EarTrumpet.UI.Views
             this.Cloak();
             AccentPolicyLibrary.SetWindowBlur(this, true, true);
         }
-        
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("SettingsWindow CloseButton_Click");
+            Trace.WriteLine("CloseButton_Click SafeClose");
+            e.Handled = true;
+
+            if (DataContext is IWindowHostedViewModel)
+            {
+                var vm = (IWindowHostedViewModel)DataContext;
+                vm.OnClosing();
+            }
+        }
+
+        public void SafeClose()
+        {
+            Trace.WriteLine("SettingsWindow SafeClose");
 
             if (!_isClosing)
             {
