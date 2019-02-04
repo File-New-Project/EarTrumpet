@@ -125,8 +125,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{DynamicResource BodyText}"
-                               Text="{x:Static resx:Resources.AddonNameText}" />
+                    <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.AddonNameText}" />
                     <TextBlock Grid.Row="1"
                                Style="{DynamicResource BodyText}"
                                Text="{x:Static resx:Resources.PublisherText}" />
@@ -150,46 +149,82 @@
                         <Run Text="{x:Static resx:Resources.WebsiteText}" />
                     </Hyperlink></TextBlock>
 
-                <TextBlock Style="{DynamicResource HeadingText}"
-                           Text="{x:Static resx:Resources.AddonUninstallTitle}" />
-                <TextBlock Style="{DynamicResource BodyText}"
-                           Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
-                <Button Command="{Binding Uninstall}"
-                        Content="{x:Static resx:Resources.AddonUninstallButtonText}" />
+                <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.AddonUninstallTitle}" />
+                <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
+                <Button Command="{Binding Uninstall}" Content="{x:Static resx:Resources.AddonUninstallButtonText}" />
             </StackPanel>
         </DataTemplate>
         <!--  TODO: once stable, add a specialization for AdvertisedCategorySettingsViewModel  -->
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="58" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAd}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
 
-                <TextBlock Grid.RowSpan="2"
-                           Margin="0,-6,0,0"
-                           VerticalAlignment="Center"
-                           FontSize="30"
-                           Foreground="{DynamicResource LightOrDark_ActiveWindowBorder}"
-                           Style="{DynamicResource GlyphTextBlockStyle}"
-                           Text="{Binding Glyph}" />
-                <TextBlock Grid.Column="1"
-                           Margin="6,12,0,0"
-                           VerticalAlignment="Top"
-                           FontSize="15"
-                           Text="{Binding Title}" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="1"
-                           Margin="6,2,8,6"
+                <Polygon HorizontalAlignment="Right"
+                         Fill="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                         Points="0,0 40,0 40,40"
+                         Visibility="{Binding IsAd, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+                <TextBlock Margin="4,6,4,4"
+                           HorizontalAlignment="Right"
                            VerticalAlignment="Top"
                            FontSize="12"
-                           Foreground="{DynamicResource LightOrDark_SecondaryText}"
-                           Text="{Binding Description}"
-                           TextWrapping="Wrap" />
+                           Foreground="{DynamicResource Unicolor_Text}"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xE896;"
+                           Visibility="{Binding IsAd, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="58" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.RowSpan="2"
+                               Margin="0,-6,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="30"
+                               Text="{Binding Glyph}">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}"
+                                   TargetType="TextBlock">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsAd}"
+                                                 Value="True">
+                                        <Setter Property="Foreground"
+                                                Value="DarkGray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Grid.Column="1"
+                               Margin="6,12,0,0"
+                               VerticalAlignment="Top"
+                               FontSize="15"
+                               Text="{Binding Title}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="6,2,8,6"
+                               VerticalAlignment="Top"
+                               FontSize="12"
+                               Foreground="{DynamicResource LightOrDark_SecondaryText}"
+                               Text="{Binding Description}"
+                               TextWrapping="Wrap" />
+                </Grid>
             </Grid>
         </DataTemplate>
         <Style TargetType="{x:Type GroupItem}">
@@ -206,22 +241,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="SettingsListViewItem"
-               TargetType="{x:Type ListViewItem}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="True" />
-            <Setter Property="SnapsToDevicePixels"
-                    Value="True" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Left" />
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Height"
-                    Value="48" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{StaticResource Windows10FocusVisualStyle}" />
+        <Style x:Key="SettingsListViewItem" TargetType="{x:Type ListViewItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -249,47 +276,34 @@
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver"
-                                               Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd"
-                                        Property="Background"
-                                        Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected"
-                                               Value="True" />
+                                    <Condition Property="IsSelected" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="selectedIndicator"
-                                        Property="Background"
-                                        Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                <Setter TargetName="selectedIndicator" Property="Background" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="SettingsListView"
-               TargetType="{x:Type ListView}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="True" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Stretch" />
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                    Value="Auto" />
-            <Setter Property="ScrollViewer.CanContentScroll"
-                    Value="true" />
-            <Setter Property="ItemContainerStyle"
-                    Value="{StaticResource SettingsListViewItem}" />
+        <Style x:Key="SettingsListView" TargetType="{x:Type ListView}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource SettingsListViewItem}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListView}">
                         <Border x:Name="Bd"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="true">
-                            <ScrollViewer Padding="{TemplateBinding Padding}"
-                                          Focusable="false">
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </ScrollViewer>
                         </Border>
@@ -297,26 +311,16 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MainListItem"
-               TargetType="{x:Type ListViewItem}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="True" />
-            <Setter Property="SnapsToDevicePixels"
-                    Value="True" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Stretch" />
-            <Setter Property="VerticalContentAlignment"
-                    Value="Stretch" />
-            <Setter Property="Height"
-                    Value="86" />
-            <Setter Property="Width"
-                    Value="250" />
-            <Setter Property="Margin"
-                    Value="12" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{StaticResource Windows10FocusVisualStyle}" />
+        <Style x:Key="MainListItem" TargetType="{x:Type ListViewItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="86" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Margin" Value="12" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -333,60 +337,42 @@
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver"
-                                               Value="True" />
+                                    <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd"
-                                        Property="BorderBrush"
-                                        Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MainList"
-               TargetType="{x:Type ListView}">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="True" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Center" />
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                    Value="Auto" />
-            <Setter Property="ScrollViewer.CanContentScroll"
-                    Value="true" />
-            <Setter Property="ItemContainerStyle"
-                    Value="{StaticResource MainListItem}" />
+        <Style x:Key="MainList" TargetType="{x:Type ListView}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource MainListItem}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListView}">
                         <Border x:Name="Bd"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="true">
-                            <ScrollViewer Padding="{TemplateBinding Padding}"
-                                          Focusable="false">
-                                <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="HomeButtonStyle"
-               TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
-                    Value="True" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{DynamicResource Windows10FocusVisualStyle}" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource LightOrDark_Text}" />
-            <Setter Property="BorderBrush"
-                    Value="{x:Null}" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
+        <Style x:Key="HomeButtonStyle" TargetType="Button">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -415,29 +401,19 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Background"
-                            Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="ToolbarButtonStyle"
-               TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
-                    Value="True" />
-            <Setter Property="FocusVisualStyle"
-                    Value="{DynamicResource Windows10FocusVisualStyle}" />
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Foreground"
-                    Value="{DynamicResource LightOrDark_Text}" />
-            <Setter Property="BorderBrush"
-                    Value="{x:Null}" />
-            <Setter Property="Width"
-                    Value="48" />
-            <Setter Property="Height"
-                    Value="48" />
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="Width" Value="48" />
+            <Setter Property="Height" Value="48" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -451,10 +427,8 @@
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Background"
-                            Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -466,15 +440,88 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border>
+            <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
+
+            <Border Name="AcrylicBackgroundInactive">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
+                        <Setter Property="Opacity" Value="1" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="True" />
+                                    <Condition Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOff" />
+                                    <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOff" />
+                                    <BeginStoryboard Name="IsActive_Enter_AnimationsOn">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="1"
+                                                             To="0"
+                                                             Duration="00:00:00.15" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOff" />
+                                    <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOff" />
+                                    <BeginStoryboard Name="IsActive_Exit_AnimationsOn">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="0"
+                                                             To="1"
+                                                             Duration="00:00:00.15" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=AnimationsEnabled}" Value="False" />
+                                    <Condition Binding="{Binding ElementName=WindowRoot, Path=IsActive}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOn" />
+                                    <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOn" />
+                                    <BeginStoryboard Name="IsActive_Enter_AnimationsOff">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="1"
+                                                             To="0"
+                                                             Duration="00:00:00" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="IsActive_Exit_AnimationsOn" />
+                                    <StopStoryboard BeginStoryboardName="IsActive_Enter_AnimationsOn" />
+                                    <BeginStoryboard Name="IsActive_Exit_AnimationsOff">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="0"
+                                                             To="1"
+                                                             Duration="00:00:00" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+            <Border Background="{DynamicResource LightOrDark_Background}">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Selected}" Value="{x:Null}">
-                                <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
+                                <Setter Property="Visibility" Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
-                        <Setter Property="Background" Value="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
+                        <Setter Property="Visibility" Value="Collapsed" />
                     </Style>
                 </Border.Style>
             </Border>
@@ -510,7 +557,7 @@
             </Grid>
 
             <Grid>
-                <!-- Main -->
+                <!--  Main  -->
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -558,7 +605,7 @@
                     </ListView>
 
                 </Grid>
-                <!-- Subview -->
+                <!--  Subview  -->
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">

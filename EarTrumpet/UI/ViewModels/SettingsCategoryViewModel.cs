@@ -13,6 +13,7 @@ namespace EarTrumpet.UI.ViewModels
         public event Action Close;
         public event Action<object> HostDialog;
         public string Id { get; protected set; }
+        public bool IsAd { get; protected set; }
 
         public SettingsPageViewModel Selected
         {

@@ -116,6 +116,7 @@
     </Window.Resources>
 
     <Grid>
+
         <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
 
         <Border Name="AcrylicBackgroundInactive">

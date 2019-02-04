@@ -13,6 +13,7 @@ namespace EarTrumpet.UI.ViewModels
             Description = description;
             _link = link;
             Id = id;
+            IsAd = true;
         }
 
         public void Activate() => ProcessHelper.StartNoThrow(_link);
