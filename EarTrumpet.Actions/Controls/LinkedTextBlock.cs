@@ -88,16 +88,6 @@ namespace EarTrumpet_Actions.Controls
                             contextMenu.Placement = PlacementMode.Mouse;
                             contextMenu.IsOpen = true;
                         }
-                        else if (resolvedPropertyObject is HotkeyViewModel)
-                        {
-                            var windowVm = (IWindowHostedViewModelInternal)Window.GetWindow(this).DataContext;
-                            var vm = new HotkeySelectViewModel();
-                            windowVm.HostDialog(vm);
-                            if (vm.Saved)
-                            {
-                                ((HotkeyViewModel)resolvedPropertyObject).Hotkey = vm.Hotkey;
-                            }
-                        }
                         else
                         {
                             var p = (Popup)Application.Current.Resources["ActionsPopup"];

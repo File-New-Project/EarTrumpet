@@ -15,6 +15,17 @@
            Placement="Right"
            PopupAnimation="None"
            StaysOpen="False">
+        <Popup.Style>
+            <Style TargetType="Popup">
+                <Style.Triggers>
+                    <Trigger Property="IsOpen"
+                             Value="False">
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Popup.Style>
 
         <Border x:Name="SubmenuBorder"
                 Background="{DynamicResource ContextMenuBackground}"
@@ -326,6 +337,9 @@
         <ComboBox IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding All}"
                   SelectedItem="{Binding Selected, Mode=TwoWay}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
+        <ContentControl Content="{Binding Hotkey}" IsTabStop="False" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:TextViewModel}">
         <Grid Margin="12">

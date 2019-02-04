@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 
@@ -7,35 +6,29 @@ namespace EarTrumpet_Actions.ViewModel
 {
     public class HotkeyViewModel : BindableBase
     {
-        public HotkeyData Hotkey
-        {
-            get => _trigger.Option;
-            set
-            {
-                if (Hotkey != value)
-                {
-                    _trigger.Option = value;
-                    RaisePropertyChanged(nameof(Hotkey));
-                }
-            }
-        }
+        public EarTrumpet.UI.ViewModels.HotkeyViewModel Hotkey { get; }
 
         private HotkeyTrigger _trigger;
 
         public HotkeyViewModel(HotkeyTrigger trigger)
         {
             _trigger = trigger;
+            Hotkey = new EarTrumpet.UI.ViewModels.HotkeyViewModel(_trigger.Option, (newHotkey) =>
+            {
+                _trigger.Option = newHotkey;
+                RaisePropertyChanged(nameof(Hotkey));
+            });
         }
 
         public override string ToString()
         {
-            if (Hotkey.IsEmpty)
+            if (_trigger.Option.IsEmpty)
             {
                 return ResolveResource("EmptyText");
             }
             else
             {
-                return Hotkey.ToString();
+                return _trigger.Option.ToString();
             }
         }
 
