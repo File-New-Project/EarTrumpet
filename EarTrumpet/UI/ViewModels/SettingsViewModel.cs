@@ -1,9 +1,9 @@
-﻿using System;
+﻿using EarTrumpet.Extensibility;
+using EarTrumpet.UI.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using EarTrumpet.Extensibility;
-using EarTrumpet.UI.Helpers;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -12,6 +12,7 @@ namespace EarTrumpet.UI.ViewModels
         public static IAddonSettingsPage[] AddonItems { get; internal set; }
         public event Action Close;
         public string Title { get; private set; }
+        public ICommand GoHome { get; }
 
         private SimpleDialogViewModel _dialog;
         public SimpleDialogViewModel Dialog
@@ -45,10 +46,7 @@ namespace EarTrumpet.UI.ViewModels
 
                     if (_selected != null)
                     {
-                        if (!_selected.NavigatingFrom(new NavigationCookie(() =>
-                        {
-                            SelectImpl(value);
-                        })))
+                        if (!_selected.NavigatingFrom(new NavigationCookie(() => SelectImpl(value))))
                         {
                             RaisePropertyChanged(nameof(Selected));
                             return;
@@ -58,6 +56,31 @@ namespace EarTrumpet.UI.ViewModels
                     SelectImpl(value);
                 }
             }
+        }
+
+        public void InvokeSearchResult(SettingsCategoryViewModel cat, SettingsPageViewModel page)
+        {
+            
+            if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() =>
+            {
+                Selected = cat;
+                Selected.Selected = page;
+            })))
+            {
+                return;
+            }
+
+            Selected = cat;
+            Selected.Selected = page;
+        }
+
+        public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
+
+        public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
+        {
+            Title = title;
+            Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
+            GoHome = new RelayCommand(() => Selected = null);
         }
 
         private void SelectImpl(SettingsCategoryViewModel cat)
@@ -76,47 +99,30 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
-
-        public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
-        {
-            Title = title;
-            Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
-        }
-
         public void OnClosing()
         {
-            if (Selected != null)
+            if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() => Close?.Invoke())))
             {
-                if (!Selected.NavigatingFrom(new NavigationCookie(() =>
-                {
-                    Close?.Invoke();
-                })))
-                {
-                    return;
-                }
+                return;
             }
-
-            // TODO: deprecate
-            foreach(var cat in Categories)
-            {
-                if (cat is IWindowHostedViewModel)
-                {
-                    ((IWindowHostedViewModel)cat).OnClosing();
-                }
-            }
-
             Close?.Invoke();
         }
 
         public void ShowDialog(string title, string description, string btn1, string btn2, Action btn1Clicked, Action btn2Clicked)
         {
-            Dialog = new SimpleDialogViewModel { Title = title, Description = description, Button1Text = btn1, Button2Text = btn2,
-                Button1Command = new RelayCommand(() => {
+            Dialog = new SimpleDialogViewModel
+            {
+                Title = title,
+                Description = description,
+                Button1Text = btn1,
+                Button2Text = btn2,
+                Button1Command = new RelayCommand(() =>
+                {
                     Dialog = null;
                     btn1Clicked();
                 }),
-                Button2Command = new RelayCommand(() => {
+                Button2Command = new RelayCommand(() =>
+                {
                     Dialog = null;
                     btn2Clicked();
                 })

@@ -1,0 +1,144 @@
+﻿<TextBox x:Class="EarTrumpet.UI.Controls.SearchBox"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:resx="clr-namespace:EarTrumpet.Properties"
+         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+         Style="{StaticResource {x:Type TextBox}}">
+    <TextBox.Resources>
+
+        <DataTemplate DataType="{x:Type vm:SettingsSearchBoxResultsViewModel}">
+            <ListView HorizontalAlignment="Stretch"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemsSource="{Binding Results}"
+                      SelectedItem="{Binding Selected, Mode=TwoWay}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsSearchBoxResultsItemViewModel}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="*" />
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="15"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="{Binding Glyph}" />
+
+                <TextBlock Grid.Column="1"
+                           FontSize="15"
+                           Text="{Binding DisplayName}" />
+            </Grid>
+
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="true">
+
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource {x:Type ListViewItem}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListView}">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="true">
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </TextBox.Resources>
+    <TextBox.Template>
+        <ControlTemplate>
+            <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="True">
+                <Grid>
+                    <TextBlock Name="PromptText"
+                               Margin="6,0"
+                               Foreground="{DynamicResource LightOrDark_SecondaryText}"
+                               Text="{x:Static resx:Resources.FindASettingText}" />
+
+                    <TextBlock Margin="6,0"
+                               HorizontalAlignment="Right"
+                               Foreground="{DynamicResource LightOrDark_SecondaryText}"
+                               Style="{StaticResource GlyphTextBlockStyle}"
+                               Text="&#xE721;" />
+
+                    <ScrollViewer x:Name="PART_ContentHost"
+                                  Focusable="false"
+                                  HorizontalScrollBarVisibility="Hidden"
+                                  VerticalScrollBarVisibility="Hidden" />
+
+                    <Popup x:Name="Popup"
+                           AllowsTransparency="False"
+                           Placement="Bottom"
+                           PopupAnimation="None"
+                           StaysOpen="False">
+                        <Border x:Name="SubmenuBorder"
+                                Background="{DynamicResource ContextMenuBackground}"
+                                BorderBrush="{DynamicResource ContextMenuBorder}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <ContentControl Content="{Binding}" />
+                            </Grid>
+                        </Border>
+                    </Popup>
+                </Grid>
+
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderHover}" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </TextBox.Template>
+</TextBox>

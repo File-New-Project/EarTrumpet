@@ -23,6 +23,7 @@ namespace EarTrumpet.UI.Services
         {
             get
             {
+                // Note: Legacy compat, we used to write string bools.
                 var ret = s_settings.Get("UseLegacyIcon", "False");
                 bool.TryParse(ret, out bool isUseLegacyIcon);
                 return isUseLegacyIcon;

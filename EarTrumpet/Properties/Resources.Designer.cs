@@ -223,6 +223,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find a setting.
+        /// </summary>
+        public static string FindASettingText {
+            get {
+                return ResourceManager.GetString("FindASettingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Volume Mixer.
         /// </summary>
         public static string FullWindowTitleText {
@@ -372,6 +381,15 @@ namespace EarTrumpet.Properties {
         public static string RemoveAddonText {
             get {
                 return ResourceManager.GetString("RemoveAddonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No results.
+        /// </summary>
+        public static string SearchBoxNoResultsText {
+            get {
+                return ResourceManager.GetString("SearchBoxNoResultsText", resourceCulture);
             }
         }
         

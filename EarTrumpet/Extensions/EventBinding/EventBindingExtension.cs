@@ -38,12 +38,10 @@ namespace EarTrumpet.Extensions.EventBinding
             return null;
         }
 
-        void OnEvent(object sender, RoutedEventArgs args)
+        void OnEvent(object sender, object args)
         {
-            var dataContext = (sender as FrameworkElement).DataContext;
-            var target = ResolvePropertyPath(dataContext, Path, out string functionName);
-            var funcInfo = target.GetType().GetMethod(functionName);
-            funcInfo.Invoke(target, new object[] { sender, args });
+            var target = ResolvePropertyPath((sender as FrameworkElement).DataContext, Path, out string functionName);
+            target.GetType().GetMethod(functionName).Invoke(target, new object[] { sender, args });
         }
 
         object ResolvePropertyPath(object target, string path, out string functionName)

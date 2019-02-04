@@ -78,10 +78,5 @@ namespace EarTrumpet.UI.Views
         {
             WindowState = WindowState.Minimized;
         }
-
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            ((SettingsViewModel)DataContext).Selected = null;
-        }
     }
 }

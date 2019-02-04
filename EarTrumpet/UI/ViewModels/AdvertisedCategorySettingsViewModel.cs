@@ -14,6 +14,7 @@ namespace EarTrumpet.UI.ViewModels
             _link = link;
             Id = id;
             IsAd = true;
+            Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>();
         }
 
         public void Activate() => ProcessHelper.StartNoThrow(_link);

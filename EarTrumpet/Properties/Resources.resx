@@ -266,4 +266,10 @@
   <data name="VersionText" xml:space="preserve">
     <value>Version:</value>
   </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Find a setting</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>No results</value>
+  </data>
 </root>

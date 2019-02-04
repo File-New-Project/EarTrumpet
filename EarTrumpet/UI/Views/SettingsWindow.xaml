@@ -1,7 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
+        xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Name="WindowRoot"
@@ -218,8 +218,6 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-
-
 
         <Style TargetType="{x:Type GroupItem}">
             <Setter Property="Template">
@@ -574,15 +572,13 @@
                                Style="{DynamicResource HeadingText}"
                                Text="{x:Static resx:Resources.SettingsTitle}" />
 
-                    <TextBox Grid.Row="1"
-                             Width="332"
-                             Height="32"
-                             Margin="0"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             FontSize="15">
-                        Find a setting
-                    </TextBox>
+                    <ctl:SearchBox Grid.Row="1"
+                                   Width="332"
+                                   Height="32"
+                                   Margin="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   ItemsSource="{Binding}" />
 
                     <ListView Grid.Row="2"
                               IsSynchronizedWithCurrentItem="True"
@@ -634,15 +630,13 @@
                         </Grid.RowDefinitions>
 
                         <Button Grid.Row="1"
-                                Click="HomeButton_Click"
+                                Command="{Binding GoHome}"
                                 Style="{StaticResource HomeButtonStyle}" />
 
-                        <TextBox Grid.Row="2"
-                                 Height="32"
-                                 Margin="16,2,16,0"
-                                 FontSize="15">
-                            Find a setting
-                        </TextBox>
+                        <ctl:SearchBox Grid.Row="2"
+                                       Height="32"
+                                       Margin="16,2,16,0"
+                                       ItemsSource="{Binding}" />
 
                         <Grid Grid.Row="3">
 
