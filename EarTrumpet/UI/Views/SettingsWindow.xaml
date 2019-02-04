@@ -1,8 +1,8 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
-        xmlns:v="clr-namespace:EarTrumpet.UI.Views"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Name="WindowRoot"
         Title="{Binding Title}"
@@ -46,14 +46,10 @@
                                Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
 
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            MinWidth="140"
-                            HorizontalAlignment="Left"
-                            Command="{Binding SelectHotkey}"
-                            Content="{Binding HotkeyText}"
-                            Foreground="{Binding ElementName=WindowRoot, Path=Foreground}" />
-
+                    <ContentControl Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{Binding OpenFlyoutHotkey}"
+                                    IsTabStop="False" />
                 </Grid>
             </StackPanel>
         </DataTemplate>
@@ -222,6 +218,9 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+
+
+
         <Style TargetType="{x:Type GroupItem}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -756,10 +755,8 @@
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Dialog}"
-                                             Value="{x:Null}">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
+                                <DataTrigger Binding="{Binding Dialog}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -793,9 +790,9 @@
                                 <Button Grid.Row="1"
                                         HorizontalAlignment="Stretch"
                                         Background="{DynamicResource LightOrDark_ActiveWindowBorder}"
-                                        Foreground="{DynamicResource Unicolor_Text}"
                                         Command="{Binding Dialog.Button1Command}"
-                                        Content="{Binding Dialog.Button1Text}" />
+                                        Content="{Binding Dialog.Button1Text}"
+                                        Foreground="{DynamicResource Unicolor_Text}" />
                                 <Button Grid.Row="1"
                                         Grid.Column="1"
                                         HorizontalAlignment="Stretch"

@@ -5,6 +5,7 @@
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
              xmlns:themes="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
              Startup="Application_Startup">
@@ -778,9 +779,7 @@
             <DataTemplate DataType="{x:Type vm:TemporaryAppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:HotkeySelectViewModel}">
-                <views:HotkeySelectView />
-            </DataTemplate>
+
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
                 <views:ModalDialogChrome>
                     <Grid>
@@ -817,6 +816,15 @@
                     </ItemsControl>
                 </views:ModalDialogChrome>
             </DataTemplate>
+          <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
+
+            <TextBox GotKeyboardFocus="{Event:Binding OnGotFocus}"
+                     LostKeyboardFocus="{Event:Binding OnLostFocus}"
+                     PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
+                     Text="{Binding HotkeyText, UpdateSourceTrigger=PropertyChanged}" />
+          </DataTemplate>
+          
+
             <DataTemplate x:Key="ContextMenuItemTemplate">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"

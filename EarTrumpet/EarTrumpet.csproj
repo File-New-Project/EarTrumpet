@@ -108,6 +108,7 @@
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
@@ -189,8 +190,8 @@
     <Compile Include="UI\ViewModels\AdvertisedCategorySettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\HotkeyViewModel.cs" />
     <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
-    <Compile Include="UI\ViewModels\IWindowHostedViewModelInternal.cs" />
     <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
@@ -212,7 +213,6 @@
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\FocusedDeviceViewModel.cs" />
-    <Compile Include="UI\ViewModels\HotkeySelectViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\IDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
@@ -226,9 +226,6 @@
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
-    <Compile Include="UI\Views\DialogWindow.xaml.cs">
-      <DependentUpon>DialogWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
     <Compile Include="UI\Services\FeedbackService.cs" />
@@ -316,10 +313,6 @@
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\Views\DialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Views\HotkeySelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

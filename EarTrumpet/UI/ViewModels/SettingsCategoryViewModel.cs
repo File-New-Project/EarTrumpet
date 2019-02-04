@@ -45,10 +45,6 @@ namespace EarTrumpet.UI.ViewModels
         private void SelectImpl(SettingsPageViewModel page)
         {
             _selected = page;
-            if (_selected != null && _selected is IWindowHostedViewModel)
-            {
-                ((IWindowHostedViewModel)_selected).HostDialog += (d) => HostDialog(d);
-            }
 
             RaisePropertyChanged(nameof(Selected));
 

@@ -7,10 +7,10 @@ using EarTrumpet.UI.Helpers;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class SettingsViewModel : BindableBase, IWindowHostedViewModel, IWindowHostedViewModelInternal, ISettingsViewModel
+    class SettingsViewModel : BindableBase, IWindowHostedViewModel, ISettingsViewModel
     {
         public static IAddonSettingsPage[] AddonItems { get; internal set; }
-
+        public event Action Close;
         public string Title { get; private set; }
 
         private SimpleDialogViewModel _dialog;
@@ -28,9 +28,6 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         SettingsCategoryViewModel _selected;
-#pragma warning disable CS0067
-        public event Action Close;
-        public event Action<object> HostDialog;
 
         public SettingsCategoryViewModel Selected
         {
@@ -70,10 +67,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _selected.Selected = _selected.Pages[0];
             }
-            if (_selected != null && _selected is IWindowHostedViewModel)
-            {
-                ((IWindowHostedViewModel)_selected).HostDialog += (d) => HostDialog(d);
-            }
+
             RaisePropertyChanged(nameof(Selected));
 
             if (_selected != null)
@@ -114,13 +108,6 @@ namespace EarTrumpet.UI.ViewModels
 
             Close?.Invoke();
         }
-
-        public void OnPreviewKeyDown(KeyEventArgs e)
-        {
-
-        }
-
-        void IWindowHostedViewModelInternal.HostDialog(object dialog) => HostDialog(dialog);
 
         public void ShowDialog(string title, string description, string btn1, string btn2, Action btn1Clicked, Action btn2Clicked)
         {

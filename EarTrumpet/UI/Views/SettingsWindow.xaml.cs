@@ -32,14 +32,7 @@ namespace EarTrumpet.UI.Views
             {
                 var vm = (IWindowHostedViewModel)e.NewValue;
                 vm.Close += () => SafeClose();
-                vm.HostDialog += (dialogDataContext) =>
-                {
-                    var dialog = new DialogWindow { Owner = this };
-                    dialog.DataContext = dialogDataContext;
-                    dialog.ShowDialog();
-                };
                 Closing += (_, __) => vm.OnClosing();
-                PreviewKeyDown += (_, eKey) => vm.OnPreviewKeyDown(eKey);
             }
         }
 
