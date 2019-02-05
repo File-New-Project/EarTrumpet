@@ -8,9 +8,9 @@
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
+        Theme:Brush.Foreground="Text"
         AllowsTransparency="True"
         Background="Transparent"
-        Foreground="{DynamicResource Unicolor_Text}"
         Icon="pack://application:,,,/Assets/Application.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
         ResizeMode="NoResize"
@@ -58,8 +58,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryFocusVisual}" StrokeThickness="3" />
-                            <Rectangle Stroke="{DynamicResource Unicolor_PrimaryFocusVisual}" StrokeThickness="2" />
+                            <Rectangle Theme:Brush.Stroke="ImmersiveApplicationBackgroundDarkTheme" StrokeThickness="3" />
+                            <Rectangle Theme:Brush.Stroke="ImmersiveApplicationTextDarkTheme" StrokeThickness="2" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -70,7 +70,7 @@
                BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
                TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverBackground}" />
@@ -86,25 +86,25 @@
         <Style x:Key="VirtualTitleBarTextStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
         </Style>
 
         <Style x:Key="PerThemeTextBlockStyle"
                BasedOn="{StaticResource TextBlockStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
         </Style>
 
         <Style x:Key="DeviceVolumeTextStyle"
                BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
         </Style>
 
         <Style x:Key="AppVolumeTextStyle"
                BasedOn="{StaticResource BaseAppVolumeTextStyle}"
                TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
         </Style>
 
         <Style x:Key="DeviceTitleTextStyle"
@@ -118,8 +118,8 @@
                 <Track Name="PART_Track">
                     <Track.DecreaseRepeatButton>
                         <RepeatButton Name="SliderLeft"
+                                      Theme:Brush.Foreground="SystemAccentLight1"
                                       Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
@@ -188,7 +188,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -203,12 +203,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#20FFFFFF, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#2FFFFFFF, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
             </Style.Triggers>
         </Style>

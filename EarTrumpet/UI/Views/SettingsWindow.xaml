@@ -106,8 +106,8 @@
                         <Canvas>
                             <Path Width="40"
                                   Height="30"
+                                  Theme:Brush.Fill="Text"
                                   Data="F 1 M 64.1,24.9 C 63.3,31.7 58.6,46.4 53.9,51 55.1,48.7 55.7,46.1 55.6,43.3 55.3,35.4 48.8,28.8 40.8,28.5 32,28.1 24.8,35.2 24.8,43.9 24.8,47.2 25.9,50.3 27.7,52.9 17.8,48.3 10,41.2 9.3,40.7 8.1,40.3 6.1,43.6 6.8,44.8 59.8,89.8 81.5,34.4 82.2,32.8 75.2,31.4 74.8,25.5 64.1,24.9 Z M 38.7,31.9 C 46.6,30.9 53.3,37.6 52.3,45.5 51.6,50.9 47.3,55.3 41.9,55.9 34,56.9 27.3,50.2 28.3,42.3 28.9,37 33.3,32.6 38.7,31.9 Z"
-                                  Fill="{DynamicResource LightOrDark_Text}"
                                   Stretch="Uniform" />
                         </Canvas>
                     </Border>
@@ -399,7 +399,7 @@
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
             <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Template">
@@ -439,7 +439,7 @@
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
             <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
             <Setter Property="Width" Value="48" />
             <Setter Property="Height" Value="48" />
@@ -819,10 +819,10 @@
 
                                 <Button Grid.Row="1"
                                         HorizontalAlignment="Stretch"
+                                        Theme:Brush.Foreground="Text"
                                         Background="{DynamicResource LightOrDark_ActiveWindowBorder}"
                                         Command="{Binding Dialog.Button1Command}"
-                                        Content="{Binding Dialog.Button1Text}"
-                                        Foreground="{DynamicResource Unicolor_Text}" />
+                                        Content="{Binding Dialog.Button1Text}" />
                                 <Button Grid.Row="1"
                                         Grid.Column="1"
                                         HorizontalAlignment="Stretch"

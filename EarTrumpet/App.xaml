@@ -16,9 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Theme:Manager x:Key="ThemeManager">
-                <Theme:Manager.Imports>
-                    <Theme:Reference Key="Accent" Value="Light=SystemAccent, Dark=SystemAccent, HighContrast=HighlightText" />
-                </Theme:Manager.Imports>
+                <Theme:Manager.References>
+                    <Theme:Reference Key="Text" Value="Light=ApplicationTextLightTheme, Dark=ApplicationTextDarkTheme, HighContrast=WindowText" />
+                </Theme:Manager.References>
             </Theme:Manager>
 
             <conv:InvertableVisibilityConverter x:Key="visConverter" />
@@ -57,7 +57,7 @@
                 <Setter Property="Height" Value="31" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
@@ -88,7 +88,7 @@
                 <Setter Property="Margin" Value="0,1,0,0" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_CloseButtonText}" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Light=ImmersiveSystemText, Dark=ImmersiveApplicationTextDarkTheme" />
                         <Setter Property="Background" Value="#FFE81123" />
                     </Trigger>
                 </Style.Triggers>
@@ -99,8 +99,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid>
-                                <Rectangle Stroke="{DynamicResource LightOrDark_Background}" StrokeThickness="3" />
-                                <Rectangle Stroke="{DynamicResource LightOrDark_Text}" StrokeThickness="2" />
+                                <Rectangle Theme:Brush.Stroke="Light=ImmersiveApplicationBackgroundLightTheme, Dark=ImmersiveApplicationBackgroundDarkTheme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -112,8 +112,8 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid Margin="-4" SnapsToDevicePixels="True">
-                                <Rectangle Stroke="{DynamicResource LightOrDark_Background}" StrokeThickness="3" />
-                                <Rectangle Stroke="{DynamicResource LightOrDark_Text}" StrokeThickness="2" />
+                                <Rectangle Theme:Brush.Stroke="Light=ImmersiveApplicationBackgroundLightTheme, Dark=ImmersiveApplicationBackgroundDarkTheme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -319,7 +319,7 @@
             <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="AllowsTransparency" Value="True" />
                 <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
                 <Setter Property="ShowInTaskbar" Value="True" />
@@ -340,6 +340,7 @@
 
             <Style x:Key="AppListStyle" TargetType="{x:Type ListView}">
                 <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -360,7 +361,7 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Opacity" Value="0" />
-                <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -604,7 +605,7 @@
             </Style>
 
             <Style TargetType="{x:Type CheckBox}">
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
                 <Setter Property="Margin" Value="12" />
@@ -695,8 +696,8 @@
                     <Track Name="PART_Track">
                         <Track.DecreaseRepeatButton>
                             <RepeatButton Name="SliderLeft"
+                                          Theme:Brush.Foreground="SystemAccentLight1"
                                           Command="Slider.DecreaseLarge"
-                                          Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
                                           Style="{StaticResource SliderButtonStyle}" />
                         </Track.DecreaseRepeatButton>
                         <Track.Thumb>
@@ -1013,7 +1014,7 @@
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="{DynamicResource ComboBox.Static.Background}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Static.Border}" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Width" Value="280" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -1106,7 +1107,7 @@
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxBorder}" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="SelectionBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
@@ -1151,7 +1152,7 @@
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="VerticalContentAlignment" Value="Top" />
                 <Setter Property="FontSize" Value="15" />

@@ -4,6 +4,7 @@ using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -26,7 +27,7 @@ namespace EarTrumpet.UI.Themes
             Manager.Current.ThemeChanged += () => RaisePropertyChanged(nameof(IsLightTheme));
         }
 
-        public SolidColorBrush ResolveBrush(string light, string dark, string highContrast)
+        private SolidColorBrush ResolveBrush(string light, string dark, string highContrast)
         {
             if (!string.IsNullOrWhiteSpace(highContrast) && SystemParameters.HighContrast)
             {
@@ -41,7 +42,17 @@ namespace EarTrumpet.UI.Themes
                 if (Kind == ThemeControllerKind.System) isLight = false;
 
                 var colorName = isLight ? light : dark;
-                if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
+
+                var reference = Manager.Current.References.FirstOrDefault(r => r.Key == colorName);
+                if (reference != null)
+                {
+                    return ResolveBrush(reference.Value);
+                }
+                else if (colorName[0] == '#')
+                {
+                    return new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorName));
+                }
+                else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
                 {
                     var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                     return new SolidColorBrush((Color)info.GetValue(null, null));
@@ -57,11 +68,11 @@ namespace EarTrumpet.UI.Themes
         {
             Dictionary<string, string> map = new Dictionary<string, string>();
             map["Light"] = map["Dark"] = map["HighContrast"] = null;
-            foreach(var pair in newValue.Split(','))
+            foreach (var pair in newValue.Split(','))
             {
                 if (pair.Split('=').Length == 1)
                 {
-                    map["LightDark"] = pair;
+                    map["Theme"] = pair;
                 }
                 else
                 {
@@ -69,9 +80,10 @@ namespace EarTrumpet.UI.Themes
                 }
             }
 
-            if (map.ContainsKey("LightDark"))
+            if (map.ContainsKey("Theme"))
             {
-                map["Light"] = map["Dark"] = map["LightDark"];
+                map["Light"] = map["Theme"].Replace("{Theme}", "Light");
+                map["Dark"]  = map["Theme"].Replace("{Theme}", "Dark");
             }
 
             return ResolveBrush(map["Light"], map["Dark"], map["HighContrast"]);

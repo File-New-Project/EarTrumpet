@@ -5,7 +5,6 @@
         This dictionay is replaced wholesale by ThemeManager
     -->
 
-    <SolidColorBrush x:Key="Unicolor_Text">White</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_Background">Black</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_BlurBackground">Black</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_DevicePaneBackgroundLayer1">Gray</SolidColorBrush>
@@ -13,22 +12,13 @@
     <SolidColorBrush x:Key="Unicolor_SliderThumb">White</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderThumbHover">Green</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderThumbPressed">Blue</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_SliderTrackLeft">Purple</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_SliderTrackRight">Pink</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_PeakMeterColor">Aqua</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonHoverBackground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonHoverText">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonPressedBackground">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_ExpandCollapseButtonPressedText">Green</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_PrimaryFocusVisual">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_SecondaryFocusVisual">Red</SolidColorBrush>
-    <SolidColorBrush x:Key="Unicolor_AppIconPlateBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHoverBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonHoverText">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonPressedBackground">Blue</SolidColorBrush>
     <SolidColorBrush x:Key="Unicolor_VirtualTitleBarButtonPressedText">Blue</SolidColorBrush>
 
-    <SolidColorBrush x:Key="LightOrDark_Text">White</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_SecondaryText">Red</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_Background">Black</SolidColorBrush>
     <SolidColorBrush x:Key="LightOrDark_VirtualTitleBarBackground">Red</SolidColorBrush>

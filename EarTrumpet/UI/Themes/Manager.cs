@@ -29,7 +29,7 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<Reference> Imports { get; set; } = new List<Reference>();
+        public List<Reference> References { get; set; } = new List<Reference>();
 
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
