@@ -9,6 +9,7 @@ namespace EarTrumpet.DataModel
         internal static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
         internal static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
         internal static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme", 1 /* Light theme is system default */);
+        internal static bool IsSystemLightTheme => ReadPersonalizationSetting("SystemUsesLightTheme");
         internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
         internal static string BuildLabel

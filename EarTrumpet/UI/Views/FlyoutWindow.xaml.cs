@@ -79,7 +79,7 @@ namespace EarTrumpet.UI.Views
         {
             this.Cloak();
 
-            ThemeManager.Current.ThemeChanged += ThemeChanged;
+            Manager.Current.ThemeChanged += ThemeChanged;
             ThemeChanged();
 
             _rawListener = new RawInputListener(this);

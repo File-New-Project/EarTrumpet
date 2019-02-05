@@ -39,7 +39,7 @@ namespace EarTrumpet
                 return;
             }
 
-            ((ThemeManager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
+            ((Manager)Resources["ThemeManager"]).SetTheme(ThemeData.GetBrushData());
 
             PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
             PlaybackDevicesViewModel.Ready += MainViewModel_Ready;

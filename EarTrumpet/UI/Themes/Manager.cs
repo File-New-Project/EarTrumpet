@@ -11,9 +11,9 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Themes
 {
-    public class ThemeManager : INotifyPropertyChanged
+    public class Manager : INotifyPropertyChanged
     {
-        public static ThemeManager Current { get; private set; }
+        public static Manager Current { get; private set; }
 
         public static IResolveColorOptions DefaultResolver { get; private set; }
 
@@ -29,6 +29,8 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public List<Reference> Imports { get; set; } = new List<Reference>();
+
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
 
@@ -36,14 +38,14 @@ namespace EarTrumpet.UI.Themes
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
         private Win32Window _messageWindow;
 
-        public ThemeManager()
+        public Manager()
         {
             Current = this;
             DefaultResolver = new ThemeResolveData();
             _themeChangeTimer.Tick += ThemeChangeTimer_Tick;
         }
 
-        ~ThemeManager()
+        ~Manager()
         {
             _themeChangeTimer.Tick -= ThemeChangeTimer_Tick;
         }

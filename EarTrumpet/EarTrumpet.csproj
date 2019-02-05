@@ -117,6 +117,9 @@
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
+    <Compile Include="UI\Themes\Brush.cs" />
+    <Compile Include="UI\Themes\Controller.cs" />
+    <Compile Include="UI\Themes\Reference.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />
@@ -241,9 +244,6 @@
     <Compile Include="UI\Services\DiagnosticsService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
     <Compile Include="UI\Services\KeyboardNavigator.cs" />
-    <Compile Include="UI\Views\HotkeySelectView.xaml.cs">
-      <DependentUpon>HotkeySelectView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Views\ModalDialogChrome.xaml.cs">
       <DependentUpon>ModalDialogChrome.xaml</DependentUpon>
     </Compile>
@@ -305,7 +305,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
-    <Compile Include="UI\Themes\ThemeManager.cs" />
+    <Compile Include="UI\Themes\Manager.cs" />
     <Compile Include="DataModel\SystemSettings.cs" />
     <Compile Include="UI\Controls\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
@@ -322,10 +322,6 @@
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
     <Page Include="UI\Controls\SearchBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Views\HotkeySelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -82,7 +82,7 @@
                 <Button.Content>
                     <TextBlock FontSize="24"
                                Opacity="0.8"
-                               Style="{DynamicResource PerThemeGlyphTextBlockStyle}"
+                               Style="{StaticResource GlyphTextBlockStyle}"
                                Text="&#xE74F;" />
                 </Button.Content>
             </Button>
