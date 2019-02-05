@@ -10,16 +10,11 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ThemedContextMenu
     {
-        public static ContextMenu CreateThemedContextMenu(ThemeKind theme, bool displayOffWPF = true)
+        public static ContextMenu CreateThemedContextMenu(bool displayOffWPF = true)
         {
             var cm = new ContextMenu { };
-            cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector { Theme = theme };
+            cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector();
             cm.UsesItemContainerTemplate = true;
-            if (theme == ThemeKind.DarkOnly)
-            {
-                cm.Style = (Style)Application.Current.FindResource("ContextMenuDarkOnly");
-            }
-
             cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             cm.Opened += ContextMenu_Opened;
             cm.Closed += ContextMenu_Closed;

@@ -4,11 +4,11 @@
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
-        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Theme:Brush.Foreground="Text"
+        Theme:Options.Source="System"
         AllowsTransparency="True"
         Background="Transparent"
         Icon="pack://application:,,,/Assets/Application.ico"
@@ -20,12 +20,6 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="DarkOnly" />
-
-        <Theme:Controller x:Key="ThemeController" Kind="System" />
-
-        <Style BasedOn="{StaticResource ContextMenuDarkOnly}" TargetType="{x:Type ContextMenu}" />
-
         <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
         </Style>
@@ -58,8 +52,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Grid>
-                            <Rectangle Theme:Brush.Stroke="ImmersiveApplicationBackgroundDarkTheme" StrokeThickness="3" />
-                            <Rectangle Theme:Brush.Stroke="ImmersiveApplicationTextDarkTheme" StrokeThickness="2" />
+                            <Rectangle Theme:Brush.Stroke="ApplicationBackgroundDarkTheme" StrokeThickness="3" />
+                            <Rectangle Theme:Brush.Stroke="ApplicationTextDarkTheme" StrokeThickness="2" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -73,12 +67,12 @@
             <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#20ffffff, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#2fffffff, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -124,13 +118,13 @@
                     </Track.DecreaseRepeatButton>
                     <Track.Thumb>
                         <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource Unicolor_SliderThumb}"
+                               Theme:Brush.Foreground="Theme=SystemAccent, HighContrast=ControlLight"
                                Style="{StaticResource SliderThumbStyle}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton Name="SliderRight"
+                                      Theme:Brush.Foreground="Theme=#39FFFFFF, HighContrast=ControlLight"
                                       Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource Unicolor_SliderTrackRight}"
                                       Style="{StaticResource SliderButtonStyle}" />
                     </Track.IncreaseRepeatButton>
                 </Track>
@@ -139,13 +133,13 @@
                         Height="2"
                         Margin="0,-2,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
+                        Theme:Brush.Background="Theme=White, HighContrast=HotTrack" />
 
                 <Border Name="PeakMeter2"
                         Height="2"
                         Margin="0,1,0,0"
                         HorizontalAlignment="Left"
-                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
+                        Theme:Brush.Background="Theme=White, HighContrast=HotTrack" />
 
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
@@ -154,16 +148,18 @@
                         </VisualStateGroup.Transitions>
                         <VisualState x:Name="Normal" />
                         <VisualState x:Name="MouseOver">
+
                             <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbHover}" />
+
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="(Theme:Brush.Foreground)">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Theme=ControlDarkSliderThumbHover, HighContrast=Highlight" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                             <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbPressed}" />
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="(Theme:Brush.Foreground)">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Theme=ControlDarkSliderThumbHover, HighContrast=Highlight" />
                                 </ObjectAnimationUsingKeyFrames>
                             </Storyboard>
                         </VisualState>

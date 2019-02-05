@@ -40,7 +40,8 @@ namespace EarTrumpet.UI.Controls
         private void OnContextMenuRequested()
         {
             Trace.WriteLine("TrayIcon OnContextMenuRequested");
-            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.DarkOnly);
+            var contextMenu = ThemedContextMenu.CreateThemedContextMenu();
+            Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
             contextMenu.ItemsSource = _trayViewModel.MenuItems;
             contextMenu.Placement = PlacementMode.Mouse;
             contextMenu.IsOpen = true;

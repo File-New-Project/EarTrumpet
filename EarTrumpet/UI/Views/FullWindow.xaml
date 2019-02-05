@@ -7,13 +7,11 @@
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
+        Theme:Options.Source="App"
         SizeToContent="WidthAndHeight"
         Style="{DynamicResource FullWindowDialogWindowStyle}"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="LightOrDark" />
-        <Theme:Controller x:Key="ThemeController" Kind="App" />
-
         <Style x:Key="FullWindowDialogWindowStyle"
                BasedOn="{StaticResource DialogWindowStyle}"
                TargetType="{x:Type Window}">

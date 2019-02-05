@@ -12,13 +12,12 @@
         Height="600"
         MinWidth="770"
         MinHeight="320"
+        Theme:Options.Source="App"
         Background="Transparent"
         ResizeMode="CanResize"
         Style="{StaticResource DialogWindowStyle}"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Theme:Controller x:Key="ThemeController" Kind="App" />
-
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
             <StackPanel Orientation="Vertical">
 

@@ -5,16 +5,8 @@ using System.Windows.Controls;
 
 namespace EarTrumpet.UI
 {
-    public enum ThemeKind
-    {
-        LightOrDark,
-        DarkOnly
-    }
-
     public class MenuItemTemplateSelector : ItemContainerTemplateSelector
     {
-        public ThemeKind Theme { get; set; }
-
         public override DataTemplate SelectTemplate(object item, ItemsControl parentItemsControl)
         {
             var key = "";
@@ -31,11 +23,6 @@ namespace EarTrumpet.UI
                 key = "ContextMenuItemTemplate";
             }
             else throw new NotImplementedException();
-
-            if (Theme == ThemeKind.DarkOnly)
-            {
-                key += "DarkOnly";
-            }
 
             return (DataTemplate)parentItemsControl.FindResource(key);
         }

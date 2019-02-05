@@ -118,7 +118,7 @@
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
-    <Compile Include="UI\Themes\Controller.cs" />
+    <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Reference.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />

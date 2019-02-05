@@ -39,7 +39,7 @@
                                         Style="{DynamicResource VirtualTitleBarButtonStyle}"
                                         Tag="{Binding Glyph}">
                                     <Button.ContextMenu>
-                                        <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
+                                        <ContextMenu ItemContainerTemplateSelector="{StaticResource MenuSelector}"
                                                      ItemsSource="{Binding Menu}"
                                                      UsesItemContainerTemplate="True" />
                                     </Button.ContextMenu>
