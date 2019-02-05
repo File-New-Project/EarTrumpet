@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Interop.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -24,11 +25,7 @@ namespace EarTrumpet.UI.Themes
                 _element = element;
                 _value = value;
 
-                try
-                {
-                    AttachToPropertyWithController();
-                }
-                catch (ResourceReferenceKeyNotFoundException)
+                if (AttachToPropertyWithController())
                 {
                     dynamic target = element;
                     while (target.Parent != null)
@@ -82,15 +79,19 @@ namespace EarTrumpet.UI.Themes
                 AttachToPropertyWithController();
             }
 
-            internal void AttachToPropertyWithController()
+            public bool AttachToPropertyWithController()
             {
                 var type = Options.GetSource(_element);
-                if (type == null) throw new ResourceReferenceKeyNotFoundException();
+                if (type == null)
+                {
+                    return false;
+                }
 
                 _initialBrush = (System.Windows.Media.Brush)ReadProperty(_element, _propertyName);
                 _attached = true;
                 WriteProperty(_element, _propertyName, ResolveBrush((Options.SourceKind)type, _value));
                 Manager.Current.ThemeChanged += () => WriteProperty(_element, _propertyName, ResolveBrush((Options.SourceKind)type, _value));
+                return true;
             }
 
             object ReadProperty(object target, string propertyName)
@@ -118,36 +119,96 @@ namespace EarTrumpet.UI.Themes
                 }
                 else
                 {
-
                     bool isLight = kind == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
 
                     // TODO: 19H1 compat line.
                     if (kind == Options.SourceKind.System) isLight = false;
 
-
-
                     var colorName = isLight ? light : dark;
 
+                    double opacityWhenTransparent = 0;
+                    double opacityWhenNotTransparent = 0;
 
+                    if (colorName.Contains("/"))
+                    {
+                        var parts = colorName.Split('/');
+                        if (parts.Length == 2)
+                        {
+                            opacityWhenTransparent = double.Parse(parts[1]);
+                            colorName = parts[0];
+                        }
+                        else if (parts.Length == 3)
+                        {
+                            opacityWhenTransparent = double.Parse(parts[1]);
+                            opacityWhenNotTransparent = double.Parse(parts[2]);
+                            colorName = parts[0];
 
+                        }
+                        else throw new NotImplementedException();
+                    }
+
+                    Color ret;
                     var reference = Manager.Current.References.FirstOrDefault(r => r.Key == colorName);
                     if (reference != null)
                     {
+                        if (reference is AcrylicBackgroundReference)
+                        {
+                            string color;
+
+                            if (isLight)
+                            {
+                                color = SystemSettings.IsTransparencyEnabled ? "LightChromeWhite/0.7" : "LightAcrylicWindowBackdropFallback/1";
+                            }
+                            else
+                            {
+                                color = "DarkAcrylicWindowBackdropFallback/0.6/1";
+                            }
+                            return ResolveBrush(kind, $"Theme={color}");
+                        }
+                        else if (reference is FlyoutBackgroundReference)
+                        {
+                            string color;
+                            if (SystemParameters.HighContrast)
+                            {
+                                return ResolveBrush(kind, "Theme=ApplicationBackground");
+                            }
+                            else if (SystemSettings.UseAccentColor)
+                            {
+                                color = SystemSettings.IsTransparencyEnabled ? "SystemAccentDark2" : "SystemAccentDark1";
+                            }
+                            else
+                            {
+                                color = "DarkChromeLow";
+                            }
+
+                            return ResolveBrush(kind, $"Theme={color}/{opacityWhenTransparent}/{opacityWhenNotTransparent}");
+                        }
+
                         return ResolveBrush(kind, reference.Value);
                     }
                     else if (colorName[0] == '#')
                     {
-                        return new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorName));
+                        ret = (Color)ColorConverter.ConvertFromString(colorName);
                     }
                     else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
                     {
                         var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-                        return new SolidColorBrush((Color)info.GetValue(null, null));
+                        ret = (Color)info.GetValue(null, null);
                     }
                     else
                     {
-                        return new SolidColorBrush(color);
+                        ret = color;
                     }
+
+                    var opacity = SystemSettings.IsTransparencyEnabled ? opacityWhenTransparent :
+                        (opacityWhenNotTransparent > 0 ? opacityWhenNotTransparent : opacityWhenTransparent);
+
+                    if (opacity > 0)
+                    {
+                        ret.A = (byte)(opacity * 255);
+                    }
+
+                    return new SolidColorBrush(ret);
                 }
             }
 
@@ -230,5 +291,11 @@ namespace EarTrumpet.UI.Themes
         public static readonly DependencyProperty FillProperty =
         DependencyProperty.RegisterAttached("Fill", typeof(string), typeof(Brush), new PropertyMetadata("", FillChanged));
         private static void FillChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ImplementPropertyChanged("Fill", d, e.NewValue);
+
+        public static string GetSelectionBrush(DependencyObject obj) => (string)obj.GetValue(SelectionBrushProperty);
+        public static void SetSelectionBrush(DependencyObject obj, string value) => obj.SetValue(SelectionBrushProperty, value);
+        public static readonly DependencyProperty SelectionBrushProperty =
+        DependencyProperty.RegisterAttached("SelectionBrush", typeof(string), typeof(Brush), new PropertyMetadata("", SelectionBrushChanged));
+        private static void SelectionBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ImplementPropertyChanged("SelectionBrush", d, e.NewValue);
     }
 }

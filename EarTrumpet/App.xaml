@@ -12,13 +12,15 @@
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="UI\Themes\SystemThemeColors.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
             <Theme:Manager x:Key="ThemeManager">
                 <Theme:Manager.References>
                     <Theme:Reference Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
+                    <Theme:Reference Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
+                    <Theme:Reference Key="Background" Value="Light=ApplicationBackground, Dark=#FF222222, HighContrast=Window" />
+                    <Theme:Reference Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
+                    <Theme:AcrylicBackgroundReference Key="AcrylicBackground" />
+                    <Theme:FlyoutBackgroundReference Key="FlyoutBackground" />
+                    <Theme:Reference Key="ListHoverBackground" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Theme:Manager.References>
             </Theme:Manager>
 
@@ -80,7 +82,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -321,7 +323,7 @@
 
             <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="AllowsTransparency" Value="True" />
-                <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
+                <Setter Property="Theme:Brush.Background" Value="Transparent" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
@@ -333,10 +335,10 @@
                     </Setter.Value>
                 </Setter>
 
-                <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                 <Style.Triggers>
                     <Trigger Property="IsActive" Value="false">
-                        <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_InactiveWindowBorder}" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Light=ApplicationBackground, Dark=#FF222222" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -433,28 +435,23 @@
             <Style BasedOn="{StaticResource BaseContextMenuStyle}" TargetType="{x:Type ContextMenu}">
                 <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=MenuText" />
                 <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow, HighContrast=Menu" />
-                <!--  dark is actually/was ImmersiveControlDarkAppButtonTextDisabled/0.9  -->
-                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeHigh, HighContrast=ControlText" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText" />
             </Style>
 
-            <Style x:Key="BaseSeparatorStyle" TargetType="{x:Type Separator}">
-                <Setter Property="Height" Value="1" />
-                <Setter Property="Margin" Value="8,4,8,4" />
+            <Style TargetType="{x:Type Separator}">
+                <Setter Property="Margin" Value="8,2,8,2" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow, HighContrast=MenuText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
                             <Rectangle Height="1"
+                                       Margin="{TemplateBinding Margin}"
                                        HorizontalAlignment="Stretch"
                                        Fill="{TemplateBinding Foreground}" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
-
-            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
-                   BasedOn="{StaticResource BaseSeparatorStyle}"
-                   TargetType="{x:Type Separator}">
-                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow, HighContrast=MenuText" />
             </Style>
 
             <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
@@ -671,7 +668,7 @@
                                         <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderTrackFillRest" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
-                                                <Setter Property="Foreground" Value="Theme=Control{Theme}SliderThumbHover" />
+                                                <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderThumbHover" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -680,8 +677,8 @@
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
                             <RepeatButton Name="SliderRight"
+                                          Theme:Brush.Foreground="Theme=Control{Theme}SliderTrackFillDisabled, HighContrast=ControlLight"
                                           Command="Slider.IncreaseLarge"
-                                          Foreground="Theme=Control{Theme}SliderTrackFillDisabled, HighContrast=ControlLight"
                                           Style="{StaticResource SliderButtonStyle}" />
                         </Track.IncreaseRepeatButton>
                     </Track>
@@ -722,7 +719,7 @@
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="12,6" />
-                <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
+                <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
             </Style>
 
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
@@ -745,10 +742,10 @@
             </Style>
 
             <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxBorder}" />
+                <Setter Property="Theme:Brush.Background" Value="Background" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
-                <Setter Property="SelectionBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                <Setter Property="Theme:Brush.SelectionBrush" Value="SystemAccent" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="4" />
@@ -777,10 +774,10 @@
                                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource CheckBoxBorderHover}" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="true">
-                                    <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

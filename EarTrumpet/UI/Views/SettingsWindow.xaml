@@ -192,14 +192,14 @@
                         <Setter Property="Background" Value="Transparent" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsAd}" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
+                                <Setter Property="Theme:Brush.Background" Value="AcrylicBackgroundFallback" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
 
                 <Polygon HorizontalAlignment="Right"
-                         Fill="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                         Theme:Brush.Fill="SystemAccent"
                          Points="0,0 40,0 40,40"
                          Visibility="{Binding IsAd, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
 
@@ -247,8 +247,8 @@
                                Grid.Column="1"
                                Margin="6,2,8,6"
                                VerticalAlignment="Top"
+                               Theme:Brush.Foreground="GrayText"
                                FontSize="12"
-                               Foreground="{DynamicResource LightOrDark_SecondaryText}"
                                Text="{Binding Description}"
                                TextWrapping="Wrap" />
                 </Grid>
@@ -306,13 +306,13 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsSelected" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="selectedIndicator" Property="Background" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                <Setter TargetName="selectedIndicator" Property="Theme:Brush.Background" Value="SystemAccent" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -367,7 +367,9 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                                <Setter TargetName="Bd"
+                                        Property="Theme:Brush.BorderBrush"
+                                        Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -430,7 +432,8 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                    <Setter Property="Theme:Brush.Background"
+                            Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -456,7 +459,8 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
+                    <Setter Property="Theme:Brush.Background"
+                            Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -468,11 +472,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
+            <Border Name="AcrylicBackgroundActive" Theme:Brush.Background="AcrylicBackground" />
             <Border Name="AcrylicBackgroundInactive">
                 <Border.Style>
                     <Style TargetType="{x:Type Border}">
-                        <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
+                        <Setter Property="Theme:Brush.Background" Value="AcrylicBackgroundFallback" />
                         <Setter Property="Opacity" Value="1" />
                         <Style.Triggers>
                             <MultiDataTrigger>
@@ -539,7 +543,7 @@
                     </Style>
                 </Border.Style>
             </Border>
-            <Border Background="{DynamicResource LightOrDark_Background}">
+            <Border Theme:Brush.Background="Background">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
@@ -551,7 +555,7 @@
                     </Style>
                 </Border.Style>
             </Border>
-            <Border Grid.Column="1" Background="{DynamicResource LightOrDark_Background}" />
+            <Border Grid.Column="1" Theme:Brush.Background="Background" />
         </Grid>
 
         <DockPanel LastChildFill="True">
@@ -742,8 +746,8 @@
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
                                             <TextBlock Margin="16,12,0,6"
+                                                       Theme:Brush.Foreground="GrayText"
                                                        FontSize="15"
-                                                       Foreground="{DynamicResource LightOrDark_SecondaryText}"
                                                        Text="{Binding Name}">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
@@ -796,9 +800,9 @@
                             MinHeight="200"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            BorderBrush="{DynamicResource LightOrDark_ActiveWindowBorder}"
+                            Theme:Brush.BorderBrush="SystemAccent"
                             BorderThickness="1">
-                        <Grid Background="{DynamicResource LightOrDark_Background}">
+                        <Grid Theme:Brush.Background="Background">
                             <Grid Margin="12">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
@@ -818,8 +822,8 @@
 
                                 <Button Grid.Row="1"
                                         HorizontalAlignment="Stretch"
+                                        Theme:Brush.Background="SystemAccent"
                                         Theme:Brush.Foreground="Text"
-                                        Background="{DynamicResource LightOrDark_ActiveWindowBorder}"
                                         Command="{Binding Dialog.Button1Command}"
                                         Content="{Binding Dialog.Button1Text}" />
                                 <Button Grid.Row="1"

@@ -30,20 +30,20 @@
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
+            <Setter Property="Theme:Brush.Background" Value="Background" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource LightOrDark_Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+            <Setter Property="Theme:Brush.Background" Value="Background" />
+            <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarBackground}" />
+            <Setter Property="Theme:Brush.Background" Value="Light=LightListLow, Dark=DarkChromeMediumLow, HighContrast=Window" />
         </Style>
 
         <Style x:Key="VirtualTitleBarButtonStyle"
@@ -52,12 +52,12 @@
             <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonHoverText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonPressedBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource LightOrDark_VirtualTitleBarButtonPressedText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -105,12 +105,12 @@
 
     <Grid>
 
-        <Border Name="AcrylicBackgroundActive" Background="{DynamicResource LightOrDark_ActiveAcrylicBackground}" />
+        <Border Name="AcrylicBackgroundActive" Theme:Brush.Background="AcrylicBackground" />
 
         <Border Name="AcrylicBackgroundInactive">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
-                    <Setter Property="Background" Value="{DynamicResource LightOrDark_AcrylicBackgroundFallback}" />
+                    <Setter Property="Theme:Brush.Background" Value="AcrylicBackgroundFallback" />
                     <Setter Property="Opacity" Value="1" />
                     <Style.Triggers>
                         <MultiDataTrigger>
@@ -217,7 +217,7 @@
         </DockPanel>
 
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource LightOrDark_Background}"
+                Theme:Brush.Background="Background"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">

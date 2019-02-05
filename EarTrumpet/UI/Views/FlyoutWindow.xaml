@@ -25,26 +25,28 @@
         </Style>
 
         <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer2}" />
+            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.6/1" />
         </Style>
 
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
+            <Setter Property="Theme:Brush.Background"
+                    Value="FlyoutBackground/0.7/1" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+            <Setter Property="Theme:Brush.Background"
+                    Value="FlyoutBackground/0.7/1" />
+            <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
         </Style>
 
         <Style x:Key="VirtualTitleBarBorderStyle"
                BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
+            <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent/0.3/0.5, HighContrast=Window" />
         </Style>
 
         <Style x:Key="Windows10FocusVisualStyleDarkOnly">
@@ -229,7 +231,7 @@
 
                 <Border Height="{StaticResource NoItemsPaneHeight}"
                         VerticalAlignment="Center"
-                        Background="{DynamicResource Unicolor_Background}"
+                        Theme:Brush.Background="FlyoutBackground/0.7/1"
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
                                HorizontalAlignment="Center"
@@ -311,7 +313,7 @@
             </Grid>
         </ScrollViewer>
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource Unicolor_BlurBackground}"
+                Theme:Brush.Background="FlyoutBackground/1/0.9"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">

@@ -117,7 +117,9 @@
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
+    <Compile Include="UI\Themes\AcrylicBackgroundReference.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
+    <Compile Include="UI\Themes\FlyoutBackgroundReference.cs" />
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Reference.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
@@ -218,8 +220,6 @@
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
     <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
-    <Compile Include="UI\Themes\IResolveColor.cs" />
-    <Compile Include="UI\Themes\IResolveColorOptions.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
@@ -232,7 +232,6 @@
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SimpleDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
-    <Compile Include="UI\Themes\ThemeData.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
@@ -332,10 +331,6 @@
     <Page Include="UI\Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Themes\SystemThemeColors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Views\DeviceView.xaml">
       <SubType>Designer</SubType>
