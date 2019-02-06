@@ -98,7 +98,7 @@
 
         <TextBlock Grid.Column="2"
                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                   Style="{DynamicResource AppVolumeTextStyle}"
+                   Style="{StaticResource AppVolumeTextStyle}"
                    Text="{Binding Volume, Mode=OneWay}" />
     </Grid>
 </UserControl>

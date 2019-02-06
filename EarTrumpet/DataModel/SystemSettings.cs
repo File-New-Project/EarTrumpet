@@ -36,11 +36,16 @@ namespace EarTrumpet.DataModel
 
         private static bool LightThemeShim(bool registryValue)
         {
-            if (Environment.OSVersion.IsGreaterThan(OSVersions.RS4))
+            if (Environment.OSVersion.IsGreaterThan(OSVersions.RS5_1809))
             {
                 return registryValue;
             }
+
+#if DEBUG
+            return IsLightTheme;
+#else
             return false; // No system theme prior to 19H1/RS6.
+#endif
         }
     }
 }

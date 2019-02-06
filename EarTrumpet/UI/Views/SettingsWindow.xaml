@@ -156,32 +156,32 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.AddonNameText}" />
+                    <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.AddonNameText}" />
                     <TextBlock Grid.Row="1"
-                               Style="{DynamicResource BodyText}"
+                               Style="{StaticResource BodyText}"
                                Text="{x:Static resx:Resources.PublisherText}" />
                     <TextBlock Grid.Row="2"
-                               Style="{DynamicResource BodyText}"
+                               Style="{StaticResource BodyText}"
                                Text="{x:Static resx:Resources.VersionText}" />
 
                     <TextBlock Grid.Column="1"
-                               Style="{DynamicResource BodySubText}"
+                               Style="{StaticResource BodySubText}"
                                Text="{Binding DisplayName}" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Style="{DynamicResource BodySubText}"
+                               Style="{StaticResource BodySubText}"
                                Text="{Binding PublisherName}" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Style="{DynamicResource BodySubText}"
+                               Style="{StaticResource BodySubText}"
                                Text="{Binding Version}" />
                 </Grid>
                 <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}">
                         <Run Text="{x:Static resx:Resources.WebsiteText}" />
                     </Hyperlink></TextBlock>
 
-                <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.AddonUninstallTitle}" />
-                <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
+                <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AddonUninstallTitle}" />
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
                 <Button Command="{Binding Uninstall}" Content="{x:Static resx:Resources.AddonUninstallButtonText}" />
             </StackPanel>
         </DataTemplate>
@@ -396,7 +396,7 @@
         </Style>
         <Style x:Key="HomeButtonStyle" TargetType="Button">
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Theme:Brush.Foreground" Value="Text" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -424,32 +424,6 @@
                                            FontSize="14"
                                            Text="Home" />
                             </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Setter Property="BorderBrush" Value="{x:Null}" />
-            <Setter Property="Width" Value="48" />
-            <Setter Property="Height" Value="48" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                                Margin="0,-1,0,0"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-                            <ContentPresenter />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -569,17 +543,17 @@
                         Grid.Column="1"
                         Click="MinimizeButton_Click"
                         Content="&#xE921;"
-                        Style="{DynamicResource CaptionButtonStyle}" />
+                        Style="{StaticResource CaptionButtonStyle}" />
                 <Button x:Name="MaximizeButton"
                         Grid.Column="2"
                         Click="MaximizeButton_Click"
                         Content="&#xE922;"
-                        Style="{DynamicResource CaptionButtonStyle}" />
+                        Style="{StaticResource CaptionButtonStyle}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="3"
                         Click="CloseButton_Click"
                         Content="&#xE8BB;"
-                        Style="{DynamicResource CloseButtonStyle}" />
+                        Style="{StaticResource CloseButtonStyle}" />
             </Grid>
 
             <Grid>
@@ -605,7 +579,7 @@
                                FontFamily="Segoe UI Light"
                                FontSize="26"
                                FontWeight="Light"
-                               Style="{DynamicResource HeadingText}"
+                               Style="{StaticResource HeadingText}"
                                Text="{x:Static resx:Resources.SettingsTitle}" />
 
                     <ctl:SearchBox Grid.Row="1"
@@ -701,9 +675,9 @@
                                                 AutomationProperties.Name="{Binding DisplayName}"
                                                 BorderThickness="0"
                                                 Command="{Binding Command}"
-                                                Style="{DynamicResource ToolbarButtonStyle}">
+                                                Style="{StaticResource ToolbarButtonStyle}">
                                             <TextBlock FontSize="{Binding GlyphFontSize}"
-                                                       Style="{DynamicResource GlyphTextBlockStyle}"
+                                                       Style="{StaticResource GlyphTextBlockStyle}"
                                                        Text="{Binding Glyph}" />
                                         </Button>
                                     </DataTemplate>
@@ -810,9 +784,9 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
-                                    <TextBlock Style="{DynamicResource HeadingText}" Text="{Binding Dialog.Title}" />
+                                    <TextBlock Style="{StaticResource HeadingText}" Text="{Binding Dialog.Title}" />
 
-                                    <TextBlock Style="{DynamicResource BodyText}" Text="{Binding Dialog.Description}" />
+                                    <TextBlock Style="{StaticResource BodyText}" Text="{Binding Dialog.Description}" />
 
                                 </StackPanel>
 

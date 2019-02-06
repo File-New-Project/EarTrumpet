@@ -57,6 +57,7 @@ namespace EarTrumpet.UI.Themes
                 if (_isAttached)
                 {
                     WriteProperty(_initialBrush);
+                    Manager.Current.ThemeChanged -= ThemeChanged;
                 }
 
                 _element = null;
@@ -87,8 +88,16 @@ namespace EarTrumpet.UI.Themes
                 _initialBrush = (System.Windows.Media.Brush)ReadProperty();
                 _isAttached = true;
                 WriteProperty(BrushValueParser.Parse(_element, _value));
-                Manager.Current.ThemeChanged += () => WriteProperty(BrushValueParser.Parse(_element, _value));
+                Manager.Current.ThemeChanged += ThemeChanged;
                 return true;
+            }
+
+            private void ThemeChanged()
+            {
+                if (_element != null)
+                {
+                    WriteProperty(BrushValueParser.Parse(_element, _value));
+                }
             }
 
             object ReadProperty()

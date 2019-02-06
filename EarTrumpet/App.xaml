@@ -16,11 +16,32 @@
                 <Theme:Manager.References>
                     <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
                     <Theme:Ref Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
-                    <Theme:Ref Key="Background" Value="Light=ApplicationBackground, Dark=#FF222222, HighContrast=Window" />
+                    <!--  TODO: Restore prior background colour customisation. #FF222222  -->
+                    <Theme:Ref Key="Background" Value="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" />
                     <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
-                    <Theme:AcrylicBackgroundRef Key="AcrylicBackground" />
-                    <Theme:FlyoutBackgroundRef Key="FlyoutBackground" />
-                    <Theme:Ref Key="ListHoverBackground" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Theme:Ref Key="AcrylicBackground">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="LightTheme">
+                                <Theme:Rule.Rules>
+                                    <Theme:Rule On="Transparency" Value="LightChromeWhite/0.7" />
+                                    <Theme:Rule Value="LightAcrylicWindowBackdropFallback/1" />
+                                </Theme:Rule.Rules>
+                            </Theme:Rule>
+                            <Theme:Rule Value="DarkAcrylicWindowBackdropFallback/0.6/1" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
+                    <Theme:Ref Key="FlyoutBackground">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="HighContrast" Value="Window" />
+                            <Theme:Rule On="UseAccentColor">
+                                <Theme:Rule.Rules>
+                                    <Theme:Rule On="Transparency" Value="Theme=SystemAccent{Theme}2" />
+                                    <Theme:Rule Value="Theme=SystemAccent{Theme}1" />
+                                </Theme:Rule.Rules>
+                            </Theme:Rule>
+                            <Theme:Rule Value="Theme={Theme}ChromeLow" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
                 </Theme:Manager.References>
             </Theme:Manager>
 
@@ -86,7 +107,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
             <Style x:Key="CloseButtonStyle"
                    BasedOn="{StaticResource CaptionButtonStyle}"
                    TargetType="Button">
@@ -98,79 +118,34 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid>
-                                <Rectangle Theme:Brush.Stroke="Light=ApplicationBackgroundLightTheme, Dark=ApplicationBackgroundDarkTheme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
                                 <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="LargeWindows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>
                         <ControlTemplate>
                             <Grid Margin="-4" SnapsToDevicePixels="True">
-                                <Rectangle Theme:Brush.Stroke="Light=ApplicationBackgroundLightTheme, Dark=ApplicationBackgroundDarkTheme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
                                 <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style TargetType="Button">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="Padding" Value="14,0" />
-                <Setter Property="Margin" Value="12" />
-                <Setter Property="Height" Value="32" />
-                <Setter Property="MinWidth" Value="90" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
-                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow" />
-                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Padding="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{TemplateBinding FontFamily}"
-                                           Foreground="{TemplateBinding Foreground}"
-                                           Text="{TemplateBinding Content}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseLow" />
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
-                    </Trigger>
-                    <Trigger Property="IsPressed" Value="true">
-                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="IsTabStop" Value="false" />
-                <Setter Property="Focusable" Value="false" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Focusable" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -181,9 +156,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
-                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Height" Value="24" />
                 <Setter Property="Width" Value="{StaticResource SliderThumbWidth}" />
                 <Setter Property="Template">
@@ -198,9 +172,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}">
-                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Minimum" Value="0" />
                 <Setter Property="Maximum" Value="100" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -209,10 +182,10 @@
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Interval" Value="1" />
                 <Setter Property="Height" Value="32" />
-                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="SmallChange" Value="1" />
                 <Setter Property="LargeChange" Value="10" />
-                <Setter Property="IsManipulationEnabled" Value="true" />
+                <Setter Property="IsManipulationEnabled" Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Slider}">
@@ -269,51 +242,20 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="{x:Type ListView}" TargetType="ListView">
-                <Setter Property="SnapsToDevicePixels" Value="true" />
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListView">
-                            <Border Background="{TemplateBinding Background}">
-                                <ItemsPresenter />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="BaseListViewItemStyle" TargetType="ListViewItem">
-                <Setter Property="SnapsToDevicePixels" Value="true" />
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListBoxItem">
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
             <Style x:Key="GlyphTextBlockStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
                 <Setter Property="Theme:Brush.Foreground" Value="Light=ApplicationTextLightTheme, Dark=ApplicationTextDarkTheme" />
             </Style>
-
             <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-
             <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
             </Style>
-
             <Style x:Key="DeviceVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -321,7 +263,6 @@
                 <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
-
             <Style x:Key="AppVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -329,13 +270,11 @@
                 <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
-
             <Style x:Key="DeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
-
             <Style x:Key="VirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
                 <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
@@ -343,7 +282,6 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
-
             <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
                 <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
                 <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
@@ -364,7 +302,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="AllowsTransparency" Value="True" />
                 <Setter Property="Theme:Brush.Background" Value="Transparent" />
@@ -386,6 +323,32 @@
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="{x:Type ListView}" TargetType="ListView">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BaseListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="AppListStyle" TargetType="{x:Type ListView}">
                 <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
                 <Setter Property="Background" Value="Transparent" />
@@ -430,6 +393,7 @@
                 </Setter>
             </Style>
 
+            <!--  ContextMenu styles & templates  -->
             <Style TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
@@ -470,7 +434,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style TargetType="{x:Type Separator}">
                 <Setter Property="Margin" Value="8,2,8,2" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -486,7 +449,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Template">
@@ -580,7 +542,67 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <DataTemplate x:Key="ContextMenuItemTemplate">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          IsCheckable="{Binding IsChecked}"
+                          IsChecked="{Binding IsChecked}"
+                          IsEnabled="{Binding IsEnabled}"
+                          Tag="{Binding Glyph}" />
+            </DataTemplate>
+            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
+                <MenuItem Command="{Binding Command}"
+                          Header="{Binding DisplayName}"
+                          ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
+                          ItemsSource="{Binding Children}"
+                          UsesItemContainerTemplate="true" />
+            </HierarchicalDataTemplate>
+            <DataTemplate x:Key="ContextMenuSeparatorTemplate">
+                <Separator />
+            </DataTemplate>
 
+            <!--  SettingsUX styles & templates  -->
+            <Style TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="Margin" Value="12" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="MinWidth" Value="90" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow" />
+                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Text="{TemplateBinding Content}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseLow" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <Style TargetType="{x:Type CheckBox}">
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="FontSize" Value="15" />
@@ -665,38 +687,16 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <DataTemplate x:Key="ContextMenuItemTemplate">
-                <MenuItem Command="{Binding Command}"
-                          Header="{Binding DisplayName}"
-                          IsCheckable="{Binding IsChecked}"
-                          IsChecked="{Binding IsChecked}"
-                          IsEnabled="{Binding IsEnabled}"
-                          Tag="{Binding Glyph}" />
-            </DataTemplate>
-            <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
-                <MenuItem Command="{Binding Command}"
-                          Header="{Binding DisplayName}"
-                          ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
-                          ItemsSource="{Binding Children}"
-                          UsesItemContainerTemplate="true" />
-            </HierarchicalDataTemplate>
-            <DataTemplate x:Key="ContextMenuSeparatorTemplate">
-                <Separator />
-            </DataTemplate>
-
             <Style x:Key="HeadingText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="Margin" Value="12,24,12,12" />
             </Style>
-
             <Style x:Key="BodyText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="Margin" Value="12,6" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-
             <Style x:Key="BodySubText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -704,13 +704,11 @@
                 <Setter Property="Margin" Value="12,6" />
                 <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
             </Style>
-
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="Margin" Value="12,12,12,6" />
             </Style>
-
             <Style TargetType="{x:Type Hyperlink}">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
@@ -723,7 +721,6 @@
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
             </Style>
-
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Theme:Brush.Background" Value="Background" />
                 <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
@@ -767,7 +764,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="AddButtonStyle" TargetType="{x:Type Button}">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -810,13 +806,41 @@
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter TargetName="root" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                                    <Setter TargetName="root" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="BorderBrush" Value="{x:Null}" />
+                <Setter Property="Width" Value="48" />
+                <Setter Property="Height" Value="48" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Margin="0,-1,0,0"
+                                    Background="{TemplateBinding Background}"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--  ViewModel templates  -->
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>

@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         Title="EarTrumpet"
@@ -27,7 +26,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -61,8 +60,7 @@
         <Style x:Key="{x:Type ListViewItem}"
                BasedOn="{StaticResource BaseListViewItemStyle}"
                TargetType="ListViewItem">
-            <Setter Property="FocusVisualStyle"
-                    Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
         </Style>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
@@ -75,7 +73,7 @@
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
                                HorizontalAlignment="Center"
-                               FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                               FontSize="{StaticResource {x:Static SystemFonts.MessageFontSizeKey}}"
                                Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                                TextWrapping="Wrap" />
                 </Border>
@@ -119,7 +117,7 @@
                             <Grid>
                                 <TextBlock Margin="12,0,32,0"
                                            HorizontalAlignment="Left"
-                                           Style="{DynamicResource DeviceTitleTextStyle}"
+                                           Style="{StaticResource DeviceTitleTextStyle}"
                                            Text="{Binding DeviceNameText}"
                                            TextTrimming="CharacterEllipsis" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"

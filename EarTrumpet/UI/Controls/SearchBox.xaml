@@ -115,7 +115,7 @@
                            StaysOpen="False">
                         <Border x:Name="SubmenuBorder"
                                 Theme:Brush.Background="AcrylicBackgroundFallback"
-                                BorderBrush="{DynamicResource ContextMenuBorder}"
+                                Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
                                 BorderThickness="1"
                                 SnapsToDevicePixels="True">
                             <Grid>

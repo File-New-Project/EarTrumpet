@@ -24,7 +24,7 @@
                     <Border Grid.ColumnSpan="3"
                             Height="{StaticResource DeviceTitleCellHeight}"
                             Theme:Brush.Background=":Light=LightListLow, :Dark=DarkChromeMediumLow, :HighContrast=Window, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window" />
-                    <TextBlock Style="{DynamicResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
+                    <TextBlock Style="{StaticResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
 
                     <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
                         <ItemsControl.ItemsPanel>
@@ -51,7 +51,7 @@
                                     </Button.ContextMenu>
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource VirtualTitleBarButtonStyle}" TargetType="{x:Type Button}">
-                                            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
+                                            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                                             <Setter Property="Theme:Brush.Foreground" Value="Text" />
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">

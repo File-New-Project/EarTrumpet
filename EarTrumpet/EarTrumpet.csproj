@@ -123,6 +123,7 @@
     <Compile Include="UI\Themes\FlyoutBackgroundRef.cs" />
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Ref.cs" />
+    <Compile Include="UI\Themes\Rule.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />

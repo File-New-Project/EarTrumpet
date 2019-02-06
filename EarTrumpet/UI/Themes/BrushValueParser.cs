@@ -14,7 +14,7 @@ namespace EarTrumpet.UI.Themes
         public static object Parse(DependencyObject element, string value)
         {
             bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
-
+            string lightOrDarkText = isLight ? "Light" : "Dark";
             Dictionary<string, Dictionary<string, string>> fullMap = new Dictionary<string, Dictionary<string, string>>();
             // Transparent
             // Theme=Transparent
@@ -64,8 +64,7 @@ namespace EarTrumpet.UI.Themes
             }
             if (searchKey != "")
             {
-                searchKey = searchKey.Split('/')[0];
-                var reference = Manager.Current.References.FirstOrDefault(r => r.Key == searchKey);
+                var reference = Manager.Current.References.FirstOrDefault(r => r.Key == searchKey.Split('/')[0]);
                 if (reference != null)
                 {
                     if (reference is AcrylicBackgroundRef)
@@ -90,17 +89,67 @@ namespace EarTrumpet.UI.Themes
                         }
                         else if (SystemSettings.UseAccentColor)
                         {
-                            color = SystemSettings.IsTransparencyEnabled ? "SystemAccentDark2" : "SystemAccentDark1";
+                            color = SystemSettings.IsTransparencyEnabled ? $"SystemAccent{lightOrDarkText}2" : $"SystemAccent{lightOrDarkText}1";
                         }
                         else
                         {
-                            color = "DarkChromeLow";
+                            color = $"{lightOrDarkText}ChromeLow";
                         }
+
                         return Parse(element, $"Theme={color}/{value.Split('/')[1]}/{value.Split('/')[2]}");
                     }
                     else
                     {
-                        return Parse(element, reference.Value);
+                        if (reference.Value != null)
+                        {
+                            return Parse(element, reference.Value);
+                        }
+                        else
+                        {
+                            var tab = new Dictionary<Rule.Kind, bool>();
+                            tab.Add(Rule.Kind.Any, true);
+                            tab.Add(Rule.Kind.HighContrast, SystemParameters.HighContrast);
+                            tab.Add(Rule.Kind.LightTheme, isLight);
+                            tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled);
+                            tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
+
+                            Func<List<Rule>, string> ParseRule = null;
+                            ParseRule = r =>
+                            {
+                                foreach(var rule in r)
+                                {
+                                    if (tab[rule.On])
+                                    {
+                                        if (rule.Value != null)
+                                        {
+                                            return rule.Value;
+                                        }
+                                        else
+                                        {
+                                            return ParseRule(rule.Rules);
+                                        }
+                                    }
+                                }
+                                throw new NotImplementedException();
+                            };
+
+                            string opacities = "";
+                            var oItems = searchKey.Split('/').Skip(1).ToArray();
+                            if (oItems.Length == 0)
+                            {
+
+                            }
+                            else if (oItems.Length == 1)
+                            {
+                                opacities = $"/{oItems[0]}";
+                            }
+                            else
+                            {
+                                opacities = $"/{oItems[0]}/{oItems[1]}";
+                            }
+
+                            return Parse(element, ParseRule(reference.Rules) + opacities);
+                        }
                     }
                 }
             }
@@ -149,16 +198,20 @@ namespace EarTrumpet.UI.Themes
                 else throw new NotImplementedException($"BrushValueParser: '{value}'");
             }
 
+            // Lookup the color
             Color ret;
-            colorName = ExtractColorName(colorName, out var opacity);
+            colorName = ParseOpacityFromColor(colorName, out var opacity);
             if (colorName[0] == '#')
             {
                 ret = (Color)ColorConverter.ConvertFromString(colorName);
             }
-            // TODO: HighContrast colors not querieid here still.
             else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
             {
                 var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                if (info == null)
+                {
+                    info = typeof(SystemColors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                }
                 ret = (Color)info.GetValue(null, null);
             }
             else
@@ -173,30 +226,33 @@ namespace EarTrumpet.UI.Themes
             return new SolidColorBrush(ret);
         }
 
-        private static string ExtractColorName(string colorName, out double opacity)
+        // ColorName
+        // ColorName/0.0
+        // ColorName/0.0/0.0
+        private static string ParseOpacityFromColor(string colorName, out double desiredOpacity)
         {
-            double opacityWhenTransparent = 0;
-            double opacityWhenNotTransparent = 0;
+            double opacity = 0;
+            double opacityNoTransparency = 0;
 
-            if (colorName.Contains("/"))
+            var parts = colorName.Split('/');
+            if (parts.Length == 1)
             {
-                var parts = colorName.Split('/');
-                if (parts.Length == 2)
-                {
-                    opacityWhenTransparent = double.Parse(parts[1]);
-                    colorName = parts[0];
-                }
-                else if (parts.Length == 3)
-                {
-                    opacityWhenTransparent = double.Parse(parts[1]);
-                    opacityWhenNotTransparent = double.Parse(parts[2]);
-                    colorName = parts[0];
-                }
-                else throw new NotImplementedException();
+                // Nothing to do.
             }
+            else if (parts.Length == 2)
+            {
+                opacity = double.Parse(parts[1]);
+                colorName = parts[0];
+            }
+            else if (parts.Length == 3)
+            {
+                opacity = double.Parse(parts[1]);
+                opacityNoTransparency = double.Parse(parts[2]);
+                colorName = parts[0];
+            }
+            else throw new NotImplementedException();
 
-            opacity = SystemSettings.IsTransparencyEnabled ? opacityWhenTransparent :
-                 (opacityWhenNotTransparent > 0 ? opacityWhenNotTransparent : opacityWhenTransparent);
+            desiredOpacity = SystemSettings.IsTransparencyEnabled ? opacity : (opacityNoTransparency > 0 ? opacityNoTransparency : opacity);
             return colorName;
         }
     }

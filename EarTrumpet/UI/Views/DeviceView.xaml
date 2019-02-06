@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                    <TextBlock Style="{DynamicResource DeviceTitleTextStyle}"
+                    <TextBlock Style="{StaticResource DeviceTitleTextStyle}"
                                Text="{Binding Device.DisplayName}"
                                TextTrimming="CharacterEllipsis"
                                Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
@@ -95,7 +95,7 @@
                                           Value="{Binding Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
                                    Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                   Style="{DynamicResource DeviceVolumeTextStyle}"
+                                   Style="{StaticResource DeviceVolumeTextStyle}"
                                    Text="{Binding Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </ListViewItem>
@@ -106,7 +106,7 @@
             <ListView Name="AppList"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
                       ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      Style="{DynamicResource AppListStyle}" />
+                      Style="{StaticResource AppListStyle}" />
         </Border>
     </Grid>
 </UserControl>
