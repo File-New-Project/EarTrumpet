@@ -1,8 +1,10 @@
 ﻿<UserControl x:Class="EarTrumpet.UI.Views.ModalDialogChrome"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
-             xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels">
+             xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+             Name="ControlRoot">
     <UserControl.Template>
         <ControlTemplate TargetType="{x:Type ContentControl}">
             <Border Style="{DynamicResource VolumeControlPopupBorder}">
@@ -39,7 +41,8 @@
                                         Style="{DynamicResource VirtualTitleBarButtonStyle}"
                                         Tag="{Binding Glyph}">
                                     <Button.ContextMenu>
-                                        <ContextMenu ItemContainerTemplateSelector="{StaticResource MenuSelector}"
+                                        <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                                     ItemContainerTemplateSelector="{StaticResource MenuSelector}"
                                                      ItemsSource="{Binding Menu}"
                                                      UsesItemContainerTemplate="True" />
                                     </Button.ContextMenu>

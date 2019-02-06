@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.UI.Themes
 {
-    class Options
+    public class Options
     {
         public enum SourceKind
         {

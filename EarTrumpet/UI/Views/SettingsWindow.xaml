@@ -367,9 +367,7 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd"
-                                        Property="Theme:Brush.BorderBrush"
-                                        Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                                <Setter TargetName="Bd" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -432,8 +430,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background"
-                            Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -459,8 +456,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background"
-                            Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Trigger>
             </Style.Triggers>
         </Style>

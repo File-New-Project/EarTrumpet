@@ -31,15 +31,13 @@
         <Style x:Key="AppListBorderStyle"
                BasedOn="{StaticResource BaseAppListBorderStyle}"
                TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background"
-                    Value="FlyoutBackground/0.7/1" />
+            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.7/1" />
         </Style>
 
         <Style x:Key="VolumeControlPopupBorder"
                BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
                TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background"
-                    Value="FlyoutBackground/0.7/1" />
+            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.7/1" />
             <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
         </Style>
 
