@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding;assembly=EarTrumpet"
+                    xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes;assembly=EarTrumpet"
                     xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
                     xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
                     xmlns:etctl="clr-namespace:EarTrumpet_Actions.Controls"
@@ -8,10 +9,9 @@
                     xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
                     xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
-    <conv:InvertableVisibilityConverter x:Key="addonVisConverter" />
-    <ui:MenuItemTemplateSelector x:Key="MenuTemplateSelector" Theme="LightOrDark" />
     <Popup x:Key="ActionsPopup"
            MinWidth="200"
+           Theme:Options.Source="App"
            AllowsTransparency="False"
            Placement="Right"
            PopupAnimation="None"
@@ -27,8 +27,8 @@
         </Popup.Style>
 
         <Border x:Name="SubmenuBorder"
-                Background="{DynamicResource ContextMenuBackground}"
-                BorderBrush="{DynamicResource ContextMenuBorder}"
+                Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
+                Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
                 BorderThickness="1"
                 SnapsToDevicePixels="True">
             <Grid Margin="12">
@@ -37,9 +37,9 @@
         </Border>
     </Popup>
     <Style x:Key="RemoveButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
+        <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Width" Value="48" />
@@ -57,7 +57,9 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="root" Property="Background" Value="{DynamicResource ContextMenuItemBackgroundHover}" />
+                            <Setter TargetName="root"
+                                    Property="Theme:Brush.Background"
+                                    Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -125,7 +127,7 @@
                                                         <Condition Binding="{Binding ElementName=Toolbar, Path=Tag}" Value="False" />
                                                     </MultiDataTrigger.Conditions>
                                                     <MultiDataTrigger.Setters>
-                                                        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
+                                                        <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
                                                     </MultiDataTrigger.Setters>
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
@@ -260,7 +262,8 @@
                               PreviewMouseRightButtonUp="{Event:HandledBinding}"
                               Style="{DynamicResource AddButtonStyle}">
                 <etctl:MenuButton.ContextMenu>
-                    <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
+                    <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                 ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
                                  ItemsSource="{Binding NewTriggers}"
                                  UsesItemContainerTemplate="True" />
                 </etctl:MenuButton.ContextMenu>
@@ -280,7 +283,8 @@
                               PreviewMouseRightButtonUp="{Event:HandledBinding}"
                               Style="{DynamicResource AddButtonStyle}">
                 <etctl:MenuButton.ContextMenu>
-                    <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
+                    <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                 ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
                                  ItemsSource="{Binding NewActions}"
                                  UsesItemContainerTemplate="True" />
                 </etctl:MenuButton.ContextMenu>
@@ -311,7 +315,8 @@
                                   PreviewMouseRightButtonUp="{Event:HandledBinding}"
                                   Style="{DynamicResource AddButtonStyle}">
                     <etctl:MenuButton.ContextMenu>
-                        <ContextMenu ItemContainerTemplateSelector="{DynamicResource MenuTemplateSelector}"
+                        <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                     ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
                                      ItemsSource="{Binding NewConditions}"
                                      UsesItemContainerTemplate="True" />
                     </etctl:MenuButton.ContextMenu>
@@ -324,21 +329,6 @@
                           Minimum="0"
                           Style="{StaticResource {x:Type Slider}}"
                           Value="{Binding Volume, Mode=TwoWay}" />
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:AppViewModel}">
-        <ComboBox IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding All}"
-                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
-        <ComboBox IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding All}"
-                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:OptionViewModel}">
-        <ComboBox IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding All}"
-                  SelectedItem="{Binding Selected, Mode=TwoWay}" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
         <ContentControl Content="{Binding Hotkey}" IsTabStop="False" />

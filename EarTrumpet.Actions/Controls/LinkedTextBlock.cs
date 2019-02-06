@@ -83,7 +83,10 @@ namespace EarTrumpet_Actions.Controls
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
-                            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(ThemeKind.LightOrDark, false);
+                            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(false);
+                            var src = EarTrumpet.UI.Themes.Options.GetSource(this);
+                            EarTrumpet.UI.Themes.Options.SetSource(contextMenu, src);
+
                             contextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
                             contextMenu.Placement = PlacementMode.Mouse;
                             contextMenu.IsOpen = true;
