@@ -14,13 +14,13 @@
         <ResourceDictionary>
             <Theme:Manager x:Key="ThemeManager">
                 <Theme:Manager.References>
-                    <Theme:Reference Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
-                    <Theme:Reference Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
-                    <Theme:Reference Key="Background" Value="Light=ApplicationBackground, Dark=#FF222222, HighContrast=Window" />
-                    <Theme:Reference Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
-                    <Theme:AcrylicBackgroundReference Key="AcrylicBackground" />
-                    <Theme:FlyoutBackgroundReference Key="FlyoutBackground" />
-                    <Theme:Reference Key="ListHoverBackground" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
+                    <Theme:Ref Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
+                    <Theme:Ref Key="Background" Value="Light=ApplicationBackground, Dark=#FF222222, HighContrast=Window" />
+                    <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
+                    <Theme:AcrylicBackgroundRef Key="AcrylicBackground" />
+                    <Theme:FlyoutBackgroundRef Key="FlyoutBackground" />
+                    <Theme:Ref Key="ListHoverBackground" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                 </Theme:Manager.References>
             </Theme:Manager>
 
@@ -94,7 +94,7 @@
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
-                        <Setter Property="Background" Value="#FFE81123" />
+                        <Setter Property="Theme:Brush.Background" Value="#FFE81123" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -199,7 +199,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="BaseVolumeSliderStyle" TargetType="{x:Type Slider}">
+            <Style x:Key="{x:Type Slider}" TargetType="{x:Type Slider}">
                 <Setter Property="OverridesDefaultStyle" Value="true" />
                 <Setter Property="Minimum" Value="0" />
                 <Setter Property="Maximum" Value="100" />
@@ -213,12 +213,61 @@
                 <Setter Property="SmallChange" Value="1" />
                 <Setter Property="LargeChange" Value="10" />
                 <Setter Property="IsManipulationEnabled" Value="true" />
-            </Style>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Slider}">
+                            <Grid>
+                                <Border Name="TrackBackground" Height="2" />
 
-            <Style x:Key="{x:Type Slider}"
-                   BasedOn="{StaticResource BaseVolumeSliderStyle}"
-                   TargetType="{x:Type Slider}">
-                <Setter Property="Template" Value="{DynamicResource LighOrDark_VolumeSliderTemplate}" />
+                                <Track Name="PART_Track">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Name="SliderLeft"
+                                                      Theme:Brush.Foreground="SystemAccentLight1"
+                                                      Command="Slider.DecreaseLarge"
+                                                      Style="{StaticResource SliderButtonStyle}" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Name="SliderThumb">
+                                            <Thumb.Style>
+                                                <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
+                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=Control{Theme}SliderTrackFillRest, Flyout:Theme=SystemAccent" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
+                                                            <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderThumbHover" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Name="SliderRight"
+                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=#39FFFFFF, Flyout:HighContrast=ControlLight"
+                                                      Command="Slider.IncreaseLarge"
+                                                      Style="{StaticResource SliderButtonStyle}" />
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+
+                                <Border Name="PeakMeter1"
+                                        Height="2"
+                                        Margin="0,-2,0,0"
+                                        HorizontalAlignment="Left"
+                                        Theme:Brush.Background="Theme=ApplicationText{Theme}Theme, HighContrast=HotTrack" />
+
+                                <Border Name="PeakMeter2"
+                                        Height="2"
+                                        Margin="0,1,0,0"
+                                        HorizontalAlignment="Left"
+                                        Theme:Brush.Background="Theme=ApplicationText{Theme}Theme, HighContrast=HotTrack" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style x:Key="{x:Type ListView}" TargetType="ListView">
@@ -265,42 +314,37 @@
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
             </Style>
 
-            <Style x:Key="BaseDeviceVolumeTextStyle" TargetType="{x:Type TextBlock}">
+            <Style x:Key="DeviceVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
-
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
 
-            <Style x:Key="BaseAppVolumeTextStyle" TargetType="{x:Type TextBlock}">
+            <Style x:Key="AppVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
 
-            <Style x:Key="BaseDeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
+            <Style x:Key="DeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
 
-            <Style x:Key="BaseVirtualTitleBarBorderStyle" TargetType="{x:Type Border}">
-                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
-            </Style>
-
-            <Style x:Key="BaseVolumeControlPopupBorder" TargetType="{x:Type Border}">
-                <Setter Property="BorderThickness" Value="{StaticResource PopupBorderThickness}" />
-            </Style>
-
-            <Style x:Key="BaseVirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
+            <Style x:Key="VirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
                 <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
 
-            <Style x:Key="BaseVirtualTitleBarButtonStyle" TargetType="Button">
+            <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
                 <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
                 <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
@@ -334,10 +378,9 @@
                         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
                     </Setter.Value>
                 </Setter>
-
                 <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                 <Style.Triggers>
-                    <Trigger Property="IsActive" Value="false">
+                    <Trigger Property="IsActive" Value="False">
                         <Setter Property="Theme:Brush.BorderBrush" Value="Light=ApplicationBackground, Dark=#FF222222" />
                     </Trigger>
                 </Style.Triggers>
@@ -357,8 +400,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="BaseAppListBorderStyle" TargetType="{x:Type Border}" />
 
             <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
@@ -389,12 +430,7 @@
                 </Setter>
             </Style>
 
-
-
-
-
-
-            <Style x:Key="BaseContextMenuStyle" TargetType="{x:Type ContextMenu}">
+            <Style TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -402,6 +438,9 @@
                 <Setter Property="MinWidth" Value="311" />
                 <Setter Property="HasDropShadow" Value="True" />
                 <Setter Property="FontSize" Value="12" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=MenuText" />
+                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow, HighContrast=Menu" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
@@ -432,12 +471,6 @@
                 </Setter>
             </Style>
 
-            <Style BasedOn="{StaticResource BaseContextMenuStyle}" TargetType="{x:Type ContextMenu}">
-                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=MenuText" />
-                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow, HighContrast=Menu" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText" />
-            </Style>
-
             <Style TargetType="{x:Type Separator}">
                 <Setter Property="Margin" Value="8,2,8,2" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -454,96 +487,98 @@
                 </Setter>
             </Style>
 
-            <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
-                <Border x:Name="Border"
-                        Height="32"
-                        Background="Transparent"
-                        BorderThickness="0">
-                    <Grid Margin="0,-1,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Border x:Name="Check"
-                                Width="14"
-                                Height="14"
-                                BorderThickness="1">
-                            <TextBlock x:Name="CheckMark"
-                                       Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       FontSize="12"
-                                       SnapsToDevicePixels="False"
-                                       Text="{TemplateBinding Tag}"
-                                       Visibility="Hidden" />
-                        </Border>
-                        <ContentPresenter x:Name="HeaderHost"
-                                          Grid.Column="1"
-                                          Margin="0,0,8,0"
-                                          ContentSource="Header"
-                                          RecognizesAccessKey="True" />
-
-                        <Border x:Name="OpenGlyph"
-                                Grid.Column="2"
-                                Width="20"
-                                Height="14"
-                                BorderThickness="1"
-                                Visibility="Collapsed">
-                            <TextBlock Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       FontSize="12"
-                                       SnapsToDevicePixels="False"
-                                       Text="&#xE0E3;" />
-                        </Border>
-
-                        <Popup x:Name="Popup"
-                               MinWidth="200"
-                               AllowsTransparency="True"
-                               Focusable="False"
-                               HorizontalOffset="-2"
-                               IsOpen="{TemplateBinding IsSubmenuOpen}"
-                               Placement="Right"
-                               PopupAnimation="Fade">
-
-                            <Border x:Name="SubmenuBorder"
-                                    Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
-                                    Theme:Brush.BorderBrush="Theme={Theme}ChromeHigh, HighContrast=ControlText"
-                                    BorderThickness="1"
-                                    SnapsToDevicePixels="True">
-                                <Border Padding="2,6"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="1">
-                                    <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                    </ScrollViewer>
-                                </Border>
-                            </Border>
-                        </Popup>
-                    </Grid>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
-                    <Trigger Property="IsChecked" Value="true">
-                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
-                    </Trigger>
-                    <Trigger Property="IsHighlighted" Value="true">
-                        <Setter TargetName="Border" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=HilightText" />
-                        <Setter TargetName="CheckMark" Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HilightText" />
-                    </Trigger>
-                    <Trigger Property="IsEnabled" Value="false">
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow" />
-                    </Trigger>
-                    <Trigger Property="Role" Value="SubmenuHeader">
-                        <Setter TargetName="OpenGlyph" Property="Visibility" Value="Visible" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-
             <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type MenuItem}">
+                            <Border x:Name="Border"
+                                    Height="32"
+                                    Background="Transparent"
+                                    BorderThickness="0">
+                                <Grid Margin="0,-1,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="Check"
+                                            Width="14"
+                                            Height="14"
+                                            BorderThickness="1">
+                                        <TextBlock x:Name="CheckMark"
+                                                   Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
+                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontSize="12"
+                                                   SnapsToDevicePixels="False"
+                                                   Text="{TemplateBinding Tag}"
+                                                   Visibility="Hidden" />
+                                    </Border>
+                                    <ContentPresenter x:Name="HeaderHost"
+                                                      Grid.Column="1"
+                                                      Margin="0,0,8,0"
+                                                      ContentSource="Header"
+                                                      RecognizesAccessKey="True" />
+
+                                    <Border x:Name="OpenGlyph"
+                                            Grid.Column="2"
+                                            Width="20"
+                                            Height="14"
+                                            BorderThickness="1"
+                                            Visibility="Collapsed">
+                                        <TextBlock Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
+                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontSize="12"
+                                                   SnapsToDevicePixels="False"
+                                                   Text="&#xE0E3;" />
+                                    </Border>
+
+                                    <Popup x:Name="Popup"
+                                           MinWidth="200"
+                                           AllowsTransparency="True"
+                                           Focusable="False"
+                                           HorizontalOffset="-2"
+                                           IsOpen="{TemplateBinding IsSubmenuOpen}"
+                                           Placement="Right"
+                                           PopupAnimation="Fade">
+
+                                        <Border x:Name="SubmenuBorder"
+                                                Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
+                                                Theme:Brush.BorderBrush="Theme={Theme}ChromeHigh, HighContrast=ControlText"
+                                                BorderThickness="1"
+                                                SnapsToDevicePixels="True">
+                                            <Border Padding="2,6"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="1">
+                                                <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+                                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                                </ScrollViewer>
+                                            </Border>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger Property="IsHighlighted" Value="true">
+                                    <Setter TargetName="Border" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=HilightText" />
+                                    <Setter TargetName="CheckMark" Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HilightText" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow" />
+                                </Trigger>
+                                <Trigger Property="Role" Value="SubmenuHeader">
+                                    <Setter TargetName="OpenGlyph" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style TargetType="{x:Type CheckBox}">
@@ -649,58 +684,6 @@
             <DataTemplate x:Key="ContextMenuSeparatorTemplate">
                 <Separator />
             </DataTemplate>
-
-            <ControlTemplate x:Key="LighOrDark_VolumeSliderTemplate" TargetType="{x:Type Slider}">
-                <Grid>
-                    <Border Name="TrackBackground" Height="2" />
-
-                    <Track Name="PART_Track">
-                        <Track.DecreaseRepeatButton>
-                            <RepeatButton Name="SliderLeft"
-                                          Theme:Brush.Foreground="SystemAccentLight1"
-                                          Command="Slider.DecreaseLarge"
-                                          Style="{StaticResource SliderButtonStyle}" />
-                        </Track.DecreaseRepeatButton>
-                        <Track.Thumb>
-                            <Thumb Name="SliderThumb">
-                                <Thumb.Style>
-                                    <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
-                                        <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderTrackFillRest" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
-                                                <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderThumbHover" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Thumb.Style>
-                            </Thumb>
-                        </Track.Thumb>
-                        <Track.IncreaseRepeatButton>
-                            <RepeatButton Name="SliderRight"
-                                          Theme:Brush.Foreground="Theme=Control{Theme}SliderTrackFillDisabled, HighContrast=ControlLight"
-                                          Command="Slider.IncreaseLarge"
-                                          Style="{StaticResource SliderButtonStyle}" />
-                        </Track.IncreaseRepeatButton>
-                    </Track>
-
-                    <Border Name="PeakMeter1"
-                            Height="2"
-                            Margin="0,-2,0,0"
-                            HorizontalAlignment="Left"
-                            Theme:Brush.Background="Theme=ApplicationText{Theme}Theme, HighContrast=HotTrack" />
-
-                    <Border Name="PeakMeter2"
-                            Height="2"
-                            Margin="0,1,0,0"
-                            HorizontalAlignment="Left"
-                            Theme:Brush.Background="Theme=ApplicationText{Theme}Theme, HighContrast=HotTrack" />
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Opacity" Value="0.5" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
 
             <Style x:Key="HeadingText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="20" />
@@ -834,7 +817,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
@@ -884,7 +866,6 @@
                          PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
                          Text="{Binding HotkeyText, UpdateSourceTrigger=PropertyChanged}" />
             </DataTemplate>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

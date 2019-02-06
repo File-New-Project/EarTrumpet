@@ -8,6 +8,7 @@
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Theme:Brush.Foreground="Text"
+        Theme:Options.Scope="Flyout"
         Theme:Options.Source="System"
         AllowsTransparency="True"
         Background="Transparent"
@@ -20,172 +21,13 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
-        </Style>
-
-        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.6/1" />
-        </Style>
-
-        <Style x:Key="AppListBorderStyle"
-               BasedOn="{StaticResource BaseAppListBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.7/1" />
-        </Style>
-
-        <Style x:Key="VolumeControlPopupBorder"
-               BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="FlyoutBackground/0.7/1" />
-            <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
-        </Style>
-
-        <Style x:Key="VirtualTitleBarBorderStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent/0.3/0.5, HighContrast=Window" />
-        </Style>
-
-        <Style x:Key="Windows10FocusVisualStyleDarkOnly">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Rectangle Theme:Brush.Stroke="ApplicationBackgroundDarkTheme" StrokeThickness="3" />
-                            <Rectangle Theme:Brush.Stroke="ApplicationTextDarkTheme" StrokeThickness="2" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="VirtualTitleBarButtonStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
-               TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Theme=#20ffffff, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Theme=#2fffffff, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="VirtualTitleBarTextStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="PerThemeTextBlockStyle"
-               BasedOn="{StaticResource TextBlockStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="DeviceVolumeTextStyle"
-               BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="AppVolumeTextStyle"
-               BasedOn="{StaticResource BaseAppVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="DeviceTitleTextStyle"
-               BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
-               TargetType="{x:Type TextBlock}" />
-
-        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
-            <Grid>
-                <Border Name="TrackBackground" Height="2" />
-
-                <Track Name="PART_Track">
-                    <Track.DecreaseRepeatButton>
-                        <RepeatButton Name="SliderLeft"
-                                      Theme:Brush.Foreground="SystemAccentLight1"
-                                      Command="Slider.DecreaseLarge"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.DecreaseRepeatButton>
-                    <Track.Thumb>
-                        <Thumb Name="SliderThumb"
-                               Theme:Brush.Foreground="Theme=SystemAccent, HighContrast=ControlLight"
-                               Style="{StaticResource SliderThumbStyle}" />
-                    </Track.Thumb>
-                    <Track.IncreaseRepeatButton>
-                        <RepeatButton Name="SliderRight"
-                                      Theme:Brush.Foreground="Theme=#39FFFFFF, HighContrast=ControlLight"
-                                      Command="Slider.IncreaseLarge"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.IncreaseRepeatButton>
-                </Track>
-
-                <Border Name="PeakMeter1"
-                        Height="2"
-                        Margin="0,-2,0,0"
-                        HorizontalAlignment="Left"
-                        Theme:Brush.Background="Theme=White, HighContrast=HotTrack" />
-
-                <Border Name="PeakMeter2"
-                        Height="2"
-                        Margin="0,1,0,0"
-                        HorizontalAlignment="Left"
-                        Theme:Brush.Background="Theme=White, HighContrast=HotTrack" />
-
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualStateGroup.Transitions>
-                            <VisualTransition GeneratedDuration="0" To="Normal" />
-                        </VisualStateGroup.Transitions>
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-
-                            <Storyboard>
-
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="(Theme:Brush.Foreground)">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Theme=ControlDarkSliderThumbHover, HighContrast=Highlight" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="(Theme:Brush.Foreground)">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Theme=ControlDarkSliderThumbHover, HighContrast=Highlight" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style x:Key="VolumeSliderStyle"
-               BasedOn="{StaticResource BaseVolumeSliderStyle}"
-               TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{StaticResource VolumeSliderTemplate}" />
-        </Style>
-
         <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -219,9 +61,9 @@
         <Style x:Key="{x:Type ListViewItem}"
                BasedOn="{StaticResource BaseListViewItemStyle}"
                TargetType="ListViewItem">
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
         </Style>
-
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">

@@ -1,10 +1,10 @@
 ﻿namespace EarTrumpet.UI.Themes
 {
-    public class Reference
+    public class Ref
     {
         public string Key { get; set; }
         public string Value { get; set; }
 
-        public Reference() { }
+        public Ref() { }
     }
 }

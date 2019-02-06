@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.UI.Themes
 {
-    class AcrylicBackgroundReference : Reference
+    class AcrylicBackgroundRef : Ref
     {
 
     }

@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="EarTrumpet.UI.Views.DeviceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
@@ -11,8 +12,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Style="{DynamicResource DeviceHeaderBorderStyle}">
-            <Grid PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp" Style="{DynamicResource DeviceHeaderGridStyle}">
+        <Border Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window">
+            <Grid Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground/0.6/1" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -90,7 +91,7 @@
                                           PeakValue2="{Binding Device.PeakValue2}"
                                           PreviewMouseUp="TouchSlider_MouseUp"
                                           PreviewTouchUp="TouchSlider_TouchUp"
-                                          Style="{DynamicResource VolumeSliderStyle}"
+                                          Style="{StaticResource {x:Type Slider}}"
                                           Value="{Binding Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
                                    Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
@@ -101,7 +102,7 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="1" Style="{DynamicResource AppListBorderStyle}">
+        <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground/0.7/1">
             <ListView Name="AppList"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
                       ItemsSource="{Binding Device.Apps, Mode=OneWay}"

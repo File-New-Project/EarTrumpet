@@ -7,7 +7,9 @@
              Name="ControlRoot">
     <UserControl.Template>
         <ControlTemplate TargetType="{x:Type ContentControl}">
-            <Border Style="{DynamicResource VolumeControlPopupBorder}">
+            <Border Theme:Brush.Background=":Background, Flyout:FlyoutBackground/0.7/1"
+                    Theme:Brush.BorderBrush="SystemAccent"
+                    BorderThickness="{StaticResource PopupBorderThickness}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -19,7 +21,9 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border Grid.ColumnSpan="3" Style="{DynamicResource VirtualTitleBarBorderStyle}" />
+                    <Border Grid.ColumnSpan="3"
+                            Height="{StaticResource DeviceTitleCellHeight}"
+                            Theme:Brush.Background=":Light=LightListLow, :Dark=DarkChromeMediumLow, :HighContrast=Window, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window" />
                     <TextBlock Style="{DynamicResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
 
                     <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
@@ -38,7 +42,6 @@
                                         Command="{Binding Command}"
                                         FontSize="{Binding GlyphFontSize}"
                                         PreviewMouseRightButtonDown="Button_PreviewMouseRightButtonDown"
-                                        Style="{DynamicResource VirtualTitleBarButtonStyle}"
                                         Tag="{Binding Glyph}">
                                     <Button.ContextMenu>
                                         <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
@@ -46,6 +49,22 @@
                                                      ItemsSource="{Binding Menu}"
                                                      UsesItemContainerTemplate="True" />
                                     </Button.ContextMenu>
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource VirtualTitleBarButtonStyle}" TargetType="{x:Type Button}">
+                                            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
+                                            <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Theme:Brush.Background" Value=":Light=LightBaseMediumLow/0.12, :Dark=DarkBaseMediumLow/0.12, :HighContrast=Highlight, Flyout:Theme=#20ffffff, Flyout:HighContrast=Highlight" />
+                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=ApplicationText{Theme}Theme, :HighContrast=HighlightText, Flyout:Theme=ApplicationTextDarkTheme, Flyout:HighContrast=HighlightText" />
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="true">
+                                                    <Setter Property="Theme:Brush.Background" Value=":Light=LightBaseMediumLow/0.2, :Dark=DarkBaseMediumLow/0.2, :HighContrast=Highlight, Flyout:Theme=#2fffffff, Flyout:HighContrast=Highlight" />
+                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=ApplicationText{Theme}Theme, :HighContrast=HighlightText, Flyout:Theme=ApplicationTextDarkTheme, Flyout:HighContrast=HighlightText" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
                                 </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

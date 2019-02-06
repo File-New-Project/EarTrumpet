@@ -1,9 +1,7 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -25,13 +23,7 @@ namespace EarTrumpet.UI.Controls
             TextChanged += SearchBox_TextChanged;
 
             GotKeyboardFocus += SearchBox_GotKeyboardFocus;
-            GotFocus += SearchBox_GotFocus;
             PreviewKeyDown += SearchBox_PreviewKeyDown;
-        }
-
-        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //MaybeShowSearchPopup();
         }
 
         private void SearchBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -60,7 +52,6 @@ namespace EarTrumpet.UI.Controls
 
         private void MaybeShowSearchPopup()
         {
-            Trace.WriteLine("## MaybeShowSearchPopup");
             if (_ignoreNextFocus)
             {
                 _ignoreNextFocus = false;

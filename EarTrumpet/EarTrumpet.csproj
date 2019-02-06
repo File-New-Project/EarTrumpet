@@ -117,11 +117,12 @@
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
-    <Compile Include="UI\Themes\AcrylicBackgroundReference.cs" />
+    <Compile Include="UI\Themes\AcrylicBackgroundRef.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
-    <Compile Include="UI\Themes\FlyoutBackgroundReference.cs" />
+    <Compile Include="UI\Themes\BrushValueParser.cs" />
+    <Compile Include="UI\Themes\FlyoutBackgroundRef.cs" />
     <Compile Include="UI\Themes\Options.cs" />
-    <Compile Include="UI\Themes\Reference.cs" />
+    <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\Hosting\Addon.cs" />

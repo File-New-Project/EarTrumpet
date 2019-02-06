@@ -18,95 +18,12 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="ResizeMode" Value="NoResize" />
         </Style>
-
-        <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-
-        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-
-        <Style x:Key="AppListBorderStyle"
-               BasedOn="{StaticResource BaseAppListBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="Background" />
-        </Style>
-
-        <Style x:Key="VolumeControlPopupBorder"
-               BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="Background" />
-            <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
-        </Style>
-
-        <Style x:Key="VirtualTitleBarBorderStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Theme:Brush.Background" Value="Light=LightListLow, Dark=DarkChromeMediumLow, HighContrast=Window" />
-        </Style>
-
-        <Style x:Key="VirtualTitleBarButtonStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
-               TargetType="{x:Type Button}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="VirtualTitleBarTextStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="PerThemeTextBlockStyle"
-               BasedOn="{StaticResource TextBlockStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="DeviceVolumeTextStyle"
-               BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="AppVolumeTextStyle"
-               BasedOn="{StaticResource BaseAppVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="DeviceTitleTextStyle"
-               BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-        </Style>
-
-        <Style x:Key="VolumeSliderStyle"
-               BasedOn="{StaticResource BaseVolumeSliderStyle}"
-               TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{DynamicResource LighOrDark_VolumeSliderTemplate}" />
-        </Style>
-
         <Style x:Key="{x:Type ListViewItem}"
                BasedOn="{StaticResource BaseListViewItemStyle}"
                TargetType="ListViewItem" />
     </Window.Resources>
-
     <Grid>
-
         <Border Name="AcrylicBackgroundActive" Theme:Brush.Background="AcrylicBackground" />
-
         <Border Name="AcrylicBackgroundInactive">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
@@ -177,7 +94,6 @@
                 </Style>
             </Border.Style>
         </Border>
-
         <DockPanel x:Name="ContentRoot">
             <DockPanel DockPanel.Dock="Top">
                 <Button x:Name="CloseButton"

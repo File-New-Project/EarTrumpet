@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Globalization;
 using EarTrumpet.Extensions;
+using System;
 
 namespace EarTrumpet.DataModel
 {
@@ -9,7 +10,7 @@ namespace EarTrumpet.DataModel
         internal static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
         internal static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
         internal static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme", 1 /* Light theme is system default */);
-        internal static bool IsSystemLightTheme => ReadPersonalizationSetting("SystemUsesLightTheme");
+        internal static bool IsSystemLightTheme => LightThemeShim(ReadPersonalizationSetting("SystemUsesLightTheme"));
         internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
         internal static string BuildLabel
@@ -31,6 +32,15 @@ namespace EarTrumpet.DataModel
             {
                 return subKey.GetValue<int>(valueName, defaultValue) > 0;
             }
+        }
+
+        private static bool LightThemeShim(bool registryValue)
+        {
+            if (Environment.OSVersion.IsGreaterThan(OSVersions.RS4))
+            {
+                return registryValue;
+            }
+            return false; // No system theme prior to 19H1/RS6.
         }
     }
 }

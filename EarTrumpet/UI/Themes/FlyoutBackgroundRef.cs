@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.UI.Themes
 {
-    class FlyoutBackgroundReference : Reference
+    class FlyoutBackgroundRef : Ref
     {
     }
 }
