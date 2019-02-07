@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using Windows.ApplicationModel;
 
@@ -7,6 +8,23 @@ namespace EarTrumpet.Extensions
 {
     public static class AppExtensions
     {
+        public static Version GetVersion(this Application app)
+        {
+            if (HasIdentity(app))
+            {
+                return Version.Parse(Package.Current.Id.Version.ToVersionString());
+            }
+            else
+            {
+#if DEBUG
+                var versionStr = new StreamReader(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/DevVersion.txt")).Stream).ReadToEnd();
+                return Version.Parse(versionStr);
+#else
+                throw new NotImplementedException();
+#endif
+            }
+        }
+
         static bool? _hasIdentity = null;
         public static bool HasIdentity(this Application app)
         {

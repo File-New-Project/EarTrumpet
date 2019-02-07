@@ -19,7 +19,7 @@ namespace EarTrumpet.UI.Services
             var allText = DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
             allText += DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording));
             allText += Environment.NewLine;
-            allText += $"App: {(App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "dev")}" + Environment.NewLine;
+            allText += $"App: {App.Current.GetVersion()}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;

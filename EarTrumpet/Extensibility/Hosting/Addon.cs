@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.Extensions;
+using System;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
@@ -12,6 +13,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public string HelpLink => _info.HelpLink;
         public Version Version => _info.AddonVersion;
         public Version MinVersion => _info.EarTrumpetMinVersion;
+        public bool IsValid => _info != null;
 
         private DirectoryCatalog _catalog;
         private AddonInfo _info;
@@ -26,5 +28,7 @@ namespace EarTrumpet.Extensibility.Hosting
         {
             return _catalog.LoadedFiles.Any(file => file.ToLower() == asm.Location.ToLower());
         }
+
+        public bool IsCompatible => MinVersion <= App.Current.GetVersion();
     }
 }

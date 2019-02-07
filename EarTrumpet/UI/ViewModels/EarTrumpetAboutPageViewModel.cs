@@ -28,15 +28,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
 
-            string aboutFormat = "EarTrumpet {0}";
-            if (App.Current.HasIdentity())
-            {
-                AboutText = string.Format(aboutFormat, Package.Current.Id.Version.ToVersionString());
-            }
-            else
-            {
-                AboutText = string.Format(aboutFormat, "0.0.0.0");
-            }
+            AboutText = $"EarTrumpet {App.Current.GetVersion()}";
         }
 
 

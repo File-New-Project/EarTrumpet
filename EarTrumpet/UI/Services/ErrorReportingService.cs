@@ -24,7 +24,7 @@ namespace EarTrumpet.UI.Services
 #endif
 
                 WPFClient.Config.StoreOfflineErrors = true;
-                WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
+                WPFClient.Config.AppVersion = App.Current.GetVersion().ToString();
                 WPFClient.Start();
 
                 WPFClient.Config.BeforeNotify(OnBeforeNotify);

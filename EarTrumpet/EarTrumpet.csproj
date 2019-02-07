@@ -375,6 +375,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="prebuild.ps1">
+      <SubType>Component</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Application.ico" />
@@ -412,8 +415,13 @@
     <Resource Include="Assets\Logo-Dark.png" />
     <Resource Include="Assets\Logo-Light.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\DevVersion.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell -executionpolicy Bypass -noprofile "$(ProjectDir)\prebuild.ps1"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

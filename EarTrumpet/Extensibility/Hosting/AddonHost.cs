@@ -82,7 +82,7 @@ namespace EarTrumpet.Extensibility.Hosting
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Trace.WriteLine(ex);
                     }
@@ -94,6 +94,26 @@ namespace EarTrumpet.Extensibility.Hosting
 
                 var ret = catalogs.Select(c => new Addon(c, FindInfo(c))).ToList();
 
+                foreach (var addon in ret.ToArray())
+                {
+                    if (!addon.IsValid)
+                    {
+                        ret.Remove(addon);
+                    }
+                }
+
+                foreach (var addon in ret)
+                {
+                    if (!addon.IsCompatible)
+                    {
+                        RemoveAddon(_contextMenuItems, addon);
+                        RemoveAddon(_appContextMenuItems, addon);
+                        RemoveAddon(_appContentItems, addon);
+                        RemoveAddon(_deviceContextMenuItems, addon);
+                        RemoveAddon(_deviceContentItems, addon);
+                        RemoveAddon(_settingsPages, addon);
+                    }
+                }
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
@@ -107,11 +127,22 @@ namespace EarTrumpet.Extensibility.Hosting
 
                 return ret;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine($"AddonHost Initialize: {ex}");
             }
             return null;
+        }
+
+        private void RemoveAddon<T>(List<T> list, Addon addon)
+        {
+            foreach (var item in list.ToArray())
+            {
+                if (addon.IsAssembly(item.GetType().Assembly))
+                {
+                    list.Remove(item);
+                }
+            }
         }
     }
 }
