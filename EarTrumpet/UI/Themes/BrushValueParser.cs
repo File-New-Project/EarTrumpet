@@ -64,93 +64,9 @@ namespace EarTrumpet.UI.Themes
             }
             if (searchKey != "")
             {
-                var reference = Manager.Current.References.FirstOrDefault(r => r.Key == searchKey.Split('/')[0]);
-                if (reference != null)
+                if (FindReference(element, searchKey, out var outRef))
                 {
-                    if (reference is AcrylicBackgroundRef)
-                    {
-                        string color;
-                        if (isLight)
-                        {
-                            color = SystemSettings.IsTransparencyEnabled ? "LightChromeWhite/0.7" : "LightAcrylicWindowBackdropFallback/1";
-                        }
-                        else
-                        {
-                            color = "DarkAcrylicWindowBackdropFallback/0.6/1";
-                        }
-                        return Parse(element, $"Theme={color}");
-                    }
-                    else if (reference is FlyoutBackgroundRef)
-                    {
-                        string color;
-                        if (SystemParameters.HighContrast)
-                        {
-                            return Parse(element, "Theme=ApplicationBackground");
-                        }
-                        else if (SystemSettings.UseAccentColor)
-                        {
-                            color = SystemSettings.IsTransparencyEnabled ? $"SystemAccent{lightOrDarkText}2" : $"SystemAccent{lightOrDarkText}1";
-                        }
-                        else
-                        {
-                            color = $"{lightOrDarkText}ChromeLow";
-                        }
-
-                        return Parse(element, $"Theme={color}/{value.Split('/')[1]}/{value.Split('/')[2]}");
-                    }
-                    else
-                    {
-                        if (reference.Value != null)
-                        {
-                            return Parse(element, reference.Value);
-                        }
-                        else
-                        {
-                            var tab = new Dictionary<Rule.Kind, bool>();
-                            tab.Add(Rule.Kind.Any, true);
-                            tab.Add(Rule.Kind.HighContrast, SystemParameters.HighContrast);
-                            tab.Add(Rule.Kind.LightTheme, isLight);
-                            tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled);
-                            tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
-
-                            Func<List<Rule>, string> ParseRule = null;
-                            ParseRule = r =>
-                            {
-                                foreach(var rule in r)
-                                {
-                                    if (tab[rule.On])
-                                    {
-                                        if (rule.Value != null)
-                                        {
-                                            return rule.Value;
-                                        }
-                                        else
-                                        {
-                                            return ParseRule(rule.Rules);
-                                        }
-                                    }
-                                }
-                                throw new NotImplementedException();
-                            };
-
-                            string opacities = "";
-                            var oItems = searchKey.Split('/').Skip(1).ToArray();
-                            if (oItems.Length == 0)
-                            {
-
-                            }
-                            else if (oItems.Length == 1)
-                            {
-                                opacities = $"/{oItems[0]}";
-                            }
-                            else
-                            {
-                                opacities = $"/{oItems[0]}/{oItems[1]}";
-                            }
-
-                            return Parse(element, ParseRule(reference.Rules) + opacities);
-                        }
-                    }
+                    return outRef;
                 }
             }
 
@@ -198,6 +114,11 @@ namespace EarTrumpet.UI.Themes
                 else throw new NotImplementedException($"BrushValueParser: '{value}'");
             }
 
+            if (FindReference(element, colorName, out var reference))
+            {
+                return reference;
+            }
+
             // Lookup the color
             Color ret;
             colorName = ParseOpacityFromColor(colorName, out var opacity);
@@ -224,6 +145,69 @@ namespace EarTrumpet.UI.Themes
                 ret.A = (byte)(opacity * 255);
             }
             return new SolidColorBrush(ret);
+        }
+
+        private static bool FindReference(DependencyObject element, string searchKey, out object outRef)
+        {
+            bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
+            var reference = Manager.Current.References.FirstOrDefault(r => r.Key == searchKey.Split('/')[0]);
+            if (reference != null)
+            {
+                if (reference.Value != null)
+                {
+                    outRef = Parse(element, reference.Value);
+                    return true;
+                }
+                else
+                {
+                    var tab = new Dictionary<Rule.Kind, bool>();
+                    tab.Add(Rule.Kind.Any, true);
+                    tab.Add(Rule.Kind.HighContrast, SystemParameters.HighContrast);
+                    tab.Add(Rule.Kind.LightTheme, isLight);
+                    tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled);
+                    tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
+
+                    Func<List<Rule>, string> ParseRule = null;
+                    ParseRule = r =>
+                    {
+                        foreach (var rule in r)
+                        {
+                            if (tab[rule.On])
+                            {
+                                if (rule.Value != null)
+                                {
+                                    return rule.Value;
+                                }
+                                else
+                                {
+                                    return ParseRule(rule.Rules);
+                                }
+                            }
+                        }
+                        throw new NotImplementedException();
+                    };
+
+                    string opacities = "";
+                    var oItems = searchKey.Split('/').Skip(1).ToArray();
+                    if (oItems.Length == 0)
+                    {
+
+                    }
+                    else if (oItems.Length == 1)
+                    {
+                        opacities = $"/{oItems[0]}";
+                    }
+                    else
+                    {
+                        opacities = $"/{oItems[0]}/{oItems[1]}";
+                    }
+
+                    outRef = Parse(element, ParseRule(reference.Rules) + opacities);
+                    return true;
+                }
+            }
+            outRef = null;
+            return false;
         }
 
         // ColorName

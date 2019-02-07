@@ -74,6 +74,34 @@
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
             <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
 
+            <Style x:Key="{x:Type ListView}" TargetType="ListView">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}">
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
+                <Setter Property="SnapsToDevicePixels" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="CaptionButtonStyle" TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
@@ -321,47 +349,6 @@
                         <Setter Property="Theme:Brush.BorderBrush" Value="Light=ApplicationBackground, Dark=#FF222222" />
                     </Trigger>
                 </Style.Triggers>
-            </Style>
-
-            <Style x:Key="{x:Type ListView}" TargetType="ListView">
-                <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListView">
-                            <Border Background="{TemplateBinding Background}">
-                                <ItemsPresenter />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="BaseListViewItemStyle" TargetType="ListViewItem">
-                <Setter Property="SnapsToDevicePixels" Value="true" />
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListBoxItem">
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="AppListStyle" TargetType="{x:Type ListView}">
-                <Setter Property="Margin" Value="{StaticResource VolumeAppListMargin}" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListView">
-                            <Border Background="{TemplateBinding Background}">
-                                <ItemsPresenter />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
             </Style>
 
             <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
@@ -814,7 +801,6 @@
                 </Setter>
             </Style>
             <Style x:Key="ToolbarButtonStyle" TargetType="Button">
-                <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />

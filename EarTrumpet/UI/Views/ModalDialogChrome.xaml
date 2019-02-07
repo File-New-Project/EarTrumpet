@@ -7,7 +7,7 @@
              Name="ControlRoot">
     <UserControl.Template>
         <ControlTemplate TargetType="{x:Type ContentControl}">
-            <Border Theme:Brush.Background=":Background, Flyout:FlyoutBackground/0.7/1"
+            <Border Theme:Brush.Background=":Background, Flyout:Dark=FlyoutBackground/0.7/1, Flyout:Light=LightChromeWhite"
                     Theme:Brush.BorderBrush="SystemAccent"
                     BorderThickness="{StaticResource PopupBorderThickness}">
                 <Grid>
@@ -55,12 +55,12 @@
                                             <Setter Property="Theme:Brush.Foreground" Value="Text" />
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Theme:Brush.Background" Value=":Light=LightBaseMediumLow/0.12, :Dark=DarkBaseMediumLow/0.12, :HighContrast=Highlight, Flyout:Theme=#20ffffff, Flyout:HighContrast=Highlight" />
-                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=ApplicationText{Theme}Theme, :HighContrast=HighlightText, Flyout:Theme=ApplicationTextDarkTheme, Flyout:HighContrast=HighlightText" />
+                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12" />
+                                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                                                 </Trigger>
                                                 <Trigger Property="IsPressed" Value="true">
-                                                    <Setter Property="Theme:Brush.Background" Value=":Light=LightBaseMediumLow/0.2, :Dark=DarkBaseMediumLow/0.2, :HighContrast=Highlight, Flyout:Theme=#2fffffff, Flyout:HighContrast=Highlight" />
-                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=ApplicationText{Theme}Theme, :HighContrast=HighlightText, Flyout:Theme=ApplicationTextDarkTheme, Flyout:HighContrast=HighlightText" />
+                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2" />
+                                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>

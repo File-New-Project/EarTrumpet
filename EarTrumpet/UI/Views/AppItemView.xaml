@@ -12,9 +12,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
-
         <Grid Grid.Column="0" Margin="{StaticResource DeviceOrAppIconMargin}">
-
             <Border Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
                     HorizontalAlignment="Center">
@@ -61,10 +59,8 @@
                                    Text="{Binding IconText}"
                                    TextAlignment="Center" />
                     </Border>
-
                 </Grid>
             </Border>
-
             <Button Name="MuteButton"
                     Width="{StaticResource AppIconSize}"
                     Height="{StaticResource AppIconSize}"
@@ -88,14 +84,12 @@
                 </Button.Content>
             </Button>
         </Grid>
-
         <ctl:VolumeSlider Grid.Column="1"
                           Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                           PeakValue1="{Binding PeakValue1}"
                           PeakValue2="{Binding PeakValue2}"
                           Style="{StaticResource {x:Type Slider}}"
                           Value="{Binding Volume, Mode=TwoWay}" />
-
         <TextBlock Grid.Column="2"
                    Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                    Style="{StaticResource AppVolumeTextStyle}"

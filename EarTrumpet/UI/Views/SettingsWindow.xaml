@@ -20,67 +20,53 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
             <StackPanel Orientation="Vertical">
-
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-
                     <TextBlock VerticalAlignment="Center"
                                Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
                                Text="{Binding DefaultHotKey}" />
-
                     <TextBlock Grid.Row="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-
                     <ContentControl Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{Binding OpenFlyoutHotkey}"
                                     IsTabStop="False" />
                 </Grid>
-
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenMixerText}" />
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-
                     <TextBlock VerticalAlignment="Center"
                                Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
                                Text="{Binding DefaultMixerHotKey}" />
-
                     <TextBlock Grid.Row="1"
                                VerticalAlignment="Center"
                                Style="{StaticResource BodySubText}"
                                Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-
                     <ContentControl Grid.Row="1"
                                     Grid.Column="1"
                                     Content="{Binding OpenMixerHotkey}"
@@ -93,7 +79,6 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                           IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
-
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">
@@ -110,10 +95,8 @@
                                   Stretch="Uniform" />
                         </Canvas>
                     </Border>
-
                     <TextBlock FontSize="24" Text="EarTrumpet" />
                 </StackPanel>
-
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
                         <TextBlock VerticalAlignment="Center"
@@ -531,26 +514,45 @@
         <DockPanel LastChildFill="True">
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Margin="14,0,0,0"
+                <Button x:Name="BackButton"
+                        Command="{Binding Backstack.GoBack}"
+                        Content="&#xE72B;"
+                        FontSize="13"
+                        Visibility="{Binding Backstack.CanGoBack, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource CloseButtonStyle}" TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
+                                    <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <TextBlock Grid.Column="1"
+                           Margin="14,0,0,0"
                            Text="{Binding Title}"
                            TextAlignment="Left" />
                 <Button x:Name="MinimizeButton"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Click="MinimizeButton_Click"
                         Content="&#xE921;"
                         Style="{StaticResource CaptionButtonStyle}" />
                 <Button x:Name="MaximizeButton"
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Click="MaximizeButton_Click"
                         Content="&#xE922;"
                         Style="{StaticResource CaptionButtonStyle}" />
                 <Button x:Name="CloseButton"
-                        Grid.Column="3"
+                        Grid.Column="4"
                         Click="CloseButton_Click"
                         Content="&#xE8BB;"
                         Style="{StaticResource CloseButtonStyle}" />

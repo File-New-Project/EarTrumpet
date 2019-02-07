@@ -56,12 +56,6 @@
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="0" />
         </Style>
-
-        <Style x:Key="{x:Type ListViewItem}"
-               BasedOn="{StaticResource BaseListViewItemStyle}"
-               TargetType="ListViewItem">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
-        </Style>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">

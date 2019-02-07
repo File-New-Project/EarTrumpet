@@ -104,9 +104,9 @@
 
         <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground/0.7/1">
             <ListView Name="AppList"
+                      Margin="{StaticResource VolumeAppListMargin}"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
-                      ItemsSource="{Binding Device.Apps, Mode=OneWay}"
-                      Style="{StaticResource AppListStyle}" />
+                      ItemsSource="{Binding Device.Apps, Mode=OneWay}" />
         </Border>
     </Grid>
 </UserControl>

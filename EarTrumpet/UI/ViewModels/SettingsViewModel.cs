@@ -13,6 +13,9 @@ namespace EarTrumpet.UI.ViewModels
         public event Action Close;
         public string Title { get; private set; }
         public ICommand GoHome { get; }
+        public BackstackViewModel Backstack { get; } = new BackstackViewModel();
+        public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
+
 
         private SimpleDialogViewModel _dialog;
         public SimpleDialogViewModel Dialog
@@ -58,9 +61,15 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
+        {
+            Title = title;
+            Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
+            GoHome = new RelayCommand(() => Selected = null);
+        }
+
         public void InvokeSearchResult(SettingsCategoryViewModel cat, SettingsPageViewModel page)
         {
-            
             if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() =>
             {
                 Selected = cat;
@@ -74,17 +83,25 @@ namespace EarTrumpet.UI.ViewModels
             Selected.Selected = page;
         }
 
-        public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
-
-        public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
-        {
-            Title = title;
-            Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
-            GoHome = new RelayCommand(() => Selected = null);
-        }
 
         private void SelectImpl(SettingsCategoryViewModel cat)
         {
+            if (!Backstack.IsDisablingUpdates)
+            {
+                var oldSelected = _selected;
+                var oldPage = _selected == null ? null : _selected.Selected;
+                Backstack.Add(() =>
+                {
+                    Backstack.IsDisablingUpdates = true;
+                    Selected = oldSelected;
+                    if (Selected != null)
+                    {
+                        Selected.Selected = oldPage;
+                    }
+                    Backstack.IsDisablingUpdates = false;
+                });
+            }
+
             _selected = cat;
             if (_selected != null && _selected.Pages.Count > 0)
             {
