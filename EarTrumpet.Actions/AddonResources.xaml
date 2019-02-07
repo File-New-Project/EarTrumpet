@@ -9,35 +9,8 @@
                     xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
                     xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
                     xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
-    <Popup x:Key="ActionsPopup"
-           MinWidth="200"
-           Theme:Options.Source="App"
-           AllowsTransparency="False"
-           Placement="Right"
-           PopupAnimation="None"
-           StaysOpen="False">
-        <Popup.Style>
-            <Style TargetType="Popup">
-                <Style.Triggers>
-                    <Trigger Property="IsOpen" Value="False">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Popup.Style>
-
-        <Border x:Name="SubmenuBorder"
-                Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
-                Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
-                BorderThickness="1"
-                SnapsToDevicePixels="True">
-            <Grid Margin="12">
-                <ContentControl Content="{Binding}" />
-            </Grid>
-        </Border>
-    </Popup>
     <Style x:Key="RemoveButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyle}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
         <Setter Property="Background" Value="Transparent" />
@@ -57,9 +30,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="root"
-                                    Property="Theme:Brush.Background"
-                                    Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                            <Setter TargetName="root" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -102,8 +73,7 @@
                               Grid.Column="2"
                               VerticalAlignment="Bottom"
                               IsTabStop="False"
-                              ItemsSource="{Binding Toolbar}"
-                              Tag="{Binding IsWorkSaved}">
+                              ItemsSource="{Binding Toolbar}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -124,7 +94,7 @@
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding Id}" Value="Save" />
-                                                        <Condition Binding="{Binding ElementName=Toolbar, Path=Tag}" Value="False" />
+                                                        <Condition Binding="{Binding ElementName=Toolbar, Path=DataContext.IsWorkSaved}" Value="False" />
                                                     </MultiDataTrigger.Conditions>
                                                     <MultiDataTrigger.Setters>
                                                         <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
@@ -144,40 +114,9 @@
     </DataTemplate>
     <Style x:Key="RunStyle" TargetType="Run">
         <Setter Property="FontSize" Value="15" />
-        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_Text}" />
+        <Setter Property="Theme:Brush.Foreground" Value="Text" />
     </Style>
-    <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
-        <Grid Margin="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
 
-            <TextBlock Margin="0,-9,0,0"
-                       IsHitTestVisible="False"
-                       Style="{DynamicResource AdditionalTextStyle}"
-                       Text="{Binding AdditionalText}" />
-
-            <Button Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Command="{Binding Remove}"
-                    CommandParameter="{Binding}"
-                    Style="{StaticResource RemoveButtonStyle}" />
-
-            <etctl:LinkedTextBlock Margin="0,12"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   DataItem="{Binding}"
-                                   FormatText="{Binding LinkText}"
-                                   HyperlinkStyle="{DynamicResource HyperlinkStyle}"
-                                   LineHeight="30"
-                                   LineStackingStrategy="BlockLineHeight"
-                                   RunStyle="{DynamicResource RunStyle}"
-                                   TextWrapping="Wrap" />
-
-        </Grid>
-    </DataTemplate>
     <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
         <Setter Property="Margin" Value="12,0,0,0" />
         <Setter Property="Background" Value="Transparent" />
@@ -206,13 +145,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="AdditionalTextStyle" TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{DynamicResource LightOrDark_SecondaryText}" />
-        <Setter Property="FontSize" Value="14" />
-    </Style>
+
     <Style x:Key="HyperlinkStyle" TargetType="{x:Type Hyperlink}">
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="Foreground" Value="{DynamicResource HyperlinkTextForeground}" />
+        <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
         <Setter Property="TextDecorations">
             <Setter.Value>
                 <TextDecorationCollection>
@@ -221,6 +157,69 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
+        <Grid Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="0,-9,0,0"
+                       Theme:Brush.Foreground="GrayText"
+                       FontSize="14"
+                       IsHitTestVisible="False"
+                       Text="{Binding AdditionalText}" />
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding}"
+                    Style="{DynamicResource RemoveButtonStyle}" />
+            <etctl:LinkedTextBlock Margin="0,12"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   DataItem="{Binding}"
+                                   FormatText="{Binding LinkText}"
+                                   HyperlinkStyle="{DynamicResource HyperlinkStyle}"
+                                   LineHeight="30"
+                                   LineStackingStrategy="BlockLineHeight"
+                                   RunStyle="{DynamicResource RunStyle}"
+                                   TextWrapping="Wrap">
+                <etctl:LinkedTextBlock.ContextMenu>
+                    <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                 ItemContainerTemplateSelector="{StaticResource MenuSelector}"
+                                 Placement="Mouse"
+                                 UsesItemContainerTemplate="True" />
+                </etctl:LinkedTextBlock.ContextMenu>
+                <etctl:LinkedTextBlock.Popup>
+                    <Popup MinWidth="200"
+                           Theme:Options.Source="App"
+                           AllowsTransparency="False"
+                           Placement="Mouse"
+                           PopupAnimation="None"
+                           StaysOpen="False">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Style.Triggers>
+                                    <Trigger Property="IsOpen" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+
+                        <Border x:Name="SubmenuBorder"
+                                Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
+                                Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True">
+                            <ContentControl Content="{Binding}" />
+                        </Border>
+                    </Popup>
+                </etctl:LinkedTextBlock.Popup>
+            </etctl:LinkedTextBlock>
+        </Grid>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ImportExportPageViewModel}">
         <StackPanel Orientation="Vertical">
             <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.ExportHeaderText}" />
@@ -253,7 +252,7 @@
                        Text="{x:Static resx:Resources.TriggerVerbText}" />
             <ListView Grid.Row="2"
                       IsSynchronizedWithCurrentItem="True"
-                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemTemplate="{DynamicResource PartListItemTemplate}"
                       ItemsSource="{Binding Triggers}"
                       Style="{DynamicResource ThinListStyle}" />
             <etctl:MenuButton Grid.Row="3"
@@ -274,7 +273,7 @@
                        Text="{x:Static resx:Resources.ActionVerbText}" />
             <ListView Grid.Row="5"
                       IsSynchronizedWithCurrentItem="True"
-                      ItemTemplate="{StaticResource PartListItemTemplate}"
+                      ItemTemplate="{DynamicResource PartListItemTemplate}"
                       ItemsSource="{Binding Actions}"
                       Style="{DynamicResource ThinListStyle}" />
             <etctl:MenuButton Grid.Row="6"
@@ -305,7 +304,7 @@
 
                 <ListView Grid.Row="2"
                           IsSynchronizedWithCurrentItem="True"
-                          ItemTemplate="{StaticResource PartListItemTemplate}"
+                          ItemTemplate="{DynamicResource PartListItemTemplate}"
                           ItemsSource="{Binding Conditions}"
                           Style="{DynamicResource ThinListStyle}" />
 
@@ -327,7 +326,7 @@
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
         <ctl:VolumeSlider Maximum="100"
                           Minimum="0"
-                          Style="{StaticResource {x:Type Slider}}"
+                          Style="{DynamicResource {x:Type Slider}}"
                           Value="{Binding Volume, Mode=TwoWay}" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">

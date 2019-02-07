@@ -15,6 +15,15 @@ namespace EarTrumpet_Actions.Controls
 {
     public class LinkedTextBlock : TextBlock
     {
+        public Popup Popup
+        {
+            get { return (Popup)this.GetValue(PopupProperty); }
+            set { this.SetValue(PopupProperty, value); }
+        }
+        public static readonly DependencyProperty PopupProperty = DependencyProperty.Register(
+          "Popup", typeof(Popup), typeof(LinkedTextBlock), new PropertyMetadata(null));
+
+
         public object DataItem
         {
             get { return (object)this.GetValue(DataItemProperty); }
@@ -83,20 +92,16 @@ namespace EarTrumpet_Actions.Controls
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
-                            var contextMenu = ThemedContextMenu.CreateThemedContextMenu(false);
-                            var src = EarTrumpet.UI.Themes.Options.GetSource(this);
-                            EarTrumpet.UI.Themes.Options.SetSource(contextMenu, src);
-
-                            contextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
-                            contextMenu.Placement = PlacementMode.Mouse;
-                            contextMenu.IsOpen = true;
+                            // var contextMenu = ThemedContextMenu.CreateThemedContextMenu(false);
+                            // var src = EarTrumpet.UI.Themes.Options.GetSource(this);
+                            // EarTrumpet.UI.Themes.Options.SetSource(contextMenu, src);
+                            ContextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
+                            ContextMenu.IsOpen = true;
                         }
                         else
                         {
-                            var p = (Popup)Application.Current.Resources["ActionsPopup"];
-                            p.DataContext = resolvedPropertyObject;
-                            p.Placement = PlacementMode.Mouse;
-                            p.IsOpen = true;
+                            Popup.DataContext = resolvedPropertyObject;
+                            Popup.IsOpen = true;
                         }
                     };
                     this.Inlines.Add(link);
