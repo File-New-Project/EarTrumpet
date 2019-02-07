@@ -8,29 +8,24 @@ using System.Windows.Interop;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public class ThemedContextMenu
+    public class TaskbarContextMenu
     {
-        public static ContextMenu CreateThemedContextMenu()
+        public static ContextMenu Create()
         {
-            var cm = new ContextMenu { };
-            cm.ItemContainerTemplateSelector = new MenuItemTemplateSelector();
-            cm.UsesItemContainerTemplate = true;
-            cm.FontSize = 12;
-            cm.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            var cm = new ContextMenu
+            {
+                FontSize = 12,
+                FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+                StaysOpen = true,
+            };
             cm.Opened += ContextMenu_Opened;
-            cm.Closed += ContextMenu_Closed;
-            cm.StaysOpen = true; // To be removed on open.
+            cm.Closed += (_, __) => Trace.WriteLine("TaskbarContextMenu ContextMenu_Closed"); ;
             return cm;
-        }
-
-        private static void ContextMenu_Closed(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("ThemedContextMenu ContextMenu_Closed");
         }
 
         private static void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("ThemedContextMenu ContextMenu_Opened");
+            Trace.WriteLine("TaskbarContextMenu ContextMenu_Opened");
             var cm = (ContextMenu)sender;
             User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
             cm.Focus();

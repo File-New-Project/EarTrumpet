@@ -385,6 +385,9 @@
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="UsesItemContainerTemplate" Value="True" />
+                <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuSelector}" />
+                <Setter Property="Placement" Value="Mouse" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="true" />
                 <Setter Property="MinWidth" Value="311" />
                 <Setter Property="HasDropShadow" Value="True" />
@@ -547,6 +550,23 @@
             </DataTemplate>
 
             <!--  SettingsUX styles & templates  -->
+            <Style x:Key="HeadingText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Margin" Value="12,24,12,12" />
+            </Style>
+            <Style x:Key="BodyText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="12,6" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="BodySubText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="12,6" />
+                <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
+            </Style>
             <Style TargetType="Button">
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="BorderThickness" Value="2" />
@@ -589,6 +609,95 @@
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type CheckBox}">
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Padding" Value="8,0,0,0" />
+                <Setter Property="Margin" Value="12" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Grid x:Name="templateRoot"
+                                  Background="Transparent"
+                                  SnapsToDevicePixels="True">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Style="{StaticResource BodyText}" Margin="0" Text="{TemplateBinding Content}" />
+                                <Grid x:Name="checkBoxBorder"
+                                      Grid.Row="1"
+                                      Margin="0,12,0,0"
+                                      Width="44"
+                                      Height="20"
+                                      HorizontalAlignment="Left">
+                                    <Rectangle x:Name="OuterBorder"
+                                               Width="44"
+                                               Height="20"
+                                               Theme:Brush.Stroke="Text"
+                                               Theme:Brush.Fill="Theme=Background"
+                                               RadiusX="10"
+                                               RadiusY="10"
+                                               StrokeThickness="2" />
+
+                                    <Grid x:Name="SwitchKnob"
+                                          Width="20"
+                                          Height="20"
+                                          HorizontalAlignment="Left">
+                                        <Ellipse x:Name="SwitchKnobEllipse"
+                                                 Width="10"
+                                                 Height="10"
+                                                 Theme:Brush.Fill="Text" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="SwitchKnob" Property="HorizontalAlignment" Value="Right" />
+                                    <Setter TargetName="SwitchKnobEllipse" Property="Theme:Brush.Fill" Value="Dark=Text, Light=Background" />
+                                    <Setter TargetName="OuterBorder" Property="Theme:Brush.Fill" Value="SystemAccent" />
+                                    <Setter TargetName="OuterBorder" Property="Theme:Brush.Stroke" Value="SystemAccent" />
+                                </Trigger>
+
+                                <!--
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="Transparent" />
+                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseHigh, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium" />
+                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium, HighContrast=Highlight" />
+                                </Trigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="SystemAccent" />
+                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseHigh, Dark=DarkBaseHigh, HighContrast=Highlight" />
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="True" />
+                                        <Condition Property="IsChecked" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <MultiTrigger.Setters>
+                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="SystemAccent" />
+                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseHigh, Dark=DarkBaseHigh, HighContrast=Highlight" />
+                                    </MultiTrigger.Setters>
+                                </MultiTrigger>
+                                -->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="LegacyCheckbox" TargetType="{x:Type CheckBox}">
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="8,0,0,0" />
@@ -672,23 +781,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="HeadingText" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="Margin" Value="12,24,12,12" />
-            </Style>
-            <Style x:Key="BodyText" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="Margin" Value="12,6" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-            </Style>
-            <Style x:Key="BodySubText" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="12,6" />
-                <Setter Property="Theme:Brush.Foreground" Value="GrayText" />
-            </Style>
+
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="TextWrapping" Value="Wrap" />

@@ -376,7 +376,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="prebuild.ps1">
-      <SubType>Component</SubType>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

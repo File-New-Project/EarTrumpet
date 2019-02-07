@@ -145,7 +145,7 @@ namespace EarTrumpet
                 {
                     new AdvertisedCategorySettingsViewModel("Flight Simulator", "\xEB4C", "Fly airplanes in EarTrumpet", "eartrumpet-project-eta", "https://github.com/File-New-Project/EarTrumpet"),
                     new AdvertisedCategorySettingsViewModel("HoloTrumpet", "\xEBD2", "Ears everywhere", "eartrumpet-project-mt", "https://github.com/File-New-Project/EarTrumpet"),
-                    new AdvertisedCategorySettingsViewModel("EcoTrumpet", "\xE8BE", "For home and garden", "eartrumpet-project-advset", "https://github.com/File-New-Project/EarTrumpet"),
+                    new AdvertisedCategorySettingsViewModel("RoboTrumpet", "\xE99A", "Kill all humans", "eartrumpet-project-advset", "https://github.com/File-New-Project/EarTrumpet"),
                 };
 
                 foreach(var ad in ads)
