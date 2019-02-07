@@ -5,6 +5,7 @@
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+             xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:ui="clr-namespace:EarTrumpet.UI"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -624,33 +625,49 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                                <TextBlock Style="{StaticResource BodyText}" Margin="0" Text="{TemplateBinding Content}" />
-                                <Grid x:Name="checkBoxBorder"
-                                      Grid.Row="1"
-                                      Margin="0,12,0,0"
-                                      Width="44"
-                                      Height="20"
-                                      HorizontalAlignment="Left">
-                                    <Rectangle x:Name="OuterBorder"
-                                               Width="44"
-                                               Height="20"
-                                               Theme:Brush.Stroke="Text"
-                                               Theme:Brush.Fill="Theme=Background"
-                                               RadiusX="10"
-                                               RadiusY="10"
-                                               StrokeThickness="2" />
-
-                                    <Grid x:Name="SwitchKnob"
-                                          Width="20"
+                                <TextBlock Grid.ColumnSpan="2"
+                                           Margin="0"
+                                           Style="{StaticResource BodyText}"
+                                           Text="{TemplateBinding Content}" />
+                                <Grid Grid.Row="1">
+                                    <Grid x:Name="checkBoxBorder"
+                                          Width="44"
                                           Height="20"
-                                          HorizontalAlignment="Left">
-                                        <Ellipse x:Name="SwitchKnobEllipse"
-                                                 Width="10"
-                                                 Height="10"
-                                                 Theme:Brush.Fill="Text" />
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center">
+                                        <Rectangle x:Name="OuterBorder"
+                                                   Width="44"
+                                                   Height="20"
+                                                   Theme:Brush.Fill="Theme=Background"
+                                                   Theme:Brush.Stroke="Text"
+                                                   RadiusX="10"
+                                                   RadiusY="10"
+                                                   StrokeThickness="2" />
+                                        <Grid x:Name="SwitchKnob"
+                                              Width="20"
+                                              Height="20"
+                                              HorizontalAlignment="Left">
+                                            <Ellipse x:Name="SwitchKnobEllipse"
+                                                     Width="10"
+                                                     Height="10"
+                                                     Theme:Brush.Fill="Text" />
+                                        </Grid>
                                     </Grid>
                                 </Grid>
+
+                                <Border Grid.Row="1" Grid.Column="1">
+                                    <TextBlock x:Name="OnOffText"
+                                               Margin="12"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Style="{DynamicResource BodyText}"
+                                               Text="{x:Static resx:Resources.ToggleSwitchOffText}" />
+                                </Border>
                             </Grid>
                             <ControlTemplate.Triggers>
 
@@ -659,6 +676,7 @@
                                     <Setter TargetName="SwitchKnobEllipse" Property="Theme:Brush.Fill" Value="Dark=Text, Light=Background" />
                                     <Setter TargetName="OuterBorder" Property="Theme:Brush.Fill" Value="SystemAccent" />
                                     <Setter TargetName="OuterBorder" Property="Theme:Brush.Stroke" Value="SystemAccent" />
+                                    <Setter TargetName="OnOffText" Property="Text" Value="{x:Static resx:Resources.ToggleSwitchOnText}" />
                                 </Trigger>
 
                                 <!--

@@ -275,4 +275,10 @@
   <data name="SettingsOpenMixerText" xml:space="preserve">
     <value>Open Mixer</value>
   </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>On</value>
+  </data>
 </root>

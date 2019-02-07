@@ -493,6 +493,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string ToggleSwitchOffText {
+            get {
+                return ResourceManager.GetString("ToggleSwitchOffText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string ToggleSwitchOnText {
+            get {
+                return ResourceManager.GetString("ToggleSwitchOnText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collect troubleshooting data.
         /// </summary>
         public static string TroubleshootEarTrumpetText {
