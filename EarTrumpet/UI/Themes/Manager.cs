@@ -21,6 +21,7 @@ namespace EarTrumpet.UI.Themes
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
         public bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
+        public bool UseDynamicScrollbars => SystemSettings.UseDynamicScrollbars;
 
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
         private Win32Window _messageWindow;

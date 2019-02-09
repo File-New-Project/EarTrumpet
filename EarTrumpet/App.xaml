@@ -950,7 +950,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="InvisibleButtonStyle" TargetType="Button">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="Transparent" />
@@ -977,7 +976,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
             <Style x:Key="ToolbarButtonStyle"
                    BasedOn="{StaticResource InvisibleButtonStyle}"
                    TargetType="Button">
@@ -1139,12 +1137,19 @@
                             <ControlTemplate.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="Thumb" Property="Tag" Value="True" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
                                         <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="False" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="PART_LineUpButton" Property="Opacity" Value="0" />
