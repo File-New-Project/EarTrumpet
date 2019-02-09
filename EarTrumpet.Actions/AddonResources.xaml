@@ -39,8 +39,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBox Name="txtHeader"
-                         Margin="12,0,6,0"
                          MinWidth="200"
+                         Margin="12,0,6,0"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Bottom"
                          HorizontalContentAlignment="Left"
@@ -124,17 +124,19 @@
                            Style="{StaticResource GlyphTextBlockStyle}"
                            Text="&#xE107;" />
             </Button>
-            <Border VerticalAlignment="Center" ClipToBounds="True" Margin="0,12">
-                <!-- The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent -->
-                <etctl:LinkedTextBlock HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       LineHeight="30"
+            <Border Margin="0,12"
+                    VerticalAlignment="Center"
+                    ClipToBounds="True">
+                <!--  The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent  -->
+                <etctl:LinkedTextBlock Margin="0,0,0,-8"
                                        Padding="0,4"
-                                       Margin="0,0,0,-8"
-                                       LineStackingStrategy="MaxHeight"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
                                        DataItem="{Binding}"
                                        FormatText="{Binding LinkText}"
                                        HyperlinkStyle="{DynamicResource HyperlinkStyle}"
+                                       LineHeight="30"
+                                       LineStackingStrategy="MaxHeight"
                                        RunStyle="{DynamicResource RunStyle}"
                                        TextWrapping="Wrap">
                     <etctl:LinkedTextBlock.ContextMenu>
