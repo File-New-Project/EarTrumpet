@@ -13,6 +13,7 @@ namespace EarTrumpet_Actions.ViewModel
     public class EarTrumpetActionViewModel : SettingsPageViewModel
     {
         public ToolbarItemViewModel[] Toolbar { get; private set; }
+        public ICommand Delete => new RelayCommand(() => _parent.Delete(this));
         public Guid Id => _action.Id;
 
         public string DisplayName
@@ -102,6 +103,7 @@ namespace EarTrumpet_Actions.ViewModel
                      Glyph = "\xE105",
                      GlyphFontSize = 14,
                 },
+                /*
                 new ToolbarItemViewModel
                 {
                      Command = new RelayCommand(() =>
@@ -112,6 +114,7 @@ namespace EarTrumpet_Actions.ViewModel
                      Glyph = "\xE107",
                      GlyphFontSize = 14,
                 },
+                */
             };
 
             Glyph = "\xE1CE";

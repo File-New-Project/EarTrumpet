@@ -417,4 +417,7 @@
   <data name="ToolbarSaveText" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

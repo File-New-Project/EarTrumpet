@@ -684,6 +684,15 @@ namespace EarTrumpet_Actions.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
+        public static string RemoveButtonAccessibleName {
+            get {
+                return ResourceManager.GetString("RemoveButtonAccessibleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
         public static string RemoveText {
             get {
                 return ResourceManager.GetString("RemoveText", resourceCulture);
