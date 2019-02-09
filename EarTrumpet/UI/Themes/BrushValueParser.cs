@@ -172,6 +172,7 @@ namespace EarTrumpet.UI.Themes
                     tab.Add(Rule.Kind.LightTheme, isLight);
                     tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
+                    tab.Add(Rule.Kind.UseAccentColorOnWindowBorders, SystemSettings.UseAccentColorOnWindowBorders);
 
                     Func<List<Rule>, string> ParseRule = null;
                     ParseRule = ruleList =>

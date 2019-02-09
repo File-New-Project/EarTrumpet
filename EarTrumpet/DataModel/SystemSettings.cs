@@ -7,11 +7,15 @@ namespace EarTrumpet.DataModel
 {
     static class SystemSettings
     {
-        internal static bool IsTransparencyEnabled => ReadPersonalizationSetting("EnableTransparency");
-        internal static bool UseAccentColor => ReadPersonalizationSetting("ColorPrevalence");
-        internal static bool IsLightTheme => ReadPersonalizationSetting("AppsUseLightTheme", 1 /* Light theme is system default */);
-        internal static bool IsSystemLightTheme => LightThemeShim(ReadPersonalizationSetting("SystemUsesLightTheme"));
+        static readonly string s_PersonalizeKey = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+
+        internal static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
+        internal static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
+        internal static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1 /* Light theme is system default */);
+        internal static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
         internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+        internal static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars");
+        internal static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
 
         internal static string BuildLabel
         {
@@ -25,10 +29,10 @@ namespace EarTrumpet.DataModel
             }
         }
 
-        private static bool ReadPersonalizationSetting(string valueName, int defaultValue = 0)
+        private static bool ReadDword(string key, string valueName, int defaultValue = 0)
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-            using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+            using (var subKey = baseKey.OpenSubKey(key))
             {
                 return subKey.GetValue<int>(valueName, defaultValue) > 0;
             }

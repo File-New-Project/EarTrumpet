@@ -237,7 +237,6 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-
         <Style x:Key="SettingsListViewItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -364,7 +363,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Window.Resources>
     <Grid>
         <Grid>
@@ -549,8 +547,8 @@
                                    ItemsSource="{Binding}" />
 
                     <ctl:ListView Grid.Row="2"
-                                  ItemsSource="{Binding Categories}"
                                   ItemInvoked="{Event:Binding OnInvoked}"
+                                  ItemsSource="{Binding Categories}"
                                   Style="{StaticResource MainList}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -717,7 +715,7 @@
                         </ScrollViewer>
                     </Grid>
                 </Grid>
-                <!-- Dialog -->
+                <!--  Dialog  -->
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">

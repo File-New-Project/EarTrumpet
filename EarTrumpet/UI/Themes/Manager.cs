@@ -20,6 +20,7 @@ namespace EarTrumpet.UI.Themes
 
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
+        public bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
 
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
         private Win32Window _messageWindow;
@@ -87,6 +88,7 @@ namespace EarTrumpet.UI.Themes
 
             ThemeChanged?.Invoke();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLightTheme)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UseAccentColorOnWindowBorders)));
         }
     }
 }

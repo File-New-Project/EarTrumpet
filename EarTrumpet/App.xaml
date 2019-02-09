@@ -43,6 +43,12 @@
                             <Theme:Rule Value="Theme={Theme}ChromeLow" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
+                    <Theme:Ref Key="ActiveWindowBorder">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="UseAccentColorOnWindowBorders" Value="SystemAccent" />
+                            <Theme:Rule Value="Theme={Theme}ChromeDisabledLow" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
                 </Theme:Manager.References>
             </Theme:Manager>
 
@@ -367,10 +373,10 @@
                         <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="ActiveWindowBorder" />
                 <Style.Triggers>
                     <Trigger Property="IsActive" Value="False">
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Light=ApplicationBackground, Dark=#FF222222" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

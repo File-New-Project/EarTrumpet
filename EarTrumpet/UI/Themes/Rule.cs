@@ -10,6 +10,7 @@ namespace EarTrumpet.UI.Themes
             LightTheme,
             Transparency,
             UseAccentColor,
+            UseAccentColorOnWindowBorders,
             HighContrast
         }
 
