@@ -150,11 +150,12 @@ namespace EarTrumpet_Actions.ViewModel
         {
             if (!IsWorkSaved)
             {
-                _parent.ShowDialog("Title", "Leave without saving", "Yes", () =>
+                _parent.ShowDialog(Properties.Resources.LeavingPageDialogTitle, Properties.Resources.LeavingPageDialogText, Properties.Resources.LeavingPageDialogYesText, () =>
                 {
+                    // TOD: this failed somehow null
                     Reset(Addon.Current.Actions.FirstOrDefault(a => a.Id == Id));
                     _parent.CompleteNavigation(cookie);
-                }, "No", () => { });
+                }, Properties.Resources.LeavingPageDialogNoText, () => { });
                 return false;
             }
             return base.NavigatingFrom(cookie);

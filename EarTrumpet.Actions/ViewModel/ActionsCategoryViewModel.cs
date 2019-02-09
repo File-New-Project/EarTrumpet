@@ -2,7 +2,6 @@
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -47,7 +46,8 @@ namespace EarTrumpet_Actions.ViewModel
 
         public void Delete(EarTrumpetActionViewModel earTrumpetActionViewModel)
         {
-            _parent.ShowDialog("Title", "Are you sure", "Delete", "Cancel", () => {
+            _parent.ShowDialog(Properties.Resources.DeleteActionDialogTitle,Properties.Resources.DeleteActionDialogText, 
+                Properties.Resources.DeleteActionDialogYesText, Properties.Resources.DeleteActionDialogNoText, () => {
 
                 var actions = Addon.Current.Actions.ToList();
                 actions.Remove(item => item.Id == earTrumpetActionViewModel.Id);

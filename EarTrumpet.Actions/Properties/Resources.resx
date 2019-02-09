@@ -417,6 +417,39 @@
   <data name="ToolbarSaveText" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Delete action?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Leave without saving?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Remove this action</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Removing cannot be undone</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Remove action</value>
+  </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
     <value>Remove</value>
   </data>

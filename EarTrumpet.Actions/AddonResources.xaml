@@ -21,12 +21,12 @@
     <Style x:Key="HyperlinkStyle"
            BasedOn="{StaticResource {x:Type Hyperlink}}"
            TargetType="{x:Type Hyperlink}">
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="15" />
         <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
         <Setter Property="TextDecorations">
             <Setter.Value>
                 <TextDecorationCollection>
-                    <TextDecoration Location="Underline" PenOffset="4" />
+                    <TextDecoration Location="Underline" PenOffset="3" />
                 </TextDecorationCollection>
             </Setter.Value>
         </Setter>
@@ -281,27 +281,25 @@
 
                 <TextBlock Grid.Row="4"
                            Style="{DynamicResource HeadingText}"
-                           Text="Remove action" />
+                           Text="{x:Static resx:Resources.RemoveActionHeadingText}" />
                 <TextBlock Grid.Row="5"
                            Style="{DynamicResource BodyText}"
-                           Text="You cannot undo after removing the action." />
+                           Text="{x:Static resx:Resources.RemoveActionDescriptionText}" />
                 <Button Grid.Row="6"
                         Command="{Binding Delete}"
-                        Content="Delete this action" />
+                        Content="{x:Static resx:Resources.RemoveActionButtonText}" />
             </Grid>
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
-        <ctl:VolumeSlider Margin="24"
+        <ctl:VolumeSlider Margin="12"
                           Maximum="100"
                           Minimum="0"
                           Style="{DynamicResource {x:Type Slider}}"
                           Value="{Binding Volume, Mode=TwoWay}" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
-        <ContentControl Margin="12,0"
-                        Content="{Binding Hotkey}"
-                        IsTabStop="False" />
+        <ContentControl Content="{Binding Hotkey}" IsTabStop="False" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:TextViewModel}">
         <Grid Margin="12">

@@ -331,6 +331,42 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DeleteActionDialogNoText {
+            get {
+                return ResourceManager.GetString("DeleteActionDialogNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete action?.
+        /// </summary>
+        public static string DeleteActionDialogText {
+            get {
+                return ResourceManager.GetString("DeleteActionDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteActionDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteActionDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DeleteActionDialogYesText {
+            get {
+                return ResourceManager.GetString("DeleteActionDialogYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When an audio device is (added, removed, becomes or leaves default).
         /// </summary>
         public static string DeviceEventTrigger_AddText {
@@ -498,6 +534,42 @@ namespace EarTrumpet_Actions.Properties {
         public static string ImportHelpText {
             get {
                 return ResourceManager.GetString("ImportHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string LeavingPageDialogNoText {
+            get {
+                return ResourceManager.GetString("LeavingPageDialogNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave without saving?.
+        /// </summary>
+        public static string LeavingPageDialogText {
+            get {
+                return ResourceManager.GetString("LeavingPageDialogText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string LeavingPageDialogTitle {
+            get {
+                return ResourceManager.GetString("LeavingPageDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave.
+        /// </summary>
+        public static string LeavingPageDialogYesText {
+            get {
+                return ResourceManager.GetString("LeavingPageDialogYesText", resourceCulture);
             }
         }
         
@@ -678,6 +750,33 @@ namespace EarTrumpet_Actions.Properties {
         public static string RecordingDeviceFormatStringText {
             get {
                 return ResourceManager.GetString("RecordingDeviceFormatStringText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this action.
+        /// </summary>
+        public static string RemoveActionButtonText {
+            get {
+                return ResourceManager.GetString("RemoveActionButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing cannot be undone.
+        /// </summary>
+        public static string RemoveActionDescriptionText {
+            get {
+                return ResourceManager.GetString("RemoveActionDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove action.
+        /// </summary>
+        public static string RemoveActionHeadingText {
+            get {
+                return ResourceManager.GetString("RemoveActionHeadingText", resourceCulture);
             }
         }
         
