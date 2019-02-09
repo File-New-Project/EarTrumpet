@@ -40,6 +40,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox Name="txtHeader"
                          Margin="12,0,6,0"
+                         MinWidth="200"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Bottom"
                          HorizontalContentAlignment="Left"
@@ -106,7 +107,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Margin="0,-7,0,0"
+            <TextBlock Margin="0,-10,0,0"
                        VerticalAlignment="Top"
                        Theme:Brush.Foreground="GrayText"
                        FontSize="14"
@@ -123,10 +124,14 @@
                            Style="{StaticResource GlyphTextBlockStyle}"
                            Text="&#xE107;" />
             </Button>
-            <Border VerticalAlignment="Center">
-                <etctl:LinkedTextBlock Margin="0,12"
-                                       HorizontalAlignment="Left"
+            <Border VerticalAlignment="Center" ClipToBounds="True" Margin="0,12">
+                <!-- The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent -->
+                <etctl:LinkedTextBlock HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
+                                       LineHeight="30"
+                                       Padding="0,4"
+                                       Margin="0,0,0,-8"
+                                       LineStackingStrategy="MaxHeight"
                                        DataItem="{Binding}"
                                        FormatText="{Binding LinkText}"
                                        HyperlinkStyle="{DynamicResource HyperlinkStyle}"
