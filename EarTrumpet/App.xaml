@@ -871,7 +871,7 @@
                                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, ControlDarkSelectBorderRest" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
