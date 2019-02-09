@@ -40,7 +40,7 @@ namespace EarTrumpet.UI.Themes
 
         public void Load()
         {
-
+            // This method needs to be called from App to get us loaded otherwise XAML will lazy-load us.
         }
 
         private void WndProc(int msg, IntPtr wParam, IntPtr lParam)

@@ -10,12 +10,13 @@ namespace EarTrumpet.UI.ViewModels
     class SettingsViewModel : BindableBase, IWindowHostedViewModel, ISettingsViewModel
     {
         public static IAddonSettingsPage[] AddonItems { get; internal set; }
+
         public event Action Close;
+
         public string Title { get; private set; }
         public ICommand GoHome { get; }
         public BackstackViewModel Backstack { get; } = new BackstackViewModel();
         public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
-
 
         private SimpleDialogViewModel _dialog;
         public SimpleDialogViewModel Dialog
@@ -32,7 +33,6 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         SettingsCategoryViewModel _selected;
-
         public SettingsCategoryViewModel Selected
         {
             get => _selected;
@@ -71,10 +71,10 @@ namespace EarTrumpet.UI.ViewModels
         public void InvokeSearchResult(SettingsCategoryViewModel cat, SettingsPageViewModel page)
         {
             if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() =>
-            {
-                Selected = cat;
-                Selected.Selected = page;
-            })))
+                {
+                    Selected = cat;
+                    Selected.Selected = page;
+                })))
             {
                 return;
             }
@@ -84,7 +84,7 @@ namespace EarTrumpet.UI.ViewModels
         }
 
 
-        private void SelectImpl(SettingsCategoryViewModel cat)
+        private void SelectImpl(SettingsCategoryViewModel categoryToSelect)
         {
             if (!Backstack.IsDisablingUpdates)
             {
@@ -102,7 +102,7 @@ namespace EarTrumpet.UI.ViewModels
                 });
             }
 
-            _selected = cat;
+            _selected = categoryToSelect;
             if (_selected != null && _selected.Pages.Count > 0)
             {
                 _selected.Selected = _selected.Pages[0];

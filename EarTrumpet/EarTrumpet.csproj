@@ -117,10 +117,8 @@
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
-    <Compile Include="UI\Themes\AcrylicBackgroundRef.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
-    <Compile Include="UI\Themes\FlyoutBackgroundRef.cs" />
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\Themes\Rule.cs" />
@@ -216,7 +214,7 @@
     <Compile Include="UI\DeviceIconKind.cs" />
     <Compile Include="UI\Helpers\ProcessHelper.cs" />
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
-    <Compile Include="UI\Helpers\ThemedContextMenu.cs" />
+    <Compile Include="UI\Helpers\TaskbarContextMenuHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
     <Compile Include="UI\IconLoadInfo.cs" />
@@ -389,7 +387,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.ar.resx" />
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
-    <EmbeddedResource Include="Properties\Resources.es.resx" />
+    <EmbeddedResource Include="Properties\Resources.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr-FR.resx" />
     <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.it.resx" />
@@ -398,8 +398,12 @@
     <EmbeddedResource Include="Properties\Resources.nb-NO.resx" />
     <EmbeddedResource Include="Properties\Resources.nl.resx" />
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
-    <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
-    <EmbeddedResource Include="Properties\Resources.pt-PT.resx" />
+    <EmbeddedResource Include="Properties\Resources.pt-BR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.pt-PT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -5,7 +5,7 @@ namespace EarTrumpet.UI.ViewModels
     internal class EarTrumpetShortcutsPageViewModel : SettingsPageViewModel
     {
         public HotkeyViewModel OpenFlyoutHotkey { get; }
-        public string DefaultHotKey => SettingsService.s_defaultHotkey.ToString();
+        public string DefaultHotKey => SettingsService.s_defaultFlyoutHotkey.ToString();
 
         public HotkeyViewModel OpenMixerHotkey { get; }
         public string DefaultMixerHotKey => SettingsService.s_defaultMixerHotkey.ToString();

@@ -4,7 +4,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class EarTrumpetLegacySettingsPageViewModel : SettingsPageViewModel
     {
-
         public bool UseLegacyIcon
         {
             get => SettingsService.UseLegacyIcon;

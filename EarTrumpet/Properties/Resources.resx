@@ -281,4 +281,7 @@
   <data name="ToggleSwitchOnText" xml:space="preserve">
     <value>On</value>
   </data>
+  <data name="HotkeyNoneText" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

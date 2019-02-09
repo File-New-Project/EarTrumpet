@@ -2,7 +2,6 @@
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -45,7 +44,7 @@ namespace EarTrumpet.UI.Themes
                 fullMap[scope][key] = color;
             }
 
-            // Search for Refs.
+            // Search for Refs in either the elementScope of deault map.
             var elementScope = Options.GetScope(element);
             var searchKey = "";
             if (fullMap.ContainsKey(elementScope))
@@ -62,6 +61,7 @@ namespace EarTrumpet.UI.Themes
                     searchKey = fullMap[""][""];
                 }
             }
+
             if (searchKey != "")
             {
                 if (FindReference(element, searchKey, out var outRef))
@@ -91,7 +91,10 @@ namespace EarTrumpet.UI.Themes
                 {
                     colorName = map["Light"];
                 }
-                else throw new NotImplementedException($"BrushValueParser: '{value}'");
+                else
+                {
+                    throw new NotImplementedException($"BrushValueParser: '{value}'");
+                }
             }
             else
             {
@@ -111,7 +114,10 @@ namespace EarTrumpet.UI.Themes
                 {
                     colorName = map["Dark"];
                 }
-                else throw new NotImplementedException($"BrushValueParser: '{value}'");
+                else
+                {
+                    throw new NotImplementedException($"BrushValueParser: '{value}'");
+                }
             }
 
             if (FindReference(element, colorName, out var reference))
@@ -164,34 +170,23 @@ namespace EarTrumpet.UI.Themes
                     tab.Add(Rule.Kind.Any, true);
                     tab.Add(Rule.Kind.HighContrast, SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.LightTheme, isLight);
-                    tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled);
+                    tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
 
                     Func<List<Rule>, string> ParseRule = null;
-                    ParseRule = r =>
+                    ParseRule = ruleList =>
                     {
-                        foreach (var rule in r)
-                        {
-                            if (tab[rule.On])
-                            {
-                                if (rule.Value != null)
-                                {
-                                    return rule.Value;
-                                }
-                                else
-                                {
-                                    return ParseRule(rule.Rules);
-                                }
-                            }
-                        }
-                        throw new NotImplementedException();
+                        var ret = ruleList.Where(
+                            rule => tab[rule.On]).Select(
+                            rule => (rule.Value != null) ? rule.Value : ParseRule(rule.Rules)).FirstOrDefault();
+                        return ret != null ? ret : throw new NotImplementedException("Rule type not found");
                     };
 
                     string opacities = "";
                     var oItems = searchKey.Split('/').Skip(1).ToArray();
                     if (oItems.Length == 0)
                     {
-
+                        // Nothing to do.
                     }
                     else if (oItems.Length == 1)
                     {
@@ -234,7 +229,10 @@ namespace EarTrumpet.UI.Themes
                 opacityNoTransparency = double.Parse(parts[2]);
                 colorName = parts[0];
             }
-            else throw new NotImplementedException();
+            else
+            {
+                throw new NotImplementedException("bad number of /");
+            }
 
             desiredOpacity = SystemSettings.IsTransparencyEnabled ? opacity : (opacityNoTransparency > 0 ? opacityNoTransparency : opacity);
             return colorName;

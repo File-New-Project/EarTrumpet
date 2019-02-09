@@ -9,8 +9,8 @@ namespace EarTrumpet.UI.Themes
         {
             readonly string _propertyName;
             DependencyObject _element;
+            readonly string _value;
             DependencyObject _loadTarget;
-            string _value;
             bool _isAttached;
             System.Windows.Media.Brush _initialBrush;
 
@@ -20,23 +20,12 @@ namespace EarTrumpet.UI.Themes
                 _element = element;
                 _value = value;
 
-                if (SetPropertyToDesiredValue())
-                {
-                  
-                    /*
-                    while (target.Parent != null)
-                    {
-                        target = target.Parent;
-                    }
-                    */
+                SetPropertyToDesiredValue();
 
-                }
-
-                dynamic target = element;
-                if (target is FrameworkElement)
+                if (element is FrameworkElement)
                 {
-                    _loadTarget = (FrameworkElement)target;
-                    ((FrameworkElement)target).Loaded += Element_Loaded;
+                    _loadTarget = (FrameworkElement)element;
+                    ((FrameworkElement)element).Loaded += Element_Loaded;
                 }
             }
 

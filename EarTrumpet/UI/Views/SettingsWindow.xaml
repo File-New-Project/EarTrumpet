@@ -592,17 +592,17 @@
                                    VerticalAlignment="Center"
                                    ItemsSource="{Binding}" />
 
-                    <ListView Grid.Row="2"
-                              IsSynchronizedWithCurrentItem="True"
-                              ItemsSource="{Binding Categories}"
-                              SelectedItem="{Binding Selected, Mode=TwoWay}"
-                              Style="{StaticResource MainList}">
+                    <ctl:ListView Grid.Row="2"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  ItemsSource="{Binding Categories}"
+                                  SelectedItem="{Binding Selected, Mode=TwoWay}"
+                                  Style="{StaticResource MainList}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                    </ListView>
+                    </ctl:ListView>
 
                 </Grid>
                 <!--  Subview  -->

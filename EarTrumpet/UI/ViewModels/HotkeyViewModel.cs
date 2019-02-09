@@ -37,18 +37,20 @@ namespace EarTrumpet.UI.ViewModels
 
         public void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Tab)
+            {
+                return;
+            }
+
             e.Handled = true;
 
-            if (e.Key == Key.Back)
+            if (e.Key == Key.Escape)
             {
                 _hotkey.Key = System.Windows.Forms.Keys.None;
                 _hotkey.Modifiers = System.Windows.Forms.Keys.None;
             }
             else
             {
-                if (e.Key == Key.Enter) return;
-                if (e.Key == Key.Tab) return;
-
                 _hotkey.Modifiers = System.Windows.Forms.Keys.None;
                 _hotkey.Key = System.Windows.Forms.Keys.None;
 
@@ -80,24 +82,22 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
             SetHotkeyText();
-
-            Trace.WriteLine($"Live Hotkey Update: $HotkeyText");
         }
 
         public void OnLostFocus(object sender, RoutedEventArgs e)
         {
+            if (_hotkey.Key == System.Windows.Forms.Keys.None &&
+                _hotkey.Modifiers != System.Windows.Forms.Keys.None)
+            {
+                _hotkey.Modifiers = System.Windows.Forms.Keys.None;
+                SetHotkeyText();
+            }
+
             if (_hotkey != _savedHotkey)
             {
-                if (_hotkey.Key != System.Windows.Forms.Keys.None)
-                {
-                    _save(_hotkey);
-                    _savedHotkey = new HotkeyData { Key = _hotkey.Key, Modifiers = _hotkey.Modifiers };
-                }
-                else
-                {
-                    _hotkey.Modifiers = System.Windows.Forms.Keys.None;
-                    SetHotkeyText();
-                }
+
+                _save(_hotkey);
+                _savedHotkey = new HotkeyData { Key = _hotkey.Key, Modifiers = _hotkey.Modifiers };
             }
             HotkeyManager.Current.Resume();
         }
@@ -107,10 +107,9 @@ namespace EarTrumpet.UI.ViewModels
             HotkeyManager.Current.Pause();
         }
 
-
         private void SetHotkeyText()
         {
-            HotkeyText = _hotkey.ToString().Replace("None", "");
+            HotkeyText = _hotkey.ToString().Replace(System.Windows.Forms.Keys.None.ToString(), "");
         }
     }
 }

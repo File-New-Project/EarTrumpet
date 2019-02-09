@@ -250,6 +250,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string HotkeyNoneText {
+            get {
+                return ResourceManager.GetString("HotkeyNoneText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type a key combination:.
         /// </summary>
         public static string HotKeySelectionText {

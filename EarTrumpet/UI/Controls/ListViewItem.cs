@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -23,6 +24,16 @@ namespace EarTrumpet.UI.Controls
                 _parent.InvokeItem(this);
             }
             base.OnKeyDown(e);
+        }
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+           // base.OnGotFocus(e);
+        }
+
+        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            //base.OnGotKeyboardFocus(e);
         }
     }
 }

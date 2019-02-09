@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,13 +6,11 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsCategoryViewModel : BindableBase, IWindowHostedViewModel
+    public class SettingsCategoryViewModel : BindableBase
     {
         protected ISettingsViewModel _parent;
         SettingsPageViewModel _selected;
-#pragma warning disable CS0067
-        public event Action Close;
-        public event Action<object> HostDialog;
+
         public string Id { get; protected set; }
         public bool IsAd { get; protected set; }
 
@@ -26,13 +23,9 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     if (_selected != null)
                     {
-                        if (!_selected.NavigatingFrom(new NavigationCookie(() =>
-                        {
-                            SelectImpl(value);
-                        })))
+                        if (!_selected.NavigatingFrom(new NavigationCookie(() => SelectImpl(value))))
                         {
                             RaisePropertyChanged(nameof(Selected));
-
                             return;
                         }
                     }
@@ -45,7 +38,6 @@ namespace EarTrumpet.UI.ViewModels
         private void SelectImpl(SettingsPageViewModel page)
         {
             _selected = page;
-
             RaisePropertyChanged(nameof(Selected));
 
             if (_selected != null)
@@ -57,11 +49,8 @@ namespace EarTrumpet.UI.ViewModels
         public string Title { get; protected set; }
         public string Glyph { get; protected set; }
         public string Description { get; protected set; }
-        public ToolbarItemViewModel[] Toolbar { get;  protected set; }
-
+        public ToolbarItemViewModel[] Toolbar { get; protected set; }
         public ObservableCollection<SettingsPageViewModel> Pages { get; protected set; }
-
-        public SettingsCategoryViewModel() { }
 
         public SettingsCategoryViewModel(string title, string glyph, string description, string id, IEnumerable<SettingsPageViewModel> pages)
         {
@@ -70,24 +59,6 @@ namespace EarTrumpet.UI.ViewModels
             Description = description;
             Id = id;
             Pages = new ObservableCollection<SettingsPageViewModel>(pages);
-        }
-
-        public virtual void OnClosing()
-        {
-            if (Pages == null) return;
-
-            foreach (var page in Pages)
-            {
-                if (page is IWindowHostedViewModel)
-                {
-                    ((IWindowHostedViewModel)page).OnClosing();
-                }
-            }
-        }
-
-        public void OnPreviewKeyDown(KeyEventArgs e)
-        {
-    
         }
 
         public void NavigatedTo(ISettingsViewModel settingsViewModel)

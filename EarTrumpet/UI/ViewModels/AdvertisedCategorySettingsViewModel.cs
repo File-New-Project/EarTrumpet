@@ -6,15 +6,11 @@ namespace EarTrumpet.UI.ViewModels
     {
         string _link;
 
-        public AdvertisedCategorySettingsViewModel(string title, string glyph, string description, string id, string link)
+        public AdvertisedCategorySettingsViewModel(string title, string glyph, string description, string id, string link) : 
+            base(title, glyph, description, id, new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>())
         {
-            Title = title;
-            Glyph = glyph;
-            Description = description;
             _link = link;
-            Id = id;
             IsAd = true;
-            Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>();
         }
 
         public void Activate() => ProcessHelper.StartNoThrow(_link);

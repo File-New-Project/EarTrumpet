@@ -2,12 +2,7 @@
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -16,21 +11,18 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenDiagnosticsCommand { get; }
         public RelayCommand OpenAboutCommand { get; }
         public RelayCommand OpenFeedbackCommand { get; }
-        public string AboutText { get; private set; }
-
+        public string AboutText { get; }
 
         public EarTrumpetAboutPageViewModel() : base(null)
         {
-            Title = "About";
             Glyph = "\xE946";
+            Title = Properties.Resources.AboutTitle;
+            AboutText = $"EarTrumpet {App.Current.GetVersion()}";
 
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-
-            AboutText = $"EarTrumpet {App.Current.GetVersion()}";
         }
-
 
         private void OpenDiagnostics()
         {
@@ -42,9 +34,6 @@ namespace EarTrumpet.UI.ViewModels
             DiagnosticsService.DumpAndShowData();
         }
 
-        private void OpenAbout()
-        {
-            ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
-        }
+        private void OpenAbout() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
     }
 }

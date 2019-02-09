@@ -8,7 +8,7 @@ using System.Windows.Interop;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public class TaskbarContextMenu
+    public class TaskbarContextMenuHelper
     {
         public static ContextMenu Create()
         {
