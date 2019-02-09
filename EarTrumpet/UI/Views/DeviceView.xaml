@@ -12,8 +12,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window">
-            <Grid Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground/0.6/1" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
+        <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground/0.6/1, Flyout:HighContrast=Window">
+            <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

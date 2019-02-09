@@ -259,9 +259,9 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border x:Name="selectedIndicator"
-                                        Theme:Brush.Background="Transparent"
                                         Width="4"
-                                        Height="24" />
+                                        Height="24"
+                                        Theme:Brush.Background="Transparent" />
 
                                 <ContentPresenter Grid.Column="1"
                                                   Margin="12,0,0,0"
@@ -549,9 +549,8 @@
                                    ItemsSource="{Binding}" />
 
                     <ctl:ListView Grid.Row="2"
-                                  IsSynchronizedWithCurrentItem="True"
                                   ItemsSource="{Binding Categories}"
-                                  SelectedItem="{Binding Selected, Mode=TwoWay}"
+                                  ItemInvoked="{Event:Binding OnInvoked}"
                                   Style="{StaticResource MainList}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -573,12 +572,10 @@
                             <Setter Property="Visibility" Value="Visible" />
                         </Style>
                     </Grid.Style>
-
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="320" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
                     <Grid>
                         <Grid.Resources>
                             <CollectionViewSource x:Key="cvs"
@@ -596,7 +593,6 @@
                             <RowDefinition Height="48" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-
                         <Button Grid.Row="1"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
@@ -613,32 +609,27 @@
                                                Style="{StaticResource GlyphTextBlockStyle}"
                                                Text="&#xE10F;" />
                                     <TextBlock Grid.Column="1"
-                                               VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
                                                FontSize="15"
                                                Style="{StaticResource BodyText}"
                                                Text="{x:Static resx:Resources.HomeButtonText}" />
                                 </Grid>
                             </Button.Content>
                         </Button>
-
                         <ctl:SearchBox Grid.Row="2"
                                        Height="32"
                                        Margin="16,2,16,0"
                                        ItemsSource="{Binding}" />
-
                         <Grid Grid.Row="3">
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-
                             <TextBlock Margin="16,0,0,0"
                                        FontSize="15"
                                        FontWeight="Bold"
                                        Text="{Binding Selected.Title}" />
-
                             <ItemsControl Grid.Column="1"
                                           IsTabStop="False"
                                           ItemsSource="{Binding Selected.Toolbar}">
@@ -663,7 +654,6 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Grid>
-
                         <ListView Grid.Row="4"
                                   IsSynchronizedWithCurrentItem="True"
                                   ItemsSource="{Binding Source={StaticResource cvs}}"
@@ -677,7 +667,6 @@
                                             <ColumnDefinition Width="22" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-
                                         <TextBlock FontSize="16"
                                                    Style="{StaticResource GlyphTextBlockStyle}"
                                                    Text="{Binding Glyph}" />
@@ -687,7 +676,6 @@
                                                    FontSize="15"
                                                    Text="{Binding Title}" />
                                     </Grid>
-
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.GroupStyle>
@@ -714,15 +702,12 @@
                             </ListView.GroupStyle>
                         </ListView>
                     </Grid>
-
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-
                         <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
-
                         <ScrollViewer Grid.Row="1"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
@@ -732,7 +717,7 @@
                         </ScrollViewer>
                     </Grid>
                 </Grid>
-
+                <!-- Dialog -->
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -744,9 +729,7 @@
                         </Style>
                     </Grid.Style>
                     <Grid Background="LightGray" Opacity="0.5" />
-
                     <Border MinWidth="300"
-                            MinHeight="200"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Theme:Brush.BorderBrush="SystemAccent"
@@ -761,32 +744,31 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <StackPanel Grid.ColumnSpan="2" Orientation="Vertical">
-                                    <TextBlock Style="{StaticResource HeadingText}" Text="{Binding Dialog.Title}" />
-
-                                    <TextBlock Style="{StaticResource BodyText}" Text="{Binding Dialog.Description}" />
-
+                                    <TextBlock Margin="12,12,12,0"
+                                               Style="{StaticResource HeadingText}"
+                                               Text="{Binding Dialog.Title}" />
+                                    <TextBlock Margin="12,12,12,24"
+                                               Style="{StaticResource BodyText}"
+                                               Text="{Binding Dialog.Description}" />
                                 </StackPanel>
-
                                 <Button Grid.Row="1"
+                                        Margin="12,12,2,12"
                                         HorizontalAlignment="Stretch"
                                         Theme:Brush.Background="SystemAccent"
-                                        Theme:Brush.Foreground="Text"
+                                        Theme:Brush.Foreground="Light=ApplicationTextDarkTheme, Dark=Text"
                                         Command="{Binding Dialog.Button1Command}"
                                         Content="{Binding Dialog.Button1Text}" />
                                 <Button Grid.Row="1"
                                         Grid.Column="1"
+                                        Margin="2,12,12,12"
                                         HorizontalAlignment="Stretch"
                                         Command="{Binding Dialog.Button2Command}"
                                         Content="{Binding Dialog.Button2Text}" />
                             </Grid>
                         </Grid>
-
                     </Border>
                 </Grid>
-
-
             </Grid>
         </DockPanel>
     </Grid>

@@ -32,6 +32,11 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public void OnInvoked(object sender, SettingsCategoryViewModel toSelect)
+        {
+            Selected = toSelect;
+        }
+
         SettingsCategoryViewModel _selected;
         public SettingsCategoryViewModel Selected
         {

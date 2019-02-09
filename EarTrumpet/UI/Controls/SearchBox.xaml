@@ -25,8 +25,8 @@
                            Style="{StaticResource GlyphTextBlockStyle}"
                            Text="{Binding Glyph}" />
                 <TextBlock Grid.Column="1"
-                           FontSize="15"
                            Theme:Brush.Foreground="Text"
+                           FontSize="15"
                            Text="{Binding DisplayName}" />
             </Grid>
 
@@ -90,7 +90,7 @@
     <TextBox.Template>
         <ControlTemplate>
             <Border x:Name="border"
-                    Theme:Brush.Background="{TemplateBinding  Theme:Brush.Background}"
+                    Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
                     Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     SnapsToDevicePixels="True">

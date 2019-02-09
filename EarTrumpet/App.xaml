@@ -91,7 +91,7 @@
                 <Setter Property="Control.Template">
                     <Setter.Value>
                         <ControlTemplate>
-                            <Grid Margin="-4" SnapsToDevicePixels="True">
+                            <Grid Margin="-3" SnapsToDevicePixels="True">
                                 <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
                                 <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
                             </Grid>
@@ -859,13 +859,13 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border x:Name="border"
-                                    Theme:Brush.Background="{TemplateBinding  Theme:Brush.Background}"
+                                    Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
                                     Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     SnapsToDevicePixels="True">
                                 <ScrollViewer x:Name="PART_ContentHost"
-                                              Focusable="False"
                                               Theme:Brush.Foreground="{TemplateBinding Theme:Brush.Foreground}"
+                                              Focusable="False"
                                               HorizontalScrollBarVisibility="Hidden"
                                               VerticalScrollBarVisibility="Hidden" />
                             </Border>
