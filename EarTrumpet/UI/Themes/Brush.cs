@@ -165,5 +165,11 @@ namespace EarTrumpet.UI.Themes
         public static readonly DependencyProperty SelectionBrushProperty =
         DependencyProperty.RegisterAttached("SelectionBrush", typeof(string), typeof(Brush), new PropertyMetadata("", SelectionBrushChanged));
         private static void SelectionBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ImplementPropertyChanged("SelectionBrush", d, e.NewValue);
+
+        public static string GetCaretBrush(DependencyObject obj) => (string)obj.GetValue(CaretBrushProperty);
+        public static void SetCaretBrush(DependencyObject obj, string value) => obj.SetValue(CaretBrushProperty, value);
+        public static readonly DependencyProperty CaretBrushProperty =
+        DependencyProperty.RegisterAttached("CaretBrush", typeof(string), typeof(Brush), new PropertyMetadata("", CaretBrushChanged));
+        private static void CaretBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ImplementPropertyChanged("CaretBrush", d, e.NewValue);
     }
 }

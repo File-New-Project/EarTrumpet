@@ -259,6 +259,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border x:Name="selectedIndicator"
+                                        Theme:Brush.Background="Transparent"
                                         Width="4"
                                         Height="24" />
 
@@ -605,17 +606,16 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-
-                                    <TextBlock Margin="16,0,16,0"
+                                    <TextBlock Margin="16,0,4,0"
                                                FontSize="16"
                                                Style="{StaticResource GlyphTextBlockStyle}"
                                                Text="&#xE10F;" />
-
                                     <TextBlock Grid.Column="1"
                                                VerticalAlignment="Center"
-                                               FontSize="14"
+                                               HorizontalAlignment="Left"
+                                               FontSize="15"
                                                Style="{StaticResource BodyText}"
                                                Text="{x:Static resx:Resources.HomeButtonText}" />
                                 </Grid>

@@ -839,14 +839,16 @@
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
             </Style>
             <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Theme:Brush.Background" Value="Background" />
+                <Setter Property="Theme:Brush.Background" Value="Light=LightChromeWhite/0.4, Dark=DarkChromeBlackMediumLow" />
                 <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMediumLow, Dark=DarkChromeHigh" />
-                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="Theme:Brush.Foreground" Value="Light=Text, Dark=Text" />
                 <Setter Property="Theme:Brush.SelectionBrush" Value="SystemAccent" />
+                <Setter Property="Theme:Brush.CaretBrush" Value="ApplicationTextLightTheme" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="4" />
-                <Setter Property="Margin" Value="0,12" />
+                <Setter Property="MinWidth" Value="140" />
+                <Setter Property="Margin" Value="12" />
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -857,12 +859,13 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBox}">
                             <Border x:Name="border"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    Theme:Brush.Background="{TemplateBinding  Theme:Brush.Background}"
+                                    Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     SnapsToDevicePixels="True">
                                 <ScrollViewer x:Name="PART_ContentHost"
                                               Focusable="False"
+                                              Theme:Brush.Foreground="{TemplateBinding Theme:Brush.Foreground}"
                                               HorizontalScrollBarVisibility="Hidden"
                                               VerticalScrollBarVisibility="Hidden" />
                             </Border>
@@ -874,6 +877,8 @@
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                                 </Trigger>
                             </ControlTemplate.Triggers>

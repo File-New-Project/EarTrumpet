@@ -26,6 +26,7 @@
                            Text="{Binding Glyph}" />
                 <TextBlock Grid.Column="1"
                            FontSize="15"
+                           Theme:Brush.Foreground="Text"
                            Text="{Binding DisplayName}" />
             </Grid>
 
@@ -56,7 +57,7 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
+                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -89,8 +90,8 @@
     <TextBox.Template>
         <ControlTemplate>
             <Border x:Name="border"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Theme:Brush.Background="{TemplateBinding  Theme:Brush.Background}"
+                    Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     SnapsToDevicePixels="True">
                 <Grid>
@@ -133,6 +134,8 @@
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest" />
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                 </Trigger>
             </ControlTemplate.Triggers>
