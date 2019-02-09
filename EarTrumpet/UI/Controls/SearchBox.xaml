@@ -126,13 +126,13 @@
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
+                <Trigger Property="IsEnabled" Value="False">
                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                 </Trigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, ControlDarkSelectBorderRest" />
                 </Trigger>
-                <Trigger Property="IsKeyboardFocused" Value="true">
+                <Trigger Property="IsKeyboardFocused" Value="True">
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                 </Trigger>
             </ControlTemplate.Triggers>

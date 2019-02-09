@@ -189,7 +189,7 @@
                         <Setter Property="Theme:Brush.Background" Value="#FFE81123" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Light=Text, Dark=ApplicationTextLightTheme" />
                         <Setter Property="Theme:Brush.Background" Value="#F1707A" />
                     </Trigger>
                 </Style.Triggers>
@@ -840,7 +840,7 @@
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Theme:Brush.Background" Value="Background" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeBlackMediumLow" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMediumLow, Dark=DarkChromeHigh" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Theme:Brush.SelectionBrush" Value="SystemAccent" />
                 <Setter Property="BorderThickness" Value="2" />
@@ -871,7 +871,7 @@
                                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeBlackMedium" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, ControlDarkSelectBorderRest" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
@@ -901,16 +901,21 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Grid>
-                                    <Rectangle Width="40"
-                                               Height="40"
-                                               Margin="12"
-                                               Theme:Brush.Fill="Theme={Theme}BaseLow" />
+                                    <Border Width="40"
+                                            Height="40"
+                                            Margin="12"
+                                            Theme:Brush.Background="Light=LightBaseLow, Dark=Transparent"
+                                            Theme:Brush.BorderBrush="Light=Transparent, Dark=Text"
+                                            BorderThickness="2">
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Theme:Brush.Foreground="Light=Text, Dark=ControlDarkButtonTextDisabled"
+                                                   FontSize="15"
+                                                   FontWeight="SemiBold"
+                                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                                   Text="&#xE109;" />
+                                    </Border>
 
-                                    <TextBlock HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               FontFamily="Segoe MDL2 Assets"
-                                               FontSize="15"
-                                               Text="&#xE109;" />
                                 </Grid>
 
                                 <ContentPresenter x:Name="contentPresenter"

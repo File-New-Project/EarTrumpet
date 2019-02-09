@@ -610,9 +610,9 @@
                                                Text="&#xE10F;" />
 
                                     <TextBlock Grid.Column="1"
-                                               Style="{StaticResource BodyText}"
                                                VerticalAlignment="Center"
                                                FontSize="14"
+                                               Style="{StaticResource BodyText}"
                                                Text="{x:Static resx:Resources.HomeButtonText}" />
                                 </Grid>
                             </Button.Content>
