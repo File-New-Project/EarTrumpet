@@ -37,6 +37,49 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="RunStyle" TargetType="Run">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Theme:Brush.Foreground" Value="Text" />
+    </Style>
+    <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
+        <Setter Property="Margin" Value="12,0,0,0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border Background="{TemplateBinding Background}">
+                        <ItemsPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="HyperlinkStyle" TargetType="{x:Type Hyperlink}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
+        <Setter Property="TextDecorations">
+            <Setter.Value>
+                <TextDecorationCollection>
+                    <TextDecoration Location="Underline" PenOffset="4" />
+                </TextDecorationCollection>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <DataTemplate DataType="{x:Type vm:EarTrumpetActionPageHeaderViewModel}">
         <Border BorderBrush="Transparent" BorderThickness="0">
             <Grid Height="64">
@@ -60,7 +103,7 @@
                             <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
                                 <Setter Property="BorderBrush" Value="Transparent" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                    <DataTrigger Binding="{Binding IsEditClicked}" Value="True">
                                         <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=txtHeader}" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -112,52 +155,6 @@
 
         </Border>
     </DataTemplate>
-    <Style x:Key="RunStyle" TargetType="Run">
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Theme:Brush.Foreground" Value="Text" />
-    </Style>
-
-    <Style x:Key="ThinListStyle" TargetType="{x:Type ListView}">
-        <Setter Property="Margin" Value="12,0,0,0" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ListView">
-                    <Border Background="{TemplateBinding Background}">
-                        <ItemsPresenter />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="HyperlinkStyle" TargetType="{x:Type Hyperlink}">
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
-        <Setter Property="TextDecorations">
-            <Setter.Value>
-                <TextDecorationCollection>
-                    <TextDecoration Location="Underline" PenOffset="4" />
-                </TextDecorationCollection>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>

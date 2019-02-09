@@ -31,19 +31,20 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        // TODO: rename to IsEditClicked
-        private bool _isExpanded;
-        public bool IsExpanded
+        private bool _isEditClicked;
+        public bool IsEditClicked
         {
-            get => _isExpanded;
+            get => _isEditClicked;
             set
             {
-                if (_isExpanded != value)
+                if (_isEditClicked != value)
                 {
-                    _isExpanded = value;
-                    RaisePropertyChanged(nameof(IsExpanded));
-                    _isExpanded = false;
-                    RaisePropertyChanged(nameof(IsExpanded));
+                    _isEditClicked = value;
+                    RaisePropertyChanged(nameof(IsEditClicked));
+
+                    // Immediately unset the value so we can go again.
+                    _isEditClicked = false;
+                    RaisePropertyChanged(nameof(IsEditClicked));
                 }
             }
         }
@@ -84,7 +85,7 @@ namespace EarTrumpet_Actions.ViewModel
                 {
                      Command = new RelayCommand(() =>
                      {
-                         IsExpanded = true;
+                         IsEditClicked = true;
                      }),
                      DisplayName = Properties.Resources.ToolbarEditText,
                      Glyph = "\xE70F",

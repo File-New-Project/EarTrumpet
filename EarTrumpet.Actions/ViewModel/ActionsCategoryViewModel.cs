@@ -3,24 +3,21 @@ using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace EarTrumpet_Actions.ViewModel
 {
     public class ActionsCategoryViewModel : SettingsCategoryViewModel
     {
-        public ActionsCategoryViewModel()
+        public ActionsCategoryViewModel() 
+            : base(Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, Addon.Current.Info.Id, new ObservableCollection<SettingsPageViewModel>())
         {
             // Get a 'fresh' copy so that we can edit the objects and still go back later.
             var actions = Addon.Current.Actions;
             Addon.Current.Actions = Addon.Current.Actions;
 
-            Title = Properties.Resources.MyActionsText;
-            Description = Properties.Resources.AddonDescriptionText;
-            Glyph = "\xE950";
-            Id = Addon.Current.Info.Id;
-            Pages = new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(actions.Select(a => new EarTrumpetActionViewModel(this, a)));
-
+            Pages.AddRange(actions.Select(a => new EarTrumpetActionViewModel(this, a)));
             Pages.Add(new ImportExportPageViewModel(this));
             Pages.Add(new AddonAboutPageViewModel(this));
 
@@ -28,7 +25,7 @@ namespace EarTrumpet_Actions.ViewModel
                 Command = new RelayCommand(() =>
                 {
                     var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = Properties.Resources.NewActionText });
-                    Pages.Add(vm);
+                    Pages.Insert(0, vm);
                     Selected = vm;
                 }),
                 DisplayName = Properties.Resources.NewActionText,
