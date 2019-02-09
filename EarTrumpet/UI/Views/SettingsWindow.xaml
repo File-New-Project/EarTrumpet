@@ -238,20 +238,6 @@
             </Grid>
         </DataTemplate>
 
-        <Style TargetType="{x:Type GroupItem}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type GroupItem}">
-                        <StackPanel>
-                            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
-                                              ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
-                                              ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
-                            <ItemsPresenter Margin="0,0,0,0" />
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="SettingsListViewItem" TargetType="{x:Type ListViewItem}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -289,7 +275,7 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -377,46 +363,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="HomeButtonStyle" TargetType="Button">
-            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
-            <Setter Property="BorderBrush" Value="{x:Null}" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border"
-                                Margin="0,-1,0,0"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
 
-                                <TextBlock Margin="16,0,16,0"
-                                           FontSize="16"
-                                           Style="{StaticResource GlyphTextBlockStyle}"
-                                           Text="&#xE10F;" />
-
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           FontSize="14"
-                                           Text="Home" />
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid>
@@ -528,9 +475,13 @@
                     <Button.Style>
                         <Style BasedOn="{StaticResource CloseButtonStyle}" TargetType="Button">
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="true">
+                                <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
                                     <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
+                                    <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}1" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -599,7 +550,7 @@
                                   Style="{StaticResource MainList}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel />
+                                <WrapPanel Margin="0,24" />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ctl:ListView>
@@ -642,8 +593,30 @@
                         </Grid.RowDefinitions>
 
                         <Button Grid.Row="1"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
                                 Command="{Binding GoHome}"
-                                Style="{StaticResource HomeButtonStyle}" />
+                                Style="{StaticResource InvisibleButtonStyle}">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Margin="16,0,16,0"
+                                               FontSize="16"
+                                               Style="{StaticResource GlyphTextBlockStyle}"
+                                               Text="&#xE10F;" />
+
+                                    <TextBlock Grid.Column="1"
+                                               Style="{StaticResource BodyText}"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               Text="{x:Static resx:Resources.HomeButtonText}" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
 
                         <ctl:SearchBox Grid.Row="2"
                                        Height="32"

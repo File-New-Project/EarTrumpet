@@ -61,7 +61,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About this add-on.
+        ///   Looks up a localized string similar to About {Name} add-on.
         /// </summary>
         public static string AboutThisAddonText {
             get {
@@ -237,6 +237,15 @@ namespace EarTrumpet.Properties {
         public static string FullWindowTitleText {
             get {
                 return ResourceManager.GetString("FullWindowTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string HomeButtonText {
+            get {
+                return ResourceManager.GetString("HomeButtonText", resourceCulture);
             }
         }
         

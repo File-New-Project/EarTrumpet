@@ -75,7 +75,33 @@
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
             <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
 
+            <Style x:Key="Windows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid>
+                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="LargeWindows10FocusVisualStyle">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid Margin="-4" SnapsToDevicePixels="True">
+                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
+                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="{x:Type ListView}" TargetType="ListView">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Background" Value="Transparent" />
@@ -91,13 +117,27 @@
                 </Setter>
             </Style>
             <Style x:Key="{x:Type ListViewItem}" TargetType="ListViewItem">
-                <Setter Property="SnapsToDevicePixels" Value="true" />
-                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
                             <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type GroupItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                            <StackPanel>
+                                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                                  ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                                  ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" />
+                                <ItemsPresenter Margin="0,0,0,0" />
+                            </StackPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -131,8 +171,11 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ListMedium, HighContrast=Highlight" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -141,35 +184,15 @@
                    TargetType="Button">
                 <Setter Property="Margin" Value="0,1,0,0" />
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
+                    <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
                         <Setter Property="Theme:Brush.Background" Value="#FFE81123" />
                     </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                        <Setter Property="Theme:Brush.Background" Value="#F1707A" />
+                    </Trigger>
                 </Style.Triggers>
-            </Style>
-            <Style x:Key="Windows10FocusVisualStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid>
-                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
-                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="LargeWindows10FocusVisualStyle">
-                <Setter Property="Control.Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid Margin="-4" SnapsToDevicePixels="True">
-                                <Rectangle Theme:Brush.Stroke="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" StrokeThickness="3" />
-                                <Rectangle Theme:Brush.Stroke="Text" StrokeThickness="2" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
             </Style>
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -234,7 +257,7 @@
                                                 <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
                                                     <Setter Property="Theme:Brush.Foreground" Value=":Theme=Control{Theme}SliderTrackFillRest, Flyout:Theme=SystemAccent" />
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="true">
+                                                        <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                             <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderThumbHover" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
@@ -366,7 +389,7 @@
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="true">
+                                    SnapsToDevicePixels="True">
                                 <ContentPresenter x:Name="contentPresenter"
                                                   Margin="{TemplateBinding Padding}"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -389,7 +412,7 @@
                 <Setter Property="UsesItemContainerTemplate" Value="True" />
                 <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuSelector}" />
                 <Setter Property="Placement" Value="Mouse" />
-                <Setter Property="Grid.IsSharedSizeScope" Value="true" />
+                <Setter Property="Grid.IsSharedSizeScope" Value="True" />
                 <Setter Property="MinWidth" Value="311" />
                 <Setter Property="HasDropShadow" Value="True" />
                 <Setter Property="FontSize" Value="14" />
@@ -408,7 +431,7 @@
                                 </Border>
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="HasDropShadow" Value="true">
+                                <Trigger Property="HasDropShadow" Value="True">
                                     <Setter TargetName="Border" Property="CornerRadius" Value="0" />
                                     <Setter TargetName="Border" Property="Background" Value="Transparent" />
                                     <Setter TargetName="Border" Property="Padding" Value="0,0,5,5" />
@@ -512,15 +535,15 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="ButtonBase.Command" Value="{x:Null}" />
-                                <Trigger Property="IsChecked" Value="true">
+                                <Trigger Property="IsChecked" Value="True">
                                     <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                                 </Trigger>
-                                <Trigger Property="IsHighlighted" Value="true">
+                                <Trigger Property="IsHighlighted" Value="True">
                                     <Setter TargetName="Border" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=HilightText" />
                                     <Setter TargetName="CheckMark" Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HilightText" />
                                 </Trigger>
-                                <Trigger Property="IsEnabled" Value="false">
+                                <Trigger Property="IsEnabled" Value="False">
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow" />
                                 </Trigger>
                                 <Trigger Property="Role" Value="SubmenuHeader">
@@ -544,7 +567,7 @@
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
                           ItemsSource="{Binding Children}"
-                          UsesItemContainerTemplate="true" />
+                          UsesItemContainerTemplate="True" />
             </HierarchicalDataTemplate>
             <DataTemplate x:Key="ContextMenuSeparatorTemplate">
                 <Separator />
@@ -578,31 +601,30 @@
                 <Setter Property="MinWidth" Value="90" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow" />
-                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseLow" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Padding="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="{TemplateBinding FontFamily}"
-                                           Foreground="{TemplateBinding Foreground}"
-                                           Text="{TemplateBinding Content}" />
+                            <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                                <Border Padding="{TemplateBinding Padding}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               Foreground="{TemplateBinding Foreground}"
+                                               Text="{TemplateBinding Content}" />
+                                </Border>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseLow" />
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
+                    <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
                     </Trigger>
-                    <Trigger Property="IsPressed" Value="true">
+                    <Trigger Property="IsPressed" Value="True">
                         <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
                         <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
                         <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
@@ -818,7 +840,7 @@
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Theme:Brush.Background" Value="Background" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeBlackMediumLow" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Theme:Brush.SelectionBrush" Value="SystemAccent" />
                 <Setter Property="BorderThickness" Value="2" />
@@ -828,7 +850,7 @@
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                <Setter Property="AllowDrop" Value="true" />
+                <Setter Property="AllowDrop" Value="True" />
                 <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
                 <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
                 <Setter Property="Template">
@@ -840,18 +862,18 @@
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     SnapsToDevicePixels="True">
                                 <ScrollViewer x:Name="PART_ContentHost"
-                                              Focusable="false"
+                                              Focusable="False"
                                               HorizontalScrollBarVisibility="Hidden"
                                               VerticalScrollBarVisibility="Hidden" />
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
+                                <Trigger Property="IsEnabled" Value="False">
                                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
-                                <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ListLow" />
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeBlackMedium" />
                                 </Trigger>
-                                <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -868,6 +890,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Top" />
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="0,12,12,12" />
+                <Setter Property="Margin" Value="0,0,24,0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -900,21 +923,23 @@
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Grid>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="true">
+                                <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="root" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="root" Property="Theme:Brush.Background" Value="Theme={Theme}ListMedium, HighContrast=Highlight" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+
+            <Style x:Key="InvisibleButtonStyle" TargetType="Button">
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
-                <Setter Property="Width" Value="48" />
-                <Setter Property="Height" Value="48" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -928,12 +953,21 @@
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ListMedium, HighContrast=Highlight" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="ToolbarButtonStyle"
+                   BasedOn="{StaticResource InvisibleButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Width" Value="48" />
+                <Setter Property="Height" Value="48" />
+            </Style>
 
             <SolidColorBrush x:Key="ScrollBar.Static.Background" Color="#F0F0F0" />
             <SolidColorBrush x:Key="ScrollBar.Pressed.Glyph" Color="#FFFFFF" />
@@ -952,15 +986,15 @@
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="Padding" Value="1" />
-                <Setter Property="Focusable" Value="false" />
-                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
                             <Border x:Name="border"
                                     Background="{StaticResource ScrollBar.Static.Background}"
                                     BorderThickness="0"
-                                    SnapsToDevicePixels="true">
+                                    SnapsToDevicePixels="True">
                                 <ContentPresenter x:Name="contentPresenter"
                                                   Margin="{TemplateBinding Padding}"
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -969,10 +1003,10 @@
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="true">
+                                <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource ScrollBar.MouseOver.Background}" />
                                 </Trigger>
-                                <Trigger Property="IsPressed" Value="true">
+                                <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource ScrollBar.Pressed.Background}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -981,10 +1015,10 @@
                 </Setter>
             </Style>
             <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
-                <Setter Property="OverridesDefaultStyle" Value="true" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Focusable" Value="false" />
-                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -996,8 +1030,8 @@
                 </Setter>
             </Style>
             <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
-                <Setter Property="OverridesDefaultStyle" Value="true" />
-                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -1010,10 +1044,10 @@
                                            SnapsToDevicePixels="True" />
                             </Grid>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="true">
+                                <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="rectangle" Property="Fill" Value="{StaticResource ScrollBar.MouseOver.Thumb}" />
                                 </Trigger>
-                                <Trigger Property="IsDragging" Value="true">
+                                <Trigger Property="IsDragging" Value="True">
                                     <Setter TargetName="rectangle" Property="Fill" Value="{StaticResource ScrollBar.Pressed.Thumb}" />
                                 </Trigger>
                                 <Trigger Property="Tag" Value="True">
@@ -1028,8 +1062,8 @@
             </Style>
 
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
-                <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+                <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
                 <Setter Property="Background" Value="{StaticResource ScrollBar.Static.Background}" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
                 <Setter Property="Margin" Value="-16,0,0,0" />
@@ -1039,7 +1073,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
-                            <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                            <Grid x:Name="Bg" SnapsToDevicePixels="True">
                                 <Grid.RowDefinitions>
                                     <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />
                                     <RowDefinition Height="0.00001*" />
@@ -1062,7 +1096,7 @@
                                 </RepeatButton>
                                 <Track x:Name="PART_Track"
                                        Grid.Row="1"
-                                       IsDirectionReversed="true"
+                                       IsDirectionReversed="True"
                                        IsEnabled="{TemplateBinding IsMouseOver}">
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatButtonTransparent}" />
@@ -1104,33 +1138,33 @@
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="true" />
+                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
+                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="ArrowBottom" Property="Fill" Value="{StaticResource ScrollBar.Pressed.Glyph}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="true" />
+                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
+                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="ArrowTop" Property="Fill" Value="{StaticResource ScrollBar.Pressed.Glyph}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="false" />
+                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
+                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="False" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="ArrowBottom" Property="Fill" Value="{StaticResource ScrollBar.MouseOver.Glyph}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="false" />
+                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
+                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="False" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="ArrowTop" Property="Fill" Value="{StaticResource ScrollBar.MouseOver.Glyph}" />
                                 </MultiDataTrigger>
-                                <Trigger Property="IsEnabled" Value="false">
+                                <Trigger Property="IsEnabled" Value="False">
                                     <Setter TargetName="ArrowTop" Property="Fill" Value="{StaticResource ScrollBar.Disabled.Glyph}" />
                                     <Setter TargetName="ArrowBottom" Property="Fill" Value="{StaticResource ScrollBar.Disabled.Glyph}" />
                                 </Trigger>

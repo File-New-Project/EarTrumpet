@@ -231,7 +231,7 @@
     <value>Windows Legacy</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>About this add-on</value>
+    <value>About {Name} add-on</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
     <value>Name:</value>
@@ -280,6 +280,9 @@
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
     <value>On</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="HotkeyNoneText" xml:space="preserve">
     <value>None</value>

@@ -37,6 +37,8 @@ namespace EarTrumpet.UI.ViewModels
 
         public void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            // Impossible hotkeys (even with modifiers):
+            // Tab, Backspace, Escape
             if (e.Key == Key.Tab)
             {
                 return;
@@ -44,8 +46,9 @@ namespace EarTrumpet.UI.ViewModels
 
             e.Handled = true;
 
-            if (e.Key == Key.Escape)
+            if (e.Key == Key.Escape || e.Key == Key.Back)
             {
+                // Clear selection
                 _hotkey.Key = System.Windows.Forms.Keys.None;
                 _hotkey.Modifiers = System.Windows.Forms.Keys.None;
             }
@@ -86,6 +89,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public void OnLostFocus(object sender, RoutedEventArgs e)
         {
+            // Disallow e.g. Alt+None modifier-only hotkeys.
             if (_hotkey.Key == System.Windows.Forms.Keys.None &&
                 _hotkey.Modifiers != System.Windows.Forms.Keys.None)
             {
@@ -95,7 +99,6 @@ namespace EarTrumpet.UI.ViewModels
 
             if (_hotkey != _savedHotkey)
             {
-
                 _save(_hotkey);
                 _savedHotkey = new HotkeyData { Key = _hotkey.Key, Modifiers = _hotkey.Modifiers };
             }

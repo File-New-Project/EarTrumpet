@@ -17,9 +17,10 @@ namespace EarTrumpet.UI.ViewModels
 
         public AddonAboutPageViewModel(object addonObject) : base(DefaultManagementGroupName)
         {
-            Title = Properties.Resources.AboutThisAddonText;
             Glyph = "\xE946";
             _addon = AddonManager.Current.FindAddonForObject(addonObject);
+            Title = Properties.Resources.AboutThisAddonText.Replace("{Name}", DisplayName);
+
             OpenHelpLink = new RelayCommand(() => ProcessHelper.StartNoThrow(_addon.HelpLink));
             Uninstall = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:appsfeatures"));
         }
