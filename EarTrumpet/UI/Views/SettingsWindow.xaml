@@ -643,7 +643,8 @@
                                                 AutomationProperties.Name="{Binding DisplayName}"
                                                 BorderThickness="0"
                                                 Command="{Binding Command}"
-                                                Style="{StaticResource ToolbarButtonStyle}">
+                                                Style="{StaticResource ToolbarButtonStyle}"
+                                                ToolTipService.ToolTip="{Binding DisplayName}">
                                             <TextBlock FontSize="{Binding GlyphFontSize}"
                                                        Style="{StaticResource GlyphTextBlockStyle}"
                                                        Text="{Binding Glyph}" />

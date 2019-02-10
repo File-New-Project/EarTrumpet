@@ -116,7 +116,9 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
                             <Border Background="{TemplateBinding Background}">
-                                <ItemsPresenter />
+                                <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </ScrollViewer>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
@@ -181,7 +183,11 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
+            <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}ChromeDisabledLow" />
+            </Style>
             <Style x:Key="CaptionButtonStyle" TargetType="Button">
                 <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
                 <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
