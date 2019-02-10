@@ -6,6 +6,7 @@
         {
             DisplayName = Properties.Resources.DefaultPlaybackDeviceText;
             Kind = EarTrumpet.DataModel.AudioDeviceKind.Playback;
+            GroupName = Properties.Resources.PlaybackDeviceGroupText;
         }
     }
 }

@@ -628,11 +628,11 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Playback: {0}.
+        ///   Looks up a localized string similar to Playback.
         /// </summary>
-        public static string PlaybackDeviceFormatStringText {
+        public static string PlaybackDeviceGroupText {
             get {
-                return ResourceManager.GetString("PlaybackDeviceFormatStringText", resourceCulture);
+                return ResourceManager.GetString("PlaybackDeviceGroupText", resourceCulture);
             }
         }
         
@@ -745,11 +745,11 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording: {0}.
+        ///   Looks up a localized string similar to Recording.
         /// </summary>
-        public static string RecordingDeviceFormatStringText {
+        public static string RecordingDeviceGroupText {
             get {
-                return ResourceManager.GetString("RecordingDeviceFormatStringText", resourceCulture);
+                return ResourceManager.GetString("RecordingDeviceGroupText", resourceCulture);
             }
         }
         

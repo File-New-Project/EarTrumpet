@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Serialization;
@@ -6,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -55,6 +58,9 @@ namespace EarTrumpet_Actions.ViewModel
         {
             _part.App = new App { Id = vivewModel.Id };
             RaisePropertyChanged("");  // Signal change so ToString will be called.
+
+            var popup = ((DependencyObject)sender).FindVisualParent<Popup>();
+            popup.IsOpen = false;
         }
 
         public override string ToString()

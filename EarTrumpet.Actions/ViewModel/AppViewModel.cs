@@ -1,5 +1,8 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.UI;
+using System.Linq;
+using System.Windows.Media;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -7,6 +10,8 @@ namespace EarTrumpet_Actions.ViewModel
     {
         public IconLoadInfo Icon { get; }
         public bool IsDesktopApp { get; }
+        public Color Background => _app.IsDesktopApp ? Colors.Transparent : _app.BackgroundColor.ToABGRColor();
+        public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
         private IAudioDeviceSession _app;
 

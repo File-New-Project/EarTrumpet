@@ -1,10 +1,13 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel;
 using EarTrumpet_Actions.DataModel.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace EarTrumpet_Actions.ViewModel
 {
@@ -19,14 +22,14 @@ namespace EarTrumpet_Actions.ViewModel
         }
 
         public ObservableCollection<DeviceViewModelBase> All { get; }
-        public bool IsOpen { get; private set; } = true;
 
         public void OnInvoked(object sender, DeviceViewModelBase vivewModel)
         {
             _part.Device = new Device { Id = vivewModel.Id, Kind = vivewModel.Kind };
             RaisePropertyChanged("");  // Signal change so ToString will be called.
-            IsOpen = false;
-            RaisePropertyChanged(nameof(IsOpen));
+
+            var popup = ((DependencyObject)sender).FindVisualParent<Popup>();
+            popup.IsOpen = false;
         }
 
         private IPartWithDevice _part;

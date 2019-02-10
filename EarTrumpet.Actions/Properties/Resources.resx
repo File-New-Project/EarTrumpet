@@ -282,8 +282,8 @@
   <data name="OptionalText" xml:space="preserve">
     <value>(optional)</value>
   </data>
-  <data name="PlaybackDeviceFormatStringText" xml:space="preserve">
-    <value>Playback: {0}</value>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Playback</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
     <value>If a process is (running, not running)</value>
@@ -321,8 +321,8 @@
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
     <value>Process name (e.g. notepad)</value>
   </data>
-  <data name="RecordingDeviceFormatStringText" xml:space="preserve">
-    <value>Recording: {0}</value>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Recording</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
     <value>Remove</value>

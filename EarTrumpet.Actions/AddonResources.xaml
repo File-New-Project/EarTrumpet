@@ -73,7 +73,8 @@
                                     AutomationProperties.Name="{Binding DisplayName}"
                                     BorderThickness="0"
                                     Command="{Binding Command}"
-                                    Style="{DynamicResource ToolbarButtonStyle}">
+                                    Style="{DynamicResource ToolbarButtonStyle}"
+                                    ToolTipService.ToolTip="{Binding DisplayName}">
                                 <TextBlock FontSize="{Binding GlyphFontSize}" Text="{Binding Glyph}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
@@ -342,7 +343,6 @@
                        Text="{Binding InterfaceName}" />
         </Grid>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
         <Grid Margin="6">
             <Grid.RowDefinitions>
@@ -375,40 +375,71 @@
                        Text="{Binding InterfaceName}" />
         </Grid>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:DeviceListViewModel}">
         <Grid>
+            <Grid.Resources>
+                <CollectionViewSource x:Key="cvs"
+                                      IsLiveGroupingRequested="True"
+                                      Source="{Binding All}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="GroupName" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource HeadingText}" Text="Choose a device" />
+
             <ctl:ListView Grid.Row="1"
+                          MaxHeight="300"
                           Margin="12"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
-                          ItemsSource="{Binding All}"
-                          Style="{StaticResource {x:Type ListView}}" />
+                          ItemsSource="{Binding Source={StaticResource cvs}}"
+                          Style="{StaticResource {x:Type ListView}}">
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="16,12,0,6"
+                                           Theme:Brush.Foreground="GrayText"
+                                           FontSize="15"
+                                           Text="{Binding Name}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ctl:ListView>
         </Grid>
 
     </DataTemplate>
-
-
     <DataTemplate DataType="{x:Type vm:ForegroundAppViewModel}">
         <Grid Margin="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Width="32"
-                       Height="32"
-                       Margin="12,0"
+            <TextBlock Width="{StaticResource AppIconSize}"
+                       Height="{StaticResource AppIconSize}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="15"
                        Style="{StaticResource GlyphTextBlockStyle}"
                        Text="&#xE8C8;" />
             <TextBlock Grid.Column="1"
+                       Margin="12,12"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{x:Static resx:Resources.ForegroundAppText}" />
@@ -420,40 +451,79 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Width="32"
-                       Height="32"
-                       Margin="12,0"
+            <TextBlock Width="{StaticResource AppIconSize}"
+                       Height="{StaticResource AppIconSize}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="15"
                        Style="{StaticResource GlyphTextBlockStyle}"
                        Text="&#xE8C4;" />
             <TextBlock Grid.Column="1"
+                       Margin="12,12"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{x:Static resx:Resources.EveryAppText}" />
         </Grid>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:AppViewModel}">
         <Grid Margin="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image Width="32"
-                   Height="32"
-                   Margin="12,0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Source="{Binding Icon, Converter={StaticResource iconConverter}}" />
+
+            <Border Width="{StaticResource AppIconSize}"
+                    Height="{StaticResource AppIconSize}"
+                    HorizontalAlignment="Center">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="{Binding Background, Mode=OneTime}" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                                <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <Image Width="{StaticResource AppIconSize}"
+                           Height="{StaticResource AppIconSize}"
+                           Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
+                           Stretch="Fill" />
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <TextBlock Margin="0,-1,0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Theme:Brush.Foreground="Text"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Text="{Binding IconText}"
+                                   TextAlignment="Center" />
+                    </Border>
+                </Grid>
+            </Border>
             <TextBlock Grid.Column="1"
+                       Margin="12,12"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{Binding DisplayName}" />
         </Grid>
     </DataTemplate>
-
     <DataTemplate DataType="{x:Type vm:AppListViewModel}">
         <Grid>
             <Grid.RowDefinitions>
@@ -462,6 +532,7 @@
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource HeadingText}" Text="Choose an app" />
             <ctl:ListView Grid.Row="1"
+                          MaxHeight="300"
                           Margin="12"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
