@@ -44,12 +44,7 @@ namespace EarTrumpet.DataModel
             {
                 return registryValue;
             }
-
-#if DEBUG
-            return IsLightTheme;
-#else
             return false; // No system theme prior to 19H1/RS6.
-#endif
         }
     }
 }

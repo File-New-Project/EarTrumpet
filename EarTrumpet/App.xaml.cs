@@ -89,11 +89,6 @@ namespace EarTrumpet
             Trace.WriteLine("App MainViewModel_Ready Before Load");
             AddonManager.Current.Load();
             Trace.WriteLine("App MainViewModel_Ready After Load");
-
-
-            // TODO: NOT FOR CHECKIN
-            OpenSettings();
-
         }
 
         private void OpenMixer()
