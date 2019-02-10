@@ -417,6 +417,10 @@
                     <Trigger Property="IsActive" Value="False">
                         <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
                     </Trigger>
+
+                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsSystemLightTheme}">
+                        <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Application.ico" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
 
