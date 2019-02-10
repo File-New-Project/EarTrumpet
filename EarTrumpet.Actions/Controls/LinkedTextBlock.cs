@@ -1,5 +1,4 @@
-﻿using EarTrumpet.UI;
-using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.ViewModel;
 using System;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace EarTrumpet_Actions.Controls
@@ -23,7 +21,6 @@ namespace EarTrumpet_Actions.Controls
         }
         public static readonly DependencyProperty PopupProperty = DependencyProperty.Register(
           "Popup", typeof(Popup), typeof(LinkedTextBlock), new PropertyMetadata(null));
-
 
         public object DataItem
         {
@@ -74,6 +71,12 @@ namespace EarTrumpet_Actions.Controls
         {
             this.Inlines.Clear();
 
+            if (ContextMenu != null && Popup != null)
+            {
+                ContextMenu.Loaded += ContextMenu_Loaded;
+                Popup.Loaded += Popup_Loaded;
+            }
+
             ReadLinksAndText(FormatText, (text, isLink) =>
             {
                 text = text.Trim();
@@ -94,26 +97,53 @@ namespace EarTrumpet_Actions.Controls
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
+                            ContextMenu.Opacity = 0;
                             ContextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
+                            ContextMenu.UpdateLayout();
                             ContextMenu.IsOpen = true;
+                            Popup.Dispatcher.BeginInvoke((Action)(() =>
+                            {
+                                ContextMenu.Opacity = 1;
+                                ContextMenu.HorizontalOffset = -1 * ContextMenu.RenderSize.Width / 2;
+                                ContextMenu.VerticalOffset = -1 * ContextMenu.RenderSize.Height / 2;
+                            }),
+                            System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }
                         else
                         {
-                            BindingOperations.ClearBinding(Popup, Popup.IsOpenProperty);
+                            Popup.Opacity = 0;
                             Popup.DataContext = resolvedPropertyObject;
+                            Popup.UpdateLayout();
+                            Popup.Child.UpdateLayout();
                             Popup.IsOpen = true;
-                            /*
-                            var closeBinding = new Binding(nameof(Popup.IsOpen));
-                            closeBinding.Source = resolvedPropertyObject;
-                            closeBinding.Mode = BindingMode.OneWay;
-                            BindingOperations.SetBinding(Popup, Popup.IsOpenProperty, closeBinding);
-                            */
+                            Popup.Dispatcher.BeginInvoke((Action)(() =>
+                            {
+                                Popup.Opacity = 1;
+                                Popup.HorizontalOffset = -1 * Popup.Child.RenderSize.Width / 2;
+                                Popup.VerticalOffset = -1 * Popup.Child.RenderSize.Height / 2;
+                            }),
+                            System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }
                     };
                     this.Inlines.Add(link);
                 }
                 this.Inlines.Add(new Run(" "));
             });
+        }
+
+        private void Popup_Loaded(object sender, RoutedEventArgs e)
+        {
+            Popup.UpdateLayout();
+            Popup.Child.UpdateLayout();
+            Popup.HorizontalOffset = -1 * Popup.Child.RenderSize.Width / 2;
+            Popup.VerticalOffset = -1 * Popup.Child.RenderSize.Height / 2;
+        }
+
+        private void ContextMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            ContextMenu.UpdateLayout();
+            ContextMenu.HorizontalOffset = -1 * ContextMenu.RenderSize.Width / 2;
+            ContextMenu.VerticalOffset = -1 * ContextMenu.RenderSize.Height / 2;
         }
 
         private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
