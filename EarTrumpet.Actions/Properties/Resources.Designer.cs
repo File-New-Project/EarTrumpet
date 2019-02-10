@@ -421,15 +421,6 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit actions and hotkeys.
-        /// </summary>
-        public static string EditActionsAndHotkeysText {
-            get {
-                return ResourceManager.GetString("EditActionsAndHotkeysText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string EditText {
@@ -484,7 +475,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import your actions previously exported by EarTrumpet..
+        ///   Looks up a localized string similar to This file can be imported on this or another PC later..
         /// </summary>
         public static string ExportHelpText {
             get {
@@ -547,7 +538,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a file that contains a copy of your saved actions.  This file can be imported on this or another PC later..
+        ///   Looks up a localized string similar to Import your actions previously exported by EarTrumpet. Create a file that contains a copy of your saved actions..
         /// </summary>
         public static string ImportHelpText {
             get {

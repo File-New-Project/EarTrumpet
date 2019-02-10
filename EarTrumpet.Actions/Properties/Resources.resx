@@ -219,9 +219,6 @@
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
     <value>starts up</value>
   </data>
-  <data name="EditActionsAndHotkeysText" xml:space="preserve">
-    <value>Edit actions and hotkeys</value>
-  </data>
   <data name="EditText" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -241,7 +238,7 @@
     <value>Export</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Import your actions previously exported by EarTrumpet.</value>
+    <value>This file can be imported on this or another PC later.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Foreground app</value>
@@ -262,7 +259,7 @@
     <value>Import</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Create a file that contains a copy of your saved actions.  This file can be imported on this or another PC later.</value>
+    <value>Import your actions previously exported by EarTrumpet. Create a file that contains a copy of your saved actions.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
     <value>Mute</value>
