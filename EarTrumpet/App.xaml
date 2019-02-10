@@ -116,9 +116,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
                             <Border Background="{TemplateBinding Background}">
-                                <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
-                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                </ScrollViewer>
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
