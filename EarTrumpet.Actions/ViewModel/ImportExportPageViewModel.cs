@@ -29,7 +29,7 @@ namespace EarTrumpet_Actions.ViewModel
             var dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = ".eta-xml";
             dlg.DefaultExt = ".eta-xml";
-            dlg.Filter = $"{Properties.Resources.EtaXmlFileText} (.eta-xml)|*.eta-xml";
+            dlg.Filter = $"{Properties.Resources.EtaXmlFileText}|*.eta-xml";
 
             if (dlg.ShowDialog() == true)
             {
@@ -50,7 +50,7 @@ namespace EarTrumpet_Actions.ViewModel
             var dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = ".eta-xml";
             dlg.DefaultExt = ".eta-xml";
-            dlg.Filter = $"{Properties.Resources.EtaXmlFileText} (.eta-xml)|*.eta-xml";
+            dlg.Filter = $"{Properties.Resources.EtaXmlFileText}|*.eta-xml";
 
             if (dlg.ShowDialog() == true)
             {
