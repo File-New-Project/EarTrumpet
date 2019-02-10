@@ -396,8 +396,22 @@
                           MaxHeight="300"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
-                          ItemsSource="{Binding Source={StaticResource cvs}}"
-                          Style="{StaticResource {x:Type ListView}}">
+                          ItemsSource="{Binding Source={StaticResource cvs}}">
+                <ListView.Style>
+                    <Style BasedOn="{StaticResource {x:Type ListView}}" TargetType="ListView">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListView">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.Style>
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
@@ -534,8 +548,23 @@
                           MaxHeight="300"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
-                          ItemsSource="{Binding All}"
-                          Style="{StaticResource {x:Type ListView}}" />
+                          ItemsSource="{Binding All}">
+                <ListView.Style>
+                    <Style BasedOn="{StaticResource {x:Type ListView}}" TargetType="ListView">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListView">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.Style>
+            </ctl:ListView>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
