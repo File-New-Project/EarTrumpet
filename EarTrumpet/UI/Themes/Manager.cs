@@ -16,8 +16,7 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<Ref> References { get; set; } = new List<Ref>();
-
+        public List<Ref> References { get; }
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
         public bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
@@ -29,6 +28,7 @@ namespace EarTrumpet.UI.Themes
         public Manager()
         {
             Current = this;
+            References = new List<Ref>();
             _themeChangeTimer.Tick += ThemeChangeTimer_Tick;
 
             _messageWindow = new Win32Window();

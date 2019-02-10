@@ -27,6 +27,11 @@ namespace EarTrumpet.UI.Themes
                     _loadTarget = (FrameworkElement)element;
                     ((FrameworkElement)element).Loaded += Element_Loaded;
                 }
+                else if (element is FrameworkContentElement)
+                {
+                    _loadTarget = (FrameworkContentElement)element;
+                    ((FrameworkContentElement)element).Loaded += Element_Loaded;
+                }
             }
 
             public void Leaving()
