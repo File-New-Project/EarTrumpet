@@ -145,7 +145,7 @@
                                      UsesItemContainerTemplate="True" />
                     </etctl:LinkedTextBlock.ContextMenu>
                     <etctl:LinkedTextBlock.Popup>
-                        <Popup MinWidth="200"
+                        <Popup Width="260"
                                Theme:Options.Source="App"
                                AllowsTransparency="False"
                                Placement="Mouse"
@@ -166,7 +166,7 @@
                                     Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
                                     BorderThickness="1"
                                     SnapsToDevicePixels="True">
-                                <ContentControl Content="{Binding}" />
+                                <ContentControl Theme:Brush.Foreground="Theme=Text" Content="{Binding}" />
                             </Border>
                         </Popup>
                     </etctl:LinkedTextBlock.Popup>
@@ -390,11 +390,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource HeadingText}" Text="Choose a device" />
+            <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.ChooseADeviceTitle}" />
 
             <ctl:ListView Grid.Row="1"
                           MaxHeight="300"
-                          Margin="12"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
                           ItemsSource="{Binding Source={StaticResource cvs}}"
@@ -439,7 +438,7 @@
                        Style="{StaticResource GlyphTextBlockStyle}"
                        Text="&#xE8C8;" />
             <TextBlock Grid.Column="1"
-                       Margin="12,12"
+                       Margin="12,2"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{x:Static resx:Resources.ForegroundAppText}" />
@@ -459,7 +458,7 @@
                        Style="{StaticResource GlyphTextBlockStyle}"
                        Text="&#xE8C4;" />
             <TextBlock Grid.Column="1"
-                       Margin="12,12"
+                       Margin="12,2"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{x:Static resx:Resources.EveryAppText}" />
@@ -518,7 +517,7 @@
                 </Grid>
             </Border>
             <TextBlock Grid.Column="1"
-                       Margin="12,12"
+                       Margin="12,2"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Text="{Binding DisplayName}" />
@@ -530,10 +529,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource HeadingText}" Text="Choose an app" />
+            <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.ChooseAnAppTitle}" />
             <ctl:ListView Grid.Row="1"
                           MaxHeight="300"
-                          Margin="12"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
                           ItemInvoked="{Event:Binding OnInvoked}"
                           ItemsSource="{Binding All}"

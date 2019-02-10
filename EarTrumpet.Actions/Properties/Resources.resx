@@ -417,6 +417,12 @@
   <data name="ToolbarSaveText" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Choose a device</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Choose an app</value>
+  </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
     <value>Cancel</value>
   </data>

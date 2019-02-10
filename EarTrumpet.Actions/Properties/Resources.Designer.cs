@@ -241,6 +241,24 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose a device.
+        /// </summary>
+        public static string ChooseADeviceTitle {
+            get {
+                return ResourceManager.GetString("ChooseADeviceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose an app.
+        /// </summary>
+        public static string ChooseAnAppTitle {
+            get {
+                return ResourceManager.GetString("ChooseAnAppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is.
         /// </summary>
         public static string ComparisonBoolKind_Is {
