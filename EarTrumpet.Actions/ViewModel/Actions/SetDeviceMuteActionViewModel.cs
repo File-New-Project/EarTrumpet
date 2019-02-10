@@ -5,7 +5,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
     class SetDeviceMuteActionViewModel : PartViewModel
     {
         public OptionViewModel Option { get; }
-        public DeviceViewModel Device { get; }
+        public DeviceListViewModel Device { get; }
 
         private SetDeviceMuteAction _action;
 
@@ -13,7 +13,7 @@ namespace EarTrumpet_Actions.ViewModel.Actions
         {
             _action = action;
             Option = new OptionViewModel(action, nameof(action.Option));
-            Device = new DeviceViewModel(action, DeviceViewModel.DeviceListKind.Recording | DeviceViewModel.DeviceListKind.DefaultPlayback);
+            Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.Recording | DeviceListViewModel.DeviceListKind.DefaultPlayback);
 
             Attach(Option);
             Attach(Device);

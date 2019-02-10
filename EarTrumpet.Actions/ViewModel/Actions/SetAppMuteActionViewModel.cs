@@ -5,8 +5,8 @@ namespace EarTrumpet_Actions.ViewModel.Actions
     class SetAppMuteActionViewModel : PartViewModel
     {
         public OptionViewModel Option { get; }
-        public DeviceViewModel Device { get; }
-        public AppViewModel App { get; }
+        public DeviceListViewModel Device { get; }
+        public AppListViewModel App { get; }
 
         private SetAppMuteAction _action;
 
@@ -15,8 +15,8 @@ namespace EarTrumpet_Actions.ViewModel.Actions
             _action = action;
 
             Option = new OptionViewModel(action, nameof(action.Option));
-            App = new AppViewModel(action, AppViewModel.AppKind.EveryApp | AppViewModel.AppKind.ForegroundApp);
-            Device = new DeviceViewModel(action, DeviceViewModel.DeviceListKind.DefaultPlayback);
+            App = new AppListViewModel(action, AppListViewModel.AppKind.EveryApp | AppListViewModel.AppKind.ForegroundApp);
+            Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.DefaultPlayback);
 
             Attach(Option);
             Attach(App);

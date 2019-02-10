@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
 
 namespace EarTrumpet_Actions.Controls
@@ -88,20 +89,25 @@ namespace EarTrumpet_Actions.Controls
                     var link = new Hyperlink(new Run(resolvedPropertyObject.ToString()));
                     link.NavigateUri = new Uri("about:none");
                     link.Style = HyperlinkStyle;
+
                     link.RequestNavigate += (s, e) =>
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
-                            // var contextMenu = ThemedContextMenu.CreateThemedContextMenu(false);
-                            // var src = EarTrumpet.UI.Themes.Options.GetSource(this);
-                            // EarTrumpet.UI.Themes.Options.SetSource(contextMenu, src);
                             ContextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
                             ContextMenu.IsOpen = true;
                         }
                         else
                         {
+                            BindingOperations.ClearBinding(Popup, Popup.IsOpenProperty);
                             Popup.DataContext = resolvedPropertyObject;
                             Popup.IsOpen = true;
+                            /*
+                            var closeBinding = new Binding(nameof(Popup.IsOpen));
+                            closeBinding.Source = resolvedPropertyObject;
+                            closeBinding.Mode = BindingMode.OneWay;
+                            BindingOperations.SetBinding(Popup, Popup.IsOpenProperty, closeBinding);
+                            */
                         }
                     };
                     this.Inlines.Add(link);

@@ -6,12 +6,12 @@ namespace EarTrumpet_Actions.ViewModel.Triggers
     {
         public OptionViewModel Option { get; }
 
-        public DeviceViewModel Device { get; }
+        public DeviceListViewModel Device { get; }
 
         public DeviceEventTriggerViewModel(DeviceEventTrigger trigger) : base(trigger)
         {
             Option = new OptionViewModel(trigger, nameof(trigger.Option));
-            Device = new DeviceViewModel(trigger, DeviceViewModel.DeviceListKind.DefaultPlayback | DeviceViewModel.DeviceListKind.Recording);
+            Device = new DeviceListViewModel(trigger, DeviceListViewModel.DeviceListKind.DefaultPlayback | DeviceListViewModel.DeviceListKind.Recording);
 
             Attach(Option);
             Attach(Device);

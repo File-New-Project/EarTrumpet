@@ -2,7 +2,7 @@
 
 namespace EarTrumpet_Actions.DataModel
 {
-    interface IPartWithDevice
+    public interface IPartWithDevice
     {
         Device Device { get; set; }
     }
