@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensibility;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
@@ -87,6 +88,8 @@ namespace EarTrumpet.UI.ViewModels
 
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
             DeviceManager_DefaultDeviceChanged(this, null);
+
+            Themes.Manager.Current.PropertyChanged += (_, e) => LoadIconResources();
         }
 
         public IEnumerable<ContextMenuItem> MenuItems
@@ -203,15 +206,18 @@ namespace EarTrumpet.UI.ViewModels
             var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
             Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
 
+            var themeStr = !SystemSettings.IsSystemLightTheme ? "light" : "dark";
+            Func<string, Icon> GetIcon = (iconString) => new Icon(Application.GetResourceStream(new Uri($"pack://application:,,,/EarTrumpet;component/Assets/{themeStr}_{iconString}.ico")).Stream);
+
             try
             {
                 _icons.Clear();
                 _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon));
-                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon));
-                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon));
-                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon));
-                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon));
+                _icons.Add(IconId.NoDevice, GetIcon("zerobars")); // TODO: NoDevice asset
+                _icons.Add(IconId.Muted, GetIcon("mute"));
+                _icons.Add(IconId.SpeakerOneBar, GetIcon("onebar"));
+                _icons.Add(IconId.SpeakerTwoBars, GetIcon("twobars"));
+                _icons.Add(IconId.SpeakerThreeBars, GetIcon("threebars"));
             }
             catch (Exception ex)
             {
