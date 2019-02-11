@@ -190,7 +190,7 @@
     <value>Add an optional filter condition to build more advanced actions. Filters must all be true for the Do's to be run.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Advanced Filter</value>
+    <value>Advanced Filters</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
     <value>Create a context menu item in EarTrumpet</value>
@@ -457,6 +457,6 @@
     <value>Remove</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Don't see your app? Make sure it's made sound recently.</value>
+    <value>Apps shown have made noise recently.</value>
   </data>
 </root>

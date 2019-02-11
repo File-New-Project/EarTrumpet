@@ -250,7 +250,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t see your app? Make sure it&apos;s made sound recently..
+        ///   Looks up a localized string similar to Apps shown have made noise recently..
         /// </summary>
         public static string ChooseAnAppHelpText {
             get {
@@ -304,7 +304,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced Filter.
+        ///   Looks up a localized string similar to Advanced Filters.
         /// </summary>
         public static string ConditionVerbText {
             get {

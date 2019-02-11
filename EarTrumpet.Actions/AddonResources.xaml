@@ -16,7 +16,7 @@
     <Style x:Key="ThinListStyle"
            BasedOn="{StaticResource {x:Type ListView}}"
            TargetType="{x:Type ListView}">
-        <Setter Property="Margin" Value="12,0,24,0" />
+        <Setter Property="Margin" Value="0,0,24,0" />
     </Style>
     <Style x:Key="HyperlinkStyle"
            BasedOn="{StaticResource {x:Type Hyperlink}}"
@@ -120,29 +120,13 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Margin="0,-10,0,0"
-                       VerticalAlignment="Top"
-                       Theme:Brush.Foreground="GrayText"
-                       FontSize="14"
-                       IsHitTestVisible="False"
-                       Text="{Binding AdditionalText}" />
-            <Button Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    AutomationProperties.Name="{x:Static resx:Resources.RemoveButtonAccessibleName}"
-                    Command="{Binding Remove}"
-                    CommandParameter="{Binding}"
-                    Style="{StaticResource ToolbarButtonStyle}">
-                <TextBlock FontSize="14"
-                           Style="{StaticResource GlyphTextBlockStyle}"
-                           Text="&#xE107;" />
-            </Button>
-            <Border Margin="0,12"
+
+            <Border Margin="0"
                     VerticalAlignment="Center"
                     ClipToBounds="True">
                 <!--  The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent  -->
                 <etctl:LinkedTextBlock Margin="0,0,0,-8"
-                                       Padding="0,4"
+                                       Padding="12,4"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        DataItem="{Binding}"
@@ -188,6 +172,23 @@
                     </etctl:LinkedTextBlock.Popup>
                 </etctl:LinkedTextBlock>
             </Border>
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{x:Static resx:Resources.RemoveButtonAccessibleName}"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock FontSize="14"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xE107;" />
+            </Button>
+            <TextBlock Margin="12,-10,0,0"
+                       VerticalAlignment="Top"
+                       Theme:Brush.Foreground="GrayText"
+                       FontSize="14"
+                       IsHitTestVisible="False"
+                       Text="{Binding AdditionalText}" />
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:ImportExportPageViewModel}">

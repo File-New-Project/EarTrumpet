@@ -65,14 +65,14 @@ namespace EarTrumpet_Actions.ViewModel
                 All.Add(new DefaultPlaybackDeviceViewModel());
             }
 
-            foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices)
+            foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.OrderBy(d => d.DisplayName))
             {
                 All.Add(new DeviceViewModel(device));
             }
 
             if (isRecording)
             {
-                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording).Devices)
+                foreach (var device in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording).Devices.OrderBy(d => d.DisplayName))
                 {
                     All.Add(new DeviceViewModel(device));
                 }
