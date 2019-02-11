@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class AdvertisedCategorySettingsViewModel : SettingsCategoryViewModel
+    public class AdvertisedCategorySettingsViewModel : SettingsCategoryViewModel
     {
         string _link;
 
