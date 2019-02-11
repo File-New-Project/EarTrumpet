@@ -164,7 +164,9 @@
                                AllowsTransparency="False"
                                Placement="Mouse"
                                PopupAnimation="None"
-                               StaysOpen="False">
+                               StaysOpen="False"
+                               TextOptions.TextFormattingMode="Display"
+                               UseLayoutRounding="True">
                             <Popup.Style>
                                 <Style TargetType="Popup">
                                     <Style.Triggers>
@@ -478,11 +480,11 @@
                   Height="{StaticResource AppIconSize}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
-                <TextBlock Theme:Brush.Foreground="SystemAccent"
-                           FontSize="15"
+                <TextBlock Theme:Brush.Foreground="SystemAccentLight2"
+                           FontSize="18"
                            Style="{StaticResource GlyphTextBlockStyle}"
                            Text="&#xF5EE;" />
-                <TextBlock FontSize="15"
+                <TextBlock FontSize="18"
                            Style="{StaticResource GlyphTextBlockStyle}"
                            Text="&#xF5ED;" />
             </Grid>
@@ -503,9 +505,9 @@
                     Height="{StaticResource AppIconSize}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                <TextBlock FontSize="15"
+                <TextBlock FontSize="18"
                            Style="{StaticResource GlyphTextBlockStyle}"
-                           Text="&#xE9D5;" />
+                           Text="&#xE71D;" />
             </Border>
 
             <TextBlock Grid.Column="1"
