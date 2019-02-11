@@ -1,7 +1,8 @@
-﻿using System;
+﻿using EarTrumpet.Interop;
+using EarTrumpet_Actions.Interop.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Management;
 using System.Threading;
 
 namespace EarTrumpet_Actions.DataModel
@@ -10,50 +11,100 @@ namespace EarTrumpet_Actions.DataModel
     {
         public static ProcessWatcher Current { get; } = new ProcessWatcher();
 
-        public List<string> ProcessNames { get; private set; }
-
         public event Action<string> ProcessStarted;
         public event Action<string> ProcessStopped;
 
-        ManagementEventWatcher _processStartWatcher = new ManagementEventWatcher();
-        ManagementEventWatcher _processStopWatcher = new ManagementEventWatcher();
+        WindowWatcher _watcher = new WindowWatcher();
+        Dictionary<int, string> _procs;
+        Dictionary<IntPtr, int> _hwnds;
 
         public ProcessWatcher()
         {
-            ProcessNames = new List<string>();
-            /*
-             * Requires Administrator group :/
-            _processStartWatcher = new ManagementEventWatcher(new WqlEventQuery("SELECT * FROM Win32_ProcessStartTrace"));
-            _processStartWatcher.EventArrived += new EventArrivedEventHandler(OnProcessStarted);
-            _processStopWatcher = new ManagementEventWatcher(new WqlEventQuery("SELECT * FROM Win32_ProcessStopTrace"));
-            _processStopWatcher.EventArrived += new EventArrivedEventHandler(OnProcessStopped);
-            _processStartWatcher.Start();
-            _processStopWatcher.Start();
-            */
+            _procs = new Dictionary<int, string>();
+            _hwnds = new Dictionary<IntPtr, int>();
 
-            AddRemoveProcesses();
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-
-                while (true)
-                {
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-                    AddRemoveProcesses();
-                }
+                AddRunningProcesses();
             }).Start();
+
+            _watcher.WindowCreated += _watcher_WindowCreated;
+            _watcher.WindowDestroyed += _watcher_WindowDestroyed;
         }
 
-        void AddRemoveProcesses()
+        public bool IsRunning(string procName)
+        {
+            return _procs.ContainsValue(procName);
+        }
+
+        private void _watcher_WindowDestroyed(IntPtr hwnd)
+        {
+            User32.GetWindowThreadProcessId(hwnd, out uint pid);
+
+            if (pid == 0 && _hwnds.ContainsKey(hwnd))
+            {
+                OnStopped(_hwnds[hwnd]);
+                _hwnds.Remove(hwnd);
+            }
+        }
+
+        private void _watcher_WindowCreated(IntPtr hwnd)
         {
             try
             {
-                var newProcessNames = new List<string>();
+                User32.GetWindowThreadProcessId(hwnd, out uint pid);
+
+                using (var proc = Process.GetProcessById((int)pid))
+                {
+                    MarkProcessRunning(proc.ProcessName.ToLower(), (int)pid);
+                    _hwnds[hwnd] = (int)pid;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+        }
+
+        void MarkProcessRunning(string procName, int pid, bool hideLog = false)
+        {
+            if (!_procs.ContainsKey(pid))
+            {
+                _procs[pid] = procName;
+                if (!hideLog)
+                {
+                    Trace.WriteLine($"Process started: {procName}");
+                }
+                ProcessStarted?.Invoke(procName);
+            }
+        }
+
+        void OnStopped(int pid)
+        {
+            if (!_procs.ContainsKey(pid))
+            {
+                var procName = _procs[pid];
+                _procs.Remove(pid);
+                Trace.WriteLine($"Process stopped: {procName}");
+
+                ProcessStopped?.Invoke(procName);
+            }
+        }
+
+        void AddRunningProcesses()
+        {
+            try
+            {
                 foreach (var p in Process.GetProcesses())
                 {
                     try
                     {
-                        newProcessNames.Add(p.ProcessName.ToLower() + ".exe");
+                        MarkProcessRunning(p.ProcessName.ToLower(), p.Id, hideLog:true);
+                        if (p.MainWindowHandle != IntPtr.Zero)
+                        {
+                            _hwnds[p.MainWindowHandle] = p.Id;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -64,32 +115,11 @@ namespace EarTrumpet_Actions.DataModel
                         p.Dispose();
                     }
                 }
-                ProcessNames = newProcessNames;
             }
             catch (Exception ex)
             {
                 Trace.WriteLine(ex);
             }
-        }
-
-        void OnProcessStopped(object sender, EventArrivedEventArgs e)
-        {
-            var processName = (string)e.NewEvent.Properties["ProcessName"].Value;
-            if (ProcessNames.Contains(processName))
-            {
-                ProcessNames.Remove(processName);
-            }
-            Trace.WriteLine($"Process stopped: {processName}");
-
-            ProcessStopped?.Invoke(processName);
-        }
-
-        void OnProcessStarted(object sender, EventArrivedEventArgs e)
-        {
-            var processName = (string)e.NewEvent.Properties["ProcessName"].Value;
-            ProcessNames.Add(processName);
-            Trace.WriteLine($"Process started: {processName}");
-            ProcessStarted?.Invoke(processName);
         }
     }
 }

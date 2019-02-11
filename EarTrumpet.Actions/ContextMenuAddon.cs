@@ -16,6 +16,12 @@ namespace EarTrumpet_Actions
             get
             {
                 var ret = new List<ContextMenuItem>();
+
+                if (Addon.Current == null)
+                {
+                    return ret;
+                }
+
                 foreach (var item in Addon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
                 {
                     ret.Add(new ContextMenuItem

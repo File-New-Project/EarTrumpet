@@ -20,7 +20,7 @@ namespace EarTrumpet_Actions.ViewModel
             _app = app;
             DisplayName = app.SessionDisplayName;
             IsDesktopApp = app.IsDesktopApp;
-            Id = app.Id;
+            Id = app.AppId;
             Icon = new IconLoadInfo { IconPath = app.IconPath, IsDesktopApp = app.IsDesktopApp };
         }
     }

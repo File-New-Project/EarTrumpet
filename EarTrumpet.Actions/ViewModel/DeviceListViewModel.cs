@@ -40,7 +40,7 @@ namespace EarTrumpet_Actions.ViewModel
             All = new ObservableCollection<DeviceViewModelBase>();
             GetDevices(flags);
 
-            if (ToString() == null)
+            if (_part.Device == null)
             {
                 _part.Device = new Device { Id = All[0].Id, Kind = All[0].Kind };
             }

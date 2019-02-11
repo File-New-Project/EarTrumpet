@@ -1,4 +1,6 @@
-﻿namespace EarTrumpet_Actions.ViewModel
+﻿using EarTrumpet_Actions.DataModel.Serialization;
+
+namespace EarTrumpet_Actions.ViewModel
 {
     class DefaultPlaybackDeviceViewModel : DeviceViewModelBase
     {
