@@ -206,31 +206,28 @@ namespace EarTrumpet.UI.ViewModels
             var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
             Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
 
-            var themeStr = !SystemSettings.IsSystemLightTheme ? "light" : "dark";
-            Func<string, Icon> GetIcon = (iconString) => new Icon(Application.GetResourceStream(new Uri($"pack://application:,,,/EarTrumpet;component/Assets/{themeStr}_{iconString}.ico")).Stream);
-
+            var invertColors = SystemSettings.IsSystemLightTheme;
             try
             {
                 _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.NoDevice, GetIcon("zerobars")); // TODO: NoDevice asset
-                _icons.Add(IconId.Muted, GetIcon("mute"));
-                _icons.Add(IconId.SpeakerOneBar, GetIcon("onebar"));
-                _icons.Add(IconId.SpeakerTwoBars, GetIcon("twobars"));
-                _icons.Add(IconId.SpeakerThreeBars, GetIcon("threebars"));
+                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon, invertColors));
+                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon, invertColors));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon, invertColors));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon, invertColors));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon, invertColors));
             }
             catch (Exception ex)
             {
                 Trace.WriteLine($"TrayViewModel LoadIconResources Error: {ex}");
 
                 _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.NoDevice, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.Muted, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerZeroBars, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerOneBar, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerTwoBars, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerThreeBars, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.OriginalIcon, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.NoDevice, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.Muted, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.SpeakerZeroBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
             }
         }
 

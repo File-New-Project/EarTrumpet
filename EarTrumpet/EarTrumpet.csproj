@@ -422,18 +422,6 @@
   <ItemGroup>
     <Resource Include="Assets\DevVersion.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\dark_mute.ico" />
-    <Resource Include="Assets\dark_onebar.ico" />
-    <Resource Include="Assets\dark_threebars.ico" />
-    <Resource Include="Assets\dark_twobars.ico" />
-    <Resource Include="Assets\dark_zerobars.ico" />
-    <Resource Include="Assets\light_mute.ico" />
-    <Resource Include="Assets\light_onebar.ico" />
-    <Resource Include="Assets\light_threebars.ico" />
-    <Resource Include="Assets\light_twobars.ico" />
-    <Resource Include="Assets\light_zerobars.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>powershell -executionpolicy Bypass -noprofile "$(ProjectDir)\prebuild.ps1"</PreBuildEvent>
