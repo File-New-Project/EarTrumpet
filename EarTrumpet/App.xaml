@@ -454,7 +454,8 @@
             <!--  ContextMenu styles & templates  -->
             <Style TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                <Setter Property="UseLayoutRounding" Value="True" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="UsesItemContainerTemplate" Value="True" />
                 <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuSelector}" />

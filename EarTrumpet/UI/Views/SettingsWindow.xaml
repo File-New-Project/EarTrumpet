@@ -16,6 +16,8 @@
         Background="Transparent"
         ResizeMode="CanResize"
         Style="{StaticResource DialogWindowStyle}"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
