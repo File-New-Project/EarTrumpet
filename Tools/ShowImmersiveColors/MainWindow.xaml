@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBox Name="txtSearch" TextChanged="TextBox_TextChanged" />
-        <ListView Name="Colors" Grid.Row="1" Background="Black" Foreground="White">
+        <ListView Name="Colors" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="views:ColorData">
                     <StackPanel Height="14" Orientation="Horizontal">
