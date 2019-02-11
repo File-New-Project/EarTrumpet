@@ -75,7 +75,7 @@
                                     Command="{Binding Command}"
                                     ToolTipService.ToolTip="{Binding DisplayName}">
                                 <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                                    <Style BasedOn="{StaticResource ToolbarButtonStyle}" TargetType="Button">
                                         <Style.Triggers>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
@@ -152,12 +152,12 @@
                                        LineStackingStrategy="MaxHeight"
                                        RunStyle="{DynamicResource RunStyle}"
                                        TextWrapping="Wrap">
-                    <etctl:LinkedTextBlock.ContextMenu>
+                    <etctl:LinkedTextBlock.ContextMenu2>
                         <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
                                      ItemContainerTemplateSelector="{StaticResource MenuSelector}"
                                      Placement="Mouse"
                                      UsesItemContainerTemplate="True" />
-                    </etctl:LinkedTextBlock.ContextMenu>
+                    </etctl:LinkedTextBlock.ContextMenu2>
                     <etctl:LinkedTextBlock.Popup>
                         <Popup Width="260"
                                Theme:Options.Source="App"

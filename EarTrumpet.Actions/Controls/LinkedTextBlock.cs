@@ -22,6 +22,15 @@ namespace EarTrumpet_Actions.Controls
         public static readonly DependencyProperty PopupProperty = DependencyProperty.Register(
           "Popup", typeof(Popup), typeof(LinkedTextBlock), new PropertyMetadata(null));
 
+        // We avoid ContextMenu because something external connects it to right-click behavior that (seemingly) can't be prevented.
+        public ContextMenu ContextMenu2
+        {
+            get { return (ContextMenu)this.GetValue(ContextMenuProperty2); }
+            set { this.SetValue(ContextMenuProperty2, value); }
+        }
+        public static readonly DependencyProperty ContextMenuProperty2 = DependencyProperty.Register(
+          "ContextMenu2", typeof(ContextMenu), typeof(LinkedTextBlock), new PropertyMetadata(null));
+
         public object DataItem
         {
             get { return (object)this.GetValue(DataItemProperty); }
@@ -97,15 +106,15 @@ namespace EarTrumpet_Actions.Controls
                     {
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
-                            ContextMenu.Opacity = 0;
-                            ContextMenu.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
-                            ContextMenu.UpdateLayout();
-                            ContextMenu.IsOpen = true;
+                            ContextMenu2.Opacity = 0;
+                            ContextMenu2.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
+                            ContextMenu2.UpdateLayout();
+                            ContextMenu2.IsOpen = true;
                             Popup.Dispatcher.BeginInvoke((Action)(() =>
                             {
-                                ContextMenu.Opacity = 1;
-                                ContextMenu.HorizontalOffset = -1 * ContextMenu.RenderSize.Width / 2;
-                                ContextMenu.VerticalOffset = -1 * ContextMenu.RenderSize.Height / 2;
+                                ContextMenu2.Opacity = 1;
+                                ContextMenu2.HorizontalOffset = -1 * ContextMenu2.RenderSize.Width / 2;
+                                ContextMenu2.VerticalOffset = -1 * ContextMenu2.RenderSize.Height / 2;
                             }),
                             System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }
@@ -141,9 +150,9 @@ namespace EarTrumpet_Actions.Controls
 
         private void ContextMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            ContextMenu.UpdateLayout();
-            ContextMenu.HorizontalOffset = -1 * ContextMenu.RenderSize.Width / 2;
-            ContextMenu.VerticalOffset = -1 * ContextMenu.RenderSize.Height / 2;
+            ContextMenu2.UpdateLayout();
+            ContextMenu2.HorizontalOffset = -1 * ContextMenu2.RenderSize.Width / 2;
+            ContextMenu2.VerticalOffset = -1 * ContextMenu2.RenderSize.Height / 2;
         }
 
         private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
