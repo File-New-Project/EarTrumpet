@@ -72,6 +72,7 @@ namespace EarTrumpet.UI.ViewModels
         private bool _useLegacyIcon;
         private Icon _trayIcon;
         private string _toolTip;
+        private bool _invertIconColors = SystemSettings.IsSystemLightTheme;
 
         internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
@@ -81,6 +82,10 @@ namespace EarTrumpet.UI.ViewModels
             MiddleClick = new RelayCommand(ToggleMute);
 
             _earTrumpetLegacyIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
+            if (_invertIconColors)
+            {
+                _earTrumpetLegacyIcon = IconUtils.InvertIconColors(_earTrumpetLegacyIcon);
+            }
             LoadIconResources();
 
             _useLegacyIcon = SettingsService.UseLegacyIcon;
@@ -181,7 +186,7 @@ namespace EarTrumpet.UI.ViewModels
 
                     if (addonEntries.Any())
                     {
-                        foreach(var entry in addonEntries)
+                        foreach (var entry in addonEntries)
                         {
                             ret.Insert(ret.Count - 4, entry);
                         }
@@ -206,28 +211,27 @@ namespace EarTrumpet.UI.ViewModels
             var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
             Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
 
-            var invertColors = SystemSettings.IsSystemLightTheme;
             try
             {
                 _icons.Clear();
-                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon, invertColors));
-                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon, invertColors));
-                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon, invertColors));
-                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon, invertColors));
-                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon, invertColors));
+                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon, _invertIconColors));
+                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon, _invertIconColors));
+                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon, _invertIconColors));
+                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon, _invertIconColors));
+                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon, _invertIconColors));
             }
             catch (Exception ex)
             {
                 Trace.WriteLine($"TrayViewModel LoadIconResources Error: {ex}");
 
                 _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.NoDevice, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.Muted, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.SpeakerZeroBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.SpeakerOneBar, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.SpeakerTwoBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
-                _icons.Add(IconId.SpeakerThreeBars, IconUtils.InvertIconColors(_earTrumpetLegacyIcon));
+                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.NoDevice, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.Muted, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.SpeakerOneBar, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.SpeakerTwoBars, _earTrumpetLegacyIcon);
+                _icons.Add(IconId.SpeakerThreeBars, _earTrumpetLegacyIcon);
             }
         }
 
@@ -306,8 +310,8 @@ namespace EarTrumpet.UI.ViewModels
             {
                 var stateText = _defaultDevice.IsMuted && Features.IsEnabled(Feature.TrayIconToolTipHasMuteState) ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
                 var prefixText = $"EarTrumpet: {stateText} - ";
-                var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";   
-                
+                var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";
+
                 // Note: Remote Desktop has an empty description and empty enumerator, but the friendly name is set.
                 if (string.IsNullOrWhiteSpace(_defaultDevice.DeviceDescription) && string.IsNullOrWhiteSpace(_defaultDevice.EnumeratorName))
                 {
