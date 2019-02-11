@@ -2,6 +2,7 @@
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.DataModel.Serialization;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -24,6 +25,8 @@ namespace EarTrumpet_Actions.ViewModel
                 Command = new RelayCommand(() =>
                 {
                     var vm = new EarTrumpetActionViewModel(this, new EarTrumpetAction { DisplayName = Properties.Resources.NewActionText });
+                    vm.IsWorkSaved = false;
+                    vm.IsPersisted = false;
                     Pages.Insert(0, vm);
                     Selected = vm;
                 }),
@@ -46,16 +49,24 @@ namespace EarTrumpet_Actions.ViewModel
 
         public void Delete(EarTrumpetActionViewModel earTrumpetActionViewModel)
         {
-            _parent.ShowDialog(Properties.Resources.DeleteActionDialogTitle,Properties.Resources.DeleteActionDialogText, 
-                Properties.Resources.DeleteActionDialogYesText, Properties.Resources.DeleteActionDialogNoText, () => {
-
+            Action doRemove = () =>
+            {
                 var actions = Addon.Current.Actions.ToList();
                 actions.Remove(item => item.Id == earTrumpetActionViewModel.Id);
                 Addon.Current.Actions = actions.ToArray();
 
                 Pages.Remove(earTrumpetActionViewModel);
-            },
-            () => { });
+            };
+
+            if (earTrumpetActionViewModel.IsPersisted)
+            {
+                _parent.ShowDialog(Properties.Resources.DeleteActionDialogTitle, Properties.Resources.DeleteActionDialogText,
+                    Properties.Resources.DeleteActionDialogYesText, Properties.Resources.DeleteActionDialogNoText, doRemove,() => { });
+            }
+            else
+            {
+                doRemove();
+            }
         }
 
         public void Save(EarTrumpetActionViewModel earTrumpetActionViewModel)

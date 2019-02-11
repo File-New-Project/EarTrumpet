@@ -71,6 +71,7 @@ namespace EarTrumpet_Actions.ViewModel
         public ObservableCollection<PartViewModel> Triggers { get; private set; }
         public ObservableCollection<PartViewModel> Conditions { get; private set; }
         public ObservableCollection<PartViewModel> Actions { get; private set; }
+        public bool IsPersisted { get; set; } = true;
 
         private EarTrumpetAction _action;
         private ActionsCategoryViewModel _parent;
@@ -90,36 +91,24 @@ namespace EarTrumpet_Actions.ViewModel
                      }),
                      DisplayName = Properties.Resources.ToolbarEditText,
                      Glyph = "\xE70F",
-                     GlyphFontSize = 14,
+                     GlyphFontSize = 15,
                 },
                 new ToolbarItemViewModel
                 {
                      Command = new RelayCommand(() =>
                      {
+                         IsPersisted = true;
                          _parent.Save(this);
                      }),
                      DisplayName = Properties.Resources.ToolbarSaveText,
-                     Id = "Save", // String is not for display
+                     Id = "Save",
                      Glyph = "\xE105",
-                     GlyphFontSize = 14,
+                     GlyphFontSize = 15,
                 },
-                /*
-                new ToolbarItemViewModel
-                {
-                     Command = new RelayCommand(() =>
-                     {
-                         _parent.Delete(this);
-                     }),
-                     DisplayName = Properties.Resources.ToolbarDeleteText,
-                     Glyph = "\xE107",
-                     GlyphFontSize = 14,
-                },
-                */
             };
 
             Glyph = "\xE1CE";
             Title = DisplayName;
-            IsWorkSaved = true;
         }
 
         public void Reset(EarTrumpetAction action)
@@ -148,7 +137,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         public override bool NavigatingFrom(NavigationCookie cookie)
         {
-            if (!IsWorkSaved)
+            if (!IsWorkSaved && IsPersisted)
             {
                 _parent.ShowDialog(Properties.Resources.LeavingPageDialogTitle, Properties.Resources.LeavingPageDialogText, Properties.Resources.LeavingPageDialogYesText, () =>
                 {
