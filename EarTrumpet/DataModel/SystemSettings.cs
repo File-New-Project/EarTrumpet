@@ -11,11 +11,10 @@ namespace EarTrumpet.DataModel
 
         internal static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
         internal static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
-        internal static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1 /* Light theme is system default */);
-        internal static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
-        internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
-        internal static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars");
+        internal static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1);
+        internal static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));        internal static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
         internal static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
+        internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
         internal static string BuildLabel
         {
