@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace EarTrumpet_Actions.Controls
 {
@@ -105,6 +106,8 @@ namespace EarTrumpet_Actions.Controls
 
                     link.RequestNavigate += (s, e) =>
                     {
+                        // Take focus now so that we get return focus when the user leaves.
+                        link.Focus();
                         var dpiX = Window.GetWindow(this).DpiWidthFactor();
                         var dpiY = Window.GetWindow(this).DpiHeightFactor();
 
@@ -125,6 +128,13 @@ namespace EarTrumpet_Actions.Controls
                         }
                         else
                         {
+                            Popup.PreviewKeyDown += (_, ee) =>
+                            {
+                                if (ee.Key == Key.Escape)
+                                {
+                                    Popup.IsOpen = false;
+                                }
+                            };
                             Popup.Opacity = 0;
                             Popup.DataContext = resolvedPropertyObject;
                             Popup.UpdateLayout();
@@ -135,7 +145,7 @@ namespace EarTrumpet_Actions.Controls
                                 Popup.Opacity = 1;
                                 Popup.HorizontalOffset = -1 * (Popup.Child.RenderSize.Width / dpiX) / 2;
                                 Popup.VerticalOffset = -1 * (Popup.Child.RenderSize.Height / dpiY) / 2;
-                                Popup.Focus();
+                                Keyboard.Focus(Popup.Child.FindVisualChild<Control>());
                             }),
                             System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }

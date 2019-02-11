@@ -146,6 +146,8 @@
                         <Popup Width="260"
                                Theme:Options.Source="App"
                                AllowsTransparency="False"
+                               FocusVisualStyle="{x:Null}"
+                               Focusable="False"
                                Placement="Mouse"
                                PopupAnimation="None"
                                StaysOpen="False"
