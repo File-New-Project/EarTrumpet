@@ -19,6 +19,7 @@ namespace EarTrumpet_Actions.ViewModel
             Id = _device.Id;
             DisplayName = _device.DisplayName;
             Icon = new IconLoadInfo { IconPath = _device.IconPath, IsDesktopApp = true };
+            Kind = _device.Parent.DeviceKind;
 
             GroupName = _device.Parent.DeviceKind == AudioDeviceKind.Playback ?
                 Properties.Resources.PlaybackDeviceGroupText :
