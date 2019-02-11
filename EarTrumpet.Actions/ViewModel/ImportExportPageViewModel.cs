@@ -3,6 +3,7 @@ using EarTrumpet.UI.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows.Input;
 
 namespace EarTrumpet_Actions.ViewModel
@@ -56,7 +57,7 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 try
                 {
-                    File.WriteAllText(dlg.FileName, Addon.Current.Export());
+                    File.WriteAllText(dlg.FileName, Addon.Current.Export(), Encoding.Unicode);
                 }
                 catch (Exception ex)
                 {
