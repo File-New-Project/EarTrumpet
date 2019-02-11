@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet_Actions.ViewModel;
 using System;
@@ -104,6 +105,9 @@ namespace EarTrumpet_Actions.Controls
 
                     link.RequestNavigate += (s, e) =>
                     {
+                        var dpiX = Window.GetWindow(this).DpiWidthFactor();
+                        var dpiY = Window.GetWindow(this).DpiHeightFactor();
+
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
                             ContextMenu2.Opacity = 0;
@@ -113,8 +117,9 @@ namespace EarTrumpet_Actions.Controls
                             Popup.Dispatcher.BeginInvoke((Action)(() =>
                             {
                                 ContextMenu2.Opacity = 1;
-                                ContextMenu2.HorizontalOffset = -1 * ContextMenu2.RenderSize.Width / 2;
-                                ContextMenu2.VerticalOffset = -1 * ContextMenu2.RenderSize.Height / 2;
+                                ContextMenu2.HorizontalOffset = -1 * (ContextMenu2.RenderSize.Width / dpiX) / 2;
+                                ContextMenu2.VerticalOffset = -1 * (ContextMenu2.RenderSize.Height / dpiY) / 2;
+                                ContextMenu2.Focus();
                             }),
                             System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }
@@ -128,8 +133,9 @@ namespace EarTrumpet_Actions.Controls
                             Popup.Dispatcher.BeginInvoke((Action)(() =>
                             {
                                 Popup.Opacity = 1;
-                                Popup.HorizontalOffset = -1 * Popup.Child.RenderSize.Width / 2;
-                                Popup.VerticalOffset = -1 * Popup.Child.RenderSize.Height / 2;
+                                Popup.HorizontalOffset = -1 * (Popup.Child.RenderSize.Width / dpiX) / 2;
+                                Popup.VerticalOffset = -1 * (Popup.Child.RenderSize.Height / dpiY) / 2;
+                                Popup.Focus();
                             }),
                             System.Windows.Threading.DispatcherPriority.DataBind, null);
                         }
