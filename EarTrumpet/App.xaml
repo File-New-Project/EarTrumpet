@@ -105,8 +105,18 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="{x:Type ContentControl}" TargetType="ContentControl">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+            <Style x:Key="{x:Type ItemsControl}" TargetType="ItemsControl">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
             <Style x:Key="{x:Type ListView}" TargetType="ListView">
                 <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Focusable" Value="False" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="SnapsToDevicePixels" Value="True" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
