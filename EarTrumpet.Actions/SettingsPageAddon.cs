@@ -15,4 +15,16 @@ namespace EarTrumpet_Actions
             return new ActionsCategoryViewModel();
         }
     }
+
+#if DEBUG
+    [Export(typeof(IAddonSettingsPage))]
+    class SettingsPageAddonAd : IAddonSettingsPage
+    {
+        public SettingsCategoryViewModel Get()
+        {
+            return new AdvertisedCategorySettingsViewModel(
+                Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, "eartrumpet-project-eta-adonly", "https://github.com/File-New-Project/EarTrumpet");
+        }
+    }
+#endif
 }

@@ -73,8 +73,22 @@
                                     AutomationProperties.Name="{Binding DisplayName}"
                                     BorderThickness="0"
                                     Command="{Binding Command}"
-                                    Style="{DynamicResource ToolbarButtonStyle}"
                                     ToolTipService.ToolTip="{Binding DisplayName}">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource ToolbarButtonStyle}">
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Id}" Value="Save" />
+                                                    <Condition Binding="{Binding ElementName=Toolbar, Path=DataContext.IsWorkSaved}" Value="True" />
+                                                </MultiDataTrigger.Conditions>
+                                                <MultiDataTrigger.Setters>
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </MultiDataTrigger.Setters>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
                                 <TextBlock FontSize="{Binding GlyphFontSize}" Text="{Binding Glyph}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
