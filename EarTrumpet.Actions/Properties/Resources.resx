@@ -205,7 +205,7 @@
     <value>{Device} {Option} the default device</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>default playback device</value>
+    <value>Default playback device</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
     <value>When an audio device is (added, removed, becomes or leaves default)</value>
@@ -455,5 +455,8 @@
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Don't see your app? Make sure it's made sound recently.</value>
   </data>
 </root>

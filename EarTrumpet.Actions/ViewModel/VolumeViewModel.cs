@@ -6,9 +6,9 @@ namespace EarTrumpet_Actions.ViewModel
 {
     public class VolumeViewModel : BindableBase
     {
-        public double Volume
+        public int Volume
         {
-            get => _part.Volume;
+            get => (int)_part.Volume;
             set
             {
                 _part.Volume = value;
@@ -24,7 +24,7 @@ namespace EarTrumpet_Actions.ViewModel
 
         public override string ToString()
         {
-            return Math.Round(Volume) + "%";
+            return $"{Volume}%";
         }
     }
 }

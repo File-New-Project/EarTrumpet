@@ -305,11 +305,22 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
-        <ctl:VolumeSlider Margin="12"
-                          Maximum="100"
-                          Minimum="0"
-                          Style="{DynamicResource {x:Type Slider}}"
-                          Value="{Binding Volume, Mode=TwoWay}" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+            </Grid.ColumnDefinitions>
+            <ctl:VolumeSlider Margin="12"
+                              Maximum="100"
+                              Minimum="0"
+                              Style="{DynamicResource {x:Type Slider}}"
+                              Value="{Binding Volume, Mode=TwoWay}" />
+            <TextBlock Grid.Column="1"
+                       Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
+                       Style="{StaticResource AppVolumeTextStyle}"
+                       Text="{Binding Volume, Mode=OneWay}" />
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
         <ContentControl Content="{Binding Hotkey}" IsTabStop="False" />
@@ -337,14 +348,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Grid.RowSpan="2"
-                   Width="32"
-                   Height="32"
-                   Margin="12,0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Source="{Binding Icon, Converter={StaticResource iconConverter}}" />
-
+            <Border Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="12,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <TextBlock FontSize="20"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xEC61;" />
+            </Border>
             <TextBlock Grid.Column="1"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -404,7 +417,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.ChooseADeviceTitle}" />
+            <TextBlock Margin="12"
+                       Style="{StaticResource HeadingText}"
+                       Text="{x:Static resx:Resources.ChooseADeviceTitle}" />
 
             <ctl:ListView Grid.Row="1"
                           MaxHeight="300"
@@ -458,13 +473,19 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Width="{StaticResource AppIconSize}"
-                       Height="{StaticResource AppIconSize}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       Style="{StaticResource GlyphTextBlockStyle}"
-                       Text="&#xE8C8;" />
+
+            <Grid Width="{StaticResource AppIconSize}"
+                  Height="{StaticResource AppIconSize}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <TextBlock Theme:Brush.Foreground="SystemAccent"
+                           FontSize="15"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xF5EE;" />
+                <TextBlock FontSize="15"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xF5ED;" />
+            </Grid>
             <TextBlock Grid.Column="1"
                        Margin="12,2"
                        HorizontalAlignment="Left"
@@ -478,13 +499,15 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Width="{StaticResource AppIconSize}"
-                       Height="{StaticResource AppIconSize}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       Style="{StaticResource GlyphTextBlockStyle}"
-                       Text="&#xE8C4;" />
+            <Border Width="{StaticResource AppIconSize}"
+                    Height="{StaticResource AppIconSize}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <TextBlock FontSize="15"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xE9D5;" />
+            </Border>
+
             <TextBlock Grid.Column="1"
                        Margin="12,2"
                        HorizontalAlignment="Left"
@@ -556,8 +579,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.ChooseAnAppTitle}" />
+            <TextBlock Margin="12"
+                       Style="{StaticResource HeadingText}"
+                       Text="{x:Static resx:Resources.ChooseAnAppTitle}" />
             <ctl:ListView Grid.Row="1"
                           MaxHeight="300"
                           ItemContainerStyle="{DynamicResource HoverListItemStyle}"
@@ -579,6 +605,10 @@
                     </Style>
                 </ListView.Style>
             </ctl:ListView>
+            <TextBlock Grid.Row="2"
+                       Margin="12"
+                       Style="{StaticResource BodyText}"
+                       Text="{x:Static resx:Resources.ChooseAnAppHelpText}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

@@ -86,30 +86,6 @@ namespace EarTrumpet_Actions
             return _settings.Get(c_actionsSettingKey, "");
         }
 
-        /*
-        public void OpenSettingsWindow()
-        {
-            if (_openSettingsWindow != null)
-            {
-                _openSettingsWindow.RaiseWindow();
-            }
-            else
-            {
-                ResourceLoader.Load(Namespace);
-
-                var viewModel = new ActionsEditorViewModel(Actions);
-                _openSettingsWindow = new SettingsWindow { DataContext = viewModel };
-                _openSettingsWindow.Closing += (_, __) =>
-                {
-                    Actions = viewModel.Actions.Select(a => a.GetAction()).ToArray();
-                    _openSettingsWindow = null;
-                };
-                _openSettingsWindow.Show();
-                WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
-            }
-        }
-        */
-
         private void OnTriggered(BaseTrigger trigger)
         {
             var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));

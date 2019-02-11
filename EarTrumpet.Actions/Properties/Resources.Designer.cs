@@ -250,6 +250,15 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t see your app? Make sure it&apos;s made sound recently..
+        /// </summary>
+        public static string ChooseAnAppHelpText {
+            get {
+                return ResourceManager.GetString("ChooseAnAppHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose an app.
         /// </summary>
         public static string ChooseAnAppTitle {
@@ -340,7 +349,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to default playback device.
+        ///   Looks up a localized string similar to Default playback device.
         /// </summary>
         public static string DefaultPlaybackDeviceText {
             get {
