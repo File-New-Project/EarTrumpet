@@ -82,6 +82,7 @@
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest" />
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="PromptText" Property="Theme:Brush.Foreground" Value="Light=LightSecondaryText/0.8, Dark=LightDisabledText/0.8" />
                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />

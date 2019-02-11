@@ -9,7 +9,7 @@ namespace EarTrumpet.DataModel.Internal.Services
 {
     // Monitors a list of processes by Process Id.
     // Uses a single background thread to monitor N processes for quit.
-    class ProcessWatcherService
+    public class ProcessWatcherService
     {
         class ProcessWatcherData
         {

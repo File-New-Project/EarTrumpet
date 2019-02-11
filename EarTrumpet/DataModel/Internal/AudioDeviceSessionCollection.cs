@@ -26,24 +26,21 @@ namespace EarTrumpet.DataModel.Internal
             _parent = new WeakReference<IAudioDevice>(parent);
             _dispatcher = App.Current.Dispatcher;
 
-            Task.Factory.StartNew(() =>
+            try
             {
-                try
+                _sessionManager = device.Activate<IAudioSessionManager2>();
+                _sessionManager.RegisterSessionNotification(this);
+                var enumerator = _sessionManager.GetSessionEnumerator();
+                int count = enumerator.GetCount();
+                for (int i = 0; i < count; i++)
                 {
-                    _sessionManager = device.Activate<IAudioSessionManager2>();
-                    _sessionManager.RegisterSessionNotification(this);
-                    var enumerator = _sessionManager.GetSessionEnumerator();
-                    int count = enumerator.GetCount();
-                    for (int i = 0; i < count; i++)
-                    {
-                        CreateAndAddSession(enumerator.GetSession(i));
-                    }
+                    CreateAndAddSession(enumerator.GetSession(i));
                 }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine($"{ex}");
-                }
-            });
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"{ex}");
+            }
         }
 
         ~AudioDeviceSessionCollection()
