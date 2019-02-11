@@ -1047,7 +1047,7 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMedium" />
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeHigh" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeDisabledLow" />
@@ -1131,11 +1131,14 @@
                                               Command="{x:Static ScrollBar.LineUpCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
                                               Style="{StaticResource ScrollBarButton}">
-                                    <Path x:Name="ArrowTop"
-                                          Margin="3,4,3,3"
-                                          Theme:Brush.Fill="Theme=ApplicationText{Theme}Theme"
-                                          Data="M 0,4 C0,4 0,6 0,6 0,6 3.5,2.5 3.5,2.5 3.5,2.5 7,6 7,6 7,6 7,4 7,4 7,4 3.5,0.5 3.5,0.5 3.5,0.5 0,4 0,4 z"
-                                          Stretch="Uniform" />
+                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock x:Name="ArrowTop"
+                                                   Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme"
+                                                   FontSize="7"
+                                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                                   Text="&#xE96D;" />
+                                    </Border>
+
                                 </RepeatButton>
                                 <Track x:Name="PART_Track"
                                        Grid.Row="1"
@@ -1156,11 +1159,13 @@
                                               Command="{x:Static ScrollBar.LineDownCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
                                               Style="{StaticResource ScrollBarButton}">
-                                    <Path x:Name="ArrowBottom"
-                                          Margin="3,4,3,3"
-                                          Theme:Brush.Fill="Theme=ApplicationText{Theme}Theme"
-                                          Data="M 0,2.5 C0,2.5 0,0.5 0,0.5 0,0.5 3.5,4 3.5,4 3.5,4 7,0.5 7,0.5 7,0.5 7,2.5 7,2.5 7,2.5 3.5,6 3.5,6 3.5,6 0,2.5 0,2.5 z"
-                                          Stretch="Uniform" />
+                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock x:Name="ArrowBottom"
+                                                   Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme"
+                                                   FontSize="7"
+                                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                                   Text="&#xE96E;" />
+                                    </Border>
                                 </RepeatButton>
                             </Grid>
                             <ControlTemplate.Triggers>
@@ -1191,28 +1196,28 @@
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="True" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="True" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme" />
                                 </MultiDataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
