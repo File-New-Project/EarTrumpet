@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
+        xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -710,6 +711,7 @@
                         </Grid.RowDefinitions>
                         <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
                         <ScrollViewer Grid.Row="1"
+                                      b:ScrollViewerEx.ScrollToVerticalOffset="{Binding Selected.Selected}"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <ContentControl Margin="12,0,0,0"
