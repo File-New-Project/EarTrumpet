@@ -1094,7 +1094,28 @@
                                     <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
                                 </Trigger>
                                 <Trigger Property="Tag" Value="True">
-                                    <Setter TargetName="rectangle" Property="Width" Value="NaN" />
+
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="rectangle"
+                                                                 Storyboard.TargetProperty="Width"
+                                                                 To="16"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="Width">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="16" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="2" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+
                                     <Setter TargetName="rectangle" Property="Margin" Value="0" />
                                     <Setter TargetName="rectangle" Property="HorizontalAlignment" Value="Stretch" />
                                 </Trigger>
@@ -1110,9 +1131,8 @@
                 <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMedium" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
                 <Setter Property="Margin" Value="-16,0,0,0" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
-                <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
+                <Setter Property="Width" Value="16" />
+                <Setter Property="MinWidth" Value="16" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -1124,12 +1144,13 @@
                                 </Grid.RowDefinitions>
                                 <Border x:Name="Background"
                                         Grid.Row="1"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}" />
+                                        Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
+                                        BorderThickness="0"
+                                        Opacity="0" />
                                 <RepeatButton x:Name="PART_LineUpButton"
                                               Command="{x:Static ScrollBar.LineUpCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
+                                              Opacity="0"
                                               Style="{StaticResource ScrollBarButton}">
                                     <Border HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock x:Name="ArrowTop"
@@ -1158,6 +1179,7 @@
                                               Grid.Row="2"
                                               Command="{x:Static ScrollBar.LineDownCommand}"
                                               IsEnabled="{TemplateBinding IsMouseOver}"
+                                              Opacity="0"
                                               Style="{StaticResource ScrollBarButton}">
                                     <Border HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <TextBlock x:Name="ArrowBottom"
@@ -1174,22 +1196,57 @@
                                         <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="False" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                                    <Setter TargetName="PART_LineUpButton" Property="Opacity" Value="1" />
+                                    <Setter TargetName="PART_LineDownButton" Property="Opacity" Value="1" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="True" />
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                                    <MultiDataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="PART_LineUpButton"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="PART_LineDownButton"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1"
+                                                                 Duration="0:0:0.1" />
+                                                <DoubleAnimation Storyboard.TargetName="Background"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="1"
+                                                                 Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </MultiDataTrigger.EnterActions>
+                                    <MultiDataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineUpButton" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineDownButton" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </MultiDataTrigger.ExitActions>
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
                                         <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="False" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="PART_LineUpButton" Property="Opacity" Value="0" />
-                                    <Setter TargetName="PART_LineDownButton" Property="Opacity" Value="0" />
-                                    <Setter TargetName="Background" Property="Background" Value="Transparent" />
-                                    <Setter TargetName="Background" Property="BorderBrush" Value="Transparent" />
+
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
