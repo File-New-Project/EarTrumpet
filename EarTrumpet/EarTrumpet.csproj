@@ -108,9 +108,11 @@
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="Extensibility\IAddonTrayIcon.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Interop\SndVolSSO.cs" />
     <Compile Include="UI\Behaviors\ScrollViewerEx.cs" />
     <Compile Include="UI\Controls\ListView.cs" />
     <Compile Include="UI\Controls\ListViewItem.cs" />
@@ -123,6 +125,11 @@
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\Themes\Rule.cs" />
+    <Compile Include="UI\Tray\HighContrastBuiltIn.cs" />
+    <Compile Include="UI\Tray\IconKind.cs" />
+    <Compile Include="UI\Tray\LegacyIconBuiltIn.cs" />
+    <Compile Include="UI\Tray\ThemeColorBuiltIn.cs" />
+    <Compile Include="UI\Tray\TrayIconFactory.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />

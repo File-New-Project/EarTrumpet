@@ -1,37 +1,21 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensibility;
+﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
+using EarTrumpet.UI.Tray;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class TrayViewModel : BindableBase, ITrayViewModel
     {
-        public enum IconId
-        {
-            Invalid = 0,
-            Muted = 120,
-            SpeakerZeroBars = 121,
-            SpeakerOneBar = 122,
-            SpeakerTwoBars = 123,
-            SpeakerThreeBars = 124,
-            NoDevice = 125,
-            OriginalIcon
-        }
-
         internal static IAddonContextMenu[] AddonItems { get; set; }
 
-        public event Action ContextMenuRequested;
-
+        private Icon _trayIcon;
         public Icon TrayIcon
         {
             get => _trayIcon;
@@ -45,6 +29,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        private string _toolTip;
         public string ToolTip
         {
             get => _toolTip;
@@ -58,43 +43,21 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public RelayCommand RightClick { get; }
         public RelayCommand MiddleClick { get; }
         public RelayCommand LeftClick { get; set; }
         public RelayCommand OpenMixer { get; set; }
         public RelayCommand OpenSettings { get; set; }
 
-        private readonly string _trayIconPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");
         private readonly DeviceCollectionViewModel _mainViewModel;
-        private readonly Dictionary<IconId, Icon> _icons = new Dictionary<IconId, Icon>();
-        private readonly Icon _earTrumpetLegacyIcon;
         private DeviceViewModel _defaultDevice;
-        private bool _useLegacyIcon;
-        private Icon _trayIcon;
-        private string _toolTip;
-        private bool _invertIconColors = SystemSettings.IsSystemLightTheme;
 
         internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-
-            RightClick = new RelayCommand(() => ContextMenuRequested?.Invoke());
             MiddleClick = new RelayCommand(ToggleMute);
-
-            _earTrumpetLegacyIcon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
-            if (_invertIconColors)
-            {
-                _earTrumpetLegacyIcon = IconUtils.InvertIconColors(_earTrumpetLegacyIcon);
-            }
-            LoadIconResources();
-
-            _useLegacyIcon = SettingsService.UseLegacyIcon;
-            SettingsService.UseLegacyIconChanged += SettingsService_UseLegacyIconChanged;
-
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
             DeviceManager_DefaultDeviceChanged(this, null);
-
-            Themes.Manager.Current.PropertyChanged += (_, e) => LoadIconResources();
+            Themes.Manager.Current.PropertyChanged += (_, e) => UpdateTrayIcon();
         }
 
         public IEnumerable<ContextMenuItem> MenuItems
@@ -198,41 +161,10 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void DpiChanged()
+        public void Refresh()
         {
-            Trace.WriteLine("TrayViewModel DpiChanged");
-
-            LoadIconResources();
+            Trace.WriteLine("TrayViewModel Refresh");
             UpdateTrayIcon();
-        }
-
-        private void LoadIconResources()
-        {
-            var useLargeIcon = WindowsTaskbar.Current.Dpi > 1;
-            Trace.WriteLine($"TrayViewModel LoadIconResources useLargeIcon={useLargeIcon}");
-
-            try
-            {
-                _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.NoDevice, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.NoDevice, useLargeIcon, _invertIconColors));
-                _icons.Add(IconId.Muted, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.Muted, useLargeIcon, _invertIconColors));
-                _icons.Add(IconId.SpeakerOneBar, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerOneBar, useLargeIcon, _invertIconColors));
-                _icons.Add(IconId.SpeakerTwoBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerTwoBars, useLargeIcon, _invertIconColors));
-                _icons.Add(IconId.SpeakerThreeBars, IconUtils.GetIconFromFile(_trayIconPath, (int)IconId.SpeakerThreeBars, useLargeIcon, _invertIconColors));
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"TrayViewModel LoadIconResources Error: {ex}");
-
-                _icons.Clear();
-                _icons.Add(IconId.OriginalIcon, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.NoDevice, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.Muted, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerOneBar, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerTwoBars, _earTrumpetLegacyIcon);
-                _icons.Add(IconId.SpeakerThreeBars, _earTrumpetLegacyIcon);
-            }
         }
 
         private void DeviceManager_DefaultDeviceChanged(object sender, DeviceViewModel newDefaultDevice)
@@ -258,21 +190,11 @@ namespace EarTrumpet.UI.ViewModels
             UpdateToolTip();
         }
 
-        private void SettingsService_UseLegacyIconChanged(object sender, bool newSetting)
-        {
-            _useLegacyIcon = newSetting;
-            UpdateTrayIcon();
-        }
-
         private void UpdateTrayIcon()
         {
-            if (_useLegacyIcon)
+            if (_defaultDevice == null)
             {
-                TrayIcon = _icons[IconId.OriginalIcon];
-            }
-            else if (_defaultDevice == null)
-            {
-                TrayIcon = _icons[IconId.NoDevice];
+                TrayIcon = TrayIconFactory.CreateAndResolveAll(IconKind.NoDevice);
             }
             else
             {
@@ -280,16 +202,16 @@ namespace EarTrumpet.UI.ViewModels
                 switch (iconKind)
                 {
                     case DeviceIconKind.Mute:
-                        TrayIcon = _icons[IconId.Muted];
+                        TrayIcon = TrayIconFactory.CreateAndResolveAll(IconKind.Muted);
                         break;
                     case DeviceIconKind.Bar1:
-                        TrayIcon = _icons[IconId.SpeakerOneBar];
+                        TrayIcon = TrayIconFactory.CreateAndResolveAll(IconKind.SpeakerOneBar);
                         break;
                     case DeviceIconKind.Bar2:
-                        TrayIcon = _icons[IconId.SpeakerTwoBars];
+                        TrayIcon = TrayIconFactory.CreateAndResolveAll(IconKind.SpeakerTwoBars);
                         break;
                     case DeviceIconKind.Bar3:
-                        TrayIcon = _icons[IconId.SpeakerThreeBars];
+                        TrayIcon = TrayIconFactory.CreateAndResolveAll(IconKind.SpeakerThreeBars);
                         break;
                     default: throw new NotImplementedException();
                 }

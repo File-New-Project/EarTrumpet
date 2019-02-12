@@ -53,7 +53,7 @@ namespace EarTrumpet
             TrayViewModel.OpenSettings = new RelayCommand(OpenSettings);
 
             _trayIcon = new TrayIcon(TrayViewModel);
-            FlyoutWindow.DpiChanged += (_, __) => TrayViewModel.DpiChanged();
+            FlyoutWindow.DpiChanged += (_, __) => TrayViewModel.Refresh();
 
             HotkeyManager.Current.Register(SettingsService.FlyoutHotkey);
             HotkeyManager.Current.Register(SettingsService.MixerHotkey);

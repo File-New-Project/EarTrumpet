@@ -665,8 +665,8 @@
                                             </Border.Style>
                                         </Border>
                                         <TextBlock Grid.Column="1"
-                                                   FontSize="16"
                                                    HorizontalAlignment="Center"
+                                                   FontSize="16"
                                                    Style="{StaticResource GlyphTextBlockStyle}"
                                                    Text="{Binding Glyph}" />
                                         <TextBlock Grid.Column="2"

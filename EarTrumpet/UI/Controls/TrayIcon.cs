@@ -16,7 +16,6 @@ namespace EarTrumpet.UI.Controls
         {
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
-            _trayViewModel.ContextMenuRequested += OnContextMenuRequested;
 
             _trayIcon = new NotifyIcon();
             _trayIcon.MouseClick += TrayIcon_MouseClick;
@@ -75,7 +74,7 @@ namespace EarTrumpet.UI.Controls
             }
             else if (e.Button == MouseButtons.Right)
             {
-                _trayViewModel.RightClick.Execute();
+                OnContextMenuRequested();
             }
             else if (e.Button == MouseButtons.Middle)
             {

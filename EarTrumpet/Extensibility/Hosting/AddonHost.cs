@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Tray;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,9 @@ namespace EarTrumpet.Extensibility.Hosting
 
         [ImportMany(typeof(IAddonSettingsPage))]
         private List<IAddonSettingsPage> _settingsPages { get; set; }
+
+        [ImportMany(typeof(IAddonTrayIcon))]
+        private List<IAddonTrayIcon> _trayIconEditorItems { get; set; }
 
         private AddonInfo FindInfo(DirectoryCatalog catalog)
         {
@@ -106,12 +110,14 @@ namespace EarTrumpet.Extensibility.Hosting
                 {
                     if (!addon.IsCompatible)
                     {
+                        // IMPORTANT: Remove the incompatible addon from every location.
                         RemoveAddon(_contextMenuItems, addon);
                         RemoveAddon(_appContextMenuItems, addon);
                         RemoveAddon(_appContentItems, addon);
                         RemoveAddon(_deviceContextMenuItems, addon);
                         RemoveAddon(_deviceContentItems, addon);
                         RemoveAddon(_settingsPages, addon);
+                        RemoveAddon(_trayIconEditorItems, addon);
                     }
                 }
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
@@ -120,6 +126,7 @@ namespace EarTrumpet.Extensibility.Hosting
                 FocusedDeviceViewModel.AddonContextMenuItems = _deviceContextMenuItems.ToArray();
                 FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
                 SettingsViewModel.AddonItems = _settingsPages.ToArray();
+                TrayIconFactory.AddonItems = _trayIconEditorItems.ToArray();
 
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));

@@ -10,7 +10,7 @@ namespace EarTrumpet.Interop.Helpers
 {
     public class IconUtils
     {
-        public static Icon GetIconFromFile(string path, int iconOrdinal = 0, bool useLargeIcon = false, bool invertAsset = false)
+        public static Icon GetIconFromFile(string path, int iconOrdinal = 0, bool useLargeIcon = false)
         {
             var moduleHandle = Kernel32.LoadLibraryEx(path, IntPtr.Zero,
                 Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
@@ -25,14 +25,7 @@ namespace EarTrumpet.Interop.Helpers
                 Kernel32.FreeLibrary(moduleHandle);
             }
 
-            var icon = Icon.FromHandle(iconHandle);
-
-            if(invertAsset)
-            {
-                icon = InvertIconColors(icon);
-            }
-
-            return icon;
+            return Icon.FromHandle(iconHandle);
         }
 
         public static ImageSource GetIconAsImageSourceFromFile(string path, int iconIndex = 0)
@@ -49,7 +42,7 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
-        public static Icon InvertIconColors(Icon originalIcon)
+        public static Icon ColorIcon(Icon originalIcon, System.Windows.Media.Color newColor)
         {
             using (var bitmap = originalIcon.ToBitmap())
             {
@@ -60,7 +53,7 @@ namespace EarTrumpet.Interop.Helpers
                     for (int x = 0; x < bitmap.Width; x++)
                     {
                         var pixel = bitmap.GetPixel(x, y);
-                        bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, 255 - pixel.R, 255 - pixel.G, 255 - pixel.B));
+                        bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, newColor.R, newColor.G, newColor.B));
                     }
                 }
 
