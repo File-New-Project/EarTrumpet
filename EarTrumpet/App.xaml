@@ -1103,7 +1103,8 @@
                                 <Trigger Property="Tag" Value="True">
 
                                     <Trigger.EnterActions>
-                                        <BeginStoryboard>
+                                        <StopStoryboard BeginStoryboardName="Collapse" />
+                                        <BeginStoryboard Name="Expand">
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="rectangle"
                                                                  Storyboard.TargetProperty="Width"
@@ -1113,9 +1114,11 @@
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
                                     <Trigger.ExitActions>
-                                        <BeginStoryboard>
+                                        <StopStoryboard BeginStoryboardName="Expand" />
+                                        <BeginStoryboard Name="Collapse">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="Width">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="16" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4" Value="16" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="2" />
                                                 </DoubleAnimationUsingKeyFrames>
@@ -1234,14 +1237,17 @@
                                         <BeginStoryboard Name="ShowScrollBar">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineUpButton" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineDownButton" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
                                                 </DoubleAnimationUsingKeyFrames>
