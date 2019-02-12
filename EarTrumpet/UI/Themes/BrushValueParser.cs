@@ -137,7 +137,7 @@ namespace EarTrumpet.UI.Themes
                 var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                 if (info == null)
                 {
-                    info = typeof(SystemColors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                    info = typeof(SystemColors).GetProperty(colorName + "Color", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                 }
                 ret = (Color)info.GetValue(null, null);
             }

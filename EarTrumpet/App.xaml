@@ -598,8 +598,8 @@
                                 </Trigger>
                                 <Trigger Property="IsHighlighted" Value="True">
                                     <Setter TargetName="Border" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=HilightText" />
-                                    <Setter TargetName="CheckMark" Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HilightText" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=HighlightText" />
+                                    <Setter TargetName="CheckMark" Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HighlightText" />
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow" />
