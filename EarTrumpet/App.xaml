@@ -658,15 +658,15 @@
                 <Setter Property="Height" Value="32" />
                 <Setter Property="MinWidth" Value="90" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
-                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=ControlText" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Theme=Transparent, HighContrast=ControlText" />
                 <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseLow" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" BorderThickness="0">
                                 <Border Padding="{TemplateBinding Padding}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}">
                                     <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -680,12 +680,13 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseMediumLow, HighContrast=Highlight" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=Highlight" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
                         <Setter Property="Theme:Brush.Background" Value="Theme={Theme}BaseMediumLow" />
                         <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme=Transparent, HighContrast=ControlText" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -887,7 +888,7 @@
             <Style TargetType="{x:Type Hyperlink}">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium" />
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMedium, HighContrast=HotTrack" />
                     </Trigger>
                 </Style.Triggers>
                 <Setter Property="Theme:Brush.Foreground" Value="Theme=SystemAccent" />
@@ -897,7 +898,7 @@
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Theme:Brush.Background" Value="Light=LightChromeWhite/0.4, Dark=DarkChromeBlackMediumLow" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMediumLow, Dark=DarkChromeHigh" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMediumLow, Dark=DarkChromeHigh, HighContrast=ControlText" />
                 <Setter Property="Theme:Brush.Foreground" Value="Light=Text, Dark=Text" />
                 <Setter Property="Theme:Brush.SelectionBrush" Value="SystemAccent" />
                 <Setter Property="Theme:Brush.CaretBrush" Value="ApplicationTextLightTheme" />
@@ -931,7 +932,7 @@
                                     <Setter TargetName="border" Property="Opacity" Value="0.56" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest, HighContrast=ControlText" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
@@ -1132,7 +1133,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
                 <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
