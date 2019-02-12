@@ -197,7 +197,6 @@ namespace EarTrumpet.UI.Themes
                     {
                         opacities = $"/{oItems[0]}/{oItems[1]}";
                     }
-
                     outRef = Parse(element, ParseRule(reference.Rules) + opacities);
                     return true;
                 }
@@ -235,7 +234,7 @@ namespace EarTrumpet.UI.Themes
                 throw new NotImplementedException("bad number of /");
             }
 
-            desiredOpacity = SystemSettings.IsTransparencyEnabled ? opacity : (opacityNoTransparency > 0 ? opacityNoTransparency : opacity);
+            desiredOpacity = SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast ? opacity : (opacityNoTransparency > 0 ? opacityNoTransparency : opacity);
             return colorName;
         }
     }
