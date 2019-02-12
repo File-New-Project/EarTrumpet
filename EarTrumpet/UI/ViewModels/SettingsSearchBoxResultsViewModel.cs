@@ -32,8 +32,7 @@ namespace EarTrumpet.UI.ViewModels
                     }
                 }
 
-                // Limit results count to 10.
-                if (Results.Count > 10)
+                if (Results.Count > 5)
                 {
                     return;
                 }

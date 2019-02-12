@@ -1035,10 +1035,8 @@
             </Style>
 
             <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
-                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="Padding" Value="1" />
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
@@ -1091,7 +1089,6 @@
                             <Grid>
                                 <Rectangle x:Name="rectangle"
                                            Width="2"
-                                           Margin="0,0,1,0"
                                            HorizontalAlignment="Right"
                                            Theme:Brush.Fill="Theme={Theme}BaseMediumLow"
                                            SnapsToDevicePixels="True" />
@@ -1125,8 +1122,6 @@
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
-
-                                    <Setter TargetName="rectangle" Property="Margin" Value="0" />
                                     <Setter TargetName="rectangle" Property="HorizontalAlignment" Value="Stretch" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -1215,7 +1210,9 @@
                                     </MultiDataTrigger.Conditions>
                                     <Setter TargetName="Thumb" Property="Tag" Value="True" />
                                     <MultiDataTrigger.EnterActions>
-                                        <BeginStoryboard>
+                                        <StopStoryboard BeginStoryboardName="ShowScrollBar" />
+
+                                        <BeginStoryboard Name="HideScrollBar">
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="PART_LineUpButton"
                                                                  Storyboard.TargetProperty="Opacity"
@@ -1233,7 +1230,8 @@
                                         </BeginStoryboard>
                                     </MultiDataTrigger.EnterActions>
                                     <MultiDataTrigger.ExitActions>
-                                        <BeginStoryboard>
+                                        <StopStoryboard BeginStoryboardName="HideScrollBar" />
+                                        <BeginStoryboard Name="ShowScrollBar">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineUpButton" Storyboard.TargetProperty="Opacity">
                                                     <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />

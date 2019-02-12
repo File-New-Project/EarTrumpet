@@ -1,7 +1,10 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -23,17 +26,19 @@ namespace EarTrumpet.UI.Controls
             TextChanged += SearchBox_TextChanged;
 
             GotKeyboardFocus += SearchBox_GotKeyboardFocus;
-            PreviewKeyDown += SearchBox_PreviewKeyDown;
+            PreviewKeyUp += SearchBox_PreviewKeyUp;
         }
 
-        private void SearchBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void SearchBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Down)
             {
                 var popup = ((Popup)GetTemplateChild("Popup"));
                 if (popup.IsOpen)
                 {
-                    popup.Child.Focus();
+           
+                        Keyboard.Focus(popup.Child.FindVisualChild<Control>());
+            
                 }
             }
         }
@@ -74,7 +79,6 @@ namespace EarTrumpet.UI.Controls
                 popup.DataContext = vm;
                 popup.UpdateLayout();
                 popup.IsOpen = true;
-                popup.Focus();
             }
         }
     }
