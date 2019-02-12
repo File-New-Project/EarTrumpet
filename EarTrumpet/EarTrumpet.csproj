@@ -235,7 +235,7 @@
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\IDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
-    <Compile Include="UI\ViewModels\ITrayViewModel.cs" />
+    <Compile Include="UI\Tray\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\IWindowHostedViewModel.cs" />
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SimpleDialogViewModel.cs" />
@@ -314,7 +314,7 @@
     <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
     <Compile Include="UI\Themes\Manager.cs" />
     <Compile Include="DataModel\SystemSettings.cs" />
-    <Compile Include="UI\Controls\TrayIcon.cs" />
+    <Compile Include="UI\Tray\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
@@ -323,7 +323,7 @@
     <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
     <Compile Include="UI\ViewModels\DeviceCollectionViewModel.cs" />
     <Compile Include="UI\ViewModels\BindableBase.cs" />
-    <Compile Include="UI\ViewModels\TrayIconViewModel.cs" />
+    <Compile Include="UI\Tray\TrayViewModel.cs" />
     <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>

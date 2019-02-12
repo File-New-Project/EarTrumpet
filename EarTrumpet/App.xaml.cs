@@ -2,10 +2,10 @@
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Controls;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
 using EarTrumpet.UI.Themes;
+using EarTrumpet.UI.Tray;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
 using System.Collections.Generic;

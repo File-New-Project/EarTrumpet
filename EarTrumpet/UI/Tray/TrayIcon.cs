@@ -1,11 +1,9 @@
 ﻿using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModels;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 
-namespace EarTrumpet.UI.Controls
+namespace EarTrumpet.UI.Tray
 {
     public class TrayIcon
     {

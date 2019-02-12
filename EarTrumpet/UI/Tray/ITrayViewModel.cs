@@ -1,10 +1,10 @@
-﻿using System;
+﻿using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using EarTrumpet.UI.Helpers;
 
-namespace EarTrumpet.UI.ViewModels
+namespace EarTrumpet.UI.Tray
 {
     public interface ITrayViewModel : INotifyPropertyChanged
     {

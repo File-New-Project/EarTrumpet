@@ -2,6 +2,7 @@
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Tray;
+using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace EarTrumpet.UI.ViewModels
+namespace EarTrumpet.UI.Tray
 {
     public class TrayViewModel : BindableBase, ITrayViewModel
     {
