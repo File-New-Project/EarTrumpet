@@ -20,7 +20,7 @@ namespace EarTrumpet.Extensions
                 var versionStr = new StreamReader(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/DevVersion.txt")).Stream).ReadToEnd();
                 return Version.Parse(versionStr);
 #else
-                throw new NotImplementedException();
+                return new Version(0, 0, 0, 0);
 #endif
             }
         }
