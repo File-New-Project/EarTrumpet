@@ -3,53 +3,50 @@ using EarTrumpet_Actions.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 
 namespace EarTrumpet_Actions.DataModel
 {
     public class ProcessWatcher
     {
+        class ProcessInfo
+        {
+            public List<IntPtr> Windows = new List<IntPtr>();
+        }
+
+        class WatcherInfo
+        {
+            public List<Action> StartCallbacks = new List<Action>();
+            public List<Action> StopCallbacks = new List<Action>();
+            public Dictionary<int, ProcessInfo> RunningProcesses = new Dictionary<int, ProcessInfo>();
+        }
+
         public static ProcessWatcher Current { get; } = new ProcessWatcher();
 
-        public event Action<string> ProcessStarted;
-        public event Action<string> ProcessStopped;
-
         WindowWatcher _watcher = new WindowWatcher();
-        Dictionary<int, string> _procs;
-        Dictionary<IntPtr, int> _hwnds;
+        Dictionary<string, WatcherInfo> _info = new Dictionary<string, WatcherInfo>();
 
         public ProcessWatcher()
         {
-            _procs = new Dictionary<int, string>();
-            _hwnds = new Dictionary<IntPtr, int>();
-
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                AddRunningProcesses();
-            }).Start();
-
-            _watcher.WindowCreated += _watcher_WindowCreated;
-            _watcher.WindowDestroyed += _watcher_WindowDestroyed;
+            _watcher.WindowCreated += OnWindowCreated;
         }
 
+        // Used only by the condition processor, so we use realtime data only.
         public bool IsRunning(string procName)
         {
-            return _procs.ContainsValue(procName);
-        }
-
-        private void _watcher_WindowDestroyed(IntPtr hwnd)
-        {
-            User32.GetWindowThreadProcessId(hwnd, out uint pid);
-
-            if (pid == 0 && _hwnds.ContainsKey(hwnd))
+            try
             {
-                OnStopped(_hwnds[hwnd]);
-                _hwnds.Remove(hwnd);
+                return Process.GetProcessesByName(procName).Any();
             }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+            return false;
         }
 
-        private void _watcher_WindowCreated(IntPtr hwnd)
+        private void OnWindowCreated(IntPtr hwnd)
         {
             try
             {
@@ -57,8 +54,10 @@ namespace EarTrumpet_Actions.DataModel
 
                 using (var proc = Process.GetProcessById((int)pid))
                 {
-                    MarkProcessRunning(proc.ProcessName.ToLower(), (int)pid);
-                    _hwnds[hwnd] = (int)pid;
+                    if (_info.ContainsKey(proc.ProcessName.ToLower()))
+                    {
+                        FoundNewRelevantProcess(proc);
+                    }
                 }
             }
             catch (Exception ex)
@@ -67,59 +66,85 @@ namespace EarTrumpet_Actions.DataModel
             }
         }
 
-        void MarkProcessRunning(string procName, int pid, bool hideLog = false)
+        bool FoundNewRelevantProcess(Process proc)
         {
-            if (!_procs.ContainsKey(pid))
+            var info = _info[proc.ProcessName.ToLower()];
+
+            if (!info.RunningProcesses.ContainsKey(proc.Id))
             {
-                _procs[pid] = procName;
-                if (!hideLog)
+                var procInfo = new ProcessInfo();
+                info.RunningProcesses[proc.Id] = procInfo;
+
+                new Thread(() =>
                 {
-                    Trace.WriteLine($"Process started: {procName}");
-                }
-                ProcessStarted?.Invoke(procName);
+                    Thread.CurrentThread.IsBackground = true;
+
+                    var procName = proc.ProcessName;
+                    proc.WaitForExit();
+                    Trace.WriteLine($"ProcessWatcher STOP {procName}");
+                    info.StopCallbacks.ForEach(s => s.Invoke());
+                }).Start();
+
+                Trace.WriteLine($"ProcessWatcher START {proc.ProcessName}");
+                info.StartCallbacks.ForEach(s => s.Invoke());
+                return true;
             }
+            return false;
         }
 
-        void OnStopped(int pid)
+        public void RegisterStop(string text, Action callback)
         {
-            if (!_procs.ContainsKey(pid))
-            {
-                var procName = _procs[pid];
-                _procs.Remove(pid);
-                Trace.WriteLine($"Process stopped: {procName}");
+            Trace.WriteLine($"ProcessWatcher RegisterStop {text}");
+            text = text.ToLower();
+            WatcherInfo info = _info.ContainsKey(text) ? _info[text] : _info[text] = new WatcherInfo();
+            info.StopCallbacks.Add(callback);
 
-                ProcessStopped?.Invoke(procName);
-            }
-        }
-
-        void AddRunningProcesses()
-        {
             try
             {
-                foreach (var p in Process.GetProcesses())
+                var runningProcs = Process.GetProcessesByName(text);
+                foreach (var proc in runningProcs)
                 {
-                    try
-                    {
-                        MarkProcessRunning(p.ProcessName.ToLower(), p.Id, hideLog:true);
-                        if (p.MainWindowHandle != IntPtr.Zero)
-                        {
-                            _hwnds[p.MainWindowHandle] = p.Id;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.WriteLine(ex);
-                    }
-                    finally
-                    {
-                        p.Dispose();
-                    }
+                    FoundNewRelevantProcess(proc);
                 }
             }
             catch (Exception ex)
             {
                 Trace.WriteLine(ex);
             }
+        }
+
+        public void RegisterStart(string text, Action callback)
+        {
+            Trace.WriteLine($"ProcessWatcher RegisterStart {text}");
+            text = text.ToLower();
+            WatcherInfo info = _info.ContainsKey(text) ? _info[text] : new WatcherInfo();
+            info.StartCallbacks.Add(callback);
+
+            try
+            {
+                bool didSignal = false;
+                var runningProcs = Process.GetProcessesByName(text);
+                foreach (var proc in runningProcs)
+                {
+                    didSignal = didSignal || FoundNewRelevantProcess(proc);
+                }
+
+                if (runningProcs.Any() && !didSignal)
+                {
+                    // We were already watching so we didn't signal but the process is running.
+                    callback();
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+        }
+
+        public void Clear()
+        {
+            Trace.WriteLine("ProcessWatcher Clear");
+            _info = new Dictionary<string, WatcherInfo>();
         }
     }
 }

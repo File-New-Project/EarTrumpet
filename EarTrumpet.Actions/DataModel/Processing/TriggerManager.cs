@@ -22,6 +22,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
 
         public void Clear()
         {
+            ProcessWatcher.Current.Clear();
             _eventTriggers.Clear();
             _audioManager.Clear();
         }
@@ -43,22 +44,16 @@ namespace EarTrumpet_Actions.DataModel.Processing
             if (trig is ProcessTrigger)
             {
                 var trigger = (ProcessTrigger)trig;
-
-                var triggerIfApplicable = new Action<string>((name) =>
+                if (!string.IsNullOrWhiteSpace(trigger.Text))
                 {
-                    if (name == trigger.Text)
+                    if (trigger.Option == ProcessEventKind.Start)
                     {
-                        Triggered?.Invoke(trig);
+                        ProcessWatcher.Current.RegisterStart(trigger.Text, () => Triggered?.Invoke(trig));
                     }
-                });
-
-                if (trigger.Option == ProcessEventKind.Start)
-                {
-                    ProcessWatcher.Current.ProcessStarted += triggerIfApplicable;
-                }
-                else
-                {
-                    ProcessWatcher.Current.ProcessStopped += triggerIfApplicable;
+                    else
+                    {
+                        ProcessWatcher.Current.RegisterStop(trigger.Text, () => Triggered?.Invoke(trig));
+                    }
                 }
             }
             else if (trig is EventTrigger)

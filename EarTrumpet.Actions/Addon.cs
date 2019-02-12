@@ -52,9 +52,9 @@ namespace EarTrumpet_Actions
                 Current = this;
                 LocalVariables = new LocalVariablesContainer(_settings);
 
+                _triggerManager.Triggered += OnTriggered;
                 LoadAndRegister();
 
-                _triggerManager.Triggered += OnTriggered;
                 _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
             }
             else if (evt == ApplicationLifecycleEvent.Shutdown)
