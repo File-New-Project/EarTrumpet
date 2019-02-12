@@ -11,10 +11,10 @@ namespace EarTrumpet.UI.Controls
             _parent = parent;
         }
 
-        protected override void OnMouseDown(MouseButtonEventArgs e)
+        protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             _parent.InvokeItem(this);
-            base.OnMouseDown(e);
+            base.OnMouseUp(e);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -24,16 +24,6 @@ namespace EarTrumpet.UI.Controls
                 _parent.InvokeItem(this);
             }
             base.OnKeyDown(e);
-        }
-
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-           // base.OnGotFocus(e);
-        }
-
-        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        {
-            //base.OnGotKeyboardFocus(e);
         }
     }
 }

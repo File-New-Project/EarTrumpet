@@ -12,7 +12,8 @@ namespace EarTrumpet.Extensions
         {
             if (HasIdentity(app))
             {
-                return Version.Parse(Package.Current.Id.Version.ToVersionString());
+                var packageVer = Package.Current.Id.Version;
+                return new Version(packageVer.Major, packageVer.Minor, packageVer.Build, packageVer.Revision);
             }
             else
             {

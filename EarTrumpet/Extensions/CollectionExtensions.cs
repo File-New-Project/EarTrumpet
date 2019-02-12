@@ -27,7 +27,7 @@ namespace EarTrumpet.Extensions
 
         public static void InsertRange<T>(this ObservableCollection<T> collection, int startIndex, IEnumerable<T> items)
         {
-            foreach(var item in items.Reverse())
+            foreach (var item in items.Reverse())
             {
                 collection.Insert(startIndex, item);
             }
