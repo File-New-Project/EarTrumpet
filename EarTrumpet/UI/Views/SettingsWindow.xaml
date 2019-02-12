@@ -254,24 +254,10 @@
                         <Border x:Name="Bd"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="true">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="4" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <Border x:Name="selectedIndicator"
-                                        Width="4"
-                                        Height="24"
-                                        Theme:Brush.Background="Transparent" />
-
-                                <ContentPresenter Grid.Column="1"
-                                                  Margin="12,0,0,0"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </Grid>
-
+                            <ContentPresenter Margin="0"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
@@ -279,12 +265,6 @@
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True" />
-                                </MultiTrigger.Conditions>
-                                <Setter TargetName="selectedIndicator" Property="Theme:Brush.Background" Value="SystemAccent" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -368,6 +348,7 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <!--  Background  -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="320" />
@@ -459,8 +440,8 @@
             </Border>
             <Border Grid.Column="1" Theme:Brush.Background="Background" />
         </Grid>
-
         <DockPanel LastChildFill="True">
+            <!--  TitleBar  -->
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -514,7 +495,6 @@
                         Content="&#xE8BB;"
                         Style="{StaticResource CloseButtonStyle}" />
             </Grid>
-
             <Grid>
                 <!--  Main  -->
                 <Grid>
@@ -666,15 +646,31 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="22" />
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition Width="30" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock FontSize="16"
+                                        <Border x:Name="selectedIndicator"
+                                                Width="4"
+                                                Height="24">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Theme:Brush.Background" Value="Transparent" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                            <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                        <TextBlock Grid.Column="1"
+                                                   FontSize="16"
+                                                   HorizontalAlignment="Center"
                                                    Style="{StaticResource GlyphTextBlockStyle}"
                                                    Text="{Binding Glyph}" />
-
-                                        <TextBlock Grid.Column="1"
-                                                   Margin="12,0,0,0"
+                                        <TextBlock Grid.Column="2"
+                                                   Margin="4,0,12,0"
                                                    FontSize="15"
                                                    Text="{Binding Title}" />
                                     </Grid>

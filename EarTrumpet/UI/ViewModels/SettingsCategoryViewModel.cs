@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -37,11 +36,17 @@ namespace EarTrumpet.UI.ViewModels
 
         private void SelectImpl(SettingsPageViewModel page)
         {
+            if (_selected != null)
+            {
+                _selected.IsSelected = false;
+            }
+
             _selected = page;
             RaisePropertyChanged(nameof(Selected));
 
             if (_selected != null)
             {
+                _selected.IsSelected = true;
                 _selected.NavigatedTo();
             }
         }

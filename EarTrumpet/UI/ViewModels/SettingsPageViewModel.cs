@@ -27,6 +27,20 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    RaisePropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
         public SettingsPageHeaderViewModel Header { get; protected set; }
 
         public virtual bool NavigatingFrom(NavigationCookie cookie)
