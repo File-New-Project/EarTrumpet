@@ -28,6 +28,7 @@ namespace EarTrumpet_Actions.ViewModel
                     Title = DisplayName;
 
                     IsWorkSaved = false;
+                    IsPersisted = true;
                 }
             }
         }
@@ -141,9 +142,18 @@ namespace EarTrumpet_Actions.ViewModel
             {
                 _parent.ShowDialog(Properties.Resources.LeavingPageDialogTitle, Properties.Resources.LeavingPageDialogText, Properties.Resources.LeavingPageDialogYesText, () =>
                 {
-                    // TOD: this failed somehow null
-                    Reset(Addon.Current.Actions.FirstOrDefault(a => a.Id == Id));
                     _parent.CompleteNavigation(cookie);
+
+                    var existing = Addon.Current.Actions.FirstOrDefault(a => a.Id == Id);
+                    if (existing == null)
+                    {
+                        _parent.Delete(this, true);
+                    }
+                    else
+                    {
+                        Reset(existing);
+                    }
+                    
                 }, Properties.Resources.LeavingPageDialogNoText, () => { });
                 return false;
             }
@@ -168,6 +178,7 @@ namespace EarTrumpet_Actions.ViewModel
                 col[i].IsShowingAdditionalText = i != 0;
             }
             IsWorkSaved = false;
+            IsPersisted = true;
         }
 
         private ContextMenuItem MakeItem(PartViewModel part)
