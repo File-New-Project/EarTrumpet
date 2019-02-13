@@ -151,10 +151,28 @@ namespace EarTrumpet
                     }
                 }
 
+                bool canClose = false;
                 var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
                 _openSettingsWindow = new SettingsWindow();
+                _openSettingsWindow.CloseClicked += () => viewModel.OnClosing();
+                viewModel.Close += () =>
+                {
+                    canClose = true;
+                    _openSettingsWindow.SafeClose();
+                };
                 _openSettingsWindow.DataContext = viewModel;
-                _openSettingsWindow.Closing += (_, __) => _openSettingsWindow = null;
+                _openSettingsWindow.Closing += (_, e) =>
+                {
+                    if (canClose)
+                    {
+                        _openSettingsWindow = null;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        viewModel.OnClosing();
+                    }
+                };
                 _openSettingsWindow.Show();
                 WindowAnimationLibrary.BeginWindowEntranceAnimation(_openSettingsWindow, () => { });
             }

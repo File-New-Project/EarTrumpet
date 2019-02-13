@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -11,6 +12,8 @@ namespace EarTrumpet.UI.Views
 {
     public partial class SettingsWindow : Window
     {
+        public event Action CloseClicked;
+
         private bool _isClosing;
 
         public SettingsWindow()
@@ -20,20 +23,7 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             SourceInitialized += SettingsWindow_SourceInitialized;
-
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-
-            DataContextChanged += SettingsWindow_DataContextChanged;
-        }
-
-        private void SettingsWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is IWindowHostedViewModel)
-            {
-                var vm = (IWindowHostedViewModel)e.NewValue;
-                vm.Close += () => SafeClose();
-                Closing += (_, __) => vm.OnClosing();
-            }
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
@@ -49,11 +39,7 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("CloseButton_Click SafeClose");
             e.Handled = true;
 
-            if (DataContext is IWindowHostedViewModel)
-            {
-                var vm = (IWindowHostedViewModel)DataContext;
-                vm.OnClosing();
-            }
+            CloseClicked?.Invoke();
         }
 
         public void SafeClose()

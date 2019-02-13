@@ -88,7 +88,6 @@ namespace EarTrumpet.UI.ViewModels
             Selected.Selected = page;
         }
 
-
         private void SelectImpl(SettingsCategoryViewModel categoryToSelect)
         {
             if (!Backstack.IsDisablingUpdates)
