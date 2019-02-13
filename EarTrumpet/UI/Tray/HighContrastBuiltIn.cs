@@ -6,13 +6,13 @@ namespace EarTrumpet.UI.Tray
 {
     class HighContrastBuiltIn : IAddonTrayIcon
     {
-        public int Priority => 10;
+        public int Priority => 40;
 
         public void TrayIconChanging(AddonTrayIconEventArgs e)
         {
             if (SystemParameters.HighContrast)
             {
-                e.Icon = IconUtils.ColorIcon(e.Icon, SystemColors.MenuTextColor);
+                e.Icon = IconUtils.ColorIcon(e.Icon, SystemColors.WindowTextColor);
             }
         }
     }

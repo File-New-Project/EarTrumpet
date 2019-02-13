@@ -14,9 +14,9 @@ namespace EarTrumpet.Extensibility
     {
         // Existing:
         //
-        // HighContrastBuiltIn: 10
         // ThemeColorBuiltIn: 20
         // LegacyIconBuiltIn: 30
+        // HighContrastBuiltIn: 40
         // 
         // A good place for your addon: 100
         int Priority { get; }
