@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -18,7 +19,7 @@ namespace EarTrumpet.Interop.Helpers
             IntPtr iconHandle = IntPtr.Zero;
             try
             {
-                Comctl32.LoadIconMetric(moduleHandle, new IntPtr(iconOrdinal), useLargeIcon ? Comctl32.LI_METRIC.LIM_LARGE : Comctl32.LI_METRIC.LIM_SMALL, ref iconHandle);
+                Comctl32.LoadIconWithScaleDown(moduleHandle, new IntPtr(iconOrdinal), SystemInformation.SmallIconSize.Width, SystemInformation.SmallIconSize.Height, ref iconHandle);
             }
             finally
             {

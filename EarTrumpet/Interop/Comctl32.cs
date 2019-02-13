@@ -12,6 +12,14 @@ namespace EarTrumpet.Interop
             LI_METRIC desiredMetric,
             ref IntPtr icon);
 
+        [DllImport("comctl32.dll", PreserveSig = false)]
+        internal static extern void LoadIconWithScaleDown(
+            IntPtr instanceHandle,
+            IntPtr iconId,
+            int cx,
+            int cy,
+            ref IntPtr icon);
+
         internal enum LI_METRIC
         {
             LIM_SMALL = 0,
