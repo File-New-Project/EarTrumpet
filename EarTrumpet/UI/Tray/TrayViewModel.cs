@@ -187,8 +187,11 @@ namespace EarTrumpet.UI.Tray
 
         private void DefaultDevice_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            UpdateTrayIcon();
-            UpdateToolTip();
+            if (e == null || e.PropertyName == nameof(_defaultDevice.Volume) || e.PropertyName == nameof(_defaultDevice.IsMuted) || e.PropertyName == nameof(_defaultDevice.DisplayName))
+            {
+                UpdateTrayIcon();
+                UpdateToolTip();
+            }
         }
 
         private void UpdateTrayIcon()
