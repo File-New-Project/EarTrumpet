@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class SettingsViewModel : BindableBase, IWindowHostedViewModel, ISettingsViewModel
+    class SettingsViewModel : BindableBase, ISettingsViewModel
     {
         public static IAddonSettingsPage[] AddonItems { get; internal set; }
 
