@@ -16,7 +16,7 @@ namespace EarTrumpet.UI.Tray
             {
                 if (SystemSettings.IsSystemLightTheme)
                 {
-                    e.Icon = IconUtils.ColorIcon(e.Icon, Colors.Black);
+                    e.Icon = IconUtils.ColorIcon(e.Icon, e.Kind, Colors.Black);
                 }
                 else
                 {

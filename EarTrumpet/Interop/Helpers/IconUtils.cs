@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.UI.Tray;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
@@ -43,7 +44,7 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
-        public static Icon ColorIcon(Icon originalIcon, System.Windows.Media.Color newColor)
+        public static Icon ColorIcon(Icon originalIcon, IconKind kind, System.Windows.Media.Color newColor)
         {
             using (var bitmap = originalIcon.ToBitmap())
             {
@@ -51,11 +52,11 @@ namespace EarTrumpet.Interop.Helpers
 
                 for (int y = 0; y < bitmap.Height; y++)
                 {
-                    for (int x = 0; x < bitmap.Width; x++)
+                    for (int x = 0; x < bitmap.Width * (kind == IconKind.NoDevice ? 0.4 : 1); x++)
                     {
                         var pixel = bitmap.GetPixel(x, y);
 
-                        if (pixel.R == 255)
+                        if (pixel.R > 220)
                         {
                             bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, newColor.R, newColor.G, newColor.B));
                         }

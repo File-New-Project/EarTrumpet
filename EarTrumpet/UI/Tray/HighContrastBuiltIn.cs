@@ -12,7 +12,7 @@ namespace EarTrumpet.UI.Tray
         {
             if (SystemParameters.HighContrast)
             {
-                e.Icon = IconUtils.ColorIcon(e.Icon, SystemColors.WindowTextColor);
+                e.Icon = IconUtils.ColorIcon(e.Icon, e.Kind, SystemColors.WindowTextColor);
             }
         }
     }
