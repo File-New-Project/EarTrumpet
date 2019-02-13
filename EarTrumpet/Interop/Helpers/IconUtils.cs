@@ -42,9 +42,8 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
-        public static Icon ColorIcon(Icon originalIcon, System.Windows.Media.Color? color)
+        public static Icon ColorIcon(Icon originalIcon, System.Windows.Media.Color newColor)
         {
-
             using (var bitmap = originalIcon.ToBitmap())
             {
                 originalIcon.Dispose();
@@ -54,14 +53,9 @@ namespace EarTrumpet.Interop.Helpers
                     for (int x = 0; x < bitmap.Width; x++)
                     {
                         var pixel = bitmap.GetPixel(x, y);
-                        if (color == null)
-                        {
-                            bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, 255 - pixel.R, 255 - pixel.G, 255 - pixel.B));
-                        }
-                        else
-                        {
-                            var newColor = (System.Windows.Media.Color)color;
 
+                        if (pixel.R == 255)
+                        {
                             bitmap.SetPixel(x, y, System.Drawing.Color.FromArgb(pixel.A, newColor.R, newColor.G, newColor.B));
                         }
                     }

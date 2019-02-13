@@ -2,6 +2,7 @@
 using EarTrumpet.Extensibility;
 using EarTrumpet.Interop.Helpers;
 using System.Windows;
+using System.Windows.Media;
 
 namespace EarTrumpet.UI.Tray
 {
@@ -13,11 +14,11 @@ namespace EarTrumpet.UI.Tray
         {
             if (!SystemParameters.HighContrast)
             {
-             //   if (SystemSettings.IsSystemLightTheme)
+                if (SystemSettings.IsSystemLightTheme)
                 {
-                    e.Icon = IconUtils.ColorIcon(e.Icon, null);
+                    e.Icon = IconUtils.ColorIcon(e.Icon, Colors.Black);
                 }
-              //  else
+                else
                 {
                     // It's the default so don't bother doing anything.
                 }
