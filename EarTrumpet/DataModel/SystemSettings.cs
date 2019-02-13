@@ -5,19 +5,19 @@ using System;
 
 namespace EarTrumpet.DataModel
 {
-    static class SystemSettings
+    public static class SystemSettings
     {
         static readonly string s_PersonalizeKey = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 
-        internal static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
-        internal static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
-        internal static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1);
-        internal static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
-        internal static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
-        internal static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
-        internal static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+        public static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
+        public static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
+        public static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1);
+        public static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
+        public static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
+        public static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
+        public static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
-        internal static string BuildLabel
+        public static string BuildLabel
         {
             get
             {
