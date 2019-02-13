@@ -412,7 +412,7 @@
                 <Setter Property="Theme:Brush.Background" Value="Transparent" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
+                <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Application.ico" />
                 <Setter Property="ShowInTaskbar" Value="True" />
                 <Setter Property="WindowStyle" Value="None" />
                 <Setter Property="WindowChrome.WindowChrome">
@@ -425,9 +425,8 @@
                     <Trigger Property="IsActive" Value="False">
                         <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
                     </Trigger>
-
-                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsSystemLightTheme}">
-                        <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Application.ico" />
+                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsSystemLightTheme}" Value="False">
+                        <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
