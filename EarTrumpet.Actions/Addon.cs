@@ -36,7 +36,6 @@ namespace EarTrumpet_Actions
                 Id = "eartrumpet-project-eta",
                 HelpLink = "https://github.com/File-New-Project/EarTrumpet",
                 AddonVersion = new System.Version(1, 0, 0, 0),
-                EarTrumpetMinVersion = new Version(2, 0, 0, 0)
             };
         }
 
