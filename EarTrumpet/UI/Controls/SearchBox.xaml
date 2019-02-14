@@ -47,16 +47,22 @@
                                Margin="6,0"
                                Theme:Brush.Foreground="GrayText"
                                Text="{x:Static resx:Resources.FindASettingText}" />
-                    <TextBlock Margin="6,0"
-                               HorizontalAlignment="Right"
-                               Theme:Brush.Foreground="GrayText"
-                               Style="{StaticResource GlyphTextBlockStyle}"
-                               Text="&#xE721;" />
-                    <ScrollViewer x:Name="PART_ContentHost"
-                                  Focusable="false"
-                                  HorizontalScrollBarVisibility="Hidden"
-                                  VerticalScrollBarVisibility="Hidden" />
-
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="false"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="6,0"
+                                   HorizontalAlignment="Right"
+                                   Theme:Brush.Foreground="GrayText"
+                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                   Text="&#xE721;" />
+                    </Grid>
                     <Popup x:Name="Popup"
                            AllowsTransparency="False"
                            Placement="Bottom"
