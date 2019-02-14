@@ -238,7 +238,7 @@
                 <Setter Property="Margin" Value="0,1,0,0" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Theme:Brush.Foreground" Value="Light=SystemText, Dark=ApplicationTextDarkTheme" />
+                        <Setter Property="Theme:Brush.Foreground" Value="ApplicationTextDarkTheme" />
                         <Setter Property="Theme:Brush.Background" Value="#FFE81123" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
