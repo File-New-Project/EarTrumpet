@@ -734,7 +734,7 @@
                             Theme:Brush.BorderBrush="SystemAccent"
                             BorderThickness="1">
                         <Grid Theme:Brush.Background="Background">
-                            <Grid Margin="12">
+                            <Grid Margin="12" KeyboardNavigation.TabNavigation="Cycle">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
