@@ -484,7 +484,9 @@
                                         Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1">
-                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    </ScrollViewer>
                                 </Border>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -582,7 +584,7 @@
                                                     Background="{TemplateBinding Background}"
                                                     BorderBrush="{TemplateBinding BorderBrush}"
                                                     BorderThickness="1">
-                                                <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                                 </ScrollViewer>
                                             </Border>
