@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 namespace EarTrumpet.UI.Helpers
 {
-    class ProcessHelper
+    public class ProcessHelper
     {
-        internal static void StartNoThrow(string fileName)
+        public  static void StartNoThrow(string fileName)
         {
             try
             {

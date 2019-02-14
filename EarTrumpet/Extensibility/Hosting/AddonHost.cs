@@ -54,7 +54,7 @@ namespace EarTrumpet.Extensibility.Hosting
             return null;
         }
 
-        // Select an addon version that is equal to or lower than the current EarTrumpet (ET) version.
+        // Select an addon version that is equal to or lower than the current EarTrumpet version.
         // New addons are implicitly compatible.
         // If no lower-or-equal version is found, the addon is incompatible and won't be loaded.
         private DirectoryCatalog SelectAddon(string path)
@@ -62,15 +62,14 @@ namespace EarTrumpet.Extensibility.Hosting
             try
             {
                 Trace.WriteLine($"AddonHost: SelectAddon: {path}");
-                var VersionRoot = Path.Combine(path, "Versions");
-
-                var versions = Directory.GetDirectories(VersionRoot).Select(f => Path.GetFileName(f)).Select(f => Version.Parse(f)).OrderBy(v => v);
-                var etVersin = ((App)App.Current).GetVersion();
+                var versionRoot = Path.Combine(path, "Versions");
+                var versions = Directory.GetDirectories(versionRoot).Select(f => Path.GetFileName(f)).Select(f => Version.Parse(f)).OrderBy(v => v);
+                var earTrumpetVersion = ((App)App.Current).GetVersion();
                 foreach (var version in versions.Reverse())
                 {
-                    if (version <= etVersin)
+                    if (version <= earTrumpetVersion)
                     {
-                        return new DirectoryCatalog(Path.Combine(VersionRoot, version.ToString()), "EarTrumpet*.dll");
+                        return new DirectoryCatalog(Path.Combine(versionRoot, version.ToString()), "EarTrumpet*.dll");
                     }
                 }
             }
@@ -101,7 +100,7 @@ namespace EarTrumpet.Extensibility.Hosting
                     var rootAddonDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                     catalogs.AddRange(Directory.GetDirectories(rootAddonDir, "PackageTemp*").
                         Select(path => SelectAddon(path)).
-                        Where(c => c != null));
+                        Where(addon => addon != null));
 #endif
                 }
 

@@ -30,13 +30,12 @@ namespace EarTrumpet.Interop.Helpers
             return Icon.FromHandle(iconHandle);
         }
 
-        public static ImageSource GetIconAsImageSourceFromFile(string path, int iconIndex = 0)
+        public static Icon ShellExtractIcon(string path, int iconIndex = 0)
         {
             IntPtr iconHandle = IntPtr.Zero;
             try
             {
-                iconHandle = Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex);
-                return Imaging.CreateBitmapSourceFromHIcon(iconHandle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                return Icon.FromHandle(Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex));
             }
             finally
             {
