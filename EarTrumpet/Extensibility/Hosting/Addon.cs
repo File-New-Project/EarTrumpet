@@ -12,7 +12,6 @@ namespace EarTrumpet.Extensibility.Hosting
         public string PublisherName => _info.PublisherName;
         public string HelpLink => _info.HelpLink;
         public Version Version => _info.AddonVersion;
-        public Version MinVersion => _info.EarTrumpetMinVersion;
         public bool IsValid => _info != null;
 
         private DirectoryCatalog _catalog;
@@ -28,7 +27,5 @@ namespace EarTrumpet.Extensibility.Hosting
         {
             return _catalog.LoadedFiles.Any(file => file.ToLower() == asm.Location.ToLower());
         }
-
-        public bool IsCompatible => MinVersion <= App.Current.GetVersion();
     }
 }

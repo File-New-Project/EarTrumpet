@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -55,6 +54,34 @@ namespace EarTrumpet.Extensibility.Hosting
             return null;
         }
 
+        // Select an addon version that is equal to or lower than the current EarTrumpet (ET) version.
+        // New addons are implicitly compatible.
+        // If no lower-or-equal version is found, the addon is incompatible and won't be loaded.
+        private DirectoryCatalog SelectAddon(string path)
+        {
+            try
+            {
+                Trace.WriteLine($"AddonHost: SelectAddon: {path}");
+                var VersionRoot = Path.Combine(path, "Versions");
+
+                var versions = Directory.GetDirectories(VersionRoot).Select(f => Path.GetFileName(f)).Select(f => Version.Parse(f)).OrderBy(v => v);
+                var etVersin = ((App)App.Current).GetVersion();
+                foreach (var version in versions.Reverse())
+                {
+                    if (version <= etVersin)
+                    {
+                        return new DirectoryCatalog(Path.Combine(VersionRoot, version.ToString()), "EarTrumpet*.dll");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+            Trace.WriteLine($"AddonHost: Return without selection: {path}");
+            return null;
+        }
+
         public IEnumerable<Addon> Initialize()
         {
             var catalogs = new List<DirectoryCatalog>();
@@ -63,63 +90,23 @@ namespace EarTrumpet.Extensibility.Hosting
             {
                 if (App.Current.HasIdentity())
                 {
-                    foreach (var package in Windows.ApplicationModel.Package.Current.Dependencies)
-                    {
-                        if (package.IsOptional)
-                        {
-                            Trace.WriteLine($"AddonHost: Loading from: {package.InstalledLocation.Path}");
-                            catalogs.Add(new DirectoryCatalog(package.InstalledLocation.Path, "*.dll"));
-                        }
-                    }
+                    catalogs.AddRange(Windows.ApplicationModel.Package.Current.Dependencies.
+                        Where(p => p.IsOptional).
+                        Select(p => SelectAddon(p.InstalledLocation.Path)).
+                        Where(a => a != null));
                 }
                 else
                 {
 #if DEBUG
-                    try
-                    {
-                        var rootAddonDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "addons");
-                        if (Directory.Exists(rootAddonDir))
-                        {
-                            foreach (var directoryPath in Directory.GetDirectories(rootAddonDir))
-                            {
-                                catalogs.Add(new DirectoryCatalog(directoryPath, "EarTrumpet-*.dll"));
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.WriteLine(ex);
-                    }
+                    var rootAddonDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir, "PackageTemp*").
+                        Select(path => SelectAddon(path)).
+                        Where(c => c != null));
 #endif
                 }
 
-                var container = new CompositionContainer(new AggregateCatalog(catalogs));
-                container.ComposeParts(this);
+                new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(this);
 
-                var ret = catalogs.Select(c => new Addon(c, FindInfo(c))).ToList();
-
-                foreach (var addon in ret.ToArray())
-                {
-                    if (!addon.IsValid)
-                    {
-                        ret.Remove(addon);
-                    }
-                }
-
-                foreach (var addon in ret)
-                {
-                    if (!addon.IsCompatible)
-                    {
-                        // IMPORTANT: Remove the incompatible addon from every location.
-                        RemoveAddon(_contextMenuItems, addon);
-                        RemoveAddon(_appContextMenuItems, addon);
-                        RemoveAddon(_appContentItems, addon);
-                        RemoveAddon(_deviceContextMenuItems, addon);
-                        RemoveAddon(_deviceContentItems, addon);
-                        RemoveAddon(_settingsPages, addon);
-                        RemoveAddon(_trayIconEditorItems, addon);
-                    }
-                }
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
@@ -132,24 +119,13 @@ namespace EarTrumpet.Extensibility.Hosting
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
                 App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
 
-                return ret;
+                return catalogs.Select(c => new Addon(c, FindInfo(c))).ToList().Where(a => a.IsValid);
             }
             catch (Exception ex)
             {
                 Trace.WriteLine($"AddonHost Initialize: {ex}");
             }
             return null;
-        }
-
-        private void RemoveAddon<T>(List<T> list, Addon addon)
-        {
-            foreach (var item in list.ToArray())
-            {
-                if (addon.IsAssembly(item.GetType().Assembly))
-                {
-                    list.Remove(item);
-                }
-            }
         }
     }
 }
