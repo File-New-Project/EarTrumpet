@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -11,8 +12,35 @@ namespace EarTrumpet.UI.ViewModels
     {
         public string Id { get; set; }
         public bool IsDesktopApp { get; set; }
-        public bool IsMuted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Volume { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        bool _isMuted;
+        public bool IsMuted
+        {
+            get => _isMuted;
+            set
+            {
+                if (_isMuted != value)
+                {
+                    _isMuted = value;
+                    RaisePropertyChanged(nameof(IsMuted));
+                }
+            }
+        }
+
+        int _volume;
+        public int Volume
+        {
+            get => _volume;
+            set
+            {
+                if (_volume != value)
+                {
+                    _volume = value;
+                    RaisePropertyChanged(nameof(Volume));
+                }
+            }
+        }
+
         public Color Background { get; set; }
         public ObservableCollection<IAppItemViewModel> ChildApps => null;
         public string DisplayName { get; set; }
@@ -22,14 +50,17 @@ namespace EarTrumpet.UI.ViewModels
         public char IconText { get; set; }
         public bool IsExpanded => false;
         public bool IsMovable => false;
-        public float PeakValue1 => throw new NotImplementedException();
-        public float PeakValue2 => throw new NotImplementedException();
+        public float PeakValue1 => 0;
+        public float PeakValue2 => 0;
         public string PersistedOutputDevice => throw new NotImplementedException();
         public int ProcessId => throw new NotImplementedException();
         public IDeviceViewModel Parent => throw new NotImplementedException();
 
+        public ICommand Remove { get; set; }
+
         public SettingsAppItemViewModel(IAudioDeviceSession session)
         {
+            AppId = session.AppId;
             DisplayName = session.SessionDisplayName;
             IsDesktopApp = session.IsDesktopApp;
             Id = session.AppId;
