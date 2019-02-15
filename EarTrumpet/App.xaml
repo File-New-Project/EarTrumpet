@@ -1035,7 +1035,7 @@
                 <Setter Property="Width" Value="48" />
                 <Setter Property="Height" Value="48" />
             </Style>
-
+            <!--  ScrollBar styles & templates  -->
             <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -1296,7 +1296,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <!--  ViewModel templates  -->
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
@@ -1341,7 +1340,6 @@
                 </views:ModalDialogChrome>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
-
                 <TextBox GotKeyboardFocus="{Event:Binding OnGotFocus}"
                          LostKeyboardFocus="{Event:Binding OnLostFocus}"
                          PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
