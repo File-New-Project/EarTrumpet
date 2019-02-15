@@ -48,6 +48,11 @@ namespace EarTrumpet.UI.Converters
 
         private static ImageSource GetIconFromFileImpl(string path, bool isDesktopApp)
         {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return null;
+            }
+
             ImageSource ret = null;
             try
             {

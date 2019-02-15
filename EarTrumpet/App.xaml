@@ -711,8 +711,8 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
-                                <TextBlock Grid.ColumnSpan="2"
+                                <TextBlock Name="ContentTextBlock"
+                                           Grid.ColumnSpan="2"
                                            Margin="0"
                                            Style="{StaticResource BodyText}"
                                            Text="{TemplateBinding Content}" />
@@ -741,7 +741,6 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-
                                 <Border Grid.Row="1" Grid.Column="1">
                                     <TextBlock x:Name="OnOffText"
                                                Margin="12"
@@ -752,7 +751,6 @@
                                 </Border>
                             </Grid>
                             <ControlTemplate.Triggers>
-
                                 <Trigger Property="IsChecked" Value="True">
                                     <Setter TargetName="SwitchKnob" Property="HorizontalAlignment" Value="Right" />
                                     <Setter TargetName="SwitchKnobEllipse" Property="Theme:Brush.Fill" Value="Dark=Text, Light=Background" />
@@ -760,38 +758,9 @@
                                     <Setter TargetName="OuterBorder" Property="Theme:Brush.Stroke" Value="SystemAccent" />
                                     <Setter TargetName="OnOffText" Property="Text" Value="{x:Static resx:Resources.ToggleSwitchOnText}" />
                                 </Trigger>
-
-                                <!--
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="Transparent" />
-                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Theme={Theme}BaseHigh, HighContrast=Highlight" />
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter TargetName="ContentTextBlock" Property="Visibility" Value="Collapsed" />
                                 </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium" />
-                                    <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium, HighContrast=Highlight" />
-                                </Trigger>
-
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsMouseOver" Value="True" />
-                                        <Condition Property="IsChecked" Value="True" />
-                                    </MultiTrigger.Conditions>
-                                    <MultiTrigger.Setters>
-                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="SystemAccent" />
-                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseHigh, Dark=DarkBaseHigh, HighContrast=Highlight" />
-                                    </MultiTrigger.Setters>
-                                </MultiTrigger>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsPressed" Value="True" />
-                                        <Condition Property="IsChecked" Value="True" />
-                                    </MultiTrigger.Conditions>
-                                    <MultiTrigger.Setters>
-                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.Background" Value="SystemAccent" />
-                                        <Setter TargetName="checkBoxBorder" Property="Theme:Brush.BorderBrush" Value="Light=LightBaseHigh, Dark=DarkBaseHigh, HighContrast=Highlight" />
-                                    </MultiTrigger.Setters>
-                                </MultiTrigger>
-                                -->
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

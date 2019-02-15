@@ -213,13 +213,16 @@ namespace EarTrumpet.DataModel.Internal
             ReadRawDisplayName();
             RefreshDisplayName();
 
-            if (parent.Parent.DeviceKind == AudioDeviceKind.Recording)
+            if (parent.Parent != null)
             {
-                _isDisconnected = IsSystemSoundsSession;
-            }
-            else
-            {
-                SyncPersistedEndpoint(parent);
+                if (parent.Parent.DeviceKind == AudioDeviceKind.Recording)
+                {
+                    _isDisconnected = IsSystemSoundsSession;
+                }
+                else
+                {
+                    SyncPersistedEndpoint(parent);
+                }
             }
         }
 
