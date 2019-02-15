@@ -156,20 +156,11 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Your shortcut</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Choose a keyboard shortcut</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Always use the default playback device</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About</value>
-  </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Type a key combination:</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Learn more</value>
@@ -209,12 +200,6 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
   </data>
-  <data name="LoadAddonAddonsText" xml:space="preserve">
-    <value>EarTrumpet Addons</value>
-  </data>
-  <data name="RemoveAddonText" xml:space="preserve">
-    <value>Remove</value>
-  </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>More commands</value>
   </data>
@@ -223,9 +208,6 @@
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
     <value>Sound settings</value>
-  </data>
-  <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
-    <value>No Files were found in {0}</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
     <value>Windows Legacy</value>
@@ -240,7 +222,7 @@
     <value>Open Windows Settings</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>This add-on can be uninstalled from the system by going to the Windows Settings app.</value>
+    <value>This add-on can be removed using the Windows Settings app.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Uninstall</value>
@@ -255,7 +237,7 @@
     <value>Publisher:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Shortcuts, Help, About</value>
+    <value>Configure shortcuts and get help</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>EarTrumpet Settings</value>
@@ -283,8 +265,5 @@
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>Home</value>
-  </data>
-  <data name="HotkeyNoneText" xml:space="preserve">
-    <value>None</value>
   </data>
 </root>

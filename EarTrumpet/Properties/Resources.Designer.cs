@@ -97,7 +97,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This add-on can be uninstalled from the system by going to the Windows Settings app..
+        ///   Looks up a localized string similar to This add-on can be removed using the Windows Settings app..
         /// </summary>
         public static string AddonUninstallDescriptionText {
             get {
@@ -259,24 +259,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to None.
-        /// </summary>
-        public static string HotkeyNoneText {
-            get {
-                return ResourceManager.GetString("HotkeyNoneText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type a key combination:.
-        /// </summary>
-        public static string HotKeySelectionText {
-            get {
-                return ResourceManager.GetString("HotKeySelectionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Legacy settings.
         /// </summary>
         public static string LegacySettingsPageText {
@@ -291,15 +273,6 @@ namespace EarTrumpet.Properties {
         public static string LegacyVolumeMixerText {
             get {
                 return ResourceManager.GetString("LegacyVolumeMixerText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Addons.
-        /// </summary>
-        public static string LoadAddonAddonsText {
-            get {
-                return ResourceManager.GetString("LoadAddonAddonsText", resourceCulture);
             }
         }
         
@@ -349,15 +322,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Files were found in {0}.
-        /// </summary>
-        public static string NoFilesLoadedFromAddonFormatText {
-            get {
-                return ResourceManager.GetString("NoFilesLoadedFromAddonFormatText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sound settings.
         /// </summary>
         public static string OpenSoundSettingsText {
@@ -394,38 +358,11 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove.
-        /// </summary>
-        public static string RemoveAddonText {
-            get {
-                return ResourceManager.GetString("RemoveAddonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
         public static string SearchBoxNoResultsText {
             get {
                 return ResourceManager.GetString("SearchBoxNoResultsText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string SelectHotkeySaveButtonText {
-            get {
-                return ResourceManager.GetString("SelectHotkeySaveButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose a keyboard shortcut.
-        /// </summary>
-        public static string SelectHotkeyWindowTitle {
-            get {
-                return ResourceManager.GetString("SelectHotkeyWindowTitle", resourceCulture);
             }
         }
         
@@ -439,7 +376,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shortcuts, Help, About.
+        ///   Looks up a localized string similar to Configure shortcuts and get help.
         /// </summary>
         public static string SettingsDescriptionText {
             get {
