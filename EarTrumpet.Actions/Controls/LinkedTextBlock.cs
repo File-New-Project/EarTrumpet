@@ -117,7 +117,7 @@ namespace EarTrumpet_Actions.Controls
                             ContextMenu2.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
                             ContextMenu2.UpdateLayout();
                             ContextMenu2.IsOpen = true;
-                            Popup.Dispatcher.BeginInvoke((Action)(() =>
+                            ContextMenu2.Dispatcher.BeginInvoke((Action)(() =>
                             {
                                 ContextMenu2.Opacity = 1;
                                 ContextMenu2.HorizontalOffset = -1 * (ContextMenu2.RenderSize.Width / dpiX) / 2;
