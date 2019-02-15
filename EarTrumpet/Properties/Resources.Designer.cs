@@ -340,6 +340,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coming soon.
+        /// </summary>
+        public static string ProjectADescription {
+            get {
+                return ResourceManager.GetString("ProjectADescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coming soon.
+        /// </summary>
+        public static string ProjectATitle {
+            get {
+                return ResourceManager.GetString("ProjectATitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publisher:.
         /// </summary>
         public static string PublisherText {

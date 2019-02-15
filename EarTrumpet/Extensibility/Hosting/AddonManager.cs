@@ -12,11 +12,8 @@ namespace EarTrumpet.Extensibility.Hosting
 
         public void Load()
         {
-            if (Features.IsEnabled(Feature.Addons))
-            {
-                _host = new AddonHost();
-                All.AddRange(_host.Initialize());
-            }
+            _host = new AddonHost();
+            All.AddRange(_host.Initialize());
         }
 
         public Addon FindAddonForObject(object addonObject)

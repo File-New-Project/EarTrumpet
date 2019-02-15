@@ -91,21 +91,13 @@ namespace EarTrumpet.UI.Tray
                     new ContextMenuItem{ DisplayName = Properties.Resources.PlaybackDevicesText,    Command = new RelayCommand(() => OpenControlPanel("playback")) },
                     new ContextMenuItem{ DisplayName = Properties.Resources.RecordingDevicesText,   Command = new RelayCommand(() => OpenControlPanel("recording")) },
                     new ContextMenuItem{ DisplayName = Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => OpenControlPanel("sounds")) },
+                    new ContextMenuItem{ DisplayName = Properties.Resources.OpenSoundSettingsText, Command = new RelayCommand(() => OpenControlPanel("ms-settings:sound")) },
                 };
                 var legacyMenu = new ContextMenuItem
                 {
                     DisplayName = Properties.Resources.WindowsLegacyMenuText,
                     Children = legacyItems,
                 };
-
-                if (Features.IsEnabled(Feature.SoundSettingsMoSetPageOnTrayIcon))
-                {
-                    legacyItems.Add(new ContextMenuItem
-                    {
-                        DisplayName = Properties.Resources.OpenSoundSettingsText,
-                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:sound")),
-                    });
-                }
 
                 ret.AddRange(new List<ContextMenuItem>
                 {
@@ -115,47 +107,44 @@ namespace EarTrumpet.UI.Tray
                     new ContextMenuItem{ DisplayName = Properties.Resources.ContextMenuExitTitle,   Command = new RelayCommand(App.Current.Shutdown) },
                 });
 
-                if (Features.IsEnabled(Feature.Addons))
+                var addonEntries = new List<ContextMenuItem>();
+                if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
                 {
-                    var addonEntries = new List<ContextMenuItem>();
-                    if (AddonItems != null && AddonItems.SelectMany(a => a.Items).Any())
+                    foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
                     {
-                        foreach (var ext in AddonItems.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName))
-                        {
-                            // Add a separator before and after each extension group.
-                            addonEntries.Add(new ContextMenuSeparator());
-                            addonEntries.AddRange(ext.Items);
-                            addonEntries.Add(new ContextMenuSeparator());
-                        }
-
-                        // Remove duplicate separators (extensions may also add separators)
-                        bool previousItemWasSeparator = false;
-                        for (var i = addonEntries.Count - 1; i >= 0; i--)
-                        {
-                            var currentItemIsSeparator = addonEntries[i] is ContextMenuSeparator;
-
-                            if ((i == addonEntries.Count - 1 || i == 0) && currentItemIsSeparator)
-                            {
-                                addonEntries.Remove(addonEntries[i]);
-                            }
-
-                            if (previousItemWasSeparator && currentItemIsSeparator)
-                            {
-                                addonEntries.Remove(addonEntries[i]);
-                            }
-
-                            previousItemWasSeparator = currentItemIsSeparator;
-                        }
+                        // Add a separator before and after each extension group.
+                        addonEntries.Add(new ContextMenuSeparator());
+                        addonEntries.AddRange(ext.Items);
+                        addonEntries.Add(new ContextMenuSeparator());
                     }
 
-                    if (addonEntries.Any())
+                    // Remove duplicate separators (extensions may also add separators)
+                    bool previousItemWasSeparator = false;
+                    for (var i = addonEntries.Count - 1; i >= 0; i--)
                     {
-                        foreach (var entry in addonEntries)
+                        var currentItemIsSeparator = addonEntries[i] is ContextMenuSeparator;
+
+                        if ((i == addonEntries.Count - 1 || i == 0) && currentItemIsSeparator)
                         {
-                            ret.Insert(ret.Count - 4, entry);
+                            addonEntries.Remove(addonEntries[i]);
                         }
-                        ret.Insert(ret.Count - 4, new ContextMenuSeparator { });
+
+                        if (previousItemWasSeparator && currentItemIsSeparator)
+                        {
+                            addonEntries.Remove(addonEntries[i]);
+                        }
+
+                        previousItemWasSeparator = currentItemIsSeparator;
                     }
+                }
+
+                if (addonEntries.Any())
+                {
+                    foreach (var entry in addonEntries)
+                    {
+                        ret.Insert(ret.Count - 4, entry);
+                    }
+                    ret.Insert(ret.Count - 4, new ContextMenuSeparator { });
                 }
 
                 return ret;
@@ -234,7 +223,7 @@ namespace EarTrumpet.UI.Tray
         {
             if (_defaultDevice != null)
             {
-                var stateText = _defaultDevice.IsMuted && Features.IsEnabled(Feature.TrayIconToolTipHasMuteState) ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
+                var stateText = _defaultDevice.IsMuted ? Properties.Resources.MutedText : $"{_defaultDevice.Volume}%";
                 var prefixText = $"EarTrumpet: {stateText} - ";
                 var deviceName = $"{_defaultDevice.DeviceDescription} ({_defaultDevice.EnumeratorName})";
 

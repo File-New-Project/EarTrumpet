@@ -71,8 +71,7 @@ namespace EarTrumpet.UI.ViewModels
                 Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForApp(App.Parent.Id, App.Id, () => RequestClose.Invoke())).ToArray());
             }
 
-            if (Features.IsEnabled(Feature.Addons) &&
-                AddonContextMenuItems != null && AddonContextMenuItems.Any())
+            if (AddonContextMenuItems != null && AddonContextMenuItems.Any())
             {
                 var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
 

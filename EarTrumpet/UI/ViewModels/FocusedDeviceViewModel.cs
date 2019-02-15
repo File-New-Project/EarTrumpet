@@ -35,8 +35,7 @@ namespace EarTrumpet.UI.ViewModels
                 Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).ToArray());
             }
 
-            if (Features.IsEnabled(Feature.Addons) &&
-                    AddonContextMenuItems != null && AddonContextMenuItems.Any())
+            if (AddonContextMenuItems != null && AddonContextMenuItems.Any())
             {
                 var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForDevice(device.Id));
                 Toolbar.Insert(0, new ToolbarItemViewModel
