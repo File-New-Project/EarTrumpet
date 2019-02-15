@@ -5,6 +5,8 @@ namespace EarTrumpet_Actions.DataModel
 {
     public class PlaybackDataModelHost
     {
+        public static PlaybackDataModelHost Current { get; private set; }
+
         public IAudioDeviceManager DeviceManager = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
 
         public event Action<IAudioDeviceSession, string> AppPropertyChanged;
@@ -16,6 +18,8 @@ namespace EarTrumpet_Actions.DataModel
 
         public PlaybackDataModelHost()
         {
+            Current = this;
+
             DeviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
 
             foreach (var d in DeviceManager.Devices)
