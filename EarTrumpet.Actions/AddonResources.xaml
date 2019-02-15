@@ -126,7 +126,7 @@
                     ClipToBounds="True">
                 <!--  The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent  -->
                 <etctl:LinkedTextBlock Margin="0,0,0,-8"
-                                       Padding="12,4"
+                                       Padding="12,14"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        DataItem="{Binding}"
