@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>and then</value>
+    <value>and</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
     <value>Do</value>
@@ -130,13 +130,13 @@
     <value>Add condition</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Configure hotkeys and macros</value>
+    <value>Set up hotkeys and automation</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
     <value>Add trigger</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>When an app session is (added, removed, plays sound, ...)</value>
+    <value>An app session is added, removed, starts playing sound, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
     <value>{App} {Option} on {Device}</value>
@@ -187,19 +187,19 @@
     <value>and</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Add an optional filter condition to build more advanced actions. Filters must all be true for the Do's to be run.</value>
+    <value>Configuring a filter is optional but lets you build more advanced actions. All conditions must be true before actions are carried out.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Advanced Filters</value>
+    <value>Advanced Filter</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Create a context menu item in EarTrumpet</value>
+    <value>I use this action's context menu item</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>I click a context menu item in EarTrumpet</value>
+    <value>I use this action's context menu item</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>If the default playback device (is, is not)</value>
+    <value>If the default playback device is or is not</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
     <value>{Device} {Option} the default device</value>
@@ -208,25 +208,25 @@
     <value>Default playback device</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>When an audio device is (added, removed, becomes or leaves default)</value>
+    <value>An audio device is added, removed, set as default, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>shuts down</value>
+    <value>ends</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>starts up</value>
+    <value>starts</value>
   </data>
   <data name="EditText" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>EarTrumpet Actions Save File</value>
+    <value>EarTrumpet Actions XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>When EarTrumpet is started or stopped</value>
+    <value>EarTrumpet starts or ends</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
@@ -238,13 +238,13 @@
     <value>Export</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>This file can be imported on this or another PC later.</value>
+    <value>Save a copy of your actions to a file.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Foreground app</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>When a hotkey is pressed</value>
+    <value>A hotkey is typed</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
     <value>(choose a hotkey)</value>
@@ -259,7 +259,7 @@
     <value>Import</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Import your actions previously exported by EarTrumpet. Create a file that contains a copy of your saved actions.</value>
+    <value>Restore a copy of your actions from a file.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
     <value>Mute</value>
@@ -283,7 +283,7 @@
     <value>Playback</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>If a process is (running, not running)</value>
+    <value>If a process is running or not</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
     <value>(enter a process name)</value>
@@ -298,7 +298,7 @@
     <value>starts</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>stops</value>
+    <value>ends</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
     <value>is not running</value>
@@ -307,7 +307,7 @@
     <value>is running</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>When a process starts or stops</value>
+    <value>A process starts or ends</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
     <value>(enter a process name)</value>
@@ -334,13 +334,13 @@
     <value>{Option} {App} on {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Set an app volume</value>
+    <value>Set the volume of an app</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} volume to {Volume} for {App} on {Device}</value>
+    <value>{Option} {App} volume to {Volume} on {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} volume by {Volume} for {App} on {Device}</value>
+    <value>{Option} {App} volume by {Volume} on {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Set the default playback device</value>
@@ -361,10 +361,10 @@
     <value>Set a device volume</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} volume to {Volume} for {Device}</value>
+    <value>{Option} {Device} volume to {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} volume by {Volume} for {Device}</value>
+    <value>{Option} {Device} volume by {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Set a local variable</value>
@@ -376,7 +376,7 @@
     <value>Set variable {Text} to {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Enter a variable name (e.g. IsInGameMode)</value>
+    <value>Enter a variable name (e.g. isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
     <value>Decrement</value>
@@ -394,7 +394,7 @@
     <value>When</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>If a local variable is (true or false)</value>
+    <value>If a local variable is true or false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
     <value>(enter a variable name)</value>
@@ -403,7 +403,7 @@
     <value>Variable {Text} is {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Enter a variable name (e.g. IsInGameMode)</value>
+    <value>Enter a variable name (e.g. isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
     <value>Delete</value>
@@ -424,7 +424,7 @@
     <value>Cancel</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Delete action?</value>
+    <value>Delete this action?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
     <value>Delete</value>
@@ -448,7 +448,7 @@
     <value>Remove this action</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Removing cannot be undone</value>
+    <value>This cannot be undone.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
     <value>Remove action</value>
@@ -457,6 +457,6 @@
     <value>Remove</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Apps shown have made noise recently.</value>
+    <value>Apps shown above have played sound recently.</value>
   </data>
 </root>

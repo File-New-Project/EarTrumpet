@@ -61,7 +61,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to and then.
+        ///   Looks up a localized string similar to and.
         /// </summary>
         public static string ActionAdditionalText {
             get {
@@ -97,7 +97,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure hotkeys and macros.
+        ///   Looks up a localized string similar to Set up hotkeys and automation.
         /// </summary>
         public static string AddonDescriptionText {
             get {
@@ -115,7 +115,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When an app session is (added, removed, plays sound, ...).
+        ///   Looks up a localized string similar to An app session is added, removed, starts playing sound, ....
         /// </summary>
         public static string AppEventTrigger_AddText {
             get {
@@ -250,7 +250,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apps shown have made noise recently..
+        ///   Looks up a localized string similar to Apps shown above have played sound recently..
         /// </summary>
         public static string ChooseAnAppHelpText {
             get {
@@ -295,7 +295,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add an optional filter condition to build more advanced actions. Filters must all be true for the Do&apos;s to be run..
+        ///   Looks up a localized string similar to Configuring a filter is optional but lets you build more advanced actions. All conditions must be true before actions are carried out..
         /// </summary>
         public static string ConditionsHelpText {
             get {
@@ -304,7 +304,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced Filters.
+        ///   Looks up a localized string similar to Advanced Filter.
         /// </summary>
         public static string ConditionVerbText {
             get {
@@ -313,7 +313,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a context menu item in EarTrumpet.
+        ///   Looks up a localized string similar to I use this action&apos;s context menu item.
         /// </summary>
         public static string ContextMenuTrigger_AddText {
             get {
@@ -322,7 +322,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I click a context menu item in EarTrumpet.
+        ///   Looks up a localized string similar to I use this action&apos;s context menu item.
         /// </summary>
         public static string ContextMenuTrigger_LinkText {
             get {
@@ -331,7 +331,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the default playback device (is, is not).
+        ///   Looks up a localized string similar to If the default playback device is or is not.
         /// </summary>
         public static string DefaultDeviceCondition_AddText {
             get {
@@ -367,7 +367,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete action?.
+        ///   Looks up a localized string similar to Delete this action?.
         /// </summary>
         public static string DeleteActionDialogText {
             get {
@@ -394,7 +394,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When an audio device is (added, removed, becomes or leaves default).
+        ///   Looks up a localized string similar to An audio device is added, removed, set as default, ....
         /// </summary>
         public static string DeviceEventTrigger_AddText {
             get {
@@ -412,7 +412,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to shuts down.
+        ///   Looks up a localized string similar to ends.
         /// </summary>
         public static string EarTrumpetEventKind_Shutdown {
             get {
@@ -421,7 +421,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to starts up.
+        ///   Looks up a localized string similar to starts.
         /// </summary>
         public static string EarTrumpetEventKind_Startup {
             get {
@@ -439,7 +439,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EarTrumpet Actions Save File.
+        ///   Looks up a localized string similar to EarTrumpet Actions XML.
         /// </summary>
         public static string EtaXmlFileText {
             get {
@@ -448,7 +448,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When EarTrumpet is started or stopped.
+        ///   Looks up a localized string similar to EarTrumpet starts or ends.
         /// </summary>
         public static string EventTrigger_AddText {
             get {
@@ -484,7 +484,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This file can be imported on this or another PC later..
+        ///   Looks up a localized string similar to Save a copy of your actions to a file..
         /// </summary>
         public static string ExportHelpText {
             get {
@@ -502,7 +502,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When a hotkey is pressed.
+        ///   Looks up a localized string similar to A hotkey is typed.
         /// </summary>
         public static string HotkeyTrigger_AddText {
             get {
@@ -547,7 +547,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import your actions previously exported by EarTrumpet. Create a file that contains a copy of your saved actions..
+        ///   Looks up a localized string similar to Restore a copy of your actions from a file..
         /// </summary>
         public static string ImportHelpText {
             get {
@@ -655,7 +655,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a process is (running, not running).
+        ///   Looks up a localized string similar to If a process is running or not.
         /// </summary>
         public static string ProcessCondition_AddText {
             get {
@@ -700,7 +700,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to stops.
+        ///   Looks up a localized string similar to ends.
         /// </summary>
         public static string ProcessEventKind_Stop {
             get {
@@ -727,7 +727,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When a process starts or stops.
+        ///   Looks up a localized string similar to A process starts or ends.
         /// </summary>
         public static string ProcessTrigger_AddText {
             get {
@@ -781,7 +781,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing cannot be undone.
+        ///   Looks up a localized string similar to This cannot be undone..
         /// </summary>
         public static string RemoveActionDescriptionText {
             get {
@@ -844,7 +844,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set an app volume.
+        ///   Looks up a localized string similar to Set the volume of an app.
         /// </summary>
         public static string SetAppVolumeAction_AddText {
             get {
@@ -853,7 +853,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume} for {App} on {Device}.
+        ///   Looks up a localized string similar to {Option} {App} volume to {Volume} on {Device}.
         /// </summary>
         public static string SetAppVolumeAction_LinkText {
             get {
@@ -862,7 +862,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume by {Volume} for {App} on {Device}.
+        ///   Looks up a localized string similar to {Option} {App} volume by {Volume} on {Device}.
         /// </summary>
         public static string SetAppVolumeAction_LinkTextIncrement {
             get {
@@ -925,7 +925,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume to {Volume} for {Device}.
+        ///   Looks up a localized string similar to {Option} {Device} volume to {Volume}.
         /// </summary>
         public static string SetDeviceVolumeAction_LinkText {
             get {
@@ -934,7 +934,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} volume by {Volume} for {Device}.
+        ///   Looks up a localized string similar to {Option} {Device} volume by {Volume}.
         /// </summary>
         public static string SetDeviceVolumeAction_LinkTextIncrement {
             get {
@@ -970,7 +970,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a variable name (e.g. IsInGameMode).
+        ///   Looks up a localized string similar to Enter a variable name (e.g. isInGameMode).
         /// </summary>
         public static string SetVariableAction_PromptText {
             get {
@@ -1051,7 +1051,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a local variable is (true or false).
+        ///   Looks up a localized string similar to If a local variable is true or false.
         /// </summary>
         public static string VariableCondition_AddText {
             get {
@@ -1078,7 +1078,7 @@ namespace EarTrumpet_Actions.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a variable name (e.g. IsInGameMode).
+        ///   Looks up a localized string similar to Enter a variable name (e.g. isInGameMode).
         /// </summary>
         public static string VariableCondition_PromptText {
             get {
