@@ -113,6 +113,7 @@
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Interop\SndVolSSO.cs" />
+    <Compile Include="UI\Behaviors\ButtonEx.cs" />
     <Compile Include="UI\Behaviors\ScrollViewerEx.cs" />
     <Compile Include="UI\Controls\ListView.cs" />
     <Compile Include="UI\Controls\ListViewItem.cs" />
