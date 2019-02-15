@@ -108,8 +108,6 @@
     <Compile Include="DataModel\Serialization\Device.cs" />
     <Compile Include="DataModel\Serialization\EarTrumpetAction.cs" />
     <Compile Include="DataModel\Serialization\App.cs" />
-    <Compile Include="ViewModel\AppViewModel.cs" />
-    <Compile Include="ViewModel\AppViewModelBase.cs" />
     <Compile Include="ViewModel\DefaultPlaybackDeviceViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModel.cs" />
     <Compile Include="ViewModel\DeviceViewModelBase.cs" />

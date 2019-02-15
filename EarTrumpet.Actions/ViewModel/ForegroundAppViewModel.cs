@@ -1,8 +1,9 @@
-﻿using EarTrumpet_Actions.DataModel.Serialization;
+﻿using EarTrumpet.UI.ViewModels;
+using EarTrumpet_Actions.DataModel.Serialization;
 
 namespace EarTrumpet_Actions.ViewModel
 {
-    class ForegroundAppViewModel : AppViewModelBase
+    class ForegroundAppViewModel : SettingsAppItemViewModel
     {
         public ForegroundAppViewModel()
         {

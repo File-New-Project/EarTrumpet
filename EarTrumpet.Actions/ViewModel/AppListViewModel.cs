@@ -22,29 +22,14 @@ namespace EarTrumpet_Actions.ViewModel
             ForegroundApp = 2,
         }
 
-        class IAudioDeviceSessionComparer : IEqualityComparer<IAudioDeviceSession>
-        {
-            public static readonly IAudioDeviceSessionComparer Instance = new IAudioDeviceSessionComparer();
-
-            public bool Equals(IAudioDeviceSession x, IAudioDeviceSession y)
-            {
-                return x.AppId.Equals(y.AppId);
-            }
-
-            public int GetHashCode(IAudioDeviceSession obj)
-            {
-                return obj.AppId.GetHashCode();
-            }
-        }
-
-        public ObservableCollection<AppViewModelBase> All { get; }
+        public ObservableCollection<IAppItemViewModel> All { get; }
 
         private IPartWithApp _part;
 
         public AppListViewModel(IPartWithApp part, AppKind flags)
         {
             _part = part;
-            All = new ObservableCollection<AppViewModelBase>();
+            All = new ObservableCollection<IAppItemViewModel>();
 
             GetApps(flags);
 
@@ -54,7 +39,7 @@ namespace EarTrumpet_Actions.ViewModel
             }
         }
 
-        public void OnInvoked(object sender, AppViewModelBase vivewModel)
+        public void OnInvoked(object sender, IAppItemViewModel vivewModel)
         {
             _part.App = new App { Id = vivewModel.Id };
             RaisePropertyChanged("");  // Signal change so ToString will be called.
@@ -87,7 +72,7 @@ namespace EarTrumpet_Actions.ViewModel
 
             foreach (var app in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups).Distinct(IAudioDeviceSessionComparer.Instance).OrderBy(d => d.SessionDisplayName).OrderBy(d => d.SessionDisplayName))
             {
-                All.Add(new AppViewModel(app));
+                All.Add(new SettingsAppItemViewModel(app));
             }
         }
     }
