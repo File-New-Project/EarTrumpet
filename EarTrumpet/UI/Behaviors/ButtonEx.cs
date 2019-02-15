@@ -24,6 +24,7 @@ namespace EarTrumpet.UI.Behaviors
                 var dpiY = Window.GetWindow(btn).DpiHeightFactor();
 
                 popup.Opacity = 0;
+                popup.DataContext = btn.DataContext;
                 popup.UpdateLayout();
                 popup.Child.UpdateLayout();
                 popup.IsOpen = true;

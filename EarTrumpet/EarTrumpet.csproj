@@ -90,6 +90,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AudioDeviceKind.cs" />
+    <Compile Include="DataModel\IAudioDeviceSessionComparer.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannel.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeyViewModel.cs" />
     <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsSearchBoxResultsItemViewModel.cs" />
