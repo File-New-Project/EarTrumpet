@@ -67,14 +67,13 @@
 
                         <Button x:Name="ClearButton"
                                 Grid.Column="1"
-                                Opacity="1"
                                 Style="{StaticResource BaseOverlayButton}">
                             <TextBlock x:Name="ClearButtonTextBlock"
                                        Margin="8"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Theme:Brush.Foreground="Theme=GrayText"
-                                       FontSize="9"
+                                       FontSize="10"
                                        Style="{StaticResource GlyphTextBlockStyle}"
                                        Text="&#xE8BB;" />
                             <Button.Triggers>

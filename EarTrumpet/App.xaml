@@ -18,8 +18,7 @@
                 <Theme:Manager.References>
                     <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
                     <Theme:Ref Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
-                    <!--  TODO: Restore prior background colour customisation. #FF222222  -->
-                    <Theme:Ref Key="Background" Value="Theme=ApplicationBackground{Theme}Theme, HighContrast=Window" />
+                    <Theme:Ref Key="Background" Value="Light=ApplicationBackgroundLightTheme, Dark=#FF151515, HighContrast=Window" />
                     <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
                     <Theme:Ref Key="AcrylicBackground">
                         <Theme:Ref.Rules>
@@ -433,6 +432,36 @@
             </Style>
 
             <Style x:Key="BaseOverlayButton" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="Width" Value="28" />
+                <Setter Property="Height" Value="28" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Content}"
+                                                  Focusable="False"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MuteButton" TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="0" />
@@ -911,7 +940,7 @@
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
                                                        Theme:Brush.Foreground="Theme=GrayText"
-                                                       FontSize="9"
+                                                       FontSize="10"
                                                        Style="{StaticResource GlyphTextBlockStyle}"
                                                        Text="&#xE8BB;" />
                                             <Button.Triggers>

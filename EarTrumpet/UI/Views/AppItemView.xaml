@@ -68,7 +68,7 @@
                     IsTabStop="False"
                     ToolTip="{Binding DisplayName}">
                 <Button.Style>
-                    <Style BasedOn="{StaticResource BaseOverlayButton}" TargetType="Button">
+                    <Style BasedOn="{StaticResource MuteButton}" TargetType="Button">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="1" />
