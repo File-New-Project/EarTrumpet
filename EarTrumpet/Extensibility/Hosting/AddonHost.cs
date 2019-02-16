@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Windows.ApplicationModel;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
@@ -91,6 +92,7 @@ namespace EarTrumpet.Extensibility.Hosting
                 {
                     catalogs.AddRange(Windows.ApplicationModel.Package.Current.Dependencies.
                         Where(p => p.IsOptional).
+                        Where(p => p.PublisherDisplayName == Package.Current.PublisherDisplayName).
                         Select(p => SelectAddon(p.InstalledLocation.Path)).
                         Where(a => a != null));
                 }

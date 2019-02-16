@@ -19,7 +19,7 @@ $assemblyInfo = Get-Content -raw $AssemblyInfoPath
 
 if ($assemblyInfo -match ".*?Version\(`"(.*?)`"\).*?") {
 	$assemblyInfo = $assemblyInfo.Replace($Matches[1], $newVersion);
-	Set-Content -Path $AssemblyInfoPath -Value $assemblyInfo
+	Set-Content -Path $AssemblyInfoPath -Value $assemblyInfo.Trim();
 } else {
 	throw "Unexpected lack of AssemblyInfo.cs match when searching for version";
 }
