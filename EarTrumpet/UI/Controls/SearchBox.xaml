@@ -33,7 +33,6 @@
             </Grid>
 
         </DataTemplate>
-
     </TextBox.Resources>
     <TextBox.Template>
         <ControlTemplate>
