@@ -438,7 +438,6 @@
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
                 <Setter Property="Width" Value="28" />
-                <Setter Property="Height" Value="28" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">

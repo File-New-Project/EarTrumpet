@@ -44,7 +44,7 @@
                     SnapsToDevicePixels="True">
                 <Grid>
                     <TextBlock Name="PromptText"
-                               Margin="6,0"
+                               Margin="9,4"
                                Theme:Brush.Foreground="GrayText"
                                Text="{x:Static resx:Resources.FindASettingText}" />
                     <Grid>
@@ -54,6 +54,7 @@
                         </Grid.ColumnDefinitions>
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Focusable="false"
+                                      Margin="4,0"
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
                         <TextBlock Name="SearchGlyph"
