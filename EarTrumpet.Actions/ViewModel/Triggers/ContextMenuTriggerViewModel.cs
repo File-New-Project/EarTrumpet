@@ -1,6 +1,6 @@
-﻿using EarTrumpet_Actions.DataModel.Serialization;
+﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet_Actions.ViewModel.Triggers
+namespace EarTrumpet.Actions.ViewModel.Triggers
 {
     class ContextMenuTriggerViewModel : PartViewModel
     {

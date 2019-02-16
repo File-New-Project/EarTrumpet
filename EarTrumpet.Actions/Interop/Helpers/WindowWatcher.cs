@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace EarTrumpet_Actions.Interop.Helpers
+namespace EarTrumpet.Actions.Interop.Helpers
 {
     class WindowWatcher
     {

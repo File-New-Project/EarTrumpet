@@ -1,12 +1,12 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class ActionsCategoryViewModel : SettingsCategoryViewModel
     {

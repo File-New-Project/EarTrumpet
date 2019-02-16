@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class HotkeyViewModel : BindableBase
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     class OptionViewModel : BindableBase, IOptionViewModel
     {

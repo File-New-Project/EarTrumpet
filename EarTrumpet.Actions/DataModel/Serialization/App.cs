@@ -1,6 +1,8 @@
-﻿namespace EarTrumpet_Actions.DataModel.Serialization
+﻿using System.Xml.Serialization;
+
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
-    public class App
+    public class AppRef
     {
         public static readonly string EveryAppId = "EarTrumpet.EveryApp";
         public static readonly string ForegroundAppId = "EarTrumpet.ForegroundApp";
@@ -12,7 +14,7 @@
             return Id == null ? 0 : Id.GetHashCode();
         }
 
-        public bool Equals(App other)
+        public bool Equals(AppRef other)
         {
             return other.Id == Id;
         }

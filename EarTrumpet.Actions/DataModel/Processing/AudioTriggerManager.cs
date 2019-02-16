@@ -1,10 +1,10 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet_Actions.DataModel.Enum;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Enum;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 
-namespace EarTrumpet_Actions.DataModel.Processing
+namespace EarTrumpet.Actions.DataModel.Processing
 {
     class AudioTriggerManager
     {

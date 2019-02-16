@@ -1,11 +1,11 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class PartViewModel : BindableBase
     {

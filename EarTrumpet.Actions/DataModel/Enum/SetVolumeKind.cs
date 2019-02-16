@@ -1,4 +1,4 @@
-﻿namespace EarTrumpet_Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum
 {
     public enum SetVolumeKind
     {

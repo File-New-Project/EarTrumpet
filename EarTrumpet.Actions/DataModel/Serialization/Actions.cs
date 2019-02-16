@@ -1,7 +1,7 @@
-﻿using EarTrumpet_Actions.DataModel.Enum;
+﻿using EarTrumpet.Actions.DataModel.Enum;
 using System.Xml.Serialization;
 
-namespace EarTrumpet_Actions.DataModel.Serialization
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
     [XmlInclude(typeof(SetAppVolumeAction))]
     [XmlInclude(typeof(SetAppMuteAction))]
@@ -14,14 +14,14 @@ namespace EarTrumpet_Actions.DataModel.Serialization
     public class SetAppMuteAction : BaseAction, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
-        public App App { get; set; }
+        public AppRef App { get; set; }
         public MuteKind Option { get; set; }
     }
 
     public class SetAppVolumeAction : BaseAction, IPartWithVolume, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
-        public App App { get; set; }
+        public AppRef App { get; set; }
         public SetVolumeKind Option { get; set; }
         public double Volume { get; set; }
     }

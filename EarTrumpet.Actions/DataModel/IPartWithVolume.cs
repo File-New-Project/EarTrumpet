@@ -1,4 +1,4 @@
-﻿namespace EarTrumpet_Actions.DataModel
+﻿namespace EarTrumpet.Actions.DataModel
 {
     public interface IPartWithVolume
     {

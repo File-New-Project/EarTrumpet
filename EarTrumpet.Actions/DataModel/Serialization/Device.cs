@@ -1,5 +1,5 @@
 ﻿using EarTrumpet.DataModel;
-namespace EarTrumpet_Actions.DataModel.Serialization
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
     public class Device
     {
@@ -12,7 +12,7 @@ namespace EarTrumpet_Actions.DataModel.Serialization
             return Id == null ? 0 : Id.GetHashCode();
         }
 
-        public bool Equals(App other)
+        public bool Equals(Device other)
         {
             return other.Id == Id;
         }

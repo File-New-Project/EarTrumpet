@@ -1,9 +1,9 @@
-﻿using EarTrumpet_Actions.DataModel;
+﻿using EarTrumpet.Actions.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     class PartViewModelFactory
     {

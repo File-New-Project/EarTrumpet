@@ -1,7 +1,7 @@
-﻿using EarTrumpet_Actions.DataModel.Enum;
+﻿using EarTrumpet.Actions.DataModel.Enum;
 using System.Xml.Serialization;
 
-namespace EarTrumpet_Actions.DataModel.Serialization
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
     [XmlInclude(typeof(DefaultDeviceCondition))]
     [XmlInclude(typeof(ProcessCondition))]

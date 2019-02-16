@@ -1,9 +1,9 @@
-﻿using EarTrumpet_Actions.DataModel.Serialization;
+﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet.Actions.DataModel
 {
     interface IPartWithApp
     {
-        App App { get; set; }
+        AppRef App { get; set; }
     }
 }

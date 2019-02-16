@@ -1,15 +1,15 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Interop;
-using EarTrumpet_Actions.DataModel.Serialization;
-using EarTrumpet_Actions.DataModel.Enum;
+using EarTrumpet.Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Enum;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace EarTrumpet_Actions.DataModel.Processing
+namespace EarTrumpet.Actions.DataModel.Processing
 {
     class ActionProcessor
     {
@@ -39,7 +39,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
-                    if (action.App.Id == App.ForegroundAppId)
+                    if (action.App.Id == AppRef.ForegroundAppId)
                     {
                         var app = FindForegroundApp(device.Groups);
                         if (app != null)
@@ -49,7 +49,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     }
                     else
                     {
-                        foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
+                        foreach (var app in device.Groups.Where(app => action.App.Id == AppRef.EveryAppId || app.AppId == action.App.Id))
                         {
                             DoAudioAction(action.Option, app, action);
                         }
@@ -65,7 +65,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
                 if (device != null)
                 {
-                    if (action.App.Id == App.ForegroundAppId)
+                    if (action.App.Id == AppRef.ForegroundAppId)
                     {
                         var app = FindForegroundApp(device.Groups);
                         if (app != null)
@@ -75,7 +75,7 @@ namespace EarTrumpet_Actions.DataModel.Processing
                     }
                     else
                     {
-                        foreach (var app in device.Groups.Where(app => action.App.Id == App.EveryAppId || app.AppId == action.App.Id))
+                        foreach (var app in device.Groups.Where(app => action.App.Id == AppRef.EveryAppId || app.AppId == action.App.Id))
                         {
                             DoAudioAction(action.Option, app);
                         }

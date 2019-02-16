@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     class AppListViewModel : BindableBase
     {
@@ -35,13 +35,13 @@ namespace EarTrumpet_Actions.ViewModel
 
             if (part.App?.Id == null)
             {
-                _part.App = new App { Id = All[0].Id };
+                _part.App = new AppRef { Id = All[0].Id };
             }
         }
 
         public void OnInvoked(object sender, IAppItemViewModel vivewModel)
         {
-            _part.App = new App { Id = vivewModel.Id };
+            _part.App = new AppRef { Id = vivewModel.Id };
             RaisePropertyChanged("");  // Signal change so ToString will be called.
 
             var popup = ((DependencyObject)sender).FindVisualParent<Popup>();

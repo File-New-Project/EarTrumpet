@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54B44364-A3DA-4AE6-B166-683730122313}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EarTrumpet.Actions</RootNamespace>
+    <AssemblyName>EarTrumpet.Actions</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\EarTrumpet\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\EarTrumpet\Build\Release\addons\Actions\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\EarTrumpet\Build\Debug\addons\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\MenuButton.cs" />
+    <Compile Include="Controls\LinkedTextBlock.cs" />
+    <Compile Include="DataModel\Enum\AudioAppEventKind.cs" />
+    <Compile Include="DataModel\Enum\AudioDeviceEventKind.cs" />
+    <Compile Include="DataModel\Enum\BoolValue.cs" />
+    <Compile Include="DataModel\Enum\ComparisonBoolKind.cs" />
+    <Compile Include="DataModel\Enum\EarTrumpetEventKind.cs" />
+    <Compile Include="DataModel\Enum\ProcessEventKind.cs" />
+    <Compile Include="DataModel\Enum\ProcessStateKind.cs" />
+    <Compile Include="DataModel\Enum\MuteKind.cs" />
+    <Compile Include="DataModel\Enum\SetVolumeKind.cs" />
+    <Compile Include="DataModel\Processing\ActionProcessor.cs" />
+    <Compile Include="DataModel\Processing\AudioTriggerManager.cs" />
+    <Compile Include="DataModel\Processing\ConditionProcessor.cs" />
+    <Compile Include="DataModel\IPartWithApp.cs" />
+    <Compile Include="DataModel\IPartWithDevice.cs" />
+    <Compile Include="DataModel\IPartWithText.cs" />
+    <Compile Include="DataModel\IPartWithVolume.cs" />
+    <Compile Include="DataModel\LocalVariablesContainer.cs" />
+    <Compile Include="DataModel\Processing\TriggerManager.cs" />
+    <Compile Include="DataModel\Serialization\Actions.cs" />
+    <Compile Include="DataModel\Serialization\Conditions.cs" />
+    <Compile Include="DataModel\Serialization\Triggers.cs" />
+    <Compile Include="Interop\Helpers\WindowWatcher.cs" />
+    <Compile Include="Interop\User32.cs" />
+    <Compile Include="SettingsPageAddon.cs" />
+    <Compile Include="ViewModel\ActionsCategoryViewModel.cs" />
+    <Compile Include="DataModel\Serialization\Device.cs" />
+    <Compile Include="DataModel\Serialization\EarTrumpetAction.cs" />
+    <Compile Include="DataModel\Serialization\App.cs" />
+    <Compile Include="ViewModel\DefaultPlaybackDeviceViewModel.cs" />
+    <Compile Include="ViewModel\DeviceViewModel.cs" />
+    <Compile Include="ViewModel\DeviceViewModelBase.cs" />
+    <Compile Include="ViewModel\EarTrumpetActionPageHeaderViewModel.cs" />
+    <Compile Include="ViewModel\EveryAppViewModel.cs" />
+    <Compile Include="ViewModel\ForegroundAppViewModel.cs" />
+    <Compile Include="ViewModel\ImportExportPageViewModel.cs" />
+    <Compile Include="ViewModel\Option.cs" />
+    <Compile Include="DataModel\Part.cs" />
+    <Compile Include="DataModel\ProcessWatcher.cs" />
+    <Compile Include="DataModel\PlaybackDataModelHost.cs" />
+    <Compile Include="ViewModel\Actions\SetAppMuteActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetDeviceMuteActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetDeviceVolumeActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
+    <Compile Include="ViewModel\Actions\SetVariableActionViewModel.cs" />
+    <Compile Include="ViewModel\AppListViewModel.cs" />
+    <Compile Include="ViewModel\Conditions\DefaultDeviceConditionViewModel.cs" />
+    <Compile Include="ViewModel\Conditions\ProcessConditionViewModel.cs" />
+    <Compile Include="ViewModel\Conditions\VariableConditionViewModel.cs" />
+    <Compile Include="ViewModel\DeviceListViewModel.cs" />
+    <Compile Include="ViewModel\EarTrumpetActionViewModel.cs" />
+    <Compile Include="ViewModel\HotkeyViewModel.cs" />
+    <Compile Include="ViewModel\IOptionViewModel.cs" />
+    <Compile Include="ViewModel\OptionViewModel.cs" />
+    <Compile Include="ViewModel\PartViewModel.cs" />
+    <Compile Include="ViewModel\PartViewModelFactory.cs" />
+    <Compile Include="ViewModel\TextViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\ContextMenuTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\DeviceEventTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\AppEventTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\EventTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\HotkeyTriggerViewModel.cs" />
+    <Compile Include="ViewModel\Triggers\ProcessTriggerViewModel.cs" />
+    <Compile Include="ViewModel\VolumeViewModel.cs" />
+    <Compile Include="Addon.cs" />
+    <Page Include="AddonResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContextMenuAddon.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EarTrumpet\EarTrumpet\EarTrumpet.csproj">
+      <Project>{ba3c7b42-84b0-468c-8640-217e2a24cf81}</Project>
+      <Name>EarTrumpet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)\..\AddonPackage\make.cmd $(TargetName) $(OutDir)</PostBuildEvent>
+  </PropertyGroup>
+</Project>

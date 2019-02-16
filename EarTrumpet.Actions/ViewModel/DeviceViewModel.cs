@@ -2,7 +2,7 @@
 using EarTrumpet.UI;
 using EarTrumpet.UI.ViewModels;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class DeviceViewModel : DeviceViewModelBase
     {

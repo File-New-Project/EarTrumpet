@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using System.ComponentModel;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class EarTrumpetActionPageHeaderViewModel : SettingsPageHeaderViewModel
     {

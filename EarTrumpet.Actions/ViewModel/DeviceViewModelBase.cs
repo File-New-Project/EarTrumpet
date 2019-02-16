@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.UI.ViewModels;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class DeviceViewModelBase : BindableBase
     {

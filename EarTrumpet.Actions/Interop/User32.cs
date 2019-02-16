@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace EarTrumpet_Actions.Interop
+namespace EarTrumpet.Actions.Interop
 {
     class User32
     {

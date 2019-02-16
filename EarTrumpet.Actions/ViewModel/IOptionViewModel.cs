@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using EarTrumpet_Actions.DataModel;
+using EarTrumpet.Actions.DataModel;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     interface IOptionViewModel
     {

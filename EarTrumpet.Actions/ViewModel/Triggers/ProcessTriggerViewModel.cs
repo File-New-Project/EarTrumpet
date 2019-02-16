@@ -1,11 +1,11 @@
-﻿using EarTrumpet_Actions.DataModel.Serialization;
+﻿using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EarTrumpet_Actions.ViewModel.Triggers
+namespace EarTrumpet.Actions.ViewModel.Triggers
 {
     class ProcessTriggerViewModel : PartViewModel
     {

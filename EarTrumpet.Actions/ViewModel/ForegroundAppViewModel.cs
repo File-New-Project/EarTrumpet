@@ -1,13 +1,13 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     class ForegroundAppViewModel : SettingsAppItemViewModel
     {
         public ForegroundAppViewModel()
         {
-            Id = App.ForegroundAppId;
+            Id = AppRef.ForegroundAppId;
             DisplayName = Properties.Resources.ForegroundAppText;
         }
     }

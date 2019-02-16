@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel;
+using EarTrumpet.Actions.DataModel;
 using System;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class VolumeViewModel : BindableBase
     {

@@ -1,12 +1,12 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 
-namespace EarTrumpet_Actions
+namespace EarTrumpet.Actions
 {
     [Export(typeof(IAddonContextMenu))]
     public class ContextMenuAddon : IAddonContextMenu

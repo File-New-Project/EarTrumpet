@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.ViewModel;
+using EarTrumpet.Actions.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace EarTrumpet_Actions.Controls
+namespace EarTrumpet.Actions.Controls
 {
     public class LinkedTextBlock : TextBlock
     {

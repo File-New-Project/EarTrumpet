@@ -1,12 +1,12 @@
 ﻿using EarTrumpet.Interop;
-using EarTrumpet_Actions.Interop.Helpers;
+using EarTrumpet.Actions.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet.Actions.DataModel
 {
     public class ProcessWatcher
     {

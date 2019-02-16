@@ -4,11 +4,11 @@
                     xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes;assembly=EarTrumpet"
                     xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
                     xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
-                    xmlns:etctl="clr-namespace:EarTrumpet_Actions.Controls"
+                    xmlns:etctl="clr-namespace:EarTrumpet.Actions.Controls"
                     xmlns:etvm="clr-namespace:EarTrumpet.UI.ViewModels;assembly=EarTrumpet"
-                    xmlns:resx="clr-namespace:EarTrumpet_Actions.Properties"
+                    xmlns:resx="clr-namespace:EarTrumpet.Actions.Properties"
                     xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
-                    xmlns:vm="clr-namespace:EarTrumpet_Actions.ViewModel">
+                    xmlns:vm="clr-namespace:EarTrumpet.Actions.ViewModel">
     <Style x:Key="RunStyle" TargetType="Run">
         <Setter Property="FontSize" Value="15" />
         <Setter Property="Theme:Brush.Foreground" Value="Text" />

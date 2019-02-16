@@ -1,8 +1,8 @@
 ﻿using EarTrumpet.Interop.Helpers;
-using EarTrumpet_Actions.DataModel.Enum;
+using EarTrumpet.Actions.DataModel.Enum;
 using System.Xml.Serialization;
 
-namespace EarTrumpet_Actions.DataModel.Serialization
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
     [XmlInclude(typeof(EventTrigger))]
     [XmlInclude(typeof(HotkeyTrigger))]
@@ -15,7 +15,7 @@ namespace EarTrumpet_Actions.DataModel.Serialization
     public class AppEventTrigger : BaseTrigger, IPartWithDevice, IPartWithApp
     {
         public Device Device { get; set; }
-        public App App { get; set; }
+        public AppRef App { get; set; }
         public AudioAppEventKind Option { get; set; }
     }
 

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EarTrumpet_Actions.Properties
+namespace EarTrumpet.Actions.Properties
 {
 
 

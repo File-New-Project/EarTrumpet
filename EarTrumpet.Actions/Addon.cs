@@ -1,20 +1,20 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility;
-using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Processing;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel;
+using EarTrumpet.Actions.DataModel.Processing;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 
-namespace EarTrumpet_Actions
+namespace EarTrumpet.Actions
 {
     [Export(typeof(IAddonLifecycle))]
     public class Addon : IAddonLifecycle
     {
         public static Addon Current { get; private set; }
-        public static string Namespace => "EarTrumpet-Actions";
+        public static string Namespace => "EarTrumpet.Actions";
         public LocalVariablesContainer LocalVariables { get; private set; }
 
         public EarTrumpetAction[] Actions
@@ -33,7 +33,7 @@ namespace EarTrumpet_Actions
             {
                 DisplayName = Properties.Resources.MyActionsText,
                 PublisherName = "File-New-Project",
-                Id = "eartrumpet-project-eta",
+                Id = "EarTrumpet.project-eta",
                 HelpLink = "https://github.com/File-New-Project/EarTrumpet",
                 AddonVersion = new System.Version(1, 0, 0, 0),
             };

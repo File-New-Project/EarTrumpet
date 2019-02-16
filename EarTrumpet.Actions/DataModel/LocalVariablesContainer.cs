@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 
-namespace EarTrumpet_Actions.DataModel
+namespace EarTrumpet.Actions.DataModel
 {
     public class LocalVariablesContainer
     {

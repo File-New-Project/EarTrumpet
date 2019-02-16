@@ -1,15 +1,15 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.ViewModels;
-using EarTrumpet_Actions.DataModel;
-using EarTrumpet_Actions.DataModel.Serialization;
+using EarTrumpet.Actions.DataModel;
+using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class DeviceListViewModel : BindableBase
     {

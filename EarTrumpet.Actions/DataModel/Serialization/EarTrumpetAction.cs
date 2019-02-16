@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace EarTrumpet_Actions.DataModel.Serialization
+namespace EarTrumpet.Actions.DataModel.Serialization
 {
     public class EarTrumpetAction
     {

@@ -1,7 +1,7 @@
-﻿using EarTrumpet_Actions.DataModel.Enum;
-using EarTrumpet_Actions.DataModel.Serialization;
+﻿using EarTrumpet.Actions.DataModel.Enum;
+using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet_Actions.ViewModel.Actions
+namespace EarTrumpet.Actions.ViewModel.Actions
 {
     class SetDeviceVolumeActionViewModel : PartViewModel
     {

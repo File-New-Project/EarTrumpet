@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Input;
 
-namespace EarTrumpet_Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel
 {
     public class ImportExportPageViewModel : SettingsPageViewModel
     {
