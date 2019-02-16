@@ -114,7 +114,7 @@ namespace EarTrumpet.Actions.Controls
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
                             ContextMenu2.Opacity = 0;
-                            ContextMenu2.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject);
+                            ContextMenu2.ItemsSource = GetContextMenuFromOptionViewModel((IOptionViewModel)resolvedPropertyObject).OrderBy(menu => menu.DisplayName);
                             ContextMenu2.UpdateLayout();
                             ContextMenu2.IsOpen = true;
                             ContextMenu2.Dispatcher.BeginInvoke((Action)(() =>

@@ -65,9 +65,9 @@ namespace EarTrumpet.Actions.ViewModel
             }
         }
 
-        public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).ToList();
-        public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).ToList();
-        public List<ContextMenuItem> NewActions => PartViewModelFactory.Create<BaseAction>().Select(t => MakeItem(t)).ToList();
+        public List<ContextMenuItem> NewTriggers => PartViewModelFactory.Create<BaseTrigger>().Select(t => MakeItem(t)).OrderBy(t => t.DisplayName).ToList();
+        public List<ContextMenuItem> NewConditions => PartViewModelFactory.Create<BaseCondition>().Select(t => MakeItem(t)).OrderBy(t => t.DisplayName).ToList();
+        public List<ContextMenuItem> NewActions => PartViewModelFactory.Create<BaseAction>().Select(t => MakeItem(t)).OrderBy(t => t.DisplayName).ToList();
 
         public ObservableCollection<PartViewModel> Triggers { get; private set; }
         public ObservableCollection<PartViewModel> Conditions { get; private set; }
