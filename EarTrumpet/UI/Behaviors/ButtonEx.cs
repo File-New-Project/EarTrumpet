@@ -12,7 +12,7 @@ namespace EarTrumpet.UI.Behaviors
         public static Popup GetClickPopup(DependencyObject obj) => (Popup)obj.GetValue(ClickPopupProperty);
         public static void SetClickPopup(DependencyObject obj, Popup value) => obj.SetValue(ClickPopupProperty, value);
         public static readonly DependencyProperty ClickPopupProperty =
-        DependencyProperty.RegisterAttached("ClickPopup", typeof(Popup), typeof(Popup), new PropertyMetadata(null, PopupChanged));
+        DependencyProperty.RegisterAttached("ClickPopup", typeof(Popup), typeof(ButtonEx), new PropertyMetadata(null, PopupChanged));
         private static void PopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var popup = (Popup)e.NewValue;

@@ -7,6 +7,7 @@
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:ui="clr-namespace:EarTrumpet.UI"
+             xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
@@ -917,7 +918,7 @@
                                                 <EventTrigger RoutedEvent="Button.Click">
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButton" Storyboard.TargetProperty="(FrameworkElement.Tag)">
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButton" Storyboard.TargetProperty="Tag">
                                                                 <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Clear" />
                                                                 <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="" />
                                                             </ObjectAnimationUsingKeyFrames>
@@ -931,7 +932,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger SourceName="ClearButton" Property="Tag" Value="Clear">
-                                    <Setter Property="Text" Value="" />
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="True" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="Tag" Value="">
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="False" />
                                 </Trigger>
                                 <Trigger Property="Text" Value="{x:Static bcl:String.Empty}">
                                     <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
@@ -1418,7 +1422,7 @@
                 <TextBox GotKeyboardFocus="{Event:Binding OnGotFocus}"
                          LostKeyboardFocus="{Event:Binding OnLostFocus}"
                          PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
-                         Text="{Binding HotkeyText, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding HotkeyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

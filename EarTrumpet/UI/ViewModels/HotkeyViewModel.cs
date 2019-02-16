@@ -18,6 +18,12 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     _hotkeyText = value;
                     RaisePropertyChanged(nameof(HotkeyText));
+
+                    if (string.IsNullOrWhiteSpace(_hotkeyText))
+                    {
+                        _hotkey.Modifiers = System.Windows.Forms.Keys.None;
+                        _hotkey.Key = System.Windows.Forms.Keys.None;
+                    }
                 }
             }
         }
