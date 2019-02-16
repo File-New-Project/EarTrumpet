@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Interop.Helpers;
 using System;
-using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Services
 {

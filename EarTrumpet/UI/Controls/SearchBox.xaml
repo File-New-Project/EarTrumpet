@@ -3,6 +3,7 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
          xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
+         xmlns:bcl="clr-namespace:System;assembly=mscorlib"
          xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
          xmlns:resx="clr-namespace:EarTrumpet.Properties"
          xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -35,7 +36,7 @@
         </DataTemplate>
     </TextBox.Resources>
     <TextBox.Template>
-        <ControlTemplate>
+        <ControlTemplate TargetType="TextBox">
             <Border x:Name="border"
                     Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
                     Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
@@ -55,12 +56,40 @@
                                       Focusable="false"
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
-                        <TextBlock Grid.Column="1"
+                        <TextBlock Name="SearchGlyph"
+                                   Grid.Column="1"
                                    Margin="6,0"
+                                   Visibility="Collapsed"
                                    HorizontalAlignment="Right"
                                    Theme:Brush.Foreground="GrayText"
                                    Style="{StaticResource GlyphTextBlockStyle}"
                                    Text="&#xE721;" />
+
+                        <Button x:Name="ClearButton"
+                                Grid.Column="1"
+                                Opacity="1"
+                                Style="{StaticResource BaseOverlayButton}">
+                            <TextBlock x:Name="ClearButtonTextBlock"
+                                       Margin="8"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Theme:Brush.Foreground="Theme=GrayText"
+                                       FontSize="9"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="&#xE8BB;" />
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Click">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButton" Storyboard.TargetProperty="(FrameworkElement.Tag)">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Clear" />
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
                     </Grid>
                     <Popup x:Name="Popup"
                            AllowsTransparency="False"
@@ -80,17 +109,32 @@
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                <Trigger SourceName="ClearButton" Property="Tag" Value="Clear">
+                    <Setter Property="Text" Value="" />
+                </Trigger>
+                <Trigger Property="Text" Value="{x:Static bcl:String.Empty}">
+                    <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="SearchGlyph" Property="Visibility" Value="Visible" />
+                </Trigger>
+                <Trigger SourceName="ClearButton" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=SystemAccent" />
+                </Trigger>
+                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
+                    <Setter TargetName="ClearButton" Property="Theme:Brush.Background" Value="Theme=SystemAccent" />
+                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=LightChromeWhite" />
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest, HighContrast=ControlText" />
                 </Trigger>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter TargetName="PromptText" Property="Theme:Brush.Foreground" Value="Light=LightSecondaryText/0.8, Dark=LightDisabledText/0.8" />
+                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
+                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
