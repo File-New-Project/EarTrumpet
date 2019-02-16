@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace EarTrumpet.Actions.DataModel.Serialization
+﻿namespace EarTrumpet.Actions.DataModel.Serialization
 {
     public class AppRef
     {
