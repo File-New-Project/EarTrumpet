@@ -45,6 +45,8 @@
                 <Grid>
                     <TextBlock Name="PromptText"
                                Margin="9,4"
+                               FontSize="14"
+                               FontWeight="SemiBold"
                                Theme:Brush.Foreground="GrayText"
                                Text="{x:Static resx:Resources.FindASettingText}" />
                     <Grid>
@@ -60,6 +62,8 @@
                         <TextBlock Name="SearchGlyph"
                                    Grid.Column="1"
                                    Margin="6,0"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
                                    HorizontalAlignment="Right"
                                    Theme:Brush.Foreground="GrayText"
                                    Style="{StaticResource GlyphTextBlockStyle}"
@@ -73,7 +77,7 @@
                                        Margin="8"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       Theme:Brush.Foreground="Theme=#FF4F4F4F, HighContrast=GrayText"
+                                       Theme:Brush.Foreground="Theme=SearchClearGlyph, HighContrast=GrayText"
                                        FontSize="10"
                                        Style="{StaticResource GlyphTextBlockStyle}"
                                        Text="&#xE8BB;" />

@@ -19,7 +19,8 @@
                     <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
                     <Theme:Ref Key="GrayText" Value="Light=LightSecondaryText, Dark=LightDisabledText" />
                     <Theme:Ref Key="Background" Value="Light=ApplicationBackgroundLightTheme, Dark=#FF151515, HighContrast=Window" />
-                    <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=DarkAcrylicWindowBackdropFallback/1" />
+                    <Theme:Ref Key="SearchClearGlyph" Value="#FF4F4F4F" />
+                    <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=#FF1F1F1F" />
                     <Theme:Ref Key="AcrylicBackground">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="LightTheme">
@@ -938,7 +939,7 @@
                                                        Margin="8"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
-                                                       Theme:Brush.Foreground="Theme=GrayText"
+                                                       Theme:Brush.Foreground="Theme=SearchClearGlyph, HighContrast=GrayText"
                                                        FontSize="10"
                                                        Style="{StaticResource GlyphTextBlockStyle}"
                                                        Text="&#xE8BB;" />
