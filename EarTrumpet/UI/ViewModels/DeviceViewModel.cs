@@ -48,7 +48,7 @@ namespace EarTrumpet.UI.ViewModels
         private DeviceIconKind _iconKind;
         private WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;

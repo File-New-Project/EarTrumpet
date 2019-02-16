@@ -5,13 +5,13 @@ using System.Collections.Specialized;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceCollection : IAudioDeviceCollection
+    public class AudioDeviceCollection : IAudioDeviceCollection
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         private readonly ConcurrentDictionary<string, IAudioDevice> _devices = new ConcurrentDictionary<string, IAudioDevice>();
 
-        public void Add(AudioDevice device)
+        public void Add(IAudioDevice device)
         {
             if (_devices.TryAdd(device.Id, device))
             {

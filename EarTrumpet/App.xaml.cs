@@ -147,7 +147,7 @@ namespace EarTrumpet
                         (EarTrumpet.Properties.Resources.ProjectATitle,
                         "\xEA8D",
                         EarTrumpet.Properties.Resources.ProjectADescription, 
-                        "eartrumpet-project-eta", 
+                        "EarTrumpet.project-eta", 
                         "https://github.com/File-New-Project/EarTrumpet"),
                 };
 
