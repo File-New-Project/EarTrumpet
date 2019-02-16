@@ -113,7 +113,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
                     if ((trigger.Device?.Id == null && device == _playbackManager.DeviceManager.Default) ||
                          trigger.Device?.Id == device.Id)
                     {
-                        if (trigger.App.Id == app.Id)
+                        if (trigger.App.Id == app.AppId)
                         {
                             Triggered?.Invoke(trigger);
                         }
