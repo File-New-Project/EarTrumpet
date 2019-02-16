@@ -27,5 +27,10 @@ namespace EarTrumpet.DataModel
                 return s_recordingDevices;
             }
         }
+
+        public static IAudioDeviceManager CreateNonSharedDeviceManager(AudioDeviceKind kind)
+        {
+            return new AudioDeviceManager(kind);
+        }
     }
 }
