@@ -59,11 +59,11 @@
                         <TextBlock Name="SearchGlyph"
                                    Grid.Column="1"
                                    Margin="6,0"
-                                   Visibility="Collapsed"
                                    HorizontalAlignment="Right"
                                    Theme:Brush.Foreground="GrayText"
                                    Style="{StaticResource GlyphTextBlockStyle}"
-                                   Text="&#xE721;" />
+                                   Text="&#xE721;"
+                                   Visibility="Collapsed" />
 
                         <Button x:Name="ClearButton"
                                 Grid.Column="1"
