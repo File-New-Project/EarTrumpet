@@ -272,4 +272,7 @@
   <data name="ProjectATitle" xml:space="preserve">
     <value>Coming soon</value>
   </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Open settings</value>
+  </data>
 </root>

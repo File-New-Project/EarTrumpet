@@ -421,6 +421,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open settings.
+        /// </summary>
+        public static string SettingsOpenSettingsText {
+            get {
+                return ResourceManager.GetString("SettingsOpenSettingsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Settings.
         /// </summary>
         public static string SettingsTitle {

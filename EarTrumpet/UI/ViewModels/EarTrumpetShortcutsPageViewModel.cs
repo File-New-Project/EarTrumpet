@@ -10,6 +10,9 @@ namespace EarTrumpet.UI.ViewModels
         public HotkeyViewModel OpenMixerHotkey { get; }
         public string DefaultMixerHotKey => SettingsService.s_defaultMixerHotkey.ToString();
 
+        public HotkeyViewModel OpenSettingsHotkey { get; }
+        public string DefaultSettingsHotKey => SettingsService.s_defaultSettingsHotkey.ToString();
+
         public EarTrumpetShortcutsPageViewModel() : base(null)
         {
             Title = Properties.Resources.ShortcutsPageText;
@@ -17,6 +20,7 @@ namespace EarTrumpet.UI.ViewModels
 
             OpenFlyoutHotkey = new HotkeyViewModel(SettingsService.FlyoutHotkey, (newHotkey) => SettingsService.FlyoutHotkey = newHotkey);
             OpenMixerHotkey = new HotkeyViewModel(SettingsService.MixerHotkey, (newHotkey) => SettingsService.MixerHotkey = newHotkey);
+            OpenSettingsHotkey = new HotkeyViewModel(SettingsService.SettingsHotkey, (newHotkey) => SettingsService.SettingsHotkey = newHotkey);
         }
     }
 }

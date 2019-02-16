@@ -57,11 +57,16 @@ namespace EarTrumpet
 
             HotkeyManager.Current.Register(SettingsService.FlyoutHotkey);
             HotkeyManager.Current.Register(SettingsService.MixerHotkey);
+            HotkeyManager.Current.Register(SettingsService.SettingsHotkey);
             HotkeyManager.Current.KeyPressed += (hotkey) =>
             {
                 if (hotkey.Equals(SettingsService.FlyoutHotkey))
                 {
                     FlyoutViewModel.OpenFlyout(FlyoutShowOptions.Keyboard);
+                }
+                else if (hotkey.Equals(SettingsService.SettingsHotkey))
+                {
+                    OpenSettings();
                 }
                 else if (hotkey.Equals(SettingsService.MixerHotkey))
                 {

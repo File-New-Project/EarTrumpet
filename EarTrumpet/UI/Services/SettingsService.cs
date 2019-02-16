@@ -9,8 +9,9 @@ namespace EarTrumpet.UI.Services
     {
         public static event EventHandler<bool> UseLegacyIconChanged;
 
-        public static readonly HotkeyData s_defaultFlyoutHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = Keys.Q };
+        public static readonly HotkeyData s_defaultFlyoutHotkey = new HotkeyData { };
         public static readonly HotkeyData s_defaultMixerHotkey = new HotkeyData { };
+        public static readonly HotkeyData s_defaultSettingsHotkey = new HotkeyData { };
 
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 
@@ -24,6 +25,12 @@ namespace EarTrumpet.UI.Services
         {
             get => s_settings.Get("MixerHotkey", s_defaultMixerHotkey);
             set => s_settings.Set("MixerHotkey", value);
+        }
+
+        public static HotkeyData SettingsHotkey
+        {
+            get => s_settings.Get("SettingsHotkey", s_defaultSettingsHotkey);
+            set => s_settings.Set("SettingsHotkey", value);
         }
 
         public static bool UseLegacyIcon
