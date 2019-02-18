@@ -11,7 +11,7 @@ namespace EarTrumpet.UI.ViewModels
         public static readonly string DefaultManagementGroupName = Properties.Resources.DefaultManagementGroupName;
 
         public string GroupName { get; }
-        public string Id { get; }
+        public string NavigationId { get; }
         public string Glyph { get; protected set; }
 
         private string _title;

@@ -931,7 +931,9 @@
                                                   Focusable="False"
                                                   HorizontalScrollBarVisibility="Hidden"
                                                   VerticalScrollBarVisibility="Hidden" />
-                                    <Grid Grid.Column="1">
+                                    <Grid x:Name="ClearButtonGrid"
+                                          Visibility="Collapsed"
+                                          Grid.Column="1">
                                         <Button x:Name="ClearButton"
                                                 Opacity="1"
                                                 Style="{StaticResource BaseOverlayButton}">
@@ -988,6 +990,32 @@
                                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonGrid" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="00:00:00.1">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonGrid" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="00:00:00.1">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Collapsed</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
