@@ -42,11 +42,11 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private IAudioDevice _device;
-        private IAudioDeviceManager _deviceManager;
+        protected IAudioDevice _device;
+        protected IAudioDeviceManager _deviceManager;
         private bool _isDisplayNameVisible;
         private DeviceIconKind _iconKind;
-        private WeakReference<DeviceCollectionViewModel> _parent;
+        protected WeakReference<DeviceCollectionViewModel> _parent;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {

@@ -62,7 +62,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void AddDevice(IAudioDevice device)
+        protected virtual void AddDevice(IAudioDevice device)
         {
             var newDevice = new DeviceViewModel(this, _deviceManager, device);
             AllDevices.Add(newDevice);

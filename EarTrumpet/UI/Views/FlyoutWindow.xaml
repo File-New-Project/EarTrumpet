@@ -4,6 +4,7 @@
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+        xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Theme:Brush.Foreground="Text"
@@ -56,6 +57,11 @@
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="0" />
         </Style>
+        <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
+            <views:DeviceView Width="{StaticResource WindowAndItemSize}"
+                              Device="{Binding}"
+                              IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
+        </DataTemplate>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
@@ -76,14 +82,7 @@
                     <ItemsControl Name="DevicesList"
                                   FocusVisualStyle="{x:Null}"
                                   IsTabStop="False"
-                                  ItemsSource="{Binding Devices}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <views:DeviceView Device="{Binding}" IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
+                                  ItemsSource="{Binding Devices}" />
                     <Button Height="{StaticResource DeviceTitleCellHeight}"
                             Command="{Binding ExpandCollapse}"
                             IsEnabled="{Binding CanExpand}">
