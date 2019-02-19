@@ -38,12 +38,19 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                var deviceViewModel = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                if (deviceViewModel.IsApplicable)
+                {
+                    Dialog.Focused = deviceViewModel;
+                }
             }
 
-            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
-            Dialog.Source = container;
-            Dialog.IsVisible = true;
+            if (Dialog.Focused != null)
+            {
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+                Dialog.Source = container;
+                Dialog.IsVisible = true;
+            }
         }
     }
 }

@@ -932,8 +932,8 @@
                                                   HorizontalScrollBarVisibility="Hidden"
                                                   VerticalScrollBarVisibility="Hidden" />
                                     <Grid x:Name="ClearButtonGrid"
-                                          Visibility="Collapsed"
-                                          Grid.Column="1">
+                                          Grid.Column="1"
+                                          Visibility="Collapsed">
                                         <Button x:Name="ClearButton"
                                                 Opacity="1"
                                                 Style="{StaticResource BaseOverlayButton}">

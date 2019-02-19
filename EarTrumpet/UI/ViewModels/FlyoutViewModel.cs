@@ -70,10 +70,10 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Apps_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Remove:
-                    if (Dialog.Focused is FocusedAppItemViewModel && 
+                    if (Dialog.Focused is FocusedAppItemViewModel &&
                         (IAppItemViewModel)e.OldItems[0] == ((FocusedAppItemViewModel)Dialog.Focused)?.App)
                     {
                         Dialog.IsVisible = false;
@@ -275,16 +275,23 @@ namespace EarTrumpet.UI.ViewModels
             }
             else if (vm is DeviceViewModel)
             {
-                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                var deviceViewModel = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                if (deviceViewModel.IsApplicable)
+                {
+                    Dialog.Focused = deviceViewModel;
+                }
             }
             else
             {
                 Dialog.Focused = (IFocusedViewModel)vm;
             }
 
-            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
-            Dialog.Source = container;
-            Dialog.IsVisible = true;
+            if (Dialog.Focused != null)
+            {
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+                Dialog.Source = container;
+                Dialog.IsVisible = true;
+            }
         }
 
         public void BeginOpen()

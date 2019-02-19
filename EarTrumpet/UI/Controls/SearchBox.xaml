@@ -45,9 +45,9 @@
                 <Grid>
                     <TextBlock Name="PromptText"
                                Margin="9,4"
+                               Theme:Brush.Foreground="GrayText"
                                FontSize="14"
                                FontWeight="SemiBold"
-                               Theme:Brush.Foreground="GrayText"
                                Text="{x:Static resx:Resources.FindASettingText}" />
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -55,17 +55,17 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <ScrollViewer x:Name="PART_ContentHost"
-                                      Focusable="false"
                                       Margin="4,0"
+                                      Focusable="false"
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
                         <TextBlock Name="SearchGlyph"
                                    Grid.Column="1"
                                    Margin="6,0"
-                                   FontSize="12"
-                                   FontWeight="SemiBold"
                                    HorizontalAlignment="Right"
                                    Theme:Brush.Foreground="GrayText"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
                                    Style="{StaticResource GlyphTextBlockStyle}"
                                    Text="&#xE721;"
                                    Visibility="Collapsed" />
