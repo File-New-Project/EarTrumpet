@@ -161,7 +161,6 @@
     <Compile Include="Extensions\uintColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
-    <Compile Include="Features.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />

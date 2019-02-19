@@ -32,14 +32,7 @@ namespace EarTrumpet.UI.Views
 
             DataContext = _viewModel;
 
-            if (Features.IsEnabled(Feature.DevicePopup))
-            {
-                Application.Current.Deactivated += FlyoutWindow_Deactivated;
-            }
-            else
-            {
-                Deactivated += FlyoutWindow_Deactivated;
-            }
+            Deactivated += FlyoutWindow_Deactivated;
             SourceInitialized += FlyoutWindow_SourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             Closing += FlyoutWindow_Closing;

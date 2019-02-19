@@ -64,11 +64,8 @@ namespace EarTrumpet.UI.Views
                             evt.Handled = true;
                             break;
                         case Key.Space:
-                            if (Features.IsEnabled(Feature.DevicePopup))
-                            {
-                                device.OpenPopup(device, listItem);
-                                evt.Handled = true;
-                            }
+                            device.OpenPopup(device, listItem);
+                            evt.Handled = true;
                             break;
                     }
                 }

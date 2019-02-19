@@ -60,10 +60,7 @@ namespace EarTrumpet.UI.Views
 
         private void DeviceListItem_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (Features.IsEnabled(Feature.DevicePopup))
-            {
-                Device.OpenPopup(Device, DeviceListItem);
-            }
+            Device.OpenPopup(Device, DeviceListItem);
         }
     }
 }
