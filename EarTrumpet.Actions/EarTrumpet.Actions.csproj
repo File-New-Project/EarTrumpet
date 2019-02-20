@@ -27,7 +27,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\..\EarTrumpet\Build\Release\addons\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -167,6 +167,6 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)\..\AddonPackage\make.cmd $(TargetName) $(OutDir)</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)\..\AddonPackage\make.cmd $(TargetName) $(OutDir) $(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>
