@@ -11,10 +11,8 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDevice : IAudioEndpointVolumeCallback, IAudioDevice
+    public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDevice
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private readonly Dispatcher _dispatcher;
         private readonly IAudioEndpointVolume _deviceVolume;
         private readonly AudioDeviceSessionCollection _sessions;
@@ -89,8 +87,8 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.Invoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
+                RaisePropertyChanged(nameof(Volume));
+                RaisePropertyChanged(nameof(IsMuted));
             }));
         }
 
@@ -227,7 +225,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.Invoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                RaisePropertyChanged(nameof(DisplayName));
             }));
         }
 

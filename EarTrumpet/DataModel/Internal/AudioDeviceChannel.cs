@@ -4,10 +4,8 @@ using EarTrumpet.Interop.MMDeviceAPI;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceChannel : INotifyPropertyChanged, IAudioDeviceChannel
+    class AudioDeviceChannel : BindableBase, INotifyPropertyChanged, IAudioDeviceChannel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private float _level;
         private uint _index;
         private IAudioEndpointVolume _deviceVolume;
@@ -30,7 +28,7 @@ namespace EarTrumpet.DataModel.Internal
                     _deviceVolume.SetChannelVolumeLevelScalar(_index, value, ref dummy);
 
                     _level = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
+                    RaisePropertyChanged(nameof(Level));
                 }
             }
         }
@@ -40,7 +38,7 @@ namespace EarTrumpet.DataModel.Internal
             if (newLevel != _level)
             {
                 _level = newLevel;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
+                RaisePropertyChanged(nameof(Level));
             }
         }
     }

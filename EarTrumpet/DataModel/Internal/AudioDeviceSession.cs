@@ -14,10 +14,8 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSession : IAudioSessionEvents, IAudioDeviceSession
+    class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDeviceSession
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public IAudioDevice Parent
         {
             get
@@ -252,7 +250,7 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
+                        RaisePropertyChanged(nameof(SessionDisplayName));
                     }));
                 });
                 internalRefreshDisplayNameTask.ContinueWith((inTask) => _refreshDisplayNameTask);
@@ -271,7 +269,7 @@ namespace EarTrumpet.DataModel.Internal
             else
             {
                 _isMoved = true;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                RaisePropertyChanged(nameof(State));
             }
         }
 
@@ -282,7 +280,7 @@ namespace EarTrumpet.DataModel.Internal
             _isMoved = false;
             _moveOnInactive = false;
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+            RaisePropertyChanged(nameof(State));
         }
 
         public void MoveToDevice(string id, bool hide)
@@ -366,7 +364,7 @@ namespace EarTrumpet.DataModel.Internal
                                 _isMoved = true;
                             }
 
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                            RaisePropertyChanged(nameof(State));
                         }));
                     });
                 }
@@ -402,7 +400,7 @@ namespace EarTrumpet.DataModel.Internal
             _isDisconnected = true;
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                RaisePropertyChanged(nameof(State));
             }));
         }
 
@@ -413,8 +411,8 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Volume)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsMuted)));
+                RaisePropertyChanged(nameof(Volume));
+                RaisePropertyChanged(nameof(IsMuted));
             }));
         }
 
@@ -424,7 +422,7 @@ namespace EarTrumpet.DataModel.Internal
             Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {ExeName} {Id}");
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GroupingParam)));
+                RaisePropertyChanged(nameof(GroupingParam));
             }));
         }
 
@@ -446,7 +444,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+                RaisePropertyChanged(nameof(State));
             }));
         }
 
@@ -456,7 +454,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SessionDisplayName)));
+                RaisePropertyChanged(nameof(SessionDisplayName));
             }));
         }
 

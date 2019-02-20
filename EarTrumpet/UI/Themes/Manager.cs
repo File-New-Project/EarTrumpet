@@ -9,12 +9,11 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Themes
 {
-    public class Manager : INotifyPropertyChanged
+    public class Manager : BindableBase, INotifyPropertyChanged
     {
         public static Manager Current { get; private set; }
 
         public event Action ThemeChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public List<Ref> References { get; }
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
@@ -69,7 +68,7 @@ namespace EarTrumpet.UI.Themes
                     }
                     else if (settingChanged == "WindowMetrics")
                     {
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AnimationsEnabled)));
+                        RaisePropertyChanged(nameof(AnimationsEnabled));
                     }
                     break;
             }
@@ -89,9 +88,9 @@ namespace EarTrumpet.UI.Themes
             _themeChangeTimer.IsEnabled = false;
 
             ThemeChanged?.Invoke();
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsLightTheme)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSystemLightTheme)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UseAccentColorOnWindowBorders)));
+            RaisePropertyChanged(nameof(IsLightTheme));
+            RaisePropertyChanged(nameof(IsSystemLightTheme));
+            RaisePropertyChanged(nameof(UseAccentColorOnWindowBorders));
         }
     }
 }

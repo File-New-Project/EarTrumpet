@@ -1,16 +1,12 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using EarTrumpet.Interop.MMDeviceAPI;
+﻿using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.ComponentModel;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSessionChannel : INotifyPropertyChanged, IAudioDeviceSessionChannel
+    class AudioDeviceSessionChannel : BindableBase, INotifyPropertyChanged, IAudioDeviceSessionChannel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public float Level
         {
             get => _level;
@@ -22,7 +18,7 @@ namespace EarTrumpet.DataModel.Internal
                     Guid dummy = Guid.Empty;
                     _session.SetChannelVolume(_index, value, ref dummy);
 
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
+                    RaisePropertyChanged(nameof(Level));
                 }
             }
         }
@@ -45,7 +41,7 @@ namespace EarTrumpet.DataModel.Internal
             _level = newLevel;
             _dispatcher.BeginInvoke(((Action)(() =>
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Level)));
+                RaisePropertyChanged(nameof(Level));
             })));
         }
     }

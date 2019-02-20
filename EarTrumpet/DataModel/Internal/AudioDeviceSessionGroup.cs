@@ -7,10 +7,8 @@ using System.Linq;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSessionGroup : IAudioDeviceSession
+    class AudioDeviceSessionGroup : BindableBase, IAudioDeviceSession
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
 
         public IEnumerable<IAudioDeviceSessionChannel> Channels
@@ -200,7 +198,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, e);
+            RaisePropertyChanged(e.PropertyName);
         }
 
         public void RefreshDisplayName()

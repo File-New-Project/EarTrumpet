@@ -2,10 +2,8 @@
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSessionChannelMultiplexer : IAudioDeviceSessionChannel
+    class AudioDeviceSessionChannelMultiplexer : BindableBase, IAudioDeviceSessionChannel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public float Level
         {
             get => _channels[0].Level;
@@ -32,7 +30,7 @@ namespace EarTrumpet.DataModel.Internal
 
         private void Channel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, e);
+            RaisePropertyChanged(e.PropertyName);
         }
     }
 }
