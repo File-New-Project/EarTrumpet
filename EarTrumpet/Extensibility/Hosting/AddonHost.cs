@@ -24,14 +24,8 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonAppContent))]
         private List<IAddonAppContent> _appContentItems { get; set; }
 
-        [ImportMany(typeof(IAddonAppContextMenu))]
-        private List<IAddonAppContextMenu> _appContextMenuItems { get; set; }
-
         [ImportMany(typeof(IAddonDeviceContent))]
         private List<IAddonDeviceContent> _deviceContentItems { get; set; }
-
-        [ImportMany(typeof(IAddonDeviceContextMenu))]
-        private List<IAddonDeviceContextMenu> _deviceContextMenuItems { get; set; }
 
         [ImportMany(typeof(IAddonSettingsPage))]
         private List<IAddonSettingsPage> _settingsPages { get; set; }
@@ -109,9 +103,7 @@ namespace EarTrumpet.Extensibility.Hosting
                 new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(this);
 
                 TrayViewModel.AddonItems = _contextMenuItems.ToArray();
-                FocusedAppItemViewModel.AddonContextMenuItems = _appContextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
-                FocusedDeviceViewModel.AddonContextMenuItems = _deviceContextMenuItems.ToArray();
                 FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
                 SettingsViewModel.AddonItems = _settingsPages.ToArray();
                 TrayIconFactory.AddonItems = _trayIconEditorItems.ToArray();
