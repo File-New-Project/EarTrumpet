@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace EarTrumpet.UI.Views
 {
@@ -87,11 +88,12 @@ namespace EarTrumpet.UI.Views
 
         private void EnableBlurIfApplicable()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
+            AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast, false, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
         }
+
         private void DisableBlur()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, false);
+            AccentPolicyLibrary.SetWindowBlur(this, false, false, default(Color));
         }
 
         private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)

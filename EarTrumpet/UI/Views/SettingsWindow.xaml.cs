@@ -31,7 +31,7 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("SettingsWindow SettingsWindow_SourceInitialized");
 
             this.Cloak();
-            AccentPolicyLibrary.SetWindowBlur(this, true, true);
+            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

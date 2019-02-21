@@ -21,15 +21,38 @@
                     <Theme:Ref Key="Background" Value="Light=ApplicationBackgroundLightTheme, Dark=#FF151515, HighContrast=Window" />
                     <Theme:Ref Key="SearchClearGlyph" Value="#FF4F4F4F" />
                     <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=#FF1F1F1F" />
+                    <Theme:Ref Key="AcrylicColor_Flyout">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="LightTheme" Value="LightChromeHigh/0.5" />
+                            <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
+                    <Theme:Ref Key="AcrylicColor_Settings">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="LightTheme" Value="LightChromeWhite/0.6" />
+                            <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
                     <Theme:Ref Key="AcrylicBackground">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="LightTheme">
                                 <Theme:Rule.Rules>
-                                    <Theme:Rule On="Transparency" Value="LightChromeWhite/0.7" />
+                                    <Theme:Rule On="Transparency">
+                                        <Theme:Rule.Rules>
+                                            <Theme:Rule On="AccentPolicySupportsTintColor" Value="#01000000" />
+                                            <Theme:Rule Value="LightAcrylicWindowBackdropFallback/0.8" />
+                                        </Theme:Rule.Rules>
+                                    </Theme:Rule>
                                     <Theme:Rule Value="LightAcrylicWindowBackdropFallback/1" />
                                 </Theme:Rule.Rules>
                             </Theme:Rule>
-                            <Theme:Rule Value="DarkAcrylicWindowBackdropFallback/0.6/1" />
+                            <Theme:Rule On="Transparency">
+                                <Theme:Rule.Rules>
+                                    <Theme:Rule On="AccentPolicySupportsTintColor" Value="#01000000" />
+                                    <Theme:Rule Value="DarkAcrylicWindowBackdropFallback/0.8" />
+                                </Theme:Rule.Rules>
+                            </Theme:Rule>
+                            <Theme:Rule Value="DarkAcrylicWindowBackdropFallback/1" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
                     <Theme:Ref Key="FlyoutBackground">
@@ -37,8 +60,19 @@
                             <Theme:Rule On="HighContrast" Value="Window" />
                             <Theme:Rule On="UseAccentColor">
                                 <Theme:Rule.Rules>
-                                    <Theme:Rule On="Transparency" Value="Theme=SystemAccent{Theme}2" />
+                                    <Theme:Rule On="Transparency">
+                                        <Theme:Rule.Rules>
+                                            <Theme:Rule On="AccentPolicySupportsTintColor" Value="#01000000" />
+                                            <Theme:Rule Value="Theme=SystemAccent{Theme}1/0.8" />
+                                        </Theme:Rule.Rules>
+                                    </Theme:Rule>
                                     <Theme:Rule Value="Theme=SystemAccent{Theme}1" />
+                                </Theme:Rule.Rules>
+                            </Theme:Rule>
+                            <Theme:Rule On="Transparency">
+                                <Theme:Rule.Rules>
+                                    <Theme:Rule On="AccentPolicySupportsTintColor" Value="#01000000" />
+                                    <Theme:Rule Value="Theme={Theme}ChromeLow/0.8" />
                                 </Theme:Rule.Rules>
                             </Theme:Rule>
                             <Theme:Rule Value="Theme={Theme}ChromeLow" />

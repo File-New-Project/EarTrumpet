@@ -5,26 +5,22 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace EarTrumpet.Interop.Helpers
 {
     static class AccentPolicyLibrary
     {
-        private static readonly uint _defaultTintBackgroundColor = 0x000000; // BGR Black
-        private static readonly uint _defaultTintOpacity = 42;
+        public static bool AccentPolicySupportsTintColor => Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 
-        private static void SetInternal(IntPtr handle, User32.AccentState accentState, bool showBorders = false, uint tintOpacity = 0)
+        private static void SetInternal(IntPtr handle, User32.AccentState accentState, bool showBorders, uint color)
         {
             var accent = new User32.AccentPolicy
             {
+                GradientColor = color,
                 AccentState = accentState,
                 AccentFlags = (showBorders) ? User32.AccentFlags.DrawAllBorders : User32.AccentFlags.None,
             };
-
-            if (Environment.OSVersion.IsAtLeast(OSVersions.RS4))
-            {
-                accent.GradientColor = (_defaultTintOpacity << 24) | (_defaultTintBackgroundColor & 0xFFFFFF);
-            }
 
             var accentStructSize = Marshal.SizeOf(accent);
 
@@ -42,28 +38,28 @@ namespace EarTrumpet.Interop.Helpers
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        private static void Set(IntPtr handle, bool isEnabled, bool withBorders = false)
+        private static void Set(IntPtr handle, bool isEnabled, bool withBorders, uint color)
         {
             if (isEnabled)
             {
-                SetInternal(handle, Environment.OSVersion.IsAtLeast(OSVersions.RS4) ? User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : User32.AccentState.ACCENT_ENABLE_BLURBEHIND, withBorders, _defaultTintOpacity);
+                SetInternal(handle, AccentPolicySupportsTintColor ? User32.AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND : User32.AccentState.ACCENT_ENABLE_BLURBEHIND, withBorders, color);
             }
             else
             {
-                SetInternal(handle, User32.AccentState.ACCENT_DISABLED);
+                SetInternal(handle, User32.AccentState.ACCENT_DISABLED, false, 0);
             }
         }
 
-        public static void SetWindowBlur(Window window, bool isEnabled, bool enableBorders = false)
+        public static void SetWindowBlur(Window window, bool isEnabled, bool enableBorders, Color color)
         {
             var hwnd = ((HwndSource)HwndSource.FromVisual(window)).Handle;
-            Set(hwnd, isEnabled, enableBorders);
+            Set(hwnd, isEnabled, enableBorders, color.ToABGR());
         }
 
-        public static void SetWindowBlur(Popup popupWindow, bool isEnabled, bool enableBorders = false)
+        public static void SetWindowBlur(Popup popupWindow, bool isEnabled, bool enableBorders, Color color)
         {
             var hwnd = ((HwndSource)HwndSource.FromVisual(popupWindow.Child)).Handle;
-            Set(hwnd, isEnabled, enableBorders);
+            Set(hwnd, isEnabled, enableBorders, color.ToABGR());
         }
     }
 }

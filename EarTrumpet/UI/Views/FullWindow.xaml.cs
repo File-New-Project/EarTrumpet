@@ -42,7 +42,7 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("FullWindow FullWindow_SourceInitialized");
 
             this.Cloak();
-            AccentPolicyLibrary.SetWindowBlur(this, true, true);
+            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
         }
 
         private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)

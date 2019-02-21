@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.Extensions
 {
-    public static class uintColorExtensions
+    public static class ColorExtensions
     {
         public static Color ToABGRColor(this uint abgrValue)
         {
@@ -13,6 +13,15 @@ namespace EarTrumpet.Extensions
             colorBytes[3] = (byte)(0x000000FF & abgrValue);             // R
 
             return Color.FromArgb(colorBytes[0], colorBytes[3], colorBytes[2], colorBytes[1]);
+        }
+
+        public static uint ToABGR(this Color abgrValue)
+        {
+            return (uint)(
+                abgrValue.A << 24 |
+                abgrValue.B << 16 |
+                abgrValue.G << 8 |
+                abgrValue.R);
         }
     }
 }

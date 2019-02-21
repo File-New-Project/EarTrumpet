@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground/0.6/1, Flyout:HighContrast=Window">
+        <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground, Flyout:HighContrast=Window">
             <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -102,7 +102,7 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground/0.7/1">
+        <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground">
             <ListView Name="AppList"
                       Margin="{StaticResource VolumeAppListMargin}"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"

@@ -10,7 +10,7 @@ namespace EarTrumpet.UI.Themes
 {
     class BrushValueParser
     {
-        public static object Parse(DependencyObject element, string value)
+        public static SolidColorBrush Parse(DependencyObject element, string value)
         {
             bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
             string lightOrDarkText = isLight ? "Light" : "Dark";
@@ -153,7 +153,7 @@ namespace EarTrumpet.UI.Themes
             return new SolidColorBrush(ret);
         }
 
-        private static bool FindReference(DependencyObject element, string searchKey, out object outRef)
+        private static bool FindReference(DependencyObject element, string searchKey, out SolidColorBrush outRef)
         {
             bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
             var reference = Manager.Current.References.FirstOrDefault(r => r.Key == searchKey.Split('/')[0]);
@@ -173,6 +173,7 @@ namespace EarTrumpet.UI.Themes
                     tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
                     tab.Add(Rule.Kind.UseAccentColorOnWindowBorders, SystemSettings.UseAccentColorOnWindowBorders);
+                    tab.Add(Rule.Kind.AccentPolicySupportsTintColor, AccentPolicyLibrary.AccentPolicySupportsTintColor);
 
                     Func<List<Rule>, string> ParseRule = null;
                     ParseRule = ruleList =>

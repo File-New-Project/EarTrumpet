@@ -69,7 +69,7 @@
 
                 <Border Height="{StaticResource NoItemsPaneHeight}"
                         VerticalAlignment="Center"
-                        Theme:Brush.Background="FlyoutBackground/0.7/1"
+                        Theme:Brush.Background="FlyoutBackground"
                         Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
                     <TextBlock x:Uid="NoDevicesPanelContent"
                                HorizontalAlignment="Center"
@@ -144,7 +144,7 @@
             </Grid>
         </ScrollViewer>
         <Border Name="LightDismissBorder"
-                Theme:Brush.Background="FlyoutBackground/1/0.9"
+                Theme:Brush.Background="Background"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">

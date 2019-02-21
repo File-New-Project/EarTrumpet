@@ -11,7 +11,8 @@ namespace EarTrumpet.UI.Themes
             Transparency,
             UseAccentColor,
             UseAccentColorOnWindowBorders,
-            HighContrast
+            HighContrast,
+            AccentPolicySupportsTintColor,
         }
 
         public Kind On { get; set; }

@@ -151,7 +151,7 @@
     <Compile Include="Extensions\IPropertyStoreExtensions.cs" />
     <Compile Include="Extensions\OperatingSystemExtensions.cs" />
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
-    <Compile Include="Extensions\uintColorExtensions.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
