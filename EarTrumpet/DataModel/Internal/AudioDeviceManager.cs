@@ -3,6 +3,8 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -13,7 +15,7 @@ namespace EarTrumpet.DataModel.Internal
         public event EventHandler<IAudioDevice> DefaultChanged;
         public event EventHandler Loaded;
 
-        public IAudioDeviceCollection Devices => _devices;
+        public ObservableCollection<IAudioDevice> Devices { get; }
         public AudioDeviceKind DeviceKind => _kind;
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
@@ -24,15 +26,18 @@ namespace EarTrumpet.DataModel.Internal
         private IAudioDevice _default;
         private readonly Dispatcher _dispatcher;
         private readonly AudioDeviceKind _kind;
-        private readonly AudioDeviceCollection _devices;
         private readonly AudioPolicyConfigService _policyConfigService;
+        private readonly ConcurrentDictionary<string, IAudioDevice> _deviceMap = new ConcurrentDictionary<string, IAudioDevice>();
+        private readonly FilteredCollectionChain<IAudioDevice> _deviceFilter;
+        private readonly ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
 
         public AudioDeviceManager(AudioDeviceKind kind)
         {
             _kind = kind;
             _dispatcher = Dispatcher.CurrentDispatcher;
-            _devices = new AudioDeviceCollection();
             _policyConfigService = new AudioPolicyConfigService(Flow);
+            _deviceFilter = new FilteredCollectionChain<IAudioDevice>(_devices);
+            Devices = _deviceFilter.Items;
 
             TraceLine($"Create");
 
@@ -122,7 +127,7 @@ namespace EarTrumpet.DataModel.Internal
             try
             {
                 var rawDevice = _enumerator.GetDefaultAudioEndpoint(Flow, ERole.eMultimedia);
-                _devices.TryFind(rawDevice.GetId(), out var device);
+                TryFind(rawDevice.GetId(), out var device);
                 return device;
             }
             catch (Exception ex) when (ex.Is(HRESULT.ERROR_NOT_FOUND))
@@ -144,7 +149,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             TraceLine($"OnDeviceAdded {pwstrDeviceId}");
 
-            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused))
+            if (!TryFind(pwstrDeviceId, out IAudioDevice unused))
             {
                 try
                 {
@@ -157,9 +162,9 @@ namespace EarTrumpet.DataModel.Internal
                         _dispatcher.Invoke((Action)(() =>
                         {
                             // We must check again on the UI thread to avoid adding a duplicate device.
-                            if (!_devices.TryFind(pwstrDeviceId, out IAudioDevice unused1))
+                            if (!TryFind(pwstrDeviceId, out IAudioDevice unused1))
                             {
-                                _devices.Add(newDevice);
+                                Add(newDevice);
                             }
                         }));
                     }
@@ -179,9 +184,9 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.Invoke((Action)(() =>
             {
-                if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
+                if (TryFind(pwstrDeviceId, out IAudioDevice dev))
                 {
-                    _devices.Remove(dev);
+                    Remove(dev);
                 }
             }));
         }
@@ -221,7 +226,7 @@ namespace EarTrumpet.DataModel.Internal
         void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
         {
             TraceLine($"OnPropertyValueChanged {pwstrDeviceId} {key.fmtid},{key.pid}");
-            if (_devices.TryFind(pwstrDeviceId, out IAudioDevice dev))
+            if (TryFind(pwstrDeviceId, out IAudioDevice dev))
             {
                 if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
                 {
@@ -250,6 +255,38 @@ namespace EarTrumpet.DataModel.Internal
                 return _policyConfigService.GetDefaultEndPoint(processId);
             }
             return null;
+        }
+
+        public void AddFilter(Func<ObservableCollection<IAudioDevice>, ObservableCollection<IAudioDevice>> filter)
+        {
+            _deviceFilter.AddFilter(filter);
+        }
+
+        private void Add(IAudioDevice device)
+        {
+            if (_deviceMap.TryAdd(device.Id, device))
+            {
+                _devices.Add(device);
+            }
+        }
+
+        private void Remove(IAudioDevice device)
+        {
+            if (_deviceMap.TryRemove(device.Id, out var foundDevice))
+            {
+                _devices.Remove(device);
+            }
+        }
+
+        private bool TryFind(string deviceId, out IAudioDevice found)
+        {
+            if (deviceId == null)
+            {
+                found = null;
+                return false;
+            }
+
+            return _deviceMap.TryGetValue(deviceId, out found);
         }
 
         private void TraceLine(string message)

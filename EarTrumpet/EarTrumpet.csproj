@@ -102,7 +102,6 @@
     <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
     <Compile Include="DataModel\IAudioDeviceCollection.cs" />
     <Compile Include="DataModel\DataModelFactory.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceCollection.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />

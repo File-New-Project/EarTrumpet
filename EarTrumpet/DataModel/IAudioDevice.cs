@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -18,6 +17,6 @@ namespace EarTrumpet.DataModel
         void UpdatePeakValueBackground();
         void UnhideSessionsForProcessId(int processId);
         void MoveHiddenAppsToDevice(string appId, string id);
-        void AddSessionFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter);
+        void AddFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter);
     }
 }

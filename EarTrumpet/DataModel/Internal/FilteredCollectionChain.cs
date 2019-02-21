@@ -5,15 +5,15 @@ namespace EarTrumpet.DataModel.Internal
 {
     class FilteredCollectionChain<T>
     {
-        ObservableCollection<T> _sessions;
+        ObservableCollection<T> _items;
 
-        public ObservableCollection<T> Sessions { get; }
+        public ObservableCollection<T> Items { get; }
 
-        public FilteredCollectionChain(ObservableCollection<T> sessions)
+        public FilteredCollectionChain(ObservableCollection<T> items)
         {
-            Sessions = new ObservableCollection<T>();
+            Items = new ObservableCollection<T>();
 
-            _sessions = sessions;
+            _items = items;
 
             Listen();
             Populate();
@@ -21,12 +21,12 @@ namespace EarTrumpet.DataModel.Internal
 
         void Listen()
         {
-            _sessions.CollectionChanged += Sessions_CollectionChanged;
+            _items.CollectionChanged += Sessions_CollectionChanged;
         }
 
         void Free()
         {
-            _sessions.CollectionChanged -= Sessions_CollectionChanged;
+            _items.CollectionChanged -= Sessions_CollectionChanged;
         }
 
         private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -34,10 +34,10 @@ namespace EarTrumpet.DataModel.Internal
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    Sessions.Add((T)e.NewItems[0]);
+                    Items.Add((T)e.NewItems[0]);
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    Sessions.Remove((T)e.OldItems[0]);
+                    Items.Remove((T)e.OldItems[0]);
                     break;
                 default: throw new NotImplementedException();
             }
@@ -46,21 +46,21 @@ namespace EarTrumpet.DataModel.Internal
         public void AddFilter(Func<ObservableCollection<T>, ObservableCollection<T>> filter)
         {
             Free();
-            for (var i = Sessions.Count - 1; i >= 0; i--)
+            for (var i = Items.Count - 1; i >= 0; i--)
             {
-                Sessions.RemoveAt(i);
+                Items.RemoveAt(i);
             }
 
-            _sessions = filter(_sessions);
+            _items = filter(_items);
             Listen();
             Populate();
         }
 
         private void Populate()
         {
-            foreach(var s in _sessions)
+            foreach(var s in _items)
             {
-                Sessions.Add(s);
+                Items.Add(s);
             }
         }
     }
