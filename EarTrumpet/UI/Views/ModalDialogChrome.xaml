@@ -7,7 +7,7 @@
              Name="ControlRoot">
     <UserControl.Template>
         <ControlTemplate TargetType="{x:Type ContentControl}">
-            <Border Theme:Brush.Background=":Background, Flyout:Dark=FlyoutBackground, Flyout:Light=LightChromeWhite"
+            <Border Theme:Brush.Background="PopupBackground"
                     Theme:Brush.BorderBrush="SystemAccent"
                     BorderThickness="{StaticResource PopupBorderThickness}">
                 <Grid>

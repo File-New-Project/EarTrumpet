@@ -21,18 +21,20 @@
                     <Theme:Ref Key="Background" Value="Light=ApplicationBackgroundLightTheme, Dark=#FF151515, HighContrast=Window" />
                     <Theme:Ref Key="SearchClearGlyph" Value="#FF4F4F4F" />
                     <Theme:Ref Key="AcrylicBackgroundFallback" Value="Light=LightAcrylicWindowBackdropFallback, Dark=#FF1F1F1F" />
+                    <Theme:Ref Key="PopupBackground">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="UseAccentColor" Value=":=Background, Flyout:=SystemAccentDark1" />
+                            <Theme:Rule Value="Background" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
                     <Theme:Ref Key="AcrylicColor_Flyout">
                         <Theme:Ref.Rules>
+                            <Theme:Rule On="UseAccentColor" Value="SystemAccentDark1/0.8" />
                             <Theme:Rule On="LightTheme" Value="LightChromeHigh/0.5" />
                             <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
-                    <Theme:Ref Key="AcrylicColor_Settings">
-                        <Theme:Ref.Rules>
-                            <Theme:Rule On="LightTheme" Value="LightChromeWhite/0.6" />
-                            <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
-                        </Theme:Ref.Rules>
-                    </Theme:Ref>
+                    <Theme:Ref Key="AcrylicColor_Settings" Value="Light=LightChromeWhite/0.6, Dark=ApplicationBackgroundDarkTheme/0.7" />
                     <Theme:Ref Key="AcrylicBackground">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="LightTheme">
