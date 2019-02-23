@@ -119,6 +119,8 @@ namespace EarTrumpet.Interop
         public const uint SWP_NOZORDER = 0x0004;
         public const uint SWP_NOACTIVATE = 0x0010;
 
+        public const int WS_EX_TOOLWINDOW = 0x00000080;
+
         [StructLayout(LayoutKind.Sequential)]
         internal struct RAWINPUTDEVICE
         {
@@ -224,6 +226,14 @@ namespace EarTrumpet.Interop
             Consumer = 0x0C,
         }
 
+        public enum GWL : int
+        {
+            // ...
+            GWL_STYLE = (-16),
+            GWL_EXSTYLE = (-20),
+            // ...
+        }
+
         [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool RegisterRawInputDevices(
@@ -239,6 +249,7 @@ namespace EarTrumpet.Interop
             IntPtr pData,
             ref uint pcbSize,
             uint cbSizeHeader);
+
 
         internal const int RIDEV_NOLEGACY = 0x00000030;
         internal const int WM_INPUT = 0x00FF;
@@ -275,5 +286,21 @@ namespace EarTrumpet.Interop
             IntPtr hWndChildAfter,
             [MarshalAs(UnmanagedType.LPWStr)]string lpClassName,
             IntPtr lpWindowName);
+
+#if X86
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern int GetWindowLong(
+            IntPtr hWnd,
+            GWL nIndex);
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern int SetWindowLong(
+            IntPtr hWnd,
+            GWL nIndex,
+            int dwNewLong);
+#else
+#error [Get/Set]WindowLong not supported on 64-bit platforms
+#endif
+
     }
 }

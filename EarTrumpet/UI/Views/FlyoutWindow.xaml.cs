@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Themes;
@@ -45,6 +46,7 @@ namespace EarTrumpet.UI.Views
             Hide();
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+            this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
         }
 
         private void FlyoutWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -88,7 +90,10 @@ namespace EarTrumpet.UI.Views
 
         private void EnableBlurIfApplicable()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast, false, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
+            if (_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open)
+            {
+                AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast, false, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
+            }
         }
 
         private void DisableBlur()
