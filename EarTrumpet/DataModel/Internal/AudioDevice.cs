@@ -4,14 +4,14 @@ using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDevice
+    public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDevice, IAudioDeviceInternal, IAudioDeviceWindowsAudio
     {
         private readonly Dispatcher _dispatcher;
         private readonly IAudioEndpointVolume _deviceVolume;
@@ -163,11 +163,16 @@ namespace EarTrumpet.DataModel.Internal
 
         public IEnumerable<IAudioDeviceChannel> Channels => _channels.Channels;
 
-        public void UpdatePeakValueBackground()
+        public void UpdatePeakValue()
         {
             var newValues = Helpers.ReadPeakValues(_meter);
             PeakValue1 = newValues[0];
             PeakValue2 = newValues[1];
+
+            foreach(var session in _sessions.Sessions.ToArray())
+            {
+                ((IAudioDeviceSessionInternal)session).UpdatePeakValueBackground();
+            }
         }
 
         public void UnhideSessionsForProcessId(int processId)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
@@ -107,7 +106,7 @@ namespace EarTrumpet.DataModel.Internal
                     {
                         foreach (AudioDeviceSessionGroup appSessionGroup in appGroup.Sessions)
                         {
-                            if (appSessionGroup.GroupingParam == session.GroupingParam)
+                            if (appSessionGroup.GroupingParam == ((IAudioDeviceSessionInternal)session).GroupingParam)
                             {
                                 // If there is a session in the same process, inherit safely.
                                 // (Avoids a minesweeper ad playing at max volume when app should be muted)
@@ -136,20 +135,20 @@ namespace EarTrumpet.DataModel.Internal
                     _movedSessions.Remove(session);
                     session.PropertyChanged -= MovedSession_PropertyChanged;
 
-                    session.UnHide();
+                    ((IAudioDeviceSessionInternal)session).UnHide();
 
                     AddSession(session);
                 }
             }
         }
 
-        internal void MoveHiddenAppsToDevice(string appId, string id)
+        public void MoveHiddenAppsToDevice(string appId, string id)
         {
             foreach (var session in _movedSessions)
             {
                 if (session.AppId == appId)
                 {
-                    session.MoveToDevice(id, false);
+                    ((IAudioDeviceSessionInternal)session).MoveToDevice(id, false);
                 }
             }
         }

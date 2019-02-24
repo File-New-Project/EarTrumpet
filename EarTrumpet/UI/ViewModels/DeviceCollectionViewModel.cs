@@ -100,11 +100,8 @@ namespace EarTrumpet.UI.ViewModels
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // We're in the background so we need to use a snapshot.
-            foreach (var device in AllDevices.ToArray())
-            {
-                device.UpdatePeakValueBackground();
-            }
+            
+            ((IAudioDeviceManagerWithPeakMetering)_deviceManager).UpdatePeakValues();
 
             App.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
@@ -142,7 +139,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             // Collect and move any hidden/moved sessions.
-            _deviceManager.MoveHiddenAppsToDevice(app.AppId, dev?.Id);
+            ((IAudioDeviceManagerWindowsAudio)_deviceManager).MoveHiddenAppsToDevice(app.AppId, dev?.Id);
         }
 
         private void MoveAppToDeviceInternal(IAppItemViewModel app, DeviceViewModel dev)
@@ -179,7 +176,8 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartOrStopPeakTimer()
         {
-            _peakMeterTimer.Enabled = (_isFlyoutVisible | _isFullWindowVisible);
+            _peakMeterTimer.Enabled = _deviceManager is IAudioDeviceManagerWithPeakMetering &&
+                (_isFlyoutVisible | _isFullWindowVisible);
         }
 
         public void OnTrayFlyoutShown()

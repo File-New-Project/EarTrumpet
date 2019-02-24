@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Internal;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
 
-        public string DisplayName => _session.SessionDisplayName;
+        public string DisplayName => _session.DisplayName;
 
         public string ExeName => _session.ExeName;
         public string AppId => _session.AppId;
@@ -40,7 +41,8 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsMovable => !_session.IsSystemSoundsSession &&
                                   Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 
-        public string PersistedOutputDevice => _session.PersistedDefaultEndPointId;
+        public string PersistedOutputDevice => _session.Parent.Parent is IAudioDeviceManagerWindowsAudio ?
+            ((IAudioDeviceManagerWindowsAudio)_session.Parent.Parent).GetDefaultEndPoint(ProcessId) : "";
 
         public bool IsExpanded { get; private set; }
 
@@ -90,7 +92,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_session.SessionDisplayName))
+            if (e.PropertyName == nameof(_session.DisplayName))
             {
                 RaisePropertyChanged(nameof(DisplayName));
             }
@@ -119,7 +121,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public void MoveToDevice(string id, bool hide)
         {
-            _session.MoveToDevice(id, hide);
+            ((IAudioDeviceSessionInternal)_session).MoveToDevice(id, hide);
         }
 
         public override void UpdatePeakValueForeground()
@@ -145,7 +147,7 @@ namespace EarTrumpet.UI.ViewModels
                 }
             }
 
-            _session.UpdatePeakValueBackground();
+            ((IAudioDeviceSessionInternal)_session).UpdatePeakValueBackground();
         }
 
 

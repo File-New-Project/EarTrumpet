@@ -8,11 +8,10 @@ namespace EarTrumpet.DataModel
     {
         IEnumerable<IAudioDeviceSessionChannel> Channels { get; }
         IAudioDevice Parent { get; }
-        string SessionDisplayName { get; }
+        string DisplayName { get; }
         void RefreshDisplayName();
         string ExeName { get; }
         uint BackgroundColor { get; }
-        Guid GroupingParam { get; }
         string IconPath { get; }
         bool IsDesktopApp { get; }
         bool IsSystemSoundsSession { get; }
@@ -20,10 +19,5 @@ namespace EarTrumpet.DataModel
         string AppId { get; }
         SessionState State { get; }
         ObservableCollection<IAudioDeviceSession> Children { get; }
-        string PersistedDefaultEndPointId { get; }
-        void Hide();
-        void UnHide();
-        void MoveToDevice(string id, bool hide);
-        void UpdatePeakValueBackground();
     }
 }

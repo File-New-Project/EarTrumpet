@@ -3,12 +3,12 @@ using EarTrumpet.UI.Services;
 
 namespace EarTrumpet.DataModel
 {
-    public class DataModelFactory
+    public class WindowsAudioFactory
     {
         static IAudioDeviceManager s_playbackDevices;
         static IAudioDeviceManager s_recordingDevices;
 
-        public static IAudioDeviceManager CreateAudioDeviceManager(AudioDeviceKind kind)
+        public static IAudioDeviceManager Create(AudioDeviceKind kind)
         {
             if (kind == AudioDeviceKind.Playback)
             {

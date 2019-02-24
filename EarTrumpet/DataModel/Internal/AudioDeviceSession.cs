@@ -14,7 +14,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDeviceSession
+    class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDeviceSession, IAudioDeviceSessionInternal
     {
         public IAudioDevice Parent
         {
@@ -73,7 +73,7 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string SessionDisplayName
+        public string DisplayName
         {
             get
             {
@@ -140,18 +140,6 @@ namespace EarTrumpet.DataModel.Internal
 
         public bool IsSystemSoundsSession { get; }
 
-        public string PersistedDefaultEndPointId
-        {
-            get
-            {
-                if (_parent.TryGetTarget(out var parent))
-                {
-                    return parent.Parent.GetDefaultEndPoint(ProcessId);
-                }
-                return null;
-            }
-        }
-
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
         public IEnumerable<IAudioDeviceSessionChannel> Channels => _channels.Channels;
 
@@ -213,7 +201,7 @@ namespace EarTrumpet.DataModel.Internal
 
             if (parent.Parent != null)
             {
-                if (parent.Parent.DeviceKind == AudioDeviceKind.Recording)
+                if (parent.Parent.Kind == AudioDeviceKind.Recording.ToString())
                 {
                     _isDisconnected = IsSystemSoundsSession;
                 }
@@ -250,7 +238,7 @@ namespace EarTrumpet.DataModel.Internal
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;
-                        RaisePropertyChanged(nameof(SessionDisplayName));
+                        RaisePropertyChanged(nameof(DisplayName));
                     }));
                 });
                 internalRefreshDisplayNameTask.ContinueWith((inTask) => _refreshDisplayNameTask);
@@ -287,7 +275,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             if (_parent.TryGetTarget(out var parent))
             {
-                parent.Parent.SetDefaultEndPoint(id, ProcessId);
+                ((IAudioDeviceManagerWindowsAudio)parent.Parent).SetDefaultEndPoint(id, ProcessId);
             }
         }
 
@@ -336,7 +324,7 @@ namespace EarTrumpet.DataModel.Internal
             // We work around this by attempting to move the session to the specified persisted endpoint.
             // If we fail for any reason (including that device no longer being available at all), we expect
             // to continue without issue using the current parent device.
-            var persistedDeviceId = PersistedDefaultEndPointId;
+            var persistedDeviceId = ((IAudioDeviceManagerWindowsAudio)Parent.Parent).GetDefaultEndPoint(ProcessId);
             if (!string.IsNullOrWhiteSpace(persistedDeviceId))
             {
                 if (parent.Id != persistedDeviceId)
@@ -454,7 +442,7 @@ namespace EarTrumpet.DataModel.Internal
 
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                RaisePropertyChanged(nameof(SessionDisplayName));
+                RaisePropertyChanged(nameof(DisplayName));
             }));
         }
 

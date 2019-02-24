@@ -41,7 +41,7 @@ namespace EarTrumpet
 
             ((Manager)Resources["ThemeManager"]).Load();
 
-            PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
+            PlaybackDevicesViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback));
             PlaybackDevicesViewModel.Ready += MainViewModel_Ready;
 
             FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel);

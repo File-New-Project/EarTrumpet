@@ -5,18 +5,33 @@ using EarTrumpet.Interop.MMDeviceAPI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager
+    class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, IAudioDeviceManagerWindowsAudio, IAudioDeviceManagerWithPeakMetering
     {
         public event EventHandler<IAudioDevice> DefaultChanged;
         public event EventHandler Loaded;
 
         public ObservableCollection<IAudioDevice> Devices { get; }
-        public AudioDeviceKind DeviceKind => _kind;
+        public string Kind => _kind.ToString();
+
+        public IAudioDevice Default
+        {
+            get => _default;
+            set
+            {
+                if (value != _default)
+                {
+                    SetDefaultDevice(value, ERole.eMultimedia);
+                    DefaultChanged?.Invoke(this, Default);
+                }
+            }
+        }
+
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
 
@@ -88,8 +103,6 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public IAudioDevice Default => _default;
-
         private void QueryDefaultDevice()
         {
             TraceLine("QueryDefaultDevice");
@@ -141,7 +154,23 @@ namespace EarTrumpet.DataModel.Internal
         {
             foreach (var device in _devices)
             {
-                device.MoveHiddenAppsToDevice(appId, id);
+                ((IAudioDeviceInternal)device).MoveHiddenAppsToDevice(appId, id);
+            }
+        }
+
+        public void UnhideSessionsForProcessId(string deviceId, int processId)
+        {
+            if (TryFind(deviceId, out var device))
+            {
+                ((IAudioDeviceInternal)device).UnhideSessionsForProcessId(processId);
+            }
+        }
+
+        public void UpdatePeakValues()
+        {
+            foreach (var device in _devices.ToArray())
+            {
+                ((IAudioDeviceInternal)device).UpdatePeakValue();
             }
         }
 

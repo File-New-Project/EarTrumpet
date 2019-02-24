@@ -90,7 +90,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModel\AudioDeviceKind.cs" />
+    <Compile Include="DataModel\IAudioDeviceManagerWindowsAudio.cs" />
+    <Compile Include="DataModel\IAudioDeviceManagerWithPeakMetering.cs" />
     <Compile Include="DataModel\IAudioDeviceSessionComparer.cs" />
+    <Compile Include="DataModel\IAudioDeviceWindowsAudio.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannel.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
     <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
@@ -99,9 +102,10 @@
     <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
     <Compile Include="DataModel\IAudioDeviceChannel.cs" />
     <Compile Include="DataModel\IAudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\Internal\IAudioDeviceInternal.cs" />
+    <Compile Include="DataModel\Internal\IAudioDeviceSessionInternal.cs" />
     <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
-    <Compile Include="DataModel\IAudioDeviceCollection.cs" />
-    <Compile Include="DataModel\DataModelFactory.cs" />
+    <Compile Include="DataModel\WindowsAudioFactory.cs" />
     <Compile Include="DataModel\Internal\Helpers.cs" />
     <Compile Include="DataModel\SessionState.cs" />
     <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />

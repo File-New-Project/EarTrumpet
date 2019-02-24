@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class FilteredCollectionChain<T>
+    public class FilteredCollectionChain<T>
     {
         ObservableCollection<T> _items;
 

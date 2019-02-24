@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace EarTrumpet.DataModel.Internal
 {
-    class AudioDeviceSessionGroup : BindableBase, IAudioDeviceSession
+    class AudioDeviceSessionGroup : BindableBase, IAudioDeviceSession, IAudioDeviceSessionInternal
     {
         public IAudioDevice Parent => _sessions.Count > 0 ? _sessions[0].Parent : null;
 
@@ -43,7 +43,7 @@ namespace EarTrumpet.DataModel.Internal
 
         public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;
 
-        public string SessionDisplayName => _sessions.Count > 0 ? _sessions[0].SessionDisplayName : null;
+        public string DisplayName => _sessions.Count > 0 ? _sessions[0].DisplayName : null;
 
         public string ExeName => _sessions.Count > 0 ? _sessions[0].ExeName : null;
 
@@ -108,15 +108,13 @@ namespace EarTrumpet.DataModel.Internal
             }
         }
 
-        public string PersistedDefaultEndPointId => _sessions.Count > 0 ? _sessions[0].PersistedDefaultEndPointId : null;
-
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
         public void Hide()
         {
             foreach (var session in _sessions.ToArray())
             {
-                session.Hide();
+                ((IAudioDeviceSessionInternal)session).Hide();
             }
         }
 
@@ -124,7 +122,7 @@ namespace EarTrumpet.DataModel.Internal
         {
             foreach (var session in _sessions.ToArray())
             {
-                session.UnHide();
+                ((IAudioDeviceSessionInternal)session).UnHide();
             }
         }
 
@@ -135,7 +133,7 @@ namespace EarTrumpet.DataModel.Internal
                 // Update the output for all processes represented by this app.
                 foreach (var pid in _sessions.Select(c => c.ProcessId).ToSet())
                 {
-                    parent.Parent.SetDefaultEndPoint(id, pid);
+                    ((IAudioDeviceManagerWindowsAudio)parent.Parent).SetDefaultEndPoint(id, pid);
                 }
 
                 if (hideExistingSessions)
@@ -150,7 +148,7 @@ namespace EarTrumpet.DataModel.Internal
             // We're in the background so we need to use a snapshot.
             foreach (var session in _sessions.ToArray())
             {
-                session.UpdatePeakValueBackground();
+                ((IAudioDeviceSessionInternal)session).UpdatePeakValueBackground();
             }
         }
 
@@ -161,7 +159,7 @@ namespace EarTrumpet.DataModel.Internal
         public AudioDeviceSessionGroup(IAudioDevice parent, IAudioDeviceSession session)
         {
             _parent = new WeakReference<IAudioDevice>(parent);
-            GroupingParam = session.GroupingParam; // can change at runtime
+            GroupingParam = ((IAudioDeviceSessionInternal)session).GroupingParam; // can change at runtime
             AppId = session.AppId;
 
             AddSession(session);

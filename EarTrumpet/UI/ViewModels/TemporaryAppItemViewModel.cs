@@ -60,7 +60,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsMovable { get; }
         public float PeakValue1 { get; }
         public float PeakValue2 { get; }
-        public string PersistedOutputDevice => _deviceManager.GetDefaultEndPoint(ProcessId);
+        public string PersistedOutputDevice => ((IAudioDeviceManagerWindowsAudio)_deviceManager).GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
         public IDeviceViewModel Parent { get; }
 
@@ -152,7 +152,7 @@ namespace EarTrumpet.UI.ViewModels
             // Update the output for all processes represented by this app.
             foreach (var pid in _processIds)
             {
-                _deviceManager.SetDefaultEndPoint(id, pid);
+                ((IAudioDeviceManagerWindowsAudio)_deviceManager).SetDefaultEndPoint(id, pid);
             }
 
             if (hide)

@@ -61,7 +61,7 @@ namespace EarTrumpet.UI.ViewModels
         public SettingsAppItemViewModel(IAudioDeviceSession session)
         {
             AppId = session.AppId;
-            DisplayName = session.SessionDisplayName;
+            DisplayName = session.DisplayName;
             IsDesktopApp = session.IsDesktopApp;
             Id = session.AppId;
             Icon = new IconLoadInfo { IconPath = session.IconPath, IsDesktopApp = session.IsDesktopApp };

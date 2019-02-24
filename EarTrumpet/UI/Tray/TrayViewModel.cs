@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensibility;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Tray;
