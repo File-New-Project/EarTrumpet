@@ -22,18 +22,18 @@ namespace EarTrumpet.Actions.DataModel.Processing
             }
             else if (a is SetDefaultDeviceAction)
             {
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDefaultDeviceAction)a).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((SetDefaultDeviceAction)a).Device.Kind));
 
                 var dev = mgr.Devices.FirstOrDefault(d => d.Id == ((SetDefaultDeviceAction)a).Device.Id);
                 if (dev != null)
                 {
-                    mgr.SetDefaultDevice(dev);
+                    mgr.Default = dev;
                 }
             }
             else if (a is SetAppVolumeAction)
             {
                 var action = (SetAppVolumeAction)a;
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetAppVolumeAction)a).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((SetAppVolumeAction)a).Device.Kind));
 
                 var device = (action.Device?.Id == null) ?
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
@@ -59,7 +59,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             else if (a is SetAppMuteAction)
             {
                 var action = (SetAppMuteAction)a;
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetAppVolumeAction)a).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((SetAppMuteAction)a).Device.Kind));
 
                 var device = (action.Device?.Id == null) ?
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
@@ -86,7 +86,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             {
                 var action = (SetDeviceVolumeAction)a;
 
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDeviceVolumeAction)a).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((SetDeviceVolumeAction)a).Device.Kind));
 
                 var device = (action.Device?.Id == null) ?
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
@@ -98,8 +98,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             else if (a is SetDeviceMuteAction)
             {
                 var action = (SetDeviceMuteAction)a;
-
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((SetDeviceMuteAction)a).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((SetDeviceMuteAction)a).Device.Kind));
 
                 var device = (action.Device?.Id == null) ?
                     mgr.Default : mgr.Devices.FirstOrDefault(d => d.Id == action.Device.Id);
@@ -148,7 +147,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
                 {
                     if (group.AppId == appInfo.PackageInstallPath)
                     {
-                        Trace.WriteLine($"ActionProcessor FindForegroundApp: {group.SessionDisplayName}");
+                        Trace.WriteLine($"ActionProcessor FindForegroundApp: {group.DisplayName}");
                         return group;
                     }
                 }

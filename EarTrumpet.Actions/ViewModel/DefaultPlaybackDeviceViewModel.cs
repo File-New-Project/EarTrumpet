@@ -7,7 +7,7 @@ namespace EarTrumpet.Actions.ViewModel
         public DefaultPlaybackDeviceViewModel()
         {
             DisplayName = Properties.Resources.DefaultPlaybackDeviceText;
-            Kind = EarTrumpet.DataModel.AudioDeviceKind.Playback;
+            Kind = EarTrumpet.DataModel.AudioDeviceKind.Playback.ToString();
             GroupName = Properties.Resources.PlaybackDeviceGroupText;
         }
     }

@@ -24,7 +24,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             }
             else if (condition is DefaultDeviceCondition)
             {
-                var mgr = DataModelFactory.CreateAudioDeviceManager(((DefaultDeviceCondition)condition).Device.Kind);
+                var mgr = WindowsAudioFactory.Create((AudioDeviceKind)System.Enum.Parse(typeof(AudioDeviceKind), ((DefaultDeviceCondition)condition).Device.Kind));
 
                 var isDeviceCurrentlyDefault = ((DefaultDeviceCondition)condition).Device.Id == mgr.Default?.Id;
                 switch (((DefaultDeviceCondition)condition).Option)

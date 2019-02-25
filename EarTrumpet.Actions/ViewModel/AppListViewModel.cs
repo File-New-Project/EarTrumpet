@@ -70,7 +70,7 @@ namespace EarTrumpet.Actions.ViewModel
                 All.Add(new ForegroundAppViewModel());
             }
 
-            foreach (var app in DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups).Distinct(IAudioDeviceSessionComparer.Instance).OrderBy(d => d.SessionDisplayName).OrderBy(d => d.SessionDisplayName))
+            foreach (var app in WindowsAudioFactory.Create(AudioDeviceKind.Playback).Devices.SelectMany(d => d.Groups).Distinct(IAudioDeviceSessionComparer.Instance).OrderBy(d => d.DisplayName).OrderBy(d => d.DisplayName))
             {
                 All.Add(new SettingsAppItemViewModel(app));
             }

@@ -5,7 +5,7 @@ namespace EarTrumpet.Actions.DataModel.Serialization
     {
         public string Id { get; set; }
 
-        public AudioDeviceKind Kind { get; set; }
+        public string Kind { get; set; }
 
         public override int GetHashCode()
         {

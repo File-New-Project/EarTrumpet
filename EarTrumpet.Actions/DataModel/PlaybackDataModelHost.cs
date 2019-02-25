@@ -7,7 +7,7 @@ namespace EarTrumpet.Actions.DataModel
     {
         public static PlaybackDataModelHost Current { get; private set; }
 
-        public IAudioDeviceManager DeviceManager = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback);
+        public IAudioDeviceManager DeviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
 
         public event Action<IAudioDeviceSession, string> AppPropertyChanged;
         public event Action<IAudioDeviceSession> AppAdded;

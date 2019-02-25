@@ -28,7 +28,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             _playbackManager.DeviceManager.DefaultChanged += PlaybackDeviceManager_DefaultChanged;
             _defaultPlaybackDevice = _playbackManager.DeviceManager.Default;
 
-            _recordingManager = DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording);
+            _recordingManager = WindowsAudioFactory.Create(AudioDeviceKind.Recording);
             _recordingManager.DefaultChanged += RecordingMgr_DefaultChanged;
             _defaultRecordingDevice = _recordingManager.Default;
         }
