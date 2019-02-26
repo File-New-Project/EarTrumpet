@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel.Audio;
+﻿using EarTrumpet.DataModel.AppInformation;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
@@ -93,7 +94,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public string ExeName => _appInfo.ExeName;
 
-        public string IconPath => _appInfo.SmallLogoPath;
+        public string IconPath { get; }
 
         public Guid GroupingParam { get; private set; }
 
@@ -147,7 +148,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private readonly ISimpleAudioVolume _simpleVolume;
         private readonly IAudioMeterInformation _meter;
         private readonly Dispatcher _dispatcher;
-        private readonly AppInformation _appInfo;
+        private readonly IAppInfo _appInfo;
         private readonly AudioDeviceSessionChannelCollection _channels;
         private string _resolvedAppDisplayName;
         private string _rawDisplayName;
@@ -176,12 +177,10 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             ProcessId = ReadProcessId();
             _parent = new WeakReference<IAudioDevice>(parent);
 
-            _appInfo = AppInformationService.GetInformationForAppByPid(ProcessId);
+            _appInfo = AppInformationFactory.CreateForProcess(ProcessId, trackProcess: true);
+            _appInfo.Stopped += _ => DisconnectSession();
 
-            if (string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath))
-            {
-                _appInfo.SmallLogoPath = session.GetIconPath();
-            }
+            IconPath = string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath) ? session.GetIconPath() : _appInfo.SmallLogoPath;
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
@@ -189,11 +188,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             ((IAudioSessionControl2)_session).GetSessionInstanceIdentifier(out _id);
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
-
-            if (_appInfo.CanTrack)
-            {
-                ProcessWatcherService.WatchProcess(ProcessId, (pid) => DisconnectSession());
-            }
 
             ReadRawDisplayName();
             RefreshDisplayName();
@@ -233,7 +227,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 _refreshDisplayNameTask = Task.Delay(TimeSpan.FromSeconds(5));
                 var internalRefreshDisplayNameTask = new Task(() =>
                 {
-                    var displayName = AppInformationService.GetDisplayNameForAppByPid(ProcessId);
+                    var displayName = _appInfo.ResolveDisplayName();
                     _dispatcher.BeginInvoke((Action)(() =>
                     {
                         _resolvedAppDisplayName = displayName;

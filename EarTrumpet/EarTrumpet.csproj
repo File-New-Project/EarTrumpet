@@ -92,6 +92,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\AppInformation\AppInformationFactory.cs" />
+    <Compile Include="DataModel\AppInformation\IAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\DesktopAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\ModernAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\SystemSoundsAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\ZombieProcessException.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
     <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
     <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
@@ -106,7 +112,6 @@
     <Compile Include="DataModel\WindowsAudio\IAudioDeviceSessionChannel.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceInternal.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceSessionInternal.cs" />
-    <Compile Include="DataModel\AppInformation.cs" />
     <Compile Include="DataModel\WindowsAudio\WindowsAudioFactory.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\Helpers.cs" />
     <Compile Include="DataModel\Audio\SessionState.cs" />
@@ -118,6 +123,7 @@
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Interop\Helpers\User32Helper.cs" />
     <Compile Include="Interop\SndVolSSO.cs" />
     <Compile Include="UI\Behaviors\ButtonEx.cs" />
     <Compile Include="UI\Behaviors\ScrollViewerEx.cs" />
@@ -244,7 +250,6 @@
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
-    <Compile Include="DataModel\AppInformationService.cs" />
     <Compile Include="UI\Services\FeedbackService.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
     <Compile Include="UI\Services\DiagnosticsService.cs" />
