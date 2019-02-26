@@ -401,7 +401,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.ar.resx" />
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.es.resx">
       <SubType>Designer</SubType>
@@ -424,7 +423,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ro.resx" />
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.tr-TR.resx" />
     <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
