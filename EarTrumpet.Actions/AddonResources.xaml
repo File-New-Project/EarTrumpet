@@ -314,7 +314,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+                <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
             </Grid.ColumnDefinitions>
             <ctl:VolumeSlider Margin="12"
                               Maximum="100"
@@ -479,8 +479,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Width="{StaticResource AppIconSize}"
-                  Height="{StaticResource AppIconSize}"
+            <Grid Width="{DynamicResource Mutable_AppIconSize}"
+                  Height="{DynamicResource Mutable_AppIconSize}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
                 <TextBlock Theme:Brush.Foreground="SystemAccentLight2"
@@ -504,8 +504,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Width="{StaticResource AppIconSize}"
-                    Height="{StaticResource AppIconSize}"
+            <Border Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 <TextBlock FontSize="18"
