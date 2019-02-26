@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.UI.Tray;
-using System;
 using System.Drawing;
 
 namespace EarTrumpet.Extensibility

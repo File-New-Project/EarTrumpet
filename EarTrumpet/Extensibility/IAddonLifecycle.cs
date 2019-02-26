@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EarTrumpet.Extensibility
+﻿namespace EarTrumpet.Extensibility
 {
     public enum ApplicationLifecycleEvent
     {

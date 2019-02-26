@@ -1,5 +1,5 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Storage;
+﻿using EarTrumpet.DataModel.Storage;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;

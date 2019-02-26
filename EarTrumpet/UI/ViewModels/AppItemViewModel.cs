@@ -1,5 +1,6 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Internal;
+﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio.Internal;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;

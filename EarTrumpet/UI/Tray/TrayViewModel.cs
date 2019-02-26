@@ -1,8 +1,6 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensibility;
+﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Tray;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;

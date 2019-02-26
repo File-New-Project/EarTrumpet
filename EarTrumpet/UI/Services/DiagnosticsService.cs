@@ -1,5 +1,7 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Internal;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio.Internal;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using System;
@@ -8,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Services
 {

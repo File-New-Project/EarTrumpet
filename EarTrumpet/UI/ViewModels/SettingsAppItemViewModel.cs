@@ -1,4 +1,4 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;

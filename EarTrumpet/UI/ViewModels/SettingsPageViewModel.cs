@@ -1,6 +1,4 @@
-﻿using System;
-using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.UI.Helpers;
 
 
 namespace EarTrumpet.UI.ViewModels

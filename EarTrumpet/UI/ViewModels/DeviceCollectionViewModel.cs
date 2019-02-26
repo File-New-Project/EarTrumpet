@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -101,7 +102,7 @@ namespace EarTrumpet.UI.ViewModels
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             
-            ((IAudioDeviceManagerWithPeakMetering)_deviceManager).UpdatePeakValues();
+            _deviceManager.UpdatePeakValues();
 
             App.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
@@ -176,8 +177,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartOrStopPeakTimer()
         {
-            _peakMeterTimer.Enabled = _deviceManager is IAudioDeviceManagerWithPeakMetering &&
-                (_isFlyoutVisible | _isFullWindowVisible);
+            _peakMeterTimer.Enabled = _isFlyoutVisible || _isFullWindowVisible;
         }
 
         public void OnTrayFlyoutShown()

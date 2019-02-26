@@ -92,25 +92,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\AudioDeviceKind.cs" />
-    <Compile Include="DataModel\IAudioDeviceManagerWindowsAudio.cs" />
-    <Compile Include="DataModel\IAudioDeviceManagerWithPeakMetering.cs" />
-    <Compile Include="DataModel\IAudioDeviceSessionComparer.cs" />
-    <Compile Include="DataModel\IAudioDeviceWindowsAudio.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceChannel.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelCollection.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelMultiplexer.cs" />
-    <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
-    <Compile Include="DataModel\IAudioDeviceChannel.cs" />
-    <Compile Include="DataModel\IAudioDeviceSessionChannel.cs" />
-    <Compile Include="DataModel\Internal\IAudioDeviceInternal.cs" />
-    <Compile Include="DataModel\Internal\IAudioDeviceSessionInternal.cs" />
-    <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
-    <Compile Include="DataModel\WindowsAudioFactory.cs" />
-    <Compile Include="DataModel\Internal\Helpers.cs" />
-    <Compile Include="DataModel\SessionState.cs" />
+    <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceWindowsAudio.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceChannelCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannelCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannelMultiplexer.cs" />
+    <Compile Include="DataModel\FilteredCollectionChain.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceInternal.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceSessionInternal.cs" />
+    <Compile Include="DataModel\AppInformation.cs" />
+    <Compile Include="DataModel\WindowsAudio\WindowsAudioFactory.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\Helpers.cs" />
+    <Compile Include="DataModel\Audio\SessionState.cs" />
     <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
@@ -225,7 +224,7 @@
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
     <Compile Include="UI\Helpers\TaskbarContextMenuHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
-    <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
+    <Compile Include="DataModel\ProcessWatcherService.cs" />
     <Compile Include="UI\IconLoadInfo.cs" />
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
@@ -246,9 +245,9 @@
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
-    <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
+    <Compile Include="DataModel\AppInformationService.cs" />
     <Compile Include="UI\Services\FeedbackService.cs" />
-    <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
     <Compile Include="UI\Services\DiagnosticsService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
     <Compile Include="UI\Services\KeyboardNavigator.cs" />
@@ -267,7 +266,7 @@
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\VolumeSlider.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionState.cs" />
     <Compile Include="Interop\MMDeviceAPI\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
@@ -292,10 +291,10 @@
     <Compile Include="Interop\MMDeviceAPI\IMMNotificationClient.cs" />
     <Compile Include="Interop\MMDeviceAPI\ISimpleAudioVolume.cs" />
     <Compile Include="Interop\MMDeviceAPI\MMDeviceEnumerator.cs" />
-    <Compile Include="DataModel\IAudioDevice.cs" />
-    <Compile Include="DataModel\IAudioDeviceManager.cs" />
-    <Compile Include="DataModel\IAudioDeviceSession.cs" />
-    <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
+    <Compile Include="DataModel\Audio\IAudioDevice.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceManager.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceSession.cs" />
+    <Compile Include="DataModel\Audio\IStreamWithVolumeControl.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
     <Compile Include="UI\Views\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
@@ -304,10 +303,10 @@
     <Compile Include="Extensions\IconExtensions.cs" />
     <Compile Include="UI\Converters\InvertableVisibilityConverter.cs" />
     <Compile Include="UI\Converters\OpacityConverter.cs" />
-    <Compile Include="DataModel\Internal\AudioDevice.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDevice.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceManager.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionCollection.cs" />
     <Compile Include="UI\Views\FullWindow.xaml.cs">
       <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>

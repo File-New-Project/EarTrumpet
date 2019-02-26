@@ -1,4 +1,4 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
 
 namespace EarTrumpet.UI.ViewModels
