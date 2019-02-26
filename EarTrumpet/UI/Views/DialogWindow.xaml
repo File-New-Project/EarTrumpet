@@ -1,18 +1,17 @@
-﻿<Window
-    x:Class="EarTrumpet.UI.Views.DialogWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
-    Name="WindowRoot"
-    Title="{Binding Title}"
-    Theme:Brush.Background="Background"
-    Theme:Options.Source="App"
-    ResizeMode="NoResize"
-    SizeToContent="WidthAndHeight"
-    Style="{StaticResource DialogWindowStyle}"
-    TextOptions.TextFormattingMode="Display"
-    UseLayoutRounding="True"
-    WindowStartupLocation="CenterScreen">
+﻿<Window x:Class="EarTrumpet.UI.Views.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
+        Name="WindowRoot"
+        Title="{Binding Title}"
+        Theme:Brush.Background="Background"
+        Theme:Options.Source="App"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        Style="{StaticResource DialogWindowStyle}"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <DockPanel LastChildFill="True">
             <Grid DockPanel.Dock="Top">
@@ -21,23 +20,20 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Margin="14,0,0,0"
-                    Text="{Binding VisibleTitle}"
-                    TextAlignment="Left" />
-                <Button
-                    x:Name="CloseButton"
-                    Grid.Column="3"
-                    Click="CloseButton_Click"
-                    Content="&#xE8BB;"
-                    Style="{StaticResource CloseButtonStyle}" />
+                <TextBlock Margin="14,0,0,0"
+                           Text="{Binding VisibleTitle}"
+                           TextAlignment="Left" />
+                <Button x:Name="CloseButton"
+                        Grid.Column="3"
+                        Click="CloseButton_Click"
+                        Content="&#xE8BB;"
+                        Style="{StaticResource CloseButtonStyle}" />
             </Grid>
 
             <Grid>
-                <ContentControl
-                    Content="{Binding}"
-                    Focusable="False"
-                    IsTabStop="False" />
+                <ContentControl Content="{Binding}"
+                                Focusable="False"
+                                IsTabStop="False" />
             </Grid>
         </DockPanel>
     </Grid>

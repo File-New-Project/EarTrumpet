@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
-             Height="{StaticResource AppItemCellHeight}"
+             Height="{DynamicResource Mutable_AppItemCellHeight}"
              IsTabStop="False"
              MouseEnter="UserControl_MouseEnter">
     <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+            <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+            <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="{StaticResource DeviceOrAppIconMargin}">
-            <Border Width="{StaticResource AppIconSize}"
-                    Height="{StaticResource AppIconSize}"
+            <Border Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
                     HorizontalAlignment="Center">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -34,8 +34,8 @@
                     </Style>
                 </Border.Style>
                 <Grid>
-                    <Image Width="{StaticResource AppIconSize}"
-                           Height="{StaticResource AppIconSize}"
+                    <Image Width="{DynamicResource Mutable_AppIconSize}"
+                           Height="{DynamicResource Mutable_AppIconSize}"
                            Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
                            Stretch="Fill" />
                     <Border>
@@ -54,7 +54,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Theme:Brush.Foreground="Text"
-                                   FontSize="16"
+                                   FontSize="{DynamicResource Mutable_AppIconTextFontSize}"
                                    FontWeight="SemiBold"
                                    Text="{Binding IconText}"
                                    TextAlignment="Center" />
@@ -62,8 +62,8 @@
                 </Grid>
             </Border>
             <Button Name="MuteButton"
-                    Width="{StaticResource AppIconSize}"
-                    Height="{StaticResource AppIconSize}"
+                    Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
                     Click="MuteButton_Click"
                     IsTabStop="False"
                     ToolTip="{Binding DisplayName}">
@@ -77,7 +77,7 @@
                     </Style>
                 </Button.Style>
                 <Button.Content>
-                    <TextBlock FontSize="24"
+                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}"
                                Opacity="0.8"
                                Style="{StaticResource GlyphTextBlockStyle}"
                                Text="&#xE74F;" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace EarTrumpet.UI.Controls
@@ -23,11 +24,9 @@ namespace EarTrumpet.UI.Controls
         public static readonly DependencyProperty PeakValue2Property = DependencyProperty.Register(
           "PeakValue2", typeof(float), typeof(VolumeSlider), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
 
-
-        private double _thumbWidth;
-
-        private Border PeakMeter1 => (Border)GetTemplateChild("PeakMeter1");
-        private Border PeakMeter2 => (Border)GetTemplateChild("PeakMeter2");
+        private Border _peakMeter1;
+        private Border _peakMeter2;
+        private Thumb _thumb;
 
         public VolumeSlider() : base()
         {
@@ -38,8 +37,14 @@ namespace EarTrumpet.UI.Controls
             TouchMove += OnTouchMove;
             MouseMove += OnMouseMove;
             MouseWheel += OnMouseWheel;
+            Loaded += OnLoaded;
+        }
 
-            _thumbWidth = (double)TryFindResource("SliderThumbWidth");
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _thumb = (Thumb)GetTemplateChild("SliderThumb");
+            _peakMeter1 = (Border)GetTemplateChild("PeakMeter1");
+            _peakMeter2 = (Border)GetTemplateChild("PeakMeter2");
         }
 
         protected override Size ArrangeOverride(Size arrangeBounds)
@@ -56,16 +61,14 @@ namespace EarTrumpet.UI.Controls
 
         private void SizeOrVolumeOrPeakValueChanged()
         {
-            var meter1 = PeakMeter1;
-            if (meter1 != null)
+            if (_peakMeter1 != null)
             {
-                meter1.Width = Math.Max(0, (ActualWidth - _thumbWidth) * PeakValue1 * (Value / 100f));
+                _peakMeter1.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue1 * (Value / 100f));
             }
 
-            var meter2 = PeakMeter2;
-            if (meter2 != null)
+            if (_peakMeter2 != null)
             {
-                meter2.Width = Math.Max(0, (ActualWidth - _thumbWidth) * PeakValue2 * (Value / 100f));
+                _peakMeter2.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue2 * (Value / 100f));
             }
         }
 

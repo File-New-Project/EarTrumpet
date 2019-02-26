@@ -6,7 +6,7 @@
              xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
-            xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:ui="clr-namespace:EarTrumpet.UI"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
@@ -15,6 +15,10 @@
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UI\Mutable.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <Theme:Manager x:Key="ThemeManager">
                 <Theme:Manager.References>
                     <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
@@ -101,23 +105,12 @@
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
             <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
             <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
-            <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
-            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
-            <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
-            <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
-            <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
-            <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
-            <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
-            <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
-            <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
-            <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
             <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
-            <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
 
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
@@ -301,8 +294,8 @@
             </Style>
             <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Width" Value="{StaticResource SliderThumbWidth}" />
+                <Setter Property="Height" Value="{DynamicResource Mutable_SliderThumbHeight}" />
+                <Setter Property="Width" Value="{DynamicResource Mutable_SliderThumbWidth}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -334,7 +327,6 @@
                         <ControlTemplate TargetType="{x:Type Slider}">
                             <Grid>
                                 <Border Name="TrackBackground" Height="2" />
-
                                 <Track Name="PART_Track">
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton Name="SliderLeft"
@@ -403,31 +395,31 @@
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_DeviceVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="AppVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_AppVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="DeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_LargeWindowTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="VirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
-                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_LargeWindowTextFontSize}" />
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Width" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
+                <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Template">
@@ -1425,8 +1417,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Width="{StaticResource AppIconSize}"
-                            Height="{StaticResource AppIconSize}"
+                    <Border Width="{DynamicResource Mutable_AppIconSize}"
+                            Height="{DynamicResource Mutable_AppIconSize}"
                             HorizontalAlignment="Center">
                         <Border.Style>
                             <Style TargetType="Border">
@@ -1443,8 +1435,8 @@
                             </Style>
                         </Border.Style>
                         <Grid>
-                            <Image Width="{StaticResource AppIconSize}"
-                                   Height="{StaticResource AppIconSize}"
+                            <Image Width="{DynamicResource Mutable_AppIconSize}"
+                                   Height="{DynamicResource Mutable_AppIconSize}"
                                    Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
                                    Stretch="Fill" />
                             <Border>
@@ -1554,7 +1546,7 @@
                                Grid.ColumnSpan="2"
                                Height="275"
                                HorizontalAlignment="Left"
-                                gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
+                               gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
 
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"

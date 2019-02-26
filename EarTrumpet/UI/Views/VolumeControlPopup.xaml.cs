@@ -117,7 +117,7 @@ namespace EarTrumpet.UI.Views
                 throw new ArgumentException("taskbarState.ContainingScreen");
             }
 
-            var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            var HEADER_SIZE = (double)App.Current.Resources["Mutable_DeviceTitleCellHeight"];
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
             var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 

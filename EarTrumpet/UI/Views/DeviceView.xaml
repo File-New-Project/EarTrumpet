@@ -19,7 +19,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Border Height="{StaticResource DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
+                <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
                     <TextBlock Style="{StaticResource DeviceTitleTextStyle}"
                                Text="{Binding Device.DisplayName}"
                                TextTrimming="CharacterEllipsis"
@@ -28,14 +28,14 @@
 
                 <ListViewItem Name="DeviceListItem"
                               Grid.Row="1"
-                              Height="{StaticResource DeviceItemCellHeight}"
+                              Height="{DynamicResource Mutable_DeviceItemCellHeight}"
                               AutomationProperties.Name="{Binding Device}"
                               Tag="DeviceListItemKey">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+                            <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+                            <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0"
                                 Margin="{StaticResource DeviceOrAppIconMargin}"
@@ -44,7 +44,7 @@
                                 MouseDown="Icon_MouseDown"
                                 Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
                             <Grid>
-                                <TextBlock FontSize="24" Opacity="0.4">
+                                <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}" Opacity="0.4">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Setter Property="Text" Value="&#xE995;" />
@@ -59,7 +59,7 @@
                                         </Style>
                                     </TextBlock.Style>
                                 </TextBlock>
-                                <TextBlock FontSize="24">
+                                <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
