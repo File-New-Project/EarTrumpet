@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.DataModel.AppInformation;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {
@@ -142,7 +143,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
 
             try
             {
-                var appInfo = AppInformationService.GetInformationForAppByPid((int)processId);
+                var appInfo = AppInformationFactory.CreateForProcess((int)processId);
 
                 foreach(var group in groups)
                 {
