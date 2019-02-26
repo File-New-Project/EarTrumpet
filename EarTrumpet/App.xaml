@@ -6,6 +6,7 @@
              xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+            xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:ui="clr-namespace:EarTrumpet.UI"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
@@ -1517,6 +1518,63 @@
                          LostKeyboardFocus="{Event:Binding OnLostFocus}"
                          PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
                          Text="{Binding HotkeyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+                <Grid>
+                    <Grid MaxWidth="420"
+                          MaxHeight="500"
+                          Margin="20"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Orientation="Horizontal">
+                            <Path Width="32"
+                                  Height="32"
+                                  Margin="0"
+                                  Theme:Brush.Fill="Text"
+                                  Data="M64.1,24.9c-0.8,6.8-5.5,21.5-10.2,26.1c1.2-2.3,1.8-4.9,1.7-7.7c-0.3-7.9-6.8-14.5-14.8-14.8  c-8.8-0.4-16,6.7-16,15.4c0,3.3,1.1,6.4,2.9,9C17.8,48.3,10,41.2,9.3,40.7c-1.2-0.4-3.2,2.9-2.5,4.1c53,45,74.7-10.4,75.4-12  C75.2,31.4,74.8,25.5,64.1,24.9z M38.7,31.9c7.9-1,14.6,5.7,13.6,13.6c-0.7,5.4-5,9.8-10.4,10.4c-7.9,1-14.6-5.7-13.6-13.6  C28.9,37,33.3,32.6,38.7,31.9z"
+                                  Stretch="Uniform" />
+                            <TextBlock x:Name="Welcome"
+                                       Margin="20,20,0,20"
+                                       Theme:Brush.Foreground="Text"
+                                       FontSize="18"
+                                       Text="{x:Static resx:Resources.WelcomeDialogHeaderText}" />
+                        </StackPanel>
+                        <Image Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               Height="275"
+                               HorizontalAlignment="Left"
+                                gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Margin="0,20,0,0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center">
+                            <Hyperlink Command="{Binding LearnMore}">
+                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <Button Grid.Row="2"
+                                Grid.Column="1"
+                                Width="160"
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding Close}"
+                                Content="{x:Static resx:Resources.CloseButtonText}" />
+                    </Grid>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

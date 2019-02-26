@@ -212,5 +212,10 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>기존 이어트럼펫 아이콘 사용</value>
   </data>
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>닫기</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>이어트럼펫을 사용해주셔서 감사합니다.</value>
+  </data>
 </root>

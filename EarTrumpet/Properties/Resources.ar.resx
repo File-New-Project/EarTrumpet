@@ -215,5 +215,10 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>استخدم الأيقونة الافتراضية/ويندوز</value>
   </data>
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>مرحبا بك!</value>
+  </data>
 </root>

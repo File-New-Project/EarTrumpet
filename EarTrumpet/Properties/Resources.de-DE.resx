@@ -212,5 +212,11 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Altes EarTrumpet Symbol verwenden</value>
   </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Willkommen bei EarTrumpet</value>
+  </data>
 
 </root>

@@ -212,5 +212,10 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Eski EarTrumpet simgesini kullan</value>
   </data>
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet'e Hoş Geldiniz</value>
+  </data>
 </root>

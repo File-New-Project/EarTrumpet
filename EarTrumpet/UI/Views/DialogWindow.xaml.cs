@@ -1,48 +1,41 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using System;
 using System.Diagnostics;
 using System.Windows;
-
 namespace EarTrumpet.UI.Views
 {
-    public partial class SettingsWindow : Window
+    public partial class DialogWindow : Window
     {
-        public event Action CloseClicked;
-
         private bool _isClosing;
 
-        public SettingsWindow()
+        public DialogWindow()
         {
-            Trace.WriteLine("SettingsWindow .ctor");
+            Trace.WriteLine("DialogWindow .ctor");
 
             InitializeComponent();
 
-            SourceInitialized += SettingsWindow_SourceInitialized;
+            SourceInitialized += OnSourceInitialized;
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
-        private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
+        private void OnSourceInitialized(object sender, System.EventArgs e)
         {
-            Trace.WriteLine("SettingsWindow SettingsWindow_SourceInitialized");
-
-            this.Cloak();
+            Trace.WriteLine("DialogWindow OnSourceInitialized");
             AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("CloseButton_Click SafeClose");
+            Trace.WriteLine("DialogWindow CloseButton_Click");
             e.Handled = true;
 
-            CloseClicked?.Invoke();
+            SafeClose();
         }
 
         public void SafeClose()
         {
-            Trace.WriteLine("SettingsWindow SafeClose");
+            Trace.WriteLine("DialogWindow SafeClose");
 
             if (!_isClosing)
             {
@@ -50,17 +43,6 @@ namespace EarTrumpet.UI.Views
                 _isClosing = true;
                 WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
             }
-        }
-
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = (WindowState == WindowState.Maximized) ?
-                WindowState.Normal : WindowState.Maximized;
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
         }
     }
 }

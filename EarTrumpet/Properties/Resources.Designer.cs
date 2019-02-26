@@ -151,6 +151,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseButtonText {
+            get {
+                return ResourceManager.GetString("CloseButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse to show only the default playback device.
         /// </summary>
         public static string CollapseAccessibleText {
@@ -516,6 +525,15 @@ namespace EarTrumpet.Properties {
         public static string WebsiteText {
             get {
                 return ResourceManager.GetString("WebsiteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to EarTrumpet.
+        /// </summary>
+        public static string WelcomeDialogHeaderText {
+            get {
+                return ResourceManager.GetString("WelcomeDialogHeaderText", resourceCulture);
             }
         }
         

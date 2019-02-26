@@ -236,5 +236,10 @@
     <value>Use legacy EarTrumpet icon</value>
   </data>
 -->
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Bine ai venit la EarTrumpet</value>
+  </data>
 </root>

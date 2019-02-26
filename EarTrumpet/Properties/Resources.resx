@@ -275,4 +275,10 @@
   <data name="SettingsOpenSettingsText" xml:space="preserve">
     <value>Open settings</value>
   </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Welcome to EarTrumpet</value>
+  </data>
 </root>

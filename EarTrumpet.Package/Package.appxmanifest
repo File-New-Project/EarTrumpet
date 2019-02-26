@@ -25,18 +25,6 @@
         </desktop:Extension>
       </Extensions>
     </Application>
-    <Application Id="EarTrumpet.UWP" Executable="EarTrumpet.UWP.exe" EntryPoint="EarTrumpet.UWP.App">
-      <uap:VisualElements DisplayName="EarTrumpet" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="EarTrumpet" BackgroundColor="transparent" AppListEntry="none">
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
-      </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="eartrumpet">
-            <uap:DisplayName>EarTrumpet</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-      </Extensions>
-    </Application>
   </Applications>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />

@@ -212,5 +212,10 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>使用经典 EarTrumpet 图标</value>
   </data>
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>欢迎使用 EarTrumpet</value>
+  </data>
 </root>

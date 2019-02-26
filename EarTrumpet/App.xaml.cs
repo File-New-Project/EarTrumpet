@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
@@ -22,9 +23,11 @@ namespace EarTrumpet
         public FlyoutWindow FlyoutWindow { get; private set; }
         public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
 
+        private static readonly string s_firstRunKey = "hasShownFirstRun";
         private TrayIcon _trayIcon;
         private SettingsWindow _openSettingsWindow;
         private FullWindow _openMixerWindow;
+        private ISettingsBag _settings;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -38,6 +41,8 @@ namespace EarTrumpet
                 Current.Shutdown();
                 return;
             }
+
+            _settings = StorageFactory.GetSettings();
 
             ((Manager)Resources["ThemeManager"]).Load();
 
@@ -81,7 +86,16 @@ namespace EarTrumpet
                 }
             };
 
-            StartupUWPDialogDisplayService.ShowIfAppropriate();
+            if (!_settings.HasKey(s_firstRunKey))
+            {
+                Trace.WriteLine($"App Application_Startup Showing welcome dialog");
+                _settings.Set(s_firstRunKey, true);
+                var dlg = new DialogWindow();
+                var vm = new WelcomeViewModel();
+                dlg.DataContext = vm;
+                vm.Close = new RelayCommand(() => dlg.SafeClose());
+                dlg.Show();
+            }
 
             Trace.WriteLine($"App Application_Startup Exit");
         }

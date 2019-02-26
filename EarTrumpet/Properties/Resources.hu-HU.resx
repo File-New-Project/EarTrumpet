@@ -212,5 +212,10 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Klasszikus EarTrumpet ikon használata</value>
   </data>
-
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Üdvözöljük az EarTrumpet-en!</value>
+  </data>
 </root>
