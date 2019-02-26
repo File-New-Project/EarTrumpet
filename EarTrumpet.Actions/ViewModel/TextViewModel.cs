@@ -1,5 +1,4 @@
-﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet.Actions.DataModel;
+﻿using EarTrumpet.Actions.DataModel;
 using System;
 
 namespace EarTrumpet.Actions.ViewModel

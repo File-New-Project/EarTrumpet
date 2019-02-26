@@ -1,6 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
-using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Actions.DataModel;
 using EarTrumpet.Actions.DataModel.Serialization;
 using System;
@@ -8,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.Actions.ViewModel
 {

@@ -1,8 +1,9 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Actions.DataModel.Enum;
+﻿using EarTrumpet.Actions.DataModel.Enum;
 using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.Generic;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {
@@ -52,7 +53,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             _deviceTriggers.Clear();
         }
 
-        private void PlaybackDeviceManager_DefaultChanged(object sender, EarTrumpet.DataModel.IAudioDevice newDefault)
+        private void PlaybackDeviceManager_DefaultChanged(object sender, EarTrumpet.DataModel.Audio.IAudioDevice newDefault)
         {
             if (newDefault == null) return;
 

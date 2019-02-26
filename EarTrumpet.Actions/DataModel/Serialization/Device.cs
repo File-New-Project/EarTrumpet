@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel;
-namespace EarTrumpet.Actions.DataModel.Serialization
+﻿namespace EarTrumpet.Actions.DataModel.Serialization
 {
     public class Device
     {

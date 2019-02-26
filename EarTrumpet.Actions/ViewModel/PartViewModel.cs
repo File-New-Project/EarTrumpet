@@ -1,5 +1,4 @@
-﻿using EarTrumpet.UI.ViewModels;
-using EarTrumpet.Actions.DataModel;
+﻿using EarTrumpet.Actions.DataModel;
 using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.ComponentModel;

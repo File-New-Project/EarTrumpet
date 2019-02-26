@@ -1,7 +1,7 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Actions.DataModel.Enum;
+﻿using EarTrumpet.Actions.DataModel.Enum;
 using EarTrumpet.Actions.DataModel.Serialization;
 using System;
+using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {

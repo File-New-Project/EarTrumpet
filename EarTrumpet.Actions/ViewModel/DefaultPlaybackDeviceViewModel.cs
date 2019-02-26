@@ -1,4 +1,4 @@
-﻿using EarTrumpet.Actions.DataModel.Serialization;
+﻿using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.Actions.ViewModel
 {
@@ -7,7 +7,7 @@ namespace EarTrumpet.Actions.ViewModel
         public DefaultPlaybackDeviceViewModel()
         {
             DisplayName = Properties.Resources.DefaultPlaybackDeviceText;
-            Kind = EarTrumpet.DataModel.AudioDeviceKind.Playback.ToString();
+            Kind = AudioDeviceKind.Playback.ToString();
             GroupName = Properties.Resources.PlaybackDeviceGroupText;
         }
     }

@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Internal.Services;
 using EarTrumpet.Interop;
 using EarTrumpet.Actions.DataModel.Serialization;
 using EarTrumpet.Actions.DataModel.Enum;
@@ -8,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {

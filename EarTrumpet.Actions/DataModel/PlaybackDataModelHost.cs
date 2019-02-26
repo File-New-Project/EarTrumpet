@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 using System;
 
 namespace EarTrumpet.Actions.DataModel

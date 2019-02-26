@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using EarTrumpet.Actions.DataModel;
 
 namespace EarTrumpet.Actions.ViewModel
 {
