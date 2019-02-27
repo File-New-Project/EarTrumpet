@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Interop;
+﻿using EarTrumpet.Interop;
 using EarTrumpet.Actions.DataModel.Serialization;
 using EarTrumpet.Actions.DataModel.Enum;
 using System;
