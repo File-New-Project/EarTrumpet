@@ -115,10 +115,10 @@
     <Compile Include="DataModel\WindowsAudio\WindowsAudioFactory.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\Helpers.cs" />
     <Compile Include="DataModel\Audio\SessionState.cs" />
-    <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />
+    <Compile Include="DataModel\Storage\Internal\RegistrySettingsBag.cs" />
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
-    <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="Extensibility\IAddonTrayIcon.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
-    <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\Internal\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />

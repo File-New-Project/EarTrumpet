@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 
-namespace EarTrumpet.DataModel.Storage
+namespace EarTrumpet.DataModel.Storage.Internal
 {
     class RegistrySettingsBag : ISettingsBag
     {

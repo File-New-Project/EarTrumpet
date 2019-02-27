@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EarTrumpet.DataModel.Storage
+namespace EarTrumpet.DataModel.Storage.Internal
 {
     class WindowsStorageSettingsBag : ISettingsBag
     {
