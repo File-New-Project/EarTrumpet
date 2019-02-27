@@ -99,7 +99,6 @@
     <Compile Include="ViewModel\Option.cs" />
     <Compile Include="DataModel\Part.cs" />
     <Compile Include="DataModel\ProcessWatcher.cs" />
-    <Compile Include="DataModel\PlaybackDataModelHost.cs" />
     <Compile Include="ViewModel\Actions\SetAppMuteActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
     <Compile Include="ViewModel\Actions\SetDeviceMuteActionViewModel.cs" />
@@ -165,6 +164,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\EarTrumpet.Shared\EarTrumpet.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(ProjectDir)\..\AddonPackage\make.cmd $(TargetName) $(OutDir) $(ConfigurationName)</PostBuildEvent>
