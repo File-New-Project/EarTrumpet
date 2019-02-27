@@ -49,7 +49,7 @@ namespace EarTrumpet.UI.Views
 
         private void VolumeControlPopup_Opened(object sender, EventArgs e)
         {
-            AccentPolicyLibrary.SetWindowBlur(this, true, false, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.None);
 
             PositionAndShow();
         }

@@ -90,15 +90,52 @@ namespace EarTrumpet.UI.Views
 
         private void EnableBlurIfApplicable()
         {
-            if (_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open)
+            if ((_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open) &&
+                SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast)
             {
-                AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast, false, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
+                User32.AccentFlags location = User32.AccentFlags.None;
+
+                switch (WindowsTaskbar.Current.Location)
+                {
+                    case WindowsTaskbar.Position.Left:
+                        location = User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
+                        break;
+                    case WindowsTaskbar.Position.Right:
+                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
+                        break;
+                    case WindowsTaskbar.Position.Top:
+                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
+                        break;
+                    case WindowsTaskbar.Position.Bottom:
+                        location = User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder;
+                        break;
+                }
+
+                if (SystemSettings.IsRTL)
+                {
+                    if ((location & User32.AccentFlags.DrawLeftBorder) == User32.AccentFlags.DrawLeftBorder)
+                    {
+                        location &= ~User32.AccentFlags.DrawLeftBorder;
+                        location |= User32.AccentFlags.DrawRightBorder;
+                    }
+                    else if ((location & User32.AccentFlags.DrawRightBorder) == User32.AccentFlags.DrawRightBorder)
+                    {
+                        location &= ~User32.AccentFlags.DrawRightBorder;
+                        location |= User32.AccentFlags.DrawLeftBorder;
+                    }
+                }
+
+                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), location);
+            }
+            else
+            {
+                DisableAcrylic();
             }
         }
 
-        private void DisableBlur()
+        private void DisableAcrylic()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, false, false, default(Color));
+            AccentPolicyLibrary.DisableAcrylic(this);
         }
 
         private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)
@@ -163,7 +200,7 @@ namespace EarTrumpet.UI.Views
                     {
                         this.Cloak();
                         Hide();
-                        DisableBlur();
+                        DisableAcrylic();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
                     }
                     break;

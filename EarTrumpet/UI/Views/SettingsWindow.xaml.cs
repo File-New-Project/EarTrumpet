@@ -27,7 +27,7 @@ namespace EarTrumpet.UI.Views
 
         private void SetBlurColor()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)

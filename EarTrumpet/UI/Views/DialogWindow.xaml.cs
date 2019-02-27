@@ -22,7 +22,7 @@ namespace EarTrumpet.UI.Views
         private void OnSourceInitialized(object sender, System.EventArgs e)
         {
             Trace.WriteLine("DialogWindow OnSourceInitialized");
-            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
