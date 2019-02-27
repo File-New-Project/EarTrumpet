@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace EarTrumpet.DataModel
 {
@@ -46,11 +47,6 @@ namespace EarTrumpet.DataModel
         public void AddFilter(Func<ObservableCollection<T>, ObservableCollection<T>> filter)
         {
             Free();
-            for (var i = Items.Count - 1; i >= 0; i--)
-            {
-                Items.RemoveAt(i);
-            }
-
             _items = filter(_items);
             Listen();
             Populate();
@@ -60,7 +56,16 @@ namespace EarTrumpet.DataModel
         {
             foreach(var s in _items)
             {
-                Items.Add(s);
+                if (!Items.Contains(s))
+                {
+                    Items.Add(s);
+                }
+            }
+
+            var filtered = Items.Where(i => !_items.Contains(i)).ToArray();
+            foreach(var item in filtered)
+            {
+                Items.Remove(item);
             }
         }
     }
