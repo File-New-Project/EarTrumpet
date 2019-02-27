@@ -22,6 +22,12 @@ namespace EarTrumpet.UI.Views
 
             SourceInitialized += SettingsWindow_SourceInitialized;
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            Themes.Manager.Current.ThemeChanged += () => SetBlurColor();
+        }
+
+        private void SetBlurColor()
+        {
+            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
@@ -29,7 +35,7 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("SettingsWindow SettingsWindow_SourceInitialized");
 
             this.Cloak();
-            AccentPolicyLibrary.SetWindowBlur(this, true, true, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"));
+            SetBlurColor();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
