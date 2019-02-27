@@ -21,7 +21,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
 
         public AudioTriggerManager()
         {
-            _playbackManager = new PlaybackDataModelHost();
+            _playbackManager = PlaybackDataModelHost.Current;
             _playbackManager.AppPropertyChanged += OnAppPropertyChanged;
             _playbackManager.AppAdded += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Added);
             _playbackManager.AppRemoved += (a) => OnAppAddOrRemove(a, AudioAppEventKind.Removed);
