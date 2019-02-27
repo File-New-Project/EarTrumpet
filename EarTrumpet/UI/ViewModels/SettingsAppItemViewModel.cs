@@ -87,11 +87,6 @@ namespace EarTrumpet.UI.ViewModels
 
         }
 
-        public void RefreshDisplayName()
-        {
-
-        }
-
         public void UpdatePeakValueBackground()
         {
             throw new NotImplementedException();

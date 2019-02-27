@@ -167,7 +167,6 @@ namespace EarTrumpet.UI.ViewModels
             Expired?.Invoke(this, null);
         }
 
-        public void RefreshDisplayName() { }
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
 

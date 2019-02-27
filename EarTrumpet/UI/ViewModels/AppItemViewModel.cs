@@ -151,12 +151,6 @@ namespace EarTrumpet.UI.ViewModels
             ((IAudioDeviceSessionInternal)_session).UpdatePeakValueBackground();
         }
 
-
-        public void RefreshDisplayName()
-        {
-            _session.RefreshDisplayName();
-        }
-
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);

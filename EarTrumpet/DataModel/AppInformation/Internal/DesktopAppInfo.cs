@@ -13,6 +13,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
         public uint BackgroundColor { get; }
         public string ExeName { get; }
+        public string DisplayName { get; }
         public string PackageInstallPath { get; }
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => true;
@@ -50,11 +51,13 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
             else
             {
-                if (TryGetExecutableNameViaNtByPid(processId, out var exeName))
+                trackProcess = false;
+
+                if (TryGetExecutableNameViaNtByPid(processId, out var imageName))
                 {
-                    ExeName = ExeName;
-                    // Tracking is not available.
-                    return;
+                    ExeName = Path.GetFileNameWithoutExtension(imageName);
+                    SmallLogoPath = imageName;
+                    PackageInstallPath = imageName;
                 }
                 else
                 {
@@ -62,26 +65,41 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 }
             }
 
+            // Display Name priority:
+            // - AppsFolder
+            // - A window caption
+            // - Exe Name
+
+            try
+            {
+                var appResolver = (IApplicationResolver)new ApplicationResolver();
+                appResolver.GetAppIDForProcess((uint)processId, out string appId, out _, out _, out _);
+                DisplayName = AppsFolder.ReadDisplayName(appId);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
+
+            if (string.IsNullOrWhiteSpace(DisplayName))
+            {
+                try
+                {
+                    using (var proc = Process.GetProcessById(_processId))
+                    {
+                        DisplayName = proc.MainWindowTitle;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                }
+            }
+
             if (trackProcess)
             {
                 ProcessWatcherService.WatchProcess(processId, (pid) => Stopped?.Invoke(this));
             }
-        }
-
-        public string ResolveDisplayName()
-        {
-            try
-            {
-                using (var proc = Process.GetProcessById(_processId))
-                {
-                    return proc.MainWindowTitle;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"{ex}");
-            }
-            return null;
         }
 
         private static bool TryGetExecutableNameViaNtByPid(int processId, out string executableName)

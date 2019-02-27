@@ -10,6 +10,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public event Action<IAppInfo> Stopped { add { } remove { } }
         public uint BackgroundColor => 0x000000;
         public string ExeName => "*SystemSounds";
+        public string DisplayName => null;
         public string PackageInstallPath => "System.SystemSoundsSession";
         public bool IsDesktopApp => true;
         public string SmallLogoPath { get; set; }
@@ -19,8 +20,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             SmallLogoPath = Environment.ExpandEnvironmentVariables(Is64BitOperatingSystem() ? 
                 @"%windir%\sysnative\audiosrv.dll" : @"%windir%\system32\audiosrv.dll");
         }
-
-        public string ResolveDisplayName() => null;
 
         private static bool Is64BitOperatingSystem()
         {

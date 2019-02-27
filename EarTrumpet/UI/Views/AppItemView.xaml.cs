@@ -30,10 +30,5 @@ namespace EarTrumpet.UI.Views
         {
             App.OpenPopup(this);
         }
-
-        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            App.RefreshDisplayName();
-        }
     }
 }

@@ -199,13 +199,5 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             RaisePropertyChanged(e.PropertyName);
         }
-
-        public void RefreshDisplayName()
-        {
-            foreach (var session in Sessions)
-            {
-                session.RefreshDisplayName();
-            }
-        }
     }
 }

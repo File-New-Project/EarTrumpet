@@ -4,8 +4,7 @@
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              Height="{DynamicResource Mutable_AppItemCellHeight}"
-             IsTabStop="False"
-             MouseEnter="UserControl_MouseEnter">
+             IsTabStop="False">
     <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />

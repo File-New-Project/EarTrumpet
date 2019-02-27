@@ -13,6 +13,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
         public uint BackgroundColor { get; }
         public string ExeName { get; }
+        public string DisplayName { get; }
         public string PackageInstallPath { get; }
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => false;
@@ -29,6 +30,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
             PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
             ExeName = PackageInstallPath;
+            DisplayName = AppsFolder.ReadDisplayName(appUserModelId);
 
             try
             {
@@ -59,13 +61,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             {
                 ProcessWatcherService.WatchProcess(processId, (pid) => Stopped?.Invoke(this));
             }
-        }
-
-        public string ResolveDisplayName()
-        {
-            var aumid = GetAppUserModelIdByPid(processId);
-            var shellItem = GetShellItemForAppByAumid(aumid);
-            return shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
         }
 
         private static string GetAppUserModelIdByPid(int processId)

@@ -25,7 +25,6 @@ namespace EarTrumpet.UI.ViewModels
         int ProcessId { get; }
         bool DoesGroupWith(IAppItemViewModel app);
         void MoveToDevice(string id, bool hide);
-        void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
         void OpenPopup(FrameworkElement uIElement);

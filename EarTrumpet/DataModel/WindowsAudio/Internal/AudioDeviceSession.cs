@@ -49,7 +49,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     }
                     IsMuted = _volume.ToVolumeInt() == 0;
                 }
-
             }
         }
 
@@ -73,38 +72,14 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        public string DisplayName
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(_rawDisplayName))
-                {
-                    return _rawDisplayName;
-                }
-                else if (!string.IsNullOrWhiteSpace(_resolvedAppDisplayName))
-                {
-                    return _resolvedAppDisplayName;
-                }
-                else
-                {
-                    return _appInfo.ExeName;
-                }
-            }
-        }
-
+        public string DisplayName { get; private set; }
         public string ExeName => _appInfo.ExeName;
-
         public string IconPath { get; }
-
         public Guid GroupingParam { get; private set; }
-
         public float PeakValue1 { get; private set; }
         public float PeakValue2 { get; private set; }
-
         public uint BackgroundColor => _appInfo.BackgroundColor;
-
         public bool IsDesktopApp => _appInfo.IsDesktopApp;
-
         public string AppId => _appInfo.PackageInstallPath;
 
         public SessionState State
@@ -150,8 +125,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private readonly Dispatcher _dispatcher;
         private readonly IAppInfo _appInfo;
         private readonly AudioDeviceSessionChannelCollection _channels;
-        private string _resolvedAppDisplayName;
-        private string _rawDisplayName;
         private float _volume;
         private AudioSessionState _state;
         private bool _isMuted;
@@ -159,7 +132,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private bool _isMoved;
         private bool _moveOnInactive;
         private bool _isRegistered;
-        private Task _refreshDisplayNameTask;
         private WeakReference<IAudioDevice> _parent;
 
         public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
@@ -189,8 +161,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
 
-            ReadRawDisplayName();
-            RefreshDisplayName();
+            ChooseDisplayName(ReadSessionDisplayName());
 
             if (parent.Parent != null)
             {
@@ -217,25 +188,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             catch (Exception ex)
             {
                 Trace.WriteLine($"{ex}");
-            }
-        }
-
-        public void RefreshDisplayName()
-        {
-            if (_refreshDisplayNameTask == null || _refreshDisplayNameTask.IsCompleted)
-            {
-                _refreshDisplayNameTask = Task.Delay(TimeSpan.FromSeconds(5));
-                var internalRefreshDisplayNameTask = new Task(() =>
-                {
-                    var displayName = _appInfo.ResolveDisplayName();
-                    _dispatcher.BeginInvoke((Action)(() =>
-                    {
-                        _resolvedAppDisplayName = displayName;
-                        RaisePropertyChanged(nameof(DisplayName));
-                    }));
-                });
-                internalRefreshDisplayNameTask.ContinueWith((inTask) => _refreshDisplayNameTask);
-                internalRefreshDisplayNameTask.Start();
             }
         }
 
@@ -279,6 +231,22 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             PeakValue2 = newValues[1];
         }
 
+        private void ChooseDisplayName(string displayNameFromSession)
+        {
+            if (!string.IsNullOrWhiteSpace(displayNameFromSession))
+            {
+                DisplayName = displayNameFromSession;
+            }
+            else if (!string.IsNullOrWhiteSpace(_appInfo.DisplayName))
+            {
+                DisplayName = _appInfo.DisplayName;
+            }
+            else
+            {
+                DisplayName = _appInfo.ExeName;
+            }
+        }
+
         private int ReadProcessId()
         {
             var hr = ((IAudioSessionControl2)_session).GetProcessId(out uint pid);
@@ -294,7 +262,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 // in letting system sounds played through taskhostw.exe bleed through.
                 return IsSystemSoundsSession ? 0 : (int)pid;
             }
-            
+
             throw Marshal.GetExceptionForHR(hr);
         }
 
@@ -352,7 +320,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        private void ReadRawDisplayName()
+        private string ReadSessionDisplayName()
         {
             try
             {
@@ -366,12 +334,13 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     }
                 }
 
-                _rawDisplayName = displayName;
+                return displayName;
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
                 // Expected in some cases.
             }
+            return null;
         }
 
         private void DisconnectSession()
@@ -431,7 +400,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         void IAudioSessionEvents.OnDisplayNameChanged(string NewDisplayName, ref Guid EventContext)
         {
-            ReadRawDisplayName();
+            ChooseDisplayName(NewDisplayName);
 
             _dispatcher.BeginInvoke((Action)(() =>
             {

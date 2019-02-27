@@ -6,10 +6,10 @@ namespace EarTrumpet.DataModel.AppInformation
     {
         event Action<IAppInfo> Stopped;
         uint BackgroundColor { get; }
+        string DisplayName { get; }
         string ExeName { get; }
         string PackageInstallPath { get; }
         string SmallLogoPath { get; }
         bool IsDesktopApp { get; }
-        string ResolveDisplayName();
     }
 }

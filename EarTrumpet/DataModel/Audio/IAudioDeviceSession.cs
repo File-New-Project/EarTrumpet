@@ -9,7 +9,6 @@ namespace EarTrumpet.DataModel.Audio
         IEnumerable<IAudioDeviceSessionChannel> Channels { get; }
         IAudioDevice Parent { get; }
         string DisplayName { get; }
-        void RefreshDisplayName();
         string ExeName { get; }
         uint BackgroundColor { get; }
         string IconPath { get; }
