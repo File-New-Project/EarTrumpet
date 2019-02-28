@@ -12,26 +12,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground, Flyout:HighContrast=Window">
-            <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <ListViewItem Name="DeviceListItem"
+                      AutomationProperties.Name="{Binding Device}"
+                      Tag="{x:Static views:DeviceView.DeviceListItemKey}">
+            <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground, Flyout:HighContrast=Window">
+                <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5" PreviewMouseRightButtonUp="DeviceListItem_PreviewMouseRightButtonUp">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                    <TextBlock Style="{StaticResource DeviceTitleTextStyle}"
-                               Text="{Binding Device.DisplayName}"
-                               TextTrimming="CharacterEllipsis"
-                               Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
-                </Border>
+                    <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
+                        <TextBlock Style="{StaticResource DeviceTitleTextStyle}"
+                                   Text="{Binding Device.DisplayName}"
+                                   TextTrimming="CharacterEllipsis"
+                                   Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                    </Border>
 
-                <ListViewItem Name="DeviceListItem"
-                              Grid.Row="1"
-                              Height="{DynamicResource Mutable_DeviceItemCellHeight}"
-                              AutomationProperties.Name="{Binding Device}"
-                              Tag="DeviceListItemKey">
-                    <Grid>
+                    <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />
                             <ColumnDefinition Width="*" />
@@ -98,9 +96,9 @@
                                    Style="{StaticResource DeviceVolumeTextStyle}"
                                    Text="{Binding Device.Volume, Mode=OneWay}" />
                     </Grid>
-                </ListViewItem>
-            </Grid>
-        </Border>
+                </Grid>
+            </Border>
+        </ListViewItem>
 
         <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground">
             <ListView Name="AppList"

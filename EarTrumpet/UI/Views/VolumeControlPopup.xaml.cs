@@ -123,11 +123,9 @@ namespace EarTrumpet.UI.Views
 
             Point offsetFromWindow = container.TranslatePoint(new Point(0, 0), relativeTo);
 
-            // HACK: This is a poor relationship between the popup and these children.
-            if ((string)container.Tag == "DeviceListItemKey")
+            if ((string)container.Tag == DeviceView.DeviceListItemKey)
             {
-                // Adjust for the title bar, top border and top margin on the app list.
-                offsetFromWindow.Y -= (HEADER_SIZE + PopupBorderSize.Top);
+                // No adjustment.
             }
             else if (container is FlyoutWindow)
             {

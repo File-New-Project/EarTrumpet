@@ -44,9 +44,9 @@ namespace EarTrumpet.UI.Views
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
             Hide();
+            this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
-            this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
         }
 
         private void FlyoutWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -8,6 +8,8 @@ namespace EarTrumpet.UI.Views
 {
     public partial class DeviceView : UserControl
     {
+        public static string DeviceListItemKey = "DeviceListItem";
+
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));

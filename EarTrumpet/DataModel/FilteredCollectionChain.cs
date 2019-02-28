@@ -16,8 +16,10 @@ namespace EarTrumpet.DataModel
 
             _items = items;
 
-            Listen();
-            Populate();
+            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+                Listen();
+                Populate();
+            }));
         }
 
         void Listen()

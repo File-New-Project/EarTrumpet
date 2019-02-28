@@ -925,12 +925,12 @@
                                     <ColumnDefinition Width="20" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid VerticalAlignment="Top" Margin="0,6">
+                                <Grid Margin="0,6" VerticalAlignment="Top">
                                     <Ellipse x:Name="radioButtonBorder"
                                              Width="20"
                                              Height="20"
-                                             Fill="Transparent"
                                              Theme:Brush.Stroke="Text"
+                                             Fill="Transparent"
                                              StrokeThickness="2"
                                              UseLayoutRounding="False" />
                                     <Ellipse x:Name="optionMark"
