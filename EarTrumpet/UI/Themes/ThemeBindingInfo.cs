@@ -47,10 +47,10 @@ namespace EarTrumpet.UI.Themes
                 if (_isAttached)
                 {
                     WriteProperty(element, _initialValue);
-                    Manager.Current.ThemeChanged -= ThemeChanged;
                 }
             }
 
+            Manager.Current.ThemeChanged -= ThemeChanged;
             _element = null;
         }
 
@@ -88,7 +88,7 @@ namespace EarTrumpet.UI.Themes
 
         private void ThemeChanged()
         {
-            if (_element.TryGetTarget(out var element))
+            if ((_element != null) && _element.TryGetTarget(out var element))
             {
                 WriteProperty(element, _applyCallback.Invoke(element, _value));
             }
