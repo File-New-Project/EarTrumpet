@@ -96,13 +96,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Windows.winmd</HintPath>
+      <HintPath>d:\Hamed\Documents\visual studio 2017\lib\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfAnimatedGif, Version=1.4.17.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfAnimatedGif.1.4.17\lib\net\WpfAnimatedGif.dll</HintPath>
+    <Reference Include="WpfAnimatedGif, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.18\lib\net\WpfAnimatedGif.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
