@@ -109,8 +109,7 @@
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
-            <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
-            <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
+            <Thickness x:Key="NoItemsPaneMargin">24</Thickness>
 
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">

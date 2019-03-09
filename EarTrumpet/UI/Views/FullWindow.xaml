@@ -111,13 +111,46 @@
                 <ScrollViewer x:Name="BaseVisual"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
                               ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ItemsControl IsTabStop="False" ItemsSource="{Binding AllDevices}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+
+                    <Grid Name="ContentGrid" VerticalAlignment="Top">
+                        <Border VerticalAlignment="Center"
+                                Theme:Brush.Background="FlyoutBackground"
+                                Width="{StaticResource WindowAndItemSize}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding AllDevices.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock HorizontalAlignment="Center"
+                                       FontSize="{StaticResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                                       Text="{x:Static resx:Resources.NoDevicesPanelContent}"
+                                       Margin="{StaticResource NoItemsPaneMargin}"
+                                       TextWrapping="Wrap" />
+                        </Border>
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding AllDevices.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <ItemsControl IsTabStop="False" ItemsSource="{Binding AllDevices}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Grid>
+                    </Grid>
                 </ScrollViewer>
 
                 <views:VolumeControlPopup x:Name="AppPopup"

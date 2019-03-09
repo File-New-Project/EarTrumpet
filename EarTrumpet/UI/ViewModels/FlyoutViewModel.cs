@@ -27,7 +27,6 @@ namespace EarTrumpet.UI.ViewModels
         public ModalDialogViewModel Dialog { get; }
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
-        public bool IsEmpty => Devices.Count == 0;
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
@@ -135,7 +134,6 @@ namespace EarTrumpet.UI.ViewModels
 
         private void RaiseDevicesChanged()
         {
-            RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(DeviceNameText));
