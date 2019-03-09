@@ -24,7 +24,7 @@
                         </Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
-                                <Setter Property="Opacity" Value="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
+                                <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
                                 <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
@@ -84,14 +84,29 @@
             </Button>
         </Grid>
         <ctl:VolumeSlider Grid.Column="1"
-                          Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                           PeakValue1="{Binding PeakValue1}"
                           PeakValue2="{Binding PeakValue2}"
-                          Style="{StaticResource {x:Type Slider}}"
-                          Value="{Binding Volume, Mode=TwoWay}" />
-        <TextBlock Grid.Column="2"
-                   Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                   Style="{StaticResource AppVolumeTextStyle}"
-                   Text="{Binding Volume, Mode=OneWay}" />
+                          Value="{Binding Volume, Mode=TwoWay}">
+            <ctl:VolumeSlider.Style>
+                <Style BasedOn="{StaticResource {x:Type Slider}}" TargetType="Slider">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMuted}" Value="True">
+                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ctl:VolumeSlider.Style>
+        </ctl:VolumeSlider>
+        <TextBlock Grid.Column="2" Text="{Binding Volume, Mode=OneWay}">
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource AppVolumeTextStyle}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMuted}" Value="True">
+                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

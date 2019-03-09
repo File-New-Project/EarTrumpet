@@ -98,7 +98,7 @@
     <Compile Include="DataModel\AppInformation\Internal\DesktopAppInfo.cs" />
     <Compile Include="DataModel\AppInformation\Internal\ModernAppInfo.cs" />
     <Compile Include="DataModel\AppInformation\Internal\SystemSoundsAppInfo.cs" />
-    <Compile Include="DataModel\AppInformation\ZombieProcessException.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\ZombieProcessException.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
     <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
     <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
@@ -253,7 +253,6 @@
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
-    <Compile Include="UI\Services\FeedbackService.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
     <Compile Include="UI\Services\DiagnosticsService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
@@ -308,8 +307,6 @@
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="UI\Converters\InvertableVisibilityConverter.cs" />
-    <Compile Include="UI\Converters\OpacityConverter.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioDevice.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceManager.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSession.cs" />

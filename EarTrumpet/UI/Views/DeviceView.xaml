@@ -23,10 +23,17 @@
                     </Grid.RowDefinitions>
 
                     <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
-                        <TextBlock Style="{StaticResource DeviceTitleTextStyle}"
-                                   Text="{Binding Device.DisplayName}"
-                                   TextTrimming="CharacterEllipsis"
-                                   Visibility="{Binding IsDisplayNameVisible, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                        <TextBlock Text="{Binding Device.DisplayName}" TextTrimming="CharacterEllipsis">
+                            <TextBlock.Style>
+                                <Style BasedOn="{StaticResource DeviceTitleTextStyle}" TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDisplayNameVisible}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Border>
 
                     <Grid Grid.Row="1" Height="{DynamicResource Mutable_DeviceItemCellHeight}">
@@ -39,8 +46,16 @@
                                 Margin="{StaticResource DeviceOrAppIconMargin}"
                                 HorizontalAlignment="Center"
                                 Background="Transparent"
-                                MouseDown="Icon_MouseDown"
-                                Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}">
+                                MouseDown="Icon_MouseDown">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
+                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
                             <Grid>
                                 <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}" Opacity="0.4">
                                     <TextBlock.Style>
@@ -84,17 +99,32 @@
                         </Border>
 
                         <ctl:VolumeSlider Grid.Column="1"
-                                          Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
                                           PeakValue1="{Binding Device.PeakValue1}"
                                           PeakValue2="{Binding Device.PeakValue2}"
                                           PreviewMouseUp="TouchSlider_MouseUp"
                                           PreviewTouchUp="TouchSlider_TouchUp"
-                                          Style="{StaticResource {x:Type Slider}}"
-                                          Value="{Binding Device.Volume, Mode=TwoWay}" />
-                        <TextBlock Grid.Column="2"
-                                   Opacity="{Binding Device.IsMuted, Converter={StaticResource opacityConverter}}"
-                                   Style="{StaticResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Device.Volume, Mode=OneWay}" />
+                                          Value="{Binding Device.Volume, Mode=TwoWay}">
+                            <ctl:VolumeSlider.Style>
+                                <Style BasedOn="{StaticResource {x:Type Slider}}" TargetType="Slider">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
+                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ctl:VolumeSlider.Style>
+                        </ctl:VolumeSlider>
+                        <TextBlock Grid.Column="2" Text="{Binding Device.Volume, Mode=OneWay}">
+                            <TextBlock.Style>
+                                <Style BasedOn="{StaticResource DeviceVolumeTextStyle}" TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
+                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                 </Grid>
             </Border>

@@ -12,25 +12,29 @@ namespace EarTrumpet.UI.Helpers
     {
         public static ContextMenu Create()
         {
-            var cm = new ContextMenu
+            var contextMenu = new ContextMenu
             {
                 FontSize = 12,
                 FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
                 StaysOpen = true,
             };
-            cm.Opened += ContextMenu_Opened;
-            cm.Closed += (_, __) => Trace.WriteLine("TaskbarContextMenu ContextMenu_Closed"); ;
-            return cm;
+            contextMenu.Opened += ContextMenu_Opened;
+            contextMenu.Closed += (_, __) => Trace.WriteLine("TaskbarContextMenuHelper ContextMenu.Closed"); ;
+            return contextMenu;
         }
 
         private static void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("TaskbarContextMenu ContextMenu_Opened");
-            var cm = (ContextMenu)sender;
-            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(cm)).Handle);
-            cm.Focus();
-            cm.StaysOpen = false;
-            ((Popup)cm.Parent).PopupAnimation = PopupAnimation.None;
+            Trace.WriteLine("TaskbarContextMenuHelper ContextMenu.Opened");
+            var contextMenu = (ContextMenu)sender;
+
+            // Workaround: The framework expects there to already be a WPF window open and thus fails to take focus.
+            User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle);
+            contextMenu.Focus();
+            contextMenu.StaysOpen = false;
+
+            // Disable only the exit animation.
+            ((Popup)contextMenu.Parent).PopupAnimation = PopupAnimation.None;
         }
     }
 }

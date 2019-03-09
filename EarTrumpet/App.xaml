@@ -95,12 +95,7 @@
             </Theme:Manager>
 
             <ui:MenuItemTemplateSelector x:Key="MenuSelector" />
-
-            <conv:InvertableVisibilityConverter x:Key="visConverter" />
             <conv:IconConverter x:Key="iconConverter" />
-            <conv:OpacityConverter x:Key="opacityConverter"
-                                   FalseOpacity="1.0"
-                                   TrueOpacity="0.4" />
 
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
             <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
@@ -110,7 +105,8 @@
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <Thickness x:Key="NoItemsPaneMargin">24</Thickness>
-
+            <bcl:Double x:Key="MutedOpacity">0.4</bcl:Double>
+            
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>

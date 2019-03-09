@@ -1,7 +1,7 @@
 ﻿using EarTrumpet.Interop;
 using System;
 
-namespace EarTrumpet.DataModel.AppInformation
+namespace EarTrumpet.DataModel.AppInformation.Internal
 {
     public class ZombieProcessException : Exception
     {
