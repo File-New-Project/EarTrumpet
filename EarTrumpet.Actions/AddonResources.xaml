@@ -322,7 +322,6 @@
                               Style="{DynamicResource {x:Type Slider}}"
                               Value="{Binding Volume, Mode=TwoWay}" />
             <TextBlock Grid.Column="1"
-                       Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                        Style="{StaticResource AppVolumeTextStyle}"
                        Text="{Binding Volume, Mode=OneWay}" />
         </Grid>
