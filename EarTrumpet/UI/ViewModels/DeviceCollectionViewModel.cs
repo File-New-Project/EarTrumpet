@@ -55,11 +55,14 @@ namespace EarTrumpet.UI.ViewModels
             else
             {
                 var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
-                if (dev != null)
+                if (dev == null)
                 {
-                    Default = dev;
-                    DefaultChanged?.Invoke(this, Default);
+                    AddDevice(e);
+                    dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 }
+
+                Default = dev;
+                DefaultChanged?.Invoke(this, Default);
             }
         }
 
@@ -74,7 +77,12 @@ namespace EarTrumpet.UI.ViewModels
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddDevice((IAudioDevice)e.NewItems[0]);
+                    var added = ((IAudioDevice)e.NewItems[0]);
+                    var allExistingAdded = AllDevices.FirstOrDefault(d => d.Id == added.Id);
+                    if (allExistingAdded == null)
+                    {
+                        AddDevice(added);
+                    }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -101,7 +109,6 @@ namespace EarTrumpet.UI.ViewModels
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            
             _deviceManager.UpdatePeakValues();
 
             App.Current.Dispatcher.BeginInvoke((Action)(() =>

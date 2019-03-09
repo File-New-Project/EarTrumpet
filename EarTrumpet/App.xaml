@@ -35,7 +35,7 @@
                     <Theme:Ref Key="AcrylicColor_Flyout">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="UseAccentColor" Value="SystemAccentDark1/0.8" />
-                            <Theme:Rule On="LightTheme" Value="LightChromeHigh/0.5" />
+                            <Theme:Rule On="LightTheme" Value="LightChromeMedium/0.8" />
                             <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>

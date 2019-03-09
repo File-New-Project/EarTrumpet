@@ -57,7 +57,7 @@ namespace EarTrumpet.UI.Tray
             _mainViewModel = mainViewModel;
             MiddleClick = new RelayCommand(ToggleMute);
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
-            DeviceManager_DefaultDeviceChanged(this, null);
+            DeviceManager_DefaultDeviceChanged(this, _mainViewModel.Default);
             Themes.Manager.Current.PropertyChanged += (_, e) => UpdateTrayIcon();
         }
 
