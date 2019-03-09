@@ -75,6 +75,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 var appResolver = (IApplicationResolver)new ApplicationResolver();
                 appResolver.GetAppIDForProcess((uint)processId, out string appId, out _, out _, out _);
                 DisplayName = AppsFolder.ReadDisplayName(appId);
+                Marshal.ReleaseComObject(appResolver);
             }
             catch (Exception ex)
             {
