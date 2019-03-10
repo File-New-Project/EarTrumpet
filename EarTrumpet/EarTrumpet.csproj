@@ -207,7 +207,7 @@
     <Compile Include="Interop\SICHINT.cs" />
     <Compile Include="Interop\SIGDN.cs" />
     <Compile Include="Interop\STGM.cs" />
-    <Compile Include="Extensions\PopupExtensions.cs" />
+    <Compile Include="Extensions\VisualExtensions.cs" />
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
