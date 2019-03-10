@@ -63,7 +63,7 @@
             <Button Name="MuteButton"
                     Width="{DynamicResource Mutable_AppIconSize}"
                     Height="{DynamicResource Mutable_AppIconSize}"
-                    Click="MuteButton_Click"
+                    Command="{Binding ToggleMute}"
                     IsTabStop="False"
                     ToolTip="{Binding DisplayName}">
                 <Button.Style>

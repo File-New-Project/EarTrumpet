@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -169,13 +168,5 @@ namespace EarTrumpet.UI.ViewModels
 
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
-
-        public void OpenPopup(FrameworkElement uIElement)
-        {
-            if (_parent.TryGetTarget(out var parent))
-            {
-                parent.OpenPopup(this, uIElement);
-            }
-        }
     }
 }

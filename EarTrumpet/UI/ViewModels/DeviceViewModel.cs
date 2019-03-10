@@ -5,7 +5,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -217,13 +216,5 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
-
-        public void OpenPopup(object app, FrameworkElement container)
-        {
-            if (_parent.TryGetTarget(out var parent))
-            {
-                parent.OpenPopup(app, container);
-            }
-        }
     }
 }

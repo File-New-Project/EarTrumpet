@@ -228,16 +228,9 @@ namespace EarTrumpet.UI.Views
                     _viewModel.BeginClose();
                 }
             }
-            else
+            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
             {
-                if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    KeyboardNavigator.OnKeyDown(this, ref e);
-                }
+                e.Handled = true;
             }
         }
 
@@ -271,7 +264,7 @@ namespace EarTrumpet.UI.Views
             double newTop = 0;
             double newLeft = 0;
 
-            switch(taskbarState.Location)
+            switch (taskbarState.Location)
             {
                 case WindowsTaskbar.Position.Left:
                     newLeft = (taskbarState.Size.Right / this.DpiWidthFactor());

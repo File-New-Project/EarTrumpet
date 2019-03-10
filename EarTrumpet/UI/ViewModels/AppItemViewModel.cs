@@ -9,7 +9,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -154,13 +153,5 @@ namespace EarTrumpet.UI.ViewModels
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
-
-        public void OpenPopup(FrameworkElement container)
-        {
-            if (_parent.TryGetTarget(out var parent))
-            {
-                parent.OpenPopup(this, container);
-            }
-        }
     }
 }

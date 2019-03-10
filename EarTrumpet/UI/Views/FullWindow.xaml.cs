@@ -27,7 +27,8 @@ namespace EarTrumpet.UI.Views
             PreviewKeyDown += FullWindow_PreviewKeyDown;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-            Themes.Manager.Current.ThemeChanged += () => SetBlurColor();
+            Themes.Manager.Current.ThemeChanged += SetBlurColor;
+            Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
         }
 
         private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
@@ -72,10 +73,6 @@ namespace EarTrumpet.UI.Views
                 {
                     CloseButton_Click(null, null);
                 }
-            }
-            else
-            {
-                KeyboardNavigator.OnKeyDown(this, ref e);
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -27,7 +26,6 @@ namespace EarTrumpet.UI.ViewModels
         void MoveToDevice(string id, bool hide);
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
-        void OpenPopup(FrameworkElement uIElement);
         IDeviceViewModel Parent { get; }
     }
 }

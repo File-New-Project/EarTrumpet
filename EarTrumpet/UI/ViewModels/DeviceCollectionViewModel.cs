@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
-using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -15,7 +14,6 @@ namespace EarTrumpet.UI.ViewModels
     {
         public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
-        public event Action<object, FrameworkElement> AppPopup;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
         public DeviceViewModel Default { get; private set; }
@@ -209,11 +207,6 @@ namespace EarTrumpet.UI.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
-        }
-
-        public void OpenPopup(object viewModel, FrameworkElement container)
-        {
-            AppPopup?.Invoke(viewModel, container);
         }
     }
 }

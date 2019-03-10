@@ -9,7 +9,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FlyoutViewModel : BindableBase
+    public class FlyoutViewModel : BindableBase, IPopupHostViewModel
     {
         public enum ViewState
         {
@@ -45,7 +45,6 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel = mainViewModel;
             _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
-            _mainViewModel.AppPopup += OnAppPopup;
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
@@ -258,13 +257,8 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void OnAppPopup(object vm, FrameworkElement container)
+        public void OpenPopup(object vm, FrameworkElement container)
         {
-            if (Window.GetWindow(container).DataContext != this)
-            {
-                return;
-            }
-
             Dialog.IsVisible = false;
 
             if (vm is IAppItemViewModel)
