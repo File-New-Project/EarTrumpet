@@ -17,7 +17,11 @@ namespace EarTrumpet.UI.Views
             PreviewMouseRightButtonUp += (_, __) => OpenPopup();
             Loaded += (_, __) =>
             {
-                this.FindVisualParent<ListViewItem>().PreviewKeyDown += OnPreviewKeyDown;
+                var container = this.FindVisualParent<ListViewItem>();
+                if (container != null)
+                {
+                    container.PreviewKeyDown += OnPreviewKeyDown;
+                }
             };
         }
 
