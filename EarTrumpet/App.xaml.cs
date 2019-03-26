@@ -145,24 +145,6 @@ namespace EarTrumpet
                 allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get()));
             }
 
-            var ads = new AdvertisedCategorySettingsViewModel[]
-            {
-                    new AdvertisedCategorySettingsViewModel
-                        (EarTrumpet.Properties.Resources.ProjectATitle,
-                        "\xEA8D",
-                        EarTrumpet.Properties.Resources.ProjectADescription,
-                        "EarTrumpet.project-eta",
-                        "https://github.com/File-New-Project/EarTrumpet"),
-            };
-
-            foreach (var ad in ads)
-            {
-                if (!allCategories.Any(c => c.Id == ad.Id))
-                {
-                    allCategories.Add(ad);
-                }
-            }
-
             bool canClose = false;
             var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
             var window = new SettingsWindow();
