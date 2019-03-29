@@ -14,7 +14,6 @@ namespace EarTrumpet.UI.Helpers
         {
             var contextMenu = new ContextMenu
             {
-                FontSize = 12,
                 FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
                 StaysOpen = true,
             };
