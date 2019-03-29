@@ -63,7 +63,7 @@
       <HintPath>..\packages\Bugsnag.1.4.0.0\lib\Net45\Bugsnag.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\EarTrumpet-addons\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -83,35 +83,49 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.18\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataModel\AudioDeviceKind.cs" />
-    <Compile Include="DataModel\IAudioDeviceSessionComparer.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceChannel.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceChannelCollection.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannel.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelCollection.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionChannelMultiplexer.cs" />
-    <Compile Include="DataModel\Internal\FilteredCollectionChain.cs" />
-    <Compile Include="DataModel\IAudioDeviceChannel.cs" />
-    <Compile Include="DataModel\IAudioDeviceSessionChannel.cs" />
-    <Compile Include="DataModel\Internal\Services\AppInformation.cs" />
-    <Compile Include="DataModel\IAudioDeviceCollection.cs" />
-    <Compile Include="DataModel\DataModelFactory.cs" />
-    <Compile Include="DataModel\Internal\Helpers.cs" />
-    <Compile Include="DataModel\SessionState.cs" />
-    <Compile Include="DataModel\Storage\RegistrySettingsBag.cs" />
+    <Compile Include="DataModel\AppInformation\AppInformationFactory.cs" />
+    <Compile Include="DataModel\AppInformation\IAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\AppsFolder.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\DesktopAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\ModernAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\SystemSoundsAppInfo.cs" />
+    <Compile Include="DataModel\AppInformation\Internal\ZombieProcessException.cs" />
+    <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceWindowsAudio.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceChannelCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannelCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionChannelMultiplexer.cs" />
+    <Compile Include="DataModel\FilteredCollectionChain.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\IAudioDeviceSessionChannel.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceInternal.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\IAudioDeviceSessionInternal.cs" />
+    <Compile Include="DataModel\WindowsAudio\WindowsAudioFactory.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\Helpers.cs" />
+    <Compile Include="DataModel\Audio\SessionState.cs" />
+    <Compile Include="DataModel\Storage\Internal\RegistrySettingsBag.cs" />
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
-    <Compile Include="DataModel\Storage\WindowsStorageSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="Extensibility\IAddonTrayIcon.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Interop\Helpers\User32Helper.cs" />
+    <Compile Include="Interop\ApplicationResolver.cs" />
     <Compile Include="Interop\SndVolSSO.cs" />
     <Compile Include="UI\Behaviors\ButtonEx.cs" />
     <Compile Include="UI\Behaviors\ScrollViewerEx.cs" />
@@ -122,11 +136,13 @@
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
+    <Compile Include="UI\Helpers\WindowHolder.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\Themes\Rule.cs" />
+    <Compile Include="UI\Themes\ThemeBindingInfo.cs" />
     <Compile Include="UI\Tray\HighContrastBuiltIn.cs" />
     <Compile Include="UI\Tray\IconKind.cs" />
     <Compile Include="UI\Tray\LegacyIconBuiltIn.cs" />
@@ -152,7 +168,7 @@
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
-    <Compile Include="DataModel\Storage\NamespacedSettingsBag.cs" />
+    <Compile Include="DataModel\Storage\Internal\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />
@@ -192,7 +208,7 @@
     <Compile Include="Interop\SICHINT.cs" />
     <Compile Include="Interop\SIGDN.cs" />
     <Compile Include="Interop\STGM.cs" />
-    <Compile Include="Extensions\PopupExtensions.cs" />
+    <Compile Include="Extensions\VisualExtensions.cs" />
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
@@ -204,6 +220,7 @@
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeyViewModel.cs" />
+    <Compile Include="UI\ViewModels\IPopupHostViewModel.cs" />
     <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
@@ -218,11 +235,10 @@
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
     <Compile Include="UI\Helpers\TaskbarContextMenuHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
-    <Compile Include="DataModel\Internal\Services\ProcessWatcherService.cs" />
+    <Compile Include="DataModel\ProcessWatcherService.cs" />
     <Compile Include="UI\IconLoadInfo.cs" />
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\Services\ErrorReportingService.cs" />
-    <Compile Include="UI\Services\StartupUWPDialogDisplayService.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
@@ -239,12 +255,13 @@
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
-    <Compile Include="DataModel\Internal\Services\AppInformationService.cs" />
-    <Compile Include="UI\Services\FeedbackService.cs" />
-    <Compile Include="DataModel\Internal\Services\AudioPolicyConfigService.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
     <Compile Include="UI\Services\DiagnosticsService.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
-    <Compile Include="UI\Services\KeyboardNavigator.cs" />
+    <Compile Include="UI\ViewModels\WelcomeViewModel.cs" />
+    <Compile Include="UI\Views\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Views\ModalDialogChrome.xaml.cs">
       <DependentUpon>ModalDialogChrome.xaml</DependentUpon>
     </Compile>
@@ -256,7 +273,7 @@
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\VolumeSlider.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionGroup.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionState.cs" />
     <Compile Include="Interop\MMDeviceAPI\AUDIO_VOLUME_NOTIFICATION_DATA.cs" />
@@ -281,22 +298,20 @@
     <Compile Include="Interop\MMDeviceAPI\IMMNotificationClient.cs" />
     <Compile Include="Interop\MMDeviceAPI\ISimpleAudioVolume.cs" />
     <Compile Include="Interop\MMDeviceAPI\MMDeviceEnumerator.cs" />
-    <Compile Include="DataModel\IAudioDevice.cs" />
-    <Compile Include="DataModel\IAudioDeviceManager.cs" />
-    <Compile Include="DataModel\IAudioDeviceSession.cs" />
-    <Compile Include="DataModel\IStreamWithVolumeControl.cs" />
+    <Compile Include="DataModel\Audio\IAudioDevice.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceManager.cs" />
+    <Compile Include="DataModel\Audio\IAudioDeviceSession.cs" />
+    <Compile Include="DataModel\Audio\IStreamWithVolumeControl.cs" />
     <Compile Include="Interop\IPropertyStore.cs" />
     <Compile Include="UI\Views\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="Extensions\IconExtensions.cs" />
-    <Compile Include="UI\Converters\InvertableVisibilityConverter.cs" />
-    <Compile Include="UI\Converters\OpacityConverter.cs" />
-    <Compile Include="DataModel\Internal\AudioDevice.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceManager.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSession.cs" />
-    <Compile Include="DataModel\Internal\AudioDeviceSessionCollection.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDevice.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceManager.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionCollection.cs" />
     <Compile Include="UI\Views\FullWindow.xaml.cs">
       <DependentUpon>FullWindow.xaml</DependentUpon>
     </Compile>
@@ -323,6 +338,14 @@
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
     <Page Include="UI\Controls\SearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Mutable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Views\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,7 +409,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.ar.resx" />
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.es.resx">
       <SubType>Designer</SubType>
@@ -409,7 +431,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ro.resx" />
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.tr-TR.resx" />
     <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
@@ -422,6 +443,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\DevVersion.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Welcome.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

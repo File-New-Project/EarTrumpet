@@ -1,11 +1,11 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Internal.Services;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -60,7 +60,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsMovable { get; }
         public float PeakValue1 { get; }
         public float PeakValue2 { get; }
-        public string PersistedOutputDevice => _deviceManager.GetDefaultEndPoint(ProcessId);
+        public string PersistedOutputDevice => ((IAudioDeviceManagerWindowsAudio)_deviceManager).GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
         public IDeviceViewModel Parent { get; }
 
@@ -152,7 +152,7 @@ namespace EarTrumpet.UI.ViewModels
             // Update the output for all processes represented by this app.
             foreach (var pid in _processIds)
             {
-                _deviceManager.SetDefaultEndPoint(id, pid);
+                ((IAudioDeviceManagerWindowsAudio)_deviceManager).SetDefaultEndPoint(id, pid);
             }
 
             if (hide)
@@ -166,16 +166,7 @@ namespace EarTrumpet.UI.ViewModels
             Expired?.Invoke(this, null);
         }
 
-        public void RefreshDisplayName() { }
         public void UpdatePeakValueBackground() { }
         public void UpdatePeakValueForeground() { }
-
-        public void OpenPopup(FrameworkElement uIElement)
-        {
-            if (_parent.TryGetTarget(out var parent))
-            {
-                parent.OpenPopup(this, uIElement);
-            }
-        }
     }
 }

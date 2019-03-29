@@ -33,6 +33,8 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonTrayIcon))]
         private List<IAddonTrayIcon> _trayIconEditorItems { get; set; }
 
+        private List<string> _addonDirectoryPaths = new List<string>();
+
         private AddonInfo FindInfo(DirectoryCatalog catalog)
         {
             foreach (var file in catalog.LoadedFiles)
@@ -64,7 +66,9 @@ namespace EarTrumpet.Extensibility.Hosting
                 {
                     if (version <= earTrumpetVersion)
                     {
-                        return new DirectoryCatalog(Path.Combine(versionRoot, version.ToString()), "EarTrumpet*.dll");
+                        var cat = new DirectoryCatalog(Path.Combine(versionRoot, version.ToString()), "EarTrumpet*.dll");
+                        _addonDirectoryPaths.Add(cat.Path);
+                        return cat;
                     }
                 }
             }
@@ -78,6 +82,9 @@ namespace EarTrumpet.Extensibility.Hosting
 
         public IEnumerable<Addon> Initialize()
         {
+            // Search in addon directories when the framework can't otherwise resolve an assembly.
+            AppDomain.CurrentDomain.AssemblyResolve += OnFinalAssemblyResolve;
+
             var catalogs = new List<DirectoryCatalog>();
             Trace.WriteLine($"AddonHost Initialize");
             try
@@ -117,6 +124,19 @@ namespace EarTrumpet.Extensibility.Hosting
             catch (Exception ex)
             {
                 Trace.WriteLine($"AddonHost Initialize: {ex}");
+            }
+            return null;
+        }
+
+        private Assembly OnFinalAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            foreach(var path in _addonDirectoryPaths)
+            {
+                string assemblyPath = Path.Combine(path, new AssemblyName(args.Name).Name + ".dll");
+                if (File.Exists(assemblyPath))
+                {
+                    return Assembly.LoadFrom(assemblyPath);
+                }
             }
             return null;
         }

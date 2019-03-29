@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Extensibility;
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Tray;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.Tray
 {
@@ -44,24 +44,24 @@ namespace EarTrumpet.UI.Tray
             }
         }
 
-        public RelayCommand MiddleClick { get; }
-        public RelayCommand LeftClick { get; set; }
-        public RelayCommand OpenMixer { get; set; }
-        public RelayCommand OpenSettings { get; set; }
+        public ICommand MiddleClick { get; }
+        public ICommand LeftClick { get; set; }
+        public ICommand OpenMixer { get; set; }
+        public ICommand OpenSettings { get; set; }
 
-        private readonly DeviceCollectionViewModel _mainViewModel;
-        private DeviceViewModel _defaultDevice;
+        protected readonly DeviceCollectionViewModel _mainViewModel;
+        protected DeviceViewModel _defaultDevice;
 
-        internal TrayViewModel(DeviceCollectionViewModel mainViewModel)
+        public TrayViewModel(DeviceCollectionViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
             MiddleClick = new RelayCommand(ToggleMute);
             _mainViewModel.DefaultChanged += DeviceManager_DefaultDeviceChanged;
-            DeviceManager_DefaultDeviceChanged(this, null);
+            DeviceManager_DefaultDeviceChanged(this, _mainViewModel.Default);
             Themes.Manager.Current.PropertyChanged += (_, e) => UpdateTrayIcon();
         }
 
-        public IEnumerable<ContextMenuItem> MenuItems
+        public virtual IEnumerable<ContextMenuItem> MenuItems
         {
             get
             {
@@ -183,7 +183,7 @@ namespace EarTrumpet.UI.Tray
             }
         }
 
-        private void UpdateTrayIcon()
+        protected virtual void UpdateTrayIcon()
         {
             if (_defaultDevice == null)
             {
@@ -219,7 +219,7 @@ namespace EarTrumpet.UI.Tray
             }
         }
 
-        private void UpdateToolTip()
+        protected virtual void UpdateToolTip()
         {
             if (_defaultDevice != null)
             {

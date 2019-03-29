@@ -68,7 +68,7 @@ namespace EarTrumpet.UI.Tray
 
             if (e.Button == MouseButtons.Left)
             {
-                _trayViewModel.LeftClick.Execute();
+                _trayViewModel.LeftClick.Execute(null);
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -76,7 +76,7 @@ namespace EarTrumpet.UI.Tray
             }
             else if (e.Button == MouseButtons.Middle)
             {
-                _trayViewModel.MiddleClick.Execute();
+                _trayViewModel.MiddleClick.Execute(null);
             }
         }
     }

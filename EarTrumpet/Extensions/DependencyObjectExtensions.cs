@@ -32,8 +32,8 @@ namespace EarTrumpet.Extensions
                     return parent;
                 }
 
-                var fce = contentElement as FrameworkContentElement;
-                return fce != null ? fce.Parent : null;
+                var frameworkContentElement = contentElement as FrameworkContentElement;
+                return frameworkContentElement != null ? frameworkContentElement.Parent : null;
             }
 
             var frameworkElement = child as FrameworkElement;

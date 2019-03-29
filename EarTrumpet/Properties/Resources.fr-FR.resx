@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
- <!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,145 +59,163 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
- <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-  <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xsd:element name="root" msdata:IsDataSet="true">
-   <xsd:complexType>
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="metadata">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
-       <xsd:sequence>
-        <xsd:element name="value" type="xsd:string" minOccurs="0" />
-       </xsd:sequence>
-       <xsd:attribute name="name" use="required" type="xsd:string" />
-       <xsd:attribute name="type" type="xsd:string" />
-       <xsd:attribute name="mimetype" type="xsd:string" />
-       <xsd:attribute ref="xml:space" />
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
       </xsd:complexType>
-     </xsd:element>
-     <xsd:element name="assembly">
-      <xsd:complexType>
-       <xsd:attribute name="alias" type="xsd:string" />
-       <xsd:attribute name="name" type="xsd:string" />
-      </xsd:complexType>
-     </xsd:element>
-     <xsd:element name="data">
-      <xsd:complexType>
-       <xsd:sequence>
-        <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-        <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-       </xsd:sequence>
-       <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-       <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-       <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-       <xsd:attribute ref="xml:space" />
-      </xsd:complexType>
-     </xsd:element>
-     <xsd:element name="resheader">
-      <xsd:complexType>
-       <xsd:sequence>
-        <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-       </xsd:sequence>
-       <xsd:attribute name="name" type="xsd:string" use="required" />
-      </xsd:complexType>
-     </xsd:element>
-    </xsd:choice>
-   </xsd:complexType>
-  </xsd:element>
- </xsd:schema>
- <resheader name="resmimetype">
-  <value>text/microsoft-resx</value>
- </resheader>
- <resheader name="version">
-  <value>2.0</value>
- </resheader>
- <resheader name="reader">
-  <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
- </resheader>
- <resheader name="writer">
-  <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
- </resheader>
- <data name="ContextMenuExitTitle" xml:space="preserve">
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
     <value>Quitter</value>
   </data>
- <data name="ContextMenuNoDevices" xml:space="preserve">
+  <data name="ContextMenuNoDevices" xml:space="preserve">
     <value>Aucun périphérique de lecture n'a été trouvé</value>
   </data>
- <data name="ContextMenuSendFeedback" xml:space="preserve">
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Envoyer des commentaires</value>
   </data>
- <data name="FullWindowTitleText" xml:space="preserve">
+  <data name="FullWindowTitleText" xml:space="preserve">
     <value>Mélangeur de volume EarTrumpet</value>
   </data>
- <data name="LegacyVolumeMixerText" xml:space="preserve">
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
     <value>Mélangeur de volume original</value>
   </data>
- <data name="NoDevicesPanelContent" xml:space="preserve">
+  <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Il semblerait que vous n'avez aucun périphérique de lecture.</value>
   </data>
- <data name="NoDeviceTrayText" xml:space="preserve">
+  <data name="NoDeviceTrayText" xml:space="preserve">
     <value>EarTrumpet: Aucun périphérique de lecture</value>
   </data>
- <data name="PlaybackDevicesText" xml:space="preserve">
+  <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Périphériques de lecture</value>
   </data>
- <data name="RecordingDevicesText" xml:space="preserve">
+  <data name="RecordingDevicesText" xml:space="preserve">
     <value>Périphériques d'enregistrement</value>
   </data>
- <data name="SettingsWindowText" xml:space="preserve">
+  <data name="SettingsWindowText" xml:space="preserve">
     <value>EarTrumpet Paramètres / À propos</value>
   </data>
- <data name="SoundsControlPanelText" xml:space="preserve">
+  <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sons</value>
   </data>
- <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
     <value>Collecter les données de diagnostic</value>
   </data>
- <data name="HotkeyDescriptionText" xml:space="preserve">
+  <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Votre raccourci</value>
   </data>
- <data name="DefaultDeviceText" xml:space="preserve">
+  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
+    <value>Choisissez un raccourci clavier</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
     <value>Toujours utiliser le périphérique de lecture par défaut</value>
   </data>
- <data name="AboutTitle" xml:space="preserve">
+  <data name="AboutTitle" xml:space="preserve">
     <value>À propos</value>
   </data>
- <data name="SettingsTitle" xml:space="preserve">
+  <data name="HotKeySelectionText" xml:space="preserve">
+    <value>Tapez une combinaison de touches</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
     <value>EarTrumpet</value>
   </data>
- <data name="WebsiteText" xml:space="preserve">
+  <data name="WebsiteText" xml:space="preserve">
     <value>En savoir plus</value>
   </data>
- <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{1} pourcentage du volume - {0}</value>
     <comment>0 = localized app name, 1 = volume 0-100</comment>
   </data>
- <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>Sourdine - {0}</value>
     <comment>0 = localized app name</comment>
   </data>
- <data name="AppsListAccessibleText" xml:space="preserve">
+  <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Applications</value>
   </data>
- <data name="CloseButtonAccessibleText" xml:space="preserve">
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Fermer</value>
   </data>
- <data name="CollapseAccessibleText" xml:space="preserve">
+  <data name="CollapseAccessibleText" xml:space="preserve">
     <value>Réduire pour afficher uniquement le périphérique de lecture par défaut</value>
   </data>
- <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Raccourci par défaut</value>
   </data>
- <data name="ExpandAccessibleText" xml:space="preserve">
+  <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Développer pour afficher tous les périphériques de lecture</value>
   </data>
- <data name="MoveButtonAccessibleText" xml:space="preserve">
+  <data name="KeyboardShortcutsTitle" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Attribuer cette application à un périphérique de lecture</value>
   </data>
- <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
     <value>Ouvrir le menu déroulant d'EarTrumpet</value>
   </data>
- <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Utiliser l'icône originale d'EarTrumpet</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Bienvenue à EarTrumpet</value>
   </data>
 </root>

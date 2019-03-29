@@ -212,17 +212,34 @@
 
                 <Polygon HorizontalAlignment="Right"
                          Theme:Brush.Fill="SystemAccent"
-                         Points="0,0 40,0 40,40"
-                         Visibility="{Binding IsAd, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                         Points="0,0 40,0 40,40">
+                    <Polygon.Style>
+                        <Style TargetType="Polygon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAd}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Polygon.Style>
+                </Polygon>
 
                 <TextBlock Margin="4,6,4,4"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top"
                            Theme:Brush.Foreground="ApplicationTextDarkTheme"
                            FontSize="12"
-                           Style="{StaticResource GlyphTextBlockStyle}"
-                           Text="&#xE896;"
-                           Visibility="{Binding IsAd, Converter={StaticResource visConverter}, ConverterParameter=Normal}" />
+                           Text="&#xE896;">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource GlyphTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAd}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -479,12 +496,14 @@
                 <Button x:Name="BackButton"
                         Command="{Binding Backstack.GoBack}"
                         Content="&#xE72B;"
-                        FontSize="13"
-                        Visibility="{Binding Backstack.CanGoBack, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
+                        FontSize="13">
                     <Button.Style>
                         <Style BasedOn="{StaticResource CloseButtonStyle}" TargetType="Button">
                             <Setter Property="IsEnabled" Value="False" />
                             <Style.Triggers>
+                                <DataTrigger Binding="{Binding Backstack.CanGoBack}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Theme:Brush.Foreground" Value="ApplicationTextDarkTheme" />
                                     <Setter Property="Theme:Brush.Background" Value="SystemAccent" />

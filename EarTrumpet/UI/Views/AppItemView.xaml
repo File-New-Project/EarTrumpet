@@ -3,18 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
-             Height="{StaticResource AppItemCellHeight}"
-             IsTabStop="False"
-             MouseEnter="UserControl_MouseEnter">
+             Height="{DynamicResource Mutable_AppItemCellHeight}"
+             IsTabStop="False">
     <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{StaticResource IconCellWidth}" />
+            <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="{StaticResource VolumeCellWidth}" />
+            <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="{StaticResource DeviceOrAppIconMargin}">
-            <Border Width="{StaticResource AppIconSize}"
-                    Height="{StaticResource AppIconSize}"
+            <Border Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
                     HorizontalAlignment="Center">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -25,7 +24,7 @@
                         </Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
-                                <Setter Property="Opacity" Value="{Binding IsMuted, Converter={StaticResource opacityConverter}}" />
+                                <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
                                 <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
@@ -34,8 +33,8 @@
                     </Style>
                 </Border.Style>
                 <Grid>
-                    <Image Width="{StaticResource AppIconSize}"
-                           Height="{StaticResource AppIconSize}"
+                    <Image Width="{DynamicResource Mutable_AppIconSize}"
+                           Height="{DynamicResource Mutable_AppIconSize}"
                            Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
                            Stretch="Fill" />
                     <Border>
@@ -54,7 +53,7 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Theme:Brush.Foreground="Text"
-                                   FontSize="16"
+                                   FontSize="{DynamicResource Mutable_AppIconTextFontSize}"
                                    FontWeight="SemiBold"
                                    Text="{Binding IconText}"
                                    TextAlignment="Center" />
@@ -62,9 +61,9 @@
                 </Grid>
             </Border>
             <Button Name="MuteButton"
-                    Width="{StaticResource AppIconSize}"
-                    Height="{StaticResource AppIconSize}"
-                    Click="MuteButton_Click"
+                    Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
+                    Command="{Binding ToggleMute}"
                     IsTabStop="False"
                     ToolTip="{Binding DisplayName}">
                 <Button.Style>
@@ -77,7 +76,7 @@
                     </Style>
                 </Button.Style>
                 <Button.Content>
-                    <TextBlock FontSize="24"
+                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}"
                                Opacity="0.8"
                                Style="{StaticResource GlyphTextBlockStyle}"
                                Text="&#xE74F;" />
@@ -85,14 +84,29 @@
             </Button>
         </Grid>
         <ctl:VolumeSlider Grid.Column="1"
-                          Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
                           PeakValue1="{Binding PeakValue1}"
                           PeakValue2="{Binding PeakValue2}"
-                          Style="{StaticResource {x:Type Slider}}"
-                          Value="{Binding Volume, Mode=TwoWay}" />
-        <TextBlock Grid.Column="2"
-                   Opacity="{Binding IsMuted, Converter={StaticResource opacityConverter}}"
-                   Style="{StaticResource AppVolumeTextStyle}"
-                   Text="{Binding Volume, Mode=OneWay}" />
+                          Value="{Binding Volume, Mode=TwoWay}">
+            <ctl:VolumeSlider.Style>
+                <Style BasedOn="{StaticResource {x:Type Slider}}" TargetType="Slider">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMuted}" Value="True">
+                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ctl:VolumeSlider.Style>
+        </ctl:VolumeSlider>
+        <TextBlock Grid.Column="2" Text="{Binding Volume, Mode=OneWay}">
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource AppVolumeTextStyle}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMuted}" Value="True">
+                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

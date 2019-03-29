@@ -6,13 +6,11 @@ function UpdateManifest { param($path, $version)
 	$xml.Save((Resolve-Path ("$PSScriptRoot\$path")))
 }
 
-$UWPManifestPath = "..\EarTrumpet.UWP\Package.appxmanifest"
 $PackageManifestPath = "..\EarTrumpet.Package\Package.appxmanifest"
 $AssemblyInfoPath = ".\Properties\AssemblyInfo.cs"
 
 $newVersion = Get-Content -raw ..\version.txt
 
-UpdateManifest -path $UWPManifestPath -version $newVersion
 UpdateManifest -path $PackageManifestPath -version $newVersion
 
 $assemblyInfo = Get-Content -raw $AssemblyInfoPath

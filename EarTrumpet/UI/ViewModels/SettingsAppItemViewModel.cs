@@ -1,4 +1,4 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
@@ -61,7 +61,7 @@ namespace EarTrumpet.UI.ViewModels
         public SettingsAppItemViewModel(IAudioDeviceSession session)
         {
             AppId = session.AppId;
-            DisplayName = session.SessionDisplayName;
+            DisplayName = session.DisplayName;
             IsDesktopApp = session.IsDesktopApp;
             Id = session.AppId;
             Icon = new IconLoadInfo { IconPath = session.IconPath, IsDesktopApp = session.IsDesktopApp };
@@ -83,11 +83,6 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public void OpenPopup(FrameworkElement uIElement)
-        {
-
-        }
-
-        public void RefreshDisplayName()
         {
 
         }

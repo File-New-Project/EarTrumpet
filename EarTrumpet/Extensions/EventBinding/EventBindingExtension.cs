@@ -7,14 +7,12 @@ using System.Windows.Markup;
 namespace EarTrumpet.Extensions.EventBinding
 {
     // {Event:Binding Some.Object.FunctionName}
-    public sealed class BindingExtension : MarkupExtension
+    public class BindingExtension : MarkupExtension
     {
         public string Path { get; set; }
 
-        public BindingExtension(string path)
-        {
-            Path = path;
-        }
+        public BindingExtension() { }
+        public BindingExtension(string path) { Path = path; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -38,13 +36,13 @@ namespace EarTrumpet.Extensions.EventBinding
             return null;
         }
 
-        void OnEvent(object sender, object args)
+        protected virtual void OnEvent(object sender, object args)
         {
             var target = ResolvePropertyPath((sender as FrameworkElement).DataContext, Path, out string functionName);
             target.GetType().GetMethod(functionName).Invoke(target, new object[] { sender, args });
         }
 
-        object ResolvePropertyPath(object target, string path, out string functionName)
+        private object ResolvePropertyPath(object target, string path, out string functionName)
         {
             var parts = path.Split('.');
             functionName = parts.Last();

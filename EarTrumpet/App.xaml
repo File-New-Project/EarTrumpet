@@ -6,6 +6,7 @@
              xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:ui="clr-namespace:EarTrumpet.UI"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
@@ -14,6 +15,10 @@
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UI\Mutable.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <Theme:Manager x:Key="ThemeManager">
                 <Theme:Manager.References>
                     <Theme:Ref Key="Text" Value="Theme=ApplicationText{Theme}Theme, HighContrast=WindowText" />
@@ -30,7 +35,7 @@
                     <Theme:Ref Key="AcrylicColor_Flyout">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="UseAccentColor" Value="SystemAccentDark1/0.8" />
-                            <Theme:Rule On="LightTheme" Value="LightChromeHigh/0.5" />
+                            <Theme:Rule On="LightTheme" Value="LightChromeMedium/0.8" />
                             <Theme:Rule Value="ApplicationBackgroundDarkTheme/0.7" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
@@ -90,34 +95,18 @@
             </Theme:Manager>
 
             <ui:MenuItemTemplateSelector x:Key="MenuSelector" />
-
-            <conv:InvertableVisibilityConverter x:Key="visConverter" />
             <conv:IconConverter x:Key="iconConverter" />
-            <conv:OpacityConverter x:Key="opacityConverter"
-                                   FalseOpacity="1.0"
-                                   TrueOpacity="0.4" />
 
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
             <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
             <bcl:Double x:Key="WindowAndItemSize">360</bcl:Double>
-            <bcl:Double x:Key="DeviceIconSize">24</bcl:Double>
-            <bcl:Double x:Key="AppIconSize">24</bcl:Double>
-            <win:GridLength x:Key="IconCellWidth">65</win:GridLength>
-            <win:GridLength x:Key="VolumeCellWidth">63</win:GridLength>
-            <bcl:Double x:Key="DeviceTitleCellHeight">44</bcl:Double>
-            <bcl:Double x:Key="AppItemCellHeight">44</bcl:Double>
-            <bcl:Double x:Key="DeviceItemCellHeight">54</bcl:Double>
-            <bcl:Double x:Key="AppVolumeTextFontSize">18</bcl:Double>
-            <bcl:Double x:Key="DeviceVolumeTextFontSize">24</bcl:Double>
-            <bcl:Double x:Key="LargeWindowTextFontSize">15</bcl:Double>
             <Thickness x:Key="WindowMargin">12,0,12,0</Thickness>
             <Thickness x:Key="VolumeAppListMargin">0,6,0,6</Thickness>
             <Thickness x:Key="DeviceOrAppIconMargin">5,0,0,0</Thickness>
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
-            <bcl:Double x:Key="NoItemsPaneHeight">50</bcl:Double>
-            <Thickness x:Key="NoItemsPaneMargin">0,8</Thickness>
-            <bcl:Double x:Key="SliderThumbWidth">8</bcl:Double>
-
+            <Thickness x:Key="NoItemsPaneMargin">24</Thickness>
+            <bcl:Double x:Key="MutedOpacity">0.4</bcl:Double>
+            
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>
@@ -300,8 +289,8 @@
             </Style>
             <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Height" Value="24" />
-                <Setter Property="Width" Value="{StaticResource SliderThumbWidth}" />
+                <Setter Property="Height" Value="{DynamicResource Mutable_SliderThumbHeight}" />
+                <Setter Property="Width" Value="{DynamicResource Mutable_SliderThumbWidth}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -333,7 +322,6 @@
                         <ControlTemplate TargetType="{x:Type Slider}">
                             <Grid>
                                 <Border Name="TrackBackground" Height="2" />
-
                                 <Track Name="PART_Track">
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton Name="SliderLeft"
@@ -402,31 +390,31 @@
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource DeviceVolumeTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_DeviceVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="AppVolumeTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource VolumeTextMargin}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource AppVolumeTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_AppVolumeTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="DeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_LargeWindowTextFontSize}" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="VirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
-                <Setter Property="FontSize" Value="{StaticResource LargeWindowTextFontSize}" />
+                <Setter Property="FontSize" Value="{DynamicResource Mutable_LargeWindowTextFontSize}" />
                 <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
             <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="{StaticResource DeviceTitleCellHeight}" />
-                <Setter Property="Height" Value="{StaticResource DeviceTitleCellHeight}" />
+                <Setter Property="Width" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
+                <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
                 <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Template">
@@ -916,6 +904,64 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style TargetType="{x:Type RadioButton}">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource LargeWindows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                            <Grid x:Name="templateRoot"
+                                  Margin="0,6"
+                                  Background="Transparent"
+                                  SnapsToDevicePixels="True">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="0,6" VerticalAlignment="Top">
+                                    <Ellipse x:Name="radioButtonBorder"
+                                             Width="20"
+                                             Height="20"
+                                             Theme:Brush.Stroke="Text"
+                                             Fill="Transparent"
+                                             StrokeThickness="2"
+                                             UseLayoutRounding="False" />
+                                    <Ellipse x:Name="optionMark"
+                                             Width="10"
+                                             Height="10"
+                                             Theme:Brush.Fill="Text"
+                                             Opacity="0"
+                                             UseLayoutRounding="False" />
+                                </Grid>
+                                <ContentPresenter x:Name="contentPresenter"
+                                                  Grid.Column="1"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Focusable="False"
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter TargetName="optionMark" Property="Theme:Brush.Fill" Value="Theme={Theme}BaseHigh, HighContrast=Highlight" />
+                                    <Setter TargetName="radioButtonBorder" Property="Theme:Brush.Stroke" Value="Theme={Theme}BaseHigh, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter TargetName="optionMark" Property="Theme:Brush.Fill" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium, HighContrast=Highlight" />
+                                    <Setter TargetName="radioButtonBorder" Property="Theme:Brush.Stroke" Value="Light=LightBaseMediumHigh, Dark=DarkBaseMedium, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter TargetName="optionMark" Property="Opacity" Value="1" />
+                                    <Setter TargetName="radioButtonBorder" Property="Theme:Brush.Stroke" Value="SystemAccent" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -1416,7 +1462,6 @@
             <DataTemplate DataType="{x:Type vm:TemporaryAppItemViewModel}">
                 <views:AppItemView />
             </DataTemplate>
-
             <DataTemplate DataType="{x:Type vm:SettingsAppItemViewModel}">
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
@@ -1424,8 +1469,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Border Width="{StaticResource AppIconSize}"
-                            Height="{StaticResource AppIconSize}"
+                    <Border Width="{DynamicResource Mutable_AppIconSize}"
+                            Height="{DynamicResource Mutable_AppIconSize}"
                             HorizontalAlignment="Center">
                         <Border.Style>
                             <Style TargetType="Border">
@@ -1442,8 +1487,8 @@
                             </Style>
                         </Border.Style>
                         <Grid>
-                            <Image Width="{StaticResource AppIconSize}"
-                                   Height="{StaticResource AppIconSize}"
+                            <Image Width="{DynamicResource Mutable_AppIconSize}"
+                                   Height="{DynamicResource Mutable_AppIconSize}"
                                    Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
                                    Stretch="Fill" />
                             <Border>
@@ -1517,6 +1562,63 @@
                          LostKeyboardFocus="{Event:Binding OnLostFocus}"
                          PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
                          Text="{Binding HotkeyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+                <Grid>
+                    <Grid MaxWidth="420"
+                          MaxHeight="500"
+                          Margin="20"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    Orientation="Horizontal">
+                            <Path Width="32"
+                                  Height="32"
+                                  Margin="0"
+                                  Theme:Brush.Fill="Text"
+                                  Data="M64.1,24.9c-0.8,6.8-5.5,21.5-10.2,26.1c1.2-2.3,1.8-4.9,1.7-7.7c-0.3-7.9-6.8-14.5-14.8-14.8  c-8.8-0.4-16,6.7-16,15.4c0,3.3,1.1,6.4,2.9,9C17.8,48.3,10,41.2,9.3,40.7c-1.2-0.4-3.2,2.9-2.5,4.1c53,45,74.7-10.4,75.4-12  C75.2,31.4,74.8,25.5,64.1,24.9z M38.7,31.9c7.9-1,14.6,5.7,13.6,13.6c-0.7,5.4-5,9.8-10.4,10.4c-7.9,1-14.6-5.7-13.6-13.6  C28.9,37,33.3,32.6,38.7,31.9z"
+                                  Stretch="Uniform" />
+                            <TextBlock x:Name="Welcome"
+                                       Margin="20,20,0,20"
+                                       Theme:Brush.Foreground="Text"
+                                       FontSize="18"
+                                       Text="{x:Static resx:Resources.WelcomeDialogHeaderText}" />
+                        </StackPanel>
+                        <Image Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               Height="275"
+                               HorizontalAlignment="Left"
+                               gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Margin="0,20,0,0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center">
+                            <Hyperlink Command="{Binding LearnMore}">
+                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <Button Grid.Row="2"
+                                Grid.Column="1"
+                                Width="160"
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding Close}"
+                                Content="{x:Static resx:Resources.CloseButtonText}" />
+                    </Grid>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

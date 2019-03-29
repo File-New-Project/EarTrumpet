@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
@@ -25,10 +24,8 @@ namespace EarTrumpet.UI.ViewModels
         int ProcessId { get; }
         bool DoesGroupWith(IAppItemViewModel app);
         void MoveToDevice(string id, bool hide);
-        void RefreshDisplayName();
         void UpdatePeakValueForeground();
         void UpdatePeakValueBackground();
-        void OpenPopup(FrameworkElement uIElement);
         IDeviceViewModel Parent { get; }
     }
 }
