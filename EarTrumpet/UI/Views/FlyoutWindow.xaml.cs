@@ -110,20 +110,6 @@ namespace EarTrumpet.UI.Views
                         break;
                 }
 
-                if (SystemSettings.IsRTL)
-                {
-                    if ((location & User32.AccentFlags.DrawLeftBorder) == User32.AccentFlags.DrawLeftBorder)
-                    {
-                        location &= ~User32.AccentFlags.DrawLeftBorder;
-                        location |= User32.AccentFlags.DrawRightBorder;
-                    }
-                    else if ((location & User32.AccentFlags.DrawRightBorder) == User32.AccentFlags.DrawRightBorder)
-                    {
-                        location &= ~User32.AccentFlags.DrawRightBorder;
-                        location |= User32.AccentFlags.DrawLeftBorder;
-                    }
-                }
-
                 AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), location);
             }
             else
