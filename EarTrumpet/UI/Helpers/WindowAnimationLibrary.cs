@@ -195,28 +195,32 @@ namespace EarTrumpet.UI.Helpers
 
             if (!SystemParameters.MenuAnimation || !SystemSettings.IsTransparencyEnabled)
             {
-                onCompleted(null, null);
-                return;
+                window.Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    onCompleted(null, null);
+                }));
             }
-
-            var fadeAnimation = new DoubleAnimation
+            else
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(150)),
-                FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 1,
-                To = 0.75,
-            };
-            fadeAnimation.Completed += (s, e) => { window.Opacity = 0; };
+                var fadeAnimation = new DoubleAnimation
+                {
+                    Duration = new Duration(TimeSpan.FromMilliseconds(150)),
+                    FillBehavior = FillBehavior.Stop,
+                    EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                    From = 1,
+                    To = 0.75,
+                };
+                fadeAnimation.Completed += (s, e) => { window.Opacity = 0; };
 
-            Storyboard.SetTarget(fadeAnimation, window);
-            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
-            
-            var storyboard = new Storyboard();
-            storyboard.FillBehavior = FillBehavior.Stop;
-            storyboard.Children.Add(fadeAnimation);
-            storyboard.Completed += onCompleted;
-            storyboard.Begin(window);
+                Storyboard.SetTarget(fadeAnimation, window);
+                Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
+
+                var storyboard = new Storyboard();
+                storyboard.FillBehavior = FillBehavior.Stop;
+                storyboard.Children.Add(fadeAnimation);
+                storyboard.Completed += onCompleted;
+                storyboard.Begin(window);
+            }
         }
 
         public static void BeginWindowEntranceAnimation(Window window, Action completed, double fromOpacity = 0.5)
