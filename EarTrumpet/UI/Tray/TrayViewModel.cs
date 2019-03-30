@@ -233,6 +233,12 @@ namespace EarTrumpet.UI.Tray
                     deviceName = _defaultDevice.DisplayName;
                 }
 
+                // Device name could be null in transient error cases
+                if (deviceName == null)
+                {
+                    deviceName = "";
+                }
+                
                 // API Limitation: "less than 64 chars" for the tooltip.
                 deviceName = deviceName.Substring(0, Math.Min(63 - prefixText.Length, deviceName.Length));
                 ToolTip = prefixText + deviceName;
