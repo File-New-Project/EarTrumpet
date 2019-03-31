@@ -17,19 +17,31 @@ namespace EarTrumpet.UI.Services
         public static HotkeyData FlyoutHotkey
         {
             get => s_settings.Get("Hotkey", s_defaultFlyoutHotkey);
-            set => s_settings.Set("Hotkey", value);
+            set
+            {
+                s_settings.Set("Hotkey", value);
+                HotkeyManager.Current.Register(FlyoutHotkey);
+            }
         }
 
         public static HotkeyData MixerHotkey
         {
             get => s_settings.Get("MixerHotkey", s_defaultMixerHotkey);
-            set => s_settings.Set("MixerHotkey", value);
+            set
+            {
+                s_settings.Set("MixerHotkey", value);
+                HotkeyManager.Current.Register(MixerHotkey);
+            }
         }
 
         public static HotkeyData SettingsHotkey
         {
             get => s_settings.Get("SettingsHotkey", s_defaultSettingsHotkey);
-            set => s_settings.Set("SettingsHotkey", value);
+            set
+            {
+                s_settings.Set("SettingsHotkey", value);
+                HotkeyManager.Current.Register(SettingsHotkey);
+            }
         }
 
         public static bool UseLegacyIcon
@@ -46,6 +58,13 @@ namespace EarTrumpet.UI.Services
                 s_settings.Set("UseLegacyIcon", value.ToString());
                 UseLegacyIconChanged?.Invoke(null, UseLegacyIcon);
             }
+        }
+
+        public static void RegisterHotkeys()
+        {
+            HotkeyManager.Current.Register(FlyoutHotkey);
+            HotkeyManager.Current.Register(MixerHotkey);
+            HotkeyManager.Current.Register(SettingsHotkey);
         }
     }
 }

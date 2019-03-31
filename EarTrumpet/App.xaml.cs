@@ -65,9 +65,7 @@ namespace EarTrumpet
 
             _trayIcon = new TrayIcon(TrayViewModel);
 
-            HotkeyManager.Current.Register(SettingsService.FlyoutHotkey);
-            HotkeyManager.Current.Register(SettingsService.MixerHotkey);
-            HotkeyManager.Current.Register(SettingsService.SettingsHotkey);
+            SettingsService.RegisterHotkeys();
             HotkeyManager.Current.KeyPressed += OnHotKeyPressed;
 
             MaybeShowFirstRunExperience();
