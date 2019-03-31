@@ -124,16 +124,16 @@
     <value>找不到播放设备</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>发送反馈</value>
+    <value>提交反馈</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet 音量合成器</value>
+    <value>音量合成器</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>原生音量合成器</value>
+    <value>音量合成器</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>似乎你没有任何播放设备。</value>
+    <value>似乎没有任何播放设备。</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
     <value>EarTrumpet: 没有播放设备</value>
@@ -142,25 +142,19 @@
     <value>播放设备</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>录音设备</value>
+    <value>录制设备</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet 设置 / 关于</value>
+    <value>设置</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>声音</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>收集错误报告</value>
+    <value>收集故障排除数据</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>你的快捷键</value>
-  </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>选择快捷键</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>始终使用默认播放设备</value>
@@ -168,22 +162,16 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>关于</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>键入一个组合键：</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>了解更多</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>音量 {1}% - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>静音 - {0}</value>
-    <comment>0 = localized app name</comment>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>应用</value>
@@ -192,25 +180,100 @@
     <value>关闭</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>折叠以仅显示默认播放设备</value>
+    <value>折叠并仅显示默认播放设备</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>默认快捷键</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>展开以显示所有播放设备</value>
+    <value>展开并显示所有播放设备</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>设置</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>通用</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>指定该应用的播放设备</value>
+    <value>为该应用指定播放设备</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>打开 EarTrumpet 浮动框</value>
+    <value>打开任务栏浮出面板</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>使用经典 EarTrumpet 图标</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>更多命令</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>静音</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>声音设置</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows 旧版</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>关于 {Name} 加载项</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>名称:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>打开 Windows 设置</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>此加载项可通过 Windows 设置移除</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>卸载</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>旧版设置</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>发布者:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>配置快捷键与获取帮助</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet 设置</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>快捷键</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>版本:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>查找设置</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>没有结果</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>打开合成器</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>即将推出</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>即将推出</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>打开设置</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
     <value>关闭</value>

@@ -156,34 +156,22 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>你的快捷鍵</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>選擇快捷鍵</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>始終使用默認播放設備</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>關於</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>鍵入一個組合鍵：</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>瞭解更多</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>音量 {1}% - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>靜音 - {0}</value>
-    <comment>0 = localized app name</comment>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>應用</value>
@@ -200,8 +188,8 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>展開以顯示所有播放設備</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>設置</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>一般</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>指定該應用的播放設備</value>
@@ -212,11 +200,85 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>使用經典 EarTrumpet 圖標</value>
   </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>更多指令</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>已靜音</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>聲音設定</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>傳統Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>關於{Name}擴展</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>姓名：</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>打開Windows設定</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>這個擴展可以透過Windows設定刪除</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>解除安裝</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>傳統設定</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>發行者</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>設定捷徑並尋求幫助</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>捷徑</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>版本：</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>尋找設定</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>沒有結果</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>打開混合器</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>關</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>開</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>主頁</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>即將推出</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>即將推出</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>打開設定</value>
+  </data>
   <data name="CloseButtonText" xml:space="preserve">
     <value>關閉</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>歡迎使用 EarTrumpet</value>
   </data>
-
 </root>

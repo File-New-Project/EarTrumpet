@@ -414,17 +414,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.fr-FR.resx" />
-    <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.it.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
-    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="Properties\Resources.nb-NO.resx" />
-    <EmbeddedResource Include="Properties\Resources.nl.resx" />
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
     <EmbeddedResource Include="Properties\Resources.pt-BR.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.pt-PT.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -432,7 +425,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="Properties\Resources.tr-TR.resx" />
     <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />

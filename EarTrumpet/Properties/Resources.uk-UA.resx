@@ -156,34 +156,22 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Ваш ярлик</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Зберегти</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Оберіть поєднання клавіш</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Завжди використовувате пристрій відтворення за замовчуванням</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>Про</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Введіть комбінацію клавіш:</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Дізнатися більше</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{1}відсоток гучності - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>Звук вимкнено- {0}</value>
-    <comment>0 = localized app name</comment>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Додатки</value>
@@ -200,8 +188,8 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Відобразити всі пристрої для відтворення</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Налаштування</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Загальне</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Застосувати цей додаток до пристрою для відтворення</value>
@@ -211,6 +199,81 @@
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Використовувати значок legacy EarTrumpet</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Більше команд</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Без звуку</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Параметри звуку</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Старе меню Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Про додаток {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Відкрити меню налаштування Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Цей додаток може бути видалено за допомогою меню налаштування Windows</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Управління</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Застарілі параметри</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Видавець:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Налаштувати сполучення клавіш та отримати допомогу</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Сполучення клавіш</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Версія:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Знайти налаштування</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Немає результатів</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Відкрити мікшер</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Викл.</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>З'явиться незабаром</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>З'явиться незабаром</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Відкрити налаштування</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
     <value>Закрити</value>

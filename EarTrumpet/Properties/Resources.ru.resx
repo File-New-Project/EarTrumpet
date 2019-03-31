@@ -127,16 +127,16 @@
     <value>Отправить отзыв</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Микшер громкости</value>
+    <value>Микшер громкости EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Старый микшер громкости</value>
+    <value>Старый микшер громкости Windows</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Нет устройств воспроизведения</value>
+    <value>EarTrumpet: нет устройств воспроизведения</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Устройства воспроизведения</value>
@@ -151,16 +151,10 @@
     <value>Звуки</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Сбор данных об устранении неполадки</value>
+    <value>Сбор данных для устранения неполадок</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Ваш ярлык</value>
-  </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Выберите комбинацию клавиш</value>
+    <value>Ваше сочетание клавиш</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Всегда использовать устройство воспроизведения по умолчанию</value>
@@ -168,22 +162,16 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>О приложении</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Введите комбинацию клавиш:</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Узнать больше</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{1} процент громкости - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Заглушён - {0}</value>
-    <comment>0 = localized app name</comment>
+    <value>Без звука - {0}</value>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Приложения</value>
@@ -195,13 +183,13 @@
     <value>Свернуть, чтобы показать только устройство воспроизведения по умолчанию</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Ярлык по умолчанию</value>
+    <value>Сочетание клавиш по умолчанию</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Развернуть, чтобы показать все устройства воспроизведения</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Параметры</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Общее</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Назначить приложению устройство воспроизведения</value>
@@ -212,11 +200,85 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Использовать старую иконку EarTrumpet</value>
   </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Больше команд</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Без звука</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Параметры звука</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Старое меню Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>О дополнении {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Название:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Открыть Параметры Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Это дополнение может быть удалено в приложении Параметры Windows</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Устаревшие параметры</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Издатель:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Настроить сочетания клавиш и получить справку</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Параметры EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Сочетания клавиш</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Найти параметр</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Нет результатов</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Открыть микшер</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Выкл</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Вкл</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Скоро появится</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Скоро появится</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Открыть параметры</value>
+  </data>
   <data name="CloseButtonText" xml:space="preserve">
     <value>Закрыть</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Добро пожаловать в EarTrumpet</value>
   </data>
-
 </root>
