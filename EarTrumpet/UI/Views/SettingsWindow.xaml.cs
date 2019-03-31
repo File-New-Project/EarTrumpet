@@ -59,7 +59,7 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        private void MaximizeRestoreButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = (WindowState == WindowState.Maximized) ?
                 WindowState.Normal : WindowState.Maximized;

@@ -533,11 +533,22 @@
                         Click="MinimizeButton_Click"
                         Content="&#xE921;"
                         Style="{StaticResource CaptionButtonStyle}" />
-                <Button x:Name="MaximizeButton"
+                <Button x:Name="MaximizeRestoreButton"
                         Grid.Column="3"
-                        Click="MaximizeButton_Click"
-                        Content="&#xE922;"
-                        Style="{StaticResource CaptionButtonStyle}" />
+                        Click="MaximizeRestoreButton_Click"
+                        >
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
+                            <Setter Property="Content" Value="&#xE922;" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
+                                    <Setter Property="Content" Value="&#xE923;" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                
                 <Button x:Name="CloseButton"
                         Grid.Column="4"
                         Click="CloseButton_Click"
