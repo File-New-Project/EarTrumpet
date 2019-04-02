@@ -7,6 +7,7 @@
         xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+        xmlns:datamodel="clr-namespace:EarTrumpet.DataModel"
         Name="WindowRoot"
         Title="{Binding Title}"
         Width="800"
@@ -495,14 +496,17 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="BackButton"
                         Command="{Binding Backstack.GoBack}"
-                        Content="&#xE72B;"
                         FontSize="13">
                     <Button.Style>
                         <Style BasedOn="{StaticResource CloseButtonStyle}" TargetType="Button">
                             <Setter Property="IsEnabled" Value="False" />
+                            <Setter Property="Content" Value="&#xE72B;" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Backstack.CanGoBack}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Source={x:Static datamodel:SystemSettings.IsRTL}}" Value="True">
+                                    <Setter Property="Content" Value="&#xE72A;" />
                                 </DataTrigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Theme:Brush.Foreground" Value="ApplicationTextDarkTheme" />
