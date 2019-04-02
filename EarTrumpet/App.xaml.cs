@@ -29,6 +29,8 @@ namespace EarTrumpet
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            // Initialize must register its App.Current.Exit
+            // handler early to properly report app state
             ErrorReportingService.Initialize();
 
             Trace.WriteLine("App Application_Startup");

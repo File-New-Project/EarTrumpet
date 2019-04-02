@@ -12,12 +12,14 @@ namespace EarTrumpet.UI.Services
 {
     class ErrorReportingService
     {
+        private static bool _isAppShuttingDown;
         internal static void Initialize()
         {
             AppTrace.Initialize(OnWarningException);
 
             try
             {
+                Application.Current.Exit += (_, __) => _isAppShuttingDown = true;
 #if DEBUG
                 WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
 #endif
@@ -58,6 +60,7 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
             error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
+            error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => _isAppShuttingDown));
 
             return true;
         }
