@@ -4,6 +4,7 @@ using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -58,6 +59,8 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
             error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
             error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
+            error.Metadata.AddToTab("AppSettings", "Culture", GetNoError(() => CultureInfo.CurrentCulture.Name));
+            error.Metadata.AddToTab("AppSettings", "CurrentUICulture", GetNoError(() => CultureInfo.CurrentUICulture.Name));
             error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
             error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => _isAppShuttingDown));
