@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.1.0
+- Fixed a crash when parsing numbers on non-English systems
+
 ## 2.1.0.0
 - Added new settings experience
 - Added support for Windows light mode
