@@ -12,6 +12,7 @@ Includes:
   * Could, in rare cases, contain paths to applications on your computer
 * Version number (e.g. 2.0.x.x)
 * App state (e.g. is shutting down)
+* App identity present (true/false)
 
 ### Operating System-Level
 Includes:

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Globalization;
 
 namespace EarTrumpet.UI.Services
 {
@@ -21,9 +22,13 @@ namespace EarTrumpet.UI.Services
             allText += DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Recording));
             allText += Environment.NewLine;
             allText += $"App: {App.Current.GetVersion()}" + Environment.NewLine;
+            allText += $"HasIdentity: {App.Current.HasIdentity()}" + Environment.NewLine;
+            allText += $"CurrentCulture: {CultureInfo.CurrentCulture.Name}" + Environment.NewLine;
+            allText += $"CurrentUICulture: {CultureInfo.CurrentUICulture.Name}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
+            allText += $"IsSystemLightTheme: {SystemSettings.IsSystemLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
             allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
