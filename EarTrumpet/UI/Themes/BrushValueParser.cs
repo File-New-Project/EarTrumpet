@@ -2,6 +2,7 @@
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -221,13 +222,13 @@ namespace EarTrumpet.UI.Themes
             }
             else if (parts.Length == 2)
             {
-                opacity = double.Parse(parts[1]);
+                opacity = double.Parse(parts[1], CultureInfo.InvariantCulture);
                 colorName = parts[0];
             }
             else if (parts.Length == 3)
             {
-                opacity = double.Parse(parts[1]);
-                opacityNoTransparency = double.Parse(parts[2]);
+                opacity = double.Parse(parts[1], CultureInfo.InvariantCulture);
+                opacityNoTransparency = double.Parse(parts[2], CultureInfo.InvariantCulture);
                 colorName = parts[0];
             }
             else
