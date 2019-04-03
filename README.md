@@ -20,7 +20,6 @@
 * Configurable hotkey
 * Modern context menus
 * Growing multi-lingual support
-* Cairo Shell support
 
 ## Install
 
@@ -29,6 +28,7 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 ## Supported operating systems ##
 - Windows 10 1803 (April 2018 Update)
 - Windows 10 1809 (October 2018 Update)
+- Windows 10 1903 (April 2019 Update)
 
 ## Known issues ##
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))

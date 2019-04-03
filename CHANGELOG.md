@@ -1,13 +1,28 @@
 # Changelog
 
+## 2.1.0.0
+- Added new settings experience
+- Added support for Windows light mode
+- Added keyboard shortcuts for opening the mixer and settings windows
+- Reduced clutter in the context menu
+- Fixed various display issues when using RTL writing systems
+- Changed app naming behavior to align with Windows
+- Added mute text to the notification area icon
+- Added 'Open sound settings' link to context menu
+- Added text to notification area icon tooltip to indicate mute state
+- Re-added flyout window shadow and borders
+- Added additional telemetry points
+- Removed Arabic, Hungarian, Korean, Norwegian Bokmål, Portuguese, Romanian, and Turkish until we complete localization
+- Additional bugfixes
+
 ## 2.0.8.0
 - Changed grouping behavior to key off app install paths vice executable name
 - Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher
 - Fixed an issue where the Enhancements tab was missing in playback devices dialog
 - Fixed an issue where the flyout was too tall when the taskbar is configured to auto-hide
+- Fixed an issue where disabled or unplugged devices would unexpectedly appear
 - Fixed a crash when no default audio endpoint was present
-- Added 'Open sound settings' link to context menu
-- Added text to notification area icon to indicate mute state
+- Fixed a crash when right-clicking an audio session after moving it
 
 ## 2.0.7.0
 - Added additional support for high contrast themes
