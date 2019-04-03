@@ -1,5 +1,7 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
+using EarTrumpet.UI.Helpers;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -11,6 +13,8 @@ namespace EarTrumpet.UI.ViewModels
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;
+
+            ToggleMute = new RelayCommand(() => IsMuted = !IsMuted);
         }
 
         ~AudioSessionViewModel()
@@ -24,7 +28,7 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public string Id => _stream.Id;
-
+        public ICommand ToggleMute { get; } 
         public bool IsMuted
         {
             get => _stream.IsMuted;

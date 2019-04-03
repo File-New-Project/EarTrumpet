@@ -1,18 +1,19 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
         public string DisplayName => _device.DisplayName;
-        public string EnumeratorName => _device.EnumeratorName;
-        public string DeviceDescription => _device.DeviceDescription;
+        public string DeviceDescription => ((IAudioDeviceWindowsAudio)_device).DeviceDescription;
+        public string EnumeratorName => ((IAudioDeviceWindowsAudio)_device).EnumeratorName;
+        public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
 
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
@@ -42,13 +43,13 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private IAudioDevice _device;
-        private IAudioDeviceManager _deviceManager;
+        protected IAudioDevice _device;
+        protected IAudioDeviceManager _deviceManager;
         private bool _isDisplayNameVisible;
         private DeviceIconKind _iconKind;
-        private WeakReference<DeviceCollectionViewModel> _parent;
+        protected WeakReference<DeviceCollectionViewModel> _parent;
 
-        internal DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
@@ -93,17 +94,9 @@ namespace EarTrumpet.UI.ViewModels
             foreach (var app in Apps) app.UpdatePeakValueForeground();
         }
 
-        public void UpdatePeakValueBackground()
-        {
-            // We're in the background so we need to use a snapshot.
-            foreach (var app in Apps.ToArray()) app.UpdatePeakValueBackground();
-
-            _device.UpdatePeakValueBackground();
-        }
-
         private void UpdateMasterVolumeIcon()
         {
-            if (_device.Parent.DeviceKind == AudioDeviceKind.Recording)
+            if (_device.Parent.Kind == AudioDeviceKind.Recording.ToString())
             {
                 IconKind = DeviceIconKind.Microphone;
             }
@@ -180,7 +173,7 @@ namespace EarTrumpet.UI.ViewModels
 
             foreach (var childApp in app.ChildApps)
             {
-                _device.UnhideSessionsForProcessId(childApp.ProcessId);
+                ((IAudioDeviceManagerWindowsAudio)_deviceManager).UnhideSessionsForProcessId(_device.Id, childApp.ProcessId);
             }
 
             bool hasExistingAppGroup = false;
@@ -219,17 +212,9 @@ namespace EarTrumpet.UI.ViewModels
 
         public void MakeDefaultDevice()
         {
-            _deviceManager.SetDefaultDevice(_device);
+            _deviceManager.Default = _device;
         }
 
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
-
-        public void OpenPopup(object app, FrameworkElement container)
-        {
-            if (_parent.TryGetTarget(out var parent))
-            {
-                parent.OpenPopup(app, container);
-            }
-        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using EarTrumpet.UI.ViewModels;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.Views
 {
@@ -12,28 +14,50 @@ namespace EarTrumpet.UI.Views
         {
             InitializeComponent();
 
-            PreviewMouseRightButtonUp += AppVolumeControl_PreviewMouseRightButtonUp;
+            PreviewMouseRightButtonUp += (_, __) => OpenPopup();
+            Loaded += (_, __) =>
+            {
+                var container = this.FindVisualParent<ListViewItem>();
+                if (container != null)
+                {
+                    container.PreviewKeyDown += OnPreviewKeyDown;
+                }
+            };
         }
 
-        private void AppVolumeControl_PreviewMouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            ExpandApp();
+            switch (e.Key)
+            {
+                case Key.M:
+                case Key.OemPeriod:
+                    App.IsMuted = !App.IsMuted;
+                    e.Handled = true;
+                    break;
+                case Key.Right:
+                case Key.OemPlus:
+                    App.Volume++;
+                    e.Handled = true;
+                    break;
+                case Key.Left:
+                case Key.OemMinus:
+                    App.Volume--;
+                    e.Handled = true;
+                    break;
+                case Key.Space:
+                    OpenPopup();
+                    e.Handled = true;
+                    break;
+            }
         }
 
-        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        private void OpenPopup()
         {
-            App.IsMuted = !App.IsMuted;
-            e.Handled = true;
-        }
-
-        public void ExpandApp()
-        {
-            App.OpenPopup(this);
-        }
-
-        private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            App.RefreshDisplayName();
+            var viewModel = Window.GetWindow(this).DataContext as IPopupHostViewModel;
+            if (viewModel != null)
+            {
+                viewModel.OpenPopup(App, this);
+            }
         }
     }
 }

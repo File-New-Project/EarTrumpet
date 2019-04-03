@@ -49,7 +49,7 @@ namespace EarTrumpet.UI.Views
 
         private void VolumeControlPopup_Opened(object sender, EventArgs e)
         {
-            AccentPolicyLibrary.SetWindowBlur(this, isEnabled: true, enableBorders: false);
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.None);
 
             PositionAndShow();
         }
@@ -117,17 +117,15 @@ namespace EarTrumpet.UI.Views
                 throw new ArgumentException("taskbarState.ContainingScreen");
             }
 
-            var HEADER_SIZE = (double)App.Current.Resources["DeviceTitleCellHeight"];
+            var HEADER_SIZE = (double)App.Current.Resources["Mutable_DeviceTitleCellHeight"];
             var PopupBorderSize = (Thickness)App.Current.Resources["PopupBorderThickness"];
             var volumeListMargin = (Thickness)App.Current.Resources["VolumeAppListMargin"];
 
             Point offsetFromWindow = container.TranslatePoint(new Point(0, 0), relativeTo);
 
-            // HACK: This is a poor relationship between the popup and these children.
-            if ((string)container.Tag == "DeviceListItemKey")
+            if ((string)container.Tag == DeviceView.DeviceListItemKey)
             {
-                // Adjust for the title bar, top border and top margin on the app list.
-                offsetFromWindow.Y -= (HEADER_SIZE + PopupBorderSize.Top);
+                // No adjustment.
             }
             else if (container is FlyoutWindow)
             {

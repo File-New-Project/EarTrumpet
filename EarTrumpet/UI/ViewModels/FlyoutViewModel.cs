@@ -9,7 +9,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FlyoutViewModel : BindableBase
+    public class FlyoutViewModel : BindableBase, IPopupHostViewModel
     {
         public enum ViewState
         {
@@ -27,7 +27,6 @@ namespace EarTrumpet.UI.ViewModels
         public ModalDialogViewModel Dialog { get; }
         public bool IsExpanded { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
-        public bool IsEmpty => Devices.Count == 0;
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
@@ -46,7 +45,6 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel = mainViewModel;
             _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
-            _mainViewModel.AppPopup += OnAppPopup;
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
@@ -70,10 +68,10 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Apps_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch(e.Action)
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Remove:
-                    if (Dialog.Focused is FocusedAppItemViewModel && 
+                    if (Dialog.Focused is FocusedAppItemViewModel &&
                         (IAppItemViewModel)e.OldItems[0] == ((FocusedAppItemViewModel)Dialog.Focused)?.App)
                     {
                         Dialog.IsVisible = false;
@@ -135,7 +133,6 @@ namespace EarTrumpet.UI.ViewModels
 
         private void RaiseDevicesChanged()
         {
-            RaisePropertyChanged(nameof(IsEmpty));
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(DeviceNameText));
@@ -260,13 +257,8 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void OnAppPopup(object vm, FrameworkElement container)
+        public void OpenPopup(object vm, FrameworkElement container)
         {
-            if (Window.GetWindow(container).DataContext != this)
-            {
-                return;
-            }
-
             Dialog.IsVisible = false;
 
             if (vm is IAppItemViewModel)
@@ -275,16 +267,23 @@ namespace EarTrumpet.UI.ViewModels
             }
             else if (vm is DeviceViewModel)
             {
-                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                var deviceViewModel = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                if (deviceViewModel.IsApplicable)
+                {
+                    Dialog.Focused = deviceViewModel;
+                }
             }
             else
             {
                 Dialog.Focused = (IFocusedViewModel)vm;
             }
 
-            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
-            Dialog.Source = container;
-            Dialog.IsVisible = true;
+            if (Dialog.Focused != null)
+            {
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+                Dialog.Source = container;
+                Dialog.IsVisible = true;
+            }
         }
 
         public void BeginOpen()

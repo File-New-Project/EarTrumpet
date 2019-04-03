@@ -148,7 +148,7 @@
     <value>EarTrumpet 設定 / 詳細</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>音</value>
+    <value>サウンド</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
     <value>トラブルシューティング データの収集</value>
@@ -156,34 +156,22 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>ショートカット</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>キーボード ショートカットの選択</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>常に既定の再生デバイスを使用する</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>詳細</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>キーの組み合わせを入力して下さい</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>もっと詳しく</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{1} 音量（％） - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>消音 - {0}</value>
-    <comment>0 = localized app name</comment>
+    <value>ミュート - {0}</value>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>アプリ</value>
@@ -200,8 +188,8 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>全ての再生デバイスを表示</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>設定</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>一般</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>このアプリを再生デバイスに登録する</value>
@@ -212,5 +200,87 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>以前のEarTrumpet アイコンを使用する</value>
   </data>
-
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>他のコマンド</value>
+    
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>ミュート</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>サウンド設定</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows レガシー</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>アドオン {Name} について</value>
+    
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Windowsの設定を開く</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>このアドオンはWindowsの「設定」からアンインストールできます。</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>アンインストール</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>レガシー設定</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>提供元:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>ショートカットの設定とヘルプ</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>ショートカット</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>バージョン:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>設定を検索</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>結果無し</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>ミキサーを開く</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>オフ</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>オン</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>近日公開</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>近日公開</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>設定を開く</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet へようこそ</value>
+  </data>
 </root>

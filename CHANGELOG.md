@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.1.0.0
+- Added new settings experience
+- Added support for Windows light mode
+- Added keyboard shortcuts for opening the mixer and settings windows
+- Reduced clutter in the context menu
+- Fixed various display issues when using RTL writing systems
+- Changed app naming behavior to align with Windows
+- Added mute text to the notification area icon
+- Added 'Open sound settings' link to context menu
+- Added text to notification area icon tooltip to indicate mute state
+- Re-added flyout window shadow and borders
+- Added additional telemetry points
+- Removed Arabic, Hungarian, Korean, Norwegian Bokmål, Portuguese, Romanian, and Turkish until we complete localization
+- Additional bugfixes
+
 ## 2.0.8.0
 - Changed grouping behavior to key off app install paths vice executable name
 - Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher

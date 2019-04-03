@@ -1,106 +1,158 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop.Helpers;
+﻿using EarTrumpet.Extensibility;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class SettingsViewModel : BindableBase, IWindowHostedViewModel
+    class SettingsViewModel : BindableBase, ISettingsViewModel
     {
-        private HotkeyData _hotkey;
+        public static IAddonSettingsPage[] AddonItems { get; internal set; }
 
-        internal HotkeyData Hotkey
+        public event Action Close;
+
+        public string Title { get; private set; }
+        public ICommand GoHome { get; }
+        public BackstackViewModel Backstack { get; } = new BackstackViewModel();
+        public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
+
+        private SimpleDialogViewModel _dialog;
+        public SimpleDialogViewModel Dialog
         {
-            get => _hotkey;
+            get => _dialog;
             set
             {
-                _hotkey = value;
-                SettingsService.Hotkey = _hotkey;
-                RaisePropertyChanged(nameof(Hotkey));
-                RaisePropertyChanged(nameof(HotkeyText));
+                if (_dialog != value)
+                {
+                    _dialog = value;
+                    RaisePropertyChanged(nameof(Dialog));
+                }
             }
         }
 
-#pragma warning disable CS0067
-        public event Action Close;
-#pragma warning restore CS0067
-        public event Action<object> HostDialog;
-
-        public string Title => Properties.Resources.SettingsWindowText;
-        public string HotkeyText => _hotkey.ToString();
-        public string DefaultHotKey => SettingsService.s_defaultHotkey.ToString();
-        public RelayCommand OpenDiagnosticsCommand { get; }
-        public RelayCommand OpenAboutCommand { get; }
-        public RelayCommand OpenFeedbackCommand { get; }
-        public RelayCommand SelectHotkey { get; }
-        public RelayCommand OpenAddonManager { get; set; }
-
-        public bool IsAddonsEnabled => Features.IsEnabled(Feature.Addons);
-        public bool UseLegacyIcon
+        public void OnInvoked(object sender, SettingsCategoryViewModel toSelect)
         {
-            get => SettingsService.UseLegacyIcon;
-            set => SettingsService.UseLegacyIcon = value;
+            Selected = toSelect;
         }
 
-        public string AboutText { get; private set; }
-
-        internal SettingsViewModel()
+        SettingsCategoryViewModel _selected;
+        public SettingsCategoryViewModel Selected
         {
-            Hotkey = SettingsService.Hotkey;
-            OpenAboutCommand = new RelayCommand(OpenAbout);
-            OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
-            OpenFeedbackCommand = new RelayCommand(FeedbackService.OpenFeedbackHub);
-            SelectHotkey = new RelayCommand(OnSelectHotkey);
+            get => _selected;
+            set
+            {
+                if (_selected != value)
+                {
+                    if (value != null && value is AdvertisedCategorySettingsViewModel)
+                    {
+                        ((AdvertisedCategorySettingsViewModel)value).Activate();
+                        RaisePropertyChanged(nameof(Selected));
+                        return;
+                    }
 
-            string aboutFormat = "EarTrumpet {0}";
-            if (App.Current.HasIdentity())
-            {
-                AboutText = string.Format(aboutFormat, Package.Current.Id.Version.ToVersionString());
-            }
-            else
-            {
-                AboutText = string.Format(aboutFormat, "0.0.0.0");
+                    if (_selected != null)
+                    {
+                        if (!_selected.NavigatingFrom(new NavigationCookie(() => SelectImpl(value))))
+                        {
+                            RaisePropertyChanged(nameof(Selected));
+                            return;
+                        }
+                    }
+
+                    SelectImpl(value);
+                }
             }
         }
 
-        private void OpenDiagnostics()
+        public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
         {
-            if(Keyboard.IsKeyDown(Key.LeftShift) && Keyboard.IsKeyDown(Key.LeftCtrl))
+            Title = title;
+            Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
+            GoHome = new RelayCommand(() => Selected = null);
+        }
+
+        public void InvokeSearchResult(SettingsCategoryViewModel cat, SettingsPageViewModel page)
+        {
+            if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() =>
+                {
+                    Selected = cat;
+                    Selected.Selected = page;
+                })))
             {
-                throw new Exception("This is an intentional crash.");
+                return;
             }
 
-            DiagnosticsService.DumpAndShowData();
+            Selected = cat;
+            Selected.Selected = page;
         }
 
-        private void OpenAbout()
+        private void SelectImpl(SettingsCategoryViewModel categoryToSelect)
         {
-            ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
-        }
-
-        private void OnSelectHotkey()
-        {
-            var vm = new HotkeySelectViewModel();
-            HostDialog.Invoke(vm);
-            if (vm.Saved)
+            if (!Backstack.IsDisablingUpdates)
             {
-                HotkeyManager.Current.Unregister(Hotkey);
-                Hotkey = vm.Hotkey;
-                HotkeyManager.Current.Register(Hotkey);
+                var oldSelected = _selected;
+                var oldPage = _selected == null ? null : _selected.Selected;
+                Backstack.Add(() =>
+                {
+                    Backstack.IsDisablingUpdates = true;
+                    Selected = oldSelected;
+                    if (Selected != null)
+                    {
+                        Selected.Selected = oldPage;
+                    }
+                    Backstack.IsDisablingUpdates = false;
+                });
+            }
+
+            _selected = categoryToSelect;
+            if (_selected != null && _selected.Pages.Count > 0)
+            {
+                _selected.Selected = _selected.Pages[0];
+            }
+
+            RaisePropertyChanged(nameof(Selected));
+
+            if (_selected != null)
+            {
+                _selected.NavigatedTo(this);
             }
         }
 
         public void OnClosing()
         {
-
+            if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() => Close?.Invoke())))
+            {
+                return;
+            }
+            Close?.Invoke();
         }
 
-        public void OnPreviewKeyDown(KeyEventArgs e)
+        public void ShowDialog(string title, string description, string btn1, string btn2, Action btn1Clicked, Action btn2Clicked)
         {
+            Dialog = new SimpleDialogViewModel
+            {
+                Title = title,
+                Description = description,
+                Button1Text = btn1,
+                Button2Text = btn2,
+                Button1Command = new RelayCommand(() =>
+                {
+                    Dialog = null;
+                    btn1Clicked();
+                }),
+                Button2Command = new RelayCommand(() =>
+                {
+                    Dialog = null;
+                    btn2Clicked();
+                })
+            };
+        }
 
+        public void CompleteNavigation(NavigationCookie cookie)
+        {
+            cookie.Execute();
         }
     }
 }

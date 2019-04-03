@@ -8,6 +8,8 @@ namespace EarTrumpet.UI.Views
 {
     public partial class DeviceView : UserControl
     {
+        public static string DeviceListItemKey = "DeviceListItem";
+
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
             DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
@@ -19,30 +21,41 @@ namespace EarTrumpet.UI.Views
         public DeviceView()
         {
             InitializeComponent();
+
+            DeviceListItem.PreviewKeyDown += OnPreviewKeyDown;
+            DeviceListItem.PreviewMouseRightButtonUp += (_, __) => OpenPopup();
+        }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.M:
+                case Key.OemPeriod:
+                    Device.IsMuted = !Device.IsMuted;
+                    e.Handled = true;
+                    break;
+                case Key.Right:
+                case Key.OemPlus:
+                    Device.Volume++;
+                    e.Handled = true;
+                    break;
+                case Key.Left:
+                case Key.OemMinus:
+                    Device.Volume--;
+                    e.Handled = true;
+                    break;
+                case Key.Space:
+                    OpenPopup();
+                    e.Handled = true;
+                    break;
+            }
         }
 
         private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var self = (DeviceView)d;
             self.GridRoot.DataContext = self;
-        }
-
-        private void Mute_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                Device.IsMuted = !Device.IsMuted;
-                e.Handled = true;
-            }
-        }
-
-        private void Icon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                Device.IsMuted = !Device.IsMuted;
-                e.Handled = true;
-            }
         }
 
         private void TouchSlider_TouchUp(object sender, TouchEventArgs e)
@@ -58,11 +71,12 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void DeviceListItem_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        private void OpenPopup()
         {
-            if (Features.IsEnabled(Feature.DevicePopup))
+            var viewModel = Window.GetWindow(DeviceListItem).DataContext as IPopupHostViewModel;
+            if (viewModel != null)
             {
-                Device.OpenPopup(Device, DeviceListItem);
+                viewModel.OpenPopup(Device, DeviceListItem);
             }
         }
     }

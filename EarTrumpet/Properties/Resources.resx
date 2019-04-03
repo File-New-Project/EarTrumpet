@@ -127,10 +127,10 @@
     <value>Send feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Legacy Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any playback devices.</value>
@@ -145,7 +145,7 @@
     <value>Recording devices</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Settings  / About</value>
+    <value>Settings</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sounds</value>
@@ -156,34 +156,22 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Your shortcut</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Choose a keyboard shortcut</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Always use the default playback device</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Type a key combination:</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Learn more</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{1} percent volume - {0}"</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>"Muted - {0}"</value>
-    <comment>0 = localized app name</comment>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Apps</value>
@@ -200,35 +188,17 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Expand to show all playback devices</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Settings</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Assign this app to a playback device</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Open EarTrumpet flyout</value>
+    <value>Open Taskbar flyout</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Use legacy EarTrumpet icon</value>
-  </data>
-  <data name="AddAddonText" xml:space="preserve">
-    <value>+ Add</value>
-  </data>
-  <data name="AddonManagerTitleText" xml:space="preserve">
-    <value>Addon Manager</value>
-  </data>
-  <data name="LoadAddonAddonsText" xml:space="preserve">
-    <value>EarTrumpet Addons</value>
-  </data>
-  <data name="OpenAddonManagerText" xml:space="preserve">
-    <value>Open Addon Manager</value>
-  </data>
-  <data name="RemoveAddonText" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="AddonsMenuText" xml:space="preserve">
-    <value>Addons</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>More commands</value>
@@ -237,9 +207,78 @@
     <value>Muted</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Open sound settings</value>
+    <value>Sound settings</value>
   </data>
-  <data name="NoFilesLoadedFromAddonFormatText" xml:space="preserve">
-    <value>No Files were found in {0}</value>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows Legacy</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>About {Name} add-on</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Open Windows Settings</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>This add-on can be removed using the Windows Settings app.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Uninstall</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Legacy settings</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Publisher:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Configure shortcuts and get help</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet Settings</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Find a setting</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>No results</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Open Mixer</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Open settings</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Welcome to EarTrumpet</value>
   </data>
 </root>

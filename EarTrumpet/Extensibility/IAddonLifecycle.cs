@@ -9,6 +9,8 @@
 
     public interface IAddonLifecycle
     {
+        AddonInfo Info { get; }
+
         void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt);
     }
 }

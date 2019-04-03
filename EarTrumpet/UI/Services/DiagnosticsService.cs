@@ -1,5 +1,7 @@
 ﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Internal;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio.Internal;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using System;
@@ -8,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using Windows.ApplicationModel;
+using System.Globalization;
 
 namespace EarTrumpet.UI.Services
 {
@@ -16,14 +18,17 @@ namespace EarTrumpet.UI.Services
     {
         public static void DumpAndShowData()
         {
-            var allText = DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Playback));
-            allText += DumpDevices(DataModelFactory.CreateAudioDeviceManager(AudioDeviceKind.Recording));
+            var allText = DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback));
+            allText += DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Recording));
             allText += Environment.NewLine;
-            allText += $"App: {(App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "dev")}" + Environment.NewLine;
+            allText += $"App: {App.Current.GetVersion()}" + Environment.NewLine;
+            allText += $"HasIdentity: {App.Current.HasIdentity()}" + Environment.NewLine;
+            allText += $"CurrentCulture: {CultureInfo.CurrentCulture.Name}" + Environment.NewLine;
+            allText += $"CurrentUICulture: {CultureInfo.CurrentUICulture.Name}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
-            allText += $"First Party Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.BuiltIn.Select(a => a.DisplayName))}" + Environment.NewLine;
-            allText += $"Third Party Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.ThirdParty.Select(a => a.DisplayName))}" + Environment.NewLine;
+            allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
+            allText += $"IsSystemLightTheme: {SystemSettings.IsSystemLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
             allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
             allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
@@ -36,7 +41,7 @@ namespace EarTrumpet.UI.Services
             ProcessHelper.StartNoThrow(fileName);
         }
 
-        static string DumpSession(string indent, IAudioDeviceSession session)
+        static string DumpSession(string indent, IAudioDeviceSessionInternal session)
         {
             string flags= session.IsDesktopApp ? "Desktop " : "Modern ";
 
@@ -55,13 +60,13 @@ namespace EarTrumpet.UI.Services
             catch (Exception) { }
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(indent + $"{session.SessionDisplayName}");
+            sb.AppendLine(indent + $"{session.DisplayName}");
             sb.AppendLine(indent + $"  [{session.State}]: {session.Volume.ToVolumeInt()}%{(session.IsMuted ? " (Muted)" : "")} {flags}pid:{session.ProcessId} {(!isAlive ? "(dead)" : "")}");
             sb.AppendLine(indent + $"  AppId: {session.AppId}  id={session.Id}");
             sb.AppendLine(indent + $"  IconPath: {session.IconPath}");
             sb.AppendLine(indent + $"  GroupingParam: {session.GroupingParam}");
 
-            var persisted = session.PersistedDefaultEndPointId;
+            var persisted = ((IAudioDeviceManagerWindowsAudio)session.Parent.Parent).GetDefaultEndPoint(session.ProcessId);
             if (!string.IsNullOrWhiteSpace(persisted))
             {
                 sb.AppendLine(indent + $"  Persisted Endpoint: {persisted}");
@@ -85,7 +90,7 @@ namespace EarTrumpet.UI.Services
                     {
                         bool isOneSession = appSession.Children.Count == 1;
                         var indent = (isOneSession ? "  " : "|   ");
-                        sb.Append(DumpSession(indent, rawSession));
+                        sb.Append(DumpSession(indent, (IAudioDeviceSessionInternal)rawSession));
                         sb.AppendLine(indent);
                     }
                 }
@@ -99,7 +104,7 @@ namespace EarTrumpet.UI.Services
             StringBuilder sb = new StringBuilder();
             foreach (var device in manager.Devices)
             {
-                sb.Append(device == manager.Default ? $"[Default {manager.DeviceKind}] " : "");
+                sb.Append(device == manager.Default ? $"[Default {manager.Kind}] " : "");
                 sb.AppendLine(DumpDevice(device));
             }
             return sb.ToString();

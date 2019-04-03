@@ -8,13 +8,23 @@ namespace EarTrumpet.Interop.Helpers
 {
     class ImmersiveSystemColors
     {
-        internal static Color Lookup(string name)
+        public static Color Lookup(string name)
         {
+            TryLookup(name, out var ret);
+            return ret;
+        }
+
+        internal static bool TryLookup(string name, out Color result)
+        {
+            result = default(Color);
             var colorSet = Uxtheme.GetImmersiveUserColorSetPreference(false, false);
             var colorType = Uxtheme.GetImmersiveColorTypeFromName(name);
             var rawColor = Uxtheme.GetImmersiveColorFromColorSetEx(colorSet, colorType, false, 0);
 
-            return rawColor.ToABGRColor();
+
+            result = rawColor.ToABGRColor();
+
+            return (rawColor != 4294902015);
         }
 
         internal static IDictionary<string, Color> GetList()
@@ -29,7 +39,8 @@ namespace EarTrumpet.Interop.Helpers
                     break;
 
                 var name = Marshal.PtrToStringUni(Marshal.ReadIntPtr(ptr));
-                colors.Add(name, Lookup($"Immersive{name}"));
+                TryLookup($"Immersive{name}", out var color);
+                colors.Add(name, color);
             }
 
             return colors;

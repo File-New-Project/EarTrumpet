@@ -1,15 +1,17 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.FlyoutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:clr="clr-namespace:System;assembly=mscorlib"
+        xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
-        xmlns:ui="clr-namespace:EarTrumpet.UI"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+        xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
+        Theme:Brush.Foreground="Text"
+        Theme:Options.Scope="Flyout"
+        Theme:Options.Source="System"
         AllowsTransparency="True"
         Background="Transparent"
-        Foreground="{DynamicResource Unicolor_Text}"
         Icon="pack://application:,,,/Assets/Application.ico"
         PreviewKeyDown="Window_PreviewKeyDown"
         ResizeMode="NoResize"
@@ -19,186 +21,13 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <ui:MenuItemTemplateSelector x:Key="MenuSelector" Theme="DarkOnly" />
-
-        <Style BasedOn="{StaticResource ContextMenuDarkOnly}" TargetType="{x:Type ContextMenu}" />
-
-        <Style x:Key="DeviceHeaderGridStyle" TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
-        </Style>
-
-        <Style x:Key="DeviceHeaderBorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer2}" />
-        </Style>
-
-        <Style x:Key="AppListStyle"
-               BasedOn="{StaticResource BaseAppListStyle}"
-               TargetType="{x:Type ListView}">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-
-        <Style x:Key="AppListBorderStyle"
-               BasedOn="{StaticResource BaseAppListBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
-        </Style>
-
-        <Style x:Key="VolumeControlPopupBorder"
-               BasedOn="{StaticResource BaseVolumeControlPopupBorder}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource LightOrDark_ActiveWindowBorder}" />
-        </Style>
-
-        <Style x:Key="VirtualTitleBarBorderStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarBorderStyle}"
-               TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource Unicolor_DevicePaneBackgroundLayer1}" />
-        </Style>
-
-        <Style x:Key="Windows10FocusVisualStyleDarkOnly">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Rectangle Stroke="{DynamicResource Unicolor_SecondaryFocusVisual}" StrokeThickness="3" />
-                            <Rectangle Stroke="{DynamicResource Unicolor_PrimaryFocusVisual}" StrokeThickness="2" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="VirtualTitleBarButtonStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarButtonStyle}"
-               TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyleDarkOnly}" />
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonHoverText}" />
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_VirtualTitleBarButtonPressedText}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="VirtualTitleBarTextStyle"
-               BasedOn="{StaticResource BaseVirtualTitleBarTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
-
-        <Style x:Key="PerThemeGlyphTextBlockStyle"
-               BasedOn="{StaticResource GlyphTextBlockStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
-
-        <Style x:Key="PerThemeTextBlockStyle"
-               BasedOn="{StaticResource TextBlockStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
-
-        <Style x:Key="DeviceVolumeTextStyle"
-               BasedOn="{StaticResource BaseDeviceVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
-
-        <Style x:Key="AppVolumeTextStyle"
-               BasedOn="{StaticResource BaseAppVolumeTextStyle}"
-               TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-        </Style>
-
-        <Style x:Key="DeviceTitleTextStyle"
-               BasedOn="{StaticResource BaseDeviceTitleTextStyle}"
-               TargetType="{x:Type TextBlock}" />
-
-        <ControlTemplate x:Key="VolumeSliderTemplate" TargetType="{x:Type Slider}">
-            <Grid>
-                <Border Name="TrackBackground" Height="2" />
-
-                <Track Name="PART_Track">
-                    <Track.DecreaseRepeatButton>
-                        <RepeatButton Name="SliderLeft"
-                                      Command="Slider.DecreaseLarge"
-                                      Foreground="{DynamicResource Unicolor_SliderTrackLeft}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.DecreaseRepeatButton>
-                    <Track.Thumb>
-                        <Thumb Name="SliderThumb"
-                               Foreground="{DynamicResource Unicolor_SliderThumb}"
-                               Style="{StaticResource SliderThumbStyle}" />
-                    </Track.Thumb>
-                    <Track.IncreaseRepeatButton>
-                        <RepeatButton Name="SliderRight"
-                                      Command="Slider.IncreaseLarge"
-                                      Foreground="{DynamicResource Unicolor_SliderTrackRight}"
-                                      Style="{StaticResource SliderButtonStyle}" />
-                    </Track.IncreaseRepeatButton>
-                </Track>
-
-                <Border Name="PeakMeter1"
-                        Height="2"
-                        Margin="0,-2,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
-
-                <Border Name="PeakMeter2"
-                        Height="2"
-                        Margin="0,1,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{DynamicResource Unicolor_PeakMeterColor}" />
-
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualStateGroup.Transitions>
-                            <VisualTransition GeneratedDuration="0" To="Normal" />
-                        </VisualStateGroup.Transitions>
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="MouseOver">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbHover}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderThumb" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource Unicolor_SliderThumbPressed}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style x:Key="VolumeSliderStyle"
-               BasedOn="{StaticResource BaseVolumeSliderStyle}"
-               TargetType="{x:Type Slider}">
-            <Setter Property="Template" Value="{StaticResource VolumeSliderTemplate}" />
-        </Style>
-
         <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Foreground" Value="{DynamicResource Unicolor_Text}" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
+            <Setter Property="Theme:Brush.Foreground" Value="Text" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -212,12 +41,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonHoverText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#20FFFFFF, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource Unicolor_ExpandCollapseButtonPressedText}" />
+                    <Setter Property="Theme:Brush.Background" Value="Theme=#2FFFFFFF, HighContrast=Highlight" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -228,42 +57,49 @@
             <Setter Property="Focusable" Value="False" />
             <Setter Property="Margin" Value="0" />
         </Style>
-
-        <Style x:Key="{x:Type ListViewItem}"
-               BasedOn="{StaticResource BaseListViewItemStyle}"
-               TargetType="ListViewItem">
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource Windows10FocusVisualStyleDarkOnly}" />
-        </Style>
-
+        <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
+            <views:DeviceView Width="{StaticResource WindowAndItemSize}"
+                              Device="{Binding}"
+                              IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
+        </DataTemplate>
     </Window.Resources>
     <Grid x:Name="LayoutRoot">
         <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
-                <Border Height="{StaticResource NoItemsPaneHeight}"
-                        VerticalAlignment="Center"
-                        Background="{DynamicResource Unicolor_Background}"
-                        Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Normal}">
-                    <TextBlock x:Uid="NoDevicesPanelContent"
-                               HorizontalAlignment="Center"
-                               FontSize="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                <Border VerticalAlignment="Center"
+                        Theme:Brush.Background="FlyoutBackground">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Devices.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock HorizontalAlignment="Center"
+                               FontSize="{StaticResource {x:Static SystemFonts.MessageFontSizeKey}}"
+                               Margin="{StaticResource NoItemsPaneMargin}"
                                Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                                TextWrapping="Wrap" />
                 </Border>
-
-                <Grid Visibility="{Binding IsEmpty, Converter={StaticResource visConverter}, ConverterParameter=Inverted}">
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Devices.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                     <ItemsControl Name="DevicesList"
                                   FocusVisualStyle="{x:Null}"
                                   IsTabStop="False"
-                                  ItemsSource="{Binding Devices}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <views:DeviceView Device="{Binding}" IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                    <Button Height="{StaticResource DeviceTitleCellHeight}"
+                                  ItemsSource="{Binding Devices}" />
+                    <Button Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
                             Command="{Binding ExpandCollapse}"
                             IsEnabled="{Binding CanExpand}">
                         <Button.Style>
@@ -290,12 +126,12 @@
                             <Grid>
                                 <TextBlock Margin="12,0,32,0"
                                            HorizontalAlignment="Left"
-                                           Style="{DynamicResource DeviceTitleTextStyle}"
+                                           Style="{StaticResource DeviceTitleTextStyle}"
                                            Text="{Binding DeviceNameText}"
                                            TextTrimming="CharacterEllipsis" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
-                                           FontSize="12">
+                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
@@ -324,7 +160,7 @@
             </Grid>
         </ScrollViewer>
         <Border Name="LightDismissBorder"
-                Background="{DynamicResource Unicolor_BlurBackground}"
+                Theme:Brush.Background="Background"
                 PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">

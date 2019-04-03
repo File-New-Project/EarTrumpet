@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FullWindowViewModel : BindableBase
+    public class FullWindowViewModel : BindableBase, IPopupHostViewModel
     {
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
         public ModalDialogViewModel Dialog { get; }
@@ -13,7 +13,6 @@ namespace EarTrumpet.UI.ViewModels
         {
             Dialog = new ModalDialogViewModel();
             _mainViewModel = mainViewModel;
-            _mainViewModel.AppPopup += OnAppPopup;
             _mainViewModel.OnFullWindowOpened();
         }
 
@@ -23,13 +22,8 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel.OnFullWindowClosed();
         }
 
-        public void OnAppPopup(object vm, FrameworkElement container)
+        public void OpenPopup(object vm, FrameworkElement container)
         {
-            if (Window.GetWindow(container).DataContext != this)
-            {
-                return;
-            }
-
             Dialog.IsVisible = false;
 
             if (vm is IAppItemViewModel)
@@ -38,12 +32,19 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                Dialog.Focused = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                var deviceViewModel = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                if (deviceViewModel.IsApplicable)
+                {
+                    Dialog.Focused = deviceViewModel;
+                }
             }
 
-            Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
-            Dialog.Source = container;
-            Dialog.IsVisible = true;
+            if (Dialog.Focused != null)
+            {
+                Dialog.Focused.RequestClose += () => Dialog.IsVisible = false;
+                Dialog.Source = container;
+                Dialog.IsVisible = true;
+            }
         }
     }
 }

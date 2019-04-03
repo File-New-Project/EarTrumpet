@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Themes;
@@ -32,14 +33,7 @@ namespace EarTrumpet.UI.Views
 
             DataContext = _viewModel;
 
-            if (Features.IsEnabled(Feature.DevicePopup))
-            {
-                Application.Current.Deactivated += FlyoutWindow_Deactivated;
-            }
-            else
-            {
-                Deactivated += FlyoutWindow_Deactivated;
-            }
+            Deactivated += FlyoutWindow_Deactivated;
             SourceInitialized += FlyoutWindow_SourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             Closing += FlyoutWindow_Closing;
@@ -49,6 +43,7 @@ namespace EarTrumpet.UI.Views
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
             Hide();
+            this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
 
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
@@ -79,7 +74,7 @@ namespace EarTrumpet.UI.Views
         {
             this.Cloak();
 
-            ThemeManager.Current.ThemeChanged += ThemeChanged;
+            Manager.Current.ThemeChanged += ThemeChanged;
             ThemeChanged();
 
             _rawListener = new RawInputListener(this);
@@ -94,11 +89,38 @@ namespace EarTrumpet.UI.Views
 
         private void EnableBlurIfApplicable()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
+            if ((_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open) &&
+                SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast)
+            {
+                User32.AccentFlags location = User32.AccentFlags.None;
+
+                switch (WindowsTaskbar.Current.Location)
+                {
+                    case WindowsTaskbar.Position.Left:
+                        location = User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
+                        break;
+                    case WindowsTaskbar.Position.Right:
+                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
+                        break;
+                    case WindowsTaskbar.Position.Top:
+                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
+                        break;
+                    case WindowsTaskbar.Position.Bottom:
+                        location = User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder;
+                        break;
+                }
+
+                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), location);
+            }
+            else
+            {
+                DisableAcrylic();
+            }
         }
-        private void DisableBlur()
+
+        private void DisableAcrylic()
         {
-            AccentPolicyLibrary.SetWindowBlur(this, false);
+            AccentPolicyLibrary.DisableAcrylic(this);
         }
 
         private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)
@@ -163,7 +185,7 @@ namespace EarTrumpet.UI.Views
                     {
                         this.Cloak();
                         Hide();
-                        DisableBlur();
+                        DisableAcrylic();
                         _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
                     }
                     break;
@@ -192,16 +214,9 @@ namespace EarTrumpet.UI.Views
                     _viewModel.BeginClose();
                 }
             }
-            else
+            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
             {
-                if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
-                {
-                    e.Handled = true;
-                }
-                else
-                {
-                    KeyboardNavigator.OnKeyDown(this, ref e);
-                }
+                e.Handled = true;
             }
         }
 
@@ -235,7 +250,7 @@ namespace EarTrumpet.UI.Views
             double newTop = 0;
             double newLeft = 0;
 
-            switch(taskbarState.Location)
+            switch (taskbarState.Location)
             {
                 case WindowsTaskbar.Position.Left:
                     newLeft = (taskbarState.Size.Right / this.DpiWidthFactor());

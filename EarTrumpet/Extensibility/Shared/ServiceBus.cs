@@ -6,11 +6,6 @@ namespace EarTrumpet.Extensibility.Shared
     {
         static Dictionary<string, object> _services = new Dictionary<string, object>();
 
-        public static void Register(string name, object service)
-        {
-            _services[name] = service;
-        }
-
         public static void RegisterMany(string name, object service)
         {
             if (_services.ContainsKey(name))
@@ -20,12 +15,6 @@ namespace EarTrumpet.Extensibility.Shared
             }
 
             _services[name] = new List<object>(new object[] { service });
-        }
-
-        public static object Get(string name)
-        {
-            _services.TryGetValue(name, out var ret);
-            return ret;
         }
 
         public static List<object> GetMany(string name)

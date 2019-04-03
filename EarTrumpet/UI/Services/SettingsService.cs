@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Interop.Helpers;
 using System;
-using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Services
 {
@@ -9,20 +8,47 @@ namespace EarTrumpet.UI.Services
     {
         public static event EventHandler<bool> UseLegacyIconChanged;
 
-        public static readonly HotkeyData s_defaultHotkey = new HotkeyData { Modifiers = Keys.Shift | Keys.Control, Key = Keys.Q };
+        public static readonly HotkeyData s_defaultFlyoutHotkey = new HotkeyData { };
+        public static readonly HotkeyData s_defaultMixerHotkey = new HotkeyData { };
+        public static readonly HotkeyData s_defaultSettingsHotkey = new HotkeyData { };
 
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 
-        public static HotkeyData Hotkey
+        public static HotkeyData FlyoutHotkey
         {
-            get => s_settings.Get("Hotkey", s_defaultHotkey);
-            set => s_settings.Set("Hotkey", value);
+            get => s_settings.Get("Hotkey", s_defaultFlyoutHotkey);
+            set
+            {
+                s_settings.Set("Hotkey", value);
+                HotkeyManager.Current.Register(FlyoutHotkey);
+            }
+        }
+
+        public static HotkeyData MixerHotkey
+        {
+            get => s_settings.Get("MixerHotkey", s_defaultMixerHotkey);
+            set
+            {
+                s_settings.Set("MixerHotkey", value);
+                HotkeyManager.Current.Register(MixerHotkey);
+            }
+        }
+
+        public static HotkeyData SettingsHotkey
+        {
+            get => s_settings.Get("SettingsHotkey", s_defaultSettingsHotkey);
+            set
+            {
+                s_settings.Set("SettingsHotkey", value);
+                HotkeyManager.Current.Register(SettingsHotkey);
+            }
         }
 
         public static bool UseLegacyIcon
         {
             get
             {
+                // Note: Legacy compat, we used to write string bools.
                 var ret = s_settings.Get("UseLegacyIcon", "False");
                 bool.TryParse(ret, out bool isUseLegacyIcon);
                 return isUseLegacyIcon;
@@ -32,6 +58,13 @@ namespace EarTrumpet.UI.Services
                 s_settings.Set("UseLegacyIcon", value.ToString());
                 UseLegacyIconChanged?.Invoke(null, UseLegacyIcon);
             }
+        }
+
+        public static void RegisterHotkeys()
+        {
+            HotkeyManager.Current.Register(FlyoutHotkey);
+            HotkeyManager.Current.Register(MixerHotkey);
+            HotkeyManager.Current.Register(SettingsHotkey);
         }
     }
 }

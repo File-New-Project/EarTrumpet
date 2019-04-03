@@ -26,8 +26,9 @@ namespace EarTrumpet.UI.Views
             SizeChanged += FullWindow_SizeChanged;
             PreviewKeyDown += FullWindow_PreviewKeyDown;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
-            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            Themes.Manager.Current.ThemeChanged += SetBlurColor;
+            Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
         }
 
         private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
@@ -37,12 +38,17 @@ namespace EarTrumpet.UI.Views
             Dispatcher.BeginInvoke((Action)(() => ViewModel.Dialog.IsVisible = false));
         }
 
+        private void SetBlurColor()
+        {
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
+        }
+
         private void FullWindow_SourceInitialized(object sender, EventArgs e)
         {
             Trace.WriteLine("FullWindow FullWindow_SourceInitialized");
 
             this.Cloak();
-            AccentPolicyLibrary.SetWindowBlur(this, true, true);
+            SetBlurColor();
         }
 
         private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -67,10 +73,6 @@ namespace EarTrumpet.UI.Views
                 {
                     CloseButton_Click(null, null);
                 }
-            }
-            else
-            {
-                KeyboardNavigator.OnKeyDown(this, ref e);
             }
         }
 

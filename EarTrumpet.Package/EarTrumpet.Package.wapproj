@@ -12,14 +12,6 @@
       <Configuration>Release</Configuration>
       <Platform>x86</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|AnyCPU">
-      <Configuration>Debug</Configuration>
-      <Platform>AnyCPU</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|AnyCPU">
-      <Configuration>Release</Configuration>
-      <Platform>AnyCPU</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
@@ -40,13 +32,7 @@
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
     <PackageCertificateThumbprint>3E10717CB4915430F2920FECAC4F20570137B9FC</PackageCertificateThumbprint>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AppxBundle>Auto</AppxBundle>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <AppxBundle>Auto</AppxBundle>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AppxBundle>Auto</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -61,12 +47,14 @@
     <Content Include="Assets\Application.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo-lightunplated.png" />
     <Content Include="Assets\Square150x150Logo.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Square44x44Logo.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-lightunplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Square44x44LogoDark.scale-200.png" />
     <Content Include="Assets\StoreLogo.png" />
@@ -80,7 +68,6 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EarTrumpet.UWP\EarTrumpet.UWP.csproj" />
     <ProjectReference Include="..\EarTrumpet\EarTrumpet.csproj" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />

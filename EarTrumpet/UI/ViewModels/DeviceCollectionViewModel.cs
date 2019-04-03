@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.DataModel.WindowsAudio;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +7,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
-using System.Windows;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -14,7 +14,6 @@ namespace EarTrumpet.UI.ViewModels
     {
         public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
-        public event Action<object, FrameworkElement> AppPopup;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
         public DeviceViewModel Default { get; private set; }
@@ -54,15 +53,18 @@ namespace EarTrumpet.UI.ViewModels
             else
             {
                 var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
-                if (dev != null)
+                if (dev == null)
                 {
-                    Default = dev;
-                    DefaultChanged?.Invoke(this, Default);
+                    AddDevice(e);
+                    dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 }
+
+                Default = dev;
+                DefaultChanged?.Invoke(this, Default);
             }
         }
 
-        private void AddDevice(IAudioDevice device)
+        protected virtual void AddDevice(IAudioDevice device)
         {
             var newDevice = new DeviceViewModel(this, _deviceManager, device);
             AllDevices.Add(newDevice);
@@ -73,7 +75,12 @@ namespace EarTrumpet.UI.ViewModels
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddDevice((IAudioDevice)e.NewItems[0]);
+                    var added = ((IAudioDevice)e.NewItems[0]);
+                    var allExistingAdded = AllDevices.FirstOrDefault(d => d.Id == added.Id);
+                    if (allExistingAdded == null)
+                    {
+                        AddDevice(added);
+                    }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -100,11 +107,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void PeakMeterTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // We're in the background so we need to use a snapshot.
-            foreach (var device in AllDevices.ToArray())
-            {
-                device.UpdatePeakValueBackground();
-            }
+            _deviceManager.UpdatePeakValues();
 
             App.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
@@ -142,7 +145,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             // Collect and move any hidden/moved sessions.
-            _deviceManager.MoveHiddenAppsToDevice(app.AppId, dev?.Id);
+            ((IAudioDeviceManagerWindowsAudio)_deviceManager).MoveHiddenAppsToDevice(app.AppId, dev?.Id);
         }
 
         private void MoveAppToDeviceInternal(IAppItemViewModel app, DeviceViewModel dev)
@@ -179,7 +182,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void StartOrStopPeakTimer()
         {
-            _peakMeterTimer.Enabled = (_isFlyoutVisible | _isFullWindowVisible);
+            _peakMeterTimer.Enabled = _isFlyoutVisible || _isFullWindowVisible;
         }
 
         public void OnTrayFlyoutShown()
@@ -204,11 +207,6 @@ namespace EarTrumpet.UI.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
-        }
-
-        public void OpenPopup(object viewModel, FrameworkElement container)
-        {
-            AppPopup?.Invoke(viewModel, container);
         }
     }
 }

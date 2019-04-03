@@ -4,27 +4,29 @@ using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Services
 {
     class ErrorReportingService
     {
+        private static bool _isAppShuttingDown;
         internal static void Initialize()
         {
             AppTrace.Initialize(OnWarningException);
 
             try
             {
+                Application.Current.Exit += (_, __) => _isAppShuttingDown = true;
 #if DEBUG
                 WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
 #endif
 
                 WPFClient.Config.StoreOfflineErrors = true;
-                WPFClient.Config.AppVersion = App.Current.HasIdentity() ? Package.Current.Id.Version.ToVersionString() : "DevInternal";
+                WPFClient.Config.AppVersion = App.Current.GetVersion().ToString();
                 WPFClient.Start();
 
                 WPFClient.Config.BeforeNotify(OnBeforeNotify);
@@ -55,10 +57,15 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => SystemSettings.BuildLabel));
 
             error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
+            error.Metadata.AddToTab("AppSettings", "IsSystemLightTheme", GetNoError(() => SystemSettings.IsSystemLightTheme));
             error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
             error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
+            error.Metadata.AddToTab("AppSettings", "Culture", GetNoError(() => CultureInfo.CurrentCulture.Name));
+            error.Metadata.AddToTab("AppSettings", "CurrentUICulture", GetNoError(() => CultureInfo.CurrentUICulture.Name));
             error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
+            error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => _isAppShuttingDown));
+            error.Metadata.AddToTab("AppSettings", "HasIdentity", GetNoError(() => Application.Current.HasIdentity()));
 
             return true;
         }

@@ -8,7 +8,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     class FocusedDeviceViewModel : IFocusedViewModel
     {
-        public static IAddonDeviceContextMenu[] AddonContextMenuItems { get; set; }
         public static IAddonDeviceContent[] AddonContentItems { get; set; }
 
         public event Action RequestClose;
@@ -17,6 +16,8 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<ToolbarItemViewModel> Toolbar { get; }
 
         public ObservableCollection<object> Addons { get; }
+
+        public bool IsApplicable => (Addons != null && Addons.Count > 0);
 
         public FocusedDeviceViewModel(DeviceCollectionViewModel mainViewModel, DeviceViewModel device)
         {
@@ -32,26 +33,22 @@ namespace EarTrumpet.UI.ViewModels
 
             if (AddonContentItems != null)
             {
-                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).ToArray());
-            }
+                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).Where(a => a != null).ToArray());
 
-            if (Features.IsEnabled(Feature.Addons) &&
-                    AddonContextMenuItems != null && AddonContextMenuItems.Any())
-            {
-                var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForDevice(device.Id));
-                Toolbar.Insert(0, new ToolbarItemViewModel
+                var menuItems = AddonContentItems.SelectMany(a => a.GetItemsForDevice(device.Id)).Where(m => m != null);
+                if (menuItems.Any())
                 {
-                    GlyphFontSize = 16,
-                    DisplayName = Properties.Resources.MoreCommandsAccessibleText,
-                    Glyph = "\uE10C",
-                    Menu = new ObservableCollection<ContextMenuItem>(menuItems)
-                });
+                    Toolbar.Insert(0, new ToolbarItemViewModel
+                    {
+                        GlyphFontSize = 16,
+                        DisplayName = Properties.Resources.MoreCommandsAccessibleText,
+                        Glyph = "\uE10C",
+                        Menu = new ObservableCollection<ContextMenuItem>(menuItems)
+                    });
+                }
             }
         }
 
-        public void Closing()
-        {
-
-        }
+        public void Closing() { }
     }
 }

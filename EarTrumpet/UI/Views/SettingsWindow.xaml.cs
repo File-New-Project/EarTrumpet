@@ -2,7 +2,7 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModels;
+using System;
 using System.Diagnostics;
 using System.Windows;
 
@@ -10,6 +10,8 @@ namespace EarTrumpet.UI.Views
 {
     public partial class SettingsWindow : Window
     {
+        public event Action CloseClicked;
+
         private bool _isClosing;
 
         public SettingsWindow()
@@ -19,27 +21,14 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             SourceInitialized += SettingsWindow_SourceInitialized;
-
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-
-            DataContextChanged += SettingsWindow_DataContextChanged;
+            Themes.Manager.Current.ThemeChanged += SetBlurColor;
+            Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
         }
 
-        private void SettingsWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void SetBlurColor()
         {
-            if (e.NewValue is IWindowHostedViewModel)
-            {
-                var vm = (IWindowHostedViewModel)e.NewValue;
-                vm.Close += () => Close();
-                vm.HostDialog += (dialogDataContext) =>
-                {
-                    var dialog = new DialogWindow { Owner = this };
-                    dialog.DataContext = dialogDataContext;
-                    dialog.ShowDialog();
-                };
-                Closing += (_, __) => vm.OnClosing();
-                PreviewKeyDown += (_, eKey) => vm.OnPreviewKeyDown(eKey);
-            }
+            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
         }
 
         private void SettingsWindow_SourceInitialized(object sender, System.EventArgs e)
@@ -47,12 +36,20 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("SettingsWindow SettingsWindow_SourceInitialized");
 
             this.Cloak();
-            AccentPolicyLibrary.SetWindowBlur(this, true, true);
+            SetBlurColor();
         }
-        
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("SettingsWindow CloseButton_Click");
+            Trace.WriteLine("CloseButton_Click SafeClose");
+            e.Handled = true;
+
+            CloseClicked?.Invoke();
+        }
+
+        public void SafeClose()
+        {
+            Trace.WriteLine("SettingsWindow SafeClose");
 
             if (!_isClosing)
             {
@@ -60,6 +57,17 @@ namespace EarTrumpet.UI.Views
                 _isClosing = true;
                 WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
             }
+        }
+
+        private void MaximizeRestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = (WindowState == WindowState.Maximized) ?
+                WindowState.Normal : WindowState.Maximized;
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

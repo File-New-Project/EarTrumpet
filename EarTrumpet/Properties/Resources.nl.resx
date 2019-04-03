@@ -118,49 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Afsluiten </value>
+    <value>Afsluiten</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
     <value>Geen afspeelapparaten gevonden</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Stuur feedback</value>
+    <value>Verstuur feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Legacy Volume Mixer</value>
+    <value>Volume Mixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Het ziet er niet naar uit dat u geen afspeelapparaten hebt.</value>
+    <value>Het lijkt erop dat je geen afspeelapparaten hebt</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
     <value>EarTrumpet: Geen afspeelapparaten</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Afspeelapparaten </value>
+    <value>Afspeelapparaten</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Opname-apparaten </value>
+    <value>Opnameapparaten</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Instellingen/Over</value>
+    <value>Instellingen</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Geluiden</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Verzamel probleem data</value>
+    <value>Feedback data verzamelen</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Uw snelkoppeling</value>
-  </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Opslaan</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Kies een toetsenbord snelkoppeling</value>
+    <value>Snelkoppeling</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Gebruik altijd het standaard afspeelapparaat</value>
@@ -168,49 +162,123 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>Over</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Typ een toetsencombinatie</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Leer meer</value>
+    <value>Meer informatie</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} geluidspercentage - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    <value>"{1}% volume - {0}"</value>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Stil - {0}</value>
-    <comment>0 = localized app name</comment>
+    <value>"Gedempt - {0}"</value>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Apps</value>
+    <value>Programma's</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Sluiten</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Sluit om enkel het standaard afspeelapparaat te tonen</value>
+    <value>Klap in om alleen standaard afspeelapparaat te tonen</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Standaard snelkoppeling</value>
+    <value>Standaard sneltoets</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Klap open om all afspeelapparaten te tonen</value>
+    <value>Klap uit om alle afspeelapparaten te tonen</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Settings</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Algemeen</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Voeg deze app toe aan een afspeelapparaat</value>
+    <value>Koppel deze app aan een afspeelapparaat</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Open EarTrumpet flyout</value>
+    <value>Open taakbalkmenu</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Gebruik het oude Eartrumpet icoon</value>
+    <value>Gebruik oude EarTrumpet icoon</value>
   </data>
-
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Meer commando's</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Gedempt</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Geluidsinstellingen</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows Legacy</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Over {Name} add-on</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Naam:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Open Windows Instellingen</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Deze add-on kan verwijderd worden in de Windows Instellingen app</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Deïnstalleren</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Legacy instellingen</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Uitgegeven door:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Configureer sneltoetsen en Help</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet Instellingen</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Sneltoetsen</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versie:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Instelling vinden</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Geen resultaten</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Open Mixer</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Binnenkort beschikbaar</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Binnenkort beschikbaar</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Open instellingen</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Welkom bij EarTrumpet</value>
+  </data>
 </root>

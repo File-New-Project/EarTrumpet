@@ -3,6 +3,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Windows;
@@ -16,41 +17,55 @@ namespace EarTrumpet.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ImageSource ret = null;
             var iconInfo = (IconLoadInfo)value;
-
-            if (iconInfo.IsLoadComplete)
+            if (!iconInfo.IsLoadComplete)
             {
-                return iconInfo.CachedValue;
+                iconInfo.IsLoadComplete = true;
+                iconInfo.CachedValue = GetIconFromFileImpl(iconInfo.IconPath, iconInfo.IsDesktopApp);
+            }
+            return iconInfo.CachedValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+
+        public static Icon GetDesktopIconFromFile(string path)
+        {
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                var iconPath = new StringBuilder(path);
+                int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
+                if (iconIndex != 0)
+                {
+                    return IconUtils.ShellExtractIcon(iconPath.ToString(), iconIndex);
+                }
+                else
+                {
+                    return System.Drawing.Icon.ExtractAssociatedIcon(path);
+                }
+            }
+            return null;
+        }
+
+        private static ImageSource GetIconFromFileImpl(string path, bool isDesktopApp)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return null;
             }
 
+            ImageSource ret = null;
             try
             {
-                if (iconInfo.IsDesktopApp)
+                if (isDesktopApp)
                 {
-                    if (!string.IsNullOrWhiteSpace(iconInfo.IconPath))
-                    {
-                        var iconPath = new StringBuilder(iconInfo.IconPath);
-                        int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
-                        if (iconIndex != 0)
-                        {
-                            ret = IconUtils.GetIconAsImageSourceFromFile(iconPath.ToString(), iconIndex);
-                        }
-                        else
-                        {
-                            using (var icon = System.Drawing.Icon.ExtractAssociatedIcon(iconInfo.IconPath))
-                            {
-                                ret = icon.ToImageSource();
-                            }
-                        }
-                    }
+                    ret = GetDesktopIconFromFile(path).ToImageSource();
                 }
                 else
                 {
                     var bitmap = new BitmapImage();
                     bitmap.BeginInit();
                     bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.UriSource = new Uri(iconInfo.IconPath);
+                    bitmap.UriSource = new Uri(path);
                     bitmap.EndInit();
                     ret = bitmap;
                 }
@@ -59,15 +74,7 @@ namespace EarTrumpet.UI.Converters
             {
                 Trace.WriteLine($"Failed to load icon: {ex}");
             }
-
-            iconInfo.IsLoadComplete = true;
-            iconInfo.CachedValue = ret;
             return ret;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

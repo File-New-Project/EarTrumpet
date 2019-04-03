@@ -17,11 +17,13 @@ namespace EarTrumpet.DataModel.Storage
         public static string ToString<T>(string key, T value)
         {
             var xmlserializer = new XmlSerializer(typeof(T));
-            var stringWriter = new StringWriter();
-            using (var writer = XmlWriter.Create(stringWriter))
+            using (var stringWriter = new StringWriter())
             {
-                xmlserializer.Serialize(writer, value);
-                return stringWriter.ToString();
+                using (var writer = XmlWriter.Create(stringWriter))
+                {
+                    xmlserializer.Serialize(writer, value);
+                    return stringWriter.ToString();
+                }
             }
         }
     }

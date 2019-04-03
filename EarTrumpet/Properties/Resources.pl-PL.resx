@@ -156,34 +156,22 @@
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Twój skrót</value>
   </data>
-  <data name="SelectHotkeySaveButtonText" xml:space="preserve">
-    <value>Zapisz</value>
-  </data>
-  <data name="SelectHotkeyWindowTitle" xml:space="preserve">
-    <value>Wybierz skrót klawiaturowy</value>
-  </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Zawsze używaj domyślnego urządzenia do odtwarzania</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>O programie</value>
   </data>
-  <data name="HotKeySelectionText" xml:space="preserve">
-    <value>Wprowadź kombinację klawiszy:</value>
-  </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
-  </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Dowiedz się więcej</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{1} procent głośności - {0}</value>
-    <comment>0 = localized app name, 1 = volume 0-100</comment>
+    
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>Wyciszone - {0}</value>
-    <comment>0 = localized app name</comment>
+    
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Aplikacje</value>
@@ -200,8 +188,8 @@
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Rozwiń, aby pokazać wszystkie urządzenia do odtwarzania</value>
   </data>
-  <data name="KeyboardShortcutsTitle" xml:space="preserve">
-    <value>Ustawienia</value>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Ogólne</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
     <value>Przypisz aplikację wybranemu urządzeniu do odtwarzania</value>
@@ -212,5 +200,85 @@
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Używaj starej ikony aplikacji</value>
   </data>
-
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Więcej komend</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Wyciszony</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Ustawienia dźwięku</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Stary Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>O dodatku  {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Otwórz ustawienia Windowsa</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Ten dodatek może zostać usunięty przez ustawienia systemu Windows</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Odinstaluj</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Zarządzanie</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Stare ustawienia</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Wydawca:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Ustaw skróty i zdobądź pomoc</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Skróty</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Wersja:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Znajdź ustawienie</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Brak wyników</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Otwórz mikser</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Wyłączony</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Włączony</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Główne</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Wkrótce</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Wkrótce</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Otwórz ustawienia</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Witaj w EarTrumpet</value>
+  </data>
 </root>

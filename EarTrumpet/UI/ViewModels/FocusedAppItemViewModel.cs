@@ -9,7 +9,6 @@ namespace EarTrumpet.UI.ViewModels
     public class FocusedAppItemViewModel : IFocusedViewModel
     {
         public static IAddonAppContent[] AddonContentItems { get; set; }
-        public static IAddonAppContextMenu[] AddonContextMenuItems { get; set; }
 
         public event Action RequestClose;
 
@@ -69,20 +68,18 @@ namespace EarTrumpet.UI.ViewModels
             if (AddonContentItems != null)
             {
                 Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForApp(App.Parent.Id, App.Id, () => RequestClose.Invoke())).ToArray());
-            }
 
-            if (Features.IsEnabled(Feature.Addons) &&
-                AddonContextMenuItems != null && AddonContextMenuItems.Any())
-            {
-                var menuItems = AddonContextMenuItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
-
-                Toolbar.Insert(0, new ToolbarItemViewModel
+                var menuItems = AddonContentItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
+                if (menuItems.Any())
                 {
-                    GlyphFontSize = 16,
-                    DisplayName = Properties.Resources.MoreCommandsAccessibleText,
-                    Glyph = "\uE10C",
-                    Menu = new ObservableCollection<ContextMenuItem>(menuItems)
-                });
+                    Toolbar.Insert(0, new ToolbarItemViewModel
+                    {
+                        GlyphFontSize = 16,
+                        DisplayName = Properties.Resources.MoreCommandsAccessibleText,
+                        Glyph = "\uE10C",
+                        Menu = new ObservableCollection<ContextMenuItem>(menuItems)
+                    });
+                }
             }
         }
 
