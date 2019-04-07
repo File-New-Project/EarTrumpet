@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using System;
@@ -54,7 +55,11 @@ namespace EarTrumpet.UI.Tray
             switch (kind)
             {
                 case IconKind.Invalid: throw new InvalidOperationException("invalid icon");
-                case IconKind.OriginalIcon: return new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream);
+                case IconKind.OriginalIcon:
+                    using (var stream = Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/Tray.ico")).Stream)
+                    {
+                        return new Icon(stream);
+                    }
                 default:
                     try
                     {

@@ -54,7 +54,9 @@ namespace EarTrumpet.UI.Tray
         {
             if (e.PropertyName == nameof(_trayViewModel.TrayIcon))
             {
+                var oldIcon = _trayIcon.Icon;
                 _trayIcon.Icon = _trayViewModel.TrayIcon;
+                oldIcon?.Dispose();
             }
             else if (e.PropertyName == nameof(_trayViewModel.ToolTip))
             {

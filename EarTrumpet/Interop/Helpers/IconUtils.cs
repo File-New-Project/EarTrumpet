@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Tray;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.UI.Tray;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -31,7 +32,7 @@ namespace EarTrumpet.Interop.Helpers
             IntPtr iconHandle = IntPtr.Zero;
             try
             {
-                return Icon.FromHandle(Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex));
+                return Icon.FromHandle(Shell32.ExtractIcon(Process.GetCurrentProcess().Handle, path, iconIndex)).AsDisposableIcon();
             }
             finally
             {
@@ -58,7 +59,7 @@ namespace EarTrumpet.Interop.Helpers
                     }
                 }
 
-                return Icon.FromHandle(bitmap.GetHicon());
+                return Icon.FromHandle(bitmap.GetHicon()).AsDisposableIcon();
             }
         }
     }
