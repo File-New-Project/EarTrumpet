@@ -13,145 +13,152 @@ namespace EarTrumpet.UI.Themes
     {
         public static SolidColorBrush Parse(DependencyObject element, string value)
         {
-            bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
-            string lightOrDarkText = isLight ? "Light" : "Dark";
-            Dictionary<string, Dictionary<string, string>> fullMap = new Dictionary<string, Dictionary<string, string>>();
-            // Transparent
-            // Theme=Transparent
-            // Flyout:Theme=Transparent, HighContrast=Window
-            foreach (var commaValue in value.Split(','))
+            try
             {
+                bool isLight = Options.GetSource(element) == Options.SourceKind.App ? SystemSettings.IsLightTheme : SystemSettings.IsSystemLightTheme;
+                string lightOrDarkText = isLight ? "Light" : "Dark";
+                Dictionary<string, Dictionary<string, string>> fullMap = new Dictionary<string, Dictionary<string, string>>();
                 // Transparent
                 // Theme=Transparent
-                // Flyout:Theme=Transparent
-                var segment = commaValue.Trim();
-                var scope = "";
-                if (segment.IndexOf(':') > -1)
+                // Flyout:Theme=Transparent, HighContrast=Window
+                foreach (var commaValue in value.Split(','))
                 {
-                    var colonSplit = segment.Split(':');
-                    scope = colonSplit[0];
-                    segment = colonSplit[1];
-                }
-                if (!fullMap.ContainsKey(scope))
-                {
-                    fullMap[scope] = new Dictionary<string, string>();
+                    // Transparent
+                    // Theme=Transparent
+                    // Flyout:Theme=Transparent
+                    var segment = commaValue.Trim();
+                    var scope = "";
+                    if (segment.IndexOf(':') > -1)
+                    {
+                        var colonSplit = segment.Split(':');
+                        scope = colonSplit[0];
+                        segment = colonSplit[1];
+                    }
+                    if (!fullMap.ContainsKey(scope))
+                    {
+                        fullMap[scope] = new Dictionary<string, string>();
+                    }
+
+                    // Transparent
+                    // Theme=Transparent
+                    var equalsSplit = segment.Split('=');
+                    var key = equalsSplit.Length == 1 ? "" : equalsSplit[0];
+                    var color = equalsSplit.Length == 1 ? equalsSplit[0] : equalsSplit[1];
+                    fullMap[scope][key] = color;
                 }
 
-                // Transparent
-                // Theme=Transparent
-                var equalsSplit = segment.Split('=');
-                var key = equalsSplit.Length == 1 ? "" : equalsSplit[0];
-                var color = equalsSplit.Length == 1 ? equalsSplit[0] : equalsSplit[1];
-                fullMap[scope][key] = color;
-            }
-
-            // Search for Refs in either the elementScope of deault map.
-            var elementScope = Options.GetScope(element);
-            var searchKey = "";
-            if (fullMap.ContainsKey(elementScope))
-            {
-                if (fullMap[elementScope].ContainsKey(""))
+                // Search for Refs in either the elementScope of deault map.
+                var elementScope = Options.GetScope(element);
+                var searchKey = "";
+                if (fullMap.ContainsKey(elementScope))
                 {
-                    searchKey = fullMap[elementScope][""];
-                }
-            }
-            else
-            {
-                if (fullMap[""].ContainsKey(""))
-                {
-                    searchKey = fullMap[""][""];
-                }
-            }
-
-            if (searchKey != "")
-            {
-                if (FindReference(element, searchKey, out var outRef))
-                {
-                    return outRef;
-                }
-            }
-
-            // Pick the color considering theme.
-            var map = fullMap.ContainsKey(elementScope) ? fullMap[elementScope] : fullMap[""];
-            string colorName;
-            if (SystemParameters.HighContrast)
-            {
-                if (map.ContainsKey(""))
-                {
-                    colorName = map[""];
-                }
-                else if (map.ContainsKey("HighContrast"))
-                {
-                    colorName = map["HighContrast"];
-                }
-                else if (map.ContainsKey("Theme"))
-                {
-                    colorName = map["Theme"].Replace("{Theme}", "Light");
-                }
-                else if (map.ContainsKey("Light"))
-                {
-                    colorName = map["Light"];
+                    if (fullMap[elementScope].ContainsKey(""))
+                    {
+                        searchKey = fullMap[elementScope][""];
+                    }
                 }
                 else
                 {
-                    throw new NotImplementedException($"BrushValueParser: '{value}'");
+                    if (fullMap[""].ContainsKey(""))
+                    {
+                        searchKey = fullMap[""][""];
+                    }
                 }
-            }
-            else
-            {
-                if (map.ContainsKey(""))
+
+                if (searchKey != "")
                 {
-                    colorName = map[""];
+                    if (FindReference(element, searchKey, out var outRef))
+                    {
+                        return outRef;
+                    }
                 }
-                else if (map.ContainsKey("Theme"))
+
+                // Pick the color considering theme.
+                var map = fullMap.ContainsKey(elementScope) ? fullMap[elementScope] : fullMap[""];
+                string colorName;
+                if (SystemParameters.HighContrast)
                 {
-                    colorName = map["Theme"].Replace("{Theme}", isLight ? "Light" : "Dark");
-                }
-                else if (map.ContainsKey("Light") && isLight)
-                {
-                    colorName = map["Light"];
-                }
-                else if (map.ContainsKey("Dark") && !isLight)
-                {
-                    colorName = map["Dark"];
+                    if (map.ContainsKey(""))
+                    {
+                        colorName = map[""];
+                    }
+                    else if (map.ContainsKey("HighContrast"))
+                    {
+                        colorName = map["HighContrast"];
+                    }
+                    else if (map.ContainsKey("Theme"))
+                    {
+                        colorName = map["Theme"].Replace("{Theme}", "Light");
+                    }
+                    else if (map.ContainsKey("Light"))
+                    {
+                        colorName = map["Light"];
+                    }
+                    else
+                    {
+                        throw new NotImplementedException($"BrushValueParser: '{value}'");
+                    }
                 }
                 else
                 {
-                    throw new NotImplementedException($"BrushValueParser: '{value}'");
+                    if (map.ContainsKey(""))
+                    {
+                        colorName = map[""];
+                    }
+                    else if (map.ContainsKey("Theme"))
+                    {
+                        colorName = map["Theme"].Replace("{Theme}", isLight ? "Light" : "Dark");
+                    }
+                    else if (map.ContainsKey("Light") && isLight)
+                    {
+                        colorName = map["Light"];
+                    }
+                    else if (map.ContainsKey("Dark") && !isLight)
+                    {
+                        colorName = map["Dark"];
+                    }
+                    else
+                    {
+                        throw new NotImplementedException($"BrushValueParser: '{value}'");
+                    }
                 }
-            }
 
-            if (FindReference(element, colorName, out var reference))
-            {
-                return reference;
-            }
-
-            // Lookup the color
-            Color ret;
-            colorName = ParseOpacityFromColor(colorName, out var opacity);
-            if (colorName[0] == '#')
-            {
-                ret = (Color)ColorConverter.ConvertFromString(colorName);
-            }
-            else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
-            {
-                var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-                if (info == null)
+                if (FindReference(element, colorName, out var reference))
                 {
-                    info = typeof(SystemColors).GetProperty(colorName + "Color", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                    return reference;
                 }
-                ret = (Color)info.GetValue(null, null);
-            }
-            else
-            {
-                ret = color;
-            }
 
-            if (opacity > 0)
-            {
-                ret.A = (byte)(opacity * 255);
+                // Lookup the color
+                Color ret;
+                colorName = ParseOpacityFromColor(colorName, out var opacity);
+                if (colorName[0] == '#')
+                {
+                    ret = (Color)ColorConverter.ConvertFromString(colorName);
+                }
+                else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
+                {
+                    var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                    if (info == null)
+                    {
+                        info = typeof(SystemColors).GetProperty(colorName + "Color", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+                    }
+                    ret = (Color)info.GetValue(null, null);
+                }
+                else
+                {
+                    ret = color;
+                }
+
+                if (opacity > 0)
+                {
+                    ret.A = (byte)(opacity * 255);
+                }
+                return new SolidColorBrush(ret);
             }
-            return new SolidColorBrush(ret);
+            catch (Exception ex)
+            {
+                throw new Exception($"BrushValueParser Error: '{value}'", ex);
+            }
         }
 
         private static bool FindReference(DependencyObject element, string searchKey, out SolidColorBrush outRef)
