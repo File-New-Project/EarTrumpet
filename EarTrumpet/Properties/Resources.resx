@@ -291,4 +291,7 @@
   <data name="StartupSettingsPageText" xml:space="preserve">
     <value>Startup</value>
   </data>
+  <data name="IfRtfSettings" xml:space="preserve">
+    <value>Auto rtf Taskbar flyout</value>
+  </data>
 </root>

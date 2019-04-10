@@ -291,4 +291,7 @@
   <data name="StartupSettingsPageText" xml:space="preserve">
     <value>آغاز</value>
   </data>
+  <data name="IfRtfSettings" xml:space="preserve">
+    <value>چپ چین برنامه به صورت خدکار</value>
+  </data>
 </root>

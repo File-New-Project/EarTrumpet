@@ -268,6 +268,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto rtf Taskbar flyout.
+        /// </summary>
+        public static string IfRtfSettings {
+            get {
+                return ResourceManager.GetString("IfRtfSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Languages.
         /// </summary>
         public static string LanguageSettingsPageText {
