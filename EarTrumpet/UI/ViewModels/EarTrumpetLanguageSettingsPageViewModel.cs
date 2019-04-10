@@ -9,6 +9,11 @@ namespace EarTrumpet.UI.ViewModels
     //hamed
     class EarTrumpetLanguageSettingsPageViewModel : SettingsPageViewModel
     {
+        public bool IfRtf
+        {
+            get => SettingsService.IfRtf;
+            set => SettingsService.IfRtf = value;
+        }
         public Lang Language
         {
             get => languageList.Find(x=>x.L== SettingsService.Language);

@@ -117,16 +117,18 @@
             <StackPanel Orientation="Vertical">
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.StartLoginWindowsSettings}"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
+                          IsChecked="{Binding Startup, Mode=TwoWay}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLanguageSettingsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{x:Static resx:Resources.SettingsLanguages}" VerticalAlignment="Center"
                                Style="{StaticResource BodySubText}"  Margin="0,0,0,10"/>
-                <ComboBox Name="ComboBoxLanguages" ItemsSource="{Binding LanguageList}" DisplayMemberPath="Title" Text="{Binding Titles}" SelectedItem="{Binding Language, Mode=TwoWay}" VerticalContentAlignment="Center" Width="180" Style="{StaticResource MetroComboBox}">
-                    
-                </ComboBox>
+                <ComboBox Name="ComboBoxLanguages" ItemsSource="{Binding LanguageList}" DisplayMemberPath="Title" Text="{Binding Titles}" SelectedItem="{Binding Language, Mode=TwoWay}" VerticalContentAlignment="Center" Width="180" Style="{StaticResource MetroComboBox}"/>
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.IfRtfSettings}"
+                          IsChecked="{Binding IfRtf, Mode=TwoWay}" />
+
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">

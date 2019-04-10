@@ -76,6 +76,21 @@ namespace EarTrumpet.UI.Services
                 StartupChanged?.Invoke(null, Startup);
             }
         }
+        public static bool IfRtf
+        {
+            get
+            {
+                // Note: Legacy compat, we used to write string bools.
+                var ret = s_settings.Get("IfRtf", "False");
+                bool.TryParse(ret, out bool IfRtf);
+                return IfRtf;
+            }
+            set
+            {
+                s_settings.Set("IfRtf", value.ToString());
+                StartupChanged?.Invoke(null, IfRtf);
+            }
+        }
         public static string Language
         {
             get
