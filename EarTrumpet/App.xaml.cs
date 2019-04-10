@@ -137,13 +137,13 @@ namespace EarTrumpet
             var defaultCategory = new SettingsCategoryViewModel(EarTrumpet.Properties.Resources.SettingsCategoryTitle, "\xE71D",
                 EarTrumpet.Properties.Resources.SettingsDescriptionText,
                 null,
-                new SettingsPageViewModel[] {       
+                new SettingsPageViewModel[] {
+                        new EarTrumpetShortcutsPageViewModel(),
+                        new EarTrumpetLegacySettingsPageViewModel(),
 #region hamed
                     new EarTrumpetStartupSettingsPageViewModel(),
                         new EarTrumpetLanguageSettingsPageViewModel(),
 #endregion
-                        new EarTrumpetShortcutsPageViewModel(),
-                        new EarTrumpetLegacySettingsPageViewModel(),
                         new EarTrumpetAboutPageViewModel(),
                 }.ToList());
 
