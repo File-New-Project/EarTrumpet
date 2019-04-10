@@ -16,7 +16,9 @@ namespace EarTrumpet.DataModel
         public static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
         public static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
         public static bool IsRTL =>  CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+        //hamed
         public static bool IsRTL2 => CultureInfo.InstalledUICulture.TextInfo.IsRightToLeft;
+        //end hamed
         public static string BuildLabel
         {
             get
