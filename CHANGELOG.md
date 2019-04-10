@@ -1,15 +1,42 @@
 # Changelog
 
+## 2.1.1.0
+- Fixed a crash when parsing numbers on non-English systems
+
+## 2.1.0.0
+- Added new settings experience
+- Added support for Windows light mode
+- Added keyboard shortcuts for opening the mixer and settings windows
+- Reduced clutter in the context menu
+- Fixed various display issues when using RTL writing systems
+- Changed app naming behavior to align with Windows
+- Added mute text to the notification area icon
+- Added 'Open sound settings' link to context menu
+- Added text to notification area icon tooltip to indicate mute state
+- Re-added flyout window shadow and borders
+- Added additional telemetry points
+- Removed Arabic, Hungarian, Korean, Norwegian Bokmål, Portuguese, Romanian, and Turkish until we complete localization
+- Additional bugfixes
+
+## 2.0.8.0
+- Changed grouping behavior to key off app install paths vice executable name
+- Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher
+- Fixed an issue where the Enhancements tab was missing in playback devices dialog
+- Fixed an issue where the flyout was too tall when the taskbar is configured to auto-hide
+- Fixed an issue where disabled or unplugged devices would unexpectedly appear
+- Fixed a crash when no default audio endpoint was present
+- Fixed a crash when right-clicking an audio session after moving it
+
 ## 2.0.7.0
-- Disable Alt+Space on the flyout window
-- Limit the internal log buffer
-- Fix a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
-- Fix a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
-- Fix the icon and name of recording devices in 'Listen' mode
-- High contrast theme updates
-- Per-monitor DPI support
-- Fixes to Notification Area icon scaling
-- Fix overflow flyout at greater than 100% DPI
+- Added additional support for high contrast themes
+- Added per-monitor DPI support
+- Added internal diagnostic logging buffer limit
+- Disabled Alt+Space on the flyout window
+- Fixed a rendering issue when the DPI was greater than 100% and there were more devices than would fit in the flyout without a scrollbar
+- Fixed a rendering issue where the Notification Area icon becomes blurry at DPIs geater than 100%
+- Fixed the icon and name of recording devices in 'Listen' mode
+- Fixed Notification Area icon scaling
+- Fixed overflow flyout at greater than 100% DPI
 
 ## 2.0.6.0
 - Fixed an issue that affected localization on non-English systems

@@ -10,9 +10,9 @@ With that out of the way, here's a breakdown of all the information we may colle
 Includes:
 * Exception information
   * Could, in rare cases, contain paths to applications on your computer
-* Machine name ℹ
-* Host name ℹ
 * Version number (e.g. 2.0.x.x)
+* App state (e.g. is shutting down)
+* App identity present (true/false)
 
 ### Operating System-Level
 Includes:
@@ -20,13 +20,15 @@ Includes:
 * Version (e.g. Windows 10)
 * Build (e.g. 17134.1.amd64fre.rs4_release.180410-1804)
 * Available processors/cores (e.g. 8 cores)
-* Machine Name (e.g. MyFastPC) ℹ
+* Host name ℹ
+* Machine Name ℹ
 * .NET Framework Common Language Runtime version (e.g. 4.0.30319.42000)
 * Light/Dark mode configuration (light/dark)
 * Right-to-Left configuration (on/off)
 * Transparency configuration (on/off)
 * Accent color configuration (on/off)
 * System Animations configuration (on/off)
+* Language and region (e.g. en-US)
 
 ℹ We filed a bug with Bugsnag on the lack of filtering for these items. We don't want this data and we're actively working to remove the collection of this data.
 
