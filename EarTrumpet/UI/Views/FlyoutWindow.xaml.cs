@@ -246,7 +246,7 @@ namespace EarTrumpet.UI.Views
                 newHeight = scaledWorkAreaHeight;
             }
 
-            bool isRTL = SystemSettings.IsRTL;
+            bool isRTL = SystemSettings.IsRTL2;
             double newTop = 0;
             double newLeft = 0;
 

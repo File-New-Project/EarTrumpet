@@ -15,8 +15,8 @@ namespace EarTrumpet.DataModel
         public static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
         public static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
         public static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
-        public static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
-
+        public static bool IsRTL =>  CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+        public static bool IsRTL2 => CultureInfo.InstalledUICulture.TextInfo.IsRightToLeft;
         public static string BuildLabel
         {
             get
