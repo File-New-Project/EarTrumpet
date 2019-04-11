@@ -8,10 +8,6 @@ namespace EarTrumpet.UI.Services
     {
         public static event EventHandler<bool> UseLegacyIconChanged;
 
-        public static readonly HotkeyData s_defaultFlyoutHotkey = new HotkeyData { };
-        public static readonly HotkeyData s_defaultMixerHotkey = new HotkeyData { };
-        public static readonly HotkeyData s_defaultSettingsHotkey = new HotkeyData { };
-
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 
         public static Guid TrayIconIdentity
@@ -32,9 +28,10 @@ namespace EarTrumpet.UI.Services
 
         public static HotkeyData FlyoutHotkey
         {
-            get => s_settings.Get("Hotkey", s_defaultFlyoutHotkey);
+            get => s_settings.Get("Hotkey", new HotkeyData { });
             set
             {
+                HotkeyManager.Current.Unregister(FlyoutHotkey);
                 s_settings.Set("Hotkey", value);
                 HotkeyManager.Current.Register(FlyoutHotkey);
             }
@@ -42,9 +39,10 @@ namespace EarTrumpet.UI.Services
 
         public static HotkeyData MixerHotkey
         {
-            get => s_settings.Get("MixerHotkey", s_defaultMixerHotkey);
+            get => s_settings.Get("MixerHotkey", new HotkeyData { });
             set
             {
+                HotkeyManager.Current.Unregister(MixerHotkey);
                 s_settings.Set("MixerHotkey", value);
                 HotkeyManager.Current.Register(MixerHotkey);
             }
@@ -52,9 +50,10 @@ namespace EarTrumpet.UI.Services
 
         public static HotkeyData SettingsHotkey
         {
-            get => s_settings.Get("SettingsHotkey", s_defaultSettingsHotkey);
+            get => s_settings.Get("SettingsHotkey", new HotkeyData { });
             set
             {
+                HotkeyManager.Current.Unregister(SettingsHotkey);
                 s_settings.Set("SettingsHotkey", value);
                 HotkeyManager.Current.Register(SettingsHotkey);
             }

@@ -1,17 +1,20 @@
-﻿using EarTrumpet.UI.Services;
+﻿using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Services;
 
 namespace EarTrumpet.UI.ViewModels
 {
     internal class EarTrumpetShortcutsPageViewModel : SettingsPageViewModel
     {
+        private static readonly string s_hotkeyNoneText = new HotkeyData().ToString();
+
         public HotkeyViewModel OpenFlyoutHotkey { get; }
-        public string DefaultHotKey => SettingsService.s_defaultFlyoutHotkey.ToString();
+        public string DefaultHotKey => s_hotkeyNoneText;
 
         public HotkeyViewModel OpenMixerHotkey { get; }
-        public string DefaultMixerHotKey => SettingsService.s_defaultMixerHotkey.ToString();
+        public string DefaultMixerHotKey => s_hotkeyNoneText;
 
         public HotkeyViewModel OpenSettingsHotkey { get; }
-        public string DefaultSettingsHotKey => SettingsService.s_defaultSettingsHotkey.ToString();
+        public string DefaultSettingsHotKey => s_hotkeyNoneText;
 
         public EarTrumpetShortcutsPageViewModel() : base(null)
         {
