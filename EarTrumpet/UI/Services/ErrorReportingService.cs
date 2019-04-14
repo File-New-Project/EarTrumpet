@@ -13,14 +13,15 @@ namespace EarTrumpet.UI.Services
 {
     class ErrorReportingService
     {
-        private static bool _isAppShuttingDown;
+        private static bool s_isAppShuttingDown;
+
         internal static void Initialize()
         {
             AppTrace.Initialize(OnWarningException);
 
             try
             {
-                Application.Current.Exit += (_, __) => _isAppShuttingDown = true;
+                Application.Current.Exit += (_, __) => s_isAppShuttingDown = true;
 #if DEBUG
                 WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
 #endif
@@ -64,7 +65,7 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("AppSettings", "CurrentUICulture", GetNoError(() => CultureInfo.CurrentUICulture.Name));
             error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
-            error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => _isAppShuttingDown));
+            error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => s_isAppShuttingDown));
             error.Metadata.AddToTab("AppSettings", "HasIdentity", GetNoError(() => Application.Current.HasIdentity()));
 
             return true;

@@ -5,17 +5,17 @@ namespace EarTrumpet.UI.Helpers
 {
     class SingleInstanceAppMutex 
     {
-        private static Mutex _mutex;
+        private static Mutex s_mutex;
 
         public static bool TakeExclusivity()
         {
             var assembly = Assembly.GetExecutingAssembly();
             var mutexName = $"Local\\{assembly.GetName().Name}-0e510f7b-aed2-40b0-ad72-d2d3fdc89a02";
 
-            _mutex = new Mutex(true, mutexName, out bool mutexCreated);
+            s_mutex = new Mutex(true, mutexName, out bool mutexCreated);
             if (!mutexCreated)
             {
-                _mutex = null;
+                s_mutex = null;
                 return false;
             }
 
@@ -31,10 +31,12 @@ namespace EarTrumpet.UI.Helpers
 
         public static void ReleaseExclusivity()
         {
-            if (_mutex == null) return;
-            _mutex.ReleaseMutex();
-            _mutex.Close();
-            _mutex = null;
+            if (s_mutex != null)
+            {
+                s_mutex.ReleaseMutex();
+                s_mutex.Close();
+                s_mutex = null;
+            }
         }
     }
 }
