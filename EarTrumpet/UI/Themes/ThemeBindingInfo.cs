@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 
 namespace EarTrumpet.UI.Themes
@@ -19,7 +20,7 @@ namespace EarTrumpet.UI.Themes
             _value = value;
             _applyCallback = applyCallback;
 
-            SetPropertyToDesiredValue(element);
+            ApplyValue(element);
 
             if (element is FrameworkElement)
             {
@@ -35,79 +36,63 @@ namespace EarTrumpet.UI.Themes
         {
             if (_element.TryGetTarget(out var element))
             {
-                if (element is FrameworkContentElement)
-                {
-                    ((FrameworkContentElement)element).Loaded -= Element_Loaded;
-                }
-                else if (element is FrameworkElement)
-                {
-                    ((FrameworkElement)element).Loaded -= Element_Loaded;
-                }
+                UnregisterLoaded(element);
 
                 if (_isAttached)
                 {
-                    WriteProperty(element, _initialValue);
+                    WritePropertyValue(element, _initialValue);
                 }
             }
 
-            Manager.Current.ThemeChanged -= ThemeChanged;
+            _isAttached = false;
             _element = null;
+            _initialValue = default(T);
+            Manager.Current.ThemeChanged -= ThemeChanged;
         }
 
         private void Element_Loaded(object sender, RoutedEventArgs e)
         {
             if (_element.TryGetTarget(out var element))
             {
-                if (element is FrameworkContentElement)
-                {
-                    ((FrameworkContentElement)element).Loaded -= Element_Loaded;
-                }
-                else if (element is FrameworkElement)
-                {
-                    ((FrameworkElement)element).Loaded -= Element_Loaded;
-                }
-
-                SetPropertyToDesiredValue(element);
+                UnregisterLoaded(element);
+                ApplyValue(element);
             }
         }
 
-        public bool SetPropertyToDesiredValue(DependencyObject element)
+        private void UnregisterLoaded(DependencyObject element)
+        {
+            if (element is FrameworkContentElement)
+            {
+                ((FrameworkContentElement)element).Loaded -= Element_Loaded;
+            }
+            else if (element is FrameworkElement)
+            {
+                ((FrameworkElement)element).Loaded -= Element_Loaded;
+            }
+        }
+
+        public void ApplyValue(DependencyObject element)
         {
             var type = Options.GetSource(element);
-            if (type == null)
+            if (type != null)
             {
-                return false;
+                _isAttached = true;
+                _initialValue = (T)ReadPropertyValue(element);
+                WritePropertyValue(element, _applyCallback.Invoke(element, _value));
+                Manager.Current.ThemeChanged += ThemeChanged;
             }
-
-            _initialValue = (T)ReadProperty(element);
-            _isAttached = true;
-            WriteProperty(element, _applyCallback.Invoke(element, _value));
-            Manager.Current.ThemeChanged += ThemeChanged;
-            return true;
         }
 
         private void ThemeChanged()
         {
             if ((_element != null) && _element.TryGetTarget(out var element))
             {
-                WriteProperty(element, _applyCallback.Invoke(element, _value));
+                WritePropertyValue(element, _applyCallback.Invoke(element, _value));
             }
         }
 
-        object ReadProperty(DependencyObject element)
-        {
-            var prop = element.GetType().GetProperty(_propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-            return prop.GetValue(element);
-        }
-
-        void WriteProperty(DependencyObject element, object value)
-        {
-            if (element == null)
-            {
-                return;
-            }
-            var prop = element.GetType().GetProperty(_propertyName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-            prop.SetValue(element, value);
-        }
+        private PropertyInfo GetProperty(DependencyObject element) => element.GetType().GetProperty(_propertyName, BindingFlags.Public | BindingFlags.Instance);
+        private object ReadPropertyValue(DependencyObject element) => GetProperty(element).GetValue(element);
+        private void WritePropertyValue(DependencyObject element, object value) => GetProperty(element).SetValue(element, value);
     }
 }
