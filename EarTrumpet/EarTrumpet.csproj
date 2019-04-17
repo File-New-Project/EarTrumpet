@@ -136,6 +136,7 @@
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="Extensibility\IAddonTrayIcon.cs" />
+    <Compile Include="Extensions\AutoStartupHelper.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\Language.cs" />
