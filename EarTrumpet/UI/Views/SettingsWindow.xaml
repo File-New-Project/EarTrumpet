@@ -5,9 +5,9 @@
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
+        xmlns:datamodel="clr-namespace:EarTrumpet.DataModel"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
-        xmlns:datamodel="clr-namespace:EarTrumpet.DataModel"
         Name="WindowRoot"
         Title="{Binding Title}"
         Width="800"
@@ -232,7 +232,7 @@
                            FontSize="12"
                            Text="&#xE896;">
                     <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource GlyphTextBlockStyle}">
+                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAd}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -535,8 +535,7 @@
                         Style="{StaticResource CaptionButtonStyle}" />
                 <Button x:Name="MaximizeRestoreButton"
                         Grid.Column="3"
-                        Click="MaximizeRestoreButton_Click"
-                        >
+                        Click="MaximizeRestoreButton_Click">
                     <Button.Style>
                         <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
                             <Setter Property="Content" Value="&#xE922;" />
@@ -548,7 +547,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                
+
                 <Button x:Name="CloseButton"
                         Grid.Column="4"
                         Click="CloseButton_Click"

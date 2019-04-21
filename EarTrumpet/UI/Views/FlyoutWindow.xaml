@@ -67,8 +67,7 @@
         <ScrollViewer Name="BaseVisual" VerticalScrollBarVisibility="Auto">
             <Grid Name="ContentGrid" VerticalAlignment="Top">
 
-                <Border VerticalAlignment="Center"
-                        Theme:Brush.Background="FlyoutBackground">
+                <Border VerticalAlignment="Center" Theme:Brush.Background="FlyoutBackground">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
@@ -79,9 +78,9 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <TextBlock HorizontalAlignment="Center"
+                    <TextBlock Margin="{StaticResource NoItemsPaneMargin}"
+                               HorizontalAlignment="Center"
                                FontSize="{StaticResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                               Margin="{StaticResource NoItemsPaneMargin}"
                                Text="{x:Static resx:Resources.NoDevicesPanelContent}"
                                TextWrapping="Wrap" />
                 </Border>

@@ -106,7 +106,7 @@
             <Thickness x:Key="VolumeTextMargin">-1,0,0,0</Thickness>
             <Thickness x:Key="NoItemsPaneMargin">24</Thickness>
             <bcl:Double x:Key="MutedOpacity">0.4</bcl:Double>
-            
+
             <Style x:Key="Windows10FocusVisualStyle">
                 <Setter Property="Control.Template">
                     <Setter.Value>

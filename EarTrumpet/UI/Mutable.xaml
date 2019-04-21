@@ -1,8 +1,7 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bcl="clr-namespace:System;assembly=mscorlib"
-    xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bcl="clr-namespace:System;assembly=mscorlib"
+                    xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework">
 
     <bcl:Double x:Key="Mutable_AppIconSize">24</bcl:Double>
     <bcl:Double x:Key="Mutable_SliderThumbHeight">24</bcl:Double>
