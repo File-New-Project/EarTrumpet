@@ -67,6 +67,7 @@ namespace EarTrumpet.UI.Services
             error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
             error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => s_isAppShuttingDown));
             error.Metadata.AddToTab("AppSettings", "HasIdentity", GetNoError(() => Application.Current.HasIdentity()));
+            error.Metadata.AddToTab("AppSettings", "TrayIconId", GetNoError(() => ((App)App.Current).TrayViewModel.Id));
 
             return true;
         }

@@ -6,6 +6,7 @@ namespace EarTrumpet.Interop
 {
     public class User32
     {
+        public const int WM_USER = 0x0400;
         public const int WM_HOTKEY = 0x0312;
         public const int WM_USERMAGIC = 1120;
         public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
@@ -302,5 +303,7 @@ namespace EarTrumpet.Interop
 #error [Get/Set]WindowLong not supported on 64-bit platforms
 #endif
 
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        public static extern int RegisterWindowMessage(string msg);
     }
 }

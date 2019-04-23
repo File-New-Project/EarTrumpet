@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,6 +9,7 @@ namespace EarTrumpet.UI.Tray
 {
     public interface ITrayViewModel : INotifyPropertyChanged
     {
+        Guid Id { get; }
         ICommand LeftClick { get; set; }
         ICommand MiddleClick { get; }
         IEnumerable<ContextMenuItem> MenuItems { get; }

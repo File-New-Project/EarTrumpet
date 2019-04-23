@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -9,12 +10,40 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Tray
 {
     public class TrayViewModel : BindableBase, ITrayViewModel
     {
         internal static IAddonContextMenu[] AddonItems { get; set; }
+
+        public virtual Guid Id
+        {
+            get
+            {
+                if (App.Current.HasIdentity())
+                {
+                    switch (Package.Current.SignatureKind)
+                    {
+                        case PackageSignatureKind.Developer:
+                            return new Guid("9A34B2E6-1B76-4881-BC49-C10D13E41F44");
+                        case PackageSignatureKind.Enterprise:
+                            return new Guid("31C5F6DF-AE2B-40A7-BC36-613547D0CC5B");
+                        case PackageSignatureKind.None:
+                            return new Guid("DE768F7C-A5B4-4753-A89D-7067B84916B6");
+                        case PackageSignatureKind.Store:
+                            return new Guid("C77FBA91-9E61-4C29-8CC9-5F5D5A71FE84");
+                        default:
+                            throw new NotImplementedException($"Invalid Signature: {Package.Current.SignatureKind}");
+                    }
+                }
+                else
+                {
+                    return new Guid("AEB19CF4-170F-4AAE-A1EC-6060BAB32496");
+                }
+            }
+        }
 
         private Icon _trayIcon;
         public Icon TrayIcon

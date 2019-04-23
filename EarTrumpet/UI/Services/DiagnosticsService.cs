@@ -27,6 +27,7 @@ namespace EarTrumpet.UI.Services
             allText += $"CurrentUICulture: {CultureInfo.CurrentUICulture.Name}" + Environment.NewLine;
             allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
             allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
+            allText += $"TrayIconId: {((App)App.Current).TrayViewModel.Id}" + Environment.NewLine;
             allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
             allText += $"IsSystemLightTheme: {SystemSettings.IsSystemLightTheme}" + Environment.NewLine;
             allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;

@@ -1,4 +1,6 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Helpers;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
@@ -7,7 +9,7 @@ namespace EarTrumpet.UI.Tray
 {
     public class TrayIcon
     {
-        private readonly NotifyIcon _trayIcon;
+        private readonly ShellNotifyIcon _trayIcon;
         private readonly ITrayViewModel _trayViewModel;
 
         public TrayIcon(ITrayViewModel trayViewModel)
@@ -15,7 +17,7 @@ namespace EarTrumpet.UI.Tray
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
-            _trayIcon = new NotifyIcon();
+            _trayIcon = new ShellNotifyIcon(trayViewModel.Id);
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = _trayViewModel.ToolTip;
