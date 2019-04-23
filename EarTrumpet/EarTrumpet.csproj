@@ -124,6 +124,8 @@
     <Compile Include="DataModel\Storage\Serializer.cs" />
     <Compile Include="DataModel\Storage\StorageFactory.cs" />
     <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
+    <Compile Include="Diagnosis\ErrorReporter.cs" />
+    <Compile Include="Diagnosis\SnapshotData.cs" />
     <Compile Include="Extensibility\IAddonTrayIcon.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
@@ -218,7 +220,7 @@
     <Compile Include="Interop\User32.cs" />
     <Compile Include="Interop\Uxtheme.cs" />
     <Compile Include="Interop\RECT.cs" />
-    <Compile Include="AppTrace.cs" />
+    <Compile Include="Diagnosis\CircularBufferTraceListener.cs" />
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
     <Compile Include="Interop\Helpers\RawInputListener.cs" />
     <Compile Include="UI\ViewModels\AddonAboutPageViewModel.cs" />
@@ -244,7 +246,6 @@
     <Compile Include="DataModel\ProcessWatcherService.cs" />
     <Compile Include="UI\IconLoadInfo.cs" />
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
-    <Compile Include="UI\Services\ErrorReportingService.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
@@ -262,7 +263,7 @@
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
-    <Compile Include="UI\Services\DiagnosticsService.cs" />
+    <Compile Include="Diagnosis\LocalDataExporter.cs" />
     <Compile Include="UI\Services\SettingsService.cs" />
     <Compile Include="UI\ViewModels\WelcomeViewModel.cs" />
     <Compile Include="UI\Views\DialogWindow.xaml.cs">

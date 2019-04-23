@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel.Audio;
+using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.MMDeviceAPI;
@@ -79,7 +80,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 catch (Exception ex)
                 {
                     // Even through we're going to be broken, show the tray icon so the user can collect debug data.
-                    AppTrace.LogWarning(ex);
+                    ErrorReporter.LogWarning(ex);
 
                     _dispatcher.Invoke((Action)(() =>
                     {

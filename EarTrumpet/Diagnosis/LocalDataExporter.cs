@@ -1,50 +1,47 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Audio;
-using EarTrumpet.DataModel.WindowsAudio.Internal;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.DataModel.WindowsAudio.Internal;
 using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows;
-using System.Globalization;
 
-namespace EarTrumpet.UI.Services
+namespace EarTrumpet.Diagnosis
 {
-    public class DiagnosticsService
+    public class LocalDataExporter
     {
-        public static void DumpAndShowData()
+        public static void DumpAndShowData(string logText)
         {
-            var allText = DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback));
-            allText += DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Recording));
-            allText += Environment.NewLine;
-            allText += $"App: {App.Current.GetVersion()}" + Environment.NewLine;
-            allText += $"HasIdentity: {App.Current.HasIdentity()}" + Environment.NewLine;
-            allText += $"CurrentCulture: {CultureInfo.CurrentCulture.Name}" + Environment.NewLine;
-            allText += $"CurrentUICulture: {CultureInfo.CurrentUICulture.Name}" + Environment.NewLine;
-            allText += $"BuildLabel: {SystemSettings.BuildLabel}" + Environment.NewLine;
-            allText += $"Loaded Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}" + Environment.NewLine;
-            allText += $"TrayIconId: {((App)App.Current).TrayViewModel.Id}" + Environment.NewLine;
-            allText += $"IsLightTheme: {SystemSettings.IsLightTheme}" + Environment.NewLine;
-            allText += $"IsSystemLightTheme: {SystemSettings.IsSystemLightTheme}" + Environment.NewLine;
-            allText += $"RTL: {SystemSettings.IsRTL}" + Environment.NewLine;
-            allText += $"IsTransparencyEnabled: {SystemSettings.IsTransparencyEnabled}" + Environment.NewLine;
-            allText += $"UseAccentColor: {SystemSettings.UseAccentColor}" + Environment.NewLine;
-            allText += $"AnimationsEnabled: {SystemParameters.MenuAnimation}" + Environment.NewLine;
-            allText += Environment.NewLine;
-            allText += AppTrace.GetLogText();
+            var ret = new StringBuilder();
+            ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback)));
+            ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Recording)));
+            Populate(ret, SnapshotData.App);
+            Populate(ret, SnapshotData.Device);
+            Populate(ret, SnapshotData.AppSettings);
+            ret.AppendLine($"Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}");
+            ret.AppendLine();
+            ret.AppendLine(logText);
 
             var fileName = $"{Path.GetTempFileName()}.txt";
-            File.WriteAllText(fileName, allText);
+            File.WriteAllText(fileName, ret.ToString());
             ProcessHelper.StartNoThrow(fileName);
+        }
+
+        private static void Populate(StringBuilder builder, Dictionary<string, Func<object>> source)
+        {
+            foreach (var key in source.Keys)
+            {
+                builder.AppendLine($"{key}: {SnapshotData.InvokeNoThrow(source[key])}");
+            }
         }
 
         static string DumpSession(string indent, IAudioDeviceSessionInternal session)
         {
-            string flags= session.IsDesktopApp ? "Desktop " : "Modern ";
+            string flags = session.IsDesktopApp ? "Desktop " : "Modern ";
 
             if (session.IsSystemSoundsSession)
             {
@@ -56,7 +53,7 @@ namespace EarTrumpet.UI.Services
             try
             {
                 using (Process.GetProcessById(session.ProcessId)) { }
-                    isAlive = true;
+                isAlive = true;
             }
             catch (Exception) { }
 

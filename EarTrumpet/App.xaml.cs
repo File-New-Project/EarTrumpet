@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
@@ -21,17 +22,19 @@ namespace EarTrumpet
         public TrayViewModel TrayViewModel { get; private set; }
         public FlyoutWindow FlyoutWindow { get; private set; }
         public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
+        public bool IsShuttingDown { get; private set; }
 
-        private static readonly string s_firstRunKey = "hasShownFirstRun";
         private TrayIcon _trayIcon;
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
+        private ErrorReporter _errorReporter;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            // Initialize must register its App.Current.Exit
-            // handler early to properly report app state
-            ErrorReportingService.Initialize();
+            // Must be first to register
+            App.Current.Exit += (_, __) => IsShuttingDown = true;
+
+            _errorReporter = new ErrorReporter();
 
             Trace.WriteLine("App Application_Startup");
 
@@ -100,12 +103,13 @@ namespace EarTrumpet
 
         private void MaybeShowFirstRunExperience()
         {
+            const string firstRunKey = "hasShownFirstRun";
             var settings = StorageFactory.GetSettings();
 
-            if (!settings.HasKey(s_firstRunKey))
+            if (!settings.HasKey(firstRunKey))
             {
                 Trace.WriteLine($"App Application_Startup Showing welcome dialog");
-                settings.Set(s_firstRunKey, true);
+                settings.Set(firstRunKey, true);
 
                 var dialog = new DialogWindow();
                 var viewModel = new WelcomeViewModel();
@@ -135,7 +139,7 @@ namespace EarTrumpet
                 new SettingsPageViewModel[] {
                         new EarTrumpetShortcutsPageViewModel(),
                         new EarTrumpetLegacySettingsPageViewModel(),
-                        new EarTrumpetAboutPageViewModel()
+                        new EarTrumpetAboutPageViewModel(_errorReporter.DisplayDiagnosticData)
                 }.ToList());
 
             var allCategories = new List<SettingsCategoryViewModel>();

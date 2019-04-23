@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Services;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -14,8 +13,11 @@ namespace EarTrumpet.UI.ViewModels
         public RelayCommand OpenFeedbackCommand { get; }
         public string AboutText { get; }
 
-        public EarTrumpetAboutPageViewModel() : base(null)
+        private Action _openDiagnostics;
+
+        public EarTrumpetAboutPageViewModel(Action openDiagnostics) : base(null)
         {
+            _openDiagnostics = openDiagnostics;
             Glyph = "\xE946";
             Title = Properties.Resources.AboutTitle;
             AboutText = $"EarTrumpet {App.Current.GetVersion()}";
@@ -33,7 +35,7 @@ namespace EarTrumpet.UI.ViewModels
                 throw new Exception("This is an intentional crash.");
             }
 
-            DiagnosticsService.DumpAndShowData();
+            _openDiagnostics.Invoke();
         }
 
         private void OpenFeedbackHub()

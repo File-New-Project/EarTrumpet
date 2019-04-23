@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.Diagnosis;
+using System;
 
 namespace EarTrumpet.DataModel.Storage.Internal
 {
@@ -17,7 +18,7 @@ namespace EarTrumpet.DataModel.Storage.Internal
             }
             catch (Exception ex)
             {
-                AppTrace.LogWarning(ex);
+                ErrorReporter.LogWarning(ex);
             }
             return ret;
         }
@@ -62,7 +63,7 @@ namespace EarTrumpet.DataModel.Storage.Internal
             catch (Exception ex)
             {
                 // Windows Bug: Windows Storage APIs are still unreliable
-                AppTrace.LogWarning(ex);
+                ErrorReporter.LogWarning(ex);
             }
             return ret;
         }
@@ -76,7 +77,7 @@ namespace EarTrumpet.DataModel.Storage.Internal
             catch (Exception ex)
             {
                 // Windows Bug: Windows Storage APIs are still unreliable
-                AppTrace.LogWarning(ex);
+                ErrorReporter.LogWarning(ex);
             }
         }
     }
