@@ -1,12 +1,10 @@
 ﻿using Bugsnag;
-using Bugsnag.Clients;
 using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace EarTrumpet.UI.Services
@@ -14,6 +12,7 @@ namespace EarTrumpet.UI.Services
     class ErrorReportingService
     {
         private static bool s_isAppShuttingDown;
+        private static Client s_bugsnagClient;
 
         internal static void Initialize()
         {
@@ -22,17 +21,9 @@ namespace EarTrumpet.UI.Services
             try
             {
                 Application.Current.Exit += (_, __) => s_isAppShuttingDown = true;
-#if DEBUG
-                WPFClient.Config.ApiKey = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\eartrumpet.bugsnag.apikey");
-#endif
 
-                WPFClient.Config.StoreOfflineErrors = true;
-                WPFClient.Config.AppVersion = App.Current.GetVersion().ToString();
-                WPFClient.Start();
-
-                WPFClient.Config.BeforeNotify(OnBeforeNotify);
-
-                Task.Factory.StartNew(WPFClient.SendStoredReports);
+                s_bugsnagClient = new Client(Bugsnag.ConfigurationSection.Configuration.Settings);
+                s_bugsnagClient.BeforeNotify(new Middleware(OnBeforeNotify));
             }
             catch (Exception ex)
             {
@@ -43,33 +34,53 @@ namespace EarTrumpet.UI.Services
 
         private static void OnWarningException(Exception ex)
         {
-            Trace.WriteLine($"BUGSNAG Warning Notify: {ex}");
-            App.Current.Dispatcher.BeginInvoke((Action)(() => {
-                WPFClient.Notify(ex, Severity.Warning);
+            Trace.WriteLine($"## Warning Notify ##: {ex}");
+            App.Current.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                s_bugsnagClient.Notify(ex, Severity.Warning);
             }));
         }
 
-        private static bool OnBeforeNotify(Event error)
+        private static void OnBeforeNotify(Bugsnag.Payload.Report error)
         {
-            // Remove default metadata we don't need nor want.
-            error.Metadata.AddToTab("Device", "machineName", "<redacted>");
-            error.Metadata.AddToTab("Device", "hostname", "<redacted>");
+            try
+            {
+                foreach (var evt in (Bugsnag.Payload.Event[])error["events"])
+                {
+                    // Remove default properties that we don't need.
+                    evt.Device.Clear();
 
-            error.Metadata.AddToTab("Device", "osVersionBuild", GetNoError(() => SystemSettings.BuildLabel));
+                    evt.Device.Add("osVersionBuild", GetNoError(() => SystemSettings.BuildLabel));
+                    evt.Device.Add("osArchitecture", GetNoError(() => Environment.Is64BitOperatingSystem ? "64 bit" : "32 bit"));
+                    evt.Device.Add("processorCount", GetNoError(() => Environment.ProcessorCount + " core(s)"));
 
-            error.Metadata.AddToTab("AppSettings", "IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
-            error.Metadata.AddToTab("AppSettings", "IsSystemLightTheme", GetNoError(() => SystemSettings.IsSystemLightTheme));
-            error.Metadata.AddToTab("AppSettings", "IsRTL", GetNoError(() => SystemSettings.IsRTL));
-            error.Metadata.AddToTab("AppSettings", "IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
-            error.Metadata.AddToTab("AppSettings", "Culture", GetNoError(() => CultureInfo.CurrentCulture.Name));
-            error.Metadata.AddToTab("AppSettings", "CurrentUICulture", GetNoError(() => CultureInfo.CurrentUICulture.Name));
-            error.Metadata.AddToTab("AppSettings", "UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
-            error.Metadata.AddToTab("AppSettings", "AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
-            error.Metadata.AddToTab("AppSettings", "IsShuttingDown", GetNoError(() => s_isAppShuttingDown));
-            error.Metadata.AddToTab("AppSettings", "HasIdentity", GetNoError(() => Application.Current.HasIdentity()));
-            error.Metadata.AddToTab("AppSettings", "TrayIconId", GetNoError(() => ((App)App.Current).TrayViewModel.Id));
+                    evt.App.Add("version", App.Current.GetVersion().ToString());
+#if DEBUG
+                    evt.App.Add("releaseStage", "development");
+#else
+                    evt.App.Add("releaseStage", "production");
+#endif
 
-            return true;
+                    var appSettings = new Dictionary<string, string>();
+                    evt.Metadata.Add("AppSettings", appSettings);
+
+                    appSettings.Add("IsLightTheme", GetNoError(() => SystemSettings.IsLightTheme));
+                    appSettings.Add("IsSystemLightTheme", GetNoError(() => SystemSettings.IsSystemLightTheme));
+                    appSettings.Add("IsRTL", GetNoError(() => SystemSettings.IsRTL));
+                    appSettings.Add("IsTransparencyEnabled", GetNoError(() => SystemSettings.IsTransparencyEnabled));
+                    appSettings.Add("Culture", GetNoError(() => CultureInfo.CurrentCulture.Name));
+                    appSettings.Add("CurrentUICulture", GetNoError(() => CultureInfo.CurrentUICulture.Name));
+                    appSettings.Add("UseAccentColor", GetNoError(() => SystemSettings.UseAccentColor));
+                    appSettings.Add("AnimationsEnabled", GetNoError(() => SystemParameters.MenuAnimation));
+                    appSettings.Add("IsShuttingDown", GetNoError(() => s_isAppShuttingDown));
+                    appSettings.Add("HasIdentity", GetNoError(() => Application.Current.HasIdentity()));
+                    appSettings.Add("TrayIconId", GetNoError(() => ((App)App.Current).TrayViewModel.Id));
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"## ErrorReportingService OnBeforeNotify: {ex}");
+            }
         }
 
         private static string GetNoError(Func<object> get)

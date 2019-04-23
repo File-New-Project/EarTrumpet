@@ -18,11 +18,8 @@ Includes:
 ### Operating System-Level
 Includes:
 * Architecture (e.g. 32-bit)
-* Version (e.g. Windows 10)
-* Build (e.g. 17134.1.amd64fre.rs4_release.180410-1804)
+* Windows Build (e.g. 17134.1.amd64fre.rs4_release.180410-1804)
 * Available processors/cores (e.g. 8 cores)
-* Host name ℹ
-* Machine Name ℹ
 * .NET Framework Common Language Runtime version (e.g. 4.0.30319.42000)
 * Light/Dark mode configuration (light/dark)
 * Right-to-Left configuration (on/off)
@@ -30,8 +27,6 @@ Includes:
 * Accent color configuration (on/off)
 * System Animations configuration (on/off)
 * Language and region (e.g. en-US)
-
-ℹ We filed a bug with Bugsnag on the lack of filtering for these items. We don't want this data and we're actively working to remove the collection of this data.
 
 ### Third-Party Policies
 
