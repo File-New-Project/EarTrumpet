@@ -275,7 +275,13 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public void SetDefaultEndPoint(string id, int pid)
         {
-            _policyConfigService.SetDefaultEndPoint(id, pid);
+            // Note: We found it unexpected that SetDefaultEndPoint
+            // would accept an id for an 'invalid' device and then 
+            // no audio will be heard from any device for the given pid.
+            if (id == null || TryFind(id, out _))
+            {
+                _policyConfigService.SetDefaultEndPoint(id, pid);
+            }
         }
 
         public string GetDefaultEndPoint(int processId)
