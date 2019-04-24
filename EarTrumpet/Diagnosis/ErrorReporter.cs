@@ -45,18 +45,15 @@ namespace EarTrumpet.Diagnosis
         {
             try
             {
-                foreach (var evt in (Bugsnag.Payload.Event[])error["events"])
-                {
-                    // Remove default properties that we don't need.
-                    evt.Device.Clear();
-                    Fill(evt.Device, SnapshotData.Device);
+                // Remove default properties that we don't need.
+                error.Event.Device.Clear();
+                Fill(error.Event.Device, SnapshotData.Device);
 
-                    Fill(evt.App, SnapshotData.App);
+                Fill(error.Event.App, SnapshotData.App);
 
-                    var appSettings = new Dictionary<string, object>();
-                    evt.Metadata.Add("AppSettings", appSettings);
-                    Fill(appSettings, SnapshotData.AppSettings);
-                }
+                var appSettings = new Dictionary<string, object>();
+                error.Event.Metadata.Add("AppSettings", appSettings);
+                Fill(appSettings, SnapshotData.AppSettings);
             }
             catch (Exception ex)
             {
