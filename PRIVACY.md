@@ -13,7 +13,6 @@ Includes:
 * Version number (e.g. 2.0.x.x)
 * App state (e.g. is shutting down)
 * App identity present (true/false)
-* Tray icon identity (e.g. 02A01C4F-32D7-4CEC-8028-374A492491F8)
 
 ### Operating System-Level
 Includes:

@@ -64,7 +64,6 @@ namespace EarTrumpet.Diagnosis
                     { "AnimationsEnabled", () => SystemParameters.MenuAnimation },
                     { "HasIdentity", () => EarTrumpet.App.Current.HasIdentity() },
                     { "IsShuttingDown", () => ((EarTrumpet.App)EarTrumpet.App.Current).IsShuttingDown },
-                    { "TrayIconId", () => ((EarTrumpet.App)EarTrumpet.App.Current).TrayViewModel.Id },
                     { "Culture", () =>  CultureInfo.CurrentCulture.Name },
                     { "CurrentUICulture", () => CultureInfo.CurrentUICulture.Name },
                 };

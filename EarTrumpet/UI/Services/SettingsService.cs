@@ -14,6 +14,22 @@ namespace EarTrumpet.UI.Services
 
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 
+        public static Guid TrayIconIdentity
+        {
+            get
+            {
+                const string trayIconIdKey = "TrayIconId";
+
+                var id = s_settings.Get(trayIconIdKey, Guid.Empty);
+                if (id == Guid.Empty)
+                {
+                    id = Guid.NewGuid();
+                    s_settings.Set(trayIconIdKey, id);
+                }
+                return id;
+            }
+        }
+
         public static HotkeyData FlyoutHotkey
         {
             get => s_settings.Get("Hotkey", s_defaultFlyoutHotkey);
