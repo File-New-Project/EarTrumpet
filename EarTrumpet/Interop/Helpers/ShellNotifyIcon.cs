@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -50,16 +51,18 @@ namespace EarTrumpet.Interop.Helpers
         private const int WM_CALLBACKMOUSEMSG = User32.WM_USER + 1024;
         private readonly int WM_TASKBARCREATED = User32.RegisterWindowMessage("TaskbarCreated");
 
-        private readonly Guid _id;
+        private readonly Func<Guid> _getIdentity;
+        private readonly Action _resetIdentity;
         private Win32Window _window;
         private bool _isCreated;
         private bool _isVisible;
         private Icon _icon;
         private string _text;
 
-        public ShellNotifyIcon(Guid id)
+        public ShellNotifyIcon(Func<Guid> getIdentity, Action resetIdentity)
         {
-            _id = id;
+            _getIdentity = getIdentity;
+            _resetIdentity = resetIdentity;
             _window = new Win32Window();
             _window.Initialize(WndProc);
         }
@@ -90,7 +93,16 @@ namespace EarTrumpet.Interop.Helpers
         {
             if (_isVisible)
             {
-                Shell32.Shell_NotifyIconW(_isCreated ? Shell32.NotifyIconMessage.NIM_MODIFY : Shell32.NotifyIconMessage.NIM_ADD, MakeData());
+                if (!Shell32.Shell_NotifyIconW(_isCreated ? Shell32.NotifyIconMessage.NIM_MODIFY : Shell32.NotifyIconMessage.NIM_ADD, MakeData()))
+                {
+                    Trace.WriteLine("ShellNotifyIcon Update Failed 1");
+
+                    _resetIdentity();
+                    if (!Shell32.Shell_NotifyIconW(_isCreated ? Shell32.NotifyIconMessage.NIM_MODIFY : Shell32.NotifyIconMessage.NIM_ADD, MakeData()))
+                    {
+                        Trace.WriteLine("ShellNotifyIcon Update Failed 2");
+                    }
+                }
                 _isCreated = true;
             }
             else if (_isCreated)
@@ -109,7 +121,7 @@ namespace EarTrumpet.Interop.Helpers
                 uCallbackMessage = WM_CALLBACKMOUSEMSG,
                 hIcon = Icon.Handle,
                 szTip = Text,
-                guidItem = _id
+                guidItem = _getIdentity(),
             };
         }
 

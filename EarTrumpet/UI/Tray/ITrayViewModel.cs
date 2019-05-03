@@ -9,7 +9,8 @@ namespace EarTrumpet.UI.Tray
 {
     public interface ITrayViewModel : INotifyPropertyChanged
     {
-        Guid Id { get; }
+        Func<Guid> GetIdentity { get; }
+        Action ResetIdentity { get; }
         ICommand LeftClick { get; set; }
         ICommand MiddleClick { get; }
         IEnumerable<ContextMenuItem> MenuItems { get; }

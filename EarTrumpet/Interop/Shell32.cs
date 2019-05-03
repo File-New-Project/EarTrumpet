@@ -41,7 +41,8 @@ namespace EarTrumpet.Interop
         }
 
         [DllImport("shell32.dll", PreserveSig = true)]
-        public static extern int Shell_NotifyIconW(
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool Shell_NotifyIconW(
             NotifyIconMessage message, 
             NOTIFYICONDATAW pNotifyIconData);
     }

@@ -8,23 +8,24 @@ namespace EarTrumpet.UI.Services
     {
         public static event EventHandler<bool> UseLegacyIconChanged;
 
+        private static readonly string s_trayIconIdKey = "TrayIconId";
         private static ISettingsBag s_settings = StorageFactory.GetSettings();
 
         public static Guid TrayIconIdentity
         {
             get
             {
-                const string trayIconIdKey = "TrayIconId";
-
-                var id = s_settings.Get(trayIconIdKey, Guid.Empty);
+                var id = s_settings.Get(s_trayIconIdKey, Guid.Empty);
                 if (id == Guid.Empty)
                 {
                     id = Guid.NewGuid();
-                    s_settings.Set(trayIconIdKey, id);
+                    s_settings.Set(s_trayIconIdKey, id);
                 }
                 return id;
             }
         }
+
+        public static void ResetTrayIconIdentity() => s_settings.Set(s_trayIconIdKey, Guid.Empty);
 
         public static HotkeyData FlyoutHotkey
         {

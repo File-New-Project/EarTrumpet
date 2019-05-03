@@ -17,7 +17,7 @@ namespace EarTrumpet.UI.Tray
             _trayViewModel = trayViewModel;
             _trayViewModel.PropertyChanged += TrayViewModel_PropertyChanged;
 
-            _trayIcon = new ShellNotifyIcon(trayViewModel.Id);
+            _trayIcon = new ShellNotifyIcon(trayViewModel.GetIdentity, trayViewModel.ResetIdentity);
             _trayIcon.MouseClick += TrayIcon_MouseClick;
             _trayIcon.Icon = _trayViewModel.TrayIcon;
             _trayIcon.Text = _trayViewModel.ToolTip;

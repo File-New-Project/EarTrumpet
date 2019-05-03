@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.Services;
@@ -11,7 +10,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.UI.Tray
 {
@@ -19,7 +17,8 @@ namespace EarTrumpet.UI.Tray
     {
         internal static IAddonContextMenu[] AddonItems { get; set; }
 
-        public virtual Guid Id => SettingsService.TrayIconIdentity;
+        public virtual Func<Guid> GetIdentity => () => SettingsService.TrayIconIdentity;
+        public virtual Action ResetIdentity => () => SettingsService.ResetTrayIconIdentity();
 
         private Icon _trayIcon;
         public Icon TrayIcon
