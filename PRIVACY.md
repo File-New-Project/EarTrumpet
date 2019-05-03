@@ -25,6 +25,7 @@ Includes:
 * Transparency configuration (on/off)
 * Accent color configuration (on/off)
 * System Animations configuration (on/off)
+* High Contrast theme configuration (on/off)
 * Language and region (e.g. en-US)
 
 ### Third-Party Policies

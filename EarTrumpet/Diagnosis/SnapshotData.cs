@@ -62,6 +62,7 @@ namespace EarTrumpet.Diagnosis
                     { "IsTransparencyEnabled", () => SystemSettings.IsTransparencyEnabled },
                     { "UseAccentColor", () => SystemSettings.UseAccentColor },
                     { "AnimationsEnabled", () => SystemParameters.MenuAnimation },
+                    { "IsHighContrast", () => SystemParameters.HighContrast },
                     { "HasIdentity", () => EarTrumpet.App.Current.HasIdentity() },
                     { "IsShuttingDown", () => ((EarTrumpet.App)EarTrumpet.App.Current).IsShuttingDown },
                     { "Culture", () =>  CultureInfo.CurrentCulture.Name },
