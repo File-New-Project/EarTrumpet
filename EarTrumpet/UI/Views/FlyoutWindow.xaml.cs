@@ -3,12 +3,12 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.Themes;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Views
 {
@@ -16,29 +16,21 @@ namespace EarTrumpet.UI.Views
     {
         private readonly FlyoutViewModel _viewModel;
         private RawInputListener _rawListener;
-        private bool _needsExpandOrCollapse;
 
         public FlyoutWindow(FlyoutViewModel flyoutViewModel)
         {
             InitializeComponent();
 
             _viewModel = flyoutViewModel;
-            _viewModel.StateChanged += ViewModel_OnStateChanged;
-            _viewModel.WindowSizeInvalidated += ViewModel_WindowSizeInvalidated;
-            _viewModel.ExpandCollapse = new RelayCommand(() =>
-            {
-                _needsExpandOrCollapse = true;
-                _viewModel.BeginClose();
-            });
+            _viewModel.StateChanged += OnStateChanged;
+            _viewModel.WindowSizeInvalidated += OnWindowSizeInvalidated;
 
             DataContext = _viewModel;
-
-            Deactivated += FlyoutWindow_Deactivated;
-            SourceInitialized += FlyoutWindow_SourceInitialized;
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            Closing += FlyoutWindow_Closing;
-
-            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+            Deactivated += OnDeactivated;
+            SourceInitialized += OnSourceInitialized;
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
+            Closing += OnClosing;
+            FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();
@@ -48,105 +40,26 @@ namespace EarTrumpet.UI.Views
             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
         }
 
-        private void FlyoutWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Disable Alt+F4 because we hide instead.
-            e.Cancel = true;
-            _viewModel.BeginClose();
-        }
-
         ~FlyoutWindow()
         {
-            _viewModel.StateChanged -= ViewModel_OnStateChanged;
-            _viewModel.WindowSizeInvalidated -= ViewModel_WindowSizeInvalidated;
-
-            Deactivated -= FlyoutWindow_Deactivated;
-            SourceInitialized -= FlyoutWindow_SourceInitialized;
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= SystemEvents_DisplaySettingsChanged;
+            _viewModel.StateChanged -= OnStateChanged;
+            _viewModel.WindowSizeInvalidated -= OnWindowSizeInvalidated;
+            Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= OnDisplaySettingsChanged;
         }
 
-        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
-        {
-            Dispatcher.BeginInvoke((Action)(() => _viewModel.BeginClose()));
-        }
-
-        private void FlyoutWindow_SourceInitialized(object sender, EventArgs e)
+        private void OnSourceInitialized(object sender, EventArgs e)
         {
             this.Cloak();
 
-            Manager.Current.ThemeChanged += ThemeChanged;
+            Themes.Manager.Current.ThemeChanged += ThemeChanged;
             ThemeChanged();
 
             _rawListener = new RawInputListener(this);
-            _rawListener.MouseWheel += RawListener_MouseWheel;
-            MouseEnter += FlyoutWindow_MouseEnter;
+            _rawListener.MouseWheel += OnRawMouseWheel;
+            MouseEnter += OnMouseEnter;
         }
 
-        private void ThemeChanged()
-        {
-            EnableBlurIfApplicable();
-        }
-
-        private void EnableBlurIfApplicable()
-        {
-            if ((_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open) &&
-                SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast)
-            {
-                User32.AccentFlags location = User32.AccentFlags.None;
-
-                switch (WindowsTaskbar.Current.Location)
-                {
-                    case WindowsTaskbar.Position.Left:
-                        location = User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
-                        break;
-                    case WindowsTaskbar.Position.Right:
-                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
-                        break;
-                    case WindowsTaskbar.Position.Top:
-                        location = User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
-                        break;
-                    case WindowsTaskbar.Position.Bottom:
-                        location = User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder;
-                        break;
-                }
-
-                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), location);
-            }
-            else
-            {
-                DisableAcrylic();
-            }
-        }
-
-        private void DisableAcrylic()
-        {
-            AccentPolicyLibrary.DisableAcrylic(this);
-        }
-
-        private void FlyoutWindow_MouseEnter(object sender, MouseEventArgs e)
-        {
-            _rawListener.Stop();
-        }
-
-        private void FlyoutWindow_Deactivated(object sender, EventArgs e)
-        {
-            _viewModel.BeginClose();
-        }
-
-        private void ViewModel_WindowSizeInvalidated(object sender, object e)
-        {
-            UpdateWindowBounds();
-        }
-
-        private void RawListener_MouseWheel(object sender, int e)
-        {
-            if (_viewModel.Devices.Any())
-            {
-                _viewModel.Devices.Last().Volume += Math.Sign(e) * 2;
-            }
-        }
-
-        private void ViewModel_OnStateChanged(object sender, object e)
+        private void OnStateChanged(object sender, object e)
         {
             switch (_viewModel.State)
             {
@@ -155,28 +68,30 @@ namespace EarTrumpet.UI.Views
                     {
                         _rawListener.Start();
                     }
-                    Show();
 
-                    // We need the theme to be updated on show because the window borders will be set based on taskbar position.
+                    Show();
                     ThemeChanged();
                     UpdateWindowBounds();
 
-                    // Update layout otherwise we may display queued state changes
-                    UpdateLayout();
-                    DevicesList.Focus();
+                    // Focus the first device if available.
+                    DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
 
-                    WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+                    WaitForKeyboardVisuals(() =>
+                    {
+                        WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+                    });
                     break;
 
                 case FlyoutViewModel.ViewState.Closing_Stage1:
-                    _rawListener.Stop();
 
-                    if (_needsExpandOrCollapse)
+                    _rawListener.Stop();
+                    DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
+
+                    if (_viewModel.IsExpandingOrCollapsing)
                     {
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
                             this.Cloak();
-                            Hide();
                             // NB: Hidden to avoid the stage 2 hide delay, we want to show again immediately.
                             _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
                         });
@@ -184,39 +99,14 @@ namespace EarTrumpet.UI.Views
                     else
                     {
                         this.Cloak();
-                        Hide();
                         DisableAcrylic();
-                        _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
+                        WaitForKeyboardVisuals(() =>
+                        {
+                            Hide();
+                            _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
+                        });
                     }
                     break;
-                case FlyoutViewModel.ViewState.Hidden:
-                    if (_needsExpandOrCollapse)
-                    {
-                        _needsExpandOrCollapse = false;
-
-                        _viewModel.DoExpandCollapse();
-                        _viewModel.BeginOpen();
-                    }
-                    break;
-            }
-        }
-
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                if (_viewModel.Dialog.IsVisible)
-                {
-                    _viewModel.Dialog.IsVisible = false;
-                }
-                else
-                {
-                    _viewModel.BeginClose();
-                }
-            }
-            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
-            {
-                e.Handled = true;
             }
         }
 
@@ -275,10 +165,80 @@ namespace EarTrumpet.UI.Views
             this.Move(newTop * this.DpiHeightFactor(), newLeft * this.DpiWidthFactor(), newHeight * this.DpiHeightFactor(), Width * this.DpiWidthFactor());
         }
 
-        private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void EnableBlurIfApplicable()
+        {
+            if ((_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open) &&
+                SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast)
+            {
+                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags());
+            }
+            else
+            {
+                DisableAcrylic();
+            }
+        }
+
+        private User32.AccentFlags GetAccentFlags()
+        {
+            switch (WindowsTaskbar.Current.Location)
+            {
+                case WindowsTaskbar.Position.Left:
+                    return User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
+                case WindowsTaskbar.Position.Right:
+                    return User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
+                case WindowsTaskbar.Position.Top:
+                    return User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
+                case WindowsTaskbar.Position.Bottom:
+                    return User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder;
+            }
+            return User32.AccentFlags.None;
+        }
+
+        private void WaitForKeyboardVisuals(Action completed)
+        {
+            // Note: ApplicationIdle is necessary as KeyboardNavigation/ScheduleCleanup will 
+            // use ContextIdle to purge the focus visuals.
+            Dispatcher.BeginInvoke(completed, DispatcherPriority.ApplicationIdle, null);
+        }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                _viewModel.UserEscaped();
+            }
+            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void OnRawMouseWheel(object sender, int e)
+        {
+            if (_viewModel.Devices.Any())
+            {
+                _viewModel.Devices.Last().Volume += Math.Sign(e) * 2;
+            }
+        }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Disable Alt+F4.
+            e.Cancel = true;
+            _viewModel.BeginClose();
+        }
+
+        private void OnLightDismissBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             _viewModel.Dialog.IsVisible = false;
             e.Handled = true;
         }
+
+        private void ThemeChanged() => EnableBlurIfApplicable();
+        private void DisableAcrylic() => AccentPolicyLibrary.DisableAcrylic(this);
+        private void OnMouseEnter(object sender, MouseEventArgs e) => _rawListener.Stop();
+        private void OnDeactivated(object sender, EventArgs e) => _viewModel.BeginClose();
+        private void OnWindowSizeInvalidated(object sender, object e) => UpdateWindowBounds();
+        private void OnDisplaySettingsChanged(object sender, EventArgs e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.BeginClose()));
     }
 }

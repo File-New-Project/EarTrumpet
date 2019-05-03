@@ -2,7 +2,9 @@
 using EarTrumpet.UI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace EarTrumpet.UI.Views
 {
@@ -24,6 +26,25 @@ namespace EarTrumpet.UI.Views
 
             DeviceListItem.PreviewKeyDown += OnPreviewKeyDown;
             DeviceListItem.PreviewMouseRightButtonUp += (_, __) => OpenPopup();
+        }
+
+        public void FocusAndRemoveFocusVisual()
+        {
+            DeviceListItem.Focus();
+            RemoveFocusVisual(DeviceListItem);
+        }
+
+        private void RemoveFocusVisual(UIElement element)
+        {
+            var adornerLayer = AdornerLayer.GetAdornerLayer(element);
+            var adorners = adornerLayer.GetAdorners(element);
+            if (adorners != null)
+            {
+                foreach (var adorner in adorners)
+                {
+                    adornerLayer.Remove(adorner);
+                }
+            }
         }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)

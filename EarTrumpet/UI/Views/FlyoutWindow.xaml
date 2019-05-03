@@ -13,7 +13,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         Icon="pack://application:,,,/Assets/Application.ico"
-        PreviewKeyDown="Window_PreviewKeyDown"
+        PreviewKeyDown="OnPreviewKeyDown"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         SnapsToDevicePixels="True"
@@ -160,7 +160,7 @@
         </ScrollViewer>
         <Border Name="LightDismissBorder"
                 Theme:Brush.Background="Background"
-                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+                PreviewMouseDown="OnLightDismissBorderPreviewMouseDown">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Collapsed" />

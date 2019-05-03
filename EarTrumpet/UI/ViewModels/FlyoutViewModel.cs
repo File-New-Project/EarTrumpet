@@ -17,20 +17,21 @@ namespace EarTrumpet.UI.ViewModels
             Hidden,
             Opening,
             Open,
-            Closing_Stage1, // Closing animation (optional)
+            Closing_Stage1, // Closing animation
             Closing_Stage2, // Delay stage (optional)
         }
 
-        public event EventHandler<object> WindowSizeInvalidated = delegate { };
-        public event EventHandler<object> StateChanged = delegate { };
+        public event EventHandler<object> WindowSizeInvalidated;
+        public event EventHandler<object> StateChanged;
 
         public ModalDialogViewModel Dialog { get; }
         public bool IsExpanded { get; private set; }
+        public bool IsExpandingOrCollapsing { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public ViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
-        public RelayCommand ExpandCollapse { get; set; }
+        public RelayCommand ExpandCollapse { get; private set; }
         public FlyoutShowOptions ShowOptions { get; private set; }
 
         private readonly DeviceCollectionViewModel _mainViewModel;
@@ -48,6 +49,12 @@ namespace EarTrumpet.UI.ViewModels
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _hideTimer.Tick += HideTimer_Tick;
+
+            ExpandCollapse = new RelayCommand(() =>
+            {
+                IsExpandingOrCollapsing = true;
+                BeginClose();
+            });
         }
 
         private void HideTimer_Tick(object sender, EventArgs e)
@@ -216,45 +223,66 @@ namespace EarTrumpet.UI.ViewModels
             }));
         }
 
+        public void UserEscaped()
+        {
+            if (Dialog.IsVisible)
+            {
+                Dialog.IsVisible = false;
+            }
+            else
+            {
+                BeginClose();
+            }
+        }
+
         public void ChangeState(ViewState state)
         {
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
-            var oldState = State;
-
-            bool isValidStateTransition =
-                (oldState == ViewState.NotLoaded && state == ViewState.Hidden) ||
-                (oldState == ViewState.Hidden && state == ViewState.Opening) ||
-                (oldState == ViewState.Opening && state == ViewState.Open) ||
-                (oldState == ViewState.Open && state == ViewState.Closing_Stage1) ||
-                (oldState == ViewState.Closing_Stage1 && state == ViewState.Closing_Stage2) ||
-                (oldState == ViewState.Closing_Stage1 && state == ViewState.Hidden) ||
-                (oldState == ViewState.Closing_Stage2 && state == ViewState.Hidden);
-
-            Debug.Assert(isValidStateTransition);
-
+            ValidateStateChange(state);
             State = state;
-            StateChanged(this, null);
+            StateChanged?.Invoke(this, null);
 
-            if (state == ViewState.Open)
+            switch (State)
             {
-                _mainViewModel.OnTrayFlyoutShown();
+                case ViewState.Open:
+                    _mainViewModel.OnTrayFlyoutShown();
 
-                if (_closedDuringOpen)
-                {
-                    _closedDuringOpen = false;
-                    BeginClose();
-                }
+                    if (_closedDuringOpen)
+                    {
+                        _closedDuringOpen = false;
+                        BeginClose();
+                    }
+                    break;
+                case ViewState.Closing_Stage1:
+                    _mainViewModel.OnTrayFlyoutHidden();
+                    Dialog.IsVisible = false;
+                    break;
+                case ViewState.Closing_Stage2:
+                    _hideTimer.Start();
+                    break;
+                case ViewState.Hidden:
+                    if (IsExpandingOrCollapsing)
+                    {
+                        IsExpandingOrCollapsing = false;
+                        DoExpandCollapse();
+                        BeginOpen();
+                    }
+                    break;
             }
-            else if (state == ViewState.Closing_Stage1)
-            {
-                _mainViewModel.OnTrayFlyoutHidden();
+        }
 
-                Dialog.IsVisible = false;
-            }
-            else if (state == ViewState.Closing_Stage2)
-            {
-                _hideTimer.Start();
-            }
+        private void ValidateStateChange(ViewState newState)
+        {
+            var oldState = State;
+            bool isValidStateTransition =
+                (oldState == ViewState.NotLoaded && newState == ViewState.Hidden) ||
+                (oldState == ViewState.Hidden && newState == ViewState.Opening) ||
+                (oldState == ViewState.Opening && newState == ViewState.Open) ||
+                (oldState == ViewState.Open && newState == ViewState.Closing_Stage1) ||
+                (oldState == ViewState.Closing_Stage1 && newState == ViewState.Closing_Stage2) ||
+                (oldState == ViewState.Closing_Stage1 && newState == ViewState.Hidden) ||
+                (oldState == ViewState.Closing_Stage2 && newState == ViewState.Hidden);
+            Debug.Assert(isValidStateTransition);
         }
 
         public void OpenPopup(object vm, FrameworkElement container)
@@ -309,11 +337,6 @@ namespace EarTrumpet.UI.ViewModels
         public void OpenFlyout(FlyoutShowOptions options)
         {
             ShowOptions = options;
-
-            if (State == ViewState.Closing_Stage2)
-            {
-                return;
-            }
 
             switch (State)
             {
