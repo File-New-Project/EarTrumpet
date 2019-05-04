@@ -67,6 +67,11 @@ namespace EarTrumpet.Interop.Helpers
             _window.Initialize(WndProc);
         }
 
+        public void SetFocus()
+        {
+            Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_SETFOCUS, MakeData());
+        }
+
         public void Dispose()
         {
             if (_isVisible && _isCreated)

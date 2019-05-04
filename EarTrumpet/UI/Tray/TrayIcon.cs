@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
-using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
@@ -42,8 +41,17 @@ namespace EarTrumpet.UI.Tray
             var contextMenu = TaskbarContextMenuHelper.Create();
             Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
             contextMenu.ItemsSource = _trayViewModel.MenuItems;
+            contextMenu.PreviewKeyDown += OnContextMenuPreviewKeyDown;
             contextMenu.IsOpen = true;
             Trace.WriteLine("TrayIcon OnContextMenuRequested (ContextMenu now open)");
+        }
+
+        private void OnContextMenuPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Escape)
+            {
+                _trayIcon.SetFocus();
+            }
         }
 
         private void App_Exit(object sender, ExitEventArgs e)
