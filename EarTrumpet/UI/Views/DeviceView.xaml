@@ -15,8 +15,17 @@
         <ListViewItem Name="DeviceListItem"
                       AutomationProperties.Name="{Binding Device}"
                       Tag="{x:Static views:DeviceView.DeviceListItemKey}">
-            <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground, Flyout:HighContrast=Window">
-                <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5">
+            <Border Theme:Brush.Background=":=Transparent, Flyout:FlyoutBackground, Flyout:HighContrast=Window" Theme:Brush.BorderBrush="Theme=Transparent, HighContrast=Text">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid Theme:Brush.Background=":=Transparent, Flyout:Theme=SystemAccent/0.3/0.5, :HighContrast=Transparent, Flyout:HighContrast=Transparent">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />

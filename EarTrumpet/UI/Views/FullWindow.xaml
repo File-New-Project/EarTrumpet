@@ -99,7 +99,6 @@
             <DockPanel DockPanel.Dock="Top">
                 <Button x:Name="CloseButton"
                         Click="CloseButton_Click"
-                        Content="&#xE8BB;"
                         DockPanel.Dock="Right"
                         Style="{StaticResource CloseButtonStyle}" />
                 <TextBlock Padding="12,8,12,8"

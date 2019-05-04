@@ -23,14 +23,33 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Theme:Brush.Foreground="SystemAccent"
-                           FontSize="15"
-                           Style="{StaticResource GlyphTextBlockStyle}"
-                           Text="{Binding Glyph}" />
+                <TextBlock FontSize="15" Text="{Binding Glyph}">
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                            <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=SystemAccent, HighContrast=HighlightText" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <TextBlock Grid.Column="1"
-                           Theme:Brush.Foreground="Text"
+                           VerticalAlignment="Center"
                            FontSize="15"
-                           Text="{Binding DisplayName}" />
+                           Text="{Binding DisplayName}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
 
         </DataTemplate>
@@ -101,7 +120,7 @@
                            PopupAnimation="None"
                            StaysOpen="False">
                         <Border x:Name="SubmenuBorder"
-                                Theme:Brush.Background="Theme={Theme}ChromeLow"
+                                Theme:Brush.Background="Theme={Theme}ChromeLow, HighContrast=Window"
                                 Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
                                 BorderThickness="1"
                                 SnapsToDevicePixels="True">

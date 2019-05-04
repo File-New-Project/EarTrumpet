@@ -20,6 +20,7 @@ namespace EarTrumpet.UI.Themes
         public bool AnimationsEnabled => SystemParameters.MenuAnimation;
         public bool IsLightTheme => SystemSettings.IsLightTheme;
         public bool IsSystemLightTheme => SystemSettings.IsSystemLightTheme;
+        public bool IsHighContrast => SystemParameters.HighContrast;
         public bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
         public bool UseDynamicScrollbars => SystemSettings.UseDynamicScrollbars;
 
@@ -96,6 +97,7 @@ namespace EarTrumpet.UI.Themes
             ThemeChanged?.Invoke();
             RaisePropertyChanged(nameof(IsLightTheme));
             RaisePropertyChanged(nameof(IsSystemLightTheme));
+            RaisePropertyChanged(nameof(IsHighContrast));
             RaisePropertyChanged(nameof(UseAccentColorOnWindowBorders));
         }
     }

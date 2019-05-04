@@ -19,17 +19,14 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
                 <TextBlock Margin="14,0,0,0"
                            Text="{Binding VisibleTitle}"
                            TextAlignment="Left" />
                 <Button x:Name="CloseButton"
                         Grid.Column="3"
                         Click="CloseButton_Click"
-                        Content="&#xE8BB;"
                         Style="{StaticResource CloseButtonStyle}" />
             </Grid>
-
             <Grid>
                 <ContentControl Content="{Binding}"
                                 Focusable="False"

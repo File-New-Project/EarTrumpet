@@ -23,7 +23,18 @@
                     </Grid.RowDefinitions>
                     <Border Grid.ColumnSpan="3"
                             Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
-                            Theme:Brush.Background=":Light=LightListLow, :Dark=DarkChromeMediumLow, :HighContrast=Window, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window" />
+                            Theme:Brush.Background=":Light=LightListLow, :Dark=DarkChromeMediumLow, :HighContrast=Window, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window"
+                            Theme:Brush.BorderBrush="Theme=Transparent, HighContrast=Text">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
                     <TextBlock Style="{StaticResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
 
                     <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
@@ -55,11 +66,11 @@
                                             <Setter Property="Theme:Brush.Foreground" Value="Text" />
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12" />
+                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
                                                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                                                 </Trigger>
                                                 <Trigger Property="IsPressed" Value="true">
-                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2" />
+                                                    <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2, HighContrast=Highlight" />
                                                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                                                 </Trigger>
                                             </Style.Triggers>

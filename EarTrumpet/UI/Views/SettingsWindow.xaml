@@ -509,12 +509,12 @@
                                     <Setter Property="Content" Value="&#xE72A;" />
                                 </DataTrigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Theme:Brush.Foreground" Value="ApplicationTextDarkTheme" />
-                                    <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
+                                    <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent, HighContrast=Highlight" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Theme:Brush.Foreground" Value="ApplicationTextDarkTheme" />
-                                    <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}1" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
+                                    <Setter Property="Theme:Brush.Background" Value="Theme=Theme=SystemAccent{Theme}1, HighContrast=Highlight" />
                                 </Trigger>
                                 <DataTrigger Binding="{Binding Dialog}" Value="{x:Null}">
                                     <Setter Property="IsEnabled" Value="True" />
@@ -530,9 +530,18 @@
                            TextAlignment="Left" />
                 <Button x:Name="MinimizeButton"
                         Grid.Column="2"
-                        Click="MinimizeButton_Click"
-                        Content="&#xE921;"
-                        Style="{StaticResource CaptionButtonStyle}" />
+                        Click="MinimizeButton_Click">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
+                            <Setter Property="Content" Value="&#xE921;" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                                    <Setter Property="Content" Value="&#xEF2D;" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button x:Name="MaximizeRestoreButton"
                         Grid.Column="3"
                         Click="MaximizeRestoreButton_Click">
@@ -540,9 +549,35 @@
                         <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
                             <Setter Property="Content" Value="&#xE922;" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized">
-                                    <Setter Property="Content" Value="&#xE923;" />
-                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal" />
+                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Content" Value="&#xEF2E;" />
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
+                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Content" Value="&#xEF2F;" />
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
+                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Content" Value="&#xE923;" />
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -551,7 +586,6 @@
                 <Button x:Name="CloseButton"
                         Grid.Column="4"
                         Click="CloseButton_Click"
-                        Content="&#xE8BB;"
                         Style="{StaticResource CloseButtonStyle}" />
             </Grid>
             <Grid>
@@ -646,14 +680,32 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Margin="16,0,4,0"
                                                FontSize="16"
-                                               Style="{StaticResource GlyphTextBlockStyle}"
-                                               Text="&#xE10F;" />
+                                               Text="&#xE10F;">
+                                        <TextBlock.Style>
+                                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True">
+                                                        <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                     <TextBlock Grid.Column="1"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="15"
-                                               Style="{StaticResource BodyText}"
-                                               Text="{x:Static resx:Resources.HomeButtonText}" />
+                                               Text="{x:Static resx:Resources.HomeButtonText}">
+                                        <TextBlock.Style>
+                                            <Style BasedOn="{StaticResource BodyText}" TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True">
+                                                        <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -726,12 +778,31 @@
                                         <TextBlock Grid.Column="1"
                                                    HorizontalAlignment="Center"
                                                    FontSize="16"
-                                                   Style="{StaticResource GlyphTextBlockStyle}"
-                                                   Text="{Binding Glyph}" />
+                                                   Text="{Binding Glyph}">
+                                            <TextBlock.Style>
+                                                <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                                                            <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                         <TextBlock Grid.Column="2"
                                                    Margin="4,0,12,0"
                                                    FontSize="15"
-                                                   Text="{Binding Title}" />
+                                                   Text="{Binding Title}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListViewItem}}, Path=IsMouseOver}" Value="True">
+                                                            <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -759,23 +830,35 @@
                             </ListView.GroupStyle>
                         </ListView>
                     </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
-                        <ScrollViewer Grid.Row="1"
-                                      b:ScrollViewerEx.ScrollToTopOnChanged="{Binding Selected.Selected}"
-                                      HorizontalScrollBarVisibility="Disabled"
-                                      VerticalScrollBarVisibility="Auto">
-                            <ContentControl Margin="12,0,0,0"
-                                            Content="{Binding Selected.Selected}"
-                                            FocusVisualStyle="{x:Null}"
-                                            Focusable="False"
-                                            IsTabStop="False" />
-                        </ScrollViewer>
-                    </Grid>
+                    <Border Grid.Column="1" Theme:Brush.BorderBrush="Theme=Transparent, HighContrast=Text">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                                        <Setter Property="BorderThickness" Value="1,0,0,0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <ContentControl Content="{Binding Selected.Selected.Header}" IsTabStop="False" />
+                            <ScrollViewer Grid.Row="1"
+                                          b:ScrollViewerEx.ScrollToTopOnChanged="{Binding Selected.Selected}"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Auto">
+                                <ContentControl Margin="12,0,0,0"
+                                                Content="{Binding Selected.Selected}"
+                                                FocusVisualStyle="{x:Null}"
+                                                Focusable="False"
+                                                IsTabStop="False" />
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
                 </Grid>
                 <!--  Dialog  -->
                 <Grid>
