@@ -514,7 +514,7 @@
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
-                                    <Setter Property="Theme:Brush.Background" Value="Theme=Theme=SystemAccent{Theme}1, HighContrast=Highlight" />
+                                    <Setter Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}1, HighContrast=Highlight" />
                                 </Trigger>
                                 <DataTrigger Binding="{Binding Dialog}" Value="{x:Null}">
                                     <Setter Property="IsEnabled" Value="True" />
