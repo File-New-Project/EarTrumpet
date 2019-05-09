@@ -57,5 +57,7 @@ namespace EarTrumpet.UI.ViewModels
         {
 
         }
+
+        public override string ToString() => Title;
     }
 }

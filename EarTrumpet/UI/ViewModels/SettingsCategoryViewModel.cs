@@ -84,5 +84,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             _parent.ShowDialog(title, description, btn1, btn2, btn1Clicked, btn2Clicked);
         }
+
+        public override string ToString() => $"{Title}\n{Description}";
     }
 }
