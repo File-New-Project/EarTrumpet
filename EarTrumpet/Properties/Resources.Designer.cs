@@ -115,7 +115,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{1} percent volume - {0}&quot;.
+        ///   Looks up a localized string similar to &quot;{Volume}% volume - {Name}&quot;.
         /// </summary>
         public static string AppOrDeviceFormatAccessibleText {
             get {
@@ -124,7 +124,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Muted - {0}&quot;.
+        ///   Looks up a localized string similar to &quot;Muted - {Name}&quot;.
         /// </summary>
         public static string AppOrDeviceMutedFormatAccessibleText {
             get {
@@ -345,6 +345,24 @@ namespace EarTrumpet.Properties {
         public static string PlaybackDevicesText {
             get {
                 return ResourceManager.GetString("PlaybackDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coming soon.
+        /// </summary>
+        public static string ProjectADescription {
+            get {
+                return ResourceManager.GetString("ProjectADescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coming soon.
+        /// </summary>
+        public static string ProjectATitle {
+            get {
+                return ResourceManager.GetString("ProjectATitle", resourceCulture);
             }
         }
         

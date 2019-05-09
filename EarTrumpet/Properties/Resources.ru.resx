@@ -166,12 +166,10 @@
     <value>Узнать больше</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} процент громкости - {0}</value>
-    
+    <value>{Volume} процент громкости - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Без звука - {0}</value>
-    
+    <value>Без звука - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Приложения</value>

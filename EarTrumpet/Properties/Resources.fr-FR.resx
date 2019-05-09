@@ -166,12 +166,10 @@
     <value>En savoir plus</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} pourcent du volume - {0}</value>
-    
+    <value>{Volume} pourcent du volume - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Sourdine - {0}</value>
-    
+    <value>Sourdine - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Applications</value>
@@ -234,7 +232,7 @@
     <value>Paramètres classiques</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Éditeur :</value>
+    <value>Éditeur:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
     <value>Configurer les raccourcis et obtenir de l'aide</value>
@@ -246,7 +244,7 @@
     <value>Raccourcis</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version :</value>
+    <value>Version:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
     <value>Trouver un paramètre</value>

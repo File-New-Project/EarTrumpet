@@ -166,12 +166,10 @@
     <value>Dowiedz się więcej</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} procent głośności - {0}</value>
-    
+    <value>{Volume} procent głośności - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Wyciszone - {0}</value>
-    
+    <value>Wyciszone - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Aplikacje</value>

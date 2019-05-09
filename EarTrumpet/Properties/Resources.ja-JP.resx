@@ -166,12 +166,10 @@
     <value>もっと詳しく</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} 音量（％） - {0}</value>
-    
+    <value>{Volume} 音量（％） - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>ミュート - {0}</value>
-    
+    <value>ミュート - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>アプリ</value>
@@ -202,7 +200,6 @@
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>他のコマンド</value>
-    
   </data>
   <data name="MutedText" xml:space="preserve">
     <value>ミュート</value>
@@ -215,7 +212,6 @@
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>アドオン {Name} について</value>
-    
   </data>
   <data name="AddonNameText" xml:space="preserve">
     <value>名前</value>

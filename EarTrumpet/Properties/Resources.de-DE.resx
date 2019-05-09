@@ -166,12 +166,10 @@
     <value>Mehr erfahren</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1} % Lautstärke - {0}</value>
-    
+    <value>{Volume} % Lautstärke - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Stumm - {0}</value>
-    
+    <value>Stumm - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Apps</value>

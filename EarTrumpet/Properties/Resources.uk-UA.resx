@@ -166,12 +166,10 @@
     <value>Дізнатися більше</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{1}відсоток гучності - {0}</value>
-    
+    <value>{Volume}відсоток гучності - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Звук вимкнено- {0}</value>
-    
+    <value>Звук вимкнено- {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Додатки</value>

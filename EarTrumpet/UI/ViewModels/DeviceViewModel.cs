@@ -11,11 +11,11 @@ namespace EarTrumpet.UI.ViewModels
     public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
         public string DisplayName => _device.DisplayName;
-        public string AccessibleName => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+        public string AccessibleName => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
+            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
         public string DeviceDescription => ((IAudioDeviceWindowsAudio)_device).DeviceDescription;
         public string EnumeratorName => ((IAudioDeviceWindowsAudio)_device).EnumeratorName;
         public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
-
         public ObservableCollection<IAppItemViewModel> Apps { get; }
 
         public bool IsDisplayNameVisible

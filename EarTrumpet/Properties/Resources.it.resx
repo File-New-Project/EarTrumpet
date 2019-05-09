@@ -166,12 +166,10 @@
     <value>Scopri di più</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>Volume al {1} percento - {0}</value>
-    
+    <value>Volume al {Volume} percento - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Audio Disattivato - {0}</value>
-    
+    <value>Audio Disattivato - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Applicazioni</value>

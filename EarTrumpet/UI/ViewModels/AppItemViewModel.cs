@@ -152,6 +152,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
-        public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+       public override string ToString() => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
+            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
     }
 }

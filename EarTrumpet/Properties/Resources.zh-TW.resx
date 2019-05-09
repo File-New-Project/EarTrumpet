@@ -166,12 +166,10 @@
     <value>瞭解更多</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>音量 {1}% - {0}</value>
-    
+    <value>音量 {Volume}% - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>靜音 - {0}</value>
-    
+    <value>靜音 - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>應用</value>
