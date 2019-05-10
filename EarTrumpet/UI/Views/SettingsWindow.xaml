@@ -498,7 +498,7 @@
                         Command="{Binding Backstack.GoBack}"
                         FontSize="13">
                     <Button.Style>
-                        <Style BasedOn="{StaticResource CloseButtonStyle}" TargetType="Button">
+                        <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
                             <Setter Property="IsEnabled" Value="False" />
                             <Setter Property="Content" Value="&#xE72B;" />
                             <Style.Triggers>

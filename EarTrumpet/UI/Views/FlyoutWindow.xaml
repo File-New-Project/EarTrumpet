@@ -125,12 +125,14 @@
                             <Grid>
                                 <TextBlock Margin="12,0,32,0"
                                            HorizontalAlignment="Left"
+                                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                            Style="{StaticResource DeviceTitleTextStyle}"
                                            Text="{Binding DeviceNameText}"
                                            TextTrimming="CharacterEllipsis" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
-                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}">
+                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}"
+                                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
