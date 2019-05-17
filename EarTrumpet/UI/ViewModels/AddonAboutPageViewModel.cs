@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensibility.Hosting;
+﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using System.Windows.Input;
 
@@ -8,17 +9,16 @@ namespace EarTrumpet.UI.ViewModels
     {
         public string DisplayName => _addon.DisplayName;
         public string PublisherName => _addon.PublisherName;
-        public string Version => _addon.Version.ToString();
-
+        public string Version => _addon.AddonVersion.ToString();
         public ICommand OpenHelpLink { get; }
         public ICommand Uninstall { get; }
 
-        Addon _addon;
+        AddonInfo _addon;
 
-        public AddonAboutPageViewModel(object addonObject) : base(DefaultManagementGroupName)
+        public AddonAboutPageViewModel(AddonInfo addon) : base(DefaultManagementGroupName)
         {
             Glyph = "\xE946";
-            _addon = AddonManager.Current.FindAddonForObject(addonObject);
+            _addon = addon;
             Title = Properties.Resources.AboutThisAddonText.Replace("{Name}", DisplayName);
 
             OpenHelpLink = new RelayCommand(() => ProcessHelper.StartNoThrow(_addon.HelpLink));

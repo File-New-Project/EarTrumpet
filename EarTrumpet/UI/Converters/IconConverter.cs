@@ -36,7 +36,7 @@ namespace EarTrumpet.UI.Converters
                 int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
                 if (iconIndex != 0)
                 {
-                    return IconUtils.ShellExtractIcon(iconPath.ToString(), iconIndex);
+                    return IconHelper.ShellExtractIcon(iconPath.ToString(), iconIndex);
                 }
                 else
                 {

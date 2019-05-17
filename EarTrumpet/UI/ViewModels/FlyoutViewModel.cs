@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
@@ -32,17 +33,19 @@ namespace EarTrumpet.UI.ViewModels
         public ViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
-        public FlyoutShowOptions ShowOptions { get; private set; }
+        public InputType LastInput { get; private set; }
 
         private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
+        private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private bool _closedDuringOpen;
+        private Action _returnFocusToTray;
 
-        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel)
+        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray)
         {
             Dialog = new ModalDialogViewModel();
             Devices = new ObservableCollection<DeviceViewModel>();
-
+            _returnFocusToTray = returnFocusToTray;
             _mainViewModel = mainViewModel;
             _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
@@ -53,7 +56,7 @@ namespace EarTrumpet.UI.ViewModels
             ExpandCollapse = new RelayCommand(() =>
             {
                 IsExpandingOrCollapsing = true;
-                BeginClose();
+                BeginClose(LastInput);
             });
         }
 
@@ -217,7 +220,7 @@ namespace EarTrumpet.UI.ViewModels
         private void InvalidateWindowSize()
         {
             // We must be async because otherwise SetWindowPos will pump messages before the UI has updated.
-            App.Current.Dispatcher.BeginInvoke((Action)(() =>
+            _currentDispatcher.BeginInvoke((Action)(() =>
             {
                 WindowSizeInvalidated?.Invoke(this, null);
             }));
@@ -231,7 +234,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                BeginClose();
+                BeginClose(InputType.Keyboard);
             }
         }
 
@@ -250,12 +253,17 @@ namespace EarTrumpet.UI.ViewModels
                     if (_closedDuringOpen)
                     {
                         _closedDuringOpen = false;
-                        BeginClose();
+                        BeginClose(InputType.Command);
                     }
                     break;
                 case ViewState.Closing_Stage1:
                     _mainViewModel.OnTrayFlyoutHidden();
                     Dialog.IsVisible = false;
+
+                    if (LastInput == InputType.Keyboard && !IsExpandingOrCollapsing)
+                    {
+                        _returnFocusToTray.Invoke();
+                    }
                     break;
                 case ViewState.Closing_Stage2:
                     _hideTimer.Start();
@@ -265,7 +273,7 @@ namespace EarTrumpet.UI.ViewModels
                     {
                         IsExpandingOrCollapsing = false;
                         DoExpandCollapse();
-                        BeginOpen();
+                        BeginOpen(LastInput);
                     }
                     break;
             }
@@ -314,18 +322,20 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void BeginOpen()
+        public void BeginOpen(InputType inputType)
         {
             if (State == ViewState.Hidden)
             {
+                LastInput = inputType;
                 ChangeState(ViewState.Opening);
             }
         }
 
-        public void BeginClose()
+        public void BeginClose(InputType inputType)
         {
             if (State == ViewState.Open)
             {
+                LastInput = inputType;
                 ChangeState(ViewState.Closing_Stage1);
             }
             else if (State == ViewState.Opening)
@@ -334,17 +344,15 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void OpenFlyout(FlyoutShowOptions options)
+        public void OpenFlyout(InputType inputType)
         {
-            ShowOptions = options;
-
             switch (State)
             {
                 case ViewState.Hidden:
-                    BeginOpen();
+                    BeginOpen(inputType);
                     break;
                 case ViewState.Open:
-                    BeginClose();
+                    BeginClose(inputType);
                     break;
             }
         }

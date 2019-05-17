@@ -1,11 +1,10 @@
-﻿using EarTrumpet.Interop;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace EarTrumpet.UI.Helpers
+namespace EarTrumpet.Interop.Helpers
 {
     public sealed class WindowsTaskbar
     {
@@ -14,7 +13,6 @@ namespace EarTrumpet.UI.Helpers
             public Position Location;
             public RECT Size;
             public Screen ContainingScreen;
-            public double Dpi;
             public bool IsAutoHideEnabled;
         }
 
@@ -27,27 +25,28 @@ namespace EarTrumpet.UI.Helpers
             Bottom = 3
         }
 
+        public static uint Dpi
+        {
+            get
+            {
+                var hWnd = User32.FindWindow("Shell_TrayWnd", null);
+                return User32.GetDpiForWindow(hWnd);
+            }
+        }
+
         public static State Current
         {
             get
             {
-                var state = new State();
                 var hWnd = User32.FindWindow("Shell_TrayWnd", null);
-
-                if (HRESULT.S_OK == Shcore.GetDpiForMonitor(User32.MonitorFromWindow(hWnd, User32.MONITOR_DEFAULT.MONITOR_DEFAULTTONEAREST), Shcore.DpiType.Effective, out uint dpiX, out uint dpiY))
-                {
-                    state.Dpi = dpiY / 96f;
-                }
-
+                var state = new State();
                 var appBarData = new APPBARDATA
                 {
                     cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)),
                     hWnd = hWnd
                 };
-
                 // SHAppBarMessage: Understands Taskbar auto-hide
                 // state (the window is positioned across screens).
-
                 if (Shell32.SHAppBarMessage(AppBarMessage.GetTaskbarPos, ref appBarData) != UIntPtr.Zero)
                 {
                     state.Size = appBarData.rect;

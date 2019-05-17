@@ -126,15 +126,16 @@
     <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="Diagnosis\ErrorReporter.cs" />
     <Compile Include="Diagnosis\SnapshotData.cs" />
-    <Compile Include="Extensibility\IAddonTrayIcon.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
-    <Compile Include="Interop\Helpers\ShellNotifyIcon.cs" />
+    <Compile Include="Interop\Helpers\InputHelper.cs" />
+    <Compile Include="UI\ShellNotifyIcon.cs" />
     <Compile Include="Interop\Helpers\User32Helper.cs" />
     <Compile Include="Interop\ApplicationResolver.cs" />
     <Compile Include="Interop\Helpers\WindowSizeHelper.cs" />
     <Compile Include="Interop\NotifyIconData.cs" />
+    <Compile Include="Interop\POINT.cs" />
     <Compile Include="Interop\SndVolSSO.cs" />
     <Compile Include="UI\Behaviors\ButtonEx.cs" />
     <Compile Include="UI\Behaviors\ScrollViewerEx.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="UI\Controls\SearchBox.xaml.cs">
       <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interop\Helpers\LegacyControlPanelHelper.cs" />
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
     <Compile Include="UI\Helpers\WindowHolder.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
@@ -152,11 +154,7 @@
     <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\Themes\Rule.cs" />
     <Compile Include="UI\Themes\ThemeBindingInfo.cs" />
-    <Compile Include="UI\Tray\HighContrastBuiltIn.cs" />
-    <Compile Include="UI\Tray\IconKind.cs" />
-    <Compile Include="UI\Tray\LegacyIconBuiltIn.cs" />
-    <Compile Include="UI\Tray\ThemeColorBuiltIn.cs" />
-    <Compile Include="UI\Tray\TrayIconFactory.cs" />
+    <Compile Include="UI\IconSource.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
@@ -182,12 +180,11 @@
     <Compile Include="Interop\AppBarEdge.cs" />
     <Compile Include="Interop\AppBarMessage.cs" />
     <Compile Include="Interop\Combase.cs" />
-    <Compile Include="Interop\Comctl32.cs" />
     <Compile Include="Interop\DwmApi.cs" />
     <Compile Include="Interop\Helpers\AudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\Helpers\HotkeyData.cs" />
     <Compile Include="Interop\Helpers\HotkeyManager.cs" />
-    <Compile Include="Interop\Helpers\IconUtils.cs" />
+    <Compile Include="Interop\Helpers\IconHelper.cs" />
     <Compile Include="Interop\HRESULT.cs" />
     <Compile Include="Interop\FolderIds.cs" />
     <Compile Include="Interop\Gdi32.cs" />
@@ -211,7 +208,6 @@
     <Compile Include="Interop\PropVariant.cs" />
     <Compile Include="Interop\PropVariantUnion.cs" />
     <Compile Include="Interop\SFGAO.cs" />
-    <Compile Include="Interop\Shcore.cs" />
     <Compile Include="Interop\Shell32.cs" />
     <Compile Include="Interop\Shlwapi.cs" />
     <Compile Include="Interop\SICHINT.cs" />
@@ -223,7 +219,6 @@
     <Compile Include="Interop\RECT.cs" />
     <Compile Include="Diagnosis\CircularBufferTraceListener.cs" />
     <Compile Include="Interop\Helpers\ImmersiveSystemColors.cs" />
-    <Compile Include="Interop\Helpers\RawInputListener.cs" />
     <Compile Include="UI\ViewModels\AddonAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\AdvertisedCategorySettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
@@ -239,22 +234,18 @@
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsCategoryViewModel.cs" />
     <Compile Include="UI\Converters\IconConverter.cs" />
-    <Compile Include="UI\DeviceIconKind.cs" />
-    <Compile Include="UI\Helpers\ProcessHelper.cs" />
+    <Compile Include="Interop\Helpers\ProcessHelper.cs" />
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
-    <Compile Include="UI\Helpers\TaskbarContextMenuHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\ProcessWatcherService.cs" />
     <Compile Include="UI\IconLoadInfo.cs" />
     <Compile Include="UI\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
-    <Compile Include="UI\ViewModels\FlyoutShowOptions.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\FocusedDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\IDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
-    <Compile Include="UI\Tray\ITrayViewModel.cs" />
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SimpleDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
@@ -265,7 +256,7 @@
     <Compile Include="Interop\Helpers\AccentPolicyLibrary.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioPolicyConfigService.cs" />
     <Compile Include="Diagnosis\LocalDataExporter.cs" />
-    <Compile Include="UI\Services\SettingsService.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="UI\ViewModels\WelcomeViewModel.cs" />
     <Compile Include="UI\Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
@@ -276,7 +267,7 @@
     <Compile Include="UI\Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Helpers\SingleInstanceAppMutex.cs" />
+    <Compile Include="Interop\Helpers\SingleInstanceAppMutex.cs" />
     <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
       <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
     </Compile>
@@ -328,10 +319,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\Helpers\WindowsTaskbar.cs" />
+    <Compile Include="Interop\Helpers\WindowsTaskbar.cs" />
     <Compile Include="UI\Themes\Manager.cs" />
     <Compile Include="DataModel\SystemSettings.cs" />
-    <Compile Include="UI\Tray\TrayIcon.cs" />
     <Compile Include="UI\ViewModels\AppItemViewModel.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
@@ -340,7 +330,6 @@
     <Compile Include="UI\ViewModels\FullWindowViewModel.cs" />
     <Compile Include="UI\ViewModels\DeviceCollectionViewModel.cs" />
     <Compile Include="BindableBase.cs" />
-    <Compile Include="UI\Tray\TrayViewModel.cs" />
     <Compile Include="UI\ViewModels\AudioSessionViewModel.cs" />
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>

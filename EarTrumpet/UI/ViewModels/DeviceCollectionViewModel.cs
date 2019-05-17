@@ -1,32 +1,44 @@
-﻿using EarTrumpet.DataModel.Audio;
+﻿using EarTrumpet.DataModel;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class DeviceCollectionViewModel : BindableBase
     {
+        public static readonly string DefaultDeviceChangedProperty = "DefaultDeviceChangedProperty";
+
         public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
+        public event PropertyChangedEventHandler DefaultDevicePropertyChanged;
+        public event Action TrayPropertyChanged;
 
         public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
         public DeviceViewModel Default { get; private set; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly Timer _peakMeterTimer;
+        private readonly AppSettings _settings;
+        private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
 
-        public DeviceCollectionViewModel(IAudioDeviceManager deviceManager)
+        public DeviceCollectionViewModel(IAudioDeviceManager deviceManager, AppSettings settings)
         {
             AllDevices = new ObservableCollection<DeviceViewModel>();
-
+            _settings = settings;
             _deviceManager = deviceManager;
             _deviceManager.DefaultChanged += DeviceManager_DefaultDeviceChanged;
             _deviceManager.Loaded += DeviceManager_Loaded;
@@ -40,6 +52,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void DeviceManager_Loaded(object sender, EventArgs e)
         {
+            Trace.WriteLine("DeviceCollectionViewModel DeviceManager_Loaded");
             Ready?.Invoke(this, null);
         }
 
@@ -47,8 +60,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             if (e == null)
             {
-                Default = null;
-                DefaultChanged?.Invoke(this, Default);
+                SetDefault(null);
             }
             else
             {
@@ -58,9 +70,39 @@ namespace EarTrumpet.UI.ViewModels
                     AddDevice(e);
                     dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 }
+                SetDefault(dev);
+            }
+        }
 
-                Default = dev;
-                DefaultChanged?.Invoke(this, Default);
+        private void SetDefault(DeviceViewModel dev)
+        {
+            if (Default != null)
+            {
+                Default.PropertyChanged -= OnDefaultDevicePropertyChanged;
+            }
+
+            Default = dev;
+            DefaultChanged?.Invoke(this, Default);
+
+            if (Default != null)
+            {
+                Default.PropertyChanged += OnDefaultDevicePropertyChanged;
+            }
+
+            // Let clients know that even though no properties changed, the underlying object changed.
+            OnDefaultDevicePropertyChanged(this, new PropertyChangedEventArgs(DefaultDeviceChangedProperty));
+        }
+
+        private void OnDefaultDevicePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            DefaultDevicePropertyChanged?.Invoke(sender, e);
+
+            if (e.PropertyName == DefaultDeviceChangedProperty ||
+                e.PropertyName == nameof(Default.Volume) ||
+                e.PropertyName == nameof(Default.IsMuted) ||
+                e.PropertyName == nameof(Default.DisplayName))
+            {
+                TrayPropertyChanged.Invoke();
             }
         }
 
@@ -109,7 +151,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             _deviceManager.UpdatePeakValues();
 
-            App.Current.Dispatcher.BeginInvoke((Action)(() =>
+            _currentDispatcher.BeginInvoke((Action)(() =>
             {
                 foreach (var device in AllDevices)
                 {
@@ -207,6 +249,36 @@ namespace EarTrumpet.UI.ViewModels
         {
             _isFullWindowVisible = true;
             StartOrStopPeakTimer();
+        }
+
+        public string GetTrayToolTip()
+        {
+            if (Default != null)
+            {
+                var stateText = Default.IsMuted ? Properties.Resources.MutedText : $"{Default.Volume}%";
+                var prefixText = $"EarTrumpet: {stateText} - ";
+                var deviceName = $"{Default.DeviceDescription} ({Default.EnumeratorName})";
+
+                // Note: Remote Desktop has an empty description and empty enumerator, but the friendly name is set.
+                if (string.IsNullOrWhiteSpace(Default.DeviceDescription) && string.IsNullOrWhiteSpace(Default.EnumeratorName))
+                {
+                    deviceName = Default.DisplayName;
+                }
+
+                // Device name could be null in transient error cases
+                if (deviceName == null)
+                {
+                    deviceName = "";
+                }
+
+                // API Limitation: "less than 64 chars" for the tooltip.
+                deviceName = deviceName.Substring(0, Math.Min(63 - prefixText.Length, deviceName.Length));
+                return prefixText + deviceName;
+            }
+            else
+            {
+                return Properties.Resources.NoDeviceTrayText;
+            }
         }
     }
 }

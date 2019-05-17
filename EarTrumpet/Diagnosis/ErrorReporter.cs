@@ -29,9 +29,9 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        public void DisplayDiagnosticData()
+        public void DisplayDiagnosticData(string addons)
         {
-            LocalDataExporter.DumpAndShowData(_listener.GetLogText());
+            LocalDataExporter.DumpAndShowData(_listener.GetLogText(), addons);
         }
 
         public static void LogWarning(Exception ex) => s_instance.LogWarningInstance(ex);

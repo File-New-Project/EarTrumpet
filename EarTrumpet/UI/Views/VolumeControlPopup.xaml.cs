@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;

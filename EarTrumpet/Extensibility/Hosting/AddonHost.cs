@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Extensions;
-using EarTrumpet.UI.Tray;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -30,10 +29,7 @@ namespace EarTrumpet.Extensibility.Hosting
         [ImportMany(typeof(IAddonSettingsPage))]
         private List<IAddonSettingsPage> _settingsPages { get; set; }
 
-        [ImportMany(typeof(IAddonTrayIcon))]
-        private List<IAddonTrayIcon> _trayIconEditorItems { get; set; }
-
-        private List<string> _addonDirectoryPaths = new List<string>();
+        private readonly List<string> _addonDirectoryPaths = new List<string>();
 
         private AddonInfo FindInfo(DirectoryCatalog catalog)
         {
@@ -109,15 +105,13 @@ namespace EarTrumpet.Extensibility.Hosting
 
                 new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(this);
 
-                TrayViewModel.AddonItems = _contextMenuItems.ToArray();
+                App.AddonTrayContextMenuItems = _contextMenuItems.ToArray();
                 FocusedAppItemViewModel.AddonContentItems = _appContentItems.ToArray();
                 FocusedDeviceViewModel.AddonContentItems = _deviceContentItems.ToArray();
                 SettingsViewModel.AddonItems = _settingsPages.ToArray();
-                TrayIconFactory.AddonItems = _trayIconEditorItems.ToArray();
 
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
                 _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
-                App.Current.Exit += (_, __) => _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
 
                 return catalogs.Select(c => new Addon(c, FindInfo(c))).ToList().Where(a => a.IsValid);
             }
@@ -126,6 +120,11 @@ namespace EarTrumpet.Extensibility.Hosting
                 Trace.WriteLine($"AddonHost Initialize: {ex}");
             }
             return null;
+        }
+
+        public void Shutdown()
+        {
+            _appLifecycle.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
         }
 
         private Assembly OnFinalAssemblyResolve(object sender, ResolveEventArgs args)

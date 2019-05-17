@@ -12,6 +12,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public string HelpLink => _info.HelpLink;
         public Version Version => _info.AddonVersion;
         public bool IsValid => _info != null;
+        public AddonInfo Info => _info;
 
         private DirectoryCatalog _catalog;
         private AddonInfo _info;

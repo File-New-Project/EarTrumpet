@@ -1,4 +1,4 @@
-﻿using EarTrumpet.UI.Services;
+﻿
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -6,12 +6,15 @@ namespace EarTrumpet.UI.ViewModels
     {
         public bool UseLegacyIcon
         {
-            get => SettingsService.UseLegacyIcon;
-            set => SettingsService.UseLegacyIcon = value;
+            get => _settings.UseLegacyIcon;
+            set => _settings.UseLegacyIcon = value;
         }
 
-        public EarTrumpetLegacySettingsPageViewModel() : base(null)
+        private readonly AppSettings _settings;
+
+        public EarTrumpetLegacySettingsPageViewModel(AppSettings settings) : base(null)
         {
+            _settings = settings;
             Title = Properties.Resources.LegacySettingsPageText;
             Glyph = "\xE825";
         }

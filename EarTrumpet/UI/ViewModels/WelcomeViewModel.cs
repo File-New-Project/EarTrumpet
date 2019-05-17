@@ -1,4 +1,5 @@
-﻿using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Helpers;
 using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels

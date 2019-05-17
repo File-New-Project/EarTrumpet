@@ -5,6 +5,8 @@ namespace EarTrumpet.Interop
 {
     class Shell32
     {
+        public static readonly int WM_TASKBARCREATED = User32.RegisterWindowMessage("TaskbarCreated");
+
         public const int KF_FLAG_DONT_VERIFY = 0x00004000;
 
         [Flags]
@@ -41,10 +43,27 @@ namespace EarTrumpet.Interop
             NIM_SETVERSION = 0x00000004,
         }
 
-        [DllImport("shell32.dll", PreserveSig = true)]
+        public enum NotifyIconNotification : int
+        {
+            NIN_SELECT = 0x400,
+            NIN_KEYSELECT = 0x401,
+            NIN_BALLOONSHOW = 0x402,
+            NIN_BALLOONHIDE = 0x403,
+            NIN_BALLOONTIMEOUT = 0x404,
+            NIN_BALLOONUSERCLICK = 0x405,
+            NIN_POPUPOPEN = 0x406,
+            NIN_POPUPCLOSE = 0x407,
+        }
+
+        public static readonly int NOTIFYICON_VERSION_4 = 4;
+
+        [DllImport("shell32.dll", PreserveSig = true, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Shell_NotifyIconW(
             NotifyIconMessage message, 
-            NOTIFYICONDATAW pNotifyIconData);
+            ref NOTIFYICONDATAW pNotifyIconData);
+
+        [DllImport("shell32.dll", PreserveSig = true)]
+        public static extern int Shell_NotifyIconGetRect(ref NOTIFYICONIDENTIFIER identifier, out RECT iconLocation);
     }
 }

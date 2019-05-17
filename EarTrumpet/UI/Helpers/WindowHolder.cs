@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace EarTrumpet.UI.Helpers
 {
-    class WindowHolder
+    public class WindowHolder
     {
         Func<Window> _create;
         Window _openWindow;

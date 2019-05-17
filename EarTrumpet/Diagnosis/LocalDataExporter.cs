@@ -2,19 +2,18 @@
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.DataModel.WindowsAudio.Internal;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Helpers;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace EarTrumpet.Diagnosis
 {
     public class LocalDataExporter
     {
-        public static void DumpAndShowData(string logText)
+        public static void DumpAndShowData(string logText, string addons)
         {
             var ret = new StringBuilder();
             ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback)));
@@ -22,7 +21,7 @@ namespace EarTrumpet.Diagnosis
             Populate(ret, SnapshotData.App);
             Populate(ret, SnapshotData.Device);
             Populate(ret, SnapshotData.AppSettings);
-            ret.AppendLine($"Addons: {string.Join(" ", Extensibility.Hosting.AddonManager.Current.All.Select(a => a.DisplayName))}");
+            ret.AppendLine($"Addons: {addons}");
             ret.AppendLine();
             ret.AppendLine(logText);
 

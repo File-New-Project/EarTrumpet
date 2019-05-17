@@ -129,7 +129,7 @@ namespace EarTrumpet.Interop
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         internal static extern int WaitForSingleObject(
-            IntPtr lpHandle,
+            IntPtr lpHandle, 
             int dwMilliseconds);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
@@ -138,5 +138,28 @@ namespace EarTrumpet.Interop
             IntPtr hProcess,
             out IMAGE_FILE_MACHINE pProcessMachine,
             out IMAGE_FILE_MACHINE pNativeMachine);
+
+        public static IntPtr RT_ICON = new IntPtr(3);
+        public static IntPtr RT_GROUP_ICON = new IntPtr(14);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern IntPtr FindResourceW(
+            IntPtr hModule,
+            IntPtr lpName,
+            IntPtr lpType);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern IntPtr LoadResource(
+            IntPtr hModule, 
+            IntPtr hResInfo);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern IntPtr LockResource(
+            IntPtr hResData);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern int SizeofResource(
+            IntPtr hModule,
+            IntPtr hResInfo);
     }
 }

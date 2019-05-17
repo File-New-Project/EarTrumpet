@@ -12,7 +12,7 @@
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
-             Startup="Application_Startup">
+             Startup="OnAppStartup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

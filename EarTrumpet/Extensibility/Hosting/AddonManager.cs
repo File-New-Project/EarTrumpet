@@ -1,25 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
     class AddonManager
     {
-        public static AddonManager Current { get; } = new AddonManager();
         public List<Addon> All { get; } = new List<Addon>();
 
         private AddonHost _host;
 
-        public void Load()
+        public AddonManager()
         {
+            Trace.WriteLine("AddonManager Load");
             _host = new AddonHost();
             All.AddRange(_host.Initialize());
+            Trace.WriteLine("AddonManager Loaded");
         }
 
-        public Addon FindAddonForObject(object addonObject)
+        public AddonInfo FindAddonForObject(object addonObject)
         {
             var asm = addonObject.GetType().Assembly;
-            return All.FirstOrDefault(a => a.IsAssembly(asm));
+            return All.FirstOrDefault(a => a.IsAssembly(asm))?.Info;
+        }
+
+        public void Shutdown()
+        {
+            _host.Shutdown();
         }
     }
 }

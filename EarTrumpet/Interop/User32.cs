@@ -8,6 +8,16 @@ namespace EarTrumpet.Interop
     {
         public const int WM_USER = 0x0400;
         public const int WM_HOTKEY = 0x0312;
+        public const int WM_USERMAGIC = 1120;
+        public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
+        public const int WM_GETMINMAXINFO = 0x0024;
+        public const int WM_CONTEXTMENU = 0x007B;
+        public const int WM_MOUSEMOVE = 0x0200;
+        public const int WM_LBUTTONUP = 0x0202;
+        public const int WM_RBUTTONUP = 0x0205;
+        public const int WM_MBUTTONUP = 0x0208;
+        public const int WM_SETTINGCHANGE = 0x001A;
+        public const int SPI_SETWORKAREA = 0x002F;
 
         public static uint MAKEWPARAM(ushort low, ushort high)
         {
@@ -127,8 +137,8 @@ namespace EarTrumpet.Interop
         [StructLayout(LayoutKind.Sequential)]
         internal struct RAWINPUTDEVICE
         {
-            public ushort usUsagePage;
-            public ushort usUsage;
+            public User32.HidUsagePage usUsagePage;
+            public User32.HidUsage usUsage;
             public uint dwFlags;
             public IntPtr hwndTarget;
         };
@@ -307,5 +317,77 @@ namespace EarTrumpet.Interop
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern int RegisterWindowMessage(string msg);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetCursorPos(out POINT pt);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetDpiForSystem();
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetDpiForWindow(IntPtr hWnd);
+
+        public enum SystemMetrics : int
+        {
+            // ...
+        
+            SM_CXICON = 11,
+            SM_CYICON = 12,
+
+            SM_CXSMICON = 49,
+            SM_CYSMICON = 50
+            // ...
+        }
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int GetSystemMetricsForDpi(SystemMetrics nIndex, uint dpi);
+
+        [DllImport("user32.dll", PreserveSig = true, SetLastError = true)]
+        public static extern IntPtr LoadImageW(
+            IntPtr instanceHandle,
+            IntPtr name,
+            IMAGE_TYPE type,
+            int cx,
+            int cy,
+            LoadImageFlags fUnload);
+
+        public enum IMAGE_TYPE : uint
+        {
+            IMAGE_BITMAP = 0,
+            IMAGE_CURSOR = 2,
+            IMAGE_ICON = 1,
+        }
+
+        public enum LoadImageFlags : uint
+        {
+            // ...
+            LR_DEFAULTCOLOR = 0x00000000,
+            LR_SHARED = 0x00008000,
+            // ...
+        }
+
+        public enum IconCursorVersion : int
+        {
+            Default = 0x00030000
+        }
+
+        [DllImport("user32.dll", PreserveSig = true, SetLastError = true)]
+        public static extern IntPtr CreateIconFromResourceEx(
+            IntPtr presbits,
+            int dwResSize,
+            [MarshalAs(UnmanagedType.Bool)]bool fIcon,
+            IconCursorVersion dwVer,
+            int cxDesired,
+            int cyDesired,
+            LoadImageFlags Flags);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int LookupIconIdFromDirectoryEx(
+            IntPtr presbits,
+            [MarshalAs(UnmanagedType.Bool)]bool fIcon,
+            int cxDesired,
+            int cyDesired,
+            LoadImageFlags Flags);
     }
 }

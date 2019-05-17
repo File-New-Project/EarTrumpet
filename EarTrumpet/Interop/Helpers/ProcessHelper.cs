@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace EarTrumpet.UI.Helpers
+namespace EarTrumpet.Interop.Helpers
 {
     public class ProcessHelper
     {

@@ -4,6 +4,6 @@ namespace EarTrumpet.Extensibility
 {
     public interface IAddonSettingsPage
     {
-        SettingsCategoryViewModel Get();
+        SettingsCategoryViewModel Get(AddonInfo addon);
     }
 }

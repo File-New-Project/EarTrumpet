@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Services;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -16,14 +15,14 @@ namespace EarTrumpet.UI.ViewModels
         public HotkeyViewModel OpenSettingsHotkey { get; }
         public string DefaultSettingsHotKey => s_hotkeyNoneText;
 
-        public EarTrumpetShortcutsPageViewModel() : base(null)
+        public EarTrumpetShortcutsPageViewModel(AppSettings settings) : base(null)
         {
             Title = Properties.Resources.ShortcutsPageText;
             Glyph = "\xE765";
 
-            OpenFlyoutHotkey = new HotkeyViewModel(SettingsService.FlyoutHotkey, (newHotkey) => SettingsService.FlyoutHotkey = newHotkey);
-            OpenMixerHotkey = new HotkeyViewModel(SettingsService.MixerHotkey, (newHotkey) => SettingsService.MixerHotkey = newHotkey);
-            OpenSettingsHotkey = new HotkeyViewModel(SettingsService.SettingsHotkey, (newHotkey) => SettingsService.SettingsHotkey = newHotkey);
+            OpenFlyoutHotkey = new HotkeyViewModel(settings.FlyoutHotkey, (newHotkey) => settings.FlyoutHotkey = newHotkey);
+            OpenMixerHotkey = new HotkeyViewModel(settings.MixerHotkey, (newHotkey) => settings.MixerHotkey = newHotkey);
+            OpenSettingsHotkey = new HotkeyViewModel(settings.SettingsHotkey, (newHotkey) => settings.SettingsHotkey = newHotkey);
         }
     }
 }

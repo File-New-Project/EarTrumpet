@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Media.Animation;

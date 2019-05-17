@@ -1,7 +1,8 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Threading;
 
-namespace EarTrumpet.UI.Helpers
+namespace EarTrumpet.Interop.Helpers
 {
     class SingleInstanceAppMutex 
     {
@@ -15,28 +16,18 @@ namespace EarTrumpet.UI.Helpers
             s_mutex = new Mutex(true, mutexName, out bool mutexCreated);
             if (!mutexCreated)
             {
+                Trace.WriteLine("SingleInstanceAppMutex TakeExclusivity: false");
                 s_mutex = null;
                 return false;
             }
-
-            App.Current.Exit += App_Exit;
-
             return true;
-        }
-
-        private static void App_Exit(object sender, System.Windows.ExitEventArgs e)
-        {
-            ReleaseExclusivity();
         }
 
         public static void ReleaseExclusivity()
         {
-            if (s_mutex != null)
-            {
-                s_mutex.ReleaseMutex();
-                s_mutex.Close();
-                s_mutex = null;
-            }
+            s_mutex?.ReleaseMutex();
+            s_mutex?.Close();
+            s_mutex = null;
         }
     }
 }

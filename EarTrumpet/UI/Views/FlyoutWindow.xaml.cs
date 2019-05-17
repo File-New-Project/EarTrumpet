@@ -5,7 +5,6 @@ using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -15,7 +14,6 @@ namespace EarTrumpet.UI.Views
     public partial class FlyoutWindow
     {
         private readonly FlyoutViewModel _viewModel;
-        private RawInputListener _rawListener;
 
         public FlyoutWindow(FlyoutViewModel flyoutViewModel)
         {
@@ -50,13 +48,8 @@ namespace EarTrumpet.UI.Views
         private void OnSourceInitialized(object sender, EventArgs e)
         {
             this.Cloak();
-
             Themes.Manager.Current.ThemeChanged += ThemeChanged;
             ThemeChanged();
-
-            _rawListener = new RawInputListener(this);
-            _rawListener.MouseWheel += OnRawMouseWheel;
-            MouseEnter += OnMouseEnter;
         }
 
         private void OnStateChanged(object sender, object e)
@@ -64,11 +57,6 @@ namespace EarTrumpet.UI.Views
             switch (_viewModel.State)
             {
                 case FlyoutViewModel.ViewState.Opening:
-                    if (_viewModel.ShowOptions == FlyoutShowOptions.Pointer)
-                    {
-                        _rawListener.Start();
-                    }
-
                     Show();
                     ThemeChanged();
                     UpdateWindowBounds();
@@ -83,8 +71,6 @@ namespace EarTrumpet.UI.Views
                     break;
 
                 case FlyoutViewModel.ViewState.Closing_Stage1:
-
-                    _rawListener.Stop();
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
 
                     if (_viewModel.IsExpandingOrCollapsing)
@@ -212,19 +198,11 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void OnRawMouseWheel(object sender, int e)
-        {
-            if (_viewModel.Devices.Any())
-            {
-                _viewModel.Devices.Last().Volume += Math.Sign(e) * 2;
-            }
-        }
-
         private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Disable Alt+F4.
             e.Cancel = true;
-            _viewModel.BeginClose();
+            _viewModel.BeginClose(InputType.Keyboard);
         }
 
         private void OnLightDismissBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -235,9 +213,8 @@ namespace EarTrumpet.UI.Views
 
         private void ThemeChanged() => EnableBlurIfApplicable();
         private void DisableAcrylic() => AccentPolicyLibrary.DisableAcrylic(this);
-        private void OnMouseEnter(object sender, MouseEventArgs e) => _rawListener.Stop();
-        private void OnDeactivated(object sender, EventArgs e) => _viewModel.BeginClose();
+        private void OnDeactivated(object sender, EventArgs e) => _viewModel.BeginClose(InputType.Command);
         private void OnWindowSizeInvalidated(object sender, object e) => UpdateWindowBounds();
-        private void OnDisplaySettingsChanged(object sender, EventArgs e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.BeginClose()));
+        private void OnDisplaySettingsChanged(object sender, EventArgs e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.BeginClose(InputType.Command)));
     }
 }
