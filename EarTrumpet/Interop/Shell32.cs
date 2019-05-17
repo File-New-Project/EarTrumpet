@@ -18,21 +18,22 @@ namespace EarTrumpet.Interop
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
         [return: MarshalAs(UnmanagedType.Interface)]
         public static extern IShellItem2 SHCreateItemInKnownFolder(
-            ref Guid kfid,
+            [MarshalAs(UnmanagedType.LPStruct)]Guid kfid,
             uint dwKFFlags,
             [MarshalAs(UnmanagedType.LPWStr)]string pszItem,
-            ref Guid riid);
+            [MarshalAs(UnmanagedType.LPStruct)]Guid riid);
+
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
+        [return: MarshalAs(UnmanagedType.Interface, IidParameterIndex = 2)]
+        public static extern IShellItem2 SHCreateItemFromParsingName(
+            [MarshalAs(UnmanagedType.LPWStr)]string pszPath,
+            IntPtr pbc,
+            [MarshalAs(UnmanagedType.LPStruct)]Guid riid);
 
         [DllImport("shell32.dll", PreserveSig = true)]
         public static extern UIntPtr SHAppBarMessage(
-            AppBarMessage dwMessage, 
+            AppBarMessage dwMessage,
             ref APPBARDATA pData);
-
-        [DllImport("shell32.dll", PreserveSig = true)]
-        public static extern IntPtr ExtractIcon(
-            IntPtr instanceHandle, 
-            string path, 
-            int iconIndex);
 
         public enum NotifyIconMessage : int
         {
@@ -60,7 +61,7 @@ namespace EarTrumpet.Interop
         [DllImport("shell32.dll", PreserveSig = true, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool Shell_NotifyIconW(
-            NotifyIconMessage message, 
+            NotifyIconMessage message,
             ref NOTIFYICONDATAW pNotifyIconData);
 
         [DllImport("shell32.dll", PreserveSig = true)]

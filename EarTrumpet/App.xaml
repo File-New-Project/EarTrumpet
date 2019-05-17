@@ -5,10 +5,9 @@
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
-             xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+             xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
-             xmlns:ui="clr-namespace:EarTrumpet.UI"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
              xmlns:win="clr-namespace:System.Windows;assembly=PresentationFramework"
@@ -94,8 +93,7 @@
                 </Theme:Manager.References>
             </Theme:Manager>
 
-            <ui:MenuItemTemplateSelector x:Key="MenuSelector" />
-            <conv:IconConverter x:Key="iconConverter" />
+            <ctl:MenuItemTemplateSelector x:Key="MenuSelector" />
 
             <Thickness x:Key="PopupBorderThickness">1</Thickness>
             <bcl:Double x:Key="WindowBlurRadius">10</bcl:Double>
@@ -1497,23 +1495,24 @@
                                     </Setter.Value>
                                 </Setter>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
                                         <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
                         <Grid>
-                            <Image Width="{DynamicResource Mutable_AppIconSize}"
-                                   Height="{DynamicResource Mutable_AppIconSize}"
-                                   Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
-                                   Stretch="Fill" />
+                            <ctl:ImageEx x:Name="AppIcon"
+                                         Width="{DynamicResource Mutable_AppIconSize}"
+                                         Height="{DynamicResource Mutable_AppIconSize}"
+                                         SourceEx="{Binding Icon}"
+                                         Stretch="Fill" />
                             <Border>
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                                            <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                         </Style.Triggers>

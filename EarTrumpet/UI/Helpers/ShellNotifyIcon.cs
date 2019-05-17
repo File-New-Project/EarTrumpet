@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
-namespace EarTrumpet.UI
+namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
@@ -45,13 +45,13 @@ namespace EarTrumpet.UI
         private bool _isCreated;
         private bool _isVisible;
         private bool _isListeningForInput;
-        public IconSource IconSource { get; private set; }
+        public TaskbarIconSource IconSource { get; private set; }
         private string _text;
         private RECT _iconLocation;
-        private POINT _cursorPosition;
+        private System.Drawing.Point _cursorPosition;
         private DispatcherTimer _invalidationTimer;
 
-        public ShellNotifyIcon(IconSource icon, Func<Guid> getIdentity, Action resetIdentity)
+        public ShellNotifyIcon(TaskbarIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
         {
             IconSource = icon;
             IconSource.Changed += (_) => Update();
@@ -196,12 +196,8 @@ namespace EarTrumpet.UI
             if (Shell32.Shell_NotifyIconGetRect(ref id, out RECT location) == 0)
             {
                 _iconLocation = location;
-
-                if (User32.GetCursorPos(out POINT pt))
-                {
-                    _cursorPosition = pt;
-                    IsCursorWithinNotifyIconBounds();
-                }
+                _cursorPosition = System.Windows.Forms.Cursor.Position;
+                IsCursorWithinNotifyIconBounds();
             }
             else
             {

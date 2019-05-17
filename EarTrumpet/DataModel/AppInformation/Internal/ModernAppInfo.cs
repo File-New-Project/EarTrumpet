@@ -1,7 +1,6 @@
 ﻿using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -31,31 +30,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
             ExeName = PackageInstallPath;
             DisplayName = AppsFolder.ReadDisplayName(appUserModelId);
-
-            try
-            {
-                var rawSmallLogoPath = shellItem.GetString(ref PropertyKeys.PKEY_Tile_SmallLogoPath);
-                var smallLogoPath = Path.Combine(PackageInstallPath, rawSmallLogoPath);
-                if (File.Exists(smallLogoPath))
-                {
-                    SmallLogoPath = smallLogoPath;
-                }
-                else
-                {
-                    var mrtResourceManager = (IMrtResourceManager)new MrtResourceManager();
-                    mrtResourceManager.InitializeForPackage(shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageFullName));
-
-                    var map = mrtResourceManager.GetMainResourceMap();
-                    SmallLogoPath = Path.Combine(PackageInstallPath, map.GetFilePath(rawSmallLogoPath));
-
-                    Marshal.ReleaseComObject(map);
-                    Marshal.ReleaseComObject(mrtResourceManager);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"{ex}");
-            }
+            SmallLogoPath = appUserModelId;
 
             if (trackProcess)
             {
@@ -159,16 +134,14 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
         private static IShellItem2 GetShellItemForAppByAumid(string aumid)
         {
-            var iid = typeof(IShellItem2).GUID;
-            return Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
+            return Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, typeof(IShellItem2).GUID);
         }
 
         private static bool CanResolveAppByApplicationUserModelId(string aumid)
         {
             try
             {
-                var iid = typeof(IShellItem2).GUID;
-                Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, ref iid);
+                Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, typeof(IShellItem2).GUID);
                 return true;
             }
             catch (Exception ex)

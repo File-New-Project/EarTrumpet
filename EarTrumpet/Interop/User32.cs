@@ -8,9 +8,6 @@ namespace EarTrumpet.Interop
     {
         public const int WM_USER = 0x0400;
         public const int WM_HOTKEY = 0x0312;
-        public const int WM_USERMAGIC = 1120;
-        public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
-        public const int WM_GETMINMAXINFO = 0x0024;
         public const int WM_CONTEXTMENU = 0x007B;
         public const int WM_MOUSEMOVE = 0x0200;
         public const int WM_LBUTTONUP = 0x0202;
@@ -19,10 +16,7 @@ namespace EarTrumpet.Interop
         public const int WM_SETTINGCHANGE = 0x001A;
         public const int SPI_SETWORKAREA = 0x002F;
 
-        public static uint MAKEWPARAM(ushort low, ushort high)
-        {
-            return ((uint)high << 16) | low;
-        }
+        public static uint MAKEWPARAM(ushort low, ushort high) => ((uint)high << 16) | low;
 
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool RegisterHotKey(
@@ -54,17 +48,6 @@ namespace EarTrumpet.Interop
             int cx,
             int cy,
             WindowPosFlags uFlags);
-
-        [Flags]
-        public enum MONITOR_DEFAULT : uint
-        {
-            MONITOR_DEFAULTTONULL = 0,
-            MONITOR_DEFAULTTOPRIMARY = 1,
-            MONITOR_DEFAULTTONEAREST = 2,
-        }
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        internal static extern IntPtr MonitorFromWindow(IntPtr hWnd, MONITOR_DEFAULT flags);
 
         [DllImport("user32.dll", PreserveSig = true)]
         internal static extern int SetWindowCompositionAttribute(
@@ -199,43 +182,26 @@ namespace EarTrumpet.Interop
 
         public enum HidUsagePage : ushort
         {
-            /// <summary>Unknown usage page.</summary>
             UNDEFINED = 0x00,
-            /// <summary>Generic desktop controls.</summary>
             GENERIC = 0x01,
-            /// <summary>Simulation controls.</summary>
             SIMULATION = 0x02,
-            /// <summary>Virtual reality controls.</summary>
             VR = 0x03,
-            /// <summary>Sports controls.</summary>
             SPORT = 0x04,
-            /// <summary>Games controls.</summary>
             GAME = 0x05,
-            /// <summary>Keyboard controls.</summary>
             KEYBOARD = 0x07,
         }
 
         public enum HidUsage : ushort
         {
-            /// <summary>Unknown usage.</summary>
             Undefined = 0x00,
-            /// <summary>Pointer</summary>
             Pointer = 0x01,
-            /// <summary>Mouse</summary>
             Mouse = 0x02,
-            /// <summary>Joystick</summary>
             Joystick = 0x04,
-            /// <summary>Game Pad</summary>
             Gamepad = 0x05,
-            /// <summary>Keyboard</summary>
             Keyboard = 0x06,
-            /// <summary>Keypad</summary>
             Keypad = 0x07,
-            /// <summary>Multi-axis Controller</summary>
             SystemControl = 0x80,
-            /// <summary>Tablet PC controls</summary>
             Tablet = 0x80,
-            /// <summary>Consumer</summary>
             Consumer = 0x0C,
         }
 
@@ -263,7 +229,6 @@ namespace EarTrumpet.Interop
             ref uint pcbSize,
             uint cbSizeHeader);
 
-
         internal const int RIDEV_NOLEGACY = 0x00000030;
         internal const int WM_INPUT = 0x00FF;
         internal const int RIDEV_INPUTSINK = 0x00000100;
@@ -277,10 +242,6 @@ namespace EarTrumpet.Interop
         internal static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll", PreserveSig = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DestroyIcon(IntPtr iconHandle);
-
-        [DllImport("user32.dll", PreserveSig = true)]
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll", PreserveSig = true)]
@@ -289,8 +250,6 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true, CharSet = CharSet.Unicode)]
         public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        // https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576.aspx
-        // The maximum length for lpszClassName is 256. If lpszClassName is greater than the maximum length, the RegisterClass function will fail.
         public static readonly int MAX_CLASSNAME_LENGTH = 256;
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
@@ -319,22 +278,13 @@ namespace EarTrumpet.Interop
         public static extern int RegisterWindowMessage(string msg);
 
         [DllImport("user32.dll", PreserveSig = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetCursorPos(out POINT pt);
-
-        [DllImport("user32.dll", PreserveSig = true)]
-        public static extern uint GetDpiForSystem();
-
-        [DllImport("user32.dll", PreserveSig = true)]
         public static extern uint GetDpiForWindow(IntPtr hWnd);
 
         public enum SystemMetrics : int
         {
             // ...
-        
             SM_CXICON = 11,
             SM_CYICON = 12,
-
             SM_CXSMICON = 49,
             SM_CYSMICON = 50
             // ...
@@ -342,22 +292,6 @@ namespace EarTrumpet.Interop
 
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern int GetSystemMetricsForDpi(SystemMetrics nIndex, uint dpi);
-
-        [DllImport("user32.dll", PreserveSig = true, SetLastError = true)]
-        public static extern IntPtr LoadImageW(
-            IntPtr instanceHandle,
-            IntPtr name,
-            IMAGE_TYPE type,
-            int cx,
-            int cy,
-            LoadImageFlags fUnload);
-
-        public enum IMAGE_TYPE : uint
-        {
-            IMAGE_BITMAP = 0,
-            IMAGE_CURSOR = 2,
-            IMAGE_ICON = 1,
-        }
 
         public enum LoadImageFlags : uint
         {

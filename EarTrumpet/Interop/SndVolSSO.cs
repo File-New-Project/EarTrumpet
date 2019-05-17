@@ -26,7 +26,7 @@ namespace EarTrumpet.Interop
 
         public static bool SystemIconsAreAvailable()
         {
-            Func<IconId, Icon> ThrowIfNull = (icon) => IconHelper.LoadSmallIcon(GetPath(icon)) ?? throw new InvalidOperationException(icon.ToString());
+            Func<IconId, Icon> ThrowIfNull = (icon) => IconHelper.LoadIconForTaskbar(GetPath(icon)) ?? throw new InvalidOperationException(icon.ToString());
 
             try
             {

@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EarTrumpet.UI
+namespace EarTrumpet.UI.Controls
 {
     public class MenuItemTemplateSelector : ItemContainerTemplateSelector
     {

@@ -1,8 +1,6 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.DataModel.Audio;
+﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +9,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
-using System.Windows;
 using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels

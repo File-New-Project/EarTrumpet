@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using EarTrumpet.UI.Helpers;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 

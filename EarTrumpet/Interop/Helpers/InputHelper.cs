@@ -46,7 +46,7 @@ namespace EarTrumpet.Interop.Helpers
             return ret;
         }
 
-        public static bool ProcessMouseInputMessage(IntPtr lParam, ref POINT cursorPosition, out int wheelDelta)
+        public static bool ProcessMouseInputMessage(IntPtr lParam, ref System.Drawing.Point cursorPosition, out int wheelDelta)
         {
             wheelDelta = 0;
             bool isApplicableMouseMessage = false;
@@ -69,10 +69,7 @@ namespace EarTrumpet.Interop.Helpers
 
                         if ((rawInput.mouse.usFlags & User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE) == User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE)
                         {
-                            if (User32.GetCursorPos(out var pt))
-                            {
-                                cursorPosition = pt;
-                            }
+                            cursorPosition = System.Windows.Forms.Cursor.Position;
                         }
                         else
                         {

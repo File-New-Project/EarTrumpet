@@ -6,9 +6,8 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
     {
         public static string ReadDisplayName(string appId)
         {
-            var iid = typeof(IShellItem2).GUID;
-            var shellItem = Shell32.SHCreateItemInKnownFolder(ref FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appId, ref iid);
-            return shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+            var item = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appId, typeof(IShellItem2).GUID);
+            return item.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
         }
     }
 }

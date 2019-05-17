@@ -3,9 +3,9 @@
 namespace EarTrumpet.Interop
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct POINT
+    public struct SIZE
     {
-        public int X;
-        public int Y;
+        public int cx;
+        public int cy;
     }
 }

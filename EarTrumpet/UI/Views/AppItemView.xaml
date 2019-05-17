@@ -26,23 +26,24 @@
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                            <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
                                 <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
                 <Grid>
-                    <Image Width="{DynamicResource Mutable_AppIconSize}"
-                           Height="{DynamicResource Mutable_AppIconSize}"
-                           Source="{Binding Icon, Converter={StaticResource iconConverter}, Mode=OneTime}"
-                           Stretch="Fill" />
+                    <ctl:ImageEx x:Name="AppIcon"
+                                 Width="{DynamicResource Mutable_AppIconSize}"
+                                 Height="{DynamicResource Mutable_AppIconSize}"
+                                 SourceEx="{Binding Icon}"
+                                 Stretch="Fill" />
                     <Border>
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Icon, Converter={StaticResource iconConverter}}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>

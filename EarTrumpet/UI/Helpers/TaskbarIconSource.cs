@@ -3,11 +3,11 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 
-namespace EarTrumpet.UI
+namespace EarTrumpet.UI.Helpers
 {
-    public class IconSource
+    public class TaskbarIconSource
     {
-        public event Action<IconSource> Changed;
+        public event Action<TaskbarIconSource> Changed;
 
         public Icon Current { get; private set; }
         public object Tag { get; set; }
@@ -30,7 +30,7 @@ namespace EarTrumpet.UI
         private string _path;
         private string _configuration;
 
-        public IconSource(Func<Icon, Icon> processIcon, Func<string> getPropertiesConfiguration)
+        public TaskbarIconSource(Func<Icon, Icon> processIcon, Func<string> getPropertiesConfiguration)
         {
             _processIcon = processIcon;
             _getConfiguration = getPropertiesConfiguration;
@@ -44,7 +44,7 @@ namespace EarTrumpet.UI
                 _configuration = nextConfiguation;
                 Trace.WriteLine($"IconSource IconResolutionPropertiesChanged: {nextConfiguation}");
                 Current?.Dispose();
-                Current = _processIcon.Invoke(IconHelper.LoadSmallIcon(_path));
+                Current = _processIcon.Invoke(IconHelper.LoadIconForTaskbar(_path));
                 Changed?.Invoke(this);
             }
         }

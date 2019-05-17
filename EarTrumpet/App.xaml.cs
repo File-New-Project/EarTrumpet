@@ -4,7 +4,6 @@ using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
@@ -76,13 +75,13 @@ namespace EarTrumpet
                 _settings.UseLegacyIcon = true;
             }
 
-            IconSource iconSource = null;
-            iconSource = new IconSource(icon =>
+            TaskbarIconSource iconSource = null;
+            iconSource = new TaskbarIconSource(icon =>
             {
                 if (_settings.UseLegacyIcon)
                 {
                     icon.Dispose();
-                    icon = IconHelper.LoadSmallIcon(SystemSettings.IsSystemLightTheme ? $"{AssetBaseUri}Application.ico" : $"{AssetBaseUri}Tray.ico");
+                    icon = IconHelper.LoadIconForTaskbar(SystemSettings.IsSystemLightTheme ? $"{AssetBaseUri}Application.ico" : $"{AssetBaseUri}Tray.ico");
                 }
 
                 double iconFillPercent = ((SndVolSSO.IconId)iconSource.Tag) == SndVolSSO.IconId.NoDevice && !_settings.UseLegacyIcon ? 0.4 : 1;
