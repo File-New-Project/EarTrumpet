@@ -8,8 +8,6 @@ namespace EarTrumpet.Interop
     {
         public const int WM_USER = 0x0400;
         public const int WM_HOTKEY = 0x0312;
-        public const int WM_USERMAGIC = 1120;
-        public const int SNDVOL_ACTION_SHOWCONTEXTMENU = 123;
 
         public static uint MAKEWPARAM(ushort low, ushort high)
         {
@@ -28,6 +26,15 @@ namespace EarTrumpet.Interop
             IntPtr hWnd,
             int id);
 
+        [Flags]
+        public enum WindowPosFlags : uint
+        {
+            SWP_NOSIZE = 0x0001,
+            SWP_NOMOVE = 0x0002,
+            SWP_NOZORDER = 0x0004,
+            SWP_NOACTIVATE = 0x0010,
+        }
+
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern bool SetWindowPos(
             IntPtr hWnd,
@@ -36,7 +43,7 @@ namespace EarTrumpet.Interop
             int y,
             int cx,
             int cy,
-            uint uFlags);
+            WindowPosFlags uFlags);
 
         [Flags]
         public enum MONITOR_DEFAULT : uint
@@ -114,11 +121,6 @@ namespace EarTrumpet.Interop
             ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
             ACCENT_INVALID_STATE = 5
         }
-
-        public const uint SWP_NOSIZE = 0x0001;
-        public const uint SWP_NOMOVE = 0x0002;
-        public const uint SWP_NOZORDER = 0x0004;
-        public const uint SWP_NOACTIVATE = 0x0010;
 
         public const int WS_EX_TOOLWINDOW = 0x00000080;
 

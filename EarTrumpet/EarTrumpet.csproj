@@ -133,6 +133,7 @@
     <Compile Include="Interop\Helpers\ShellNotifyIcon.cs" />
     <Compile Include="Interop\Helpers\User32Helper.cs" />
     <Compile Include="Interop\ApplicationResolver.cs" />
+    <Compile Include="Interop\Helpers\WindowSizeHelper.cs" />
     <Compile Include="Interop\NotifyIconData.cs" />
     <Compile Include="Interop\SndVolSSO.cs" />
     <Compile Include="UI\Behaviors\ButtonEx.cs" />

@@ -449,7 +449,7 @@
                 <Setter Property="WindowStyle" Value="None" />
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
-                        <WindowChrome CaptionHeight="31" ResizeBorderThickness="4" />
+                        <WindowChrome CaptionHeight="31" ResizeBorderThickness="{x:Static win:SystemParameters.WindowResizeBorderThickness}" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Theme:Brush.BorderBrush" Value="ActiveWindowBorder" />
@@ -458,8 +458,11 @@
                         <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
                     </Trigger>
                     <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
-                        <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
                     </DataTrigger>
+                    <Trigger Property="WindowState" Value="Maximized">
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Trigger>
                     <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsSystemLightTheme}" Value="False">
                         <Setter Property="Icon" Value="pack://application:,,,/EarTrumpet;component/Assets/Tray.ico" />
                     </DataTrigger>

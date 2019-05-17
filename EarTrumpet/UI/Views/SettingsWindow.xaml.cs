@@ -24,6 +24,7 @@ namespace EarTrumpet.UI.Views
             this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             Themes.Manager.Current.ThemeChanged += SetBlurColor;
             Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
+            StateChanged += OnWindowStateChanged;
         }
 
         private void SetBlurColor()
@@ -41,7 +42,7 @@ namespace EarTrumpet.UI.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine("CloseButton_Click SafeClose");
+            Trace.WriteLine("SettingsWindow CloseButton_Click SafeClose");
             e.Handled = true;
 
             CloseClicked?.Invoke();
@@ -61,13 +62,24 @@ namespace EarTrumpet.UI.Views
 
         private void MaximizeRestoreButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = (WindowState == WindowState.Maximized) ?
-                WindowState.Normal : WindowState.Maximized;
+            WindowState = (WindowState == WindowState.Maximized) ? WindowState.Normal : WindowState.Maximized;
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void OnWindowStateChanged(object sender, EventArgs e)
+        {
+            var chrome = System.Windows.Shell.WindowChrome.GetWindowChrome(this);
+            chrome.ResizeBorderThickness = WindowState == WindowState.Maximized ? new Thickness(0) : SystemParameters.WindowResizeBorderThickness;
+
+            if (WindowState == WindowState.Maximized)
+            {
+                UpdateLayout();
+                WindowSizeHelper.RestrictMaximizedSizeToWorkArea(this);
+            }
         }
     }
 }
