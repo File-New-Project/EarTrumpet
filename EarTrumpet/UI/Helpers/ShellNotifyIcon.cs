@@ -50,6 +50,7 @@ namespace EarTrumpet.UI.Helpers
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
         private DispatcherTimer _invalidationTimer;
+        private int _remainingTicks;
 
         public ShellNotifyIcon(TaskbarIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
         {
@@ -59,7 +60,7 @@ namespace EarTrumpet.UI.Helpers
             _resetIdentity = resetIdentity;
             _window = new Win32Window();
             _window.Initialize(WndProc);
-            _invalidationTimer = new DispatcherTimer(TimeSpan.FromSeconds(3), DispatcherPriority.Normal, (_, __) => OnDelayedIconCheckForUpdate(), Dispatcher.CurrentDispatcher);
+            _invalidationTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Normal, (_, __) => OnDelayedIconCheckForUpdate(), Dispatcher.CurrentDispatcher);
 
             Themes.Manager.Current.PropertyChanged += (_, __) => ScheduleDelayedIconInvalidation();
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (_, __) => ScheduleDelayedIconInvalidation();
@@ -237,17 +238,23 @@ namespace EarTrumpet.UI.Helpers
 
         private void ScheduleDelayedIconInvalidation()
         {
-            IconSource.CheckForUpdate();
-
-            _invalidationTimer.Stop();
+            _remainingTicks = 10;
             _invalidationTimer.Start();
+
+            IconSource.CheckForUpdate();
         }
 
         private void OnDelayedIconCheckForUpdate()
         {
-            _invalidationTimer.Stop();
+            _remainingTicks--;
+            if (_remainingTicks <= 0)
+            {
+                _invalidationTimer.Stop();
+                // Force a final update to protect us from the shell doing implicit work
+                Update();
+            }
+
             IconSource.CheckForUpdate();
-            Update();
         }
 
         public void ShowContextMenu(IEnumerable itemsSource)
