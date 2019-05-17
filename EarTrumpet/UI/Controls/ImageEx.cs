@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace EarTrumpet.UI.Controls
 {
-    class ImageEx : Image
+    public class ImageEx : Image
     {
         public IconLoadInfo SourceEx { get => (IconLoadInfo)GetValue(SourceExProperty); set => SetValue(SourceExProperty, value); }
         public static readonly DependencyProperty SourceExProperty = DependencyProperty.Register(
@@ -24,21 +24,25 @@ namespace EarTrumpet.UI.Controls
         public ImageEx()
         {
             DpiChanged += OnDpiChanged;
+            Loaded += (_, __) => OnSourceExChanged();
         }
 
         private void OnDpiChanged(object sender, DpiChangedEventArgs e)
         {
-            var nextDpi = GetWindowDpi();
-            if (nextDpi != _dpi)
+            if (IsLoaded)
             {
-                _dpi = nextDpi;
-                OnSourceExChanged();
+                var nextDpi = GetWindowDpi();
+                if (nextDpi != _dpi)
+                {
+                    _dpi = nextDpi;
+                    OnSourceExChanged();
+                }
             }
         }
 
         private void OnSourceExChanged()
         {
-            if (SourceEx != null)
+            if (SourceEx != null && IsLoaded)
             {
                 Source = LoadImage(SourceEx.IconPath, SourceEx.IsDesktopApp);
             }
@@ -50,6 +54,7 @@ namespace EarTrumpet.UI.Controls
             {
                 try
                 {
+                    path = Environment.ExpandEnvironmentVariables(path);
                     var scale = GetWindowDpi() / (double)96;
                     if (!isDesktopApp)
                     {
@@ -61,7 +66,7 @@ namespace EarTrumpet.UI.Controls
                         int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
                         if (iconIndex != 0)
                         {
-                            var icon = IconHelper.LoadIconResource(iconPath.ToString(), iconIndex, (int)(Width * scale), (int)(Height * scale));
+                            var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale));
                             Trace.WriteLine($"ImageEx LoadImage {icon?.Size.Width}x{icon?.Size.Height} {path}");
                             return icon.ToImageSource();
                         }
@@ -73,7 +78,7 @@ namespace EarTrumpet.UI.Controls
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine($"ImageEx LoadImage Failed: {ex}");
+                    Trace.WriteLine($"ImageEx LoadImage Failed: {path} {ex}");
                 }
             }
             return null;
@@ -97,7 +102,7 @@ namespace EarTrumpet.UI.Controls
             }
         }
 
-        private uint GetWindowDpi() => User32.GetDpiForWindow(new WindowInteropHelper(Window.GetWindow(this)).Handle);
+        private uint GetWindowDpi() => User32.GetDpiForWindow(((HwndSource)PresentationSource.FromVisual(this)).Handle);
         private static void OnSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((ImageEx)d).OnSourceExChanged();
     }
 }
