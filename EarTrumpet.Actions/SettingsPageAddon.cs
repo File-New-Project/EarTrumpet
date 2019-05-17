@@ -9,10 +9,10 @@ namespace EarTrumpet.Actions
     [Export(typeof(IAddonSettingsPage))]
     class SettingsPageAddon : IAddonSettingsPage
     {
-        public SettingsCategoryViewModel Get()
+        public SettingsCategoryViewModel Get(AddonInfo info)
         {
             ResourceLoader.Load(Addon.Namespace);
-            return new ActionsCategoryViewModel();
+            return new ActionsCategoryViewModel(info);
         }
     }
 }

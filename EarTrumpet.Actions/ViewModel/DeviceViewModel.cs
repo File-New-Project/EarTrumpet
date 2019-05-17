@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
-using EarTrumpet.UI;
+using EarTrumpet.UI.Helpers;
 
 namespace EarTrumpet.Actions.ViewModel
 {
