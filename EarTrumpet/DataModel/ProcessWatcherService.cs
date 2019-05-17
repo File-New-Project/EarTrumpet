@@ -27,8 +27,6 @@ namespace EarTrumpet.DataModel
 
         public static void WatchProcess(int processId, Action<int> processQuit)
         {
-            Trace.WriteLine($"ProcessWatcherService WatchProcess {processId}");
-
             var data = new ProcessWatcherData
             {
                 processId = processId,

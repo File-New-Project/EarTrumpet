@@ -77,9 +77,13 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 DisplayName = AppsFolder.ReadDisplayName(appId);
                 Marshal.ReleaseComObject(appResolver);
             }
+            catch (COMException ex)
+            {
+                Trace.WriteLine($"DesktopAppInfo DisplayName read failed {ExeName} 0x{((uint)ex.HResult).ToString("x")}");
+            }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex);
+                Trace.WriteLine($"DesktopAppInfo DisplayName read failed {ExeName} {ex}");
             }
 
             if (string.IsNullOrWhiteSpace(DisplayName))

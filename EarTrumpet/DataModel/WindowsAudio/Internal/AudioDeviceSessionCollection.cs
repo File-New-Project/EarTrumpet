@@ -21,8 +21,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public AudioDeviceSessionCollection(IAudioDevice parent, IMMDevice device)
         {
-            Trace.WriteLine($"AudioDeviceSessionCollection Create dev={device.GetId()}");
-
             _parent = new WeakReference<IAudioDevice>(parent);
             _dispatcher = App.Current.Dispatcher;
 
@@ -39,7 +37,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"AudioDeviceSessionCollection Create dev={device.GetId()} {ex}");
             }
         }
 
@@ -83,7 +81,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"AudioDeviceSessionCollection CreateAndAddSession {ex}");
             }
         }
 

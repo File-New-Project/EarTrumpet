@@ -2,12 +2,13 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 namespace EarTrumpet.Diagnosis
 {
     class CircularBufferTraceListener : TraceListener
     {
-        private const int MAX_LOG_LINES = 200;
+        private const int MAX_LOG_LINES = 400;
         private readonly ConcurrentQueue<string> _log = new ConcurrentQueue<string>();
         private readonly DefaultTraceListener _defaultListener = new DefaultTraceListener();
 
@@ -15,7 +16,9 @@ namespace EarTrumpet.Diagnosis
 
         public override void WriteLine(string message)
         {
-            message = $"{DateTime.Now.ToString("HH:mm:ss.fff")} {message}";
+            var threadId = Thread.CurrentThread.ManagedThreadId;
+            var idText = threadId == 1 ? "UI" : threadId.ToString().PadLeft(2, ' ') + "  ";
+            message = $"{DateTime.Now.ToString("HH:mm:ss.fff")} {idText} {message}";
 
             _log.Enqueue(message + Environment.NewLine);
 

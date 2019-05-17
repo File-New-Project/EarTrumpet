@@ -48,7 +48,7 @@ namespace EarTrumpet.Extensions
                     // We do not expect this to occur in production when the app is packaged.
                     AppTrace.LogWarning(ex);
 #else
-                    Trace.WriteLine(ex);
+                    Trace.WriteLine($"AppExtensions HasIdentity: False {ex.Message}");
 #endif
                     _hasIdentity = false;
                 }

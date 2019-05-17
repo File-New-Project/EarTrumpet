@@ -17,20 +17,36 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => false;
 
-        private int processId;
+        private int _processId;
 
         public ModernAppInfo(int processId, bool trackProcess)
         {
-            this.processId = processId;
+            _processId = processId;
 
             var appUserModelId = GetAppUserModelIdByPid(processId);
-            var shellItem = GetShellItemForAppByAumid(appUserModelId);
 
-            BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
-            PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
-            ExeName = PackageInstallPath;
-            DisplayName = AppsFolder.ReadDisplayName(appUserModelId);
-            SmallLogoPath = appUserModelId;
+            try
+            {
+                var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appUserModelId, typeof(IShellItem2).GUID);
+                BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
+                PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
+                DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+                ExeName = PackageInstallPath;
+                SmallLogoPath = appUserModelId;
+            }
+            catch (COMException ex)
+            {
+                Trace.WriteLine($"ModernAppInfo DisplayName read failed 0x{((uint)ex.HResult).ToString("x")} {appUserModelId}");
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"ModernAppInfo DisplayName read failed {appUserModelId} {ex}");
+            }
+
+            if (string.IsNullOrWhiteSpace(DisplayName))
+            {
+                DisplayName = appUserModelId;
+            }
 
             if (trackProcess)
             {
@@ -130,11 +146,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
 
             return appUserModelId;
-        }
-
-        private static IShellItem2 GetShellItemForAppByAumid(string aumid)
-        {
-            return Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, typeof(IShellItem2).GUID);
         }
 
         private static bool CanResolveAppByApplicationUserModelId(string aumid)
