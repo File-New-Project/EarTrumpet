@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Windows.ApplicationModel;
+using EarTrumpet.Diagnosis;
 
 namespace EarTrumpet.Extensions
 {
@@ -46,7 +47,7 @@ namespace EarTrumpet.Extensions
                 {
 #if !DEBUG
                     // We do not expect this to occur in production when the app is packaged.
-                    AppTrace.LogWarning(ex);
+                    ErrorReporter.LogWarning(ex);
 #else
                     Trace.WriteLine($"AppExtensions HasIdentity: False {ex.Message}");
 #endif
