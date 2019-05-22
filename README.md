@@ -29,6 +29,8 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 - Windows 10 1803 (April 2018 Update)
 - Windows 10 1809 (October 2018 Update)
 - Windows 10 1903 (April 2019 Update)
+- .NET Framework 4.6.2
+  downlowad from the [Microsoft .NET Framework 4.6.2 ](https://dotnet.microsoft.com/download/thank-you/net462)
 
 ## Known issues ##
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
