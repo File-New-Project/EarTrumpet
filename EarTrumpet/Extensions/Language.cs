@@ -45,7 +45,7 @@ namespace EarTrumpet.Extensions
             CultureInfo ci;
             if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang) && CultureInfo.CurrentUICulture.Name.Equals(inFiveCharLang))
                 return;
-            if (inFiveCharLang == "Auto")
+            if (inFiveCharLang == "Auto" || inFiveCharLang==null)
                 ci = CultureInfo.InstalledUICulture;
             else
                 ci = new CultureInfo(inFiveCharLang);
@@ -63,6 +63,8 @@ namespace EarTrumpet.Extensions
         /// <returns></returns>
         private string GetLocXAMLFilePath(string inFiveCharLang)
         {
+            if (inFiveCharLang == null)
+                return "";
             string locXamlFile = "LocalizationDictionary." + inFiveCharLang + ".xaml";
             return Path.Combine(Directory, inFiveCharLang, locXamlFile);
         }
