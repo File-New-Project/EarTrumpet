@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.Interop.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -43,13 +44,14 @@ namespace EarTrumpet.Interop
         internal const int WAIT_ABANDONED = 0x00000080;
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        internal static extern IntPtr LoadLibraryEx(
+        internal static extern HMODULE LoadLibraryEx(
             [MarshalAs(UnmanagedType.LPWStr)] string path,
             IntPtr reserved,
             LoadLibraryFlags flags);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
-        internal static extern int FreeLibrary(
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool FreeLibrary(
             IntPtr moduleHandle);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
@@ -144,13 +146,13 @@ namespace EarTrumpet.Interop
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         public static extern IntPtr FindResourceW(
-            IntPtr hModule,
+            HMODULE hModule,
             IntPtr lpName,
             IntPtr lpType);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         public static extern IntPtr LoadResource(
-            IntPtr hModule, 
+            HMODULE hModule, 
             IntPtr hResInfo);
 
         [DllImport("kernel32.dll", PreserveSig = true)]
@@ -159,7 +161,7 @@ namespace EarTrumpet.Interop
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         public static extern int SizeofResource(
-            IntPtr hModule,
+            HMODULE hModule,
             IntPtr hResInfo);
     }
 }
