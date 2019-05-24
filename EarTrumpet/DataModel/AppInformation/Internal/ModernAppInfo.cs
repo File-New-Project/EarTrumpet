@@ -36,11 +36,11 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
             catch (COMException ex)
             {
-                Trace.WriteLine($"ModernAppInfo DisplayName read failed 0x{((uint)ex.HResult).ToString("x")} {appUserModelId}");
+                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed 0x{((uint)ex.HResult).ToString("x")} {appUserModelId}");
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"ModernAppInfo DisplayName read failed {appUserModelId} {ex}");
+                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed {appUserModelId} {ex}");
             }
 
             if (string.IsNullOrWhiteSpace(DisplayName))

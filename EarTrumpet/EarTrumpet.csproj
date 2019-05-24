@@ -98,7 +98,6 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\AppInformation\AppInformationFactory.cs" />
     <Compile Include="DataModel\AppInformation\IAppInfo.cs" />
-    <Compile Include="DataModel\AppInformation\Internal\AppsFolder.cs" />
     <Compile Include="DataModel\AppInformation\Internal\DesktopAppInfo.cs" />
     <Compile Include="DataModel\AppInformation\Internal\ModernAppInfo.cs" />
     <Compile Include="DataModel\AppInformation\Internal\SystemSoundsAppInfo.cs" />

@@ -74,8 +74,10 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             {
                 var appResolver = (IApplicationResolver)new ApplicationResolver();
                 appResolver.GetAppIDForProcess((uint)processId, out string appId, out _, out _, out _);
-                DisplayName = AppsFolder.ReadDisplayName(appId);
                 Marshal.ReleaseComObject(appResolver);
+
+                var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appId, typeof(IShellItem2).GUID);
+                DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
             }
             catch (COMException ex)
             {
