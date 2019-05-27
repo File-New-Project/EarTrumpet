@@ -45,13 +45,13 @@ namespace EarTrumpet.Extensions
                 }
                 catch (InvalidOperationException ex)
                 {
+                    _hasIdentity = false;
 #if !DEBUG
                     // We do not expect this to occur in production when the app is packaged.
                     ErrorReporter.LogWarning(ex);
 #else
                     Trace.WriteLine($"AppExtensions HasIdentity: False {ex.Message}");
 #endif
-                    _hasIdentity = false;
                 }
             }
 
