@@ -42,7 +42,7 @@ namespace EarTrumpet.UI.Helpers
             if (nextConfiguation != _configuration)
             {
                 _configuration = nextConfiguation;
-                Trace.WriteLine($"IconSource IconResolutionPropertiesChanged: {nextConfiguation}");
+                Trace.WriteLine($"TaskbarIconSource Changed: {nextConfiguation}");
                 Current?.Dispose();
                 Current = _processIcon.Invoke(IconHelper.LoadIconForTaskbar(_path));
                 Changed?.Invoke(this);

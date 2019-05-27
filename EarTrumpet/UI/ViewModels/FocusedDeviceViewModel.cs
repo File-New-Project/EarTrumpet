@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.Extensibility;
+using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -8,8 +9,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     class FocusedDeviceViewModel : IFocusedViewModel
     {
-        public static IAddonDeviceContent[] AddonContentItems { get; set; }
-
         public event Action RequestClose;
 
         public string DisplayName { get; }
@@ -31,11 +30,12 @@ namespace EarTrumpet.UI.ViewModels
                 Command = new RelayCommand(() => RequestClose.Invoke())
             });
 
-            if (AddonContentItems != null)
+            var contentItems = AddonManager.Host.DeviceContentItems;
+            if (contentItems != null)
             {
-                Addons = new ObservableCollection<object>(AddonContentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).Where(a => a != null).ToArray());
+                Addons = new ObservableCollection<object>(contentItems.Select(a => a.GetContentForDevice(device.Id, () => RequestClose.Invoke())).Where(a => a != null).ToArray());
 
-                var menuItems = AddonContentItems.SelectMany(a => a.GetItemsForDevice(device.Id)).Where(m => m != null);
+                var menuItems = contentItems.SelectMany(a => a.GetItemsForDevice(device.Id)).Where(m => m != null);
                 if (menuItems.Any())
                 {
                     Toolbar.Insert(0, new ToolbarItemViewModel

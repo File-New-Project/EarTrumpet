@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Diagnosis;
-using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
@@ -19,7 +18,6 @@ namespace EarTrumpet
     public partial class App
     {
         public static readonly string AssetBaseUri = "pack://application:,,,/EarTrumpet;component/Assets/";
-        internal static IAddonContextMenu[] AddonTrayContextMenuItems { get; set; }
 
         public FlyoutViewModel FlyoutViewModel { get; private set; }
         public FlyoutWindow FlyoutWindow { get; private set; }
@@ -30,7 +28,6 @@ namespace EarTrumpet
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
-        private AddonManager _addonManager;
         private AppSettings _settings;
 
         private void OnAppStartup(object sender, StartupEventArgs e)
@@ -110,8 +107,8 @@ namespace EarTrumpet
 
         private void CompleteStartup()
         {
-            _addonManager = new AddonManager();
-            Exit += (_, __) => _addonManager.Shutdown();
+            AddonManager.Load();
+            Exit += (_, __) => AddonManager.Shutdown();
 
             _trayIcon.IsVisible = true;
             DisplayFirstRunExperience();
@@ -175,7 +172,7 @@ namespace EarTrumpet
                     new ContextMenuSeparator(),
                 });
 
-            var addonItems = AddonTrayContextMenuItems?.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.Items);
+            var addonItems = AddonManager.Host.TrayContextMenuItems?.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.Items);
             if (addonItems != null && addonItems.Any())
             {
                 ret.AddRange(addonItems);
@@ -210,17 +207,19 @@ namespace EarTrumpet
                 "\xE71D",
                 EarTrumpet.Properties.Resources.SettingsDescriptionText,
                 null,
-                new SettingsPageViewModel[] {
+                new SettingsPageViewModel[]
+                    {
                         new EarTrumpetShortcutsPageViewModel(_settings),
                         new EarTrumpetLegacySettingsPageViewModel(_settings),
-                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(string.Join(" ", _addonManager.All.Select(a => a.DisplayName))))
-                }.ToList());
+                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(AddonManager.GetDiagnosticInfo()))
+                    }.ToList());
 
             var allCategories = new List<SettingsCategoryViewModel>();
             allCategories.Add(defaultCategory);
-            if (SettingsViewModel.AddonItems != null)
+
+            if (AddonManager.Host.SettingsItems != null)
             {
-                allCategories.AddRange(SettingsViewModel.AddonItems.Select(a => a.Get(_addonManager.FindAddonForObject(a))));
+                allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => a.Get(AddonManager.FindAddonInfoForObject(a))));
             }
 
             bool canClose = false;

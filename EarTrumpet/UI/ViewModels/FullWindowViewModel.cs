@@ -7,7 +7,8 @@ namespace EarTrumpet.UI.ViewModels
     {
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
         public ModalDialogViewModel Dialog { get; }
-        private DeviceCollectionViewModel _mainViewModel;
+
+        private readonly DeviceCollectionViewModel _mainViewModel;
 
         public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {

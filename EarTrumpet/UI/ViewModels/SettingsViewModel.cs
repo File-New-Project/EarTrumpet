@@ -9,8 +9,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     class SettingsViewModel : BindableBase, ISettingsViewModel
     {
-        public static IAddonSettingsPage[] AddonItems { get; internal set; }
-
         public event Action Close;
 
         public string Title { get; private set; }

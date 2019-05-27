@@ -125,6 +125,8 @@
     <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="Diagnosis\ErrorReporter.cs" />
     <Compile Include="Diagnosis\SnapshotData.cs" />
+    <Compile Include="Extensibility\Hosting\AddonHost.cs" />
+    <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
@@ -160,8 +162,6 @@
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
-    <Compile Include="Extensibility\Hosting\Addon.cs" />
-    <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="Extensibility\IAddonAppContent.cs" />
     <Compile Include="Extensibility\IAddonDeviceContent.cs" />
     <Compile Include="Extensibility\IAddonLifecycle.cs" />
@@ -176,7 +176,7 @@
     <Compile Include="Extensions\OperatingSystemExtensions.cs" />
     <Compile Include="Extensions\RegistryKeyExtensions.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
-    <Compile Include="Extensibility\Hosting\AddonHost.cs" />
+    <Compile Include="Extensibility\Hosting\AddonManager.cs" />
     <Compile Include="DataModel\Storage\Internal\NamespacedSettingsBag.cs" />
     <Compile Include="Interop\APPBARDATA.cs" />
     <Compile Include="Interop\AppBarEdge.cs" />
