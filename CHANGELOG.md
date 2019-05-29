@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.2.0
+- Fixed icon handle leak that caused a crash
+- Fixed hotkeys not being properly unregistered
+- Fixed High Contrast theme colors
+- Fixed settings window covering the Taskbar when maximized
+- Tray icon should remain in place after updates going forward
+- Tray and app icons will now scale correctly
+- Removed unwanted metadata from telemetry
+
 ## 2.1.1.0
 - Fixed a crash when parsing numbers on non-English systems
 
