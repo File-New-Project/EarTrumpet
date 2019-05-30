@@ -66,9 +66,11 @@ namespace EarTrumpet.UI.Controls
                         int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
                         if (iconIndex != 0)
                         {
-                            var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale));
-                            Trace.WriteLine($"ImageEx LoadImage {icon?.Size.Width}x{icon?.Size.Height} {path}");
-                            return icon.ToImageSource();
+                            using (var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale)))
+                            {
+                                Trace.WriteLine($"ImageEx LoadImage {icon?.Size.Width}x{icon?.Size.Height} {path}");
+                                return Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                            }
                         }
                         else
                         {
