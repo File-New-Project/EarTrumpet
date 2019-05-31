@@ -2,6 +2,7 @@
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -142,7 +143,18 @@ namespace EarTrumpet.UI.Themes
                     {
                         info = typeof(SystemColors).GetProperty(colorName + "Color", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                     }
-                    ret = (Color)info.GetValue(null, null);
+
+                    if (info != null)
+                    {
+                        ret = (Color)info.GetValue(null, null);
+                    }
+                    else
+                    {
+                        // We don't expect to be here but are seeing on some machines that the template loading fails here.
+                        // But it will succeed when the element Loaded is called.
+                        ret = Colors.HotPink;
+                        Trace.WriteLine($"## BrushValueParser Parse FAILED ## '{value}' {element}");
+                    }
                 }
                 else
                 {
@@ -157,7 +169,7 @@ namespace EarTrumpet.UI.Themes
             }
             catch (Exception ex)
             {
-                throw new Exception($"BrushValueParser Error: '{value}'", ex);
+                throw new Exception($"BrushValueParser Error: '{value}' {element}", ex);
             }
         }
 
