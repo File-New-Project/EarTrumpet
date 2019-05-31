@@ -22,6 +22,7 @@ namespace EarTrumpet.UI.Helpers
         public event EventHandler<int> Scrolled;
         
         public bool IsMouseOver { get; private set; }
+        public TaskbarIconSource IconSource { get; private set; }
 
         public bool IsVisible
         {
@@ -45,7 +46,6 @@ namespace EarTrumpet.UI.Helpers
         private bool _isCreated;
         private bool _isVisible;
         private bool _isListeningForInput;
-        public TaskbarIconSource IconSource { get; private set; }
         private string _text;
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;

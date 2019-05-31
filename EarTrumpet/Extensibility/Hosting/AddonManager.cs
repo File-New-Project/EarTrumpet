@@ -28,14 +28,14 @@ namespace EarTrumpet.Extensibility.Hosting
                 }
             }
 
-            Host.AppLifecycleItems.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
-            Host.AppLifecycleItems.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
+            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
+            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
         }
 
         public static void Shutdown()
         {
             Trace.WriteLine($"AddonManager Shutdown");
-            Host.AppLifecycleItems.ToList().ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
+            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
         }
 
         public static AddonInfo FindAddonInfoForObject(object addonObject)

@@ -16,7 +16,7 @@ namespace EarTrumpet.Extensions
             return ret;
         }
 
-        public static void ForEachNoThrow<T>(this List<T> list, Action<T> action)
+        public static void ForEachNoThrow<T>(this IEnumerable<T> list, Action<T> action)
         {
             foreach (var item in list)
             {
