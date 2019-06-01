@@ -1583,7 +1583,7 @@
                 <Grid>
                     <Grid MaxWidth="420"
                           MaxHeight="500"
-                          Margin="20"
+                          Margin="20,6,20,20"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center">
                         <Grid.RowDefinitions>
@@ -1618,7 +1618,7 @@
 
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Margin="0,20,0,0"
+                                   Margin="0,20,6,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center">
                             <Hyperlink Command="{Binding LearnMore}">
@@ -1627,7 +1627,7 @@
                         </TextBlock>
                         <Button Grid.Row="2"
                                 Grid.Column="1"
-                                Width="160"
+                                MinWidth="160"
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
