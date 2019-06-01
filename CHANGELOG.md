@@ -28,7 +28,7 @@
 - Additional bugfixes
 
 ## 2.0.8.0
-- Changed grouping behavior to key off app install paths vice executable name
+- Changed grouping behavior to key off app install path vs. executable name
 - Disabled flyout window blur when not visible to ensure it doesn't appear in task switcher
 - Fixed an issue where the Enhancements tab was missing in playback devices dialog
 - Fixed an issue where the flyout was too tall when the taskbar is configured to auto-hide
