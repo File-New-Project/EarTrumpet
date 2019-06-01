@@ -13,7 +13,7 @@ namespace EarTrumpet.Diagnosis
 {
     public class LocalDataExporter
     {
-        public static void DumpAndShowData(string logText, string addons)
+        public static void DumpAndShowData(string logText)
         {
             var ret = new StringBuilder();
             ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback)));
@@ -21,7 +21,7 @@ namespace EarTrumpet.Diagnosis
             Populate(ret, SnapshotData.App);
             Populate(ret, SnapshotData.Device);
             Populate(ret, SnapshotData.AppSettings);
-            ret.AppendLine($"Addons: {addons}");
+            Populate(ret, SnapshotData.LocalOnly);
             ret.AppendLine();
             ret.AppendLine(logText);
 

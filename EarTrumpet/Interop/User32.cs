@@ -280,6 +280,9 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern uint GetDpiForWindow(IntPtr hWnd);
 
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetDpiForSystem();
+
         public enum SystemMetrics : int
         {
             // ...

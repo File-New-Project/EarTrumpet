@@ -211,7 +211,7 @@ namespace EarTrumpet
                     {
                         new EarTrumpetShortcutsPageViewModel(_settings),
                         new EarTrumpetLegacySettingsPageViewModel(_settings),
-                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(AddonManager.GetDiagnosticInfo()))
+                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData())
                     });
 
             var allCategories = new List<SettingsCategoryViewModel>();

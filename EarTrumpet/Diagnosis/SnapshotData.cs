@@ -1,5 +1,8 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -67,6 +70,19 @@ namespace EarTrumpet.Diagnosis
                     { "IsShuttingDown", () => ((EarTrumpet.App)EarTrumpet.App.Current).IsShuttingDown },
                     { "Culture", () =>  CultureInfo.CurrentCulture.Name },
                     { "CurrentUICulture", () => CultureInfo.CurrentUICulture.Name },
+                };
+            }
+        }
+
+        public static Dictionary<string, Func<object>> LocalOnly
+        {
+            get
+            {
+                return new Dictionary<string, Func<object>>
+                {
+                    { "systemDpi", () => User32.GetDpiForSystem() },
+                    { "taskbarDpi", () => WindowsTaskbar.Dpi },
+                    { "addons", () => AddonManager.GetDiagnosticInfo() },
                 };
             }
         }
