@@ -33,16 +33,18 @@ namespace EarTrumpet.Interop.Helpers
 
         public static Icon LoadIconResource(string path, int iconOrdinal, int cx, int cy)
         {
-            var hModule = Kernel32.LoadLibraryEx(path, IntPtr.Zero, Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-            var groupResInfo = Kernel32.FindResourceW(hModule, new IntPtr(iconOrdinal), Kernel32.RT_GROUP_ICON);
-            var groupResData = Kernel32.LockResource(Kernel32.LoadResource(hModule, groupResInfo));
-            var iconId = User32.LookupIconIdFromDirectoryEx(groupResData, true, cx, cy, User32.LoadImageFlags.LR_DEFAULTCOLOR);
+            using (var hModule = Kernel32.LoadLibraryEx(path, IntPtr.Zero, Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_DATAFILE | Kernel32.LoadLibraryFlags.LOAD_LIBRARY_AS_IMAGE_RESOURCE))
+            {
+                var groupResInfo = Kernel32.FindResourceW(hModule, new IntPtr(iconOrdinal), Kernel32.RT_GROUP_ICON);
+                var groupResData = Kernel32.LockResource(Kernel32.LoadResource(hModule, groupResInfo));
+                var iconId = User32.LookupIconIdFromDirectoryEx(groupResData, true, cx, cy, User32.LoadImageFlags.LR_DEFAULTCOLOR);
 
-            var iconResInfo = Kernel32.FindResourceW(hModule, new IntPtr(iconId), Kernel32.RT_ICON);
-            var iconResData = Kernel32.LockResource(Kernel32.LoadResource(hModule, iconResInfo));
-            var iconResSize = Kernel32.SizeofResource(hModule, iconResInfo);
-            var iconHandle = User32.CreateIconFromResourceEx(iconResData, iconResSize, true, User32.IconCursorVersion.Default, cx, cy, User32.LoadImageFlags.LR_DEFAULTCOLOR);
-            return Icon.FromHandle(iconHandle).AsDisposableIcon();
+                var iconResInfo = Kernel32.FindResourceW(hModule, new IntPtr(iconId), Kernel32.RT_ICON);
+                var iconResData = Kernel32.LockResource(Kernel32.LoadResource(hModule, iconResInfo));
+                var iconResSize = Kernel32.SizeofResource(hModule, iconResInfo);
+                var iconHandle = User32.CreateIconFromResourceEx(iconResData, iconResSize, true, User32.IconCursorVersion.Default, cx, cy, User32.LoadImageFlags.LR_DEFAULTCOLOR);
+                return Icon.FromHandle(iconHandle).AsDisposableIcon();
+            }
         }
 
         public static Icon ColorIcon(Icon originalIcon, double fillPercent, System.Windows.Media.Color newColor)
