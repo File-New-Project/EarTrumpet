@@ -77,7 +77,7 @@ namespace EarTrumpet
             {
                 if (_settings.UseLegacyIcon)
                 {
-                    icon.Dispose();
+                    icon?.Dispose();
                     icon = IconHelper.LoadIconForTaskbar(SystemSettings.IsSystemLightTheme ? $"{AssetBaseUri}Application.ico" : $"{AssetBaseUri}Tray.ico");
                 }
 

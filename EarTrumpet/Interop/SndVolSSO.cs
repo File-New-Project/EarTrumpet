@@ -39,7 +39,7 @@ namespace EarTrumpet.Interop
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"SndVolSSO VerifySystemIconsAreAvailable Failed: {ex}");
+                Trace.WriteLine($"SndVolSSO SystemIconsAreAvailable Failed: {ex}");
                 return false;
             }
         }

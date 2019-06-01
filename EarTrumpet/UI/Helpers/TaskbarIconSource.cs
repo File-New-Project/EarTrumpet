@@ -44,7 +44,18 @@ namespace EarTrumpet.UI.Helpers
                 _configuration = nextConfiguation;
                 Trace.WriteLine($"TaskbarIconSource Changed: {nextConfiguation}");
                 Current?.Dispose();
-                Current = _processIcon.Invoke(IconHelper.LoadIconForTaskbar(_path));
+
+                // Continue to _processIcon even if we have a null icon, to support fallback scenarios.
+                Icon nextIcon = null;
+                try
+                {
+                    nextIcon = IconHelper.LoadIconForTaskbar(_path);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"TaskbarIconSource CheckForUpdate Changed Failed: {ex}");
+                }
+                Current = _processIcon.Invoke(nextIcon);
                 Changed?.Invoke(this);
             }
         }
