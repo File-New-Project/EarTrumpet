@@ -279,4 +279,12 @@
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Welcome to EarTrumpet</value>
   </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet couldn't start</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>A broken font on your system is preventing EarTrumpet from starting.
+
+Open [https://help.eartrumpet.app/fixfonts] now?</value>
+  </data>
 </root>

@@ -196,6 +196,26 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet couldn&apos;t start.
+        /// </summary>
+        public static string CriticalFailureDialogHeaderText {
+            get {
+                return ResourceManager.GetString("CriticalFailureDialogHeaderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A broken font on your system is preventing EarTrumpet from starting.
+        ///
+        ///Open [https://help.eartrumpet.app/fixfonts] now?.
+        /// </summary>
+        public static string CriticalFailureFontLookupHelpText {
+            get {
+                return ResourceManager.GetString("CriticalFailureFontLookupHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always use the default playback device.
         /// </summary>
         public static string DefaultDeviceText {
