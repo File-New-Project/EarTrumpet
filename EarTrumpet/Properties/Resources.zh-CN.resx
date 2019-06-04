@@ -151,7 +151,7 @@
     <value>声音</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>收集故障排除数据</value>
+    <value>展示故障排除数据</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>你的快捷键</value>
@@ -208,7 +208,7 @@
     <value>声音设置</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows 旧版</value>
+    <value>高级</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>关于 {Name} 加载项</value>
