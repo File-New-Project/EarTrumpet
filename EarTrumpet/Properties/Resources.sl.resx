@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Izhod</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Ni bilo mogoče najti predvajalnih naprav</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Pošlji povratne informacije</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mešalnik glasnosti</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mešalnik glasnosti</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Videti je, da nimate predvajalnih naprav</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: ni predvajalnih naprav</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Predvajalne naprave</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Snemalne naprave</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Zvoki</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Zberi podatke za reševanje težav</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Vaša bližnjica</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Vedno uporabi privzeto predvajalno napravo</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>O programu</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Več informacij</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>Glasnost: {1}% - {0}</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Zvok izklopljen - {0}</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Aplikacije</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Strni za prikaz izključno privzete predvajalne naprave</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Privzeta bližnjica</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Razširi za prikaz vseh predvajalnih naprav</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Splošno</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Dodeli to aplikacijo predvajalni napravi</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Odpri pojavni meni opravilne vrstice</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Uporabi starejšo ikono EarTrumpeta</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Več ukazov</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Zvok izklopljen</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Nastavitve zvoka</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Starejši Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>O dodatku {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Odpri nastavitve Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Ta dodatek lahko odstranite z aplikacijo Windows Nastavitve</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Upravljanje</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Stare nastavitve</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Izdajatelj:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Nastavitve bližnjic in pomoč</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Nastavitve za EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Bližnjice</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Različica:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Najdi nastavitev</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Ni rezultatov</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Odpri mešalnik</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Izklopljeno</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Vklopljeno</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Domov</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Kmalu na voljo</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Kmalu na voljo</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Odpri nastavitve</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Pozdravljeni v EarTrumpet</value>
+  </data>
+</root>
