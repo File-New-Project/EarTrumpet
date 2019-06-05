@@ -285,6 +285,6 @@
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
     <value>A broken font on your system is preventing EarTrumpet from starting.
 
-Open [https://help.eartrumpet.app/fixfonts] now?</value>
+Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
 </root>

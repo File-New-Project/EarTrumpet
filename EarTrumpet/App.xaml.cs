@@ -161,7 +161,7 @@ namespace EarTrumpet
                     MessageBoxResult.OK) == MessageBoxResult.OK)
                 {
                     Trace.WriteLine($"App OnCriticalFontLoadFailure OK");
-                    ProcessHelper.StartNoThrow("https://help.eartrumpet.app/fixfonts");
+                    ProcessHelper.StartNoThrow("https://eartrumpet.app/jmp/fixfonts");
                 }
                 Environment.Exit(0);
             }).Start();

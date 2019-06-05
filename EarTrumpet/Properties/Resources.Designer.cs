@@ -207,7 +207,7 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to A broken font on your system is preventing EarTrumpet from starting.
         ///
-        ///Open [https://help.eartrumpet.app/fixfonts] now?.
+        ///Open [https://eartrumpet.app/jmp/fixfonts] now?.
         /// </summary>
         public static string CriticalFailureFontLookupHelpText {
             get {
