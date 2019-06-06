@@ -166,10 +166,10 @@
     <value>Več informacij</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>Glasnost: {1}% - {0}</value>
+    <value>Glasnost: {Volume}% - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Zvok izklopljen - {0}</value>
+    <value>Zvok izklopljen - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
     <value>Aplikacije</value>
