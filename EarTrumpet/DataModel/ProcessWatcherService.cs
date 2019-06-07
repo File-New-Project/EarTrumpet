@@ -94,6 +94,8 @@ namespace EarTrumpet.DataModel
                             // We don't expect WAIT_FAILED here since we did a test WaitForSingleObject on each handle before ingestion.
                             case Kernel32.WAIT_FAILED:
                                 Debug.Assert(false);
+                                // Avoid creating an infintite loop if we end up with a bad handle causing WAIT_FAILED.
+                                Thread.Sleep(TimeSpan.FromSeconds(5));
                                 break;
                             case Kernel32.WAIT_TIMEOUT:
                                 // Go again
