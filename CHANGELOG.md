@@ -3,10 +3,12 @@
 ## 2.1.2.0
 - Fixed icon handle leak that caused a crash
 - Fixed hotkeys not being properly unregistered
+- Fixed arrow keys changing the default device volume
 - Fixed High Contrast theme colors
 - Fixed settings window covering the Taskbar when maximized
 - Tray icon should remain in place after updates going forward
 - Tray and app icons will now scale correctly
+- Tray icon supports scrolling without opening the flyout
 - Removed unwanted metadata from telemetry
 
 ## 2.1.1.0
