@@ -151,7 +151,7 @@
     <value>声音</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>展示故障排除数据</value>
+    <value>收集故障排除数据</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>你的快捷键</value>
