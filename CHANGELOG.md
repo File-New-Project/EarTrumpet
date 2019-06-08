@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.3.0
+- Fixed a crash causing EarTrumpet disappear on startup
+- Fixed various potential leaks
+- Added a help dialog to assist when EarTrumpet can't start due to broken fonts
+
 ## 2.1.2.0
 - Fixed icon handle leak that caused a crash
 - Fixed hotkeys not being properly unregistered

@@ -17,7 +17,7 @@
 * Default playback device management
 * Automatic updates via the Microsoft Store
 * Support for light/dark mode and all accent colors
-* Configurable hotkey
+* Configurable hotkeys
 * Modern context menus
 * Growing multi-lingual support
 
@@ -34,6 +34,8 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
 - Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
 - EarTrumpet holds some programs in use (Twitch, Spotify, Telegram, etc.) ([#273](https://github.com/File-New-Project/EarTrumpet/issues/273))
+- EarTrumpet windows move slowly on Windows 10 19H1+ ([#349](https://github.com/File-New-Project/EarTrumpet/issues/349))
+- EarTrumpet crashes when Segoe fonts have Mark of Web ([#367](https://github.com/File-New-Project/EarTrumpet/issues/367))
 
 ## Credits ##
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
