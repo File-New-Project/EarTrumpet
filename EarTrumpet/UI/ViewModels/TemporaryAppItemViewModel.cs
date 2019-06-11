@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -65,11 +66,12 @@ namespace EarTrumpet.UI.ViewModels
         public int ProcessId { get; }
         public IDeviceViewModel Parent { get; }
 
+        private readonly IAudioDeviceManager _deviceManager;
+        private readonly WeakReference<DeviceCollectionViewModel> _parent;
+        private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private int[] _processIds;
         private int _volume;
         private bool _isMuted;
-        private IAudioDeviceManager _deviceManager;
-        private WeakReference<DeviceCollectionViewModel> _parent;
 
         internal TemporaryAppItemViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
         {
@@ -77,7 +79,7 @@ namespace EarTrumpet.UI.ViewModels
             if (!isChild)
             {
                 ChildApps = new ObservableCollection<IAppItemViewModel>();
-                foreach(var childApp in app.ChildApps)
+                foreach (var childApp in app.ChildApps)
                 {
                     var vm = new TemporaryAppItemViewModel(parent, deviceManager, childApp, true);
                     vm.PropertyChanged += ChildApp_PropertyChanged;
@@ -111,11 +113,11 @@ namespace EarTrumpet.UI.ViewModels
                 _processIds = new int[] { ProcessId };
             }
 
-            foreach(var pid in _processIds)
+            foreach (var pid in _processIds)
             {
                 ProcessWatcherService.WatchProcess(pid, (pidQuit) =>
                 {
-                    App.Current.Dispatcher.BeginInvoke((Action)(() =>
+                    _currentDispatcher.BeginInvoke((Action)(() =>
                     {
                         var newPids = _processIds.ToList();
 
