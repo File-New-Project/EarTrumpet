@@ -62,18 +62,18 @@ namespace EarTrumpet
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
             _settings = new AppSettings();
-            _settings.FlyoutHotkeyTyped += () => FlyoutViewModel.OpenFlyout(InputType.Keyboard);
-            _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
-            _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
             PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModel.WindowsAudio.WindowsAudioFactory.Create(DataModel.WindowsAudio.AudioDeviceKind.Playback), _settings);
             PlaybackDevicesViewModel.Ready += (_, __) => CompleteStartup();
             PlaybackDevicesViewModel.TrayPropertyChanged += () => UpdateTrayTooltipAndIcon();
-            FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
-            FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
 
             CreateTrayExperience();
+
+            // Create the FlyoutWindow last because its Show/Hide cycle will pump messages and could cause
+            // the Ready event to be consumed before _trayIcon is created.
+            FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
+            FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
         }
 
         private void CreateTrayExperience()
@@ -107,10 +107,6 @@ namespace EarTrumpet
             _settings.UseLegacyIconChanged += (_, __) => iconSource.CheckForUpdate();
 
             _trayIcon = new ShellNotifyIcon(iconSource, () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
-            _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
-            _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
-            _trayIcon.TertiaryInvoke += (_, __) => PlaybackDevicesViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => PlaybackDevicesViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             Exit += (_, __) => _trayIcon.IsVisible = false;
 
             UpdateTrayTooltipAndIcon();
@@ -122,6 +118,14 @@ namespace EarTrumpet
             Exit += (_, __) => AddonManager.Shutdown();
 
             _trayIcon.IsVisible = true;
+            _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
+            _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
+            _trayIcon.TertiaryInvoke += (_, __) => PlaybackDevicesViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.Scrolled += (_, wheelDelta) => PlaybackDevicesViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _settings.FlyoutHotkeyTyped += () => FlyoutViewModel.OpenFlyout(InputType.Keyboard);
+            _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
+            _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
+
             DisplayFirstRunExperience();
         }
 
