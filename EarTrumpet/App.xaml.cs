@@ -44,8 +44,7 @@ namespace EarTrumpet
                 {
                     ContinueStartup();
                 }
-                catch (Exception ex) when (ex.StackTrace.Contains(
-                    "MS.Internal.Text.TextInterface.FontFamily.GetFirstMatchingFont"))
+                catch (Exception ex) when (IsCriticalFontLoadFailure(ex))
                 {
                     ErrorReporter.LogWarning(ex);
                     OnCriticalFontLoadFailure();
@@ -149,6 +148,12 @@ namespace EarTrumpet
                 viewModel.Close = new RelayCommand(() => dialog.SafeClose());
                 dialog.Show();
             }
+        }
+
+        private bool IsCriticalFontLoadFailure(Exception ex)
+        {
+            return ex.StackTrace.Contains("MS.Internal.Text.TextInterface.FontFamily.GetFirstMatchingFont") ||
+                   ex.StackTrace.Contains("MS.Internal.Text.Line.Format");
         }
 
         private void OnCriticalFontLoadFailure()
