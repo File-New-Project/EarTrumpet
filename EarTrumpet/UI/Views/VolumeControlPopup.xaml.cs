@@ -103,6 +103,11 @@ namespace EarTrumpet.UI.Views
         public void PositionAndShow()
         {
             var container = (FrameworkElement)Tag;
+            if (container == null)
+            {
+                throw new ArgumentException("container");
+            }
+
             var relativeTo = Window.GetWindow(this);
 
             if (relativeTo == null)
@@ -137,6 +142,10 @@ namespace EarTrumpet.UI.Views
             }
 
             var root = ((FrameworkElement)Child);
+            if (root == null)
+            {
+                throw new ArgumentException("root");
+            }
             root.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var popupHeight = root.DesiredSize.Height;
 
