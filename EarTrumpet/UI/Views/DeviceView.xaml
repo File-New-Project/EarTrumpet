@@ -59,17 +59,9 @@
                                 HorizontalAlignment="Center"
                                 Background="Transparent"
                                 Command="{Binding Device.ToggleMute}"
-                                IsTabStop="False">
-                            <Button.Style>
-                                <Style BasedOn="{StaticResource MuteButton}" TargetType="Button">
-                                    <Setter Property="Opacity" Value="1" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
-                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                                IsTabStop="False"
+                                Opacity="1"
+                                Style="{StaticResource MuteButton}">
                             <Button.Content>
                                 <Grid>
                                     <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}" Opacity="0.4">
@@ -119,28 +111,11 @@
                                           PeakValue2="{Binding Device.PeakValue2}"
                                           PreviewMouseUp="TouchSlider_MouseUp"
                                           PreviewTouchUp="TouchSlider_TouchUp"
-                                          Value="{Binding Device.Volume, Mode=TwoWay}">
-                            <ctl:VolumeSlider.Style>
-                                <Style BasedOn="{StaticResource {x:Type Slider}}" TargetType="Slider">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
-                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ctl:VolumeSlider.Style>
-                        </ctl:VolumeSlider>
-                        <TextBlock Grid.Column="2" Text="{Binding Device.Volume, Mode=OneWay}">
-                            <TextBlock.Style>
-                                <Style BasedOn="{StaticResource DeviceVolumeTextStyle}" TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Device.IsMuted}" Value="True">
-                                            <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                                          Style="{StaticResource {x:Type Slider}}"
+                                          Value="{Binding Device.Volume, Mode=TwoWay}" />
+                        <TextBlock Grid.Column="2"
+                                   Style="{StaticResource DeviceVolumeTextStyle}" 
+                                   Text="{Binding Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </Grid>
             </Border>
