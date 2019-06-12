@@ -31,6 +31,13 @@
                             <Theme:Rule Value="Background" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
+                    <Theme:Ref Key="FlyoutThemeTrackRightBackground">
+                        <Theme:Ref.Rules>
+                            <Theme:Rule On="UseAccentColor" Value="ControlLightSliderTrackBackgroundRest/0.5" />
+                            <Theme:Rule On="LightTheme" Value="ControlLightSliderTrackBackgroundRest" />
+                            <Theme:Rule Value="#39FFFFFF" />
+                        </Theme:Ref.Rules>
+                    </Theme:Ref>
                     <Theme:Ref Key="AcrylicColor_Flyout">
                         <Theme:Ref.Rules>
                             <Theme:Rule On="UseAccentColor" Value="SystemAccentDark1/0.8" />
@@ -351,7 +358,7 @@
                                     </Track.Thumb>
                                     <Track.IncreaseRepeatButton>
                                         <RepeatButton Name="SliderRight"
-                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=#39FFFFFF, Flyout:HighContrast=ControlLight"
+                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=FlyoutThemeTrackRightBackground, Flyout:HighContrast=ControlLight"
                                                       Command="Slider.IncreaseLarge"
                                                       Style="{StaticResource SliderButtonStyle}" />
                                     </Track.IncreaseRepeatButton>
