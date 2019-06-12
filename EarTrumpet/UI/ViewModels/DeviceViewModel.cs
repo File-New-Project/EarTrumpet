@@ -119,7 +119,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     IconKind = DeviceIconKind.Mute;
                 }
-                else if (_device.Volume >= 0.65f)
+                else if (_device.Volume >= 0.66f)
                 {
                     IconKind = DeviceIconKind.Bar3;
                 }
@@ -127,13 +127,9 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     IconKind = DeviceIconKind.Bar2;
                 }
-                else if (_device.Volume > 0f)
-                {
-                    IconKind = DeviceIconKind.Bar1;
-                }
                 else
                 {
-                    IconKind = DeviceIconKind.Mute;
+                    IconKind = DeviceIconKind.Bar1;
                 }
             }
         }
