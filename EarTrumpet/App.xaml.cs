@@ -20,11 +20,14 @@ namespace EarTrumpet
     {
         public static readonly string AssetBaseUri = "pack://application:,,,/EarTrumpet;component/Assets/";
 
+        public static bool IsShuttingDown { get; private set; }
+        public static TimeSpan Duration => s_appTimer.Elapsed;
+
         public FlyoutViewModel FlyoutViewModel { get; private set; }
         public FlyoutWindow FlyoutWindow { get; private set; }
         public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
-        public bool IsShuttingDown { get; private set; }
 
+        private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
         private ShellNotifyIcon _trayIcon;
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;

@@ -49,6 +49,7 @@ namespace EarTrumpet.Diagnosis
                     { "osVersionBuild", () => SystemSettings.BuildLabel },
                     { "osArchitecture", () => Environment.Is64BitOperatingSystem ? "64 bit" : "32 bit" },
                     { "processorCount", () => Environment.ProcessorCount + " core(s)" },
+                    { "runtimeMinutes", () => (int)EarTrumpet.App.Duration.TotalMinutes },
                 };
             }
         }
@@ -67,7 +68,7 @@ namespace EarTrumpet.Diagnosis
                     { "AnimationsEnabled", () => SystemParameters.MenuAnimation },
                     { "IsHighContrast", () => SystemParameters.HighContrast },
                     { "HasIdentity", () => EarTrumpet.App.Current.HasIdentity() },
-                    { "IsShuttingDown", () => ((EarTrumpet.App)EarTrumpet.App.Current).IsShuttingDown },
+                    { "IsShuttingDown", () => EarTrumpet.App.IsShuttingDown },
                     { "Culture", () =>  CultureInfo.CurrentCulture.Name },
                     { "CurrentUICulture", () => CultureInfo.CurrentUICulture.Name },
                 };

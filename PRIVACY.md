@@ -13,6 +13,7 @@ Includes:
 * Version number (e.g. 2.0.x.x)
 * App state (e.g. is shutting down)
 * App identity present (true/false)
+* Time between starting and crashing (e.g. 30 minutes)
 
 ### Operating System-Level
 Includes:
