@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class SimpleDialogViewModel
+    class SettingsDialogViewModel
     {
         public string Title { get; set; }
         public string Description { get; set; }

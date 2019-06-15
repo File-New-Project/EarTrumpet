@@ -225,7 +225,7 @@
     <Compile Include="UI\ViewModels\IDeviceViewModel.cs" />
     <Compile Include="UI\ViewModels\IFocusedViewModel.cs" />
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
-    <Compile Include="UI\ViewModels\SimpleDialogViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />

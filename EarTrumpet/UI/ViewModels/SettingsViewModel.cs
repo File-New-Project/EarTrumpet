@@ -16,8 +16,8 @@ namespace EarTrumpet.UI.ViewModels
         public BackstackViewModel Backstack { get; } = new BackstackViewModel();
         public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
 
-        private SimpleDialogViewModel _dialog;
-        public SimpleDialogViewModel Dialog
+        private SettingsDialogViewModel _dialog;
+        public SettingsDialogViewModel Dialog
         {
             get => _dialog;
             set
@@ -129,7 +129,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public void ShowDialog(string title, string description, string btn1, string btn2, Action btn1Clicked, Action btn2Clicked)
         {
-            Dialog = new SimpleDialogViewModel
+            Dialog = new SettingsDialogViewModel
             {
                 Title = title,
                 Description = description,
