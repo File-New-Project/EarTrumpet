@@ -4,7 +4,7 @@ First, a reminder: EarTrumpet is provided "as is", without warranty of any kind,
 implied, including but not limited to the warranties of merchantability,
 fitness for a particular purpose and noninfringement.
 
-With that out of the way, here's a breakdown of all the information we may collect **at crash time** via Bugsnag.
+With that out of the way, here's a breakdown of all the information we may [collect](./EarTrumpet/Diagnosis/SnapshotData.cs) **at crash time** via Bugsnag.
 
 ### Application-Level
 Includes:

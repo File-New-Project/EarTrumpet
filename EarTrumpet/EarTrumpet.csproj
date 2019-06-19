@@ -372,6 +372,7 @@
     <None Include="App.manifest" />
     <None Include="packages.config" />
     <None Include="prebuild.ps1" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Application.ico" />
