@@ -191,7 +191,7 @@ namespace EarTrumpet.UI.Themes
                     tab.Add(Rule.Kind.HighContrast, SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.LightTheme, isLight);
                     tab.Add(Rule.Kind.Transparency, SystemSettings.IsTransparencyEnabled && !SystemParameters.HighContrast);
-                    tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight);
+                    tab.Add(Rule.Kind.UseAccentColor, SystemSettings.UseAccentColor && !isLight && !SystemParameters.HighContrast);
                     tab.Add(Rule.Kind.UseAccentColorOnWindowBorders, SystemSettings.UseAccentColorOnWindowBorders);
                     tab.Add(Rule.Kind.AccentPolicySupportsTintColor, AccentPolicyLibrary.AccentPolicySupportsTintColor);
 
