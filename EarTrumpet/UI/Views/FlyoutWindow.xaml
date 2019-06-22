@@ -28,7 +28,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Theme:Brush.Foreground" Value="Text" />
+            <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=ControlText" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -127,14 +127,14 @@
                             <Grid>
                                 <TextBlock Margin="12,0,32,0"
                                            HorizontalAlignment="Left"
-                                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
                                            Style="{StaticResource DeviceTitleTextStyle}"
                                            Text="{Binding DeviceNameText}"
                                            TextTrimming="CharacterEllipsis" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
                                            FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}"
-                                           Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}">
+                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>

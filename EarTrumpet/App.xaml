@@ -346,7 +346,7 @@
                                         <Thumb Name="SliderThumb">
                                             <Thumb.Style>
                                                 <Style BasedOn="{StaticResource SliderThumbStyle}" TargetType="{x:Type Thumb}">
-                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=Control{Theme}SliderTrackFillRest, Flyout:Theme=SystemAccent, :HighContrast=ControlLight, Flyout:HighContrast=ControlLight" />
+                                                    <Setter Property="Theme:Brush.Foreground" Value=":Theme=Control{Theme}SliderTrackFillRest, Flyout:Theme=SystemAccent, :HighContrast=ControlText, Flyout:HighContrast=ControlText" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                                             <Setter Property="Theme:Brush.Foreground" Value="Theme=Control{Theme}SliderThumbHover, HighContrast=Highlight" />
@@ -358,7 +358,7 @@
                                     </Track.Thumb>
                                     <Track.IncreaseRepeatButton>
                                         <RepeatButton Name="SliderRight"
-                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=FlyoutThemeTrackRightBackground, Flyout:HighContrast=ControlLight"
+                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlText, Flyout:Theme=FlyoutThemeTrackRightBackground, Flyout:HighContrast=ControlText"
                                                       Command="Slider.IncreaseLarge"
                                                       Style="{StaticResource SliderButtonStyle}" />
                                     </Track.IncreaseRepeatButton>
@@ -416,7 +416,7 @@
             <Style x:Key="DeviceTitleTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="{DynamicResource Mutable_LargeWindowTextFontSize}" />
-                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=ControlText" />
             </Style>
             <Style x:Key="VirtualTitleBarTextStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Margin" Value="{StaticResource WindowMargin}" />
@@ -591,7 +591,7 @@
             <Style TargetType="{x:Type Separator}">
                 <Setter Property="Margin" Value="8,2,8,2" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow, HighContrast=MenuText" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Separator}">
@@ -605,7 +605,7 @@
             </Style>
             <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
-                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=ControlText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">
@@ -624,7 +624,7 @@
                                             Height="14"
                                             BorderThickness="1">
                                         <TextBlock x:Name="CheckMark"
-                                                   Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
+                                                   Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=ControlText"
                                                    FontFamily="Segoe MDL2 Assets"
                                                    SnapsToDevicePixels="False"
                                                    Text="{TemplateBinding Tag}"
@@ -643,7 +643,7 @@
                                             BorderThickness="1"
                                             Visibility="Collapsed">
                                         <TextBlock x:Name="GlyphText"
-                                                   Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=MenuText"
+                                                   Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=ControlText"
                                                    FontFamily="Segoe MDL2 Assets"
                                                    SnapsToDevicePixels="False"
                                                    Text="&#xE0E3;" />
