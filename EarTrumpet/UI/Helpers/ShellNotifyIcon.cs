@@ -3,6 +3,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -16,11 +17,18 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
+        public class ModifyFailedException : Win32Exception
+        {
+            public ModifyFailedException(int code) : base(code)
+            {
+            }
+        }
+
         public event EventHandler<InputType> PrimaryInvoke;
         public event EventHandler<InputType> SecondaryInvoke;
         public event EventHandler<InputType> TertiaryInvoke;
         public event EventHandler<int> Scrolled;
-        
+
         public bool IsMouseOver { get; private set; }
         public TaskbarIconSource IconSource { get; private set; }
 
@@ -106,6 +114,7 @@ namespace EarTrumpet.UI.Helpers
                     if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_MODIFY, ref data))
                     {
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_MODIFY Failed: {(uint)Marshal.GetLastWin32Error()}");
+                        throw new ModifyFailedException(Marshal.GetLastWin32Error());
                     }
                 }
                 else
