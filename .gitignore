@@ -196,34 +196,15 @@ FakesAssemblies/
 *.opt
 
 # Visual Studio databases
-EarTrumpet.VC.db
-EarTrumpet.VC.VC.opendb
-EarTrumpet.vs15.VC.db
-EarTrumpet.vs15.VC.VC.opendb
+*.VC.db
+*.VC.VC.opendb
+*.vs15.VC.db
+*.vs15.VC.VC.opendb
 
-EarTrumpet.Appx/layout/UWP/
-EarTrumpet.BackgroundTasks/project.lock.json
-EarTrumpet.UWP/nn-no/EarTrumpet.resources.dll
-EarTrumpet.UWP/de/EarTrumpet.resources.dll
-EarTrumpet.UWP/Windows.winmd
-EarTrumpet.UWP/EarTrumpet.exe.config
-EarTrumpet.UWP/EarTrumpet.exe
-EarTrumpet.UWP/EarTrumpet.Interop.lib
-EarTrumpet.UWP/EarTrumpet.Interop.exp
-EarTrumpet.UWP/EarTrumpet.Interop.dll
-EarTrumpet.UWP/Interop.MMDeviceAPI.dll
-EarTrumpet.UWP/Interop.SoundControlAPI.dll
-EarTrumpet.UWP/nb-no/EarTrumpet.resources.dll
-EarTrumpet.UWP/fr/EarTrumpet.resources.dll
-EarTrumpet.UWP/zh-Hant/EarTrumpet.resources.dll
-EarTrumpet.UWP/zh-Hans/EarTrumpet.resources.dll
-EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.props
 *.lastcodeanalysissucceeded
 *.CodeAnalysisLog.xml
 *.filters
 
 # Auto-generated files
-EarTrumpet.BackgroundTasks/EarTrumpet.BackgroundTasks.nuget.targets
-EarTrumpet.Interop/mmdeviceapi.h
-/EarTrumpet.Package/BundleArtifacts
-/EarTrumpet.Package/_pkginfo.txt
+BundleArtifacts/
+_pkginfo.txt
