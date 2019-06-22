@@ -510,7 +510,7 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Opacity" Value="0" />
-                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme/0.9, HighContrast=WindowText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -528,6 +528,14 @@
                                                   RecognizesAccessKey="True"
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme/0.95, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme/1, HighContrast=Highlight" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

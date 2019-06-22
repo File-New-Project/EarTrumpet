@@ -64,7 +64,9 @@
                                 Style="{StaticResource MuteButton}">
                             <Button.Content>
                                 <Grid>
-                                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}" Opacity="0.4">
+                                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}"
+                                               Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                               Opacity="0.4">
                                         <TextBlock.Style>
                                             <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                                 <Setter Property="Text" Value="&#xE995;" />
@@ -79,7 +81,7 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}">
+                                    <TextBlock FontSize="{DynamicResource Mutable_DeviceVolumeTextFontSize}" Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}">
                                         <TextBlock.Style>
                                             <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                                 <Style.Triggers>
@@ -114,7 +116,7 @@
                                           Style="{StaticResource {x:Type Slider}}"
                                           Value="{Binding Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
-                                   Style="{StaticResource DeviceVolumeTextStyle}" 
+                                   Style="{StaticResource DeviceVolumeTextStyle}"
                                    Text="{Binding Device.Volume, Mode=OneWay}" />
                     </Grid>
                 </Grid>
