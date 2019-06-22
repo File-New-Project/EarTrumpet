@@ -16,7 +16,6 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             SourceInitialized += OnSourceInitialized;
-            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
         }
 
         private void OnSourceInitialized(object sender, System.EventArgs e)

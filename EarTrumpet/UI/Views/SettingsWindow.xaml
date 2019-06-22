@@ -15,6 +15,7 @@
         MinWidth="770"
         MinHeight="320"
         Theme:Options.Source="App"
+        b:FrameworkElementEx.FlowDirection="Auto"
         Background="Transparent"
         ResizeMode="CanResize"
         Style="{StaticResource DialogWindowStyle}"

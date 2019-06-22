@@ -26,7 +26,7 @@ namespace EarTrumpet.UI.Views
             SizeChanged += FullWindow_SizeChanged;
             PreviewKeyDown += FullWindow_PreviewKeyDown;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
             Themes.Manager.Current.ThemeChanged += SetBlurColor;
             Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
         }

@@ -28,7 +28,6 @@ namespace EarTrumpet.UI.Views
             SourceInitialized += OnSourceInitialized;
             Microsoft.Win32.SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
             Closing += OnClosing;
-            FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
             // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
             Show();

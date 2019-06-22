@@ -21,7 +21,7 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             SourceInitialized += SettingsWindow_SourceInitialized;
-            this.FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
             Themes.Manager.Current.ThemeChanged += SetBlurColor;
             Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
             StateChanged += OnWindowStateChanged;

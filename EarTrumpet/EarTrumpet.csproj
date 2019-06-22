@@ -114,6 +114,7 @@
     <Compile Include="Interop\IShellItemImageFactory.cs" />
     <Compile Include="Interop\SafeHandles\HMODULE.cs" />
     <Compile Include="Interop\SIZE.cs" />
+    <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
     <Compile Include="UI\Controls\ImageEx.cs" />
     <Compile Include="UI\Helpers\ShellNotifyIcon.cs" />
     <Compile Include="Interop\Helpers\User32Helper.cs" />
