@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.FullWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
@@ -9,7 +10,12 @@
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
         Theme:Options.Source="App"
+        b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"
         b:FrameworkElementEx.FlowDirection="Auto"
+        Closing="{Event:Binding OnClosing}"
+        LocationChanged="{Event:Binding OnLocationChanged}"
+        PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
+        SizeChanged="{Event:Binding OnSizeChanged}"
         SizeToContent="WidthAndHeight"
         TextOptions.TextFormattingMode="Display"
         UseLayoutRounding="True"
@@ -100,7 +106,6 @@
         <DockPanel x:Name="ContentRoot">
             <DockPanel DockPanel.Dock="Top">
                 <Button x:Name="CloseButton"
-                        Click="CloseButton_Click"
                         DockPanel.Dock="Right"
                         Style="{StaticResource CloseButtonStyle}" />
                 <TextBlock Padding="12,8,12,8"
@@ -164,7 +169,7 @@
 
         <Border Name="LightDismissBorder"
                 Theme:Brush.Background="Background"
-                PreviewMouseDown="LightDismissBorder_PreviewMouseDown">
+                PreviewMouseDown="{Event:Binding OnLightDismissBorderPreviewMouseDown}">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Collapsed" />

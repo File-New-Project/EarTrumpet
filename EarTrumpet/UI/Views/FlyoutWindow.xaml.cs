@@ -6,70 +6,60 @@ using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Views
 {
     public partial class FlyoutWindow
     {
-        private readonly FlyoutViewModel _viewModel;
+        private readonly IFlyoutViewModel _viewModel;
 
-        public FlyoutWindow(FlyoutViewModel flyoutViewModel)
+        public FlyoutWindow(IFlyoutViewModel viewModel)
         {
+            _viewModel = viewModel;
+            DataContext = _viewModel;
+
             InitializeComponent();
 
-            _viewModel = flyoutViewModel;
             _viewModel.StateChanged += OnStateChanged;
-            _viewModel.WindowSizeInvalidated += OnWindowSizeInvalidated;
+            _viewModel.WindowSizeInvalidated += (_, __) => PositionWindowRelativeToTaskbar();
+            SourceInitialized += (_, __) => this.Cloak();
+            Themes.Manager.Current.ThemeChanged += EnableOrDisableAcrylic;
+        }
 
-            DataContext = _viewModel;
-            Deactivated += OnDeactivated;
-            SourceInitialized += OnSourceInitialized;
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
-            Closing += OnClosing;
-
-            // Ensure the Win32 and WPF windows are created to fix first show issues with DPI Scaling
+        public void Initialize()
+        {
             Show();
             Hide();
+            // Prevent showing up in Alt+Tab.
             this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
 
-            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
-        }
-
-        ~FlyoutWindow()
-        {
-            _viewModel.StateChanged -= OnStateChanged;
-            _viewModel.WindowSizeInvalidated -= OnWindowSizeInvalidated;
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged -= OnDisplaySettingsChanged;
-        }
-
-        private void OnSourceInitialized(object sender, EventArgs e)
-        {
-            this.Cloak();
-            Themes.Manager.Current.ThemeChanged += ThemeChanged;
-            ThemeChanged();
+            _viewModel.ChangeState(ViewState.Hidden);
         }
 
         private void OnStateChanged(object sender, object e)
         {
             switch (_viewModel.State)
             {
-                case FlyoutViewModel.ViewState.Opening:
+                case ViewState.Opening:
                     Show();
-                    ThemeChanged();
-                    UpdateWindowBounds();
+                    EnableOrDisableAcrylic();
+                    PositionWindowRelativeToTaskbar();
 
                     // Focus the first device if available.
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
 
-                    WaitForKeyboardVisuals(() =>
+                    // Prevent showing stale adnorners.
+                    this.WaitForKeyboardVisuals(() =>
                     {
-                        WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () => _viewModel.ChangeState(FlyoutViewModel.ViewState.Open));
+                        WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () =>
+                        {
+                            _viewModel.ChangeState(ViewState.Open);
+                        });
                     });
                     break;
 
-                case FlyoutViewModel.ViewState.Closing_Stage1:
+                case ViewState.Closing_Stage1:
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
 
                     if (_viewModel.IsExpandingOrCollapsing)
@@ -77,25 +67,31 @@ namespace EarTrumpet.UI.Views
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
                             this.Cloak();
-                            // NB: Hidden to avoid the stage 2 hide delay, we want to show again immediately.
-                            _viewModel.ChangeState(FlyoutViewModel.ViewState.Hidden);
+                            EnableOrDisableAcrylic();
+
+                            // Go directly to ViewState.Hidden to avoid the stage 2 hide delay (debounce for tray clicks),
+                            // we want to show again immediately.
+                            _viewModel.ChangeState(ViewState.Hidden);
                         });
                     }
                     else
                     {
+                        // No animation for normal exit.
                         this.Cloak();
-                        DisableAcrylic();
-                        WaitForKeyboardVisuals(() =>
+                        EnableOrDisableAcrylic();
+
+                        // Prevent de-queueing partially on show and showing stale adnorners.
+                        this.WaitForKeyboardVisuals(() =>
                         {
                             Hide();
-                            _viewModel.ChangeState(FlyoutViewModel.ViewState.Closing_Stage2);
+                            _viewModel.ChangeState(ViewState.Closing_Stage2);
                         });
                     }
                     break;
             }
         }
 
-        private void UpdateWindowBounds()
+        private void PositionWindowRelativeToTaskbar()
         {
             var taskbarState = WindowsTaskbar.Current;
 
@@ -150,15 +146,15 @@ namespace EarTrumpet.UI.Views
             this.Move(newTop * this.DpiHeightFactor(), newLeft * this.DpiWidthFactor(), newHeight * this.DpiHeightFactor(), Width * this.DpiWidthFactor());
         }
 
-        private void EnableBlurIfApplicable()
+        private void EnableOrDisableAcrylic()
         {
-            if (_viewModel.State == FlyoutViewModel.ViewState.Opening || _viewModel.State == FlyoutViewModel.ViewState.Open)
+            if (_viewModel.State == ViewState.Opening || _viewModel.State == ViewState.Open)
             {
                 AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags());
             }
             else
             {
-                DisableAcrylic();
+                AccentPolicyLibrary.DisableAcrylic(this);
             }
         }
 
@@ -177,43 +173,5 @@ namespace EarTrumpet.UI.Views
             }
             return User32.AccentFlags.None;
         }
-
-        private void WaitForKeyboardVisuals(Action completed)
-        {
-            // Note: ApplicationIdle is necessary as KeyboardNavigation/ScheduleCleanup will 
-            // use ContextIdle to purge the focus visuals.
-            Dispatcher.BeginInvoke(completed, DispatcherPriority.ApplicationIdle, null);
-        }
-
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                _viewModel.UserEscaped();
-            }
-            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Disable Alt+F4.
-            e.Cancel = true;
-            _viewModel.BeginClose(InputType.Keyboard);
-        }
-
-        private void OnLightDismissBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            _viewModel.Dialog.IsVisible = false;
-            e.Handled = true;
-        }
-
-        private void ThemeChanged() => EnableBlurIfApplicable();
-        private void DisableAcrylic() => AccentPolicyLibrary.DisableAcrylic(this);
-        private void OnDeactivated(object sender, EventArgs e) => _viewModel.BeginClose(InputType.Command);
-        private void OnWindowSizeInvalidated(object sender, object e) => UpdateWindowBounds();
-        private void OnDisplaySettingsChanged(object sender, EventArgs e) => Dispatcher.BeginInvoke((Action)(() => _viewModel.BeginClose(InputType.Command)));
     }
 }

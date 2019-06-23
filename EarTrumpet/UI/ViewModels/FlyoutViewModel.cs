@@ -10,18 +10,8 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class FlyoutViewModel : BindableBase, IPopupHostViewModel
+    public class FlyoutViewModel : BindableBase, IPopupHostViewModel, IFlyoutViewModel
     {
-        public enum ViewState
-        {
-            NotLoaded,
-            Hidden,
-            Opening,
-            Open,
-            Closing_Stage1, // Closing animation
-            Closing_Stage2, // Delay stage (optional)
-        }
-
         public event EventHandler<object> WindowSizeInvalidated;
         public event EventHandler<object> StateChanged;
 
@@ -34,12 +24,13 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public InputType LastInput { get; private set; }
+        public ICommand DisplaySettingsChanged { get; }
 
         private readonly DeviceCollectionViewModel _mainViewModel;
         private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
+        private readonly Action _returnFocusToTray;
         private bool _closedDuringOpen;
-        private Action _returnFocusToTray;
 
         public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray)
         {
@@ -58,6 +49,7 @@ namespace EarTrumpet.UI.ViewModels
                 IsExpandingOrCollapsing = true;
                 BeginClose(LastInput);
             });
+            DisplaySettingsChanged = new RelayCommand(() => BeginClose(InputType.Command));
         }
 
         private void HideTimer_Tick(object sender, EventArgs e)
@@ -226,18 +218,6 @@ namespace EarTrumpet.UI.ViewModels
             }));
         }
 
-        public void UserEscaped()
-        {
-            if (Dialog.IsVisible)
-            {
-                Dialog.IsVisible = false;
-            }
-            else
-            {
-                BeginClose(InputType.Keyboard);
-            }
-        }
-
         public void ChangeState(ViewState state)
         {
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
@@ -355,6 +335,42 @@ namespace EarTrumpet.UI.ViewModels
                     BeginClose(inputType);
                     break;
             }
+        }
+
+        public void OnDeactivated(object sender, EventArgs e)
+        {
+            BeginClose(InputType.Command);
+        }
+
+        public void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (Dialog.IsVisible)
+                {
+                    Dialog.IsVisible = false;
+                }
+                else
+                {
+                    BeginClose(InputType.Keyboard);
+                }
+            }
+            else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        public void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            BeginClose(InputType.Keyboard);
+        }
+
+        public void OnLightDismissBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Dialog.IsVisible = false;
+            e.Handled = true;
         }
     }
 }

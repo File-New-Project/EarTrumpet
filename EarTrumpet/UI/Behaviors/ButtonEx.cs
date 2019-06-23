@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,6 +10,46 @@ namespace EarTrumpet.UI.Behaviors
 {
     public class ButtonEx
     {
+        public enum ClickActionKind
+        {
+            None,
+            Maximize,
+            Minimize,
+            Close
+        }
+
+        // ClickAction: Caption button commands.
+        public static ClickActionKind GetClickAction(DependencyObject obj) => (ClickActionKind)obj.GetValue(ClickActionProperty);
+        public static void SetClickAction(DependencyObject obj, ClickActionKind value) => obj.SetValue(ClickActionProperty, value);
+        public static readonly DependencyProperty ClickActionProperty =
+        DependencyProperty.RegisterAttached("ClickAction", typeof(ClickActionKind), typeof(ButtonEx), new PropertyMetadata(ClickActionKind.None, ClickActionChanged));
+        private static void ClickActionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var btn = (Button)d;
+            var kind = (ClickActionKind)e.NewValue;
+            btn.Click += (_, __) =>
+            {
+                Debug.Assert(kind == (ClickActionKind)e.NewValue);
+                switch (kind)
+                {
+                    case ClickActionKind.Close:
+                        Window.GetWindow(btn)?.Close();
+                        break;
+                    case ClickActionKind.Minimize:
+                    case ClickActionKind.Maximize:
+                        var window = Window.GetWindow(btn);
+                        if (window != null)
+                        {
+                            window.WindowState = kind == ClickActionKind.Minimize ? WindowState.Minimized :
+                                        (window.WindowState == WindowState.Maximized) ? WindowState.Normal : WindowState.Maximized;
+                        }
+                        break;
+                    default: throw new NotImplementedException();
+                }
+            };
+        }
+
+        // ClickPopup: Attach Popup to Button.Click.
         public static Popup GetClickPopup(DependencyObject obj) => (Popup)obj.GetValue(ClickPopupProperty);
         public static void SetClickPopup(DependencyObject obj, Popup value) => obj.SetValue(ClickPopupProperty, value);
         public static readonly DependencyProperty ClickPopupProperty =

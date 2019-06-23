@@ -109,6 +109,7 @@
     <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Interop\Helpers\InputHelper.cs" />
     <Compile Include="Interop\IShellItemImageFactory.cs" />
@@ -132,7 +133,9 @@
     </Compile>
     <Compile Include="Interop\Helpers\LegacyControlPanelHelper.cs" />
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
+    <Compile Include="UI\Helpers\ViewState.cs" />
     <Compile Include="UI\Helpers\WindowHolder.cs" />
+    <Compile Include="UI\Helpers\WindowViewModelState.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
     <Compile Include="UI\Themes\Options.cs" />
@@ -204,6 +207,7 @@
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeyViewModel.cs" />
+    <Compile Include="UI\ViewModels\IFlyoutViewModel.cs" />
     <Compile Include="UI\ViewModels\IPopupHostViewModel.cs" />
     <Compile Include="UI\ViewModels\ISettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsAppItemViewModel.cs" />

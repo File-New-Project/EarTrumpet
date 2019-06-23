@@ -271,6 +271,7 @@
                    BasedOn="{StaticResource CaptionButtonStyle}"
                    TargetType="Button">
                 <Setter Property="Margin" Value="0,1,0,0" />
+                <Setter Property="b:ButtonEx.ClickAction" Value="Close" />
                 <Setter Property="Content" Value="&#xE8BB;" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
@@ -286,6 +287,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="IsTabStop" Value="False" />

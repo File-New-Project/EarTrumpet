@@ -1,6 +1,7 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.FlyoutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
@@ -11,11 +12,14 @@
         Theme:Brush.Foreground="Text"
         Theme:Options.Scope="Flyout"
         Theme:Options.Source="System"
+        b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"
         b:FrameworkElementEx.FlowDirection="Auto"
         AllowsTransparency="True"
         Background="Transparent"
+        Closing="{Event:Binding OnClosing}"
+        Deactivated="{Event:Binding OnDeactivated}"
         Icon="pack://application:,,,/Assets/Application.ico"
-        PreviewKeyDown="OnPreviewKeyDown"
+        PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         SnapsToDevicePixels="True"
@@ -133,8 +137,8 @@
                                            TextTrimming="CharacterEllipsis" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
-                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}"
-                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}">
+                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
+                                           FontSize="{DynamicResource Mutable_ExpandCollapseButtonGlyphFontSize}">
                                     <TextBlock.Style>
                                         <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
@@ -164,7 +168,7 @@
         </ScrollViewer>
         <Border Name="LightDismissBorder"
                 Theme:Brush.Background="Background"
-                PreviewMouseDown="OnLightDismissBorderPreviewMouseDown">
+                PreviewMouseDown="{Event:Binding OnLightDismissBorderPreviewMouseDown}">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="Visibility" Value="Collapsed" />

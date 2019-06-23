@@ -1,41 +1,22 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Helpers;
-using EarTrumpet.UI.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 
 namespace EarTrumpet.UI.Views
 {
     public partial class FullWindow : Window
     {
-        private FullWindowViewModel ViewModel => (FullWindowViewModel)DataContext;
-        private bool _isClosing;
-
         public FullWindow()
         {
             Trace.WriteLine("FullWindow .ctor");
+            Closed += (_, __) => Trace.WriteLine("FullWindow Closed");
 
             InitializeComponent();
 
-            SourceInitialized += FullWindow_SourceInitialized;
-            LocationChanged += FullWindow_LocationChanged;
-            SizeChanged += FullWindow_SizeChanged;
-            PreviewKeyDown += FullWindow_PreviewKeyDown;
-            Microsoft.Win32.SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-
+            SourceInitialized += OnSourceInitialized;
             Themes.Manager.Current.ThemeChanged += SetBlurColor;
-            Closed += (_, __) => Themes.Manager.Current.ThemeChanged -= SetBlurColor;
-        }
-
-        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
-        {
-            Trace.WriteLine("FullWindow SystemEvents_DisplaySettingsChanged");
-
-            Dispatcher.BeginInvoke((Action)(() => ViewModel.Dialog.IsVisible = false));
         }
 
         private void SetBlurColor()
@@ -43,54 +24,10 @@ namespace EarTrumpet.UI.Views
             AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
         }
 
-        private void FullWindow_SourceInitialized(object sender, EventArgs e)
+        private void OnSourceInitialized(object sender, EventArgs e)
         {
-            Trace.WriteLine("FullWindow FullWindow_SourceInitialized");
-
             this.Cloak();
             SetBlurColor();
-        }
-
-        private void FullWindow_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            ViewModel.Dialog.IsVisible = false;
-        }
-
-        private void FullWindow_LocationChanged(object sender, EventArgs e)
-        {
-            ViewModel.Dialog.IsVisible = false;
-        }
-
-        private void FullWindow_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                if (ViewModel.Dialog.IsVisible)
-                {
-                    ViewModel.Dialog.IsVisible = false;
-                }
-                else
-                {
-                    CloseButton_Click(null, null);
-                }
-            }
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("FullWindow CloseButton_Click");
-            if (!_isClosing)
-            {
-                // Ensure we don't double-animate if the user is able to close us multiple ways before the window stops accepting input.
-                _isClosing = true;
-                WindowAnimationLibrary.BeginWindowExitAnimation(this, () => this.Close());
-            }
-        }
-
-        private void LightDismissBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            ViewModel.Dialog.IsVisible = false;
-            e.Handled = true;
         }
     }
 }

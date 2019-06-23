@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using EarTrumpet.UI.Helpers;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -7,20 +10,18 @@ namespace EarTrumpet.UI.ViewModels
     {
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
         public ModalDialogViewModel Dialog { get; }
+        public ICommand DisplaySettingsChanged { get; }
 
         private readonly DeviceCollectionViewModel _mainViewModel;
+        private WindowViewModelState _state;
 
         public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
         {
             Dialog = new ModalDialogViewModel();
             _mainViewModel = mainViewModel;
             _mainViewModel.OnFullWindowOpened();
-        }
 
-        public void Close()
-        {
-            Dialog.IsVisible = false;
-            _mainViewModel.OnFullWindowClosed();
+            DisplaySettingsChanged = new RelayCommand(() => Dialog.IsVisible = false);
         }
 
         public void OpenPopup(object vm, FrameworkElement container)
@@ -46,6 +47,65 @@ namespace EarTrumpet.UI.ViewModels
                 Dialog.Source = container;
                 Dialog.IsVisible = true;
             }
+        }
+
+        public void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            switch (_state)
+            {
+                case WindowViewModelState.Open:
+                    _state = WindowViewModelState.Closing;
+                    e.Cancel = true;
+
+                    Dialog.IsVisible = false;
+                    _mainViewModel.OnFullWindowClosed();
+
+                    var window = (Window)sender;
+                    WindowAnimationLibrary.BeginWindowExitAnimation(window, () =>
+                    {
+                        _state = WindowViewModelState.CloseReady;
+                        window.Close();
+                    });
+                    break;
+                case WindowViewModelState.Closing:
+                    // Ignore any requests while playing the close animation.
+                    e.Cancel = true;
+                    break;
+                case WindowViewModelState.CloseReady:
+                    // Accept the close.
+                    break;
+            }
+        }
+
+        public void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (Dialog.IsVisible)
+                {
+                    Dialog.IsVisible = false;
+                }
+                else
+                {
+                    ((Window)sender).Close();
+                }
+            }
+        }
+
+        public void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Dialog.IsVisible = false;
+        }
+
+        public void OnLocationChanged(object sender, EventArgs e)
+        {
+            Dialog.IsVisible = false;
+        }
+
+        public void OnLightDismissBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Dialog.IsVisible = false;
+            e.Handled = true;
         }
     }
 }

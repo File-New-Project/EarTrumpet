@@ -5,6 +5,7 @@ namespace EarTrumpet.UI.Behaviors
 {
     public class TextBoxEx
     {
+        // ClearText: Clear TextBox if set to True.
         public static bool GetClearText(DependencyObject obj) => (bool)obj.GetValue(ClearTextProperty);
         public static void SetClearText(DependencyObject obj, bool value) => obj.SetValue(ClearTextProperty, value);
         public static readonly DependencyProperty ClearTextProperty =

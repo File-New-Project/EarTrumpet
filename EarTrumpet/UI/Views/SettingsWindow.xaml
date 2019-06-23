@@ -15,8 +15,10 @@
         MinWidth="770"
         MinHeight="320"
         Theme:Options.Source="App"
+        b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"
         b:FrameworkElementEx.FlowDirection="Auto"
         Background="Transparent"
+        Closing="{Event:Binding OnClosing}"
         ResizeMode="CanResize"
         Style="{StaticResource DialogWindowStyle}"
         TextOptions.TextFormattingMode="Display"
@@ -529,12 +531,11 @@
                            Margin="14,0,0,0"
                            Text="{Binding Title}"
                            TextAlignment="Left" />
-                <Button x:Name="MinimizeButton"
-                        Grid.Column="2"
-                        Click="MinimizeButton_Click">
+                <Button x:Name="MinimizeButton" Grid.Column="2">
                     <Button.Style>
                         <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
                             <Setter Property="Content" Value="&#xE921;" />
+                            <Setter Property="b:ButtonEx.ClickAction" Value="Minimize" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
                                     <Setter Property="Content" Value="&#xEF2D;" />
@@ -543,12 +544,11 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button x:Name="MaximizeRestoreButton"
-                        Grid.Column="3"
-                        Click="MaximizeRestoreButton_Click">
+                <Button x:Name="MaximizeRestoreButton" Grid.Column="3">
                     <Button.Style>
                         <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
                             <Setter Property="Content" Value="&#xE922;" />
+                            <Setter Property="b:ButtonEx.ClickAction" Value="Maximize" />
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -586,7 +586,6 @@
 
                 <Button x:Name="CloseButton"
                         Grid.Column="4"
-                        Click="CloseButton_Click"
                         Style="{StaticResource CloseButtonStyle}" />
             </Grid>
             <Grid>

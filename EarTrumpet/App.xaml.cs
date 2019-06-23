@@ -72,10 +72,12 @@ namespace EarTrumpet
 
             CreateTrayExperience();
 
-            // Create the FlyoutWindow last because its Show/Hide cycle will pump messages and could cause
-            // the Ready event to be consumed before _trayIcon is created.
             FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
             FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
+
+            // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
+            // to be executed, breaking the assumption that startup is complete.
+            FlyoutWindow.Initialize();
         }
 
         private void CreateTrayExperience()
@@ -148,7 +150,7 @@ namespace EarTrumpet
 
                 var viewModel = new WelcomeViewModel();
                 var dialog = new DialogWindow { DataContext = viewModel };
-                viewModel.Close = new RelayCommand(() => dialog.SafeClose());
+                viewModel.Close = new RelayCommand(() => dialog.Close());
                 dialog.Show();
             }
         }
@@ -238,11 +240,7 @@ namespace EarTrumpet
         {
             var viewModel = new FullWindowViewModel(PlaybackDevicesViewModel);
             var window = new FullWindow { DataContext = viewModel };
-            window.Closing += (_, __) =>
-            {
-                _mixerWindow.Destroyed();
-                viewModel.Close();
-            };
+            window.Closed += (_, __) => _mixerWindow.Destroyed();
             return window;
         }
 
@@ -268,27 +266,10 @@ namespace EarTrumpet
                 allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => a.Get(AddonManager.FindAddonInfoForObject(a))));
             }
 
-            bool canClose = false;
             var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
             var window = new SettingsWindow { DataContext = viewModel };
-            window.CloseClicked += () => viewModel.OnClosing();
-            viewModel.Close += () =>
-            {
-                canClose = true;
-                window.SafeClose();
-            };
-            window.Closing += (_, e) =>
-            {
-                if (canClose)
-                {
-                    _settingsWindow.Destroyed();
-                }
-                else
-                {
-                    e.Cancel = true;
-                    viewModel.OnClosing();
-                }
-            };
+            window.Closed += (_, __) => _settingsWindow.Destroyed();
+            viewModel.Close = new RelayCommand(() => window.Close());
             return window;
         }
     }
