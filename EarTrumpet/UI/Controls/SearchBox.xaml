@@ -76,6 +76,7 @@
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Margin="4,0"
                                       Focusable="false"
+                                      VerticalContentAlignment="Center"
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
                         <TextBlock Name="SearchGlyph"

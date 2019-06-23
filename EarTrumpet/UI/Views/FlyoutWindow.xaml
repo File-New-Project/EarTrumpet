@@ -57,7 +57,9 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+        <Style x:Key="{x:Type ScrollViewer}"
+               BasedOn="{StaticResource {x:Type ScrollViewer}}"
+               TargetType="{x:Type ScrollViewer}">
             <Setter Property="CanContentScroll" Value="True" />
             <Setter Property="PanningMode" Value="VerticalOnly" />
             <Setter Property="Focusable" Value="False" />

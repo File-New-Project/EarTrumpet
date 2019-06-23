@@ -287,7 +287,52 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
+            <Style x:Key="MinimizeButton"
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Content" Value="&#xE921;" />
+                <Setter Property="b:ButtonEx.ClickAction" Value="Minimize" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                        <Setter Property="Content" Value="&#xEF2D;" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="MaximizeButton"
+                   BasedOn="{StaticResource CaptionButtonStyle}"
+                   TargetType="Button">
+                <Setter Property="Content" Value="&#xE922;" />
+                <Setter Property="b:ButtonEx.ClickAction" Value="Maximize" />
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal" />
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter Property="Content" Value="&#xEF2E;" />
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter Property="Content" Value="&#xEF2F;" />
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter Property="Content" Value="&#xE923;" />
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
             <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="IsTabStop" Value="False" />
@@ -1020,6 +1065,7 @@
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="Padding" Value="4" />
                 <Setter Property="MinWidth" Value="140" />
+                <Setter Property="MinHeight" Value="32" />
                 <Setter Property="Margin" Value="12" />
                 <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -1043,6 +1089,7 @@
                                     <ScrollViewer x:Name="PART_ContentHost"
                                                   Theme:Brush.Foreground="{TemplateBinding Theme:Brush.Foreground}"
                                                   Focusable="False"
+                                                  VerticalContentAlignment="Center"
                                                   HorizontalScrollBarVisibility="Hidden"
                                                   VerticalScrollBarVisibility="Hidden" />
                                     <Grid x:Name="ClearButtonGrid"
@@ -1248,10 +1295,10 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeHigh" />
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeHigh, HighContrast=Highlight" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme={Theme}ChromeDisabledLow, HighContrast=Highlight" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -1283,18 +1330,17 @@
                                 <Rectangle x:Name="rectangle"
                                            Width="2"
                                            HorizontalAlignment="Right"
-                                           Theme:Brush.Fill="Theme={Theme}BaseMediumLow"
+                                           Theme:Brush.Fill="Theme={Theme}BaseMediumLow, HighContrast=WindowText"
                                            SnapsToDevicePixels="True" />
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeHigh" />
+                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeHigh, HighContrast=Highlight" />
                                 </Trigger>
                                 <Trigger Property="IsDragging" Value="True">
-                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow" />
+                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow, HighContrast=Highlight" />
                                 </Trigger>
                                 <Trigger Property="Tag" Value="True">
-
                                     <Trigger.EnterActions>
                                         <StopStoryboard BeginStoryboardName="Collapse" />
                                         <BeginStoryboard Name="Expand">
@@ -1325,168 +1371,423 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
-                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMedium" />
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-                <Setter Property="Margin" Value="-16,0,0,0" />
-                <Setter Property="Width" Value="16" />
-                <Setter Property="MinWidth" Value="16" />
+
+            <ControlTemplate x:Key="ScrollBar_Vertical" TargetType="{x:Type ScrollBar}">
+                <Grid x:Name="Bg" SnapsToDevicePixels="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />
+                        <RowDefinition Height="0.00001*" />
+                        <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />
+                    </Grid.RowDefinitions>
+                    <Border x:Name="Background"
+                            Grid.Row="1"
+                            Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
+                            BorderThickness="0"
+                            Opacity="0" />
+                    <RepeatButton x:Name="PART_LineUpButton"
+                                  Command="{x:Static ScrollBar.LineUpCommand}"
+                                  IsEnabled="{TemplateBinding IsMouseOver}"
+                                  Opacity="0"
+                                  Style="{StaticResource ScrollBarButton}">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ArrowTop"
+                                       Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText"
+                                       FontSize="7"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="&#xE96D;" />
+                        </Border>
+                    </RepeatButton>
+                    <Track x:Name="PART_Track"
+                           Grid.Row="1"
+                           IsDirectionReversed="True"
+                           IsEnabled="{TemplateBinding IsMouseOver}">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.IncreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Style="{StaticResource ScrollBarThumbVertical}" />
+                        </Track.Thumb>
+                    </Track>
+                    <RepeatButton x:Name="PART_LineDownButton"
+                                  Grid.Row="2"
+                                  Command="{x:Static ScrollBar.LineDownCommand}"
+                                  IsEnabled="{TemplateBinding IsMouseOver}"
+                                  Opacity="0"
+                                  Style="{StaticResource ScrollBarButton}">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ArrowBottom"
+                                       Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText"
+                                       FontSize="7"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="&#xE96E;" />
+                        </Border>
+                    </RepeatButton>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                        <Setter TargetName="PART_LineUpButton" Property="Opacity" Value="1" />
+                        <Setter TargetName="PART_LineDownButton" Property="Opacity" Value="1" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                        <MultiDataTrigger.EnterActions>
+                            <StopStoryboard BeginStoryboardName="ShowScrollBar" />
+                            <BeginStoryboard Name="HideScrollBar">
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PART_LineUpButton"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="PART_LineDownButton"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="Background"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </MultiDataTrigger.EnterActions>
+                        <MultiDataTrigger.ExitActions>
+                            <StopStoryboard BeginStoryboardName="HideScrollBar" />
+                            <BeginStoryboard Name="ShowScrollBar">
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineUpButton" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineDownButton" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </MultiDataTrigger.ExitActions>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ScrollBar}">
-                            <Grid x:Name="Bg" SnapsToDevicePixels="True">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />
-                                    <RowDefinition Height="0.00001*" />
-                                    <RowDefinition MaxHeight="{DynamicResource {x:Static SystemParameters.VerticalScrollBarButtonHeightKey}}" />
-                                </Grid.RowDefinitions>
-                                <Border x:Name="Background"
-                                        Grid.Row="1"
-                                        Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
-                                        BorderThickness="0"
-                                        Opacity="0" />
-                                <RepeatButton x:Name="PART_LineUpButton"
-                                              Command="{x:Static ScrollBar.LineUpCommand}"
-                                              IsEnabled="{TemplateBinding IsMouseOver}"
-                                              Opacity="0"
-                                              Style="{StaticResource ScrollBarButton}">
-                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock x:Name="ArrowTop"
-                                                   Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme"
-                                                   FontSize="7"
-                                                   Style="{StaticResource GlyphTextBlockStyle}"
-                                                   Text="&#xE96D;" />
-                                    </Border>
-
-                                </RepeatButton>
-                                <Track x:Name="PART_Track"
-                                       Grid.Row="1"
-                                       IsDirectionReversed="True"
-                                       IsEnabled="{TemplateBinding IsMouseOver}">
-                                    <Track.DecreaseRepeatButton>
-                                        <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatButtonTransparent}" />
-                                    </Track.DecreaseRepeatButton>
-                                    <Track.IncreaseRepeatButton>
-                                        <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}" />
-                                    </Track.IncreaseRepeatButton>
-                                    <Track.Thumb>
-                                        <Thumb x:Name="Thumb" Style="{StaticResource ScrollBarThumbVertical}" />
-                                    </Track.Thumb>
-                                </Track>
-                                <RepeatButton x:Name="PART_LineDownButton"
-                                              Grid.Row="2"
-                                              Command="{x:Static ScrollBar.LineDownCommand}"
-                                              IsEnabled="{TemplateBinding IsMouseOver}"
-                                              Opacity="0"
-                                              Style="{StaticResource ScrollBarButton}">
-                                    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock x:Name="ArrowBottom"
-                                                   Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme"
-                                                   FontSize="7"
-                                                   Style="{StaticResource GlyphTextBlockStyle}"
-                                                   Text="&#xE96E;" />
-                                    </Border>
-                                </RepeatButton>
+                        <ControlTemplate TargetType="{x:Type Thumb}">
+                            <Grid>
+                                <Rectangle x:Name="rectangle"
+                                           Height="2"
+                                           VerticalAlignment="Bottom"
+                                           Theme:Brush.Fill="Theme={Theme}BaseMediumLow, HighContrast=WindowText"
+                                           SnapsToDevicePixels="True" />
                             </Grid>
                             <ControlTemplate.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="Thumb" Property="Tag" Value="True" />
-                                    <Setter TargetName="PART_LineUpButton" Property="Opacity" Value="1" />
-                                    <Setter TargetName="PART_LineDownButton" Property="Opacity" Value="1" />
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="Thumb" Property="Tag" Value="True" />
-                                    <MultiDataTrigger.EnterActions>
-                                        <StopStoryboard BeginStoryboardName="ShowScrollBar" />
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeHigh, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="IsDragging" Value="True">
+                                    <Setter TargetName="rectangle" Property="Theme:Brush.Fill" Value="Theme={Theme}ChromeDisabledLow, HighContrast=Highlight" />
+                                </Trigger>
+                                <Trigger Property="Tag" Value="True">
 
-                                        <BeginStoryboard Name="HideScrollBar">
+                                    <Trigger.EnterActions>
+                                        <StopStoryboard BeginStoryboardName="Collapse" />
+                                        <BeginStoryboard Name="Expand">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="PART_LineUpButton"
-                                                                 Storyboard.TargetProperty="Opacity"
-                                                                 To="1"
-                                                                 Duration="0:0:0.1" />
-                                                <DoubleAnimation Storyboard.TargetName="PART_LineDownButton"
-                                                                 Storyboard.TargetProperty="Opacity"
-                                                                 To="1"
-                                                                 Duration="0:0:0.1" />
-                                                <DoubleAnimation Storyboard.TargetName="Background"
-                                                                 Storyboard.TargetProperty="Opacity"
-                                                                 To="1"
+                                                <DoubleAnimation Storyboard.TargetName="rectangle"
+                                                                 Storyboard.TargetProperty="Height"
+                                                                 To="16"
                                                                  Duration="0:0:0.1" />
                                             </Storyboard>
                                         </BeginStoryboard>
-                                    </MultiDataTrigger.EnterActions>
-                                    <MultiDataTrigger.ExitActions>
-                                        <StopStoryboard BeginStoryboardName="HideScrollBar" />
-                                        <BeginStoryboard Name="ShowScrollBar">
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Expand" />
+                                        <BeginStoryboard Name="Collapse">
                                             <Storyboard>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineUpButton" Storyboard.TargetProperty="Opacity">
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineDownButton" Storyboard.TargetProperty="Opacity">
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
-                                                </DoubleAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity">
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="rectangle" Storyboard.TargetProperty="Height">
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="16" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4" Value="16" />
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="2" />
                                                 </DoubleAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </BeginStoryboard>
-                                    </MultiDataTrigger.ExitActions>
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme" />
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme" />
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="True" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme" />
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="True" />
-                                        <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme" />
-                                </MultiDataTrigger>
+                                    </Trigger.ExitActions>
+                                    <Setter TargetName="rectangle" Property="VerticalAlignment" Value="Stretch" />
+                                </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <ControlTemplate x:Key="ScrollBar_Horizontal" TargetType="{x:Type ScrollBar}">
+                <Grid x:Name="Bg" SnapsToDevicePixels="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}" />
+                        <ColumnDefinition Width="0.00001*" />
+                        <ColumnDefinition MaxWidth="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}}" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="Background"
+                            Grid.Column="1"
+                            Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
+                            BorderThickness="0"
+                            Opacity="0" />
+                    <RepeatButton x:Name="PART_LineLeftButton"
+                                  Command="{x:Static ScrollBar.LineLeftCommand}"
+                                  IsEnabled="{TemplateBinding IsMouseOver}"
+                                  Opacity="0"
+                                  Style="{StaticResource ScrollBarButton}">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ArrowTop"
+                                       Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText"
+                                       FontSize="7"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="&#xE96F;" />
+                        </Border>
+                    </RepeatButton>
+                    <Track x:Name="PART_Track"
+                           Grid.Column="1"
+                           IsDirectionReversed="False"
+                           IsEnabled="{TemplateBinding IsMouseOver}">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Command="{x:Static ScrollBar.PageLeftCommand}" Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.IncreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Style="{StaticResource ScrollBarThumbHorizontal}" />
+                        </Track.Thumb>
+                    </Track>
+                    <RepeatButton x:Name="PART_LineRightButton"
+                                  Grid.Column="2"
+                                  Command="{x:Static ScrollBar.LineRightCommand}"
+                                  IsEnabled="{TemplateBinding IsMouseOver}"
+                                  Opacity="0"
+                                  Style="{StaticResource ScrollBarButton}">
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="ArrowBottom"
+                                       Theme:Brush.Foreground="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText"
+                                       FontSize="7"
+                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                       Text="&#xE970;" />
+                        </Border>
+                    </RepeatButton>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                        <Setter TargetName="PART_LineLeftButton" Property="Opacity" Value="1" />
+                        <Setter TargetName="PART_LineRightButton" Property="Opacity" Value="1" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="Thumb" Property="Tag" Value="True" />
+                        <MultiDataTrigger.EnterActions>
+                            <StopStoryboard BeginStoryboardName="ShowScrollBar" />
+                            <BeginStoryboard Name="HideScrollBar">
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="PART_LineLeftButton"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="PART_LineRightButton"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                    <DoubleAnimation Storyboard.TargetName="Background"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1"
+                                                     Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </MultiDataTrigger.EnterActions>
+                        <MultiDataTrigger.ExitActions>
+                            <StopStoryboard BeginStoryboardName="HideScrollBar" />
+                            <BeginStoryboard Name="ShowScrollBar">
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineLeftButton" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LineRightButton" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:4.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </MultiDataTrigger.ExitActions>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=UseDynamicScrollbars}" Value="True" />
+                            <Condition Binding="{Binding IsMouseOver, ElementName=Bg}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineRightButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineRightButton}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineLeftButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineLeftButton}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Dark=ApplicationTextLightTheme, Light=ApplicationTextDarkTheme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineRightButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineRightButton}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowBottom" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineLeftButton}" Value="True" />
+                            <Condition Binding="{Binding IsPressed, ElementName=PART_LineLeftButton}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrowTop" Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=ControlText" />
+                    </MultiDataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+                <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMedium, HighContrast=Window" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Width" Value="16" />
+                <Setter Property="MinWidth" Value="16" />
+                <Setter Property="Template" Value="{StaticResource ScrollBar_Vertical}" />
+                <Style.Triggers>
+                    <Trigger Property="Orientation" Value="Horizontal">
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="MinWidth" Value="0" />
+                        <Setter Property="Height" Value="16" />
+                        <Setter Property="MinHeight" Value="16" />
+                        <Setter Property="Template" Value="{StaticResource ScrollBar_Horizontal}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                        Grid.RowSpan="2"
+                                                        Grid.ColumnSpan="2"
+                                                        Margin="0"
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                        CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                        CanHorizontallyScroll="False"
+                                                        CanVerticallyScroll="False"
+                                                        Content="{TemplateBinding Content}"
+                                                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                                <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                           Grid.Row="1"
+                                           AutomationProperties.AutomationId="HorizontalScrollBar"
+                                           Cursor="Arrow"
+                                           Maximum="{TemplateBinding ScrollableWidth}"
+                                           Minimum="0"
+                                           Orientation="Horizontal"
+                                           ViewportSize="{TemplateBinding ViewportWidth}"
+                                           Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                           Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ScrollBar x:Name="PART_VerticalScrollBar"
+                                           Grid.Column="1"
+                                           AutomationProperties.AutomationId="VerticalScrollBar"
+                                           Cursor="Arrow"
+                                           Maximum="{TemplateBinding ScrollableHeight}"
+                                           Minimum="0"
+                                           ViewportSize="{TemplateBinding ViewportHeight}"
+                                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                           Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!--  ViewModel templates  -->
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />

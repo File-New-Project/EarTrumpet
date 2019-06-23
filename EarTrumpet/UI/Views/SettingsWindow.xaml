@@ -531,59 +531,12 @@
                            Margin="14,0,0,0"
                            Text="{Binding Title}"
                            TextAlignment="Left" />
-                <Button x:Name="MinimizeButton" Grid.Column="2">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
-                            <Setter Property="Content" Value="&#xE921;" />
-                            <Setter Property="b:ButtonEx.ClickAction" Value="Minimize" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
-                                    <Setter Property="Content" Value="&#xEF2D;" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button x:Name="MaximizeRestoreButton" Grid.Column="3">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource CaptionButtonStyle}" TargetType="Button">
-                            <Setter Property="Content" Value="&#xE922;" />
-                            <Setter Property="b:ButtonEx.ClickAction" Value="Maximize" />
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Normal" />
-                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Content" Value="&#xEF2E;" />
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
-                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True" />
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Content" Value="&#xEF2F;" />
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding WindowState, Mode=OneWay, RelativeSource={RelativeSource AncestorType=Window}}" Value="Maximized" />
-                                        <Condition Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-                                    <MultiDataTrigger.Setters>
-                                        <Setter Property="Content" Value="&#xE923;" />
-                                    </MultiDataTrigger.Setters>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-
+                <Button x:Name="MinimizeButton"
+                        Grid.Column="2"
+                        Style="{StaticResource MinimizeButton}" />
+                <Button x:Name="MaximizeRestoreButton"
+                        Grid.Column="3"
+                        Style="{StaticResource MaximizeButton}" />
                 <Button x:Name="CloseButton"
                         Grid.Column="4"
                         Style="{StaticResource CloseButtonStyle}" />
@@ -606,14 +559,11 @@
                         <RowDefinition Height="46" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <TextBlock HorizontalAlignment="Center"
-                               FontFamily="Segoe UI Light"
                                FontSize="26"
                                FontWeight="Light"
                                Style="{StaticResource HeadingText}"
                                Text="{x:Static resx:Resources.SettingsTitle}" />
-
                     <ctl:SearchBox Grid.Row="1"
                                    Width="332"
                                    Height="32"
@@ -621,7 +571,6 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    ItemsSource="{Binding}" />
-
                     <ctl:ListView Grid.Row="2"
                                   ItemInvoked="{Event:Binding OnInvoked}"
                                   ItemsSource="{Binding Categories}"
@@ -632,7 +581,6 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ctl:ListView>
-
                 </Grid>
                 <!--  Subview  -->
                 <Grid>
