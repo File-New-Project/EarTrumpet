@@ -1,4 +1,4 @@
-﻿using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop.Helpers;
@@ -86,6 +86,10 @@ namespace EarTrumpet
         {
             AddonManager.Load();
             Exit += (_, __) => AddonManager.Shutdown();
+
+#if DEBUG
+            DebugHelpers.Add();
+#endif
 
             _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
