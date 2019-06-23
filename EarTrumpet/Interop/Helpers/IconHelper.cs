@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Extensions;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 
@@ -28,6 +29,7 @@ namespace EarTrumpet.Interop.Helpers
                     User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CXSMICON, dpi),
                     User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CYSMICON, dpi));
             }
+            Trace.WriteLine($"IconHelper LoadIconByPath {path} {icon?.Width}x{icon?.Height}");
             return icon;
         }
 
@@ -51,8 +53,6 @@ namespace EarTrumpet.Interop.Helpers
         {
             using (var bitmap = originalIcon.ToBitmap())
             {
-                originalIcon.Dispose();
-
                 for (int y = 0; y < bitmap.Height; y++)
                 {
                     for (int x = 0; x < bitmap.Width * fillPercent; x++)

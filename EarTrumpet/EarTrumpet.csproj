@@ -117,6 +117,7 @@
     <Compile Include="Interop\SIZE.cs" />
     <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
     <Compile Include="UI\Controls\ImageEx.cs" />
+    <Compile Include="UI\Helpers\IIconSource.cs" />
     <Compile Include="UI\Helpers\ShellNotifyIcon.cs" />
     <Compile Include="Interop\Helpers\User32Helper.cs" />
     <Compile Include="Interop\ApplicationResolver.cs" />

@@ -1,7 +1,6 @@
-﻿using EarTrumpet.DataModel;
+﻿using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility.Hosting;
-using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -19,7 +18,6 @@ namespace EarTrumpet
     public partial class App
     {
         public static readonly string AssetBaseUri = "pack://application:,,,/EarTrumpet;component/Assets/";
-
         public static bool IsShuttingDown { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
@@ -66,11 +64,15 @@ namespace EarTrumpet
             _settings = new AppSettings();
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
-            PlaybackDevicesViewModel = new DeviceCollectionViewModel(DataModel.WindowsAudio.WindowsAudioFactory.Create(DataModel.WindowsAudio.AudioDeviceKind.Playback), _settings);
+            PlaybackDevicesViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
             PlaybackDevicesViewModel.Ready += (_, __) => CompleteStartup();
-            PlaybackDevicesViewModel.TrayPropertyChanged += () => UpdateTrayTooltipAndIcon();
 
-            CreateTrayExperience();
+            _trayIcon = new ShellNotifyIcon(
+                new TaskbarIconSource(PlaybackDevicesViewModel, _settings), 
+                () => _settings.TrayIconIdentity, 
+                _settings.ResetTrayIconIdentity);
+            PlaybackDevicesViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(PlaybackDevicesViewModel.GetTrayToolTip());
+            Exit += (_, __) => _trayIcon.IsVisible = false;
 
             FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
             FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
@@ -80,48 +82,11 @@ namespace EarTrumpet
             FlyoutWindow.Initialize();
         }
 
-        private void CreateTrayExperience()
-        {
-            if (!SndVolSSO.SystemIconsAreAvailable())
-            {
-                _settings.UseLegacyIcon = true;
-            }
-
-            TaskbarIconSource iconSource = null;
-            iconSource = new TaskbarIconSource(icon =>
-            {
-                if (_settings.UseLegacyIcon)
-                {
-                    icon?.Dispose();
-                    icon = IconHelper.LoadIconForTaskbar(SystemSettings.IsSystemLightTheme ? $"{AssetBaseUri}Application.ico" : $"{AssetBaseUri}Tray.ico");
-                }
-
-                double iconFillPercent = ((SndVolSSO.IconId)iconSource.Tag) == SndVolSSO.IconId.NoDevice && !_settings.UseLegacyIcon ? 0.4 : 1;
-                if (SystemParameters.HighContrast)
-                {
-                    icon = IconHelper.ColorIcon(icon, iconFillPercent, _trayIcon.IsMouseOver ? SystemColors.HighlightTextColor : SystemColors.WindowTextColor);
-                }
-                else if (SystemSettings.IsSystemLightTheme && !_settings.UseLegacyIcon)
-                {
-                    icon = IconHelper.ColorIcon(icon, iconFillPercent, System.Windows.Media.Colors.Black);
-                }
-                return icon;
-            },
-            () => $"hc={SystemParameters.HighContrast} {(SystemParameters.HighContrast ? $"mouse={_trayIcon.IsMouseOver}" : "")} dpi={WindowsTaskbar.Dpi} theme={SystemSettings.IsSystemLightTheme} legacy={_settings.UseLegacyIcon}");
-            _settings.UseLegacyIconChanged += (_, __) => iconSource.CheckForUpdate();
-
-            _trayIcon = new ShellNotifyIcon(iconSource, () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
-            Exit += (_, __) => _trayIcon.IsVisible = false;
-
-            UpdateTrayTooltipAndIcon();
-        }
-
         private void CompleteStartup()
         {
             AddonManager.Load();
             Exit += (_, __) => AddonManager.Shutdown();
 
-            _trayIcon.IsVisible = true;
             _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
             _trayIcon.TertiaryInvoke += (_, __) => PlaybackDevicesViewModel.Default?.ToggleMute.Execute(null);
@@ -130,15 +95,9 @@ namespace EarTrumpet
             _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
             _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
 
-            DisplayFirstRunExperience();
-        }
+            _trayIcon.IsVisible = true;
 
-        private void UpdateTrayTooltipAndIcon()
-        {
-            var iconType = (PlaybackDevicesViewModel.Default == null) ? SndVolSSO.IconId.NoDevice : PlaybackDevicesViewModel.Default.GetSndVolIcon();
-            _trayIcon.IconSource.Tag = iconType;
-            _trayIcon.IconSource.Source = SndVolSSO.GetPath(iconType);
-            _trayIcon.SetTooltip(PlaybackDevicesViewModel.GetTrayToolTip());
+            DisplayFirstRunExperience();
         }
 
         private void DisplayFirstRunExperience()

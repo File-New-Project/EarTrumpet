@@ -29,8 +29,8 @@ namespace EarTrumpet.UI.Helpers
         public event EventHandler<InputType> TertiaryInvoke;
         public event EventHandler<int> Scrolled;
 
+        public IIconSource IconSource { get; private set; }
         public bool IsMouseOver { get; private set; }
-        public TaskbarIconSource IconSource { get; private set; }
 
         public bool IsVisible
         {
@@ -50,17 +50,17 @@ namespace EarTrumpet.UI.Helpers
 
         private readonly Func<Guid> _getIdentity;
         private readonly Action _resetIdentity;
-        private Win32Window _window;
+        private readonly Win32Window _window;
+        private readonly DispatcherTimer _invalidationTimer;
         private bool _isCreated;
         private bool _isVisible;
         private bool _isListeningForInput;
         private string _text;
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
-        private DispatcherTimer _invalidationTimer;
         private int _remainingTicks;
 
-        public ShellNotifyIcon(TaskbarIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
+        public ShellNotifyIcon(IIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
         {
             IconSource = icon;
             IconSource.Changed += (_) => Update();
@@ -239,7 +239,7 @@ namespace EarTrumpet.UI.Helpers
             IsMouseOver = isInBounds;
             if (isChanged)
             {
-                IconSource.CheckForUpdate();
+                IconSource.OnMouseOverChanged(IsMouseOver);
             }
 
             return isInBounds;

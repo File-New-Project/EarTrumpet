@@ -23,25 +23,5 @@ namespace EarTrumpet.Interop
         {
             return $"{DllPath},{(int)icon}";
         }
-
-        public static bool SystemIconsAreAvailable()
-        {
-            Func<IconId, Icon> ThrowIfNull = (icon) => IconHelper.LoadIconForTaskbar(GetPath(icon)) ?? throw new InvalidOperationException(icon.ToString());
-
-            try
-            {
-                ThrowIfNull(IconId.Muted);
-                ThrowIfNull(IconId.NoDevice);
-                ThrowIfNull(IconId.SpeakerOneBar);
-                ThrowIfNull(IconId.SpeakerTwoBars);
-                ThrowIfNull(IconId.SpeakerThreeBars);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"SndVolSSO SystemIconsAreAvailable Failed: {ex}");
-                return false;
-            }
-        }
     }
 }

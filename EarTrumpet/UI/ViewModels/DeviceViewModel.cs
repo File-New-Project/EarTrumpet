@@ -219,22 +219,6 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public SndVolSSO.IconId GetSndVolIcon()
-        {
-            switch (IconKind)
-            {
-                case DeviceIconKind.Mute:
-                    return SndVolSSO.IconId.Muted;
-                case DeviceIconKind.Bar1:
-                    return SndVolSSO.IconId.SpeakerOneBar;
-                case DeviceIconKind.Bar2:
-                    return SndVolSSO.IconId.SpeakerTwoBars;
-                case DeviceIconKind.Bar3:
-                    return SndVolSSO.IconId.SpeakerThreeBars;
-                default: throw new NotImplementedException(IconKind.ToString());
-            }
-        }
-
         public void MakeDefaultDevice() => _deviceManager.Default = _device;
         public void IncrementVolume(int delta) => Volume += delta;
         public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
