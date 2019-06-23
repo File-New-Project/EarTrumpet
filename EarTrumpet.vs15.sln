@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.txt = version.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowImmersiveColors", "Tools\ShowImmersiveColors\ShowImmersiveColors.csproj", "{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -40,6 +42,12 @@ Global
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.ActiveCfg = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Build.0 = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Deploy.0 = Debug|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.Debug|x86.ActiveCfg = Debug|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.Debug|x86.Build.0 = Debug|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.Release|x86.ActiveCfg = Release|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.Release|x86.Build.0 = Release|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.VSDebug|x86.ActiveCfg = Debug|x86
+		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.VSDebug|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

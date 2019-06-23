@@ -3,6 +3,7 @@ using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
+using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
@@ -39,6 +40,14 @@ namespace EarTrumpet
                                         DisplayName = "Add mock device",
                                         Command = new RelayCommand(DebugAddMockDevice),
                                         Glyph = "\xE948",
+                                        IsChecked = true,
+                                    },
+                                    new ContextMenuSeparator(),
+                                    new ContextMenuItem
+                                    {
+                                        DisplayName = "View colors",
+                                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ShowImmersiveColors.exe")),
+                                        Glyph = "\xE790",
                                         IsChecked = true,
                                     },
                                 },
