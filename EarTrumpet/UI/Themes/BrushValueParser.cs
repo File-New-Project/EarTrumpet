@@ -133,6 +133,17 @@ namespace EarTrumpet.UI.Themes
             {
                 ret = (Color)ColorConverter.ConvertFromString(colorName);
             }
+            else if (colorName == "$SliderRight")
+            {
+                if (isLight)
+                {
+                    ret = (Color)ColorConverter.ConvertFromString("#49222222");
+                }
+                else
+                {
+                    ret = (Color)ColorConverter.ConvertFromString("#39ffffff");
+                }
+            }
             else if (!ImmersiveSystemColors.TryLookup($"Immersive{colorName}", out var color))
             {
                 var info = typeof(Colors).GetProperty(colorName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
@@ -140,7 +151,12 @@ namespace EarTrumpet.UI.Themes
                 {
                     info = typeof(SystemColors).GetProperty(colorName + "Color", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
                 }
-                ret = (Color)info.GetValue(null, null);
+                if (info == null)
+                {
+                    ret = (Color)ColorConverter.ConvertFromString("#FF0078D7");
+                }    
+                else
+                    ret = (Color)info.GetValue(null, null);
             }
             else
             {

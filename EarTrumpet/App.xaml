@@ -345,7 +345,7 @@
                                     </Track.Thumb>
                                     <Track.IncreaseRepeatButton>
                                         <RepeatButton Name="SliderRight"
-                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=#39FFFFFF, Flyout:HighContrast=ControlLight"
+                                                      Theme:Brush.Foreground=":Theme=Control{Theme}SliderTrackFillDisabled, :HighContrast=ControlLight, Flyout:Theme=$SliderRight, Flyout:HighContrast=ControlLight"
                                                       Command="Slider.IncreaseLarge"
                                                       Style="{StaticResource SliderButtonStyle}" />
                                     </Track.IncreaseRepeatButton>

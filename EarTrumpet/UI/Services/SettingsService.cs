@@ -74,7 +74,9 @@ namespace EarTrumpet.UI.Services
             {
                 s_settings.Set("Startup", value.ToString());
                 if (value)
-                    Extensions.Program.SetStartup();
+                    Extensions.Program.AddStartup();
+                else
+                    Extensions.Program.RemoveStartup();
                 StartupChanged?.Invoke(null, Startup);
             }
         }
