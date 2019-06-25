@@ -13,16 +13,17 @@ namespace EarTrumpet.Diagnosis
 {
     public class LocalDataExporter
     {
+        private static readonly string LineText = "--------------------------------------------------------------------";
+
         public static void DumpAndShowData(string logText)
         {
             var ret = new StringBuilder();
-            ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Playback)));
-            ret.AppendLine(DumpDevices(WindowsAudioFactory.Create(AudioDeviceKind.Recording)));
             Populate(ret, SnapshotData.App);
             Populate(ret, SnapshotData.Device);
             Populate(ret, SnapshotData.AppSettings);
             Populate(ret, SnapshotData.LocalOnly);
-            ret.AppendLine();
+            ret.AppendLine(LineText);
+            DumpDeviceManager(ret, WindowsAudioFactory.Create(AudioDeviceKind.Playback));
             ret.AppendLine(logText);
 
             var fileName = $"{Path.GetTempFileName()}.txt";
@@ -38,73 +39,66 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        static string DumpSession(string indent, IAudioDeviceSessionInternal session)
+        private static void DumpDeviceManager(StringBuilder builder, IAudioDeviceManager manager)
         {
-            string flags = session.IsDesktopApp ? "Desktop " : "Modern ";
-
-            if (session.IsSystemSoundsSession)
+            foreach (var device in manager.Devices)
             {
-                flags += "SystemSounds ";
+                DumpDevice(builder, device);
             }
-
-            bool isAlive = false;
-
-            try
-            {
-                using (Process.GetProcessById(session.ProcessId)) { }
-                isAlive = true;
-            }
-            catch (Exception) { }
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(indent + $"{session.DisplayName}");
-            sb.AppendLine(indent + $"  [{session.State}]: {session.Volume.ToVolumeInt()}%{(session.IsMuted ? " (Muted)" : "")} {flags}pid:{session.ProcessId} {(!isAlive ? "(dead)" : "")}");
-            sb.AppendLine(indent + $"  AppId: {session.AppId}  id={session.Id}");
-            sb.AppendLine(indent + $"  IconPath: {session.IconPath}");
-            sb.AppendLine(indent + $"  GroupingParam: {session.GroupingParam}");
-
-            var persisted = ((IAudioDeviceManagerWindowsAudio)session.Parent.Parent).GetDefaultEndPoint(session.ProcessId);
-            if (!string.IsNullOrWhiteSpace(persisted))
-            {
-                sb.AppendLine(indent + $"  Persisted Endpoint: {persisted}");
-            }
-
-            return sb.ToString();
         }
 
-        static string DumpDevice(IAudioDevice device)
+        private static void DumpDevice(StringBuilder builder, IAudioDevice device)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine($"{device.Volume.ToVolumeInt()}%{(device.IsMuted ? " (Muted)" : "")} {device.DisplayName} id={device.Id}");
-            sb.AppendLine();
+            builder.Append(device == device.Parent.Default ? $"(Default Device) " : "");
+            builder.AppendLine($"{device.DisplayName} {device.Volume.ToVolumeInt()}%{(device.IsMuted ? " (Muted)" : "")} Id: {device.Id}");
 
             foreach (AudioDeviceSessionGroup appGroup in device.Groups)
             {
+                builder.AppendLine(LineText);
                 foreach (AudioDeviceSessionGroup appSession in appGroup.Children)
                 {
                     foreach (IAudioDeviceSession rawSession in appSession.Children)
                     {
-                        bool isOneSession = appSession.Children.Count == 1;
-                        var indent = (isOneSession ? "  " : "|   ");
-                        sb.Append(DumpSession(indent, (IAudioDeviceSessionInternal)rawSession));
-                        sb.AppendLine(indent);
+                        DumpSession(builder,
+                            appSession.Children.Count == 1 ? "  " : "| ", 
+                            (IAudioDeviceSessionInternal)rawSession);
                     }
                 }
-                sb.AppendLine("------------------------------------------");
             }
-            return sb.ToString();
+            builder.AppendLine(LineText);
         }
 
-        static string DumpDevices(IAudioDeviceManager manager)
+        private static void DumpSession(StringBuilder builder, string indent, IAudioDeviceSessionInternal session)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (var device in manager.Devices)
+            var typeText = session.IsSystemSoundsSession ? "SystemSounds" : (session.IsDesktopApp ? "Desktop" : "Modern");
+
+            builder.AppendLine(indent + $"{session.DisplayName}");
+            builder.AppendLine(indent + $"  ({typeText}) ({session.State}) {session.Volume.ToVolumeInt()}%{(session.IsMuted ? " (Muted)" : "")} Id: {session.Id}");
+            builder.AppendLine(indent + $"  AppId: {session.AppId} ProcessId: {session.ProcessId} Alive: {IsProcessAlive(session.ProcessId)}");
+            builder.AppendLine(indent + $"  IconPath: {session.IconPath}");
+            builder.AppendLine(indent + $"  GroupingParam: {session.GroupingParam}");
+
+            var persisted = ((IAudioDeviceManagerWindowsAudio)session.Parent.Parent).GetDefaultEndPoint(session.ProcessId);
+            if (!string.IsNullOrWhiteSpace(persisted))
             {
-                sb.Append(device == manager.Default ? $"[Default {manager.Kind}] " : "");
-                sb.AppendLine(DumpDevice(device));
+                builder.AppendLine(indent + $"  Persisted Endpoint Id: {persisted}");
             }
-            return sb.ToString();
+        }
+
+        private static bool IsProcessAlive(int processId)
+        {
+            bool isAlive = false;
+            try
+            {
+                using (Process.GetProcessById(processId))
+                {
+                }
+                isAlive = true;
+            }
+            catch (Exception)
+            {
+            }
+            return isAlive;
         }
     }
 }
