@@ -17,12 +17,6 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
-        public class ModifyFailedException : Win32Exception
-        {
-            public ModifyFailedException(int code) : base(code)
-            {
-            }
-        }
 
         public event EventHandler<InputType> PrimaryInvoke;
         public event EventHandler<InputType> SecondaryInvoke;
@@ -113,8 +107,10 @@ namespace EarTrumpet.UI.Helpers
                 {
                     if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_MODIFY, ref data))
                     {
+                        // Modification will fail when explorer.exe restarts.
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_MODIFY Failed: {(uint)Marshal.GetLastWin32Error()}");
-                        throw new ModifyFailedException(Marshal.GetLastWin32Error());
+                        _isCreated = false;
+                        Update();
                     }
                 }
                 else
