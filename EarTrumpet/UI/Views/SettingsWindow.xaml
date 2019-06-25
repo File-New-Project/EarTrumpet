@@ -564,13 +564,12 @@
                                FontWeight="Light"
                                Style="{StaticResource HeadingText}"
                                Text="{x:Static resx:Resources.SettingsTitle}" />
-                    <ctl:SearchBox Grid.Row="1"
-                                   Width="332"
-                                   Height="32"
-                                   Margin="0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   ItemsSource="{Binding}" />
+                    <ComboBox Grid.Row="1"
+                              Width="332"
+                              Height="32"
+                              Margin="0"
+                              VerticalContentAlignment="Center"
+                              b:ComboBoxEx.SearchItemsSource="{Binding}" />
                     <ctl:ListView Grid.Row="2"
                                   ItemInvoked="{Event:Binding OnInvoked}"
                                   ItemsSource="{Binding Categories}"
@@ -658,10 +657,11 @@
                                 </Grid>
                             </Button.Content>
                         </Button>
-                        <ctl:SearchBox Grid.Row="2"
-                                       Height="32"
-                                       Margin="16,2,16,0"
-                                       ItemsSource="{Binding}" />
+                        <ComboBox Grid.Row="2"
+                                  Height="32"
+                                  Margin="16,2,16,0"
+                                  VerticalContentAlignment="Center"
+                                  b:ComboBoxEx.SearchItemsSource="{Binding}" />
                         <Grid Grid.Row="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />

@@ -119,6 +119,7 @@
     <Compile Include="Interop\SafeHandles\HMODULE.cs" />
     <Compile Include="Interop\SIZE.cs" />
     <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
+    <Compile Include="UI\Behaviors\ComboBoxEx.cs" />
     <Compile Include="UI\Controls\ImageEx.cs" />
     <Compile Include="UI\Helpers\IIconSource.cs" />
     <Compile Include="UI\Helpers\ShellNotifyIcon.cs" />
@@ -132,9 +133,6 @@
     <Compile Include="UI\Behaviors\TextBoxEx.cs" />
     <Compile Include="UI\Controls\ListView.cs" />
     <Compile Include="UI\Controls\ListViewItem.cs" />
-    <Compile Include="UI\Controls\SearchBox.xaml.cs">
-      <DependentUpon>SearchBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interop\Helpers\LegacyControlPanelHelper.cs" />
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
     <Compile Include="UI\Helpers\ViewState.cs" />
@@ -217,8 +215,7 @@
     <Compile Include="UI\ViewModels\SettingsAppItemViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageHeaderViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsPageViewModel.cs" />
-    <Compile Include="UI\ViewModels\SettingsSearchBoxResultsItemViewModel.cs" />
-    <Compile Include="UI\ViewModels\SettingsSearchBoxResultsViewModel.cs" />
+    <Compile Include="UI\ViewModels\SettingsSearchItemViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsCategoryViewModel.cs" />
     <Compile Include="Interop\Helpers\ProcessHelper.cs" />
@@ -321,10 +318,6 @@
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
-    <Page Include="UI\Controls\SearchBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Mutable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
