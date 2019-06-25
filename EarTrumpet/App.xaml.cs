@@ -62,21 +62,16 @@ namespace EarTrumpet
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
             _settings = new AppSettings();
-            _mixerWindow = new WindowHolder(CreateMixerExperience);
-            _settingsWindow = new WindowHolder(CreateSettingsExperience);
             PlaybackDevicesViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
             PlaybackDevicesViewModel.Ready += (_, __) => CompleteStartup();
 
             _trayIcon = new ShellNotifyIcon(
-                new TaskbarIconSource(PlaybackDevicesViewModel, _settings), 
-                () => _settings.TrayIconIdentity, 
-                _settings.ResetTrayIconIdentity);
-            PlaybackDevicesViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(PlaybackDevicesViewModel.GetTrayToolTip());
+                new TaskbarIconSource(PlaybackDevicesViewModel, _settings), () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
             Exit += (_, __) => _trayIcon.IsVisible = false;
+            PlaybackDevicesViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(PlaybackDevicesViewModel.GetTrayToolTip());
 
             FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
             FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
-
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
             FlyoutWindow.Initialize();
@@ -90,7 +85,8 @@ namespace EarTrumpet
 #if DEBUG
             DebugHelpers.Add();
 #endif
-
+            _mixerWindow = new WindowHolder(CreateMixerExperience);
+            _settingsWindow = new WindowHolder(CreateSettingsExperience);
             _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
             _trayIcon.TertiaryInvoke += (_, __) => PlaybackDevicesViewModel.Default?.ToggleMute.Execute(null);
@@ -98,7 +94,6 @@ namespace EarTrumpet
             _settings.FlyoutHotkeyTyped += () => FlyoutViewModel.OpenFlyout(InputType.Keyboard);
             _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
             _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
-
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
@@ -111,9 +106,7 @@ namespace EarTrumpet
                 Trace.WriteLine($"App DisplayFirstRunExperience Showing welcome dialog");
                 _settings.HasShownFirstRun = true;
 
-                var viewModel = new WelcomeViewModel();
-                var dialog = new DialogWindow { DataContext = viewModel };
-                viewModel.Close = new RelayCommand(() => dialog.Close());
+                var dialog = new DialogWindow { DataContext = new WelcomeViewModel() };
                 dialog.Show();
             }
         }
@@ -199,14 +192,6 @@ namespace EarTrumpet
             return ret;
         }
 
-        private Window CreateMixerExperience()
-        {
-            var viewModel = new FullWindowViewModel(PlaybackDevicesViewModel);
-            var window = new FullWindow { DataContext = viewModel };
-            window.Closed += (_, __) => _mixerWindow.Destroyed();
-            return window;
-        }
-
         private Window CreateSettingsExperience()
         {
             var defaultCategory = new SettingsCategoryViewModel(
@@ -230,10 +215,9 @@ namespace EarTrumpet
             }
 
             var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
-            var window = new SettingsWindow { DataContext = viewModel };
-            window.Closed += (_, __) => _settingsWindow.Destroyed();
-            viewModel.Close = new RelayCommand(() => window.Close());
-            return window;
+            return new SettingsWindow { DataContext = viewModel };
         }
+
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(PlaybackDevicesViewModel) };
     }
 }

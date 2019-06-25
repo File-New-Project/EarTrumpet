@@ -3,6 +3,7 @@ using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
@@ -11,7 +12,6 @@ namespace EarTrumpet.UI.ViewModels
     {
         public string Title { get; private set; }
         public ICommand GoHome { get; }
-        public ICommand Close { get; set; }
         public BackstackViewModel Backstack { get; } = new BackstackViewModel();
         public ObservableCollection<SettingsCategoryViewModel> Categories { get; private set; }
 
@@ -125,7 +125,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 case WindowViewModelState.Open:
                     // Reject the close if the client page requests.
-                    if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() => Close.Execute(null))))
+                    if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() => Window.GetWindow((DependencyObject)sender)?.Close())))
                     {
                         return;
                     }
@@ -135,7 +135,7 @@ namespace EarTrumpet.UI.ViewModels
                     WindowAnimationLibrary.BeginWindowExitAnimation((System.Windows.Window)sender, () =>
                     {
                         _state = WindowViewModelState.CloseReady;
-                        Close.Execute(null);
+                        Window.GetWindow((DependencyObject)sender)?.Close();
                     });
                     break;
                 case WindowViewModelState.Closing:

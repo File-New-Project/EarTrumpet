@@ -9,7 +9,6 @@ namespace EarTrumpet.UI.ViewModels
     {
         public string VisibleTitle => ""; // We have a header instead
         public string Title { get; }
-        public ICommand Close { get; set; }
         public ICommand LearnMore { get; }
         public ICommand DisplaySettingsChanged { get; }
 

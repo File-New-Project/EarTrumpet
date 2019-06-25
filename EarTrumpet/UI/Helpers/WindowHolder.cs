@@ -42,13 +42,9 @@ namespace EarTrumpet.UI.Helpers
         private void CreateWindow()
         {
             _openWindow = _create();
+            _openWindow.Closed += (_, __) => _openWindow = null;
             _openWindow.Show();
             WindowAnimationLibrary.BeginWindowEntranceAnimation(_openWindow, () => { });
-        }
-
-        public void Destroyed()
-        {
-            _openWindow = null;
         }
     }
 }

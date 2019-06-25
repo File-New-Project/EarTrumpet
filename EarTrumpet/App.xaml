@@ -1949,7 +1949,7 @@
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding Close}"
+                                b:ButtonEx.ClickAction="Close"
                                 Content="{x:Static resx:Resources.CloseButtonText}" />
                     </Grid>
                 </Grid>
