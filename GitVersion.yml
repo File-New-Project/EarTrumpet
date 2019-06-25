@@ -1,0 +1,54 @@
+assembly-versioning-scheme: MajorMinorPatchTag
+branches:
+  feature:
+    mode: ContinuousDeployment
+    tag: useBranchName
+    increment: none
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+    regex: (feature|experiment)?[/-]
+    source-branches:
+      - dev
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: false
+  dev:
+    mode: ContinuousDeployment
+    tag: dev
+    increment: none
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
+    regex: dev$
+    source-branches:
+      - feature
+    tracks-release-branches: true
+    is-release-branch: false
+    is-mainline: false
+  master:
+    mode: ContinuousDeployment
+    tag: ''
+    increment: none
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    regex: master$
+    source-branches:
+    - dev
+    - release
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: true
+  release:
+    mode: ContinuousDeployment
+    tag: beta
+    increment: none
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    regex: release?[/-]
+    source-branches:
+    - dev
+    - master
+    - release
+    - feature
+    tracks-release-branches: false
+    is-release-branch: true
+    is-mainline: false

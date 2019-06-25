@@ -1,0 +1,165 @@
+trigger:
+  branches:
+    include:
+      - master
+      - review/*
+      - experiment/*
+      - dev
+  paths:
+    exclude:
+      - '**/*.md'
+
+pr:
+  branches:
+    include:
+      - dev
+  paths:
+    exclude:
+      - '**/*.md'
+
+variables:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  Solution: 'EarTrumpet.vs15.sln'
+  BuildConfiguration: 'Release'
+  BuildPlatform: 'x86'
+
+jobs:
+- job: Build
+  continueOnError: 'false'
+  pool:
+    vmImage: vs2017-win2016
+
+  strategy:
+    matrix:
+      AppInstaller:
+        Channel: AppInstaller
+        Publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+      Store:
+        Channel: Store
+        Publisher: 'CN=6099D0EF-9374-47ED-BDFE-A82136831235'
+    maxParallel: 2
+
+  steps:
+  - task: GitVersion@4
+    displayName: 'Initialize Git Version'
+    inputs:
+      updateAssemblyInfo: false
+
+  - task: PowerShell@2
+    displayName: 'Set build number'
+    inputs:
+      targetType: inline
+      script: |
+        Write-Host "##vso[build.updatebuildnumber]$(GitVersion.SemVer)"
+
+  - task: PowerShell@2
+    displayName: 'Generate versioning metadata'
+    inputs:
+      targetType: inline
+      script: |
+        New-Item -ItemType Directory "$(Build.ArtifactStagingDirectory)\Metadata" -ErrorAction Ignore
+        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\semver.txt" "$(GitVersion.SemVer)"
+        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\branch.txt" "$(GitVersion.BranchName)"
+        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\commits.txt" "$(GitVersion.CommitsSinceVersionSource)"
+
+        if("$(Channel)" -eq "Store") {
+          $Version = "$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
+        } else {
+          $Version = "$(GitVersion.AssemblySemVer)"
+        }
+
+        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\version.txt" $Version
+        Set-Content ".\EarTrumpet\Version.txt" $Version
+
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet Tooling'
+
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: PowerShell@2
+    displayName: 'Set Bugsnag API Key'
+    inputs:
+      targetType: inline
+      script: |
+        $cfg = Get-Content ".\EarTrumpet\app.config"
+        $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "$(bugsnag.apikey)") } | Set-Content ".\EarTrumpet\app.config"
+
+  - task: PowerShell@2
+    displayName: 'Adjust manifest and store association'
+    inputs:
+      targetType: inline
+      script: |
+        $manifestPath = ".\EarTrumpet.Package\Package.appxmanifest"
+        $storeAssociationPath = ".\EarTrumpet.Package\Package.StoreAssociation.xml"
+
+        $manifest = [xml](Get-Content $manifestPath)
+        $manifest.Package.Identity.Publisher = "$(Publisher)"
+        if("$(Channel)" -eq "AppInstaller") {
+          $manifest.Package.Properties.DisplayName = "EarTrumpet ($(GitVersion.BranchName))"
+          $manifest.Package.Applications.Application.VisualElements.DisplayName = "EarTrumpet ($(GitVersion.BranchName))"
+        }
+        $manifest.Save($manifestPath)
+
+        $storeAssociation = [xml](Get-Content $storeAssociationPath)
+        $storeAssociation.StoreAssociation.Publisher = "$(Publisher)"
+        if("$(Channel)" -eq "AppInstaller") {
+          $storeAssociation.StoreAssociation.ProductReservedInfo.ReservedNames.ReservedName = "EarTrumpet ($(GitVersion.BranchName))"
+        }
+        $storeAssociation.Save($storeAssociationPath)
+
+  - task: MSBuild@1
+    displayName: 'Build EarTrumpet appxupload package'
+    inputs:
+      solution: 'EarTrumpet.Package/EarTrumpet.Package.wapproj'
+      platform: 'x86'
+      configuration: '$(buildConfiguration)'
+      msbuildArguments: '/p:AppxBundle=Always /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppxUpload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI'
+      maximumCpuCount: true
+    condition: and(succeeded(), eq(variables['Channel'], 'Store'))
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish appxupload artifacts'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/AppxUpload'
+      artifactName: 'AppxUpload'
+    condition: and(succeeded(), eq(variables['Channel'], 'Store'))
+
+  - task: MSBuild@1
+    displayName: 'Build EarTrumpet appinstaller/sideload package'
+    inputs:
+      solution: 'EarTrumpet.Package/EarTrumpet.Package.wapproj'
+      platform: 'x86'
+      configuration: '$(buildConfiguration)'
+      msbuildArguments: '/p:AppxBundle=Always /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/Sideload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir="$(Build.ArtifactStagingDirectory)/Sideload/" /p:AppInstallerUri=https://install.eartrumpet.app'
+      maximumCpuCount: true
+    condition: and(succeeded(), eq(variables['Channel'], 'AppInstaller'))
+
+  - task: PowerShell@2
+    displayName: 'Adjust appinstaller manifest'
+    inputs:
+      targetType: inline
+      script: |
+        $manifestPath = "$(Build.ArtifactStagingDirectory)/Sideload/EarTrumpet.Package.appinstaller"
+        $manifest = [xml](Get-Content $manifestPath)
+        $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/$(GitVersion.BranchName)/EarTrumpet.Package.appinstaller"
+        $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/$(GitVersion.BranchName)/EarTrumpet.Package_$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)_x86.appxbundle"
+        $manifest.AppInstaller.MainBundle.Publisher = "$(Publisher)"
+        $manifest.Save($manifestPath)
+      pwsh: true
+    condition: and(succeeded(), eq(variables['Channel'], 'AppInstaller'))
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish appinstaller/sideload package artifacts'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/Sideload'
+      artifactName: 'Sideload'
+    condition: and(succeeded(), eq(variables['Channel'], 'AppInstaller'))
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish metadata artifacts'
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/Metadata'
+      artifactName: 'Metadata'
