@@ -23,7 +23,7 @@ namespace EarTrumpet.UI.Behaviors
         {
             Debug.Assert((bool)e.NewValue == true);
             var comboBoxItem = ((ComboBoxItem)dependencyObject);
-            comboBoxItem.PreviewMouseLeftButtonDown += OnComboBoxItemPreviewMouseLeftButtonDown; ;
+            comboBoxItem.PreviewMouseLeftButtonDown += OnComboBoxItemPreviewMouseLeftButtonDown;
         }
 
         private static void OnComboBoxItemPreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -84,16 +84,15 @@ namespace EarTrumpet.UI.Behaviors
 
         private static IEnumerable<SettingsSearchItemViewModel> DoSearch(SettingsViewModel viewModel, string text)
         {
-            var ret = new List<SettingsSearchItemViewModel>();
-            text = text.ToLower();
+            var results = new List<SettingsSearchItemViewModel>();
 
             foreach (var cat in viewModel.Categories)
             {
                 foreach (var page in cat.Pages)
                 {
-                    if (page.Title.ToLower().Contains(text))
+                    if (page.Title.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1)
                     {
-                        ret.Add(new SettingsSearchItemViewModel
+                        results.Add(new SettingsSearchItemViewModel
                         {
                             DisplayName = page.Title,
                             Glyph = page.Glyph,
@@ -103,21 +102,21 @@ namespace EarTrumpet.UI.Behaviors
                     }
                 }
 
-                if (ret.Count > MaxSearchBoxResultItems)
+                if (results.Count > MaxSearchBoxResultItems)
                 {
-                    return ret;
+                    return results;
                 }
             }
 
-            if (ret.Count == 0)
+            if (results.Count == 0)
             {
-                ret.Add(new SettingsSearchItemViewModel
+                results.Add(new SettingsSearchItemViewModel
                 {
                     DisplayName = Properties.Resources.SearchBoxNoResultsText,
                     Invoke = () => { },
                 });
             }
-            return ret;
+            return results;
         }
 
         private static void InvokeSearchItem(SettingsSearchItemViewModel item, ComboBox comboBox)

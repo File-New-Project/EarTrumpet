@@ -1038,7 +1038,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <Style x:Key="HyperlinkBlock" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -1107,46 +1106,30 @@
                                                        FontSize="10"
                                                        Style="{StaticResource GlyphTextBlockStyle}"
                                                        Text="&#xE8BB;" />
-                                            <Button.Triggers>
-                                                <EventTrigger RoutedEvent="Button.Click">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButton" Storyboard.TargetProperty="Tag">
-                                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Clear" />
-                                                                <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="" />
-                                                            </ObjectAnimationUsingKeyFrames>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Button.Triggers>
                                         </Button>
                                     </Grid>
                                 </Grid>
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger SourceName="ClearButton" Property="Tag" Value="Clear">
-                                    <Setter Property="b:TextBoxEx.ClearText" Value="True" />
-                                </Trigger>
-                                <Trigger SourceName="ClearButton" Property="Tag" Value="">
-                                    <Setter Property="b:TextBoxEx.ClearText" Value="False" />
-                                </Trigger>
                                 <Trigger Property="Text" Value="{x:Static bcl:String.Empty}">
                                     <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
                                 </Trigger>
                                 <Trigger SourceName="ClearButton" Property="IsMouseOver" Value="True">
                                     <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=SystemAccent" />
                                 </Trigger>
-                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
-                                    <Setter TargetName="ClearButton" Property="Theme:Brush.Background" Value="Theme=SystemAccent" />
-                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=LightChromeWhite" />
-                                </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest, HighContrast=ControlText" />
                                 </Trigger>
                                 <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
+                                    <Setter TargetName="ClearButton" Property="Theme:Brush.Background" Value="Theme=SystemAccent" />
+                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=LightChromeWhite" />
                                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
                                     <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
                                     <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="False" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="False">
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="True" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocused" Value="True">
                                     <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
@@ -1179,6 +1162,187 @@
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
                                 </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="SearchTextBoxStyle"
+                   BasedOn="{StaticResource {x:Type TextBox}}"
+                   TargetType="{x:Type TextBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="border"
+                                    Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
+                                    Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="True">
+                                <Grid>
+                                    <TextBlock Name="PromptText"
+                                               Margin="9,4"
+                                               Theme:Brush.Foreground="GrayText"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Text="{x:Static resx:Resources.FindASettingText}"
+                                               Visibility="Collapsed" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                      Margin="4,0"
+                                                      Focusable="false"
+                                                      HorizontalScrollBarVisibility="Hidden"
+                                                      VerticalScrollBarVisibility="Hidden" />
+                                        <TextBlock Name="SearchGlyph"
+                                                   Grid.Column="1"
+                                                   Margin="6,0"
+                                                   HorizontalAlignment="Right"
+                                                   Theme:Brush.Foreground="GrayText"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold"
+                                                   Style="{StaticResource GlyphTextBlockStyle}"
+                                                   Text="&#xE721;"
+                                                   Visibility="Collapsed" />
+                                        <Button x:Name="ClearButton"
+                                                Grid.Column="1"
+                                                Style="{StaticResource BaseOverlayButton}">
+                                            <TextBlock x:Name="ClearButtonTextBlock"
+                                                       Margin="8"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Theme:Brush.Foreground="Theme=SearchClearGlyph, HighContrast=GrayText"
+                                                       FontSize="10"
+                                                       Style="{StaticResource GlyphTextBlockStyle}"
+                                                       Text="&#xE8BB;" />
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Text" Value="{x:Static bcl:String.Empty}">
+                                    <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
+                                    <Setter TargetName="SearchGlyph" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="PromptText" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=SystemAccent" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
+                                    <Setter TargetName="ClearButton" Property="Theme:Brush.Background" Value="Theme=SystemAccent" />
+                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=LightChromeWhite" />
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="False" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="False">
+                                    <Setter Property="b:TextBoxEx.ClearText" Value="True" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest, HighContrast=ControlText" />
+                                </Trigger>
+                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
+                                </Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
+                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type ComboBox}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="IsEditable" Value="true" />
+                <Setter Property="StaysOpenOnEdit" Value="true" />
+                <Setter Property="IsTextSearchEnabled" Value="false" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+                <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
+                            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                                <Popup x:Name="PART_Popup"
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                       AllowsTransparency="true"
+                                       IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                       Placement="Bottom"
+                                       PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                                    <Border x:Name="SubmenuBorder"
+                                            Theme:Brush.Background="Theme={Theme}ChromeLow, HighContrast=Window"
+                                            Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
+                                            BorderThickness="1"
+                                            SnapsToDevicePixels="True">
+                                        <Grid>
+                                            <ItemsPresenter x:Name="ItemsPresenter"
+                                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                                <TextBox x:Name="PART_EditableTextBox"
+                                         Margin="{TemplateBinding Padding}"
+                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                         IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Style="{StaticResource SearchTextBoxStyle}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type ComboBoxItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=ControlText" />
+                <Setter Property="b:ComboBoxEx.ItemClickEnabled" Value="True" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <Border x:Name="Bd"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}2/0.8, HighContrast=Highlight" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                        <Condition Property="IsSelected" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}1/0.8, HighContrast=Highlight" />
+                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
+                                </MultiTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
@@ -1372,7 +1536,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <ControlTemplate x:Key="ScrollBar_Vertical" TargetType="{x:Type ScrollBar}">
                 <Grid x:Name="Bg" SnapsToDevicePixels="True">
                     <Grid.RowDefinitions>
@@ -1514,7 +1677,6 @@
                     </MultiDataTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-
             <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="IsTabStop" Value="False" />
@@ -1567,7 +1729,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
             <ControlTemplate x:Key="ScrollBar_Horizontal" TargetType="{x:Type ScrollBar}">
                 <Grid x:Name="Bg" SnapsToDevicePixels="True">
                     <Grid.ColumnDefinitions>
@@ -1715,7 +1876,6 @@
                     </MultiDataTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
                 <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
@@ -1734,7 +1894,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
             <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}">
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -1990,212 +2149,6 @@
                     </TextBlock>
                 </Grid>
             </DataTemplate>
-            <Style x:Key="SearchTextBoxStyle"
-                   BasedOn="{StaticResource {x:Type TextBox}}"
-                   TargetType="{x:Type TextBox}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TextBox">
-                            <Border x:Name="border"
-                                    Theme:Brush.Background="{TemplateBinding Theme:Brush.Background}"
-                                    Theme:Brush.BorderBrush="{TemplateBinding Theme:Brush.BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="True">
-                                <Grid>
-                                    <TextBlock Name="PromptText"
-                                               Margin="9,4"
-                                               Theme:Brush.Foreground="GrayText"
-                                               FontSize="14"
-                                               FontWeight="SemiBold"
-                                               Text="{x:Static resx:Resources.FindASettingText}"
-                                               Visibility="Collapsed" />
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <ScrollViewer x:Name="PART_ContentHost"
-                                                      Margin="4,0"
-                                                      Focusable="false"
-                                                      HorizontalScrollBarVisibility="Hidden"
-                                                      VerticalScrollBarVisibility="Hidden" />
-                                        <TextBlock Name="SearchGlyph"
-                                                   Grid.Column="1"
-                                                   Margin="6,0"
-                                                   HorizontalAlignment="Right"
-                                                   Theme:Brush.Foreground="GrayText"
-                                                   FontSize="12"
-                                                   FontWeight="SemiBold"
-                                                   Style="{StaticResource GlyphTextBlockStyle}"
-                                                   Text="&#xE721;"
-                                                   Visibility="Collapsed" />
-                                        <Button x:Name="ClearButton"
-                                                Grid.Column="1"
-                                                Style="{StaticResource BaseOverlayButton}">
-                                            <TextBlock x:Name="ClearButtonTextBlock"
-                                                       Margin="8"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       Theme:Brush.Foreground="Theme=SearchClearGlyph, HighContrast=GrayText"
-                                                       FontSize="10"
-                                                       Style="{StaticResource GlyphTextBlockStyle}"
-                                                       Text="&#xE8BB;" />
-                                            <Button.Triggers>
-                                                <EventTrigger RoutedEvent="Button.Click">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButton" Storyboard.TargetProperty="(FrameworkElement.Tag)">
-                                                                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="Clear" />
-                                                                <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="" />
-                                                            </ObjectAnimationUsingKeyFrames>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Button.Triggers>
-                                        </Button>
-                                    </Grid>
-                                    <Popup x:Name="Popup"
-                                           AllowsTransparency="False"
-                                           Placement="Bottom"
-                                           PopupAnimation="None"
-                                           StaysOpen="False">
-                                        <Border x:Name="SubmenuBorder"
-                                                Theme:Brush.Background="Theme={Theme}ChromeLow, HighContrast=Window"
-                                                Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
-                                                BorderThickness="1"
-                                                SnapsToDevicePixels="True">
-                                            <Grid>
-                                                <ContentControl Content="{Binding}" />
-                                            </Grid>
-                                        </Border>
-                                    </Popup>
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="ClearButton" Property="Tag" Value="Clear">
-                                    <Setter Property="Text" Value="" />
-                                </Trigger>
-                                <Trigger Property="Text" Value="{x:Static bcl:String.Empty}">
-                                    <Setter TargetName="ClearButton" Property="Visibility" Value="Collapsed" />
-                                    <Setter TargetName="SearchGlyph" Property="Visibility" Value="Visible" />
-                                    <Setter TargetName="PromptText" Property="Visibility" Value="Visible" />
-                                </Trigger>
-                                <Trigger SourceName="ClearButton" Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=SystemAccent" />
-                                </Trigger>
-                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
-                                    <Setter TargetName="ClearButton" Property="Theme:Brush.Background" Value="Theme=SystemAccent" />
-                                    <Setter TargetName="ClearButtonTextBlock" Property="Theme:Brush.Foreground" Value="Theme=LightChromeWhite" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="Light=LightChromeBlackMedium, Dark=ControlDarkSelectBorderRest, HighContrast=ControlText" />
-                                </Trigger>
-                                <Trigger SourceName="ClearButton" Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
-                                </Trigger>
-                                <Trigger Property="IsKeyboardFocused" Value="True">
-                                    <Setter TargetName="border" Property="Theme:Brush.Background" Value="Theme=ApplicationBackgroundLightTheme" />
-                                    <Setter TargetName="border" Property="Theme:Brush.BorderBrush" Value="SystemAccent" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextLightTheme" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style TargetType="{x:Type ComboBox}">
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="IsTabStop" Value="false" />
-                <Setter Property="IsEditable" Value="true" />
-                <Setter Property="IsTextSearchEnabled" Value="true" />
-                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-                <Setter Property="ScrollViewer.PanningMode" Value="Both" />
-                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ComboBox}">
-                            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
-                                <Popup x:Name="PART_Popup"
-                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
-                                       AllowsTransparency="true"
-                                       IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                       Placement="Bottom"
-                                       PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                                    <Border x:Name="SubmenuBorder"
-                                            Theme:Brush.Background="Theme={Theme}ChromeLow, HighContrast=Window"
-                                            Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
-                                            BorderThickness="1"
-                                            SnapsToDevicePixels="True">
-                                        <Grid>
-                                            <ItemsPresenter x:Name="ItemsPresenter"
-                                                            KeyboardNavigation.DirectionalNavigation="Contained"
-                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                        </Grid>
-                                    </Border>
-                                </Popup>
-                                <TextBox x:Name="PART_EditableTextBox"
-                                         Margin="{TemplateBinding Padding}"
-                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                         IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{StaticResource SearchTextBoxStyle}" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style TargetType="{x:Type ComboBoxItem}">
-                <Setter Property="SnapsToDevicePixels" Value="True" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=ControlText" />
-                <Setter Property="b:ComboBoxEx.ItemClickEnabled" Value="True" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                            <Border x:Name="Bd"
-                                    Padding="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="true">
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}2/0.8, HighContrast=Highlight" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
-                                </Trigger>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsMouseOver" Value="True" />
-                                        <Condition Property="IsSelected" Value="True" />
-                                    </MultiTrigger.Conditions>
-                                    <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme=SystemAccent{Theme}1/0.8, HighContrast=Highlight" />
-                                    <Setter Property="Theme:Brush.Foreground" Value="Theme=Text, HighContrast=HighlightText" />
-                                </MultiTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
