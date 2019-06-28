@@ -8,9 +8,12 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class FullWindowViewModel : BindableBase, IPopupHostViewModel
     {
+        public static readonly int SmallDeviceCountLimit = 3;
+
         public ObservableCollection<DeviceViewModel> AllDevices => _mainViewModel.AllDevices;
         public ModalDialogViewModel Dialog { get; }
         public ICommand DisplaySettingsChanged { get; }
+        public bool IsManyDevicesMode => AllDevices.Count > SmallDeviceCountLimit;
 
         private readonly DeviceCollectionViewModel _mainViewModel;
         private WindowViewState _state;
@@ -20,8 +23,14 @@ namespace EarTrumpet.UI.ViewModels
             Dialog = new ModalDialogViewModel();
             _mainViewModel = mainViewModel;
             _mainViewModel.OnFullWindowOpened();
+            _mainViewModel.AllDevices.CollectionChanged += OnDevicesChanged;
 
             DisplaySettingsChanged = new RelayCommand(() => Dialog.IsVisible = false);
+        }
+
+        private void OnDevicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsManyDevicesMode));
         }
 
         public void OpenPopup(object vm, FrameworkElement container)

@@ -27,20 +27,33 @@ namespace EarTrumpet.Extensions
             DwmApi.DwmSetWindowAttribute(new WindowInteropHelper(window).Handle, DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
         }
 
+        public static void RemoveWindowStyle(this Window window, int styleToRemove)
+        {
+            var interop = new WindowInteropHelper(window);
+            var currentStyle = User32.GetWindowLong(interop.Handle, User32.GWL.GWL_STYLE);
+            if (currentStyle == 0)
+            {
+                Trace.WriteLine($"WindowExtensions RemoveWindowStyle Failed: ({Marshal.GetLastWin32Error()})");
+                return;
+            }
+
+            User32.SetWindowLong(interop.Handle, User32.GWL.GWL_STYLE, (currentStyle & ~styleToRemove));
+        }
+
         public static void ApplyExtendedWindowStyle(this Window window, int newExStyle)
         {
             var interop = new WindowInteropHelper(window);
             var currentExStyle = User32.GetWindowLong(interop.Handle, User32.GWL.GWL_EXSTYLE);
             if (currentExStyle == 0)
             {
-                Trace.WriteLine($"Failed to apply window styles ({Marshal.GetLastWin32Error()})");
+                Trace.WriteLine($"WindowExtensions ApplyExtendedWindowStyle Failed: ({Marshal.GetLastWin32Error()})");
                 return;
             }
 
             var oldExStyle = User32.SetWindowLong(interop.Handle, User32.GWL.GWL_EXSTYLE, currentExStyle | newExStyle);
             if (oldExStyle != currentExStyle)
             {
-                Trace.WriteLine($"Unexpected return from SetWindowLong ({oldExStyle} vs. {currentExStyle})");
+                Trace.WriteLine($"WindowExtensions ApplyExtendedWindowStyle Unexpected: ({oldExStyle} vs. {currentExStyle})");
                 return;
             }
         }

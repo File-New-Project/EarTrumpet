@@ -9,14 +9,17 @@
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
+        MinWidth="{StaticResource WindowAndItemSize}"
         Theme:Options.Source="App"
         b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"
         b:FrameworkElementEx.FlowDirection="Auto"
+        Background="Transparent"
         Closing="{Event:Binding OnClosing}"
         LocationChanged="{Event:Binding OnLocationChanged}"
         PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
         SizeChanged="{Event:Binding OnSizeChanged}"
         SizeToContent="WidthAndHeight"
+        Style="{StaticResource DialogWindowStyle}"
         TextOptions.TextFormattingMode="Display"
         UseLayoutRounding="True"
         WindowStartupLocation="CenterOwner">
@@ -25,12 +28,6 @@
             <views:DeviceView Width="{StaticResource WindowAndItemSize}" Device="{Binding}" />
         </DataTemplate>
     </Window.Resources>
-    <Window.Style>
-        <Style BasedOn="{StaticResource DialogWindowStyle}" TargetType="{x:Type Window}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="ResizeMode" Value="NoResize" />
-        </Style>
-    </Window.Style>
     <Grid>
         <Border Name="AcrylicBackgroundActive" Theme:Brush.Background="AcrylicBackground" />
         <Border Name="AcrylicBackgroundInactive">
@@ -105,20 +102,24 @@
         </Border>
         <DockPanel x:Name="ContentRoot">
             <DockPanel DockPanel.Dock="Top">
-                <Button x:Name="CloseButton"
-                        DockPanel.Dock="Right"
-                        Style="{StaticResource CloseButtonStyle}" />
-                <TextBlock Padding="12,8,12,8"
-                           DockPanel.Dock="Left"
-                           Text="{Binding ElementName=WindowRoot, Path=Title}"
-                           TextAlignment="Left" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Padding="12,8,12,8"
+                               Text="{Binding ElementName=WindowRoot, Path=Title}"
+                               TextAlignment="Left" />
+                    <Button x:Name="CloseButton"
+                            Grid.Column="2"
+                            Style="{StaticResource CloseButtonStyle}" />
+                </Grid>
             </DockPanel>
             <Grid>
                 <ScrollViewer x:Name="BaseVisual"
-                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto">
-
-                    <Grid Name="ContentGrid" VerticalAlignment="Top">
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid Name="ContentGrid">
                         <Border Width="{StaticResource WindowAndItemSize}"
                                 VerticalAlignment="Center"
                                 Theme:Brush.Background="FlyoutBackground">
@@ -148,6 +149,10 @@
                                     </Style.Triggers>
                                 </Style>
                             </Grid.Style>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <ItemsControl IsTabStop="False" ItemsSource="{Binding AllDevices}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -155,6 +160,17 @@
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
+                            <Border Grid.Row="1" Theme:Brush.Background="Background">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsManyDevicesMode}" Value="True">
+                                                <Setter Property="Height" Value="12" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
                         </Grid>
                     </Grid>
                 </ScrollViewer>

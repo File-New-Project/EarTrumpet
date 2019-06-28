@@ -116,6 +116,7 @@ namespace EarTrumpet.Interop
         }
 
         public const int WS_EX_TOOLWINDOW = 0x00000080;
+        public const int WS_MAXIMIZEBOX = 0x10000;
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct RAWINPUTDEVICE
