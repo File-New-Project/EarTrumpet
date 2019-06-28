@@ -1983,7 +1983,7 @@
                             <ctl:ImageEx x:Name="AppIcon"
                                          Width="{DynamicResource Mutable_AppIconSize}"
                                          Height="{DynamicResource Mutable_AppIconSize}"
-                                         SourceEx="{Binding Icon}"
+                                         SourceEx="{Binding}"
                                          Stretch="Fill" />
                             <Border>
                                 <Border.Style>

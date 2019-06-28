@@ -222,7 +222,7 @@
     <Compile Include="UI\Helpers\SystemSoundsHelper.cs" />
     <Compile Include="UI\Helpers\WindowAnimationLibrary.cs" />
     <Compile Include="DataModel\ProcessWatcherService.cs" />
-    <Compile Include="UI\Helpers\IconLoadInfo.cs" />
+    <Compile Include="UI\Helpers\IAppIconSource.cs" />
     <Compile Include="UI\Controls\MenuItemTemplateSelector.cs" />
     <Compile Include="UI\ViewModels\ContextMenuItem.cs" />
     <Compile Include="UI\ViewModels\FocusedAppItemViewModel.cs" />

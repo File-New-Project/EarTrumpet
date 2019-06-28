@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -47,8 +46,8 @@ namespace EarTrumpet.UI.ViewModels
         public string DisplayName { get; set; }
         public string ExeName { get; set; }
         public string AppId { get; set; }
-        public IconLoadInfo Icon { get; set; }
         public char IconText { get; set; }
+        public string IconPath { get; set; }
         public bool IsExpanded => false;
         public bool IsMovable => false;
         public float PeakValue1 => 0;
@@ -64,8 +63,8 @@ namespace EarTrumpet.UI.ViewModels
             AppId = session.AppId;
             DisplayName = session.DisplayName;
             IsDesktopApp = session.IsDesktopApp;
+            IconPath = session.IconPath;
             Id = session.AppId;
-            Icon = new IconLoadInfo { IconPath = session.IconPath, IsDesktopApp = session.IsDesktopApp };
             Background = session.BackgroundColor.ToABGRColor();
         }
 

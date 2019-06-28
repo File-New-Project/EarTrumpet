@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Windows.ApplicationModel;
-using EarTrumpet.Diagnosis;
 
 namespace EarTrumpet.Extensions
 {

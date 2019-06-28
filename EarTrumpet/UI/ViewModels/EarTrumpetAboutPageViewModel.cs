@@ -9,9 +9,9 @@ namespace EarTrumpet.UI.ViewModels
 {
     class EarTrumpetAboutPageViewModel : SettingsPageViewModel
     {
-        public RelayCommand OpenDiagnosticsCommand { get; }
-        public RelayCommand OpenAboutCommand { get; }
-        public RelayCommand OpenFeedbackCommand { get; }
+        public ICommand OpenDiagnosticsCommand { get; }
+        public ICommand OpenAboutCommand { get; }
+        public ICommand OpenFeedbackCommand { get; }
         public string AboutText { get; }
 
         private Action _openDiagnostics;

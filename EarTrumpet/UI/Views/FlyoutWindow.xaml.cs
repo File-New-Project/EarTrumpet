@@ -4,9 +4,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using System;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Views
 {

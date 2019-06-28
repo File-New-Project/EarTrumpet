@@ -3,7 +3,6 @@ using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;

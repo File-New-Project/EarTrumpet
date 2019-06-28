@@ -1,7 +1,4 @@
-﻿using EarTrumpet.Interop.Helpers;
-using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System;
 
 namespace EarTrumpet.Interop
 {

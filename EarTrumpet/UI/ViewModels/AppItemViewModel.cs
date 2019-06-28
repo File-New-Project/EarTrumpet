@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media;
-using EarTrumpet.UI.Helpers;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -26,28 +25,21 @@ namespace EarTrumpet.UI.ViewModels
 
         public static readonly ExeNameComparer CompareByExeName = new ExeNameComparer();
 
-        public IconLoadInfo Icon { get; private set; }
-
         public Color Background { get; private set; }
-
         public char IconText => string.IsNullOrWhiteSpace(DisplayName) ? '?' : DisplayName.ToUpperInvariant().FirstOrDefault(x => char.IsLetterOrDigit(x));
-
         public string DisplayName => _session.DisplayName;
-
         public string ExeName => _session.ExeName;
         public string AppId => _session.AppId;
-
+        public string IconPath => _session.IconPath;
+        public bool IsDesktopApp => _session.IsDesktopApp;
+        public bool IsExpanded { get; private set; }
+        public int ProcessId => _session.ProcessId;
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
         public bool IsMovable => !_session.IsSystemSoundsSession &&
                                   Environment.OSVersion.IsAtLeast(OSVersions.RS4);
-
         public string PersistedOutputDevice => _session.Parent.Parent is IAudioDeviceManagerWindowsAudio ?
             ((IAudioDeviceManagerWindowsAudio)_session.Parent.Parent).GetDefaultEndPoint(ProcessId) : "";
-
-        public bool IsExpanded { get; private set; }
-
-        public int ProcessId => _session.ProcessId;
 
         public IDeviceViewModel Parent
         {
@@ -64,7 +56,7 @@ namespace EarTrumpet.UI.ViewModels
         private IAudioDeviceSession _session;
         private WeakReference<DeviceViewModel> _parent;
 
-        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false, IconLoadInfo icon = null) : base(session)
+        internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false) : base(session)
         {
             IsExpanded = isChild;
             _session = session;
@@ -73,16 +65,10 @@ namespace EarTrumpet.UI.ViewModels
 
             Background = session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor();
 
-            Icon = new IconLoadInfo
-            {
-                IsDesktopApp = session.IsDesktopApp,
-                IconPath = session.IconPath,
-            };
-
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;
-                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(parent, t, true, Icon)));
+                ChildApps = new ObservableCollection<IAppItemViewModel>(_session.Children.Select(t => new AppItemViewModel(parent, t, true)));
             }
         }
 
@@ -107,7 +93,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     case NotifyCollectionChangedAction.Add:
                         Debug.Assert(e.NewItems.Count == 1);
-                        ChildApps.Add(new AppItemViewModel(parent, (IAudioDeviceSession)e.NewItems[0], true, Icon));
+                        ChildApps.Add(new AppItemViewModel(parent, (IAudioDeviceSession)e.NewItems[0], true));
                         break;
 
                     case NotifyCollectionChangedAction.Remove:

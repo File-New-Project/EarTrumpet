@@ -2,7 +2,6 @@
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
-using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    // This ViewModel is used in redirection scenarios. When we move an app to a device,
+    // This ViewModel is used in redirection scenarios. When we move a State=Inactive session to a device,
     // this serves as the visualziation and data container for that app until a real session is created.
     public class TemporaryAppItemViewModel : BindableBase, IAppItemViewModel
     {
@@ -56,9 +55,10 @@ namespace EarTrumpet.UI.ViewModels
         public string DisplayName { get; }
         public string ExeName { get; }
         public string AppId { get; }
-        public IconLoadInfo Icon { get; }
         public char IconText { get; }
+        public string IconPath { get; }
         public bool IsExpanded { get; }
+        public bool IsDesktopApp { get; }
         public bool IsMovable { get; }
         public float PeakValue1 { get; }
         public float PeakValue2 { get; }
@@ -95,8 +95,9 @@ namespace EarTrumpet.UI.ViewModels
             DisplayName = app.DisplayName;
             ExeName = app.ExeName;
             AppId = app.AppId;
-            Icon = app.Icon;
             IconText = app.IconText;
+            IconPath = app.IconPath;
+            IsDesktopApp = app.IsDesktopApp;
             IsMovable = app.IsMovable;
             IsExpanded = isChild;
             PeakValue1 = 0;

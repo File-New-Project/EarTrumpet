@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensibility;
-using EarTrumpet.Extensibility.Hosting;
+﻿using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;

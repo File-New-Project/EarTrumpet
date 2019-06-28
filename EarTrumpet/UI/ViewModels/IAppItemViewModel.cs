@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public interface IAppItemViewModel : INotifyPropertyChanged
+    public interface IAppItemViewModel : IAppIconSource, INotifyPropertyChanged
     {
         string Id { get; }
         bool IsMuted { get; set; }
@@ -15,7 +15,6 @@ namespace EarTrumpet.UI.ViewModels
         string DisplayName { get; }
         string ExeName { get; }
         string AppId { get; }
-        IconLoadInfo Icon { get; }
         char IconText { get; }
         bool IsExpanded { get; }
         bool IsMovable { get; }

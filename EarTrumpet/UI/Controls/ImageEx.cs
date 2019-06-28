@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
+﻿using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using System;
@@ -15,9 +14,9 @@ namespace EarTrumpet.UI.Controls
 {
     public class ImageEx : Image
     {
-        public IconLoadInfo SourceEx { get => (IconLoadInfo)GetValue(SourceExProperty); set => SetValue(SourceExProperty, value); }
+        public IAppIconSource SourceEx { get => (IAppIconSource)GetValue(SourceExProperty); set => SetValue(SourceExProperty, value); }
         public static readonly DependencyProperty SourceExProperty = DependencyProperty.Register(
-          "SourceEx", typeof(IconLoadInfo), typeof(ImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnSourceExChanged)));
+          "SourceEx", typeof(IAppIconSource), typeof(ImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnSourceExChanged)));
 
         private uint _dpi;
 
