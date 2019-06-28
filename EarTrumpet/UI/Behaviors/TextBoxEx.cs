@@ -25,7 +25,13 @@ namespace EarTrumpet.UI.Behaviors
                 }
                 else
                 {
-                    ((TextBox)dependencyObject).Text = "";
+                    // Ignore !IsLoaded to cleverly allow IsPressed=False to be our trigger but also
+                    // don't clear TextBoxes when they are initially created.
+                    var textBox = ((TextBox)dependencyObject);
+                    if (textBox.IsLoaded)
+                    {
+                        textBox.Text = "";
+                    }
                 }
             }
         }
