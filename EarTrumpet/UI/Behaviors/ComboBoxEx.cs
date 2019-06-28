@@ -34,6 +34,7 @@ namespace EarTrumpet.UI.Behaviors
             InvokeSearchItem(item, comboBox);
         }
 
+        // Alternate to ItemsSource that hooks up other event handlers, and also implemenets replacement text search.
         public static object GetSearchItemsSource(DependencyObject obj) => (object)obj.GetValue(SearchItemsSourceProperty);
         public static void SetSearchItemsSource(DependencyObject obj, object value) => obj.SetValue(SearchItemsSourceProperty, value);
         public static readonly DependencyProperty SearchItemsSourceProperty =
@@ -68,18 +69,22 @@ namespace EarTrumpet.UI.Behaviors
             var comboBox = (ComboBox)sender;
             var textBox = comboBox.FindVisualChild<TextBox>();
 
-            comboBox.Dispatcher.BeginInvoke((Action)(() =>
+            // Save and restore the selection because changing the ItemsSource will select an item, 
+            // causing SelectAll behavior which then results in ovewritten/dropped keys.
+            var selectionStart = textBox.SelectionStart;
+            var selectionLength = textBox.SelectionLength;
+
+            if (!string.IsNullOrWhiteSpace(textBox.Text))
             {
-                if (!string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    comboBox.ItemsSource = DoSearch((SettingsViewModel)GetSearchItemsSource(comboBox), textBox.Text);
-                    comboBox.IsDropDownOpen = true;
-                }
-                else
-                {
-                    ClearComboBox(comboBox);
-                }
-            }));
+                comboBox.ItemsSource = DoSearch((SettingsViewModel)GetSearchItemsSource(comboBox), textBox.Text);
+                comboBox.IsDropDownOpen = true;
+
+                textBox.Select(selectionStart, selectionLength);
+            }
+            else
+            {
+                ClearComboBox(comboBox);
+            }
         }
 
         private static IEnumerable<SettingsSearchItemViewModel> DoSearch(SettingsViewModel viewModel, string text)
