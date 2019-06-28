@@ -20,7 +20,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsExpandingOrCollapsing { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
-        public ViewState State { get; private set; }
+        public FlyoutViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public RelayCommand ExpandCollapse { get; private set; }
         public InputType LastInput { get; private set; }
@@ -54,9 +54,9 @@ namespace EarTrumpet.UI.ViewModels
 
         private void HideTimer_Tick(object sender, EventArgs e)
         {
-            Debug.Assert(State == ViewState.Closing_Stage2);
+            Debug.Assert(State == FlyoutViewState.Closing_Stage2);
             _hideTimer.IsEnabled = false;
-            ChangeState(ViewState.Hidden);
+            ChangeState(FlyoutViewState.Hidden);
         }
 
         private void AddDevice(DeviceViewModel device)
@@ -218,7 +218,7 @@ namespace EarTrumpet.UI.ViewModels
             }));
         }
 
-        public void ChangeState(ViewState state)
+        public void ChangeState(FlyoutViewState state)
         {
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
             ValidateStateChange(state);
@@ -227,7 +227,7 @@ namespace EarTrumpet.UI.ViewModels
 
             switch (State)
             {
-                case ViewState.Open:
+                case FlyoutViewState.Open:
                     _mainViewModel.OnTrayFlyoutShown();
 
                     if (_closedDuringOpen)
@@ -236,7 +236,7 @@ namespace EarTrumpet.UI.ViewModels
                         BeginClose(InputType.Command);
                     }
                     break;
-                case ViewState.Closing_Stage1:
+                case FlyoutViewState.Closing_Stage1:
                     _mainViewModel.OnTrayFlyoutHidden();
                     Dialog.IsVisible = false;
 
@@ -245,10 +245,10 @@ namespace EarTrumpet.UI.ViewModels
                         _returnFocusToTray.Invoke();
                     }
                     break;
-                case ViewState.Closing_Stage2:
+                case FlyoutViewState.Closing_Stage2:
                     _hideTimer.Start();
                     break;
-                case ViewState.Hidden:
+                case FlyoutViewState.Hidden:
                     if (IsExpandingOrCollapsing)
                     {
                         IsExpandingOrCollapsing = false;
@@ -259,17 +259,17 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void ValidateStateChange(ViewState newState)
+        private void ValidateStateChange(FlyoutViewState newState)
         {
             var oldState = State;
             bool isValidStateTransition =
-                (oldState == ViewState.NotLoaded && newState == ViewState.Hidden) ||
-                (oldState == ViewState.Hidden && newState == ViewState.Opening) ||
-                (oldState == ViewState.Opening && newState == ViewState.Open) ||
-                (oldState == ViewState.Open && newState == ViewState.Closing_Stage1) ||
-                (oldState == ViewState.Closing_Stage1 && newState == ViewState.Closing_Stage2) ||
-                (oldState == ViewState.Closing_Stage1 && newState == ViewState.Hidden) ||
-                (oldState == ViewState.Closing_Stage2 && newState == ViewState.Hidden);
+                (oldState == FlyoutViewState.NotLoaded && newState == FlyoutViewState.Hidden) ||
+                (oldState == FlyoutViewState.Hidden && newState == FlyoutViewState.Opening) ||
+                (oldState == FlyoutViewState.Opening && newState == FlyoutViewState.Open) ||
+                (oldState == FlyoutViewState.Open && newState == FlyoutViewState.Closing_Stage1) ||
+                (oldState == FlyoutViewState.Closing_Stage1 && newState == FlyoutViewState.Closing_Stage2) ||
+                (oldState == FlyoutViewState.Closing_Stage1 && newState == FlyoutViewState.Hidden) ||
+                (oldState == FlyoutViewState.Closing_Stage2 && newState == FlyoutViewState.Hidden);
             Debug.Assert(isValidStateTransition);
         }
 
@@ -304,21 +304,21 @@ namespace EarTrumpet.UI.ViewModels
 
         public void BeginOpen(InputType inputType)
         {
-            if (State == ViewState.Hidden)
+            if (State == FlyoutViewState.Hidden)
             {
                 LastInput = inputType;
-                ChangeState(ViewState.Opening);
+                ChangeState(FlyoutViewState.Opening);
             }
         }
 
         public void BeginClose(InputType inputType)
         {
-            if (State == ViewState.Open)
+            if (State == FlyoutViewState.Open)
             {
                 LastInput = inputType;
-                ChangeState(ViewState.Closing_Stage1);
+                ChangeState(FlyoutViewState.Closing_Stage1);
             }
-            else if (State == ViewState.Opening)
+            else if (State == FlyoutViewState.Opening)
             {
                 _closedDuringOpen = true;
             }
@@ -328,10 +328,10 @@ namespace EarTrumpet.UI.ViewModels
         {
             switch (State)
             {
-                case ViewState.Hidden:
+                case FlyoutViewState.Hidden:
                     BeginOpen(inputType);
                     break;
-                case ViewState.Open:
+                case FlyoutViewState.Open:
                     BeginClose(inputType);
                     break;
             }

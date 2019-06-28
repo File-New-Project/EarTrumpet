@@ -135,9 +135,9 @@
     <Compile Include="UI\Controls\ListViewItem.cs" />
     <Compile Include="Interop\Helpers\LegacyControlPanelHelper.cs" />
     <Compile Include="UI\Helpers\NavigationCookie.cs" />
-    <Compile Include="UI\Helpers\ViewState.cs" />
+    <Compile Include="UI\Helpers\FlyoutViewState.cs" />
     <Compile Include="UI\Helpers\WindowHolder.cs" />
-    <Compile Include="UI\Helpers\WindowViewModelState.cs" />
+    <Compile Include="UI\Helpers\WindowViewState.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
     <Compile Include="UI\Themes\Options.cs" />

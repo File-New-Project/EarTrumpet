@@ -34,14 +34,14 @@ namespace EarTrumpet.UI.Views
             // Prevent showing up in Alt+Tab.
             this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
 
-            _viewModel.ChangeState(ViewState.Hidden);
+            _viewModel.ChangeState(FlyoutViewState.Hidden);
         }
 
         private void OnStateChanged(object sender, object e)
         {
             switch (_viewModel.State)
             {
-                case ViewState.Opening:
+                case FlyoutViewState.Opening:
                     Show();
                     EnableOrDisableAcrylic();
                     PositionWindowRelativeToTaskbar();
@@ -54,12 +54,12 @@ namespace EarTrumpet.UI.Views
                     {
                         WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () =>
                         {
-                            _viewModel.ChangeState(ViewState.Open);
+                            _viewModel.ChangeState(FlyoutViewState.Open);
                         });
                     });
                     break;
 
-                case ViewState.Closing_Stage1:
+                case FlyoutViewState.Closing_Stage1:
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
 
                     if (_viewModel.IsExpandingOrCollapsing)
@@ -71,7 +71,7 @@ namespace EarTrumpet.UI.Views
 
                             // Go directly to ViewState.Hidden to avoid the stage 2 hide delay (debounce for tray clicks),
                             // we want to show again immediately.
-                            _viewModel.ChangeState(ViewState.Hidden);
+                            _viewModel.ChangeState(FlyoutViewState.Hidden);
                         });
                     }
                     else
@@ -84,7 +84,7 @@ namespace EarTrumpet.UI.Views
                         this.WaitForKeyboardVisuals(() =>
                         {
                             Hide();
-                            _viewModel.ChangeState(ViewState.Closing_Stage2);
+                            _viewModel.ChangeState(FlyoutViewState.Closing_Stage2);
                         });
                     }
                     break;
@@ -148,7 +148,7 @@ namespace EarTrumpet.UI.Views
 
         private void EnableOrDisableAcrylic()
         {
-            if (_viewModel.State == ViewState.Opening || _viewModel.State == ViewState.Open)
+            if (_viewModel.State == FlyoutViewState.Opening || _viewModel.State == FlyoutViewState.Open)
             {
                 AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags());
             }

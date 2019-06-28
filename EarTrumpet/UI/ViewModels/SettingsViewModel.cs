@@ -63,7 +63,7 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private WindowViewModelState _state;
+        private WindowViewState _state;
 
         public SettingsViewModel(string title, IEnumerable<SettingsCategoryViewModel> categories)
         {
@@ -123,26 +123,26 @@ namespace EarTrumpet.UI.ViewModels
         {
             switch (_state)
             {
-                case WindowViewModelState.Open:
+                case WindowViewState.Open:
                     // Reject the close if the client page requests.
                     if (Selected != null && !Selected.NavigatingFrom(new NavigationCookie(() => Window.GetWindow((DependencyObject)sender)?.Close())))
                     {
                         return;
                     }
 
-                    _state = WindowViewModelState.Closing;
+                    _state = WindowViewState.Closing;
                     e.Cancel = true;
                     WindowAnimationLibrary.BeginWindowExitAnimation((System.Windows.Window)sender, () =>
                     {
-                        _state = WindowViewModelState.CloseReady;
+                        _state = WindowViewState.CloseReady;
                         Window.GetWindow((DependencyObject)sender)?.Close();
                     });
                     break;
-                case WindowViewModelState.Closing:
+                case WindowViewState.Closing:
                     // Ignore any requests while playing the close animation.
                     e.Cancel = true;
                     break;
-                case WindowViewModelState.CloseReady:
+                case WindowViewState.CloseReady:
                     // Accept the close.
                     break;
             }

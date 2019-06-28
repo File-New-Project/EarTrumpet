@@ -1,6 +1,6 @@
 ﻿namespace EarTrumpet.UI.Helpers
 {
-    public enum WindowViewModelState
+    public enum WindowViewState
     {
         Open,
         Closing,

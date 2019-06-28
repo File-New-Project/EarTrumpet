@@ -12,7 +12,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand LearnMore { get; }
         public ICommand DisplaySettingsChanged { get; }
 
-        private WindowViewModelState _state;
+        private WindowViewState _state;
 
         public WelcomeViewModel()
         {
@@ -28,22 +28,22 @@ namespace EarTrumpet.UI.ViewModels
         {
             switch (_state)
             {
-                case WindowViewModelState.Open:
-                    _state = WindowViewModelState.Closing;
+                case WindowViewState.Open:
+                    _state = WindowViewState.Closing;
                     e.Cancel = true;
 
                     var window = (Window)sender;
                     WindowAnimationLibrary.BeginWindowExitAnimation(window, () =>
                     {
-                        _state = WindowViewModelState.CloseReady;
+                        _state = WindowViewState.CloseReady;
                         window.Close();
                     });
                     break;
-                case WindowViewModelState.Closing:
+                case WindowViewState.Closing:
                     // Ignore any requests while playing the close animation.
                     e.Cancel = true;
                     break;
-                case WindowViewModelState.CloseReady:
+                case WindowViewState.CloseReady:
                     // Accept the close.
                     break;
             }
