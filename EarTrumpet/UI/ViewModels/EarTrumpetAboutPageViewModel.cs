@@ -14,10 +14,18 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand OpenPrivacyPolicyCommand { get; }
         public string AboutText { get; }
 
-        private readonly Action _openDiagnostics;
-
-        public EarTrumpetAboutPageViewModel(Action openDiagnostics) : base(null)
+        public bool IsTelemetryEnabled
         {
+            get => _settings.IsTelemetryEnabled;
+            set => _settings.IsTelemetryEnabled = value;
+        }
+
+        private readonly Action _openDiagnostics;
+        private readonly AppSettings _settings;
+
+        public EarTrumpetAboutPageViewModel(Action openDiagnostics, AppSettings settings) : base(null)
+        {
+            _settings = settings;
             _openDiagnostics = openDiagnostics;
             Glyph = "\xE946";
             Title = Properties.Resources.AboutTitle;

@@ -378,6 +378,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send crash data to the EarTrumpet team.
+        /// </summary>
+        public static string PrivacyCheckboxText {
+            get {
+                return ResourceManager.GetString("PrivacyCheckboxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coming soon.
         /// </summary>
         public static string ProjectADescription {

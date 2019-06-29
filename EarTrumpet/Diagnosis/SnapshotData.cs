@@ -88,6 +88,7 @@ namespace EarTrumpet.Diagnosis
                     { "systemDpi", () => User32.GetDpiForSystem() },
                     { "taskbarDpi", () => WindowsTaskbar.Dpi },
                     { "addons", () => AddonManager.GetDiagnosticInfo() },
+                    { "region", () =>  new RegionInfo(CultureInfo.CurrentCulture.LCID).TwoLetterISORegionName }
                 };
             }
         }

@@ -7,6 +7,7 @@
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:local="clr-namespace:EarTrumpet"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
              xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -2141,7 +2142,6 @@
             <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
                 <Grid>
                     <Grid MaxWidth="420"
-                          MaxHeight="500"
                           Margin="20,6,20,20"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center">
@@ -2169,21 +2169,27 @@
                                        FontSize="18"
                                        Text="{x:Static resx:Resources.WelcomeDialogHeaderText}" />
                         </StackPanel>
-                        <Image Grid.Row="1"
-                               Grid.ColumnSpan="2"
-                               Height="275"
-                               HorizontalAlignment="Left"
-                               gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
-
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Margin="0,20,6,0"
+                        <StackPanel Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Orientation="Vertical">
+                            <Image Height="275"
                                    HorizontalAlignment="Left"
-                                   VerticalAlignment="Center">
-                            <Hyperlink Command="{Binding LearnMore}">
-                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink>
-                        </TextBlock>
+                                   gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
+                            <CheckBox Margin="0,20,12,-6"
+                                        HorizontalAlignment="Left"
+                                        Content="{x:Static resx:Resources.PrivacyCheckboxText}"
+                                        IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
+                            <TextBlock Margin="0,12,12,6" Style="{StaticResource HyperlinkBlock}">
+                                <Hyperlink Command="{Binding OpenPrivacy}">
+                                    <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="0,12,12,0" Style="{StaticResource HyperlinkBlock}">
+                                <Hyperlink Command="{Binding LearnMore}">
+                                    <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
                         <Button Grid.Row="2"
                                 Grid.Column="1"
                                 MinWidth="160"

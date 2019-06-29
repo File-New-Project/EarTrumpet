@@ -10,24 +10,29 @@ namespace EarTrumpet.Diagnosis
         private static ErrorReporter s_instance;
         private readonly Client _bugsnagClient;
         private readonly CircularBufferTraceListener _listener;
+        private readonly AppSettings _settings;
 
-        public ErrorReporter()
+        public ErrorReporter(AppSettings settings)
         {
             Debug.Assert(s_instance == null);
             s_instance = this;
 
             _listener = new CircularBufferTraceListener();
+            _settings = settings;
             Trace.Listeners.Clear();
             Trace.Listeners.Add(_listener);
 
-            try
+            if (_settings.IsTelemetryEnabled)
             {
-                _bugsnagClient = new Client(Bugsnag.ConfigurationSection.Configuration.Settings);
-                _bugsnagClient.BeforeNotify(new Middleware(OnBeforeNotify));
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"ErrorReporter .ctor Failed: {ex}");
+                try
+                {
+                    _bugsnagClient = new Client(Bugsnag.ConfigurationSection.Configuration.Settings);
+                    _bugsnagClient.BeforeNotify(new Middleware(OnBeforeNotify));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"ErrorReporter .ctor Failed: {ex}");
+                }
             }
         }
 
@@ -40,7 +45,7 @@ namespace EarTrumpet.Diagnosis
         private void LogWarningInstance(Exception ex)
         {
             Trace.WriteLine($"## Warning Notify ##: {ex}");
-            _bugsnagClient.Notify(ex, Severity.Warning);
+            _bugsnagClient?.Notify(ex, Severity.Warning);
         }
 
         private void OnBeforeNotify(Bugsnag.Payload.Report error)

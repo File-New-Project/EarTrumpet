@@ -6,6 +6,7 @@
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:datamodel="clr-namespace:EarTrumpet.DataModel"
+        xmlns:local="clr-namespace:EarTrumpet"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
         Name="WindowRoot"
@@ -139,8 +140,16 @@
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"
                                    Text="© File-New-Project" />
+                            <CheckBox Margin="12,24,12,-6"
+                                      HorizontalAlignment="Left"
+                                      Content="{x:Static resx:Resources.PrivacyCheckboxText}"
+                                      IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
                         <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenAboutCommand}">
+                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
+                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
                                 <Run Text="{x:Static resx:Resources.WebsiteText}" />
                             </Hyperlink>
                         </TextBlock>
@@ -152,11 +161,6 @@
                         <TextBlock Style="{StaticResource HyperlinkBlock}">
                             <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
                                 <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
-                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
                             </Hyperlink>
                         </TextBlock>
                     </StackPanel>

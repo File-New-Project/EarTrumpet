@@ -293,4 +293,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="PrivacyPolicyText" xml:space="preserve">
     <value>Privacy policy</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Send crash data to the EarTrumpet team</value>
+  </data>
 </root>
