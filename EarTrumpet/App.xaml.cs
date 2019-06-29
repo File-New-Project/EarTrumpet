@@ -22,11 +22,10 @@ namespace EarTrumpet
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
-        public FlyoutViewModel FlyoutViewModel { get; private set; }
-        public FlyoutWindow FlyoutWindow { get; private set; }
-        public DeviceCollectionViewModel PlaybackDevicesViewModel { get; private set; }
-
         private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
+        private FlyoutViewModel _flyoutViewModel;
+        private FlyoutWindow _flyoutWindow;
+        private DeviceCollectionViewModel _collectionViewModel;
         private ShellNotifyIcon _trayIcon;
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
@@ -65,19 +64,19 @@ namespace EarTrumpet
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
             _settings = new AppSettings();
-            PlaybackDevicesViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
-            PlaybackDevicesViewModel.Ready += (_, __) => CompleteStartup();
+            _collectionViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
+            _collectionViewModel.Ready += (_, __) => CompleteStartup();
 
             _trayIcon = new ShellNotifyIcon(
-                new TaskbarIconSource(PlaybackDevicesViewModel, _settings), () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
+                new TaskbarIconSource(_collectionViewModel, _settings), () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            PlaybackDevicesViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(PlaybackDevicesViewModel.GetTrayToolTip());
+            _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
 
-            FlyoutViewModel = new FlyoutViewModel(PlaybackDevicesViewModel, () => _trayIcon.SetFocus());
-            FlyoutWindow = new FlyoutWindow(FlyoutViewModel);
+            _flyoutViewModel = new FlyoutViewModel(_collectionViewModel, () => _trayIcon.SetFocus());
+            _flyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
-            FlyoutWindow.Initialize();
+            _flyoutWindow.Initialize();
         }
 
         private void CompleteStartup()
@@ -90,11 +89,11 @@ namespace EarTrumpet
 #endif
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
-            _trayIcon.PrimaryInvoke += (_, type) => FlyoutViewModel.OpenFlyout(type);
+            _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
-            _trayIcon.TertiaryInvoke += (_, __) => PlaybackDevicesViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => PlaybackDevicesViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
-            _settings.FlyoutHotkeyTyped += () => FlyoutViewModel.OpenFlyout(InputType.Keyboard);
+            _trayIcon.TertiaryInvoke += (_, __) => _collectionViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.Scrolled += (_, wheelDelta) => _collectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
             _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
             _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
             _trayIcon.IsVisible = true;
@@ -149,10 +148,10 @@ namespace EarTrumpet
 
         private IEnumerable<ContextMenuItem> GetTrayContextMenuItems()
         {
-            var ret = new List<ContextMenuItem>(PlaybackDevicesViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+            var ret = new List<ContextMenuItem>(_collectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
             {
                 DisplayName = dev.DisplayName,
-                IsChecked = dev.Id == PlaybackDevicesViewModel.Default?.Id,
+                IsChecked = dev.Id == _collectionViewModel.Default?.Id,
                 Command = new RelayCommand(() => dev.MakeDefaultDevice()),
             }));
 
@@ -225,6 +224,6 @@ namespace EarTrumpet
             return new SettingsWindow { DataContext = viewModel };
         }
 
-        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(PlaybackDevicesViewModel) };
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(_collectionViewModel) };
     }
 }
