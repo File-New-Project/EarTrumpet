@@ -4,18 +4,18 @@ using EarTrumpet.UI.Helpers;
 
 namespace EarTrumpet.Actions.ViewModel
 {
-    public class DeviceViewModel : DeviceViewModelBase
+    public class DeviceViewModel : DeviceViewModelBase, IAppIconSource
     {
-        public IconLoadInfo Icon { get; }
+        public bool IsDesktopApp => true;
+        public string IconPath => _device.IconPath;
 
-        private IAudioDevice _device;
+        private readonly IAudioDevice _device;
 
         public DeviceViewModel(IAudioDevice device)
         {
             _device = device;
             Id = _device.Id;
             DisplayName = _device.DisplayName;
-            Icon = new IconLoadInfo { IconPath = _device.IconPath, IsDesktopApp = true };
             Kind = _device.Parent.Kind;
 
             GroupName = _device.Parent.Kind == AudioDeviceKind.Playback.ToString() ?
