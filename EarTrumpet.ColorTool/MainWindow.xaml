@@ -1,19 +1,24 @@
-﻿<Window x:Class="ShowImmersiveColors.MainWindow"
+﻿<Window x:Class="EarTrumpet.ColorTool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:ShowImmersiveColors"
+        xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding;assembly=EarTrumpet"
+        xmlns:local="clr-namespace:EarTrumpet.ColorTool"
         Title="Color Viewer"
         Width="800"
-        Height="450">
+        Height="450"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:ColorViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Name="txtSearch" TextChanged="TextBox_TextChanged" />
-        <ListView Name="Colors" Grid.Row="1">
+        <TextBox TextChanged="{Event:Binding OnTextChanged}" />
+        <ListView Grid.Row="1" ItemsSource="{Binding Colors}">
             <ListView.ItemTemplate>
-                <DataTemplate DataType="views:ColorData">
+                <DataTemplate DataType="local:ColorItemViewModel">
                     <StackPanel Height="14" Orientation="Horizontal">
                         <TextBlock Width="30"
                                    VerticalAlignment="Center"
@@ -22,11 +27,9 @@
                                 Height="14"
                                 Background="{Binding Color}" />
                         <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </Grid>
 </Window>

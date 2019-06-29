@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.txt = version.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowImmersiveColors", "Tools\ShowImmersiveColors\ShowImmersiveColors.csproj", "{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.ColorTool", "EarTrumpet.ColorTool\EarTrumpet.ColorTool.csproj", "{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

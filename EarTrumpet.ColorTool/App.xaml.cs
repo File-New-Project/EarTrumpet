@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ShowImmersiveColors
+namespace EarTrumpet.ColorTool
 {
     public partial class App : Application
     {

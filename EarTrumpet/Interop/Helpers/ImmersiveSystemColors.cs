@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Interop.Helpers
 {
-    class ImmersiveSystemColors
+    public class ImmersiveSystemColors
     {
         public static Color Lookup(string name)
         {
@@ -14,20 +14,19 @@ namespace EarTrumpet.Interop.Helpers
             return ret;
         }
 
-        internal static bool TryLookup(string name, out Color result)
+        public static bool TryLookup(string name, out Color color)
         {
-            result = default(Color);
+            color = default(Color);
+
             var colorSet = Uxtheme.GetImmersiveUserColorSetPreference(false, false);
             var colorType = Uxtheme.GetImmersiveColorTypeFromName(name);
             var rawColor = Uxtheme.GetImmersiveColorFromColorSetEx(colorSet, colorType, false, 0);
 
-
-            result = rawColor.ToABGRColor();
-
+            color = rawColor.ToABGRColor();
             return (rawColor != 4294902015);
         }
 
-        internal static IDictionary<string, Color> GetList()
+        public static IDictionary<string, Color> GetList()
         {
             var colors = new Dictionary<string, Color>();
             var colorSet = Uxtheme.GetImmersiveUserColorSetPreference(false, false);
@@ -36,13 +35,14 @@ namespace EarTrumpet.Interop.Helpers
             {
                 var ptr = Uxtheme.GetImmersiveColorNamedTypeByIndex(i);
                 if (ptr == IntPtr.Zero)
+                {
                     break;
+                }
 
                 var name = Marshal.PtrToStringUni(Marshal.ReadIntPtr(ptr));
                 TryLookup($"Immersive{name}", out var color);
                 colors.Add(name, color);
             }
-
             return colors;
         }
     }

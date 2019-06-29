@@ -46,7 +46,7 @@ namespace EarTrumpet
                                     new ContextMenuItem
                                     {
                                         DisplayName = "View colors",
-                                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("ShowImmersiveColors.exe")),
+                                        Command = new RelayCommand(() => ProcessHelper.StartNoThrow("EarTrumpet.ColorTool.exe")),
                                         Glyph = "\xE790",
                                         IsChecked = true,
                                     },
