@@ -115,22 +115,23 @@ namespace EarTrumpet.UI.Helpers
 
         private static Icon LoadIcon(IconKind kind)
         {
+            uint dpi = WindowsTaskbar.Dpi;
             switch (kind)
             {
                 case IconKind.EarTrumpet:
-                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconDark"]);
+                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconDark"], dpi);
                 case IconKind.EarTrumpet_LightTheme:
-                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconLight"]);
+                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconLight"], dpi);
                 case IconKind.Muted:
-                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Muted));
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Muted), dpi);
                 case IconKind.NoDevice:
-                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.NoDevice));
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.NoDevice), dpi);
                 case IconKind.SpeakerOneBar:
-                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerOneBar));
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerOneBar), dpi);
                 case IconKind.SpeakerTwoBars:
-                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerTwoBars));
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerTwoBars), dpi);
                 case IconKind.SpeakerThreeBars:
-                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerThreeBars));
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerThreeBars), dpi);
                 default: throw new NotImplementedException();
             }
         }

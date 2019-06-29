@@ -8,9 +8,8 @@ namespace EarTrumpet.Interop.Helpers
 {
     public class IconHelper
     {
-        public static Icon LoadIconForTaskbar(string path)
+        public static Icon LoadIconForTaskbar(string path, uint dpi)
         {
-            var dpi = WindowsTaskbar.Dpi;
             Icon icon = null;
             if (path.StartsWith("pack://"))
             {
@@ -29,7 +28,7 @@ namespace EarTrumpet.Interop.Helpers
                     User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CXSMICON, dpi),
                     User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CYSMICON, dpi));
             }
-            Trace.WriteLine($"IconHelper LoadIconByPath {path} {icon?.Width}x{icon?.Height}");
+            Trace.WriteLine($"IconHelper LoadIconForTaskbar {path} {icon?.Width}x{icon?.Height}");
             return icon;
         }
 
