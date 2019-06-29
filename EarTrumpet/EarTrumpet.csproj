@@ -140,6 +140,7 @@
     <Compile Include="UI\Helpers\FlyoutViewState.cs" />
     <Compile Include="UI\Helpers\WindowHolder.cs" />
     <Compile Include="UI\Helpers\WindowViewState.cs" />
+    <Compile Include="UI\Themes\AcrylicBrush.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
     <Compile Include="UI\Themes\Options.cs" />

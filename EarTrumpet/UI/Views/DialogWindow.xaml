@@ -6,6 +6,7 @@
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
         Name="WindowRoot"
         Title="{Binding Title}"
+        Theme:AcrylicBrush.Background="AcrylicColor_Settings"
         Theme:Brush.Background="Background"
         Theme:Options.Source="App"
         b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"

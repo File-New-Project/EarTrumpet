@@ -1,8 +1,6 @@
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.ViewModels;
-using System;
 using System.Diagnostics;
 using System.Windows;
 
@@ -18,11 +16,10 @@ namespace EarTrumpet.UI.Views
             Trace.WriteLine("FullWindow .ctor");
             Closed += (_, __) => Trace.WriteLine("FullWindow Closed");
 
-            InitializeComponent();
-            SourceInitialized += OnSourceInitialized;
-
             _windowAndItemSize = (double)App.Current.Resources["WindowAndItemSize"];
 
+            InitializeComponent();
+            SourceInitialized += (_, __) => this.Cloak();
             // Auto-size on the first layout pass.
             SizeToContent = SizeToContent.WidthAndHeight;
             MaxWidth = FullWindowViewModel.SmallDeviceCountLimit * _windowAndItemSize;
@@ -32,7 +29,6 @@ namespace EarTrumpet.UI.Views
                 ViewModel.AllDevices.CollectionChanged += OnDevicesChanged;
                 OnDevicesChanged(null, null);
             };
-            Themes.Manager.Current.ThemeChanged += SetBlurColor;
         }
 
         private void OnDevicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -62,17 +58,6 @@ namespace EarTrumpet.UI.Views
             SizeToContent = ViewModel.IsManyDevicesMode ? SizeToContent.Manual : SizeToContent.WidthAndHeight;
             ResizeMode = ViewModel.IsManyDevicesMode ? ResizeMode.CanResize : ResizeMode.NoResize;
             this.RemoveWindowStyle(User32.WS_MAXIMIZEBOX);
-        }
-
-        private void SetBlurColor()
-        {
-            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
-        }
-
-        private void OnSourceInitialized(object sender, EventArgs e)
-        {
-            this.Cloak();
-            SetBlurColor();
         }
     }
 }

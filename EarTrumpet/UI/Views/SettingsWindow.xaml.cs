@@ -15,20 +15,8 @@ namespace EarTrumpet.UI.Views
 
             InitializeComponent();
 
-            Themes.Manager.Current.ThemeChanged += EnableAcrylic;
-            SourceInitialized += OnSourceInitialized;
+            SourceInitialized += (_, __) => this.Cloak();
             StateChanged += OnWindowStateChanged;
-        }
-
-        private void EnableAcrylic()
-        {
-            AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Settings"), Interop.User32.AccentFlags.DrawAllBorders);
-        }
-
-        private void OnSourceInitialized(object sender, System.EventArgs e)
-        {
-            this.Cloak();
-            EnableAcrylic();
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)

@@ -1,6 +1,4 @@
-﻿using EarTrumpet.Extensions;
-
-namespace EarTrumpet.DataModel.Storage
+﻿namespace EarTrumpet.DataModel.Storage
 {
     public class StorageFactory
     {

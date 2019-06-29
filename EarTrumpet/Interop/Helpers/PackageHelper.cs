@@ -21,7 +21,7 @@ namespace EarTrumpet.Interop.Helpers
         public static bool CheckHasIdentity()
         {
 #if VSDEBUG
-            if (Debugger.IsAttached)
+            if (System.Diagnostics.Debugger.IsAttached)
             {
                 return false;
             }

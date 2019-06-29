@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;

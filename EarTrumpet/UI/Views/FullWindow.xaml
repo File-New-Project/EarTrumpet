@@ -10,6 +10,7 @@
         Name="WindowRoot"
         Title="{x:Static resx:Resources.FullWindowTitleText}"
         MinWidth="{StaticResource WindowAndItemSize}"
+        Theme:AcrylicBrush.Background="AcrylicColor_Settings"
         Theme:Options.Source="App"
         b:FrameworkElementEx.DisplaySettingsChanged="{Binding DisplaySettingsChanged}"
         b:FrameworkElementEx.FlowDirection="Auto"

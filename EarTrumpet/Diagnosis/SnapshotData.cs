@@ -1,6 +1,5 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensibility.Hosting;
-using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
