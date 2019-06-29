@@ -1,11 +1,13 @@
-﻿using EarTrumpet.DataModel.WindowsAudio.Internal;
+﻿using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.DataModel.WindowsAudio.Internal;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 #if DEBUG
 namespace EarTrumpet.DataModel.Audio.Mocks
 {
-    class AudioDevice : BindableBase, IAudioDevice, IAudioDeviceInternal
+    class AudioDevice : BindableBase, IAudioDevice, IAudioDeviceInternal, IAudioDeviceWindowsAudio
     {
         public AudioDevice(string id, IAudioDeviceManager parent)
         {
@@ -51,27 +53,26 @@ namespace EarTrumpet.DataModel.Audio.Mocks
         }
 
         public float PeakValue1 { get; set; }
-
         public float PeakValue2 { get; set; }
+        public IEnumerable<IAudioDeviceChannel> Channels { get; } = new List<IAudioDeviceChannel>();
+        public string EnumeratorName => "Mock Enumerator";
+        public string InterfaceName => "Mock Interface";
+        public string DeviceDescription => "Mock Description";
 
         public void AddFilter(Func<ObservableCollection<IAudioDeviceSession>, ObservableCollection<IAudioDeviceSession>> filter)
         {
-
         }
 
         public void UpdatePeakValue()
         {
-
         }
 
         public void MoveHiddenAppsToDevice(string appId, string id)
         {
-
         }
 
         public void UnhideSessionsForProcessId(int processId)
         {
-
         }
     }
 }

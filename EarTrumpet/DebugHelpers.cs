@@ -76,13 +76,24 @@ namespace EarTrumpet
 
         private static void AddMockApp(IAudioDevice mockDevice, string displayName, string appId, string iconPath)
         {
-            var mockApp = new DataModel.Audio.Mocks.AudioDeviceSession(
+            var mockApp = MakeMockApp(mockDevice, displayName, appId, iconPath);
+            var mockApp2 = MakeMockApp(mockDevice, displayName, appId, iconPath);
+            var mockApp3 = MakeMockApp(mockDevice, displayName, appId, iconPath);
+
+            var group = new DataModel.WindowsAudio.Internal.AudioDeviceSessionGroup(mockDevice, mockApp);
+            group.AddSession(mockApp2);
+            group.AddSession(mockApp3);
+            mockDevice.Groups.Add(group);
+        }
+
+        private static DataModel.Audio.Mocks.AudioDeviceSession MakeMockApp(IAudioDevice mockDevice, string displayName, string appId, string iconPath)
+        {
+            return new DataModel.Audio.Mocks.AudioDeviceSession(
                 mockDevice,
                 Guid.NewGuid().ToString(),
                 displayName,
                 appId,
                 Environment.ExpandEnvironmentVariables(iconPath));
-            mockDevice.Groups.Add(new DataModel.WindowsAudio.Internal.AudioDeviceSessionGroup(mockDevice, mockApp));
         }
 
         private static void DebugAddMockDevice()

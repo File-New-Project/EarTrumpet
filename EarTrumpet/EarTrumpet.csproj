@@ -122,6 +122,7 @@
     <Compile Include="Interop\SIZE.cs" />
     <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
     <Compile Include="UI\Behaviors\ComboBoxEx.cs" />
+    <Compile Include="UI\Controls\AppPopup.cs" />
     <Compile Include="UI\Controls\ImageEx.cs" />
     <Compile Include="UI\Helpers\IIconSource.cs" />
     <Compile Include="UI\Helpers\ShellNotifyIcon.cs" />
@@ -254,9 +255,6 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interop\Helpers\SingleInstanceAppMutex.cs" />
-    <Compile Include="UI\Views\VolumeControlPopup.xaml.cs">
-      <DependentUpon>VolumeControlPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Controls\VolumeSlider.cs" />
     <Compile Include="DataModel\WindowsAudio\Internal\AudioDeviceSessionGroup.cs" />
     <Compile Include="Interop\MMDeviceAPI\AudioSessionDisconnectReason.cs" />
@@ -357,10 +355,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\Views\AppItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Views\VolumeControlPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

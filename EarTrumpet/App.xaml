@@ -591,6 +591,12 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="AppPopup" TargetType="{x:Type Popup}">
+                <Setter Property="AllowsTransparency" Value="True" />
+                <Setter Property="StaysOpen" Value="False" />
+                <Setter Property="PopupAnimation" Value="Fade" />
+            </Style>
+
             <!--  ContextMenu styles & templates  -->
             <Style TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True" />

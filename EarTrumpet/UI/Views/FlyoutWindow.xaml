@@ -4,6 +4,7 @@
         xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
         xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
         xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
+        xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
@@ -258,11 +259,10 @@
                 </Border.Background>
             </Border>
         </Border>
-
-        <views:VolumeControlPopup x:Name="AppPopup"
-                                  IsPopupVisible="{Binding Dialog.IsVisible, Mode=TwoWay}"
-                                  Tag="{Binding Dialog.Source}">
+        <ctl:AppPopup IsOpen="{Binding Dialog.IsVisible, Mode=TwoWay}"
+                      PlacementTarget="{Binding Dialog.Source}"
+                      Style="{StaticResource AppPopup}">
             <ContentControl Content="{Binding Dialog.Focused}" />
-        </views:VolumeControlPopup>
+        </ctl:AppPopup>
     </Grid>
 </Window>
