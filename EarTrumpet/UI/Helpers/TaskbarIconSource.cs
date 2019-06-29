@@ -118,9 +118,9 @@ namespace EarTrumpet.UI.Helpers
             switch (kind)
             {
                 case IconKind.EarTrumpet:
-                    return IconHelper.LoadIconForTaskbar($"{App.AssetBaseUri}Tray.ico");
+                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconDark"]);
                 case IconKind.EarTrumpet_LightTheme:
-                    return IconHelper.LoadIconForTaskbar($"{App.AssetBaseUri}Application.ico");
+                    return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconLight"]);
                 case IconKind.Muted:
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Muted));
                 case IconKind.NoDevice:

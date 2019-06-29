@@ -18,7 +18,7 @@
         Background="Transparent"
         Closing="{Event:Binding OnClosing}"
         Deactivated="{Event:Binding OnDeactivated}"
-        Icon="pack://application:,,,/Assets/Application.ico"
+        Icon="{Binding Source={StaticResource EarTrumpetIconLight}}"
         PreviewKeyDown="{Event:Binding OnPreviewKeyDown}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"

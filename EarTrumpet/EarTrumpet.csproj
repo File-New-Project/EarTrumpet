@@ -20,7 +20,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <TargetFrameworkProfile />
-    <ApplicationIcon>Assets\Application.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Icon-Light.ico</ApplicationIcon>
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86' OR '$(Configuration)|$(Platform)' == 'VSDebug|x86'">
@@ -379,10 +379,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Application.ico" />
+    <Resource Include="Assets\Icon-Light.ico" />
     <Resource Include="Assets\Logo-Dark.png" />
     <Resource Include="Assets\Logo-Light.png" />
-    <Resource Include="Assets\Tray.ico" />
+    <Resource Include="Assets\Icon-Dark.ico" />
     <Resource Include="Assets\Welcome.gif" />
   </ItemGroup>
   <ItemGroup>

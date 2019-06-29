@@ -17,7 +17,6 @@ namespace EarTrumpet
 {
     public partial class App
     {
-        public static readonly string AssetBaseUri = "pack://application:,,,/EarTrumpet;component/Assets/";
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
         public static Version PackageVersion { get; private set; }
