@@ -9,13 +9,14 @@ namespace EarTrumpet.Interop.Helpers
         {
             try
             {
+                Trace.WriteLine($"ProcessHelper StartNoThrow {fileName}");
                 using (Process.Start(fileName))
                 {
                 }
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"ProcessHelper StartNoThrow Failed: {ex}");
             }
         }
     }

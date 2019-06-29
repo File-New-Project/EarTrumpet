@@ -25,7 +25,7 @@ namespace EarTrumpet.Diagnosis
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex);
+                Trace.WriteLine($"ErrorReporter .ctor Failed: {ex}");
             }
         }
 

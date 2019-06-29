@@ -74,7 +74,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"AudioDevice .dtor Failed {ex}");
             }
         }
 
