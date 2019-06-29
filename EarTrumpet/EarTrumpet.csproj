@@ -116,6 +116,7 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Features.cs" />
     <Compile Include="Interop\Helpers\InputHelper.cs" />
+    <Compile Include="Interop\Helpers\PackageHelper.cs" />
     <Compile Include="Interop\IShellItemImageFactory.cs" />
     <Compile Include="Interop\SafeHandles\HMODULE.cs" />
     <Compile Include="Interop\SIZE.cs" />
@@ -234,7 +235,6 @@
     <Compile Include="UI\ViewModels\ModalDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\SettingsDialogViewModel.cs" />
     <Compile Include="UI\ViewModels\TemporaryAppItemViewModel.cs" />
-    <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="UI\Helpers\RelayCommand.cs" />
     <Compile Include="UI\ViewModels\ToolbarItemViewModel.cs" />

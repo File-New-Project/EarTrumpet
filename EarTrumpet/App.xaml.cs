@@ -19,6 +19,8 @@ namespace EarTrumpet
     {
         public static readonly string AssetBaseUri = "pack://application:,,,/EarTrumpet;component/Assets/";
         public static bool IsShuttingDown { get; private set; }
+        public static bool HasIdentity { get; private set; }
+        public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
         public FlyoutViewModel FlyoutViewModel { get; private set; }
@@ -36,6 +38,8 @@ namespace EarTrumpet
         {
             Exit += (_, __) => IsShuttingDown = true;
             _errorReporter = new ErrorReporter();
+            HasIdentity = PackageHelper.CheckHasIdentity();
+            PackageVersion = PackageHelper.GetVersion(HasIdentity);
 
             if (SingleInstanceAppMutex.TakeExclusivity())
             {

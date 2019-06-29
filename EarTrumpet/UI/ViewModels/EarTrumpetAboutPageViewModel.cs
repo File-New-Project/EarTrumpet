@@ -21,7 +21,7 @@ namespace EarTrumpet.UI.ViewModels
             _openDiagnostics = openDiagnostics;
             Glyph = "\xE946";
             Title = Properties.Resources.AboutTitle;
-            AboutText = $"EarTrumpet {App.Current.GetVersion()}";
+            AboutText = $"EarTrumpet {App.PackageVersion}";
 
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);

@@ -37,7 +37,7 @@ namespace EarTrumpet.UI.Views
 
         private void OnDevicesChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (ViewModel.AllDevices.Count == FullWindowViewModel.SmallDeviceCountLimit + 1 && e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            if (ViewModel.AllDevices.Count == FullWindowViewModel.SmallDeviceCountLimit + 1 && e != null && e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
                 // We're growing from auto-size to fixed-size, we need to make space for the padding at the bottom.
                 MaxWidth = FullWindowViewModel.SmallDeviceCountLimit * _windowAndItemSize;

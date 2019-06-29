@@ -30,7 +30,7 @@ namespace EarTrumpet.Diagnosis
             {
                 return new Dictionary<string, Func<object>>
                 {
-                    { "version", () => EarTrumpet.App.Current.GetVersion().ToString() },
+                    { "version", () => EarTrumpet.App.PackageVersion.ToString() },
 #if DEBUG
                     { "releaseStage", () => "development" },
 #else
@@ -67,7 +67,7 @@ namespace EarTrumpet.Diagnosis
                     { "UseAccentColor", () => SystemSettings.UseAccentColor },
                     { "AnimationsEnabled", () => SystemParameters.MenuAnimation },
                     { "IsHighContrast", () => SystemParameters.HighContrast },
-                    { "HasIdentity", () => EarTrumpet.App.Current.HasIdentity() },
+                    { "HasIdentity", () => EarTrumpet.App.HasIdentity },
                     { "IsShuttingDown", () => EarTrumpet.App.IsShuttingDown },
                     { "Culture", () =>  CultureInfo.CurrentCulture.Name },
                     { "CurrentUICulture", () => CultureInfo.CurrentUICulture.Name },
