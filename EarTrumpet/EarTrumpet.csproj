@@ -379,7 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Application.ico" />
-    <Resource Include="Assets\DevVersion.txt" />
     <Resource Include="Assets\Logo-Dark.png" />
     <Resource Include="Assets\Logo-Light.png" />
     <Resource Include="Assets\Tray.ico" />

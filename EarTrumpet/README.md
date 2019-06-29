@@ -207,7 +207,7 @@ EarTrumpet only targets x86. Some P/Invokes will need to be updated if targeting
 See [Compiling](../COMPILING.md) for more information.
 
 ### Prebuild script: prebuild.ps1
-Updates `AssemblyInfo.cs` (binary file version info), the package `AppxManifest.xml`, and the internal `DevVersion.txt` (used to determine the current EarTrumpet version during development scenarios) are kept in sync. `Version.txt` is the source of truth for the version.
+Updates `AssemblyInfo.cs` (binary file version info) and the package `AppxManifest.xml` are kept in sync. `Version.txt` is the source of truth for the version.
 
 ## Debugging
 EarTrumpet can be debugged via the `EarTrumpet` project, or via the `EarTrumpet.Package` project, which is slower but enables debugging the packaged app.

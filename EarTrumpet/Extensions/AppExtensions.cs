@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using Windows.ApplicationModel;
 
@@ -17,12 +15,7 @@ namespace EarTrumpet.Extensions
             }
             else
             {
-#if DEBUG
-                var versionStr = new StreamReader(Application.GetResourceStream(new Uri("pack://application:,,,/EarTrumpet;component/Assets/DevVersion.txt")).Stream).ReadToEnd();
-                return Version.Parse(versionStr);
-#else
-                return new Version(0, 0, 0, 0);
-#endif
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
         }
 
@@ -49,7 +42,7 @@ namespace EarTrumpet.Extensions
                     // We do not expect this to occur in production when the app is packaged.
                     Diagnosis.ErrorReporter.LogWarning(ex);
 #else
-                    Trace.WriteLine($"AppExtensions HasIdentity: False {ex.Message}");
+                    System.Diagnostics.Trace.WriteLine($"AppExtensions HasIdentity: False {ex.Message}");
 #endif
                 }
             }
