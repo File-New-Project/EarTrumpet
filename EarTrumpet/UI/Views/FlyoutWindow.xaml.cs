@@ -92,33 +92,34 @@ namespace EarTrumpet.UI.Views
         private void PositionWindowRelativeToTaskbar()
         {
             var taskbarState = WindowsTaskbar.Current;
-
             if (taskbarState.ContainingScreen == null)
             {
-                // We're not ready to lay out. (e.g. RDP transition)
-                return;
+                return;  // We're not ready. (e.g. RDP transition)
             }
 
             UpdateLayout();
             LayoutRoot.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            double newHeight = LayoutRoot.DesiredSize.Height;
-
-            var scaledWorkAreaHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
+            // Start with the WorkArea to limit the window size. This normally accounts for the 
+            // Taskbar and other docked windows.
+            var maximumWindowHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
             if (taskbarState.IsAutoHideEnabled && (taskbarState.Location == WindowsTaskbar.Position.Top || taskbarState.Location == WindowsTaskbar.Position.Bottom))
             {
-                scaledWorkAreaHeight -= taskbarState.Size.Bottom - taskbarState.Size.Top;
+                // AutoHide Taskbar won't carve space out for itself, so manually account for the Top or Bottom Taskbar height.
+                // Note: Ideally we would open our flyout and 'hold open' the taskbar, but it's not known how to command the Taskbar
+                // to stay open for the duration of our window being active.
+                maximumWindowHeight -= taskbarState.Size.Bottom - taskbarState.Size.Top;
             }
 
-            if (newHeight > scaledWorkAreaHeight)
+            double newHeight = LayoutRoot.DesiredSize.Height;
+            if (newHeight > maximumWindowHeight)
             {
-                newHeight = scaledWorkAreaHeight;
+                newHeight = maximumWindowHeight;
             }
 
             bool isRTL = SystemSettings.IsRTL;
             double newTop = 0;
             double newLeft = 0;
-
             switch (taskbarState.Location)
             {
                 case WindowsTaskbar.Position.Left:
@@ -146,12 +147,14 @@ namespace EarTrumpet.UI.Views
 
         private void EnableOrDisableAcrylic()
         {
+            // Note: Enable when in Opening as well as Open in case we get a theme change during a show cycle.
             if (_viewModel.State == FlyoutViewState.Opening || _viewModel.State == FlyoutViewState.Open)
             {
                 AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags());
             }
             else
             {
+                // Disable to avoid visual issues like showing a pane of acrylic while we're Hidden+cloaked.
                 AccentPolicyLibrary.DisableAcrylic(this);
             }
         }

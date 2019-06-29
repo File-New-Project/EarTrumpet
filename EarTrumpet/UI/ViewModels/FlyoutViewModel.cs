@@ -22,12 +22,12 @@ namespace EarTrumpet.UI.ViewModels
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
         public FlyoutViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
-        public RelayCommand ExpandCollapse { get; private set; }
+        public ICommand ExpandCollapse { get; private set; }
         public InputType LastInput { get; private set; }
         public ICommand DisplaySettingsChanged { get; }
 
         private readonly DeviceCollectionViewModel _mainViewModel;
-        private readonly DispatcherTimer _hideTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
+        private readonly DispatcherTimer _deBounceTimer;
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private readonly Action _returnFocusToTray;
         private bool _closedDuringOpen;
@@ -42,7 +42,10 @@ namespace EarTrumpet.UI.ViewModels
             _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
             AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
-            _hideTimer.Tick += HideTimer_Tick;
+            // This timer is used to enable clicking on the tray icon while the flyout is open, and not causing a
+            // rapid hide and show cycle.  This time represents the minimum time between which the flyout may be opened.
+            _deBounceTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
+            _deBounceTimer.Tick += OnDeBounceTimerTick;
 
             ExpandCollapse = new RelayCommand(() =>
             {
@@ -52,10 +55,10 @@ namespace EarTrumpet.UI.ViewModels
             DisplaySettingsChanged = new RelayCommand(() => BeginClose(InputType.Command));
         }
 
-        private void HideTimer_Tick(object sender, EventArgs e)
+        private void OnDeBounceTimerTick(object sender, EventArgs e)
         {
             Debug.Assert(State == FlyoutViewState.Closing_Stage2);
-            _hideTimer.IsEnabled = false;
+            _deBounceTimer.IsEnabled = false;
             ChangeState(FlyoutViewState.Hidden);
         }
 
@@ -143,13 +146,13 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OnDefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
         {
-            // no longer any device
+            // No longer any devices.
             if (e == null) return;
 
             var foundDevice = Devices.FirstOrDefault(d => d.Id == e.Id);
             if (foundDevice != null)
             {
-                // Move to bottom.
+                // Push to bottom.
                 Devices.Move(Devices.IndexOf(foundDevice), Devices.Count - 1);
             }
             else
@@ -157,6 +160,8 @@ namespace EarTrumpet.UI.ViewModels
                 var foundAllDevice = _mainViewModel.AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 if (foundAllDevice != null)
                 {
+                    // We found the device in AllDevices which was not in Devices.
+                    // Thus: We are collapsed and can dump the single device in Devices:
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
                     Devices.Add(foundAllDevice);
@@ -168,6 +173,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateTextVisibility()
         {
+            // Show display name on only the "top" device, which handles Expanded and Collapsed.
             for (var i = 0; i < Devices.Count; i++)
             {
                 Devices[i].IsDisplayNameVisible = i > 0;
@@ -177,7 +183,6 @@ namespace EarTrumpet.UI.ViewModels
         public void DoExpandCollapse()
         {
             IsExpanded = !IsExpanded;
-
             if (IsExpanded)
             {
                 // Add any that aren't existing.
@@ -192,11 +197,10 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                // Remove all but default.
+                // Remove all but the default.
                 for (int i = Devices.Count - 1; i >= 0; i--)
                 {
                     var device = Devices[i];
-
                     if (device.Id != _mainViewModel.Default?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
@@ -246,7 +250,7 @@ namespace EarTrumpet.UI.ViewModels
                     }
                     break;
                 case FlyoutViewState.Closing_Stage2:
-                    _hideTimer.Start();
+                    _deBounceTimer.Start();
                     break;
                 case FlyoutViewState.Hidden:
                     if (IsExpandingOrCollapsing)
@@ -357,6 +361,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             else if (Keyboard.Modifiers == ModifierKeys.Alt && e.SystemKey == Key.Space)
             {
+                // Disable the system menu.
                 e.Handled = true;
             }
         }
