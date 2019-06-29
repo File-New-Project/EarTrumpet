@@ -287,4 +287,7 @@
 
 Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Toggle Mute</value>
+  </data>
 </root>

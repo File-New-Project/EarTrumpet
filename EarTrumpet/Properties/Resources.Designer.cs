@@ -504,6 +504,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle Mute.
+        /// </summary>
+        public static string ToggleMuteToolTip {
+            get {
+                return ResourceManager.GetString("ToggleMuteToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string ToggleSwitchOffText {
