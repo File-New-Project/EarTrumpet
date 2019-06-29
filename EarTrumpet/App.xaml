@@ -475,26 +475,6 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Theme:Brush.Foreground" Value="Text" />
             </Style>
-            <Style x:Key="VirtualTitleBarButtonStyle" TargetType="Button">
-                <Setter Property="Width" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
-                <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
-                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Border Background="{TemplateBinding Background}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="{TemplateBinding FontSize}"
-                                           Foreground="{TemplateBinding Foreground}"
-                                           Text="{TemplateBinding Tag}" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <Style x:Key="DialogWindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="AllowsTransparency" Value="True" />
                 <Setter Property="Theme:Brush.Background" Value="Transparent" />
@@ -1957,6 +1937,98 @@
                 </Setter>
             </Style>
 
+            <ControlTemplate x:Key="DialogChrome" TargetType="{x:Type ContentControl}">
+                <Border Theme:Brush.Background="PopupBackground"
+                        Theme:Brush.BorderBrush="SystemAccent"
+                        BorderThickness="{StaticResource PopupBorderThickness}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.ColumnSpan="3"
+                                Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
+                                Theme:Brush.Background=":Light=LightListLow, :Dark=DarkChromeMediumLow, :HighContrast=Window, Flyout:Theme=SystemAccent/0.3/0.5, Flyout:HighContrast=Window"
+                                Theme:Brush.BorderBrush="Theme=Transparent, HighContrast=Text">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Source={StaticResource ThemeManager}, Path=IsHighContrast}" Value="True">
+                                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <TextBlock Style="{StaticResource VirtualTitleBarTextStyle}" Text="{Binding DisplayName}" />
+                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Toolbar}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:ToolbarItemViewModel}">
+                                    <Button b:ButtonEx.IsToolBarButton="True"
+                                            AutomationProperties.Name="{Binding DisplayName}"
+                                            Command="{Binding Command}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <TextBlock HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontFamily="Segoe MDL2 Assets"
+                                                               FontSize="{Binding GlyphFontSize}"
+                                                               Foreground="{TemplateBinding Foreground}"
+                                                               Text="{Binding Glyph}" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <Button.ContextMenu>
+                                            <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                                         ItemContainerTemplateSelector="{StaticResource MenuSelector}"
+                                                         ItemsSource="{Binding Menu}"
+                                                         UsesItemContainerTemplate="True" />
+                                        </Button.ContextMenu>
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Width" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
+                                                <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
+                                                <Setter Property="BorderThickness" Value="0" />
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
+                                                <Setter Property="Theme:Brush.Foreground" Value="Text" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="true">
+                                                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.12, Dark=DarkBaseMediumLow/0.12, HighContrast=Highlight" />
+                                                        <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="true">
+                                                        <Setter Property="Theme:Brush.Background" Value="Light=LightBaseMediumLow/0.2, Dark=DarkBaseMediumLow/0.2, HighContrast=Highlight" />
+                                                        <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ContentPresenter Grid.Row="1"
+                                          Grid.ColumnSpan="3"
+                                          Content="{TemplateBinding Content}" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+
             <!--  ViewModel templates  -->
             <DataTemplate DataType="{x:Type vm:AppItemViewModel}">
                 <views:AppItemView />
@@ -2025,7 +2097,7 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
-                <views:ModalDialogChrome>
+                <ContentControl Template="{StaticResource DialogChrome}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -2047,10 +2119,10 @@
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </Grid>
-                </views:ModalDialogChrome>
+                </ContentControl>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedDeviceViewModel}">
-                <views:ModalDialogChrome>
+                <ContentControl Template="{StaticResource DialogChrome}">
                     <ItemsControl ItemsSource="{Binding Addons}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -2058,7 +2130,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                </views:ModalDialogChrome>
+                </ContentControl>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
                 <TextBox GotKeyboardFocus="{Event:Binding OnGotFocus}"

@@ -248,9 +248,6 @@
     <Compile Include="UI\Views\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Views\ModalDialogChrome.xaml.cs">
-      <DependentUpon>ModalDialogChrome.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -323,10 +320,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Views\DialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Views\ModalDialogChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
