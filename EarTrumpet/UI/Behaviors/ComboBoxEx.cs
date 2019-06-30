@@ -104,12 +104,12 @@ namespace EarTrumpet.UI.Behaviors
                             Invoke = () => viewModel.InvokeSearchResult(cat, page),
                             SearchText = text,
                         });
-                    }
-                }
 
-                if (results.Count > MaxSearchBoxResultItems)
-                {
-                    return results;
+                        if (results.Count >= MaxSearchBoxResultItems)
+                        {
+                            return results;
+                        }
+                    }
                 }
             }
 
