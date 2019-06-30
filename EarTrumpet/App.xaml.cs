@@ -35,9 +35,10 @@ namespace EarTrumpet
         private void OnAppStartup(object sender, StartupEventArgs e)
         {
             Exit += (_, __) => IsShuttingDown = true;
-            _errorReporter = new ErrorReporter();
             HasIdentity = PackageHelper.CheckHasIdentity();
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
+            _settings = new AppSettings();
+            _errorReporter = new ErrorReporter();
 
             if (SingleInstanceAppMutex.TakeExclusivity())
             {
@@ -63,7 +64,6 @@ namespace EarTrumpet
         {
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
-            _settings = new AppSettings();
             _collectionViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
             _collectionViewModel.Ready += (_, __) => CompleteStartup();
 
@@ -89,13 +89,16 @@ namespace EarTrumpet
 #endif
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
+
+            _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+            _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
+            _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
+            _settings.RegisterHotkeys();
+
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
             _trayIcon.TertiaryInvoke += (_, __) => _collectionViewModel.Default?.ToggleMute.Execute(null);
             _trayIcon.Scrolled += (_, wheelDelta) => _collectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
-            _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
-            _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
-            _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();

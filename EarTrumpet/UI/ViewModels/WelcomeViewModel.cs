@@ -8,7 +8,7 @@ namespace EarTrumpet.UI.ViewModels
     class WelcomeViewModel
     {
         public string VisibleTitle => ""; // We have a header instead
-        public string Title { get; }
+        public string Title { get; } // Used for the window title.
         public ICommand LearnMore { get; }
         public ICommand DisplaySettingsChanged { get; }
 
@@ -16,7 +16,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public WelcomeViewModel()
         {
-            // Used for the window title.
+            
             Title = Properties.Resources.WelcomeDialogHeaderText;
             LearnMore = new RelayCommand(() =>
             {

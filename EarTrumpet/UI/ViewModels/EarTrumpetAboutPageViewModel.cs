@@ -38,12 +38,7 @@ namespace EarTrumpet.UI.ViewModels
             _openDiagnostics.Invoke();
         }
 
-        private void OpenFeedbackHub()
-        {
-            Trace.WriteLine($"EarTrumpetAboutPageViewModel OpenFeedbackHub");
-            ProcessHelper.StartNoThrow("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet");
-        }
-
+        private void OpenFeedbackHub() => ProcessHelper.StartNoThrow("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet");
         private void OpenAbout() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
     }
 }

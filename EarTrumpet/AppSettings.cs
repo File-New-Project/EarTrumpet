@@ -15,7 +15,7 @@ namespace EarTrumpet
         private static readonly string s_trayIconIdKey = "TrayIconId";
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
-        public AppSettings()
+        public void RegisterHotkeys()
         {
             HotkeyManager.Current.Register(FlyoutHotkey);
             HotkeyManager.Current.Register(MixerHotkey);
