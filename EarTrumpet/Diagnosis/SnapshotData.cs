@@ -30,6 +30,7 @@ namespace EarTrumpet.Diagnosis
                 return new Dictionary<string, Func<object>>
                 {
                     { "version", () => EarTrumpet.App.PackageVersion.ToString() },
+                    { "runtimeMinutes", () => (int)EarTrumpet.App.Duration.TotalMinutes },
 #if DEBUG
                     { "releaseStage", () => "development" },
 #else
@@ -48,7 +49,6 @@ namespace EarTrumpet.Diagnosis
                     { "osVersionBuild", () => SystemSettings.BuildLabel },
                     { "osArchitecture", () => Environment.Is64BitOperatingSystem ? "64 bit" : "32 bit" },
                     { "processorCount", () => Environment.ProcessorCount + " core(s)" },
-                    { "runtimeMinutes", () => (int)EarTrumpet.App.Duration.TotalMinutes },
                 };
             }
         }
