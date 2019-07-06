@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public class TaskbarIconSource : IIconSource
+    public class TaskbarIconSource : IShellNotifyIconSource
     {
         enum IconKind
         {
@@ -22,7 +22,7 @@ namespace EarTrumpet.UI.Helpers
             NoDevice = 125,
         }
 
-        public event Action<IIconSource> Changed;
+        public event Action<IShellNotifyIconSource> Changed;
 
         public Icon Current { get; private set; }
 

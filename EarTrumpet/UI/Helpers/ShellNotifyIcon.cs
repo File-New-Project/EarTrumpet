@@ -16,13 +16,12 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
-
         public event EventHandler<InputType> PrimaryInvoke;
         public event EventHandler<InputType> SecondaryInvoke;
         public event EventHandler<InputType> TertiaryInvoke;
         public event EventHandler<int> Scrolled;
 
-        public IIconSource IconSource { get; private set; }
+        public IShellNotifyIconSource IconSource { get; private set; }
         public bool IsMouseOver { get; private set; }
 
         public bool IsVisible
@@ -53,7 +52,7 @@ namespace EarTrumpet.UI.Helpers
         private System.Drawing.Point _cursorPosition;
         private int _remainingTicks;
 
-        public ShellNotifyIcon(IIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
+        public ShellNotifyIcon(IShellNotifyIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
         {
             IconSource = icon;
             IconSource.Changed += (_) => Update();

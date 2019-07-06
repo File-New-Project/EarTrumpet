@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Drawing;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public interface IIconSource
+    public interface IShellNotifyIconSource
     {
-        event Action<IIconSource> Changed;
-        Icon Current { get; }
+        event Action<IShellNotifyIconSource> Changed;
+        System.Drawing.Icon Current { get; }
         void OnMouseOverChanged(bool isMouseOver);
         void CheckForUpdate();
     }
