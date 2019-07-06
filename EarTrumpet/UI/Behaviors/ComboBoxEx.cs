@@ -69,13 +69,13 @@ namespace EarTrumpet.UI.Behaviors
             var comboBox = (ComboBox)sender;
             var textBox = comboBox.FindVisualChild<TextBox>();
 
-            // Save and restore the selection because changing the ItemsSource will select an item, 
-            // causing SelectAll behavior which then results in ovewritten/dropped keys.
-            var selectionStart = textBox.SelectionStart;
-            var selectionLength = textBox.SelectionLength;
-
             if (!string.IsNullOrWhiteSpace(textBox.Text))
             {
+                // Save and restore the selection because changing the ItemsSource will select an item, 
+                // causing SelectAll behavior which then results in ovewritten/dropped keys.
+                var selectionStart = textBox.SelectionStart;
+                var selectionLength = textBox.SelectionLength;
+
                 comboBox.ItemsSource = DoSearch((SettingsViewModel)GetSearchItemsSource(comboBox), textBox.Text);
                 comboBox.IsDropDownOpen = true;
 
@@ -127,11 +127,7 @@ namespace EarTrumpet.UI.Behaviors
         private static void InvokeSearchItem(SettingsSearchItemViewModel item, ComboBox comboBox)
         {
             ClearComboBox(comboBox);
-
-            if (item != null)
-            {
-                item.Invoke();
-            }
+            item?.Invoke();
         }
 
         private static void ClearComboBox(ComboBox comboBox)

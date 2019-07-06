@@ -4,7 +4,7 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class AdvertisedCategorySettingsViewModel : SettingsCategoryViewModel
     {
-        string _link;
+        private readonly string _link;
 
         public AdvertisedCategorySettingsViewModel(string title, string glyph, string description, string id, string link) : 
             base(title, glyph, description, id, new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>())

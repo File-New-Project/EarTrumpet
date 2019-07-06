@@ -11,7 +11,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand GoBack { get; }
         public bool IsDisablingUpdates { get; set; }
 
-        Stack<Action> _stack = new Stack<Action>();
+        private readonly Stack<Action> _stack = new Stack<Action>();
 
         public BackstackViewModel()
         {

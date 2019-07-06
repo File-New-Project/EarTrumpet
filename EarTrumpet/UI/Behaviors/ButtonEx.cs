@@ -98,9 +98,9 @@ namespace EarTrumpet.UI.Behaviors
                 {
                     btn.ContextMenu.Opened += (___, _____) =>
                     {
+                        // Remove exit animation.
                         ((Popup)btn.ContextMenu.Parent).PopupAnimation = PopupAnimation.None;
                     };
-
                     btn.ContextMenu.PlacementTarget = btn;
                     btn.ContextMenu.Placement = PlacementMode.Bottom;
                     btn.ContextMenu.IsOpen = true;

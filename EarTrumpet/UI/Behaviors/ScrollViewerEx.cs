@@ -14,6 +14,5 @@ namespace EarTrumpet.UI.Behaviors
         {
             ((ScrollViewer)dependencyObject).ScrollToVerticalOffset(0);
         }
-
     }
 }

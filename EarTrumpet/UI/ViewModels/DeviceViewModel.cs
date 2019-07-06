@@ -53,18 +53,17 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        protected IAudioDevice _device;
-        protected IAudioDeviceManager _deviceManager;
+        protected readonly IAudioDevice _device;
+        protected readonly IAudioDeviceManager _deviceManager;
+        protected readonly WeakReference<DeviceCollectionViewModel> _parent;
         private bool _isDisplayNameVisible;
         private DeviceIconKind _iconKind;
-        protected WeakReference<DeviceCollectionViewModel> _parent;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
             _parent = new WeakReference<DeviceCollectionViewModel>(parent);
-
             Apps = new ObservableCollection<IAppItemViewModel>();
 
             _device.PropertyChanged += Device_PropertyChanged;

@@ -14,6 +14,10 @@ namespace EarTrumpet.UI.Controls
             Opened += OnOpened;
         }
 
+        // This is effectively custom placement, but not using PlacementMode.Custom.
+        // - Display popup over target
+        // - Calculate offset dynamically based on whether the popup is on a device or an app.
+        // - Consider the monitor WorkArea when positioning, and do not cover the taskbar other other docked windows.
         private void OnOpened(object sender, EventArgs e)
         {
             var container = (FrameworkElement)PlacementTarget;

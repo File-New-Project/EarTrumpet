@@ -27,9 +27,9 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        HotkeyData _hotkey;
-        HotkeyData _savedHotkey;
-        Action<HotkeyData> _save;
+        private readonly Action<HotkeyData> _save;
+        private HotkeyData _hotkey;
+        private HotkeyData _savedHotkey;
 
         public HotkeyViewModel(HotkeyData hotkey, Action<HotkeyData> save)
         {

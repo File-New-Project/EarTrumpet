@@ -12,14 +12,14 @@ namespace EarTrumpet.UI.Helpers
     {
         enum IconKind
         {
-            EarTrumpet = 0,
-            EarTrumpet_LightTheme = 1,
-            Muted = 120,
-            SpeakerZeroBars = 121,
-            SpeakerOneBar = 122,
-            SpeakerTwoBars = 123,
-            SpeakerThreeBars = 124,
-            NoDevice = 125,
+            EarTrumpet,
+            EarTrumpet_LightTheme,
+            Muted,
+            SpeakerZeroBars,
+            SpeakerOneBar,
+            SpeakerTwoBars,
+            SpeakerThreeBars,
+            NoDevice,
         }
 
         public event Action<IShellNotifyIconSource> Changed;

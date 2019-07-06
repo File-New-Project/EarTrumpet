@@ -13,7 +13,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand OpenFeedbackCommand { get; }
         public string AboutText { get; }
 
-        private Action _openDiagnostics;
+        private readonly Action _openDiagnostics;
 
         public EarTrumpetAboutPageViewModel(Action openDiagnostics) : base(null)
         {

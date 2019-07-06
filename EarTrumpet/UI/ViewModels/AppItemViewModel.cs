@@ -53,8 +53,8 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private IAudioDeviceSession _session;
-        private WeakReference<DeviceViewModel> _parent;
+        private readonly IAudioDeviceSession _session;
+        private readonly WeakReference<DeviceViewModel> _parent;
 
         internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false) : base(session)
         {

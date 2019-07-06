@@ -4,7 +4,8 @@ namespace EarTrumpet.UI.Controls
 {
     public class ListViewItem : System.Windows.Controls.ListViewItem
     {
-        ListView _parent;
+        private readonly ListView _parent;
+
         public ListViewItem(ListView parent)
         {
             _parent = parent;

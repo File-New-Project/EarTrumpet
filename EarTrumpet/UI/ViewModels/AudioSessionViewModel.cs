@@ -7,9 +7,9 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class AudioSessionViewModel : BindableBase
     {
-        IStreamWithVolumeControl _stream;
+        private readonly IStreamWithVolumeControl _stream;
 
-        internal AudioSessionViewModel(IStreamWithVolumeControl stream)
+        public AudioSessionViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;

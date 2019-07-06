@@ -13,7 +13,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand OpenHelpLink { get; }
         public ICommand Uninstall { get; }
 
-        AddonInfo _addon;
+        private readonly AddonInfo _addon;
 
         public AddonAboutPageViewModel(AddonInfo addon) : base(DefaultManagementGroupName)
         {
