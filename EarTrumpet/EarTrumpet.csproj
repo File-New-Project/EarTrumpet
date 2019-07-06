@@ -158,7 +158,6 @@
     <Compile Include="Extensibility\IAddonContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />
     <Compile Include="Extensibility\IAddonSettingsPage.cs" />
-    <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
     <Compile Include="Extensibility\Shared\ServiceBus.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
