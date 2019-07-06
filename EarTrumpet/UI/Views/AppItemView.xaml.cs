@@ -54,7 +54,7 @@ namespace EarTrumpet.UI.Views
         private void OpenPopup()
         {
             var viewModel = Window.GetWindow(this).DataContext as IPopupHostViewModel;
-            if (viewModel != null)
+            if (viewModel != null && App != null && !App.IsExpanded)
             {
                 viewModel.OpenPopup(App, this);
             }

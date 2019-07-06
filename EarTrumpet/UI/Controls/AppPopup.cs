@@ -80,6 +80,7 @@ namespace EarTrumpet.UI.Controls
 
             Width = ((FrameworkElement)PlacementTarget).ActualWidth;
             Height = popupHeight;
+            Child.Focus();
         }
     }
 }
