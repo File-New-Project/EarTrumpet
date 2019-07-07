@@ -38,7 +38,7 @@ namespace EarTrumpet.Interop.Helpers
                 // We do not expect this to occur in production when the app is packaged.
                 // Async so that the HasIdentity bit is properly set.
 #if !DEBUG
-                App.Current.Dispatcher.BeginInvoke((Action)(() => Diagnosis.ErrorReporter.LogWarning(ex)));
+                System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() => Diagnosis.ErrorReporter.LogWarning(ex)));
 #endif
                 return false;
             }

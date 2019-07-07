@@ -33,11 +33,11 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private bool _isRegistered;
         private uint _speakerConfig;
 
-        public AudioDevice(IAudioDeviceManager deviceManager, IMMDevice device)
+        public AudioDevice(IAudioDeviceManager deviceManager, IMMDevice device, Dispatcher foregroundDispatcher)
         {
             _device = device;
             _deviceManager = new WeakReference<IAudioDeviceManager>(deviceManager);
-            _dispatcher = App.Current.Dispatcher;
+            _dispatcher = foregroundDispatcher;
             _id = device.GetId();
 
             Trace.WriteLine($"AudioDevice Create {_id}");
@@ -51,8 +51,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 _isRegistered = true;
                 _meter = device.Activate<IAudioMeterInformation>();
                 _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
-                _sessions = new AudioDeviceSessionCollection(this, _device);
-                _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions);
+                _sessions = new AudioDeviceSessionCollection(this, _device, _dispatcher);
+                _sessionFilter = new FilteredCollectionChain<IAudioDeviceSession>(_sessions.Sessions, _dispatcher);
                 Groups = _sessionFilter.Items;
             }
             else

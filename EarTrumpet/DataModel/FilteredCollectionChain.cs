@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace EarTrumpet.DataModel
 {
@@ -10,13 +11,13 @@ namespace EarTrumpet.DataModel
 
         public ObservableCollection<T> Items { get; }
 
-        public FilteredCollectionChain(ObservableCollection<T> items)
+        public FilteredCollectionChain(ObservableCollection<T> items, Dispatcher foregroundDispatcher)
         {
             Items = new ObservableCollection<T>();
 
             _items = items;
 
-            App.Current.Dispatcher.BeginInvoke((Action)(() => {
+            foregroundDispatcher.BeginInvoke((Action)(() => {
                 Listen();
                 Populate();
             }));

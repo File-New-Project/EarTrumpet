@@ -19,10 +19,10 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private IAudioSessionManager2 _sessionManager;
         private WeakReference<IAudioDevice> _parent;
 
-        public AudioDeviceSessionCollection(IAudioDevice parent, IMMDevice device)
+        public AudioDeviceSessionCollection(IAudioDevice parent, IMMDevice device, Dispatcher foregroundDispatcher)
         {
             _parent = new WeakReference<IAudioDevice>(parent);
-            _dispatcher = App.Current.Dispatcher;
+            _dispatcher = foregroundDispatcher;
 
             try
             {
@@ -65,7 +65,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     throw new Exception("Device session parent is invalid but device is still notifying.");
                 }
 
-                var newSession = new AudioDeviceSession(parent, session);
+                var newSession = new AudioDeviceSession(parent, session, _dispatcher);
                 _dispatcher.BeginInvoke((Action)(() =>
                 {
                     if (newSession.State == SessionState.Moved)

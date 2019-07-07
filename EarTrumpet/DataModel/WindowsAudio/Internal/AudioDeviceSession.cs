@@ -134,9 +134,9 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private bool _isRegistered;
         private WeakReference<IAudioDevice> _parent;
 
-        public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session)
+        public AudioDeviceSession(IAudioDevice parent, IAudioSessionControl session, Dispatcher foregroundDispatcher)
         {
-            _dispatcher = App.Current.Dispatcher;
+            _dispatcher = foregroundDispatcher;
             _session = session;
             _meter = (IAudioMeterInformation)_session;
             _simpleVolume = (ISimpleAudioVolume)session;

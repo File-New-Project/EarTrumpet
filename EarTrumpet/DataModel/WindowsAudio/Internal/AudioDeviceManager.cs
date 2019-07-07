@@ -52,7 +52,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             _kind = kind;
             _dispatcher = Dispatcher.CurrentDispatcher;
             _policyConfigService = new AudioPolicyConfig(Flow);
-            _deviceFilter = new FilteredCollectionChain<IAudioDevice>(_devices);
+            _deviceFilter = new FilteredCollectionChain<IAudioDevice>(_devices, _dispatcher);
             Devices = _deviceFilter.Items;
 
             TraceLine($"Create");
@@ -187,7 +187,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     if (((IMMEndpoint)device).GetDataFlow() == Flow &&
                         device.GetState() == DeviceState.ACTIVE)
                     {
-                        var newDevice = new AudioDevice(this, device);
+                        var newDevice = new AudioDevice(this, device, _dispatcher);
 
                         _dispatcher.Invoke((Action)(() =>
                         {
