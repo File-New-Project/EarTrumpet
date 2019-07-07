@@ -108,8 +108,8 @@ namespace EarTrumpet.Actions.Controls
                     {
                         // Take focus now so that we get return focus when the user leaves.
                         link.Focus();
-                        var dpiX = Window.GetWindow(this).DpiWidthFactor();
-                        var dpiY = Window.GetWindow(this).DpiHeightFactor();
+                        var dpiX = Window.GetWindow(this).DpiX();
+                        var dpiY = Window.GetWindow(this).DpiY();
 
                         if (resolvedPropertyObject is IOptionViewModel)
                         {
