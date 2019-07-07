@@ -14,14 +14,12 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class DeviceCollectionViewModel : BindableBase
     {
-        public static readonly string DefaultDeviceChangedProperty = "DefaultDeviceChangedProperty";
+        private static readonly string DefaultDeviceChangedProperty = "DefaultDeviceChangedProperty";
 
-        public event EventHandler Ready;
         public event EventHandler<DeviceViewModel> DefaultChanged;
-        public event PropertyChangedEventHandler DefaultDevicePropertyChanged;
         public event Action TrayPropertyChanged;
 
-        public ObservableCollection<DeviceViewModel> AllDevices { get; private set; }
+        public ObservableCollection<DeviceViewModel> AllDevices { get; private set; } = new ObservableCollection<DeviceViewModel>();
         public DeviceViewModel Default { get; private set; }
 
         private readonly IAudioDeviceManager _deviceManager;
@@ -33,51 +31,43 @@ namespace EarTrumpet.UI.ViewModels
 
         public DeviceCollectionViewModel(IAudioDeviceManager deviceManager, AppSettings settings)
         {
-            AllDevices = new ObservableCollection<DeviceViewModel>();
             _settings = settings;
             _deviceManager = deviceManager;
-            _deviceManager.DefaultChanged += DeviceManager_DefaultDeviceChanged;
-            _deviceManager.Loaded += DeviceManager_Loaded;
-            _deviceManager.Devices.CollectionChanged += Devices_CollectionChanged;
-            Devices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            _deviceManager.DefaultChanged += OnDefaultChanged;
+            _deviceManager.Devices.CollectionChanged += OnCollectionChanged;
+            OnCollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 
             _peakMeterTimer = new Timer(1000 / 30); // 30 fps
             _peakMeterTimer.AutoReset = true;
             _peakMeterTimer.Elapsed += PeakMeterTimer_Elapsed;
         }
 
-        private void DeviceManager_Loaded(object sender, EventArgs e)
+        private void OnDefaultChanged(object sender, IAudioDevice newDevice)
         {
-            Trace.WriteLine("DeviceCollectionViewModel DeviceManager_Loaded");
-            Ready?.Invoke(this, null);
-        }
-
-        private void DeviceManager_DefaultDeviceChanged(object sender, IAudioDevice e)
-        {
-            if (e == null)
+            if (newDevice == null)
             {
                 SetDefault(null);
             }
             else
             {
-                var dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
-                if (dev == null)
+                var device = AllDevices.FirstOrDefault(d => d.Id == newDevice.Id);
+                if (device == null)
                 {
-                    AddDevice(e);
-                    dev = AllDevices.FirstOrDefault(d => d.Id == e.Id);
+                    AddDevice(newDevice);
+                    device = AllDevices.FirstOrDefault(d => d.Id == newDevice.Id);
                 }
-                SetDefault(dev);
+                SetDefault(device);
             }
         }
 
-        private void SetDefault(DeviceViewModel dev)
+        private void SetDefault(DeviceViewModel device)
         {
             if (Default != null)
             {
                 Default.PropertyChanged -= OnDefaultDevicePropertyChanged;
             }
 
-            Default = dev;
+            Default = device;
             DefaultChanged?.Invoke(this, Default);
 
             if (Default != null)
@@ -91,8 +81,6 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OnDefaultDevicePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            DefaultDevicePropertyChanged?.Invoke(sender, e);
-
             if (e.PropertyName == DefaultDeviceChangedProperty ||
                 e.PropertyName == nameof(Default.Volume) ||
                 e.PropertyName == nameof(Default.IsMuted) ||
@@ -108,7 +96,7 @@ namespace EarTrumpet.UI.ViewModels
             AllDevices.Add(newDevice);
         }
 
-        private void Devices_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -186,10 +174,10 @@ namespace EarTrumpet.UI.ViewModels
             ((IAudioDeviceManagerWindowsAudio)_deviceManager).MoveHiddenAppsToDevice(app.AppId, dev?.Id);
         }
 
-        private void MoveAppToDeviceInternal(IAppItemViewModel app, DeviceViewModel dev)
+        private void MoveAppToDeviceInternal(IAppItemViewModel app, DeviceViewModel device)
         {
-            var searchId = dev?.Id;
-            if (dev == null)
+            var searchId = device?.Id;
+            if (device == null)
             {
                 searchId = _deviceManager.Default.Id;
             }
@@ -203,7 +191,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 var tempApp = new TemporaryAppItemViewModel(this, _deviceManager, app);
 
-                app.MoveToDevice(dev?.Id, hide: isLogicallyMovingDevices);
+                app.MoveToDevice(device?.Id, hide: isLogicallyMovingDevices);
 
                 // Update the UI if the device logically changed places.
                 if (isLogicallyMovingDevices)
@@ -214,7 +202,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"DeviceCollectionViewModel MoveAppToDeviceInternal Failed: {ex}");
             }
         }
 

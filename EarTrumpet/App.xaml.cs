@@ -64,8 +64,9 @@ namespace EarTrumpet
         {
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
-            _collectionViewModel = new DeviceCollectionViewModel(WindowsAudioFactory.Create(AudioDeviceKind.Playback), _settings);
-            _collectionViewModel.Ready += (_, __) => CompleteStartup();
+            var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
+            deviceManager.Loaded += (_, __) => CompleteStartup();
+            _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
 
             _trayIcon = new ShellNotifyIcon(
                 new TaskbarIconSource(_collectionViewModel, _settings), () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
