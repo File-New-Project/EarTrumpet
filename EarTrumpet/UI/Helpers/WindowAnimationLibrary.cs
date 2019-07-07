@@ -11,7 +11,7 @@ namespace EarTrumpet.UI.Helpers
     {
         const int _animationOffset = 25;
 
-        public static void BeginFlyoutEntranceAnimation(Window window, Action completed)
+        public static void BeginFlyoutEntranceAnimation(Window window, WindowsTaskbar.State taskbar, Action completed)
         {
             var onCompleted = new EventHandler((s, e) =>
             {
@@ -49,9 +49,7 @@ namespace EarTrumpet.UI.Helpers
             Storyboard.SetTarget(fadeAnimation, window);
             Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
 
-            var taskbarPosition = WindowsTaskbar.Current.Location;
-
-            switch (taskbarPosition)
+            switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
                     moveAnimation.To = window.Left;
@@ -72,7 +70,7 @@ namespace EarTrumpet.UI.Helpers
                     break;
             }
 
-            if (taskbarPosition == WindowsTaskbar.Position.Left || taskbarPosition == WindowsTaskbar.Position.Right)
+            if (taskbar.Location == WindowsTaskbar.Position.Left || taskbar.Location == WindowsTaskbar.Position.Right)
             {
                 Storyboard.SetTarget(moveAnimation, window);
                 Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));

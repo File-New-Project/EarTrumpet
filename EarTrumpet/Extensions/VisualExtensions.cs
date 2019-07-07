@@ -5,22 +5,13 @@ namespace EarTrumpet.Extensions
 {
     public static class VisualExtensions
     {
-        public static Matrix CalculateDpiFactors(this Visual visual)
+        private static Matrix CalculateDpi(this Visual visual)
         {
-            var mainWindowPresentationSource = PresentationSource.FromVisual(visual);
-            return mainWindowPresentationSource == null ? new Matrix() { M11 = 1, M22 = 1 } : mainWindowPresentationSource.CompositionTarget.TransformToDevice;
+            var source = PresentationSource.FromVisual(visual);
+            return source == null ? new Matrix() { M11 = 1, M22 = 1 } : source.CompositionTarget.TransformToDevice;
         }
 
-        public static double DpiHeightFactor(this Visual visual)
-        {
-            var m = CalculateDpiFactors(visual);
-            return m.M22;
-        }
-
-        public static double DpiWidthFactor(this Visual visual)
-        {
-            var m = CalculateDpiFactors(visual);
-            return m.M11;
-        }
+        public static double DpiY(this Visual visual) => CalculateDpi(visual).M22;
+        public static double DpiX(this Visual visual) => CalculateDpi(visual).M11;
     }
 }

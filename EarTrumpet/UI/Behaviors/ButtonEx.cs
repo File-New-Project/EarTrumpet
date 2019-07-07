@@ -62,8 +62,8 @@ namespace EarTrumpet.UI.Behaviors
 
             btn.Click += (_, __) =>
             {
-                var dpiX = Window.GetWindow(btn).DpiWidthFactor();
-                var dpiY = Window.GetWindow(btn).DpiHeightFactor();
+                var dpiX = Window.GetWindow(btn).DpiX();
+                var dpiY = Window.GetWindow(btn).DpiY();
 
                 popup.Opacity = 0;
                 popup.DataContext = btn.DataContext;

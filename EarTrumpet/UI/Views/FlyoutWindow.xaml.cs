@@ -1,5 +1,4 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
@@ -20,9 +19,9 @@ namespace EarTrumpet.UI.Views
             InitializeComponent();
 
             _viewModel.StateChanged += OnStateChanged;
-            _viewModel.WindowSizeInvalidated += (_, __) => PositionWindowRelativeToTaskbar();
+            _viewModel.WindowSizeInvalidated += OnWindowsSizeInvalidated;
             SourceInitialized += (_, __) => this.Cloak();
-            Themes.Manager.Current.ThemeChanged += EnableOrDisableAcrylic;
+            Themes.Manager.Current.ThemeChanged += () => EnableAcrylicIfApplicable(WindowsTaskbar.Current);
         }
 
         public void Initialize()
@@ -40,9 +39,11 @@ namespace EarTrumpet.UI.Views
             switch (_viewModel.State)
             {
                 case FlyoutViewState.Opening:
+                    var taskbar = WindowsTaskbar.Current;
+
                     Show();
-                    EnableOrDisableAcrylic();
-                    PositionWindowRelativeToTaskbar();
+                    EnableAcrylicIfApplicable(taskbar);
+                    PositionWindowRelativeToTaskbar(taskbar);
 
                     // Focus the first device if available.
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
@@ -50,7 +51,7 @@ namespace EarTrumpet.UI.Views
                     // Prevent showing stale adnorners.
                     this.WaitForKeyboardVisuals(() =>
                     {
-                        WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, () =>
+                        WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, taskbar, () =>
                         {
                             _viewModel.ChangeState(FlyoutViewState.Open);
                         });
@@ -65,7 +66,7 @@ namespace EarTrumpet.UI.Views
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
                             this.Cloak();
-                            EnableOrDisableAcrylic();
+                            AccentPolicyLibrary.DisableAcrylic(this);
 
                             // Go directly to ViewState.Hidden to avoid the stage 2 hide delay (debounce for tray clicks),
                             // we want to show again immediately.
@@ -76,7 +77,7 @@ namespace EarTrumpet.UI.Views
                     {
                         // No animation for normal exit.
                         this.Cloak();
-                        EnableOrDisableAcrylic();
+                        AccentPolicyLibrary.DisableAcrylic(this);
 
                         // Prevent de-queueing partially on show and showing stale adnorners.
                         this.WaitForKeyboardVisuals(() =>
@@ -89,68 +90,82 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private void PositionWindowRelativeToTaskbar()
+        private void OnWindowsSizeInvalidated(object sender, object e)
         {
-            var taskbarState = WindowsTaskbar.Current;
-            if (taskbarState.ContainingScreen == null)
+            // Avoid doing extra work in the background, only update the window when we're actually visible.
+            switch (_viewModel.State)
             {
-                return;  // We're not ready. (e.g. RDP transition)
+                case FlyoutViewState.Open:
+                case FlyoutViewState.Opening:
+                    PositionWindowRelativeToTaskbar(WindowsTaskbar.Current);
+                    break;
+            }
+        }
+
+        private void PositionWindowRelativeToTaskbar(WindowsTaskbar.State taskbar)
+        {
+            // We're not ready if we don't have a taskbar and monitor. (e.g. RDP transition)
+            if (taskbar.ContainingScreen == null)
+            {
+                return;
             }
 
+            // Force layout so we can be sure lists have created/removed containers.
             UpdateLayout();
             LayoutRoot.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            // Start with the WorkArea to limit the window size. This normally accounts for the 
-            // Taskbar and other docked windows.
-            var maximumWindowHeight = taskbarState.ContainingScreen.WorkingArea.Height / this.DpiHeightFactor();
-            if (taskbarState.IsAutoHideEnabled && (taskbarState.Location == WindowsTaskbar.Position.Top || taskbarState.Location == WindowsTaskbar.Position.Bottom))
+            // WorkArea accounts for normal taskbar and docked windows.
+            var maxHeight = taskbar.ContainingScreen.WorkingArea.Height;
+            if (taskbar.IsAutoHideEnabled && (taskbar.Location == WindowsTaskbar.Position.Top || taskbar.Location == WindowsTaskbar.Position.Bottom))
             {
                 // AutoHide Taskbar won't carve space out for itself, so manually account for the Top or Bottom Taskbar height.
                 // Note: Ideally we would open our flyout and 'hold open' the taskbar, but it's not known how to command the Taskbar
                 // to stay open for the duration of our window being active.
-                maximumWindowHeight -= taskbarState.Size.Bottom - taskbarState.Size.Top;
+                maxHeight -= taskbar.Size.Bottom - taskbar.Size.Top;
             }
 
-            double newHeight = LayoutRoot.DesiredSize.Height;
-            if (newHeight > maximumWindowHeight)
+            double newWidth = Width * this.DpiX();
+            double newHeight = LayoutRoot.DesiredSize.Height * this.DpiY();
+            if (newHeight > maxHeight)
             {
-                newHeight = maximumWindowHeight;
+                newHeight = maxHeight;
             }
 
-            bool isRTL = SystemSettings.IsRTL;
-            double newTop = 0;
-            double newLeft = 0;
-            switch (taskbarState.Location)
+            switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    newLeft = (taskbarState.Size.Right / this.DpiWidthFactor());
-                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor()) - newHeight;
+                    this.SetWindowPos(taskbar.Size.Bottom - newHeight,
+                              taskbar.Size.Right,
+                              newHeight,
+                              newWidth);
                     break;
                 case WindowsTaskbar.Position.Right:
-                    newLeft = (taskbarState.Size.Left / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor()) - newHeight;
+                    this.SetWindowPos(taskbar.Size.Bottom - newHeight,
+                              taskbar.Size.Left - newWidth,
+                              newHeight,
+                              newWidth);
                     break;
                 case WindowsTaskbar.Position.Top:
-                    newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.Size.Bottom / this.DpiHeightFactor());
+                    this.SetWindowPos(taskbar.Size.Bottom,
+                              FlowDirection == FlowDirection.RightToLeft ? taskbar.Size.Left : taskbar.Size.Right - newWidth,
+                              newHeight,
+                              newWidth);
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    newLeft = isRTL ? (taskbarState.Size.Left / this.DpiWidthFactor()) :
-                        (taskbarState.Size.Right / this.DpiWidthFactor()) - Width;
-                    newTop = (taskbarState.Size.Top / this.DpiHeightFactor()) - newHeight;
+                    this.SetWindowPos(taskbar.Size.Top - newHeight,
+                              FlowDirection == FlowDirection.RightToLeft ? taskbar.Size.Left : taskbar.Size.Right - newWidth,
+                              newHeight,
+                              newWidth);
                     break;
             }
-
-            this.Move(newTop * this.DpiHeightFactor(), newLeft * this.DpiWidthFactor(), newHeight * this.DpiHeightFactor(), Width * this.DpiWidthFactor());
         }
 
-        private void EnableOrDisableAcrylic()
+        private void EnableAcrylicIfApplicable(WindowsTaskbar.State taskbar)
         {
             // Note: Enable when in Opening as well as Open in case we get a theme change during a show cycle.
             if (_viewModel.State == FlyoutViewState.Opening || _viewModel.State == FlyoutViewState.Open)
             {
-                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags());
+                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags(taskbar));
             }
             else
             {
@@ -159,9 +174,9 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private User32.AccentFlags GetAccentFlags()
+        private User32.AccentFlags GetAccentFlags(WindowsTaskbar.State taskbar)
         {
-            switch (WindowsTaskbar.Current.Location)
+            switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
                     return User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
