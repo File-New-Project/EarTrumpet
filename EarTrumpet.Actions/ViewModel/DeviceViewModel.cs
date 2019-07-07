@@ -8,6 +8,9 @@ namespace EarTrumpet.Actions.ViewModel
     {
         public bool IsDesktopApp => true;
         public string IconPath => _device.IconPath;
+        public string DeviceDescription => ((IAudioDeviceWindowsAudio)_device).DeviceDescription;
+        public string EnumeratorName => ((IAudioDeviceWindowsAudio)_device).EnumeratorName;
+        public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;
 
         private readonly IAudioDevice _device;
 
