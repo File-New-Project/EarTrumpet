@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.4.0
+- Fixed various bugs with the search textbox in Settings
+- Fixed tray icon disappearing when the Windows Shell crashes/restarts
+- Fixed master volume slider dimming on mute
+- Fixed flyout track color in light theme
+- Fixed mute icon when at zero volume
+- Added mixer window width constraints when a high number of audio devices are present
+- Added Slovenian language support
+- Added hover states to buttons
+- Additional crash bugfixes
+
 ## 2.1.3.0
 - Fixed a crash causing EarTrumpet disappear on startup
 - Fixed various potential leaks
