@@ -100,6 +100,7 @@ namespace EarTrumpet
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
             _trayIcon.TertiaryInvoke += (_, __) => _collectionViewModel.Default?.ToggleMute.Execute(null);
             _trayIcon.Scrolled += (_, wheelDelta) => _collectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
