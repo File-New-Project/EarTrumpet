@@ -53,7 +53,8 @@ namespace EarTrumpet.UI.Controls
             {
                 try
                 {
-                    path = Environment.ExpandEnvironmentVariables(path);
+                    path = Environment.ExpandEnvironmentVariables(path.TrimStart('@'));
+
                     var scale = GetWindowDpi() / (double)96;
                     if (!isDesktopApp)
                     {

@@ -74,7 +74,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public string DisplayName { get; private set; }
         public string ExeName => _appInfo.ExeName;
-        public string IconPath { get; }
+        public string IconPath { get; private set; }
         public Guid GroupingParam { get; private set; }
         public float PeakValue1 { get; private set; }
         public float PeakValue2 { get; private set; }
@@ -152,8 +152,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             _appInfo = AppInformationFactory.CreateForProcess(ProcessId, trackProcess: true);
             _appInfo.Stopped += _ => DisconnectSession();
 
-            IconPath = string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath) ? session.GetIconPath() : _appInfo.SmallLogoPath;
-
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);
             _isRegistered = true;
@@ -161,6 +159,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
             Trace.WriteLine($"AudioDeviceSession Create {ExeName} {_id}");
 
+            ChooseIconPath(session.GetIconPath());
             ChooseDisplayName(ReadSessionDisplayName());
 
             if (parent.Parent != null)
@@ -187,7 +186,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"{ex}");
+                Trace.WriteLine($"AudioDeviceSession dtor Failed: {ex}");
             }
         }
 
@@ -244,6 +243,22 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             else
             {
                 DisplayName = _appInfo.ExeName;
+            }
+        }
+
+        private void ChooseIconPath(string iconPathFromSession)
+        {
+            if (!string.IsNullOrWhiteSpace(iconPathFromSession) && !IsSystemSoundsSession)
+            {
+                IconPath = iconPathFromSession;
+            }
+            else if (!string.IsNullOrWhiteSpace(_appInfo.SmallLogoPath))
+            {
+                IconPath = _appInfo.SmallLogoPath;
+            }
+            else
+            {
+                IconPath = null;
             }
         }
 
@@ -420,6 +435,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 _channels.Channels[i].SetLevel(channelVolumesValues[i]);
             }
         }
+
         void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
     }
 }
