@@ -327,5 +327,21 @@ namespace EarTrumpet.Interop
             int cxDesired,
             int cyDesired,
             LoadImageFlags Flags);
+
+        [Flags]
+        public enum GR_FLAGS : uint
+        {
+            GR_GDIOBJECTS = 0,
+            GR_USEROBJECTS = 1,
+            GR_GDIOBJECTS_PEAK = 2,
+            GR_USEROBJECTS_PEAK = 4
+        }
+
+        public static readonly IntPtr GR_GLOBAL = new IntPtr(-2);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern uint GetGuiResources(
+                IntPtr hProcess,
+                GR_FLAGS uiFlags);
     }
 }

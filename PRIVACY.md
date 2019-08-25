@@ -14,6 +14,8 @@ Includes:
 * App state (e.g. is shutting down)
 * App identity present (true/false)
 * Time between starting and crashing (e.g. 30 minutes)
+* Handle count (e.g. 1002)
+* GDI and User object counts (e.g. 900)
 
 ### Operating System-Level
 Includes:
