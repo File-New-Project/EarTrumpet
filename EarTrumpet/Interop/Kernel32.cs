@@ -163,5 +163,14 @@ namespace EarTrumpet.Interop
         public static extern int SizeofResource(
             HMODULE hModule,
             IntPtr hResInfo);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetProcessHandleCount(
+            IntPtr hProcess,
+            out uint pdwHandleCount);
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern IntPtr GetCurrentProcess();
     }
 }
