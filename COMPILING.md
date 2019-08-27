@@ -9,7 +9,7 @@
 
 ## Step-by-step
 1. Install Visual Studio 2017 with the `.NET desktop development` and `Universal Windows Platform development` workloads. 
-2. Install the `Windows 10 SDK (10.0.14393.0)` SDK from the SDK archive.
+2. Install the `Windows 10 SDK (10.0.14393.0)` SDK.
 3. Install the .NET Framework 4.6.2 Developer Pack.
 4. Install Git for Windows.
 5. Clone the EarTrumpet repository (`git clone https://github.com/File-New-Project/EarTrumpet.git`).
