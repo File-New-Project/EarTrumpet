@@ -689,7 +689,7 @@
                                            MinWidth="200"
                                            AllowsTransparency="True"
                                            Focusable="False"
-                                           HorizontalOffset="-2"
+                                           HorizontalOffset="0"
                                            IsOpen="{TemplateBinding IsSubmenuOpen}"
                                            Placement="Right"
                                            PopupAnimation="Fade">
