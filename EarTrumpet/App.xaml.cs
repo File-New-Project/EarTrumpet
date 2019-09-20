@@ -73,7 +73,7 @@ namespace EarTrumpet
             Exit += (_, __) => _trayIcon.IsVisible = false;
             _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
 
-            _flyoutViewModel = new FlyoutViewModel(_collectionViewModel, () => _trayIcon.SetFocus());
+            _flyoutViewModel = new FlyoutViewModel(_collectionViewModel, () => _trayIcon.SetFocus(), _settings);
             _flyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
