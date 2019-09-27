@@ -90,6 +90,12 @@ namespace EarTrumpet
             }
         }
 
+        public bool IsExpanded
+        {
+            get => _settings.Get("IsExpanded", false);
+            set => _settings.Set("IsExpanded", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");

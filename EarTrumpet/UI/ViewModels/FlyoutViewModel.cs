@@ -30,10 +30,13 @@ namespace EarTrumpet.UI.ViewModels
         private readonly DispatcherTimer _deBounceTimer;
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private readonly Action _returnFocusToTray;
+        private readonly AppSettings _settings;
         private bool _closedDuringOpen;
 
-        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray)
+        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray, AppSettings settings)
         {
+            _settings = settings;
+            IsExpanded = _settings.IsExpanded;
             Dialog = new ModalDialogViewModel();
             Devices = new ObservableCollection<DeviceViewModel>();
             _returnFocusToTray = returnFocusToTray;
@@ -127,11 +130,6 @@ namespace EarTrumpet.UI.ViewModels
                     throw new NotImplementedException();
             }
 
-            if (!CanExpand)
-            {
-                IsExpanded = false;
-            }
-
             UpdateTextVisibility();
             RaiseDevicesChanged();
         }
@@ -183,6 +181,7 @@ namespace EarTrumpet.UI.ViewModels
         public void DoExpandCollapse()
         {
             IsExpanded = !IsExpanded;
+            _settings.IsExpanded = IsExpanded;
             if (IsExpanded)
             {
                 // Add any that aren't existing.
