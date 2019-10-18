@@ -18,10 +18,15 @@ pr:
       - '**/*.md'
 
 variables:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  Solution: 'EarTrumpet.vs15.sln'
-  BuildConfiguration: 'Release'
-  BuildPlatform: 'x86'
+- group: 'Bugsnag'
+- name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
+  value: true
+- name: Solution
+  value: 'EarTrumpet.vs15.sln'
+- name: BuildConfiguration
+  value: 'Release'
+- name: BuildPlatform
+  value: 'x86'
 
 jobs:
 - job: Build
