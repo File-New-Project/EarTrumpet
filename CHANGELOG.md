@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.5.0
+- Fixed an issue with line in icon not appearing
+- Fixed an issue with context menu submenus disappearing unexpectedly
+
 ## 2.1.4.0
 - Fixed various bugs with the search textbox in Settings
 - Fixed tray icon disappearing when the Windows Shell crashes/restarts
