@@ -163,6 +163,13 @@ jobs:
       artifactName: 'Sideload'
     condition: and(succeeded(), eq(variables['Channel'], 'AppInstaller'))
 
+  - task: CopyFiles@2
+    displayName: 'Stage packaging metadata'
+    inputs:
+      SourceFolder: 'Packaging'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/Metadata/Packaging'
+
   - task: PublishBuildArtifacts@1
     displayName: 'Publish metadata artifacts'
     inputs:

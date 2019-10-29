@@ -1,0 +1,64 @@
+{
+  "packageParameters": {
+    "PDPRootPath": "",
+    "Release": "",
+    "PDPInclude": [
+      "pdp.xml"
+    ],
+    "PDPExclude": [],
+    "LanguageExclude": [
+      "default"
+    ],
+    "ImagesRootPath": "",
+    "MediaFallbackLanguage": "",
+    "AppxPath": [],
+    "OutPath": "",
+    "OutName": "",
+    "DisableAutoPackageNameFormatting": false
+  },
+  "appSubmission": {
+    "appId": "9NBLGGH516XP",
+    "targetPublishMode": "Immediate",
+    "targetPublishDate": "1601-01-01T00:00:00.0000000Z",
+    "visibility": "Public",
+    "pricing": {
+      "priceId": "Free",
+      "trialPeriod": "NoFreeTrial",
+      "marketSpecificPricings": {},
+      "sales": []
+    },
+    "allowTargetFutureDeviceFamilies": {
+      "Xbox": false,
+      "Team": false,
+      "Holographic": false,
+      "Desktop": true,
+      "Mobile": false
+    },
+    "allowMicrosoftDecideAppAvailabilityToFutureDeviceFamilies": false,
+    "enterpriseLicensing": "OnlineAndOffline",
+    "applicationCategory": "UtilitiesAndTools",
+    "hardwarePreferences": [],
+    "hasExternalInAppProducts": false,
+    "meetAccessibilityGuidelines": false,
+    "canInstallOnRemovableMedia": true,
+    "automaticBackupEnabled": true,
+    "isGameDvrEnabled": false,
+    "gamingOptions": [
+      {
+        "genres": [],
+        "isLocalMultiplayer": false,
+        "isLocalCooperative": false,
+        "isOnlineMultiplayer": false,
+        "isOnlineCooperative": false,
+        "localMultiplayerMinPlayers": 0,
+        "localMultiplayerMaxPlayers": 0,
+        "localCooperativeMinPlayers": 0,
+        "localCooperativeMaxPlayers": 0,
+        "isBroadcastingPrivilegeGranted": false,
+        "isCrossPlayEnabled": false,
+        "kinectDataForExternal": "Disabled"
+      }
+    ],
+    "notesForCertification": "When started, there is no UI. Instead, an icon is placed in the notification area (tray) that must be left/right clicked to invoke UI."
+  }
+}
