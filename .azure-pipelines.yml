@@ -68,13 +68,12 @@ jobs:
         Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\commits.txt" "$(GitVersion.CommitsSinceVersionSource)"
 
         if("$(Channel)" -eq "Store") {
-          $Version = "$(GitVersion.MajorMinorPatch).$(GitVersion.CommitsSinceVersionSource)"
+          $Version = "$(GitVersion.MajorMinorPatch).0"
         } else {
           $Version = "$(GitVersion.AssemblySemVer)"
         }
 
-        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\version.txt" $Version
-        Set-Content ".\EarTrumpet\Version.txt" $Version
+        Set-Content "$(Build.ArtifactStagingDirectory)\Metadata\$(Channel).version.txt" $Version
 
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet Tooling'
@@ -121,7 +120,7 @@ jobs:
       solution: 'EarTrumpet.Package/EarTrumpet.Package.wapproj'
       platform: 'x86'
       configuration: '$(buildConfiguration)'
-      msbuildArguments: '/p:AppxBundle=Always /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppxUpload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI'
+      msbuildArguments: '/p:AppxBundle=Always /p:Channel=$(Channel) /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppxUpload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI'
       maximumCpuCount: true
     condition: and(succeeded(), eq(variables['Channel'], 'Store'))
 
@@ -138,7 +137,7 @@ jobs:
       solution: 'EarTrumpet.Package/EarTrumpet.Package.wapproj'
       platform: 'x86'
       configuration: '$(buildConfiguration)'
-      msbuildArguments: '/p:AppxBundle=Always /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/Sideload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir="$(Build.ArtifactStagingDirectory)/Sideload/" /p:AppInstallerUri=https://install.eartrumpet.app'
+      msbuildArguments: '/p:AppxBundle=Always /p:Channel=$(Channel) /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/Sideload" /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir="$(Build.ArtifactStagingDirectory)/Sideload/" /p:AppInstallerUri=https://install.eartrumpet.app'
       maximumCpuCount: true
     condition: and(succeeded(), eq(variables['Channel'], 'AppInstaller'))
 
@@ -169,6 +168,7 @@ jobs:
       SourceFolder: 'Packaging'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/Metadata/Packaging'
+    condition: and(succeeded(), eq(variables['Channel'], 'Store'))
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish metadata artifacts'
