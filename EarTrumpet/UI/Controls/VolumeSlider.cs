@@ -27,6 +27,7 @@ namespace EarTrumpet.UI.Controls
         private Border _peakMeter1;
         private Border _peakMeter2;
         private Thumb _thumb;
+        private Point _lastMousePosition;
 
         public VolumeSlider() : base()
         {
@@ -86,11 +87,15 @@ namespace EarTrumpet.UI.Controls
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
+                _lastMousePosition = e.GetPosition(this);
                 VisualStateManager.GoToState((FrameworkElement)sender, "Pressed", true);
 
-                SetPositionByControlPoint(e.GetPosition(this));
-                CaptureMouse();
+                if (!_thumb.IsMouseOver)
+                {
+                    SetPositionByControlPoint(_lastMousePosition);
+                }
 
+                CaptureMouse();
                 e.Handled = true;
             }
         }
@@ -130,8 +135,10 @@ namespace EarTrumpet.UI.Controls
 
         private void OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (IsMouseCaptured)
+            var mousePosition = e.GetPosition(this);
+            if (IsMouseCaptured && mousePosition != _lastMousePosition)
             {
+                _lastMousePosition = mousePosition;
                 SetPositionByControlPoint(e.GetPosition(this));
             }
         }
