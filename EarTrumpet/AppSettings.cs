@@ -12,7 +12,6 @@ namespace EarTrumpet
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
 
-        private static readonly string s_trayIconIdKey = "TrayIconId";
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
         public void RegisterHotkeys()
@@ -40,22 +39,6 @@ namespace EarTrumpet
                 }
             };
         }
-
-        public Guid TrayIconIdentity
-        {
-            get
-            {
-                var id = _settings.Get(s_trayIconIdKey, Guid.Empty);
-                if (id == Guid.Empty)
-                {
-                    id = Guid.NewGuid();
-                    _settings.Set(s_trayIconIdKey, id);
-                }
-                return id;
-            }
-        }
-
-        public void ResetTrayIconIdentity() => _settings.Set(s_trayIconIdKey, Guid.Empty);
 
         public HotkeyData FlyoutHotkey
         {

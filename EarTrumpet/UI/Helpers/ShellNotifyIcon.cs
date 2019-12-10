@@ -40,8 +40,6 @@ namespace EarTrumpet.UI.Helpers
 
         private const int WM_CALLBACKMOUSEMSG = User32.WM_USER + 1024;
 
-        private readonly Func<Guid> _getIdentity;
-        private readonly Action _resetIdentity;
         private readonly Win32Window _window;
         private readonly DispatcherTimer _invalidationTimer;
         private bool _isCreated;
@@ -52,12 +50,10 @@ namespace EarTrumpet.UI.Helpers
         private System.Drawing.Point _cursorPosition;
         private int _remainingTicks;
 
-        public ShellNotifyIcon(IShellNotifyIconSource icon, Func<Guid> getIdentity, Action resetIdentity)
+        public ShellNotifyIcon(IShellNotifyIconSource icon)
         {
             IconSource = icon;
             IconSource.Changed += (_) => Update();
-            _getIdentity = getIdentity;
-            _resetIdentity = resetIdentity;
             _window = new Win32Window();
             _window.Initialize(WndProc);
             _invalidationTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Normal, (_, __) => OnDelayedIconCheckForUpdate(), Dispatcher.CurrentDispatcher);
@@ -88,11 +84,10 @@ namespace EarTrumpet.UI.Helpers
             {
                 cbSize = Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
                 hWnd = _window.Handle,
-                uFlags = NotifyIconFlags.NIF_MESSAGE | NotifyIconFlags.NIF_ICON | NotifyIconFlags.NIF_TIP | NotifyIconFlags.NIF_GUID,
+                uFlags = NotifyIconFlags.NIF_MESSAGE | NotifyIconFlags.NIF_ICON | NotifyIconFlags.NIF_TIP,
                 uCallbackMessage = WM_CALLBACKMOUSEMSG,
                 hIcon = IconSource.Current.Handle,
-                szTip = _text,
-                guidItem = _getIdentity(),
+                szTip = _text
             };
         }
 
@@ -105,7 +100,7 @@ namespace EarTrumpet.UI.Helpers
                 {
                     if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_MODIFY, ref data))
                     {
-                        // Modification will fail when explorer.exe restarts.
+                        // Modification will fail when the shell restarts, or if message processing times out
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_MODIFY Failed: {(uint)Marshal.GetLastWin32Error()}");
                         _isCreated = false;
                         Update();
@@ -115,17 +110,10 @@ namespace EarTrumpet.UI.Helpers
                 {
                     if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_ADD, ref data))
                     {
-                        Trace.WriteLine($"ShellNotifyIcon Update NIM_ADD Failed (first attempt) {(uint)Marshal.GetLastWin32Error()}");
-
-                        _resetIdentity();
-                        data = MakeData();
-                        if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_ADD, ref data))
-                        {
-                            Trace.WriteLine($"### ShellNotifyIcon Update NIM_ADD Failed: {(uint)Marshal.GetLastWin32Error()} ###");
-                        }
+                        Trace.WriteLine($"ShellNotifyIcon Update NIM_ADD Failed {(uint)Marshal.GetLastWin32Error()}");
                     }
-                    _isCreated = true;
 
+                    _isCreated = true;
                     data.uTimeoutOrVersion = Shell32.NOTIFYICON_VERSION_4;
                     if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_SETVERSION, ref data))
                     {
@@ -194,7 +182,7 @@ namespace EarTrumpet.UI.Helpers
             var id = new NOTIFYICONIDENTIFIER
             {
                 cbSize = Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER)),
-                guidItem = _getIdentity(),
+                hWnd = _window.Handle
             };
 
             if (Shell32.Shell_NotifyIconGetRect(ref id, out RECT location) == 0)

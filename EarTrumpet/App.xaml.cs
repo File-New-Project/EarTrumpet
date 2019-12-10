@@ -68,8 +68,7 @@ namespace EarTrumpet
             deviceManager.Loaded += (_, __) => CompleteStartup();
             _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
 
-            _trayIcon = new ShellNotifyIcon(
-                new TaskbarIconSource(_collectionViewModel, _settings), () => _settings.TrayIconIdentity, _settings.ResetTrayIconIdentity);
+            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
             _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
 
