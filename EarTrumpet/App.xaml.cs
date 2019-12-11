@@ -1,6 +1,7 @@
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility.Hosting;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -118,6 +119,7 @@ namespace EarTrumpet
 
                 var dialog = new DialogWindow { DataContext = new WelcomeViewModel() };
                 dialog.Show();
+                dialog.RaiseWindow();
             }
         }
 
