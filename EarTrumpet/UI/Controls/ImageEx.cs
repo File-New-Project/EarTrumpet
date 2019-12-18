@@ -3,6 +3,7 @@ using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,8 @@ namespace EarTrumpet.UI.Controls
           "SourceEx", typeof(IAppIconSource), typeof(ImageEx), new PropertyMetadata(null, new PropertyChangedCallback(OnSourceExChanged)));
 
         private uint _dpi;
+        private static readonly string _windowsPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        private static readonly string _systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
 
         public ImageEx()
         {
@@ -102,6 +105,7 @@ namespace EarTrumpet.UI.Controls
 
         public static ImageSource LoadShellIcon(string path, bool isDesktopApp, int cx, int cy)
         {
+            path = CanonicalizePath(path);
             var item = isDesktopApp ? Shell32.SHCreateItemFromParsingName(path, IntPtr.Zero, typeof(IShellItem2).GUID) :
                 Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, path, typeof(IShellItem2).GUID);
 
@@ -116,6 +120,15 @@ namespace EarTrumpet.UI.Controls
             {
                 Gdi32.DeleteObject(bmp);
             }
+        }
+
+        private static string CanonicalizePath(string path)
+        {
+            if (Path.GetDirectoryName(path).StartsWith(_systemPath, StringComparison.InvariantCultureIgnoreCase))
+            {
+                path = Path.Combine(_windowsPath, "sysnative", path.Substring(_systemPath.Length + 1));
+            }
+            return path;
         }
 
         private uint GetWindowDpi() => User32.GetDpiForWindow(((HwndSource)PresentationSource.FromVisual(this)).Handle);
