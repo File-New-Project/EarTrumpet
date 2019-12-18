@@ -64,6 +64,7 @@ namespace EarTrumpet.UI.Controls
                     {
                         var iconPath = new StringBuilder(path);
                         int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
+
                         if (iconIndex != 0)
                         {
                             using (var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale)))
@@ -74,6 +75,19 @@ namespace EarTrumpet.UI.Controls
                         }
                         else
                         {
+                            // libmpv-based applications, like Plex, may set an invalid indirect icon path
+                            // https://github.com/mpv-player/mpv/issues/7269
+                            // (e.g. C:\Program Files\Plex\Plex.exe,-IDI_ICON1)
+                            //
+                            // The legacy volume mixer falls back to enumerating icons in the image and
+                            // selecting an icon that 'best fits the current display device'. We will
+                            // mimic this behavior by stripping off the invalid resource identifier and
+                            // asking the shell for an appropriate icon.
+
+                            if (path.Contains(",-"))
+                            {
+                                path = path.Remove(path.LastIndexOf(",-"));
+                            }
                             return LoadShellIcon(path, isDesktopApp, (int)(Width * scale), (int)(Height * scale));
                         }
                     }
