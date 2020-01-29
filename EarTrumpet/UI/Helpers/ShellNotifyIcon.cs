@@ -45,6 +45,7 @@ namespace EarTrumpet.UI.Helpers
         private bool _isCreated;
         private bool _isVisible;
         private bool _isListeningForInput;
+        private bool _isContextMenuOpen = false;
         private string _text;
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
@@ -84,7 +85,7 @@ namespace EarTrumpet.UI.Helpers
             {
                 cbSize = Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
                 hWnd = _window.Handle,
-                uFlags = NotifyIconFlags.NIF_MESSAGE | NotifyIconFlags.NIF_ICON | NotifyIconFlags.NIF_TIP,
+                uFlags = NotifyIconFlags.NIF_MESSAGE | NotifyIconFlags.NIF_ICON | NotifyIconFlags.NIF_TIP | NotifyIconFlags.NIF_SHOWTIP,
                 uCallbackMessage = WM_CALLBACKMOUSEMSG,
                 hIcon = IconSource.Current.Handle,
                 szTip = _text
@@ -250,33 +251,41 @@ namespace EarTrumpet.UI.Helpers
 
         public void ShowContextMenu(IEnumerable itemsSource)
         {
-            Trace.WriteLine("ShellNotifyIcon ShowContextMenu");
-            var contextMenu = new ContextMenu
+            if (!_isContextMenuOpen)
             {
-                FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
-                StaysOpen = true,
-                ItemsSource = itemsSource,
-            };
-            Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
-            contextMenu.PreviewKeyDown += (_, e) =>
-            {
-                if (e.Key == Key.Escape)
+                Trace.WriteLine("ShellNotifyIcon ShowContextMenu");
+                var contextMenu = new ContextMenu
                 {
-                    SetFocus();
-                }
-            };
-            contextMenu.Opened += (_, __) =>
-            {
-                Trace.WriteLine("ShellNotifyIcon ContextMenu.Opened");
+                    FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+                    StaysOpen = true,
+                    ItemsSource = itemsSource,
+                };
+                Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
+                contextMenu.PreviewKeyDown += (_, e) =>
+                {
+                    if (e.Key == Key.Escape)
+                    {
+                        SetFocus();
+                    }
+                };
+                contextMenu.Opened += (_, __) =>
+                {
+                    Trace.WriteLine("ShellNotifyIcon ContextMenu.Opened");
                 // Workaround: The framework expects there to already be a WPF window open and thus fails to take focus.
                 User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle);
-                contextMenu.Focus();
-                contextMenu.StaysOpen = false;
+                    contextMenu.Focus();
+                    contextMenu.StaysOpen = false;
                 // Disable only the exit animation.
                 ((Popup)contextMenu.Parent).PopupAnimation = PopupAnimation.None;
-            };
-            contextMenu.Closed += (_, __) => Trace.WriteLine("ShellNotifyIcon ContextMenu.Closed"); ;
-            contextMenu.IsOpen = true;
+                };
+                contextMenu.Closed += (_, __) =>
+                {
+                    Trace.WriteLine("ShellNotifyIcon ContextMenu.Closed");
+                    _isContextMenuOpen = false;
+                };
+                contextMenu.IsOpen = true;
+                _isContextMenuOpen = true;
+            }
         }
     }
 }
