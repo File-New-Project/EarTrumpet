@@ -139,15 +139,26 @@
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"
                                    Text="© File-New-Project" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenAboutCommand}">
                                 <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}">
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenFeedbackCommand}">
                                 <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
-                            </Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}">
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
                                 <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink></TextBlock>
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
+                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

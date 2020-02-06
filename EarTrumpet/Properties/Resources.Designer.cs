@@ -369,6 +369,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy policy.
+        /// </summary>
+        public static string PrivacyPolicyText {
+            get {
+                return ResourceManager.GetString("PrivacyPolicyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coming soon.
         /// </summary>
         public static string ProjectADescription {

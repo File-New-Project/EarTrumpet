@@ -11,6 +11,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand OpenDiagnosticsCommand { get; }
         public ICommand OpenAboutCommand { get; }
         public ICommand OpenFeedbackCommand { get; }
+        public ICommand OpenPrivacyPolicyCommand { get; }
         public string AboutText { get; }
 
         private readonly Action _openDiagnostics;
@@ -25,6 +26,7 @@ namespace EarTrumpet.UI.ViewModels
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
             OpenFeedbackCommand = new RelayCommand(OpenFeedbackHub);
+            OpenPrivacyPolicyCommand = new RelayCommand(OpenPrivacyPolicy);
         }
 
         private void OpenDiagnostics()
@@ -40,5 +42,6 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OpenFeedbackHub() => ProcessHelper.StartNoThrow("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet");
         private void OpenAbout() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
+        private void OpenPrivacyPolicy() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md");
     }
 }
