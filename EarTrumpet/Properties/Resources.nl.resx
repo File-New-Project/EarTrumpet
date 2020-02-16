@@ -133,7 +133,7 @@
     <value>Volume Mixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Het lijkt erop dat je geen afspeelapparaten hebt</value>
+    <value>Het lijkt erop dat je geen afspeelapparaten hebt.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
     <value>EarTrumpet: Geen afspeelapparaten</value>
@@ -220,7 +220,7 @@
     <value>Open Windows Instellingen</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Deze add-on kan verwijderd worden in de Windows Instellingen app</value>
+    <value>Deze add-on kan verwijderd worden in de Windows Instellingen app.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Deïnstalleren</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Welkom bij EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet kan niet worden gestart</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Een font veroorzaakt een probleem waardoor EarTrumpet niet kan worden gestart.
+
+Wil je  [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Geluid dempen</value>
   </data>
 </root>

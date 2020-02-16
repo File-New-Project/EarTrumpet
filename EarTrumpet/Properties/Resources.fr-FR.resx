@@ -279,4 +279,18 @@
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Bienvenue à EarTrumpet</value>
   </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet n'a pas pu démarrer</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Une police de caractères défectueuse empêche EarTrumpet de démarrer.
+
+Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Politique de confidentialité</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Activer/désactiver le mode Muet</value>
+  </data>
 </root>

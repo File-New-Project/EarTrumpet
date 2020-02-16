@@ -133,7 +133,7 @@
     <value>Alter Lautstärkemixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Es sind keine Wiedergabegeräte vorhanden</value>
+    <value>Es sind keine Wiedergabegeräte vorhanden.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
     <value>EarTrumpet: Keine Wiedergabegeräte</value>
@@ -178,7 +178,7 @@
     <value>Schließen</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Minimieren, um nur das Standard-Wiedergabegerät anzuzeigen.</value>
+    <value>Minimieren, um nur das Standard-Wiedergabegerät anzuzeigen</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Standard Tastenkombination</value>
@@ -232,7 +232,7 @@
     <value>Alte Einstellungen</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Herausgeber</value>
+    <value>Herausgeber:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
     <value>Tastenkombinationen und Hilfe</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Willkommen bei EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet konnte nicht gestartet werden</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Eine defekte Schriftart in Ihrem System verhindert den Start von EarTrumpet. 
+
+Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Datenschutz</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Stummschaltung</value>
   </data>
 </root>

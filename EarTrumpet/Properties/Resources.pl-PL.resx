@@ -214,13 +214,13 @@
     <value>O dodatku  {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Nazwa</value>
+    <value>NazwaІм'я:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
     <value>Otwórz ustawienia Windowsa</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Ten dodatek może zostać usunięty przez ustawienia systemu Windows</value>
+    <value>Ten dodatek może zostać usunięty przez ustawienia systemu Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Odinstaluj</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Witaj w EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Nie udało się uruchomić EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>EarTrumpet nie może zostać uruchomiony na Twoim komputerze z powodu uszkodzonych plików czcionek.
+
+Otworzyć [https://eartrumpet.app/jmp/fixfonts] teraz?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Polityka prywatności</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Wycisz</value>
   </data>
 </root>

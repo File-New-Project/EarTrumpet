@@ -214,7 +214,7 @@
     <value>アドオン {Name} について</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>名前</value>
+    <value>名前:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
     <value>Windowsの設定を開く</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>EarTrumpet へようこそ</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpetの起動に失敗しました</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>システム上の破損したフォントがEarTrumpet の起動を妨げています。
+
+修正情報のWebページ [https://eartrumpet.app/jmp/fixfonts] を開きますか？</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>プライバシー ポリシー</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>ミュートのオン・オフ</value>
   </data>
 </root>

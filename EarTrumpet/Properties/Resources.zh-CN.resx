@@ -220,7 +220,7 @@
     <value>打开 Windows 设置</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>此加载项可通过 Windows 设置移除</value>
+    <value>此加载项可通过 Windows 设置移除。</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>卸载</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>欢迎使用 EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>无法启动 EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
+
+是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>隐私策略</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>打开/关闭静音</value>
   </data>
 </root>

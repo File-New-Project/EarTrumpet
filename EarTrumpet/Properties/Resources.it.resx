@@ -136,7 +136,7 @@
     <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Nessun dispositivo di riproduzione.</value>
+    <value>EarTrumpet: Nessun dispositivo di riproduzione</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Dispositivi di riproduzione</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Benvenuto su EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Avvio di EarTrumpet non riuscito</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Un font rotto nel tuo sistema impedisce l'avvio di EarTrumpet.
+
+Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Attiva/disattiva muto</value>
   </data>
 </root>

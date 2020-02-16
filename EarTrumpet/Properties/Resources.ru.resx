@@ -220,7 +220,7 @@
     <value>Открыть Параметры Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Это дополнение может быть удалено в приложении Параметры Windows</value>
+    <value>Это дополнение может быть удалено в приложении Параметры Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Удалить</value>
@@ -244,7 +244,7 @@
     <value>Сочетания клавиш</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Версия</value>
+    <value>Версия:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
     <value>Найти параметр</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Добро пожаловать в EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Произошла ошибка при запуске EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Невозможно запустить EarTrumpet, так как один из шрифтов используемый этой программой повреждён.
+
+Перейти по ссылке [https://eartrumpet.app/jmp/fixfonts] сейчас?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Без звука</value>
   </data>
 </root>

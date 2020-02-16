@@ -214,13 +214,13 @@
     <value>Про додаток {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Ім'я</value>
+    <value>Ім'я:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
     <value>Відкрити меню налаштування Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Цей додаток може бути видалено за допомогою меню налаштування Windows</value>
+    <value>Цей додаток може бути видалено за допомогою меню налаштування Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Видалити</value>
@@ -256,10 +256,10 @@
     <value>Відкрити мікшер</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Викл.</value>
+    <value>Викл</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Вкл.</value>
+    <value>Вкл</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>Головна</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Ласкаво просимо до EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Пошкоджений шрифт не дозволяє запустити EarTrumpet.
+
+Перейти за посиланням [https://eartrumpet.app/jmp/fixfonts]?</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Неможливо запустити EarTrumpet</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Політика конфіденційності</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Вимкнути звук</value>
   </data>
 </root>

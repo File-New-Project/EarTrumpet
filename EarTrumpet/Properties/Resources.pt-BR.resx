@@ -190,7 +190,7 @@
     <value>Geral</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Associar este aplicativo a um dispositivo de reprodução.</value>
+    <value>Associar este aplicativo a um dispositivo de reprodução</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
     <value>Mostrar informações do EarTrumpet</value>
@@ -279,5 +279,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Bem-vindo ao EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>O EarTrumpet não pode ser iniciado</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Uma fonte danificada no sistema está impedindo a execução do EarTrumpet.
+
+Deseja abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Políticas de Privacidade</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Ativar/Desativar Som</value>
   </data>
 </root>

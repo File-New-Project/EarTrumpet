@@ -214,13 +214,13 @@
     <value>關於{Name}擴展</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>姓名：</value>
+    <value>姓名:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
     <value>打開Windows設定</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>這個擴展可以透過Windows設定刪除</value>
+    <value>這個擴展可以透過Windows設定刪除。</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>解除安裝</value>
@@ -232,7 +232,7 @@
     <value>傳統設定</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>發行者</value>
+    <value>發行者:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
     <value>設定捷徑並尋求幫助</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>歡迎使用 EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>無法啟動 EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>損毀的字型檔案使您無法運行 EarTrumpet。
+
+前往 [https://eartrumpet.app/jmp/fixfonts]？</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>隱私政策</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>切換靜音</value>
   </data>
 </root>

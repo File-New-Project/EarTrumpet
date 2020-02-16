@@ -163,7 +163,7 @@
     <value>Acerca de</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Más detalles...</value>
+    <value>Aprende más</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{Volume}% de volumen - {Name}</value>
@@ -220,13 +220,13 @@
     <value>Abrir Configuraciones de Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Este complemento puede ser removido utilizando la aplicación de Configuración de Windows 10</value>
+    <value>Este complemento puede ser removido utilizando la aplicación de Configuración de Windows 10.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Desinstalar</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Gestión </value>
+    <value>Gestión</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
     <value>Ajustes tradicionales</value>
@@ -278,5 +278,19 @@
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
     <value>Bienvenido a EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet no pudo iniciar</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Una fuente rota en tu sistema está previniendo el inicio de EarTrumpet.
+
+Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Politica de privacidad</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Activar/Desactivar sonido</value>
   </data>
 </root>
