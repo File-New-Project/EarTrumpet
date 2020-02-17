@@ -61,15 +61,10 @@
                                 Background="Transparent"
                                 Command="{Binding Device.ToggleMute}"
                                 IsTabStop="False"
-                                Opacity="1">
+                                Opacity="1"
+                                ToolTipService.ToolTip="{x:Static resx:Resources.ToggleMuteToolTip}">
                             <Button.Style>
-                                <Style BasedOn="{StaticResource MuteButton}" TargetType="{x:Type Button}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Source={x:Static local:Features.IsDeviceMuteToolTipEnabled}}" Value="True">
-                                            <Setter Property="ToolTipService.ToolTip" Value="{x:Static resx:Resources.ToggleMuteToolTip}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
+                                <Style BasedOn="{StaticResource MuteButton}" TargetType="{x:Type Button}" />
                             </Button.Style>
                             <Button.Content>
                                 <Grid>

@@ -522,7 +522,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Mute.
+        ///   Looks up a localized string similar to Toggle mute.
         /// </summary>
         public static string ToggleMuteToolTip {
             get {
