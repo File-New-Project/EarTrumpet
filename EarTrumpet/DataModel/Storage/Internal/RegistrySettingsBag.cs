@@ -23,10 +23,10 @@ namespace EarTrumpet.DataModel.Storage.Internal
         {
             if (defaultValue is string)
             {
-                return ReadSetting<T>(key);
+                return ReadSetting<T>(key, defaultValue);
             }
 
-            var data = ReadSetting<string>(key);
+            var data = ReadSetting<string>(key, null);
             if (string.IsNullOrWhiteSpace(data))
             {
                 return defaultValue;
@@ -49,11 +49,20 @@ namespace EarTrumpet.DataModel.Storage.Internal
             SettingChanged?.Invoke(this, key);
         }
 
-        static T ReadSetting<T>(string key)
+        static T ReadSetting<T>(string key, T defaultValue)
         {
             using (var regKey = Registry.CurrentUser.CreateSubKey(s_earTrumpetKey, true))
             {
-                return (T)regKey.GetValue(key);
+                T ret = defaultValue;
+                try
+                {
+                    ret = (T)regKey.GetValue(key);
+                }
+                catch (Exception)
+                {
+                    ret = defaultValue;
+                }
+                return ret;
             }
         }
 
