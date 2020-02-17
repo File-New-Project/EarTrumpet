@@ -293,4 +293,7 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Activer/désactiver le mode Muet</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Envoyer les données de diagnostic à l'équipe EarTrumpet</value>
+  </data>
 </root>

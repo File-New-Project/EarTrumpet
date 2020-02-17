@@ -293,4 +293,7 @@ Otworzyć [https://eartrumpet.app/jmp/fixfonts] teraz?</value>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Wycisz</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Wyślij dane dot. awarii do zespołu EarTrumpet</value>
+  </data>
 </root>

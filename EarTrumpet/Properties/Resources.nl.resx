@@ -288,9 +288,12 @@
 Wil je  [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen?</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>Privacy policy</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Geluid dempen</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Stuur gegevens over de crash naar het EarTrumpet team</value>
   </data>
 </root>

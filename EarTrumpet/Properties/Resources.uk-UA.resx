@@ -293,4 +293,7 @@
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Вимкнути звук</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Надіслати дані помилки команді EarTrumpet</value>
+  </data>
 </root>

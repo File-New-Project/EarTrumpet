@@ -293,4 +293,7 @@
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>切換靜音</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>傳送當機報告給 EarTrumpet 團隊</value>
+  </data>
 </root>

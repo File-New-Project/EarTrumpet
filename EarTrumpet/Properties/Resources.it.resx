@@ -288,9 +288,12 @@
 Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Privacy Policy</value>
+    <value>Privacy policy</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Attiva/disattiva muto</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Invia i dati sugli arresti anomali al team EarTrumpet</value>
   </data>
 </root>

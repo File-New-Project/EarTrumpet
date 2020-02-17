@@ -293,4 +293,7 @@
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>ミュートのオン・オフ</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>障害データをEarTrumpet チームに送信する</value>
+  </data>
 </root>

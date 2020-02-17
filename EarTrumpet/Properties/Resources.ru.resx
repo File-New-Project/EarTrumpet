@@ -293,4 +293,7 @@
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Без звука</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Отправить данные об ошибке разработчикам EarTrumpet</value>
+  </data>
 </root>

@@ -293,4 +293,7 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Preklopi izklopljeni zvok</value>
   </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Pošlji podatke o sesutju programerjem EarTrumpeta</value>
+  </data>
 </root>
