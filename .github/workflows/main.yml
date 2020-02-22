@@ -1,0 +1,164 @@
+name: EarTrumpet-CI
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - review/*
+      - experiment/*
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
+    branches: 
+      - dev
+    paths-ignore: 
+      - '**/*.md'
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  BUILD_CONFIGURATION: Release
+  BUILD_PLATFORM: x86
+  ARTIFACTS_BASE: '${{ github.workspace }}\artifacts'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        channel: [AppInstaller, Store]
+        include:
+          - channel: AppInstaller
+            publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+          - channel: Store
+            publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
+      max-parallel: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
+        
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9
+        with:
+          versionSpec: '5.1.x'
+          includePrerelease: false
+
+      - name: Use GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9
+        
+      - name: Create artifact layout
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE" -ErrorAction Ignore
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\appxupload" -ErrorAction Ignore
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\sideload" -ErrorAction Ignore
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\metadata" -ErrorAction Ignore
+
+      - name: Generate versioning metadata
+        shell: powershell
+        run: |
+          Set-Content "$env:ARTIFACTS_BASE\metadata\semver.txt" "${{ steps.gitversion.outputs.semVer }}"
+          Set-Content "$env:ARTIFACTS_BASE\metadata\branch.txt" "${{ steps.gitversion.outputs.branchName }}"
+          Set-Content "$env:ARTIFACTS_BASE\metadata\commits.txt" "${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
+
+          if("${{ matrix.channel }}" -eq "Store") {
+            $Version = "${{ steps.gitversion.outputs.majorMinorPatch }}.0"
+          } else {
+            $Version = "${{ steps.gitversion.outputs.assemblySemVer }}"
+          }
+
+          Set-Content "$env:ARTIFACTS_BASE\metadata\${{ matrix.channel }}.version.txt" $Version
+
+      - name: Install NuGet
+        uses: NuGet/setup-nuget@v1.0.2
+        with:
+          nuget-version: latest
+          
+      - name: Workaround - Install Windows 10 14393 SDK
+        shell: powershell
+        run: |
+          Invoke-WebRequest -Method Get -Uri https://go.microsoft.com/fwlink/p/?LinkId=838916 -OutFile sdksetup.exe -UseBasicParsing
+          Start-Process -Wait sdksetup.exe -ArgumentList "/q", "/norestart", "/ceip off", "/features OptionId.WindowsSoftwareDevelopmentKit"
+
+      - name: Restore NuGet Packages
+        run: nuget restore EarTrumpet.vs15.sln
+
+      - name: Set Bugsnag API Key
+        shell: powershell
+        run: |
+          $cfg = Get-Content ".\EarTrumpet\app.config"
+          $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "${{ secrets.bugsnag_api_key }}") } | Set-Content ".\EarTrumpet\app.config"
+          
+      - name: Adjust manifest and store association
+        shell: powershell
+        run: |
+          $manifestPath = ".\EarTrumpet.Package\Package.appxmanifest"
+          $storeAssociationPath = ".\EarTrumpet.Package\Package.StoreAssociation.xml"
+
+          $manifest = [xml](Get-Content $manifestPath)
+          $manifest.Package.Identity.Publisher = "${{ matrix.publisher }}"
+          if("${{ matrix.channel }}" -eq "AppInstaller") {
+            $manifest.Package.Properties.DisplayName = "EarTrumpet (${{ steps.gitversion.outputs.branchName }})"
+            $manifest.Package.Applications.Application.VisualElements.DisplayName = "EarTrumpet (${{ steps.gitversion.outputs.branchName }})"
+          }
+          $manifest.Save($manifestPath)
+
+          $storeAssociation = [xml](Get-Content $storeAssociationPath)
+          $storeAssociation.StoreAssociation.Publisher = "${{ matrix.publisher }}"
+          if("${{ matrix.channel }}" -eq "AppInstaller") {
+            $storeAssociation.StoreAssociation.ProductReservedInfo.ReservedNames.ReservedName = "EarTrumpet (${{ steps.gitversion.outputs.branchName }})"
+          }
+          $storeAssociation.Save($storeAssociationPath)
+        
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v1
+          
+      - name: Build EarTrumpet appxupload package
+        if: matrix.channel == 'Store'
+        shell: cmd
+        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\appxupload /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI -maxcpucount
+        
+      - name: Upload appxupload artifact
+        if: matrix.channel == 'Store'
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: appxupload
+          path: artifacts/appxupload
+
+      - name: Build EarTrumpet appinstaller/sideload package
+        if: matrix.channel == 'AppInstaller'
+        shell: cmd
+        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\sideload /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir="artifacts/sideload/" /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
+
+      - name: Adjust appinstaller manifest
+        if: matrix.channel == 'AppInstaller'
+        shell: powershell
+        run: |
+          $manifestPath = "artifacts/sideload/EarTrumpet.Package.appinstaller"
+          $manifest = [xml](Get-Content $manifestPath)
+          $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
+          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }})_x86.appxbundle"
+          $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
+          $manifest.Save($manifestPath)
+
+      - name: Upload appinstaller/sideload package artifacts
+        if: matrix.channel == 'AppInstaller'
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: sideload
+          path: artifacts/sideload
+
+      - name: Stage packaging metadata
+        if: matrix.channel == 'Store'
+        shell: powershell
+        run: |
+          Copy-Item packaging\ -Recurse $env:ARTIFACTS_BASE\metadata\
+          
+      - name: Upload metadata artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: metadata
+          path: artifacts/metadata

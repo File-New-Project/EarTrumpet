@@ -65,7 +65,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+      <HintPath Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+      <HintPath Condition="Exists('$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd')">$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

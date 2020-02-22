@@ -6,7 +6,7 @@ branches:
     increment: none
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
-    regex: (feature|experiment)?[/-]
+    regex: (feature|experiment){1}[/-]
     source-branches:
       - dev
     tracks-release-branches: false
@@ -43,7 +43,7 @@ branches:
     increment: none
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
-    regex: release?[/-]
+    regex: release{1}[/-]
     source-branches:
     - dev
     - master

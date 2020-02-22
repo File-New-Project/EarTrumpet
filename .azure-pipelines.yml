@@ -8,7 +8,7 @@ trigger:
   paths:
     exclude:
       - '**/*.md'
-
+      - '.github/**/*'
 pr:
   branches:
     include:
@@ -16,6 +16,7 @@ pr:
   paths:
     exclude:
       - '**/*.md'
+      - '.github/**/*'
 
 variables:
 - group: 'Bugsnag'
