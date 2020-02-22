@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.6.0
+- Added ability to turn on/off crash reporting
+- Added missing translations
+- Added privacy policy link
+- Fixed an icon display issue with libmpv-based apps (e.g. Plex)
+- Fixed an issue that made volume sliders difficult to manipulate with a mouse at high DPI
+- Restored pre-2.1.2.0 tray icon behavior until we can address icon duplication issues
+
 ## 2.1.5.0
 - Fixed an issue with line in icon not appearing
 - Fixed an issue with context menu submenus disappearing unexpectedly
