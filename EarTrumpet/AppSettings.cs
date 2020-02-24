@@ -189,8 +189,8 @@ namespace EarTrumpet
                 "JE", // Jersey
                 "GG", // Guernsey
             };
-            var region = new RegionInfo(CultureInfo.CurrentCulture.LCID).TwoLetterISORegionName.ToUpper();
-            return !europeanUnionRegions.Contains(region);
+            var region = new Windows.Globalization.GeographicRegion();
+            return !europeanUnionRegions.Contains(region.CodeTwoLetter);
         }
     }
 }
