@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.7.0
+- Fixed crash when retrieving region info for GDPR compliance on some machines
+
 ## 2.1.6.0
 - Added ability to turn on/off crash reporting
 - Added missing translations
