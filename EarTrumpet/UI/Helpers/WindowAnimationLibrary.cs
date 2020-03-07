@@ -3,6 +3,7 @@ using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace EarTrumpet.UI.Helpers
@@ -15,6 +16,8 @@ namespace EarTrumpet.UI.Helpers
         {
             var onCompleted = new EventHandler((s, e) =>
             {
+                (window.RenderTransform as TranslateTransform).X = 0;
+                (window.RenderTransform as TranslateTransform).Y = 0;
                 window.Topmost = true;
                 window.Focus();
                 completed();
@@ -52,15 +55,21 @@ namespace EarTrumpet.UI.Helpers
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                case WindowsTaskbar.Position.Top:
+                    (window.RenderTransform as TranslateTransform).X = -_animationOffset;
                     moveAnimation.To = 0;
-                    moveAnimation.From = -_animationOffset;
+                    break;
+                case WindowsTaskbar.Position.Top:
+                    (window.RenderTransform as TranslateTransform).Y = -_animationOffset;
+                    moveAnimation.To = 0;
                     break;
                 case WindowsTaskbar.Position.Right:
+                    (window.RenderTransform as TranslateTransform).X = _animationOffset;
+                    moveAnimation.To = 0;
+                    break;
                 case WindowsTaskbar.Position.Bottom:
                 default:
+                    (window.RenderTransform as TranslateTransform).Y = _animationOffset;
                     moveAnimation.To = 0;
-                    moveAnimation.From = _animationOffset;
                     break;
             }
 
@@ -77,7 +86,7 @@ namespace EarTrumpet.UI.Helpers
 
             if (SystemSettings.IsTransparencyEnabled)
             {
-                window.Opacity = 0.5;
+                window.Opacity = 0.2;
             }
 
             window.Cloak(false);
