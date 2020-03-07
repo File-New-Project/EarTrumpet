@@ -4,6 +4,7 @@ using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System.Windows;
+using System.Windows.Media;
 
 namespace EarTrumpet.UI.Views
 {
@@ -22,6 +23,7 @@ namespace EarTrumpet.UI.Views
             _viewModel.WindowSizeInvalidated += OnWindowsSizeInvalidated;
             SourceInitialized += (_, __) => this.Cloak();
             Themes.Manager.Current.ThemeChanged += () => EnableAcrylicIfApplicable(WindowsTaskbar.Current);
+            LayoutRoot.Background = new SolidColorBrush(Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
         }
 
         public void Initialize()
@@ -42,7 +44,6 @@ namespace EarTrumpet.UI.Views
                     var taskbar = WindowsTaskbar.Current;
 
                     Show();
-                    EnableAcrylicIfApplicable(taskbar);
                     PositionWindowRelativeToTaskbar(taskbar);
 
                     // Focus the first device if available.
@@ -51,9 +52,12 @@ namespace EarTrumpet.UI.Views
                     // Prevent showing stale adnorners.
                     this.WaitForKeyboardVisuals(() =>
                     {
+                        LayoutRoot.Background = new SolidColorBrush(Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"));
                         WindowAnimationLibrary.BeginFlyoutEntranceAnimation(this, taskbar, () =>
                         {
                             _viewModel.ChangeState(FlyoutViewState.Open);
+                            // Wait to apply acrylic, or the translate transform illusion will be spoiled.
+                            EnableAcrylicIfApplicable(taskbar);
                         });
                     });
                     break;
@@ -63,10 +67,10 @@ namespace EarTrumpet.UI.Views
 
                     if (_viewModel.IsExpandingOrCollapsing)
                     {
+                        AccentPolicyLibrary.DisableAcrylic(this);
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
                             this.Cloak();
-                            AccentPolicyLibrary.DisableAcrylic(this);
 
                             // Go directly to ViewState.Hidden to avoid the stage 2 hide delay (debounce for tray clicks),
                             // we want to show again immediately.
@@ -165,7 +169,7 @@ namespace EarTrumpet.UI.Views
             // Note: Enable when in Opening as well as Open in case we get a theme change during a show cycle.
             if (_viewModel.State == FlyoutViewState.Opening || _viewModel.State == FlyoutViewState.Open)
             {
-                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags(taskbar));
+                AccentPolicyLibrary.EnableAcrylic(this, Colors.Transparent, GetAccentFlags(taskbar));
             }
             else
             {

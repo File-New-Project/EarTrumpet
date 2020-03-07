@@ -25,8 +25,12 @@
         ShowInTaskbar="False"
         SnapsToDevicePixels="True"
         TextOptions.TextFormattingMode="Display"
-        UseLayoutRounding="True"
+        UseLayoutRounding="True"        
         WindowStyle="None">
+    <Window.RenderTransform>
+        <!--Naming the TranslateTransform gives us access to it in code.-->
+        <TranslateTransform x:Name="FlyoutRenderTransform"/> 
+    </Window.RenderTransform>
     <Window.Resources>
         <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
