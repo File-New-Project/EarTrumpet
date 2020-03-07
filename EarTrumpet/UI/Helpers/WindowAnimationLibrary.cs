@@ -42,7 +42,7 @@ namespace EarTrumpet.UI.Helpers
                 Duration = new Duration(TimeSpan.FromMilliseconds(266)),
                 FillBehavior = FillBehavior.Stop,
                 EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0.5,
+                From = 0.2,
                 To = 1
             };
             fadeAnimation.Completed += (s, e) => { window.Opacity = 1; };
@@ -52,35 +52,27 @@ namespace EarTrumpet.UI.Helpers
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    moveAnimation.To = window.Left;
-                    window.Left -= _animationOffset;
+                case WindowsTaskbar.Position.Top:
+                    moveAnimation.To = 0;
+                    moveAnimation.From = -_animationOffset;
                     break;
                 case WindowsTaskbar.Position.Right:
-                    moveAnimation.To = window.Left;
-                    window.Left += _animationOffset;
-                    break;
-                case WindowsTaskbar.Position.Top:
-                    moveAnimation.To = window.Top;
-                    window.Top -= _animationOffset;
-                    break;
                 case WindowsTaskbar.Position.Bottom:
                 default:
-                    moveAnimation.To = window.Top;
-                    window.Top += _animationOffset;
+                    moveAnimation.To = 0;
+                    moveAnimation.From = _animationOffset;
                     break;
             }
 
             if (taskbar.Location == WindowsTaskbar.Position.Left || taskbar.Location == WindowsTaskbar.Position.Right)
             {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
-                moveAnimation.From = window.Left;
+                Storyboard.SetTargetName(moveAnimation, "FlyoutRenderTransform");
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath("X"));
             }
             else
             {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
-                moveAnimation.From = window.Top;
+                Storyboard.SetTargetName(moveAnimation, "FlyoutRenderTransform");
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath("Y"));
             }
 
             if (SystemSettings.IsTransparencyEnabled)
@@ -144,31 +136,27 @@ namespace EarTrumpet.UI.Helpers
             switch (taskbarPosition)
             {
                 case WindowsTaskbar.Position.Left:
-                    moveAnimation.To = window.Left - _animationOffset;
+                case WindowsTaskbar.Position.Top:
+                    moveAnimation.To = -_animationOffset;
+                    moveAnimation.From = 0;
                     break;
                 case WindowsTaskbar.Position.Right:
-                    moveAnimation.To = window.Left - _animationOffset;
-                    break;
-                case WindowsTaskbar.Position.Top:
-                    moveAnimation.To = window.Top - _animationOffset;
-                    break;
                 case WindowsTaskbar.Position.Bottom:
                 default:
-                    moveAnimation.To = window.Top + _animationOffset;
+                    moveAnimation.To = _animationOffset;
+                    moveAnimation.From = 0;
                     break;
             }
 
             if (taskbarPosition == WindowsTaskbar.Position.Left || taskbarPosition == WindowsTaskbar.Position.Right)
             {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.LeftProperty));
-                moveAnimation.From = window.Left;
+                Storyboard.SetTargetName(moveAnimation, "FlyoutRenderTransform");
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath("X"));
             }
             else
             {
-                Storyboard.SetTarget(moveAnimation, window);
-                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath(Window.TopProperty));
-                moveAnimation.From = window.Top;
+                Storyboard.SetTargetName(moveAnimation, "FlyoutRenderTransform");
+                Storyboard.SetTargetProperty(moveAnimation, new PropertyPath("Y"));
             }
 
             var storyboard = new Storyboard();
