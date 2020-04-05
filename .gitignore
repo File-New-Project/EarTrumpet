@@ -208,3 +208,7 @@ FakesAssemblies/
 # Auto-generated files
 BundleArtifacts/
 _pkginfo.txt
+
+# Choco
+.chocolatey/*.nupkg
+.chocolatey/tools/Release.zip

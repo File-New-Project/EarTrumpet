@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>eartrumpet</id>
+    <version>2.1.7.0</version>
+    <packageSourceUrl>https://github.com/File-New-Project/EarTrumpet/tree/master/.chocolatey</packageSourceUrl>
+    <owners>File-New-Project</owners>
+    <title>EarTrumpet</title>
+    <authors>EarTrumpet Contributors</authors>
+    <projectUrl>https://github.com/File-New-Project/EarTrumpet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/File-New-Project/EarTrumpet/master/.chocolatey/logo.png</iconUrl>
+    <copyright>2015 File-New-Project</copyright>
+    <licenseUrl>https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/File-New-Project/EarTrumpet</projectSourceUrl>
+    <bugTrackerUrl>https://github.com/File-New-Project/EarTrumpet/issues</bugTrackerUrl>
+    <tags>EarTrumpet</tags>
+    <description>EarTrumpet is a powerful volume control app for Windows</description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
