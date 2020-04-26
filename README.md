@@ -1,8 +1,11 @@
 ## new ##
--Add language Persian/Arabia
--Change language Auto/manual
--Fix Left to Right pop-up Auto/manual
--Control start-up
+* Add language Persian/Arabia
+
+* Change language Auto/manual
+
+* Fix Left to Right pop-up Auto/manual
+
+* Control start-up
 
 # EarTrumpet
 
