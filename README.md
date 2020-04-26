@@ -1,3 +1,9 @@
+## new ##
+-Add language Persian/Arabia
+-Change language Auto/manual
+-Fix Left to Right pop-up Auto/manual
+-Control start-up
+
 # EarTrumpet
 
 ![Ear Trumpet Screenshot](./Graphics/hero1.gif)
@@ -42,3 +48,4 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
 - Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
+
