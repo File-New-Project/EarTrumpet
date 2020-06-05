@@ -45,7 +45,7 @@ namespace EarTrumpet.UI.Helpers
         private bool _isCreated;
         private bool _isVisible;
         private bool _isListeningForInput;
-        private bool _isContextMenuOpen = false;
+        private bool _isContextMenuOpen;
         private string _text;
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
@@ -253,6 +253,7 @@ namespace EarTrumpet.UI.Helpers
         {
             if (!_isContextMenuOpen)
             {
+                _isContextMenuOpen = true;
                 Trace.WriteLine("ShellNotifyIcon ShowContextMenu");
                 var contextMenu = new ContextMenu
                 {
@@ -284,7 +285,6 @@ namespace EarTrumpet.UI.Helpers
                     _isContextMenuOpen = false;
                 };
                 contextMenu.IsOpen = true;
-                _isContextMenuOpen = true;
             }
         }
     }
