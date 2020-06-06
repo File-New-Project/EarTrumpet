@@ -11,6 +11,7 @@ namespace EarTrumpet.Interop
         NIF_STATE = 0x00000008,
         NIF_INFO = 0x00000010,
         NIF_GUID = 0x00000020,
+        NIF_SHOWTIP = 0x00000080
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -22,14 +23,14 @@ namespace EarTrumpet.Interop
         public NotifyIconFlags uFlags;
         public int uCallbackMessage;
         public IntPtr hIcon;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string szTip;
         public int dwState;
         public int dwStateMask;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
         public string szInfo;
         public int uTimeoutOrVersion;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
         public string szInfoTitle;
         public int dwInfoFlags;
         public Guid guidItem;
