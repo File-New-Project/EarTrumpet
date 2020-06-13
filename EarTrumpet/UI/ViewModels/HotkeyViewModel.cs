@@ -42,16 +42,19 @@ namespace EarTrumpet.UI.ViewModels
 
         public void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            // If Alt is down, a system key is being prepared
+            var key = (e.Key == Key.System) ? e.SystemKey : e.Key;
+
             // Impossible hotkeys (even with modifiers):
             // Tab, Backspace, Escape
-            if (e.Key == Key.Tab)
+            if (key == Key.Tab)
             {
                 return;
             }
 
             e.Handled = true;
 
-            if (e.Key == Key.Escape || e.Key == Key.Back)
+            if (key == Key.Escape || key == Key.Back)
             {
                 // Clear selection
                 _hotkey.Key = System.Windows.Forms.Keys.None;
@@ -77,16 +80,16 @@ namespace EarTrumpet.UI.ViewModels
                     _hotkey.Modifiers |= System.Windows.Forms.Keys.Alt;
                 }
 
-                if (e.Key == Key.LeftShift || e.Key == Key.RightShift ||
-                    e.Key == Key.LeftAlt || e.Key == Key.RightAlt ||
-                    e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl ||
-                    e.Key == Key.CapsLock || e.Key == Key.LWin || e.Key == Key.RWin)
+                if (key == Key.LeftShift || key == Key.RightShift ||
+                    key == Key.LeftAlt || key == Key.RightAlt ||
+                    key == Key.LeftCtrl || key == Key.RightCtrl ||
+                    key == Key.CapsLock || key == Key.LWin || key == Key.RWin)
                 {
                     // Ignore all types of modifiers
                 }
                 else
                 {
-                    _hotkey.Key = (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(e.Key);
+                    _hotkey.Key = (System.Windows.Forms.Keys)KeyInterop.VirtualKeyFromKey(key);
                 }
             }
             SetHotkeyText();
