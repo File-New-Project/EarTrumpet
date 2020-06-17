@@ -212,3 +212,5 @@ _pkginfo.txt
 # Choco
 .chocolatey/*.nupkg
 .chocolatey/tools/Release.zip
+/artifacts/sideload
+/Tools
