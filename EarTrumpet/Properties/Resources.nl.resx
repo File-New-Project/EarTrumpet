@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -127,10 +127,10 @@
     <value>Verstuur feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volume Mixer</value>
+    <value>Volumemixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volume Mixer</value>
+    <value>Volumemixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Het lijkt erop dat je geen afspeelapparaten hebt.</value>
@@ -151,13 +151,13 @@
     <value>Geluiden</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Feedback data verzamelen</value>
+    <value>Probleemoplossingsgegevens verzamelen</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>Snelkoppeling</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Gebruik altijd het standaard afspeelapparaat</value>
+    <value>Altijd het standaard afspeelapparaat gebruiken</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>Over</value>
@@ -196,10 +196,10 @@
     <value>Open taakbalkmenu</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Gebruik oude EarTrumpet icoon</value>
+    <value>Gebruik oud EarTrumpet-icoon</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Meer commando's</value>
+    <value>Meer opdrachten</value>
   </data>
   <data name="MutedText" xml:space="preserve">
     <value>Gedempt</value>
@@ -208,7 +208,7 @@
     <value>Geluidsinstellingen</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows Legacy</value>
+    <value>Oudere Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Over {Name} add-on</value>
@@ -217,19 +217,19 @@
     <value>Naam:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Open Windows Instellingen</value>
+    <value>Open Windows-instellingen</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Deze add-on kan verwijderd worden in de Windows Instellingen app.</value>
+    <value>Deze add-on kan verwijderd worden in de Instellingen-app van Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Deïnstalleren</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Management</value>
+    <value>Beheer</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Legacy instellingen</value>
+    <value>Oude instellingen</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>Uitgegeven door:</value>
@@ -238,7 +238,7 @@
     <value>Configureer sneltoetsen en Help</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet Instellingen</value>
+    <value>EarTrumpet-instellingen</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
     <value>Sneltoetsen</value>
@@ -253,7 +253,7 @@
     <value>Geen resultaten</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Open Mixer</value>
+    <value>Volumemixer openen</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>Uit</value>
@@ -262,7 +262,7 @@
     <value>Aan</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Home</value>
+    <value>Start</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
     <value>Binnenkort beschikbaar</value>
@@ -283,17 +283,17 @@
     <value>EarTrumpet kan niet worden gestart</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Een font veroorzaakt een probleem waardoor EarTrumpet niet kan worden gestart.
+    <value>Een lettertype veroorzaakt een probleem waardoor EarTrumpet niet kan worden gestart.
 
-Wil je  [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen?</value>
-  </data>
-  <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Privacy policy</value>
+Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Geluid dempen</value>
   </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Privacybeleid</value>
+  </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Stuur gegevens over de crash naar het EarTrumpet team</value>
+    <value>Stuur foutgegevens naar het EarTrumpet-team</value>
   </data>
 </root>
