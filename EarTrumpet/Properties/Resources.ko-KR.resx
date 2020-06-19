@@ -118,182 +118,182 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Izhod</value>
+    <value>종료</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Ni bilo mogoče najti predvajalnih naprav</value>
+    <value>재생 장치 없음</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Pošlji povratne informacije</value>
+    <value>피드백 보내기</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mešalnik glasnosti</value>
+    <value>볼륨 믹서</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mešalnik glasnosti</value>
+    <value>볼륨 믹서</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Videti je, da nimate predvajalnih naprav.</value>
+    <value>재생 장치가 없는 것 같습니다.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: ni predvajalnih naprav</value>
+    <value>이어트럼펫: 재생 장치 없음</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Predvajalne naprave</value>
+    <value>재생 장치</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Snemalne naprave</value>
+    <value>녹음 장치</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Nastavitve</value>
+    <value>설정</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Zvoki</value>
+    <value>소리</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Zberi podatke za reševanje težav</value>
+    <value>문제 해결 데이터 수집</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Vaša bližnjica</value>
+    <value>사용자 설정 단축키</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Vedno uporabi privzeto predvajalno napravo</value>
+    <value>항상 기본 재생 장치를 사용</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>O programu</value>
+    <value>정보</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Več informacij</value>
+    <value>더 알아보기</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>Glasnost: {Volume}% - {Name}</value>
+    <value>"{Volume}% 볼륨 - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Zvok izklopljen - {Name}</value>
+    <value>"음소거됨 - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Aplikacije</value>
+    <value>앱</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Zapri</value>
+    <value>닫기</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Strni za prikaz izključno privzete predvajalne naprave</value>
+    <value>기본 재생 장치만 표시하도록 축소</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Privzeta bližnjica</value>
+    <value>기본 단축키</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Razširi za prikaz vseh predvajalnih naprav</value>
+    <value>모든 재생 장치를 표시하도록 확장</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Splošno</value>
+    <value>일반</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Dodeli to aplikacijo predvajalni napravi</value>
+    <value>이 앱을 재생 장치에 할당</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Odpri pojavni meni opravilne vrstice</value>
+    <value>작업표시줄 플라이아웃 열기</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Uporabi starejšo ikono EarTrumpeta</value>
+    <value>기존 EarTrumpet 아이콘 사용</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Več ukazov</value>
+    <value>더 많은 명령</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Zvok izklopljen</value>
+    <value>음소거됨</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Nastavitve zvoka</value>
+    <value>소리 설정</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Starejši Windows</value>
+    <value>윈도우 레거시</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>O dodatku {Name}</value>
+    <value>추가 기능 {Name} 정보</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Ime:</value>
+    <value>이름:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Odpri nastavitve Windows</value>
+    <value>윈도우 설정 열기</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Ta dodatek lahko odstranite z aplikacijo Windows Nastavitve.</value>
+    <value>이 추가 기능은 윈도우 설정 앱을 사용하여 제거할 수 있습니다.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Odstrani</value>
+    <value>제거</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Upravljanje</value>
+    <value>관리</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Stare nastavitve</value>
+    <value>레거시 설정</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Izdajatelj:</value>
+    <value>게시자:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Nastavitve bližnjic in pomoč</value>
+    <value>단축키 구성 및 도움 받기</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Nastavitve za EarTrumpet</value>
+    <value>EarTrumpet 설정</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Bližnjice</value>
+    <value>단축키</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Različica:</value>
+    <value>버전:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Najdi nastavitev</value>
+    <value>설정 검색</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Ni rezultatov</value>
+    <value>검색 결과 없음</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Odpri mešalnik</value>
+    <value>믹서 열기</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Izklopljeno</value>
+    <value>끔</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Vklopljeno</value>
+    <value>켬</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Domov</value>
+    <value>홈</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Kmalu na voljo</value>
+    <value>출시 예정</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Kmalu na voljo</value>
+    <value>출시 예정</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Odpri nastavitve</value>
+    <value>설정 열기</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Zapri</value>
+    <value>닫기</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Pozdravljeni v EarTrumpet</value>
+    <value>이어트럼펫을 사용해주셔서 감사합니다.</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>Programa EarTrumpet ni bilo mogoče zagnati</value>
+    <value>EarTrumpet을 실행할 수 없습니다</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Pokvarjena pisava na vašem sistemu preprečuje, da bi se EarTrumpet zagnal.
+    <value>시스템 글꼴이 손상되어 EarTrumpet을 실행할 수 없습니다.
 
-Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
+지금 [https://eartrumpet.app/jmp/fixfonts]를 여시겠습니까?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Preklopi izklopljeni zvok</value>
+    <value>음소거 전환</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Pravilnik o zasebnosti</value>
+    <value>개인정보 취급방침</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Pošlji podatke o sesutju programerjem EarTrumpeta</value>
+    <value>EarTrumpet 팀에게 오류 데이터 전송</value>
   </data>
 </root>
