@@ -288,7 +288,7 @@
 இப்போது [https://eartrumpet.app/jmp/fixfonts] திறக்கவா?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Toggle mute</value>
+    <value>ஒலியுடக்கை இயக்கு/அணை</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
     <value>தனியுரிமைக் கொள்கை</value>
