@@ -376,6 +376,8 @@
     <Resource Include="Assets\Welcome.gif" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.af.resx" />
+    <EmbeddedResource Include="Properties\Resources.cs.resx" />
     <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
