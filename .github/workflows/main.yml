@@ -170,7 +170,7 @@ jobs:
         if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.100'
+          dotnet-version: '2.1.21'
 
       - name: Install AzureSignTool
         if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
