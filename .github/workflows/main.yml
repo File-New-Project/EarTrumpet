@@ -6,6 +6,7 @@ on:
       - dev
       - review/*
       - experiment/*
+      - ci/* 
     paths-ignore:
       - '**/*.md'
   pull_request:
@@ -67,13 +68,13 @@ jobs:
           if("${{ matrix.channel }}" -eq "Store") {
             $Version = "${{ steps.gitversion.outputs.majorMinorPatch }}.0"
           } else {
-            $Version = "${{ steps.gitversion.outputs.assemblySemVer }}"
+            $Version = "${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
           }
 
           Set-Content "$env:ARTIFACTS_BASE\metadata\${{ matrix.channel }}.version.txt" $Version
 
       - name: Install NuGet
-        uses: NuGet/setup-nuget@v1.0.2
+        uses: NuGet/setup-nuget@v1
         with:
           nuget-version: latest
           
@@ -143,7 +144,7 @@ jobs:
           $manifestPath = "$env:ARTIFACTS_BASE/sideload/EarTrumpet.Package.appinstaller"
           $manifest = [xml](Get-Content $manifestPath)
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
-          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }})_x86.appxbundle"
+          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.appxbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
           $manifest.Save($manifestPath)
 
@@ -165,19 +166,84 @@ jobs:
         with:
           name: metadata
           path: artifacts/metadata
-      
+  release:
+    needs: build
+    runs-on: windows-latest
+    if: github.event_name != 'pull_request'
+    strategy:
+      matrix:
+        channel: [AppInstaller, Store]
+        include:
+          - channel: AppInstaller
+          - channel: Store
+      max-parallel: 2
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
       - name: Install .NET SDK
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
+        if: matrix.channel == 'AppInstaller'
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '2.1.809'
 
       - name: Install AzureSignTool
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
         run: dotnet tool install --tool-path . azuresigntool
-        
+
+      - name: Sign and repackage Store artifacts
+        if: matrix.channel == 'Store'
+        shell: pwsh
+        env:
+          KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
+          KEYVAULT_URI: ${{ secrets.keyvault_uri }}
+          KEYVAULT_SECRET: ${{ secrets.keyvault_secret }}
+          KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
+          KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
+        run: |
+          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
+          $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
+          $AppxUploadPath = "$env:ARTIFACTS_BASE\AppxUpload"
+          $BundleFilename = "EarTrumpet.Package_${Version}_x86.appxbundle"
+          $SymbolsBundleFilename = "EarTrumpet.Package_${Version}_x86.appxsym"
+          $AppxFilename = "EarTrumpet.Package_${Version}_x86.appx"
+          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.appxupload"
+
+          ### Expand bundle and appx package within
+          $ExtractedPath = "$env:ARTIFACTS_BASE\Extracted"
+          Expand-Archive "$AppxUploadPath\$StoreBundleFilename" "$ExtractedPath\AppxUpload"
+          Expand-Archive "$ExtractedPath\AppxUpload\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
+          Expand-Archive "$ExtractedPath\AppxUpload\$BundleFilename" "$ExtractedPath\Bundle"
+          Expand-Archive "$ExtractedPath\Bundle\$AppxFilename" "$ExtractedPath\Package"
+
+          ### Place symbols next to executable image
+          Copy-Item "$ExtractedPath\Symbols\EarTrumpet.pdb" "$ExtractedPath\Package\EarTrumpet\"
+
+          ### Sign executable image
+          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPath\Package\EarTrumpet\EarTrumpet.exe"
+
+          $SignedPath = "$env:ARTIFACTS_BASE\Signed"
+          New-Item -ItemType Directory "$SignedPath"
+          New-Item -ItemType Directory "$SignedPath\Package"
+          New-Item -ItemType Directory "$SignedPath\Bundle"
+          New-Item -ItemType Directory "$SignedPath\AppxUpload"
+
+          ### Repackage appx package
+          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPath\Package" /o /p "$SignedPath\Package\$AppxFilename"
+
+          Set-ItemProperty "$SignedPath\Package\$AppxFilename" -Name IsReadOnly -Value $true
+          Copy-Item "$ExtractedPath\Bundle\*.appx" "$SignedPath\Package\" -ErrorAction Ignore
+
+          ### Repackage appx bundle
+          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$BundleFilename"
+
+          ### Repackage appxupload
+          Copy-Item "$ExtractedPath\AppxUpload\$SymbolsBundleFilename" "$SignedPath\Bundle"
+          Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\AppxUpload\$StoreBundleFilename" -CompressionLevel Optimal
+
       - name: Sign AppInstaller artifacts
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
+        if: matrix.channel == 'AppInstaller'
         shell: pwsh
         env:
           KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
@@ -229,7 +295,7 @@ jobs:
           Copy-Item "$SideloadPath\*.appinstaller" "$SignedPath\Bundle"
 
       - name: Install OpenSSH FOD
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
+        if: matrix.channel == 'AppInstaller'
         shell: powershell
         run: |
           Set-Service -Name wuauserv -StartupType Manual
@@ -237,16 +303,51 @@ jobs:
           Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
       - name: Prepare for staging
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
         shell: powershell
         run: |
           "${{ secrets.staging_userkey }}" | Out-File -Encoding ascii staging.key | Out-Null
 
-      - name: Stage artifacts via SCP
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
-        shell: cmd
+      - name: Stage AppInstaller artifacts via SCP
+        if: matrix.channel == 'AppInstaller'
+        shell: pwsh
         run: |
           icacls .\staging.key /inheritance:r
-          icacls .\staging.key /grant:r "%USERNAME%:(R)"
-          scp -B -i staging.key -o "StrictHostKeyChecking no" %ARTIFACTS_BASE%\sideload\signed\bundle\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/${{ steps.gitversion.outputs.branchName }}
+          icacls .\staging.key /grant:r "$env:USERNAME`:(R)"
+          $Branch = Get-Content $env:ARTIFACTS_BASE\metadata\branch.txt
+          ssh -i staging.key -o "StrictHostKeyChecking no" ${{ secrets.staging_username }}@${{ secrets.staging_host }} "mkdir -p /var/www/html/$Branch"
+          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\sideload\signed\bundle\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/$Branch
           del staging.key
+
+      - name: Stage Store artifacts via SCP
+        if: matrix.channel == 'Store'
+        shell: pwsh
+        run: |
+          icacls .\staging.key /inheritance:r
+          icacls .\staging.key /grant:r "$env:USERNAME`:(R)"
+          $Branch = Get-Content $env:ARTIFACTS_BASE\metadata\branch.txt
+          ssh -i staging.key -o "StrictHostKeyChecking no" ${{ secrets.staging_username }}@${{ secrets.staging_host }} "mkdir -p /var/www/html/store/$Branch"
+          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\signed\appxupload\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/store/$Branch
+          del staging.key
+
+      - name: Push release to Partner Center via StoreBroker
+        if: matrix.channel == 'Store'
+        shell: powershell
+        run: |
+          Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+          Install-Module -Name StoreBroker
+
+          $global:SBDisableTelemetry = $true
+
+          $Password = ConvertTo-SecureString '${{ secrets.partnercenter_clientkey }}' -AsPlainText -Force
+          $Credentials = New-Object System.Management.Automation.PSCredential ('${{ secrets.partnercenter_clientid }}', $Password)
+          Set-StoreBrokerAuthentication -TenantId '${{ secrets.partnercenter_tenantid }}' -Credential $Credentials -Verbose
+
+          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
+          $PackagingRoot = "$MetadataPath\Packaging\MicrosoftStore"
+          $SubmissionRoot = "$env:TEMP\Packaging\Submission"
+          $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
+          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.appxupload"
+
+          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\AppxUpload\$StoreBundleFilename" -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
+          $submissionId, $submissionUrl = Update-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json" -PackagePath "$SubmissionRoot\EarTrumpet.zip" -AddPackages -UpdateListings -UpdatePublishModeAndVisibility -UpdatePricingAndAvailability -UpdateAppProperties -UpdateNotesForCertification -TargetPublishMode Manual -Force -Verbose
+          Complete-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionId $submissionId -Verbose
