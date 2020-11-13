@@ -26,13 +26,15 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        channel: [AppInstaller, Store]
+        channel: [AppInstaller, Store, Chocolatey]
         include:
           - channel: AppInstaller
             publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
           - channel: Store
             publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
-      max-parallel: 2
+          - channel: Chocolatey
+            publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+      max-parallel: 3
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,10 +55,13 @@ jobs:
       - name: Create artifact layout
         shell: powershell
         run: |
-          New-Item -ItemType Directory "$env:ARTIFACTS_BASE" -ErrorAction Ignore
-          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\appxupload" -ErrorAction Ignore
-          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\sideload" -ErrorAction Ignore
-          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\metadata" -ErrorAction Ignore
+          $ErrorActionPreference = 'Ignore'
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\appxupload"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\sideload"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\chocolatey"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\loose"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\metadata"
 
       - name: Generate versioning metadata
         shell: powershell
@@ -88,6 +93,7 @@ jobs:
           $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "${{ secrets.bugsnag_api_key }}") } | Set-Content ".\EarTrumpet\app.config"
           
       - name: Adjust manifest and store association
+        if: matrix.channel == 'Store' || matrix.channel == 'AppInstaller'
         shell: powershell
         run: |
           $manifestPath = ".\EarTrumpet.Package\Package.appxmanifest"
@@ -124,7 +130,7 @@ jobs:
         if: matrix.channel == 'Store'
         shell: cmd
         run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\appxupload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI -maxcpucount
-        
+      
       - name: Upload appxupload artifact
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v1.0.0
@@ -132,8 +138,20 @@ jobs:
           name: appxupload
           path: artifacts/appxupload
 
+      - name: Build EarTrumpet
+        if: matrix.channel == 'Chocolatey'
+        shell: cmd
+        run: msbuild EarTrumpet/EarTrumpet.csproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:Channel=${{ matrix.channel }} /p:OutputPath=%ARTIFACTS_BASE%\loose\ -maxcpucount
+
+      - name: Upload loose artifacts
+        if: matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: loose
+          path: artifacts/loose
+
       - name: Build EarTrumpet appinstaller/sideload package
-        if: matrix.channel == 'AppInstaller'
+        if: matrix.channel == 'AppInstaller' || matrix.channel == 'Chocolatey'
         shell: cmd
         run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\sideload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir=%ARTIFACTS_BASE%\sideload\ /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
 
@@ -155,28 +173,37 @@ jobs:
           name: sideload
           path: artifacts/sideload
 
-      - name: Stage packaging metadata
+      - name: Stage msix packaging metadata
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         shell: powershell
         run: |
           Copy-Item packaging\ -Recurse "$env:ARTIFACTS_BASE\metadata\"
-          
+
       - name: Upload metadata artifacts
         uses: actions/upload-artifact@v1.0.0
         with:
           name: metadata
           path: artifacts/metadata
+
+      - name: Stage chocolatey packaging metadata
+        if: matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
+        shell: powershell
+        run: |
+          Copy-Item .chocolatey\* -Recurse "$env:ARTIFACTS_BASE\chocolatey\"
+          
+      - name: Upload chocolatey artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: chocolatey
+          path: artifacts/chocolatey
   release:
     needs: build
     runs-on: windows-latest
     if: github.event_name != 'pull_request'
     strategy:
       matrix:
-        channel: [AppInstaller, Store]
-        include:
-          - channel: AppInstaller
-          - channel: Store
-      max-parallel: 2
+        channel: [AppInstaller, Store, Chocolatey]
+      max-parallel: 3
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -191,6 +218,14 @@ jobs:
 
       - name: Install AzureSignTool
         run: dotnet tool install --tool-path . azuresigntool
+
+      - name: Install Chocolatey
+        if: matrix.channel == 'Chocolatey'
+        shell: powershell
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
       - name: Sign and repackage Store artifacts
         if: matrix.channel == 'Store'
@@ -294,8 +329,54 @@ jobs:
           
           Copy-Item "$SideloadPath\*.appinstaller" "$SignedPath\Bundle"
 
+      - name: Sign and repackage Chocolatey artifacts
+        if: matrix.channel == 'Chocolatey'
+        shell: pwsh
+        env:
+          KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
+          KEYVAULT_URI: ${{ secrets.keyvault_uri }}
+          KEYVAULT_SECRET: ${{ secrets.keyvault_secret }}
+          KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
+          KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
+        run: |
+          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
+          $Branch = Get-Content "$MetadataPath\branch.txt"
+          $Semver= Get-Content "$MetadataPath\semver.txt"
+          $LooseFilesPath = "$env:ARTIFACTS_BASE\loose"
+          
+          ### Sign executable image
+          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$LooseFilesPath\EarTrumpet.exe"
+          
+          ### Package for release
+          Compress-Archive -Path "$LooseFilesPath\*" -DestinationPath "$env:ARTIFACTS_BASE\chocolatey\tools\release.zip" -CompressionLevel Optimal
+
+      - name: Adjust nuspec
+        if: matrix.channel == 'Chocolatey'
+        shell: pwsh
+        run: |
+          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
+          $Version = [Version](Get-Content "$MetadataPath\Chocolatey.version.txt")
+          $NuspecPath = "$env:ARTIFACTS_BASE\chocolatey\eartrumpet.nuspec"
+
+          $nuspec = [xml](Get-Content -Path $NuspecPath)
+          $nuspec.package.metadata.version = $Version
+          $nuspec.Save($NuspecPath)
+
+      - name: Create chocolatey package
+        if: matrix.channel == 'Chocolatey'
+        shell: powershell
+        run: |
+          choco pack "$env:ARTIFACTS_BASE\chocolatey\eartrumpet.nuspec" --out "$env:ARTIFACTS_BASE\chocolatey"
+
+      - name: Upload chocolatey artifact
+        if: matrix.channel == 'Chocolatey'
+        uses: actions/upload-artifact@v2
+        with:
+          name: chocolatey-package
+          path: artifacts/chocolatey/*.nupkg
+
       - name: Install OpenSSH FOD
-        if: matrix.channel == 'AppInstaller'
+        if: matrix.channel == 'AppInstaller' || matrix.channel == 'Store'
         shell: powershell
         run: |
           Set-Service -Name wuauserv -StartupType Manual
@@ -303,6 +384,7 @@ jobs:
           Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
       - name: Prepare for staging
+        if: matrix.channel == 'AppInstaller' || matrix.channel == 'Store'
         shell: powershell
         run: |
           "${{ secrets.staging_userkey }}" | Out-File -Encoding ascii staging.key | Out-Null
