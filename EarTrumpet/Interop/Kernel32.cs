@@ -12,6 +12,7 @@ namespace EarTrumpet.Interop
         internal const int PACKAGE_FILTER_HEAD = 0x00000010;
         internal const int MAX_AUMID_LEN = 512;
         internal const int PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z = 65 * SIZEOF_WCHAR;
+
         internal const int PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z = 65 * SIZEOF_WCHAR;
 
         [Flags]
@@ -36,6 +37,18 @@ namespace EarTrumpet.Interop
             IMAGE_FILE_MACHINE_AMD64 = 0x8664,
             IMAGE_FILE_MACHINE_ARM64 = 0xAA64
             // ...
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct PACKAGE_ID
+        {
+            public uint reserved;
+            public uint processorArchitecture;
+            public ulong packageVersion;
+            [MarshalAs(UnmanagedType.LPWStr)] public string name;
+            [MarshalAs(UnmanagedType.LPWStr)] public string publisher;
+            [MarshalAs(UnmanagedType.LPWStr)] public string resourceId;
+            [MarshalAs(UnmanagedType.LPWStr)] public string publisherId;
         }
 
         internal const int WAIT_OBJECT_0 = 0x00000000;
@@ -172,5 +185,11 @@ namespace EarTrumpet.Interop
 
         [DllImport("kernel32.dll", PreserveSig = true)]
         public static extern IntPtr GetCurrentProcess();
+
+        [DllImport("kernel32.dll", PreserveSig = true)]
+        public static extern HRESULT GetPackageId(
+            IntPtr hProcess,
+            ref int bufferLength,
+            IntPtr packageId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Interop.Helpers;
+﻿using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
 
 namespace EarTrumpet.DataModel.AppInformation
 {
@@ -11,7 +12,7 @@ namespace EarTrumpet.DataModel.AppInformation
                 return new Internal.SystemSoundsAppInfo();
             }
 
-            if (User32Helper.IsImmersiveProcess(processId))
+            if (Kernel32Helper.IsPackagedProcess(processId))
             {
                 return new Internal.ModernAppInfo(processId, trackProcess);
             }
