@@ -118,182 +118,182 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Ukončit</value>
+    <value>Kilépés</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Nebyla nalezena žádná zařízení pro přehrávání</value>
+    <value>Nem találhatóak lejátszóeszközök</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Odeslat zpětnou vazbu</value>
+    <value>Visszajelzés küldése</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Směšovač hlasitosti</value>
+    <value>Hangerőkeverő megnyitása</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Směšovač hlasitosti</value>
+    <value>Hangerőkeverő megnyitása</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Vypadá to, že nemáte žádná zařízení pro přehrávání.</value>
+    <value>Úgy tűnik, hogy nem találhatóak lejátszóeszközök.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Žádná zařízení pro přehrávání</value>
+    <value>EarTrumpet: Nem található lejátszóeszköz</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Zařízení pro přehrávání</value>
+    <value>Lejátszóeszközök</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Zařízení pro záznam</value>
+    <value>Felvevő eszközök</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Nastavení</value>
+    <value>Beállítások</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Zvuky</value>
+    <value>Hang</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Shromáždit data pro řešení potíží</value>
+    <value>Diagnosztikai információk összegyűjtése</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Vaše klávesová zkratka</value>
+    <value>Egyéni gyorsbillentyű</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Vždy používat výchozí zařízení pro přehrávání</value>
+    <value>Mindig az alapértelmezett lejátszóeszköz használata</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>O aplikaci</value>
+    <value>Névjegy</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Další informace</value>
+    <value>További információ</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"Hlasitost {Volume}% - {Name}"</value>
+    <value>"{Name}: {Volume}%"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"Ztlumeno - {Name}"</value>
+    <value>"Némítva - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Aplikace</value>
+    <value>Alkalmazások</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Zavřít</value>
+    <value>Bezár</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Sbalit pro zobrazení pouze výchozího zařízení pro přehrávání</value>
+    <value>Csak az alapértelmezett lejátszóeszköz megjelenítése</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Výchozí klávesová zkratka</value>
+    <value>Alapértelmezett gyorsbillentyű</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Rozbalit pro zobrazení všech zařízení pro přehrávání</value>
+    <value>További lejátszóeszköz megjelenítése</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Obecné</value>
+    <value>Általános</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Přiřadit tuto aplikaci k zařízení pro přehrávání</value>
+    <value>Az EarTrumpet hozzárendelése egy lejátszóeszközhöz</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Otevřít vyskakovací okno hlavního panelu</value>
+    <value>Nyissa meg a Tálca sávot</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Použít původní ikonku EarTrumpet</value>
+    <value>Régi EarTrumpet ikon használata</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Další příkazy</value>
+    <value>További parancsok</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Ztlumeno</value>
+    <value>Némítva</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Nastavení zvuku</value>
+    <value>Hangbeállítások</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Původní nastavení Windows</value>
+    <value>Régi Windows beállítások</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>O doplňku {Name}</value>
+    <value>A(z) {Name} bővítmény névjegye</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Název:</value>
+    <value>Név:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Otevřít nastavení Windows</value>
+    <value>Windows beállítások megnyitása</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Tento doplněk lze odstranit pomocí aplikace Nastavení Windows.</value>
+    <value>Ezt a bővítményt a Windows Gépházban tudod eltávolítani.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Odinstalovat</value>
+    <value>Eltávolítás</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Správa</value>
+    <value>Kezelés</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Zastaralá nastavení</value>
+    <value>Régi beállítások</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Vydavatel:</value>
+    <value>Kiadó:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Konfigurovat klávesové zkratky a získat pomoc</value>
+    <value>Gyorsbillentyűk beállítása és segítségkérés</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Nastavení EarTrumpet</value>
+    <value>Az EarTrumpet Beállításai</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Klávesové zkratky</value>
+    <value>Gyorsbillentyűk</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Verze:</value>
+    <value>Verzió:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Hledat v nastavení</value>
+    <value>Beállítás keresése</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Žádné výsledky</value>
+    <value>Nincs találat</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Otevřít směšovač</value>
+    <value>Hangerőkeverő megnyitása</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Vypnuto</value>
+    <value>Ki</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Zapnuto</value>
+    <value>Be</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Domů</value>
+    <value>Kezdőlap</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Již brzy</value>
+    <value>Hamarosan</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Již brzy</value>
+    <value>Hamarosan</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Otevřít nastavení</value>
+    <value>Beállítások megnyitása</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Zavřít</value>
+    <value>Bezár</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Vítejte v EarTrumpet</value>
+    <value>Üdvözli az EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet se nepodařilo spustit</value>
+    <value>Az EarTrumpet nem tudott elindulni</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Poškozené písmo ve vašem systému zabraňuje spuštění aplikace EarTrumpet.
+    <value>Egy hibás betűtípus az Ön rendszerében megakadályozza az EarTrumpet alkalmazás elindulását.
 
-Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
+Most megnyitja a [https://eartrumpet.app/jmp/fixfonts] fájlt?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Přepnout ztlumení</value>
+    <value>Elnémítás be- és kikapcsolása</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Zásady ochrany osobních údajů</value>
+    <value>Adatvédelmi nyilatkozat</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Odesílat informace o pádech týmu EarTrumpet</value>
+    <value>Összeomlási jelentések továbbítása az EarTrumpet készítőinek</value>
   </data>
 </root>

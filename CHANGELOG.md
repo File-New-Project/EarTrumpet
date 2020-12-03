@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.8.0
+- Added Hungarian, Swedish, and Tamil translations
+- Tweaked Czech translations
+
 ## 2.1.7.0
 - Fixed crash when retrieving region info for GDPR compliance on some machines
 

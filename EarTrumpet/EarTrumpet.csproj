@@ -379,6 +379,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.af.resx" />
     <EmbeddedResource Include="Properties\Resources.cs.resx" />
+    <EmbeddedResource Include="Properties\Resources.hu.resx" />
     <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -394,6 +395,8 @@
     <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.sl.resx" />
+    <EmbeddedResource Include="Properties\Resources.sv-SE.resx" />
+    <EmbeddedResource Include="Properties\Resources.ta.resx" />
     <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
