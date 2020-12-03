@@ -16,6 +16,10 @@
 * Modern context menus
 * Growing multilingual support
 
+## Internationalization
+
+We currently support 20 languages. Are we missing your language? [Contribute a translation via Crowdin](https://crowdin.com/project/eartrumpet)!
+
 ## Install
 
 Install EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p/eartrumpet/9nblggh516xp) or via Chocolatey (`choco install eartrumpet`).
@@ -33,7 +37,8 @@ Install EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p/
 - Windows 10 1809 (October 2018 Update)
 - Windows 10 1903 (May 2019 Update)
 - Windows 10 1909 (November 2019 Update)
-- Windows 10 2004 (April 2020 Update)
+- Windows 10 2004 (May 2020 Update)
+- Windows 10 20H2 (October 2020 Update)
 
 ## Known issues
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
