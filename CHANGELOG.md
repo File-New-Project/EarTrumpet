@@ -1,8 +1,13 @@
 # Changelog
 
 ## 2.1.8.0
-- Added Hungarian, Swedish, and Tamil translations
-- Tweaked Czech translations
+- Added Hungarian, Swedish, Korean, and Tamil translations
+- Added a fluent icon
+- Fixed an issue with missing Czech and Afrikaans translations 
+- Fixed an issue with icons not appearing for packaged desktop applications (e.g. Microsoft Flight Simulator)
+- Fixed an issue with the [Windows Legacy > Sound settings] menu item opening the wrong panel
+- Fixed an issue with notification area icon handling
+- Fixed an issue that prevented the use of system keys in keyboard shortcuts
 
 ## 2.1.7.0
 - Fixed crash when retrieving region info for GDPR compliance on some machines
