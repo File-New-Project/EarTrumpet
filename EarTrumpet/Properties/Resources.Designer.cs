@@ -270,6 +270,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hardware Controls.
+        /// </summary>
+        public static string HardwareControlsTitle {
+            get {
+                return ResourceManager.GetString("HardwareControlsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomeButtonText {
