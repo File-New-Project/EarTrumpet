@@ -155,6 +155,7 @@
     <Compile Include="UI\Themes\ThemeBindingInfo.cs" />
     <Compile Include="UI\Helpers\TaskbarIconSource.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
+    <Compile Include="UI\ViewModels\EarTrumpetHardwareControlsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\AddonInfo.cs" />
     <Compile Include="Extensibility\IAddonAppContent.cs" />

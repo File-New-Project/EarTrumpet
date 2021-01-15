@@ -296,4 +296,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Send crash data to the EarTrumpet team</value>
   </data>
+  <data name="HardwareControlsTitle" xml:space="preserve">
+    <value>Hardware Controls</value>
+  </data>
 </root>
