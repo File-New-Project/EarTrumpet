@@ -5,8 +5,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:EarTrumpet.UI.Views"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
-    <Grid>
-        
+        Title="{Binding Title}" Height="252.667" Width="341">
+    <Grid HorizontalAlignment="Left" Width="333" Height="222" VerticalAlignment="Top">
+        <Label Content="MIDI Device:" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="ComboBoxAvailableMidiDevices" HorizontalAlignment="Left" Margin="108,118,0,0" VerticalAlignment="Top" Width="210" ItemsSource="{Binding MidiDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+        <Label Content="Command:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBoxCommand" HorizontalAlignment="Left" Margin="108,37,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding Commands}" IsReadOnly="True"/>
+        <Label Content="Control:" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonSelectMidiDeviceControl" Content="Select" HorizontalAlignment="Left" Margin="108,148,0,0" VerticalAlignment="Top" Width="62" Style="{DynamicResource {x:Type ContentControl}}" Click="ButtonSelectMidiDeviceControl_Click" />
+        <Label x:Name="LabelSelectedMidiControl" Content="Selected Control" HorizontalAlignment="Left" Margin="180,145,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonSaveMidiControlCommand" Content="Save" HorizontalAlignment="Left" Margin="256,188,0,0" VerticalAlignment="Top" Width="62" Click="ButtonSaveMidiControlCommand_Click" Style="{DynamicResource {x:Type ContentControl}}" RenderTransformOrigin="0.532,0.4"/>
+        <Label Content="Mode:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBoxMode" HorizontalAlignment="Left" Margin="108,64,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding Modes}" IsReadOnly="True"/>
+        <Label Content="Selection:" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBoxIndexesApplications" HorizontalAlignment="Left" Margin="108,91,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding ApplicationIndexesNames}" IsReadOnly="True"/>
+        <Label Content="Audio Device:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="ComboBoxAudioDevice" HorizontalAlignment="Left" Margin="108,10,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding AudioDevices}" IsReadOnly="True"/>
     </Grid>
 </Window>

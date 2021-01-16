@@ -297,7 +297,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hardware Settings.
+        ///   Looks up a localized string similar to Add / Edit MIDI Control.
         /// </summary>
         public static string HardwareSettingsText {
             get {

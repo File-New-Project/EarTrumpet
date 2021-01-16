@@ -306,6 +306,6 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>You can control system- and application volumes using a MIDI controller hardware.</value>
   </data>
   <data name="HardwareSettingsText" xml:space="preserve">
-    <value>Hardware Settings</value>
+    <value>Add / Edit MIDI Control</value>
   </data>
 </root>

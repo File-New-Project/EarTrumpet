@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Forms;
 
 namespace EarTrumpet.UI.Views
 {
@@ -8,5 +9,16 @@ namespace EarTrumpet.UI.Views
         {
             InitializeComponent();
         }
+
+        private void ButtonSaveMidiControlCommand_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("ToDo", "Caption", MessageBoxButtons.OK);
+        }
+
+        private void ButtonSelectMidiDeviceControl_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("ToDo", "Caption", MessageBoxButtons.OK);
+        }
+
     }
 }
