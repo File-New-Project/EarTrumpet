@@ -217,6 +217,26 @@
                 <Button Command="{Binding Uninstall}" Content="{x:Static resx:Resources.AddonUninstallButtonText}" />
             </StackPanel>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EarTrumpetHardwareControlsPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                </Grid>
+
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
+                <Button Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
+                <ListView ItemsSource="{Binding HardwareControls}" />
+
+            </StackPanel>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid PreviewMouseRightButtonDown="{Event:HandledBinding}">
                 <Grid.Style>

@@ -299,4 +299,10 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="HardwareControlsTitle" xml:space="preserve">
     <value>Hardware Controls</value>
   </data>
+  <data name="AddMidiControlButtonText" xml:space="preserve">
+    <value>Add MIDI Control</value>
+  </data>
+  <data name="HardwareControlInformationText" xml:space="preserve">
+    <value>You can control system- and application volumes using a MIDI controller hardware.</value>
+  </data>
 </root>
