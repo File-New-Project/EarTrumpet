@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -75,6 +75,15 @@ namespace EarTrumpet.Properties {
         public static string AboutTitle {
             get {
                 return ResourceManager.GetString("AboutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add MIDI Control.
+        /// </summary>
+        public static string AddMidiControlButtonText {
+            get {
+                return ResourceManager.GetString("AddMidiControlButtonText", resourceCulture);
             }
         }
         
@@ -270,11 +279,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can control system- and application volumes using a MIDI controller hardware..
+        /// </summary>
+        public static string HardwareControlInformationText {
+            get {
+                return ResourceManager.GetString("HardwareControlInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hardware Controls.
         /// </summary>
         public static string HardwareControlsTitle {
             get {
                 return ResourceManager.GetString("HardwareControlsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hardware Settings.
+        /// </summary>
+        public static string HardwareSettingsText {
+            get {
+                return ResourceManager.GetString("HardwareSettingsText", resourceCulture);
             }
         }
         

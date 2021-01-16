@@ -1,8 +1,13 @@
 ﻿using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Linq;
+using EarTrumpet.Extensibility.Hosting;
+using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -10,6 +15,8 @@ namespace EarTrumpet.UI.ViewModels
     {
         public ICommand AddMidiControlCommand { get; }
 
+        private WindowHolder _hardwareSettingsWindow;
+        
         public bool IsTelemetryEnabled
         {
             get => _settings.IsTelemetryEnabled;
@@ -25,7 +32,16 @@ namespace EarTrumpet.UI.ViewModels
             Title = Properties.Resources.HardwareControlsTitle;
 
             AddMidiControlCommand = new RelayCommand(AddMidiControl);
+            
+            _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
         }
+        
+        private Window CreateHardwareSettingsExperience()
+        {
+            var viewModel = new HardwareSettingsViewModel(EarTrumpet.Properties.Resources.HardwareSettingsText);
+            return new HardwareSettingsWindow {DataContext = viewModel};
+        }
+        
         public ObservableCollection<string> HardwareControls
         {
             get
@@ -38,6 +54,9 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         // ToDo: Open window for MIDI control selection.
-        private void AddMidiControl() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
+        private void AddMidiControl()
+        {
+            _hardwareSettingsWindow.OpenOrBringToFront();
+        }
     }
 }
