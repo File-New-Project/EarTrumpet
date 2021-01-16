@@ -88,6 +88,8 @@
     <Compile Include="DataModel\AppInformation\Internal\ZombieProcessException.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDevice.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\MIDI\MidiIn.cs" />
+    <Compile Include="DataModel\MIDI\MidiInDevice.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
     <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
     <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
@@ -407,6 +409,9 @@
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\UwpDesktop.10.0.14393.3\analyzers\dotnet\UwpDesktopAnalyzer.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -418,6 +423,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitVersionTask.5.5.1\build\GitVersionTask.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.5.1\build\GitVersionTask.props'))" />
     <Error Condition="!Exists('..\packages\GitVersionTask.5.5.1\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.5.5.1\build\GitVersionTask.targets'))" />
+    <Error Condition="!Exists('..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets'))" />
   </Target>
   <!-- Versioning -->
   <Target Name="BeforeBuild" DependsOnTargets="GetVersion">
@@ -431,4 +437,5 @@
     <Exec Command="powershell -executionpolicy Bypass -noprofile &quot;&amp; '$(ProjectDir)prebuild.ps1'&quot; $(ChannelVersion)" />
   </Target>
   <Import Project="..\packages\GitVersionTask.5.5.1\build\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.5.5.1\build\GitVersionTask.targets')" />
+  <Import Project="..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets" Condition="Exists('..\packages\UwpDesktop.10.0.14393.3\build\portable-net45+uap\UwpDesktop.targets')" />
 </Project>
