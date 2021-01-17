@@ -14,7 +14,7 @@
         <Label Content="{x:Static resx:Resources.Command}" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="ComboBoxCommand" HorizontalAlignment="Left" Margin="108,37,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding Commands}" IsReadOnly="True" SelectedItem="{Binding SelectedCommand}"/>
         <Label Content="{x:Static resx:Resources.Control}" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonSelectMidiDeviceControl" Content="{x:Static resx:Resources.Select}" HorizontalAlignment="Left" Margin="108,148,0,0" VerticalAlignment="Top" Width="62" Style="{DynamicResource {x:Type ContentControl}}" Click="ButtonSelectMidiDeviceControl_Click" />
+        <Button x:Name="ButtonSelectMidiDeviceControl" Content="{x:Static resx:Resources.Select}" HorizontalAlignment="Left" Margin="108,148,0,0" VerticalAlignment="Top" Width="62" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SelectMidiControlCommand}" />
         <Label x:Name="LabelSelectedMidiControl" Content="Selected Control" HorizontalAlignment="Left" Margin="180,145,0,0" VerticalAlignment="Top"/>
         <Button x:Name="ButtonSaveMidiControlCommand" Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="256,188,0,0" VerticalAlignment="Top" Width="62" Click="ButtonSaveMidiControlCommand_Click" Style="{DynamicResource {x:Type ContentControl}}" RenderTransformOrigin="0.532,0.4"/>
         <Label Content="{x:Static resx:Resources.Mode}" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top"/>

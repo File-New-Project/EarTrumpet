@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using EarTrumpet.DataModel.MIDI;
+using EarTrumpet.UI.Helpers;
+using System.Windows;
+using EarTrumpet.UI.Views;
+using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -13,7 +17,11 @@ namespace EarTrumpet.UI.ViewModels
         private String _selectedCommand;
         private Boolean _indexesApplicationsSelectionEnabled = false;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
-        
+
+        private WindowHolder _midiControlWizardWindow;
+
+        public ICommand SelectMidiControlCommand { get; }
+
         public string SelectedDevice {
             set
             {
@@ -129,9 +137,13 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
             
+        // Constructor
         public HardwareSettingsViewModel(DeviceCollectionViewModel devices)
         {
             _devices = devices;
+
+            SelectMidiControlCommand = new RelayCommand(SelectMidiControl);
+            _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
         }
 
         public ObservableCollection<string> AudioDevices
@@ -206,6 +218,17 @@ namespace EarTrumpet.UI.ViewModels
 
                 return commands;
             }
+        }
+
+        public void SelectMidiControl()
+        {
+            _midiControlWizardWindow.OpenOrBringToFront();
+        }
+
+       private Window CreateMIDIControlWizardExperience()
+        {
+            var viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText);
+            return new MIDIControlWizardWindow { DataContext = viewModel};
         }
 
     }

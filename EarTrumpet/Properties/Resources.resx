@@ -332,4 +332,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="AudioDevice" xml:space="preserve">
     <value>Audio Device</value>
   </data>
+  <data name="MIDIControlWizardText" xml:space="preserve">
+    <value>MIDI Control Wizard</value>
+  </data>
 </root>
