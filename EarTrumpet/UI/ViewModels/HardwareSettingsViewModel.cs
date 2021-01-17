@@ -30,8 +30,11 @@ namespace EarTrumpet.UI.ViewModels
             set
             {
                 _selectedMode = value;
-
                 RefreshApps();
+            }
+            get
+            {
+                return _selectedMode;
             }
         }
 
@@ -44,14 +47,14 @@ namespace EarTrumpet.UI.ViewModels
             _applicationIndexesNames.Clear();
 
             // ToDo: Use localization.
-            if ("Application Selection" == _selectedMode)
+            if ("Application Selection" == SelectedMode)
             {
                 foreach (var app in _selectedDevice?.Apps)
                 {
                     _applicationIndexesNames.Add(app.DisplayName);
                 }
             }
-            else if ("Indexed" == _selectedMode)
+            else if ("Indexed" == SelectedMode)
             {
                 // We do not expect more than 20 applications to be addressed.
                 for(var i = 0; i < 20; i++)
