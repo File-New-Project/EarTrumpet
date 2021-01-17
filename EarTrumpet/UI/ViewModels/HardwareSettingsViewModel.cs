@@ -8,6 +8,7 @@ namespace EarTrumpet.UI.ViewModels
     {
         private DeviceCollectionViewModel _devices;
         private DeviceViewModel _selectedDevice=null;
+        private String _selectedMode;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
         
         public string SelectedDevice {
@@ -25,18 +26,42 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
         
-        public string SelectedMode { set; get; }
+        public string SelectedMode {
+            set
+            {
+                _selectedMode = value;
+
+                RefreshApps();
+            }
+        }
+
         public string SelectedMidi { set; get; }
         public string SelectedCommand { set; get; }
         public string SelectedIndexesApplications { set; get; }
 
         private void RefreshApps()
         {
-            // TODO Add Apps/Indices according to the selected mode
             _applicationIndexesNames.Clear();
-            foreach (var app in _selectedDevice?.Apps)
+
+            // ToDo: Use localization.
+            if ("Application Selection" == _selectedMode)
             {
-                _applicationIndexesNames.Add(app.DisplayName);
+                foreach (var app in _selectedDevice?.Apps)
+                {
+                    _applicationIndexesNames.Add(app.DisplayName);
+                }
+            }
+            else if ("Indexed" == _selectedMode)
+            {
+                // We do not expect more than 20 applications to be addressed.
+                for(var i = 0; i < 20; i++)
+                {
+                    _applicationIndexesNames.Add(i.ToString());
+                }
+            }
+            else
+            {
+                // Invalid mode. Do nothing.
             }
         }
             
