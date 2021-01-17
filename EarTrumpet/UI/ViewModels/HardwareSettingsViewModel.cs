@@ -7,7 +7,7 @@ namespace EarTrumpet.UI.ViewModels
     class HardwareSettingsViewModel : BindableBase
     {
         private DeviceCollectionViewModel _devices;
-        private DeviceViewModel _selectedDevice=null;
+        private DeviceViewModel _selectedDevice = null;
         private String _selectedMode;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
         
