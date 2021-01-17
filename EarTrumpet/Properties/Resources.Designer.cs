@@ -151,6 +151,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio Device.
+        /// </summary>
+        public static string AudioDevice {
+            get {
+                return ResourceManager.GetString("AudioDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseButtonAccessibleText {
@@ -178,6 +187,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command.
+        /// </summary>
+        public static string Command {
+            get {
+                return ResourceManager.GetString("Command", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string ContextMenuExitTitle {
@@ -201,6 +219,15 @@ namespace EarTrumpet.Properties {
         public static string ContextMenuSendFeedback {
             get {
                 return ResourceManager.GetString("ContextMenuSendFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control.
+        /// </summary>
+        public static string Control {
+            get {
+                return ResourceManager.GetString("Control", resourceCulture);
             }
         }
         
@@ -342,6 +369,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MIDI Device.
+        /// </summary>
+        public static string MidiDevice {
+            get {
+                return ResourceManager.GetString("MidiDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        public static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More commands.
         /// </summary>
         public static string MoreCommandsAccessibleText {
@@ -459,11 +504,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
         public static string SearchBoxNoResultsText {
             get {
                 return ResourceManager.GetString("SearchBoxNoResultsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection.
+        /// </summary>
+        public static string Selection {
+            get {
+                return ResourceManager.GetString("Selection", resourceCulture);
             }
         }
         

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EarTrumpet.DataModel.MIDI
 {
-    public class MidiIn
+    public static class MidiIn
     {
         private static async Task<List<MidiInDevice>> _GetAllDevices(bool returnEmptyNames=false)
         {
@@ -19,7 +19,8 @@ namespace EarTrumpet.DataModel.MIDI
 
         public static List<MidiInDevice> GetAllDevices(bool returnEmptyNames=false)
         {
-            return _GetAllDevices(returnEmptyNames).Result;
+            var t = Task.Run(async () => await _GetAllDevices(returnEmptyNames));
+            return t.Result;
         }
 
         public static MidiInDevice GetDeviceByName(string name)

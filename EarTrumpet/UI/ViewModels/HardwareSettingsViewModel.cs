@@ -1,16 +1,48 @@
 ﻿using System;
-using EarTrumpet.UI.Helpers;
 using System.Collections.ObjectModel;
+using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet.UI.ViewModels
 {
     class HardwareSettingsViewModel : BindableBase
     {
-        public string Title { get; private set; }
+        private DeviceCollectionViewModel _devices;
+        private DeviceViewModel _selectedDevice=null;
+        private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
         
-        public HardwareSettingsViewModel(string title)
+        public string SelectedDevice {
+            set
+            {
+                foreach (var dev in _devices.AllDevices)
+                {
+                    if (dev.DisplayName == value)
+                    {
+                        _selectedDevice = dev;
+                    }
+                }
+
+                RefreshApps();
+            }
+        }
+        
+        public string SelectedMode { set; get; }
+        public string SelectedMidi { set; get; }
+        public string SelectedCommand { set; get; }
+        public string SelectedIndexesApplications { set; get; }
+
+        private void RefreshApps()
         {
-            Title = title;
+            // TODO Add Apps/Indices according to the selected mode
+            _applicationIndexesNames.Clear();
+            foreach (var app in _selectedDevice?.Apps)
+            {
+                _applicationIndexesNames.Add(app.DisplayName);
+            }
+        }
+            
+        public HardwareSettingsViewModel(DeviceCollectionViewModel devices)
+        {
+            _devices = devices;
         }
 
         public ObservableCollection<string> AudioDevices
@@ -18,12 +50,11 @@ namespace EarTrumpet.UI.ViewModels
             get
             {
                 ObservableCollection<String> availableAudioDevices = new ObservableCollection<string>();
+                var devices = _devices.AllDevices;
 
-                // ToDo: Scan actual audio devices of the system.
-                for (int i = 0; i < 2; i++)
+                foreach (var device in devices)
                 {
-                    String str = "Sample Device " + i.ToString();
-                    availableAudioDevices.Add(str);
+                    availableAudioDevices.Add(device.DisplayName);
                 }
 
                 return availableAudioDevices;
@@ -33,37 +64,24 @@ namespace EarTrumpet.UI.ViewModels
         {
             get
             {
+                var devices = MidiIn.GetAllDevices();
                 ObservableCollection<String> availableMidiDevices = new ObservableCollection<string>();
-
-                // ToDo: Scan actual MIDI devices connected to the system.
-                for(int i = 0; i < 100; i++)
+                
+                foreach(var dev in devices)
                 {
-                    String str = "Sample Device " + i.ToString();
-                    availableMidiDevices.Add(str);
+                    availableMidiDevices.Add(dev.Name);
                 }
 
                 return availableMidiDevices;
             }
         }
-
+        
+        
         public ObservableCollection<string> ApplicationIndexesNames
         {
             get
             {
-
-                ObservableCollection<String> applicationIndexesNames = new ObservableCollection<string>();
-
-                // ToDo: Get currently running applications.
-                applicationIndexesNames.Add("Sample Application 1");
-                applicationIndexesNames.Add("Sample Application 2");
-
-                // We expect not more than 20 applications to be running.
-                for (int i = 0; i < 20; i++)
-                {
-                    applicationIndexesNames.Add(i.ToString());
-                }
-
-                return applicationIndexesNames;
+                return _applicationIndexesNames;
             }
         }
 

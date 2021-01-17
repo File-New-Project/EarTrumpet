@@ -308,4 +308,28 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="HardwareSettingsText" xml:space="preserve">
     <value>Add / Edit MIDI Control</value>
   </data>
+  <data name="MidiDevice" xml:space="preserve">
+    <value>MIDI Device</value>
+  </data>
+  <data name="Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Control" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="AudioDevice" xml:space="preserve">
+    <value>Audio Device</value>
+  </data>
 </root>

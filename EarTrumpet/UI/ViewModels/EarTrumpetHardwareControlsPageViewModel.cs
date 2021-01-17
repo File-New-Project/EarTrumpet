@@ -24,10 +24,12 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         private readonly AppSettings _settings;
-
-        public EarTrumpetHardwareControlsPageViewModel(AppSettings settings) : base(null)
+        private DeviceCollectionViewModel _devices;
+        
+        public EarTrumpetHardwareControlsPageViewModel(AppSettings settings, DeviceCollectionViewModel devices) : base(null)
         {
             _settings = settings;
+            _devices = devices;
             Glyph = "\xF8A6";
             Title = Properties.Resources.HardwareControlsTitle;
 
@@ -38,7 +40,7 @@ namespace EarTrumpet.UI.ViewModels
         
         private Window CreateHardwareSettingsExperience()
         {
-            var viewModel = new HardwareSettingsViewModel(EarTrumpet.Properties.Resources.HardwareSettingsText);
+            var viewModel = new HardwareSettingsViewModel(_devices);
             return new HardwareSettingsWindow {DataContext = viewModel};
         }
         
