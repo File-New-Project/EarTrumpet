@@ -8,7 +8,10 @@ namespace EarTrumpet.UI.ViewModels
     {
         private DeviceCollectionViewModel _devices;
         private DeviceViewModel _selectedDevice = null;
+        private Boolean _modeSelectionEnabled = false;
         private String _selectedMode;
+        private String _selectedCommand;
+        private Boolean _indexesApplicationsSelectionEnabled = false;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
         
         public string SelectedDevice {
@@ -26,6 +29,19 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
         
+        public Boolean ModeSelectionEnabled {
+            set
+            {
+                _modeSelectionEnabled = value;
+                RaisePropertyChanged("ModeSelectionEnabled");
+            }
+
+            get
+            {
+                return _modeSelectionEnabled;
+            }
+        }
+
         public string SelectedMode {
             set
             {
@@ -39,7 +55,52 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public string SelectedMidi { set; get; }
-        public string SelectedCommand { set; get; }
+        public string SelectedCommand {
+            set
+            {
+                _selectedCommand = value;
+
+                // ToDo: Use localization.
+                if("System Volume" == value || "System Mute" == value)
+                {
+                    // System specific command selected.
+                    // -> Disable Mode and Selection ComboBoxes.
+
+                    ModeSelectionEnabled = false;
+                    IndexesApplicationsSelectionEnabled = false;
+                }
+                else if("Application Volume" == value || "Application Mute" == value)
+                {
+                    // Application specific command selected.
+                    // -> Enable Mode and Selection ComboBoxes.
+
+                    ModeSelectionEnabled = true;
+                    IndexesApplicationsSelectionEnabled = true;
+                }
+                else
+                {
+                    // Invalid selection. Do nothing.
+                }
+            }
+
+            get
+            {
+                return _selectedCommand;
+            }
+        }
+        public Boolean IndexesApplicationsSelectionEnabled
+        {
+            set
+            {
+                _indexesApplicationsSelectionEnabled = value;
+                RaisePropertyChanged("IndexesApplicationsSelectionEnabled");
+            }
+
+            get
+            {
+                return _indexesApplicationsSelectionEnabled;
+            }
+        }
         public string SelectedIndexesApplications { set; get; }
 
         private void RefreshApps()
