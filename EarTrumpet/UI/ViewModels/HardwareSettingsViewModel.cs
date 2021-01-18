@@ -5,6 +5,7 @@ using EarTrumpet.UI.Helpers;
 using System.Windows;
 using EarTrumpet.UI.Views;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -17,8 +18,11 @@ namespace EarTrumpet.UI.ViewModels
         private String _selectedCommand;
         private Boolean _indexesApplicationsSelectionEnabled = false;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
+        private List<MidiInDevice> _availableMidiInDevices;
 
         private WindowHolder _midiControlWizardWindow;
+
+        public MidiInDevice SelectedMidiInDevice { get; set; }
 
         public ICommand SelectMidiControlCommand { get; }
 
@@ -62,7 +66,27 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public string SelectedMidi { set; get; }
+        public string SelectedMidi {
+            set
+            {
+                bool deviceFound = false;
+
+                foreach(var dev in _availableMidiInDevices)
+                {
+                    if(dev.Name == value)
+                    {
+                        SelectedMidiInDevice = dev;
+                        deviceFound = true;
+                    }
+                }
+
+                if(!deviceFound)
+                {
+                    // ToDo: Error handling. Should never happen.
+                }
+
+            }
+        }
         public string SelectedCommand {
             set
             {
@@ -165,10 +189,10 @@ namespace EarTrumpet.UI.ViewModels
         {
             get
             {
-                var devices = MidiIn.GetAllDevices();
+                _availableMidiInDevices = MidiIn.GetAllDevices();
                 ObservableCollection<String> availableMidiDevices = new ObservableCollection<string>();
                 
-                foreach(var dev in devices)
+                foreach(var dev in _availableMidiInDevices)
                 {
                     availableMidiDevices.Add(dev.Name);
                 }
@@ -227,7 +251,7 @@ namespace EarTrumpet.UI.ViewModels
 
        private Window CreateMIDIControlWizardExperience()
         {
-            var viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText);
+            var viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, this);
             return new MIDIControlWizardWindow { DataContext = viewModel};
         }
 

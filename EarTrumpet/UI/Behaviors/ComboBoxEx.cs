@@ -31,9 +31,9 @@ namespace EarTrumpet.UI.Behaviors
             var comboBoxItem = (ComboBoxItem)sender;
             var comboBox = comboBoxItem.FindVisualParent<ComboBox>();
 
-            // Comboboxes in HardwareSettingsView are NOT SettingsSearchItems.
+            // Comboboxes in some classes are NOT SettingsSearchItems.
             // So we use a small hack here...
-            if (comboBox.DataContext is HardwareSettingsViewModel)
+            if (comboBox.DataContext is HardwareSettingsViewModel || comboBox.DataContext is MIDIControlWizardViewModel)
             {
                 return;
             }
