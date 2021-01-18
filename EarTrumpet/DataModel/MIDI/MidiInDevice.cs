@@ -32,7 +32,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             if (_ccCallbacks.Count == 0)
             {
-                _StartListening().Wait();
+                _StartListening();
             }
 
             var key = new Tuple<byte, byte>(channel, controller);
@@ -45,13 +45,19 @@ namespace EarTrumpet.DataModel.MIDI
             _ccCallbacks[key].Add(callback);
         }
 
-        private async Task _StartListening()
+        private async Task __StartListening()
         {
             _inPort = await MidiInPort.FromIdAsync(Id);
-            
+
             _inPort.MessageReceived += MessageReceived;
         }
-        
+
+        private void _StartListening()
+        {
+            var t = Task.Run(async () => await __StartListening());
+            t.Wait();
+        }
+
         private void MessageReceived(MidiInPort sender, MidiMessageReceivedEventArgs args)
         {
             IMidiMessage received = args.Message;
