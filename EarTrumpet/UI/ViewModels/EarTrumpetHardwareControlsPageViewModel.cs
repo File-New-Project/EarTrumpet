@@ -1,12 +1,8 @@
-﻿using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Helpers;
+﻿using EarTrumpet.UI.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using System.Linq;
-using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.UI.ViewModels
