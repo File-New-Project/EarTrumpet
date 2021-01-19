@@ -15,6 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand SetMinValueCommand { get; }
         public ICommand SetMaxValueCommand { get; }
 
+        // MIDI commands send control values from 0 to 127.
         const byte MIDI_VALUE_MAX = 127;
 
         private byte _minValue = 0;
