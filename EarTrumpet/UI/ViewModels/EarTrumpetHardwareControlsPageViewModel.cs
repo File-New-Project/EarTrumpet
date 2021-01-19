@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using EarTrumpet.UI.Views;
 using EarTrumpet.DataModel.MIDI;
+using System.Collections.Generic;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -22,7 +23,9 @@ namespace EarTrumpet.UI.ViewModels
 
         private readonly AppSettings _settings;
         private DeviceCollectionViewModel _devices;
-        
+
+        ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
+
         public EarTrumpetHardwareControlsPageViewModel(AppSettings settings, DeviceCollectionViewModel devices) : base(null)
         {
             _settings = settings;
@@ -45,10 +48,14 @@ namespace EarTrumpet.UI.ViewModels
         {
             get
             {
-                ObservableCollection<String> a = new ObservableCollection<string>();
-                a.Add("Sample 1");
-                a.Add("Sample 2");
-                return a;
+                return _commandControlList;
+            }
+
+            set
+            {
+                _commandControlList = value;
+
+                RaisePropertyChanged("HardwareControls");
             }
         }
 
@@ -59,8 +66,35 @@ namespace EarTrumpet.UI.ViewModels
 
         public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
         {
-            // ToDo: Register mapping element, close hardware settings window.
             MidiAppBinding.Current.AddCommand(commandControlMappingElement);
+
+            UpdateCommandControlsList(MidiAppBinding.Current.GetCommandControlMappings());
+
+            _hardwareSettingsWindow.OpenOrClose();
+        }
+
+        private void UpdateCommandControlsList(List<CommandControlMappingElement> commandControlsList)
+        {
+            ObservableCollection<String> commandControlsStringList = new ObservableCollection<string>();
+
+            foreach (var item in commandControlsList)
+            {
+                string commandControlsString = 
+                    "Audio Device=" + item.audioDevice + 
+                    ", Command=" + item.command + 
+                    ", Mode=" + item.mode + 
+                    ", Selection=" + item.indexApplicationSelection + 
+                    ", MIDI Device=" + item.midiDevice + 
+                    ", MIDI Channel=" + item.midiControlConfiguration.Channel + 
+                    ", MIDI Controller=" + item.midiControlConfiguration.Controller + 
+                    ", MIDI Min Value=" + item.midiControlConfiguration.MinValue + 
+                    ", MIDI Max Value=" + item.midiControlConfiguration.MaxValue + 
+                    ", MIDI Value Scaling=" + item.midiControlConfiguration.ScalingValue;
+
+                commandControlsStringList.Add(commandControlsString);
+            }
+
+            HardwareControls = commandControlsStringList;
         }
     }
 }

@@ -233,7 +233,20 @@
 
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
                 <Button Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
-                <ListView ItemsSource="{Binding HardwareControls}" />
+
+                <ListView
+                    SelectionMode="Single"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    HorizontalContentAlignment="Stretch" 
+                    ItemsSource="{Binding HardwareControls}"
+                    Background="LightGray">
+                    <!-- here set the itemTemplate to a TextBlock that can wraps-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=.}" TextWrapping="Wrap"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
             </StackPanel>
         </DataTemplate>
