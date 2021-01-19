@@ -2,11 +2,11 @@
 {
     public class MidiControlConfiguration
     {
-        byte Channel { get; set; }
-        byte Controller { get; set; }
-        byte MinValue { get; set; }
-        byte MaxValue { get; set; }
-        float ScalingValue { get; set; }
+        public byte Channel { get; set; }
+        public byte Controller { get; set; }
+        public byte MinValue { get; set; }
+        public byte MaxValue { get; set; }
+        public float ScalingValue { get; set; }
 
         // Constructor
         public MidiControlConfiguration(byte Channel, byte Controller, byte MinValue, byte MaxValue, float ScalingValue)

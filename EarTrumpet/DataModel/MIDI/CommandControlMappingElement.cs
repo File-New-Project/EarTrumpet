@@ -2,15 +2,15 @@
 {
     public class CommandControlMappingElement
     {
-        MidiControlConfiguration midiControlConfiguration { get; set; }
-        string audioDevice { get; set; }
-        string command { get; set; }
+        public MidiControlConfiguration midiControlConfiguration { get; set; }
+        public string audioDevice { get; set; }
+        public string command { get; set; }
 
-        string mode { get; set; }
+        public string mode { get; set; }
 
-        string indexApplicationSelection { get; set; }
+        public string indexApplicationSelection { get; set; }
 
-        string midiDevice { get; set; }
+        public string midiDevice { get; set; }
 
         // Constructor
         public CommandControlMappingElement(

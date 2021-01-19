@@ -88,6 +88,9 @@
     <Compile Include="DataModel\AppInformation\Internal\ZombieProcessException.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDevice.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\MIDI\CommandControlMappingElement.cs" />
+    <Compile Include="DataModel\MIDI\MidiAppBinding.cs" />
+    <Compile Include="DataModel\MIDI\MidiControlConfiguration.cs" />
     <Compile Include="DataModel\MIDI\MidiIn.cs" />
     <Compile Include="DataModel\MIDI\MidiInDevice.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
