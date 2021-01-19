@@ -27,6 +27,8 @@
         <Label Content="Scaling:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
         <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="162,289,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="161" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
         <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="219,308,79,0" Width="53" TextAlignment="Center" Height="17" />
+        <Label Content="{Binding MinValue}" HorizontalAlignment="Left" Margin="242,225,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
+        <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,255,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
 
     </Grid>
 </Window>

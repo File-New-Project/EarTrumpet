@@ -62,7 +62,7 @@ namespace EarTrumpet.UI.ViewModels
                         // LiveValue must be updated when the changed channel and controller pair is the selected one.
                         if(i == CapturedMidiInControlsSelected)
                         {
-                            int fullScaleRange = _maxValue - _minValue;
+                            int fullScaleRange = MaxValue - MinValue;
 
                             // Division by zero is not allowed.
                             // -> Set minimum full scale range in these cases.
@@ -71,13 +71,13 @@ namespace EarTrumpet.UI.ViewModels
                                 fullScaleRange = 1;
                             }
 
-                            if(_maxValue > _minValue)
+                            if(MaxValue > MinValue)
                             {
-                                LiveValue = Math.Abs((int)(((msg.ControlValue - _minValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                                LiveValue = Math.Abs((int)(((msg.ControlValue - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
                             }
                             else
                             {
-                                LiveValue = 100 - Math.Abs((int)(((msg.ControlValue - _maxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                                LiveValue = 100 - Math.Abs((int)(((msg.ControlValue - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
                             }
                         }
 
@@ -100,12 +100,12 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SetMinValue()
         {
-            _minValue = GetCurrentRawValue();
+            MinValue = GetCurrentRawValue();
         }
 
         public void SetMaxValue()
         {
-            _maxValue = GetCurrentRawValue();
+            MaxValue = GetCurrentRawValue();
         }
         private byte GetCurrentRawValue()
         {
@@ -153,5 +153,30 @@ namespace EarTrumpet.UI.ViewModels
                 RaisePropertyChanged("ScalingValue");
             }
         }
+
+        public byte MinValue {
+            get
+            {
+                return _minValue;
+            }
+            set
+            {
+                _minValue = value;
+                RaisePropertyChanged("MinValue");
+            }
+        }
+
+        public byte MaxValue {
+            get
+            {
+                return _maxValue;
+            }
+            set
+            {
+                _maxValue = value;
+                RaisePropertyChanged("MaxValue");
+            }
+        }
+
     }
 }
