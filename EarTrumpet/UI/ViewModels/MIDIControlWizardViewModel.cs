@@ -23,6 +23,7 @@ namespace EarTrumpet.UI.ViewModels
         private ObservableCollection<string> _capturedMidiInControls = new ObservableCollection<string>();
         System.Windows.Threading.Dispatcher _dispatcher;
         private int _liveValue = 0;
+        private float _scalingValue = 0;
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -37,6 +38,9 @@ namespace EarTrumpet.UI.ViewModels
             _hardwareSettings.SelectedMidiInDevice.AddControlChangeCallback(midiInControlChangeCallback);
 
             _dispatcher = System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread.CurrentThread);
+
+            // Scaling value slider has a default value of 1.0 .
+            ScalingValue = 1.0F;
         }
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)
         {
@@ -67,7 +71,7 @@ namespace EarTrumpet.UI.ViewModels
                                 fullScaleRange = 1;
                             }
 
-                            LiveValue = (int)(((float)msg.ControlValue / (float)fullScaleRange) * 100.0);
+                            LiveValue = (int)(((float)msg.ControlValue / (float)fullScaleRange) * ScalingValue* 100.0);
                         }
 
                         break;
@@ -129,6 +133,18 @@ namespace EarTrumpet.UI.ViewModels
                 RaisePropertyChanged("LiveValue");
             }
 
+        }
+
+        public float ScalingValue {
+            get
+            {
+                return _scalingValue;
+            }
+            set
+            {
+                _scalingValue = value;
+                RaisePropertyChanged("ScalingValue");
+            }
         }
     }
 }
