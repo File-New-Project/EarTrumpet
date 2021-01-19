@@ -3,6 +3,7 @@ using EarTrumpet.UI.Helpers;
 using Windows.Devices.Midi;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -64,14 +65,20 @@ namespace EarTrumpet.UI.ViewModels
                             int fullScaleRange = _maxValue - _minValue;
 
                             // Division by zero is not allowed.
-                            // Negative values are not allowed.
                             // -> Set minimum full scale range in these cases.
-                            if(fullScaleRange <= 0)
+                            if(fullScaleRange == 0)
                             {
                                 fullScaleRange = 1;
                             }
 
-                            LiveValue = (int)(((float)msg.ControlValue / (float)fullScaleRange) * ScalingValue* 100.0);
+                            if(_maxValue > _minValue)
+                            {
+                                LiveValue = Math.Abs((int)(((msg.ControlValue - _minValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                            }
+                            else
+                            {
+                                LiveValue = 100 - Math.Abs((int)(((msg.ControlValue - _maxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                            }
                         }
 
                         break;
