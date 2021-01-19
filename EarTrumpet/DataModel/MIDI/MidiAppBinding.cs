@@ -183,6 +183,11 @@ namespace EarTrumpet.DataModel.MIDI
             _commandControlMappings.RemoveAt(index);
         }
         
+        public List<CommandControlMappingElement> GetCommandControlMappings()
+        {
+            return _commandControlMappings;
+        }
+
         public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel)
         {
             _deviceCollectionViewModel = deviceCollectionViewModel;
