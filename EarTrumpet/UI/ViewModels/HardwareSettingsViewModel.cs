@@ -21,6 +21,12 @@ namespace EarTrumpet.UI.ViewModels
         private List<MidiInDevice> _availableMidiInDevices;
 
         private WindowHolder _midiControlWizardWindow;
+        private MidiControlConfiguration _midiControlConfiguration = null;
+        private CommandControlMappingElement _commandControlMappingElement = null;
+
+        private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
+
+        public ICommand SaveCommandControlMappingCommand { get; }
 
         public MidiInDevice SelectedMidiInDevice { get; set; }
 
@@ -38,6 +44,16 @@ namespace EarTrumpet.UI.ViewModels
                 }
 
                 RefreshApps();
+            }
+
+            get
+            {
+                if (_selectedDevice != null)
+                {
+                    return _selectedDevice.DisplayName;
+                }
+
+                return "";
             }
         }
         
@@ -85,6 +101,16 @@ namespace EarTrumpet.UI.ViewModels
                     // ToDo: Error handling. Should never happen.
                 }
 
+            }
+
+            get
+            {
+                if (SelectedMidiInDevice != null)
+                {
+                    return SelectedMidiInDevice.Name;
+                }
+
+                return "";
             }
         }
         public string SelectedCommand {
@@ -162,11 +188,14 @@ namespace EarTrumpet.UI.ViewModels
         }
             
         // Constructor
-        public HardwareSettingsViewModel(DeviceCollectionViewModel devices)
+        public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
         {
             _devices = devices;
+            _hardwareControls = earTrumpetHardwareControlsPageViewModel;
 
             SelectMidiControlCommand = new RelayCommand(SelectMidiControl);
+            SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
+
             _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
         }
 
@@ -249,9 +278,17 @@ namespace EarTrumpet.UI.ViewModels
             _midiControlWizardWindow.OpenOrBringToFront();
         }
 
+        public void SaveCommandControlMapping()
+        {
+            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, SelectedCommand, SelectedMode, SelectedIndexesApplications, SelectedMidi);
+
+            // Notify the hardware controls page about the new assignment.
+            _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
+        }
+
         public void MidiControlSelectedCallback(MidiControlConfiguration midiControlConfiguration)
         {
-            // TODO: Process Control Configuration.
+            _midiControlConfiguration = midiControlConfiguration;
 
             _midiControlWizardWindow.OpenOrClose();
         }

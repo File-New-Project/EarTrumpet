@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using EarTrumpet.UI.Views;
+using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -36,7 +37,7 @@ namespace EarTrumpet.UI.ViewModels
         
         private Window CreateHardwareSettingsExperience()
         {
-            var viewModel = new HardwareSettingsViewModel(_devices);
+            var viewModel = new HardwareSettingsViewModel(_devices, this);
             return new HardwareSettingsWindow {DataContext = viewModel};
         }
         
@@ -54,6 +55,11 @@ namespace EarTrumpet.UI.ViewModels
         private void AddMidiControl()
         {
             _hardwareSettingsWindow.OpenOrBringToFront();
+        }
+
+        public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
+        {
+            // ToDo: Register mapping element, close hardware settings window.
         }
     }
 }

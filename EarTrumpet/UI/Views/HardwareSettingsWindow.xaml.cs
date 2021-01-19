@@ -9,10 +9,5 @@ namespace EarTrumpet.UI.Views
         {
             InitializeComponent();
         }
-
-        private void ButtonSaveMidiControlCommand_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.MessageBox.Show("ToDo", "Caption", MessageBoxButtons.OK);
-        }
     }
 }
