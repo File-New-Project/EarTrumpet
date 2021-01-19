@@ -51,7 +51,6 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        // ToDo: Open window for MIDI control selection.
         private void AddMidiControl()
         {
             _hardwareSettingsWindow.OpenOrBringToFront();
