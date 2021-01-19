@@ -9,12 +9,13 @@
         mc:Ignorable="d"
         Title="{x:Static resx:Resources.MIDIControlWizardText}" Height="398.334" Width="351">
     <Grid Margin="0,0,-8,0">
-        <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,92,0,0" VerticalAlignment="Top" Width="313" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedItem="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,92,0,0" VerticalAlignment="Top" Width="313" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedIndex="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
         </ComboBox>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,10,10,0" Height="77" VerticalAlignment="Top">
         Move / press the hardware control element to be used. -> Captured changes are listed in the table below. -> Select the control to be assigned.
         </TextBlock>
-        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,286,0,0" VerticalAlignment="Top" Width="164"/>
+        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,286,0,0" VerticalAlignment="Top" Width="164" Value="{Binding LiveValue}" Name="LiveValueProgressBar"/>
+        <TextBlock Text="{Binding ElementName=LiveValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.491,0.515" Margin="219,294,79,56" Width="53" Height="17" TextAlignment="Center" />
         <Label Content="Live Value:" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
         <Label Content="Max:" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top"/>
         <Label Content="Min:" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>

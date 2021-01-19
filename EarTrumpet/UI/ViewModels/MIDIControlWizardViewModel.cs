@@ -14,9 +14,15 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand SetMinValueCommand { get; }
         public ICommand SetMaxValueCommand { get; }
 
+        const byte MIDI_VALUE_MAX = 127;
+
+        private byte _minValue = 0;
+        private byte _maxValue = MIDI_VALUE_MAX;
+
         private HardwareSettingsViewModel _hardwareSettings;
         private ObservableCollection<string> _capturedMidiInControls = new ObservableCollection<string>();
         System.Windows.Threading.Dispatcher _dispatcher;
+        private int _liveValue = 0;
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -37,9 +43,9 @@ namespace EarTrumpet.UI.ViewModels
             await _dispatcher.InvokeAsync(() =>
             {
                 bool elementFound = false;
-                for(var i = 0; i < _capturedMidiInControls.Count(); i++)
+                for (var i = 0; i < _capturedMidiInControls.Count(); i++)
                 {
-                    if(-1 != _capturedMidiInControls[i].IndexOf("Channel=" + msg.Channel + ", Controller=" + msg.Controller))
+                    if (-1 != _capturedMidiInControls[i].IndexOf("Channel=" + msg.Channel + ", Controller=" + msg.Controller))
                     {
                         // This channel and controller pair is already part of the list.
                         // -> Just refresh the value.
@@ -47,6 +53,22 @@ namespace EarTrumpet.UI.ViewModels
                         _capturedMidiInControls[i] = "Channel=" + msg.Channel + ", Controller=" + msg.Controller + ", Value=" + msg.ControlValue;
 
                         elementFound = true;
+
+                        // LiveValue must be updated when the changed channel and controller pair is the selected one.
+                        if(i == CapturedMidiInControlsSelected)
+                        {
+                            int fullScaleRange = _maxValue - _minValue;
+
+                            // Division by zero is not allowed.
+                            // Negative values are not allowed.
+                            // -> Set minimum full scale range in these cases.
+                            if(fullScaleRange <= 0)
+                            {
+                                fullScaleRange = 1;
+                            }
+
+                            LiveValue = (int)(((float)msg.ControlValue / (float)fullScaleRange) * 100.0);
+                        }
 
                         break;
                     }
@@ -67,12 +89,20 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SetMinValue()
         {
-            // TODO
+            _minValue = GetCurrentRawValue();
         }
 
         public void SetMaxValue()
         {
-            // TODO
+            _maxValue = GetCurrentRawValue();
+        }
+        private byte GetCurrentRawValue()
+        {
+            int valueStartPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].IndexOf("Value=") + "Value=".Length;
+            int valueEndPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].Length;
+            string valueString = _capturedMidiInControls[CapturedMidiInControlsSelected].Substring(valueStartPosition, valueEndPosition - valueStartPosition);
+
+            return byte.Parse(valueString);
         }
 
         public ObservableCollection<string> CapturedMidiInControls
@@ -83,6 +113,22 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public string CapturedMidiInControlsSelected{ get; set; }
+        public int CapturedMidiInControlsSelected { get; set; }
+
+        public int LiveValue
+        {
+
+            get
+            {
+                return _liveValue;
+            }
+
+            set
+            {
+                _liveValue = value;
+                RaisePropertyChanged("LiveValue");
+            }
+
+        }
     }
 }
