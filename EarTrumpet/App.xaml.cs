@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet
 {
@@ -32,6 +33,7 @@ namespace EarTrumpet
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
         private AppSettings _settings;
+        private MidiAppBinding _midiAppBinding;
 
         private void OnAppStartup(object sender, StartupEventArgs e)
         {
@@ -68,7 +70,8 @@ namespace EarTrumpet
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
             _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
-
+            _midiAppBinding = new MidiAppBinding(_collectionViewModel);
+            
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
             _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());

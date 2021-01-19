@@ -12,8 +12,15 @@ namespace EarTrumpet.DataModel.MIDI
         // This type is just awful
         private static Dictionary<string, Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>
             callbacks;
+
+        private static List<Action<MidiInPort, MidiControlChangeMessage>> generalCallbacks;
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
+
+        internal static void AddGeneralCallback(Action<MidiInPort, MidiControlChangeMessage> callback)
+        {
+            generalCallbacks.Add(callback);
+        }
         
         internal static void AddControlChangeCallback(string id, Action<MidiControlChangeMessage> callback,
             byte channel = 255, byte controller = 255)
@@ -39,13 +46,19 @@ namespace EarTrumpet.DataModel.MIDI
 
             if (received.Type == MidiMessageType.ControlChange)
             {
+                MidiControlChangeMessage msg = (MidiControlChangeMessage) received;
+                foreach (var callback in generalCallbacks)
+                {
+                    callback(sender, msg);
+                }
+                
                 string id = sender.DeviceId;
                 if (!callbacks.ContainsKey(id))
                 {
                     return;
                 }
                 
-                MidiControlChangeMessage msg = (MidiControlChangeMessage) received;
+                
                 
                 var key = new Tuple<byte, byte>(msg.Channel, msg.Controller);
                 if (callbacks[id].ContainsKey(key))
@@ -67,7 +80,7 @@ namespace EarTrumpet.DataModel.MIDI
             }
         }
 
-        private static void _StartListening(string id)
+        internal static void _StartListening(string id)
         {
             async Task StartListening()
             {
@@ -75,6 +88,12 @@ namespace EarTrumpet.DataModel.MIDI
             
                 inPort.MessageReceived += MessageReceived;
             }
+
+            if (watchedDevices.Contains(id))
+            {
+                return;
+            }
+            
             Task.Run(async () => await StartListening()).Wait();
             watchedDevices.Add(id);
         }
@@ -98,6 +117,7 @@ namespace EarTrumpet.DataModel.MIDI
         static MidiIn()
         {
             callbacks = new Dictionary<string, Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>();
+            generalCallbacks = new List<Action<MidiInPort, MidiControlChangeMessage>>();
             watchedDevices = new List<string>();
             
             deviceWatcher = DeviceInformation.CreateWatcher(MidiInPort.GetDeviceSelector());

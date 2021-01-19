@@ -60,6 +60,7 @@ namespace EarTrumpet.UI.ViewModels
         public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
         {
             // ToDo: Register mapping element, close hardware settings window.
+            MidiAppBinding.Current.AddCommand(commandControlMappingElement);
         }
     }
 }
