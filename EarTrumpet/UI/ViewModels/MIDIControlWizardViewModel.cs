@@ -4,6 +4,7 @@ using Windows.Devices.Midi;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System;
+using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -96,25 +97,39 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveMidiControl()
         {
-            // TODO
+            // Generate MIDI control configuration object.
+            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MinValue, MaxValue, ScalingValue);
+
+            // Notify the hardware settings about the new control configuration.
+            _hardwareSettings.MidiControlSelectedCallback(midiControlConfiguration);
         }
 
         public void SetMinValue()
         {
-            MinValue = GetCurrentRawValue();
+            MinValue = GetCurrentSelectionProperty("Value");
         }
 
         public void SetMaxValue()
         {
-            MaxValue = GetCurrentRawValue();
+            MaxValue = GetCurrentSelectionProperty("Value");
         }
-        private byte GetCurrentRawValue()
-        {
-            int valueStartPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].IndexOf("Value=") + "Value=".Length;
-            int valueEndPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].Length;
-            string valueString = _capturedMidiInControls[CapturedMidiInControlsSelected].Substring(valueStartPosition, valueEndPosition - valueStartPosition);
 
-            return byte.Parse(valueString);
+        byte GetCurrentSelectionProperty(string property)
+        {
+            var propertyDesignator = property + "=";
+
+            var propertyStartPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].IndexOf(propertyDesignator) + propertyDesignator.Length;
+            var propertyEndPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].IndexOf(",", propertyStartPosition);
+
+            if(-1 == propertyEndPosition)
+            {
+                // Searched string not found, end reached (last property).
+                propertyEndPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].Length;
+            }
+
+            var propertyString = _capturedMidiInControls[CapturedMidiInControlsSelected].Substring(propertyStartPosition, propertyEndPosition - propertyStartPosition);
+
+            return byte.Parse(propertyString);
         }
 
         public ObservableCollection<string> CapturedMidiInControls

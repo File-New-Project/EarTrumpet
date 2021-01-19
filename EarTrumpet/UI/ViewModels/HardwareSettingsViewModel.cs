@@ -249,6 +249,13 @@ namespace EarTrumpet.UI.ViewModels
             _midiControlWizardWindow.OpenOrBringToFront();
         }
 
+        public void MidiControlSelectedCallback(MidiControlConfiguration midiControlConfiguration)
+        {
+            // TODO: Process Control Configuration.
+
+            _midiControlWizardWindow.OpenOrClose();
+        }
+
        private Window CreateMIDIControlWizardExperience()
         {
             var viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, this);
