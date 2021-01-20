@@ -235,18 +235,12 @@
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
                 <Button Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
 
-                <ListView
+                <ctl:ListView
                     SelectionMode="Single"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     HorizontalContentAlignment="Stretch" 
                     ItemsSource="{Binding HardwareControls}"
                     SelectedIndex="{Binding SelectedIndex}">
-
-                    <ie:Interaction.Triggers>
-                        <ie:EventTrigger EventName="SelectionChanged">
-                            <ie:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=myListBox, Path=SelectedItem}"/>
-                        </ie:EventTrigger>
-                    </ie:Interaction.Triggers>
 
                     <!-- here set the itemTemplate to a TextBlock that can wraps-->
                     <ListView.ItemTemplate>
@@ -254,7 +248,7 @@
                             <TextBlock Text="{Binding Path=.}" TextWrapping="Wrap"></TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ctl:ListView>
 
             </StackPanel>
         </DataTemplate>
