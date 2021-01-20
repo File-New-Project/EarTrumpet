@@ -196,7 +196,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             foreach (var command in _commandControlMappings)
             {
-                MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice).Id);
+                MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice)?.Id);
             }
         }
 

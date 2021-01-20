@@ -85,11 +85,14 @@ namespace EarTrumpet.DataModel.MIDI
             async Task StartListening()
             {
                 var inPort = await MidiInPort.FromIdAsync(id);
-            
+                if (inPort == null)
+                {
+                    return;
+                }
                 inPort.MessageReceived += MessageReceived;
             }
 
-            if (watchedDevices.Contains(id))
+            if (id == null || watchedDevices.Contains(id))
             {
                 return;
             }
