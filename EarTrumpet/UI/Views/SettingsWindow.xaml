@@ -1,4 +1,5 @@
 ﻿<Window x:Class="EarTrumpet.UI.Views.SettingsWindow"
+        xmlns:ie="http://schemas.microsoft.com/xaml/behaviors"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
@@ -239,7 +240,14 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     HorizontalContentAlignment="Stretch" 
                     ItemsSource="{Binding HardwareControls}"
-                    Background="LightGray">
+                    SelectedIndex="{Binding SelectedIndex}">
+
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=myListBox, Path=SelectedItem}"/>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+
                     <!-- here set the itemTemplate to a TextBlock that can wraps-->
                     <ListView.ItemTemplate>
                         <DataTemplate>

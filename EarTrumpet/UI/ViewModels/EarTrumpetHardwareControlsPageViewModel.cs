@@ -25,6 +25,7 @@ namespace EarTrumpet.UI.ViewModels
         private DeviceCollectionViewModel _devices;
 
         ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
+        public ICommand SelectedItemChangedCommand { get; set; }
 
         public EarTrumpetHardwareControlsPageViewModel(AppSettings settings, DeviceCollectionViewModel devices) : base(null)
         {
@@ -38,8 +39,15 @@ namespace EarTrumpet.UI.ViewModels
             _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
 
             UpdateCommandControlsList(MidiAppBinding.Current.GetCommandControlMappings());
+
+            // The command controls list should have no item selected on startup.
+            SelectedIndex = -1;
+
+            SelectedItemChangedCommand = new RelayCommand(SelectedItemChanged);
         }
-        
+
+        public int SelectedIndex { get; set; }
+
         private Window CreateHardwareSettingsExperience()
         {
             var viewModel = new HardwareSettingsViewModel(_devices, this);
@@ -97,6 +105,33 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             HardwareControls = commandControlsStringList;
+        }
+
+        public void SelectedItemChanged()
+        {
+            var selectedIndex = SelectedIndex;
+
+            if (selectedIndex < 0)
+            {
+                return;
+            }
+
+            const string selectedDesignator = "\u27BD";
+            ObservableCollection<string> hardwareControls = HardwareControls;
+
+            // Remove "selected" designator from previously selected item.
+            for (var i = 0; i < hardwareControls.Count; i++)
+            {
+                if (hardwareControls[i].StartsWith(selectedDesignator))
+                {
+                    hardwareControls[i] = hardwareControls[i].Remove(0, selectedDesignator.Length);
+                }
+            }
+
+            // Add "selected" designator to selected item.
+            hardwareControls[selectedIndex] = selectedDesignator + hardwareControls[selectedIndex];
+
+            HardwareControls = hardwareControls;
         }
     }
 }
