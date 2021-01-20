@@ -36,6 +36,8 @@ namespace EarTrumpet.UI.ViewModels
             AddMidiControlCommand = new RelayCommand(AddMidiControl);
             
             _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
+
+            UpdateCommandControlsList(MidiAppBinding.Current.GetCommandControlMappings());
         }
         
         private Window CreateHardwareSettingsExperience()
