@@ -234,6 +234,8 @@
 
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
                 <Button Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
+                <Button Command="{Binding EditMidiControlCommand}" Content="{x:Static resx:Resources.EditMidiControlButtonText}" />
+                <Button Command="{Binding DeleteMidiControlCommand}" Content="{x:Static resx:Resources.DeleteMidiControlButtonText}" />
 
                 <ctl:ListView
                     SelectionMode="Single"

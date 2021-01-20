@@ -300,7 +300,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>Hardware Controls</value>
   </data>
   <data name="AddMidiControlButtonText" xml:space="preserve">
-    <value>Add MIDI Control</value>
+    <value>Add New</value>
   </data>
   <data name="HardwareControlInformationText" xml:space="preserve">
     <value>You can control system- and application volumes using a MIDI controller hardware.</value>
@@ -334,5 +334,11 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
   <data name="MIDIControlWizardText" xml:space="preserve">
     <value>MIDI Control Wizard</value>
+  </data>
+  <data name="DeleteMidiControlButtonText" xml:space="preserve">
+    <value>Delete Selected</value>
+  </data>
+  <data name="EditMidiControlButtonText" xml:space="preserve">
+    <value>Edit Selected</value>
   </data>
 </root>

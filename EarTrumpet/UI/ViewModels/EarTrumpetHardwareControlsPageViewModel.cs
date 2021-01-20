@@ -6,12 +6,15 @@ using System.Collections.ObjectModel;
 using EarTrumpet.UI.Views;
 using EarTrumpet.DataModel.MIDI;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace EarTrumpet.UI.ViewModels
 {
     class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
     {
         public ICommand AddMidiControlCommand { get; }
+        public ICommand EditMidiControlCommand { get; }
+        public ICommand DeleteMidiControlCommand { get; }
 
         private WindowHolder _hardwareSettingsWindow;
         
@@ -35,10 +38,12 @@ namespace EarTrumpet.UI.ViewModels
             Title = Properties.Resources.HardwareControlsTitle;
 
             AddMidiControlCommand = new RelayCommand(AddMidiControl);
-            
+            EditMidiControlCommand = new RelayCommand(EditMidiControl);
+            DeleteMidiControlCommand = new RelayCommand(DeleteMidiControl);
+
             _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
 
-            UpdateCommandControlsList(MidiAppBinding.Current.GetCommandControlMappings());
+            UpdateCommandControlsList();
 
             // The command controls list should have no item selected on startup.
             SelectedIndex = -1;
@@ -73,18 +78,38 @@ namespace EarTrumpet.UI.ViewModels
         {
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
+        private void EditMidiControl()
+        {
+            // TODO
+        }
+        private void DeleteMidiControl()
+        {
+            var selectedIndex = SelectedIndex;
+
+            if(selectedIndex < 0)
+            {
+                // ToDo: Use localization.
+                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            MidiAppBinding.Current.RemoveCommandIndex(selectedIndex);
+            UpdateCommandControlsList();
+        }
 
         public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
         {
             MidiAppBinding.Current.AddCommand(commandControlMappingElement);
 
-            UpdateCommandControlsList(MidiAppBinding.Current.GetCommandControlMappings());
+            UpdateCommandControlsList();
 
             _hardwareSettingsWindow.OpenOrClose();
         }
 
-        private void UpdateCommandControlsList(List<CommandControlMappingElement> commandControlsList)
+        private void UpdateCommandControlsList()
         {
+            var commandControlsList = MidiAppBinding.Current.GetCommandControlMappings();
+
             ObservableCollection<String> commandControlsStringList = new ObservableCollection<string>();
 
             foreach (var item in commandControlsList)

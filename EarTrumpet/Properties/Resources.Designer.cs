@@ -79,7 +79,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add MIDI Control.
+        ///   Looks up a localized string similar to Add New.
         /// </summary>
         public static string AddMidiControlButtonText {
             get {
@@ -275,6 +275,24 @@ namespace EarTrumpet.Properties {
         public static string DefaultManagementGroupName {
             get {
                 return ResourceManager.GetString("DefaultManagementGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Selected.
+        /// </summary>
+        public static string DeleteMidiControlButtonText {
+            get {
+                return ResourceManager.GetString("DeleteMidiControlButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Selected.
+        /// </summary>
+        public static string EditMidiControlButtonText {
+            get {
+                return ResourceManager.GetString("EditMidiControlButtonText", resourceCulture);
             }
         }
         
