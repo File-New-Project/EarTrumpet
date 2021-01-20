@@ -111,27 +111,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             var selectedIndex = SelectedIndex;
 
-            if (selectedIndex < 0)
-            {
-                return;
-            }
-
-            const string selectedDesignator = "\u27BD";
-            ObservableCollection<string> hardwareControls = HardwareControls;
-
-            // Remove "selected" designator from previously selected item.
-            for (var i = 0; i < hardwareControls.Count; i++)
-            {
-                if (hardwareControls[i].StartsWith(selectedDesignator))
-                {
-                    hardwareControls[i] = hardwareControls[i].Remove(0, selectedDesignator.Length);
-                }
-            }
-
-            // Add "selected" designator to selected item.
-            hardwareControls[selectedIndex] = selectedDesignator + hardwareControls[selectedIndex];
-
-            HardwareControls = hardwareControls;
+            // TODO
         }
     }
 }
