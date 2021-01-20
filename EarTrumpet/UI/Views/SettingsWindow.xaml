@@ -241,7 +241,11 @@
                     HorizontalContentAlignment="Stretch" 
                     ItemsSource="{Binding HardwareControls}"
                     SelectedIndex="{Binding SelectedIndex}">
-
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=myListBox, Path=SelectedItem}"/>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
                     <!-- here set the itemTemplate to a TextBlock that can wraps-->
                     <ListView.ItemTemplate>
                         <DataTemplate>
