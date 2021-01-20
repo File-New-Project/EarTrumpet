@@ -189,7 +189,7 @@ namespace EarTrumpet.DataModel.MIDI
             return _commandControlMappings;
         }
         
-        private void SubsribeToDevices()
+        private void SubscribeToDevices()
         {
             foreach (var command in _commandControlMappings)
             {
@@ -206,7 +206,7 @@ namespace EarTrumpet.DataModel.MIDI
             Current = this;
             // _settings.Set("MidiControls", new List<CommandControlMappingElement>());
             _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
-            SubsribeToDevices();
+            SubscribeToDevices();
         }
     }
 }
