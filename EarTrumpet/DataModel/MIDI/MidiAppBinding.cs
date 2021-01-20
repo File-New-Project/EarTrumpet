@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Windows.Devices.Midi;
 using Bugsnag.Payload;
+using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
 namespace EarTrumpet.DataModel.MIDI
@@ -13,6 +14,7 @@ namespace EarTrumpet.DataModel.MIDI
     {
         private DeviceCollectionViewModel _deviceCollectionViewModel;
         private List<CommandControlMappingElement> _commandControlMappings;
+        private ISettingsBag _settings;
         
         public static MidiAppBinding Current { get; set; }
 
@@ -171,6 +173,7 @@ namespace EarTrumpet.DataModel.MIDI
             MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice).Id);
             
             _commandControlMappings.Add(command);
+            _settings.Set("MidiControls", _commandControlMappings);
         }
 
         public void RemoveCommandIndex(int index)
@@ -181,20 +184,31 @@ namespace EarTrumpet.DataModel.MIDI
             }
             
             _commandControlMappings.RemoveAt(index);
+            _settings.Set("MidiControls", _commandControlMappings);
         }
         
         public List<CommandControlMappingElement> GetCommandControlMappings()
         {
             return _commandControlMappings;
         }
+        
+        private void SubsribeToDevices()
+        {
+            foreach (var command in _commandControlMappings)
+            {
+                MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice).Id);
+            }
+        }
 
         public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel)
         {
             _deviceCollectionViewModel = deviceCollectionViewModel;
+            _settings = StorageFactory.GetSettings();
             
             MidiIn.AddGeneralCallback(MidiCallback);
             Current = this;
-            _commandControlMappings = new List<CommandControlMappingElement>();
+            _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
+            SubsribeToDevices();
         }
     }
 }

@@ -28,5 +28,10 @@
             this.indexApplicationSelection = indexApplicationSelection;
             this.midiDevice = midiDevice;
         }
+
+        public CommandControlMappingElement()
+        {
+            
+        }
     }
 }

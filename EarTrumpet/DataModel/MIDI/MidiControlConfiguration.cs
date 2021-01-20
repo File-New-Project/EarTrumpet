@@ -17,5 +17,10 @@
             this.MaxValue = MaxValue;
             this.ScalingValue = ScalingValue;
         }
+
+        public MidiControlConfiguration()
+        {
+            
+        }
     }
 }
