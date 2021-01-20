@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Windows.Forms;
 using Windows.Devices.Midi;
-using Bugsnag.Payload;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
@@ -83,10 +80,10 @@ namespace EarTrumpet.DataModel.MIDI
         private void ApplicationVolume(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
             IAppItemViewModel app = null;
-            if (command.mode == "Application Selection")
+            if (command.mode == CommandControlMappingElement.Mode.ApplicationSelection)
             {
                 app = GetAppByName(command.audioDevice, command.indexApplicationSelection);
-            } else if (command.mode == "Indexed")
+            } else if (command.mode == CommandControlMappingElement.Mode.Indexed)
             {
                 app = GetAppByIndex(command.audioDevice, command.indexApplicationSelection);
             }
@@ -102,10 +99,10 @@ namespace EarTrumpet.DataModel.MIDI
         private void ApplicationMute(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
             IAppItemViewModel app = null;
-            if (command.mode == "Application Selection")
+            if (command.mode == CommandControlMappingElement.Mode.ApplicationSelection)
             {
                 app = GetAppByName(command.audioDevice, command.indexApplicationSelection);
-            } else if (command.mode == "Indexed")
+            } else if (command.mode == CommandControlMappingElement.Mode.Indexed)
             {
                 app = GetAppByIndex(command.audioDevice, command.indexApplicationSelection);
             }
@@ -150,16 +147,16 @@ namespace EarTrumpet.DataModel.MIDI
                 {
                     if (MidiEquals(command.midiControlConfiguration, msg))
                     {
-                        if (command.command == "System Volume")
+                        if (command.command == CommandControlMappingElement.Command.SystemVolume)
                         {
                             SystemVolume(command, msg);
-                        } else if (command.command == "System Mute")
+                        } else if (command.command == CommandControlMappingElement.Command.SystemMute)
                         {
                             SystemMute(command, msg);
-                        } else if (command.command == "Application Volume")
+                        } else if (command.command == CommandControlMappingElement.Command.ApplicationVolume)
                         {
                             ApplicationVolume(command, msg);
-                        } else if (command.command == "Application Mute")
+                        } else if (command.command == CommandControlMappingElement.Command.ApplicationMute)
                         {
                             ApplicationMute(command, msg);
                         }
@@ -207,6 +204,7 @@ namespace EarTrumpet.DataModel.MIDI
             
             MidiIn.AddGeneralCallback(MidiCallback);
             Current = this;
+            // _settings.Set("MidiControls", new List<CommandControlMappingElement>());
             _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
             SubsribeToDevices();
         }

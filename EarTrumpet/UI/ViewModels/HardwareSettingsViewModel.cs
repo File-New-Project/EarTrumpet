@@ -280,7 +280,38 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveCommandControlMapping()
         {
-            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, SelectedCommand, SelectedMode, SelectedIndexesApplications, SelectedMidi);
+            CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
+            CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
+
+            switch (SelectedCommand)
+            {
+                case "System Volume":
+                    command = CommandControlMappingElement.Command.SystemVolume;
+                    break;
+                case "System Mute":
+                    command = CommandControlMappingElement.Command.SystemMute;
+                    break;
+                case "Application Volume":
+                    command = CommandControlMappingElement.Command.ApplicationVolume;
+                    break;
+                case "Application Mute":
+                    command = CommandControlMappingElement.Command.ApplicationMute;
+                    break;
+            }
+
+            switch (SelectedMode)
+            {
+                case "Indexed":
+                    mode = CommandControlMappingElement.Mode.Indexed;
+                    break;
+                case "Application Selection":
+                    mode = CommandControlMappingElement.Mode.ApplicationSelection;
+                    break;
+            }
+            
+            
+            
+            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications, SelectedMidi);
 
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
