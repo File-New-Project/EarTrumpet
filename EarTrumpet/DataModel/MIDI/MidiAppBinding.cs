@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using Windows.Devices.Midi;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
@@ -13,6 +12,9 @@ namespace EarTrumpet.DataModel.MIDI
         private DeviceCollectionViewModel _deviceCollectionViewModel;
         private List<CommandControlMappingElement> _commandControlMappings;
         private ISettingsBag _settings;
+
+        // Maps device ids to device names
+        private Dictionary<string, string> _deviceMapping;
         
         public static MidiAppBinding Current { get; set; }
 
@@ -35,7 +37,7 @@ namespace EarTrumpet.DataModel.MIDI
 
             try
             {
-                i = Int32.Parse(index);
+                i = int.Parse(index);
             }
             catch (FormatException)
             {
@@ -55,9 +57,66 @@ namespace EarTrumpet.DataModel.MIDI
             return midiConfig.Channel == msg.Channel && midiConfig.Controller == msg.Controller;
         }
 
-        private int ToVolume(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
+        private int SetVolume(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
         {
-            int newVolume;
+            var newVolume = oldVolume;
+            var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
+
+            // Division by zero is not allowed.
+            // -> Set minimum full scale range in these cases.
+            if(fullScaleRange == 0)
+            {
+                fullScaleRange = 1;
+            }
+
+            switch (midiConfig.ControllerType)
+            {
+                case ControllerTypes.LINEAR_POTENTIOMETER when midiConfig.MaxValue > midiConfig.MinValue:
+                    newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    break;
+                case ControllerTypes.LINEAR_POTENTIOMETER:
+                    newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    break;
+                case ControllerTypes.BUTTON:
+                {
+                    if (msg.ControlValue == midiConfig.MaxValue)
+                    {
+                        newVolume = oldVolume > 0 ? 0 : 100;
+                    }
+
+                    break;
+                }
+                case ControllerTypes.ROTARY_ENCODER when msg.ControlValue == midiConfig.MinValue:
+                {
+                    newVolume -= 1;
+                    if (newVolume < 0)
+                    {
+                        newVolume = 0;
+                    }
+
+                    break;
+                }
+                case ControllerTypes.ROTARY_ENCODER:
+                {
+                    if (msg.ControlValue == midiConfig.MaxValue)
+                    {
+                        newVolume += 1;
+                        if (newVolume > 100)
+                        {
+                            newVolume = 100;
+                        }
+                    }
+
+                    break;
+                }
+            }
+            
+            return newVolume;
+        }
+        
+        private bool SetMute(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
+        {
+            bool newMute = oldMute;
             float fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
 
             // Division by zero is not allowed.
@@ -66,18 +125,42 @@ namespace EarTrumpet.DataModel.MIDI
             {
                 fullScaleRange = 1;
             }
-                        
-            if(midiConfig.MaxValue > midiConfig.MinValue)
-            {
-                newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
-            }
-            else
-            {
-                newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
-            }
 
-            return newVolume;
+            if (midiConfig.ControllerType == ControllerTypes.LINEAR_POTENTIOMETER)
+            {
+                int calcVolume;
+                if(midiConfig.MaxValue > midiConfig.MinValue)
+                {
+                    calcVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                }
+                else
+                {
+                    calcVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                }
+
+                newMute = calcVolume < 50;
+                
+            } else if (midiConfig.ControllerType == ControllerTypes.BUTTON)
+            {
+                if (msg.ControlValue == midiConfig.MaxValue)
+                {
+                    newMute = !newMute;
+                }
+            } else if (midiConfig.ControllerType == ControllerTypes.ROTARY_ENCODER)
+            {
+                if (msg.ControlValue == midiConfig.MaxValue)
+                {
+                    newMute = false;
+                }
+                else
+                {
+                    newMute = true;
+                }
+            }
+            
+            return newMute;
         }
+        
         private void ApplicationVolume(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
             IAppItemViewModel app = null;
@@ -94,7 +177,7 @@ namespace EarTrumpet.DataModel.MIDI
                 return;
             }
 
-            app.Volume = ToVolume(command.midiControlConfiguration, msg);
+            app.Volume = SetVolume(command.midiControlConfiguration, msg, app.Volume);
         }
 
         private void ApplicationMute(CommandControlMappingElement command, MidiControlChangeMessage msg)
@@ -112,9 +195,8 @@ namespace EarTrumpet.DataModel.MIDI
             {
                 return;
             }
-            
-            int volume = ToVolume(command.midiControlConfiguration, msg);
-            app.IsMuted = (volume < 50);
+
+            app.IsMuted = SetMute(command.midiControlConfiguration, msg, app.IsMuted);
         }
 
         private void SystemVolume(CommandControlMappingElement command, MidiControlChangeMessage msg)
@@ -125,7 +207,7 @@ namespace EarTrumpet.DataModel.MIDI
                 return;
             }
 
-            device.Volume = ToVolume(command.midiControlConfiguration, msg);
+            device.Volume = SetVolume(command.midiControlConfiguration, msg, device.Volume);
         }
 
         private void SystemMute(CommandControlMappingElement command, MidiControlChangeMessage msg)
@@ -136,30 +218,53 @@ namespace EarTrumpet.DataModel.MIDI
                 return;
             }
 
-            int volume = ToVolume(command.midiControlConfiguration, msg);
-            device.IsMuted = (volume < 50);
+            device.IsMuted = SetMute(command.midiControlConfiguration, msg, device.IsMuted);
         }
-        
+
+        private string GetMidiDeviceById(string id)
+        {
+            if (_deviceMapping.ContainsKey(id))
+            {
+                return _deviceMapping[id];
+            }
+            
+            foreach (var device in MidiIn.GetAllDevices())
+            {
+                if (!_deviceMapping.ContainsKey(device.Id))
+                {
+                    _deviceMapping.Add(device.Id, device.Name);
+                    if (device.Id == id)
+                    {
+                        return device.Name;
+                    }
+                }
+            }
+
+            return "";
+        }
+
         private void MidiCallback(MidiInPort sender, MidiControlChangeMessage msg)
         {
             foreach (var command in _commandControlMappings)
             {
-                if (command.midiDevice == MidiIn.GetDeviceById(sender.DeviceId).Name)
+                if (command.midiDevice == GetMidiDeviceById(sender.DeviceId))
                 {
                     if (MidiEquals(command.midiControlConfiguration, msg))
                     {
-                        if (command.command == CommandControlMappingElement.Command.SystemVolume)
+                        switch (command.command)
                         {
-                            SystemVolume(command, msg);
-                        } else if (command.command == CommandControlMappingElement.Command.SystemMute)
-                        {
-                            SystemMute(command, msg);
-                        } else if (command.command == CommandControlMappingElement.Command.ApplicationVolume)
-                        {
-                            ApplicationVolume(command, msg);
-                        } else if (command.command == CommandControlMappingElement.Command.ApplicationMute)
-                        {
-                            ApplicationMute(command, msg);
+                            case CommandControlMappingElement.Command.SystemVolume:
+                                SystemVolume(command, msg);
+                                break;
+                            case CommandControlMappingElement.Command.SystemMute:
+                                SystemMute(command, msg);
+                                break;
+                            case CommandControlMappingElement.Command.ApplicationVolume:
+                                ApplicationVolume(command, msg);
+                                break;
+                            case CommandControlMappingElement.Command.ApplicationMute:
+                                ApplicationMute(command, msg);
+                                break;
                         }
                     }
                 }
@@ -218,6 +323,13 @@ namespace EarTrumpet.DataModel.MIDI
             Current = this;
             // _settings.Set("MidiControls", new List<CommandControlMappingElement>());
             _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
+            _deviceMapping = new Dictionary<string, string>();
+
+            foreach (var device in MidiIn.GetAllDevices())
+            {
+                _deviceMapping.Add(device.Id, device.Name);
+            }
+            
             SubscribeToDevices();
         }
     }
