@@ -186,7 +186,9 @@ namespace EarTrumpet.UI.ViewModels
                 // Invalid mode. Do nothing.
             }
         }
-            
+   
+
+
         // Constructor
         public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
         {
@@ -197,6 +199,23 @@ namespace EarTrumpet.UI.ViewModels
             SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
 
             _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
+
+            switch(_hardwareControls.ItemModificationWay)
+            {
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
+                    
+                    // TODO: Fill widgets with currently selected values.
+                    var selectedMappingElement = MidiAppBinding.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
+
+                    //selectedMappingElement.audioDevice
+
+                    break;
+
+                default:
+                    // Do not fill widgets.
+                    break;
+            }
+            
         }
 
         public ObservableCollection<string> AudioDevices
@@ -308,8 +327,6 @@ namespace EarTrumpet.UI.ViewModels
                     mode = CommandControlMappingElement.Mode.ApplicationSelection;
                     break;
             }
-            
-            
             
             _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications, SelectedMidi);
 

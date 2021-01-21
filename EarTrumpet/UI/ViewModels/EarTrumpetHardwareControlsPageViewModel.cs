@@ -30,6 +30,15 @@ namespace EarTrumpet.UI.ViewModels
         ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
         public ICommand SelectedItemChangedCommand { get; set; }
 
+        public enum ItemModificationWays
+        {
+            NEW_EMPTY,
+            NEW_FROM_EXISTING,
+            EDIT_EXISTING
+        }
+
+        public ItemModificationWays ItemModificationWay { get; set; }
+
         public EarTrumpetHardwareControlsPageViewModel(AppSettings settings, DeviceCollectionViewModel devices) : base(null)
         {
             _settings = settings;
@@ -74,13 +83,25 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        // ToDo: Add "New from selected" option.
         private void AddMidiControl()
         {
+            ItemModificationWay = ItemModificationWays.NEW_EMPTY;
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
         private void EditMidiControl()
         {
-            // TODO
+            var selectedIndex = SelectedIndex;
+
+            if (selectedIndex < 0)
+            {
+                // ToDo: Use localization.
+                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ItemModificationWay = ItemModificationWays.EDIT_EXISTING;
+            _hardwareSettingsWindow.OpenOrBringToFront();
         }
         private void DeleteMidiControl()
         {
