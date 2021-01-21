@@ -118,8 +118,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _selectedCommand = value;
 
-                // ToDo: Use localization.
-                if("System Volume" == value || "System Mute" == value)
+                if(Properties.Resources.SystemVolume == value || Properties.Resources.SystemMute == value)
                 {
                     // System specific command selected.
                     // -> Disable Mode and Selection ComboBoxes.
@@ -127,7 +126,7 @@ namespace EarTrumpet.UI.ViewModels
                     ModeSelectionEnabled = false;
                     IndexesApplicationsSelectionEnabled = false;
                 }
-                else if("Application Volume" == value || "Application Mute" == value)
+                else if(Properties.Resources.ApplicationVolume == value || Properties.Resources.ApplicationMute == value)
                 {
                     // Application specific command selected.
                     // -> Enable Mode and Selection ComboBoxes.
@@ -166,14 +165,14 @@ namespace EarTrumpet.UI.ViewModels
             _applicationIndexesNames.Clear();
 
             // ToDo: Use localization.
-            if ("Application Selection" == SelectedMode)
+            if (Properties.Resources.ApplicationSelection == SelectedMode)
             {
                 foreach (var app in _selectedDevice?.Apps)
                 {
                     _applicationIndexesNames.Add(app.DisplayName);
                 }
             }
-            else if ("Indexed" == SelectedMode)
+            else if (Properties.Resources.IndexedSelection == SelectedMode)
             {
                 // We do not expect more than 20 applications to be addressed.
                 for(var i = 0; i < 20; i++)
@@ -194,10 +193,10 @@ namespace EarTrumpet.UI.ViewModels
                 switch (data.mode)
                 {
                     case CommandControlMappingElement.Mode.Indexed:
-                        SelectedMode = "Indexed";
+                        SelectedMode = Properties.Resources.IndexedSelection;
                         break;
                     case CommandControlMappingElement.Mode.ApplicationSelection:
-                        SelectedMode = "Application Selection";
+                        SelectedMode = Properties.Resources.ApplicationSelection;
                         break;
                 }
 
@@ -209,18 +208,18 @@ namespace EarTrumpet.UI.ViewModels
             switch (data.command)
             {
                 case CommandControlMappingElement.Command.ApplicationMute:
-                    SelectedCommand = "Application Mute";
+                    SelectedCommand = Properties.Resources.ApplicationMute;
                     FillApplication();
                     break;
                 case CommandControlMappingElement.Command.ApplicationVolume:
-                    SelectedCommand = "Application Volume";
+                    SelectedCommand = Properties.Resources.ApplicationVolume;
                     FillApplication();
                     break;
                 case CommandControlMappingElement.Command.SystemMute:
-                    SelectedCommand = "System Mute";
+                    SelectedCommand = Properties.Resources.SystemMute;
                     break;
                 case CommandControlMappingElement.Command.SystemVolume:
-                    SelectedCommand = "System Volume";
+                    SelectedCommand = Properties.Resources.SystemVolume;
                     break;
             }
 
@@ -308,9 +307,8 @@ namespace EarTrumpet.UI.ViewModels
 
                 ObservableCollection<String> modes = new ObservableCollection<string>();
 
-                // ToDo: Use localization.
-                modes.Add("Indexed");
-                modes.Add("Application Selection");
+                modes.Add(Properties.Resources.IndexedSelection);
+                modes.Add(Properties.Resources.ApplicationSelection);
 
                 return modes;
             }
@@ -322,11 +320,10 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<String> commands = new ObservableCollection<string>();
 
-                // ToDo: Use localization.
-                commands.Add("System Volume");
-                commands.Add("System Mute");
-                commands.Add("Application Volume");
-                commands.Add("Application Mute");
+                commands.Add(Properties.Resources.SystemVolume);
+                commands.Add(Properties.Resources.SystemMute);
+                commands.Add(Properties.Resources.ApplicationVolume);
+                commands.Add(Properties.Resources.ApplicationMute);
 
                 return commands;
             }
@@ -342,38 +339,35 @@ namespace EarTrumpet.UI.ViewModels
             if (_midiControlConfiguration == null)
             {
                 // Do nothing if the midi settings were not done yet
-                // Todo maybe add an error message
+                // Todo add an error message
                 return;
             }
             CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
             CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
 
-            switch (SelectedCommand)
+            if (SelectedCommand == Properties.Resources.SystemVolume)
             {
-                case "System Volume":
-                    command = CommandControlMappingElement.Command.SystemVolume;
-                    break;
-                case "System Mute":
-                    command = CommandControlMappingElement.Command.SystemMute;
-                    break;
-                case "Application Volume":
-                    command = CommandControlMappingElement.Command.ApplicationVolume;
-                    break;
-                case "Application Mute":
-                    command = CommandControlMappingElement.Command.ApplicationMute;
-                    break;
+                command = CommandControlMappingElement.Command.SystemVolume;
+            } else if (SelectedCommand == Properties.Resources.SystemMute)
+            {
+                command = CommandControlMappingElement.Command.SystemMute;
+            } else if (SelectedCommand == Properties.Resources.ApplicationVolume)
+            {
+                command = CommandControlMappingElement.Command.ApplicationVolume;
+            }
+            else if (SelectedCommand == Properties.Resources.ApplicationMute)
+            {
+                command = CommandControlMappingElement.Command.ApplicationMute;
             }
 
-            switch (SelectedMode)
+            if (SelectedMode == Properties.Resources.IndexedSelection)
             {
-                case "Indexed":
-                    mode = CommandControlMappingElement.Mode.Indexed;
-                    break;
-                case "Application Selection":
-                    mode = CommandControlMappingElement.Mode.ApplicationSelection;
-                    break;
+                mode = CommandControlMappingElement.Mode.Indexed;
+            } else if (SelectedMode == Properties.Resources.ApplicationSelection)
+            {
+                mode = CommandControlMappingElement.Mode.ApplicationSelection;
             }
-            
+
             _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications, SelectedMidi);
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);

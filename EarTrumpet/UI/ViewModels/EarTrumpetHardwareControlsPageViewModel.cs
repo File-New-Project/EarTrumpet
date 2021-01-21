@@ -184,7 +184,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             var selectedIndex = SelectedIndex;
 
-            // TODO
+            // TODO do we even need this anymore?
         }
     }
 }

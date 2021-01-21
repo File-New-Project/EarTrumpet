@@ -344,4 +344,46 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="AddFromExistingMidiControlButtonText" xml:space="preserve">
     <value>Add From Existing</value>
   </data>
+  <data name="SystemVolume" xml:space="preserve">
+    <value>System Volume</value>
+  </data>
+  <data name="SystemMute" xml:space="preserve">
+    <value>System Mute</value>
+  </data>
+  <data name="ApplicationVolume" xml:space="preserve">
+    <value>Application Volume</value>
+  </data>
+  <data name="ApplicationMute" xml:space="preserve">
+    <value>Application Mute</value>
+  </data>
+  <data name="ApplicationSelection" xml:space="preserve">
+    <value>Application Selection</value>
+  </data>
+  <data name="IndexedSelection" xml:space="preserve">
+    <value>Indexed</value>
+  </data>
+  <data name="MidiWizardInstructions" xml:space="preserve">
+    <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
+  </data>
+  <data name="MidiWizardMinMaxInstructions" xml:space="preserve">
+    <value>Set the selected control to the min. value (or released state for buttons) and click 'Set Min'. Then set the selected control to the max. value (or pressed state for buttons) and click 'Set Max' (hold button until clicked).</value>
+  </data>
+  <data name="MidiLiveValue" xml:space="preserve">
+    <value>Live Value</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="SetMin" xml:space="preserve">
+    <value>Set Min</value>
+  </data>
+  <data name="SetMax" xml:space="preserve">
+    <value>SetMax</value>
+  </data>
+  <data name="MidiScaling" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
 </root>
