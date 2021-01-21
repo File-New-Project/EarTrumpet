@@ -29,7 +29,6 @@ namespace EarTrumpet.UI.ViewModels
         private DeviceCollectionViewModel _devices;
 
         ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
-        public ICommand SelectedItemChangedCommand { get; set; }
 
         public enum ItemModificationWays
         {
@@ -58,8 +57,6 @@ namespace EarTrumpet.UI.ViewModels
 
             // The command controls list should have no item selected on startup.
             SelectedIndex = -1;
-
-            SelectedItemChangedCommand = new RelayCommand(SelectedItemChanged);
         }
 
         public int SelectedIndex { get; set; }
@@ -178,13 +175,6 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             HardwareControls = commandControlsStringList;
-        }
-
-        public void SelectedItemChanged()
-        {
-            var selectedIndex = SelectedIndex;
-
-            // TODO do we even need this anymore?
         }
     }
 }
