@@ -167,6 +167,7 @@ namespace EarTrumpet.UI.ViewModels
                     ", MIDI Device=" + item.midiDevice + 
                     ", MIDI Channel=" + item.midiControlConfiguration.Channel + 
                     ", MIDI Controller=" + item.midiControlConfiguration.Controller + 
+                    ", MIDI Controller Type=" + MidiControlConfiguration.GetControllerTypeString(item.midiControlConfiguration.ControllerType) +
                     ", MIDI Min Value=" + item.midiControlConfiguration.MinValue + 
                     ", MIDI Max Value=" + item.midiControlConfiguration.MaxValue + 
                     ", MIDI Value Scaling=" + item.midiControlConfiguration.ScalingValue;

@@ -60,6 +60,7 @@ namespace EarTrumpet.UI.ViewModels
             MinValue = config.MinValue;
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
+            ControlTypeSelected = (int)config.ControllerType;
         }
         
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)
@@ -113,30 +114,9 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public void SaveMidiControl()
-        {
-
-            string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
-            ControllerTypes controllerTypeSelected = ControllerTypes.INVALID_ENTRY;
-
-            if ("Linear Potentiometer" == controlTypeSelectedString)
-            {
-                controllerTypeSelected = ControllerTypes.LINEAR_POTENTIOMETER;
-            }
-            else if ("Button" == controlTypeSelectedString)
-            {
-                controllerTypeSelected = ControllerTypes.BUTTON;
-            }
-            else if ("Rotary Encoder" == controlTypeSelectedString)
-            {
-                controllerTypeSelected = ControllerTypes.ROTARY_ENCODER;
-            }
-            else
-            {
-                // TODO: Error handling.
-            }
-
+        {            
             // Generate MIDI control configuration object.
-            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), controllerTypeSelected, MinValue, MaxValue, ScalingValue);
+            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
             _hardwareSettings.MidiControlSelectedCallback(midiControlConfiguration);
@@ -192,19 +172,20 @@ namespace EarTrumpet.UI.ViewModels
 
                 string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
 
-                if("Linear Potentiometer" == controlTypeSelectedString)
+                // TODO: Use localization.
+                if(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = "Minimum";
                     ScaleMaxValueSelectDescription = "Maximum";
                     MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsLinearPotentiometerControlType;
                 }
-                else if ("Button" == controlTypeSelectedString)
+                else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = "Released";
                     ScaleMaxValueSelectDescription = "Pushed";
                     MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsButtonControlType;
                 }
-                else if ("Rotary Encoder" == controlTypeSelectedString)
+                else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = "Decrease";
                     ScaleMaxValueSelectDescription = "Increase";
@@ -235,9 +216,9 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<string> controlTypes = new ObservableCollection<string>();
 
-                controlTypes.Add("Linear Potentiometer");
-                controlTypes.Add("Button");
-                controlTypes.Add("Rotary Encoder");
+                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER));
+                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON));
+                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER));
 
                 return controlTypes;
             }
