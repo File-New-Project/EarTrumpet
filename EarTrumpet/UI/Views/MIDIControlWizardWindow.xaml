@@ -7,25 +7,28 @@
         
         xmlns:local="clr-namespace:EarTrumpet.UI.Views"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.MIDIControlWizardText}" Height="453.668" Width="351">
+        Title="{x:Static resx:Resources.MIDIControlWizardText}" Height="492.668" Width="351">
     <Grid Margin="0,0,-8,0">
-        <ComboBox HorizontalAlignment="Left" Height="23" Margin="10,92,0,0" VerticalAlignment="Top" Width="313" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedIndex="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="78,92,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedIndex="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
         </ComboBox>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,10,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.MidiWizardInstructions}" />
-        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,337,0,0" VerticalAlignment="Top" Width="164" Value="{Binding LiveValue}" Name="LiveValueProgressBar"/>
-        <TextBlock Text="{Binding ElementName=LiveValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,342,73,0" Width="53" TextAlignment="Center" Height="17" />
-        <Label Content="{x:Static resx:Resources.MidiLiveValue}" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.Max}" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.Min}" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
-        <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="248,382,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveMidiControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
-        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,146,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.MidiWizardMinMaxInstructions}" />
-        <Button Content="{x:Static resx:Resources.SetMin}" HorizontalAlignment="Left" Margin="162,228,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
-        <Button Content="{x:Static resx:Resources.SetMax}" HorizontalAlignment="Left" Margin="162,258,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
-        <Label Content="{x:Static resx:Resources.MidiScaling}" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
-        <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="162,289,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="161" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
-        <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="219,308,79,0" Width="53" TextAlignment="Center" Height="17" />
-        <Label Content="{Binding MinValue}" HorizontalAlignment="Left" Margin="242,225,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
-        <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,255,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
+        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,355,0,0" VerticalAlignment="Top" Width="164" Value="{Binding LiveValue}" Name="LiveValueProgressBar"/>
+        <TextBlock Text="{Binding ElementName=LiveValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,360,73,0" Width="53" TextAlignment="Center" Height="17" />
+        <Label Content="{x:Static resx:Resources.MidiLiveValue}" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static resx:Resources.Max}" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static resx:Resources.Min}" HorizontalAlignment="Left" Margin="10,242,0,0" VerticalAlignment="Top"/>
+        <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="248,400,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveMidiControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
+        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,164,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.MidiWizardMinMaxInstructions}" />
+        <Button Content="{x:Static resx:Resources.SetMin}" HorizontalAlignment="Left" Margin="162,246,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
+        <Button Content="{x:Static resx:Resources.SetMax}" HorizontalAlignment="Left" Margin="162,276,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
+        <Label Content="{x:Static resx:Resources.MidiScaling}" HorizontalAlignment="Left" Margin="10,307,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
+        <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="162,307,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="161" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
+        <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="219,326,79,0" Width="53" TextAlignment="Center" Height="17" />
+        <Label Content="{Binding MinValue}" HorizontalAlignment="Left" Margin="242,243,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
+        <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,273,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="78,120,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding ControlTypes}" SelectedIndex="{Binding ControlTypeSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" Width="63"/>
+        <Label Content="Control" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="63"/>
 
     </Grid>
 </Window>

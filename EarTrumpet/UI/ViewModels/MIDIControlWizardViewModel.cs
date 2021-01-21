@@ -27,6 +27,7 @@ namespace EarTrumpet.UI.ViewModels
         System.Windows.Threading.Dispatcher _dispatcher;
         private int _liveValue = 0;
         private float _scalingValue = 0;
+        private int _controlTypeSelected = 0;
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -153,6 +154,34 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public int CapturedMidiInControlsSelected { get; set; }
+
+        public int ControlTypeSelected {
+            get
+            {
+                return _controlTypeSelected;
+            }
+
+            set
+            {
+                _controlTypeSelected = value;
+
+                // TODO: Change widgets depending on selected control type.
+            }
+        }
+
+        public ObservableCollection<string> ControlTypes
+        {
+            get
+            {
+                ObservableCollection<string> controlTypes = new ObservableCollection<string>();
+
+                controlTypes.Add("Linear Potentiometer");
+                controlTypes.Add("Button");
+                controlTypes.Add("Rotary Encoder");
+
+                return controlTypes;
+            }
+        }
 
         public int LiveValue
         {
