@@ -341,4 +341,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="EditMidiControlButtonText" xml:space="preserve">
     <value>Edit Selected</value>
   </data>
+  <data name="AddFromExistingMidiControlButtonText" xml:space="preserve">
+    <value>Add From Existing</value>
+  </data>
 </root>

@@ -15,6 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand AddMidiControlCommand { get; }
         public ICommand EditMidiControlCommand { get; }
         public ICommand DeleteMidiControlCommand { get; }
+        public ICommand AddFromExistingMidiControlCommand { get; }
 
         private WindowHolder _hardwareSettingsWindow;
         
@@ -49,6 +50,7 @@ namespace EarTrumpet.UI.ViewModels
             AddMidiControlCommand = new RelayCommand(AddMidiControl);
             EditMidiControlCommand = new RelayCommand(EditMidiControl);
             DeleteMidiControlCommand = new RelayCommand(DeleteMidiControl);
+            AddFromExistingMidiControlCommand = new RelayCommand(AddFromExistingMidiControl);
 
             _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
 
@@ -83,7 +85,6 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        // ToDo: Add "New from selected" option.
         private void AddMidiControl()
         {
             ItemModificationWay = ItemModificationWays.NEW_EMPTY;
@@ -103,6 +104,22 @@ namespace EarTrumpet.UI.ViewModels
             ItemModificationWay = ItemModificationWays.EDIT_EXISTING;
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
+
+        private void AddFromExistingMidiControl()
+        {
+            var selectedIndex = SelectedIndex;
+
+            if (selectedIndex < 0)
+            {
+                // ToDo: Use localization.
+                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            ItemModificationWay = ItemModificationWays.NEW_FROM_EXISTING;
+            _hardwareSettingsWindow.OpenOrBringToFront();
+        }
+        
         private void DeleteMidiControl()
         {
             var selectedIndex = SelectedIndex;
@@ -120,8 +137,18 @@ namespace EarTrumpet.UI.ViewModels
 
         public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
         {
-            MidiAppBinding.Current.AddCommand(commandControlMappingElement);
-
+            switch (ItemModificationWay)
+            {
+                case ItemModificationWays.NEW_EMPTY:
+                case ItemModificationWays.NEW_FROM_EXISTING:
+                    MidiAppBinding.Current.AddCommand(commandControlMappingElement);
+                    break;
+                case ItemModificationWays.EDIT_EXISTING:
+                    // Notify the hardware controls page about the new assignment.
+                    MidiAppBinding.Current.ModifyCommandIndex(SelectedIndex, commandControlMappingElement);
+                    break;
+            }
+            
             UpdateCommandControlsList();
 
             _hardwareSettingsWindow.OpenOrClose();

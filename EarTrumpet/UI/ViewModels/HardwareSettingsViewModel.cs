@@ -186,8 +186,48 @@ namespace EarTrumpet.UI.ViewModels
                 // Invalid mode. Do nothing.
             }
         }
-   
 
+        private void FillForm(CommandControlMappingElement data)
+        {
+            void FillApplication()
+            {
+                switch (data.mode)
+                {
+                    case CommandControlMappingElement.Mode.Indexed:
+                        SelectedMode = "Indexed";
+                        break;
+                    case CommandControlMappingElement.Mode.ApplicationSelection:
+                        SelectedMode = "Application Selection";
+                        break;
+                }
+
+                SelectedIndexesApplications = data.indexApplicationSelection;
+            }
+            
+            SelectedDevice = data.audioDevice;
+                    
+            switch (data.command)
+            {
+                case CommandControlMappingElement.Command.ApplicationMute:
+                    SelectedCommand = "Application Mute";
+                    FillApplication();
+                    break;
+                case CommandControlMappingElement.Command.ApplicationVolume:
+                    SelectedCommand = "Application Volume";
+                    FillApplication();
+                    break;
+                case CommandControlMappingElement.Command.SystemMute:
+                    SelectedCommand = "System Mute";
+                    break;
+                case CommandControlMappingElement.Command.SystemVolume:
+                    SelectedCommand = "System Volume";
+                    break;
+            }
+
+            SelectedMidi = data.midiDevice;
+
+            _midiControlConfiguration = data.midiControlConfiguration;
+        }
 
         // Constructor
         public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
@@ -199,16 +239,16 @@ namespace EarTrumpet.UI.ViewModels
             SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
 
             _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
-
+            
+            _availableMidiInDevices = MidiIn.GetAllDevices();
+            
             switch(_hardwareControls.ItemModificationWay)
             {
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
-                    
-                    // TODO: Fill widgets with currently selected values.
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
                     var selectedMappingElement = MidiAppBinding.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
 
-                    //selectedMappingElement.audioDevice
-
+                    FillForm(selectedMappingElement);
                     break;
 
                 default:
@@ -299,6 +339,12 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveCommandControlMapping()
         {
+            if (_midiControlConfiguration == null)
+            {
+                // Do nothing if the midi settings were not done yet
+                // Todo maybe add an error message
+                return;
+            }
             CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
             CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
 
@@ -329,7 +375,6 @@ namespace EarTrumpet.UI.ViewModels
             }
             
             _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications, SelectedMidi);
-
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
         }
@@ -342,8 +387,24 @@ namespace EarTrumpet.UI.ViewModels
         }
 
        private Window CreateMIDIControlWizardExperience()
-        {
-            var viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, this);
+       {
+           MIDIControlWizardViewModel viewModel = null;
+           
+            switch (_hardwareControls.ItemModificationWay)
+            {
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
+                    viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, this);
+                    break;
+                
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
+                    var config = MidiAppBinding.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
+                        .midiControlConfiguration;
+                    viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText,
+                        this, config);
+                    break;
+            }
+            
             return new MIDIControlWizardWindow { DataContext = viewModel};
         }
 

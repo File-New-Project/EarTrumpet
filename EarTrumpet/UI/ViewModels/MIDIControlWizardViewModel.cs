@@ -45,6 +45,18 @@ namespace EarTrumpet.UI.ViewModels
             // Scaling value slider has a default value of 1.0 .
             ScalingValue = 1.0F;
         }
+
+        public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings,
+            MidiControlConfiguration config): this(title, hardwareSettings)
+        {
+            //GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MinValue, MaxValue, ScalingValue
+            _capturedMidiInControls.Add("Channel=" + config.Channel + ", Controller=" + config.Controller +
+                                        ", Value=0");
+            MinValue = config.MinValue;
+            MaxValue = config.MaxValue;
+            ScalingValue = config.ScalingValue;
+        }
+        
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)
         {
             await _dispatcher.InvokeAsync(() =>

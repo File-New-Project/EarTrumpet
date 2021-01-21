@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 using Windows.Devices.Midi;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
@@ -167,7 +168,7 @@ namespace EarTrumpet.DataModel.MIDI
 
         public void AddCommand(CommandControlMappingElement command)
         {
-            MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice).Id);
+            MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice)?.Id);
             
             _commandControlMappings.Add(command);
             _settings.Set("MidiControls", _commandControlMappings);
@@ -187,6 +188,17 @@ namespace EarTrumpet.DataModel.MIDI
         public List<CommandControlMappingElement> GetCommandControlMappings()
         {
             return _commandControlMappings;
+        }
+
+        public void ModifyCommandIndex(int index, CommandControlMappingElement newCommand)
+        {
+            if (_commandControlMappings.Count < index)
+            {
+                return;
+            }
+            MidiIn._StartListening(MidiIn.GetDeviceByName(newCommand.midiDevice)?.Id);
+            
+            _commandControlMappings[index] = newCommand;
         }
         
         private void SubscribeToDevices()
