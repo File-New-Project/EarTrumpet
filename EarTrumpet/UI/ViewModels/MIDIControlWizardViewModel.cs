@@ -114,8 +114,29 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveMidiControl()
         {
+
+            string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
+            ControllerTypes controllerTypeSelected = ControllerTypes.INVALID_ENTRY;
+
+            if ("Linear Potentiometer" == controlTypeSelectedString)
+            {
+                controllerTypeSelected = ControllerTypes.LINEAR_POTENTIOMETER;
+            }
+            else if ("Button" == controlTypeSelectedString)
+            {
+                controllerTypeSelected = ControllerTypes.BUTTON;
+            }
+            else if ("Rotary Encoder" == controlTypeSelectedString)
+            {
+                controllerTypeSelected = ControllerTypes.ROTARY_ENCODER;
+            }
+            else
+            {
+                // TODO: Error handling.
+            }
+
             // Generate MIDI control configuration object.
-            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MinValue, MaxValue, ScalingValue);
+            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), controllerTypeSelected, MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
             _hardwareSettings.MidiControlSelectedCallback(midiControlConfiguration);
