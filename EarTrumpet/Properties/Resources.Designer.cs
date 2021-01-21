@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -486,11 +486,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set the selected control to the min. value (or released state for buttons) and click &apos;Set Min&apos;. Then set the selected control to the max. value (or pressed state for buttons) and click &apos;Set Max&apos; (hold button until clicked)..
+        ///   Looks up a localized string similar to Release the selected button and click corresponding &apos;Set&apos; (while released). Then press the selected button and click corresponding &apos;Set&apos; (while pressed)..
         /// </summary>
-        public static string MidiWizardMinMaxInstructions {
+        public static string MidiWizardMinMaxInstructionsButtonControlType {
             get {
-                return ResourceManager.GetString("MidiWizardMinMaxInstructions", resourceCulture);
+                return ResourceManager.GetString("MidiWizardMinMaxInstructionsButtonControlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected control to the minimum value and click corresponding &apos;Set&apos;. Then move the selected control to the maximum value and click corresponding &apos;Set&apos;..
+        /// </summary>
+        public static string MidiWizardMinMaxInstructionsLinearPotentiometerControlType {
+            get {
+                return ResourceManager.GetString("MidiWizardMinMaxInstructionsLinearPotentiometerControlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn the selected rotary control in decreasing direction and click corresponding &apos;Set&apos;. Then turn the selected rotary control in increasing direction and click corresponding &apos;Set&apos;..
+        /// </summary>
+        public static string MidiWizardMinMaxInstructionsRotaryEncoderControlType {
+            get {
+                return ResourceManager.GetString("MidiWizardMinMaxInstructionsRotaryEncoderControlType", resourceCulture);
             }
         }
         
@@ -666,20 +684,11 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SetMax.
+        ///   Looks up a localized string similar to Set.
         /// </summary>
-        public static string SetMax {
+        public static string SetScaleMinMax {
             get {
-                return ResourceManager.GetString("SetMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set Min.
-        /// </summary>
-        public static string SetMin {
-            get {
-                return ResourceManager.GetString("SetMin", resourceCulture);
+                return ResourceManager.GetString("SetScaleMinMax", resourceCulture);
             }
         }
         

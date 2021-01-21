@@ -365,8 +365,8 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="MidiWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
-  <data name="MidiWizardMinMaxInstructions" xml:space="preserve">
-    <value>Set the selected control to the min. value (or released state for buttons) and click 'Set Min'. Then set the selected control to the max. value (or pressed state for buttons) and click 'Set Max' (hold button until clicked).</value>
+  <data name="MidiWizardMinMaxInstructionsLinearPotentiometerControlType" xml:space="preserve">
+    <value>Move the selected control to the minimum value and click corresponding 'Set'. Then move the selected control to the maximum value and click corresponding 'Set'.</value>
   </data>
   <data name="MidiLiveValue" xml:space="preserve">
     <value>Live Value</value>
@@ -377,13 +377,16 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="Max" xml:space="preserve">
     <value>Max</value>
   </data>
-  <data name="SetMin" xml:space="preserve">
-    <value>Set Min</value>
-  </data>
-  <data name="SetMax" xml:space="preserve">
-    <value>SetMax</value>
+  <data name="SetScaleMinMax" xml:space="preserve">
+    <value>Set</value>
   </data>
   <data name="MidiScaling" xml:space="preserve">
     <value>Scaling</value>
+  </data>
+  <data name="MidiWizardMinMaxInstructionsButtonControlType" xml:space="preserve">
+    <value>Release the selected button and click corresponding 'Set' (while released). Then press the selected button and click corresponding 'Set' (while pressed).</value>
+  </data>
+  <data name="MidiWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
+    <value>Turn the selected rotary control in decreasing direction and click corresponding 'Set'. Then turn the selected rotary control in increasing direction and click corresponding 'Set'.</value>
   </data>
 </root>

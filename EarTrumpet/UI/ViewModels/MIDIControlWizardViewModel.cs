@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System;
 using EarTrumpet.DataModel.MIDI;
+using EarTrumpet.Properties;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -45,6 +46,9 @@ namespace EarTrumpet.UI.ViewModels
 
             // Scaling value slider has a default value of 1.0 .
             ScalingValue = 1.0F;
+
+            // Set default control type selection.
+            ControlTypeSelected = _controlTypeSelected;
         }
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings,
@@ -165,9 +169,44 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _controlTypeSelected = value;
 
-                // TODO: Change widgets depending on selected control type.
+                string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
+
+                if("Linear Potentiometer" == controlTypeSelectedString)
+                {
+                    ScaleMinValueSelectDescription = "Minimum";
+                    ScaleMaxValueSelectDescription = "Maximum";
+                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsLinearPotentiometerControlType;
+                }
+                else if ("Button" == controlTypeSelectedString)
+                {
+                    ScaleMinValueSelectDescription = "Released";
+                    ScaleMaxValueSelectDescription = "Pushed";
+                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsButtonControlType;
+                }
+                else if ("Rotary Encoder" == controlTypeSelectedString)
+                {
+                    ScaleMinValueSelectDescription = "Decrease";
+                    ScaleMaxValueSelectDescription = "Increase";
+                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsRotaryEncoderControlType;
+
+                }
+                else
+                {
+                    // Unknown selection. Ignore.
+                    return;
+                }
+
+                RaisePropertyChanged("ScaleMinValueSelectDescription");
+                RaisePropertyChanged("ScaleMaxValueSelectDescription");
+                RaisePropertyChanged("MidiWizardMinMaxInstructionsText");
             }
         }
+
+        public string ScaleMinValueSelectDescription { get; set; }
+
+        public string ScaleMaxValueSelectDescription { get; set; }
+
+        public string MidiWizardMinMaxInstructionsText{ get; set; }
 
         public ObservableCollection<string> ControlTypes
         {
