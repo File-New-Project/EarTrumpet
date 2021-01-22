@@ -10,6 +10,7 @@ namespace EarTrumpet.DataModel.MIDI
     public static class MidiIn
     {
         // This type is just awful
+        // maps from: device-id -> ((channel, controller) -> Actions)
         private static Dictionary<string, Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>
             callbacks;
 
@@ -42,11 +43,11 @@ namespace EarTrumpet.DataModel.MIDI
 
         private static void MessageReceived(MidiInPort sender, MidiMessageReceivedEventArgs args)
         {
-            IMidiMessage received = args.Message;
+            var received = args.Message;
 
             if (received.Type == MidiMessageType.ControlChange)
             {
-                MidiControlChangeMessage msg = (MidiControlChangeMessage) received;
+                var msg = (MidiControlChangeMessage) received;
                 foreach (var callback in generalCallbacks)
                 {
                     callback(sender, msg);
@@ -57,9 +58,7 @@ namespace EarTrumpet.DataModel.MIDI
                 {
                     return;
                 }
-                
-                
-                
+
                 var key = new Tuple<byte, byte>(msg.Channel, msg.Controller);
                 if (callbacks[id].ContainsKey(key))
                 {
@@ -135,13 +134,13 @@ namespace EarTrumpet.DataModel.MIDI
             var midiInputQueryString = MidiInPort.GetDeviceSelector();
             var midiInputDevices = await DeviceInformation.FindAllAsync(midiInputQueryString);
 
-            return (from device in midiInputDevices where returnEmptyNames || device.Name.Length != 0 select new MidiInDevice(device)).ToList();
+            return (from device in midiInputDevices where returnEmptyNames || device.Name.Length != 0 
+                select new MidiInDevice(device)).ToList();
         }
 
         public static List<MidiInDevice> GetAllDevices(bool returnEmptyNames=false)
         {
-            var t = Task.Run(async () => await _GetAllDevices(returnEmptyNames));
-            return t.Result;
+            return Task.Run(async () => await _GetAllDevices(returnEmptyNames)).Result;
         }
 
         public static MidiInDevice GetDeviceByName(string name)

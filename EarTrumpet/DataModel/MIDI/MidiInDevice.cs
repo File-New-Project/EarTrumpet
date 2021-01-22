@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media.Effects;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Midi;
 
@@ -8,15 +9,9 @@ namespace EarTrumpet.DataModel.MIDI
     {
         private readonly DeviceInformation _device;
 
-        public string Name
-        {
-            get => _device.Name;
-        }
-        
-        public string Id
-        {
-            get => _device.Id;
-        }
+        public string Name => _device.Name;
+
+        public string Id => _device.Id;
 
         public MidiInDevice(DeviceInformation device)
         {

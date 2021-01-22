@@ -39,13 +39,7 @@ namespace EarTrumpet.DataModel.MIDI
 
             foreach (var device in devices)
             {
-                foreach (var app in device.Apps)
-                {
-                    if (app.DisplayName == appName)
-                    {
-                        result.Add(app);
-                    }
-                }
+                result.AddRange(device.Apps.Where(app => app.DisplayName == appName));
             }
 
             return result;
@@ -57,33 +51,30 @@ namespace EarTrumpet.DataModel.MIDI
             
             foreach (var device in GetDevicesByName(deviceName))
             {
-                int i;
-
                 try
                 {
-                    i = int.Parse(index);
+                    var i = int.Parse(index);
+                    
+                    if (device.Apps.Count() > i)
+                    {
+                        result.Add(device.Apps[i]);
+                    }
                 }
                 catch (FormatException)
                 {
                     return null;
                 }
-            
-                if (device.Apps.Count() > i)
-                {
-                    result.Add(device.Apps[i]);
-                }
             }
-
-
+            
             return result;
         }
 
-        private bool MidiEquals(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
+        private static bool MidiEquals(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
         {
             return midiConfig.Channel == msg.Channel && midiConfig.Controller == msg.Controller;
         }
 
-        private int SetVolume(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
+        private static int SetVolume(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
         {
             var newVolume = oldVolume;
             var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
@@ -98,10 +89,12 @@ namespace EarTrumpet.DataModel.MIDI
             switch (midiConfig.ControllerType)
             {
                 case ControllerTypes.LINEAR_POTENTIOMETER when midiConfig.MaxValue > midiConfig.MinValue:
-                    newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * 
+                                               midiConfig.ScalingValue * 100.0));
                     break;
                 case ControllerTypes.LINEAR_POTENTIOMETER:
-                    newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) 
+                                                     * midiConfig.ScalingValue * 100.0));
                     break;
                 case ControllerTypes.BUTTON:
                 {
@@ -127,6 +120,7 @@ namespace EarTrumpet.DataModel.MIDI
                     if (msg.ControlValue == midiConfig.MaxValue)
                     {
                         newVolume += 1;
+                        
                         if (newVolume > 100)
                         {
                             newVolume = 100;
@@ -140,10 +134,10 @@ namespace EarTrumpet.DataModel.MIDI
             return newVolume;
         }
         
-        private bool SetMute(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
+        private static bool SetMute(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
         {
-            bool newMute = oldMute;
-            float fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
+            var newMute = oldMute;
+            var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
 
             // Division by zero is not allowed.
             // -> Set minimum full scale range in these cases.
@@ -157,11 +151,13 @@ namespace EarTrumpet.DataModel.MIDI
                 int calcVolume;
                 if(midiConfig.MaxValue > midiConfig.MinValue)
                 {
-                    calcVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    calcVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) *
+                                                midiConfig.ScalingValue * 100.0));
                 }
                 else
                 {
-                    calcVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) * midiConfig.ScalingValue * 100.0));
+                    calcVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange)
+                                                      * midiConfig.ScalingValue * 100.0));
                 }
 
                 newMute = calcVolume < 50;
@@ -352,7 +348,7 @@ namespace EarTrumpet.DataModel.MIDI
             
             MidiIn.AddGeneralCallback(MidiCallback);
             Current = this;
-            // _settings.Set("MidiControls", new List<CommandControlMappingElement>());
+            
             _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
             _deviceMapping = new Dictionary<string, string>();
 

@@ -18,14 +18,14 @@
         public float ScalingValue { get; set; }
 
         // Constructor
-        public MidiControlConfiguration(byte Channel, byte Controller, ControllerTypes ControllerType, byte MinValue, byte MaxValue, float ScalingValue)
+        public MidiControlConfiguration(byte channel, byte controller, ControllerTypes controllerType, byte minValue, byte maxValue, float scalingValue)
         {
-            this.Channel = Channel;
-            this.Controller = Controller;
-            this.ControllerType = ControllerType;
-            this.MinValue = MinValue;
-            this.MaxValue = MaxValue;
-            this.ScalingValue = ScalingValue;
+            Channel = channel;
+            Controller = controller;
+            ControllerType = controllerType;
+            MinValue = minValue;
+            MaxValue = maxValue;
+            ScalingValue = scalingValue;
         }
 
         // Default constructor required for serialization.
