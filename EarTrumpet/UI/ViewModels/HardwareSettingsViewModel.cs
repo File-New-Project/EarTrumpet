@@ -32,14 +32,22 @@ namespace EarTrumpet.UI.ViewModels
 
         public ICommand SelectMidiControlCommand { get; }
 
+        // TODO: Use localization.
         public string SelectedDevice {
             set
             {
-                foreach (var dev in _devices.AllDevices)
+                if ("*All Devices*" == value)
                 {
-                    if (dev.DisplayName == value)
+                    _selectedDevice = null;
+                }
+                else
+                {
+                    foreach (var dev in _devices.AllDevices)
                     {
-                        _selectedDevice = dev;
+                        if (dev.DisplayName == value)
+                        {
+                            _selectedDevice = dev;
+                        }
                     }
                 }
 
@@ -53,7 +61,7 @@ namespace EarTrumpet.UI.ViewModels
                     return _selectedDevice.DisplayName;
                 }
 
-                return "";
+                return "*All Devices*";
             }
         }
         
@@ -164,12 +172,28 @@ namespace EarTrumpet.UI.ViewModels
         {
             _applicationIndexesNames.Clear();
 
-            // ToDo: Use localization.
             if (Properties.Resources.ApplicationSelection == SelectedMode)
             {
-                foreach (var app in _selectedDevice?.Apps)
+                // ToDo: Use localization.
+                if ("*All Devices*" == SelectedDevice)
                 {
-                    _applicationIndexesNames.Add(app.DisplayName);
+                    foreach (var dev in _devices.AllDevices)
+                    {
+                        foreach(var app in dev.Apps)
+                        {
+                            if(!_applicationIndexesNames.Contains(app.DisplayName))
+                            {
+                                _applicationIndexesNames.Add(app.DisplayName);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var app in _selectedDevice?.Apps)
+                    {
+                        _applicationIndexesNames.Add(app.DisplayName);
+                    }
                 }
             }
             else if (Properties.Resources.IndexedSelection == SelectedMode)
@@ -263,6 +287,8 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<String> availableAudioDevices = new ObservableCollection<string>();
                 var devices = _devices.AllDevices;
+
+                availableAudioDevices.Add("*All Devices*");
 
                 foreach (var device in devices)
                 {
