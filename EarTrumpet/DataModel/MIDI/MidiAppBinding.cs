@@ -334,6 +334,7 @@ namespace EarTrumpet.DataModel.MIDI
             MidiIn._StartListening(MidiIn.GetDeviceByName(newCommand.midiDevice)?.Id);
             
             _commandControlMappings[index] = newCommand;
+            _settings.Set("MidiControls", _commandControlMappings);
         }
         
         private void SubscribeToDevices()
