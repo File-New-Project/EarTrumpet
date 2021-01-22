@@ -18,38 +18,64 @@ namespace EarTrumpet.DataModel.MIDI
         
         public static MidiAppBinding Current { get; set; }
 
-        private DeviceViewModel GetDeviceByName(string name)
+        private List<DeviceViewModel> GetDevicesByName(string name)
         {
-            return _deviceCollectionViewModel.AllDevices.FirstOrDefault(device => device.DisplayName == name);
+            var result = new List<DeviceViewModel>();
+            foreach (var device in _deviceCollectionViewModel.AllDevices)
+            {
+                if (device.DisplayName == name || name == "*All Devices*")
+                {
+                    result.Add(device);
+                }
+            }
+
+            return result;
         }
 
-        private IAppItemViewModel GetAppByName(string deviceName, string appName)
+        private List<IAppItemViewModel> GetAppsByName(string deviceName, string appName)
         {
-            var device = GetDeviceByName(deviceName);
+            var devices = GetDevicesByName(deviceName);
+            var result = new List<IAppItemViewModel>();
 
-            return (device?.Apps).FirstOrDefault(app => app.DisplayName == appName);
+            foreach (var device in devices)
+            {
+                foreach (var app in device.Apps)
+                {
+                    if (app.DisplayName == appName)
+                    {
+                        result.Add(app);
+                    }
+                }
+            }
+
+            return result;
         }
         
-        private IAppItemViewModel GetAppByIndex(string deviceName, string index)
+        private List<IAppItemViewModel> GetAppsByIndex(string deviceName, string index)
         {
-            var device = GetDeviceByName(deviceName);
-            int i;
-
-            try
-            {
-                i = int.Parse(index);
-            }
-            catch (FormatException)
-            {
-                return null;
-            }
+            var result = new List<IAppItemViewModel>();
             
-            if (device.Apps.Count() < i)
+            foreach (var device in GetDevicesByName(deviceName))
             {
-                return null;
+                int i;
+
+                try
+                {
+                    i = int.Parse(index);
+                }
+                catch (FormatException)
+                {
+                    return null;
+                }
+            
+                if (device.Apps.Count() > i)
+                {
+                    result.Add(device.Apps[i]);
+                }
             }
 
-            return device.Apps[i];
+
+            return result;
         }
 
         private bool MidiEquals(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
@@ -163,62 +189,66 @@ namespace EarTrumpet.DataModel.MIDI
         
         private void ApplicationVolume(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
-            IAppItemViewModel app = null;
+            List<IAppItemViewModel> apps = null;
             if (command.mode == CommandControlMappingElement.Mode.ApplicationSelection)
             {
-                app = GetAppByName(command.audioDevice, command.indexApplicationSelection);
+                apps = GetAppsByName(command.audioDevice, command.indexApplicationSelection);
             } else if (command.mode == CommandControlMappingElement.Mode.Indexed)
             {
-                app = GetAppByIndex(command.audioDevice, command.indexApplicationSelection);
+                apps = GetAppsByIndex(command.audioDevice, command.indexApplicationSelection);
             }
                 
-            if (app == null)
+            if (apps == null)
             {
                 return;
             }
 
-            app.Volume = SetVolume(command.midiControlConfiguration, msg, app.Volume);
+            foreach (var app in apps)
+            {
+                app.Volume = SetVolume(command.midiControlConfiguration, msg, app.Volume);
+            }
         }
 
         private void ApplicationMute(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
-            IAppItemViewModel app = null;
+            List<IAppItemViewModel> apps = null;
             if (command.mode == CommandControlMappingElement.Mode.ApplicationSelection)
             {
-                app = GetAppByName(command.audioDevice, command.indexApplicationSelection);
+                apps = GetAppsByName(command.audioDevice, command.indexApplicationSelection);
             } else if (command.mode == CommandControlMappingElement.Mode.Indexed)
             {
-                app = GetAppByIndex(command.audioDevice, command.indexApplicationSelection);
+                apps = GetAppsByIndex(command.audioDevice, command.indexApplicationSelection);
             }
                 
-            if (app == null)
+            if (apps == null)
             {
                 return;
             }
-
-            app.IsMuted = SetMute(command.midiControlConfiguration, msg, app.IsMuted);
+            
+            foreach (var app in apps)
+            {
+                app.IsMuted = SetMute(command.midiControlConfiguration, msg, app.IsMuted);
+            }
         }
 
         private void SystemVolume(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
-            var device = GetDeviceByName(command.audioDevice);
-            if (device == null)
-            {
-                return;
-            }
+            var devices = GetDevicesByName(command.audioDevice);
 
-            device.Volume = SetVolume(command.midiControlConfiguration, msg, device.Volume);
+            foreach (var device in devices)
+            {
+                device.Volume = SetVolume(command.midiControlConfiguration, msg, device.Volume);
+            }
         }
 
         private void SystemMute(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
-            var device = GetDeviceByName(command.audioDevice);
-            if (device == null)
-            {
-                return;
-            }
+            var devices = GetDevicesByName(command.audioDevice);
 
-            device.IsMuted = SetMute(command.midiControlConfiguration, msg, device.IsMuted);
+            foreach (var device in devices)
+            {
+                device.IsMuted = SetMute(command.midiControlConfiguration, msg, device.IsMuted);
+            }
         }
 
         private string GetMidiDeviceById(string id)
