@@ -242,7 +242,9 @@ namespace EarTrumpet.UI.ViewModels
                     // Do not fill widgets.
                     break;
             }
-            
+
+            // Set default command.
+            SelectedCommand = Properties.Resources.SystemVolume;
         }
 
         public ObservableCollection<string> AudioDevices
