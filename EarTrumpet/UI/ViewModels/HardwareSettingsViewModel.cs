@@ -198,9 +198,9 @@ namespace EarTrumpet.UI.ViewModels
 
                 SelectedIndexesApplications = data.indexApplicationSelection;
             }
-            
+
             SelectedDevice = data.audioDevice;
-                    
+
             switch (data.command)
             {
                 case CommandControlMappingElement.Command.ApplicationMute:
@@ -218,10 +218,22 @@ namespace EarTrumpet.UI.ViewModels
                     SelectedCommand = Properties.Resources.SystemVolume;
                     break;
             }
-            
+
             SelectedDeviceType = HardwareManager.Current.GetConfigType(data);
-            _midiControlConfiguration = (MidiControlConfiguration)data.hardwareConfiguration;
-        }
+
+            switch (SelectedDeviceType)
+            {
+                case "MIDI":
+                    _midiControlConfiguration = (MidiControlConfiguration)data.hardwareConfiguration;
+                    break;
+                case "deej":
+                    _deejConfiguration = (DeejConfiguration)data.hardwareConfiguration;
+                    break;
+                default:
+                    // Should not happen. ToDo: Error handling!
+                    break;
+            }
+    }
 
         // Constructor
         public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
@@ -237,6 +249,15 @@ namespace EarTrumpet.UI.ViewModels
 
             switch(_hardwareControls.ItemModificationWay)
             {
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
+                    
+                    // Set default command.
+                    SelectedCommand = Properties.Resources.SystemVolume;
+
+                    // Set default device type.
+                    SelectedDeviceType = "MIDI";
+
+                    break;
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
                     var selectedMappingElement = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
@@ -248,12 +269,6 @@ namespace EarTrumpet.UI.ViewModels
                     // Do not fill widgets.
                     break;
             }
-
-            // Set default command.
-            SelectedCommand = Properties.Resources.SystemVolume;
-
-            // Set default device type.
-            SelectedDeviceType = "MIDI";
         }
 
         public ObservableCollection<string> AudioDevices
