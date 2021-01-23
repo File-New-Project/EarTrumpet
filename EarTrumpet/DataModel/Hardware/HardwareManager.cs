@@ -69,11 +69,37 @@ namespace EarTrumpet.DataModel.Hardware
                 i += bindings[type].GetCommandControlMappings().Count;
             }
         }
+        
+        public CommandControlMappingElement GetCommandAt(int index)
+        {
+            var i = 0;
+            foreach (var type in bindings.Keys)
+            {
+                if (index - i < bindings[type].GetCommandControlMappings().Count)
+                {
+                    return bindings[type].GetCommandAt(index - i);
+                }
+
+                i += bindings[type].GetCommandControlMappings().Count;
+            }
+
+            return null;
+        }
 
         public void ModifyCommandAt(int index, CommandControlMappingElement newCommand)
         {
-            // Todo Add logic for changing the hardware type of a command
+            var newType = GetConfigType(newCommand);
+            var oldType = GetConfigType(GetCommandAt(index));
+            if (newType != oldType)
+            {
+                RemoveCommandAt(index);
+                AddCommand(newCommand);
+
+                return;
+            }
+            
             var i = 0;
+            
             foreach (var type in bindings.Keys)
             {
                 if (index - i < bindings[type].GetCommandControlMappings().Count)

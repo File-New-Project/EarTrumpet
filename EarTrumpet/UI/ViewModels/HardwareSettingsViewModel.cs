@@ -450,8 +450,16 @@ namespace EarTrumpet.UI.ViewModels
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
                     var config = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
                         .hardwareConfiguration;
-                    viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText,
-                        this, (MidiControlConfiguration)config);
+                    if (config is MidiControlConfiguration)
+                    {
+                        viewModel = new MIDIControlWizardViewModel(Properties.Resources.MIDIControlWizardText,
+                            this, (MidiControlConfiguration)config);
+                    }
+                    else
+                    {
+                        viewModel = new MIDIControlWizardViewModel(Properties.Resources.MIDIControlWizardText, this);
+                    }
+                    
                     break;
             }
             
@@ -472,8 +480,16 @@ namespace EarTrumpet.UI.ViewModels
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
                     var config = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
                         .hardwareConfiguration;
-                    viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText,
-                        this, (DeejConfiguration)config);
+                    if (config is DeejConfiguration)
+                    {
+                        viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText,
+                            this, (DeejConfiguration)config);
+                    }
+                    else
+                    {
+                        viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText, this);
+                    }
+                    
                     break;
             }
 

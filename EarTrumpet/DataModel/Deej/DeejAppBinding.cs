@@ -38,6 +38,11 @@ namespace EarTrumpet.DataModel.Deej
             SaveSettings(SAVEKEY);
         }
 
+        public override CommandControlMappingElement GetCommandAt(int index)
+        {
+            return _commandControlMappings.Count < index ? null : _commandControlMappings[index];
+        }
+
         public override void RemoveCommandAt(int index)
         {
             if (_commandControlMappings.Count < index)

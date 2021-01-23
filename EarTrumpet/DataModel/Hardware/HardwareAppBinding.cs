@@ -12,6 +12,7 @@ namespace EarTrumpet.DataModel.Hardware
         public abstract string Name { get; }
         
         public abstract void AddCommand(CommandControlMappingElement command);
+        public abstract CommandControlMappingElement GetCommandAt(int index);
         public abstract void RemoveCommandAt(int index);
         public abstract void ModifyCommandAt(int index, CommandControlMappingElement newCommand);
 

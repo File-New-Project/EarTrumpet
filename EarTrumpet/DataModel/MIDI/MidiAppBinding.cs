@@ -255,6 +255,11 @@ namespace EarTrumpet.DataModel.MIDI
             _commandControlMappings.Add(command);
             SaveSettings(SAVEKEY);
         }
+        
+        public override CommandControlMappingElement GetCommandAt(int index)
+        {
+            return _commandControlMappings.Count < index ? null : _commandControlMappings[index];
+        }
 
         public override void RemoveCommandAt(int index)
         {
