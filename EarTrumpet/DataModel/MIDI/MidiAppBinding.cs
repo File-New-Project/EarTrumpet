@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.Devices.Midi;
 using EarTrumpet.DataModel.Hardware;
-using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
 namespace EarTrumpet.DataModel.MIDI
@@ -266,11 +264,6 @@ namespace EarTrumpet.DataModel.MIDI
             _commandControlMappings.RemoveAt(index);
             SaveSettings(SAVEKEY);
         }
-        
-        public override List<CommandControlMappingElement> GetCommandControlMappings()
-        {
-            return _commandControlMappings;
-        }
 
         public override void ModifyCommandAt(int index, CommandControlMappingElement newCommand)
         {
@@ -298,6 +291,7 @@ namespace EarTrumpet.DataModel.MIDI
         public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel): base(deviceCollectionViewModel)
         {
             MidiIn.AddGeneralCallback(MidiCallback);
+            
             LoadSettings(SAVEKEY);
             
             _deviceMapping = new Dictionary<string, string>();

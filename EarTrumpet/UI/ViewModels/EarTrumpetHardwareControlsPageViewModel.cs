@@ -161,7 +161,7 @@ namespace EarTrumpet.UI.ViewModels
                     "Audio Device=" + item.audioDevice +
                     ", Command=" + item.command +
                     ", Mode=" + item.mode +
-                    ", Selection=" + item.indexApplicationSelection + 
+                    ", Selection=" + item.indexApplicationSelection + ", " +
                     item.hardwareConfiguration;
 
                 commandControlsStringList.Add(commandControlsString);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using EarTrumpet.DataModel.Deej;
 using EarTrumpet.DataModel.MIDI;
 using EarTrumpet.UI.ViewModels;
@@ -35,6 +36,8 @@ namespace EarTrumpet.DataModel.Hardware
             return result;
         }
 
+        // Disable optimization here to prevent c# from removing the convert.Changetype line
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
         public void AddCommand(CommandControlMappingElement command)
         {
             foreach (var type in bindings.Keys)

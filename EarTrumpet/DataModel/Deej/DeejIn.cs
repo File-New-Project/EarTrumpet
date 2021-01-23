@@ -8,16 +8,36 @@ namespace EarTrumpet.DataModel.Deej
 {
     public static class DeejIn
     {
-        // This type is just awful
-        // maps from: device-id -> ((channel, controller) -> Actions)
+        // maps from: comports -> Actions)
         private static Dictionary<string, List<Action<List<int>>>> callbacks;
         private static List<Action<string, List<int>>> generalCallbacks;
         
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
         private static Dictionary<string, string> buffers;
+        private static Dictionary<string, List<int>> lastValues;
+        private static List<SerialPort> serialPorts;
+        
+        private static bool SendCallback(string port, List<int> values)
+        {
+            if (lastValues[port].Count != values.Count)
+            {
+                lastValues[port] = values;
+                return true;
+            }
 
-        private static void DataReceived(Object sender, SerialDataReceivedEventArgs e)
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (values[i] != lastValues[port][i])
+                {
+                    lastValues[port] = values;
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        private static void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var sp = (SerialPort) sender;
             var indata = sp.ReadExisting();
@@ -36,17 +56,20 @@ namespace EarTrumpet.DataModel.Deej
                         channels.Add(int.Parse(c));
                     }
 
-                    if (callbacks.ContainsKey(sp.PortName))
+                    if (SendCallback(sp.PortName, channels))
                     {
-                        foreach (var callback in callbacks[sp.PortName])
+                        if (callbacks.ContainsKey(sp.PortName))
                         {
-                            callback(channels);
+                            foreach (var callback in callbacks[sp.PortName])
+                            {
+                                callback(channels);
+                            }
                         }
-                    }
 
-                    foreach (var callback in generalCallbacks)
-                    {
-                        callback(sp.PortName, channels);
+                        foreach (var callback in generalCallbacks)
+                        {
+                            callback(sp.PortName, channels);
+                        }
                     }
                 }
                 catch (Exception)
@@ -57,7 +80,7 @@ namespace EarTrumpet.DataModel.Deej
             }
         }
 
-        private static void _StartListening(string port)
+        internal static void _StartListening(string port)
         {
             if (watchedDevices.Contains(port))
             {
@@ -78,9 +101,16 @@ namespace EarTrumpet.DataModel.Deej
             {
                 buffers.Add(port, "");
             }
+
+            if (!lastValues.ContainsKey(port))
+            {
+                lastValues.Add(port, new List<int>());
+            }
             
             watchedDevices.Add(port);
             sp.Open();
+            
+            serialPorts.Add(sp);
         }
 
         internal static void AddCallback(string port, Action<List<int>> callback)
@@ -93,12 +123,12 @@ namespace EarTrumpet.DataModel.Deej
 
             callbacks[port].Add(callback);
         }
-
+        
         internal static void AddGeneralCallback(Action<string, List<int>> callback)
         {
             generalCallbacks.Add(callback);
         }
-        
+
         public static List<string> GetAllDevices()
         {
             return new List<string>(SerialPort.GetPortNames());
@@ -130,6 +160,8 @@ namespace EarTrumpet.DataModel.Deej
             
             watchedDevices = new List<string>();
             buffers = new Dictionary<string, string>();
+            lastValues = new Dictionary<string, List<int>>();
+            serialPorts = new List<SerialPort>();
             
             deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
             deviceWatcher.Added += Added;

@@ -15,16 +15,20 @@ namespace EarTrumpet.DataModel.Hardware
         public abstract void RemoveCommandAt(int index);
         public abstract void ModifyCommandAt(int index, CommandControlMappingElement newCommand);
 
-        public abstract List<CommandControlMappingElement> GetCommandControlMappings();
-        
         protected DeviceCollectionViewModel _deviceCollectionViewModel;
         private ISettingsBag _settings;
         
         protected List<CommandControlMappingElement> _commandControlMappings;
+
+        public List<CommandControlMappingElement> GetCommandControlMappings()
+        {
+            return _commandControlMappings;
+        }
         
         protected HardwareAppBinding(DeviceCollectionViewModel deviceViewModel)
         {
             _deviceCollectionViewModel = deviceViewModel;
+            _commandControlMappings = new List<CommandControlMappingElement>();
             
             _settings = StorageFactory.GetSettings();
             
@@ -83,12 +87,12 @@ namespace EarTrumpet.DataModel.Hardware
 
         protected void LoadSettings(string key)
         {
-            _commandControlMappings = _settings.Get("MidiControls", new List<CommandControlMappingElement>());
+            _commandControlMappings = _settings.Get(key, new List<CommandControlMappingElement>());
         }
 
         protected void SaveSettings(string key)
         {
-            _settings.Set("MidiControls", _commandControlMappings);
+            _settings.Set(key, _commandControlMappings);
         }
     }
 }

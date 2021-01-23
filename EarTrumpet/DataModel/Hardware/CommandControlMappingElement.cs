@@ -1,6 +1,4 @@
-﻿using EarTrumpet.DataModel.MIDI;
-
-namespace EarTrumpet.DataModel.Hardware
+﻿namespace EarTrumpet.DataModel.Hardware
 {
     public class CommandControlMappingElement
     {

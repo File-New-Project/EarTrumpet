@@ -1,6 +1,4 @@
-﻿using System.IO.Ports;
-using EarTrumpet.DataModel.Hardware;
-using EarTrumpet.Properties;
+﻿using EarTrumpet.DataModel.Hardware;
 
 namespace EarTrumpet.DataModel.Deej
 {
