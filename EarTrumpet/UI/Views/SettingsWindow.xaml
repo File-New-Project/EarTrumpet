@@ -220,6 +220,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetHardwareControlsPageViewModel}">
             <StackPanel Orientation="Vertical">
+
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -229,13 +232,11 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Button Grid.Column="0" Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
-                    <Button Grid.Column="1" Command="{Binding DeleteMidiControlCommand}" Content="{x:Static resx:Resources.DeleteMidiControlButtonText}" />
+                    <Button Grid.Row="0" Grid.Column="0" Command="{Binding AddMidiControlCommand}" Content="{x:Static resx:Resources.AddMidiControlButtonText}" />
+                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding DeleteMidiControlCommand}" Content="{x:Static resx:Resources.DeleteMidiControlButtonText}" />
                     <Button Grid.Row="1" Grid.Column="0" Command="{Binding EditMidiControlCommand}" Content="{x:Static resx:Resources.EditMidiControlButtonText}" />
-                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding AddFromExistingMidiControlCommand}" Content="{x:Static resx:Resources.AddFromExistingMidiControlButtonText}" />
+                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding AddFromExistingMidiControlCommand}" Content="{x:Static resx:Resources.AddFromExistingMidiControlButtonText}" />
                 </Grid>
-
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HardwareControlInformationText}" />
                 
                 <ctl:ListView
                     SelectionMode="Single"

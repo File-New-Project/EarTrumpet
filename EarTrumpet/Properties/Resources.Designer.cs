@@ -79,7 +79,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add From Existing.
+        ///   Looks up a localized string similar to Add New From Selected.
         /// </summary>
         public static string AddFromExistingMidiControlButtonText {
             get {
@@ -414,7 +414,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can control system- and application volumes using a MIDI controller hardware..
+        ///   Looks up a localized string similar to Control system- and application volumes using a controller hardware (MIDI and deej devices supported)..
         /// </summary>
         public static string HardwareControlInformationText {
             get {

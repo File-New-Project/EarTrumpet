@@ -303,7 +303,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>Add New</value>
   </data>
   <data name="HardwareControlInformationText" xml:space="preserve">
-    <value>You can control system- and application volumes using a MIDI controller hardware.</value>
+    <value>Control system- and application volumes using a controller hardware (MIDI and deej devices supported).</value>
   </data>
   <data name="HardwareSettingsText" xml:space="preserve">
     <value>Add / Edit Hardware Control</value>
@@ -342,7 +342,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>Edit Selected</value>
   </data>
   <data name="AddFromExistingMidiControlButtonText" xml:space="preserve">
-    <value>Add From Existing</value>
+    <value>Add New From Selected</value>
   </data>
   <data name="SystemVolume" xml:space="preserve">
     <value>System Volume</value>
