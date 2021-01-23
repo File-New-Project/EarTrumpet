@@ -6,6 +6,7 @@ using System.Windows;
 using EarTrumpet.UI.Views;
 using System.Windows.Input;
 using System.Collections.Generic;
+using EarTrumpet.Extensions;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -211,10 +212,9 @@ namespace EarTrumpet.UI.ViewModels
                     SelectedCommand = Properties.Resources.SystemVolume;
                     break;
             }
-
-            SelectedDeviceType = data.deviceType;
-
-            _midiControlConfiguration = data.midiControlConfiguration;
+            
+            SelectedDeviceType = HardwareManager.Current.GetConfigType(data);
+            _midiControlConfiguration = (MidiControlConfiguration)data.hardwareConfiguration;
         }
 
         // Constructor
@@ -231,7 +231,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
-                    var selectedMappingElement = MidiAppBinding.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
+                    var selectedMappingElement = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
 
                     FillForm(selectedMappingElement);
                     break;
@@ -266,9 +266,8 @@ namespace EarTrumpet.UI.ViewModels
         public ObservableCollection<string> DeviceTypes {
             get
             {
-                // ToDo: This should be requested from the hardware manager when it's implemented.
                 ObservableCollection<String> deviceTypes = new ObservableCollection<string>();
-                deviceTypes.Add("MIDI");
+                deviceTypes.AddRange(HardwareManager.Current.GetDeviceTypes());
 
                 return deviceTypes;
             }
@@ -367,8 +366,8 @@ namespace EarTrumpet.UI.ViewModels
                 mode = CommandControlMappingElement.Mode.ApplicationSelection;
             }
 
-            _commandControlMappingElement = new CommandControlMappingElement(SelectedDeviceType, _midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
-            
+            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
+
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
         }
@@ -392,10 +391,10 @@ namespace EarTrumpet.UI.ViewModels
                 
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
-                    var config = MidiAppBinding.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
-                        .midiControlConfiguration;
+                    var config = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
+                        .hardwareConfiguration;
                     viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText,
-                        this, config);
+                        this, (MidiControlConfiguration)config);
                     break;
             }
             

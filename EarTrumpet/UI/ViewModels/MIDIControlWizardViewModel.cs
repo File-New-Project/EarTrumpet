@@ -63,7 +63,7 @@ namespace EarTrumpet.UI.ViewModels
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
             ControlTypeSelected = (int)config.ControllerType;
-            SelectedMidi = config.Device;
+            SelectedMidi = config.MidiDevice;
         }
 
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)

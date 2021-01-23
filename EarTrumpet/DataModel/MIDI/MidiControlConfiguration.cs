@@ -8,20 +8,21 @@
         INVALID_ENTRY = 3
     }
 
-    public class MidiControlConfiguration
+    public class MidiControlConfiguration : HardwareConfiguration
     {
-        public string Device { get; set; }
         public byte Channel { get; set; }
         public byte Controller { get; set; }
         public ControllerTypes ControllerType { get; set; }
         public byte MinValue { get; set; }
         public byte MaxValue { get; set; }
         public float ScalingValue { get; set; }
+        public string MidiDevice { get; set; }
 
         // Constructor
-        public MidiControlConfiguration(string device, byte channel, byte controller, ControllerTypes controllerType, byte minValue, byte maxValue, float scalingValue)
+        public MidiControlConfiguration(string device, byte channel, byte controller, ControllerTypes controllerType, 
+            byte minValue, byte maxValue, float scalingValue)
         {
-            Device = device;
+            MidiDevice = device;
             Channel = channel;
             Controller = controller;
             ControllerType = controllerType;
@@ -35,6 +36,7 @@
         {
             
         }
+        
         public static string GetControllerTypeString(ControllerTypes controllerType)
         {
             // TODO: Use localization.
@@ -69,6 +71,18 @@
             {
                 return ControllerTypes.INVALID_ENTRY;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"MIDI Device={MidiDevice}, MIDI Channel={Channel}, MIDI Controller={Controller}, " +
+                   $"Midi Controller Type={GetControllerTypeString(ControllerType)}, " +
+                   $"MIDI Min Value={MinValue}, MIDI Max Value={MaxValue}, MIDI Value Scaling={ScalingValue}";
+        }
+
+        public override void FromString(string str)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

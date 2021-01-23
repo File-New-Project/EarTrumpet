@@ -125,7 +125,7 @@ namespace EarTrumpet.UI.ViewModels
                 return;
             }
 
-            MidiAppBinding.Current.RemoveCommandIndex(selectedIndex);
+            HardwareManager.Current.RemoveCommandAt(selectedIndex);
             UpdateCommandControlsList();
         }
 
@@ -135,11 +135,11 @@ namespace EarTrumpet.UI.ViewModels
             {
                 case ItemModificationWays.NEW_EMPTY:
                 case ItemModificationWays.NEW_FROM_EXISTING:
-                    MidiAppBinding.Current.AddCommand(commandControlMappingElement);
+                    HardwareManager.Current.AddCommand(commandControlMappingElement);
                     break;
                 case ItemModificationWays.EDIT_EXISTING:
                     // Notify the hardware controls page about the new assignment.
-                    MidiAppBinding.Current.ModifyCommandIndex(SelectedIndex, commandControlMappingElement);
+                    HardwareManager.Current.ModifyCommandAt(SelectedIndex, commandControlMappingElement);
                     break;
             }
             
@@ -150,25 +150,18 @@ namespace EarTrumpet.UI.ViewModels
 
         private void UpdateCommandControlsList()
         {
-            var commandControlsList = MidiAppBinding.Current.GetCommandControlMappings();
+            var commandControlsList = HardwareManager.Current.GetCommandControlMappings();
 
             ObservableCollection<String> commandControlsStringList = new ObservableCollection<string>();
 
             foreach (var item in commandControlsList)
             {
-                string commandControlsString = 
-                    "Audio Device=" + item.audioDevice + 
-                    ", Command=" + item.command + 
-                    ", Mode=" + item.mode + 
-                    ", Selection=" + item.indexApplicationSelection +
-                    ", Device Type=" + item.deviceType +
-                    ", Device=" + item.midiControlConfiguration.Device + 
-                    ", Channel=" + item.midiControlConfiguration.Channel + 
-                    ", Controller=" + item.midiControlConfiguration.Controller + 
-                    ", Controller Type=" + MidiControlConfiguration.GetControllerTypeString(item.midiControlConfiguration.ControllerType) +
-                    ", Min Value=" + item.midiControlConfiguration.MinValue + 
-                    ", Max Value=" + item.midiControlConfiguration.MaxValue + 
-                    ", Value Scaling=" + item.midiControlConfiguration.ScalingValue;
+                string commandControlsString =
+                    "Audio Device=" + item.audioDevice +
+                    ", Command=" + item.command +
+                    ", Mode=" + item.mode +
+                    ", Selection=" + item.indexApplicationSelection + 
+                    item.hardwareConfiguration;
 
                 commandControlsStringList.Add(commandControlsString);
             }

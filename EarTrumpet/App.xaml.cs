@@ -33,7 +33,7 @@ namespace EarTrumpet
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
         private AppSettings _settings;
-        private MidiAppBinding _midiAppBinding;
+        private HardwareManager _hardwareManager;
 
         private void OnAppStartup(object sender, StartupEventArgs e)
         {
@@ -70,7 +70,7 @@ namespace EarTrumpet
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
             _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
-            _midiAppBinding = new MidiAppBinding(_collectionViewModel);
+            _hardwareManager = new HardwareManager(_collectionViewModel);
             
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
