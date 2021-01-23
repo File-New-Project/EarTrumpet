@@ -14,7 +14,9 @@ namespace EarTrumpet.DataModel.MIDI
         // Maps device ids to device names
         private Dictionary<string, string> _deviceMapping;
         private const string SAVEKEY = "MidiControls";
-
+        
+        public static MidiAppBinding Current;
+        
         private static bool MidiEquals(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
         {
             return midiConfig.Channel == msg.Channel && midiConfig.Controller == msg.Controller;
@@ -302,6 +304,7 @@ namespace EarTrumpet.DataModel.MIDI
             }
             
             SubscribeToDevices();
+            Current = this;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace EarTrumpet.DataModel.Deej
     {
         private const string SAVEKEY = "DeejControls";
 
+        public static DeejAppBinding Current;
+        
         public DeejAppBinding(DeviceCollectionViewModel deviceViewModel) : base(deviceViewModel)
         {
             DeejIn.AddGeneralCallback(DeejCallback);
@@ -20,6 +22,8 @@ namespace EarTrumpet.DataModel.Deej
                 var config = (DeejConfiguration) command.hardwareConfiguration;
                 DeejIn._StartListening(config.Port);
             }
+
+            Current = this;
         }
 
         public override Type ConfigType => typeof(DeejConfiguration);

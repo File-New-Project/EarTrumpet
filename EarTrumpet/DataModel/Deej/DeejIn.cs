@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
 
@@ -14,6 +16,7 @@ namespace EarTrumpet.DataModel.Deej
         
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
+        
         private static Dictionary<string, string> buffers;
         private static Dictionary<string, List<int>> lastValues;
         private static List<SerialPort> serialPorts;
@@ -26,13 +29,10 @@ namespace EarTrumpet.DataModel.Deej
                 return true;
             }
 
-            for (int i = 0; i < values.Count; i++)
+            if (values.Where((t, i) => t != lastValues[port][i]).Any())
             {
-                if (values[i] != lastValues[port][i])
-                {
-                    lastValues[port] = values;
-                    return true;
-                }
+                lastValues[port] = values;
+                return true;
             }
             return false;
         }
@@ -82,12 +82,12 @@ namespace EarTrumpet.DataModel.Deej
 
         internal static void _StartListening(string port)
         {
-            if (watchedDevices.Contains(port))
+            if (watchedDevices.Contains(port) ||!GetAllDevices().Contains(port))
             {
                 return;
             }
-            
-            SerialPort sp = new SerialPort(SerialPort.GetPortNames()[0]);
+
+            SerialPort sp = new SerialPort(port);
             sp.BaudRate = 9600;
             sp.Parity = Parity.None;
             sp.StopBits = StopBits.One;
@@ -136,20 +136,33 @@ namespace EarTrumpet.DataModel.Deej
         
         private static void Added(DeviceWatcher sender, DeviceInformation args)
         {
-            foreach (var device in GetAllDevices())
+            var commands = DeejAppBinding.Current.GetCommandControlMappings();
+
+            foreach (var device in GetAllDevices().Where(device => !watchedDevices.Contains(device)))
             {
-                if (!watchedDevices.Contains(device) && callbacks.ContainsKey(device))
+                foreach (var command in commands)
                 {
-                    _StartListening(device);
+                    var config = (DeejConfiguration) command.hardwareConfiguration;
+                    if (config.Port == device)
+                    {
+                        _StartListening(device);
+                        break;
+                    }
                 }
             }
         }
-        
+
         private static void Removed(DeviceWatcher sender, DeviceInformationUpdate args)
         {
-            if (watchedDevices.Contains(args.Id))
+            var id = args.Id;
+
+            foreach (var serial in serialPorts)
             {
-                watchedDevices.Remove(args.Id);
+                if (!serial.IsOpen && watchedDevices.Contains(serial.PortName))
+                {
+                    watchedDevices.Remove(serial.PortName);
+                    serialPorts.Remove(serial);
+                }
             }
         }
         
@@ -159,6 +172,7 @@ namespace EarTrumpet.DataModel.Deej
             generalCallbacks = new List<Action<string, List<int>>>();
             
             watchedDevices = new List<string>();
+            
             buffers = new Dictionary<string, string>();
             lastValues = new Dictionary<string, List<int>>();
             serialPorts = new List<SerialPort>();
@@ -166,7 +180,7 @@ namespace EarTrumpet.DataModel.Deej
             deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
             deviceWatcher.Added += Added;
             deviceWatcher.Removed += Removed;
-            
+
             deviceWatcher.Start();
         }
     }

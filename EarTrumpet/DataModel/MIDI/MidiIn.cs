@@ -102,9 +102,19 @@ namespace EarTrumpet.DataModel.MIDI
         
         private static void Added(DeviceWatcher sender, DeviceInformation args)
         {
-            if (callbacks.ContainsKey(args.Id))
+            var commands = MidiAppBinding.Current.GetCommandControlMappings();
+
+            foreach (var device in GetAllDevices().Where(device => !watchedDevices.Contains(device.Name)))
             {
-                _StartListening(args.Id);
+                foreach (var command in commands)
+                {
+                    var config = (MidiControlConfiguration) command.hardwareConfiguration;
+                    if (config.MidiDevice == device.Name)
+                    {
+                        _StartListening(device.Id);
+                        break;
+                    }
+                }
             }
         }
         
