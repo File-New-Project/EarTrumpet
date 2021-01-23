@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using EarTrumpet.DataModel.MIDI;
 using EarTrumpet.Properties;
+using System.Collections.Generic;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -29,6 +30,7 @@ namespace EarTrumpet.UI.ViewModels
         private int _liveValue = 0;
         private float _scalingValue = 0;
         private int _controlTypeSelected = 0;
+        private List<MidiInDevice> _availableMidiInDevices;
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -40,7 +42,7 @@ namespace EarTrumpet.UI.ViewModels
             SetMinValueCommand = new RelayCommand(SetMinValue);
             SetMaxValueCommand = new RelayCommand(SetMaxValue);
 
-            _hardwareSettings.SelectedMidiInDevice.AddControlChangeCallback(midiInControlChangeCallback);
+            _availableMidiInDevices = MidiIn.GetAllDevices();
 
             _dispatcher = System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread.CurrentThread);
 
@@ -61,8 +63,9 @@ namespace EarTrumpet.UI.ViewModels
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
             ControlTypeSelected = (int)config.ControllerType;
+            SelectedMidi = config.Device;
         }
-        
+
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)
         {
             await _dispatcher.InvokeAsync(() =>
@@ -116,7 +119,7 @@ namespace EarTrumpet.UI.ViewModels
         public void SaveMidiControl()
         {            
             // Generate MIDI control configuration object.
-            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
+            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(SelectedMidi, GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
             _hardwareSettings.MidiControlSelectedCallback(midiControlConfiguration);
@@ -155,6 +158,22 @@ namespace EarTrumpet.UI.ViewModels
             get
             {
                 return _capturedMidiInControls;
+            }
+        }
+
+        public ObservableCollection<string> MidiDevices
+        {
+            get
+            {
+                _availableMidiInDevices = MidiIn.GetAllDevices();
+                ObservableCollection<String> availableMidiDevices = new ObservableCollection<string>();
+
+                foreach (var dev in _availableMidiInDevices)
+                {
+                    availableMidiDevices.Add(dev.Name);
+                }
+
+                return availableMidiDevices;
             }
         }
 
@@ -275,6 +294,41 @@ namespace EarTrumpet.UI.ViewModels
                 RaisePropertyChanged("MaxValue");
             }
         }
+        public string SelectedMidi
+        {
+            set
+            {
+                bool deviceFound = false;
+
+                foreach (var dev in _availableMidiInDevices)
+                {
+                    if (dev.Name == value)
+                    {
+                        // TODO: Remove previously selected midiindevice (if one was selected).
+                        SelectedMidiInDevice = dev;
+                        SelectedMidiInDevice.AddControlChangeCallback(midiInControlChangeCallback);
+                        deviceFound = true;
+                    }
+                }
+
+                if (!deviceFound)
+                {
+                    // ToDo: Error handling. Should never happen.
+                }
+
+            }
+
+            get
+            {
+                if (SelectedMidiInDevice != null)
+                {
+                    return SelectedMidiInDevice.Name;
+                }
+
+                return "";
+            }
+        }
+        public MidiInDevice SelectedMidiInDevice { get; set; }
 
     }
 }

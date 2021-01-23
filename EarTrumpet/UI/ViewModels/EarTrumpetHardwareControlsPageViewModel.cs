@@ -163,14 +163,15 @@ namespace EarTrumpet.UI.ViewModels
                     "Audio Device=" + item.audioDevice + 
                     ", Command=" + item.command + 
                     ", Mode=" + item.mode + 
-                    ", Selection=" + item.indexApplicationSelection + 
-                    ", MIDI Device=" + item.midiDevice + 
-                    ", MIDI Channel=" + item.midiControlConfiguration.Channel + 
-                    ", MIDI Controller=" + item.midiControlConfiguration.Controller + 
-                    ", MIDI Controller Type=" + MidiControlConfiguration.GetControllerTypeString(item.midiControlConfiguration.ControllerType) +
-                    ", MIDI Min Value=" + item.midiControlConfiguration.MinValue + 
-                    ", MIDI Max Value=" + item.midiControlConfiguration.MaxValue + 
-                    ", MIDI Value Scaling=" + item.midiControlConfiguration.ScalingValue;
+                    ", Selection=" + item.indexApplicationSelection +
+                    ", Device Type=" + item.deviceType +
+                    ", Device=" + item.midiControlConfiguration.Device + 
+                    ", Channel=" + item.midiControlConfiguration.Channel + 
+                    ", Controller=" + item.midiControlConfiguration.Controller + 
+                    ", Controller Type=" + MidiControlConfiguration.GetControllerTypeString(item.midiControlConfiguration.ControllerType) +
+                    ", Min Value=" + item.midiControlConfiguration.MinValue + 
+                    ", Max Value=" + item.midiControlConfiguration.MaxValue + 
+                    ", Value Scaling=" + item.midiControlConfiguration.ScalingValue;
 
                 commandControlsStringList.Add(commandControlsString);
             }

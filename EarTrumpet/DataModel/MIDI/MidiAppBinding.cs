@@ -273,7 +273,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             foreach (var command in _commandControlMappings)
             {
-                if (command.midiDevice == GetMidiDeviceById(sender.DeviceId))
+                if (command.midiControlConfiguration.Device == GetMidiDeviceById(sender.DeviceId))
                 {
                     if (MidiEquals(command.midiControlConfiguration, msg))
                     {
@@ -299,7 +299,7 @@ namespace EarTrumpet.DataModel.MIDI
 
         public void AddCommand(CommandControlMappingElement command)
         {
-            MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice)?.Id);
+            MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiControlConfiguration.Device)?.Id);
             
             _commandControlMappings.Add(command);
             _settings.Set("MidiControls", _commandControlMappings);
@@ -327,7 +327,7 @@ namespace EarTrumpet.DataModel.MIDI
             {
                 return;
             }
-            MidiIn._StartListening(MidiIn.GetDeviceByName(newCommand.midiDevice)?.Id);
+            MidiIn._StartListening(MidiIn.GetDeviceByName(newCommand.midiControlConfiguration.Device)?.Id);
             
             _commandControlMappings[index] = newCommand;
             _settings.Set("MidiControls", _commandControlMappings);
@@ -337,7 +337,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             foreach (var command in _commandControlMappings)
             {
-                MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiDevice)?.Id);
+                MidiIn._StartListening(MidiIn.GetDeviceByName(command.midiControlConfiguration.Device)?.Id);
             }
         }
 

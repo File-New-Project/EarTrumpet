@@ -306,7 +306,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>You can control system- and application volumes using a MIDI controller hardware.</value>
   </data>
   <data name="HardwareSettingsText" xml:space="preserve">
-    <value>Add / Edit MIDI Control</value>
+    <value>Add / Edit Hardware Control</value>
   </data>
   <data name="MidiDevice" xml:space="preserve">
     <value>MIDI Device</value>
@@ -388,5 +388,8 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
   <data name="MidiWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
     <value>Turn the selected rotary control in decreasing direction and click corresponding 'Set'. Then turn the selected rotary control in increasing direction and click corresponding 'Set'.</value>
+  </data>
+  <data name="DeviceType" xml:space="preserve">
+    <value>Device Type</value>
   </data>
 </root>

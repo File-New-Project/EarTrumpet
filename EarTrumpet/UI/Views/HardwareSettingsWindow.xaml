@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Title="{x:Static resx:Resources.HardwareSettingsText}" Height="252.667" Width="341">
     <Grid HorizontalAlignment="Left" Width="333" Height="222" VerticalAlignment="Top">
-        <Label Content="{x:Static resx:Resources.MidiDevice}" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" />
-        <ComboBox x:Name="ComboBoxAvailableMidiDevices" HorizontalAlignment="Left" Margin="108,118,0,0" VerticalAlignment="Top" Width="210" ItemsSource="{Binding MidiDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedMidi}"/>
+        <Label Content="{x:Static resx:Resources.DeviceType}" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="ComboBoxDeviceType" HorizontalAlignment="Left" Margin="108,118,0,0" VerticalAlignment="Top" Width="210" ItemsSource="{Binding DeviceTypes}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeviceType}"/>
         <Label Content="{x:Static resx:Resources.Command}" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="ComboBoxCommand" HorizontalAlignment="Left" Margin="108,37,0,0" VerticalAlignment="Top" Width="210" Style="{DynamicResource {x:Type ItemsControl}}" ItemsSource="{Binding Commands}" IsReadOnly="True" SelectedItem="{Binding SelectedCommand}"/>
         <Label Content="{x:Static resx:Resources.Control}" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top"/>

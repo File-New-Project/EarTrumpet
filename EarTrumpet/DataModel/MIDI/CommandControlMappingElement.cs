@@ -23,23 +23,23 @@
         public Command command { get; set; }
         public Mode mode { get; set; }
         public string indexApplicationSelection { get; set; }
-        public string midiDevice { get; set; }
+        public string deviceType { get; set; }
 
         // Constructor
         public CommandControlMappingElement(
+            string deviceType,
             MidiControlConfiguration midiControlConfiguration, 
             string audioDevice, 
             Command command,
             Mode mode, 
-            string indexApplicationSelection, 
-            string midiDevice)
+            string indexApplicationSelection)
         {
+            this.deviceType = deviceType;
             this.midiControlConfiguration = midiControlConfiguration;
             this.audioDevice = audioDevice;
             this.command = command;
             this.mode = mode;
             this.indexApplicationSelection = indexApplicationSelection;
-            this.midiDevice = midiDevice;
         }
 
         public CommandControlMappingElement()

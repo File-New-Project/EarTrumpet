@@ -10,6 +10,7 @@
 
     public class MidiControlConfiguration
     {
+        public string Device { get; set; }
         public byte Channel { get; set; }
         public byte Controller { get; set; }
         public ControllerTypes ControllerType { get; set; }
@@ -18,8 +19,9 @@
         public float ScalingValue { get; set; }
 
         // Constructor
-        public MidiControlConfiguration(byte channel, byte controller, ControllerTypes controllerType, byte minValue, byte maxValue, float scalingValue)
+        public MidiControlConfiguration(string device, byte channel, byte controller, ControllerTypes controllerType, byte minValue, byte maxValue, float scalingValue)
         {
+            Device = device;
             Channel = channel;
             Controller = controller;
             ControllerType = controllerType;

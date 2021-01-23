@@ -324,6 +324,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device Type.
+        /// </summary>
+        public static string DeviceType {
+            get {
+                return ResourceManager.GetString("DeviceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Selected.
         /// </summary>
         public static string EditMidiControlButtonText {
@@ -378,7 +387,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add / Edit MIDI Control.
+        ///   Looks up a localized string similar to Add / Edit Hardware Control.
         /// </summary>
         public static string HardwareSettingsText {
             get {

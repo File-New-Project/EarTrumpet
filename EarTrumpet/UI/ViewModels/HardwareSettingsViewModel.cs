@@ -16,9 +16,9 @@ namespace EarTrumpet.UI.ViewModels
         private Boolean _modeSelectionEnabled = false;
         private String _selectedMode;
         private String _selectedCommand;
+        private string _selectedDeviceType;
         private Boolean _indexesApplicationsSelectionEnabled = false;
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
-        private List<MidiInDevice> _availableMidiInDevices;
 
         private WindowHolder _midiControlWizardWindow;
         private MidiControlConfiguration _midiControlConfiguration = null;
@@ -27,8 +27,6 @@ namespace EarTrumpet.UI.ViewModels
         private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
 
         public ICommand SaveCommandControlMappingCommand { get; }
-
-        public MidiInDevice SelectedMidiInDevice { get; set; }
 
         public ICommand SelectMidiControlCommand { get; }
 
@@ -90,37 +88,6 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public string SelectedMidi {
-            set
-            {
-                bool deviceFound = false;
-
-                foreach(var dev in _availableMidiInDevices)
-                {
-                    if(dev.Name == value)
-                    {
-                        SelectedMidiInDevice = dev;
-                        deviceFound = true;
-                    }
-                }
-
-                if(!deviceFound)
-                {
-                    // ToDo: Error handling. Should never happen.
-                }
-
-            }
-
-            get
-            {
-                if (SelectedMidiInDevice != null)
-                {
-                    return SelectedMidiInDevice.Name;
-                }
-
-                return "";
-            }
-        }
         public string SelectedCommand {
             set
             {
@@ -247,7 +214,7 @@ namespace EarTrumpet.UI.ViewModels
                     break;
             }
 
-            SelectedMidi = data.midiDevice;
+            SelectedDeviceType = data.deviceType;
 
             _midiControlConfiguration = data.midiControlConfiguration;
         }
@@ -262,9 +229,6 @@ namespace EarTrumpet.UI.ViewModels
             SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
 
             _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
-            
-            _availableMidiInDevices = MidiIn.GetAllDevices();
-            
             switch(_hardwareControls.ItemModificationWay)
             {
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
@@ -298,22 +262,17 @@ namespace EarTrumpet.UI.ViewModels
                 return availableAudioDevices;
             }
         }
-        public ObservableCollection<string> MidiDevices
-        {
+
+        public ObservableCollection<string> DeviceTypes {
             get
             {
-                _availableMidiInDevices = MidiIn.GetAllDevices();
-                ObservableCollection<String> availableMidiDevices = new ObservableCollection<string>();
-                
-                foreach(var dev in _availableMidiInDevices)
-                {
-                    availableMidiDevices.Add(dev.Name);
-                }
+                // ToDo: This should be requested from the hardware manager when it's implemented.
+                ObservableCollection<String> deviceTypes = new ObservableCollection<string>();
+                deviceTypes.Add("MIDI");
 
-                return availableMidiDevices;
+                return deviceTypes;
             }
         }
-        
         
         public ObservableCollection<string> ApplicationIndexesNames
         {
@@ -360,6 +319,20 @@ namespace EarTrumpet.UI.ViewModels
             _midiControlWizardWindow.OpenOrBringToFront();
         }
 
+        public string SelectedDeviceType 
+        {
+            get 
+            {
+                return _selectedDeviceType;
+            }
+
+            set
+            {
+                _selectedDeviceType = value;
+                RaisePropertyChanged("SelectedDeviceType");
+            }
+        }
+
         public void SaveCommandControlMapping()
         {
             if (_midiControlConfiguration == null)
@@ -394,7 +367,8 @@ namespace EarTrumpet.UI.ViewModels
                 mode = CommandControlMappingElement.Mode.ApplicationSelection;
             }
 
-            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications, SelectedMidi);
+            _commandControlMappingElement = new CommandControlMappingElement(SelectedDeviceType, _midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
+            
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
         }
