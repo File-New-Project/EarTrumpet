@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet
