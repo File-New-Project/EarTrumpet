@@ -27,8 +27,8 @@ namespace EarTrumpet.DataModel.Deej
         
         public override string ToString()
         {
-            return $"Com Port: {Port}, Channel: {Channel}, Min Value: {MinValue}, Max Value: {MaxValue}," +
-                   $"Scaling Value: {ScalingValue}";
+            return $"Com Port={Port}, Channel={Channel}, Min Value={MinValue}, Max Value={MaxValue}," +
+                   $" Scaling Value={ScalingValue}";
         }
     }
 }

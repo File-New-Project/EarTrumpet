@@ -77,9 +77,9 @@ namespace EarTrumpet.DataModel.MIDI
 
         public override string ToString()
         {
-            return $"MIDI Device={MidiDevice}, MIDI Channel={Channel}, MIDI Controller={Controller}, " +
-                   $"Midi Controller Type={GetControllerTypeString(ControllerType)}, " +
-                   $"MIDI Min Value={MinValue}, MIDI Max Value={MaxValue}, MIDI Value Scaling={ScalingValue}";
+            return $"Device={MidiDevice}, Channel={Channel}, Controller={Controller}, " +
+                   $"Controller Type={GetControllerTypeString(ControllerType)}, " +
+                   $"Min Value={MinValue}, Max Value={MaxValue}, Scaling Value={ScalingValue}";
         }
     }
 }
