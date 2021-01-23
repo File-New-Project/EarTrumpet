@@ -23,7 +23,7 @@ namespace EarTrumpet.DataModel.Deej
         }
 
         public override Type ConfigType => typeof(DeejConfiguration);
-        public override string Name => "Deej";
+        public override string Name => "deej";
         
         public override void AddCommand(CommandControlMappingElement command)
         {

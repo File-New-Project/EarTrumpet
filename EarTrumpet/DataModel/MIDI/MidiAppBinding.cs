@@ -9,7 +9,7 @@ namespace EarTrumpet.DataModel.MIDI
     public class MidiAppBinding: HardwareAppBinding
     {
         public override Type ConfigType => typeof(MidiControlConfiguration);
-        public override string Name => "Midi";
+        public override string Name => "MIDI";
 
         // Maps device ids to device names
         private Dictionary<string, string> _deviceMapping;

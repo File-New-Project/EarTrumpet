@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.Extensions;
+using EarTrumpet.DataModel.Deej;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -23,14 +24,18 @@ namespace EarTrumpet.UI.ViewModels
         private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
 
         private WindowHolder _midiControlWizardWindow;
+        private WindowHolder _deejControlWizardWindow;
+
         private MidiControlConfiguration _midiControlConfiguration = null;
+        private DeejConfiguration _deejConfiguration = null;
+
         private CommandControlMappingElement _commandControlMappingElement = null;
 
         private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
 
         public ICommand SaveCommandControlMappingCommand { get; }
 
-        public ICommand SelectMidiControlCommand { get; }
+        public ICommand SelectControlCommand { get; }
 
         public string SelectedDevice {
             set
@@ -224,10 +229,12 @@ namespace EarTrumpet.UI.ViewModels
             _devices = devices;
             _hardwareControls = earTrumpetHardwareControlsPageViewModel;
 
-            SelectMidiControlCommand = new RelayCommand(SelectMidiControl);
+            SelectControlCommand = new RelayCommand(SelectControl);
             SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
 
             _midiControlWizardWindow = new WindowHolder(CreateMIDIControlWizardExperience);
+            _deejControlWizardWindow = new WindowHolder(CreateDeejControlWizardExperience);
+
             switch(_hardwareControls.ItemModificationWay)
             {
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
@@ -244,6 +251,9 @@ namespace EarTrumpet.UI.ViewModels
 
             // Set default command.
             SelectedCommand = Properties.Resources.SystemVolume;
+
+            // Set default device type.
+            SelectedDeviceType = "MIDI";
         }
 
         public ObservableCollection<string> AudioDevices
@@ -314,9 +324,20 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        public void SelectMidiControl()
+        public void SelectControl()
         {
-            _midiControlWizardWindow.OpenOrBringToFront();
+            switch(SelectedDeviceType)
+            {
+                case "MIDI":
+                    _midiControlWizardWindow.OpenOrBringToFront();
+                    break;
+                case "deej":
+                    _deejControlWizardWindow.OpenOrBringToFront();
+                    break;
+                default:
+                    // Should not happen. ToDo: Error handling.
+                    break;
+            }
         }
 
         public string SelectedDeviceType 
@@ -335,12 +356,14 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveCommandControlMapping()
         {
-            if (_midiControlConfiguration == null)
+            if ((SelectedDeviceType == "MIDI" && _midiControlConfiguration == null) ||
+                SelectedDevice == "deej" && _deejConfiguration == null)
             {
-                // Do nothing if the midi settings were not done yet
+                // Do nothing if the settings were not done yet
                 // Todo add an error message
                 return;
             }
+
             CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
             CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
 
@@ -367,7 +390,18 @@ namespace EarTrumpet.UI.ViewModels
                 mode = CommandControlMappingElement.Mode.ApplicationSelection;
             }
 
-            _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
+            switch (SelectedDeviceType)
+            {
+                case "MIDI":
+                    _commandControlMappingElement = new CommandControlMappingElement(_midiControlConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
+                    break;
+                case "deej":
+                    _commandControlMappingElement = new CommandControlMappingElement(_deejConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
+                    break;
+                default:
+                    // Should never happen. Todo: Errorhandling.
+                    break;
+            }
 
             // Notify the hardware controls page about the new assignment.
             _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
@@ -378,6 +412,13 @@ namespace EarTrumpet.UI.ViewModels
             _midiControlConfiguration = midiControlConfiguration;
 
             _midiControlWizardWindow.OpenOrClose();
+        }
+
+        public void DeejControlSelectedCallback(DeejConfiguration deejConfiguration)
+        {
+            _deejConfiguration = deejConfiguration;
+
+            _deejControlWizardWindow.OpenOrClose();
         }
 
        private Window CreateMIDIControlWizardExperience()
@@ -400,6 +441,28 @@ namespace EarTrumpet.UI.ViewModels
             }
             
             return new MIDIControlWizardWindow { DataContext = viewModel};
+        }
+
+        private Window CreateDeejControlWizardExperience()
+        {
+            DeejControlWizardViewModel viewModel = null;
+
+            switch (_hardwareControls.ItemModificationWay)
+            {
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
+                    viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText, this);
+                    break;
+
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
+                    var config = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex]
+                        .hardwareConfiguration;
+                    viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText,
+                        this, (DeejConfiguration)config);
+                    break;
+            }
+
+            return new DeejControlWizardWindow { DataContext = viewModel };
         }
 
     }

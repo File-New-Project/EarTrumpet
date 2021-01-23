@@ -365,7 +365,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="MidiWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
-  <data name="MidiWizardMinMaxInstructionsLinearPotentiometerControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType" xml:space="preserve">
     <value>Move the selected control to the minimum value and click corresponding 'Set'. Then move the selected control to the maximum value and click corresponding 'Set'.</value>
   </data>
   <data name="MidiLiveValue" xml:space="preserve">
@@ -383,10 +383,10 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="MidiScaling" xml:space="preserve">
     <value>Scaling</value>
   </data>
-  <data name="MidiWizardMinMaxInstructionsButtonControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxInstructionsButtonControlType" xml:space="preserve">
     <value>Release the selected button and click corresponding 'Set' (while released). Then press the selected button and click corresponding 'Set' (while pressed).</value>
   </data>
-  <data name="MidiWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
     <value>Turn the selected rotary control in decreasing direction and click corresponding 'Set'. Then turn the selected rotary control in increasing direction and click corresponding 'Set'.</value>
   </data>
   <data name="AllAudioDevicesSelectionText" xml:space="preserve">
@@ -415,5 +415,17 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
   <data name="NoControlSelectedMessageText" xml:space="preserve">
     <value>No control selected !</value>
+  </data>
+  <data name="DeejControlWizardText" xml:space="preserve">
+    <value>deej Control Wizard</value>
+  </data>
+  <data name="DeejLiveValue" xml:space="preserve">
+    <value>Live Value</value>
+  </data>
+  <data name="DeejScaling" xml:space="preserve">
+    <value>Scaling</value>
+  </data>
+  <data name="DeejWizardInstructions" xml:space="preserve">
+    <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
 </root>

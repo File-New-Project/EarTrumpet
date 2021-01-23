@@ -33,7 +33,9 @@ namespace EarTrumpet.UI.Behaviors
 
             // Comboboxes in some classes are NOT SettingsSearchItems.
             // So we use a small hack here...
-            if (comboBox.DataContext is HardwareSettingsViewModel || comboBox.DataContext is MIDIControlWizardViewModel)
+            if (comboBox.DataContext is HardwareSettingsViewModel || 
+                comboBox.DataContext is MIDIControlWizardViewModel || 
+                comboBox.DataContext is DeejControlWizardViewModel)
             {
                 return;
             }

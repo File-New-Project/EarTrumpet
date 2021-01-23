@@ -195,19 +195,19 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsLinearPotentiometerControlType;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsButtonControlType;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsButtonControlType;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsRotaryEncoderControlType;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType;
 
                 }
                 else

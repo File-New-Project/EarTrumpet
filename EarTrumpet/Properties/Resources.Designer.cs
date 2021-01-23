@@ -297,6 +297,42 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to deej Control Wizard.
+        /// </summary>
+        public static string DeejControlWizardText {
+            get {
+                return ResourceManager.GetString("DeejControlWizardText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live Value.
+        /// </summary>
+        public static string DeejLiveValue {
+            get {
+                return ResourceManager.GetString("DeejLiveValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scaling.
+        /// </summary>
+        public static string DeejScaling {
+            get {
+                return ResourceManager.GetString("DeejScaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
+        /// </summary>
+        public static string DeejWizardInstructions {
+            get {
+                return ResourceManager.GetString("DeejWizardInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Always use the default playback device.
         /// </summary>
         public static string DefaultDeviceText {
@@ -392,6 +428,33 @@ namespace EarTrumpet.Properties {
         public static string HardwareControlsTitle {
             get {
                 return ResourceManager.GetString("HardwareControlsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release the selected button and click corresponding &apos;Set&apos; (while released). Then press the selected button and click corresponding &apos;Set&apos; (while pressed)..
+        /// </summary>
+        public static string HardwareControlWizardMinMaxInstructionsButtonControlType {
+            get {
+                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsButtonControlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the selected control to the minimum value and click corresponding &apos;Set&apos;. Then move the selected control to the maximum value and click corresponding &apos;Set&apos;..
+        /// </summary>
+        public static string HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType {
+            get {
+                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn the selected rotary control in decreasing direction and click corresponding &apos;Set&apos;. Then turn the selected rotary control in increasing direction and click corresponding &apos;Set&apos;..
+        /// </summary>
+        public static string HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType {
+            get {
+                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType", resourceCulture);
             }
         }
         
@@ -554,33 +617,6 @@ namespace EarTrumpet.Properties {
         public static string MidiWizardInstructions {
             get {
                 return ResourceManager.GetString("MidiWizardInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Release the selected button and click corresponding &apos;Set&apos; (while released). Then press the selected button and click corresponding &apos;Set&apos; (while pressed)..
-        /// </summary>
-        public static string MidiWizardMinMaxInstructionsButtonControlType {
-            get {
-                return ResourceManager.GetString("MidiWizardMinMaxInstructionsButtonControlType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Move the selected control to the minimum value and click corresponding &apos;Set&apos;. Then move the selected control to the maximum value and click corresponding &apos;Set&apos;..
-        /// </summary>
-        public static string MidiWizardMinMaxInstructionsLinearPotentiometerControlType {
-            get {
-                return ResourceManager.GetString("MidiWizardMinMaxInstructionsLinearPotentiometerControlType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn the selected rotary control in decreasing direction and click corresponding &apos;Set&apos;. Then turn the selected rotary control in increasing direction and click corresponding &apos;Set&apos;..
-        /// </summary>
-        public static string MidiWizardMinMaxInstructionsRotaryEncoderControlType {
-            get {
-                return ResourceManager.GetString("MidiWizardMinMaxInstructionsRotaryEncoderControlType", resourceCulture);
             }
         }
         

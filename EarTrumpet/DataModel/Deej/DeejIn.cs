@@ -113,7 +113,7 @@ namespace EarTrumpet.DataModel.Deej
             serialPorts.Add(sp);
         }
 
-        internal static void AddCallback(string port, Action<List<int>> callback)
+        public static void AddCallback(string port, Action<List<int>> callback)
         {
             if (!callbacks.ContainsKey(port))
             {
