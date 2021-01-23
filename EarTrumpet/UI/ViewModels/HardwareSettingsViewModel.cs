@@ -30,11 +30,10 @@ namespace EarTrumpet.UI.ViewModels
 
         public ICommand SelectMidiControlCommand { get; }
 
-        // TODO: Use localization.
         public string SelectedDevice {
             set
             {
-                if ("*All Devices*" == value)
+                if (Properties.Resources.AllAudioDevicesSelectionText == value)
                 {
                     _selectedDevice = null;
                 }
@@ -59,7 +58,7 @@ namespace EarTrumpet.UI.ViewModels
                     return _selectedDevice.DisplayName;
                 }
 
-                return "*All Devices*";
+                return Properties.Resources.AllAudioDevicesSelectionText;
             }
         }
         
@@ -141,8 +140,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (Properties.Resources.ApplicationSelection == SelectedMode)
             {
-                // ToDo: Use localization.
-                if ("*All Devices*" == SelectedDevice)
+                if (Properties.Resources.AllAudioDevicesSelectionText == SelectedDevice)
                 {
                     foreach (var dev in _devices.AllDevices)
                     {

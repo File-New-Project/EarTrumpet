@@ -133,6 +133,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *All Devices*.
+        /// </summary>
+        public static string AllAudioDevicesSelectionText {
+            get {
+                return ResourceManager.GetString("AllAudioDevicesSelectionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application Mute.
         /// </summary>
         public static string ApplicationMute {
@@ -387,6 +396,60 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pushed.
+        /// </summary>
+        public static string HardwareDeviceButtonControllerScaleMaxValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceButtonControllerScaleMaxValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Released.
+        /// </summary>
+        public static string HardwareDeviceButtonControllerScaleMinValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceButtonControllerScaleMinValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum.
+        /// </summary>
+        public static string HardwareDeviceLinearControllerScaleMaxValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceLinearControllerScaleMaxValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum.
+        /// </summary>
+        public static string HardwareDeviceLinearControllerScaleMinValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceLinearControllerScaleMinValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase.
+        /// </summary>
+        public static string HardwareDeviceRotaryEncoderControllerScaleMaxValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceRotaryEncoderControllerScaleMaxValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease.
+        /// </summary>
+        public static string HardwareDeviceRotaryEncoderControllerScaleMinValueText {
+            get {
+                return ResourceManager.GetString("HardwareDeviceRotaryEncoderControllerScaleMinValueText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add / Edit Hardware Control.
         /// </summary>
         public static string HardwareSettingsText {
@@ -563,6 +626,15 @@ namespace EarTrumpet.Properties {
         public static string MutedText {
             get {
                 return ResourceManager.GetString("MutedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No control selected !.
+        /// </summary>
+        public static string NoControlSelectedMessageText {
+            get {
+                return ResourceManager.GetString("NoControlSelectedMessageText", resourceCulture);
             }
         }
         

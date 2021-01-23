@@ -389,7 +389,31 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="MidiWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
     <value>Turn the selected rotary control in decreasing direction and click corresponding 'Set'. Then turn the selected rotary control in increasing direction and click corresponding 'Set'.</value>
   </data>
+  <data name="AllAudioDevicesSelectionText" xml:space="preserve">
+    <value>*All Devices*</value>
+  </data>
   <data name="DeviceType" xml:space="preserve">
     <value>Device Type</value>
+  </data>
+  <data name="HardwareDeviceButtonControllerScaleMaxValueText" xml:space="preserve">
+    <value>Pushed</value>
+  </data>
+  <data name="HardwareDeviceButtonControllerScaleMinValueText" xml:space="preserve">
+    <value>Released</value>
+  </data>
+  <data name="HardwareDeviceLinearControllerScaleMaxValueText" xml:space="preserve">
+    <value>Maximum</value>
+  </data>
+  <data name="HardwareDeviceLinearControllerScaleMinValueText" xml:space="preserve">
+    <value>Minimum</value>
+  </data>
+  <data name="HardwareDeviceRotaryEncoderControllerScaleMaxValueText" xml:space="preserve">
+    <value>Increase</value>
+  </data>
+  <data name="HardwareDeviceRotaryEncoderControllerScaleMinValueText" xml:space="preserve">
+    <value>Decrease</value>
+  </data>
+  <data name="NoControlSelectedMessageText" xml:space="preserve">
+    <value>No control selected !</value>
   </data>
 </root>

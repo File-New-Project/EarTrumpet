@@ -191,23 +191,22 @@ namespace EarTrumpet.UI.ViewModels
 
                 string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
 
-                // TODO: Use localization.
                 if(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = "Minimum";
-                    ScaleMaxValueSelectDescription = "Maximum";
+                    ScaleMinValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMinValueText;
+                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsLinearPotentiometerControlType;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = "Released";
-                    ScaleMaxValueSelectDescription = "Pushed";
+                    ScaleMinValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMinValueText;
+                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsButtonControlType;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = "Decrease";
-                    ScaleMaxValueSelectDescription = "Increase";
+                    ScaleMinValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMinValueText;
+                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.MidiWizardMinMaxInstructionsRotaryEncoderControlType;
 
                 }

@@ -93,8 +93,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (selectedIndex < 0)
             {
-                // ToDo: Use localization.
-                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -108,8 +107,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (selectedIndex < 0)
             {
-                // ToDo: Use localization.
-                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -123,8 +121,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if(selectedIndex < 0)
             {
-                // ToDo: Use localization.
-                System.Windows.Forms.MessageBox.Show("No control selected!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
