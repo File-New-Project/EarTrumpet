@@ -1,4 +1,6 @@
-﻿namespace EarTrumpet.DataModel.MIDI
+﻿using EarTrumpet.DataModel.Hardware;
+
+namespace EarTrumpet.DataModel.MIDI
 {
     public enum ControllerTypes
     {
@@ -78,11 +80,6 @@
             return $"MIDI Device={MidiDevice}, MIDI Channel={Channel}, MIDI Controller={Controller}, " +
                    $"Midi Controller Type={GetControllerTypeString(ControllerType)}, " +
                    $"MIDI Min Value={MinValue}, MIDI Max Value={MaxValue}, MIDI Value Scaling={ScalingValue}";
-        }
-
-        public override void FromString(string str)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

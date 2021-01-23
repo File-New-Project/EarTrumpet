@@ -7,6 +7,7 @@ using EarTrumpet.UI.Views;
 using EarTrumpet.DataModel.MIDI;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using EarTrumpet.DataModel.Hardware;
 
 namespace EarTrumpet.UI.ViewModels
 {

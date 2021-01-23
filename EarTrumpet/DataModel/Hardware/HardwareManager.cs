@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EarTrumpet.DataModel.Deej;
+using EarTrumpet.DataModel.MIDI;
 using EarTrumpet.UI.ViewModels;
 
-namespace EarTrumpet.DataModel.MIDI
+namespace EarTrumpet.DataModel.Hardware
 {
     public class HardwareManager
     {
@@ -17,6 +19,7 @@ namespace EarTrumpet.DataModel.MIDI
             bindings = new Dictionary<Type, HardwareAppBinding>();
 
             RegisterAppBinding(new MidiAppBinding(deviceCollectionViewModel));
+            RegisterAppBinding(new DeejAppBinding(deviceCollectionViewModel));
             
             Current = this;
         }

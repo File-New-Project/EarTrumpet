@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media.Effects;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Midi;
 

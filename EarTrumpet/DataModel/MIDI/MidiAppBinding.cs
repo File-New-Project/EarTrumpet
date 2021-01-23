@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Devices.Midi;
+using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 

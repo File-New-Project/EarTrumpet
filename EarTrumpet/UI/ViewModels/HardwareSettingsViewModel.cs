@@ -6,6 +6,7 @@ using System.Windows;
 using EarTrumpet.UI.Views;
 using System.Windows.Input;
 using System.Collections.Generic;
+using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.Extensions;
 
 namespace EarTrumpet.UI.ViewModels

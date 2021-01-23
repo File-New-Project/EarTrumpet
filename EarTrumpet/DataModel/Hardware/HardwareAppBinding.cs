@@ -4,7 +4,7 @@ using System.Linq;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
-namespace EarTrumpet.DataModel.MIDI
+namespace EarTrumpet.DataModel.Hardware
 {
     public abstract class HardwareAppBinding
     {
