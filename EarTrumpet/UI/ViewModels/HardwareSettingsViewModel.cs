@@ -373,7 +373,7 @@ namespace EarTrumpet.UI.ViewModels
         public void SaveCommandControlMapping()
         {
             if ((SelectedDeviceType == "MIDI" && _midiControlConfiguration == null) ||
-                SelectedDevice == "deej" && _deejConfiguration == null)
+                SelectedDeviceType == "deej" && _deejConfiguration == null)
             {
                 // Do nothing if the settings were not done yet.
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
