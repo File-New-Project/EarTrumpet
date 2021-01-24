@@ -11,24 +11,6 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
     {
-        public ICommand NewControlCommand { get; }
-        public ICommand EditSelectedControlCommand { get; }
-        public ICommand DeleteSelectedControlCommand { get; }
-        public ICommand NewFromSelectedControlCommand { get; }
-
-        private WindowHolder _hardwareSettingsWindow;
-        
-        public bool IsTelemetryEnabled
-        {
-            get => _settings.IsTelemetryEnabled;
-            set => _settings.IsTelemetryEnabled = value;
-        }
-
-        private readonly AppSettings _settings;
-        private DeviceCollectionViewModel _devices;
-
-        ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
-
         public enum ItemModificationWays
         {
             NEW_EMPTY,
@@ -36,7 +18,35 @@ namespace EarTrumpet.UI.ViewModels
             EDIT_EXISTING
         }
 
+        public ICommand NewControlCommand { get; }
+        public ICommand EditSelectedControlCommand { get; }
+        public ICommand DeleteSelectedControlCommand { get; }
+        public ICommand NewFromSelectedControlCommand { get; }
         public ItemModificationWays ItemModificationWay { get; set; }
+        public int SelectedIndex { get; set; }
+        public bool IsTelemetryEnabled
+        {
+            get => _settings.IsTelemetryEnabled;
+            set => _settings.IsTelemetryEnabled = value;
+        }
+        public ObservableCollection<string> HardwareControls
+        {
+            get
+            {
+                return _commandControlList;
+            }
+
+            set
+            {
+                _commandControlList = value;
+                RaisePropertyChanged("HardwareControls");
+            }
+        }
+
+        private WindowHolder _hardwareSettingsWindow;
+        private readonly AppSettings _settings;
+        private DeviceCollectionViewModel _devices;
+        ObservableCollection<String> _commandControlList = new ObservableCollection<string>();
 
         public EarTrumpetHardwareControlsPageViewModel(AppSettings settings, DeviceCollectionViewModel devices) : base(null)
         {
@@ -58,27 +68,29 @@ namespace EarTrumpet.UI.ViewModels
             SelectedIndex = -1;
         }
 
-        public int SelectedIndex { get; set; }
+        public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
+        {
+            switch (ItemModificationWay)
+            {
+                case ItemModificationWays.NEW_EMPTY:
+                case ItemModificationWays.NEW_FROM_EXISTING:
+                    HardwareManager.Current.AddCommand(commandControlMappingElement);
+                    break;
+                case ItemModificationWays.EDIT_EXISTING:
+                    // Notify the hardware controls page about the new assignment.
+                    HardwareManager.Current.ModifyCommandAt(SelectedIndex, commandControlMappingElement);
+                    break;
+            }
+
+            UpdateCommandControlsList();
+
+            _hardwareSettingsWindow.OpenOrClose();
+        }
 
         private Window CreateHardwareSettingsExperience()
         {
             var viewModel = new HardwareSettingsViewModel(_devices, this);
             return new HardwareSettingsWindow {DataContext = viewModel};
-        }
-        
-        public ObservableCollection<string> HardwareControls
-        {
-            get
-            {
-                return _commandControlList;
-            }
-
-            set
-            {
-                _commandControlList = value;
-
-                RaisePropertyChanged("HardwareControls");
-            }
         }
 
         private void NewControl()
@@ -126,25 +138,6 @@ namespace EarTrumpet.UI.ViewModels
 
             HardwareManager.Current.RemoveCommandAt(selectedIndex);
             UpdateCommandControlsList();
-        }
-
-        public void ControlCommandMappingSelectedCallback(CommandControlMappingElement commandControlMappingElement)
-        {
-            switch (ItemModificationWay)
-            {
-                case ItemModificationWays.NEW_EMPTY:
-                case ItemModificationWays.NEW_FROM_EXISTING:
-                    HardwareManager.Current.AddCommand(commandControlMappingElement);
-                    break;
-                case ItemModificationWays.EDIT_EXISTING:
-                    // Notify the hardware controls page about the new assignment.
-                    HardwareManager.Current.ModifyCommandAt(SelectedIndex, commandControlMappingElement);
-                    break;
-            }
-            
-            UpdateCommandControlsList();
-
-            _hardwareSettingsWindow.OpenOrClose();
         }
 
         private void UpdateCommandControlsList()
