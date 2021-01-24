@@ -257,6 +257,9 @@ namespace EarTrumpet.UI.ViewModels
                     // Set default device type.
                     SelectedDeviceType = "MIDI";
 
+                    // Set default selection.
+                    SelectedControl = Properties.Resources.NoControlSelectedMessageText;
+
                     break;
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
@@ -429,6 +432,9 @@ namespace EarTrumpet.UI.ViewModels
             _midiControlConfiguration = midiControlConfiguration;
 
             _midiControlWizardWindow.OpenOrClose();
+
+            SelectedControl = _deejConfiguration.ToString();
+            RaisePropertyChanged("SelectedControl");
         }
 
         public void DeejControlSelectedCallback(DeejConfiguration deejConfiguration)
@@ -436,7 +442,12 @@ namespace EarTrumpet.UI.ViewModels
             _deejConfiguration = deejConfiguration;
 
             _deejControlWizardWindow.OpenOrClose();
+
+            SelectedControl = _deejConfiguration.ToString();
+            RaisePropertyChanged("SelectedControl");
         }
+
+        public string SelectedControl { get; set; }
 
        private Window CreateMIDIControlWizardExperience()
        {
