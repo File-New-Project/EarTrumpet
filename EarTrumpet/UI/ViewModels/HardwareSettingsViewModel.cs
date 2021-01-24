@@ -1,39 +1,21 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.Windows.Input;
 using System.Collections.ObjectModel;
 using EarTrumpet.UI.Helpers;
-using System.Windows.Input;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.Extensions;
-using System.Windows.Forms;
 
 namespace EarTrumpet.UI.ViewModels
 {
     public class HardwareSettingsViewModel : BindableBase
     {
-        private DeviceCollectionViewModel _devices;
-        private DeviceViewModel _selectedDevice = null;
-        private Boolean _modeSelectionEnabled = false;
-        private String _selectedMode;
-        private String _selectedCommand;
-        private string _selectedDeviceType;
-        private Boolean _indexesApplicationsSelectionEnabled = false;
-        private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
-
-        private WindowHolder _ControlWizardWindow = null;
-        /*private WindowHolder _midiControlWizardWindow;
-        private WindowHolder _deejControlWizardWindow;*/
-
-        private HardwareConfiguration _hardwareConfiguration = null;
-
-        private CommandControlMappingElement _commandControlMappingElement = null;
-
-        private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
-
         public ICommand SaveCommandControlMappingCommand { get; }
-
         public ICommand SelectControlCommand { get; }
-
-        public string SelectedDevice {
+        public string SelectedControl { get; set; }
+        public string SelectedIndexesApplications { set; get; }
+        public string SelectedDevice
+        {
             set
             {
                 if (Properties.Resources.AllAudioDevicesSelectionText == value)
@@ -64,8 +46,8 @@ namespace EarTrumpet.UI.ViewModels
                 return Properties.Resources.AllAudioDevicesSelectionText;
             }
         }
-        
-        public Boolean ModeSelectionEnabled {
+        public Boolean ModeSelectionEnabled
+        {
             set
             {
                 _modeSelectionEnabled = value;
@@ -77,8 +59,8 @@ namespace EarTrumpet.UI.ViewModels
                 return _modeSelectionEnabled;
             }
         }
-
-        public string SelectedMode {
+        public string SelectedMode
+        {
             set
             {
                 _selectedMode = value;
@@ -89,13 +71,13 @@ namespace EarTrumpet.UI.ViewModels
                 return _selectedMode;
             }
         }
-
-        public string SelectedCommand {
+        public string SelectedCommand
+        {
             set
             {
                 _selectedCommand = value;
 
-                if(Properties.Resources.AudioDeviceVolumeText == value || Properties.Resources.AudioDeviceMuteText == value)
+                if (Properties.Resources.AudioDeviceVolumeText == value || Properties.Resources.AudioDeviceMuteText == value)
                 {
                     // Audio device specific command selected.
                     // -> Disable Mode and Selection ComboBoxes.
@@ -103,7 +85,7 @@ namespace EarTrumpet.UI.ViewModels
                     ModeSelectionEnabled = false;
                     IndexesApplicationsSelectionEnabled = false;
                 }
-                else if(Properties.Resources.ApplicationVolumeText == value || Properties.Resources.ApplicationMuteText == value)
+                else if (Properties.Resources.ApplicationVolumeText == value || Properties.Resources.ApplicationMuteText == value)
                 {
                     // Application specific command selected.
                     // -> Enable Mode and Selection ComboBoxes.
@@ -135,7 +117,201 @@ namespace EarTrumpet.UI.ViewModels
                 return _indexesApplicationsSelectionEnabled;
             }
         }
-        public string SelectedIndexesApplications { set; get; }
+        public ObservableCollection<string> AudioDevices
+        {
+            get
+            {
+                ObservableCollection<String> availableAudioDevices = new ObservableCollection<string>();
+                var devices = _devices.AllDevices;
+
+                availableAudioDevices.Add("*All Devices*");
+
+                foreach (var device in devices)
+                {
+                    availableAudioDevices.Add(device.DisplayName);
+                }
+
+                return availableAudioDevices;
+            }
+        }
+        public ObservableCollection<string> DeviceTypes
+        {
+            get
+            {
+                ObservableCollection<String> deviceTypes = new ObservableCollection<string>();
+                deviceTypes.AddRange(HardwareManager.Current.GetDeviceTypes());
+
+                return deviceTypes;
+            }
+        }
+        public ObservableCollection<string> ApplicationIndexesNames
+        {
+            get
+            {
+                return _applicationIndexesNames;
+            }
+        }
+        public ObservableCollection<string> Modes
+        {
+            get
+            {
+                // Two modes are supported: "Indexed" and "Application Selection"
+                // In "Indexed" mode, the user can assign an application index to a control.
+                // In "Application Selection" mode, the user can select from a list of running applications.
+
+                ObservableCollection<String> modes = new ObservableCollection<string>();
+
+                modes.Add(Properties.Resources.IndexedText);
+                modes.Add(Properties.Resources.ApplicationSelectionText);
+
+                return modes;
+            }
+        }
+        public ObservableCollection<string> Commands
+        {
+            get
+            {
+                ObservableCollection<String> commands = new ObservableCollection<string>();
+
+                commands.Add(Properties.Resources.AudioDeviceVolumeText);
+                commands.Add(Properties.Resources.AudioDeviceMuteText);
+                commands.Add(Properties.Resources.ApplicationVolumeText);
+                commands.Add(Properties.Resources.ApplicationMuteText);
+
+                return commands;
+            }
+        }
+        public string SelectedDeviceType
+        {
+            get
+            {
+                return _selectedDeviceType;
+            }
+
+            set
+            {
+                _selectedDeviceType = value;
+                RaisePropertyChanged("SelectedDeviceType");
+            }
+        }
+
+        private DeviceCollectionViewModel _devices;
+        private DeviceViewModel _selectedDevice = null;
+        private Boolean _modeSelectionEnabled = false;
+        private String _selectedMode;
+        private String _selectedCommand;
+        private string _selectedDeviceType;
+        private Boolean _indexesApplicationsSelectionEnabled = false;
+        private ObservableCollection<String> _applicationIndexesNames = new ObservableCollection<string>();
+        private WindowHolder _ControlWizardWindow = null;
+        private HardwareConfiguration _hardwareConfiguration = null;
+        private CommandControlMappingElement _commandControlMappingElement = null;
+        private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
+
+        public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
+        {
+            _devices = devices;
+            _hardwareControls = earTrumpetHardwareControlsPageViewModel;
+
+            SelectControlCommand = new RelayCommand(SelectControl);
+            SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
+
+            switch (_hardwareControls.ItemModificationWay)
+            {
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
+
+                    // Set default command.
+                    SelectedCommand = Properties.Resources.AudioDeviceVolumeText;
+
+                    // Set default device type.
+                    SelectedDeviceType = "MIDI";
+
+                    // Set default selection.
+                    SelectedControl = Properties.Resources.NoControlSelectedMessage;
+
+                    break;
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
+                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
+                    var selectedMappingElement = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
+
+                    FillForm(selectedMappingElement);
+                    break;
+
+                default:
+                    // Do not fill widgets.
+                    break;
+            }
+        }
+
+        public void SelectControl()
+        {
+            _ControlWizardWindow = HardwareManager.Current.GetHardwareWizard(SelectedDeviceType, this,
+                _hardwareConfiguration);
+
+            if (_ControlWizardWindow != null)
+            {
+                _ControlWizardWindow.OpenOrBringToFront();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void SaveCommandControlMapping()
+        {
+            if (_hardwareConfiguration == null)
+            {
+                // Do nothing if the settings were not done yet.
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
+            CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
+
+            if (SelectedCommand == Properties.Resources.AudioDeviceVolumeText)
+            {
+                command = CommandControlMappingElement.Command.SystemVolume;
+            }
+            else if (SelectedCommand == Properties.Resources.AudioDeviceMuteText)
+            {
+                command = CommandControlMappingElement.Command.SystemMute;
+            }
+            else if (SelectedCommand == Properties.Resources.ApplicationVolumeText)
+            {
+                command = CommandControlMappingElement.Command.ApplicationVolume;
+            }
+            else if (SelectedCommand == Properties.Resources.ApplicationMuteText)
+            {
+                command = CommandControlMappingElement.Command.ApplicationMute;
+            }
+
+            if (SelectedMode == Properties.Resources.IndexedText)
+            {
+                mode = CommandControlMappingElement.Mode.Indexed;
+            }
+            else if (SelectedMode == Properties.Resources.ApplicationSelectionText)
+            {
+                mode = CommandControlMappingElement.Mode.ApplicationSelection;
+            }
+
+            _commandControlMappingElement = new CommandControlMappingElement(_hardwareConfiguration, SelectedDevice,
+                command, mode, SelectedIndexesApplications);
+
+            // Notify the hardware controls page about the new assignment.
+            _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
+        }
+
+        public void ControlSelectedCallback(HardwareConfiguration hardwareConfiguration)
+        {
+            _hardwareConfiguration = hardwareConfiguration;
+
+            _ControlWizardWindow.OpenOrClose();
+
+            SelectedControl = _hardwareConfiguration.ToString();
+            RaisePropertyChanged("SelectedControl");
+        }
 
         private void RefreshApps()
         {
@@ -218,192 +394,5 @@ namespace EarTrumpet.UI.ViewModels
             SelectedDeviceType = HardwareManager.Current.GetConfigType(data);
             _hardwareConfiguration = data.hardwareConfiguration;
         }
-
-        // Constructor
-        public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
-        {
-            _devices = devices;
-            _hardwareControls = earTrumpetHardwareControlsPageViewModel;
-
-            SelectControlCommand = new RelayCommand(SelectControl);
-            SaveCommandControlMappingCommand = new RelayCommand(SaveCommandControlMapping);
-            
-            switch(_hardwareControls.ItemModificationWay)
-            {
-                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
-                    
-                    // Set default command.
-                    SelectedCommand = Properties.Resources.AudioDeviceVolumeText;
-
-                    // Set default device type.
-                    SelectedDeviceType = "MIDI";
-
-                    // Set default selection.
-                    SelectedControl = Properties.Resources.NoControlSelectedMessage;
-
-                    break;
-                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.EDIT_EXISTING:
-                case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_FROM_EXISTING:
-                    var selectedMappingElement = HardwareManager.Current.GetCommandControlMappings()[_hardwareControls.SelectedIndex];
-
-                    FillForm(selectedMappingElement);
-                    break;
-
-                default:
-                    // Do not fill widgets.
-                    break;
-            }
-        }
-
-        public ObservableCollection<string> AudioDevices
-        {
-            get
-            {
-                ObservableCollection<String> availableAudioDevices = new ObservableCollection<string>();
-                var devices = _devices.AllDevices;
-
-                availableAudioDevices.Add("*All Devices*");
-
-                foreach (var device in devices)
-                {
-                    availableAudioDevices.Add(device.DisplayName);
-                }
-
-                return availableAudioDevices;
-            }
-        }
-
-        public ObservableCollection<string> DeviceTypes {
-            get
-            {
-                ObservableCollection<String> deviceTypes = new ObservableCollection<string>();
-                deviceTypes.AddRange(HardwareManager.Current.GetDeviceTypes());
-
-                return deviceTypes;
-            }
-        }
-        
-        public ObservableCollection<string> ApplicationIndexesNames
-        {
-            get
-            {
-                return _applicationIndexesNames;
-            }
-        }
-
-        public ObservableCollection<string> Modes
-        {
-            get
-            {
-                // Two modes are supported: "Indexed" and "Application Selection"
-                // In "Indexed" mode, the user can assign an application index to a control.
-                // In "Application Selection" mode, the user can select from a list of running applications.
-
-                ObservableCollection<String> modes = new ObservableCollection<string>();
-
-                modes.Add(Properties.Resources.IndexedText);
-                modes.Add(Properties.Resources.ApplicationSelectionText);
-
-                return modes;
-            }
-        }
-
-        public ObservableCollection<string> Commands
-        {
-            get
-            {
-                ObservableCollection<String> commands = new ObservableCollection<string>();
-
-                commands.Add(Properties.Resources.AudioDeviceVolumeText);
-                commands.Add(Properties.Resources.AudioDeviceMuteText);
-                commands.Add(Properties.Resources.ApplicationVolumeText);
-                commands.Add(Properties.Resources.ApplicationMuteText);
-
-                return commands;
-            }
-        }
-
-        public void SelectControl()
-        {
-            _ControlWizardWindow = HardwareManager.Current.GetHardwareWizard(SelectedDeviceType, this, 
-                _hardwareConfiguration);
-
-            if (_ControlWizardWindow != null)
-            {
-                _ControlWizardWindow.OpenOrBringToFront();
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        public string SelectedDeviceType 
-        {
-            get 
-            {
-                return _selectedDeviceType;
-            }
-
-            set
-            {
-                _selectedDeviceType = value;
-                RaisePropertyChanged("SelectedDeviceType");
-            }
-        }
-
-        public void SaveCommandControlMapping()
-        {
-            if (_hardwareConfiguration == null)
-            {
-                // Do nothing if the settings were not done yet.
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
-            CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
-
-            if (SelectedCommand == Properties.Resources.AudioDeviceVolumeText)
-            {
-                command = CommandControlMappingElement.Command.SystemVolume;
-            } else if (SelectedCommand == Properties.Resources.AudioDeviceMuteText)
-            {
-                command = CommandControlMappingElement.Command.SystemMute;
-            } else if (SelectedCommand == Properties.Resources.ApplicationVolumeText)
-            {
-                command = CommandControlMappingElement.Command.ApplicationVolume;
-            }
-            else if (SelectedCommand == Properties.Resources.ApplicationMuteText)
-            {
-                command = CommandControlMappingElement.Command.ApplicationMute;
-            }
-
-            if (SelectedMode == Properties.Resources.IndexedText)
-            {
-                mode = CommandControlMappingElement.Mode.Indexed;
-            } else if (SelectedMode == Properties.Resources.ApplicationSelectionText)
-            {
-                mode = CommandControlMappingElement.Mode.ApplicationSelection;
-            }
-            
-            _commandControlMappingElement = new CommandControlMappingElement(_hardwareConfiguration, SelectedDevice, 
-                command, mode, SelectedIndexesApplications);
-
-            // Notify the hardware controls page about the new assignment.
-            _hardwareControls.ControlCommandMappingSelectedCallback(_commandControlMappingElement);
-        }
-
-        public void ControlSelectedCallback(HardwareConfiguration hardwareConfiguration)
-        {
-            _hardwareConfiguration = hardwareConfiguration;
-            
-            _ControlWizardWindow.OpenOrClose();
-            
-            SelectedControl = _hardwareConfiguration.ToString();
-            RaisePropertyChanged("SelectedControl");
-        }
-
-        public string SelectedControl { get; set; }
     }
 }

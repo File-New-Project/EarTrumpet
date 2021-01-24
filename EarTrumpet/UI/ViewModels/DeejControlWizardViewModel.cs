@@ -1,29 +1,137 @@
-﻿using System.Windows.Input;
-using EarTrumpet.UI.Helpers;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using EarTrumpet.DataModel.Deej;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EarTrumpet.Properties;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.DataModel.Deej;
 
 namespace EarTrumpet.UI.ViewModels
 {
     class DeejControlWizardViewModel : BindableBase
     {
         public string Title { get; private set; }
-
         public ICommand SaveDeejControlCommand { get; }
         public ICommand SetMinValueCommand { get; }
         public ICommand SetMaxValueCommand { get; }
+        public string SelectedDeejInDevice { get; set; }
+        public int CapturedDeejInControlsSelected { get; set; }
+        public string ScaleMinValueSelectDescription { get; set; }
+        public string ScaleMaxValueSelectDescription { get; set; }
+        public string DeejWizardMinMaxInstructionsText { get; set; }
+        public ObservableCollection<string> CapturedDeejInControls
+        {
+            get
+            {
+                return _capturedDeejInControls;
+            }
+        }
+        public ObservableCollection<string> DeejDevices
+        {
+            get
+            {
+                _availableDeejInDevices = DeejIn.GetAllDevices();
+                ObservableCollection<String> availableDeejDevices = new ObservableCollection<string>();
+
+                foreach (var dev in _availableDeejInDevices)
+                {
+                    availableDeejDevices.Add(dev);
+                }
+
+                return availableDeejDevices;
+            }
+        }
+        public int PreviewValue
+        {
+            get
+            {
+                return _previewValue;
+            }
+
+            set
+            {
+                _previewValue = value;
+                RaisePropertyChanged("PreviewValue");
+            }
+        }
+        public float ScalingValue
+        {
+            get
+            {
+                return _scalingValue;
+            }
+            set
+            {
+                _scalingValue = value;
+                RaisePropertyChanged("ScalingValue");
+            }
+        }
+        public int MinValue
+        {
+            get
+            {
+                return _minValue;
+            }
+            set
+            {
+                _minValue = value;
+                RaisePropertyChanged("MinValue");
+            }
+        }
+        public int MaxValue
+        {
+            get
+            {
+                return _maxValue;
+            }
+            set
+            {
+                _maxValue = value;
+                RaisePropertyChanged("MaxValue");
+            }
+        }
+        public string SelectedDeej
+        {
+            set
+            {
+                bool deviceFound = false;
+
+                foreach (var dev in _availableDeejInDevices)
+                {
+                    if (dev == value)
+                    {
+                        // TODO: Remove previously selected deejindevice (if one was selected).
+                        SelectedDeejInDevice = dev;
+                        DeejIn.AddCallback(dev, deejInControlChangeCallback);
+                        deviceFound = true;
+                    }
+                }
+
+                if (!deviceFound)
+                {
+                    // The selected device is unknown. This should never happen.
+                    MessageBox.Show(Resources.UnknownDeviceSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            get
+            {
+                if (SelectedDeejInDevice != null)
+                {
+                    return SelectedDeejInDevice;
+                }
+
+                return "";
+            }
+        }
 
         // Deej controllers send control values from 0 to 1023.
         const int DEEJ_VALUE_MAX = 1023;
 
         private int _minValue = 0;
         private int _maxValue = DEEJ_VALUE_MAX;
-
         private HardwareSettingsViewModel _hardwareSettings;
         private ObservableCollection<string> _capturedDeejInControls = new ObservableCollection<string>();
         System.Windows.Threading.Dispatcher _dispatcher;
@@ -58,6 +166,33 @@ namespace EarTrumpet.UI.ViewModels
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
             SelectedDeej = config.Port;
+        }
+
+        public void SaveDeejControl()
+        {
+            // Check for valid widget entries.
+            if (string.IsNullOrEmpty(SelectedDeej) ||
+                string.IsNullOrEmpty(CapturedDeejInControls[CapturedDeejInControlsSelected]))
+            {
+                MessageBox.Show(Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Generate Deej control configuration object.
+            DeejConfiguration deejConfiguration = new DeejConfiguration(SelectedDeej, GetCurrentSelectionProperty("Channel"), MinValue, MaxValue, ScalingValue);
+
+            // Notify the hardware settings about the new control configuration.
+            _hardwareSettings.ControlSelectedCallback(deejConfiguration);
+        }
+
+        public void SetMinValue()
+        {
+            MinValue = GetCurrentSelectionProperty("Value");
+        }
+
+        public void SetMaxValue()
+        {
+            MaxValue = GetCurrentSelectionProperty("Value");
         }
 
         private async void deejInControlChangeCallback(List<int> values)
@@ -113,34 +248,7 @@ namespace EarTrumpet.UI.ViewModels
             });
         }
 
-        public void SaveDeejControl()
-        {
-            // Check for valid widget entries.
-            if (string.IsNullOrEmpty(SelectedDeej) ||
-                string.IsNullOrEmpty(CapturedDeejInControls[CapturedDeejInControlsSelected]))
-            {
-                MessageBox.Show(Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Generate Deej control configuration object.
-            DeejConfiguration deejConfiguration = new DeejConfiguration(SelectedDeej, GetCurrentSelectionProperty("Channel"), MinValue, MaxValue, ScalingValue);
-
-            // Notify the hardware settings about the new control configuration.
-            _hardwareSettings.ControlSelectedCallback(deejConfiguration);
-        }
-
-        public void SetMinValue()
-        {
-            MinValue = GetCurrentSelectionProperty("Value");
-        }
-
-        public void SetMaxValue()
-        {
-            MaxValue = GetCurrentSelectionProperty("Value");
-        }
-
-        byte GetCurrentSelectionProperty(string property)
+        private byte GetCurrentSelectionProperty(string property)
         {
             var propertyDesignator = property + "=";
 
@@ -157,126 +265,5 @@ namespace EarTrumpet.UI.ViewModels
 
             return byte.Parse(propertyString);
         }
-
-        public ObservableCollection<string> CapturedDeejInControls
-        {
-            get
-            {
-                return _capturedDeejInControls;
-            }
-        }
-
-        public ObservableCollection<string> DeejDevices
-        {
-            get
-            {
-                _availableDeejInDevices = DeejIn.GetAllDevices();
-                ObservableCollection<String> availableDeejDevices = new ObservableCollection<string>();
-
-                foreach (var dev in _availableDeejInDevices)
-                {
-                    availableDeejDevices.Add(dev);
-                }
-
-                return availableDeejDevices;
-            }
-        }
-
-        public int CapturedDeejInControlsSelected { get; set; }
-
-        public string ScaleMinValueSelectDescription { get; set; }
-
-        public string ScaleMaxValueSelectDescription { get; set; }
-
-        public string DeejWizardMinMaxInstructionsText{ get; set; }
-
-        public int PreviewValue
-        {
-
-            get
-            {
-                return _previewValue;
-            }
-
-            set
-            {
-                _previewValue = value;
-                RaisePropertyChanged("PreviewValue");
-            }
-
-        }
-
-        public float ScalingValue {
-            get
-            {
-                return _scalingValue;
-            }
-            set
-            {
-                _scalingValue = value;
-                RaisePropertyChanged("ScalingValue");
-            }
-        }
-
-        public int MinValue {
-            get
-            {
-                return _minValue;
-            }
-            set
-            {
-                _minValue = value;
-                RaisePropertyChanged("MinValue");
-            }
-        }
-
-        public int MaxValue {
-            get
-            {
-                return _maxValue;
-            }
-            set
-            {
-                _maxValue = value;
-                RaisePropertyChanged("MaxValue");
-            }
-        }
-        public string SelectedDeej
-        {
-            set
-            {
-                bool deviceFound = false;
-
-                foreach (var dev in _availableDeejInDevices)
-                {
-                    if (dev == value)
-                    {
-                        // TODO: Remove previously selected deejindevice (if one was selected).
-                        SelectedDeejInDevice = dev;
-                        DeejIn.AddCallback(dev, deejInControlChangeCallback);
-                        deviceFound = true;
-                    }
-                }
-
-                if (!deviceFound)
-                {
-                    // The selected device is unknown. This should never happen.
-                    MessageBox.Show(Resources.UnknownDeviceSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-            }
-
-            get
-            {
-                if (SelectedDeejInDevice != null)
-                {
-                    return SelectedDeejInDevice;
-                }
-
-                return "";
-            }
-        }
-        public string SelectedDeejInDevice { get; set; }
-
     }
 }
