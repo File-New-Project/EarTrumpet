@@ -33,6 +33,7 @@ namespace EarTrumpet.UI.ViewModels
         private int _controlTypeSelected = 0;
         private List<MidiInDevice> _availableMidiInDevices;
 
+        // Constructor
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
             _hardwareSettings = hardwareSettings;
@@ -46,6 +47,12 @@ namespace EarTrumpet.UI.ViewModels
             _availableMidiInDevices = MidiIn.GetAllDevices();
 
             _dispatcher = System.Windows.Threading.Dispatcher.FromThread(System.Threading.Thread.CurrentThread);
+
+            // Default scaling maximum is 1 .
+            ScalingMaximum = 1;
+
+            // Default scaling tick frequency is 0.01 .
+            ScalingTickFrequency = 0.01F;
 
             // Scaling value slider has a default value of 1.0 .
             ScalingValue = 1.0F;
@@ -197,19 +204,24 @@ namespace EarTrumpet.UI.ViewModels
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType;
+                    ScalingMaximum = 1;
+                    ScalingTickFrequency = 0.01F;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsButtonControlType;
+                    ScalingMaximum = 1;
+                    ScalingTickFrequency = 0.01F;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMinValueText;
                     ScaleMaxValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMaxValueText;
                     MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType;
-
+                    ScalingMaximum = 100;
+                    ScalingTickFrequency = 1.0F;
                 }
                 else
                 {
@@ -220,6 +232,8 @@ namespace EarTrumpet.UI.ViewModels
                 RaisePropertyChanged("ScaleMinValueSelectDescription");
                 RaisePropertyChanged("ScaleMaxValueSelectDescription");
                 RaisePropertyChanged("MidiWizardMinMaxInstructionsText");
+                RaisePropertyChanged("ScalingMaximum");
+                RaisePropertyChanged("ScalingTickFrequency");
             }
         }
 
@@ -331,5 +345,7 @@ namespace EarTrumpet.UI.ViewModels
         }
         public MidiInDevice SelectedMidiInDevice { get; set; }
 
+        public int ScalingMaximum { get; set; }
+        public float ScalingTickFrequency { get; set; }
     }
 }
