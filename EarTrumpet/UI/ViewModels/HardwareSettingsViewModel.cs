@@ -233,6 +233,8 @@ namespace EarTrumpet.UI.ViewModels
                     System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
+
+            SelectedControl = data.hardwareConfiguration.ToString();
     }
 
         // Constructor
