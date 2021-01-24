@@ -9,9 +9,9 @@ namespace EarTrumpet.DataModel.Hardware
 {
     public abstract class HardwareAppBinding
     {
-        public abstract Type ConfigType { get; }
         public abstract string Name { get; }
-        
+        public abstract Type ConfigType { get; }
+
         public abstract void AddCommand(CommandControlMappingElement command);
         public abstract CommandControlMappingElement GetCommandAt(int index);
         public abstract void RemoveCommandAt(int index);
