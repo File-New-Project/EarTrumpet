@@ -163,7 +163,8 @@ namespace EarTrumpet.UI.ViewModels
             set
             {
                 bool deviceFound = false;
-
+                SelectedMidiInDevice?.RemoveControlChangeCallback(midiInControlChangeCallback);
+                
                 foreach (var dev in _availableMidiInDevices)
                 {
                     if (dev.Name == value)

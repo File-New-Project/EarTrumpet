@@ -69,6 +69,22 @@ namespace EarTrumpet.DataModel.MIDI
             callbacks[id][key].Add(callback);
         }
 
+        internal static void RemoveControlChangeCallback(string id, Action<MidiControlChangeMessage> callback,
+            byte channel = 255, byte controller = 255)
+        {
+            if (callbacks.ContainsKey(id))
+            {
+                var key = new Tuple<byte, byte>(channel, controller);
+                if (callbacks[id].ContainsKey(key))
+                {
+                    if (callbacks[id][key].Contains(callback))
+                    {
+                        callbacks[id][key].Remove(callback);
+                    }
+                }
+            }
+        }
+
         internal static void _StartListening(string id)
         {
             async Task StartListening()

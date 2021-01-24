@@ -21,5 +21,11 @@ namespace EarTrumpet.DataModel.MIDI
         {
             MidiIn.AddControlChangeCallback(Id, callback, channel, controller);
         }
+
+        public void RemoveControlChangeCallback(Action<MidiControlChangeMessage> callback, byte channel = 255,
+            byte controller = 255)
+        {
+            MidiIn.RemoveControlChangeCallback(Id, callback, channel, controller);
+        }
     }
 }

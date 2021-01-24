@@ -53,6 +53,17 @@ namespace EarTrumpet.DataModel.Deej
 
             callbacks[port].Add(callback);
         }
+
+        public static void RemoveCallback(string port, Action<List<int>> callback)
+        {
+            if (callbacks.ContainsKey(port))
+            {
+                if (callbacks[port].Contains(callback))
+                {
+                    callbacks[port].Remove(callback);
+                }
+            }
+        }
         
         public static List<string> GetAllDevices()
         {

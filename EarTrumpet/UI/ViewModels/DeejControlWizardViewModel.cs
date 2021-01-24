@@ -97,7 +97,8 @@ namespace EarTrumpet.UI.ViewModels
             set
             {
                 bool deviceFound = false;
-
+                DeejIn.RemoveCallback(SelectedDeejInDevice, deejInControlChangeCallback);
+                
                 foreach (var dev in _availableDeejInDevices)
                 {
                     if (dev == value)
