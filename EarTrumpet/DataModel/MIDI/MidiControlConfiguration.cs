@@ -41,15 +41,14 @@ namespace EarTrumpet.DataModel.MIDI
         
         public static string GetControllerTypeString(ControllerTypes controllerType)
         {
-            // TODO: Use localization.
             switch (controllerType)
             {
                 case ControllerTypes.LINEAR_POTENTIOMETER:
-                    return "Linear Potentiometer";
+                    return Properties.Resources.ControllerTypeLinearPotentiometerText;
                 case ControllerTypes.BUTTON:
-                    return "Button";
+                    return Properties.Resources.ControllerTypeButtonText;
                 case ControllerTypes.ROTARY_ENCODER:
-                    return "Rotary Encoder";
+                    return Properties.Resources.ControllerTypeRotaryEncoderText;
                 default:
                     return "";
             }

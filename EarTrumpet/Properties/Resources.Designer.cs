@@ -295,6 +295,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Button.
+        /// </summary>
+        public static string ControllerTypeButtonText {
+            get {
+                return ResourceManager.GetString("ControllerTypeButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linear Potentiometer.
+        /// </summary>
+        public static string ControllerTypeLinearPotentiometerText {
+            get {
+                return ResourceManager.GetString("ControllerTypeLinearPotentiometerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotary Encoder.
+        /// </summary>
+        public static string ControllerTypeRotaryEncoderText {
+            get {
+                return ResourceManager.GetString("ControllerTypeRotaryEncoderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet couldn&apos;t start.
         /// </summary>
         public static string CriticalFailureDialogHeaderText {
@@ -554,6 +581,15 @@ namespace EarTrumpet.Properties {
         public static string HotkeyDescriptionText {
             get {
                 return ResourceManager.GetString("HotkeyDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete device configuration!.
+        /// </summary>
+        public static string IncompleteDeviceConfigurationText {
+            get {
+                return ResourceManager.GetString("IncompleteDeviceConfigurationText", resourceCulture);
             }
         }
         
@@ -950,6 +986,24 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown device selected!.
+        /// </summary>
+        public static string UnknownDeviceSelectedMessageText {
+            get {
+                return ResourceManager.GetString("UnknownDeviceSelectedMessageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown device type selected!.
+        /// </summary>
+        public static string UnknownDeviceTypeSelectedMessageText {
+            get {
+                return ResourceManager.GetString("UnknownDeviceTypeSelectedMessageText", resourceCulture);
             }
         }
         

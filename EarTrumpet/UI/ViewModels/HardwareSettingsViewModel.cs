@@ -5,10 +5,10 @@ using EarTrumpet.UI.Helpers;
 using System.Windows;
 using EarTrumpet.UI.Views;
 using System.Windows.Input;
-using System.Collections.Generic;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.Extensions;
 using EarTrumpet.DataModel.Deej;
+using System.Windows.Forms;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -230,7 +230,7 @@ namespace EarTrumpet.UI.ViewModels
                     _deejConfiguration = (DeejConfiguration)data.hardwareConfiguration;
                     break;
                 default:
-                    // Should not happen. ToDo: Error handling!
+                    System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
     }
@@ -350,7 +350,8 @@ namespace EarTrumpet.UI.ViewModels
                     _deejControlWizardWindow.OpenOrBringToFront();
                     break;
                 default:
-                    // Should not happen. ToDo: Error handling.
+                    // Unknown device type, cannot open control wizard.
+                    System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
         }
@@ -374,8 +375,8 @@ namespace EarTrumpet.UI.ViewModels
             if ((SelectedDeviceType == "MIDI" && _midiControlConfiguration == null) ||
                 SelectedDevice == "deej" && _deejConfiguration == null)
             {
-                // Do nothing if the settings were not done yet
-                // Todo add an error message
+                // Do nothing if the settings were not done yet.
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -414,8 +415,9 @@ namespace EarTrumpet.UI.ViewModels
                     _commandControlMappingElement = new CommandControlMappingElement(_deejConfiguration, SelectedDevice, command, mode, SelectedIndexesApplications);
                     break;
                 default:
-                    // Should never happen. Todo: Errorhandling.
-                    break;
+                    // Do not save when selected device type is unknown.
+                    System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
             }
 
             // Notify the hardware controls page about the new assignment.

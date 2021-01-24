@@ -428,4 +428,22 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="DeejWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
+  <data name="ControllerTypeButtonText" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="ControllerTypeLinearPotentiometerText" xml:space="preserve">
+    <value>Linear Potentiometer</value>
+  </data>
+  <data name="ControllerTypeRotaryEncoderText" xml:space="preserve">
+    <value>Rotary Encoder</value>
+  </data>
+  <data name="IncompleteDeviceConfigurationText" xml:space="preserve">
+    <value>Incomplete device configuration!</value>
+  </data>
+  <data name="UnknownDeviceSelectedMessageText" xml:space="preserve">
+    <value>Unknown device selected!</value>
+  </data>
+  <data name="UnknownDeviceTypeSelectedMessageText" xml:space="preserve">
+    <value>Unknown device type selected!</value>
+  </data>
 </root>

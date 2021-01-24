@@ -7,6 +7,7 @@ using System;
 using EarTrumpet.DataModel.MIDI;
 using EarTrumpet.Properties;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -312,7 +313,8 @@ namespace EarTrumpet.UI.ViewModels
 
                 if (!deviceFound)
                 {
-                    // ToDo: Error handling. Should never happen.
+                    // The selected device is unknown. This should never happen.
+                    MessageBox.Show(Resources.UnknownDeviceSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }

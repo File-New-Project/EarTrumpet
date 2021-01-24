@@ -5,6 +5,8 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using EarTrumpet.DataModel.Deej;
+using System.Windows.Forms;
+using EarTrumpet.Properties;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -250,7 +252,8 @@ namespace EarTrumpet.UI.ViewModels
 
                 if (!deviceFound)
                 {
-                    // ToDo: Error handling. Should never happen.
+                    // The selected device is unknown. This should never happen.
+                    MessageBox.Show(Resources.UnknownDeviceSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
