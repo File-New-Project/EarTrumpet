@@ -17,7 +17,7 @@
         <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
         <Label Content="{x:Static resx:Resources.HardwareDeviceLinearControllerScaleMaxValueText}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
         <Label Content="{x:Static resx:Resources.HardwareDeviceLinearControllerScaleMinValueText}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top"/>
-        <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="248,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
+        <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="251,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,201,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType}" />
         <Button Content="{x:Static resx:Resources.SetScaleMinMax}" HorizontalAlignment="Left" Margin="162,283,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
         <Button Content="{x:Static resx:Resources.SetScaleMinMax}" HorizontalAlignment="Left" Margin="162,313,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
