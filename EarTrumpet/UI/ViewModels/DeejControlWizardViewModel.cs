@@ -27,7 +27,7 @@ namespace EarTrumpet.UI.ViewModels
         private HardwareSettingsViewModel _hardwareSettings;
         private ObservableCollection<string> _capturedDeejInControls = new ObservableCollection<string>();
         System.Windows.Threading.Dispatcher _dispatcher;
-        private int _liveValue = 0;
+        private int _previewValue = 0;
         private float _scalingValue = 0;
         private List<string> _availableDeejInDevices;
 
@@ -78,7 +78,7 @@ namespace EarTrumpet.UI.ViewModels
 
                             elementFound = true;
 
-                            // LiveValue must be updated when the changed channel and controller pair is the selected one.
+                            // PreviewValue must be updated when the changed channel and controller pair is the selected one.
                             if (i == CapturedDeejInControlsSelected)
                             {
                                 int fullScaleRange = MaxValue - MinValue;
@@ -92,11 +92,11 @@ namespace EarTrumpet.UI.ViewModels
 
                                 if (MaxValue > MinValue)
                                 {
-                                    LiveValue = Math.Abs((int)(((values[valueIterator] - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                                    PreviewValue = Math.Abs((int)(((values[valueIterator] - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
                                 }
                                 else
                                 {
-                                    LiveValue = 100 - Math.Abs((int)(((values[valueIterator] - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                                    PreviewValue = 100 - Math.Abs((int)(((values[valueIterator] - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
                                 }
                             }
 
@@ -182,18 +182,18 @@ namespace EarTrumpet.UI.ViewModels
 
         public string DeejWizardMinMaxInstructionsText{ get; set; }
 
-        public int LiveValue
+        public int PreviewValue
         {
 
             get
             {
-                return _liveValue;
+                return _previewValue;
             }
 
             set
             {
-                _liveValue = value;
-                RaisePropertyChanged("LiveValue");
+                _previewValue = value;
+                RaisePropertyChanged("PreviewValue");
             }
 
         }

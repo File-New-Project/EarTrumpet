@@ -12,9 +12,9 @@
         <ComboBox HorizontalAlignment="Left" Height="23" Margin="78,129,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedIndex="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
         </ComboBox>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,47,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.MidiWizardInstructions}" />
-        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,392,0,0" VerticalAlignment="Top" Width="164" Value="{Binding LiveValue}" Name="LiveValueProgressBar"/>
-        <TextBlock Text="{Binding ElementName=LiveValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,73,0" Width="53" TextAlignment="Center" Height="17" />
-        <Label Content="{x:Static resx:Resources.MidiLiveValue}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
+        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,392,0,0" VerticalAlignment="Top" Width="164" Value="{Binding PreviewValue}" Name="PreviewValueProgressBar"/>
+        <TextBlock Text="{Binding ElementName=PreviewValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,73,0" Width="53" TextAlignment="Center" Height="17" />
+        <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding ScaleMaxValueSelectDescription}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding ScaleMinValueSelectDescription}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top"/>
         <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="248,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveMidiControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>

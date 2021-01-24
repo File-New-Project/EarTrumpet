@@ -368,9 +368,6 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType" xml:space="preserve">
     <value>Move the selected control to the minimum value and click corresponding 'Set'. Then move the selected control to the maximum value and click corresponding 'Set'.</value>
   </data>
-  <data name="MidiLiveValue" xml:space="preserve">
-    <value>Live Value</value>
-  </data>
   <data name="Min" xml:space="preserve">
     <value>Min</value>
   </data>
@@ -419,8 +416,8 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="DeejControlWizardText" xml:space="preserve">
     <value>deej Control Wizard</value>
   </data>
-  <data name="DeejLiveValue" xml:space="preserve">
-    <value>Live Value</value>
+  <data name="PreviewValueText" xml:space="preserve">
+    <value>Preview</value>
   </data>
   <data name="DeejScaling" xml:space="preserve">
     <value>Scaling</value>

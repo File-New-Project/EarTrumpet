@@ -351,15 +351,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Value.
-        /// </summary>
-        public static string DeejLiveValue {
-            get {
-                return ResourceManager.GetString("DeejLiveValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scaling.
         /// </summary>
         public static string DeejScaling {
@@ -648,15 +639,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Value.
-        /// </summary>
-        public static string MidiLiveValue {
-            get {
-                return ResourceManager.GetString("MidiLiveValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scaling.
         /// </summary>
         public static string MidiScaling {
@@ -761,6 +743,15 @@ namespace EarTrumpet.Properties {
         public static string PlaybackDevicesText {
             get {
                 return ResourceManager.GetString("PlaybackDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string PreviewValueText {
+            get {
+                return ResourceManager.GetString("PreviewValueText", resourceCulture);
             }
         }
         
