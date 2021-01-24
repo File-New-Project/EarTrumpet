@@ -4,7 +4,7 @@ using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet.DataModel.Hardware
 {
-    [XmlInclude(typeof(MidiControlConfiguration))]
+    [XmlInclude(typeof(MidiConfiguration))]
     [XmlInclude(typeof(DeejConfiguration))]
     public abstract class HardwareConfiguration
     {

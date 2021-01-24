@@ -10,8 +10,7 @@ namespace EarTrumpet.DataModel.MIDI
 {
     public static class MidiIn
     {
-        // This type is just awful
-        // maps from: device-id -> ((channel, controller) -> Actions)
+        // maps device-id -> [(channel, controller) -> Actions]
         private static ConcurrentDictionary<string, ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>
             callbacks;
 
@@ -109,7 +108,7 @@ namespace EarTrumpet.DataModel.MIDI
             {
                 foreach (var command in commands)
                 {
-                    var config = (MidiControlConfiguration) command.hardwareConfiguration;
+                    var config = (MidiConfiguration) command.hardwareConfiguration;
                     if (config.MidiDevice == device.Name)
                     {
                         _StartListening(device.Id);

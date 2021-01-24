@@ -62,7 +62,7 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings,
-            MidiControlConfiguration config): this(title, hardwareSettings)
+            MidiConfiguration config): this(title, hardwareSettings)
         {
             //GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MinValue, MaxValue, ScalingValue
             _capturedMidiInControls.Add("Channel=" + config.Channel + ", Controller=" + config.Controller +
@@ -136,10 +136,10 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             // Generate MIDI control configuration object.
-            MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(SelectedMidi, GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
+            MidiConfiguration midiConfiguration = new MidiConfiguration(SelectedMidi, GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
-            _hardwareSettings.ControlSelectedCallback(midiControlConfiguration);
+            _hardwareSettings.ControlSelectedCallback(midiConfiguration);
         }
 
         public void SetMinValue()
@@ -208,7 +208,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
 
-                if(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
+                if(MidiConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.MinimumText;
                     ScaleMaxValueSelectDescription = Resources.MaximumText;
@@ -216,7 +216,7 @@ namespace EarTrumpet.UI.ViewModels
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
-                else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
+                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.ReleasedText;
                     ScaleMaxValueSelectDescription = Resources.PushedText;
@@ -224,7 +224,7 @@ namespace EarTrumpet.UI.ViewModels
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
-                else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
+                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.DecreaseText;
                     ScaleMaxValueSelectDescription = Resources.IncreaseText;
@@ -258,9 +258,9 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<string> controlTypes = new ObservableCollection<string>();
 
-                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER));
-                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON));
-                controlTypes.Add(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.BUTTON));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER));
 
                 return controlTypes;
             }

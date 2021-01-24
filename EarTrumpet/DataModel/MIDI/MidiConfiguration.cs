@@ -10,7 +10,7 @@ namespace EarTrumpet.DataModel.MIDI
         INVALID_ENTRY = 3
     }
 
-    public class MidiControlConfiguration : HardwareConfiguration
+    public class MidiConfiguration : HardwareConfiguration
     {
         public byte Channel { get; set; }
         public byte Controller { get; set; }
@@ -21,7 +21,7 @@ namespace EarTrumpet.DataModel.MIDI
         public string MidiDevice { get; set; }
 
         // Constructor
-        public MidiControlConfiguration(string device, byte channel, byte controller, ControllerTypes controllerType, 
+        public MidiConfiguration(string device, byte channel, byte controller, ControllerTypes controllerType, 
             byte minValue, byte maxValue, float scalingValue)
         {
             MidiDevice = device;
@@ -34,7 +34,7 @@ namespace EarTrumpet.DataModel.MIDI
         }
 
         // Default constructor required for serialization.
-        public MidiControlConfiguration()
+        public MidiConfiguration()
         {
             
         }

@@ -106,7 +106,7 @@
     <Compile Include="DataModel\Hardware\HardwareConfiguration.cs" />
     <Compile Include="DataModel\Hardware\HardwareManager.cs" />
     <Compile Include="DataModel\MIDI\MidiAppBinding.cs" />
-    <Compile Include="DataModel\MIDI\MidiControlConfiguration.cs" />
+    <Compile Include="DataModel\MIDI\MidiConfiguration.cs" />
     <Compile Include="DataModel\MIDI\MidiIn.cs" />
     <Compile Include="DataModel\MIDI\MidiInDevice.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />

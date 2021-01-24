@@ -11,7 +11,7 @@ namespace EarTrumpet.DataModel.MIDI
 {
     public class MidiAppBinding: HardwareAppBinding
     {
-        public override Type ConfigType => typeof(MidiControlConfiguration);
+        public override Type ConfigType => typeof(MidiConfiguration);
         public override string Name => "MIDI";
 
         // Maps device ids to device names
@@ -20,12 +20,12 @@ namespace EarTrumpet.DataModel.MIDI
         
         public static MidiAppBinding Current;
         
-        private static bool MidiEquals(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg)
+        private static bool MidiEquals(MidiConfiguration midiConfig, MidiControlChangeMessage msg)
         {
             return midiConfig.Channel == msg.Channel && midiConfig.Controller == msg.Controller;
         }
 
-        private static int SetVolume(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
+        private static int SetVolume(MidiConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
         {
             var newVolume = oldVolume;
             var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
@@ -85,7 +85,7 @@ namespace EarTrumpet.DataModel.MIDI
             return newVolume;
         }
         
-        private static bool SetMute(MidiControlConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
+        private static bool SetMute(MidiConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
         {
             var newMute = oldMute;
             var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
@@ -152,7 +152,7 @@ namespace EarTrumpet.DataModel.MIDI
 
             foreach (var app in apps)
             {
-                app.Volume = SetVolume((MidiControlConfiguration)command.hardwareConfiguration, msg, app.Volume);
+                app.Volume = SetVolume((MidiConfiguration)command.hardwareConfiguration, msg, app.Volume);
             }
         }
 
@@ -174,7 +174,7 @@ namespace EarTrumpet.DataModel.MIDI
             
             foreach (var app in apps)
             {
-                app.IsMuted = SetMute((MidiControlConfiguration)command.hardwareConfiguration, msg, app.IsMuted);
+                app.IsMuted = SetMute((MidiConfiguration)command.hardwareConfiguration, msg, app.IsMuted);
             }
         }
 
@@ -184,7 +184,7 @@ namespace EarTrumpet.DataModel.MIDI
 
             foreach (var device in devices)
             {
-                device.Volume = SetVolume((MidiControlConfiguration)command.hardwareConfiguration, msg, device.Volume);
+                device.Volume = SetVolume((MidiConfiguration)command.hardwareConfiguration, msg, device.Volume);
             }
         }
 
@@ -194,7 +194,7 @@ namespace EarTrumpet.DataModel.MIDI
 
             foreach (var device in devices)
             {
-                device.IsMuted = SetMute((MidiControlConfiguration)command.hardwareConfiguration, msg, device.IsMuted);
+                device.IsMuted = SetMute((MidiConfiguration)command.hardwareConfiguration, msg, device.IsMuted);
             }
         }
 
@@ -224,7 +224,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             foreach (var command in _commandControlMappings)
             {
-                var config = (MidiControlConfiguration) command.hardwareConfiguration;
+                var config = (MidiConfiguration) command.hardwareConfiguration;
                 
                 if (config.MidiDevice == GetMidiDeviceById(sender.DeviceId))
                 {
@@ -252,7 +252,7 @@ namespace EarTrumpet.DataModel.MIDI
 
         public override void AddCommand(CommandControlMappingElement command)
         {
-            var config = (MidiControlConfiguration) command.hardwareConfiguration;
+            var config = (MidiConfiguration) command.hardwareConfiguration;
             MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
 
             _commandControlMappings.Add(command);
@@ -282,7 +282,7 @@ namespace EarTrumpet.DataModel.MIDI
                 return;
             }
 
-            var config = (MidiControlConfiguration) newCommand.hardwareConfiguration;
+            var config = (MidiConfiguration) newCommand.hardwareConfiguration;
             MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
 
             _commandControlMappings[index] = newCommand;
@@ -294,15 +294,15 @@ namespace EarTrumpet.DataModel.MIDI
         {
             MIDIControlWizardViewModel viewModel = null;
            
-            if (loadedConfig == null || !(loadedConfig is MidiControlConfiguration))
+            if (!(loadedConfig is MidiConfiguration))
             {
                 viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MidiControlWizardText, 
                     hardwareSettingsViewModel);
             }
             else
             {
-                viewModel =  viewModel = new MIDIControlWizardViewModel(Properties.Resources.MidiControlWizardText,
-                    hardwareSettingsViewModel, (MidiControlConfiguration)loadedConfig);
+                viewModel = new MIDIControlWizardViewModel(Properties.Resources.MidiControlWizardText,
+                    hardwareSettingsViewModel, (MidiConfiguration)loadedConfig);
             }
 
             return new MIDIControlWizardWindow { DataContext = viewModel};
@@ -312,7 +312,7 @@ namespace EarTrumpet.DataModel.MIDI
         {
             foreach (var command in _commandControlMappings)
             {
-                var config = (MidiControlConfiguration) command.hardwareConfiguration;
+                var config = (MidiConfiguration) command.hardwareConfiguration;
                 MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
             }
         }
