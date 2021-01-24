@@ -125,7 +125,16 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public void SaveMidiControl()
-        {            
+        {
+            // Check for valid widget entries.
+            if(string.IsNullOrEmpty(SelectedMidi) ||
+                string.IsNullOrEmpty(CapturedMidiInControls[CapturedMidiInControlsSelected]) ||
+                string.IsNullOrEmpty(ControlTypes[ControlTypeSelected]))
+            {
+                MessageBox.Show(Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Generate MIDI control configuration object.
             MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(SelectedMidi, GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
 

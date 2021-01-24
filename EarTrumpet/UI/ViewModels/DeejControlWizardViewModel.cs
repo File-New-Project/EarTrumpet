@@ -114,7 +114,15 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         public void SaveDeejControl()
-        {            
+        {
+            // Check for valid widget entries.
+            if (string.IsNullOrEmpty(SelectedDeej) ||
+                string.IsNullOrEmpty(CapturedDeejInControls[CapturedDeejInControlsSelected]))
+            {
+                MessageBox.Show(Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Generate Deej control configuration object.
             DeejConfiguration deejConfiguration = new DeejConfiguration(SelectedDeej, GetCurrentSelectionProperty("Channel"), MinValue, MaxValue, ScalingValue);
 
