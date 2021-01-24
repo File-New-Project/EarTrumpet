@@ -19,7 +19,7 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand SetMaxValueCommand { get; }
         public string ScaleMinValueSelectDescription { get; set; }
         public string ScaleMaxValueSelectDescription { get; set; }
-        public string MidiWizardMinMaxInstructionsText { get; set; }
+        public string MidiWizardMinMaxInstructions { get; set; }
         public MidiInDevice SelectedMidiInDevice { get; set; }
         public int ScalingMaximum { get; set; }
         public float ScalingTickFrequency { get; set; }
@@ -63,7 +63,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ScaleMinValueSelectDescription = Resources.MinimumText;
                     ScaleMaxValueSelectDescription = Resources.MaximumText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions;
+                    MidiWizardMinMaxInstructions = Resources.HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions;
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
@@ -71,7 +71,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ScaleMinValueSelectDescription = Resources.ReleasedText;
                     ScaleMaxValueSelectDescription = Resources.PushedText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxButtonControlTypeInstructions;
+                    MidiWizardMinMaxInstructions = Resources.HardwareControlWizardMinMaxButtonControlTypeInstructions;
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
@@ -79,7 +79,7 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     ScaleMinValueSelectDescription = Resources.DecreaseText;
                     ScaleMaxValueSelectDescription = Resources.IncreaseText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions;
+                    MidiWizardMinMaxInstructions = Resources.HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions;
                     ScalingMaximum = 100;
                     ScalingTickFrequency = 1.0F;
                 }
@@ -91,7 +91,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 RaisePropertyChanged("ScaleMinValueSelectDescription");
                 RaisePropertyChanged("ScaleMaxValueSelectDescription");
-                RaisePropertyChanged("MidiWizardMinMaxInstructionsText");
+                RaisePropertyChanged("MidiWizardMinMaxInstructions");
                 RaisePropertyChanged("ScalingMaximum");
                 RaisePropertyChanged("ScalingTickFrequency");
             }
