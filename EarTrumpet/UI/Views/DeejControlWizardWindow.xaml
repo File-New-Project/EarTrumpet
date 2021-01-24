@@ -15,19 +15,19 @@
         <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,392,0,0" VerticalAlignment="Top" Width="164" Value="{Binding PreviewValue}" Name="PreviewValueProgressBar"/>
         <TextBlock Text="{Binding ElementName=PreviewValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,73,0" Width="53" TextAlignment="Center" Height="17" />
         <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.HardwareDeviceLinearControllerScaleMaxValueText}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.HardwareDeviceLinearControllerScaleMinValueText}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top"/>
-        <Button Content="{x:Static resx:Resources.Save}" HorizontalAlignment="Left" Margin="251,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
-        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,201,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType}" />
-        <Button Content="{x:Static resx:Resources.SetScaleMinMax}" HorizontalAlignment="Left" Margin="162,283,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
-        <Button Content="{x:Static resx:Resources.SetScaleMinMax}" HorizontalAlignment="Left" Margin="162,313,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
+        <Label Content="{x:Static resx:Resources.MinimumText}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static resx:Resources.MaximumText}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top"/>
+        <Button Content="{x:Static resx:Resources.SaveText}" HorizontalAlignment="Left" Margin="251,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
+        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,201,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.LinearPotentiometerText}" />
+        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="162,283,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
+        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="162,313,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
         <Label Content="{x:Static resx:Resources.ScalingText}" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
         <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="162,344,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="161" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
         <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="219,363,79,0" Width="53" TextAlignment="Center" Height="17" />
         <Label Content="{Binding MinValue}" HorizontalAlignment="Left" Margin="242,280,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
         <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,310,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
-        <Label Content="Control" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="63"/>
-        <Label Content="Device" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" />
+        <Label Content="{x:Static resx:Resources.ControlText}" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="63"/>
+        <Label Content="{x:Static resx:Resources.DeviceText}" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" />
         <ComboBox x:Name="ComboBoxAvailableDevices" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding DeejDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeej}"/>
         <Label Content="9600 Baud, 8N1" HorizontalAlignment="Left" Margin="232,6,0,0" VerticalAlignment="Top" />
 

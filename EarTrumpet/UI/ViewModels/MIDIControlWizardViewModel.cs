@@ -131,7 +131,7 @@ namespace EarTrumpet.UI.ViewModels
                 string.IsNullOrEmpty(CapturedMidiInControls[CapturedMidiInControlsSelected]) ||
                 string.IsNullOrEmpty(ControlTypes[ControlTypeSelected]))
             {
-                MessageBox.Show(Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -210,25 +210,25 @@ namespace EarTrumpet.UI.ViewModels
 
                 if(MidiControlConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMinValueText;
-                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceLinearControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType;
+                    ScaleMinValueSelectDescription = Resources.MinimumText;
+                    ScaleMaxValueSelectDescription = Resources.MaximumText;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions;
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMinValueText;
-                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceButtonControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsButtonControlType;
+                    ScaleMinValueSelectDescription = Resources.ReleasedText;
+                    ScaleMaxValueSelectDescription = Resources.PushedText;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxButtonControlTypeInstructions;
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
                 else if (MidiControlConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
                 {
-                    ScaleMinValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMinValueText;
-                    ScaleMaxValueSelectDescription = Resources.HardwareDeviceRotaryEncoderControllerScaleMaxValueText;
-                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType;
+                    ScaleMinValueSelectDescription = Resources.DecreaseText;
+                    ScaleMaxValueSelectDescription = Resources.IncreaseText;
+                    MidiWizardMinMaxInstructionsText = Resources.HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions;
                     ScalingMaximum = 100;
                     ScalingTickFrequency = 1.0F;
                 }

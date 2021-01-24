@@ -44,11 +44,11 @@ namespace EarTrumpet.DataModel.MIDI
             switch (controllerType)
             {
                 case ControllerTypes.LINEAR_POTENTIOMETER:
-                    return Properties.Resources.ControllerTypeLinearPotentiometerText;
+                    return Properties.Resources.LinearPotentiometerText;
                 case ControllerTypes.BUTTON:
-                    return Properties.Resources.ControllerTypeButtonText;
+                    return Properties.Resources.ButtonText;
                 case ControllerTypes.ROTARY_ENCODER:
-                    return Properties.Resources.ControllerTypeRotaryEncoderText;
+                    return Properties.Resources.RotaryEncoderText;
                 default:
                     return "";
             }

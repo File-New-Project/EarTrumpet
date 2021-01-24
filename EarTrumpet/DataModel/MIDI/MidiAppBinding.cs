@@ -296,12 +296,12 @@ namespace EarTrumpet.DataModel.MIDI
            
             if (loadedConfig == null || !(loadedConfig is MidiControlConfiguration))
             {
-                viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, 
+                viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MidiControlWizardText, 
                     hardwareSettingsViewModel);
             }
             else
             {
-                viewModel =  viewModel = new MIDIControlWizardViewModel(Properties.Resources.MIDIControlWizardText,
+                viewModel =  viewModel = new MIDIControlWizardViewModel(Properties.Resources.MidiControlWizardText,
                     hardwareSettingsViewModel, (MidiControlConfiguration)loadedConfig);
             }
 

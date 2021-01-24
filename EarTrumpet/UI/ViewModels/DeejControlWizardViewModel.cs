@@ -119,7 +119,7 @@ namespace EarTrumpet.UI.ViewModels
             if (string.IsNullOrEmpty(SelectedDeej) ||
                 string.IsNullOrEmpty(CapturedDeejInControls[CapturedDeejInControlsSelected]))
             {
-                MessageBox.Show(Resources.IncompleteDeviceConfigurationText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

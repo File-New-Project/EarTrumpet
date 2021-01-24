@@ -299,118 +299,112 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="HardwareControlsTitle" xml:space="preserve">
     <value>Hardware Controls</value>
   </data>
-  <data name="AddMidiControlButtonText" xml:space="preserve">
+  <data name="AddNewText" xml:space="preserve">
     <value>Add New</value>
   </data>
-  <data name="HardwareControlInformationText" xml:space="preserve">
+  <data name="HardwareControlInformation" xml:space="preserve">
     <value>Control system- and application volumes using a controller hardware (MIDI and deej devices supported).</value>
   </data>
   <data name="HardwareSettingsText" xml:space="preserve">
     <value>Add / Edit Hardware Control</value>
   </data>
-  <data name="MidiDevice" xml:space="preserve">
+  <data name="MidiDeviceText" xml:space="preserve">
     <value>MIDI Device</value>
   </data>
-  <data name="Command" xml:space="preserve">
+  <data name="CommandText" xml:space="preserve">
     <value>Command</value>
   </data>
-  <data name="Control" xml:space="preserve">
+  <data name="ControlText" xml:space="preserve">
     <value>Control</value>
   </data>
-  <data name="Select" xml:space="preserve">
+  <data name="SelectText" xml:space="preserve">
     <value>Select</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="SaveText" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Mode" xml:space="preserve">
+  <data name="ModeText" xml:space="preserve">
     <value>Mode</value>
   </data>
-  <data name="Selection" xml:space="preserve">
+  <data name="SelectionText" xml:space="preserve">
     <value>Selection</value>
   </data>
-  <data name="AudioDevice" xml:space="preserve">
+  <data name="AudioDeviceText" xml:space="preserve">
     <value>Audio Device</value>
   </data>
-  <data name="MIDIControlWizardText" xml:space="preserve">
+  <data name="MidiControlWizardText" xml:space="preserve">
     <value>MIDI Control Wizard</value>
   </data>
-  <data name="DeleteMidiControlButtonText" xml:space="preserve">
+  <data name="DeleteSelectedText" xml:space="preserve">
     <value>Delete Selected</value>
   </data>
-  <data name="EditMidiControlButtonText" xml:space="preserve">
+  <data name="EditSelectedText" xml:space="preserve">
     <value>Edit Selected</value>
   </data>
-  <data name="AddFromExistingMidiControlButtonText" xml:space="preserve">
+  <data name="AddNewFromSelectedText" xml:space="preserve">
     <value>Add New From Selected</value>
   </data>
-  <data name="AudioDeviceVolume" xml:space="preserve">
+  <data name="AudioDeviceVolumeText" xml:space="preserve">
     <value>Device Volume</value>
   </data>
-  <data name="AudioDeviceMute" xml:space="preserve">
+  <data name="AudioDeviceMuteText" xml:space="preserve">
     <value>Device Mute</value>
   </data>
-  <data name="ApplicationVolume" xml:space="preserve">
+  <data name="ApplicationVolumeText" xml:space="preserve">
     <value>Application Volume</value>
   </data>
-  <data name="ApplicationMute" xml:space="preserve">
+  <data name="ApplicationMuteText" xml:space="preserve">
     <value>Application Mute</value>
   </data>
-  <data name="ApplicationSelection" xml:space="preserve">
+  <data name="ApplicationSelectionText" xml:space="preserve">
     <value>Application Selection</value>
   </data>
-  <data name="IndexedSelection" xml:space="preserve">
+  <data name="IndexedText" xml:space="preserve">
     <value>Indexed</value>
   </data>
   <data name="MidiWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
-  <data name="HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions" xml:space="preserve">
     <value>Move the selected control to the minimum value and click corresponding 'Set'. Then move the selected control to the maximum value and click corresponding 'Set'.</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value>Min</value>
-  </data>
-  <data name="Max" xml:space="preserve">
-    <value>Max</value>
-  </data>
-  <data name="SetScaleMinMax" xml:space="preserve">
+  <data name="SetText" xml:space="preserve">
     <value>Set</value>
   </data>
   <data name="ScalingText" xml:space="preserve">
     <value>Scaling</value>
   </data>
-  <data name="HardwareControlWizardMinMaxInstructionsButtonControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxButtonControlTypeInstructions" xml:space="preserve">
     <value>Release the selected button and click corresponding 'Set' (while released). Then press the selected button and click corresponding 'Set' (while pressed).</value>
   </data>
-  <data name="HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType" xml:space="preserve">
+  <data name="HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions" xml:space="preserve">
     <value>Turn the selected rotary control in decreasing direction and click corresponding 'Set'. Then turn the selected rotary control in increasing direction and click corresponding 'Set'.</value>
   </data>
   <data name="AllAudioDevicesSelectionText" xml:space="preserve">
     <value>*All Devices*</value>
   </data>
-  <data name="DeviceType" xml:space="preserve">
+  <data name="DeviceTypeText" xml:space="preserve">
     <value>Device Type</value>
   </data>
-  <data name="HardwareDeviceButtonControllerScaleMaxValueText" xml:space="preserve">
+  <data name="PushedText" xml:space="preserve">
     <value>Pushed</value>
   </data>
-  <data name="HardwareDeviceButtonControllerScaleMinValueText" xml:space="preserve">
+  <data name="ReleasedText" xml:space="preserve">
     <value>Released</value>
   </data>
-  <data name="HardwareDeviceLinearControllerScaleMaxValueText" xml:space="preserve">
+  <data name="MaximumText" xml:space="preserve">
     <value>Maximum</value>
   </data>
-  <data name="HardwareDeviceLinearControllerScaleMinValueText" xml:space="preserve">
+  <data name="MinimumText" xml:space="preserve">
     <value>Minimum</value>
   </data>
-  <data name="HardwareDeviceRotaryEncoderControllerScaleMaxValueText" xml:space="preserve">
+  <data name="IncreaseText" xml:space="preserve">
     <value>Increase</value>
   </data>
-  <data name="HardwareDeviceRotaryEncoderControllerScaleMinValueText" xml:space="preserve">
+  <data name="DecreaseText" xml:space="preserve">
     <value>Decrease</value>
   </data>
-  <data name="NoControlSelectedMessageText" xml:space="preserve">
+  <data name="NoControlSelectedMessage" xml:space="preserve">
     <value>No control selected !</value>
   </data>
   <data name="DeejControlWizardText" xml:space="preserve">
@@ -422,16 +416,16 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="DeejWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
-  <data name="ControllerTypeButtonText" xml:space="preserve">
+  <data name="ButtonText" xml:space="preserve">
     <value>Button</value>
   </data>
-  <data name="ControllerTypeLinearPotentiometerText" xml:space="preserve">
+  <data name="LinearPotentiometerText" xml:space="preserve">
     <value>Linear Potentiometer</value>
   </data>
-  <data name="ControllerTypeRotaryEncoderText" xml:space="preserve">
+  <data name="RotaryEncoderText" xml:space="preserve">
     <value>Rotary Encoder</value>
   </data>
-  <data name="IncompleteDeviceConfigurationText" xml:space="preserve">
+  <data name="IncompleteDeviceConfigurationMessage" xml:space="preserve">
     <value>Incomplete device configuration!</value>
   </data>
   <data name="UnknownDeviceSelectedMessageText" xml:space="preserve">
@@ -439,5 +433,11 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
   <data name="UnknownDeviceTypeSelectedMessageText" xml:space="preserve">
     <value>Unknown device type selected!</value>
+  </data>
+  <data name="DeviceText" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="TypeText" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>

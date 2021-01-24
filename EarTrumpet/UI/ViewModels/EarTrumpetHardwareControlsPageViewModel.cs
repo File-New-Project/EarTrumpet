@@ -94,7 +94,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (selectedIndex < 0)
             {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -108,7 +108,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (selectedIndex < 0)
             {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -122,7 +122,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if(selectedIndex < 0)
             {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.NoControlSelectedMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
