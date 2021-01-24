@@ -377,7 +377,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="SetScaleMinMax" xml:space="preserve">
     <value>Set</value>
   </data>
-  <data name="MidiScaling" xml:space="preserve">
+  <data name="ScalingText" xml:space="preserve">
     <value>Scaling</value>
   </data>
   <data name="HardwareControlWizardMinMaxInstructionsButtonControlType" xml:space="preserve">
@@ -418,9 +418,6 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
   <data name="PreviewValueText" xml:space="preserve">
     <value>Preview</value>
-  </data>
-  <data name="DeejScaling" xml:space="preserve">
-    <value>Scaling</value>
   </data>
   <data name="DeejWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>

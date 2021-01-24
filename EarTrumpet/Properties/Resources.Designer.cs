@@ -351,15 +351,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scaling.
-        /// </summary>
-        public static string DeejScaling {
-            get {
-                return ResourceManager.GetString("DeejScaling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
         /// </summary>
         public static string DeejWizardInstructions {
@@ -639,15 +630,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scaling.
-        /// </summary>
-        public static string MidiScaling {
-            get {
-                return ResourceManager.GetString("MidiScaling", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
         /// </summary>
         public static string MidiWizardInstructions {
@@ -815,6 +797,15 @@ namespace EarTrumpet.Properties {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scaling.
+        /// </summary>
+        public static string ScalingText {
+            get {
+                return ResourceManager.GetString("ScalingText", resourceCulture);
             }
         }
         
