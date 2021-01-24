@@ -168,7 +168,9 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     if (dev.Name == value)
                     {
-                        // TODO: Remove previously selected midiindevice (if one was selected).
+                        // Clear captured controls from previously selected device.
+                        _capturedMidiInControls.Clear();
+
                         SelectedMidiInDevice = dev;
                         SelectedMidiInDevice.AddControlChangeCallback(midiInControlChangeCallback);
                         deviceFound = true;

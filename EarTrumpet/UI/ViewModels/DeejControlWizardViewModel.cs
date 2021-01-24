@@ -102,7 +102,9 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     if (dev == value)
                     {
-                        // TODO: Remove previously selected deejindevice (if one was selected).
+                        // Clear captured controls from previously selected device.
+                        _capturedDeejInControls.Clear();
+
                         SelectedDeejInDevice = dev;
                         DeejIn.AddCallback(dev, deejInControlChangeCallback);
                         deviceFound = true;
