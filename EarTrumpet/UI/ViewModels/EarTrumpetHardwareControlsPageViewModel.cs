@@ -4,8 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using EarTrumpet.UI.Views;
-using EarTrumpet.DataModel.MIDI;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using EarTrumpet.DataModel.Hardware;
 
@@ -13,10 +11,10 @@ namespace EarTrumpet.UI.ViewModels
 {
     class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
     {
-        public ICommand AddMidiControlCommand { get; }
-        public ICommand EditMidiControlCommand { get; }
-        public ICommand DeleteMidiControlCommand { get; }
-        public ICommand AddFromExistingMidiControlCommand { get; }
+        public ICommand NewControlCommand { get; }
+        public ICommand EditSelectedControlCommand { get; }
+        public ICommand DeleteSelectedControlCommand { get; }
+        public ICommand NewFromSelectedControlCommand { get; }
 
         private WindowHolder _hardwareSettingsWindow;
         
@@ -47,10 +45,10 @@ namespace EarTrumpet.UI.ViewModels
             Glyph = "\xF8A6";
             Title = Properties.Resources.HardwareControlsTitle;
 
-            AddMidiControlCommand = new RelayCommand(AddMidiControl);
-            EditMidiControlCommand = new RelayCommand(EditMidiControl);
-            DeleteMidiControlCommand = new RelayCommand(DeleteMidiControl);
-            AddFromExistingMidiControlCommand = new RelayCommand(AddFromExistingMidiControl);
+            NewControlCommand = new RelayCommand(NewControl);
+            EditSelectedControlCommand = new RelayCommand(EditSelectedControl);
+            DeleteSelectedControlCommand = new RelayCommand(DeleteSelectedControl);
+            NewFromSelectedControlCommand = new RelayCommand(NewFromSelectedControl);
 
             _hardwareSettingsWindow = new WindowHolder(CreateHardwareSettingsExperience);
 
@@ -83,12 +81,12 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private void AddMidiControl()
+        private void NewControl()
         {
             ItemModificationWay = ItemModificationWays.NEW_EMPTY;
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
-        private void EditMidiControl()
+        private void EditSelectedControl()
         {
             var selectedIndex = SelectedIndex;
 
@@ -102,7 +100,7 @@ namespace EarTrumpet.UI.ViewModels
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
 
-        private void AddFromExistingMidiControl()
+        private void NewFromSelectedControl()
         {
             var selectedIndex = SelectedIndex;
 
@@ -116,7 +114,7 @@ namespace EarTrumpet.UI.ViewModels
             _hardwareSettingsWindow.OpenOrBringToFront();
         }
         
-        private void DeleteMidiControl()
+        private void DeleteSelectedControl()
         {
             var selectedIndex = SelectedIndex;
 
