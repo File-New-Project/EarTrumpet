@@ -297,6 +297,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private async void midiInControlChangeCallback(MidiControlChangeMessage msg)
         {
+            //Todo: When the selected midi device is changed and the list got cleared, the first control input is not auto-selected -> no idea how to fix that
             await _dispatcher.InvokeAsync(() =>
             {
                 bool elementFound = false;

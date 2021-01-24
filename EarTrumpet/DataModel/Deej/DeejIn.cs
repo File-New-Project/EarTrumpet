@@ -48,7 +48,7 @@ namespace EarTrumpet.DataModel.Deej
         
         public static void AddCallback(string port, Action<List<int>> callback)
         {
-            if (!callbacks.ContainsKey(port))
+            if (!callbacks.ContainsKey(port) || callbacks[port].Count == 0)
             {
                 callbacks[port] = new List<Action<List<int>>>();
                 _StartListening(port);
@@ -59,6 +59,11 @@ namespace EarTrumpet.DataModel.Deej
 
         public static void RemoveCallback(string port, Action<List<int>> callback)
         {
+            if (port == null)
+            {
+                return;
+            }
+            
             if (callbacks.ContainsKey(port))
             {
                 if (callbacks[port].Contains(callback))
