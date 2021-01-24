@@ -1,12 +1,12 @@
-﻿using System.Windows.Input;
-using EarTrumpet.UI.Helpers;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using EarTrumpet.DataModel.Deej;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EarTrumpet.Properties;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.DataModel.Deej;
 
 namespace EarTrumpet.UI.ViewModels
 {

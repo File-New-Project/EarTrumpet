@@ -1,10 +1,10 @@
-﻿using EarTrumpet.UI.Helpers;
-using System;
+﻿using System;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using EarTrumpet.UI.Views;
-using System.Windows.Forms;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.DataModel.Hardware;
 
 namespace EarTrumpet.UI.ViewModels

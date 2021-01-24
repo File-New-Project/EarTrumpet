@@ -1,13 +1,13 @@
-﻿using System.Windows.Input;
-using EarTrumpet.UI.Helpers;
-using Windows.Devices.Midi;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.Linq;
-using System;
-using EarTrumpet.DataModel.MIDI;
-using EarTrumpet.Properties;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Input;
+using Windows.Devices.Midi;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using EarTrumpet.Properties;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet.UI.ViewModels
 {
