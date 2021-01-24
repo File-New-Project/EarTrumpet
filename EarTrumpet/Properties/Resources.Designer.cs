@@ -81,18 +81,18 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add New From Selected.
         /// </summary>
-        public static string AddFromExistingMidiControlButtonText {
+        public static string AddNewFromSelectedText {
             get {
-                return ResourceManager.GetString("AddFromExistingMidiControlButtonText", resourceCulture);
+                return ResourceManager.GetString("AddNewFromSelectedText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add New.
         /// </summary>
-        public static string AddMidiControlButtonText {
+        public static string AddNewText {
             get {
-                return ResourceManager.GetString("AddMidiControlButtonText", resourceCulture);
+                return ResourceManager.GetString("AddNewText", resourceCulture);
             }
         }
         
@@ -144,27 +144,27 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Application Mute.
         /// </summary>
-        public static string ApplicationMute {
+        public static string ApplicationMuteText {
             get {
-                return ResourceManager.GetString("ApplicationMute", resourceCulture);
+                return ResourceManager.GetString("ApplicationMuteText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Application Selection.
         /// </summary>
-        public static string ApplicationSelection {
+        public static string ApplicationSelectionText {
             get {
-                return ResourceManager.GetString("ApplicationSelection", resourceCulture);
+                return ResourceManager.GetString("ApplicationSelectionText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Application Volume.
         /// </summary>
-        public static string ApplicationVolume {
+        public static string ApplicationVolumeText {
             get {
-                return ResourceManager.GetString("ApplicationVolume", resourceCulture);
+                return ResourceManager.GetString("ApplicationVolumeText", resourceCulture);
             }
         }
         
@@ -196,29 +196,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio Device.
+        ///   Looks up a localized string similar to Device Mute.
         /// </summary>
-        public static string AudioDevice {
+        public static string AudioDeviceMuteText {
             get {
-                return ResourceManager.GetString("AudioDevice", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceMuteText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Mute.
+        ///   Looks up a localized string similar to Audio Device.
         /// </summary>
-        public static string AudioDeviceMute {
+        public static string AudioDeviceText {
             get {
-                return ResourceManager.GetString("AudioDeviceMute", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Device Volume.
         /// </summary>
-        public static string AudioDeviceVolume {
+        public static string AudioDeviceVolumeText {
             get {
-                return ResourceManager.GetString("AudioDeviceVolume", resourceCulture);
+                return ResourceManager.GetString("AudioDeviceVolumeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button.
+        /// </summary>
+        public static string ButtonText {
+            get {
+                return ResourceManager.GetString("ButtonText", resourceCulture);
             }
         }
         
@@ -252,9 +261,9 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Command.
         /// </summary>
-        public static string Command {
+        public static string CommandText {
             get {
-                return ResourceManager.GetString("Command", resourceCulture);
+                return ResourceManager.GetString("CommandText", resourceCulture);
             }
         }
         
@@ -288,36 +297,9 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Control.
         /// </summary>
-        public static string Control {
+        public static string ControlText {
             get {
-                return ResourceManager.GetString("Control", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Button.
-        /// </summary>
-        public static string ControllerTypeButtonText {
-            get {
-                return ResourceManager.GetString("ControllerTypeButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Linear Potentiometer.
-        /// </summary>
-        public static string ControllerTypeLinearPotentiometerText {
-            get {
-                return ResourceManager.GetString("ControllerTypeLinearPotentiometerText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rotary Encoder.
-        /// </summary>
-        public static string ControllerTypeRotaryEncoderText {
-            get {
-                return ResourceManager.GetString("ControllerTypeRotaryEncoderText", resourceCulture);
+                return ResourceManager.GetString("ControlText", resourceCulture);
             }
         }
         
@@ -338,6 +320,15 @@ namespace EarTrumpet.Properties {
         public static string CriticalFailureFontLookupHelpText {
             get {
                 return ResourceManager.GetString("CriticalFailureFontLookupHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease.
+        /// </summary>
+        public static string DecreaseText {
+            get {
+                return ResourceManager.GetString("DecreaseText", resourceCulture);
             }
         }
         
@@ -389,27 +380,36 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Delete Selected.
         /// </summary>
-        public static string DeleteMidiControlButtonText {
+        public static string DeleteSelectedText {
             get {
-                return ResourceManager.GetString("DeleteMidiControlButtonText", resourceCulture);
+                return ResourceManager.GetString("DeleteSelectedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        public static string DeviceText {
+            get {
+                return ResourceManager.GetString("DeviceText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Device Type.
         /// </summary>
-        public static string DeviceType {
+        public static string DeviceTypeText {
             get {
-                return ResourceManager.GetString("DeviceType", resourceCulture);
+                return ResourceManager.GetString("DeviceTypeText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Edit Selected.
         /// </summary>
-        public static string EditMidiControlButtonText {
+        public static string EditSelectedText {
             get {
-                return ResourceManager.GetString("EditMidiControlButtonText", resourceCulture);
+                return ResourceManager.GetString("EditSelectedText", resourceCulture);
             }
         }
         
@@ -443,9 +443,9 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Control system- and application volumes using a controller hardware (MIDI and deej devices supported)..
         /// </summary>
-        public static string HardwareControlInformationText {
+        public static string HardwareControlInformation {
             get {
-                return ResourceManager.GetString("HardwareControlInformationText", resourceCulture);
+                return ResourceManager.GetString("HardwareControlInformation", resourceCulture);
             }
         }
         
@@ -461,81 +461,27 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Release the selected button and click corresponding &apos;Set&apos; (while released). Then press the selected button and click corresponding &apos;Set&apos; (while pressed)..
         /// </summary>
-        public static string HardwareControlWizardMinMaxInstructionsButtonControlType {
+        public static string HardwareControlWizardMinMaxButtonControlTypeInstructions {
             get {
-                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsButtonControlType", resourceCulture);
+                return ResourceManager.GetString("HardwareControlWizardMinMaxButtonControlTypeInstructions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Move the selected control to the minimum value and click corresponding &apos;Set&apos;. Then move the selected control to the maximum value and click corresponding &apos;Set&apos;..
         /// </summary>
-        public static string HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType {
+        public static string HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions {
             get {
-                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsLinearPotentiometerControlType", resourceCulture);
+                return ResourceManager.GetString("HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Turn the selected rotary control in decreasing direction and click corresponding &apos;Set&apos;. Then turn the selected rotary control in increasing direction and click corresponding &apos;Set&apos;..
         /// </summary>
-        public static string HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType {
+        public static string HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions {
             get {
-                return ResourceManager.GetString("HardwareControlWizardMinMaxInstructionsRotaryEncoderControlType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pushed.
-        /// </summary>
-        public static string HardwareDeviceButtonControllerScaleMaxValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceButtonControllerScaleMaxValueText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Released.
-        /// </summary>
-        public static string HardwareDeviceButtonControllerScaleMinValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceButtonControllerScaleMinValueText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximum.
-        /// </summary>
-        public static string HardwareDeviceLinearControllerScaleMaxValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceLinearControllerScaleMaxValueText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimum.
-        /// </summary>
-        public static string HardwareDeviceLinearControllerScaleMinValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceLinearControllerScaleMinValueText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Increase.
-        /// </summary>
-        public static string HardwareDeviceRotaryEncoderControllerScaleMaxValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceRotaryEncoderControllerScaleMaxValueText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Decrease.
-        /// </summary>
-        public static string HardwareDeviceRotaryEncoderControllerScaleMinValueText {
-            get {
-                return ResourceManager.GetString("HardwareDeviceRotaryEncoderControllerScaleMinValueText", resourceCulture);
+                return ResourceManager.GetString("HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions", resourceCulture);
             }
         }
         
@@ -569,18 +515,27 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Incomplete device configuration!.
         /// </summary>
-        public static string IncompleteDeviceConfigurationText {
+        public static string IncompleteDeviceConfigurationMessage {
             get {
-                return ResourceManager.GetString("IncompleteDeviceConfigurationText", resourceCulture);
+                return ResourceManager.GetString("IncompleteDeviceConfigurationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase.
+        /// </summary>
+        public static string IncreaseText {
+            get {
+                return ResourceManager.GetString("IncreaseText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Indexed.
         /// </summary>
-        public static string IndexedSelection {
+        public static string IndexedText {
             get {
-                return ResourceManager.GetString("IndexedSelection", resourceCulture);
+                return ResourceManager.GetString("IndexedText", resourceCulture);
             }
         }
         
@@ -603,29 +558,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max.
+        ///   Looks up a localized string similar to Linear Potentiometer.
         /// </summary>
-        public static string Max {
+        public static string LinearPotentiometerText {
             get {
-                return ResourceManager.GetString("Max", resourceCulture);
+                return ResourceManager.GetString("LinearPotentiometerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum.
+        /// </summary>
+        public static string MaximumText {
+            get {
+                return ResourceManager.GetString("MaximumText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MIDI Control Wizard.
         /// </summary>
-        public static string MIDIControlWizardText {
+        public static string MidiControlWizardText {
             get {
-                return ResourceManager.GetString("MIDIControlWizardText", resourceCulture);
+                return ResourceManager.GetString("MidiControlWizardText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to MIDI Device.
         /// </summary>
-        public static string MidiDevice {
+        public static string MidiDeviceText {
             get {
-                return ResourceManager.GetString("MidiDevice", resourceCulture);
+                return ResourceManager.GetString("MidiDeviceText", resourceCulture);
             }
         }
         
@@ -639,20 +603,20 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Min.
+        ///   Looks up a localized string similar to Minimum.
         /// </summary>
-        public static string Min {
+        public static string MinimumText {
             get {
-                return ResourceManager.GetString("Min", resourceCulture);
+                return ResourceManager.GetString("MinimumText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mode.
         /// </summary>
-        public static string Mode {
+        public static string ModeText {
             get {
-                return ResourceManager.GetString("Mode", resourceCulture);
+                return ResourceManager.GetString("ModeText", resourceCulture);
             }
         }
         
@@ -686,9 +650,9 @@ namespace EarTrumpet.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No control selected !.
         /// </summary>
-        public static string NoControlSelectedMessageText {
+        public static string NoControlSelectedMessage {
             get {
-                return ResourceManager.GetString("NoControlSelectedMessageText", resourceCulture);
+                return ResourceManager.GetString("NoControlSelectedMessage", resourceCulture);
             }
         }
         
@@ -783,6 +747,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pushed.
+        /// </summary>
+        public static string PushedText {
+            get {
+                return ResourceManager.GetString("PushedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recording devices.
         /// </summary>
         public static string RecordingDevicesText {
@@ -792,11 +765,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Released.
+        /// </summary>
+        public static string ReleasedText {
+            get {
+                return ResourceManager.GetString("ReleasedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotary Encoder.
+        /// </summary>
+        public static string RotaryEncoderText {
+            get {
+                return ResourceManager.GetString("RotaryEncoderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        public static string Save {
+        public static string SaveText {
             get {
-                return ResourceManager.GetString("Save", resourceCulture);
+                return ResourceManager.GetString("SaveText", resourceCulture);
             }
         }
         
@@ -819,29 +810,29 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select.
+        ///   Looks up a localized string similar to Selection.
         /// </summary>
-        public static string Select {
+        public static string SelectionText {
             get {
-                return ResourceManager.GetString("Select", resourceCulture);
+                return ResourceManager.GetString("SelectionText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selection.
+        ///   Looks up a localized string similar to Select.
         /// </summary>
-        public static string Selection {
+        public static string SelectText {
             get {
-                return ResourceManager.GetString("Selection", resourceCulture);
+                return ResourceManager.GetString("SelectText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Set.
         /// </summary>
-        public static string SetScaleMinMax {
+        public static string SetText {
             get {
-                return ResourceManager.GetString("SetScaleMinMax", resourceCulture);
+                return ResourceManager.GetString("SetText", resourceCulture);
             }
         }
         
@@ -968,6 +959,15 @@ namespace EarTrumpet.Properties {
         public static string TroubleshootEarTrumpetText {
             get {
                 return ResourceManager.GetString("TroubleshootEarTrumpetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string TypeText {
+            get {
+                return ResourceManager.GetString("TypeText", resourceCulture);
             }
         }
         
