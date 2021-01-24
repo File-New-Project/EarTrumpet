@@ -9,10 +9,12 @@ namespace EarTrumpet.DataModel.Deej
 {
     public class DeejAppBinding: HardwareAppBinding
     {
+        public override string Name => "deej";
+        public override Type ConfigType => typeof(DeejConfiguration);
+        
+        public static DeejAppBinding Current;
         private const string SAVEKEY = "DeejControls";
 
-        public static DeejAppBinding Current;
-        
         public DeejAppBinding(DeviceCollectionViewModel deviceViewModel) : base(deviceViewModel)
         {
             Current = this;
@@ -28,9 +30,6 @@ namespace EarTrumpet.DataModel.Deej
             }
         }
 
-        public override Type ConfigType => typeof(DeejConfiguration);
-        public override string Name => "deej";
-        
         public override void AddCommand(CommandControlMappingElement command)
         {
             var config = (DeejConfiguration) command.hardwareConfiguration;

@@ -11,14 +11,91 @@ namespace EarTrumpet.DataModel.MIDI
 {
     public class MidiAppBinding: HardwareAppBinding
     {
-        public override Type ConfigType => typeof(MidiConfiguration);
         public override string Name => "MIDI";
-
+        public override Type ConfigType => typeof(MidiConfiguration);
+        
+        public static MidiAppBinding Current;
+        
         // Maps device ids to device names
         private ConcurrentDictionary<string, string> _deviceMapping;
         private const string SAVEKEY = "MidiControls";
         
-        public static MidiAppBinding Current;
+        public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel): base(deviceCollectionViewModel)
+        {
+            Current = this;
+
+            MidiIn.AddGeneralCallback(MidiCallback);
+            
+            LoadSettings(SAVEKEY);
+            
+            _deviceMapping = new ConcurrentDictionary<string, string>();
+
+            foreach (var device in MidiIn.GetAllDevices())
+            {
+                _deviceMapping[device.Id] = device.Name;
+            }
+            
+            SubscribeToDevices();
+        }
+        
+        public override void AddCommand(CommandControlMappingElement command)
+        {
+            var config = (MidiConfiguration) command.hardwareConfiguration;
+            MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
+
+            _commandControlMappings.Add(command);
+            SaveSettings(SAVEKEY);
+        }
+        
+        public override CommandControlMappingElement GetCommandAt(int index)
+        {
+            return _commandControlMappings.Count < index ? null : _commandControlMappings[index];
+        }
+
+        public override void RemoveCommandAt(int index)
+        {
+            if (_commandControlMappings.Count < index)
+            {
+                return;
+            }
+            
+            _commandControlMappings.RemoveAt(index);
+            SaveSettings(SAVEKEY);
+        }
+
+        public override void ModifyCommandAt(int index, CommandControlMappingElement newCommand)
+        {
+            if (_commandControlMappings.Count < index)
+            {
+                return;
+            }
+
+            var config = (MidiConfiguration) newCommand.hardwareConfiguration;
+            MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
+
+            _commandControlMappings[index] = newCommand;
+            SaveSettings(SAVEKEY);
+        }
+        
+        public override Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
+            HardwareConfiguration loadedConfig = null)
+        {
+            MIDIControlWizardViewModel viewModel = null;
+           
+            if (!(loadedConfig is MidiConfiguration))
+            {
+                viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MidiControlWizardText, 
+                    hardwareSettingsViewModel);
+            }
+            else
+            {
+                viewModel = new MIDIControlWizardViewModel(Properties.Resources.MidiControlWizardText,
+                    hardwareSettingsViewModel, (MidiConfiguration)loadedConfig);
+            }
+
+            return new MIDIControlWizardWindow { DataContext = viewModel};
+        }
+        
         
         private static bool MidiEquals(MidiConfiguration midiConfig, MidiControlChangeMessage msg)
         {
@@ -250,64 +327,6 @@ namespace EarTrumpet.DataModel.MIDI
             }
         }
 
-        public override void AddCommand(CommandControlMappingElement command)
-        {
-            var config = (MidiConfiguration) command.hardwareConfiguration;
-            MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
-
-            _commandControlMappings.Add(command);
-            SaveSettings(SAVEKEY);
-        }
-        
-        public override CommandControlMappingElement GetCommandAt(int index)
-        {
-            return _commandControlMappings.Count < index ? null : _commandControlMappings[index];
-        }
-
-        public override void RemoveCommandAt(int index)
-        {
-            if (_commandControlMappings.Count < index)
-            {
-                return;
-            }
-            
-            _commandControlMappings.RemoveAt(index);
-            SaveSettings(SAVEKEY);
-        }
-
-        public override void ModifyCommandAt(int index, CommandControlMappingElement newCommand)
-        {
-            if (_commandControlMappings.Count < index)
-            {
-                return;
-            }
-
-            var config = (MidiConfiguration) newCommand.hardwareConfiguration;
-            MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
-
-            _commandControlMappings[index] = newCommand;
-            SaveSettings(SAVEKEY);
-        }
-        
-        public override Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
-            HardwareConfiguration loadedConfig = null)
-        {
-            MIDIControlWizardViewModel viewModel = null;
-           
-            if (!(loadedConfig is MidiConfiguration))
-            {
-                viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MidiControlWizardText, 
-                    hardwareSettingsViewModel);
-            }
-            else
-            {
-                viewModel = new MIDIControlWizardViewModel(Properties.Resources.MidiControlWizardText,
-                    hardwareSettingsViewModel, (MidiConfiguration)loadedConfig);
-            }
-
-            return new MIDIControlWizardWindow { DataContext = viewModel};
-        }
-        
         private void SubscribeToDevices()
         {
             foreach (var command in _commandControlMappings)
@@ -315,24 +334,6 @@ namespace EarTrumpet.DataModel.MIDI
                 var config = (MidiConfiguration) command.hardwareConfiguration;
                 MidiIn._StartListening(MidiIn.GetDeviceByName(config.MidiDevice)?.Id);
             }
-        }
-
-        public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel): base(deviceCollectionViewModel)
-        {
-            Current = this;
-
-            MidiIn.AddGeneralCallback(MidiCallback);
-            
-            LoadSettings(SAVEKEY);
-            
-            _deviceMapping = new ConcurrentDictionary<string, string>();
-
-            foreach (var device in MidiIn.GetAllDevices())
-            {
-                _deviceMapping[device.Id] = device.Name;
-            }
-            
-            SubscribeToDevices();
         }
     }
 }

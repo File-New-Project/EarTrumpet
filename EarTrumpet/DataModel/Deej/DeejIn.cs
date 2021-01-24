@@ -23,9 +23,89 @@ namespace EarTrumpet.DataModel.Deej
         private static ConcurrentDictionary<string, MonotonicTimestamp> lastUpdates;
         
         private static List<SerialPort> serialPorts;
+
+        static DeejIn()
+        {
+            callbacks = new ConcurrentDictionary<string, List<Action<List<int>>>>();
+            generalCallbacks = new List<Action<string, List<int>>>();
+            
+            watchedDevices = new List<string>();
+            
+            buffers = new ConcurrentDictionary<string, string>();
+            lastValues = new ConcurrentDictionary<string, List<int>>();
+            lastUpdates = new ConcurrentDictionary<string, MonotonicTimestamp>();
+            serialPorts = new List<SerialPort>();
+            
+            deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
+            deviceWatcher.Added += Added;
+            deviceWatcher.Removed += Removed;
+
+            deviceWatcher.Start();
+        }
         
+        public static void AddCallback(string port, Action<List<int>> callback)
+        {
+            if (!callbacks.ContainsKey(port))
+            {
+                callbacks[port] = new List<Action<List<int>>>();
+                _StartListening(port);
+            }
+
+            callbacks[port].Add(callback);
+        }
         
-        
+        public static List<string> GetAllDevices()
+        {
+            return new List<string>(SerialPort.GetPortNames());
+        }
+
+        internal static void _StartListening(string port)
+        {
+            if (watchedDevices.Contains(port) || !GetAllDevices().Contains(port))
+            {
+                return;
+            }
+
+            SerialPort sp = new SerialPort(port);
+            sp.BaudRate = 9600;
+            sp.Parity = Parity.None;
+            sp.StopBits = StopBits.One;
+            sp.DataBits = 8;
+            sp.Handshake = Handshake.None;
+            sp.RtsEnable = false;
+
+            sp.DataReceived += DataReceived;
+
+            if (!buffers.ContainsKey(port))
+            {
+                buffers[port] = "";
+            }
+
+            if (!lastValues.ContainsKey(port))
+            {
+                lastValues[port] = new List<int>();
+            }
+            
+            try
+            {
+                sp.Open();
+                watchedDevices.Add(port);
+                serialPorts.Add(sp);
+            }
+            catch (IOException)
+            {
+
+            }
+            catch (UnauthorizedAccessException)
+            {
+                
+            }
+        }
+
+        internal static void AddGeneralCallback(Action<string, List<int>> callback)
+        {
+            generalCallbacks.Add(callback);
+        }
         
         private static bool SendCallback(string port, List<int> values)
         {
@@ -100,70 +180,6 @@ namespace EarTrumpet.DataModel.Deej
             }
         }
 
-        internal static void _StartListening(string port)
-        {
-            if (watchedDevices.Contains(port) || !GetAllDevices().Contains(port))
-            {
-                return;
-            }
-
-            SerialPort sp = new SerialPort(port);
-            sp.BaudRate = 9600;
-            sp.Parity = Parity.None;
-            sp.StopBits = StopBits.One;
-            sp.DataBits = 8;
-            sp.Handshake = Handshake.None;
-            sp.RtsEnable = false;
-
-            sp.DataReceived += DataReceived;
-
-            if (!buffers.ContainsKey(port))
-            {
-                buffers[port] = "";
-            }
-
-            if (!lastValues.ContainsKey(port))
-            {
-                lastValues[port] = new List<int>();
-            }
-            
-            try
-            {
-                sp.Open();
-                watchedDevices.Add(port);
-                serialPorts.Add(sp);
-            }
-            catch (IOException)
-            {
-
-            }
-            catch (UnauthorizedAccessException)
-            {
-                
-            }
-        }
-
-        public static void AddCallback(string port, Action<List<int>> callback)
-        {
-            if (!callbacks.ContainsKey(port))
-            {
-                callbacks[port] = new List<Action<List<int>>>();
-                _StartListening(port);
-            }
-
-            callbacks[port].Add(callback);
-        }
-        
-        internal static void AddGeneralCallback(Action<string, List<int>> callback)
-        {
-            generalCallbacks.Add(callback);
-        }
-
-        public static List<string> GetAllDevices()
-        {
-            return new List<string>(SerialPort.GetPortNames());
-        }
-        
         private static void Added(DeviceWatcher sender, DeviceInformation args)
         {
             var commands = DeejAppBinding.Current.GetCommandControlMappings();
@@ -194,25 +210,6 @@ namespace EarTrumpet.DataModel.Deej
                     serialPorts.Remove(serial);
                 }
             }
-        }
-        
-        static DeejIn()
-        {
-            callbacks = new ConcurrentDictionary<string, List<Action<List<int>>>>();
-            generalCallbacks = new List<Action<string, List<int>>>();
-            
-            watchedDevices = new List<string>();
-            
-            buffers = new ConcurrentDictionary<string, string>();
-            lastValues = new ConcurrentDictionary<string, List<int>>();
-            lastUpdates = new ConcurrentDictionary<string, MonotonicTimestamp>();
-            serialPorts = new List<SerialPort>();
-            
-            deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
-            deviceWatcher.Added += Added;
-            deviceWatcher.Removed += Removed;
-
-            deviceWatcher.Start();
         }
     }
 }

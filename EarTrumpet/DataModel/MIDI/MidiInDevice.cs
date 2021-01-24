@@ -6,11 +6,10 @@ namespace EarTrumpet.DataModel.MIDI
 {
     public class MidiInDevice
     {
-        private readonly DeviceInformation _device;
-
         public string Name => _device.Name;
-
         public string Id => _device.Id;
+        
+        private readonly DeviceInformation _device;
 
         public MidiInDevice(DeviceInformation device)
         {

@@ -17,7 +17,35 @@ namespace EarTrumpet.DataModel.MIDI
         private static List<Action<MidiInPort, MidiControlChangeMessage>> generalCallbacks;
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
+        
+        static MidiIn()
+        {
+            callbacks = new ConcurrentDictionary<string, ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>();
+            generalCallbacks = new List<Action<MidiInPort, MidiControlChangeMessage>>();
+            watchedDevices = new List<string>();
+            
+            deviceWatcher = DeviceInformation.CreateWatcher(MidiInPort.GetDeviceSelector());
+            deviceWatcher.Added += Added;
+            deviceWatcher.Removed += Removed;
+            
+            deviceWatcher.Start();
+        }
+        
+        public static List<MidiInDevice> GetAllDevices(bool returnEmptyNames=false)
+        {
+            return Task.Run(async () => await _GetAllDevices(returnEmptyNames)).Result;
+        }
 
+        public static MidiInDevice GetDeviceByName(string name)
+        {
+            return GetAllDevices().FirstOrDefault(device => device.Name == name);
+        }
+        
+        public static MidiInDevice GetDeviceById(string id)
+        {
+            return GetAllDevices().FirstOrDefault(device => device.Id == id);
+        }
+        
         internal static void AddGeneralCallback(Action<MidiInPort, MidiControlChangeMessage> callback)
         {
             generalCallbacks.Add(callback);
@@ -41,6 +69,27 @@ namespace EarTrumpet.DataModel.MIDI
             callbacks[id][key].Add(callback);
         }
 
+        internal static void _StartListening(string id)
+        {
+            async Task StartListening()
+            {
+                var inPort = await MidiInPort.FromIdAsync(id);
+                if (inPort == null)
+                {
+                    return;
+                }
+                inPort.MessageReceived += MessageReceived;
+            }
+
+            if (id == null || watchedDevices.Contains(id))
+            {
+                return;
+            }
+            
+            Task.Run(async () => await StartListening()).Wait();
+            watchedDevices.Add(id);
+        }
+        
         private static void MessageReceived(MidiInPort sender, MidiMessageReceivedEventArgs args)
         {
             var received = args.Message;
@@ -78,27 +127,6 @@ namespace EarTrumpet.DataModel.MIDI
                 }
             }
         }
-
-        internal static void _StartListening(string id)
-        {
-            async Task StartListening()
-            {
-                var inPort = await MidiInPort.FromIdAsync(id);
-                if (inPort == null)
-                {
-                    return;
-                }
-                inPort.MessageReceived += MessageReceived;
-            }
-
-            if (id == null || watchedDevices.Contains(id))
-            {
-                return;
-            }
-            
-            Task.Run(async () => await StartListening()).Wait();
-            watchedDevices.Add(id);
-        }
         
         private static void Added(DeviceWatcher sender, DeviceInformation args)
         {
@@ -126,19 +154,6 @@ namespace EarTrumpet.DataModel.MIDI
             }
         }
 
-        static MidiIn()
-        {
-            callbacks = new ConcurrentDictionary<string, ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>();
-            generalCallbacks = new List<Action<MidiInPort, MidiControlChangeMessage>>();
-            watchedDevices = new List<string>();
-            
-            deviceWatcher = DeviceInformation.CreateWatcher(MidiInPort.GetDeviceSelector());
-            deviceWatcher.Added += Added;
-            deviceWatcher.Removed += Removed;
-            
-            deviceWatcher.Start();
-        }
-        
         private static async Task<List<MidiInDevice>> _GetAllDevices(bool returnEmptyNames=false)
         {
             var midiInputQueryString = MidiInPort.GetDeviceSelector();
@@ -146,21 +161,6 @@ namespace EarTrumpet.DataModel.MIDI
 
             return (from device in midiInputDevices where returnEmptyNames || device.Name.Length != 0 
                 select new MidiInDevice(device)).ToList();
-        }
-
-        public static List<MidiInDevice> GetAllDevices(bool returnEmptyNames=false)
-        {
-            return Task.Run(async () => await _GetAllDevices(returnEmptyNames)).Result;
-        }
-
-        public static MidiInDevice GetDeviceByName(string name)
-        {
-            return GetAllDevices().FirstOrDefault(device => device.Name == name);
-        }
-        
-        public static MidiInDevice GetDeviceById(string id)
-        {
-            return GetAllDevices().FirstOrDefault(device => device.Id == id);
         }
     }
 }
