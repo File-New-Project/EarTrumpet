@@ -28,7 +28,8 @@
         <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,310,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
         <Label Content="Control" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="63"/>
         <Label Content="Device" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" />
-        <ComboBox x:Name="ComboBoxAvailableDevices" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="245" ItemsSource="{Binding DeejDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeej}"/>
+        <ComboBox x:Name="ComboBoxAvailableDevices" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding DeejDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeej}"/>
+        <Label Content="9600 Baud, 8N1" HorizontalAlignment="Left" Margin="232,6,0,0" VerticalAlignment="Top" />
 
     </Grid>
 </Window>
