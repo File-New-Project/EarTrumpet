@@ -139,7 +139,7 @@ namespace EarTrumpet.UI.ViewModels
             MidiControlConfiguration midiControlConfiguration = new MidiControlConfiguration(SelectedMidi, GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MidiControlConfiguration.GetControllerType(ControlTypes[_controlTypeSelected]), MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
-            _hardwareSettings.MidiControlSelectedCallback(midiControlConfiguration);
+            _hardwareSettings.ControlSelectedCallback(midiControlConfiguration);
         }
 
         public void SetMinValue()

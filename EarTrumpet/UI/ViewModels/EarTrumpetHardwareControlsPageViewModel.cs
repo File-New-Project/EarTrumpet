@@ -11,7 +11,7 @@ using EarTrumpet.DataModel.Hardware;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
+    public class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
     {
         public ICommand AddMidiControlCommand { get; }
         public ICommand EditMidiControlCommand { get; }
