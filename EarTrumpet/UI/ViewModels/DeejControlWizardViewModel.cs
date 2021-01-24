@@ -248,7 +248,7 @@ namespace EarTrumpet.UI.ViewModels
             });
         }
 
-        private byte GetCurrentSelectionProperty(string property)
+        private int GetCurrentSelectionProperty(string property)
         {
             var propertyDesignator = property + "=";
 
@@ -263,7 +263,7 @@ namespace EarTrumpet.UI.ViewModels
 
             var propertyString = _capturedDeejInControls[CapturedDeejInControlsSelected].Substring(propertyStartPosition, propertyEndPosition - propertyStartPosition);
 
-            return byte.Parse(propertyString);
+            return int.Parse(propertyString);
         }
     }
 }
