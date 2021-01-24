@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
@@ -16,6 +17,9 @@ namespace EarTrumpet.DataModel.Hardware
         public abstract void RemoveCommandAt(int index);
         public abstract void ModifyCommandAt(int index, CommandControlMappingElement newCommand);
 
+        public abstract Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
+            HardwareConfiguration loadConfig = null);
+        
         protected DeviceCollectionViewModel _deviceCollectionViewModel;
         private ISettingsBag _settings;
         

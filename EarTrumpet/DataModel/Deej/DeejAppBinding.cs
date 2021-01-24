@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.DataModel.Deej
 {
@@ -68,6 +70,25 @@ namespace EarTrumpet.DataModel.Deej
             SaveSettings(SAVEKEY);
         }
 
+        public override Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
+            HardwareConfiguration loadedConfig = null)
+        {
+            DeejControlWizardViewModel viewModel = null;
+
+            if (loadedConfig == null || !(loadedConfig is DeejConfiguration))
+            {
+                viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText, 
+                    hardwareSettingsViewModel);
+            }
+            else
+            {
+                viewModel = new DeejControlWizardViewModel(Properties.Resources.DeejControlWizardText,
+                    hardwareSettingsViewModel, (DeejConfiguration)loadedConfig);
+            }
+
+            return new DeejControlWizardWindow { DataContext = viewModel };
+        }
+        
         private void DeejCallback(string port, List<int> channels)
         {
             foreach (var command in _commandControlMappings)

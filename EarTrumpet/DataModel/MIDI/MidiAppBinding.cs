@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Windows;
 using Windows.Devices.Midi;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.UI.ViewModels;
+using EarTrumpet.UI.Views;
 
 namespace EarTrumpet.DataModel.MIDI
 {
@@ -12,7 +15,7 @@ namespace EarTrumpet.DataModel.MIDI
         public override string Name => "MIDI";
 
         // Maps device ids to device names
-        private Dictionary<string, string> _deviceMapping;
+        private ConcurrentDictionary<string, string> _deviceMapping;
         private const string SAVEKEY = "MidiControls";
         
         public static MidiAppBinding Current;
@@ -206,7 +209,7 @@ namespace EarTrumpet.DataModel.MIDI
             {
                 if (!_deviceMapping.ContainsKey(device.Id))
                 {
-                    _deviceMapping.Add(device.Id, device.Name);
+                    _deviceMapping[device.Id] = device.Name;
                     if (device.Id == id)
                     {
                         return device.Name;
@@ -286,6 +289,25 @@ namespace EarTrumpet.DataModel.MIDI
             SaveSettings(SAVEKEY);
         }
         
+        public override Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
+            HardwareConfiguration loadedConfig = null)
+        {
+            MIDIControlWizardViewModel viewModel = null;
+           
+            if (loadedConfig == null || !(loadedConfig is MidiControlConfiguration))
+            {
+                viewModel = new MIDIControlWizardViewModel(EarTrumpet.Properties.Resources.MIDIControlWizardText, 
+                    hardwareSettingsViewModel);
+            }
+            else
+            {
+                viewModel =  viewModel = new MIDIControlWizardViewModel(Properties.Resources.MIDIControlWizardText,
+                    hardwareSettingsViewModel, (MidiControlConfiguration)loadedConfig);
+            }
+
+            return new MIDIControlWizardWindow { DataContext = viewModel};
+        }
+        
         private void SubscribeToDevices()
         {
             foreach (var command in _commandControlMappings)
@@ -303,11 +325,11 @@ namespace EarTrumpet.DataModel.MIDI
             
             LoadSettings(SAVEKEY);
             
-            _deviceMapping = new Dictionary<string, string>();
+            _deviceMapping = new ConcurrentDictionary<string, string>();
 
             foreach (var device in MidiIn.GetAllDevices())
             {
-                _deviceMapping.Add(device.Id, device.Name);
+                _deviceMapping[device.Id] = device.Name;
             }
             
             SubscribeToDevices();

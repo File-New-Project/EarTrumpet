@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.Devices.Enumeration;
@@ -11,7 +12,7 @@ namespace EarTrumpet.DataModel.MIDI
     {
         // This type is just awful
         // maps from: device-id -> ((channel, controller) -> Actions)
-        private static Dictionary<string, Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>
+        private static ConcurrentDictionary<string, ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>
             callbacks;
 
         private static List<Action<MidiInPort, MidiControlChangeMessage>> generalCallbacks;
@@ -28,14 +29,14 @@ namespace EarTrumpet.DataModel.MIDI
         {
             if (!callbacks.ContainsKey(id))
             {
-                callbacks.Add(id, new Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>());
+                callbacks[id] = new ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>();
                 _StartListening(id);
             }
             
             var key = new Tuple<byte, byte>(channel, controller);
             if (!callbacks[id].ContainsKey(key))
             {
-                callbacks[id].Add(key, new List<Action<MidiControlChangeMessage>>());
+                callbacks[id][key] = new List<Action<MidiControlChangeMessage>>();
             }
             
             callbacks[id][key].Add(callback);
@@ -128,7 +129,7 @@ namespace EarTrumpet.DataModel.MIDI
 
         static MidiIn()
         {
-            callbacks = new Dictionary<string, Dictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>();
+            callbacks = new ConcurrentDictionary<string, ConcurrentDictionary<Tuple<byte, byte>, List<Action<MidiControlChangeMessage>>>>();
             generalCallbacks = new List<Action<MidiInPort, MidiControlChangeMessage>>();
             watchedDevices = new List<string>();
             
