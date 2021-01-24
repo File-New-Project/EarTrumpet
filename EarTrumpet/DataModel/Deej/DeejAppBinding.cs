@@ -13,6 +13,8 @@ namespace EarTrumpet.DataModel.Deej
         
         public DeejAppBinding(DeviceCollectionViewModel deviceViewModel) : base(deviceViewModel)
         {
+            Current = this;
+
             DeejIn.AddGeneralCallback(DeejCallback);
             
             LoadSettings(SAVEKEY);
@@ -22,8 +24,6 @@ namespace EarTrumpet.DataModel.Deej
                 var config = (DeejConfiguration) command.hardwareConfiguration;
                 DeejIn._StartListening(config.Port);
             }
-
-            Current = this;
         }
 
         public override Type ConfigType => typeof(DeejConfiguration);

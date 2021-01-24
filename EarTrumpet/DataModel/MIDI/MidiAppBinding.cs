@@ -297,6 +297,8 @@ namespace EarTrumpet.DataModel.MIDI
 
         public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel): base(deviceCollectionViewModel)
         {
+            Current = this;
+
             MidiIn.AddGeneralCallback(MidiCallback);
             
             LoadSettings(SAVEKEY);
@@ -309,7 +311,6 @@ namespace EarTrumpet.DataModel.MIDI
             }
             
             SubscribeToDevices();
-            Current = this;
         }
     }
 }
