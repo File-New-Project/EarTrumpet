@@ -4,10 +4,10 @@ namespace EarTrumpet.DataModel.MIDI
 {
     public enum ControllerTypes
     {
-        LINEAR_POTENTIOMETER = 0,
-        BUTTON = 1,
-        ROTARY_ENCODER = 2,
-        INVALID_ENTRY = 3
+        LinearPotentiometer = 0,
+        Button = 1,
+        RotaryEncoder = 2,
+        InvalidEntry = 3
     }
 
     public class MidiConfiguration : HardwareConfiguration
@@ -43,11 +43,11 @@ namespace EarTrumpet.DataModel.MIDI
         {
             switch (controllerType)
             {
-                case ControllerTypes.LINEAR_POTENTIOMETER:
+                case ControllerTypes.LinearPotentiometer:
                     return Properties.Resources.LinearPotentiometerText;
-                case ControllerTypes.BUTTON:
+                case ControllerTypes.Button:
                     return Properties.Resources.ButtonText;
-                case ControllerTypes.ROTARY_ENCODER:
+                case ControllerTypes.RotaryEncoder:
                     return Properties.Resources.RotaryEncoderText;
                 default:
                     return "";
@@ -56,21 +56,21 @@ namespace EarTrumpet.DataModel.MIDI
 
         public static ControllerTypes GetControllerType(string controllerTypeString)
         {
-            if (GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controllerTypeString)
+            if (GetControllerTypeString(ControllerTypes.LinearPotentiometer) == controllerTypeString)
             {
-                return ControllerTypes.LINEAR_POTENTIOMETER;
+                return ControllerTypes.LinearPotentiometer;
             }
-            else if (GetControllerTypeString(ControllerTypes.BUTTON) == controllerTypeString)
+            else if (GetControllerTypeString(ControllerTypes.Button) == controllerTypeString)
             {
-                return ControllerTypes.BUTTON;
+                return ControllerTypes.Button;
             }
-            else if (GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controllerTypeString)
+            else if (GetControllerTypeString(ControllerTypes.RotaryEncoder) == controllerTypeString)
             {
-                return ControllerTypes.ROTARY_ENCODER;
+                return ControllerTypes.RotaryEncoder;
             }
             else
             {
-                return ControllerTypes.INVALID_ENTRY;
+                return ControllerTypes.InvalidEntry;
             }
         }
 

@@ -39,15 +39,15 @@ namespace EarTrumpet.DataModel.MIDI
 
             switch (midiConfig.ControllerType)
             {
-                case ControllerTypes.LINEAR_POTENTIOMETER when midiConfig.MaxValue > midiConfig.MinValue:
+                case ControllerTypes.LinearPotentiometer when midiConfig.MaxValue > midiConfig.MinValue:
                     newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * 
                                                midiConfig.ScalingValue * 100.0));
                     break;
-                case ControllerTypes.LINEAR_POTENTIOMETER:
+                case ControllerTypes.LinearPotentiometer:
                     newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) 
                                                      * midiConfig.ScalingValue * 100.0));
                     break;
-                case ControllerTypes.BUTTON:
+                case ControllerTypes.Button:
                 {
                     if (msg.ControlValue == midiConfig.MaxValue)
                     {
@@ -56,7 +56,7 @@ namespace EarTrumpet.DataModel.MIDI
 
                     break;
                 }
-                case ControllerTypes.ROTARY_ENCODER when msg.ControlValue == midiConfig.MinValue:
+                case ControllerTypes.RotaryEncoder when msg.ControlValue == midiConfig.MinValue:
                 {
                     newVolume -= 1;
                     if (newVolume < 0)
@@ -66,7 +66,7 @@ namespace EarTrumpet.DataModel.MIDI
 
                     break;
                 }
-                case ControllerTypes.ROTARY_ENCODER:
+                case ControllerTypes.RotaryEncoder:
                 {
                     if (msg.ControlValue == midiConfig.MaxValue)
                     {
@@ -97,7 +97,7 @@ namespace EarTrumpet.DataModel.MIDI
                 fullScaleRange = 1;
             }
 
-            if (midiConfig.ControllerType == ControllerTypes.LINEAR_POTENTIOMETER)
+            if (midiConfig.ControllerType == ControllerTypes.LinearPotentiometer)
             {
                 int calcVolume;
                 if(midiConfig.MaxValue > midiConfig.MinValue)
@@ -113,13 +113,13 @@ namespace EarTrumpet.DataModel.MIDI
 
                 newMute = calcVolume < 50;
                 
-            } else if (midiConfig.ControllerType == ControllerTypes.BUTTON)
+            } else if (midiConfig.ControllerType == ControllerTypes.Button)
             {
                 if (msg.ControlValue == midiConfig.MaxValue)
                 {
                     newMute = !newMute;
                 }
-            } else if (midiConfig.ControllerType == ControllerTypes.ROTARY_ENCODER)
+            } else if (midiConfig.ControllerType == ControllerTypes.RotaryEncoder)
             {
                 if (msg.ControlValue == midiConfig.MaxValue)
                 {

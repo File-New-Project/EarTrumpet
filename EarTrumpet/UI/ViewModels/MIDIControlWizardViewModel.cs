@@ -208,7 +208,7 @@ namespace EarTrumpet.UI.ViewModels
 
                 string controlTypeSelectedString = ControlTypes[_controlTypeSelected];
 
-                if(MidiConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER) == controlTypeSelectedString)
+                if(MidiConfiguration.GetControllerTypeString(ControllerTypes.LinearPotentiometer) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.MinimumText;
                     ScaleMaxValueSelectDescription = Resources.MaximumText;
@@ -216,7 +216,7 @@ namespace EarTrumpet.UI.ViewModels
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
-                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.BUTTON) == controlTypeSelectedString)
+                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.Button) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.ReleasedText;
                     ScaleMaxValueSelectDescription = Resources.PushedText;
@@ -224,7 +224,7 @@ namespace EarTrumpet.UI.ViewModels
                     ScalingMaximum = 1;
                     ScalingTickFrequency = 0.01F;
                 }
-                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER) == controlTypeSelectedString)
+                else if (MidiConfiguration.GetControllerTypeString(ControllerTypes.RotaryEncoder) == controlTypeSelectedString)
                 {
                     ScaleMinValueSelectDescription = Resources.DecreaseText;
                     ScaleMaxValueSelectDescription = Resources.IncreaseText;
@@ -258,9 +258,9 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<string> controlTypes = new ObservableCollection<string>();
 
-                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.LINEAR_POTENTIOMETER));
-                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.BUTTON));
-                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.ROTARY_ENCODER));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.LinearPotentiometer));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.Button));
+                controlTypes.Add(MidiConfiguration.GetControllerTypeString(ControllerTypes.RotaryEncoder));
 
                 return controlTypes;
             }
