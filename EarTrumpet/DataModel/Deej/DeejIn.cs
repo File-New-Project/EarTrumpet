@@ -18,23 +18,26 @@ namespace EarTrumpet.DataModel.Deej
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
         
+        // port -> buffer
         private static ConcurrentDictionary<string, string> buffers;
+        // port -> values
         private static ConcurrentDictionary<string, List<int>> lastValues;
+        // port -> lastUpdate
         private static ConcurrentDictionary<string, MonotonicTimestamp> lastUpdates;
-        
-        private static List<SerialPort> serialPorts;
+        // port -> SerialPort
+        private static ConcurrentDictionary<string, SerialPort> serialPorts;
 
         static DeejIn()
         {
             callbacks = new ConcurrentDictionary<string, List<Action<List<int>>>>();
             generalCallbacks = new List<Action<string, List<int>>>();
-            
+
             watchedDevices = new List<string>();
-            
             buffers = new ConcurrentDictionary<string, string>();
+            
             lastValues = new ConcurrentDictionary<string, List<int>>();
             lastUpdates = new ConcurrentDictionary<string, MonotonicTimestamp>();
-            serialPorts = new List<SerialPort>();
+            serialPorts = new ConcurrentDictionary<string, SerialPort>();
             
             deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
             deviceWatcher.Added += Added;
@@ -61,6 +64,21 @@ namespace EarTrumpet.DataModel.Deej
                 if (callbacks[port].Contains(callback))
                 {
                     callbacks[port].Remove(callback);
+                }
+
+                // Stop listening if there are no more events on the device
+                if (callbacks[port].Count == 0)
+                {
+                    try
+                    {
+                        serialPorts[port].Close();
+                    }
+                    catch (IOException)
+                    {
+                        
+                    }
+                    
+                    watchedDevices.Remove(port);
                 }
             }
         }
@@ -101,7 +119,7 @@ namespace EarTrumpet.DataModel.Deej
             {
                 sp.Open();
                 watchedDevices.Add(port);
-                serialPorts.Add(sp);
+                serialPorts[port] = sp;
             }
             catch (IOException)
             {
@@ -213,12 +231,12 @@ namespace EarTrumpet.DataModel.Deej
         {
             var id = args.Id;
 
-            foreach (var serial in serialPorts)
+            foreach (var port in serialPorts.Keys)
             {
+                var serial = serialPorts[port];
                 if (!serial.IsOpen && watchedDevices.Contains(serial.PortName))
                 {
                     watchedDevices.Remove(serial.PortName);
-                    serialPorts.Remove(serial);
                 }
             }
         }
