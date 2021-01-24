@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using EarTrumpet.DataModel.Deej;
 using EarTrumpet.DataModel.MIDI;
+using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 
 namespace EarTrumpet.DataModel.Hardware
@@ -134,7 +136,26 @@ namespace EarTrumpet.DataModel.Hardware
 
             return "";
         }
-        
+
+        public WindowHolder GetHardwareWizard(string deviceType, HardwareSettingsViewModel hardwareSettingsViewModel, 
+            HardwareConfiguration loadedConfig=null)
+        {
+            Window CreateWindow()
+            {
+                foreach (var key in bindings.Keys)
+                {
+                    if (bindings[key].Name == deviceType)
+                    {
+                        return bindings[key].GetConfigurationWindow(hardwareSettingsViewModel, loadedConfig);
+                    }
+                }
+
+                return null;
+            }
+
+            return new WindowHolder(CreateWindow);
+        }
+
         private void RegisterAppBinding(HardwareAppBinding appBinding)
         {
             bindings.Add(appBinding.ConfigType, appBinding);

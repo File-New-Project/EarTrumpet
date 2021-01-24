@@ -127,7 +127,7 @@ namespace EarTrumpet.UI.ViewModels
             DeejConfiguration deejConfiguration = new DeejConfiguration(SelectedDeej, GetCurrentSelectionProperty("Channel"), MinValue, MaxValue, ScalingValue);
 
             // Notify the hardware settings about the new control configuration.
-            _hardwareSettings.DeejControlSelectedCallback(deejConfiguration);
+            _hardwareSettings.ControlSelectedCallback(deejConfiguration);
         }
 
         public void SetMinValue()

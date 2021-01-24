@@ -100,6 +100,7 @@
     <Compile Include="DataModel\Deej\DeejAppBinding.cs" />
     <Compile Include="DataModel\Deej\DeejConfiguration.cs" />
     <Compile Include="DataModel\Deej\DeejIn.cs" />
+    <Compile Include="DataModel\Deej\MonotonicTimestamp.cs" />
     <Compile Include="DataModel\Hardware\CommandControlMappingElement.cs" />
     <Compile Include="DataModel\Hardware\HardwareAppBinding.cs" />
     <Compile Include="DataModel\Hardware\HardwareConfiguration.cs" />

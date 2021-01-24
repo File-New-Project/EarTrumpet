@@ -9,7 +9,7 @@ using EarTrumpet.DataModel.Hardware;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
+    public class EarTrumpetHardwareControlsPageViewModel : SettingsPageViewModel
     {
         public ICommand NewControlCommand { get; }
         public ICommand EditSelectedControlCommand { get; }

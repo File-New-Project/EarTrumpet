@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
 
@@ -11,27 +12,46 @@ namespace EarTrumpet.DataModel.Deej
     public static class DeejIn
     {
         // maps from: comports -> Actions)
-        private static Dictionary<string, List<Action<List<int>>>> callbacks;
+        private static ConcurrentDictionary<string, List<Action<List<int>>>> callbacks;
         private static List<Action<string, List<int>>> generalCallbacks;
         
         private static DeviceWatcher deviceWatcher;
         private static List<string> watchedDevices;
         
-        private static Dictionary<string, string> buffers;
-        private static Dictionary<string, List<int>> lastValues;
+        private static ConcurrentDictionary<string, string> buffers;
+        private static ConcurrentDictionary<string, List<int>> lastValues;
+        private static ConcurrentDictionary<string, MonotonicTimestamp> lastUpdates;
+        
         private static List<SerialPort> serialPorts;
+        
+        
+        
         
         private static bool SendCallback(string port, List<int> values)
         {
+            if (!lastUpdates.ContainsKey(port))
+            {
+                lastUpdates[port] = MonotonicTimestamp.Now();
+            }
+
+            if ((MonotonicTimestamp.Now() - lastUpdates[port]).Milliseconds > 100)
+            {
+                lastValues[port] = values;
+                lastUpdates[port]= MonotonicTimestamp.Now();
+                return true;
+            }
+            
             if (lastValues[port].Count != values.Count)
             {
                 lastValues[port] = values;
+                lastUpdates[port]= MonotonicTimestamp.Now();
                 return true;
             }
 
             if (values.Where((t, i) => t != lastValues[port][i]).Any())
             {
                 lastValues[port] = values;
+                lastUpdates[port]= MonotonicTimestamp.Now();
                 return true;
             }
             return false;
@@ -82,7 +102,7 @@ namespace EarTrumpet.DataModel.Deej
 
         internal static void _StartListening(string port)
         {
-            if (watchedDevices.Contains(port) ||!GetAllDevices().Contains(port))
+            if (watchedDevices.Contains(port) || !GetAllDevices().Contains(port))
             {
                 return;
             }
@@ -94,30 +114,40 @@ namespace EarTrumpet.DataModel.Deej
             sp.DataBits = 8;
             sp.Handshake = Handshake.None;
             sp.RtsEnable = false;
-            
+
             sp.DataReceived += DataReceived;
 
             if (!buffers.ContainsKey(port))
             {
-                buffers.Add(port, "");
+                buffers[port] = "";
             }
 
             if (!lastValues.ContainsKey(port))
             {
-                lastValues.Add(port, new List<int>());
+                lastValues[port] = new List<int>();
             }
             
-            watchedDevices.Add(port);
-            sp.Open();
-            
-            serialPorts.Add(sp);
+            try
+            {
+                sp.Open();
+                watchedDevices.Add(port);
+                serialPorts.Add(sp);
+            }
+            catch (IOException)
+            {
+
+            }
+            catch (UnauthorizedAccessException)
+            {
+                
+            }
         }
 
         public static void AddCallback(string port, Action<List<int>> callback)
         {
             if (!callbacks.ContainsKey(port))
             {
-                callbacks.Add(port, new List<Action<List<int>>>());
+                callbacks[port] = new List<Action<List<int>>>();
                 _StartListening(port);
             }
 
@@ -168,13 +198,14 @@ namespace EarTrumpet.DataModel.Deej
         
         static DeejIn()
         {
-            callbacks = new Dictionary<string, List<Action<List<int>>>>();
+            callbacks = new ConcurrentDictionary<string, List<Action<List<int>>>>();
             generalCallbacks = new List<Action<string, List<int>>>();
             
             watchedDevices = new List<string>();
             
-            buffers = new Dictionary<string, string>();
-            lastValues = new Dictionary<string, List<int>>();
+            buffers = new ConcurrentDictionary<string, string>();
+            lastValues = new ConcurrentDictionary<string, List<int>>();
+            lastUpdates = new ConcurrentDictionary<string, MonotonicTimestamp>();
             serialPorts = new List<SerialPort>();
             
             deviceWatcher = DeviceInformation.CreateWatcher(SerialDevice.GetDeviceSelector());
