@@ -99,9 +99,9 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _selectedCommand = value;
 
-                if(Properties.Resources.SystemVolume == value || Properties.Resources.SystemMute == value)
+                if(Properties.Resources.AudioDeviceVolume == value || Properties.Resources.AudioDeviceMute == value)
                 {
-                    // System specific command selected.
+                    // Audio device specific command selected.
                     // -> Disable Mode and Selection ComboBoxes.
 
                     ModeSelectionEnabled = false;
@@ -212,10 +212,10 @@ namespace EarTrumpet.UI.ViewModels
                     FillApplication();
                     break;
                 case CommandControlMappingElement.Command.SystemMute:
-                    SelectedCommand = Properties.Resources.SystemMute;
+                    SelectedCommand = Properties.Resources.AudioDeviceMute;
                     break;
                 case CommandControlMappingElement.Command.SystemVolume:
-                    SelectedCommand = Properties.Resources.SystemVolume;
+                    SelectedCommand = Properties.Resources.AudioDeviceVolume;
                     break;
             }
 
@@ -252,7 +252,7 @@ namespace EarTrumpet.UI.ViewModels
                 case EarTrumpetHardwareControlsPageViewModel.ItemModificationWays.NEW_EMPTY:
                     
                     // Set default command.
-                    SelectedCommand = Properties.Resources.SystemVolume;
+                    SelectedCommand = Properties.Resources.AudioDeviceVolume;
 
                     // Set default device type.
                     SelectedDeviceType = "MIDI";
@@ -330,8 +330,8 @@ namespace EarTrumpet.UI.ViewModels
             {
                 ObservableCollection<String> commands = new ObservableCollection<string>();
 
-                commands.Add(Properties.Resources.SystemVolume);
-                commands.Add(Properties.Resources.SystemMute);
+                commands.Add(Properties.Resources.AudioDeviceVolume);
+                commands.Add(Properties.Resources.AudioDeviceMute);
                 commands.Add(Properties.Resources.ApplicationVolume);
                 commands.Add(Properties.Resources.ApplicationMute);
 
@@ -382,10 +382,10 @@ namespace EarTrumpet.UI.ViewModels
             CommandControlMappingElement.Command command = CommandControlMappingElement.Command.None;
             CommandControlMappingElement.Mode mode = CommandControlMappingElement.Mode.None;
 
-            if (SelectedCommand == Properties.Resources.SystemVolume)
+            if (SelectedCommand == Properties.Resources.AudioDeviceVolume)
             {
                 command = CommandControlMappingElement.Command.SystemVolume;
-            } else if (SelectedCommand == Properties.Resources.SystemMute)
+            } else if (SelectedCommand == Properties.Resources.AudioDeviceMute)
             {
                 command = CommandControlMappingElement.Command.SystemMute;
             } else if (SelectedCommand == Properties.Resources.ApplicationVolume)

@@ -205,6 +205,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device Mute.
+        /// </summary>
+        public static string AudioDeviceMute {
+            get {
+                return ResourceManager.GetString("AudioDeviceMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Volume.
+        /// </summary>
+        public static string AudioDeviceVolume {
+            get {
+                return ResourceManager.GetString("AudioDeviceVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string CloseButtonAccessibleText {
@@ -896,24 +914,6 @@ namespace EarTrumpet.Properties {
         public static string SoundsControlPanelText {
             get {
                 return ResourceManager.GetString("SoundsControlPanelText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System Mute.
-        /// </summary>
-        public static string SystemMute {
-            get {
-                return ResourceManager.GetString("SystemMute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to System Volume.
-        /// </summary>
-        public static string SystemVolume {
-            get {
-                return ResourceManager.GetString("SystemVolume", resourceCulture);
             }
         }
         

@@ -344,11 +344,11 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="AddFromExistingMidiControlButtonText" xml:space="preserve">
     <value>Add New From Selected</value>
   </data>
-  <data name="SystemVolume" xml:space="preserve">
-    <value>System Volume</value>
+  <data name="AudioDeviceVolume" xml:space="preserve">
+    <value>Device Volume</value>
   </data>
-  <data name="SystemMute" xml:space="preserve">
-    <value>System Mute</value>
+  <data name="AudioDeviceMute" xml:space="preserve">
+    <value>Device Mute</value>
   </data>
   <data name="ApplicationVolume" xml:space="preserve">
     <value>Application Volume</value>
