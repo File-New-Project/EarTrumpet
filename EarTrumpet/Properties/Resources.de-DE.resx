@@ -437,4 +437,7 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="HardwareWizardInstructions" xml:space="preserve">
     <value>Bewege / drücke das zu verwendende Bedienelement. -&gt; Erfasste Änderungen werden in der untenstehenden Tabelle gelistet. -&gt; Wähle das zuzuordnende Bedienelement aus.</value>
   </data>
+  <data name="SetAsDefaultDevice" xml:space="preserve">
+    <value>Als Standardgerät festlegen</value>
+  </data>
 </root>
