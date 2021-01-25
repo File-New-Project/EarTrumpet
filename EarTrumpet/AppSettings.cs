@@ -2,7 +2,6 @@
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 
 namespace EarTrumpet
@@ -13,6 +12,7 @@ namespace EarTrumpet
         public event Action FlyoutHotkeyTyped;
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
+        public event Action FocusedVolumeShifterHotkeyTyped;
 
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
@@ -21,10 +21,16 @@ namespace EarTrumpet
             HotkeyManager.Current.Register(FlyoutHotkey);
             HotkeyManager.Current.Register(MixerHotkey);
             HotkeyManager.Current.Register(SettingsHotkey);
+            HotkeyManager.Current.Register(FocusedVolumeShifterHotkey);
 
             HotkeyManager.Current.KeyPressed += (hotkey) =>
             {
-                if (hotkey.Equals(FlyoutHotkey))
+                if (hotkey.Equals(FocusedVolumeShifterHotkey))
+                {
+                    Trace.WriteLine("AppSettings FocusedVolumeShifterHotkeyTyped");
+                    FocusedVolumeShifterHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(FlyoutHotkey))
                 {
                     Trace.WriteLine("AppSettings FlyoutHotkeyTyped");
                     FlyoutHotkeyTyped?.Invoke();
@@ -72,6 +78,17 @@ namespace EarTrumpet
                 HotkeyManager.Current.Unregister(SettingsHotkey);
                 _settings.Set("SettingsHotkey", value);
                 HotkeyManager.Current.Register(SettingsHotkey);
+            }
+        }
+
+        public HotkeyData FocusedVolumeShifterHotkey
+        {
+            get => _settings.Get("FocusedVolumeShifterHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(FocusedVolumeShifterHotkey);
+                _settings.Set("FocusedVolumeShifterHotkey", value);
+                HotkeyManager.Current.Register(FocusedVolumeShifterHotkey);
             }
         }
 
