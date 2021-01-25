@@ -163,12 +163,12 @@ namespace EarTrumpet.UI.ViewModels
         public DeejControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings,
             DeejConfiguration config): this(title, hardwareSettings)
         {
-            _capturedDeejInControls.Add("Channel=" + config.Channel +
-                                        ", Value=0");
             MinValue = config.MinValue;
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
             SelectedDeej = config.Port;
+            _capturedDeejInControls.Add("Channel=" + config.Channel +
+                                        ", Value=0");
         }
 
         public void SaveDeejControl()

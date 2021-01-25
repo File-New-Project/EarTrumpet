@@ -239,14 +239,13 @@ namespace EarTrumpet.UI.ViewModels
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings,
             MidiConfiguration config): this(title, hardwareSettings)
         {
-            //GetCurrentSelectionProperty("Channel"), GetCurrentSelectionProperty("Controller"), MinValue, MaxValue, ScalingValue
-            _capturedMidiInControls.Add("Channel=" + config.Channel + ", Controller=" + config.Controller +
-                                        ", Value=0");
             MinValue = config.MinValue;
             MaxValue = config.MaxValue;
             ScalingValue = config.ScalingValue;
             ControlTypeSelected = (int)config.ControllerType;
             SelectedMidi = config.MidiDevice;
+            _capturedMidiInControls.Add("Channel=" + config.Channel + ", Controller=" + config.Controller +
+                                        ", Value=0");
         }
 
         public void SaveMidiControl()
