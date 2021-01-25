@@ -260,7 +260,12 @@ namespace EarTrumpet.UI.ViewModels
 
         public void SaveCommandControlMapping()
         {
-            if (_hardwareConfiguration == null)
+            if (_hardwareConfiguration == null ||
+                string.IsNullOrEmpty(SelectedDevice) ||
+                string.IsNullOrEmpty(SelectedCommand) ||
+                string.IsNullOrEmpty(SelectedMode) ||
+                string.IsNullOrEmpty(SelectedIndexesApplications) ||
+                string.IsNullOrEmpty(SelectedDeviceType))
             {
                 // Do nothing if the settings were not done yet.
                 MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
