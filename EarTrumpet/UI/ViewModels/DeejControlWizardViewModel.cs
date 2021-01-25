@@ -17,7 +17,19 @@ namespace EarTrumpet.UI.ViewModels
         public ICommand SetMinValueCommand { get; }
         public ICommand SetMaxValueCommand { get; }
         public string SelectedDeejInDevice { get; set; }
-        public int CapturedDeejInControlsSelected { get; set; }
+        public int CapturedDeejInControlsSelected
+        {
+            get
+            {
+                return _capturedDeejInControlsSelected;
+            }
+
+            set
+            {
+                _capturedDeejInControlsSelected = value;
+                UpdatePreviewValue();
+            }
+        }
         public string ScaleMinValueSelectDescription { get; set; }
         public string ScaleMaxValueSelectDescription { get; set; }
         public string DeejWizardMinMaxInstructionsText { get; set; }
@@ -141,6 +153,8 @@ namespace EarTrumpet.UI.ViewModels
         private int _previewValue = 0;
         private float _scalingValue = 0;
         private List<string> _availableDeejInDevices;
+        private int _controlValue = 0;
+        private int _capturedDeejInControlsSelected = 0;
 
         public DeejControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -191,11 +205,13 @@ namespace EarTrumpet.UI.ViewModels
         public void SetMinValue()
         {
             MinValue = GetCurrentSelectionProperty("Value");
+            UpdatePreviewValue();
         }
 
         public void SetMaxValue()
         {
             MaxValue = GetCurrentSelectionProperty("Value");
+            UpdatePreviewValue();
         }
 
         private async void deejInControlChangeCallback(List<int> values)
@@ -219,23 +235,7 @@ namespace EarTrumpet.UI.ViewModels
                             // PreviewValue must be updated when the changed channel and controller pair is the selected one.
                             if (i == CapturedDeejInControlsSelected)
                             {
-                                int fullScaleRange = MaxValue - MinValue;
-
-                                // Division by zero is not allowed.
-                                // -> Set minimum full scale range in these cases.
-                                if (fullScaleRange == 0)
-                                {
-                                    fullScaleRange = 1;
-                                }
-
-                                if (MaxValue > MinValue)
-                                {
-                                    PreviewValue = Math.Abs((int)(((values[valueIterator] - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
-                                }
-                                else
-                                {
-                                    PreviewValue = 100 - Math.Abs((int)(((values[valueIterator] - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
-                                }
+                                UpdatePreviewValue();
                             }
 
                             break;
@@ -253,6 +253,14 @@ namespace EarTrumpet.UI.ViewModels
 
         private int GetCurrentSelectionProperty(string property)
         {
+            // Cannot read propery when no item is selected or selected item
+            // is not in list.
+            if (CapturedDeejInControlsSelected < 0 ||
+            _capturedDeejInControls.Count < CapturedDeejInControlsSelected + 1)
+            {
+                return 0;
+            }
+
             var propertyDesignator = property + "=";
 
             var propertyStartPosition = _capturedDeejInControls[CapturedDeejInControlsSelected].IndexOf(propertyDesignator) + propertyDesignator.Length;
@@ -267,6 +275,29 @@ namespace EarTrumpet.UI.ViewModels
             var propertyString = _capturedDeejInControls[CapturedDeejInControlsSelected].Substring(propertyStartPosition, propertyEndPosition - propertyStartPosition);
 
             return int.Parse(propertyString);
+        }
+
+        private void UpdatePreviewValue()
+        {
+            _controlValue = GetCurrentSelectionProperty("Value");
+
+            int fullScaleRange = MaxValue - MinValue;
+
+            // Division by zero is not allowed.
+            // -> Set minimum full scale range in these cases.
+            if (fullScaleRange == 0)
+            {
+                fullScaleRange = 1;
+            }
+
+            if (MaxValue > MinValue)
+            {
+                PreviewValue = Math.Abs((int)(((_controlValue - MinValue) / (float) fullScaleRange) * ScalingValue * 100.0));
+            }
+            else
+                {
+                    PreviewValue = 100 - Math.Abs((int)(((_controlValue - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+                }
         }
     }
 }

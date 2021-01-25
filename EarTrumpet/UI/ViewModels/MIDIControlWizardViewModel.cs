@@ -23,7 +23,17 @@ namespace EarTrumpet.UI.ViewModels
         public MidiInDevice SelectedMidiInDevice { get; set; }
         public int ScalingMaximum { get; set; }
         public float ScalingTickFrequency { get; set; }
-        public int CapturedMidiInControlsSelected { get; set; }
+        public int CapturedMidiInControlsSelected {
+            get
+            {
+                return _capturedMidiInControlsSelected;
+            }
+            set
+            {
+                _capturedMidiInControlsSelected = value;
+                UpdatePreviewValue();
+            }
+        }
         public ObservableCollection<string> CapturedMidiInControls
         {
             get
@@ -94,6 +104,8 @@ namespace EarTrumpet.UI.ViewModels
                 RaisePropertyChanged("MidiWizardMinMaxInstructions");
                 RaisePropertyChanged("ScalingMaximum");
                 RaisePropertyChanged("ScalingTickFrequency");
+
+                UpdatePreviewValue();
             }
         }
         public ObservableCollection<string> ControlTypes
@@ -208,6 +220,8 @@ namespace EarTrumpet.UI.ViewModels
         private float _scalingValue = 0;
         private int _controlTypeSelected = 0;
         private List<MidiInDevice> _availableMidiInDevices;
+        private byte _controlValue = 0;
+        private int _capturedMidiInControlsSelected = 0;
 
         public MIDIControlWizardViewModel(string title, HardwareSettingsViewModel hardwareSettings)
         {
@@ -269,15 +283,25 @@ namespace EarTrumpet.UI.ViewModels
         public void SetMinValue()
         {
             MinValue = GetCurrentSelectionProperty("Value");
+            UpdatePreviewValue();
         }
 
         public void SetMaxValue()
         {
             MaxValue = GetCurrentSelectionProperty("Value");
+            UpdatePreviewValue();
         }
 
         private byte GetCurrentSelectionProperty(string property)
         {
+            // Cannot read propery when no item is selected or selected item
+            // is not in list.
+            if(CapturedMidiInControlsSelected < 0 ||
+                _capturedMidiInControls.Count < CapturedMidiInControlsSelected + 1)
+            {
+                return 0;
+            }
+
             var propertyDesignator = property + "=";
 
             var propertyStartPosition = _capturedMidiInControls[CapturedMidiInControlsSelected].IndexOf(propertyDesignator) + propertyDesignator.Length;
@@ -314,23 +338,7 @@ namespace EarTrumpet.UI.ViewModels
                         // PreviewValue must be updated when the changed channel and controller pair is the selected one.
                         if (i == CapturedMidiInControlsSelected)
                         {
-                            int fullScaleRange = MaxValue - MinValue;
-
-                            // Division by zero is not allowed.
-                            // -> Set minimum full scale range in these cases.
-                            if (fullScaleRange == 0)
-                            {
-                                fullScaleRange = 1;
-                            }
-
-                            if (MaxValue > MinValue)
-                            {
-                                PreviewValue = Math.Abs((int)(((msg.ControlValue - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
-                            }
-                            else
-                            {
-                                PreviewValue = 100 - Math.Abs((int)(((msg.ControlValue - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
-                            }
+                            UpdatePreviewValue();
                         }
 
                         break;
@@ -343,6 +351,29 @@ namespace EarTrumpet.UI.ViewModels
                     _capturedMidiInControls.Add("Channel=" + msg.Channel + ", Controller=" + msg.Controller + ", Value=" + msg.ControlValue);
                 }
             });
+        }
+
+        private void UpdatePreviewValue()
+        {
+            _controlValue = GetCurrentSelectionProperty("Value");
+
+            int fullScaleRange = MaxValue - MinValue;
+
+            // Division by zero is not allowed.
+            // -> Set minimum full scale range in these cases.
+            if (fullScaleRange == 0)
+            {
+                fullScaleRange = 1;
+            }
+
+            if (MaxValue > MinValue)
+            {
+                PreviewValue = Math.Abs((int)(((_controlValue - MinValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+            }
+            else
+            {
+                PreviewValue = 100 - Math.Abs((int)(((_controlValue - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
+            }
         }
     }
 }
