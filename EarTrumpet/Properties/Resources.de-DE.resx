@@ -296,4 +296,145 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Informationen zum Absturz an das EarTrumpet-Team senden</value>
   </data>
+  <data name="TypeText" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="UnknownDeviceSelectedMessageText" xml:space="preserve">
+    <value>Unbekanntes Gerät ausgewählt!</value>
+  </data>
+  <data name="UnknownDeviceTypeSelectedMessageText" xml:space="preserve">
+    <value>Unbekannter Gerätetyp ausgewählt!</value>
+  </data>
+  <data name="SetText" xml:space="preserve">
+    <value>Setzen</value>
+  </data>
+  <data name="SelectText" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+  <data name="SelectionText" xml:space="preserve">
+    <value>Auswahl</value>
+  </data>
+  <data name="PushedText" xml:space="preserve">
+    <value>Gedrückt</value>
+  </data>
+  <data name="ReleasedText" xml:space="preserve">
+    <value>Losgelassen</value>
+  </data>
+  <data name="RotaryEncoderText" xml:space="preserve">
+    <value>Drehencoder</value>
+  </data>
+  <data name="SaveText" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="ScalingText" xml:space="preserve">
+    <value>Skalierung</value>
+  </data>
+  <data name="PreviewValueText" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="NoControlSelectedMessage" xml:space="preserve">
+    <value>Keine Steuerung ausgewählt!</value>
+  </data>
+  <data name="ModeText" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="MidiDeviceText" xml:space="preserve">
+    <value>MIDI Gerät</value>
+  </data>
+  <data name="MidiControlWizardText" xml:space="preserve">
+    <value>MIDI Einrichtungsassistent</value>
+  </data>
+  <data name="MaximumText" xml:space="preserve">
+    <value>Maximum</value>
+  </data>
+  <data name="LinearPotentiometerText" xml:space="preserve">
+    <value>Lineares Potentiometer</value>
+  </data>
+  <data name="IncreaseText" xml:space="preserve">
+    <value>Erhöhen</value>
+  </data>
+  <data name="IncompleteDeviceConfigurationMessage" xml:space="preserve">
+    <value>Unvollständige Gerätekonfiguration!</value>
+  </data>
+  <data name="MinimumText" xml:space="preserve">
+    <value>Minimum</value>
+  </data>
+  <data name="IndexedText" xml:space="preserve">
+    <value>Indexbasiert</value>
+  </data>
+  <data name="HardwareSettingsText" xml:space="preserve">
+    <value>Hardwaresteuerung hinzufügen/bearbeiten</value>
+  </data>
+  <data name="HardwareControlsTitle" xml:space="preserve">
+    <value>Hardwareeinstellungen</value>
+  </data>
+  <data name="DeleteSelectedText" xml:space="preserve">
+    <value>Auswahl entfernen</value>
+  </data>
+  <data name="DeviceText" xml:space="preserve">
+    <value>Gerät</value>
+  </data>
+  <data name="DeviceTypeText" xml:space="preserve">
+    <value>Gerätetyp</value>
+  </data>
+  <data name="EditSelectedText" xml:space="preserve">
+    <value>Auswahl bearbeiten</value>
+  </data>
+  <data name="DecreaseText" xml:space="preserve">
+    <value>Verringern</value>
+  </data>
+  <data name="DeejControlWizardText" xml:space="preserve">
+    <value>deej Einrichtungsassistent</value>
+  </data>
+  <data name="ControlText" xml:space="preserve">
+    <value>Steuerung</value>
+  </data>
+  <data name="CommandText" xml:space="preserve">
+    <value>Befehl</value>
+  </data>
+  <data name="ButtonText" xml:space="preserve">
+    <value>Taste</value>
+  </data>
+  <data name="AudioDeviceVolumeText" xml:space="preserve">
+    <value>Gerätelautstärke</value>
+  </data>
+  <data name="AudioDeviceText" xml:space="preserve">
+    <value>Audiogerät</value>
+  </data>
+  <data name="AudioDeviceMuteText" xml:space="preserve">
+    <value>Gerät stummschalten</value>
+  </data>
+  <data name="ApplicationVolumeText" xml:space="preserve">
+    <value>Programmlautstärke</value>
+  </data>
+  <data name="ApplicationSelectionText" xml:space="preserve">
+    <value>Programmauswahl</value>
+  </data>
+  <data name="ApplicationMuteText" xml:space="preserve">
+    <value>Programm stummschalten</value>
+  </data>
+  <data name="AllAudioDevicesSelectionText" xml:space="preserve">
+    <value>*Alle Geräte*</value>
+  </data>
+  <data name="AddNewText" xml:space="preserve">
+    <value>Neu hinzufügen</value>
+  </data>
+  <data name="AddNewFromSelectedText" xml:space="preserve">
+    <value>Neu aus selektiertem</value>
+  </data>
+  <data name="HardwareControlInformation" xml:space="preserve">
+    <value>Steuere System- und Programmlautstärke mit einer Hardwaresteuerung (MIDI und deej Geräte werden unterstützt).</value>
+  </data>
+  <data name="HardwareControlWizardMinMaxButtonControlTypeInstructions" xml:space="preserve">
+    <value>Lasse die ausgewählte Taste los und drücke "Setzen" auf der entsprechenden Schaltfläche (während sie losgelassen wird). Dann betätige die ausgewählte Taste und drücke "Setzen" (während sie gedrückt wird).</value>
+  </data>
+  <data name="HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions" xml:space="preserve">
+    <value>Bewege das ausgewählte Kontrollelement auf den Minimalwert und drücke auf der entsprechenden Schaltfläch "Setzen". Dann bewege das Steuerelemnt auf den Maximalwert und drücke auf der entsprechenden Schaltfläche "Setzen".</value>
+  </data>
+  <data name="HardwareControlWizardMinMaxRotaryEncoderControlTypeInstructions" xml:space="preserve">
+    <value>Drehe den ausgewählten Drehregler in absteigender Richtung und drücke auf der entsprechenden Schaltfläch "Setzen". Drehe dann den Drehregler in aufsteigender Richtung und drücke  auf der entsprechenden Schaltfläch "Setzen".</value>
+  </data>
+  <data name="HardwareWizardInstructions" xml:space="preserve">
+    <value>Bewege / drücke das zu verwendende Bedienelement. -&gt; Erfasste Änderungend werden in der untenstehenden Tabelle gelistet. -&gt; Wähle das zuzuordnende Bedienelement aus.</value>
+  </data>
 </root>

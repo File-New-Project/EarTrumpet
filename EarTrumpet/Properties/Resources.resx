@@ -362,9 +362,6 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="IndexedText" xml:space="preserve">
     <value>Indexed</value>
   </data>
-  <data name="MidiWizardInstructions" xml:space="preserve">
-    <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
-  </data>
   <data name="HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions" xml:space="preserve">
     <value>Move the selected control to the minimum value and click corresponding 'Set'. Then move the selected control to the maximum value and click corresponding 'Set'.</value>
   </data>
@@ -405,7 +402,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>Decrease</value>
   </data>
   <data name="NoControlSelectedMessage" xml:space="preserve">
-    <value>No control selected !</value>
+    <value>No control selected!</value>
   </data>
   <data name="DeejControlWizardText" xml:space="preserve">
     <value>deej Control Wizard</value>
@@ -413,7 +410,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="PreviewValueText" xml:space="preserve">
     <value>Preview</value>
   </data>
-  <data name="DeejWizardInstructions" xml:space="preserve">
+  <data name="HardwareWizardInstructions" xml:space="preserve">
     <value>Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned.</value>
   </data>
   <data name="ButtonText" xml:space="preserve">

@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -342,15 +342,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
-        /// </summary>
-        public static string DeejWizardInstructions {
-            get {
-                return ResourceManager.GetString("DeejWizardInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Always use the default playback device.
         /// </summary>
         public static string DefaultDeviceText {
@@ -495,6 +486,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
+        /// </summary>
+        public static string HardwareWizardInstructions {
+            get {
+                return ResourceManager.GetString("HardwareWizardInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomeButtonText {
@@ -594,15 +594,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move / press the hardware control element to be used. -&gt; Captured changes are listed in the table below. -&gt; Select the control to be assigned..
-        /// </summary>
-        public static string MidiWizardInstructions {
-            get {
-                return ResourceManager.GetString("MidiWizardInstructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Minimum.
         /// </summary>
         public static string MinimumText {
@@ -648,7 +639,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No control selected !.
+        ///   Looks up a localized string similar to No control selected!.
         /// </summary>
         public static string NoControlSelectedMessage {
             get {

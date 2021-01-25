@@ -11,7 +11,7 @@
     <Grid Margin="0,0,-8,0">
         <ComboBox HorizontalAlignment="Left" Height="23" Margin="78,129,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedMidiInControls}" SelectedIndex="{Binding CapturedMidiInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
         </ComboBox>
-        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,47,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.MidiWizardInstructions}" />
+        <TextBlock TextWrapping="WrapWithOverflow" Margin="10,47,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.HardwareWizardInstructions}" />
         <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,392,0,0" VerticalAlignment="Top" Width="164" Value="{Binding PreviewValue}" Name="PreviewValueProgressBar"/>
         <TextBlock Text="{Binding ElementName=PreviewValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,73,0" Width="53" TextAlignment="Center" Height="17" />
         <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
