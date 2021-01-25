@@ -130,7 +130,7 @@ namespace EarTrumpet.DataModel.MIDI
             switch (midiConfig.ControllerType)
             {
                 case ControllerTypes.LinearPotentiometer:
-                    newVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MinValue,
+                    newVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MaxValue,
                         midiConfig.ScalingValue);
                     break;
                 case ControllerTypes.Button:
@@ -177,8 +177,8 @@ namespace EarTrumpet.DataModel.MIDI
             
             if (midiConfig.ControllerType == ControllerTypes.LinearPotentiometer)
             {
-                var calcVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MinValue,
-                    midiConfig.ScalingValue);;
+                var calcVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MaxValue,
+                    midiConfig.ScalingValue);
 
                 newMute = calcVolume < 50;
                 
