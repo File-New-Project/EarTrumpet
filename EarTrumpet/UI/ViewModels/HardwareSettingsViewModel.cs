@@ -34,6 +34,29 @@ namespace EarTrumpet.UI.ViewModels
                 }
 
                 RefreshApps();
+
+                // If "all devices" is selected, "set as default device" command is not available.
+                // If "all devices" is not selected, "cycle default devices" command is not available.
+                if(Properties.Resources.AllAudioDevicesSelectionText == value)
+                {
+                    Commands.Remove(Properties.Resources.SetAsDefaultDevice);
+
+                    if(!Commands.Contains(Properties.Resources.CycleDefaultDevices))
+                    {
+                        Commands.Add(Properties.Resources.CycleDefaultDevices);
+                    }
+                }
+                else
+                {
+                    Commands.Remove(Properties.Resources.CycleDefaultDevices);
+
+                    if (!Commands.Contains(Properties.Resources.SetAsDefaultDevice))
+                    {
+                        Commands.Add(Properties.Resources.SetAsDefaultDevice);
+                    }
+                }
+
+                RaisePropertyChanged("Commands");
             }
 
             get
@@ -174,16 +197,12 @@ namespace EarTrumpet.UI.ViewModels
         {
             get
             {
-                ObservableCollection<String> commands = new ObservableCollection<string>();
+                return _commands;
+            }
 
-                commands.Add(Properties.Resources.AudioDeviceVolumeText);
-                commands.Add(Properties.Resources.AudioDeviceMuteText);
-                commands.Add(Properties.Resources.ApplicationVolumeText);
-                commands.Add(Properties.Resources.ApplicationMuteText);
-                commands.Add(Properties.Resources.SetAsDefaultDevice);
-                commands.Add(Properties.Resources.CycleDefaultDevices);
-
-                return commands;
+            set
+            {
+                _commands = value;
             }
         }
         public string SelectedDeviceType
@@ -212,9 +231,17 @@ namespace EarTrumpet.UI.ViewModels
         private HardwareConfiguration _hardwareConfiguration = null;
         private CommandControlMappingElement _commandControlMappingElement = null;
         private EarTrumpetHardwareControlsPageViewModel _hardwareControls = null;
+        private ObservableCollection<String> _commands = new ObservableCollection<string>();
 
         public HardwareSettingsViewModel(DeviceCollectionViewModel devices, EarTrumpetHardwareControlsPageViewModel earTrumpetHardwareControlsPageViewModel)
         {
+            // Set default commands.
+            _commands.Add(Properties.Resources.AudioDeviceVolumeText);
+            _commands.Add(Properties.Resources.AudioDeviceMuteText);
+            _commands.Add(Properties.Resources.ApplicationVolumeText);
+            _commands.Add(Properties.Resources.ApplicationMuteText);
+            _commands.Add(Properties.Resources.CycleDefaultDevices);
+
             _devices = devices;
             _hardwareControls = earTrumpetHardwareControlsPageViewModel;
 
