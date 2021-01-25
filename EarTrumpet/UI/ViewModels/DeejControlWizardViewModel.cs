@@ -246,6 +246,12 @@ namespace EarTrumpet.UI.ViewModels
                     {
                         // The channel and controller pair was not part of the list, so add it.
                         _capturedDeejInControls.Add("Channel=" + valueIterator + ", Value=" + values[valueIterator]);
+                        
+                        if (_capturedDeejInControls.Count == 1)
+                        {
+                            CapturedDeejInControlsSelected = 0;
+                            RaisePropertyChanged("CapturedDeejInControlsSelected");
+                        }
                     }
                 }
             });
