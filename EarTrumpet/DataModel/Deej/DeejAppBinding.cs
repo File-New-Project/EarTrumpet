@@ -221,7 +221,14 @@ namespace EarTrumpet.DataModel.Deej
                 {
                     if (device.DisplayName == command.audioDevice)
                     {
-                        _audioDeviceManager.Default = device;
+                        try
+                        {
+                            _audioDeviceManager.Default = device;
+                        }
+                        catch (NotSupportedException)
+                        {
+                            
+                        }
                        
                         return;
                     }
@@ -257,7 +264,14 @@ namespace EarTrumpet.DataModel.Deej
                     index = 0;
                 }
 
-                _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
+                try
+                {
+                    _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
+                }
+                catch (NotSupportedException)
+                {
+                            
+                }
             }
             
             lastValues[command] = calcVolume;

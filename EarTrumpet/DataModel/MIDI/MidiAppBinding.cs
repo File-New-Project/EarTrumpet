@@ -280,7 +280,15 @@ namespace EarTrumpet.DataModel.MIDI
                 {
                     if (device.DisplayName == command.audioDevice)
                     {
-                        _audioDeviceManager.Default = device;
+                        try
+                        {
+                            _audioDeviceManager.Default = device;
+                        }
+                        catch (NotSupportedException)
+                        {
+                            
+                        }
+                        
 
                         return;
                     }
@@ -339,7 +347,14 @@ namespace EarTrumpet.DataModel.MIDI
                     index = 0;
                 }
                 
-                _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
+                try
+                {
+                    _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
+                }
+                catch (NotSupportedException)
+                {
+                            
+                }
             }
         }
         
