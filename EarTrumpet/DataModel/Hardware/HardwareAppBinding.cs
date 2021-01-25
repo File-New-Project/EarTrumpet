@@ -44,7 +44,7 @@ namespace EarTrumpet.DataModel.Hardware
             var result = new List<DeviceViewModel>();
             foreach (var device in _deviceCollectionViewModel.AllDevices)
             {
-                if (device.DisplayName == name || name == "*All Devices*")
+                if (device.DisplayName == name || name == Properties.Resources.AllAudioDevicesSelectionText)
                 {
                     result.Add(device);
                 }
