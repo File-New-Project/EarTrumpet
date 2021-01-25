@@ -248,6 +248,9 @@
                         <ie:EventTrigger EventName="SelectionChanged">
                             <ie:InvokeCommandAction CommandParameter="{Binding ElementName=myListBox, Path=SelectedItem}"/>
                         </ie:EventTrigger>
+                        <ie:EventTrigger EventName="MouseDoubleClick" >
+                            <ie:InvokeCommandAction Command="{Binding EditSelectedControlCommand}" />
+                        </ie:EventTrigger>
                     </ie:Interaction.Triggers>
                     <!-- here set the itemTemplate to a TextBlock that can wraps-->
                     <ListView.ItemTemplate>
