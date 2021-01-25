@@ -2,6 +2,7 @@
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace EarTrumpet
