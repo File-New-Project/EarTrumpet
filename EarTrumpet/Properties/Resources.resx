@@ -438,6 +438,6 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
     <value>Type</value>
   </data>
   <data name="SetAsDefaultDevice" xml:space="preserve">
-    <value>Set Default Device</value>
+    <value>Set As Default Device</value>
   </data>
 </root>
