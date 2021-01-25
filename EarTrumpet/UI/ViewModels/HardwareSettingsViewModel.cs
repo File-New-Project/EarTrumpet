@@ -124,7 +124,7 @@ namespace EarTrumpet.UI.ViewModels
                 ObservableCollection<String> availableAudioDevices = new ObservableCollection<string>();
                 var devices = _devices.AllDevices;
 
-                availableAudioDevices.Add("*All Devices*");
+                availableAudioDevices.Add(Properties.Resources.AllAudioDevicesSelectionText);
 
                 foreach (var device in devices)
                 {
