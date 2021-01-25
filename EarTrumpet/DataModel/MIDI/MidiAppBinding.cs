@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Windows;
 using Windows.Devices.Midi;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
@@ -20,7 +21,8 @@ namespace EarTrumpet.DataModel.MIDI
         private ConcurrentDictionary<string, string> _deviceMapping;
         private const string SAVEKEY = "MidiControls";
         
-        public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel): base(deviceCollectionViewModel)
+        public MidiAppBinding(DeviceCollectionViewModel deviceCollectionViewModel, 
+            IAudioDeviceManager audioDeviceManager): base(deviceCollectionViewModel, audioDeviceManager)
         {
             Current = this;
 
@@ -267,6 +269,25 @@ namespace EarTrumpet.DataModel.MIDI
             }
         }
 
+        private void DefaultDevice(CommandControlMappingElement command, MidiControlChangeMessage msg)
+        {
+            var midiConfig = (MidiConfiguration) command.hardwareConfiguration;
+            var calcVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MaxValue,
+                midiConfig.ScalingValue);
+
+            if (calcVolume > 50)
+            {
+                foreach (var device in _audioDeviceManager.Devices)
+                {
+                    if (device.DisplayName == command.audioDevice)
+                    {
+                        _audioDeviceManager.Default = device;
+                        return;
+                    }
+                }
+            }
+        }
+        
         private string GetMidiDeviceById(string id)
         {
             if (_deviceMapping.ContainsKey(id))
@@ -312,6 +333,9 @@ namespace EarTrumpet.DataModel.MIDI
                                 break;
                             case CommandControlMappingElement.Command.ApplicationMute:
                                 ApplicationMute(command, msg);
+                                break;
+                            case CommandControlMappingElement.Command.SetDefaultDevice:
+                                DefaultDevice(command, msg);
                                 break;
                         }
                     }

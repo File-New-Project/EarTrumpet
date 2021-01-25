@@ -819,6 +819,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Default Device.
+        /// </summary>
+        public static string SetAsDefaultDevice {
+            get {
+                return ResourceManager.GetString("SetAsDefaultDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set.
         /// </summary>
         public static string SetText {

@@ -8,6 +8,7 @@
             SystemMute,
             ApplicationVolume,
             ApplicationMute,
+            SetDefaultDevice,
             None
         };
 

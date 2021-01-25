@@ -77,7 +77,9 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _selectedCommand = value;
 
-                if (Properties.Resources.AudioDeviceVolumeText == value || Properties.Resources.AudioDeviceMuteText == value)
+                if (Properties.Resources.AudioDeviceVolumeText == value ||
+                    Properties.Resources.AudioDeviceMuteText == value ||
+                    Properties.Resources.SetAsDefaultDevice == value)
                 {
                     // Audio device specific command selected.
                     // -> Disable Mode and Selection ComboBoxes.
@@ -85,7 +87,8 @@ namespace EarTrumpet.UI.ViewModels
                     ModeSelectionEnabled = false;
                     IndexesApplicationsSelectionEnabled = false;
                 }
-                else if (Properties.Resources.ApplicationVolumeText == value || Properties.Resources.ApplicationMuteText == value)
+                else if (Properties.Resources.ApplicationVolumeText == value || 
+                         Properties.Resources.ApplicationMuteText == value)
                 {
                     // Application specific command selected.
                     // -> Enable Mode and Selection ComboBoxes.
@@ -177,6 +180,7 @@ namespace EarTrumpet.UI.ViewModels
                 commands.Add(Properties.Resources.AudioDeviceMuteText);
                 commands.Add(Properties.Resources.ApplicationVolumeText);
                 commands.Add(Properties.Resources.ApplicationMuteText);
+                commands.Add(Properties.Resources.SetAsDefaultDevice);
 
                 return commands;
             }
@@ -286,6 +290,10 @@ namespace EarTrumpet.UI.ViewModels
             {
                 command = CommandControlMappingElement.Command.ApplicationMute;
             }
+            else if (SelectedCommand == Properties.Resources.SetAsDefaultDevice)
+            {
+                command = CommandControlMappingElement.Command.SetDefaultDevice;
+            }
 
             if (SelectedMode == Properties.Resources.IndexedText)
             {
@@ -388,6 +396,9 @@ namespace EarTrumpet.UI.ViewModels
                     break;
                 case CommandControlMappingElement.Command.SystemVolume:
                     SelectedCommand = Properties.Resources.AudioDeviceVolumeText;
+                    break;
+                case CommandControlMappingElement.Command.SetDefaultDevice:
+                    SelectedCommand = Properties.Resources.SetAsDefaultDevice;
                     break;
             }
 

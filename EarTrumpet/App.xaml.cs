@@ -14,7 +14,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using EarTrumpet.DataModel.Hardware;
-using EarTrumpet.DataModel.MIDI;
 
 namespace EarTrumpet
 {
@@ -71,7 +70,7 @@ namespace EarTrumpet
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
             _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
-            _hardwareManager = new HardwareManager(_collectionViewModel);
+            _hardwareManager = new HardwareManager(_collectionViewModel, deviceManager);
             
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;

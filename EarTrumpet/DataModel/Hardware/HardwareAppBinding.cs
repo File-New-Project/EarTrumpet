@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.Storage;
 using EarTrumpet.UI.ViewModels;
 
@@ -21,10 +22,11 @@ namespace EarTrumpet.DataModel.Hardware
             HardwareConfiguration loadConfig = null);
 
         public abstract int CalculateVolume(int value, int minValue, int maxValue, float scalingValue);
-        
+
+        protected IAudioDeviceManager _audioDeviceManager;
         protected DeviceCollectionViewModel _deviceCollectionViewModel;
         private ISettingsBag _settings;
-        
+
         protected List<CommandControlMappingElement> _commandControlMappings;
 
         public List<CommandControlMappingElement> GetCommandControlMappings()
@@ -32,9 +34,10 @@ namespace EarTrumpet.DataModel.Hardware
             return _commandControlMappings;
         }
         
-        protected HardwareAppBinding(DeviceCollectionViewModel deviceViewModel)
+        protected HardwareAppBinding(DeviceCollectionViewModel deviceViewModel, IAudioDeviceManager audioDeviceManager)
         {
             _deviceCollectionViewModel = deviceViewModel;
+            _audioDeviceManager = audioDeviceManager;
             _commandControlMappings = new List<CommandControlMappingElement>();
             
             _settings = StorageFactory.GetSettings();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.Deej;
 using EarTrumpet.DataModel.MIDI;
 using EarTrumpet.UI.Helpers;
@@ -17,12 +18,13 @@ namespace EarTrumpet.DataModel.Hardware
         // map from a config type to a HardwareAppBinding instance
         private Dictionary<Type, HardwareAppBinding> bindings;
 
-        public HardwareManager(DeviceCollectionViewModel deviceCollectionViewModel)
+        public HardwareManager(DeviceCollectionViewModel deviceCollectionViewModel, 
+            IAudioDeviceManager audioDeviceManager)
         {
             bindings = new Dictionary<Type, HardwareAppBinding>();
 
-            RegisterAppBinding(new MidiAppBinding(deviceCollectionViewModel));
-            RegisterAppBinding(new DeejAppBinding(deviceCollectionViewModel));
+            RegisterAppBinding(new MidiAppBinding(deviceCollectionViewModel, audioDeviceManager));
+            RegisterAppBinding(new DeejAppBinding(deviceCollectionViewModel, audioDeviceManager));
             
             Current = this;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.Hardware;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
@@ -15,7 +16,8 @@ namespace EarTrumpet.DataModel.Deej
         public static DeejAppBinding Current;
         private const string SAVEKEY = "DeejControls";
 
-        public DeejAppBinding(DeviceCollectionViewModel deviceViewModel) : base(deviceViewModel)
+        public DeejAppBinding(DeviceCollectionViewModel deviceViewModel, IAudioDeviceManager audioDeviceManager) : 
+            base(deviceViewModel, audioDeviceManager)
         {
             Current = this;
 
@@ -132,6 +134,9 @@ namespace EarTrumpet.DataModel.Deej
                         case CommandControlMappingElement.Command.ApplicationMute:
                             ApplicationMute(command, value);
                             break;
+                        case CommandControlMappingElement.Command.SetDefaultDevice:
+                            DefaultDevice(command, value);
+                            break;
                     }
                 }
             }
@@ -198,6 +203,28 @@ namespace EarTrumpet.DataModel.Deej
             foreach (var app in apps)
             {
                 app.IsMuted = SetMute((DeejConfiguration)command.hardwareConfiguration, value);
+            }
+        }
+        
+        private void DefaultDevice(CommandControlMappingElement command, int value)
+        {
+            var config = (DeejConfiguration) command.hardwareConfiguration;
+            var calcVolume = Current.CalculateVolume(value, config.MinValue, config.MaxValue, config.ScalingValue);
+
+            if (calcVolume > 50)
+            {
+                foreach (var device in _audioDeviceManager.Devices)
+                {
+                    if (device.DisplayName == command.audioDevice)
+                    {
+                        if (_audioDeviceManager.Default != device)
+                        {
+                            _audioDeviceManager.Default = device;
+                        }
+                       
+                        return;
+                    }
+                }
             }
         }
         
