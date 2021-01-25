@@ -287,23 +287,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             _controlValue = GetCurrentSelectionProperty("Value");
 
-            int fullScaleRange = MaxValue - MinValue;
-
-            // Division by zero is not allowed.
-            // -> Set minimum full scale range in these cases.
-            if (fullScaleRange == 0)
-            {
-                fullScaleRange = 1;
-            }
-
-            if (MaxValue > MinValue)
-            {
-                PreviewValue = Math.Abs((int)(((_controlValue - MinValue) / (float) fullScaleRange) * ScalingValue * 100.0));
-            }
-            else
-                {
-                    PreviewValue = 100 - Math.Abs((int)(((_controlValue - MaxValue) / (float)fullScaleRange) * ScalingValue * 100.0));
-                }
+            PreviewValue = DeejAppBinding.Current.CalculateVolume(_controlValue, MinValue, MaxValue, ScalingValue);
         }
     }
 }

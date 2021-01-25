@@ -95,8 +95,29 @@ namespace EarTrumpet.DataModel.MIDI
 
             return new MIDIControlWizardWindow { DataContext = viewModel};
         }
+
+        public override int CalculateVolume(int value, int minValue, int maxValue, float scalingValue)
+        {
+            var fullScaleRange = maxValue - minValue;
+
+            // Division by zero is not allowed.
+            // -> Set minimum full scale range in these cases.
+            if (fullScaleRange == 0)
+            {
+                fullScaleRange = 1;
+            }
         
-        
+            if (maxValue > minValue)
+            {
+                value = Math.Min(Math.Max(value, minValue), maxValue);
+                return Math.Abs((int)(((value - minValue) / (float) fullScaleRange) * scalingValue * 100.0));
+            }
+            
+            value = Math.Min(Math.Max(value, maxValue), minValue);
+            return 100 - Math.Abs((int)(((value - maxValue) / (float)fullScaleRange) * scalingValue * 100.0));
+        }
+
+
         private static bool MidiEquals(MidiConfiguration midiConfig, MidiControlChangeMessage msg)
         {
             return midiConfig.Channel == msg.Channel && midiConfig.Controller == msg.Controller;
@@ -105,24 +126,12 @@ namespace EarTrumpet.DataModel.MIDI
         private static int SetVolume(MidiConfiguration midiConfig, MidiControlChangeMessage msg, int oldVolume)
         {
             var newVolume = oldVolume;
-            var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
-
-            // Division by zero is not allowed.
-            // -> Set minimum full scale range in these cases.
-            if(fullScaleRange == 0)
-            {
-                fullScaleRange = 1;
-            }
 
             switch (midiConfig.ControllerType)
             {
-                case ControllerTypes.LinearPotentiometer when midiConfig.MaxValue > midiConfig.MinValue:
-                    newVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) * 
-                                               midiConfig.ScalingValue * 100.0));
-                    break;
                 case ControllerTypes.LinearPotentiometer:
-                    newVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange) 
-                                                     * midiConfig.ScalingValue * 100.0));
+                    newVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MinValue,
+                        midiConfig.ScalingValue);
                     break;
                 case ControllerTypes.Button:
                 {
@@ -165,28 +174,11 @@ namespace EarTrumpet.DataModel.MIDI
         private static bool SetMute(MidiConfiguration midiConfig, MidiControlChangeMessage msg, bool oldMute)
         {
             var newMute = oldMute;
-            var fullScaleRange = (float) midiConfig.MaxValue - midiConfig.MinValue;
-
-            // Division by zero is not allowed.
-            // -> Set minimum full scale range in these cases.
-            if(fullScaleRange == 0)
-            {
-                fullScaleRange = 1;
-            }
-
+            
             if (midiConfig.ControllerType == ControllerTypes.LinearPotentiometer)
             {
-                int calcVolume;
-                if(midiConfig.MaxValue > midiConfig.MinValue)
-                {
-                    calcVolume = Math.Abs((int)(((msg.ControlValue - midiConfig.MinValue) / (float)fullScaleRange) *
-                                                midiConfig.ScalingValue * 100.0));
-                }
-                else
-                {
-                    calcVolume = 100 - Math.Abs((int)(((msg.ControlValue - midiConfig.MaxValue) / (float)fullScaleRange)
-                                                      * midiConfig.ScalingValue * 100.0));
-                }
+                var calcVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MinValue,
+                    midiConfig.ScalingValue);;
 
                 newMute = calcVolume < 50;
                 

@@ -16,9 +16,11 @@ namespace EarTrumpet.DataModel.Hardware
         public abstract CommandControlMappingElement GetCommandAt(int index);
         public abstract void RemoveCommandAt(int index);
         public abstract void ModifyCommandAt(int index, CommandControlMappingElement newCommand);
-
+        
         public abstract Window GetConfigurationWindow(HardwareSettingsViewModel hardwareSettingsViewModel, 
             HardwareConfiguration loadConfig = null);
+
+        public abstract int CalculateVolume(int value, int minValue, int maxValue, float scalingValue);
         
         protected DeviceCollectionViewModel _deviceCollectionViewModel;
         private ISettingsBag _settings;

@@ -87,7 +87,28 @@ namespace EarTrumpet.DataModel.Deej
 
             return new DeejControlWizardWindow { DataContext = viewModel };
         }
+
+        public override int CalculateVolume(int value, int minValue, int maxValue, float scalingValue)
+        { 
+            var fullScaleRange = maxValue - minValue;
+
+            // Division by zero is not allowed.
+            // -> Set minimum full scale range in these cases.
+            if (fullScaleRange == 0)
+            {
+                fullScaleRange = 1;
+            }
         
+            if (maxValue > minValue)
+            {
+                value = Math.Min(Math.Max(value, minValue), maxValue);
+                return Math.Abs((int)(((value - minValue) / (float) fullScaleRange) * scalingValue * 100.0));
+            }
+            
+            value = Math.Min(Math.Max(value, maxValue), minValue);
+            return 100 - Math.Abs((int)(((value - maxValue) / (float)fullScaleRange) * scalingValue * 100.0));
+        }
+
         private void DeejCallback(string port, List<int> channels)
         {
             foreach (var command in _commandControlMappings)
@@ -182,52 +203,12 @@ namespace EarTrumpet.DataModel.Deej
         
         private static int SetVolume(DeejConfiguration config, int value)
         {
-            int newVolume;
-            var fullScaleRange = (float) config.MaxValue - config.MinValue;
-
-            // Division by zero is not allowed.
-            // -> Set minimum full scale range in these cases.
-            if(fullScaleRange == 0)
-            {
-                fullScaleRange = 1;
-            }
-
-            if (config.MaxValue > config.MinValue)
-            {
-                newVolume = Math.Abs((int)(((value - config.MinValue) / (float)fullScaleRange) * 
-                                           config.ScalingValue * 100.0));
-            }
-            else
-            {
-                newVolume = 100 - Math.Abs((int)(((value - config.MaxValue) / (float)fullScaleRange) 
-                                                 * config.ScalingValue * 100.0));
-            }
-
-            return newVolume;
+            return Current.CalculateVolume(value, config.MinValue, config.MaxValue, config.ScalingValue);
         }
         
         private static bool SetMute(DeejConfiguration config, int value)
         {
-            var fullScaleRange = (float) config.MaxValue - config.MinValue;
-
-            // Division by zero is not allowed.
-            // -> Set minimum full scale range in these cases.
-            if(fullScaleRange == 0)
-            {
-                fullScaleRange = 1;
-            }
-
-            int calcVolume;
-            if (config.MaxValue > config.MinValue)
-            {
-                calcVolume = Math.Abs((int)(((value - config.MinValue) / (float)fullScaleRange) * 
-                                            config.ScalingValue * 100.0));
-            }
-            else
-            {
-                calcVolume = 100 - Math.Abs((int)(((value - config.MaxValue) / (float)fullScaleRange) 
-                                                  * config.ScalingValue * 100.0));
-            }
+            var calcVolume = Current.CalculateVolume(value, config.MinValue, config.MaxValue, config.ScalingValue);
 
             return calcVolume < 50;
         }
