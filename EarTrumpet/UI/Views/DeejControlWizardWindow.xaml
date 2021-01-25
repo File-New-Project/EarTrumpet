@@ -7,29 +7,29 @@
         
         xmlns:local="clr-namespace:EarTrumpet.UI.Views"
         mc:Ignorable="d"
-        Title="{x:Static resx:Resources.DeejControlWizardText}" Height="502.001" Width="351">
+        Title="{x:Static resx:Resources.DeejControlWizardText}" Height="502.001" Width="400">
     <Grid Margin="0,0,-8,0">
-        <ComboBox HorizontalAlignment="Left" Height="23" Margin="78,129,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedDeejInControls}" SelectedIndex="{Binding CapturedDeejInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
+        <ComboBox HorizontalAlignment="Left" Height="23" Margin="121,129,0,0" VerticalAlignment="Top" Width="259" RenderTransformOrigin="0.497,0.5" ItemsSource="{Binding CapturedDeejInControls}" SelectedIndex="{Binding CapturedDeejInControlsSelected}" IsSynchronizedWithCurrentItem="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#FFE4E4E4" Style="{DynamicResource {x:Type ItemsControl}}">
         </ComboBox>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,47,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.HardwareWizardInstructions}" />
-        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="162,392,0,0" VerticalAlignment="Top" Width="164" Value="{Binding PreviewValue}" Name="PreviewValueProgressBar"/>
-        <TextBlock Text="{Binding ElementName=PreviewValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,73,0" Width="53" TextAlignment="Center" Height="17" />
-        <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.MinimumText}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
-        <Label Content="{x:Static resx:Resources.MaximumText}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top"/>
-        <Button Content="{x:Static resx:Resources.SaveText}" HorizontalAlignment="Left" Margin="251,437,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
+        <ProgressBar HorizontalAlignment="Left" Height="26" Margin="121,392,0,0" VerticalAlignment="Top" Width="259" Value="{Binding PreviewValue}" Name="PreviewValueProgressBar"/>
+        <TextBlock Text="{Binding ElementName=PreviewValueProgressBar, Path=Value, StringFormat={}{0:0} %}" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,397,0,0" Width="53" TextAlignment="Center" Height="17" />
+        <Label Content="{x:Static resx:Resources.PreviewValueText}" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top" Width="106"/>
+        <Label Content="{x:Static resx:Resources.MinimumText}" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Width="106"/>
+        <Label Content="{x:Static resx:Resources.MaximumText}" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="106"/>
+        <Button Content="{x:Static resx:Resources.SaveText}" HorizontalAlignment="Left" Margin="305,436,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveDeejControlCommand}" Style="{DynamicResource {x:Type ContentControl}}"/>
         <TextBlock TextWrapping="WrapWithOverflow" Margin="10,201,10,0" Height="77" VerticalAlignment="Top" Text="{x:Static resx:Resources.HardwareControlWizardMinMaxLinearPotentiometerControlTypeInstructions}" />
-        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="162,283,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
-        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="162,313,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
-        <Label Content="{x:Static resx:Resources.ScalingText}" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
-        <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="162,344,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="161" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
-        <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="219,370,79,0" Width="53" TextAlignment="Center" Height="17" />
+        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="121,282,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMinValueCommand}"/>
+        <Button Content="{x:Static resx:Resources.SetText}" HorizontalAlignment="Left" Margin="121,313,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource {x:Type ContentControl}}" Command="{Binding SetMaxValueCommand}"/>
+        <Label Content="{x:Static resx:Resources.ScalingText}" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="106" Height="26"/>
+        <Slider Name ="ScalingValueSlider" HorizontalAlignment="Left" Margin="121,344,0,0" VerticalAlignment="Top" Style="{DynamicResource {x:Type Slider}}" RenderTransformOrigin="0.583,0.51" Width="259" Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding ScalingValue}"/>
+        <TextBlock Text="{Binding Value, ElementName=ScalingValueSlider, StringFormat=\{0:F2\}}" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.491,0.515" Margin="225,370,0,0" Width="53" TextAlignment="Center" Height="17" />
         <Label Content="{Binding MinValue}" HorizontalAlignment="Left" Margin="242,280,0,0" VerticalAlignment="Top" Height="25" Width="51"/>
         <Label Content="{Binding MaxValue}" HorizontalAlignment="Left" Margin="242,310,0,0" VerticalAlignment="Top" Height="26" Width="51"/>
-        <Label Content="{x:Static resx:Resources.ControlText}" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="63"/>
-        <Label Content="{x:Static resx:Resources.DeviceText}" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" />
-        <ComboBox x:Name="ComboBoxAvailableDevices" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding DeejDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeej}"/>
-        <Label Content="9600 Baud, 8N1" HorizontalAlignment="Left" Margin="232,6,0,0" VerticalAlignment="Top" />
+        <Label Content="{x:Static resx:Resources.ControlText}" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="106"/>
+        <Label Content="{x:Static resx:Resources.DeviceText}" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="63" />
+        <ComboBox x:Name="ComboBoxAvailableDevices" HorizontalAlignment="Left" Margin="121,10,0,0" VerticalAlignment="Top" Width="160" ItemsSource="{Binding DeejDevices}" Style="{DynamicResource {x:Type ItemsControl}}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" SelectedItem="{Binding SelectedDeej}"/>
+        <Label Content="9600 Baud, 8N1" HorizontalAlignment="Left" Margin="286,6,0,0" VerticalAlignment="Top" />
 
     </Grid>
 </Window>
