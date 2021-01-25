@@ -392,6 +392,7 @@ namespace EarTrumpet.UI.ViewModels
             }
 
             SelectedDeviceType = HardwareManager.Current.GetConfigType(data);
+            SelectedControl = data.hardwareConfiguration.ToString();
             _hardwareConfiguration = data.hardwareConfiguration;
         }
     }
