@@ -267,8 +267,8 @@ namespace EarTrumpet.UI.ViewModels
             if (_hardwareConfiguration == null ||
                 string.IsNullOrEmpty(SelectedDevice) ||
                 string.IsNullOrEmpty(SelectedCommand) ||
-                string.IsNullOrEmpty(SelectedMode) ||
-                string.IsNullOrEmpty(SelectedIndexesApplications) ||
+                (ModeSelectionEnabled && string.IsNullOrEmpty(SelectedMode)) ||
+                (IndexesApplicationsSelectionEnabled && string.IsNullOrEmpty(SelectedIndexesApplications)) ||
                 string.IsNullOrEmpty(SelectedDeviceType))
             {
                 // Do nothing if the settings were not done yet.
