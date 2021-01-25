@@ -245,9 +245,6 @@
                     ItemsSource="{Binding HardwareControls}"
                     SelectedIndex="{Binding SelectedIndex}">
                     <ie:Interaction.Triggers>
-                        <ie:EventTrigger EventName="SelectionChanged">
-                            <ie:InvokeCommandAction CommandParameter="{Binding ElementName=myListBox, Path=SelectedItem}"/>
-                        </ie:EventTrigger>
                         <ie:EventTrigger EventName="MouseDoubleClick" >
                             <ie:InvokeCommandAction Command="{Binding EditSelectedControlCommand}" />
                         </ie:EventTrigger>
