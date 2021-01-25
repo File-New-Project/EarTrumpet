@@ -254,7 +254,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Properties.Resources.UnknownDeviceTypeSelectedMessageText, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -263,7 +263,7 @@ namespace EarTrumpet.UI.ViewModels
             if (_hardwareConfiguration == null)
             {
                 // Do nothing if the settings were not done yet.
-                System.Windows.Forms.MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Properties.Resources.IncompleteDeviceConfigurationMessage, "EarTrumpet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
