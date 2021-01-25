@@ -181,6 +181,7 @@ namespace EarTrumpet.UI.ViewModels
                 commands.Add(Properties.Resources.ApplicationVolumeText);
                 commands.Add(Properties.Resources.ApplicationMuteText);
                 commands.Add(Properties.Resources.SetAsDefaultDevice);
+                commands.Add(Properties.Resources.CycleDefaultDevices);
 
                 return commands;
             }
@@ -299,7 +300,11 @@ namespace EarTrumpet.UI.ViewModels
             {
                 command = CommandControlMappingElement.Command.SetDefaultDevice;
             }
-
+            else if (SelectedCommand == Properties.Resources.CycleDefaultDevices)
+            {
+                command = CommandControlMappingElement.Command.CycleDefaultDevice;
+            }
+            
             if (SelectedMode == Properties.Resources.IndexedText)
             {
                 mode = CommandControlMappingElement.Mode.Indexed;
@@ -404,6 +409,9 @@ namespace EarTrumpet.UI.ViewModels
                     break;
                 case CommandControlMappingElement.Command.SetDefaultDevice:
                     SelectedCommand = Properties.Resources.SetAsDefaultDevice;
+                    break;
+                case CommandControlMappingElement.Command.CycleDefaultDevice:
+                    SelectedCommand = Properties.Resources.CycleDefaultDevices;
                     break;
             }
 

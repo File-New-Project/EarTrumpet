@@ -324,6 +324,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cycle Default Device.
+        /// </summary>
+        public static string CycleDefaultDevices {
+            get {
+                return ResourceManager.GetString("CycleDefaultDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decrease.
         /// </summary>
         public static string DecreaseText {

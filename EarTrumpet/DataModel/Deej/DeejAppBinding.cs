@@ -15,12 +15,13 @@ namespace EarTrumpet.DataModel.Deej
         
         public static DeejAppBinding Current;
         private const string SAVEKEY = "DeejControls";
-
+        private Dictionary<CommandControlMappingElement, int> lastValues;
         public DeejAppBinding(DeviceCollectionViewModel deviceViewModel, IAudioDeviceManager audioDeviceManager) : 
             base(deviceViewModel, audioDeviceManager)
         {
             Current = this;
-
+            lastValues = new Dictionary<CommandControlMappingElement, int>();
+            
             DeejIn.AddGeneralCallback(DeejCallback);
             
             LoadSettings(SAVEKEY);
@@ -137,6 +138,9 @@ namespace EarTrumpet.DataModel.Deej
                         case CommandControlMappingElement.Command.SetDefaultDevice:
                             DefaultDevice(command, value);
                             break;
+                        case CommandControlMappingElement.Command.CycleDefaultDevice:
+                            CycleDefaultDevice(command, value);
+                            break;
                     }
                 }
             }
@@ -217,15 +221,46 @@ namespace EarTrumpet.DataModel.Deej
                 {
                     if (device.DisplayName == command.audioDevice)
                     {
-                        if (_audioDeviceManager.Default != device)
-                        {
-                            _audioDeviceManager.Default = device;
-                        }
+                        _audioDeviceManager.Default = device;
                        
                         return;
                     }
                 }
             }
+        }
+        
+        private void CycleDefaultDevice(CommandControlMappingElement command, int value)
+        {
+            var config = (DeejConfiguration) command.hardwareConfiguration;
+            var calcVolume = CalculateVolume(value, config.MinValue, config.MaxValue, config.ScalingValue);
+
+            if (calcVolume >= 50 && lastValues[command] < 50)
+            {
+                lastValues[command] = calcVolume;
+                
+                var index = -1;
+                for (var i = 0; i < _audioDeviceManager.Devices.Count; i++)
+                {
+                    if (_audioDeviceManager.Devices[i] == _audioDeviceManager.Default)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                if (index != -1)
+                {
+                    index = (index + 1 + _audioDeviceManager.Devices.Count) % _audioDeviceManager.Devices.Count;
+                }
+                else
+                {
+                    index = 0;
+                }
+
+                _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
+            }
+            
+            lastValues[command] = calcVolume;
         }
         
         private static int SetVolume(DeejConfiguration config, int value)

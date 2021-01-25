@@ -271,9 +271,8 @@ namespace EarTrumpet.DataModel.MIDI
 
         private void DefaultDevice(CommandControlMappingElement command, MidiControlChangeMessage msg)
         {
-            var midiConfig = (MidiConfiguration) command.hardwareConfiguration;
-            var calcVolume = Current.CalculateVolume(msg.ControlValue, midiConfig.MinValue, midiConfig.MaxValue,
-                midiConfig.ScalingValue);
+            var config = (MidiConfiguration) command.hardwareConfiguration;
+            var calcVolume = Current.CalculateVolume(msg.ControlValue, config.MinValue, config.MaxValue, config.ScalingValue);
 
             if (calcVolume > 50)
             {
@@ -282,9 +281,65 @@ namespace EarTrumpet.DataModel.MIDI
                     if (device.DisplayName == command.audioDevice)
                     {
                         _audioDeviceManager.Default = device;
+
                         return;
                     }
                 }
+            }
+        }
+
+        private void CycleDefaultDevice(CommandControlMappingElement command, MidiControlChangeMessage msg)
+        {
+            var config = (MidiConfiguration) command.hardwareConfiguration;
+            var calcVolume = CalculateVolume(msg.ControlValue, config.MinValue, config.MaxValue, config.ScalingValue);
+
+            var cycle = false;
+            var direction = 1;
+            
+            switch (config.ControllerType)
+            {
+                case ControllerTypes.Button:
+                case ControllerTypes.LinearPotentiometer:
+                    if (calcVolume > 50)
+                    {
+                        cycle = true;
+                        direction = 1;
+                    }
+                    break;
+                
+                case ControllerTypes.RotaryEncoder when msg.ControlValue == config.MinValue:
+                    cycle = true;
+                    direction = -1;
+                    break;
+                case ControllerTypes.RotaryEncoder:
+                    cycle = true;
+                    direction = 1;
+                    break;
+            }
+
+            if (cycle)
+            {
+                var index = -1;
+                for (var i = 0; i < _audioDeviceManager.Devices.Count; i++)
+                {
+                    if (_audioDeviceManager.Devices[i] == _audioDeviceManager.Default)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                if (index != -1)
+                {
+                    index = index + direction;
+                    index = (index + _audioDeviceManager.Devices.Count) % _audioDeviceManager.Devices.Count;
+                }
+                else
+                {
+                    index = 0;
+                }
+                
+                _audioDeviceManager.Default = _audioDeviceManager.Devices[index];
             }
         }
         
@@ -336,6 +391,9 @@ namespace EarTrumpet.DataModel.MIDI
                                 break;
                             case CommandControlMappingElement.Command.SetDefaultDevice:
                                 DefaultDevice(command, msg);
+                                break;
+                            case CommandControlMappingElement.Command.CycleDefaultDevice:
+                                CycleDefaultDevice(command, msg);
                                 break;
                         }
                     }

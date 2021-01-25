@@ -9,6 +9,7 @@
             ApplicationVolume,
             ApplicationMute,
             SetDefaultDevice,
+            CycleDefaultDevice,
             None
         };
 

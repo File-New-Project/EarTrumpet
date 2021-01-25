@@ -440,4 +440,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="SetAsDefaultDevice" xml:space="preserve">
     <value>Set Default Device</value>
   </data>
+  <data name="CycleDefaultDevices" xml:space="preserve">
+    <value>Cycle Default Device</value>
+  </data>
 </root>
