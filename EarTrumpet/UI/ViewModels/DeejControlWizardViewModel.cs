@@ -78,6 +78,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _scalingValue = value;
                 RaisePropertyChanged("ScalingValue");
+                UpdatePreviewValue();
             }
         }
         public int MinValue
