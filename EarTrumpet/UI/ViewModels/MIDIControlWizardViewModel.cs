@@ -341,6 +341,12 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     // The channel and controller pair was not part of the list, so add it.
                     _capturedMidiInControls.Add("Channel=" + msg.Channel + ", Controller=" + msg.Controller + ", Value=" + msg.ControlValue);
+                    // Select the first item when the first control is added
+                    if (_capturedMidiInControls.Count == 1)
+                    {
+                        CapturedMidiInControlsSelected = 0;
+                        RaisePropertyChanged("CapturedMidiInControlsSelected");
+                    }
                 }
             });
         }
