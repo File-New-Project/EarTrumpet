@@ -33,7 +33,7 @@ namespace EarTrumpet.Actions
             {
                 DisplayName = Properties.Resources.MyActionsText,
                 PublisherName = "File-New-Project",
-                Id = "EarTrumpet.project-eta",
+                Id = Namespace,
                 HelpLink = "https://github.com/File-New-Project/EarTrumpet",
                 AddonVersion = new System.Version(1, 0, 0, 0),
             };
