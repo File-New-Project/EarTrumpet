@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Feature Request
+    url: https://github.com/File-New-Project/EarTrumpet/discussions/new?category=ideas
+    about: Share an idea or suggest a change to EarTrumpet or related add-on
+  - name: Ask a question
+    url: https://github.com/File-New-Project/EarTrumpet/discussions/new?category=Q-A
+    about: Ask a question about EarTrumpet or anything related
