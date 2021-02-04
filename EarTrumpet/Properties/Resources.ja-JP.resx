@@ -124,19 +124,19 @@
     <value>再生デバイスが見つかりません</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>フィードバックを送る</value>
+    <value>意見を送信</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet ボリューム ミキサー</value>
+    <value>EarTrumpet 音量ミキサー</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>レガシー ボリューム ミキサー</value>
+    <value>音量ミキサー</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>再生デバイスが見つかりません。</value>
+    <value>再生デバイスが接続されてないようです。</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: 再生デバイス無し</value>
+    <value>EarTrumpet: 再生デバイスなし</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>再生デバイス</value>
@@ -145,25 +145,25 @@
     <value>録音デバイス</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet 設定 / 詳細</value>
+    <value>EarTrumpet 設定</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>サウンド</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>トラブルシューティング データの収集</value>
+    <value>問題報告用のデータを生成</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
     <value>ショートカット</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>常に既定の再生デバイスを使用する</value>
+    <value>常に既定の再生デバイスを使用</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>詳細</value>
+    <value>このソフトの情報</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>もっと詳しく</value>
+    <value>詳細はこちら</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{Volume} 音量（％） - {Name}</value>
@@ -184,19 +184,19 @@
     <value>既定のショートカット</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>全ての再生デバイスを表示</value>
+    <value>すべての再生デバイスを表示</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>一般</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>このアプリを再生デバイスに登録する</value>
+    <value>このアプリを再生デバイスに登録</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>EarTrumpet フライアウトを開く</value>
+    <value>タスクバーのポップアップを開く</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>以前のEarTrumpet アイコンを使用する</value>
+    <value>以前の EarTrumpet アイコンを使用</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>他のコマンド</value>
@@ -208,7 +208,7 @@
     <value>サウンド設定</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows レガシー</value>
+    <value>Windows の機能</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>アドオン {Name} について</value>
@@ -217,10 +217,10 @@
     <value>名前:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Windowsの設定を開く</value>
+    <value>Windows の設定を開く</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>このアドオンはWindowsの「設定」からアンインストールできます。</value>
+    <value>このアドオンは Windows の「設定」からアンインストールできます。</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>アンインストール</value>
@@ -229,16 +229,16 @@
     <value>管理</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>レガシー設定</value>
+    <value>以前の設定</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>提供元:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>ショートカットの設定とヘルプ</value>
+    <value>ショートカットの設定やヘルプ</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>EarTrumpet 設定</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
     <value>ショートカット</value>
@@ -250,16 +250,16 @@
     <value>設定を検索</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>結果無し</value>
+    <value>結果はありません</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>ミキサーを開く</value>
+    <value>音量ミキサーを開く</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>オフ</value>
+    <value>無効</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>オン</value>
+    <value>有効</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>ホーム</value>
