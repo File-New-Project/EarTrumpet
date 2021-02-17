@@ -126,6 +126,8 @@ namespace EarTrumpet.UI.Helpers
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Muted), dpi);
                 case IconKind.NoDevice:
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.NoDevice), dpi);
+                case IconKind.SpeakerZeroBars:
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerZeroBars), dpi);
                 case IconKind.SpeakerOneBar:
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerOneBar), dpi);
                 case IconKind.SpeakerTwoBars:
@@ -165,6 +167,8 @@ namespace EarTrumpet.UI.Helpers
                 {
                     case DeviceViewModel.DeviceIconKind.Mute:
                         return IconKind.Muted;
+                    case DeviceViewModel.DeviceIconKind.Bar0:
+                        return IconKind.SpeakerZeroBars;
                     case DeviceViewModel.DeviceIconKind.Bar1:
                         return IconKind.SpeakerOneBar;
                     case DeviceViewModel.DeviceIconKind.Bar2:
