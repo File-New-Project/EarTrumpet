@@ -86,7 +86,7 @@ namespace EarTrumpet.Interop
         }
 
         [Flags]
-        internal enum AccentFlags
+        public enum AccentFlags
         {
             None = 0x0,
             // ...
