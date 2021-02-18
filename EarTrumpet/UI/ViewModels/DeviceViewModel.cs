@@ -13,6 +13,7 @@ namespace EarTrumpet.UI.ViewModels
         public enum DeviceIconKind
         {
             Mute,
+            Bar0,
             Bar1,
             Bar2,
             Bar3,
@@ -128,9 +129,13 @@ namespace EarTrumpet.UI.ViewModels
                 {
                     IconKind = DeviceIconKind.Bar2;
                 }
-                else
+                else if (_device.Volume > 0.00f)
                 {
                     IconKind = DeviceIconKind.Bar1;
+                }
+                else
+                {
+                    IconKind = DeviceIconKind.Bar0;
                 }
             }
         }
