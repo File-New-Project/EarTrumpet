@@ -95,6 +95,9 @@
                                                     <DataTrigger Binding="{Binding Device.IconKind}" Value="Microphone">
                                                         <Setter Property="Text" Value="&#xE720;" />
                                                     </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Device.IconKind}" Value="Bar0">
+                                                        <Setter Property="Text" Value="&#xE992;" />
+                                                    </DataTrigger>
                                                     <DataTrigger Binding="{Binding Device.IconKind}" Value="Bar1">
                                                         <Setter Property="Text" Value="&#xE993;" />
                                                     </DataTrigger>
