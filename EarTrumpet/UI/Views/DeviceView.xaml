@@ -128,6 +128,15 @@
         </ListViewItem>
 
         <Border Grid.Row="1" Theme:Brush.Background=":=Background, Flyout:FlyoutBackground">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsAppListVisible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <ListView Name="AppList"
                       Margin="{StaticResource VolumeAppListMargin}"
                       AutomationProperties.Name="{x:Static resx:Resources.AppsListAccessibleText}"
