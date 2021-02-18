@@ -2,7 +2,7 @@
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.Actions.ViewModel;
 using System.ComponentModel.Composition;
-using EarTrumpet.Shared;
+using EarTrumpet.Extensibility.Shared;
 
 namespace EarTrumpet.Actions
 {
