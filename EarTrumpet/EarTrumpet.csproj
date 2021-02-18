@@ -114,6 +114,7 @@
     <Compile Include="Diagnosis\SnapshotData.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
+    <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />

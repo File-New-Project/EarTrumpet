@@ -23,10 +23,12 @@ namespace EarTrumpet
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
+        public FlyoutWindow FlyoutWindow { get; private set; }
+        public DeviceCollectionViewModel CollectionViewModel { get; private set; }
+
         private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
         private FlyoutViewModel _flyoutViewModel;
-        private FlyoutWindow _flyoutWindow;
-        private DeviceCollectionViewModel _collectionViewModel;
+
         private ShellNotifyIcon _trayIcon;
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
@@ -67,17 +69,17 @@ namespace EarTrumpet
 
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
-            _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
+            CollectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
 
-            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
+            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
+            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
-            _flyoutViewModel = new FlyoutViewModel(_collectionViewModel, () => _trayIcon.SetFocus());
-            _flyoutWindow = new FlyoutWindow(_flyoutViewModel);
+            _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus());
+            FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
-            _flyoutWindow.Initialize();
+            FlyoutWindow.Initialize();
         }
 
         private void CompleteStartup()
@@ -98,9 +100,9 @@ namespace EarTrumpet
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
-            _trayIcon.TertiaryInvoke += (_, __) => _collectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => _collectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
-            _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
+            _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
@@ -154,10 +156,10 @@ namespace EarTrumpet
 
         private IEnumerable<ContextMenuItem> GetTrayContextMenuItems()
         {
-            var ret = new List<ContextMenuItem>(_collectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+            var ret = new List<ContextMenuItem>(CollectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
             {
                 DisplayName = dev.DisplayName,
-                IsChecked = dev.Id == _collectionViewModel.Default?.Id,
+                IsChecked = dev.Id == CollectionViewModel.Default?.Id,
                 Command = new RelayCommand(() => dev.MakeDefaultDevice()),
             }));
 
@@ -230,6 +232,6 @@ namespace EarTrumpet
             return new SettingsWindow { DataContext = viewModel };
         }
 
-        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(_collectionViewModel) };
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
     }
 }
