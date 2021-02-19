@@ -1,6 +1,6 @@
 # EarTrumpet
 
-[![GitHub issues](https://img.shields.io/github/issues/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/issues) [![GitHub forks](https://img.shields.io/github/forks/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/network) [![GitHub stars](https://img.shields.io/github/stars/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/stargazers) [![GitHub license](https://img.shields.io/github/license/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE) [![Nuget package](https://img.shields.io/chocolatey/v/eartrumpet?style=flat-square)](https://chocolatey.org/packages/eartrumpet) ![Maintenance status](https://img.shields.io/maintenance/yes/2020?style=flat-square)
+[![GitHub issues](https://img.shields.io/github/issues/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/issues) [![GitHub forks](https://img.shields.io/github/forks/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/network) [![GitHub stars](https://img.shields.io/github/stars/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/stargazers) [![GitHub license](https://img.shields.io/github/license/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE) [![Nuget package](https://img.shields.io/chocolatey/v/eartrumpet?style=flat-square)](https://chocolatey.org/packages/eartrumpet) ![Maintenance status](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 ![EarTrumpet Screenshot](./Graphics/hero.gif)
 
@@ -23,6 +23,10 @@ We currently support 20 languages. Are we missing your language? [Contribute a t
 ## Install
 
 Install EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p/eartrumpet/9nblggh516xp) or via Chocolatey (`choco install eartrumpet`).
+
+## Experimental dev builds
+
+Want to see what we were working on? Or help us test new features? [Install EarTrumpet from the dev channel.](https://install.eartrumpet.app/dev/EarTrumpet.Package.appinstaller) New builds are released automatically every time we commit to the `dev` branch, keeping you up to date on our progress.
 
 ## Documentation
 * [Technical Information](./EarTrumpet/README.md)
