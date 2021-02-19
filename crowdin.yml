@@ -1,3 +1,5 @@
+commit_message: "l10n: New %language% (%locale%) translations"
+append_commit_message: false
 files:
   - source: EarTrumpet/Properties/Resources.resx
     translation: /EarTrumpet/Properties/Resources.%locale%.resx
