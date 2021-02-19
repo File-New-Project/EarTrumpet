@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProductDescription xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Release="" language="en-us" xml:lang="en-us">
+  <AppStoreName _locID="App_AppStoreName">
+  </AppStoreName>
+  <Keywords>
+    <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
+    <Keyword _locID="App_keyword2">聲音</Keyword>
+    <Keyword _locID="App_keyword3">Mixer</Keyword>
+    <Keyword _locID="App_keyword4">音量</Keyword>
+    <Keyword _locID="App_keyword5">音頻</Keyword>
+    <Keyword _locID="App_keyword6">控制</Keyword>
+    <Keyword _locID="App_keyword7">設備</Keyword>
+  </Keywords>
+  <Description _locID="App_Description">EarTrumpet 是一款功能強大的 Windows 音量控制軟件</Description>
+  <ShortDescription _locID="App_ShortDescription">
+  </ShortDescription>
+  <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
+  <SortTitle _locID="App_SortTitle"/>
+  <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
+  <DevStudio _locID="App_DevStudio"/>
+  <ReleaseNotes _locID="App_ReleaseNotes">完整更新日誌：https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
+  <ScreenshotCaptions>
+    <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
+  </ScreenshotCaptions>
+  <AdditionalAssets/>
+  <Trailers/>
+  <AppFeatures>
+    <AppFeature _locID="App_feature1">控制經典和現代應用程序的音量</AppFeature>
+    <AppFeature _locID="App_feature2">只需兩次點擊控制默認音頻設備</AppFeature>
+    <AppFeature _locID="App_feature3">與 Windows 的外觀風格相適應</AppFeature>
+    <AppFeature _locID="App_feature4">支持切換應用的播放設備</AppFeature>
+    <AppFeature _locID="App_feature5">與反饋中心集成</AppFeature>
+  </AppFeatures>
+  <RecommendedHardware/>
+  <MinimumHardware/>
+  <CopyrightAndTrademark _locID="App_CopyrightandTrademark">File-New-Project</CopyrightAndTrademark>
+  <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
+  <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
+  <SupportContactInfo _locID="App_SupportContactInfo"/>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
+</ProductDescription>
