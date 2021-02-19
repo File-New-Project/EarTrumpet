@@ -28,7 +28,7 @@
     <AppFeature _locID="App_feature1">控制经典和现代应用程序的音量</AppFeature>
     <AppFeature _locID="App_feature2">两次点击控制默认音频设备</AppFeature>
     <AppFeature _locID="App_feature3">与 Windows 的外观风格相适应</AppFeature>
-    <AppFeature _locID="App_feature4">支持在播放设备之间移动应用</AppFeature>
+    <AppFeature _locID="App_feature4">支持切换应用程序的音频播放设备</AppFeature>
     <AppFeature _locID="App_feature5">与反馈中心集成</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
