@@ -5,7 +5,7 @@
   <Keywords>
     <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
     <Keyword _locID="App_keyword2">聲音</Keyword>
-    <Keyword _locID="App_keyword3">Mixer</Keyword>
+    <Keyword _locID="App_keyword3">合成器</Keyword>
     <Keyword _locID="App_keyword4">音量</Keyword>
     <Keyword _locID="App_keyword5">音頻</Keyword>
     <Keyword _locID="App_keyword6">控制</Keyword>
@@ -26,7 +26,7 @@
   <Trailers/>
   <AppFeatures>
     <AppFeature _locID="App_feature1">控制經典和現代應用程序的音量</AppFeature>
-    <AppFeature _locID="App_feature2">只需兩次點擊控制默認音頻設備</AppFeature>
+    <AppFeature _locID="App_feature2">只需兩次點擊修改默認音頻設備</AppFeature>
     <AppFeature _locID="App_feature3">與 Windows 的外觀風格相適應</AppFeature>
     <AppFeature _locID="App_feature4">支持切換應用的播放設備</AppFeature>
     <AppFeature _locID="App_feature5">與反饋中心集成</AppFeature>
