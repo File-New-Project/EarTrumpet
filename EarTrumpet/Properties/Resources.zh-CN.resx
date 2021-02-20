@@ -253,7 +253,7 @@
     <value>没有结果</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>打开混合器</value>
+    <value>打开音量合成器</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>关</value>
