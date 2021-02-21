@@ -27,12 +27,12 @@ namespace EarTrumpet.Actions.DataModel.Processing
             _audioManager.Clear();
         }
 
-        public void OnEvent(ApplicationLifecycleEvent evt)
+        public void OnEvent(AddonEventKind evt)
         {
             foreach (var trigger in _eventTriggers)
             {
-                if ((trigger.Option == EarTrumpetEventKind.Startup && evt == ApplicationLifecycleEvent.Startup) ||
-                    (trigger.Option == EarTrumpetEventKind.Shutdown && evt == ApplicationLifecycleEvent.Shutdown))
+                if ((trigger.Option == EarTrumpetEventKind.Startup && evt == AddonEventKind.InitializeAddon) ||
+                    (trigger.Option == EarTrumpetEventKind.Shutdown && evt == AddonEventKind.AppShuttingDown))
                 {
                     Triggered?.Invoke(trigger);
                 }

@@ -1,71 +1,97 @@
-﻿using EarTrumpet.DataModel.Storage;
-using EarTrumpet.Extensibility;
-using EarTrumpet.Actions.DataModel;
+﻿using EarTrumpet.Actions.DataModel;
 using EarTrumpet.Actions.DataModel.Processing;
 using EarTrumpet.Actions.DataModel.Serialization;
+using EarTrumpet.Actions.ViewModel;
+using EarTrumpet.DataModel.Storage;
+using EarTrumpet.Extensibility;
+using EarTrumpet.UI.Helpers;
+using EarTrumpet.UI.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 
 namespace EarTrumpet.Actions
 {
-    [Export(typeof(IAddonLifecycle))]
-    public class Addon : IAddonLifecycle
+    [Export(typeof(EarTrumpetAddon))]
+    public class Addon : EarTrumpetAddon, IEarTrumpetAddonEvents, IEarTrumpetAddonSettingsPage, IEarTrumpetAddonNotificationAreaContextMenu
     {
         public static Addon Current { get; private set; }
-        public static string Namespace => "EarTrumpet.Actions";
         public LocalVariablesContainer LocalVariables { get; private set; }
+
+        public Addon() : base()
+        {
+            DisplayName = Properties.Resources.MyActionsText;
+        }
 
         public EarTrumpetAction[] Actions
         {
             get => _actions;
             set
             {
-                _settings.Set(c_actionsSettingKey, value);
+                Settings.Set(c_actionsSettingKey, value);
                 LoadAndRegister();
             }
-        }
-
-        public AddonInfo Info
-        {
-            get => new AddonInfo
-            {
-                DisplayName = Properties.Resources.MyActionsText,
-                PublisherName = "File-New-Project",
-                Id = Namespace,
-                HelpLink = "https://github.com/File-New-Project/EarTrumpet",
-                AddonVersion = new System.Version(1, 0, 0, 0),
-            };
         }
 
         private readonly string c_actionsSettingKey = "ActionsData";
         private EarTrumpetAction[] _actions = new EarTrumpetAction[] { };
-        private ISettingsBag _settings = StorageFactory.GetSettings(Namespace);
         private TriggerManager _triggerManager = new TriggerManager();
 
-        public void OnApplicationLifecycleEvent(ApplicationLifecycleEvent evt)
+        public void OnAddonEvent(AddonEventKind evt)
         {
-            if (evt == ApplicationLifecycleEvent.Startup2)
+            if (evt == AddonEventKind.AddonsInitialized)
             {
                 Current = this;
-                LocalVariables = new LocalVariablesContainer(_settings);
+                LocalVariables = new LocalVariablesContainer(Settings);
 
                 _triggerManager.Triggered += OnTriggered;
                 LoadAndRegister();
 
-                _triggerManager.OnEvent(ApplicationLifecycleEvent.Startup);
+                _triggerManager.OnEvent(AddonEventKind.InitializeAddon);
             }
-            else if (evt == ApplicationLifecycleEvent.Shutdown)
+            else if (evt == AddonEventKind.AppShuttingDown)
             {
-                _triggerManager.OnEvent(ApplicationLifecycleEvent.Shutdown);
+                _triggerManager.OnEvent(AddonEventKind.AppShuttingDown);
+            }
+        }
+
+        public SettingsCategoryViewModel GetSettingsCategory()
+        {
+            LoadAddonResources();
+            return new ActionsCategoryViewModel();
+        }
+
+        public IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems
+        {
+            get
+            {
+                var ret = new List<ContextMenuItem>();
+
+                if (Addon.Current == null)
+                {
+                    return ret;
+                }
+
+                foreach (var item in Addon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
+                {
+                    ret.Add(new ContextMenuItem
+                    {
+                        Glyph = "\xE1CE",
+                        IsChecked = true,
+                        DisplayName = item.DisplayName,
+                        Command = new RelayCommand(() => Addon.Current.TriggerAction(item))
+                    });
+                }
+                return ret;
             }
         }
 
         private void LoadAndRegister()
         {
             _triggerManager.Clear();
-            _actions = _settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
+            _actions = Settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
             _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 
@@ -82,7 +108,7 @@ namespace EarTrumpet.Actions
 
         public string Export()
         {
-            return _settings.Get(c_actionsSettingKey, "");
+            return Settings.Get(c_actionsSettingKey, "");
         }
 
         private void OnTriggered(BaseTrigger trigger)

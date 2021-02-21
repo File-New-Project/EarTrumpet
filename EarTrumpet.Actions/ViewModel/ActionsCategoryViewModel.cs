@@ -5,14 +5,13 @@ using EarTrumpet.Actions.DataModel.Serialization;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using EarTrumpet.Extensibility;
 
 namespace EarTrumpet.Actions.ViewModel
 {
     public class ActionsCategoryViewModel : SettingsCategoryViewModel
     {
-        public ActionsCategoryViewModel(AddonInfo addonInfo)
-            : base(Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, Addon.Current.Info.Id, new ObservableCollection<SettingsPageViewModel>())
+        public ActionsCategoryViewModel()
+            : base(Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, Addon.Current.Manifest.Id, new ObservableCollection<SettingsPageViewModel>())
         {
             // Get a 'fresh' copy so that we can edit the objects and still go back later.
             var actions = Addon.Current.Actions;
@@ -20,7 +19,6 @@ namespace EarTrumpet.Actions.ViewModel
 
             Pages.AddRange(actions.Select(a => new EarTrumpetActionViewModel(this, a)));
             Pages.Add(new ImportExportPageViewModel(this));
-            Pages.Add(new AddonAboutPageViewModel(addonInfo));
 
             Toolbar = new ToolbarItemViewModel[] { new ToolbarItemViewModel{
                 Command = new RelayCommand(() =>
