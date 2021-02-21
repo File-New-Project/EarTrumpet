@@ -19,7 +19,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\EarTrumpet\Build\Debug\addons\</OutputPath>
+    <OutputPath>..\..\EarTrumpet\Build\Debug\Addons\EarTrumpet.Actions\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -27,7 +27,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\EarTrumpet\Build\Release\addons\</OutputPath>
+    <OutputPath>..\..\EarTrumpet\Build\Release\Addons\EarTrumpet.Actions\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -161,12 +161,10 @@
     <ProjectReference Include="..\..\EarTrumpet\EarTrumpet\EarTrumpet.csproj">
       <Project>{ba3c7b42-84b0-468c-8640-217e2a24cf81}</Project>
       <Name>EarTrumpet</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\EarTrumpet.Shared\EarTrumpet.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)\..\AddonPackage\make.cmd $(TargetName) $(OutDir) $(ConfigurationName)</PostBuildEvent>
-  </PropertyGroup>
 </Project>
