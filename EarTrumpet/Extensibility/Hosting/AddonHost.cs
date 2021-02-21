@@ -5,19 +5,14 @@ namespace EarTrumpet.Extensibility.Hosting
 {
     public class AddonHost
     {
-        [ImportMany(typeof(IAddonLifecycle))]
-        public List<IAddonLifecycle> AppLifecycleItems { get; set; }
+        [ImportMany(typeof(EarTrumpetAddon))]
+        public List<EarTrumpetAddon> Addons { get; set; }
 
-        [ImportMany(typeof(IAddonContextMenu))]
-        public List<IAddonContextMenu> TrayContextMenuItems { get; set; }
-
-        [ImportMany(typeof(IAddonAppContent))]
-        public List<IAddonAppContent> AppContentItems { get; set; }
-
-        [ImportMany(typeof(IAddonDeviceContent))]
-        public List<IAddonDeviceContent> DeviceContentItems { get; set; }
-
-        [ImportMany(typeof(IAddonSettingsPage))]
-        public List<IAddonSettingsPage> SettingsItems { get; set; }
+        // Optional cast to any of the below:
+        public List<IEarTrumpetAddonEvents> Events { get; set; }
+        public List<IEarTrumpetAddonNotificationAreaContextMenu> TrayContextMenuItems { get; set; }
+        public List<IEarTrumpetAddonAppContent> AppContentItems { get; set; }
+        public List<IEarTrumpetAddonDeviceContent> DeviceContentItems { get; set; }
+        public List<IEarTrumpetAddonSettingsPage> SettingsItems { get; set; }
     }
 }

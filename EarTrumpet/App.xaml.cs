@@ -1,5 +1,6 @@
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Diagnosis;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
@@ -190,7 +191,7 @@ namespace EarTrumpet
                     new ContextMenuSeparator(),
                 });
 
-            var addonItems = AddonManager.Host.TrayContextMenuItems?.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.Items);
+            var addonItems = AddonManager.Host.TrayContextMenuItems?.OrderBy(x => x.NotificationAreaContextMenuItems.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.NotificationAreaContextMenuItems);
             if (addonItems != null && addonItems.Any())
             {
                 ret.AddRange(addonItems);
@@ -225,11 +226,19 @@ namespace EarTrumpet
 
             if (AddonManager.Host.SettingsItems != null)
             {
-                allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => a.Get(AddonManager.FindAddonInfoForObject(a))));
+                allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => CreateAddonSettingsPage(a)));
             }
 
             var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
             return new SettingsWindow { DataContext = viewModel };
+        }
+
+        private SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
+        {
+            var addon = (EarTrumpetAddon)addonSettingsPage;
+            var category = addonSettingsPage.GetSettingsCategory();
+            category.Pages.Add(new AddonAboutPageViewModel(addon));
+            return category;
         }
 
         private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };

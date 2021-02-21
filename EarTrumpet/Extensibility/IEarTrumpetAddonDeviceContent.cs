@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace EarTrumpet.Extensibility
 {
-    public interface IAddonDeviceContent
+    public interface IEarTrumpetAddonDeviceContent
     {
         object GetContentForDevice(string deviceId, Action requestClose);
-        IEnumerable<ContextMenuItem> GetItemsForDevice(string deviceId);
+        IEnumerable<ContextMenuItem> GetContextMenuItemsForDevice(string deviceId);
     }
 }

@@ -112,6 +112,8 @@
     <Compile Include="DebugHelpers.cs" />
     <Compile Include="Diagnosis\ErrorReporter.cs" />
     <Compile Include="Diagnosis\SnapshotData.cs" />
+    <Compile Include="Extensibility\EarTrumpetAddon.cs" />
+    <Compile Include="Extensibility\EarTrumpetAddonManifest.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
     <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
@@ -157,13 +159,12 @@
     <Compile Include="UI\Helpers\TaskbarIconSource.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
-    <Compile Include="Extensibility\AddonInfo.cs" />
-    <Compile Include="Extensibility\IAddonAppContent.cs" />
-    <Compile Include="Extensibility\IAddonDeviceContent.cs" />
-    <Compile Include="Extensibility\IAddonLifecycle.cs" />
-    <Compile Include="Extensibility\IAddonContextMenu.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonAppContent.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonDeviceContent.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonEvents.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonNotificationAreaContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />
-    <Compile Include="Extensibility\IAddonSettingsPage.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonSettingsPage.cs" />
     <Compile Include="Extensibility\Shared\ServiceBus.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />

@@ -23,7 +23,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public IEnumerable<DirectoryCatalog> Load(object target)
         {
             var catalogs = new List<DirectoryCatalog>();
-            Trace.WriteLine($"AddonResolver Loading");
+            Trace.WriteLine($"AddonResolver Load");
             try
             {
                 if (App.HasIdentity)
@@ -87,7 +87,7 @@ namespace EarTrumpet.Extensibility.Hosting
             try
             {
                 Trace.WriteLine($"AddonResolver SelectDevAddon: Discovering from {path}");
-                var cat = new DirectoryCatalog(path, Path.GetFileName(path) + ".dll");
+                var cat = new DirectoryCatalog(path, $"{new DirectoryInfo(path).Name}.dll");
                 if (cat.LoadedFiles.Count == 0)
                 {
                     Trace.WriteLine("AddonResolver SelectDevAddon: ## WARNING ##: No files found in addon package");

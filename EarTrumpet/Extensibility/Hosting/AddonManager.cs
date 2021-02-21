@@ -1,6 +1,6 @@
 ﻿using EarTrumpet.Extensions;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Linq;
 
@@ -10,55 +10,42 @@ namespace EarTrumpet.Extensibility.Hosting
     {
         public static AddonHost Host { get; } = new AddonHost();
 
-        private static readonly AddonResolver _resolver = new AddonResolver();
-        private static readonly Dictionary<DirectoryCatalog, AddonInfo> _addons = new Dictionary<DirectoryCatalog, AddonInfo>();
+        private static readonly AddonResolver s_resolver = new AddonResolver();
+        private static readonly List<string> s_loadedAddonIds = new List<string>();
 
         public static void Load()
         {
-            foreach (var catalog in _resolver.Load(Host))
+            var loadedCatalogs = s_resolver.Load(Host);
+            foreach (var addon in Host.Addons.ToArray())
             {
-                var info = LookupAddonInfoFromCatalog(catalog);
-                if (info != null)
+                try
                 {
-                    _addons.Add(catalog, info);
+                    ((IAddonInternal)addon).Initialize();
+                    s_loadedAddonIds.Add(addon.Manifest.Id);
                 }
-                else
+                catch (Exception ex)
                 {
-                    Trace.WriteLine($"AddonManager Load: No AddonInfo for {catalog.LoadedFiles.FirstOrDefault()}");
+                    Trace.WriteLine($"AddonManager Load: Failed to initialize addon: {addon.GetType().Assembly.FullName} {ex}");
+                    Host.Addons.Remove(addon);
                 }
             }
 
-            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup));
-            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Startup2));
+            Host.Events = Host.Addons.Where(a => a is IEarTrumpetAddonEvents).Select(a => (IEarTrumpetAddonEvents)a).ToList();
+            Host.TrayContextMenuItems = Host.Addons.Where(a => a is IEarTrumpetAddonNotificationAreaContextMenu).Select(a => (IEarTrumpetAddonNotificationAreaContextMenu)a).ToList();
+            Host.AppContentItems = Host.Addons.Where(a => a is IEarTrumpetAddonAppContent).Select(a => (IEarTrumpetAddonAppContent)a).ToList();
+            Host.DeviceContentItems = Host.Addons.Where(a => a is IEarTrumpetAddonDeviceContent).Select(a => (IEarTrumpetAddonDeviceContent)a).ToList();
+            Host.SettingsItems = Host.Addons.Where(a => a is IEarTrumpetAddonSettingsPage).Select(a => (IEarTrumpetAddonSettingsPage)a).ToList();
+
+            Host.Events.ForEachNoThrow(x => x.OnAddonEvent(AddonEventKind.InitializeAddon));
+            Host.Events.ForEachNoThrow(x => x.OnAddonEvent(AddonEventKind.AddonsInitialized));
         }
 
         public static void Shutdown()
         {
             Trace.WriteLine($"AddonManager Shutdown");
-            Host.AppLifecycleItems.ForEachNoThrow(x => x.OnApplicationLifecycleEvent(ApplicationLifecycleEvent.Shutdown));
+            Host.Events.ForEachNoThrow(x => x.OnAddonEvent(AddonEventKind.AppShuttingDown));
         }
 
-        public static AddonInfo FindAddonInfoForObject(object addonObject)
-        {
-            var catalog = _addons.Keys.FirstOrDefault(c => IsObjectFromCatalog(addonObject, c));
-            if (catalog != null)
-            {
-                return _addons[catalog];
-            }
-            return null;
-        }
-
-        private static bool IsObjectFromCatalog(object target, DirectoryCatalog catalog)
-        {
-            var assemblyLocation = target.GetType().Assembly.Location.ToLower();
-            return catalog.LoadedFiles.Any(file => file.ToLower() == assemblyLocation);
-        }
-
-        private static AddonInfo LookupAddonInfoFromCatalog(DirectoryCatalog catalog)
-        {
-            return Host.AppLifecycleItems.FirstOrDefault(a => IsObjectFromCatalog(a, catalog))?.Info;
-        }
-
-        public static string GetDiagnosticInfo() => string.Join(" ", _addons.Values.Select(a => a.DisplayName));
+        public static string GetDiagnosticInfo() => string.Join(" ", s_loadedAddonIds);
     }
 }
