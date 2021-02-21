@@ -23,7 +23,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public IEnumerable<DirectoryCatalog> Load(object target)
         {
             var catalogs = new List<DirectoryCatalog>();
-            Trace.WriteLine($"AddonResolver Load");
+            Trace.WriteLine($"AddonResolver Loading");
             try
             {
                 if (App.HasIdentity)
@@ -37,9 +37,9 @@ namespace EarTrumpet.Extensibility.Hosting
                 else
                 {
 #if DEBUG
-                    var rootAddonDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir, "PackageTemp*").
-                        Select(path => SelectAddon(path)).
+                    var rootAddonDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Addons");
+                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir).
+                        Select(path => SelectDevAddon(path)).
                         Where(catalog => catalog != null));
 #endif
                 }
@@ -78,6 +78,35 @@ namespace EarTrumpet.Extensibility.Hosting
                 Trace.WriteLine($"AddonResolver SelectAddon: {ex}");
             }
             Trace.WriteLine($"AddonResolver SelectAddon: Return without selection: {path}");
+            return null;
+        }
+
+        // Discover addons in the form of AddonName\AddonName.dll.
+        private DirectoryCatalog SelectDevAddon(string path)
+        {
+            try
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: Discovering from {path}");
+                var cat = new DirectoryCatalog(path, Path.GetFileName(path) + ".dll");
+                if (cat.LoadedFiles.Count == 0)
+                {
+                    Trace.WriteLine("AddonResolver SelectDevAddon: ## WARNING ##: No files found in addon package");
+                }
+                else
+                {
+                    foreach(var file in cat.LoadedFiles)
+                    {
+                        Trace.WriteLine($"AddonResolver SelectDevAddon Loading: {file}");
+                    }
+                }
+                _addonDirectoryPaths.Add(cat.Path);
+                return cat;
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: {ex}");
+            }
+            Trace.WriteLine($"AddonResolver SelectDevAddon: Return without selection: {path}");
             return null;
         }
 
