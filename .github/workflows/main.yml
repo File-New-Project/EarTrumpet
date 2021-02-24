@@ -6,7 +6,10 @@ on:
       - dev
       - review/*
       - experiment/*
-      - ci/* 
+      - ci/*
+      - rafael/*
+      - dave/*
+      - david/*
     paths-ignore:
       - '**/*.md'
   pull_request:
