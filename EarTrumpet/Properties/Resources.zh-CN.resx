@@ -208,7 +208,7 @@
     <value>声音设置</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>高级</value>
+    <value>经典设置</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>关于 {Name} 加载项</value>
@@ -253,7 +253,7 @@
     <value>没有结果</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>打开合成器</value>
+    <value>打开音量合成器</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>关</value>
@@ -285,7 +285,7 @@
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
     <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
 
-是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息?</value>
+是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>打开/关闭静音</value>

@@ -145,7 +145,7 @@
     <value>Dispositivi di registrazione</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Impostazioni / Informazioni su EarTrumpet</value>
+    <value>Impostazioni</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Suoni</value>
@@ -154,25 +154,25 @@
     <value>Raccogli dati per la risoluzione dei problemi</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>La tua combinazione di tasti</value>
+    <value>Scorciatoia</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>Usa sempre il dispositivo di riproduzione predefinito</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Informazioni</value>
+    <value>Info</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
     <value>Scopri di più</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>Volume al {Volume} percento - {Name}</value>
+    <value>"{Volume}% volume - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>Audio Disattivato - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Applicazioni</value>
+    <value>App</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Chiudi</value>
@@ -181,7 +181,7 @@
     <value>Riduci per mostrare solamente il dispositivo di riproduzione predefinito</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Combinazione predefinita</value>
+    <value>Scorciatoia predefinita</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
     <value>Espandi per mostrare tutti i dispositivi di riproduzione</value>
@@ -190,10 +190,10 @@
     <value>Generale</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Assegna questa app ad un dispositivo di riproduzione</value>
+    <value>Assegna questa app a un dispositivo di riproduzione</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Apri il menu di EarTrumpet</value>
+    <value>Apri riquadro a comparsa nella barra delle applicazioni</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Usa l'icona classica di EarTrumpet</value>
@@ -238,7 +238,7 @@
     <value>Configura le scorciatoie e ottieni aiuto</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>Impostazioni EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
     <value>Scorciatoie</value>
@@ -247,7 +247,7 @@
     <value>Versione:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Trova impostazioni</value>
+    <value>Cerca nelle impostazioni</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
     <value>Nessun risultato</value>
@@ -283,7 +283,7 @@
     <value>Avvio di EarTrumpet non riuscito</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Un font rotto nel tuo sistema impedisce l'avvio di EarTrumpet.
+    <value>Un font corrotto nel tuo sistema impedisce l'avvio di EarTrumpet.
 
 Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
   </data>
