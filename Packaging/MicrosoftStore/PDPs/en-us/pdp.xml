@@ -21,7 +21,7 @@
   <DevStudio _locID="App_DevStudio"></DevStudio>
   <ReleaseNotes _locID="App_ReleaseNotes">Full changelog available at: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
-    <Caption DesktopImage="screenshot.png" _locID="App_caption1"></Caption>
+    <Caption DesktopImage="..\screenshot.png" _locID="App_caption1"></Caption>
   </ScreenshotCaptions>
   <AdditionalAssets></AdditionalAssets>
   <Trailers></Trailers>
