@@ -43,7 +43,6 @@ Install EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p/
 ## Known issues
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
 - Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
-- EarTrumpet windows move slowly on Windows 10 19H1+ ([#349](https://github.com/File-New-Project/EarTrumpet/issues/349))
 
 ## Credits
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))

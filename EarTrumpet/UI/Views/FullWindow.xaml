@@ -32,6 +32,41 @@
     </Window.Resources>
     <Grid>
         <Border Name="AcrylicBackgroundActive" Theme:Brush.Background="AcrylicBackground" />
+        <Border Name="AcrylicBackgroundWhileDragging">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Theme:Brush.Background" Value="AcrylicBackgroundFallback" />
+                    <Setter Property="Opacity" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=WindowRoot, Path=(Theme:AcrylicBrush.IsSuppressed)}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Name="IsSuppressed_Enter_AnimationsOn">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Name="IsSuppressed_Exit_AnimationsOn">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0"
+                                                                       Storyboard.TargetProperty="Opacity"
+                                                                       Duration="0:00:00.25">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
         <Border Name="AcrylicBackgroundInactive">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
