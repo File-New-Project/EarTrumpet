@@ -116,6 +116,7 @@
     <Compile Include="Extensibility\EarTrumpetAddonManifest.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
+    <Compile Include="Extensibility\Shared\PlaybackDataModelHost.cs" />
     <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />

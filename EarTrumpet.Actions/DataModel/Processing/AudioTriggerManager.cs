@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
-using EarTrumpet.Shared.DataModel;
+using EarTrumpet.Extensibility.Shared;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {
