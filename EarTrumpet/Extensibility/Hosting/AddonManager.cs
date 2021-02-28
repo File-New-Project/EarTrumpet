@@ -16,7 +16,7 @@ namespace EarTrumpet.Extensibility.Hosting
         public static void Load()
         {
             var loadedCatalogs = s_resolver.Load(Host);
-            foreach (var addon in Host.Addons.ToArray())
+            foreach (var addon in Host.Addons?.ToArray())
             {
                 try
                 {
