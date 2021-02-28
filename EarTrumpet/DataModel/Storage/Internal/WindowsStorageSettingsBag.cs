@@ -25,6 +25,11 @@ namespace EarTrumpet.DataModel.Storage.Internal
 
         public T Get<T>(string key, T defaultValue)
         {
+            if (!HasKey(key))
+            {
+                return defaultValue;
+            }
+
             if (defaultValue is bool || defaultValue is string)
             {
                 return ReadSetting<T>(key, defaultValue);
