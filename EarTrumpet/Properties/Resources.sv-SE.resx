@@ -121,16 +121,16 @@
     <value>Avsluta</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Inga uppspelningsenheter hittade</value>
+    <value>Hittade inga uppspelningsenheter</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Skicka feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymkontroll</value>
+    <value>Volymmixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymkontroll</value>
+    <value>Volymmixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
@@ -163,7 +163,7 @@
     <value>Om</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Läs mer</value>
+    <value>Lär dig mer</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{Volume} % volym - {Name}"</value>
@@ -172,19 +172,19 @@
     <value>"Ljud av - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Program</value>
+    <value>Appar</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Stäng</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Kollapsa för att visa endast standardenheten för uppspelning</value>
+    <value>Dra samman för att visa endast standardenheten för uppspelning</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Standardgenväg</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Expandera för att visa alla uppspelningsenheter</value>
+    <value>Utöka för att visa alla uppspelningsenheter</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>Allmänt</value>
@@ -196,7 +196,7 @@
     <value>Öppna aktivitetfältsmenyn</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Använd gamla EarTrumpet-ikonen</value>
+    <value>Använd den äldre EarTrumpet-ikonen</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>Fler kommandon</value>
