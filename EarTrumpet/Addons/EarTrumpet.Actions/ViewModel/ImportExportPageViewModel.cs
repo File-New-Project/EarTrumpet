@@ -36,7 +36,7 @@ namespace EarTrumpet.Actions.ViewModel
             {
                 try
                 {
-                    Addon.Current.Import(dlg.FileName);
+                    EarTrumpetActionsAddon.Current.Import(dlg.FileName);
                     _parent.ReloadSavedPages();
                 }
                 catch (Exception ex)
@@ -57,7 +57,7 @@ namespace EarTrumpet.Actions.ViewModel
             {
                 try
                 {
-                    File.WriteAllText(dlg.FileName, Addon.Current.Export(), Encoding.Unicode);
+                    File.WriteAllText(dlg.FileName, EarTrumpetActionsAddon.Current.Export(), Encoding.Unicode);
                 }
                 catch (Exception ex)
                 {

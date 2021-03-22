@@ -144,7 +144,7 @@ namespace EarTrumpet.Actions.ViewModel
                 {
                     _parent.CompleteNavigation(cookie);
 
-                    var existing = Addon.Current.Actions.FirstOrDefault(a => a.Id == Id);
+                    var existing = EarTrumpetActionsAddon.Current.Actions.FirstOrDefault(a => a.Id == Id);
                     if (existing == null)
                     {
                         _parent.Delete(this, true);

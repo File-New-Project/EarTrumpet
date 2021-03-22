@@ -11,11 +11,11 @@ namespace EarTrumpet.Actions.ViewModel
     public class ActionsCategoryViewModel : SettingsCategoryViewModel
     {
         public ActionsCategoryViewModel()
-            : base(Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, Addon.Current.Manifest.Id, new ObservableCollection<SettingsPageViewModel>())
+            : base(Properties.Resources.MyActionsText, "\xE950", Properties.Resources.AddonDescriptionText, EarTrumpetActionsAddon.Current.Manifest.Id, new ObservableCollection<SettingsPageViewModel>())
         {
             // Get a 'fresh' copy so that we can edit the objects and still go back later.
-            var actions = Addon.Current.Actions;
-            Addon.Current.Actions = Addon.Current.Actions;
+            var actions = EarTrumpetActionsAddon.Current.Actions;
+            EarTrumpetActionsAddon.Current.Actions = EarTrumpetActionsAddon.Current.Actions;
 
             Pages.AddRange(actions.Select(a => new EarTrumpetActionViewModel(this, a)));
             Pages.Add(new ImportExportPageViewModel(this));
@@ -56,7 +56,7 @@ namespace EarTrumpet.Actions.ViewModel
                 Pages.Remove(item);
             }
 
-            Pages.InsertRange(0, new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(Addon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a))));
+            Pages.InsertRange(0, new System.Collections.ObjectModel.ObservableCollection<SettingsPageViewModel>(EarTrumpetActionsAddon.Current.Actions.Select(a => new EarTrumpetActionViewModel(this, a))));
             Selected = Pages[0];
         }
 
@@ -64,12 +64,12 @@ namespace EarTrumpet.Actions.ViewModel
         {
             Action doRemove = () =>
             {
-                var actions = Addon.Current.Actions.ToList();
+                var actions = EarTrumpetActionsAddon.Current.Actions.ToList();
                 if (actions.Any(a => a.Id == earTrumpetActionViewModel.Id))
                 {
                     actions.Remove(item => item.Id == earTrumpetActionViewModel.Id);
                 }
-                Addon.Current.Actions = actions.ToArray();
+                EarTrumpetActionsAddon.Current.Actions = actions.ToArray();
 
                 if (Pages.Any(a => a == earTrumpetActionViewModel))
                 {
@@ -90,13 +90,13 @@ namespace EarTrumpet.Actions.ViewModel
 
         public void Save(EarTrumpetActionViewModel earTrumpetActionViewModel)
         {
-            var actions = Addon.Current.Actions.ToList();
+            var actions = EarTrumpetActionsAddon.Current.Actions.ToList();
             if (actions.Any(a => a.Id == earTrumpetActionViewModel.Id))
             {
                 actions.Remove(item => item.Id == earTrumpetActionViewModel.Id);
             }
             actions.Insert(0, earTrumpetActionViewModel.GetAction());
-            Addon.Current.Actions = actions.ToArray();
+            EarTrumpetActionsAddon.Current.Actions = actions.ToArray();
             earTrumpetActionViewModel.IsWorkSaved = true;
 
             if (Pages.Any(a => a == earTrumpetActionViewModel))

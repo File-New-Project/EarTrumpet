@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Extensibility.Shared;
+using EarTrumpet.Extensions;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -8,6 +9,8 @@ namespace EarTrumpet.Extensibility
     interface IAddonInternal
     {
         void Initialize();
+        void Initialize(AddonManifest manifest);
+        bool IsInternal { get; set; }
     }
 
     public class EarTrumpetAddon : IAddonInternal
@@ -16,6 +19,8 @@ namespace EarTrumpet.Extensibility
         public ISettingsBag Settings { get; private set; }
         public AddonManifest Manifest { get; private set; }
 
+        bool IAddonInternal.IsInternal { get; set; }
+
         void IAddonInternal.Initialize()
         {
             var manifestPath = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "AddonManifest.json");
@@ -23,9 +28,16 @@ namespace EarTrumpet.Extensibility
             Settings = StorageFactory.GetSettings(Manifest.Id);
         }
 
+        void IAddonInternal.Initialize(AddonManifest manifest)
+        {
+            Manifest = manifest;
+            Settings = StorageFactory.GetSettings(Manifest.Id);
+            ((IAddonInternal)this).IsInternal = true;
+        }
+
         protected void LoadAddonResources()
         {
-            ResourceLoader.Load(Manifest.Id);
+            ResourceLoader.Load(Manifest.Id, this.IsInternal());
         }
     }
 }

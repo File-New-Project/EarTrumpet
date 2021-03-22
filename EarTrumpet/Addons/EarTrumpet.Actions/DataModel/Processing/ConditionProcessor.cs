@@ -39,7 +39,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
             }
             else if (condition is VariableCondition)
             {
-                return (Addon.Current.LocalVariables[((VariableCondition)condition).Text] == (((VariableCondition)condition).Value == BoolValue.True));
+                return (EarTrumpetActionsAddon.Current.LocalVariables[((VariableCondition)condition).Text] == (((VariableCondition)condition).Value == BoolValue.True));
             }
             throw new NotImplementedException();
         }

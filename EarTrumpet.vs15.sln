@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.ColorTool", "EarTrumpet.ColorTool\EarTrumpet.ColorTool.csproj", "{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.Actions", "EarTrumpet.Actions\EarTrumpet.Actions.csproj", "{54B44364-A3DA-4AE6-B166-683730122313}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -50,12 +48,6 @@ Global
 		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.Release|x86.Build.0 = Release|x86
 		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.VSDebug|x86.ActiveCfg = Debug|x86
 		{E5B2C3B5-4CED-4C82-8A82-D290A7E0FC5D}.VSDebug|x86.Build.0 = Debug|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.Debug|x86.ActiveCfg = Debug|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.Debug|x86.Build.0 = Debug|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.Release|x86.ActiveCfg = Release|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.Release|x86.Build.0 = Release|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.VSDebug|x86.ActiveCfg = Debug|x86
-		{54B44364-A3DA-4AE6-B166-683730122313}.VSDebug|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

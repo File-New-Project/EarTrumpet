@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding;assembly=EarTrumpet"
-                    xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes;assembly=EarTrumpet"
-                    xmlns:conv="clr-namespace:EarTrumpet.UI.Converters;assembly=EarTrumpet"
-                    xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls;assembly=EarTrumpet"
+                    xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
+                    xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
+                    xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+                    xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
                     xmlns:etctl="clr-namespace:EarTrumpet.Actions.Controls"
-                    xmlns:etvm="clr-namespace:EarTrumpet.UI.ViewModels;assembly=EarTrumpet"
-                    xmlns:resx="clr-namespace:EarTrumpet.Actions.Properties"
-                    xmlns:ui="clr-namespace:EarTrumpet.UI;assembly=EarTrumpet"
+                    xmlns:etvm="clr-namespace:EarTrumpet.UI.ViewModels"
+                    xmlns:resx="clr-namespace:EarTrumpet.Properties"
+                    xmlns:ui="clr-namespace:EarTrumpet.UI"
                     xmlns:vm="clr-namespace:EarTrumpet.Actions.ViewModel">
     <Style x:Key="RunStyle" TargetType="Run">
         <Setter Property="FontSize" Value="15" />

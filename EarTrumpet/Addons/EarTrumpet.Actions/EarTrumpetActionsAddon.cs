@@ -15,12 +15,12 @@ using System.Linq;
 namespace EarTrumpet.Actions
 {
     [Export(typeof(EarTrumpetAddon))]
-    public class Addon : EarTrumpetAddon, IEarTrumpetAddonEvents, IEarTrumpetAddonSettingsPage, IEarTrumpetAddonNotificationAreaContextMenu
+    public class EarTrumpetActionsAddon : EarTrumpetAddon, IEarTrumpetAddonEvents, IEarTrumpetAddonSettingsPage, IEarTrumpetAddonNotificationAreaContextMenu
     {
-        public static Addon Current { get; private set; }
+        public static EarTrumpetActionsAddon Current { get; private set; }
         public LocalVariablesContainer LocalVariables { get; private set; }
 
-        public Addon() : base()
+        public EarTrumpetActionsAddon() : base()
         {
             DisplayName = Properties.Resources.MyActionsText;
         }
@@ -69,19 +69,19 @@ namespace EarTrumpet.Actions
             {
                 var ret = new List<ContextMenuItem>();
 
-                if (Addon.Current == null)
+                if (EarTrumpetActionsAddon.Current == null)
                 {
                     return ret;
                 }
 
-                foreach (var item in Addon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
+                foreach (var item in EarTrumpetActionsAddon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
                 {
                     ret.Add(new ContextMenuItem
                     {
                         Glyph = "\xE1CE",
                         IsChecked = true,
                         DisplayName = item.DisplayName,
-                        Command = new RelayCommand(() => Addon.Current.TriggerAction(item))
+                        Command = new RelayCommand(() => EarTrumpetActionsAddon.Current.TriggerAction(item))
                     });
                 }
                 return ret;
