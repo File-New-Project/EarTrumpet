@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensibility;
+﻿using EarTrumpet.Actions;
+using EarTrumpet.Extensibility;
 
 namespace EarTrumpet.Extensions
 {
@@ -6,7 +7,7 @@ namespace EarTrumpet.Extensions
     {
         public static bool IsInternal(this EarTrumpetAddon addon)
         {
-            return ((IAddonInternal)addon).IsInternal;
+            return addon is EarTrumpetActionsAddon;
         }
     }
 }
