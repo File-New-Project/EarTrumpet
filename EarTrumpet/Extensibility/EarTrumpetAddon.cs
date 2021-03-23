@@ -9,7 +9,7 @@ namespace EarTrumpet.Extensibility
     interface IAddonInternal
     {
         void Initialize();
-        void Initialize(AddonManifest manifest);
+        void InitializeInternal(AddonManifest manifest);
         bool IsInternal { get; set; }
     }
 
@@ -28,7 +28,7 @@ namespace EarTrumpet.Extensibility
             Settings = StorageFactory.GetSettings(Manifest.Id);
         }
 
-        void IAddonInternal.Initialize(AddonManifest manifest)
+        void IAddonInternal.InitializeInternal(AddonManifest manifest)
         {
             Manifest = manifest;
             Settings = StorageFactory.GetSettings(Manifest.Id);

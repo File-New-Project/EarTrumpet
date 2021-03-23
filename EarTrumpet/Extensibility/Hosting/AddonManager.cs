@@ -50,7 +50,7 @@ namespace EarTrumpet.Extensibility.Hosting
         {
             var actions = new EarTrumpetActionsAddon();
             Host.Addons.Add(actions);
-            ((IAddonInternal)actions).Initialize(new AddonManifest { Id = "EarTrumpet.Actions" });
+            ((IAddonInternal)actions).InitializeInternal(new AddonManifest { Id = "EarTrumpet.Actions" });
         }
 
         public static void Shutdown()
