@@ -127,10 +127,10 @@
     <value>Visszajelzés küldése</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Hangerőkeverő</value>
+    <value>Hangerőkeverő megnyitása</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Hangerőkeverő</value>
+    <value>Hangerőkeverő megnyitása</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Úgy tűnik, hogy nem találhatóak lejátszóeszközök.</value>
@@ -148,7 +148,7 @@
     <value>Beállítások</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Hangok</value>
+    <value>Hang</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
     <value>Diagnosztikai információk összegyűjtése</value>
