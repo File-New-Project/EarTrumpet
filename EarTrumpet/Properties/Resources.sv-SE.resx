@@ -208,7 +208,7 @@
     <value>Ljudinställningar</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows-inställningar</value>
+    <value>Windows-originalinställningar</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Om tillägget {Name}</value>
