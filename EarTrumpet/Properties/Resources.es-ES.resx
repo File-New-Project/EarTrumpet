@@ -121,22 +121,22 @@
     <value>Salir</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>No se han detectado dispositivos de reproducción</value>
+    <value>No se encontraron dispositivos de reproducción</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Enviar comentarios</value>
+    <value>Enviar feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mezclador de volumen</value>
+    <value>Mezclador de volumen EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mezclador de volumen</value>
+    <value>Mezclador de volumen tradicional</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Parece que no tienes dispositivos de reproducción.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Sin dispositivos de reproducción</value>
+    <value>EarTrumpet: No hay dispositivos de reproducción</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>Dispositivos de reproducción</value>
@@ -145,25 +145,25 @@
     <value>Dispositivos de grabación</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Ajustes</value>
+    <value>Configuración / Acerca de EarTrumpet</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sonidos</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Recoger informes de errores</value>
+    <value>Recopilar datos para la solución de problemas</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Tus atajos</value>
+    <value>Su atajo</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Siempre usar el dispositivo predeterminado de reproducción</value>
+    <value>Usar siempre el dispositivo de reproducción predeterminado</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
     <value>Acerca de</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Saber más</value>
+    <value>Aprende más</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>{Volume}% de volumen - {Name}</value>
@@ -178,22 +178,22 @@
     <value>Cerrar</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Contraer para mostrar sólo el dispositivo predeterminado</value>
+    <value>Contraer para mostrar solo el dispositivo de reproducción predeterminado</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Atajo predeterminado</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Expandir para mostrar todos los dispositivos</value>
+    <value>Expandir para mostrar todos los dispositivos de reproducción</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>General</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Asignar esta aplicación a un dispositivo</value>
+    <value>Asignar esta aplicación a un dispositivo de reproducción</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Abrir controles flotantes</value>
+    <value>Abrir menú flotante de EarTrumpet</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>Usar icono tradicional de EarTrumpet</value>
@@ -205,28 +205,28 @@
     <value>Silenciado</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Ajustes de sonido</value>
+    <value>Opciones de sonido</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Menús tradicionales</value>
+    <value>Windows Tradicional</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Acerca del complemento {Name}</value>
+    <value>Acerca del add-on {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
     <value>Nombre:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Abrir ajustes de Windows</value>
+    <value>Abrir Configuraciones de Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Puedes eliminar el complemento desde la configuración de Windows.</value>
+    <value>Este complemento puede ser removido utilizando la aplicación de Configuración de Windows 10.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Desinstalar</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Administración</value>
+    <value>Gestión</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
     <value>Ajustes tradicionales</value>
@@ -238,10 +238,10 @@
     <value>Configurar atajos y obtener ayuda</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Ajustes de EarTrumpet</value>
+    <value>EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Atajos de teclado</value>
+    <value>Atajos</value>
   </data>
   <data name="VersionText" xml:space="preserve">
     <value>Versión:</value>
@@ -253,13 +253,13 @@
     <value>Sin resultados</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Abrir mezclador</value>
+    <value>Abrir Mezclador</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Desactivado</value>
+    <value>Apagar</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Activado</value>
+    <value>Encender</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>Inicio</value>
@@ -271,7 +271,7 @@
     <value>Muy pronto</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Abrir configuración</value>
+    <value>Abrir opciones</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
     <value>Cerrar</value>
@@ -280,20 +280,20 @@
     <value>Bienvenido a EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet no pudo iniciarse</value>
+    <value>EarTrumpet no pudo iniciar</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Hay un problema con una fuente y EarTrumpet no puede iniciarse.
+    <value>Una fuente rota en tu sistema está previniendo el inicio de EarTrumpet.
 
 Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Silenciar/Quitar silencio</value>
+    <value>Activar/Desactivar sonido</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
     <value>Politica de privacidad</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Enviar informes de error al equipo de EarTrumpet</value>
+    <value>Enviar datos de error al equipo de EarTrumpet</value>
   </data>
 </root>
