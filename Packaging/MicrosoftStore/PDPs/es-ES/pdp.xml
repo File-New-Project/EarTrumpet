@@ -20,7 +20,7 @@
   <DevStudio _locID="App_DevStudio"/>
   <ReleaseNotes _locID="App_ReleaseNotes">Reporte de cambios completo disponible en</ReleaseNotes>
   <ScreenshotCaptions>
-    <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
+    <Caption DesktopImage="..\screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
   <AdditionalAssets/>
   <Trailers/>
