@@ -211,7 +211,7 @@
     <value>Stary Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>O dodatku  {Name}</value>
+    <value>O dodatku {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
     <value>NazwaІм'я:</value>
