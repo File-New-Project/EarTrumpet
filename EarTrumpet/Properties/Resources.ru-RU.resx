@@ -118,182 +118,182 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Avsluta</value>
+    <value>Выход</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Hittade inga uppspelningsenheter</value>
+    <value>Не найдено устройств воспроизведения</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Skicka feedback</value>
+    <value>Отправить отзыв</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Микшер громкости EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Старый микшер громкости Windows</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
+    <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Inga uppspelningsenheter</value>
+    <value>EarTrumpet: нет устройств воспроизведения</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Uppspelningsenheter</value>
+    <value>Устройства воспроизведения</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Inspelningsenheter</value>
+    <value>Записывающие устройства</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Inställningar</value>
+    <value>Параметры EarTrumpet / О приложении</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Ljud</value>
+    <value>Звуки</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Samla in felsökningsdata</value>
+    <value>Сбор данных для устранения неполадок</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Din genväg</value>
+    <value>Ваше сочетание клавиш</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Använd alltid standardenheten för uppspelning</value>
+    <value>Всегда использовать устройство воспроизведения по умолчанию</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Om</value>
+    <value>О приложении</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Lär dig mer</value>
+    <value>Узнать больше</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume} % volym - {Name}"</value>
+    <value>{Volume} процент громкости - {Name}</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"Ljud av - {Name}"</value>
+    <value>Без звука - {Name}</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Appar</value>
+    <value>Приложения</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>Закрыть</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Dra samman för att visa endast standardenheten för uppspelning</value>
+    <value>Свернуть, чтобы показать только устройство воспроизведения по умолчанию</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Standardgenväg</value>
+    <value>Сочетание клавиш по умолчанию</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Utöka för att visa alla uppspelningsenheter</value>
+    <value>Развернуть, чтобы показать все устройства воспроизведения</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Allmänt</value>
+    <value>Общее</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Tilldela denna app till en uppspelningsenhet</value>
+    <value>Назначить приложению устройство воспроизведения</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Öppna aktivitetfältsmenyn</value>
+    <value>Открыть всплывающее окно EarTrumpet</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Använd den äldre EarTrumpet-ikonen</value>
+    <value>Использовать старую иконку EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Fler kommandon</value>
+    <value>Больше команд</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Ljud av</value>
+    <value>Без звука</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Ljudinställningar</value>
+    <value>Параметры звука</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows-inställningar</value>
+    <value>Старое меню Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Om tillägget {Name}</value>
+    <value>О дополнении {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Namn:</value>
+    <value>Название:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Öppna Windows-inställningar</value>
+    <value>Открыть Параметры Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Detta tillägg kan tas bort i appen för Windows-inställningar.</value>
+    <value>Это дополнение может быть удалено в приложении Параметры Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Avinstallera</value>
+    <value>Удалить</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Hantering</value>
+    <value>Управление</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Äldre inställningar</value>
+    <value>Устаревшие параметры</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Utgivare:</value>
+    <value>Издатель:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Konfigurera genvägar och få hjälp</value>
+    <value>Настроить сочетания клавиш и получить справку</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet-inställningar</value>
+    <value>Параметры EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Genvägar</value>
+    <value>Сочетания клавиш</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version:</value>
+    <value>Версия:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Hitta en inställning</value>
+    <value>Найти параметр</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Inga resultat</value>
+    <value>Нет результатов</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Öppna volymkontroll</value>
+    <value>Открыть микшер</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Av</value>
+    <value>Выкл</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>På</value>
+    <value>Вкл</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Hem</value>
+    <value>Главная</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>Скоро появится</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>Скоро появится</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Öppna inställningar</value>
+    <value>Открыть параметры</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>Закрыть</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Välkommen till EarTrumpet</value>
+    <value>Добро пожаловать в EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet kunde inte starta</value>
+    <value>Произошла ошибка при запуске EarTrumpet</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Ett trasigt teckensnitt på ditt system hindrar EarTrumpet från att starta.
+    <value>Невозможно запустить EarTrumpet, так как один из шрифтов используемый этой программой повреждён.
 
-Öppna [https://eartrumpet.app/jmp/fixfonts] nu?</value>
+Перейти по ссылке [https://eartrumpet.app/jmp/fixfonts] сейчас?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Ljud av/på</value>
+    <value>Без звука</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Integritetspolicy</value>
+    <value>Политика конфиденциальности</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Skicka kraschdata till EarTrumpet-teamet</value>
+    <value>Отправить данные об ошибке разработчикам EarTrumpet</value>
   </data>
 </root>

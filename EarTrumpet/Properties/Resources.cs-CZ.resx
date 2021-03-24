@@ -118,182 +118,182 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Avsluta</value>
+    <value>Ukončit</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Hittade inga uppspelningsenheter</value>
+    <value>Nebyla nalezena žádná zařízení pro přehrávání</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Skicka feedback</value>
+    <value>Odeslat zpětnou vazbu</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Směšovač hlasitosti</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Směšovač hlasitosti</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
+    <value>Vypadá to, že nemáte žádná zařízení pro přehrávání.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Inga uppspelningsenheter</value>
+    <value>EarTrumpet: Žádná zařízení pro přehrávání</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Uppspelningsenheter</value>
+    <value>Zařízení pro přehrávání</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Inspelningsenheter</value>
+    <value>Zařízení pro záznam</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Inställningar</value>
+    <value>Nastavení</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Ljud</value>
+    <value>Zvuky</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Samla in felsökningsdata</value>
+    <value>Shromáždit data pro řešení potíží</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Din genväg</value>
+    <value>Vaše klávesová zkratka</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Använd alltid standardenheten för uppspelning</value>
+    <value>Vždy používat výchozí zařízení pro přehrávání</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Om</value>
+    <value>O aplikaci</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Lär dig mer</value>
+    <value>Další informace</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume} % volym - {Name}"</value>
+    <value>"Hlasitost {Volume}% - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"Ljud av - {Name}"</value>
+    <value>"Ztlumeno - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Appar</value>
+    <value>Aplikace</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>Zavřít</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Dra samman för att visa endast standardenheten för uppspelning</value>
+    <value>Sbalit pro zobrazení pouze výchozího zařízení pro přehrávání</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Standardgenväg</value>
+    <value>Výchozí klávesová zkratka</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Utöka för att visa alla uppspelningsenheter</value>
+    <value>Rozbalit pro zobrazení všech zařízení pro přehrávání</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Allmänt</value>
+    <value>Obecné</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Tilldela denna app till en uppspelningsenhet</value>
+    <value>Přiřadit tuto aplikaci k zařízení pro přehrávání</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Öppna aktivitetfältsmenyn</value>
+    <value>Otevřít vyskakovací okno hlavního panelu</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Använd den äldre EarTrumpet-ikonen</value>
+    <value>Použít původní ikonku EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Fler kommandon</value>
+    <value>Další příkazy</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Ljud av</value>
+    <value>Ztlumeno</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Ljudinställningar</value>
+    <value>Nastavení zvuku</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows-inställningar</value>
+    <value>Původní nastavení Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Om tillägget {Name}</value>
+    <value>O doplňku {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Namn:</value>
+    <value>Název:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Öppna Windows-inställningar</value>
+    <value>Otevřít nastavení Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Detta tillägg kan tas bort i appen för Windows-inställningar.</value>
+    <value>Tento doplněk lze odstranit pomocí aplikace Nastavení Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Avinstallera</value>
+    <value>Odinstalovat</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Hantering</value>
+    <value>Správa</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Äldre inställningar</value>
+    <value>Zastaralá nastavení</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Utgivare:</value>
+    <value>Vydavatel:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Konfigurera genvägar och få hjälp</value>
+    <value>Konfigurovat klávesové zkratky a získat pomoc</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet-inställningar</value>
+    <value>Nastavení EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Genvägar</value>
+    <value>Klávesové zkratky</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version:</value>
+    <value>Verze:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Hitta en inställning</value>
+    <value>Hledat v nastavení</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Inga resultat</value>
+    <value>Žádné výsledky</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Öppna volymkontroll</value>
+    <value>Otevřít směšovač</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Av</value>
+    <value>Vypnuto</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>På</value>
+    <value>Zapnuto</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Hem</value>
+    <value>Domů</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>Již brzy</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>Již brzy</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Öppna inställningar</value>
+    <value>Otevřít nastavení</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>Zavřít</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Välkommen till EarTrumpet</value>
+    <value>Vítejte v EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet kunde inte starta</value>
+    <value>EarTrumpet se nepodařilo spustit</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Ett trasigt teckensnitt på ditt system hindrar EarTrumpet från att starta.
+    <value>Poškozené písmo ve vašem systému zabraňuje spuštění aplikace EarTrumpet.
 
-Öppna [https://eartrumpet.app/jmp/fixfonts] nu?</value>
+Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Ljud av/på</value>
+    <value>Přepnout ztlumení</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Integritetspolicy</value>
+    <value>Zásady ochrany osobních údajů</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Skicka kraschdata till EarTrumpet-teamet</value>
+    <value>Odesílat informace o pádech týmu EarTrumpet</value>
   </data>
 </root>
