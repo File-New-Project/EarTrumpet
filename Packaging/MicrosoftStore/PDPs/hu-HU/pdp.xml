@@ -20,7 +20,7 @@
   <DevStudio _locID="App_DevStudio"/>
   <ReleaseNotes _locID="App_ReleaseNotes">Teljes váltólista elérhető a következő címen: https://github.com/FileNewProject/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
-    <Caption DesktopImage="..\screenshot.png" _locID="App_caption1"/>
+    <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
   <AdditionalAssets/>
   <Trailers/>
