@@ -237,7 +237,11 @@ namespace EarTrumpet
         {
             var addon = (EarTrumpetAddon)addonSettingsPage;
             var category = addonSettingsPage.GetSettingsCategory();
-            category.Pages.Add(new AddonAboutPageViewModel(addon));
+
+            if (!addon.IsInternal())
+            {
+                category.Pages.Add(new AddonAboutPageViewModel(addon));
+            }
             return category;
         }
 

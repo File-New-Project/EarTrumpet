@@ -1,4 +1,5 @@
-﻿using EarTrumpet.Extensions;
+﻿using EarTrumpet.Actions;
+using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,20 +16,25 @@ namespace EarTrumpet.Extensibility.Hosting
 
         public static void Load()
         {
+            Host.Addons = new List<EarTrumpetAddon>();
             var loadedCatalogs = s_resolver.Load(Host);
-            foreach (var addon in Host.Addons.ToArray())
             {
-                try
+                foreach (var addon in Host.Addons.ToArray())
                 {
-                    ((IAddonInternal)addon).Initialize();
-                    s_loadedAddonIds.Add(addon.Manifest.Id);
-                }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine($"AddonManager Load: Failed to initialize addon: {addon.GetType().Assembly.FullName} {ex}");
-                    Host.Addons.Remove(addon);
+                    try
+                    {
+                        ((IAddonInternal)addon).Initialize();
+                        s_loadedAddonIds.Add(addon.Manifest.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine($"AddonManager Load: Failed to initialize addon: {addon.GetType().Assembly.FullName} {ex}");
+                        Host.Addons.Remove(addon);
+                    }
                 }
             }
+
+            LoadInternalAddons();
 
             Host.Events = Host.Addons.Where(a => a is IEarTrumpetAddonEvents).Select(a => (IEarTrumpetAddonEvents)a).ToList();
             Host.TrayContextMenuItems = Host.Addons.Where(a => a is IEarTrumpetAddonNotificationAreaContextMenu).Select(a => (IEarTrumpetAddonNotificationAreaContextMenu)a).ToList();
@@ -38,6 +44,13 @@ namespace EarTrumpet.Extensibility.Hosting
 
             Host.Events.ForEachNoThrow(x => x.OnAddonEvent(AddonEventKind.InitializeAddon));
             Host.Events.ForEachNoThrow(x => x.OnAddonEvent(AddonEventKind.AddonsInitialized));
+        }
+
+        private static void LoadInternalAddons()
+        {
+            var actions = new EarTrumpetActionsAddon();
+            Host.Addons.Add(actions);
+            ((IAddonInternal)actions).InitializeInternal(new AddonManifest { Id = "EarTrumpet.Actions" });
         }
 
         public static void Shutdown()
