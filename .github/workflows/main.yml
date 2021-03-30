@@ -434,6 +434,6 @@ jobs:
           $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
           $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.appxupload"
 
-          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\AppxUpload\$StoreBundleFilename" -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
+          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\AppxUpload\$StoreBundleFilename" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
           $submissionId, $submissionUrl = Update-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json" -PackagePath "$SubmissionRoot\EarTrumpet.zip" -AddPackages -UpdateListings -UpdatePublishModeAndVisibility -UpdatePricingAndAvailability -UpdateAppProperties -UpdateNotesForCertification -TargetPublishMode Manual -Force -Verbose
           Complete-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionId $submissionId -Verbose
