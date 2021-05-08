@@ -31,6 +31,12 @@ namespace EarTrumpet.Extensibility.Hosting
                     catalogs.AddRange(Directory.GetDirectories(rootAddonDir).
                         Select(path => SelectAddon(path)).
                         Where(catalog => catalog != null));
+
+#if DEBUG
+                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir)
+                        .Select(path => SelectDevAddon(path))
+                        .Where(catalog => catalog != null));
+#endif
                     new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(target);
                 }
             }
@@ -67,6 +73,38 @@ namespace EarTrumpet.Extensibility.Hosting
             Trace.WriteLine($"AddonResolver SelectAddon: Return without selection: {path}");
             return null;
         }
+
+
+#if DEBUG
+        // Discover addons in the form of AddonName\AddonName.dll.
+        private DirectoryCatalog SelectDevAddon(string path)
+        {
+            try
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: Discovering from {path}");
+                var cat = new DirectoryCatalog(path, $"{new DirectoryInfo(path).Name}.dll");
+                if (cat.LoadedFiles.Count == 0)
+                {
+                    Trace.WriteLine("AddonResolver SelectDevAddon: ## WARNING ##: No files found in addon package");
+                }
+                else
+                {
+                    foreach (var file in cat.LoadedFiles)
+                    {
+                        Trace.WriteLine($"AddonResolver SelectDevAddon Loading: {file}");
+                    }
+                }
+                _addonDirectoryPaths.Add(cat.Path);
+                return cat;
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: {ex}");
+            }
+            Trace.WriteLine($"AddonResolver SelectDevAddon: Return without selection: {path}");
+            return null;
+        }
+#endif
 
         private Assembly OnFinalAssemblyResolve(object sender, ResolveEventArgs args)
         {
