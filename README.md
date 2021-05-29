@@ -43,6 +43,7 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 1909 (November 2019 Update)
 - Windows 10 2004 (May 2020 Update)
 - Windows 10 20H2 (October 2020 Update)
+- Windows 10 21H1 (May 2021 Update)
 
 ## Known issues
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
