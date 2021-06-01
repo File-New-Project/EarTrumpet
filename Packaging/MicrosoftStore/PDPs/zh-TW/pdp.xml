@@ -26,10 +26,10 @@
   <Trailers/>
   <AppFeatures>
     <AppFeature _locID="App_feature1">控制經典和現代應用程序的音量</AppFeature>
-    <AppFeature _locID="App_feature2">只需兩次點擊修改默認音頻設備</AppFeature>
+    <AppFeature _locID="App_feature2">只需點擊兩次，即可切換預設音訊裝置</AppFeature>
     <AppFeature _locID="App_feature3">與 Windows 的外觀風格相適應</AppFeature>
-    <AppFeature _locID="App_feature4">支持切換應用的播放設備</AppFeature>
-    <AppFeature _locID="App_feature5">與反饋中心集成</AppFeature>
+    <AppFeature _locID="App_feature4">可將應用程式於不同播放裝置間移動切換</AppFeature>
+    <AppFeature _locID="App_feature5">整合 Windows 意見反應中樞</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
