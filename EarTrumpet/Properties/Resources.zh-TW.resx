@@ -205,10 +205,10 @@
     <value>已靜音</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>聲音設定</value>
+    <value>系統音效設定</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>傳統Windows</value>
+    <value>Windows 傳統音效設定</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>關於{Name} 擴展</value>
@@ -253,7 +253,7 @@
     <value>沒有結果</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>打開混合器</value>
+    <value>開啟混音程式</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>關</value>
@@ -262,7 +262,7 @@
     <value>開</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>主頁</value>
+    <value>首頁</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
     <value>即將推出</value>
@@ -443,7 +443,7 @@
     <value>從檔案寫回您之前設定好的動作。</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>静音</value>
+    <value>靜音</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
     <value>切換靜音</value>
@@ -464,7 +464,7 @@
     <value>播放</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>如果進程是否正在運行</value>
+    <value>當處理程序正在或不在執行中</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
     <value>(輸入進程名稱)</value>
@@ -554,7 +554,7 @@
     <value>（設定變數名稱）</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>將變數 {Option} 設定為 {Text}</value>
+    <value>將變數 {Text} 設定為 {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
     <value>輸入變數名稱（例如 isInGameMode）</value>
@@ -575,16 +575,16 @@
     <value>當</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>如果局部變量為真或假</value>
+    <value>當局部變數值是 true 或 false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(輸入變量名稱)</value>
+    <value>（輸入變數名稱）</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>多變的 {Text} 是 {Option}</value>
+    <value>變數 {Text} 為 {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>輸入變量名稱 (例如Managembile.)</value>
+    <value>輸入變數名稱（例如 isInGameMode）</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
     <value>刪除</value>
@@ -599,7 +599,7 @@
     <value>選擇一個裝置</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>選擇一個應用</value>
+    <value>選擇應用程式</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
     <value>取消</value>
