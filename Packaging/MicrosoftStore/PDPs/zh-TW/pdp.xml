@@ -5,13 +5,13 @@
   <Keywords>
     <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
     <Keyword _locID="App_keyword2">聲音</Keyword>
-    <Keyword _locID="App_keyword3">合成器</Keyword>
+    <Keyword _locID="App_keyword3">混音器</Keyword>
     <Keyword _locID="App_keyword4">音量</Keyword>
-    <Keyword _locID="App_keyword5">音頻</Keyword>
+    <Keyword _locID="App_keyword5">音訊</Keyword>
     <Keyword _locID="App_keyword6">控制</Keyword>
-    <Keyword _locID="App_keyword7">設備</Keyword>
+    <Keyword _locID="App_keyword7">裝置</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet 是一款功能強大的 Windows 音量控制軟件</Description>
+  <Description _locID="App_Description">EarTrumpet 是一套功能強大的 Windows 音量控制程式</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
