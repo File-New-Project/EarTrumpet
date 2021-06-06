@@ -368,7 +368,7 @@
     <value>和</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>配置一个过滤器是可选的，但此功能可以帮你实现更高级的动作。当所有条件都为真时，动作才能执行。</value>
+    <value>配置过滤器是可选的，但此功能可以帮你实现更高级的动作。当所有条件都为真时，动作才能执行。</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
     <value>高级筛选</value>
