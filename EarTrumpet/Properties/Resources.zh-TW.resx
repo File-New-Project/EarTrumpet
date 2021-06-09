@@ -283,7 +283,7 @@
     <value>無法啟動 EarTrumpet</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>您系統中有毀損的字型檔案，造成 EarTrumpet 啟動。
+    <value>您的系統中有字型檔案毀損，造成 EarTrumpet 無法啟動。
 
 是否要開啟 [https://eartrumpet.app/jmp/fixfonts]？</value>
   </data>
@@ -476,7 +476,7 @@
     <value>進程名稱（例如記事本）</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>起始</value>
+    <value>啟動</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
     <value>結束</value>
@@ -548,7 +548,7 @@
     <value>{Option} {Device} 音量到 {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>設定局部變數</value>
+    <value>設定區域變數</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
     <value>（設定變數名稱）</value>
