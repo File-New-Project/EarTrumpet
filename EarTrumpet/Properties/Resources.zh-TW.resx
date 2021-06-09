@@ -220,7 +220,7 @@
     <value>開啟 Windows 設定</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>這個擴展可以透過Windows設定刪除。</value>
+    <value>這個擴展可以透過 Windows 設定刪除。</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>解除安裝</value>
@@ -232,13 +232,13 @@
     <value>傳統設定</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>發行者:</value>
+    <value>發行者：</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
     <value>設定捷徑並尋求幫助</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>EarTrumpet 設定</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
     <value>捷徑</value>
@@ -256,10 +256,10 @@
     <value>開啟混音程式</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>關</value>
+    <value>關閉</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>開</value>
+    <value>開啟</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>首頁</value>
