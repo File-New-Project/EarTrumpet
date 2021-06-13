@@ -296,4 +296,348 @@ Deseja abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Enviar os dados do erro para a equipe do EarTrumpet</value>
   </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Faça</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Adicionar ação</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Adicionar Condições</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Configurar teclas de atalho e automação</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Adicionar novo disparador</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Uma sessão de aplicativo é adicionada, removida, inicia reprodução do som, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} no {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>foi adicionado</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>ativou mudo</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>parar a reprodução de som</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>iniciar a reprodução de som</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>foi removido</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>desativou mudo</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>foi adicionado</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>tornar-se padrão</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>deixar de ser padrão</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>foi removido</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>falso</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>verdadeiro</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>é</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>não é</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Configurar um filtro é opcional, mas permite construir ações mais avançadas. Todas as condições devem ser verdadeiras para que as ações sejam realizadas.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Filtro Avançado</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Uso esta ação no contexto do menu do item</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Uso esta ação no contexto do menu do item</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Se é ou não o dispositivo de reprodução padrão</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} o dispositivo padrão</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Dispositivo de reprodução padrão</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Um dispositivo de áudio foi adicionado, removido, definido como padrão, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>termina</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>inicia</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Ações em XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet inicia ou termina</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Todos os aplicativos</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Salvar cópia das suas ações em um arquivo.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Aplicativo em primeiro plano</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Uma tecla de atalho foi pressionada</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(escolha uma tecla de atalho)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} foi pressionada</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importar / Exportar</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Restaurar cópia das suas ações em um arquivo.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Silenciar</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Ativar/Desativar mudo</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Tirar do silencioso</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Ações</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Nova Ação</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(Opcional)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Reprodução</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Se um processo estiver em execução ou não</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(digite um nome do processo)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Quando {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Nome do processo (ex.: notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>inicia</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>termina</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>não está sendo executado</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>está sendo executado</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Um processo inicia ou termina</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(digite um nome do processo)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Quando {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Nome do processo (ex.: notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Gravando</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(obrigatório)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Silencia ou retira do silencioso um aplicativo</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} no {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Definir o volume de um aplicativo</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} alterar volume para {Volume} no {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} volume em {Volume} no {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Definir o dispositivo de reprodução padrão</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Definir {Device} como dispositivo de reprodução padrão</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Silencia ou retira do silencioso um dispositivo</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} no {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Definir volume do dispositivo</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} alterar volume para {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} volume em {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Selecionar uma variável local</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(definir nome da variável)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Definir variável {Text} para {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Insira um nome de variável (ex.: noModoJogo)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Diminuir</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Aumentar</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Definir</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>ou</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Quando</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Quando uma variável local tem uma condição verdadeira ou falsa</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(insira o nome da variável)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>A variável {Text} é {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Insira um nome de variável (ex.: noModoJogo)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Escolha um dispositivo</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Selecione um aplicativo</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Excluir ação?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Sair sem salvar?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Excluir está ação</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Essa ação não pode ser desfeita.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Excluir ação</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Os aplicativos exibidos acima reproduziram som recentemente.</value>
+  </data>
 </root>
