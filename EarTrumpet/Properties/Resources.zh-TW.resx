@@ -578,7 +578,7 @@
     <value>當局部變數值是 true 或 false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>（輸入變數名稱）</value>
+    <value>自定文件變量名稱</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
     <value>變數 {Text} 為 {Option}</value>
