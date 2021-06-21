@@ -422,10 +422,10 @@
     <value>將您目前設定好的動作匯出到檔案。</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>前景應用程式</value>
+    <value>前台應用程式</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>按下熱鍵</value>
+    <value>自定義快捷鍵</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
     <value>（請按熱鍵）</value>
