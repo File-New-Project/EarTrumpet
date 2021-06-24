@@ -11,14 +11,14 @@
     <Keyword _locID="App_keyword6">Control</Keyword>
     <Keyword _locID="App_keyword7">Dispositivo</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet es una poderosa apliación para controlar volumen para Windows</Description>
+  <Description _locID="App_Description">EarTrumpet es una poderosa aplicación para controlar el volumen en Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
   <SortTitle _locID="App_SortTitle"/>
   <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
   <DevStudio _locID="App_DevStudio"/>
-  <ReleaseNotes _locID="App_ReleaseNotes">Reporte de cambios completo disponible en</ReleaseNotes>
+  <ReleaseNotes _locID="App_ReleaseNotes">Registro de cambios completo disponible en: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
     <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
@@ -26,10 +26,10 @@
   <Trailers/>
   <AppFeatures>
     <AppFeature _locID="App_feature1">Controla el volumen de apps clásicas y modernas</AppFeature>
-    <AppFeature _locID="App_feature2">Cambia el dispositivo de sonido predeterminado en dos clics</AppFeature>
-    <AppFeature _locID="App_feature3">Mantiene la estética de Windows</AppFeature>
-    <AppFeature _locID="App_feature4">Permite mover las aplicaciones entre dispositivos de reproducción</AppFeature>
-    <AppFeature _locID="App_feature5">Integrado con el Centro de Opiniones</AppFeature>
+    <AppFeature _locID="App_feature2">Cambia el dispositivo de audio predeterminado con dos clics</AppFeature>
+    <AppFeature _locID="App_feature3">Coincide con la apariencia de Windows</AppFeature>
+    <AppFeature _locID="App_feature4">Permite mover aplicaciones entre los dispositivos de reproducción</AppFeature>
+    <AppFeature _locID="App_feature5">Integrado con el Centro de opiniones</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
