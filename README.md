@@ -45,8 +45,9 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 20H2 (October 2020 Update)
 - Windows 10 21H1 (May 2021 Update)
 
-- Windows 11 Insider Preview (as of July 2021)
+- Windows 11 Insider Preview (as of July 2021)*
 
+**It functions with Windows 11, but does fit the new styling of it.*
 ## Known issues
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
 - Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
