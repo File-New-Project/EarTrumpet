@@ -7,6 +7,7 @@ namespace EarTrumpet.Extensions
         RS3 = 16299,
         RS4 = 17134,
         RS5_1809 = 17763,
+        Version21H2 = 21390
     }
 
     public static class OperatingSystemExtensions

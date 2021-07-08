@@ -189,10 +189,14 @@
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Features.cs" />
+    <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplFor21H2.cs" />
+    <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplForDownlevel.cs" />
     <Compile Include="Interop\Helpers\InputHelper.cs" />
     <Compile Include="Interop\Helpers\SettingsPageHelper.cs" />
     <Compile Include="Interop\Helpers\PackageHelper.cs" />
     <Compile Include="Interop\IShellItemImageFactory.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactoryVariantFor21H2.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\SafeHandles\HMODULE.cs" />
     <Compile Include="Interop\SIZE.cs" />
     <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
@@ -261,7 +265,7 @@
     <Compile Include="Interop\MMDeviceAPI\IPolicyConfig.cs" />
     <Compile Include="Interop\IShellItem.cs" />
     <Compile Include="Interop\IShellItem2.cs" />
-    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactoryVariantForDownlevel.cs" />
     <Compile Include="Interop\Kernel32.cs" />
     <Compile Include="Interop\Ntdll.cs" />
     <Compile Include="Interop\Ole32.cs" />
