@@ -135,25 +135,25 @@ namespace EarTrumpet.UI.Views
             {
                 case WindowsTaskbar.Position.Left:
                     this.SetWindowPos(taskbar.Size.Bottom - newHeight,
-                              taskbar.Size.Right,
+                              taskbar.ContainingScreen.WorkingArea.Left,
                               newHeight,
                               newWidth);
                     break;
                 case WindowsTaskbar.Position.Right:
                     this.SetWindowPos(taskbar.Size.Bottom - newHeight,
-                              taskbar.Size.Left - newWidth,
+                              taskbar.ContainingScreen.WorkingArea.Right - newWidth,
                               newHeight,
                               newWidth);
                     break;
                 case WindowsTaskbar.Position.Top:
                     this.SetWindowPos(taskbar.Size.Bottom,
-                              FlowDirection == FlowDirection.RightToLeft ? taskbar.Size.Left : taskbar.Size.Right - newWidth,
+                              FlowDirection == FlowDirection.RightToLeft ? taskbar.ContainingScreen.WorkingArea.Left : taskbar.ContainingScreen.WorkingArea.Right - newWidth,
                               newHeight,
                               newWidth);
                     break;
                 case WindowsTaskbar.Position.Bottom:
                     this.SetWindowPos(taskbar.Size.Top - newHeight,
-                              FlowDirection == FlowDirection.RightToLeft ? taskbar.Size.Left : taskbar.Size.Right - newWidth,
+                              FlowDirection == FlowDirection.RightToLeft ? taskbar.ContainingScreen.WorkingArea.Left : taskbar.ContainingScreen.WorkingArea.Right - newWidth,
                               newHeight,
                               newWidth);
                     break;
