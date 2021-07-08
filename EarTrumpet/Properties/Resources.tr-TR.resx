@@ -196,7 +196,7 @@
     <value>Görev çubuğu açılır penceresini aç</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>EarTrumpet ikonunu kullan</value>
+    <value>Ses seviyesi yerine EarTrumpet ikonunu kullan</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>Daha fazla komut</value>
