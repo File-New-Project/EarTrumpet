@@ -1,18 +1,10 @@
 ﻿using EarTrumpet.Interop.MMDeviceAPI;
 using System;
-using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop.Helpers
 {
     class AudioPolicyConfigFactoryImplFor21H2 : IAudioPolicyConfigFactory
     {
-        [DllImport("api-ms-win-core-winrt-string-l1-1-0.dll", CallingConvention = CallingConvention.StdCall, ExactSpelling = true)]
-        private static extern int WindowsCreateString(
-            [MarshalAs(UnmanagedType.LPWStr)] string sourceString, int length, out IntPtr hstring);
-
-        [DllImport("api-ms-win-core-winrt-string-l1-1-0.dll", CallingConvention = CallingConvention.StdCall, ExactSpelling = true)]
-        private static extern int WindowsDeleteString(IntPtr hstring);
-
         private readonly IAudioPolicyConfigFactoryVariantFor21H2 _factory;
 
         internal AudioPolicyConfigFactoryImplFor21H2()
