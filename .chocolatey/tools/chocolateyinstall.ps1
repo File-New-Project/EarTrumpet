@@ -12,4 +12,4 @@ Write-Output "Adding shortcut to Start Menu"
 Install-ChocolateyShortcut -ShortcutFilePath "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\EarTrumpet.lnk" -TargetPath $exePath
 
 Write-Output "Adding shortcut to Startup"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\EarTrumpet.lnk" -TargetPath $exePath
+New-ItemProperty -LiteralPath 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'EarTrumpet' -Value $exePath -PropertyType String -Force -ea SilentlyContinue | Out-Null
