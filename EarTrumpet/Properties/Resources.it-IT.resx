@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Esci</value>
+    <value>Exit</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
     <value>Nessun dispositivo di riproduzione disponibile</value>
