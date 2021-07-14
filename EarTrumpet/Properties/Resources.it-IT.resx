@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Exit</value>
+    <value>Esci</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
     <value>Nessun dispositivo di riproduzione disponibile</value>
@@ -208,7 +208,7 @@
     <value>Impostazioni audio</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Vecchio menu Windows</value>
+    <value>Vecchio menu di Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Informazioni sull'add-on {Name}</value>
