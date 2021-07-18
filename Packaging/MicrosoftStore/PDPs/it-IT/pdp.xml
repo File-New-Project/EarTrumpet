@@ -18,18 +18,18 @@
   <SortTitle _locID="App_SortTitle"/>
   <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
   <DevStudio _locID="App_DevStudio"/>
-  <ReleaseNotes _locID="App_ReleaseNotes">Cambio completo disponibile all'indirizzo: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
+  <ReleaseNotes _locID="App_ReleaseNotes">La lista dei cambiamenti completa disponibile all'indirizzo: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
     <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
   <AdditionalAssets/>
   <Trailers/>
   <AppFeatures>
-    <AppFeature _locID="App_feature1">• Permette di controllare il volume delle app classiche e moderne</AppFeature>
-    <AppFeature _locID="App_feature2">• Permette di impostare il dispositivo audio predefinito in due clic</AppFeature>
-    <AppFeature _locID="App_feature3">• Si abbina all'aspetto e allo stile di Windows</AppFeature>
-    <AppFeature _locID="App_feature4">• Consente di impostare il dispositivo di riproduzione predefinito per singola app</AppFeature>
-    <AppFeature _locID="App_feature5">• Integrata con Hub di Feedback</AppFeature>
+    <AppFeature _locID="App_feature1">Controllare il volume delle app classiche e moderne</AppFeature>
+    <AppFeature _locID="App_feature2">Permette di impostare il dispositivo audio predefinito in due click</AppFeature>
+    <AppFeature _locID="App_feature3">Corrisponde all'aspetto e allo stile di Windows</AppFeature>
+    <AppFeature _locID="App_feature4">Supporta lo spostamento delle app tra i dispositivi di riproduzione</AppFeature>
+    <AppFeature _locID="App_feature5">Integrata con Hub di Feedback</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>

@@ -208,7 +208,7 @@
     <value>Impostazioni audio</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Vecchio menu Windows</value>
+    <value>Vecchio menu di Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Informazioni sull'add-on {Name}</value>
