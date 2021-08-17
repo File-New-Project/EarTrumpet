@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Ingen avspillingsenheter funnet</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Gi tilbakemelding</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Volumblander</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Volumblander</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Det ser ikke ut som om du har noen avspillingsenheter.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Ingen avspillingsenheter</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Avspillingsenheter</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Opptak enheter</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Innstillinger</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Lyder</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Samle inn feilsøkingsdata</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Din snarvei</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Alltid bruk standard avspillingsenhet</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Lær mer</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% volum - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Dempet - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Apper</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Skjul for å bare vise standard avspillingsenhet</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Standard snarvei</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Utvid for å vise alle avspillingsenheter</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Generelt</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Tilordne dette programmet til en avspillingsenhet</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Åpne oppgavelinjen-menyen</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Bruk gamle EarTrumpet ikon</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Flere kommandoer</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Dempet</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Lydinnstillinger</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Original windows innstillinger</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Om {Name} tillegg</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Navn:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Åpne Windows-innstillinger</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Dette tillegget kan fjernes ved hjelp av Windows-innstillingsappen.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Avinstaller</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Administrasjon</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Gamle innstillinger</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Utgiver:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Konfigurer snarveier og få hjelp</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet innstillinger</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Snarveier</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versjon:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Finn en innstilling</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Ingen resultater</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Åpne volumkontroll</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Av</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>På</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Hjem</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Kommer snart</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Kommer snart</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Åpne innstillinger</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Velkommen til EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet kunne ikke starte</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>En ødelagt font på systemet ditt hindrer EarTrumpet fra å starte.
+
+Åpne [https://eartrumpet.app/jmp/fixfonts] nå?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Slå demping av/på</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Retningslinjer for personvern</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Send krasjdata til EarTrumpet-teamet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>og</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Gjør</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Legg til handling</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Legg til betingelse</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Sett opp hurtigtaster og automatisering</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Legg til trigger</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>En app-økt er lagt til, fjernet, starter avspilling av lyd, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} på {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>er lagt til</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>er dempet</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>stopper avspilling av lyd</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>begynner å spille lyd</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>er fjernet</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>er avdempet</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>er lagt til</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>blir standard</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>forlater standard</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>er fjernet</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>usant</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>sant</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>er</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>er ikke</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>og</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Konfigurering av et filter er valgfritt, men lar deg bygge mer avanserte handlinger. Alle betingelser må være oppfylt før handlinger blir gjennomført.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Avansert filter</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Jeg bruker hurtigmenyelementet for denne handlingen</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Jeg bruker hurtigmenyelementet for denne handlingen</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Hvis standard avspillingsenhet er eller er ikke</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} standard enhet</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Standard avspillingshastighet</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>En lydenhet er lagt til, fjernet, satt som standard, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>slutter</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>starter</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Handlinger XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet starter eller slutter</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Alle apper</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Eksporter</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Lagre en kopi av handlingene dine i en fil.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Forgrunnsprogram</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>En hurtigtast er trykket</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(velg en hurtigtast)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} er trykket</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importer og eksporter</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Gjenopprett en kopi av handlingene dine fra en fil.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Demp</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Slå demping av/på</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Skru av demping</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Handlinger</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Ny handling</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(valgfritt)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Avspilling</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Hvis en prosess kjører eller ikke</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(angi et prosessnavn)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Når {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Prosessnavn (f.eks. notisblokk)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>starter</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>slutter</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>kjører ikke</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>kjører</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>En prosess starter eller slutter</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(angi et prosessnavn)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Når {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Prosessnavn (f.eks. notisblokk)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Opptak</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(obligatorisk)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Demp eller slå på lyden av en app</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} på {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Sett volumet til en app</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} volum til {Volume} på {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} volum med {Volume} på {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Angi standard avspillingsenhet</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Angi {Device} som standard for avspilling</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Demp eller slå på lyden av en enhet</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} på {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Angi en enhetsvolum</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} volum til {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} volum med {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Angi en lokal variabel</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(angi variabelnavn)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Sett variabel {Text} til {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Angi et variabelnavn (f.eks. isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Reduser</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Økning</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Sett</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>eller</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Når</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Hvis en lokal variabel er sann eller usann</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(angi variabelnavn)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Variabelen {Text} er {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Angi et variabelnavn (f.eks. isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Velg enhet</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Velg app</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Slett denne handlingen?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Avslutte uten å lagre?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Forlat</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Fjern denne handlingen</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Dette kan ikke angres.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Fjern handling</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Apper vist ovenfor har spilt lyd nylig.</value>
+  </data>
+</root>
