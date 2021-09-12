@@ -118,526 +118,526 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Esci</value>
+    <value>Lukk</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Nessun dispositivo di riproduzione disponibile</value>
+    <value>Ingen avspillingsenheter funnet</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Invia feedback</value>
+    <value>Gi tilbakemelding</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Volumblander</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Volumblander</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
+    <value>Det ser ikke ut som om du har noen avspillingsenheter.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Nessun dispositivo di riproduzione</value>
+    <value>EarTrumpet: Ingen avspillingsenheter</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Dispositivi di riproduzione</value>
+    <value>Avspillingsenheter</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Dispositivi di registrazione</value>
+    <value>Opptak enheter</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Impostazioni</value>
+    <value>Innstillinger</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Suoni</value>
+    <value>Lyder</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Raccogli dati per la risoluzione dei problemi</value>
+    <value>Samle inn feilsøkingsdata</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Scorciatoia</value>
+    <value>Din snarvei</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Usa sempre il dispositivo di riproduzione predefinito</value>
+    <value>Alltid bruk standard avspillingsenhet</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Info</value>
+    <value>Om</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Scopri di più</value>
+    <value>Lær mer</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume}% volume - {Name}"</value>
+    <value>"{Volume}% volum - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Audio Disattivato - {Name}</value>
+    <value>"Dempet - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>App</value>
+    <value>Apper</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Chiudi</value>
+    <value>Lukk</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Riduci per mostrare solamente il dispositivo di riproduzione predefinito</value>
+    <value>Skjul for å bare vise standard avspillingsenhet</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Scorciatoia predefinita</value>
+    <value>Standard snarvei</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Espandi per mostrare tutti i dispositivi di riproduzione</value>
+    <value>Utvid for å vise alle avspillingsenheter</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Generale</value>
+    <value>Generelt</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Assegna questa app a un dispositivo di riproduzione</value>
+    <value>Tilordne dette programmet til en avspillingsenhet</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Apri riquadro a comparsa nella barra delle applicazioni</value>
+    <value>Åpne oppgavelinjen-menyen</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Usa l'icona classica di EarTrumpet</value>
+    <value>Bruk gamle EarTrumpet ikon</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Altri comandi</value>
+    <value>Flere kommandoer</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Muto</value>
+    <value>Dempet</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Impostazioni audio</value>
+    <value>Lydinnstillinger</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Vecchio menu di Windows</value>
+    <value>Original windows innstillinger</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Informazioni sull'add-on {Name}</value>
+    <value>Om {Name} tillegg</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Nome:</value>
+    <value>Navn:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Apri Impostazioni di Windows</value>
+    <value>Åpne Windows-innstillinger</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Questo add-on può essere rimosso dall'app Impostazioni.</value>
+    <value>Dette tillegget kan fjernes ved hjelp av Windows-innstillingsappen.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Disinstalla</value>
+    <value>Avinstaller</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Gestione</value>
+    <value>Administrasjon</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Vecchie impostazioni</value>
+    <value>Gamle innstillinger</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Pubblicato da:</value>
+    <value>Utgiver:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Configura le scorciatoie e ottieni aiuto</value>
+    <value>Konfigurer snarveier og få hjelp</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Impostazioni EarTrumpet</value>
+    <value>EarTrumpet innstillinger</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Scorciatoie</value>
+    <value>Snarveier</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Versione:</value>
+    <value>Versjon:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Cerca nelle impostazioni</value>
+    <value>Finn en innstilling</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Nessun risultato</value>
+    <value>Ingen resultater</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Apri Mixer</value>
+    <value>Åpne volumkontroll</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Disattivato</value>
+    <value>Av</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Attivato</value>
+    <value>På</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Home</value>
+    <value>Hjem</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>In arrivo</value>
+    <value>Kommer snart</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>In arrivo</value>
+    <value>Kommer snart</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Apri impostazioni</value>
+    <value>Åpne innstillinger</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Chiudi</value>
+    <value>Lukk</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Benvenuto su EarTrumpet</value>
+    <value>Velkommen til EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>Avvio di EarTrumpet non riuscito</value>
+    <value>EarTrumpet kunne ikke starte</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Un font corrotto nel tuo sistema impedisce l'avvio di EarTrumpet.
+    <value>En ødelagt font på systemet ditt hindrer EarTrumpet fra å starte.
 
-Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
+Åpne [https://eartrumpet.app/jmp/fixfonts] nå?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Attiva/disattiva muto</value>
+    <value>Slå demping av/på</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Informativa sulla privacy</value>
+    <value>Retningslinjer for personvern</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Invia i dati sugli arresti anomali al team EarTrumpet</value>
+    <value>Send krasjdata til EarTrumpet-teamet</value>
   </data>
 
   <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>e</value>
+    <value>og</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Azioni</value>
+    <value>Gjør</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Aggiungi azione</value>
+    <value>Legg til handling</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Aggiungi condizione</value>
+    <value>Legg til betingelse</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Configura le scorciatoie da tastiera e l'automazione</value>
+    <value>Sett opp hurtigtaster og automatisering</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Aggiungi trigger</value>
+    <value>Legg til trigger</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Una sessione di un'applicazione viene aggiunta, rimossa, riproduce un suono, ...</value>
+    <value>En app-økt er lagt til, fjernet, starter avspilling av lyd, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} su {Device}</value>
+    <value>{App} {Option} på {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>è aggiunto</value>
+    <value>er lagt til</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>è silenziato</value>
+    <value>er dempet</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>smette di riprodurre un suono</value>
+    <value>stopper avspilling av lyd</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>inizia a riprodurre un suono</value>
+    <value>begynner å spille lyd</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>è rimosso</value>
+    <value>er fjernet</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>non è più silenziato</value>
+    <value>er avdempet</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>è aggiunto</value>
+    <value>er lagt til</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>diventa il valore predefinito</value>
+    <value>blir standard</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>non è più il valore predefinito</value>
+    <value>forlater standard</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>è rimosso</value>
+    <value>er fjernet</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>falso</value>
+    <value>usant</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>vero</value>
+    <value>sant</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>è</value>
+    <value>er</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>non è</value>
+    <value>er ikke</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>e</value>
+    <value>og</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Configurare un filtro è opzionale, ma permette di costruire azioni più avanzate. Tutte le condizioni devono essere verificate prima che le azioni siano realizzate.</value>
+    <value>Konfigurering av et filter er valgfritt, men lar deg bygge mer avanserte handlinger. Alle betingelser må være oppfylt før handlinger blir gjennomført.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Filtro avanzato</value>
+    <value>Avansert filter</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Uso la voce di questa azione dal menu contestuale</value>
+    <value>Jeg bruker hurtigmenyelementet for denne handlingen</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Uso la voce di questa azione dal menu contestuale</value>
+    <value>Jeg bruker hurtigmenyelementet for denne handlingen</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Se il dispositivo di riproduzione predefinito è o non è</value>
+    <value>Hvis standard avspillingsenhet er eller er ikke</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} il dispositivo predefinito</value>
+    <value>{Device} {Option} standard enhet</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Dispositivo di riproduzione predefinito</value>
+    <value>Standard avspillingshastighet</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Un dispositivo audio viene aggiunto, rimosso, impostato come predefinito, ...</value>
+    <value>En lydenhet er lagt til, fjernet, satt som standard, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>termina</value>
+    <value>slutter</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>inizia</value>
+    <value>starter</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Modifica</value>
+    <value>Rediger</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>Azioni XML di EarTrumpet</value>
+    <value>EarTrumpet Handlinger XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet si avvia o si arresta</value>
+    <value>EarTrumpet starter eller slutter</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Tutte le app</value>
+    <value>Alle apper</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Esporta</value>
+    <value>Eksporter</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Salva una copia delle tue azioni in un file.</value>
+    <value>Lagre en kopi av handlingene dine i en fil.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Applicazione in primo piano</value>
+    <value>Forgrunnsprogram</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Viene digitata una scorciatoia da tastiera</value>
+    <value>En hurtigtast er trykket</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(scegli una scorciatoia)</value>
+    <value>(velg en hurtigtast)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} viene digitato</value>
+    <value>{Hotkey} er trykket</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Importa e esporta</value>
+    <value>Importer og eksporter</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Importa</value>
+    <value>Importer</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Ripristina una copia delle tue azioni da un file.</value>
+    <value>Gjenopprett en kopi av handlingene dine fra en fil.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Disattiva l'audio</value>
+    <value>Demp</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Attiva/disattiva l'audio</value>
+    <value>Slå demping av/på</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Attiva l'audio</value>
+    <value>Skru av demping</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Azioni</value>
+    <value>Handlinger</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Nuova azione</value>
+    <value>Ny handling</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(facoltativo)</value>
+    <value>(valgfritt)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Riproduzione</value>
+    <value>Avspilling</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Se un processo è o non è in esecuzione</value>
+    <value>Hvis en prosess kjører eller ikke</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di un processo)</value>
+    <value>(angi et prosessnavn)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Quando {Text} {Option}</value>
+    <value>Når {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Nome del processo (ad esempio: notepad)</value>
+    <value>Prosessnavn (f.eks. notisblokk)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>viene avviato</value>
+    <value>starter</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>viene terminato</value>
+    <value>slutter</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>non è in esecuzione</value>
+    <value>kjører ikke</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>è in esecuzione</value>
+    <value>kjører</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Un processo si avvia o termina</value>
+    <value>En prosess starter eller slutter</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di un processo)</value>
+    <value>(angi et prosessnavn)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Quando {Text} {Option}</value>
+    <value>Når {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Nome del processo (ad esempio: notepad)</value>
+    <value>Prosessnavn (f.eks. notisblokk)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Registrazione</value>
+    <value>Opptak</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Fjern</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(necessario)</value>
+    <value>(obligatorisk)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Attiva o disattiva il suono di un'applicazione</value>
+    <value>Demp eller slå på lyden av en app</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} su {Device}</value>
+    <value>{Option} {App} på {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Imposta il volume di un'applicazione</value>
+    <value>Sett volumet til en app</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} il volume di {App} a {Volume} su {Device}</value>
+    <value>{Option} {App} volum til {Volume} på {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} il volume di {App} di {Volume} su {Device}</value>
+    <value>{Option} {App} volum med {Volume} på {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Imposta il dispositivo di riproduzione predefinito</value>
+    <value>Angi standard avspillingsenhet</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Imposta {Device} come dispositivo di riproduzione predefinito</value>
+    <value>Angi {Device} som standard for avspilling</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Attiva o disattiva il suono di un dispositivo</value>
+    <value>Demp eller slå på lyden av en enhet</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} su {Device}</value>
+    <value>{Option} på {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Imposta il volume di un dispositivo</value>
+    <value>Angi en enhetsvolum</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} al {Volume}</value>
+    <value>{Option} {Device} volum til {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} del {Volume}</value>
+    <value>{Option} {Device} volum med {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Imposta una variabile locale</value>
+    <value>Angi en lokal variabel</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(imposta il nome della variabile)</value>
+    <value>(angi variabelnavn)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Imposta la variabile {Text} come {Option}</value>
+    <value>Sett variabel {Text} til {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+    <value>Angi et variabelnavn (f.eks. isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Decrementa</value>
+    <value>Reduser</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Incrementa</value>
+    <value>Økning</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Imposta</value>
+    <value>Sett</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>o</value>
+    <value>eller</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Quando</value>
+    <value>Når</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Se una variabile locale è vera o falsa</value>
+    <value>Hvis en lokal variabel er sann eller usann</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di una variabile)</value>
+    <value>(angi variabelnavn)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>La variabile {Text} è {Option}</value>
+    <value>Variabelen {Text} er {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+    <value>Angi et variabelnavn (f.eks. isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Slett</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Modifica</value>
+    <value>Rediger</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Salva</value>
+    <value>Lagre</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Scegli un dispositivo</value>
+    <value>Velg enhet</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Scegli un'applicazione</value>
+    <value>Velg app</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Annulla</value>
+    <value>Avbryt</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Eliminare questa azione?</value>
+    <value>Slett denne handlingen?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Slett</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Slett</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Annulla</value>
+    <value>Avbryt</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Uscire senza salvare?</value>
+    <value>Avslutte uten å lagre?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Salvataggio</value>
+    <value>Lagre</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Esci</value>
+    <value>Forlat</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Elimina questa azione</value>
+    <value>Fjern denne handlingen</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Questo non può essere annullato.</value>
+    <value>Dette kan ikke angres.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Elimina azione</value>
+    <value>Fjern handling</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Fjern</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Le applicazioni mostrate sopra hanno riprodotto un suono di recente.</value>
+    <value>Apper vist ovenfor har spilt lyd nylig.</value>
   </data>
 </root>
