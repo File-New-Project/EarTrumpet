@@ -13,9 +13,12 @@ namespace EarTrumpet.Extensibility.Hosting
 
         private static readonly AddonResolver s_resolver = new AddonResolver();
         private static readonly List<string> s_loadedAddonIds = new List<string>();
+        private static bool s_shouldLoadInternalAddons = false;
 
-        public static void Load()
+        public static void Load(bool shouldLoadInternalAddons = false)
         {
+            s_shouldLoadInternalAddons = shouldLoadInternalAddons;
+
             Host.Addons = new List<EarTrumpetAddon>();
             var loadedCatalogs = s_resolver.Load(Host);
             {
@@ -34,7 +37,10 @@ namespace EarTrumpet.Extensibility.Hosting
                 }
             }
 
-            LoadInternalAddons();
+            if (s_shouldLoadInternalAddons)
+            {
+                LoadInternalAddons();
+            }
 
             Host.Events = Host.Addons.Where(a => a is IEarTrumpetAddonEvents).Select(a => (IEarTrumpetAddonEvents)a).ToList();
             Host.TrayContextMenuItems = Host.Addons.Where(a => a is IEarTrumpetAddonNotificationAreaContextMenu).Select(a => (IEarTrumpetAddonNotificationAreaContextMenu)a).ToList();

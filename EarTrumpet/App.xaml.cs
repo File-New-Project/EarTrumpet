@@ -21,6 +21,7 @@ namespace EarTrumpet
     {
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
+        public static bool HasDevIdentity { get; private set; }
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
@@ -40,6 +41,7 @@ namespace EarTrumpet
         {
             Exit += (_, __) => IsShuttingDown = true;
             HasIdentity = PackageHelper.CheckHasIdentity();
+            HasDevIdentity = PackageHelper.HasDevIdentity();
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
             _settings = new AppSettings();
             _errorReporter = new ErrorReporter(_settings);
@@ -85,9 +87,8 @@ namespace EarTrumpet
 
         private void CompleteStartup()
         {
-            AddonManager.Load();
+            AddonManager.Load(shouldLoadInternalAddons: HasDevIdentity);
             Exit += (_, __) => AddonManager.Shutdown();
-
 #if DEBUG
             DebugHelpers.Add();
 #endif
