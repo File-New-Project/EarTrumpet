@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.9.0
+- Added basic support for Windows 11
+- Added/updated Italian, Hungarian, Spanish, Portuguese, Turkish, Chinese, Norwegian, Arabic, Czech, Polish, Swedish, Romanian, and Russian translations
+- Fixed an issue with the flyout opening outside the working area
+- Fixed an issue with slow window movement when dragging
+
 ## 2.1.8.0
 - Added Hungarian, Swedish, Korean, and Tamil translations
 - Updated Japanese translations

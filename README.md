@@ -18,7 +18,7 @@
 
 ## Internationalization
 
-We currently support 20 languages. Are we missing your language? [Contribute a translation via Crowdin](https://crowdin.com/project/eartrumpet)!
+We currently support 20+ languages. Are we missing your language? [Contribute a translation via Crowdin](https://crowdin.com/project/eartrumpet)!
 
 ## Install
 
@@ -44,6 +44,7 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 2004 (May 2020 Update)
 - Windows 10 20H2 (October 2020 Update)
 - Windows 10 21H1 (May 2021 Update)
+- Windows 11
 
 ## Known issues
 - SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
