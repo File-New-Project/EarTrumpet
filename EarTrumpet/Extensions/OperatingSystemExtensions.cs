@@ -22,5 +22,10 @@ namespace EarTrumpet.Extensions
         {
             return os.Version.Build > (int)version;
         }
+
+        public static bool IsLessThan(this OperatingSystem os, OSVersions version)
+        {
+            return os.Version.Build < (int)version;
+        }
     }
 }
