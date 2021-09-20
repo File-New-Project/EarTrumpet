@@ -221,7 +221,7 @@ jobs:
           dotnet-version: '2.1.809'
 
       - name: Install AzureSignTool
-        run: dotnet tool install --tool-path . azuresigntool
+        run: dotnet tool install --tool-path . azuresigntool --version 2.0.17
 
       - name: Install Chocolatey
         if: matrix.channel == 'Chocolatey'
