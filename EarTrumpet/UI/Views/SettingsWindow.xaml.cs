@@ -15,7 +15,12 @@ namespace EarTrumpet.UI.Views
 
             InitializeComponent();
 
-            SourceInitialized += (_, __) => this.Cloak();
+            SourceInitialized += (_, __) =>
+            {
+                this.Cloak();
+                this.EnableRoundedCornersIfApplicable();
+            };
+
             StateChanged += OnWindowStateChanged;
         }
 

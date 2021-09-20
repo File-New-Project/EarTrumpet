@@ -19,7 +19,12 @@ namespace EarTrumpet.UI.Views
             _windowAndItemSize = (double)App.Current.Resources["WindowAndItemSize"];
 
             InitializeComponent();
-            SourceInitialized += (_, __) => this.Cloak();
+            SourceInitialized += (_, __) =>
+            {
+                this.Cloak();
+                this.EnableRoundedCornersIfApplicable();
+            };
+
             // Auto-size on the first layout pass.
             SizeToContent = SizeToContent.WidthAndHeight;
             MaxWidth = FullWindowViewModel.SmallDeviceCountLimit * _windowAndItemSize;

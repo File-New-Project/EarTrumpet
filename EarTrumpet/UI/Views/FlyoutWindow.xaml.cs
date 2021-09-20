@@ -3,6 +3,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
+using System;
 using System.Windows;
 
 namespace EarTrumpet.UI.Views
@@ -20,7 +21,11 @@ namespace EarTrumpet.UI.Views
 
             _viewModel.StateChanged += OnStateChanged;
             _viewModel.WindowSizeInvalidated += OnWindowsSizeInvalidated;
-            SourceInitialized += (_, __) => this.Cloak();
+            SourceInitialized += (_, __) =>
+            {
+                this.Cloak();
+                this.EnableRoundedCornersIfApplicable();
+            };
             Themes.Manager.Current.ThemeChanged += () => EnableAcrylicIfApplicable(WindowsTaskbar.Current);
         }
 
@@ -131,6 +136,12 @@ namespace EarTrumpet.UI.Views
                 newHeight = maxHeight;
             }
 
+            double offsetFromTaskbar = 0;
+            if(Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+            {
+                offsetFromTaskbar += 12;
+            }
+
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
@@ -152,7 +163,7 @@ namespace EarTrumpet.UI.Views
                               newWidth);
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    this.SetWindowPos(taskbar.Size.Top - newHeight,
+                    this.SetWindowPos(taskbar.Size.Top - newHeight - offsetFromTaskbar,
                               FlowDirection == FlowDirection.RightToLeft ? taskbar.ContainingScreen.WorkingArea.Left : taskbar.ContainingScreen.WorkingArea.Right - newWidth,
                               newHeight,
                               newWidth);

@@ -101,7 +101,8 @@ namespace EarTrumpet.Interop
         internal enum WindowCompositionAttribute
         {
             // ...
-            WCA_ACCENT_POLICY = 19
+            WCA_ACCENT_POLICY = 19,
+            WCA_CORNER_STYLE = 27
             // ...
         }
 
