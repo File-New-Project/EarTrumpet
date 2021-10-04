@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace EarTrumpet.Interop.Helpers
 {
-    static class AccentPolicyLibrary
+    public static class AccentPolicyLibrary
     {
         public static bool AccentPolicySupportsTintColor => Environment.OSVersion.IsAtLeast(OSVersions.RS4);
 

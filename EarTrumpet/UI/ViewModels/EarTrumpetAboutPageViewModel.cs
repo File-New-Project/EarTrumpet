@@ -33,7 +33,7 @@ namespace EarTrumpet.UI.ViewModels
 
             OpenAboutCommand = new RelayCommand(OpenAbout);
             OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);
-            OpenFeedbackCommand = new RelayCommand(OpenFeedbackHub);
+            OpenFeedbackCommand = new RelayCommand(OpenGitHubIssueChooser);
             OpenPrivacyPolicyCommand = new RelayCommand(OpenPrivacyPolicy);
         }
 
@@ -48,7 +48,7 @@ namespace EarTrumpet.UI.ViewModels
             _openDiagnostics.Invoke();
         }
 
-        private void OpenFeedbackHub() => ProcessHelper.StartNoThrow("windows-feedback:///?appid=40459File-New-Project.EarTrumpet_1sdd7yawvg6ne!EarTrumpet");
+        private void OpenGitHubIssueChooser() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet/issues/new/choose");
         private void OpenAbout() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet");
         private void OpenPrivacyPolicy() => ProcessHelper.StartNoThrow("https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md");
     }

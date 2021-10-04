@@ -68,7 +68,7 @@ namespace EarTrumpet.UI.ViewModels
             {
                 Addons = new ObservableCollection<object>(contentItems.Select(a => a.GetContentForApp(App.Parent.Id, App.Id, () => RequestClose.Invoke())).ToArray());
 
-                var menuItems = contentItems.SelectMany(a => a.GetItemsForApp(app.Parent.Id, app.AppId));
+                var menuItems = contentItems.SelectMany(a => a.GetContextMenuItemsForApp(app.Parent.Id, app.AppId));
                 if (menuItems.Any())
                 {
                     Toolbar.Insert(0, new ToolbarItemViewModel

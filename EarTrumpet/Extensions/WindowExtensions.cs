@@ -27,6 +27,15 @@ namespace EarTrumpet.Extensions
             DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
         }
 
+        public static void EnableRoundedCornersIfApplicable(this Window window)
+        {
+            if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+            {
+                int attributeValue = (int)DwmApi.DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+                DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMWA_WINDOW_CORNER_PREFERENCE, ref attributeValue, Marshal.SizeOf(attributeValue));
+            }
+        }
+
         public static void RemoveWindowStyle(this Window window, int styleToRemove)
         {
             var currentStyle = User32.GetWindowLong(window.GetHandle(), User32.GWL.GWL_STYLE);

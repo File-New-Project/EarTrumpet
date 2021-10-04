@@ -80,6 +80,71 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Addons\EarTrumpet.Actions\EarTrumpetActionsAddon.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\Controls\LinkedTextBlock.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\Controls\MenuButton.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\AudioAppEventKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\AudioDeviceEventKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\BoolValue.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\ComparisonBoolKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\EarTrumpetEventKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\MuteKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\ProcessEventKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\ProcessStateKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Enum\SetVolumeKind.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\IPartWithApp.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\IPartWithDevice.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\IPartWithText.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\IPartWithVolume.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\LocalVariablesContainer.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Part.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Processing\ActionProcessor.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Processing\AudioTriggerManager.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Processing\ConditionProcessor.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Processing\TriggerManager.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\ProcessWatcher.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\Actions.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\App.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\Conditions.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\Device.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\EarTrumpetAction.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\DataModel\Serialization\Triggers.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\Interop\Helpers\WindowWatcher.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\Interop\User32.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\ActionsCategoryViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetAppMuteActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetAppVolumeActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetDefaultDeviceActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetDeviceMuteActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetDeviceVolumeActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Actions\SetVariableActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\AppListViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Conditions\DefaultDeviceConditionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Conditions\ProcessConditionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Conditions\VariableConditionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\DefaultPlaybackDeviceViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\DeviceListViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\DeviceViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\DeviceViewModelBase.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\EarTrumpetActionPageHeaderViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\EarTrumpetActionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\EveryAppViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\ForegroundAppViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\HotkeyViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\ImportExportPageViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\IOptionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Option.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\OptionViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\PartViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\PartViewModelFactory.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\TextViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\AppEventTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\ContextMenuTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\DeviceEventTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\EventTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\HotkeyTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\Triggers\ProcessTriggerViewModel.cs" />
+    <Compile Include="Addons\EarTrumpet.Actions\ViewModel\VolumeViewModel.cs" />
     <Compile Include="DataModel\AppInformation\AppInformationFactory.cs" />
     <Compile Include="DataModel\AppInformation\IAppInfo.cs" />
     <Compile Include="DataModel\AppInformation\Internal\DesktopAppInfo.cs" />
@@ -112,17 +177,26 @@
     <Compile Include="DebugHelpers.cs" />
     <Compile Include="Diagnosis\ErrorReporter.cs" />
     <Compile Include="Diagnosis\SnapshotData.cs" />
+    <Compile Include="Extensibility\EarTrumpetAddon.cs" />
+    <Compile Include="Extensibility\EarTrumpetAddonManifest.cs" />
     <Compile Include="Extensibility\Hosting\AddonHost.cs" />
     <Compile Include="Extensibility\Hosting\AddonResolver.cs" />
+    <Compile Include="Extensibility\Shared\PlaybackDataModelHost.cs" />
+    <Compile Include="Extensibility\Shared\ResourceLoader.cs" />
+    <Compile Include="Extensions\EarTrumpetAddonExtensions.cs" />
     <Compile Include="Extensions\EventBinding\EventBindingExtension.cs" />
     <Compile Include="Extensions\EventBinding\HandledEventBindingExtension.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Features.cs" />
+    <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplFor21H2.cs" />
+    <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplForDownlevel.cs" />
     <Compile Include="Interop\Helpers\InputHelper.cs" />
     <Compile Include="Interop\Helpers\SettingsPageHelper.cs" />
     <Compile Include="Interop\Helpers\PackageHelper.cs" />
     <Compile Include="Interop\IShellItemImageFactory.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactoryVariantFor21H2.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
     <Compile Include="Interop\SafeHandles\HMODULE.cs" />
     <Compile Include="Interop\SIZE.cs" />
     <Compile Include="UI\Behaviors\FrameworkElementEx.cs" />
@@ -149,6 +223,7 @@
     <Compile Include="UI\Themes\AcrylicBrush.cs" />
     <Compile Include="UI\Themes\Brush.cs" />
     <Compile Include="UI\Themes\BrushValueParser.cs" />
+    <Compile Include="UI\Themes\OS.cs" />
     <Compile Include="UI\Themes\Options.cs" />
     <Compile Include="UI\Themes\Ref.cs" />
     <Compile Include="UI\Themes\Rule.cs" />
@@ -156,13 +231,12 @@
     <Compile Include="UI\Helpers\TaskbarIconSource.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
-    <Compile Include="Extensibility\AddonInfo.cs" />
-    <Compile Include="Extensibility\IAddonAppContent.cs" />
-    <Compile Include="Extensibility\IAddonDeviceContent.cs" />
-    <Compile Include="Extensibility\IAddonLifecycle.cs" />
-    <Compile Include="Extensibility\IAddonContextMenu.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonAppContent.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonDeviceContent.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonEvents.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonNotificationAreaContextMenu.cs" />
     <Compile Include="DataModel\Storage\ISettingsBag.cs" />
-    <Compile Include="Extensibility\IAddonSettingsPage.cs" />
+    <Compile Include="Extensibility\IEarTrumpetAddonSettingsPage.cs" />
     <Compile Include="Extensibility\Shared\ServiceBus.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
@@ -192,7 +266,7 @@
     <Compile Include="Interop\MMDeviceAPI\IPolicyConfig.cs" />
     <Compile Include="Interop\IShellItem.cs" />
     <Compile Include="Interop\IShellItem2.cs" />
-    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactory.cs" />
+    <Compile Include="Interop\MMDeviceAPI\IAudioPolicyConfigFactoryVariantForDownlevel.cs" />
     <Compile Include="Interop\Kernel32.cs" />
     <Compile Include="Interop\Ntdll.cs" />
     <Compile Include="Interop\Ole32.cs" />
@@ -319,6 +393,10 @@
     <Compile Include="UI\Views\AppItemView.xaml.cs">
       <DependentUpon>AppItemView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Addons\EarTrumpet.Actions\AddonResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Mutable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -379,17 +457,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.af.resx" />
     <EmbeddedResource Include="Properties\Resources.cs.resx" />
-    <EmbeddedResource Include="Properties\Resources.hu.resx" />
-    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de-DE.resx" />
     <EmbeddedResource Include="Properties\Resources.es.resx" />
     <EmbeddedResource Include="Properties\Resources.fr-FR.resx" />
-    <EmbeddedResource Include="Properties\Resources.it.resx" />
+    <EmbeddedResource Include="Properties\Resources.hu.resx" />
+    <EmbeddedResource Include="Properties\Resources.it-IT.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
     <EmbeddedResource Include="Properties\Resources.nl.resx" />
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
     <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
@@ -400,6 +474,11 @@
     <EmbeddedResource Include="Properties\Resources.uk-UA.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
     <EmbeddedResource Include="Properties\Resources.zh-TW.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

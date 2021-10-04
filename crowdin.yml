@@ -1,0 +1,13 @@
+commit_message: "l10n: New translations for %original_file_name% (%language%)"
+append_commit_message: false
+files:
+  - source: EarTrumpet/Properties/Resources.resx
+    translation: /EarTrumpet/Properties/Resources.%locale%.resx
+  - source: /Packaging/MicrosoftStore/PDPs/en-us/pdp.xml
+    translation: /Packaging/MicrosoftStore/PDPs/%locale%/pdp.xml
+    content_segmentation: 0
+    translatable_elements:
+      - /ProductDescription/Keywords/Keyword
+      - /ProductDescription/Description
+      - /ProductDescription/ReleaseNotes
+      - /ProductDescription/AppFeatures/AppFeature

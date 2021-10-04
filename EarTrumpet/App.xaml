@@ -810,6 +810,10 @@
                         <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh" />
                         <Setter Property="Theme:Brush.BorderBrush" Value="Theme=Transparent, HighContrast=ControlText" />
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow" />
+                        <Setter Property="Theme:Brush.BorderBrush" Value="Theme=Transparent, HighContrast=ControlText" />
+                    </Trigger>
                 </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type CheckBox}">

@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>வெளியேறு</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>இயக்கல் சாதனம் எதுவும் கண்டறியப்படவில்லை</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>பின்னூட்டம் மையம்</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>ஒலியளவு மிக்சர்</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>ஒலியளவு மிக்சர்</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>உங்களிடம் எந்த இயக்கல் சாதனங்களும் இல்லை போல் தெரிகிறது.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: இயக்கல் சாதனங்கள் எதுவுமில்லை</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>இயக்கல் சாதனங்கள்</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>பதிவு சாதனங்கள்</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>அமைப்புகள்</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>ஒலிகள்</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>சிக்கல்தீர்த்தல் தரவைச் சேகரி</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>உங்கள் விசை குறுக்குவழி</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>எப்போதும் இயல்புநிலை சாதனத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>பற்றி</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>மேலும் அறிக</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% ஒலியளவு - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"முடக்கப்பட்டது - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>பயன்பாடுகள்</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>மூடு</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>இயல்புநிலை இயக்கல் சாதனத்தை மட்டும் காண்பிக்கச் சுருக்கு</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>இயல்புநிலை விசை குறுக்குவழி</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>எல்லா இயக்கல் சாதனங்களைக் காண்பிக்க விரிவாக்கு</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>பொது</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>இப்பயன்பாட்டை ஒரு இயக்கல் சாதனத்திற்கு பேற்றுரிமையாளராக்கு</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>பணிப்பட்டி பலகையைத் திற</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Legacy EarTrumpet படவுருவை பயன்படுத்து</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>மேலும் கட்டளைகள்</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>ஒலியடக்கு</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>ஒலி அமைப்புகள்</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows legacy</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>{Name} நீட்டிப்பைப் பற்றி</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>பெயர்:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Windows அமைப்புகளைத் திற</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>இந்த நீட்டிப்பை Windows அமைப்புகளில் அகற்றலாம்.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>நிறுவல்நீக்கு</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>மேலாண்மை</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Legacy அமைப்புகள்</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>வெளியீட்டாளர்:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>விசை குறுக்குவழிகளை அமைக்கவும் மற்றும் உதவி பெறவும்</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet அமைப்புகள்</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>குறுக்குவழி</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>பதிப்பு:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>ஒரு அமைப்பைக் கண்டறி</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>முடிவுகள் இல்லை</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>மிக்சரை திற</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>அணை</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>இயக்கு</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>முகப்பு</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>விரைவில் வருகிறது</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>விரைவில் வருகிறது</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>அமைப்புகளைத் திற</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>மூடு</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet இற்கு வருக</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpetஐ தொடங்க முடியவில்லை</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>உங்கள் கணினியில் ஒரு உடைந்த எழுத்துரு EarTrumpet தொடங்குவதிலிருந்து தடுக்கிறது.
+
+இப்போது [https://eartrumpet.app/jmp/fixfonts] திறக்கவா?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>ஒலியடங்கை இயக்கு/அணை</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>தனியுரிமைக் கொள்கை</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>EarTrumpet குழுவிற்குச் செயலிழப்புத் தரவை அனுப்பவும்</value>
+  </data>
+</root>

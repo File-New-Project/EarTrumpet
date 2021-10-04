@@ -13,6 +13,7 @@ namespace EarTrumpet.UI.ViewModels
         public enum DeviceIconKind
         {
             Mute,
+            Bar0,
             Bar1,
             Bar2,
             Bar3,
@@ -116,21 +117,34 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
+                var isOnWindows11 = Environment.OSVersion.IsAtLeast(OSVersions.Windows11);
                 if (_device.IsMuted)
                 {
                     IconKind = DeviceIconKind.Mute;
                 }
-                else if (_device.Volume >= 0.66f)
+                else if (isOnWindows11 && _device.Volume > 0.66f)
                 {
                     IconKind = DeviceIconKind.Bar3;
                 }
-                else if (_device.Volume >= 0.33f)
+                else if (!isOnWindows11 && _device.Volume >= 0.66f)
+                {
+                    IconKind = DeviceIconKind.Bar3;
+                }
+                else if (isOnWindows11 && _device.Volume > 0.33f)
                 {
                     IconKind = DeviceIconKind.Bar2;
                 }
-                else
+                else if (!isOnWindows11 && _device.Volume >= 0.33f)
+                {
+                    IconKind = DeviceIconKind.Bar2;
+                }
+                else if (_device.Volume > 0.00f)
                 {
                     IconKind = DeviceIconKind.Bar1;
+                }
+                else
+                {
+                    IconKind = DeviceIconKind.Bar0;
                 }
             }
         }
@@ -222,6 +236,6 @@ namespace EarTrumpet.UI.ViewModels
 
         public void MakeDefaultDevice() => _deviceManager.Default = _device;
         public void IncrementVolume(int delta) => Volume += delta;
-        public override string ToString() => string.Format(IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText : Properties.Resources.AppOrDeviceFormatAccessibleText, DisplayName, Volume);
+        public override string ToString() => AccessibleName;
     }
 }

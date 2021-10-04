@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Nessun dispositivo di riproduzione disponibile</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Invia feedback</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mixer volume</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mixer volume</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Nessun dispositivo di riproduzione</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Dispositivi di riproduzione</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Dispositivi di registrazione</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Suoni</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Raccogli dati per la risoluzione dei problemi</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Scorciatoia</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Usa sempre il dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Scopri di più</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% volume - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Audio Disattivato - {Name}</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>App</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Riduci per mostrare solamente il dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Scorciatoia predefinita</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Espandi per mostrare tutti i dispositivi di riproduzione</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Generale</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Assegna questa app a un dispositivo di riproduzione</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Apri riquadro a comparsa nella barra delle applicazioni</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Usa l'icona classica di EarTrumpet</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Altri comandi</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Muto</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Impostazioni audio</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Vecchio menu di Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Informazioni sull'add-on {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Nome:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Apri Impostazioni di Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Questo add-on può essere rimosso dall'app Impostazioni.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Disinstalla</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Gestione</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Vecchie impostazioni</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Pubblicato da:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Configura le scorciatoie e ottieni aiuto</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Impostazioni EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Scorciatoie</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versione:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Cerca nelle impostazioni</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Nessun risultato</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Apri Mixer</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Disattivato</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Attivato</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>In arrivo</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>In arrivo</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Apri impostazioni</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Benvenuto su EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Avvio di EarTrumpet non riuscito</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Un font corrotto nel tuo sistema impedisce l'avvio di EarTrumpet.
+
+Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Attiva/disattiva muto</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Informativa sulla privacy</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Invia i dati sugli arresti anomali al team EarTrumpet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Aggiungi azione</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Aggiungi condizione</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Configura le scorciatoie da tastiera e l'automazione</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Aggiungi trigger</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Una sessione di un'applicazione viene aggiunta, rimossa, riproduce un suono, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} su {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>è aggiunto</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>è silenziato</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>smette di riprodurre un suono</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>inizia a riprodurre un suono</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>è rimosso</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>non è più silenziato</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>è aggiunto</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>diventa il valore predefinito</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>non è più il valore predefinito</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>è rimosso</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>falso</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>vero</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>è</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>non è</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Configurare un filtro è opzionale, ma permette di costruire azioni più avanzate. Tutte le condizioni devono essere verificate prima che le azioni siano realizzate.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Filtro avanzato</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Uso la voce di questa azione dal menu contestuale</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Uso la voce di questa azione dal menu contestuale</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Se il dispositivo di riproduzione predefinito è o non è</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} il dispositivo predefinito</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Un dispositivo audio viene aggiunto, rimosso, impostato come predefinito, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>termina</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>inizia</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>Azioni XML di EarTrumpet</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet si avvia o si arresta</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Tutte le app</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Esporta</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Salva una copia delle tue azioni in un file.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Applicazione in primo piano</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Viene digitata una scorciatoia da tastiera</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(scegli una scorciatoia)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} viene digitato</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importa e esporta</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Importa</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Ripristina una copia delle tue azioni da un file.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Disattiva l'audio</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Attiva/disattiva l'audio</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Attiva l'audio</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Nuova azione</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(facoltativo)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Riproduzione</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Se un processo è o non è in esecuzione</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(inserisci il nome di un processo)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Quando {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Nome del processo (ad esempio: notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>viene avviato</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>viene terminato</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>non è in esecuzione</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>è in esecuzione</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Un processo si avvia o termina</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(inserisci il nome di un processo)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Quando {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Nome del processo (ad esempio: notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Registrazione</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(necessario)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Attiva o disattiva il suono di un'applicazione</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} su {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Imposta il volume di un'applicazione</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} il volume di {App} a {Volume} su {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} il volume di {App} di {Volume} su {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Imposta il dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Imposta {Device} come dispositivo di riproduzione predefinito</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Attiva o disattiva il suono di un dispositivo</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} su {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Imposta il volume di un dispositivo</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} al {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} del {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Imposta una variabile locale</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(imposta il nome della variabile)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Imposta la variabile {Text} come {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Decrementa</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Incrementa</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Imposta</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Quando</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Se una variabile locale è vera o falsa</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(inserisci il nome di una variabile)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>La variabile {Text} è {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Scegli un dispositivo</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Scegli un'applicazione</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Eliminare questa azione?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Uscire senza salvare?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Salvataggio</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Elimina questa azione</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Questo non può essere annullato.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Elimina azione</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Le applicazioni mostrate sopra hanno riprodotto un suono di recente.</value>
+  </data>
+</root>

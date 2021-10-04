@@ -43,5 +43,22 @@ namespace EarTrumpet.Interop.Helpers
                 return false;
             }
         }
+
+        public static bool HasDevIdentity()
+        {
+#if VSDEBUG
+            return true;
+#else
+            bool result = false;
+            try
+            {
+                result = Package.Current.DisplayName.EndsWith("(dev)");
+            }
+            catch
+            {
+            }
+            return result;
+#endif
+        }
     }
 }

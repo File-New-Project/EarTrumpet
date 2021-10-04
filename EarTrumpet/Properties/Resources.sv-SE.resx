@@ -121,16 +121,16 @@
     <value>Avsluta</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Inga uppspelningsenheter hittade</value>
+    <value>Hittade inga uppspelningsenheter</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Skicka feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymkontroll</value>
+    <value>Volymmixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymkontroll</value>
+    <value>Volymmixer</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
@@ -163,7 +163,7 @@
     <value>Om</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Läs mer</value>
+    <value>Lär dig mer</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
     <value>"{Volume} % volym - {Name}"</value>
@@ -172,19 +172,19 @@
     <value>"Ljud av - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Program</value>
+    <value>Appar</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Stäng</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Kollapsa för att visa endast standardenheten för uppspelning</value>
+    <value>Dra samman för att visa endast standardenheten för uppspelning</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
     <value>Standardgenväg</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Expandera för att visa alla uppspelningsenheter</value>
+    <value>Utöka för att visa alla uppspelningsenheter</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>Allmänt</value>
@@ -196,7 +196,7 @@
     <value>Öppna aktivitetfältsmenyn</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Använd gamla EarTrumpet-ikonen</value>
+    <value>Använd den äldre EarTrumpet-ikonen</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>Fler kommandon</value>
@@ -208,7 +208,7 @@
     <value>Ljudinställningar</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows-inställningar</value>
+    <value>Windows-originalinställningar</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Om tillägget {Name}</value>
@@ -229,7 +229,7 @@
     <value>Hantering</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Gamla inställningar</value>
+    <value>Äldre inställningar</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>Utgivare:</value>
@@ -295,5 +295,349 @@
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Skicka kraschdata till EarTrumpet-teamet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>och</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Gör</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Lägg till åtgärd</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Lägg till villkor</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Ställ in snabbtangenter och automatisering</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Lägg till trigger</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>En app-session har lagts till, tagits bort, börjar spela upp ljud...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} på {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>är tillagd</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>är tystad</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>slutar spela ljud</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>börjar spela upp ljud</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>är borttaget</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>har ljud på</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>är tillagd</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>blir standard</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>lämnar standard</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>är borttaget</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>falsk</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>sant</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>är</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>är inte</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>och</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Konfigurera ett filter är valfritt, men det låter dig bygga mer avancerade åtgärder. Alla villkor måste vara sanna innan åtgärder utförs.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Avancerat filter</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Jag använder den här åtgärdens innehållsmenyobjekt</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Jag använder den här åtgärdens innehållsmenyobjekt</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Om standardenheten för uppspelning är eller inte är</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} standardenhet</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Standardenhet för uppspelning</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>En ljudenhet har lagts till, tagits bort, ange som standard, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>slutar</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>börjar</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet XML-åtgärder</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet startar eller slutar</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Alla appar</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Spara en kopia av dina åtgärder till en fil.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Förgrundsapp</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>En snabbtangent har tryckts ner</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(välj en snabbtangent)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} har tryckts ner</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importera och exportera</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Importera</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Återställer dina åtgärder från en fil.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Tyst</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Växla tyst</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Ljud på</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Åtgärder</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Ny åtgärd</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(valfri)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Uppspelning</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Om en process körs eller inte</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(ange ett processnamn)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>När {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Processnamn (t.ex. anteckningar)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>börjar</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>slutar</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>körs ej</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>körs</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>En process startar eller slutar</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(ange ett processnamn)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>När {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Processnamn (t.ex. anteckningar)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Spelar in</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(obligatorisk)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Tysta eller på med ljudet för en app</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} på {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Ange volymen för en app</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} volym till {Volume} på {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} volym av {Volume} på {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Ställ in standardenhet för uppspelning</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Ange {Device} som standardenhet för uppspelning</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Tysta eller på med ljudet för en enhet</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} på {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Ställ in enhetsvolym</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} volym till {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} volym av {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Ställ in en lokal variabel</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(ange variabelnamn)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Ställ in variabel {Text} till {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Ange ett variabelnamn (t.ex isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Minskning</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Ökning</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Ange</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>eller</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>När</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Om en lokal variabel är sann eller falskt</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(ange ett variabelnamn)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Variabel {Text} är {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Ange ett variabelnamn (t.ex isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Välj en enhet</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Välj en app</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Ta bort åtgärden?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Lämna utan att spara?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Lämna</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Ta bort åtgärd</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Detta kan inte ångras.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Ta bort åtgärd</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Appar som visas ovan har spelat upp ljud nyligen.</value>
   </data>
 </root>

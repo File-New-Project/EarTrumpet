@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Windows.ApplicationModel;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
@@ -26,25 +25,20 @@ namespace EarTrumpet.Extensibility.Hosting
             Trace.WriteLine($"AddonResolver Load");
             try
             {
-                if (App.HasIdentity)
+                var rootAddonDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Addons");
+                if (Directory.Exists(rootAddonDir))
                 {
-                    catalogs.AddRange(Package.Current.Dependencies.
-                        Where(pkg => pkg.IsOptional).
-                        Where(pkg => pkg.PublisherDisplayName == Package.Current.PublisherDisplayName).
-                        Select(pkg => SelectAddon(pkg.InstalledLocation.Path)).
-                        Where(catalog => catalog != null));
-                }
-                else
-                {
-#if DEBUG
-                    var rootAddonDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir, "PackageTemp*").
+                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir).
                         Select(path => SelectAddon(path)).
                         Where(catalog => catalog != null));
-#endif
-                }
 
-                new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(target);
+#if DEBUG
+                    catalogs.AddRange(Directory.GetDirectories(rootAddonDir)
+                        .Select(path => SelectDevAddon(path))
+                        .Where(catalog => catalog != null));
+#endif
+                    new CompositionContainer(new AggregateCatalog(catalogs)).ComposeParts(target);
+                }
             }
             catch (Exception ex)
             {
@@ -61,13 +55,12 @@ namespace EarTrumpet.Extensibility.Hosting
             try
             {
                 Trace.WriteLine($"AddonResolver SelectAddon: {path}");
-                var versionRoot = Path.Combine(path, "Versions");
-                var versions = Directory.GetDirectories(versionRoot).Select(f => Path.GetFileName(f)).Select(f => Version.Parse(f)).OrderBy(v => v);
+                var versions = Directory.GetDirectories(path).Select(f => Path.GetFileName(f)).Select(f => Version.Parse(f)).OrderBy(v => v);
                 foreach (var version in versions.Reverse())
                 {
                     if (version <= App.PackageVersion)
                     {
-                        var cat = new DirectoryCatalog(Path.Combine(versionRoot, version.ToString()), "EarTrumpet*.dll");
+                        var cat = new DirectoryCatalog(Path.Combine(path, version.ToString()), "EarTrumpet*.dll");
                         _addonDirectoryPaths.Add(cat.Path);
                         return cat;
                     }
@@ -80,6 +73,38 @@ namespace EarTrumpet.Extensibility.Hosting
             Trace.WriteLine($"AddonResolver SelectAddon: Return without selection: {path}");
             return null;
         }
+
+
+#if DEBUG
+        // Discover addons in the form of AddonName\AddonName.dll.
+        private DirectoryCatalog SelectDevAddon(string path)
+        {
+            try
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: Discovering from {path}");
+                var cat = new DirectoryCatalog(path, $"{new DirectoryInfo(path).Name}.dll");
+                if (cat.LoadedFiles.Count == 0)
+                {
+                    Trace.WriteLine("AddonResolver SelectDevAddon: ## WARNING ##: No files found in addon package");
+                }
+                else
+                {
+                    foreach (var file in cat.LoadedFiles)
+                    {
+                        Trace.WriteLine($"AddonResolver SelectDevAddon Loading: {file}");
+                    }
+                }
+                _addonDirectoryPaths.Add(cat.Path);
+                return cat;
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"AddonResolver SelectDevAddon: {ex}");
+            }
+            Trace.WriteLine($"AddonResolver SelectDevAddon: Return without selection: {path}");
+            return null;
+        }
+#endif
 
         private Assembly OnFinalAssemblyResolve(object sender, ResolveEventArgs args)
         {

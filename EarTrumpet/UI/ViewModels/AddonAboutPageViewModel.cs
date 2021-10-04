@@ -5,24 +5,22 @@ using System.Windows.Input;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class AddonAboutPageViewModel : SettingsPageViewModel
+    internal class AddonAboutPageViewModel : SettingsPageViewModel
     {
-        public string DisplayName => _addon.DisplayName;
-        public string PublisherName => _addon.PublisherName;
-        public string Version => _addon.AddonVersion.ToString();
         public ICommand OpenHelpLink { get; }
-        public ICommand Uninstall { get; }
+        public string DisplayName => _addon.DisplayName;
+        public string PublisherName => _addon.Manifest.PublisherName;
+        public string Version => _addon.Manifest.Version;
 
-        private readonly AddonInfo _addon;
+        private readonly EarTrumpetAddon _addon;
 
-        public AddonAboutPageViewModel(AddonInfo addon) : base(DefaultManagementGroupName)
+        public AddonAboutPageViewModel(EarTrumpetAddon addon) : base(DefaultManagementGroupName)
         {
             Glyph = "\xE946";
             _addon = addon;
-            Title = Properties.Resources.AboutThisAddonText.Replace("{Name}", DisplayName);
 
-            OpenHelpLink = new RelayCommand(() => ProcessHelper.StartNoThrow(_addon.HelpLink));
-            Uninstall = new RelayCommand(() => ProcessHelper.StartNoThrow("ms-settings:appsfeatures"));
+            Title = Properties.Resources.AboutThisAddonText.Replace("{Name}", DisplayName);
+            OpenHelpLink = new RelayCommand(() => ProcessHelper.StartNoThrow(_addon.Manifest.HelpLink));
         }
     }
 }

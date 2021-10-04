@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Gaan Uit</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Geen terugspeeltoestel gevind nie</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Stuur terugvoering</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Volumemenger</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Volumemenger</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Dit kom voor of daar geen terugspeeltoestelle is nie.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Geen terugspeeltoestelle</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Terugspeeltoestelle</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Opneemtoestelle</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Instellings</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Klanke</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Versamel foutopsporingsdata</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>U kortpad</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Gebruik altyd verstek terugspeeltoestel</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Aangaande</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Kom meer te wete</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>{Volume}% volume - {Name}</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>Uitgedoof - {Name}</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Programme</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Maak toe</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Vou in en vertoon slegs die verstek terugspeeltoestel</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Verstek kortpad</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Vou uit en vertoon alle terugspeel toestelle</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Ken die toep toe aan 'n terugspeel toestel</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Maak taakbalkmenu oop</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Gebruik ou EarTrumpet kenteken</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Meer opdragte</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Gedemp</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Klankinstellings</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows verstek</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Aangaande {Name} byvoeging</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Naam:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Open Windows verstellings</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Hierdie byvoeging kan verwyder word via die Windows Settings toep.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Deïnstalleer</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Bestuur</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Verouderde instellings</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Uitgewer:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Stel kortpaaie op en kry hulp</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet Instellings</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Kortpaaie</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Weergawe:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Soek instelling</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Geen resultate nie</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Open Menger</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Af</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Tuis</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Binnekort beskikbaar</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Binnekort beskikbaar</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Open Instellings</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Maak toe</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Welkom by EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet kon nie begin nie</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>'n Stukkende font op u stelsel verhoed tans dat EarTrumpet aan die gang kan kom.
+
+Wil u na [https://eartrumpet.app/jmp/fixfonts] gaan vir moontlike oplossings?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Demp/Ontdemp</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Privaatheidsbeleid</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Stuur foutdata na die EarTrumpet span</value>
+  </data>
+</root>

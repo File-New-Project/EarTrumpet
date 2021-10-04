@@ -193,6 +193,9 @@ Flyout:Theme=Red, Flyout:HighContrast=HotTrack, :Theme=Blue, :HighContrast=HotTr
 
 In this instance the flyout will use the red color, while other surfaces will use blue. High contrast will always be `HotTrack`.
 
+#### Theme:OS
+Contains OS-specific dependency properties (only `IsWindows11` at this time) used for theming across multiple OS versions.
+
 #### Adding a new Theme:Brush.*Property*
 Because Brush uses Reflection, properties are identified by string name only. This is to avoid having to special case certain elemenets when a property exists with the same name on many common types of elements.
 

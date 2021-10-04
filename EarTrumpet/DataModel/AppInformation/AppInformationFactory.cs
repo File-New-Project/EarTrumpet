@@ -1,5 +1,4 @@
-﻿using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
+﻿using EarTrumpet.Interop.Helpers;
 
 namespace EarTrumpet.DataModel.AppInformation
 {

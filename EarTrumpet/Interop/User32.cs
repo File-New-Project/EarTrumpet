@@ -86,7 +86,7 @@ namespace EarTrumpet.Interop
         }
 
         [Flags]
-        internal enum AccentFlags
+        public enum AccentFlags
         {
             None = 0x0,
             // ...
@@ -101,7 +101,8 @@ namespace EarTrumpet.Interop
         internal enum WindowCompositionAttribute
         {
             // ...
-            WCA_ACCENT_POLICY = 19
+            WCA_ACCENT_POLICY = 19,
+            WCA_CORNER_STYLE = 27
             // ...
         }
 

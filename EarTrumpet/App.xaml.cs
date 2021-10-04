@@ -1,5 +1,6 @@
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Diagnosis;
+using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
@@ -20,13 +21,16 @@ namespace EarTrumpet
     {
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
+        public static bool HasDevIdentity { get; private set; }
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
+        public FlyoutWindow FlyoutWindow { get; private set; }
+        public DeviceCollectionViewModel CollectionViewModel { get; private set; }
+
         private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
         private FlyoutViewModel _flyoutViewModel;
-        private FlyoutWindow _flyoutWindow;
-        private DeviceCollectionViewModel _collectionViewModel;
+
         private ShellNotifyIcon _trayIcon;
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
@@ -37,6 +41,7 @@ namespace EarTrumpet
         {
             Exit += (_, __) => IsShuttingDown = true;
             HasIdentity = PackageHelper.CheckHasIdentity();
+            HasDevIdentity = PackageHelper.HasDevIdentity();
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
             _settings = new AppSettings();
             _errorReporter = new ErrorReporter(_settings);
@@ -67,24 +72,23 @@ namespace EarTrumpet
 
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
-            _collectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
+            CollectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
 
-            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(_collectionViewModel, _settings));
+            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, _settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            _collectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
+            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
-            _flyoutViewModel = new FlyoutViewModel(_collectionViewModel, () => _trayIcon.SetFocus());
-            _flyoutWindow = new FlyoutWindow(_flyoutViewModel);
+            _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus());
+            FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
-            _flyoutWindow.Initialize();
+            FlyoutWindow.Initialize();
         }
 
         private void CompleteStartup()
         {
-            AddonManager.Load();
+            AddonManager.Load(shouldLoadInternalAddons: HasDevIdentity);
             Exit += (_, __) => AddonManager.Shutdown();
-
 #if DEBUG
             DebugHelpers.Add();
 #endif
@@ -98,9 +102,9 @@ namespace EarTrumpet
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
-            _trayIcon.TertiaryInvoke += (_, __) => _collectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => _collectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
-            _trayIcon.SetTooltip(_collectionViewModel.GetTrayToolTip());
+            _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
@@ -154,10 +158,10 @@ namespace EarTrumpet
 
         private IEnumerable<ContextMenuItem> GetTrayContextMenuItems()
         {
-            var ret = new List<ContextMenuItem>(_collectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+            var ret = new List<ContextMenuItem>(CollectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
             {
                 DisplayName = dev.DisplayName,
-                IsChecked = dev.Id == _collectionViewModel.Default?.Id,
+                IsChecked = dev.Id == CollectionViewModel.Default?.Id,
                 Command = new RelayCommand(() => dev.MakeDefaultDevice()),
             }));
 
@@ -188,7 +192,7 @@ namespace EarTrumpet
                     new ContextMenuSeparator(),
                 });
 
-            var addonItems = AddonManager.Host.TrayContextMenuItems?.OrderBy(x => x.Items.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.Items);
+            var addonItems = AddonManager.Host.TrayContextMenuItems?.OrderBy(x => x.NotificationAreaContextMenuItems.FirstOrDefault()?.DisplayName).SelectMany(ext => ext.NotificationAreaContextMenuItems);
             if (addonItems != null && addonItems.Any())
             {
                 ret.AddRange(addonItems);
@@ -223,13 +227,25 @@ namespace EarTrumpet
 
             if (AddonManager.Host.SettingsItems != null)
             {
-                allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => a.Get(AddonManager.FindAddonInfoForObject(a))));
+                allCategories.AddRange(AddonManager.Host.SettingsItems.Select(a => CreateAddonSettingsPage(a)));
             }
 
             var viewModel = new SettingsViewModel(EarTrumpet.Properties.Resources.SettingsWindowText, allCategories);
             return new SettingsWindow { DataContext = viewModel };
         }
 
-        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(_collectionViewModel) };
+        private SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
+        {
+            var addon = (EarTrumpetAddon)addonSettingsPage;
+            var category = addonSettingsPage.GetSettingsCategory();
+
+            if (!addon.IsInternal())
+            {
+                category.Pages.Add(new AddonAboutPageViewModel(addon));
+            }
+            return category;
+        }
+
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
     }
 }

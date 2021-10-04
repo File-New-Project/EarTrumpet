@@ -1,4 +1,6 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
+﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop.MMDeviceAPI;
+using System;
 
 namespace EarTrumpet.Interop.Helpers
 {
@@ -6,9 +8,14 @@ namespace EarTrumpet.Interop.Helpers
     {
         public static IAudioPolicyConfigFactory Create()
         {
-            var iid = typeof(IAudioPolicyConfigFactory).GUID;
-            Combase.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
-            return (IAudioPolicyConfigFactory)factory;
+            if (Environment.OSVersion.IsAtLeast(OSVersions.Version21H2))
+            {
+                return new AudioPolicyConfigFactoryImplFor21H2();
+            }
+            else
+            {
+                return new AudioPolicyConfigFactoryImplForDownlevel();
+            }
         }
     }
 }

@@ -1,0 +1,559 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Event="clr-namespace:EarTrumpet.Extensions.EventBinding"
+                    xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
+                    xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
+                    xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
+                    xmlns:etctl="clr-namespace:EarTrumpet.Actions.Controls"
+                    xmlns:etvm="clr-namespace:EarTrumpet.UI.ViewModels"
+                    xmlns:resx="clr-namespace:EarTrumpet.Properties"
+                    xmlns:ui="clr-namespace:EarTrumpet.UI"
+                    xmlns:vm="clr-namespace:EarTrumpet.Actions.ViewModel">
+    <Style x:Key="RunStyle" TargetType="Run">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Theme:Brush.Foreground" Value="Text" />
+    </Style>
+    <Style x:Key="ThinListStyle"
+           BasedOn="{StaticResource {x:Type ListView}}"
+           TargetType="{x:Type ListView}">
+        <Setter Property="Margin" Value="0,0,24,0" />
+    </Style>
+    <Style x:Key="HyperlinkStyle"
+           BasedOn="{StaticResource {x:Type Hyperlink}}"
+           TargetType="{x:Type Hyperlink}">
+        <Setter Property="TextDecorations">
+            <Setter.Value>
+                <TextDecorationCollection>
+                    <TextDecoration Location="Underline" PenOffset="3" />
+                </TextDecorationCollection>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <DataTemplate DataType="{x:Type vm:EarTrumpetActionPageHeaderViewModel}">
+        <Border BorderBrush="Transparent" BorderThickness="0">
+            <Grid Height="64">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Name="txtHeader"
+                         MinWidth="200"
+                         Margin="12,0,6,0"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Bottom"
+                         HorizontalContentAlignment="Left"
+                         FontSize="26"
+                         Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                            <Setter Property="Theme:Brush.BorderBrush" Value="Transparent" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEditClicked}" Value="True">
+                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=txtHeader}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <ItemsControl Name="Toolbar"
+                              Grid.Column="1"
+                              Margin="0,0,24,0"
+                              VerticalAlignment="Bottom"
+                              IsTabStop="False"
+                              ItemsSource="{Binding Toolbar}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type etvm:ToolbarItemViewModel}">
+                            <Button VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
+                                    AutomationProperties.Name="{Binding DisplayName}"
+                                    BorderThickness="0"
+                                    Command="{Binding Command}"
+                                    ToolTipService.ToolTip="{Binding DisplayName}">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource ToolbarButtonStyle}" TargetType="Button">
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Id}" Value="Save" />
+                                                    <Condition Binding="{Binding ElementName=Toolbar, Path=DataContext.IsWorkSaved}" Value="True" />
+                                                </MultiDataTrigger.Conditions>
+                                                <MultiDataTrigger.Setters>
+                                                    <Setter Property="IsEnabled" Value="False" />
+                                                </MultiDataTrigger.Setters>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock FontSize="{Binding GlyphFontSize}" Text="{Binding Glyph}">
+                                    <TextBlock.Style>
+                                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Id}" Value="Save" />
+                                                        <Condition Binding="{Binding ElementName=Toolbar, Path=DataContext.IsWorkSaved}" Value="False" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <MultiDataTrigger.Setters>
+                                                        <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
+                                                    </MultiDataTrigger.Setters>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="PartListItemTemplate" DataType="vm:PartViewModel">
+        <Grid Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Margin="0"
+                    VerticalAlignment="Center"
+                    ClipToBounds="True">
+                <!--  The negative bottom margin below achieves vertical alignment along with LineStackingStrategy=MaxHeight and ClipTobounds on the parent  -->
+                <etctl:LinkedTextBlock Margin="0,0,0,-8"
+                                       Padding="12,14"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       DataItem="{Binding}"
+                                       FormatText="{Binding LinkText}"
+                                       HyperlinkStyle="{DynamicResource HyperlinkStyle}"
+                                       LineHeight="30"
+                                       LineStackingStrategy="MaxHeight"
+                                       RunStyle="{DynamicResource RunStyle}"
+                                       TextWrapping="Wrap">
+                    <etctl:LinkedTextBlock.ContextMenu2>
+                        <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                     ItemContainerTemplateSelector="{StaticResource MenuSelector}"
+                                     Placement="Mouse"
+                                     UsesItemContainerTemplate="True" />
+                    </etctl:LinkedTextBlock.ContextMenu2>
+                    <etctl:LinkedTextBlock.Popup>
+                        <Popup Width="260"
+                               Theme:Options.Source="App"
+                               AllowsTransparency="False"
+                               FocusVisualStyle="{x:Null}"
+                               Focusable="False"
+                               Placement="Mouse"
+                               PopupAnimation="None"
+                               StaysOpen="False"
+                               TextOptions.TextFormattingMode="Display"
+                               UseLayoutRounding="True">
+                            <Popup.Style>
+                                <Style TargetType="Popup">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsOpen" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Popup.Style>
+
+                            <Border x:Name="SubmenuBorder"
+                                    Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
+                                    Theme:Brush.BorderBrush="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText"
+                                    BorderThickness="1"
+                                    SnapsToDevicePixels="True">
+                                <ContentControl Theme:Brush.Foreground="Theme=Text" Content="{Binding}" />
+                            </Border>
+                        </Popup>
+                    </etctl:LinkedTextBlock.Popup>
+                </etctl:LinkedTextBlock>
+            </Border>
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{x:Static resx:Resources.RemoveButtonAccessibleName}"
+                    Command="{Binding Remove}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource ToolbarButtonStyle}">
+                <TextBlock FontSize="14"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xE107;" />
+            </Button>
+            <TextBlock Margin="12,-10,0,0"
+                       VerticalAlignment="Top"
+                       Theme:Brush.Foreground="GrayText"
+                       FontSize="14"
+                       IsHitTestVisible="False"
+                       Text="{Binding AdditionalText}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ImportExportPageViewModel}">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.ExportHeaderText}" />
+            <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.ExportHelpText}" />
+            <Button HorizontalAlignment="Left"
+                    Command="{Binding Export}"
+                    Content="{x:Static resx:Resources.ExportHeaderText}" />
+            <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.ImportHeaderText}" />
+            <TextBlock Style="{DynamicResource BodyText}" Text="{x:Static resx:Resources.ImportHelpText}" />
+            <Button HorizontalAlignment="Left"
+                    Command="{Binding Import}"
+                    Content="{x:Static resx:Resources.ImportHeaderText}" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EarTrumpetActionViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1"
+                       Style="{DynamicResource HeadingText}"
+                       Text="{x:Static resx:Resources.TriggerVerbText}" />
+            <ListView Grid.Row="2"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{DynamicResource PartListItemTemplate}"
+                      ItemsSource="{Binding Triggers}"
+                      Style="{DynamicResource ThinListStyle}" />
+            <etctl:MenuButton Grid.Row="3"
+                              HorizontalAlignment="Stretch"
+                              Content="{x:Static resx:Resources.AddTriggerText}"
+                              PreviewMouseRightButtonUp="{Event:HandledBinding}"
+                              Style="{DynamicResource AddButtonStyle}">
+                <etctl:MenuButton.ContextMenu>
+                    <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                 ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
+                                 ItemsSource="{Binding NewTriggers}"
+                                 UsesItemContainerTemplate="True" />
+                </etctl:MenuButton.ContextMenu>
+            </etctl:MenuButton>
+
+            <TextBlock Grid.Row="4"
+                       Style="{DynamicResource HeadingText}"
+                       Text="{x:Static resx:Resources.ActionVerbText}" />
+            <ListView Grid.Row="5"
+                      IsSynchronizedWithCurrentItem="True"
+                      ItemTemplate="{DynamicResource PartListItemTemplate}"
+                      ItemsSource="{Binding Actions}"
+                      Style="{DynamicResource ThinListStyle}" />
+            <etctl:MenuButton Grid.Row="6"
+                              HorizontalAlignment="Stretch"
+                              Content="{x:Static resx:Resources.AddActionText}"
+                              PreviewMouseRightButtonUp="{Event:HandledBinding}"
+                              Style="{DynamicResource AddButtonStyle}">
+                <etctl:MenuButton.ContextMenu>
+                    <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                 ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
+                                 ItemsSource="{Binding NewActions}"
+                                 UsesItemContainerTemplate="True" />
+                </etctl:MenuButton.ContextMenu>
+            </etctl:MenuButton>
+
+            <Grid Grid.Row="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Style="{DynamicResource HeadingText}" Text="{x:Static resx:Resources.ConditionVerbText}" />
+                <TextBlock Grid.Row="1"
+                           Style="{DynamicResource BodyText}"
+                           Text="{x:Static resx:Resources.ConditionsHelpText}" />
+
+                <ListView Grid.Row="2"
+                          IsSynchronizedWithCurrentItem="True"
+                          ItemTemplate="{DynamicResource PartListItemTemplate}"
+                          ItemsSource="{Binding Conditions}"
+                          Style="{DynamicResource ThinListStyle}" />
+
+                <etctl:MenuButton Grid.Row="3"
+                                  HorizontalAlignment="Stretch"
+                                  Content="{x:Static resx:Resources.AddConditionText}"
+                                  PreviewMouseRightButtonUp="{Event:HandledBinding}"
+                                  Style="{DynamicResource AddButtonStyle}">
+                    <etctl:MenuButton.ContextMenu>
+                        <ContextMenu Theme:Options.Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Theme:Options.Source)}"
+                                     ItemContainerTemplateSelector="{DynamicResource MenuSelector}"
+                                     ItemsSource="{Binding NewConditions}"
+                                     UsesItemContainerTemplate="True" />
+                    </etctl:MenuButton.ContextMenu>
+                </etctl:MenuButton>
+
+                <TextBlock Grid.Row="4"
+                           Style="{DynamicResource HeadingText}"
+                           Text="{x:Static resx:Resources.RemoveActionHeadingText}" />
+                <TextBlock Grid.Row="5"
+                           Style="{DynamicResource BodyText}"
+                           Text="{x:Static resx:Resources.RemoveActionDescriptionText}" />
+                <Button Grid.Row="6"
+                        Command="{Binding Delete}"
+                        Content="{x:Static resx:Resources.RemoveActionButtonText}" />
+            </Grid>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
+            </Grid.ColumnDefinitions>
+            <ctl:VolumeSlider Margin="12"
+                              Maximum="100"
+                              Minimum="0"
+                              Style="{DynamicResource {x:Type Slider}}"
+                              Value="{Binding Volume, Mode=TwoWay}" />
+            <TextBlock Grid.Column="1"
+                       Style="{StaticResource AppVolumeTextStyle}"
+                       Text="{Binding Volume, Mode=OneWay}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HotkeyViewModel}">
+        <ContentControl Content="{Binding Hotkey}" IsTabStop="False" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TextViewModel}">
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding PromptText}" />
+            <TextBox Grid.Row="1" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DefaultPlaybackDeviceViewModel}">
+        <Grid Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.RowSpan="2"
+                    Width="32"
+                    Height="32"
+                    Margin="12,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <TextBlock FontSize="20"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xEC61;" />
+            </Border>
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="{Binding DisplayName}" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Opacity="0.5"
+                       Text="{Binding InterfaceName}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
+        <Grid Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ctl:ImageEx Grid.RowSpan="3"
+                         Width="32"
+                         Height="32"
+                         Margin="12,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         SourceEx="{Binding}" />
+
+            <TextBlock Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="{Binding DeviceDescription}" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Opacity="0.5"
+                       Text="{Binding InterfaceName}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DeviceListViewModel}">
+        <Grid>
+            <Grid.Resources>
+                <CollectionViewSource x:Key="cvs"
+                                      IsLiveGroupingRequested="True"
+                                      Source="{Binding All}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="GroupName" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="12"
+                       Style="{StaticResource HeadingText}"
+                       Text="{x:Static resx:Resources.ChooseADeviceTitle}" />
+
+            <ctl:ListView Grid.Row="1"
+                          MaxHeight="300"
+                          ItemContainerStyle="{DynamicResource HoverListItemStyle}"
+                          ItemInvoked="{Event:Binding OnInvoked}"
+                          ItemsSource="{Binding Source={StaticResource cvs}}">
+                <ListView.Style>
+                    <Style BasedOn="{StaticResource {x:Type ListView}}" TargetType="ListView">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListView">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.Style>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="16,12,0,6"
+                                           Theme:Brush.Foreground="GrayText"
+                                           FontSize="15"
+                                           Text="{Binding Name}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Name}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ctl:ListView>
+        </Grid>
+
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ForegroundAppViewModel}">
+        <Grid Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Width="{DynamicResource Mutable_AppIconSize}"
+                  Height="{DynamicResource Mutable_AppIconSize}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <TextBlock Theme:Brush.Foreground="SystemAccentLight2"
+                           FontSize="18"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xF5EE;" />
+                <TextBlock FontSize="18"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xF5ED;" />
+            </Grid>
+            <TextBlock Grid.Column="1"
+                       Margin="12,2"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="{x:Static resx:Resources.ForegroundAppText}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EveryAppViewModel}">
+        <Grid Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Width="{DynamicResource Mutable_AppIconSize}"
+                    Height="{DynamicResource Mutable_AppIconSize}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <TextBlock FontSize="18"
+                           Style="{StaticResource GlyphTextBlockStyle}"
+                           Text="&#xE71D;" />
+            </Border>
+
+            <TextBlock Grid.Column="1"
+                       Margin="12,2"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="{x:Static resx:Resources.EveryAppText}" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AppListViewModel}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Margin="12"
+                       Style="{StaticResource HeadingText}"
+                       Text="{x:Static resx:Resources.ChooseAnAppTitle}" />
+            <ctl:ListView Grid.Row="1"
+                          MaxHeight="300"
+                          ItemContainerStyle="{DynamicResource HoverListItemStyle}"
+                          ItemInvoked="{Event:Binding OnInvoked}"
+                          ItemsSource="{Binding All}">
+                <ListView.Style>
+                    <Style BasedOn="{StaticResource {x:Type ListView}}" TargetType="ListView">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListView">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.Style>
+            </ctl:ListView>
+            <TextBlock Grid.Row="2"
+                       Margin="12"
+                       Style="{StaticResource BodyText}"
+                       Text="{x:Static resx:Resources.ChooseAnAppHelpText}" />
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

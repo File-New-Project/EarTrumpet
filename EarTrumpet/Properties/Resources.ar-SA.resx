@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>لم يتم العثور على أجهزة مقترنة</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>أرسل تعليقاتك</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>متحكم الصوت</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>متحكم الصوت</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>لا يبدو أنك تملك أي أجهزة تشغيل.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>إيرمتروبيت: لا توجد أجهزة تشغيل</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>أجهزة التشغيل</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>أجهزة التسجيل</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>الأصوات</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>جمع بيانات عن الأخطاء</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>الاختصار الخاص بك</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>استخدم دائما جهاز التشغيل الافتراضي</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>عن البرنامج</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>التعرف على المزيد</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% مستوى الصوت - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"كتم - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>التطبيقات</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>اضغط لإظهار جهاز التشغيل الافتراضي فقط</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>الاختصار الافتراضي</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>توسيع لإظهار جميع أجهزة التشغيل</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>تعيين هذا التطبيق إلى جهاز التشغيل</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>فتح شريط المهام</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>استخدام أيقونة EarTrumpt القديمة</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>أوامر إضافية</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>الصوت مكتوم</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>إعدادات الصوت</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>اعدادات ويندوز</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>حول {Name} إضافة</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>الاسم:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>فتح إعدادات ويندوز</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>يمكن إزالة هذه الإضافة باستخدام تطبيق إعدادات ويندوز.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>إلغاء التثبيت</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>إدارة</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>الإعدادات القديمة</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>الناشر:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>ضبط الاختصارات والحصول على المساعدة</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>إعدادات إيرمتروبيت</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>الاختصارات</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>النسخة:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>البحث عن إعدادت معينة</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>لا توجد نتائج</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>فتح متحكم الصوت</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>مفعّل</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>سيأتي قريباً</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>سيأتي قريباً</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>فتح الإعدادات</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>مرحبا بكم في إيرترامبيت</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>تعذر بدء تشغيل الأيرومبيت</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>خط مكسور على النظام الخاص بك يمنع الأذن من البدء.
+
+افتح [https://eartrumpet.app/jmp/fixfonts] الآن؟</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>وضع الكتم</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>إرسال بيانات تحطم إلى فريق إيرترامبيت</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>و</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>افعل</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>إضافة حدث</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>إضافة شرط</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>إعداد مفاتيح الاختصارات والتشغيل الآلي</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>إضافة مشغل</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>تمت إضافة جلسة تطبيق، تمت إزالتها، وبدأ تشغيل الصوت، ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} في {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>تمت الإضافة</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>تم كتم الصوت</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>إيقاف تشغيل الصوت</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>بدأ تشغيل الصوت</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>يتم إزالته</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>غير مكتوم</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>تمت الإضافة</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>يصبح الافتراضي</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>يترك الافتراضي</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>يتم إزالته</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>خاطئ</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>صحيح</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>هو</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>ليس</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>و</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>تكوين عامل التصفية اختياري ولكن يتيح لك بناء المزيد من الإجراءات المتقدمة. يجب أن تكون جميع الشروط صحيحة قبل تنفيذ الإجراءات.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>فلترة متقدمة</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>أنا أستخدم عنصر قائمة السياق لهذا العمل</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>أنا أستخدم عنصر قائمة السياق لهذا العمل</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>إذا كان جهاز التشغيل الافتراضي هو أو لا</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} الجهاز الافتراضي</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>جهاز التشغيل الافتراضي</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>تم إضافة جهاز صوتي، تمت إزالته، تم تعيينه بشكل افتراضي، ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>ينتهي</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>يبدأ</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>إجراءات إيرمتروبيت XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>إيرمتروبيت يبدأ أو ينتهي</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> إيرمتروبيت {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>كل تطبيق</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>حفظ نسخة من إجراءاتك إلى ملف.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>البيانات الأمامية</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>تم كتابة مفتاح الاختصار</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(اختر مفتاح الاختصار)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>تم كتابة {Hotkey}</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>التَّصْدِيرُ وَالْإِسْتِيرادُ</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>استعادة نسخة من إجراءاتك من ملف.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>صامت</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>وضع الكتم</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>إلغاء كتم الصوت</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>إجراء جديد</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(اختياري)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>التشغيل</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>إذا كانت العملية قيد التشغيل أو لا</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(أدخل اسم العملية)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>عندما {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>اسم العملية (مثال: الملاحظة)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>يبدأ</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>ينتهي</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>ليس قيد التشغيل</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>قيد التشغيل</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>العملية تبدأ أو تنتهي</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(أدخل اسم العملية)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>عندما {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>اسم العملية (مثال: الملاحظة)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>جارٍ التسجيل</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>مطلوب</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>كتم الصوت أو إلغاء كتم التطبيق</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} على {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>تعيين مستوى صوت التطبيق</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} حجم {Volume} على {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} حجم {Volume} على {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>تعيين جهاز التشغيل الافتراضي</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>تعيين {Device} كمشغل افتراضي</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>كتم الصوت أو إلغاء كتم الجهاز</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} على {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>ضبط مستوى صوت الجهاز</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} مستوى الصوت إلى {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} مستوى الصوت بواسطة {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>تعيين متغير محلي</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(الرجاء إدخال اسم متغير)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>تعيين المتغير {Text} إلى {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>أدخل اسم متغير (على سبيل المثال isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>إنقاص</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>زيادة</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>تعيين</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>أو</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>متى</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>إذا كان المتغير المحلي صحيحا أو خاطئا</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(الرجاء إدخال اسم متغير)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>المتغير {Text} هو {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>أدخل اسم متغير (على سبيل المثال isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>اختيار جهاز</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>اختيار تطبيق</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>حذف هذا الإجراء؟</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>الخروج بدون حفظ؟</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>مغادرة</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>حذف هذا الإجراء</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>لا يمكن التراجع عن هذا بعد القيام به.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>إزالة الإجراء</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>التطبيقات المبينة أعلاه تم تشغيل الصوت مؤخرًا.</value>
+  </data>
+</root>

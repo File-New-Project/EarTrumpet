@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Çıkış</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Oynatma aygıtı bulunamadı</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Geri bildirim gönder</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Ses Karıştırıcısı</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Ses Karıştırıcısı</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Herhangi bir oynatma aygıtınız yok gibi görünüyor.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Oynatma aygıtı bulunamadı</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Oynatma aygıtları</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Kayıt aygıtları</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Sesler</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Sorun giderme verilerini toplama</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Kısayolunuz</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Her zaman varsayılan oynatma aygıtını kullan</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Daha fazla bilgi edin</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% Ses seviyesi - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"{Name} - Susturulmuş"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Uygulamalar</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Yalnızca varsayılan oynatma cihazını göstermek için daralt</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Varsayılan kısayol</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Tüm oynatma cihazlarını görmek için genişlet</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Bu uygulamayı bir oynatma cihazına atayın</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Görev çubuğu açılır penceresini aç</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Ses seviyesi yerine EarTrumpet ikonunu kullan</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Daha fazla komut</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Susturulmuş</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Ses ayarları</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Windows ses ayarları</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>{Name} eklentisi hakkında</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>İsim:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Windows ayarlarını aç</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Bu eklenti Windows Ayarları uygulaması kullanılarak kaldırılabilir.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Yönetim</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Eski ayarlar</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Yayımcı:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Kısayolları yapılandırın ve yardım alın</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet Ayarları</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Kısayollar</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versiyon:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Bir ayar bulun</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Sonuç yok</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Karıştırıcıyı aç</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Kapalı</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Ana sayfa</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Yakında</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Yakında</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Ayarları aç</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet'a hoş geldiniz</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet başlatılamadı</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Sisteminizde bozuk bir yazı tipi eartrumpet'in başlamasını engelliyor.
+
+[https://eartrumpet.app/jmp/fixfonts] açmak ister misiniz?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Sesi kapat</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Gizlilik politikası</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Çökme verisini EarTrumpet ekibine gönder</value>
+  </data>
+</root>

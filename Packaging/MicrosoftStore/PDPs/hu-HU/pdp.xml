@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProductDescription xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Release="" language="en-us" xml:lang="en-us">
+  <AppStoreName _locID="App_AppStoreName">
+  </AppStoreName>
+  <Keywords>
+    <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
+    <Keyword _locID="App_keyword2">Hang</Keyword>
+    <Keyword _locID="App_keyword3">Keverő</Keyword>
+    <Keyword _locID="App_keyword4">Hangerő</Keyword>
+    <Keyword _locID="App_keyword5">Audió</Keyword>
+    <Keyword _locID="App_keyword6">Vezérlés</Keyword>
+    <Keyword _locID="App_keyword7">Eszköz</Keyword>
+  </Keywords>
+  <Description _locID="App_Description">Az EarTrumpet egy erőteljes hangerőszabályzó alkalmazás a Windowsra</Description>
+  <ShortDescription _locID="App_ShortDescription">
+  </ShortDescription>
+  <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
+  <SortTitle _locID="App_SortTitle"/>
+  <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
+  <DevStudio _locID="App_DevStudio"/>
+  <ReleaseNotes _locID="App_ReleaseNotes">Teljes váltózási napló elérhető a következő címen: https://github.com/FileNewProject/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
+  <ScreenshotCaptions>
+    <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
+  </ScreenshotCaptions>
+  <AdditionalAssets/>
+  <Trailers/>
+  <AppFeatures>
+    <AppFeature _locID="App_feature1">A klasszikus és a modern alkalmazások hangját is vezérli</AppFeature>
+    <AppFeature _locID="App_feature2">Két kattintással vezérli az alapértelmezett audioeszközt</AppFeature>
+    <AppFeature _locID="App_feature3">Megfelel a Windows megjelenésének</AppFeature>
+    <AppFeature _locID="App_feature4">Támogatja az alkalmazások mozgatását a lejátszó eszközök között</AppFeature>
+    <AppFeature _locID="App_feature5">Integrálva a Feedback Hubbal</AppFeature>
+  </AppFeatures>
+  <RecommendedHardware/>
+  <MinimumHardware/>
+  <CopyrightAndTrademark _locID="App_CopyrightandTrademark">File-New-Project</CopyrightAndTrademark>
+  <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
+  <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
+  <SupportContactInfo _locID="App_SupportContactInfo"/>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
+</ProductDescription>

@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Ukončit</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Nebyla nalezena žádná zařízení pro přehrávání</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Odeslat zpětnou vazbu</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Směšovač hlasitosti</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Směšovač hlasitosti</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Vypadá to, že nemáte žádná zařízení pro přehrávání.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Žádná zařízení pro přehrávání</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Zařízení pro přehrávání</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Zařízení pro záznam</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Zvuky</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Shromáždit data pro řešení potíží</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Vaše klávesová zkratka</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Vždy používat výchozí zařízení pro přehrávání</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>O aplikaci</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Další informace</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"Hlasitost {Volume}% - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Ztlumeno - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Aplikace</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Sbalit pro zobrazení pouze výchozího zařízení pro přehrávání</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Výchozí klávesová zkratka</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Rozbalit pro zobrazení všech zařízení pro přehrávání</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Obecné</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Přiřadit tuto aplikaci k zařízení pro přehrávání</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Otevřít vyskakovací okno hlavního panelu</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Použít původní ikonku EarTrumpet</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Další příkazy</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Ztlumeno</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Nastavení zvuku</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Původní nastavení Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>O doplňku {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Název:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Otevřít nastavení Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Tento doplněk lze odstranit pomocí aplikace Nastavení Windows.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Odinstalovat</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Správa</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Zastaralá nastavení</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Vydavatel:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Konfigurovat klávesové zkratky a získat pomoc</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Nastavení EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Klávesové zkratky</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Verze:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Hledat v nastavení</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Žádné výsledky</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Otevřít směšovač</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Vypnuto</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Zapnuto</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Domů</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Již brzy</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Již brzy</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Otevřít nastavení</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Vítejte v EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet se nepodařilo spustit</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Poškozené písmo ve vašem systému zabraňuje spuštění aplikace EarTrumpet.
+
+Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Přepnout ztlumení</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Zásady ochrany osobních údajů</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Odesílat informace o pádech týmu EarTrumpet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Provést</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Přidat akci</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Přidat podmínku</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Nastavit zkratky a automatizaci</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Přidat spouštěč</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Přidána relace aplikace, odstraněna, začne přehrávat zvuk, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} na {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>je přidán</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>je ztlumeno</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>přestane přehrávat zvuk</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>začíná přehrávat zvuk</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>je odstraněno</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>není ztlumeno</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>je přidán</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>stává se výchozím</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>ponechá výchozí</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>je odstraněno</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>chybný</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>pravda</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>je</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>není</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Nastavení filtru je volitelné, ale umožňuje vytvářet pokročilejší akce. Všechny podmínky musí být platné před provedením akcí.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Rozšířený filtr</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Používám kontextovou položku této akce</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Používám kontextovou položku této akce</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Pokud je nebo není výchozí přehrávací zařízení</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} výchozí zařízení</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Výchozí přehrávací zařízení</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Zvukové zařízení je přidáno, odstraněno, nastaveno jako výchozí, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>končí</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>začíná</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>Akce EarTrumpet XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet začíná nebo končí</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Každá aplikace</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Exportovat</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Uložte kopii vašich akcí do souboru.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Aplikace v popředí</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Klávesová zkratka je zadána</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(vyberte klávesovou zkratku)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} je zadán</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importovat a exportovat</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Nahrát</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Obnovit kopii vašich akcí ze souboru.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Ztlumit</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Přepnout ztlumení</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Zrušit ztlumení</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Nová akce</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(Volitelné)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Přehrávání</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Pokud proces běží nebo ne</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(zadejte název procesu)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Když {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Název procesu (např. poznámkový blok)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>začíná</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>končí</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>není spuštěno</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>je spuštěno</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Proces začíná nebo končí</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(zadejte název procesu)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Když {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Název procesu (např. poznámkový blok)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Nahrávání</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(vyžadováno)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Ztlumit nebo zrušit ztlumení aplikace</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Nastavit hlasitost aplikace</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} hlasitost k {Volume} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} hlasitost od {Volume} na {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Nastavit výchozí přehrávací zařízení</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Nastavit {Device} jako výchozí přehrávač</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Ztlumit nebo zrušit ztlumení zařízení</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} na {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Nastavit hlasitost zařízení</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} hlasitost pro {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} hlasitost od {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Nastavit místní proměnnou</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(nastavit název proměnné)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Nastavit proměnnou {Text} na {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Zadejte název proměnné (např. isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Snížení</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Zvýšení</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Nastavit</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Když</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Pokud je místní proměnná pravdivá nebo nepravdivá</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(zadejte název proměnné)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Proměnná {Text} je {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Zadejte název proměnné (např. isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Vyberte zařízení</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Vyberte aplikaci</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Odstranit tuto akci?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Opustit bez uložení?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Odejít</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Odstranit tuto akci</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Tuto operaci nelze vrátit.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Odstranit akci</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Aplikace zobrazené výše nedávno přehrály zvuk.</value>
+  </data>
+</root>

@@ -190,7 +190,7 @@
     <value>通用</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>为该应用指定播放设备</value>
+    <value>为此应用指定播放设备</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
     <value>打开任务栏浮出面板</value>
@@ -208,7 +208,7 @@
     <value>声音设置</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>高级</value>
+    <value>经典设置</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>关于 {Name} 加载项</value>
@@ -220,7 +220,7 @@
     <value>打开 Windows 设置</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>此加载项可通过 Windows 设置移除。</value>
+    <value>此加载项可通过 Windows「设置」应用移除。</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>卸载</value>
@@ -253,7 +253,7 @@
     <value>没有结果</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>打开合成器</value>
+    <value>打开音量合成器</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>关</value>
@@ -285,15 +285,359 @@
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
     <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
 
-是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息?</value>
+是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>打开/关闭静音</value>
+    <value>静音/取消静音</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
     <value>隐私策略</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>将崩溃数据发送给 EarTrumpet 团队</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>添加动作</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>添加条件</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>设置热键与自动化</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>添加触发条件</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>某应用会话被添加、移除、开始播放声音……</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} 在 {Device} 上 {Option}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>被添加</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>被静音</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>停止播放声音</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>开始播放声音</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>被移除</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>被取消静音</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>被添加</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>成为默认设备</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>不再是默认设备</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>被移除</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>false</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>true</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>不是</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>配置过滤器是可选的，但此功能可以帮你实现更高级的动作。当所有条件都为真时，动作才能执行。</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>高级筛选</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>我点击此动作对应的上下文菜单项</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>我点击此动作对应的上下文菜单项</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>当默认播放设备是或不是某设备</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} 默认设备</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>默认播放设备</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>某音频设备被添加、移除、设为默认设备……</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Actions XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>启动或退出 EarTrumpet</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>所有应用</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>将你的动作保存到文件。</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>前台应用</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>某热键被按下</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>（请设置热键）</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} 被按下</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>导入和导出</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>从文件中恢复你的动作。</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>静音</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>静音/取消静音</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>取消静音</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>动作</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>新建动作</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>（可选）</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>播放</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>当某进程正在运行或没有运行</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>（请输入进程名称）</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>当 {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>进程名称（例如：notepad）</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>结束</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>没有运行</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>正在运行</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>某进程启动或结束</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>（请输入进程名称）</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>当 {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>进程名称（例如：notepad）</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>录制</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>（必填）</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>将某应用静音或取消静音</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>在 {Device} 上将 {App} {Option}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>设置某应用的音量</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>在 {Device} 上将 {App} 的音量 {Option} 为 {Volume}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>在 {Device} 上将 {App} 的音量 {Option} 至 {Volume}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>设置默认播放设备</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>设置 {Device} 为默认播放设备</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>将某设备静音或取消静音</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>将 {Device} {Option}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>将 {Device} {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>调整某设备音量</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} 的音量为 {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} 的音量至 {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>设置某局部变量</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>（请设置变量名称）</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>将变量 {Text} 设置为 {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>输入变量名称（例如：isInGameMode）</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>调低</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>调高</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>调整</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>当</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>当某局部变量值为 true 或 false</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>（请输入变量名称）</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>变量 {Text} 值为 {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>输入变量名称（例如：isInGameMode）</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>选择设备</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>选择应用</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>删除此动作？</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>退出但不保存?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>移除此动作</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>此操作无法撤消。</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>移除动作</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>这些应用最近播放过声音。</value>
   </data>
 </root>

@@ -15,9 +15,9 @@ namespace EarTrumpet
 {
     class DebugHelpers
     {
-        class DebugContextMenuAddon : IAddonContextMenu
+        class DebugContextMenuAddon : IEarTrumpetAddonNotificationAreaContextMenu
         {
-            public IEnumerable<ContextMenuItem> Items
+            public IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems
             {
                 get
                 {
