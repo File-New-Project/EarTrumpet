@@ -118,526 +118,526 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Beenden</value>
+    <value>Lopeta</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Keine Wiedergabegeräte gefunden</value>
+    <value>Toistolaitteita ei löytynyt</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Feedback senden</value>
+    <value>Lähetä palautetta</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>EarTrumpet Lautstärkemixer</value>
+    <value>Äänenvoimakkuuden mikseri</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Alter Lautstärkemixer</value>
+    <value>Äänenvoimakkuuden mikseri</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Es sind keine Wiedergabegeräte vorhanden.</value>
+    <value>Näyttää siltä, että sinulla ei ole toistolaitteita.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Keine Wiedergabegeräte</value>
+    <value>EarTrumpet: Ei toistolaitteita</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Wiedergabegeräte</value>
+    <value>Toistolaitteet</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Aufnahmegeräte</value>
+    <value>Tallennuslaitteet</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Asetukset</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Sounds</value>
+    <value>Äänet</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Daten zur Fehlerbehebung sammeln</value>
+    <value>Kerää vianmääritystietoja</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Deine Tastenkombination</value>
+    <value>Pikanäppäimesi</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Immer das Standard-Wiedergabegerät verwenden</value>
+    <value>Käytä aina oletustoistolaitetta</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Über</value>
+    <value>Tietoja</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Mehr erfahren</value>
+    <value>Lue lisää</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{Volume} % Lautstärke - {Name}</value>
+    <value>"{Volume}% äänenvoimakkuus - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Stumm - {Name}</value>
+    <value>"Mykistetty - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Apps</value>
+    <value>Sovellukset</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Schließen</value>
+    <value>Sulje</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Minimieren, um nur das Standard-Wiedergabegerät anzuzeigen</value>
+    <value>Pienennä näyttääksesi vain oletustoistolaitteen</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Standard Tastenkombination</value>
+    <value>Oletus pikanäppäin</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Erweitern, um alle Wiedergabegeräte anzuzeigen</value>
+    <value>Laajenna näyttääksesi kaikki toistolaitteet</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Allgemein</value>
+    <value>Yleiset</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Wiedergabegerät für diese App auswählen</value>
+    <value>Määritä tämä sovellus toistolaitteelle</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>EarTrumpet Flyout öffnen</value>
+    <value>Avaa tehtäväpalkki</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Altes EarTrumpet Symbol verwenden</value>
+    <value>Käytä vanhaa EarTrumpet-kuvaketta</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Weitere Befehle</value>
+    <value>Lisää komentoja</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Ton aus</value>
+    <value>Mykistetty</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Soundeinstellungen</value>
+    <value>Ääniasetukset</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows Optionen</value>
+    <value>Windowsin Legacy</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Über {Name} Add-on</value>
+    <value>Tietoja {Name} lisäosasta</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Name:</value>
+    <value>Nimi:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Öffne Windows-Einstellungen</value>
+    <value>Avaa Windows-asetukset</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Dieses Add-on kann über die Windows-Einstellungen entfernt werden.</value>
+    <value>Tämä lisäosa voidaan poistaa Windowsin asetukset-sovelluksella.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Deinstallieren</value>
+    <value>Poista</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Verwaltung</value>
+    <value>Hallinta</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Alte Einstellungen</value>
+    <value>Vanhat asetukset</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Herausgeber:</value>
+    <value>Julkaisija:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Tastenkombinationen und Hilfe</value>
+    <value>Määritä pikanäppäimet tai hae apua</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet-Einstellungen</value>
+    <value>EarTrumpet asetukset</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Tastenkombinationen</value>
+    <value>Pikanäppäimet</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version:</value>
+    <value>Versio:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Suche eine Einstellung</value>
+    <value>Etsi asetuksia</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Keine Ergebnisse</value>
+    <value>Ei hakutuloksia</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Öffne Lautstärkemixer</value>
+    <value>Avaa mikseri</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Aus</value>
+    <value>Pois päältä</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Ein</value>
+    <value>Päällä</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Startseite</value>
+    <value>Kotisivu</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>In Kürze verfügbar</value>
+    <value>Tulossa pian</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>In Kürze verfügbar</value>
+    <value>Tulossa pian</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Einstellungen öffnen</value>
+    <value>Avaa asetukset</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Schließen</value>
+    <value>Sulje</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Willkommen bei EarTrumpet</value>
+    <value>Tervetuloa EarTrumpettiin</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet konnte nicht gestartet werden</value>
+    <value>EarTrumpetia ei voitu käynnistää</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Eine defekte Schriftart in Ihrem System verhindert den Start von EarTrumpet. 
+    <value>Järjestelmäsi rikkoutunut fontti estää EarTrumpettiä käynnistymästä.
 
-Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
+Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Stummschaltung</value>
+    <value>Kytke mykistys</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Datenschutz</value>
+    <value>Tietosuojakäytäntö</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Informationen zum Absturz an das EarTrumpet-Team senden</value>
+    <value>Lähetä kaatumistiedot EarTrumpet tiimille</value>
   </data>
 
   <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>und</value>
+    <value>ja</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Ausführen</value>
+    <value>Suorita</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Aktion hinzufügen</value>
+    <value>Lisää toimenpide</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Bedingung hinzufügen</value>
+    <value>Lisää ehto</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Hotkeys und Automatisierung einrichten</value>
+    <value>Määritä pikanäppäimet ja automaatio</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Trigger hinzufügen</value>
+    <value>Lisää laukaisin</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Eine App-Sitzung wurde hinzugefügt, entfernt, beginnt Ton zu spielen, ...</value>
+    <value>Sovellus istunto on lisätty, poistettu, alkaa soittaa ääntä...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} auf {Device}</value>
+    <value>{App} {Option} kohteessa {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>wurde hinzugefügt</value>
+    <value>on lisätty</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>ist stumm geschaltet</value>
+    <value>on mykistetty</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>stoppt die Wiedergabe von Ton</value>
+    <value>pysäyttää äänentoiston</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>beginnt die Wiedergabe von Ton</value>
+    <value>aloittaa äänentoiston</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>wurde entfernt</value>
+    <value>on poistettu</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>ist nicht mehr gemutet</value>
+    <value>on mykistämätön</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>wurde hinzugefügt</value>
+    <value>on lisätty</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>wird Standard-Gerät</value>
+    <value>asetetaan oletukseksi</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>bleibt Standard-Gerät</value>
+    <value>jätetään oletukseksi</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>wurde entfernt</value>
+    <value>on poistettu</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>nicht zutreffend</value>
+    <value>epätosi</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>zutreffend</value>
+    <value>tosi</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>ist</value>
+    <value>on</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>ist nicht</value>
+    <value>ei ole</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>und</value>
+    <value>ja</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Das Konfigurieren eines Filters ist optional, ermöglicht aber das Erstellen erweiterter Aktionen. Alle Bedingungen müssen erfüllt sein, bevor die Aktionen ausgeführt werden.</value>
+    <value>Suodattimen määrittäminen on vapaaehtoista, mutta sallii edistyneempien toimintojen luomisen. Kaikkien ehtojen on oltava tosi ennen kuin toimintoja suoritetaan.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Erweiterter Filter</value>
+    <value>Edistynyt suodatin</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Ich benutze den Kontextmenüeintrag dieser Aktion</value>
+    <value>Käytän tämän toiminnon kontekstivalikon nimikettä</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Ich benutze den Kontextmenüeintrag dieser Aktion</value>
+    <value>Käytän tämän toiminnon kontekstivalikon nimikettä</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Wenn das Standard-Wiedergabegerät ist oder nicht ist</value>
+    <value>Jos oletussoittolaite on tai ei ole</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} das Standard-Gerät</value>
+    <value>{Device} {Option} oletuslaite</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Standard-Wiedergabegerät</value>
+    <value>Oletus toistolaite</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Ein Audiogerät wird hinzugefügt, entfernt, als Standard gesetzt ...</value>
+    <value>Äänilaite on lisätty, poistettu, asetettu oletukseksi, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>endet</value>
+    <value>päättyy</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>startet</value>
+    <value>käynnistyy</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Bearbeiten</value>
+    <value>Muokkaa</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>EarTrumpet Aktions XML</value>
+    <value>EarTrumpet Toiminnot XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet startet oder endet</value>
+    <value>EarTrumpet käynnistyy tai sulkeutuu</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Jede App</value>
+    <value>Jokainen sovellus</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Exportieren</value>
+    <value>Vie</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Speichern Sie eine Kopie Ihrer Aktionen in einer Datei.</value>
+    <value>Tallenna kopio toiminnoistasi tiedostoon.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>App im Vordergrund</value>
+    <value>Etualalla oleva sovellus</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Ein Hotkey wurde eingegeben</value>
+    <value>Pikanäppäintä painetaan</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(Wähle einen Hotkey)</value>
+    <value>(valitse pikanäppäin)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} wurde eingegeben</value>
+    <value>{Hotkey} on kirjoitettu</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Importieren und Exportieren</value>
+    <value>Tuo / Vie</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Importieren</value>
+    <value>Tuo</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Wiederherstellen einer Kopie der Aktionen aus einer Datei.</value>
+    <value>Palauta kopio toiminnoistasi tiedostosta.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Stummschalten</value>
+    <value>Mykistä</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Stummschaltung ein/aus</value>
+    <value>Kytke mykistys</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Entstummen</value>
+    <value>Poista mykistys</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Aktionen</value>
+    <value>Toiminnot</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Neue Aktion</value>
+    <value>Uusi toiminto</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(optional)</value>
+    <value>(valinnainen)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Wiedergabe</value>
+    <value>Toisto</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Wenn ein Prozess ausgeführt wird oder nicht</value>
+    <value>Jos prosessi on käynnissä tai ei</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(einen Prozessnamen eingeben)</value>
+    <value>(kirjoita prosessin nimi)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Wenn {Text} {Option}</value>
+    <value>Kun {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Prozessname (z.B. Notepad)</value>
+    <value>Prosessin nimi (esim. muistilehtiö)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>startet</value>
+    <value>käynnistyy</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>endet</value>
+    <value>päättyy</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>wird nicht ausgeführt</value>
+    <value>ei ole käynnissä</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>wird ausgeführt</value>
+    <value>on käynnissä</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Ein Prozess startet oder endet</value>
+    <value>Prosessi käynnistyy tai päättyy</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(einen Prozessnamen eingeben)</value>
+    <value>(anna prosessin nimi)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Wenn {Text} {Option}</value>
+    <value>Kun {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Prozessname (z.B. Notepad)</value>
+    <value>Prosessin nimi (esim. muistilehtiö)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Aufnehmen</value>
+    <value>Tallennetaan</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>Poista</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(erforderlich)</value>
+    <value>(pakollinen)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>App stummt schalten oder nicht</value>
+    <value>Mykistä tai poista mykistys sovelluksessa</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} auf {Device}</value>
+    <value>{Option} {App} kohteessa {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Lege das Volumen einer App fest</value>
+    <value>Aseta sovelluksen äänenvoimakkuus</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} Lautstärke zu {Volume} auf {Device}</value>
+    <value>{Option} {App} aseta äänenvoimakkuus {Volume} laitteella {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} Lautstärke von {Volume} auf {Device}</value>
+    <value>{Option} {App} äänenvoimakkuus {Volume} laitteelta {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Lege das Standard-Wiedergabegerät fest</value>
+    <value>Aseta oletussoittolaite</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>{Device} als Standard für Wiedergabe festlegen</value>
+    <value>Aseta {Device} oletustoistolaitteeksi</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Gerät stumm schalten oder nicht</value>
+    <value>Mykistä tai poista mykistys laitteesta</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} auf {Device}</value>
+    <value>{Option} kohteessa {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Gerätelautstärke festlegen</value>
+    <value>Aseta laitteen äänenvoimakkuudeksi</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} Lautstärke zu {Volume}</value>
+    <value>{Option} {Device} äänenvoimakkuus {Volume} saakka</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} Lautstärke bis {Volume}</value>
+    <value>{Option} {Device} äänenvoimakkuutta {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Lokale Variable festlegen</value>
+    <value>Aseta paikallinen muuttuja</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(Variablennamen festlegen)</value>
+    <value>(syötä muuttujan nimi)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Variable {Text} auf {Option} festlegen</value>
+    <value>Aseta muuttuja {Text} arvoon {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Gib einen Variablennamen ein (z.B. isInGameMode)</value>
+    <value>Syötä muuttujan nimi (esim. OnPeliTilassa)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Reduzieren</value>
+    <value>Vähennä</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Erhöhen</value>
+    <value>Lisää</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Festlegen</value>
+    <value>Aseta</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>oder</value>
+    <value>tai</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Wenn</value>
+    <value>Kun</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Wenn eine lokale Variable wahr oder falsch ist</value>
+    <value>Jos paikallinen muuttuja on tosi tai epätosi</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(Gib einen Variablennamen ein)</value>
+    <value>(syötä muuttujan nimi)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>Variable {Text} ist {Option}</value>
+    <value>Muuttuja {Text} on {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Gib einen Variablennamen ein (z.B. isInGameMode)</value>
+    <value>Syötä muuttujan nimi (esim. OnPeliTilassa)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Poista</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Bearbeiten</value>
+    <value>Muokkaa</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Speichern</value>
+    <value>Tallenna</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Wählen Sie ein Gerät</value>
+    <value>Valitse laite</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Wählen Sie eine App</value>
+    <value>Valitse sovellus</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Peruuta</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Diese Aktion löschen?</value>
+    <value>Poista tämä toiminto?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Poista</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Poista</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>Peruuta</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Verlassen ohne zu speichern?</value>
+    <value>Poistu tallentamatta?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Speichern</value>
+    <value>Tallenna</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Verlassen</value>
+    <value>Poistu</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Diese Aktion entfernen</value>
+    <value>Poista tämä toiminto</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Dies kann nicht rückgängig gemacht werden.</value>
+    <value>Tätä ei voi perua.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Aktion entfernen</value>
+    <value>Poista toiminto</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>Poista</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Die oben angezeigten Apps haben kürzlich Töne abgespielt.</value>
+    <value>Edellä esitetyt sovellukset ovat soittaneet ääntä äskettäin.</value>
   </data>
 </root>
