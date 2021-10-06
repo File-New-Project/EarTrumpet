@@ -55,5 +55,3 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
 - Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
-
-Special thanks to Aaron Burden for his [beautiful water shot from Petoskey State Park](https://unsplash.com/photos/4Y_bVu4j0cA) @ Harbor Springs, MI.
