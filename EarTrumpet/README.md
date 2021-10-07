@@ -26,7 +26,7 @@ Manages an automatically updating observable collection of devices with a defaul
 ### IAudioDevice
 Represents an audio device and its associated apps.
 
-### IAudioDeviceSesson
+### IAudioDeviceSession
 Represents an app with an open audio session.
 
 ## EarTrumpet.DataModel.Storage
