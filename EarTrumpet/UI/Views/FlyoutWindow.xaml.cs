@@ -119,21 +119,55 @@ namespace EarTrumpet.UI.Views
             UpdateLayout();
             LayoutRoot.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-            // WorkArea accounts for normal taskbar and docked windows.
-            var maxHeight = taskbar.ContainingScreen.WorkingArea.Height;
-            if (taskbar.IsAutoHideEnabled && (taskbar.Location == WindowsTaskbar.Position.Top || taskbar.Location == WindowsTaskbar.Position.Bottom))
+            // Working area accounts for normal taskbar and docked windows.
+            var adjustedWorkingAreaRight = taskbar.ContainingScreen.WorkingArea.Right;
+            var adjustedWorkingAreaLeft = taskbar.ContainingScreen.WorkingArea.Left;
+            var adjustedWorkingAreaTop = taskbar.ContainingScreen.WorkingArea.Top;
+            var adjustedWorkingAreaBottom = taskbar.ContainingScreen.WorkingArea.Bottom;
+
+            // Taskbar won't carve space out for itself if it's configured to auto-hide, so manually
+            // adjust the working area to compensate. This is only done if the working area edge
+            // reaches into Taskbar space. This accounts for 0..n docked windows that may not
+            // push the working area out far enough.
+
+            if (taskbar.IsAutoHideEnabled)
             {
-                // AutoHide Taskbar won't carve space out for itself, so manually account for the Top or Bottom Taskbar height.
-                // Note: Ideally we would open our flyout and 'hold open' the taskbar, but it's not known how to command the Taskbar
-                // to stay open for the duration of our window being active.
-                maxHeight -= taskbar.Size.Bottom - taskbar.Size.Top;
+                switch (taskbar.Location)
+                {
+                    case WindowsTaskbar.Position.Left:
+                        if (taskbar.ContainingScreen.WorkingArea.Left < taskbar.Size.Right)
+                        {
+                            adjustedWorkingAreaLeft = taskbar.Size.Right;
+                        }
+                        break;
+                    case WindowsTaskbar.Position.Right:
+                        if (taskbar.ContainingScreen.WorkingArea.Right > taskbar.Size.Left)
+                        {
+                            adjustedWorkingAreaRight = taskbar.Size.Left;
+                        }
+                        break;
+                    case WindowsTaskbar.Position.Top:
+                        if (taskbar.ContainingScreen.WorkingArea.Top < taskbar.Size.Bottom)
+                        {
+                            adjustedWorkingAreaTop = taskbar.Size.Bottom;
+                        }
+                        break;
+                    case WindowsTaskbar.Position.Bottom:
+                        if (taskbar.ContainingScreen.WorkingArea.Bottom > taskbar.Size.Top)
+                        {
+                            adjustedWorkingAreaBottom = taskbar.Size.Top;
+                        }
+                        break;
+                }
             }
 
-            double newWidth = Width * this.DpiX();
-            double newHeight = LayoutRoot.DesiredSize.Height * this.DpiY();
-            if (newHeight > maxHeight)
+            double flyoutWidth = Width * this.DpiX();
+            double flyoutHeight = LayoutRoot.DesiredSize.Height * this.DpiY();
+
+            var workingAreaHeight = taskbar.ContainingScreen.WorkingArea.Height;
+            if (flyoutHeight > workingAreaHeight)
             {
-                newHeight = maxHeight;
+                flyoutHeight = workingAreaHeight;
             }
 
             double offsetFromTaskbar = 0;
@@ -145,28 +179,28 @@ namespace EarTrumpet.UI.Views
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    this.SetWindowPos(taskbar.Size.Bottom - newHeight,
-                              taskbar.ContainingScreen.WorkingArea.Left,
-                              newHeight,
-                              newWidth);
+                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
+                              adjustedWorkingAreaLeft,
+                              flyoutHeight,
+                              flyoutWidth);
                     break;
                 case WindowsTaskbar.Position.Right:
-                    this.SetWindowPos(taskbar.Size.Bottom - newHeight,
-                              taskbar.ContainingScreen.WorkingArea.Right - newWidth,
-                              newHeight,
-                              newWidth);
+                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
+                              adjustedWorkingAreaRight - flyoutWidth,
+                              flyoutHeight,
+                              flyoutWidth);
                     break;
                 case WindowsTaskbar.Position.Top:
-                    this.SetWindowPos(taskbar.Size.Bottom,
-                              FlowDirection == FlowDirection.RightToLeft ? taskbar.ContainingScreen.WorkingArea.Left : taskbar.ContainingScreen.WorkingArea.Right - newWidth,
-                              newHeight,
-                              newWidth);
+                    this.SetWindowPos(adjustedWorkingAreaTop,
+                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth : adjustedWorkingAreaLeft,
+                              flyoutHeight,
+                              flyoutWidth);
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    this.SetWindowPos(taskbar.Size.Top - newHeight - offsetFromTaskbar,
-                              FlowDirection == FlowDirection.RightToLeft ? taskbar.ContainingScreen.WorkingArea.Left : taskbar.ContainingScreen.WorkingArea.Right - newWidth,
-                              newHeight,
-                              newWidth);
+                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight - offsetFromTaskbar,
+                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth : adjustedWorkingAreaLeft,
+                              flyoutHeight,
+                              flyoutWidth);
                     break;
             }
         }
