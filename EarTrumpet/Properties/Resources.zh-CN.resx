@@ -542,10 +542,10 @@
     <value>调整某设备音量</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} 的音量为 {Volume}</value>
+    <value>将 {Device} 的音量 {Option} 为 {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} 的音量至 {Volume}</value>
+    <value>将 {Device} 的音量 {Option} 至 {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>设置某局部变量</value>
