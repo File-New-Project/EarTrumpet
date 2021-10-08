@@ -671,7 +671,7 @@
                                                       Grid.Column="1"
                                                       Margin="0,0,8,0"
                                                       ContentSource="Header"
-                                                      RecognizesAccessKey="True" />
+                                                      RecognizesAccessKey="False" />
 
                                     <Border x:Name="OpenGlyph"
                                             Grid.Column="2"
