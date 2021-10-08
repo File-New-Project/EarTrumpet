@@ -617,7 +617,7 @@
     <value>取消</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>退出但不保存?</value>
+    <value>不保存就离开吗？</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
     <value>保存</value>
