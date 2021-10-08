@@ -12,6 +12,7 @@ on:
       - david/*
     paths-ignore:
       - '**/*.md'
+      - 'Graphics/*'
   pull_request:
     branches: 
       - dev
