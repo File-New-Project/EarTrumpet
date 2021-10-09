@@ -527,7 +527,7 @@
     <value>设置默认播放设备</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>设置 {Device} 为默认播放设备</value>
+    <value>将 {Device} 设置为默认播放设备</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
     <value>将某设备静音或取消静音</value>
