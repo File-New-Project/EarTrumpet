@@ -16,6 +16,8 @@ namespace EarTrumpet.Extensions
                 {
                     case VarEnum.VT_LPWSTR:
                         return (T)Convert.ChangeType(Marshal.PtrToStringUni(pv.pwszVal), typeof(T));
+                    case VarEnum.VT_EMPTY:
+                        return default;
                     default: throw new NotImplementedException();
                 }
             }

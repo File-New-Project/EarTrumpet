@@ -243,7 +243,13 @@ namespace EarTrumpet.UI.ViewModels
                 var prefixText = $"EarTrumpet: {stateText} - ";
                 var deviceName = $"{Default.DeviceDescription} ({Default.EnumeratorName})";
 
-                // Note: Remote Desktop has an empty description and empty enumerator, but the friendly name is set.
+                // Remote Audio devices may not contain an enumerator name or description.
+
+                if (string.IsNullOrWhiteSpace(Default.EnumeratorName))
+                {
+                    deviceName = Default.DeviceDescription;
+                }
+
                 if (string.IsNullOrWhiteSpace(Default.DeviceDescription) && string.IsNullOrWhiteSpace(Default.EnumeratorName))
                 {
                     deviceName = Default.DisplayName;
