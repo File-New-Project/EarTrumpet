@@ -380,7 +380,7 @@
     <value>我点击此动作对应的上下文菜单项</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>当默认播放设备是或不是某设备</value>
+    <value>当某设备是或不是默认播放设备</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
     <value>{Device} {Option} 默认设备</value>
