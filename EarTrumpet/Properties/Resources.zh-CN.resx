@@ -208,7 +208,7 @@
     <value>声音设置</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>经典设置</value>
+    <value>Windows 旧版声音设置</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>关于 {Name} 加载项</value>
