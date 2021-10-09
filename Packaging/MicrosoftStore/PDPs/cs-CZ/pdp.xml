@@ -25,11 +25,11 @@
   <AdditionalAssets/>
   <Trailers/>
   <AppFeatures>
-    <AppFeature _locID="App_feature1">Ovládá klasické a moderní hlasitosti aplikací</AppFeature>
+    <AppFeature _locID="App_feature1">Ovládá hlasitost klasických i moderních aplikací</AppFeature>
     <AppFeature _locID="App_feature2">Ovládá výchozí zvukové zařízení dvěma kliknutími</AppFeature>
-    <AppFeature _locID="App_feature3">Odpovídá vzhledu a pocitu Windows</AppFeature>
+    <AppFeature _locID="App_feature3">Odpovídá vzhledu a stylu Windows</AppFeature>
     <AppFeature _locID="App_feature4">Podporuje přesun aplikací mezi přehrávacími zařízeními</AppFeature>
-    <AppFeature _locID="App_feature5">Integrovaná s Hubem zpětné vazby</AppFeature>
+    <AppFeature _locID="App_feature5">Integrovaná s aplikací Centrum Feedback</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
