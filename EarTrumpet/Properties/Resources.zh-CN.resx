@@ -638,6 +638,6 @@
     <value>移除</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>这些应用最近播放过声音。</value>
+    <value>以上应用最近播放过声音。</value>
   </data>
 </root>
