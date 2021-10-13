@@ -127,16 +127,16 @@
     <value>أرسل تعليقاتك</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>متحكم الصوت</value>
+    <value>‎‎خالط مستوى الصوت</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>متحكم الصوت</value>
+    <value>‎‎خالط مستوى الصوت</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>لا يبدو أنك تملك أي أجهزة تشغيل.</value>
+    <value>يبدو أنه ليس لديك أي أجهزة تشغيل.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>إيرمتروبيت: لا توجد أجهزة تشغيل</value>
+    <value>EarTrumpet: لا توجد أجهزة تشغيل</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>أجهزة التشغيل</value>
@@ -151,10 +151,10 @@
     <value>الأصوات</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>جمع بيانات عن الأخطاء</value>
+    <value>تجميع بيانات استكشاف الأخطاء وإصلاحها</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>الاختصار الخاص بك</value>
+    <value>اختصارك</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>استخدم دائما جهاز التشغيل الافتراضي</value>
