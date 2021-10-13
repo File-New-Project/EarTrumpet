@@ -121,7 +121,7 @@
     <value>خروج</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>لم يتم العثور على أجهزة مقترنة</value>
+    <value>لم يتم العثور على أجهزة تشغيل</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>أرسل تعليقاتك</value>
