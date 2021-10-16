@@ -27,9 +27,9 @@
   <AppFeatures>
     <AppFeature _locID="App_feature1">Klasik ve modern uygulama seslerini kontrol eder</AppFeature>
     <AppFeature _locID="App_feature2">İki tıklama ile varsayılan ses aygıtını kontrol eder</AppFeature>
-    <AppFeature _locID="App_feature3">Windows'un görünümü ile uyumlu</AppFeature>
-    <AppFeature _locID="App_feature4">Uygulamalar arası oynatma aygıtlarını destekler</AppFeature>
-    <AppFeature _locID="App_feature5">Geri bildirim merkezi ile entegre</AppFeature>
+    <AppFeature _locID="App_feature3">Görsel ve kullanım olarak Windows'a denk</AppFeature>
+    <AppFeature _locID="App_feature4">Uygulamalara, kayıttan yürütme aygıtları arasında geçiş yaptırmayı destekler</AppFeature>
+    <AppFeature _locID="App_feature5">Geri Bildirim Merkezi ile bütünleştirildi</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
