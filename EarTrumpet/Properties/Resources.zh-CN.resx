@@ -190,7 +190,7 @@
     <value>通用</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>为此应用指定播放设备</value>
+    <value>指定此应用的播放设备</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
     <value>打开任务栏浮出面板</value>
