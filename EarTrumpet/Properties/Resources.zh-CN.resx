@@ -280,7 +280,7 @@
     <value>欢迎使用 EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>无法启动 EarTrumpet</value>
+    <value>EarTrumpet 无法启动</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
     <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
