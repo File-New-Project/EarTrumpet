@@ -314,7 +314,7 @@
     <value>设置热键与自动化</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>添加触发条件</value>
+    <value>添加触发器</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
     <value>某应用会话被添加、移除、开始播放声音……</value>
