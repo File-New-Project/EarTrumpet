@@ -26,7 +26,7 @@ Manages an automatically updating observable collection of devices with a defaul
 ### IAudioDevice
 Represents an audio device and its associated apps.
 
-### IAudioDeviceSesson
+### IAudioDeviceSession
 Represents an app with an open audio session.
 
 ## EarTrumpet.DataModel.Storage
@@ -197,7 +197,7 @@ In this instance the flyout will use the red color, while other surfaces will us
 Contains OS-specific dependency properties (only `IsWindows11` at this time) used for theming across multiple OS versions.
 
 #### Adding a new Theme:Brush.*Property*
-Because Brush uses Reflection, properties are identified by string name only. This is to avoid having to special case certain elemenets when a property exists with the same name on many common types of elements.
+Because Brush uses Reflection, properties are identified by string name only. This is to avoid having to special case certain elements when a property exists with the same name on many common types of elements.
 
 Adding a new brush should be accomplished by copying a block in `Brush.cs`.
 
