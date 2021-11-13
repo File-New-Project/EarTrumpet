@@ -196,7 +196,7 @@
     <value>فتح شريط المهام</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>استخدام أيقونة EarTrumpt القديمة</value>
+    <value>استخدام أيقونة EarTrumpet القديمة</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>أوامر إضافية</value>
@@ -506,7 +506,7 @@
     <value>إزالة</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>مطلوب</value>
+    <value>(مطلوب)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
     <value>كتم الصوت أو إلغاء كتم التطبيق</value>
