@@ -428,7 +428,7 @@
     <value>某热键被按下</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>（请设置热键）</value>
+    <value>(请设置热键)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
     <value>{Hotkey} 被按下</value>
@@ -458,7 +458,7 @@
     <value>新建动作</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>（可选）</value>
+    <value>(可选)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
     <value>播放</value>
@@ -467,13 +467,13 @@
     <value>当某进程正在运行或没有运行</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>（请输入进程名称）</value>
+    <value>(请输入进程名称)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
     <value>当 {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>进程名称（例如：notepad）</value>
+    <value>进程名称 (例如：notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
     <value>启动</value>
@@ -491,13 +491,13 @@
     <value>某进程启动或结束</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>（请输入进程名称）</value>
+    <value>(请输入进程名称)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
     <value>当 {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>进程名称（例如：notepad）</value>
+    <value>进程名称 (例如：notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
     <value>录制</value>
@@ -506,7 +506,7 @@
     <value>移除</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>（必填）</value>
+    <value>(必填)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
     <value>将某应用静音或取消静音</value>
@@ -551,13 +551,13 @@
     <value>设置某局部变量</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>（请设置变量名称）</value>
+    <value>(请设置变量名称)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
     <value>将变量 {Text} 设置为 {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>输入变量名称（例如：isInGameMode）</value>
+    <value>输入变量名称 (例如：isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
     <value>调低</value>
@@ -578,13 +578,13 @@
     <value>当某局部变量值为 true 或 false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>（请输入变量名称）</value>
+    <value>(请输入变量名称)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
     <value>变量 {Text} 值为 {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>输入变量名称（例如：isInGameMode）</value>
+    <value>输入变量名称 (例如：isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
     <value>删除</value>
