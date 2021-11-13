@@ -121,22 +121,22 @@
     <value>خروج</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>لم يتم العثور على أجهزة مقترنة</value>
+    <value>لم يتم العثور على أجهزة تشغيل</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>أرسل تعليقاتك</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>متحكم الصوت</value>
+    <value>‎‎خالط مستوى الصوت</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>متحكم الصوت</value>
+    <value>‎‎خالط مستوى الصوت</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>لا يبدو أنك تملك أي أجهزة تشغيل.</value>
+    <value>يبدو أنه ليس لديك أي أجهزة تشغيل.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>إيرمتروبيت: لا توجد أجهزة تشغيل</value>
+    <value>EarTrumpet: لا توجد أجهزة تشغيل</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>أجهزة التشغيل</value>
@@ -151,10 +151,10 @@
     <value>الأصوات</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>جمع بيانات عن الأخطاء</value>
+    <value>تجميع بيانات استكشاف الأخطاء وإصلاحها</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>الاختصار الخاص بك</value>
+    <value>اختصارك</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>استخدم دائما جهاز التشغيل الافتراضي</value>
@@ -196,7 +196,7 @@
     <value>فتح شريط المهام</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>استخدام أيقونة EarTrumpt القديمة</value>
+    <value>استخدام أيقونة EarTrumpet القديمة</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>أوامر إضافية</value>
@@ -506,7 +506,7 @@
     <value>إزالة</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>مطلوب</value>
+    <value>(مطلوب)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
     <value>كتم الصوت أو إلغاء كتم التطبيق</value>

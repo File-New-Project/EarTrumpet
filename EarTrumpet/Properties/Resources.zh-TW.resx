@@ -428,7 +428,7 @@
     <value>自定義快捷鍵</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>（請按熱鍵）</value>
+    <value>(請按熱鍵)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
     <value>按下 {Hotkey}</value>
@@ -473,7 +473,7 @@
     <value>當 {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>進程名稱（例如記事本）</value>
+    <value>進程名稱 (例如記事本)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
     <value>啟動</value>
@@ -497,7 +497,7 @@
     <value>當 {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>進程名稱（例如記事本）</value>
+    <value>進程名稱 (例如記事本)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
     <value>錄音</value>
@@ -551,13 +551,13 @@
     <value>設定區域變數</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>（設定變數名稱）</value>
+    <value>(設定變數名稱)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
     <value>將變數 {Text} 設定為 {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>輸入變數名稱（例如 isInGameMode）</value>
+    <value>輸入變數名稱 (例如 isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
     <value>遞減</value>
@@ -578,13 +578,13 @@
     <value>當局部變數值是 true 或 false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>自定文件變量名稱</value>
+    <value>(自定文件變量名稱)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
     <value>變數 {Text} 為 {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>輸入變數名稱（例如 isInGameMode）</value>
+    <value>輸入變數名稱 (例如 isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
     <value>刪除</value>
