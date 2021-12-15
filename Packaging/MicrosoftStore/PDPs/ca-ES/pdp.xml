@@ -3,33 +3,33 @@
   <AppStoreName _locID="App_AppStoreName">
   </AppStoreName>
   <Keywords>
-    <Keyword _locID="App_keyword1">이어트럼펫</Keyword>
-    <Keyword _locID="App_keyword2">소리</Keyword>
-    <Keyword _locID="App_keyword3">믹서</Keyword>
-    <Keyword _locID="App_keyword4">볼륨</Keyword>
-    <Keyword _locID="App_keyword5">오디오</Keyword>
-    <Keyword _locID="App_keyword6">제어</Keyword>
-    <Keyword _locID="App_keyword7">장치</Keyword>
+    <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
+    <Keyword _locID="App_keyword2">So</Keyword>
+    <Keyword _locID="App_keyword3">Mesclador</Keyword>
+    <Keyword _locID="App_keyword4">Volum</Keyword>
+    <Keyword _locID="App_keyword5">Audio</Keyword>
+    <Keyword _locID="App_keyword6">Control</Keyword>
+    <Keyword _locID="App_keyword7">Dispositiu</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet 은 Windows를 위한 강력한 볼륨 컨트롤 앱입니다.</Description>
+  <Description _locID="App_Description">EarTrumpet és una poderosa aplicació per controlar el volum a Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
   <SortTitle _locID="App_SortTitle"/>
   <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
   <DevStudio _locID="App_DevStudio"/>
-  <ReleaseNotes _locID="App_ReleaseNotes">모든 변경 사항은 https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md 에서 확인할 수 있습니다.</ReleaseNotes>
+  <ReleaseNotes _locID="App_ReleaseNotes">Registre de canvis complet disponible a: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
     <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
   <AdditionalAssets/>
   <Trailers/>
   <AppFeatures>
-    <AppFeature _locID="App_feature1">클래식 및 모던 앱 볼륨 조절</AppFeature>
-    <AppFeature _locID="App_feature2">두 번 클릭만으로 기본 소리 장치 설정</AppFeature>
-    <AppFeature _locID="App_feature3">Windows의 모양과 일치하는 UI</AppFeature>
-    <AppFeature _locID="App_feature4">재생 장치 간 앱 이동 지원</AppFeature>
-    <AppFeature _locID="App_feature5">피드백 허브 통합</AppFeature>
+    <AppFeature _locID="App_feature1">Controla el volum d'aplicacions clàssiques i modernes</AppFeature>
+    <AppFeature _locID="App_feature2">Canvia el dispositiu d'àudio predeterminat en dos clics</AppFeature>
+    <AppFeature _locID="App_feature3">Concorda amb l'aparença de Windows</AppFeature>
+    <AppFeature _locID="App_feature4">Permet moure aplicacions entre dispositius de reproducció</AppFeature>
+    <AppFeature _locID="App_feature5">Integrat amb el Centre d'opinions</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
