@@ -28,7 +28,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     strategy:
       matrix:
         channel: [AppInstaller, Store, Chocolatey]
@@ -62,7 +62,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Ignore'
           New-Item -ItemType Directory "$env:ARTIFACTS_BASE"
-          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\appxupload"
+          New-Item -ItemType Directory "$env:ARTIFACTS_BASE\msixupload"
           New-Item -ItemType Directory "$env:ARTIFACTS_BASE\sideload"
           New-Item -ItemType Directory "$env:ARTIFACTS_BASE\chocolatey"
           New-Item -ItemType Directory "$env:ARTIFACTS_BASE\loose"
@@ -83,20 +83,21 @@ jobs:
 
           Set-Content "$env:ARTIFACTS_BASE\metadata\${{ matrix.channel }}.version.txt" $Version
 
-      - name: Install NuGet
-        uses: NuGet/setup-nuget@v1
-        with:
-          nuget-version: latest
-          
-      - name: Restore NuGet Packages
-        run: nuget restore EarTrumpet.vs15.sln
+      - name: Workaround - Install Windows 10 17763 SDK
+        shell: powershell
+        run: |
+           Invoke-WebRequest -Method Get -Uri https://go.microsoft.com/fwlink/p/?LinkID=2033908 -OutFile sdksetup.exe -UseBasicParsing
+           Start-Process -Wait sdksetup.exe -ArgumentList "/q", "/norestart", "/ceip off", "/features OptionId.UWPManaged OptionId.UWPCPP OptionId.UWPLocalized OptionId.DesktopCPPx86 OptionId.DesktopCPPx64 OptionId.DesktopCPParm64"
+
+      - name: Restore packages
+        run: dotnet restore EarTrumpet.sln
 
       - name: Set Bugsnag API Key
         shell: powershell
         run: |
           $cfg = Get-Content ".\EarTrumpet\app.config"
           $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "${{ secrets.bugsnag_api_key }}") } | Set-Content ".\EarTrumpet\app.config"
-          
+
       - name: Adjust manifest and store association
         if: matrix.channel == 'Store' || matrix.channel == 'AppInstaller'
         shell: powershell
@@ -106,6 +107,8 @@ jobs:
 
           $manifest = [xml](Get-Content $manifestPath)
           $manifest.Package.Identity.Publisher = "${{ matrix.publisher }}"
+          $manifest.Package.Identity.Version = [string](Get-Content "$env:ARTIFACTS_BASE\metadata\${{ matrix.channel }}.version.txt")
+
           if("${{ matrix.channel }}" -eq "AppInstaller") {
             if("${{ steps.gitversion.outputs.branchName }}" -eq "master") {
               $manifest.Package.Properties.DisplayName = "EarTrumpet"
@@ -131,17 +134,17 @@ jobs:
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1
           
-      - name: Build EarTrumpet appxupload package
+      - name: Build EarTrumpet msixupload package
         if: matrix.channel == 'Store'
         shell: cmd
-        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\appxupload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI -maxcpucount
+        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:msixbundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\msixupload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI -maxcpucount
       
-      - name: Upload appxupload artifact
+      - name: Upload msixupload artifact
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: appxupload
-          path: artifacts/appxupload
+          name: msixupload
+          path: artifacts/msixupload
 
       - name: Build EarTrumpet
         if: matrix.channel == 'Chocolatey'
@@ -158,7 +161,7 @@ jobs:
       - name: Build EarTrumpet appinstaller/sideload package
         if: matrix.channel == 'AppInstaller' || matrix.channel == 'Chocolatey'
         shell: cmd
-        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:AppxBundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\sideload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir=%ARTIFACTS_BASE%\sideload\ /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
+        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:msixbundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\sideload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir=%ARTIFACTS_BASE%\sideload\ /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
 
       - name: Adjust appinstaller manifest
         if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
@@ -167,7 +170,7 @@ jobs:
           $manifestPath = "$env:ARTIFACTS_BASE/sideload/EarTrumpet.Package.appinstaller"
           $manifest = [xml](Get-Content $manifestPath)
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
-          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.appxbundle"
+          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.msixbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
           $manifest.Save($manifestPath)
 
@@ -244,17 +247,17 @@ jobs:
         run: |
           $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
           $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
-          $AppxUploadPath = "$env:ARTIFACTS_BASE\AppxUpload"
-          $BundleFilename = "EarTrumpet.Package_${Version}_x86.appxbundle"
+          $msixuploadPath = "$env:ARTIFACTS_BASE\msixupload"
+          $BundleFilename = "EarTrumpet.Package_${Version}_x86.msixbundle"
           $SymbolsBundleFilename = "EarTrumpet.Package_${Version}_x86.appxsym"
-          $AppxFilename = "EarTrumpet.Package_${Version}_x86.appx"
-          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.appxupload"
+          $AppxFilename = "EarTrumpet.Package_${Version}_x86.msix"
+          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.msixupload"
 
           ### Expand bundle and appx package within
           $ExtractedPath = "$env:ARTIFACTS_BASE\Extracted"
-          Expand-Archive "$AppxUploadPath\$StoreBundleFilename" "$ExtractedPath\AppxUpload"
-          Expand-Archive "$ExtractedPath\AppxUpload\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
-          Expand-Archive "$ExtractedPath\AppxUpload\$BundleFilename" "$ExtractedPath\Bundle"
+          Expand-Archive "$msixuploadPath\$StoreBundleFilename" "$ExtractedPath\msixupload"
+          Expand-Archive "$ExtractedPath\msixupload\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
+          Expand-Archive "$ExtractedPath\msixupload\$BundleFilename" "$ExtractedPath\Bundle"
           Expand-Archive "$ExtractedPath\Bundle\$AppxFilename" "$ExtractedPath\Package"
 
           ### Place symbols next to executable image
@@ -267,20 +270,20 @@ jobs:
           New-Item -ItemType Directory "$SignedPath"
           New-Item -ItemType Directory "$SignedPath\Package"
           New-Item -ItemType Directory "$SignedPath\Bundle"
-          New-Item -ItemType Directory "$SignedPath\AppxUpload"
+          New-Item -ItemType Directory "$SignedPath\msixupload"
 
           ### Repackage appx package
           & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPath\Package" /o /p "$SignedPath\Package\$AppxFilename"
 
           Set-ItemProperty "$SignedPath\Package\$AppxFilename" -Name IsReadOnly -Value $true
-          Copy-Item "$ExtractedPath\Bundle\*.appx" "$SignedPath\Package\" -ErrorAction Ignore
+          Copy-Item "$ExtractedPath\Bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
 
           ### Repackage appx bundle
           & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$BundleFilename"
 
-          ### Repackage appxupload
-          Copy-Item "$ExtractedPath\AppxUpload\$SymbolsBundleFilename" "$SignedPath\Bundle"
-          Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\AppxUpload\$StoreBundleFilename" -CompressionLevel Optimal
+          ### Repackage msixupload
+          Copy-Item "$ExtractedPath\msixupload\$SymbolsBundleFilename" "$SignedPath\Bundle"
+          Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\msixupload\$StoreBundleFilename" -CompressionLevel Optimal
 
       - name: Sign AppInstaller artifacts
         if: matrix.channel == 'AppInstaller'
@@ -296,9 +299,9 @@ jobs:
           $Version = [Version](Get-Content "$MetadataPath\AppInstaller.version.txt")
           $Branch = Get-Content "$MetadataPath\branch.txt"
           $Semver= Get-Content "$MetadataPath\semver.txt"
-          $BundleFilename = "EarTrumpet.Package_${Version}_x86.appxbundle"
+          $BundleFilename = "EarTrumpet.Package_${Version}_x86.msixbundle"
           $SymbolsBundleFilename = "EarTrumpet.Package_${Version}_x86.appxsym"
-          $AppxFilename = "EarTrumpet.Package_${Version}_x86.appx"
+          $AppxFilename = "EarTrumpet.Package_${Version}_x86.msix"
           
           $SideloadPath = "$env:ARTIFACTS_BASE\sideload"
           $SignedPath = "$env:ARTIFACTS_BASE\sideload\signed"
@@ -307,8 +310,8 @@ jobs:
           $ExtractedPath = "$env:TEMP\extracted"
           Expand-Archive "$SideloadPath\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
           Expand-Archive "$SideloadPath\$BundleFilename" "$ExtractedPath\Bundle"
-          Write-Output "Expand $ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.appx"
-          Expand-Archive "$ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.appx" "$ExtractedPath\Package"
+          Write-Output "Expand $ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.msix"
+          Expand-Archive "$ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.msix" "$ExtractedPath\Package"
           
           ### Place symbols next to executable image
           Copy-Item "$ExtractedPath\Symbols\EarTrumpet.pdb" "$ExtractedPath\Package\EarTrumpet\"
@@ -323,8 +326,8 @@ jobs:
           ### Repackage appx package
           & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPath\Package" /o /p "$SignedPath\Package\$AppxFilename"
           
-          Set-ItemProperty "$SignedPath\Package\EarTrumpet.Package_${Version}_x86.appx" -Name IsReadOnly -Value $true
-          Copy-Item "$ExtractedPath\Bundle\*.appx" "$SignedPath\Package\" -ErrorAction Ignore
+          Set-ItemProperty "$SignedPath\Package\EarTrumpet.Package_${Version}_x86.msix" -Name IsReadOnly -Value $true
+          Copy-Item "$ExtractedPath\Bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
           
           ### Repackage appx bundle
           & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$BundleFilename"
@@ -413,7 +416,7 @@ jobs:
           icacls .\staging.key /grant:r "$env:USERNAME`:(R)"
           $Branch = Get-Content $env:ARTIFACTS_BASE\metadata\branch.txt
           ssh -i staging.key -o "StrictHostKeyChecking no" ${{ secrets.staging_username }}@${{ secrets.staging_host }} "mkdir -p /var/www/html/store/$Branch"
-          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\signed\appxupload\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/store/$Branch
+          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\signed\msixupload\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/store/$Branch
           del staging.key
 
       - name: Push release to Partner Center via StoreBroker
@@ -433,8 +436,8 @@ jobs:
           $PackagingRoot = "$MetadataPath\Packaging\MicrosoftStore"
           $SubmissionRoot = "$env:TEMP\Packaging\Submission"
           $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
-          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.appxupload"
+          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.msixupload"
 
-          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\AppxUpload\$StoreBundleFilename" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
+          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\msixupload\$StoreBundleFilename" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
           $submissionId, $submissionUrl = Update-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json" -PackagePath "$SubmissionRoot\EarTrumpet.zip" -AddPackages -UpdateListings -UpdatePublishModeAndVisibility -UpdatePricingAndAvailability -UpdateAppProperties -UpdateNotesForCertification -TargetPublishMode Manual -Force -Verbose
           Complete-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionId $submissionId -Verbose
