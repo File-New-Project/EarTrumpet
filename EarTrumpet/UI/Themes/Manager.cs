@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Themes
 {
-    public class Manager : BindableBase, INotifyPropertyChanged
+    public sealed class Manager : BindableBase, INotifyPropertyChanged, IDisposable
     {
         public static Manager Current { get; private set; }
 
@@ -99,6 +99,11 @@ namespace EarTrumpet.UI.Themes
             RaisePropertyChanged(nameof(IsSystemLightTheme));
             RaisePropertyChanged(nameof(IsHighContrast));
             RaisePropertyChanged(nameof(UseAccentColorOnWindowBorders));
+        }
+
+        public void Dispose()
+        {
+            _messageWindow.Dispose();
         }
     }
 }

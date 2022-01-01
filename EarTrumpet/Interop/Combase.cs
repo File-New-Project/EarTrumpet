@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
@@ -7,9 +8,9 @@ namespace EarTrumpet.Interop
     {
         [DllImport("combase.dll", PreserveSig = false)]
         public static extern void RoGetActivationFactory(
-            [MarshalAs(UnmanagedType.HString)] string activatableClassId,
+            IntPtr activatableClassId,
             [In] ref Guid iid,
-            [Out, MarshalAs(UnmanagedType.IInspectable)] out Object factory);
+            [Out, MarshalAs(UnmanagedType.IUnknown)] out object factory);
 
         [DllImport("combase.dll", PreserveSig = false)]
         public static extern void WindowsCreateString(

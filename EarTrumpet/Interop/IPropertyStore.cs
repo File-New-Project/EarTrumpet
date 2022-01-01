@@ -24,6 +24,16 @@ namespace EarTrumpet.Interop
         {
             return fmtid.GetHashCode() + pid.GetHashCode();
         }
+
+        public static bool operator ==(PROPERTYKEY left, PROPERTYKEY right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(PROPERTYKEY left, PROPERTYKEY right)
+        {
+            return !(left == right);
+        }
     }
 
     [ComImport]

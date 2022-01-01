@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.Actions.Interop.Helpers
 {
-    class WindowWatcher
+    class WindowWatcher : IDisposable
     {
         public event Action<IntPtr> WindowCreated;
         public event Action<IntPtr> WindowDestroyed;
@@ -36,6 +36,11 @@ namespace EarTrumpet.Actions.Interop.Helpers
                     WindowDestroyed?.Invoke(m.LParam);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _window.Dispose();
         }
     }
 }

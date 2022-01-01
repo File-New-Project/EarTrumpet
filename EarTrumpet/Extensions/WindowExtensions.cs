@@ -38,26 +38,26 @@ namespace EarTrumpet.Extensions
 
         public static void RemoveWindowStyle(this Window window, int styleToRemove)
         {
-            var currentStyle = User32.GetWindowLong(window.GetHandle(), User32.GWL.GWL_STYLE);
+            var currentStyle = User32.GetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_STYLE);
             if (currentStyle == 0)
             {
                 Trace.WriteLine($"WindowExtensions RemoveWindowStyle Failed: ({Marshal.GetLastWin32Error()})");
                 return;
             }
 
-            User32.SetWindowLong(window.GetHandle(), User32.GWL.GWL_STYLE, (currentStyle & ~styleToRemove));
+            User32.SetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_STYLE, (currentStyle & ~styleToRemove));
         }
 
         public static void ApplyExtendedWindowStyle(this Window window, int newExStyle)
         {
-            var currentExStyle = User32.GetWindowLong(window.GetHandle(), User32.GWL.GWL_EXSTYLE);
+            var currentExStyle = User32.GetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_EXSTYLE);
             if (currentExStyle == 0)
             {
                 Trace.WriteLine($"WindowExtensions ApplyExtendedWindowStyle Failed: ({Marshal.GetLastWin32Error()})");
                 return;
             }
 
-            var oldExStyle = User32.SetWindowLong(window.GetHandle(), User32.GWL.GWL_EXSTYLE, currentExStyle | newExStyle);
+            var oldExStyle = User32.SetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_EXSTYLE, currentExStyle | newExStyle);
             if (oldExStyle != currentExStyle)
             {
                 Trace.WriteLine($"WindowExtensions ApplyExtendedWindowStyle Unexpected: ({oldExStyle} vs. {currentExStyle})");

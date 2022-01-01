@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.Interop.Helpers
 {
-    public class HotkeyManager
+    public sealed class HotkeyManager : IDisposable
     {
         private class Entry
         {
@@ -94,6 +94,11 @@ namespace EarTrumpet.Interop.Helpers
             {
                 User32.RegisterHotKey(_window.Handle, entry.Id, entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
             }
+        }
+
+        public void Dispose()
+        {
+            _window.Dispose();
         }
     }
 }

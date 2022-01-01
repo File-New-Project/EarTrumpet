@@ -262,19 +262,24 @@ namespace EarTrumpet.Interop
             IntPtr lpWindowName);
 
 #if X86
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong", CharSet = CharSet.Unicode, PreserveSig = true)]
+#else
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern int GetWindowLong(
+#endif
+        public static extern int GetWindowLongPtr(
             IntPtr hWnd,
             GWL nIndex);
 
+
+#if X86
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong", CharSet = CharSet.Unicode, PreserveSig = true)]
+#else
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
-        public static extern int SetWindowLong(
+#endif
+        public static extern int SetWindowLongPtr(
             IntPtr hWnd,
             GWL nIndex,
             int dwNewLong);
-#else
-#error [Get/Set]WindowLong not supported on 64-bit platforms
-#endif
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
         public static extern int RegisterWindowMessage(string msg);

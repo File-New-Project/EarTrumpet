@@ -37,7 +37,6 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 * [Change Log](./CHANGELOG.md)
 
 ## Supported operating systems
-- Windows 10 1803 (April 2018 Update)
 - Windows 10 1809 (October 2018 Update)
 - Windows 10 1903 (May 2019 Update)
 - Windows 10 1909 (November 2019 Update)

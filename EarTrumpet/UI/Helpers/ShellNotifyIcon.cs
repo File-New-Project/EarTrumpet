@@ -14,7 +14,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public class ShellNotifyIcon
+    public sealed class ShellNotifyIcon : IDisposable
     {
         public event EventHandler<InputType> PrimaryInvoke;
         public event EventHandler<InputType> SecondaryInvoke;
@@ -286,6 +286,11 @@ namespace EarTrumpet.UI.Helpers
                 };
                 contextMenu.IsOpen = true;
             }
+        }
+
+        public void Dispose()
+        {
+            _window.Dispose();
         }
     }
 }

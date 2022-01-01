@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace EarTrumpet.Actions.DataModel
 {
-    public class ProcessWatcher
+    public sealed class ProcessWatcher : IDisposable
     {
         class ProcessInfo
         {
@@ -145,6 +145,11 @@ namespace EarTrumpet.Actions.DataModel
         {
             Trace.WriteLine("ProcessWatcher Clear");
             _info = new Dictionary<string, WatcherInfo>();
+        }
+
+        public void Dispose()
+        {
+            _watcher.Dispose();
         }
     }
 }

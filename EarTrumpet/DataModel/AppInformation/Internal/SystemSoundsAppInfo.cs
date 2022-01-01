@@ -17,7 +17,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
         public SystemSoundsAppInfo()
         {
-            SmallLogoPath = Environment.ExpandEnvironmentVariables(Is64BitOperatingSystem() ? 
+            SmallLogoPath = Environment.ExpandEnvironmentVariables(Is64BitOperatingSystem() && !Environment.Is64BitProcess ? 
                 @"%windir%\sysnative\audiosrv.dll,203" : @"%windir%\system32\audiosrv.dll,203");
         }
 

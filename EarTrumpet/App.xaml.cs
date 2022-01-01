@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace EarTrumpet
 {
-    public partial class App
+    public sealed partial class App : IDisposable
     {
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
@@ -247,5 +247,11 @@ namespace EarTrumpet
         }
 
         private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
+
+        public void Dispose()
+        {
+            _errorReporter.Dispose();
+            _trayIcon.Dispose();
+        }
     }
 }

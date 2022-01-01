@@ -16,8 +16,8 @@ namespace EarTrumpet.Interop
             DWMWCP_ROUNDSMALL = 3
         }
 
-        [DllImport("dwmapi.dll", PreserveSig = false)]
-        internal static extern void DwmSetWindowAttribute(
+        [DllImport("dwmapi.dll", PreserveSig = true)]
+        internal static extern uint DwmSetWindowAttribute(
             IntPtr hwnd,
             int attr,
             ref int attrValue,
