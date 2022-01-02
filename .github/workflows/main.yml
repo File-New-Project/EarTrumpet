@@ -170,7 +170,7 @@ jobs:
           $manifestPath = "$env:ARTIFACTS_BASE/sideload/EarTrumpet.Package.appinstaller"
           $manifest = [xml](Get-Content $manifestPath)
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
-          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.msixbundle"
+          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86_x64_arm64.msixbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
           $manifest.Save($manifestPath)
 
@@ -218,22 +218,8 @@ jobs:
         with:
           path: artifacts
 
-      - name: Install .NET SDK
-        if: matrix.channel == 'AppInstaller'
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '2.1.809'
-
       - name: Install AzureSignTool
         run: dotnet tool install --tool-path . azuresigntool --version 2.0.17
-
-      - name: Install Chocolatey
-        if: matrix.channel == 'Chocolatey'
-        shell: powershell
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
       - name: Sign and repackage Store artifacts
         if: matrix.channel == 'Store'
@@ -245,45 +231,56 @@ jobs:
           KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
           KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
         run: |
-          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
-          $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
-          $msixuploadPath = "$env:ARTIFACTS_BASE\msixupload"
-          $BundleFilename = "EarTrumpet.Package_${Version}_x86.msixbundle"
-          $SymbolsBundleFilename = "EarTrumpet.Package_${Version}_x86.appxsym"
-          $AppxFilename = "EarTrumpet.Package_${Version}_x86.msix"
-          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.msixupload"
+            $MetadataPath = "$env:ARTIFACTS_BASE\Metadata"
+            $MsixUploadPath = "$env:ARTIFACTS_BASE\Msixupload"
+            $ExtractedPath = "$env:TEMP\Extracted"
+            $SignedPath = "$env:ARTIFACTS_BASE\Signed"
 
-          ### Expand bundle and appx package within
-          $ExtractedPath = "$env:ARTIFACTS_BASE\Extracted"
-          Expand-Archive "$msixuploadPath\$StoreBundleFilename" "$ExtractedPath\msixupload"
-          Expand-Archive "$ExtractedPath\msixupload\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
-          Expand-Archive "$ExtractedPath\msixupload\$BundleFilename" "$ExtractedPath\Bundle"
-          Expand-Archive "$ExtractedPath\Bundle\$AppxFilename" "$ExtractedPath\Package"
+            $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
+            $MsixBundleFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64.msixbundle"
+            $MsixUploadFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64_bundle.msixupload"
+            $MsixUploadFilePath = "$MsixUploadPath\$MsixUploadFilename"
 
-          ### Place symbols next to executable image
-          Copy-Item "$ExtractedPath\Symbols\EarTrumpet.pdb" "$ExtractedPath\Package\EarTrumpet\"
+            ### Prepare output directories
+            New-Item -ItemType Directory "$SignedPath"
+            New-Item -ItemType Directory "$SignedPath\Package"
+            New-Item -ItemType Directory "$SignedPath\Bundle"
+            New-Item -ItemType Directory "$SignedPath\Msixupload"
 
-          ### Sign executable image
-          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPath\Package\EarTrumpet\EarTrumpet.exe"
+            ### Expand msixupload and msixbundle
+            Expand-Archive $MsixUploadFilePath "$ExtractedPath\msixupload" # Outputs *.appxsym, .msixbundle
+            Expand-Archive "$ExtractedPath\msixupload\$MsixBundleFilename" "$ExtractedPath\bundle" # Outputs arch-specific and neutral *.msix packages
 
-          $SignedPath = "$env:ARTIFACTS_BASE\Signed"
-          New-Item -ItemType Directory "$SignedPath"
-          New-Item -ItemType Directory "$SignedPath\Package"
-          New-Item -ItemType Directory "$SignedPath\Bundle"
-          New-Item -ItemType Directory "$SignedPath\msixupload"
+            foreach ($arch in @("x86", "x64", "arm64")) {
+                $ExtractedPathWithArch = "$ExtractedPath\$arch"
+                $AppxSymFilename = "EarTrumpet.Package_${Version}_${arch}.appxsym"
+                $MsixFilename = "EarTrumpet.Package_${Version}_${arch}.msix"
 
-          ### Repackage appx package
-          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPath\Package" /o /p "$SignedPath\Package\$AppxFilename"
+                ### Expand symbols and app package
+                Expand-Archive "$ExtractedPath\msixupload\$AppxSymFilename" "$ExtractedPathWithArch\Symbols"
+                Expand-Archive "$ExtractedPath\bundle\$MsixFilename" "$ExtractedPathWithArch\Package"
 
-          Set-ItemProperty "$SignedPath\Package\$AppxFilename" -Name IsReadOnly -Value $true
-          Copy-Item "$ExtractedPath\Bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
+                ### Place symbols next to executable image
+                Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
 
-          ### Repackage appx bundle
-          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$BundleFilename"
+                ### Sign executable image
+                .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
 
-          ### Repackage msixupload
-          Copy-Item "$ExtractedPath\msixupload\$SymbolsBundleFilename" "$SignedPath\Bundle"
-          Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\msixupload\$StoreBundleFilename" -CompressionLevel Optimal
+                ### Repackage app
+                & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
+                Set-ItemProperty "$SignedPath\Package\$MsixFilename" -Name IsReadOnly -Value $true
+            }
+
+            ### Copy remaining neutral packages
+            Copy-Item "$ExtractedPath\bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
+
+            ### Rebundle packages
+            & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\bundle\$MsixBundleFilename"
+
+            ### Recreate msixupload
+            Copy-Item "$ExtractedPath\msixupload\*.appxsym" "$SignedPath\Bundle"
+            Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\msixupload\$MsixUploadFilename" -CompressionLevel Optimal
+
 
       - name: Sign AppInstaller artifacts
         if: matrix.channel == 'AppInstaller'
@@ -295,47 +292,56 @@ jobs:
           KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
           KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
         run: |
-          $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
-          $Version = [Version](Get-Content "$MetadataPath\AppInstaller.version.txt")
-          $Branch = Get-Content "$MetadataPath\branch.txt"
-          $Semver= Get-Content "$MetadataPath\semver.txt"
-          $BundleFilename = "EarTrumpet.Package_${Version}_x86.msixbundle"
-          $SymbolsBundleFilename = "EarTrumpet.Package_${Version}_x86.appxsym"
-          $AppxFilename = "EarTrumpet.Package_${Version}_x86.msix"
-          
-          $SideloadPath = "$env:ARTIFACTS_BASE\sideload"
-          $SignedPath = "$env:ARTIFACTS_BASE\sideload\signed"
-          
-          ### Expand bundle and appx package within
-          $ExtractedPath = "$env:TEMP\extracted"
-          Expand-Archive "$SideloadPath\$SymbolsBundleFilename" "$ExtractedPath\Symbols"
-          Expand-Archive "$SideloadPath\$BundleFilename" "$ExtractedPath\Bundle"
-          Write-Output "Expand $ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.msix"
-          Expand-Archive "$ExtractedPath\Bundle\EarTrumpet.Package_${Version}_x86.msix" "$ExtractedPath\Package"
-          
-          ### Place symbols next to executable image
-          Copy-Item "$ExtractedPath\Symbols\EarTrumpet.pdb" "$ExtractedPath\Package\EarTrumpet\"
-          
-          ### Sign executable image
-          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPath\Package\EarTrumpet\EarTrumpet.exe"
-          
-          New-Item -ItemType Directory "$SignedPath"
-          New-Item -ItemType Directory "$SignedPath\Package"
-          New-Item -ItemType Directory "$SignedPath\Bundle"
-          
-          ### Repackage appx package
-          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPath\Package" /o /p "$SignedPath\Package\$AppxFilename"
-          
-          Set-ItemProperty "$SignedPath\Package\EarTrumpet.Package_${Version}_x86.msix" -Name IsReadOnly -Value $true
-          Copy-Item "$ExtractedPath\Bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
-          
-          ### Repackage appx bundle
-          & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$BundleFilename"
-          
-          ### Sign appx bundle
-          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$SignedPath\Bundle\$BundleFilename"
-          
-          Copy-Item "$SideloadPath\*.appinstaller" "$SignedPath\Bundle"
+            $MetadataPath = "$env:ARTIFACTS_BASE\Metadata"
+            $SideloadPath = "$env:ARTIFACTS_BASE\Sideload"
+            $SignedPath = "$env:ARTIFACTS_BASE\Signed"
+
+            $Version = [Version](Get-Content "$MetadataPath\AppInstaller.version.txt")
+            $MsixBundleFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64.msixbundle"
+            $MsixBundleFilePath = "$SideloadPath\$MsixBundleFilename"
+            $AppInstallerFilePath = "$SideloadPath\EarTrumpet.Package.appinstaller"
+            cat $AppInstallerFilePath
+            ### Prepare output directories
+            New-Item -ItemType Directory "$SignedPath"
+            New-Item -ItemType Directory "$SignedPath\Package"
+            New-Item -ItemType Directory "$SignedPath\Bundle"
+            New-Item -ItemType Directory "$SignedPath\Sideload"
+
+            ### Expand msixbundle
+            $ExtractedPath = "$env:TEMP\Extracted"
+            Expand-Archive $MsixBundleFilePath "$ExtractedPath\Bundle"
+
+            foreach ($arch in @("x86", "x64", "arm64")) {
+                $ExtractedPathWithArch = "$ExtractedPath\$arch"
+                $AppxSymFilename = "EarTrumpet.Package_${Version}_${arch}.appxsym"
+                $MsixFilename = "EarTrumpet.Package_${Version}_${arch}.msix"
+
+                ### Expand symbols and app package
+                Expand-Archive "$SideloadPath\$AppxSymFilename" "$ExtractedPathWithArch\Symbols"
+                Expand-Archive "$ExtractedPath\Bundle\$MsixFilename" "$ExtractedPathWithArch\Package"
+
+                ### Place symbols next to executable image
+                Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
+
+                ### Sign executable image
+                .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
+
+                ### Repackage app
+                & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
+                Set-ItemProperty "$SignedPath\Package\$MsixFilename" -Name IsReadOnly -Value $true
+            }
+
+            ### Copy remaining neutral packages
+            Copy-Item "$ExtractedPath\bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
+
+            ### Copy appinstaller manifest
+            Copy-Item $AppInstallerFilePath "$SignedPath\Bundle\"
+
+            ### Rebundle packages
+            & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$MsixBundleFilename"
+
+            ### Sign appx bundle
+            .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$SignedPath\Bundle\$MsixBundleFilename"
 
       - name: Sign and repackage Chocolatey artifacts
         if: matrix.channel == 'Chocolatey'
@@ -405,7 +411,7 @@ jobs:
           icacls .\staging.key /grant:r "$env:USERNAME`:(R)"
           $Branch = Get-Content $env:ARTIFACTS_BASE\metadata\branch.txt
           ssh -i staging.key -o "StrictHostKeyChecking no" ${{ secrets.staging_username }}@${{ secrets.staging_host }} "mkdir -p /var/www/html/$Branch"
-          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\sideload\signed\bundle\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/$Branch
+          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\Signed\Bundle\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/$Branch
           del staging.key
 
       - name: Stage Store artifacts via SCP
@@ -416,7 +422,7 @@ jobs:
           icacls .\staging.key /grant:r "$env:USERNAME`:(R)"
           $Branch = Get-Content $env:ARTIFACTS_BASE\metadata\branch.txt
           ssh -i staging.key -o "StrictHostKeyChecking no" ${{ secrets.staging_username }}@${{ secrets.staging_host }} "mkdir -p /var/www/html/store/$Branch"
-          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\signed\msixupload\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/store/$Branch
+          scp -B -i staging.key -o "StrictHostKeyChecking no" $env:ARTIFACTS_BASE\Signed\Msixupload\* ${{ secrets.staging_username }}@${{ secrets.staging_host }}:/var/www/html/store/$Branch
           del staging.key
 
       - name: Push release to Partner Center via StoreBroker
@@ -436,8 +442,8 @@ jobs:
           $PackagingRoot = "$MetadataPath\Packaging\MicrosoftStore"
           $SubmissionRoot = "$env:TEMP\Packaging\Submission"
           $Version = [Version](Get-Content "$MetadataPath\Store.version.txt")
-          $StoreBundleFilename = "EarTrumpet.Package_${Version}_x86_bundle.msixupload"
+          $MsixUpload = "EarTrumpet.Package_${Version}_x86_x64_arm64_bundle.msixupload"
 
-          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\msixupload\$StoreBundleFilename" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
+          New-SubmissionPackage -ConfigPath "$PackagingRoot\SBConfig.json" -PDPRootPath "$PackagingRoot\PDPs" -ImagesRootPath "$PackagingRoot\PDPs" -AppxPath "$env:ARTIFACTS_BASE\Signed\msixupload\$MsixUpload" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
           $submissionId, $submissionUrl = Update-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json" -PackagePath "$SubmissionRoot\EarTrumpet.zip" -AddPackages -UpdateListings -UpdatePublishModeAndVisibility -UpdatePricingAndAvailability -UpdateAppProperties -UpdateNotesForCertification -TargetPublishMode Manual -Force -Verbose
           Complete-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionId $submissionId -Verbose

@@ -18,6 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EarTrumpet", "EarTrumpet\EarTrumpet.csproj", "{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chocolatey", "Chocolatey", "{EF7F607E-FD43-4BA4-B32B-128EF2944A26}"
+	ProjectSection(SolutionItems) = preProject
+		.chocolatey\tools\chocolateybeforemodify.ps1 = .chocolatey\tools\chocolateybeforemodify.ps1
+		.chocolatey\tools\chocolateyinstall.ps1 = .chocolatey\tools\chocolateyinstall.ps1
+		.chocolatey\tools\chocolateyuninstall.ps1 = .chocolatey\tools\chocolateyuninstall.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -79,6 +86,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF7F607E-FD43-4BA4-B32B-128EF2944A26} = {8F56ECD6-00C6-4C4A-AB1F-C01ED14EF53B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {228AD06A-DAC2-406B-8F21-3E7B980B1B37}
