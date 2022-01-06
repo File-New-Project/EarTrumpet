@@ -79,9 +79,14 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_session.DisplayName))
+            switch(e.PropertyName)
             {
-                RaisePropertyChanged(nameof(DisplayName));
+                case nameof(_session.DisplayName):
+                    RaisePropertyChanged(nameof(DisplayName));
+                    break;
+                case nameof(_session.IconPath):
+                    RaisePropertyChanged(nameof(IconPath));
+                    break;
             }
         }
 

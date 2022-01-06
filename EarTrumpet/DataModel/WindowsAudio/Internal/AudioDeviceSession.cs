@@ -436,6 +436,10 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext) { }
+        void IAudioSessionEvents.OnIconPathChanged(string NewIconPath, ref Guid EventContext)
+        {
+            IconPath = NewIconPath;
+            RaisePropertyChanged(nameof(IconPath));
+        }
     }
 }
