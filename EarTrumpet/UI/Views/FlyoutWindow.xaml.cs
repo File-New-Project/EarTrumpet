@@ -170,10 +170,12 @@ namespace EarTrumpet.UI.Views
                 flyoutHeight = workingAreaHeight;
             }
 
-            double offsetFromTaskbar = 0;
+            double yOffset = 0;
+            double xOffset = 0;
             if(Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
             {
-                offsetFromTaskbar += 12;
+                xOffset += 12 * this.DpiX();
+                yOffset += 12 * this.DpiY();
             }
 
             switch (taskbar.Location)
@@ -191,14 +193,14 @@ namespace EarTrumpet.UI.Views
                               flyoutWidth);
                     break;
                 case WindowsTaskbar.Position.Top:
-                    this.SetWindowPos(adjustedWorkingAreaTop,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth : adjustedWorkingAreaLeft,
+                    this.SetWindowPos(adjustedWorkingAreaTop + xOffset,
+                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
                               flyoutHeight,
                               flyoutWidth);
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight - offsetFromTaskbar,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth : adjustedWorkingAreaLeft,
+                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight - yOffset,
+                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
                               flyoutHeight,
                               flyoutWidth);
                     break;
@@ -221,6 +223,11 @@ namespace EarTrumpet.UI.Views
 
         private User32.AccentFlags GetAccentFlags(WindowsTaskbar.State taskbar)
         {
+            if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+            {
+                return User32.AccentFlags.DrawAllBorders;
+            }
+
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
