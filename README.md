@@ -25,7 +25,7 @@ We currently support 20+ languages. Are we missing your language? [Contribute a 
 Install EarTrumpet from the [Microsoft Store](https://www.microsoft.com/store/apps/9nblggh516xp)
 
 Or via command line using either
-- [Microsoft's winget](https://github.com/microsoft/winget-cli) (`winget install File-New-Project.EarTrumpet`)
+- [Windows Package Manager Client (winget)](https://github.com/microsoft/winget-cli) (`winget install File-New-Project.EarTrumpet`)
 - Chocolatey (`choco install eartrumpet`).
 
 ## Experimental dev builds
