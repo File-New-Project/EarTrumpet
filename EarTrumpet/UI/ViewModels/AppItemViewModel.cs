@@ -63,8 +63,6 @@ namespace EarTrumpet.UI.ViewModels
             _session.PropertyChanged += Session_PropertyChanged;
             _parent = new WeakReference<DeviceViewModel>(parent);
 
-            Background = session.IsDesktopApp ? Colors.Transparent : session.BackgroundColor.ToABGRColor();
-
             if (_session.Children != null)
             {
                 _session.Children.CollectionChanged += Children_CollectionChanged;

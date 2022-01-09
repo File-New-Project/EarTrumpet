@@ -11,7 +11,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
     {
         public event Action<IAppInfo> Stopped;
 
-        public uint BackgroundColor { get; }
         public string ExeName { get; }
         public string DisplayName { get; }
         public string PackageInstallPath { get; }

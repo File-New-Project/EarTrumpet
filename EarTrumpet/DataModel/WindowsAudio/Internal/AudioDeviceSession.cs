@@ -78,7 +78,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         public Guid GroupingParam { get; private set; }
         public float PeakValue1 { get; private set; }
         public float PeakValue2 { get; private set; }
-        public uint BackgroundColor => _appInfo.BackgroundColor;
         public bool IsDesktopApp => _appInfo.IsDesktopApp;
         public string AppId => _appInfo.PackageInstallPath;
 
