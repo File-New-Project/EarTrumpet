@@ -65,7 +65,6 @@ namespace EarTrumpet.UI.ViewModels
             IsDesktopApp = session.IsDesktopApp;
             IconPath = session.IconPath;
             Id = session.AppId;
-            Background = session.BackgroundColor.ToABGRColor();
         }
 
         public SettingsAppItemViewModel()

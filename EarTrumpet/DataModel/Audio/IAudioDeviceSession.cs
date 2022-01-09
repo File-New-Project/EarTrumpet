@@ -10,7 +10,6 @@ namespace EarTrumpet.DataModel.Audio
         IAudioDevice Parent { get; }
         string DisplayName { get; }
         string ExeName { get; }
-        uint BackgroundColor { get; }
         string IconPath { get; }
         bool IsDesktopApp { get; }
         bool IsSystemSoundsSession { get; }

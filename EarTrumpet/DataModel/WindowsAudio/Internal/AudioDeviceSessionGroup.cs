@@ -42,8 +42,6 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         }
         public IEnumerable<IAudioDeviceSession> Sessions => _sessions;
 
-        public uint BackgroundColor => _sessions.Count > 0 ? _sessions[0].BackgroundColor : 0;
-
         public string DisplayName => _sessions.Count > 0 ? _sessions[0].DisplayName : null;
 
         public string ExeName => _sessions.Count > 0 ? _sessions[0].ExeName : null;

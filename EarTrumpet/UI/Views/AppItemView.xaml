@@ -17,11 +17,6 @@
                     HorizontalAlignment="Center">
                 <Border.Style>
                     <Style TargetType="Border">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="{Binding Background, Mode=OneTime}" />
-                            </Setter.Value>
-                        </Setter>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsMuted}" Value="true">
                                 <Setter Property="Opacity" Value="{StaticResource MutedOpacity}" />

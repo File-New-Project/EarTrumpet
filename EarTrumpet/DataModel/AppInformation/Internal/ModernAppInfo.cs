@@ -10,7 +10,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
     {
         public event Action<IAppInfo> Stopped;
 
-        public uint BackgroundColor { get; }
         public string ExeName { get; }
         public string DisplayName { get; }
         public string PackageInstallPath { get; }
@@ -28,7 +27,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             try
             {
                 var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appUserModelId, typeof(IShellItem2).GUID);
-                BackgroundColor = shellItem.GetUInt32(ref PropertyKeys.PKEY_AppUserModel_Background);
                 PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
                 DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
                 ExeName = PackageInstallPath;
