@@ -296,4 +296,348 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Çökme verisini EarTrumpet ekibine gönder</value>
   </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>ve</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Yap</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Eylem ekle</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Koşul ekle</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Kısayol tuşlarını ve otomasyonu ayarlama</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Tetikleyici Ekle</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Bir uygulama oturumu eklenir, kaldırılır, ses çıkarmaya başlarsa, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} aygıtında {App} uygulamasını {Option}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>eklendiğinde</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>susturulduğunda</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>ses çıkarmayı durdurduğunda</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>ses çıkarmaya başladığında</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>kaldırıldığında</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>sesi açıldığında</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>eklendiğinde</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>varsayılan olduğunda</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>varsayılan olmaktan çıktığında</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>kaldırıldığında</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>hayır</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>evet</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>şöyleyse</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>şöyle değilse</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>ve</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Bir filtre ayarlamak isteğe bağlıdır fakat daha gelişmiş eylemler yapmanıza olanak sağlar. Eylemler başlatılmadan önce tüm koşullar doğru olmalı.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Gelişmiş Filtre</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Ben bu eylemin bağlam menüsünü kullandığımda</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Ben bu eylemin bağlam menüsünü kullandığımda</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Eğer varsayılan kayıttan yürütme aygıtı şöyle ise/değilse</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device}{Option} varsayılan cihaz</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Varsayılan kayıttan yürütme aygıtı</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Bir ses aygıtı eklendiğinde, kaldırılıldığında, varsayılan olarak ayarlandığında, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>biterken</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>başlarken</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Eylemler XMLsi</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet başlayınca veya durunca</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Her uygulama</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Dışa aktar</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Eylemlerinizin kopyasını bir dosyaya kaydedin.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Ön plandaki uygulama</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Bir kısayola basıldığında</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(bir kısayol tuşu seçin)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} yazıldı</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>İçe/dışa aktar</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>İçe aktar</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Eylemlerinizin kopyasını bir dosyadan yükleyin.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Sustur</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Susturmayı tetikle</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Sesini aç</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Eylemler</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Yeni eylem</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(isteğe bağlı)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Kayıttan yürütme</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Eğer bir işlem çalışıp çalışmıyorsa</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(bir işlem ismi girin)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Eğer {Text} {Option} ise</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>İşlem ismi (örn. notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>başlarken</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>biterken</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>çalışmıyorsa</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>çalışıyorsa</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Bir işlem başladığında veya durduğunda</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(bir işlem ismi girin)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Eğer {Text} {Option} ise</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>İşlem ismi (örn. notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Kayıt</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(gerekli)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Bir uygulamayı sustur veya sesini aç</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Device} aygıtında {Option} {App}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Bir uygulamanın sesini ayarla</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} olarak {Option}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} kadar {Option}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Varsayılan kayıttan yürütme aygıtını ayarla</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>{Device} aygıtını kayıttan yürütme aygıtı olarak ayarla</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Bir uygulamayı sustur veya sesini aç</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Device} aygıtında {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Bir aygıt ses yüksekliği ayarlayın</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Device} ses seviyesini {Volume} değerine {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Device} ses seviyesini {Volume} kadar {Option}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Bir yerel değişken ayarlayın</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(değişken adı ayarlayın)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>{Text} değişkeni: {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Bir değişken adı girin (örn. oyunModunda)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Azaltma</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Yükseltme</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Ayarla</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>veya</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Eğer</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Bir yerel değişken doğru veya yanlışsa</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(bir değişken adı girin)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>{Text} değişkeni: {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Bir değişken adı girin (örn. oyunModunda)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Bir aygıt seçin</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Bir uygulama seçin</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Bu eylemi silmek mi istiyorsunuz?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Kaydetmeden mi çıkacaksınız?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Çık</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Bu eylemi kaldır</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Eylemi kaldır</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Yukarıda gösterilen uygulamlar yakın zamanda ses çıkardılar.</value>
+  </data>
 </root>
