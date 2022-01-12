@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Không tìm thấy thiết bị phát lại</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Gửi phản hồi</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Bộ phối âm</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Bộ phối âm</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Có vẻ như bạn không có thiết bị phát lại nào cả.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Không có thiết bị phát lại</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Thiết bị phát lại</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Thiết bị thu âm</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Thu thập dữ liệu chẩn đoán</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Phím tắt của bạn</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Luôn dùng thiết bị phát lại mặc định</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Thông tin về ứng dụng</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Tìm hiểu thêm</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"Âm lượng {Volume}% - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"{Name} - Bị tắt tiếng"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Ứng dụng</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Thu nhỏ để chỉ hiển thị thiết bị phát lại mặc định</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Phím tắt mặc định</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Mở rộng để hiện tất cả thiết bị phát lại</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Chung</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Gán ứng dụng này với một thiết bị phát lại</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Mở flyout ở thanh tác vụ ra</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Dùng biểu tượng EarTrumpet cũ</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Thêm lệnh</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Đã tắt tiếng</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Cài đặt âm thanh</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Cài đặt cũ của Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Về phần mở rộng {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Tên:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Mở cài đặt Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Phần mở rộng này có thể được gỡ bỏ thông qua ứng dụng Cài đặt Windows.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Gỡ cài đặt</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Quản lý</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Cài đặt cũ</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Nhà phát hành:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Thiết đặt phím tắt và tìm trợ giúp</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Cài đặt EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Phím tắt</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Phiên bản:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Tìm cài đặt</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Không có kết quả</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Mở bộ chỉnh âm</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Trang chính</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Sớm ra mắt</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Sắp có</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Mở cài đặt</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Chào mừng bạn đến với EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet không thể khởi chạy</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Một phông chữ trên máy bạn đang ngăn cản EarTrumpet khởi chạy.
+
+Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Bật tắt âm lượng</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Chính sách riêng tư</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Gửi dữ liệu sự cố tới đội EarTrumpet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>và</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Thực hiện khi</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Thêm hành động</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Thêm điều kiện</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Thiết lập phím tắt và tự động hóa</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Thêm điều kiện kích hoạt</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Một phiên của ứng dụng được thêm, loại bỏ, bắt đầu phát âm thanh, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} ở {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>được thêm</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>bị tắt tiếng</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>dừng phát âm</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>bắt đầu phát âm</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>bị gỡ bỏ</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>bỏ tắt tiếng</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>được thêm</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>trở thành mặc định</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>không trở thành mặc định</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>bị gỡ bỏ</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>sai</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>đúng</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>là</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>không phải</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>và</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Bạn không cần thiết phải cấu hình bộ lọc nhưng nó cho phép thiết lập nhiều hành động nâng cao hơn. Tất cả các điều kiện phải là đúng trước khi các hành động có thể được thực hiện.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Bộ lọc nâng cao</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Tôi sử dụng mục trình đơn ngữ cảnh của hành động này</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Tôi sử dụng mục trình đơn ngữ cảnh của hành động này</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Nếu thiết bị phát lại mặc định là hoặc không phải là</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} thiết bị mặc định</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Thiết bị phát lại mặc định</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Một thiết bị âm thanh được thêm, loại bỏ, đặt làm mặc định, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>kết thúc</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>bắt đầu</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>Hành động EarTrumpet XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet bắt đầu hoặc kết thúc</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Mỗi ứng dụng</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Lưu một bản sao của hành động của bạn thành một tệp.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Ứng dụng ở đằng trước</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Một phím tắt được nhấn</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(chọn một phím tắt)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} được nhấn</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Nhập và Xuất</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Nhập</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Khôi phục bản sao của các hành động của bạn từ một tệp.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Tắt tiếng</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Bật tắt âm lượng</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Bỏ tắt tiếng</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Các hành động</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Hành động mới</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(tùy chọn)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Phát lại</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Nếu một tiến trình đang chạy hoặc không chạy</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(nhập tên tiến trình)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Khi {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Tên tiến trình (Ví dụ: notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>bắt đầu</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>kết thúc</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>không chạy</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>đang chạy</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Một tiến trình bắt đầu chạy hoặc kết thúc</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(nhập tên tiến trình)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Khi {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Tên tiến trình (Ví dụ: notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Ghi lại</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(bắt buộc)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Bật hoặc tắt âm thanh ứng dụng</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} trên {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Đặt âm lượng của ứng dụng</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Đặt thiết bị phát lại mặc định</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Đặt {Device} làm thiết bị phát lại mặc định</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Bật hoặc tắt âm thanh thiết bị</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} ở {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Đật âm lượng cho thiết bị</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} âm lượng của {Device} thành {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} âm lượng của {Device} thành {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Đặt biến cục bộ</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(đặt tên cho biến)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Đặt biến {Text} thành {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Nhập tên biến (Ví dụ: isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Giảm</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Tăng</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Đặt</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>hoặc</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Khi</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Nếu biến cục bộ đúng hay sai</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(nhập tên biến)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Biến {Text} là {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Nhập tên biến (Ví dụ: isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Chọn thiết bị</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Chọn ứng dụng</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Xóa hành động này?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Bạn thoát mà không lưu?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Loại bỏ hành động này</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Tác vụ này sẽ không thể hoàn lại được.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Loại bỏ hành động</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Loại bỏ</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Các ứng dụng được hiển thị ở trên đã phát âm thanh gần đây.</value>
+  </data>
+</root>
