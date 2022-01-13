@@ -311,7 +311,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Thêm điều kiện</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Thiết lập phím tắt và tự động hóa</value>
+    <value>Thiết lập phím nóng và tự động hóa</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
     <value>Thêm điều kiện kích hoạt</value>
@@ -335,7 +335,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>bắt đầu phát âm</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>bị gỡ bỏ</value>
+    <value>bị gỡ ra</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
     <value>bỏ tắt tiếng</value>
@@ -350,7 +350,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>không trở thành mặc định</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>bị gỡ bỏ</value>
+    <value>bị gỡ ra</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
     <value>sai</value>
@@ -362,7 +362,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>là</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>không phải</value>
+    <value>không phải là</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
     <value>và</value>
@@ -395,10 +395,10 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>kết thúc</value>
+    <value>thoát</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>bắt đầu</value>
+    <value>khởi chạy</value>
   </data>
   <data name="EditText" xml:space="preserve">
     <value>Chỉnh sửa</value>
@@ -419,16 +419,16 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Xuất</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Lưu một bản sao của hành động của bạn thành một tệp.</value>
+    <value>Lưu một bản sao của các hành động của bạn thành một tệp.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
     <value>Ứng dụng ở đằng trước</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Một phím tắt được nhấn</value>
+    <value>Một phím nóng được nhấn</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(chọn một phím tắt)</value>
+    <value>(chọn một phím nóng)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
     <value>{Hotkey} được nhấn</value>
