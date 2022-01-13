@@ -184,7 +184,7 @@
     <value>Phím tắt mặc định</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Mở rộng để hiện tất cả thiết bị phát lại</value>
+    <value>Mở rộng để hiển thị tất cả thiết bị phát lại</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>Chung</value>
@@ -211,7 +211,7 @@
     <value>Cài đặt cũ của Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Về phần mở rộng {Name}</value>
+    <value>Thông tin về phần mở rộng {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
     <value>Tên:</value>
@@ -220,7 +220,7 @@
     <value>Mở cài đặt Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Phần mở rộng này có thể được gỡ bỏ thông qua ứng dụng Cài đặt Windows.</value>
+    <value>Phần mở rộng này có thể gỡ ra được từ ứng dụng Cài đặt Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>Gỡ cài đặt</value>
@@ -265,7 +265,7 @@
     <value>Trang chính</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Sớm ra mắt</value>
+    <value>Sắp có</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
     <value>Sắp có</value>
@@ -512,7 +512,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Bật hoặc tắt âm ứng dụng</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} trên {Device}</value>
+    <value>{App} {Option} ở {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
     <value>Đặt âm lượng của ứng dụng</value>
@@ -530,7 +530,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Đặt {Device} làm thiết bị phát lại mặc định</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Bật hoặc tắt âm thanh thiết bị</value>
+    <value>Bật hoặc tắt âm thiết bị</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
