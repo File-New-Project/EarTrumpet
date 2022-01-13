@@ -11,7 +11,7 @@
     <Keyword _locID="App_keyword6">Điều khiển</Keyword>
     <Keyword _locID="App_keyword7">Thiết bị</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet là công cụ chỉnh âm mạnh mẽ cho Windows</Description>
+  <Description _locID="App_Description">EarTrumpet là ứng dụng chỉnh âm thanh mạnh mẽ cho Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
@@ -26,7 +26,7 @@
   <Trailers/>
   <AppFeatures>
     <AppFeature _locID="App_feature1">Điều khiển âm thanh từ ứng dụng cũ và mới</AppFeature>
-    <AppFeature _locID="App_feature2">Điều khiển thiết bị âm thanh với hai nhấp chuột</AppFeature>
+    <AppFeature _locID="App_feature2">Điều khiển thiết bị âm thanh chỉ với 2 cú click chuột</AppFeature>
     <AppFeature _locID="App_feature3">Khớp với giao diện của Windows</AppFeature>
     <AppFeature _locID="App_feature4">Hỗ trợ chuyển ứng dụng giữa các thiết bị phát lại</AppFeature>
     <AppFeature _locID="App_feature5">Tích hợp với Hub phản hồi</AppFeature>
