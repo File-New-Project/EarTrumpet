@@ -50,6 +50,20 @@ namespace EarTrumpet.UI.Helpers
         private RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
         private int _remainingTicks;
+        private bool _hasAlreadyProcessedButtonUp;
+        private bool HasAlreadyProcessedButtonUp
+        {
+            get
+            {
+                var val = _hasAlreadyProcessedButtonUp;
+                _hasAlreadyProcessedButtonUp = false;
+                return val;
+            }
+            set
+            {
+                _hasAlreadyProcessedButtonUp = value;
+            }
+        }
 
         public ShellNotifyIcon(IShellNotifyIconSource icon)
         {
@@ -157,7 +171,14 @@ namespace EarTrumpet.UI.Helpers
             {
                 case (int)Shell32.NotifyIconNotification.NIN_SELECT:
                 case User32.WM_LBUTTONUP:
-                    PrimaryInvoke?.Invoke(this, InputType.Mouse);
+                    // Observed double WM_CALLBACKMOUSEMSG/WM_LBUTTONUP pairs on Windows 11 22533
+                    // Could be a result of XAML island use in Taskbar. Or a bug elsewhere.
+                    // For now, swallow the duplicate to improve flyout UX.
+                    if (!HasAlreadyProcessedButtonUp)
+                    {
+                        HasAlreadyProcessedButtonUp = true;
+                        PrimaryInvoke?.Invoke(this, InputType.Mouse);
+                    }
                     break;
                 case (int)Shell32.NotifyIconNotification.NIN_KEYSELECT:
                     PrimaryInvoke?.Invoke(this, InputType.Keyboard);
