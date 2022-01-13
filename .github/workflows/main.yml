@@ -12,6 +12,7 @@ on:
       - david/*
     paths-ignore:
       - '**/*.md'
+      - '.github/ISSUE_TEMPLATE/*'
       - 'Graphics/*'
   pull_request:
     branches: 
