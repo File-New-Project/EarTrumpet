@@ -121,16 +121,16 @@
     <value>Thoát</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Không tìm thấy thiết bị phát lại</value>
+    <value>Không tìm thấy bất kỳ thiết bị phát lại nào</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>Gửi phản hồi</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Bộ phối âm</value>
+    <value>Trình phối âm</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Bộ phối âm</value>
+    <value>Trình phối âm</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Có vẻ như bạn không có thiết bị phát lại nào cả.</value>
@@ -235,7 +235,7 @@
     <value>Nhà phát hành:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Thiết đặt phím tắt và tìm trợ giúp</value>
+    <value>Cấu hình phím tắt và tìm sự trợ giúp</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Cài đặt EarTrumpet</value>
@@ -253,7 +253,7 @@
     <value>Không có kết quả</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Mở bộ chỉnh âm</value>
+    <value>Mở trình phối âm</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
     <value>Tắt</value>
@@ -407,7 +407,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Hành động EarTrumpet XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet bắt đầu hoặc kết thúc</value>
+    <value>EarTrumpet khởi chạy hoặc thoát ra</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
@@ -500,7 +500,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Tên tiến trình (Ví dụ: notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Ghi lại</value>
+    <value>Thu âm</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
     <value>Loại bỏ</value>
@@ -509,7 +509,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>(bắt buộc)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Bật hoặc tắt âm thanh ứng dụng</value>
+    <value>Bật hoặc tắt âm ứng dụng</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {App} trên {Device}</value>
