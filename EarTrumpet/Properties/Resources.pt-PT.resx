@@ -626,7 +626,7 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Sair</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Eliminar esta ação</value>
+    <value>Remover esta ação</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
     <value>Isto não pode ser desfeito.</value>
