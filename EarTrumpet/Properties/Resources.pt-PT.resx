@@ -196,7 +196,7 @@
     <value>Abrir menu de volume</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Usar ícone antigo do EarTrumpet</value>
+    <value>Usar ícone clássico do EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
     <value>Mais comandos</value>
@@ -208,7 +208,7 @@
     <value>Definições de som</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Opções antigas do Windows</value>
+    <value>Opções clássicas do Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>Sobre a extensão {Name}</value>
@@ -229,7 +229,7 @@
     <value>Gestão</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Definições antigas</value>
+    <value>Definições clássicas</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>Publicado por:</value>
