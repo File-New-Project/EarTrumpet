@@ -509,7 +509,7 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>(obrigatório)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Ativar ou desativar som de uma aplicação</value>
+    <value>Ativar ou desativar o som de uma aplicação</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {App} em {Device}</value>
@@ -551,7 +551,7 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Definir uma variável local</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(definir a nome da variável)</value>
+    <value>(defina o nome da variável)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
     <value>Definir variável {Text} para {Option}</value>
