@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Geen afspeelapparaten gevonden</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Verstuur feedback</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Volumemixer</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Volumemixer</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Het lijkt erop dat je geen afspeelapparaten hebt.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Geen afspeelapparaten</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Afspeelapparaten</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Opnameapparaten</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Geluiden</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Probleemoplossingsgegevens verzamelen</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Snelkoppeling</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Altijd het standaard afspeelapparaat gebruiken</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Meer informatie</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% volume - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Gedempt - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Programma's</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Klap in om alleen standaard afspeelapparaat te tonen</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Standaard sneltoets</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Klap uit om alle afspeelapparaten te tonen</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Koppel deze app aan een afspeelapparaat</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Open taakbalkmenu</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Gebruik oud EarTrumpet-icoon</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Meer opdrachten</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Gedempt</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Geluidsinstellingen</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Oudere Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Over {Name} add-on</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Naam:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Open Windows-instellingen</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Deze add-on kan verwijderd worden in de Instellingen-app van Windows.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Deïnstalleren</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Beheer</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Oude instellingen</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Uitgegeven door:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Configureer sneltoetsen en Help</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>EarTrumpet-instellingen</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Sneltoetsen</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Versie:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Instelling vinden</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Geen resultaten</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Volumemixer openen</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Binnenkort beschikbaar</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Binnenkort beschikbaar</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Open instellingen</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Welkom bij EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet kan niet worden gestart</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Een lettertype veroorzaakt een probleem waardoor EarTrumpet niet kan worden gestart.
+
+Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Geluid dempen</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Privacybeleid</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Stuur foutgegevens naar het EarTrumpet-team</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Uitvoeren</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Actie toevoegen</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Voorwaarde toevoegen</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Stel sneltoetsen en automatisering in</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Trigger toevoegen</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Een app-sessie is toegevoegd, verwijderd, gestart met geluid afspelen, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} op {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>is toegevoegd</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>is gedempt</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>stopt met afspelen van geluid</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>begint met afspelen van geluid</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>is verwijderd</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>is gedempt</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>is toegevoegd</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>wordt standaard</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>behoud standaard</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>is verwijderd</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>onwaar</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>waar</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>is</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>is niet</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Een filter configureren is optioneel maar laat u meer geavanceerde acties bouwen. Alle voorwaarden moeten waar zijn voordat acties worden uitgevoerd.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Geavanceerde Filter</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Ik gebruik het contextmenu item van deze actie</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Ik gebruik het contextmenu item van deze actie</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Als het standaard afspeelapparaat is of niet is</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} het standaardapparaat</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Standaard afspeelapparaat</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Een audio apparaat is toegevoegd, verwijderd, als standaard ingesteld, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>eindigt</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>begint</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Acties XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet start of stopt</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Iedere app</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Exporteer</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Sla een kopie van uw acties op in een bestand.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Voorgrond app</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Een sneltoets is getypt</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(kies een sneltoets)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} is getypt</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Importeren en exporteren</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Importeer</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Herstel een kopie van uw acties uit een bestand.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Dempen</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Dempen in-/uitschakelen</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Dempen opheffen</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Nieuwe actie</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(optioneel)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Als een proces wordt uitgevoerd of niet</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(voer een procesnaam in)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Wanneer {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Proces naam (bijv. kladblok)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>start</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>eindigt</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>is niet actief</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>is actief</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Een proces begint of eindigt</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(voer een proces naam in)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Als {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Proces naam (bijv. kladblok)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Opnemen</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(vereist)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>App dempen of dempen opheffen</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} op {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Stel het volume van een app in</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} volume naar {Volume} op {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} volume met {Volume} op {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Stel het standaard afspeelapparaat in</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>{Device} als standaard instellen</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Apparaat dempen of dempen opheffen</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} op {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Apparaatvolume instellen</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} volume naar {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} volume met {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Stel een lokale variabele in</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(stel naam van variabele in)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Zet variabele {Text} naar {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Voer een variabele naam in (bijv. isInGameModus)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Verlagen</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Verhogen</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Instellen</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Wanneer</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Als een lokale variabele waar of onwaar is</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(voer een variabele naam in)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Variabele {Text} is {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Voer een variabele naam in (bijv. isInGameModus)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Kies een apparaat</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Kies een app</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Deze actie verwijderen?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Afsluiten zonder op te slaan?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Deze actie verwijderen</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Dit kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Actie verwijderen</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Onlangs hebben apps die hierboven getoond zijn geluid afgespeeld.</value>
+  </data>
+</root>
