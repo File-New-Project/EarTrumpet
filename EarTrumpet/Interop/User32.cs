@@ -170,15 +170,11 @@ namespace EarTrumpet.Interop
             public uint ulExtraInformation;
         }
 
-        [StructLayout(LayoutKind.Explicit)]
+        [StructLayout(LayoutKind.Sequential)]
         internal struct RAWINPUT
         {
-            [FieldOffset(0)]
             public RAWINPUTHEADER header;
-
-            [FieldOffset(16)]
             public RAWMOUSE mouse;
-
             // ...
         }
 
