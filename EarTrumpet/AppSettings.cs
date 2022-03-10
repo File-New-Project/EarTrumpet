@@ -12,6 +12,8 @@ namespace EarTrumpet
         public event Action FlyoutHotkeyTyped;
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
+        public event Action AbsoluteVolumeUpHotkeyTyped;
+        public event Action AbsoluteVolumeDownHotkeyTyped;
 
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
@@ -20,6 +22,8 @@ namespace EarTrumpet
             HotkeyManager.Current.Register(FlyoutHotkey);
             HotkeyManager.Current.Register(MixerHotkey);
             HotkeyManager.Current.Register(SettingsHotkey);
+            HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
+            HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
 
             HotkeyManager.Current.KeyPressed += (hotkey) =>
             {
@@ -37,6 +41,16 @@ namespace EarTrumpet
                 {
                     Trace.WriteLine("AppSettings MixerHotkeyTyped");
                     MixerHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(AbsoluteVolumeUpHotkey))
+                {
+                    Trace.WriteLine("AppSettings AbsoluteVolumeUpHotkeyTyped");
+                    AbsoluteVolumeUpHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(AbsoluteVolumeDownHotkey))
+                {
+                    Trace.WriteLine("AppSettings AbsoluteVolumeDownHotkeyTyped");
+                    AbsoluteVolumeDownHotkeyTyped?.Invoke();
                 }
             };
         }
@@ -71,6 +85,28 @@ namespace EarTrumpet
                 HotkeyManager.Current.Unregister(SettingsHotkey);
                 _settings.Set("SettingsHotkey", value);
                 HotkeyManager.Current.Register(SettingsHotkey);
+            }
+        }
+
+        public HotkeyData AbsoluteVolumeUpHotkey
+        {
+            get => _settings.Get("AbsoluteVolumeUpHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(AbsoluteVolumeUpHotkey);
+                _settings.Set("AbsoluteVolumeUpHotkey", value);
+                HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
+            }
+        }
+
+        public HotkeyData AbsoluteVolumeDownHotkey
+        {
+            get => _settings.Get("AbsoluteVolumeDownHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(AbsoluteVolumeDownHotkey);
+                _settings.Set("AbsoluteVolumeDownHotkey", value);
+                HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
             }
         }
 
