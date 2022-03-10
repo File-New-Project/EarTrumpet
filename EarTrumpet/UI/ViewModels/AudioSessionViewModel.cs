@@ -8,11 +8,14 @@ namespace EarTrumpet.UI.ViewModels
     public class AudioSessionViewModel : BindableBase
     {
         private readonly IStreamWithVolumeControl _stream;
+        private bool _isAbsMuted;
 
         public AudioSessionViewModel(IStreamWithVolumeControl stream)
         {
             _stream = stream;
             _stream.PropertyChanged += Stream_PropertyChanged;
+
+            _isAbsMuted = false;
 
             ToggleMute = new RelayCommand(() => IsMuted = !IsMuted);
         }
@@ -34,6 +37,13 @@ namespace EarTrumpet.UI.ViewModels
             get => _stream.IsMuted;
             set => _stream.IsMuted = value;
         }
+
+        public bool IsAbsMuted
+        {
+            get => _isAbsMuted;
+            set => _isAbsMuted = value;
+        }
+
         public int Volume
         {
             get => _stream.Volume.ToVolumeInt();
