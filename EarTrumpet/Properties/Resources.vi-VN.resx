@@ -118,526 +118,526 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Çıkış</value>
+    <value>Thoát</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Oynatma aygıtı bulunamadı</value>
+    <value>Không tìm thấy bất kỳ thiết bị phát lại nào</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Geri bildirim gönder</value>
+    <value>Gửi phản hồi</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Ses Karıştırıcısı</value>
+    <value>Trình phối âm</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Ses Karıştırıcısı</value>
+    <value>Trình phối âm</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Herhangi bir oynatma aygıtınız yok gibi görünüyor.</value>
+    <value>Có vẻ như bạn không có thiết bị phát lại nào cả.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Oynatma aygıtı bulunamadı</value>
+    <value>EarTrumpet: Không có thiết bị phát lại</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Oynatma aygıtları</value>
+    <value>Thiết bị phát lại</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Kayıt aygıtları</value>
+    <value>Thiết bị thu âm</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Cài đặt</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Sesler</value>
+    <value>Âm thanh</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Sorun giderme verilerini toplama</value>
+    <value>Thu thập dữ liệu chẩn đoán</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Kısayolunuz</value>
+    <value>Phím tắt của bạn</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Her zaman varsayılan oynatma aygıtını kullan</value>
+    <value>Luôn dùng thiết bị phát lại mặc định</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Hakkında</value>
+    <value>Thông tin về ứng dụng</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Daha fazla bilgi edin</value>
+    <value>Tìm hiểu thêm</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume}% Ses seviyesi - {Name}"</value>
+    <value>"Âm lượng {Volume}% - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"{Name} - Susturulmuş"</value>
+    <value>"{Name} - Bị tắt tiếng"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Uygulamalar</value>
+    <value>Ứng dụng</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Kapat</value>
+    <value>Đóng</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Yalnızca varsayılan oynatma cihazını göstermek için daralt</value>
+    <value>Thu nhỏ để chỉ hiển thị thiết bị phát lại mặc định</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Varsayılan kısayol</value>
+    <value>Phím tắt mặc định</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Tüm oynatma cihazlarını görmek için genişlet</value>
+    <value>Mở rộng để hiển thị tất cả thiết bị phát lại</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Genel</value>
+    <value>Chung</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Bu uygulamayı bir oynatma cihazına atayın</value>
+    <value>Gán ứng dụng này với một thiết bị phát lại</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Görev çubuğu açılır penceresini aç</value>
+    <value>Mở flyout ở thanh tác vụ ra</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Ses seviyesi yerine EarTrumpet ikonunu kullan</value>
+    <value>Dùng biểu tượng EarTrumpet cũ</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Daha fazla komut</value>
+    <value>Thêm lệnh</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Susturulmuş</value>
+    <value>Đã tắt tiếng</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Ses ayarları</value>
+    <value>Cài đặt âm thanh</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows ses ayarları</value>
+    <value>Cài đặt cũ của Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>{Name} eklentisi hakkında</value>
+    <value>Thông tin về phần mở rộng {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>İsim:</value>
+    <value>Tên:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Windows ayarlarını aç</value>
+    <value>Mở cài đặt Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Bu eklenti Windows Ayarları uygulaması kullanılarak kaldırılabilir.</value>
+    <value>Phần mở rộng này có thể gỡ ra được từ ứng dụng Cài đặt Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Kaldır</value>
+    <value>Gỡ cài đặt</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Yönetim</value>
+    <value>Quản lý</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Eski ayarlar</value>
+    <value>Cài đặt cũ</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Yayımcı:</value>
+    <value>Nhà phát hành:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Kısayolları yapılandırın ve yardım alın</value>
+    <value>Cấu hình phím tắt và tìm sự trợ giúp</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet Ayarları</value>
+    <value>Cài đặt EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Kısayollar</value>
+    <value>Phím tắt</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Versiyon:</value>
+    <value>Phiên bản:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Bir ayar bulun</value>
+    <value>Tìm cài đặt</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Sonuç yok</value>
+    <value>Không có kết quả</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Karıştırıcıyı aç</value>
+    <value>Mở trình phối âm</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Kapalı</value>
+    <value>Tắt</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Açık</value>
+    <value>Bật</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Ana sayfa</value>
+    <value>Trang chính</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Yakında</value>
+    <value>Sắp có</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Yakında</value>
+    <value>Sắp có</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Ayarları aç</value>
+    <value>Mở cài đặt</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Kapat</value>
+    <value>Đóng</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet'a hoş geldiniz</value>
+    <value>Chào mừng bạn đến với EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet başlatılamadı</value>
+    <value>EarTrumpet không thể khởi chạy</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Sisteminizde bozuk bir yazı tipi eartrumpet'in başlamasını engelliyor.
+    <value>Một phông chữ trên máy bạn đang ngăn cản EarTrumpet khởi chạy.
 
-[https://eartrumpet.app/jmp/fixfonts] açmak ister misiniz?</value>
+Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Sesi kapat</value>
+    <value>Bật tắt âm lượng</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Gizlilik politikası</value>
+    <value>Chính sách riêng tư</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Çökme verisini EarTrumpet ekibine gönder</value>
+    <value>Gửi dữ liệu sự cố tới đội EarTrumpet</value>
   </data>
 
   <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>ve</value>
+    <value>và</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Yap</value>
+    <value>Thực hiện khi</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Eylem ekle</value>
+    <value>Thêm hành động</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Koşul ekle</value>
+    <value>Thêm điều kiện</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Kısayol tuşlarını ve otomasyonu ayarlama</value>
+    <value>Thiết lập phím nóng và tự động hóa</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Tetikleyici Ekle</value>
+    <value>Thêm điều kiện kích hoạt</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Bir uygulama oturumu eklenir, kaldırılır, ses çıkarmaya başlarsa, ...</value>
+    <value>Một phiên của ứng dụng được thêm, loại bỏ, bắt đầu phát âm thanh, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{Device} aygıtında {App} uygulamasını {Option}</value>
+    <value>{App} {Option} ở {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>eklendiğinde</value>
+    <value>được thêm</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>susturulduğunda</value>
+    <value>bị tắt tiếng</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>ses çıkarmayı durdurduğunda</value>
+    <value>dừng phát âm</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>ses çıkarmaya başladığında</value>
+    <value>bắt đầu phát âm</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>kaldırıldığında</value>
+    <value>bị gỡ ra</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>sesi açıldığında</value>
+    <value>bỏ tắt tiếng</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>eklendiğinde</value>
+    <value>được thêm</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>varsayılan olduğunda</value>
+    <value>trở thành mặc định</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>varsayılan olmaktan çıktığında</value>
+    <value>không trở thành mặc định</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>kaldırıldığında</value>
+    <value>bị gỡ ra</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>hayır</value>
+    <value>sai</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>evet</value>
+    <value>đúng</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>şöyleyse</value>
+    <value>là</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>şöyle değilse</value>
+    <value>không phải là</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>ve</value>
+    <value>và</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Bir filtre ayarlamak isteğe bağlıdır fakat daha gelişmiş eylemler yapmanıza olanak sağlar. Eylemler başlatılmadan önce tüm koşullar doğru olmalı.</value>
+    <value>Bạn không cần thiết phải cấu hình bộ lọc nhưng nó cho phép thiết lập nhiều hành động nâng cao hơn. Tất cả các điều kiện phải là đúng trước khi các hành động có thể được thực hiện.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Gelişmiş Filtre</value>
+    <value>Bộ lọc nâng cao</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Ben bu eylemin bağlam menüsünü kullandığımda</value>
+    <value>Tôi sử dụng mục trình đơn ngữ cảnh của hành động này</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Ben bu eylemin bağlam menüsünü kullandığımda</value>
+    <value>Tôi sử dụng mục trình đơn ngữ cảnh của hành động này</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Eğer varsayılan kayıttan yürütme aygıtı şöyle ise/değilse</value>
+    <value>Nếu thiết bị phát lại mặc định là hoặc không phải là</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device}{Option} varsayılan cihaz</value>
+    <value>{Device} {Option} thiết bị mặc định</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Varsayılan kayıttan yürütme aygıtı</value>
+    <value>Thiết bị phát lại mặc định</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Bir ses aygıtı eklendiğinde, kaldırılıldığında, varsayılan olarak ayarlandığında, ...</value>
+    <value>Một thiết bị âm thanh được thêm, loại bỏ, đặt làm mặc định, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>biterken</value>
+    <value>thoát</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>başlarken</value>
+    <value>khởi chạy</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>Chỉnh sửa</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>EarTrumpet Eylemler XMLsi</value>
+    <value>Hành động EarTrumpet XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet başlayınca veya durunca</value>
+    <value>EarTrumpet khởi chạy hoặc thoát ra</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Her uygulama</value>
+    <value>Mỗi ứng dụng</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Dışa aktar</value>
+    <value>Xuất</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Eylemlerinizin kopyasını bir dosyaya kaydedin.</value>
+    <value>Lưu một bản sao của các hành động của bạn thành một tệp.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Ön plandaki uygulama</value>
+    <value>Ứng dụng ở đằng trước</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Bir kısayola basıldığında</value>
+    <value>Một phím nóng được nhấn</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(bir kısayol tuşu seçin)</value>
+    <value>(chọn một phím nóng)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} yazıldı</value>
+    <value>{Hotkey} được nhấn</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>İçe/dışa aktar</value>
+    <value>Nhập và Xuất</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>İçe aktar</value>
+    <value>Nhập</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Eylemlerinizin kopyasını bir dosyadan yükleyin.</value>
+    <value>Khôi phục bản sao của các hành động của bạn từ một tệp.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Sustur</value>
+    <value>Tắt tiếng</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Susturmayı tetikle</value>
+    <value>Bật tắt âm lượng</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Sesini aç</value>
+    <value>Bỏ tắt tiếng</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Eylemler</value>
+    <value>Các hành động</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Yeni eylem</value>
+    <value>Hành động mới</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(isteğe bağlı)</value>
+    <value>(tùy chọn)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Kayıttan yürütme</value>
+    <value>Phát lại</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Eğer bir işlem çalışıp çalışmıyorsa</value>
+    <value>Nếu một tiến trình đang chạy hoặc không chạy</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(bir işlem ismi girin)</value>
+    <value>(nhập tên tiến trình)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Eğer {Text} {Option} ise</value>
+    <value>Khi {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>İşlem ismi (örn. notepad)</value>
+    <value>Tên tiến trình (Ví dụ: notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>başlarken</value>
+    <value>bắt đầu</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>biterken</value>
+    <value>kết thúc</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>çalışmıyorsa</value>
+    <value>không chạy</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>çalışıyorsa</value>
+    <value>đang chạy</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Bir işlem başladığında veya durduğunda</value>
+    <value>Một tiến trình bắt đầu chạy hoặc kết thúc</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(bir işlem ismi girin)</value>
+    <value>(nhập tên tiến trình)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Eğer {Text} {Option} ise</value>
+    <value>Khi {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>İşlem ismi (örn. notepad)</value>
+    <value>Tên tiến trình (Ví dụ: notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Kayıt</value>
+    <value>Thu âm</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Kaldır</value>
+    <value>Loại bỏ</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(gerekli)</value>
+    <value>(bắt buộc)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Bir uygulamayı sustur veya sesini aç</value>
+    <value>Bật hoặc tắt âm ứng dụng</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Device} aygıtında {Option} {App}</value>
+    <value>{App} {Option} ở {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Bir uygulamanın sesini ayarla</value>
+    <value>Đặt âm lượng của ứng dụng</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} olarak {Option}</value>
+    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} kadar {Option}</value>
+    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Varsayılan kayıttan yürütme aygıtını ayarla</value>
+    <value>Đặt thiết bị phát lại mặc định</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>{Device} aygıtını kayıttan yürütme aygıtı olarak ayarla</value>
+    <value>Đặt {Device} làm thiết bị phát lại mặc định</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Bir uygulamayı sustur veya sesini aç</value>
+    <value>Bật hoặc tắt âm thiết bị</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
-    <value>{Device} {Option}</value>
+    <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Device} aygıtında {Option}</value>
+    <value>{Option} ở {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Bir aygıt ses yüksekliği ayarlayın</value>
+    <value>Đật âm lượng cho thiết bị</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Device} ses seviyesini {Volume} değerine {Option}</value>
+    <value>{Option} âm lượng của {Device} thành {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Device} ses seviyesini {Volume} kadar {Option}</value>
+    <value>{Option} âm lượng của {Device} thành {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Bir yerel değişken ayarlayın</value>
+    <value>Đặt biến cục bộ</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(değişken adı ayarlayın)</value>
+    <value>(đặt tên cho biến)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>{Text} değişkeni: {Option}</value>
+    <value>Đặt biến {Text} thành {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Bir değişken adı girin (örn. oyunModunda)</value>
+    <value>Nhập tên biến (Ví dụ: isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Azaltma</value>
+    <value>Giảm</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Yükseltme</value>
+    <value>Tăng</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Ayarla</value>
+    <value>Đặt</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>veya</value>
+    <value>hoặc</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Eğer</value>
+    <value>Khi</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Bir yerel değişken doğru veya yanlışsa</value>
+    <value>Nếu biến cục bộ đúng hay sai</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(bir değişken adı girin)</value>
+    <value>(nhập tên biến)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>{Text} değişkeni: {Option}</value>
+    <value>Biến {Text} là {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Bir değişken adı girin (örn. oyunModunda)</value>
+    <value>Nhập tên biến (Ví dụ: isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Sil</value>
+    <value>Xóa</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>Chỉnh sửa</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Kaydet</value>
+    <value>Lưu</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Bir aygıt seçin</value>
+    <value>Chọn thiết bị</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Bir uygulama seçin</value>
+    <value>Chọn ứng dụng</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>İptal</value>
+    <value>Hủy</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Bu eylemi silmek mi istiyorsunuz?</value>
+    <value>Xóa hành động này?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Sil</value>
+    <value>Xóa</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Sil</value>
+    <value>Xóa</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>İptal</value>
+    <value>Hủy</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Kaydetmeden mi çıkacaksınız?</value>
+    <value>Bạn thoát mà không lưu?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Kaydet</value>
+    <value>Lưu</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Çık</value>
+    <value>Thoát</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Bu eylemi kaldır</value>
+    <value>Loại bỏ hành động này</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Bu işlem geri alınamaz.</value>
+    <value>Tác vụ này sẽ không thể hoàn lại được.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Eylemi kaldır</value>
+    <value>Loại bỏ hành động</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Kaldır</value>
+    <value>Loại bỏ</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Yukarıda gösterilen uygulamlar yakın zamanda ses çıkardılar.</value>
+    <value>Các ứng dụng được hiển thị ở trên đã phát âm thanh gần đây.</value>
   </data>
 </root>
