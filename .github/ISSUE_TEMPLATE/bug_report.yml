@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a problem with EarTrumpet or related add-on
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A clear explaination of what the problem is.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: eartrumpet_version
+    attributes:
+      label: EarTrumpet version
+      description: Right-click the EarTrumpet icon, then click Settings > General > About.
+    validations:
+      required: true
+  - type: input
+    id: windows_version
+    attributes:
+      label: Windows version
+      description: Open the Command Prompt and observe the version shown on the first line.
+      placeholder: 10.0.22000.1024
+    validations:
+      required: true
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional information
+      description: Screenshots, logs, and other supplemental data go here.
