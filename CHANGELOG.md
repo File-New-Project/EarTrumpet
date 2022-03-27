@@ -2,10 +2,13 @@
 
 ## 2.1.10.0
 - Flyout now remembers if it was expanded/collapsed between launches (thanks @Tester798!)
+- Fixed an issue with the flyout open animation behaving erratically with some mice
 - Fixed an issue where devices without certain characteristics would interfere with mute and other actions
 - Fixed an issue with device names not appearing correctly if they contained underscores
 - Fixed an issue with the flyout opening outside the working area in additional cases
-- Updated Finnish, German translations
+- Adjusted the flyout position from the edge of the screen to match Windows 11 look and feel
+- Removed solid color plating behind application icons
+- Updated Finnish, German, and other translations
 
 ## 2.1.9.0
 - Added basic support for Windows 11
