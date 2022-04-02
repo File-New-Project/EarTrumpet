@@ -42,6 +42,8 @@ Or via command line using either
 - [Windows Package Manager Client (winget)](https://github.com/microsoft/winget-cli) (`winget install File-New-Project.EarTrumpet`)
 - Chocolatey (`choco install eartrumpet`)
 
+After install you can pin near Windows clock by drag and drop see the [Welcome gif quick movie gif if you forget it](./EarTrumpet/Assets/Welcome.gif)
+
 ## Experimental dev builds
 
 Want to see what we were working on? Or help us test new features? [Install EarTrumpet from the dev channel.](https://install.eartrumpet.app/dev/EarTrumpet.Package.appinstaller) New builds are released automatically every time we commit to the `dev` branch, keeping you up to date on our progress.
