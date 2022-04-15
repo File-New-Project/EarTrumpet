@@ -8,6 +8,7 @@
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Theme:Brush.Foreground="Text"
@@ -126,7 +127,10 @@
                     <ItemsControl Name="DevicesList"
                                   FocusVisualStyle="{x:Null}"
                                   IsTabStop="False"
-                                  ItemsSource="{Binding Devices}" />
+                                  ItemsSource="{Binding Devices}" 
+                                  dd:DragDrop.IsDropTarget="True"
+                                  dd:DragDrop.DropHandler="{Binding }"
+                                  />
                     <Button Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
                             Command="{Binding ExpandCollapse}"
                             IsEnabled="{Binding CanExpand}">
