@@ -65,12 +65,12 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 21H2 (November 2021 Update)
 - Windows 11
 
-## Known issues
-- SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
-- Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
-
 ## Credits
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
 - Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
+
+## Special thanks
+
+"[Horn](https://thenounproject.com/icon/horn-125731/)" icon by Artjom Korman from [the Noun Project](https://thenounproject.com/)
