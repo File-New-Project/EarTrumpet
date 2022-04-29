@@ -29,12 +29,24 @@ namespace EarTrumpet.Interop.Helpers
         public override string ToString()
         {
             var converter = new KeysConverter();
-            var mods = converter.ConvertToString(Modifiers);
-            if (Key == Keys.None) {
-                return mods;
-            } else
+            
+            string none = converter.ConvertToString(Keys.None);
+            // not sure why KeysConverter is returning stuff like "Control+None"
+            string mods = converter.ConvertToString(Modifiers).Replace("+" + none, "");
+            string key = converter.ConvertToString(Key);
+            
+            if (Key == Keys.None && Modifiers == Keys.None)
             {
-                var key = converter.ConvertToString(Key);
+                return "";
+            }
+            else if (Key == Keys.None) {
+                return mods;
+            }
+            else if (Modifiers == Keys.None) {
+                return key;
+            }
+            else
+            {
                 return mods + "+" + key;
             }
         }
