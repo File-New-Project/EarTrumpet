@@ -28,7 +28,15 @@ namespace EarTrumpet.Interop.Helpers
 
         public override string ToString()
         {
-            return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
+            var converter = new KeysConverter();
+            var mods = converter.ConvertToString(Modifiers);
+            if (Key == Keys.None) {
+                return mods;
+            } else
+            {
+                var key = converter.ConvertToString(Key);
+                return mods + "+" + key;
+            }
         }
 
         public override bool Equals(object obj)
@@ -60,6 +68,10 @@ namespace EarTrumpet.Interop.Helpers
             {
                 ret |= Keys.Shift;
             }
+            if ((modifiers & ModifierKeys.Win) == ModifierKeys.Win)
+            {
+                ret |= Keys.LWin;
+            }
             return ret;
         }
 
@@ -82,6 +94,14 @@ namespace EarTrumpet.Interop.Helpers
             if ((modifiers & Keys.Shift) == Keys.Shift)
             {
                 ret |= ModifierKeys.Shift;
+            }
+            if ((modifiers & Keys.LWin) == Keys.LWin)
+            {
+                ret |= ModifierKeys.Win;
+            }
+            if ((modifiers & Keys.RWin) == Keys.RWin)
+            {
+                ret |= ModifierKeys.Win;
             }
             return ret;
         }
