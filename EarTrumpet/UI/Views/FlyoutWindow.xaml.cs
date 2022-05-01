@@ -162,13 +162,7 @@ namespace EarTrumpet.UI.Views
             }
 
             double flyoutWidth = Width * this.DpiX();
-            double flyoutHeight = LayoutRoot.DesiredSize.Height * this.DpiY();
-
-            var workingAreaHeight = taskbar.ContainingScreen.WorkingArea.Height;
-            if (flyoutHeight > workingAreaHeight)
-            {
-                flyoutHeight = workingAreaHeight;
-            }
+            double flyoutHeight = (LayoutRoot.DesiredSize.Height) * this.DpiY();
 
             double yOffset = 0;
             double xOffset = 0;
@@ -176,6 +170,12 @@ namespace EarTrumpet.UI.Views
             {
                 xOffset += 12 * this.DpiX();
                 yOffset += 12 * this.DpiY();
+            }
+
+            var workingAreaHeight = taskbar.ContainingScreen.WorkingArea.Height - (yOffset * 2);
+            if (flyoutHeight > workingAreaHeight)
+            {
+                flyoutHeight = workingAreaHeight;
             }
 
             switch (taskbar.Location)
