@@ -118,526 +118,526 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Выход</value>
+    <value>Izlaz</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Не найдено устройств воспроизведения</value>
+    <value>Uređaji za reprodukciju nisu pronađeni</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Отправить отзыв</value>
+    <value>Pošalji povratnu informaciju</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Микшер громкости EarTrumpet</value>
+    <value>Mješač glasnoće</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Старый микшер громкости Windows</value>
+    <value>Mješač glasnoće</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
+    <value>Izgleda da nemate uređaje za reprodukciju.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: нет устройств воспроизведения</value>
+    <value>EarTrumpet: Nema uređaja za reprodukciju</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Устройства воспроизведения</value>
+    <value>Uređaji za reprodukciju</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Записывающие устройства</value>
+    <value>Uređaji za snimanje</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Параметры EarTrumpet / О приложении</value>
+    <value>Postavke</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Звуки</value>
+    <value>Zvukovi</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Сбор данных для устранения неполадок</value>
+    <value>Sakupljaj podatke za rješavanje problema</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Ваше сочетание клавиш</value>
+    <value>Vaš prečac</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Всегда использовать устройство воспроизведения по умолчанию</value>
+    <value>Uvijek koristi zadani uređaj za reprodukciju</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>О приложении</value>
+    <value>O aplikaciji</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Узнать больше</value>
+    <value>Saznajte više</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{Volume} процент громкости - {Name}</value>
+    <value>"{Volume}% glasnoća - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Без звука - {Name}</value>
+    <value>"Isključen zvuk - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Приложения</value>
+    <value>Aplikacije</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Zatvori</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Свернуть, чтобы показать только устройство воспроизведения по умолчанию</value>
+    <value>Skupi za prikazivanje samo zadanog uređaja za reprodukciju</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Сочетание клавиш по умолчанию</value>
+    <value>Zadani prečac</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Развернуть, чтобы показать все устройства воспроизведения</value>
+    <value>Proširi za prikazivanje svih uređaja za reprodukciju</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Общее</value>
+    <value>Općenito</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Назначить приложению устройство воспроизведения</value>
+    <value>Pridruži ovu aplikaciju uređaju za reprodukciju</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Открыть всплывающее окно EarTrumpet</value>
+    <value>Otvori prozor na traki zadataka</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Использовать старую иконку EarTrumpet</value>
+    <value>Koristi originalnu EarTrumpet ikonu</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Больше команд</value>
+    <value>Više naredbi</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Isključen zvuk</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Параметры звука</value>
+    <value>Postavke zvuka</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Старое меню Windows</value>
+    <value>Postavke Windowsa</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>О дополнении {Name}</value>
+    <value>O dodatku {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Название:</value>
+    <value>Ime:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Открыть Параметры Windows</value>
+    <value>Otvori postavke Windowsa</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Это дополнение может быть удалено в приложении Параметры Windows.</value>
+    <value>Ovaj dodatak može biti uklonjen koristeći aplikaciju Windows Postavke.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Deinstaliraj</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Управление</value>
+    <value>Upravljanje</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Устаревшие параметры</value>
+    <value>Postavke baštine</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Издатель:</value>
+    <value>Izdavač:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Настроить сочетания клавиш и получить справку</value>
+    <value>Konfiguriraj postavke i potraži pomoć</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Параметры EarTrumpet</value>
+    <value>Postavke EarTrumpeta</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Сочетания клавиш</value>
+    <value>Prečaci</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Версия:</value>
+    <value>Verzija:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Найти параметр</value>
+    <value>Potraži postavku</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Нет результатов</value>
+    <value>Nema rezultata</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Открыть микшер</value>
+    <value>Otvori mješač</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Выкл</value>
+    <value>Isključeno</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Вкл</value>
+    <value>Uključeno</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Главная</value>
+    <value>Početna stranica</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Скоро появится</value>
+    <value>Stiže uskoro</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Скоро появится</value>
+    <value>Stiže uskoro</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Открыть параметры</value>
+    <value>Otvori postavke</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Zatvori</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Добро пожаловать в EarTrumpet</value>
+    <value>Dobrodošli u EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>Произошла ошибка при запуске EarTrumpet</value>
+    <value>EarTrumpet se nije uspio pokrenuti</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Невозможно запустить EarTrumpet, так как один из шрифтов используемый этой программой повреждён.
+    <value>Pokvaren font na Vašem sistemu onemogućava EarTrumpetu pokretanje.
 
-Перейти по ссылке [https://eartrumpet.app/jmp/fixfonts] сейчас?</value>
+Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Isključi zvuk</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Политика конфиденциальности</value>
+    <value>Pravila privatnosti</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Отправить данные об ошибке разработчикам EarTrumpet</value>
+    <value>Šalji podatke o padu EarTrumpet timu</value>
   </data>
 
   <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>и</value>
+    <value>i</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Выполнить</value>
+    <value>Čini</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Добавить действие</value>
+    <value>Dodaj akciju</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Добавить условие</value>
+    <value>Dodaj uvjet</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Настроить горячие клавиши и автоматизацию</value>
+    <value>Postavi prečace i automatizaciju</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Добавить условие</value>
+    <value>Dodaj okidač</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Сеанс приложения добавляется, удаляется, начинает воспроизводиться звук, ...</value>
+    <value>Sesija aplikacije je dodana, uklonjena, započinje reproducirati zvuk, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} на {Device}</value>
+    <value>{App} {Option} na {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>добавлен</value>
+    <value>je dodano</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>заглушен</value>
+    <value>je isključen zvuk</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>прекращает воспроизведение звука</value>
+    <value>prestaje reproducirati zvuk</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>начинает воспроизведение звука</value>
+    <value>počinje reproducirati zvuk</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>удалено</value>
+    <value>je uklonjeno</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>звук выключен</value>
+    <value>je uključen zvuk</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>добавлено</value>
+    <value>je dodano</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>стало "по умолчанию"</value>
+    <value>postaje zadano</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>перестало быть "по умолчанию"</value>
+    <value>prestaje biti zadano</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>удалено</value>
+    <value>je uklonjeno</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>ложь</value>
+    <value>laž</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>правда</value>
+    <value>istina</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>это</value>
+    <value>je</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>это не</value>
+    <value>nije</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>и</value>
+    <value>i</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Настройка фильтра является необязательной, но позволяет создавать более продвинутые действия. Все условия должны быть "правдой" перед выполнением действий.</value>
+    <value>Konfiguracija filtera je opcionalna, ali omogućava naprednije akcije. Svi uvjeti moraju biti ispunjeni kako bi se akcije izvršile.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Расширенный фильтр</value>
+    <value>Napredni filter</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Я использую пункт контекстного меню от этого действия</value>
+    <value>Koristim stavku kontekstnog izbornika ove akcije</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Я использую пункт контекстного меню от этого действия</value>
+    <value>Koristim stavku kontekstnog izbornika ove akcije</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Если устройство для воспроизведения по умолчанию является/не является</value>
+    <value>Zadani uređaj za reprodikciju je ili nije</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} устройство по умолчанию</value>
+    <value>{Device} {Option} zadani uređaj</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Устройство воспроизведения по умолчанию</value>
+    <value>Zadani uređaj za reprodukciju</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Аудио устройство добавлено, удалено, установлено по умолчанию, ...</value>
+    <value>Audio uređaj je dodan, uklonjen, postavljen kao zadan, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>завершается</value>
+    <value>gasi se</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>запускается</value>
+    <value>je pokrenut</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Uredi</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>Действия EarTrumpet в формате XML</value>
+    <value>EarTrumpet XML akcija</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>Запушен\завершен EarTrumpet</value>
+    <value>EarTrumpet je pokrenut ili ugašen</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Каждая программа</value>
+    <value>Svaka aplikacija</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Экспорт</value>
+    <value>Izvezi</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Сохранить копию ваших действий в файл.</value>
+    <value>Spremi kopiju Vaših akcija u datoteku.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Активная программа</value>
+    <value>Aplikacija u prvom planu</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Нажато {Hotkey}</value>
+    <value>Prečac je unesen</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(выберите горячую клавишу)</value>
+    <value>(odaberi prečac)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>Нажато {Hotkey}</value>
+    <value>{Hotkey} je unesen</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Импорт и экспорт</value>
+    <value>Uvezi i izvezi</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Импорт</value>
+    <value>Uvezi</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Восстановить копию ваших действий из файла.</value>
+    <value>Vrati kopiju Vaših akcija iz datoteke.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Isključi zvuk</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Вкл/выкл звук</value>
+    <value>Isključi zvuk</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Вкл. звук</value>
+    <value>Uključi zvuk</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Действия</value>
+    <value>Akcije</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Новое действие</value>
+    <value>Nova akcija</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(необязательно)</value>
+    <value>(opcionalno)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Воспроизведение</value>
+    <value>Reprodukcija</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Если процесс запущен или не запущен</value>
+    <value>Ako je proces pokrenut ili ne</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(введите название процесса)</value>
+    <value>(unesite ime procesa)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Когда {Text} - {Option}</value>
+    <value>Kada {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Название процесса (например notepad)</value>
+    <value>Ime procesa (npr. notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>запускается</value>
+    <value>je pokrenut</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>завершается</value>
+    <value>završava</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>не запущено</value>
+    <value>nije pokrenut</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>запущено</value>
+    <value>je pokrenut</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Процесс запускается или завершается</value>
+    <value>Proces je pokrenut ili završava</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(введите название процесса)</value>
+    <value>(unesite ime procesa)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Когда {Text} - {Option}</value>
+    <value>Kada {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Название процесса (например notepad)</value>
+    <value>Ime procesa (npr. notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Запись</value>
+    <value>Snimanje</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Ukloni</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(обязательно)</value>
+    <value>(potrebno)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Выкл. или вкл. звук программы</value>
+    <value>Isključi ili uključi zvuk aplkacije</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} на {Device}</value>
+    <value>{Option} {App} na {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Установить громкость программы</value>
+    <value>Postavi glasnoću aplikacije</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} {App} glasnoća na {Volume} na {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} {App} glasnoća za {Volume} na {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Установить устройство воспроизведения по умолчанию</value>
+    <value>Postavi zadani uređaj za reprodukciju</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Установить {Device} как устройство воспроизведения по умолчанию</value>
+    <value>Postavi {Device} kao zadani uređaj za reprodukciju</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Отключить или включить звук устройства</value>
+    <value>Uključi ili isključi zvuk uređaja</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} на {Device}</value>
+    <value>{Option} na {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Установить громкость устройства</value>
+    <value>Postavi glasnoću uređaja</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} {Device} glasnoća na {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} {Device} glasnoća za {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Установить локальную переменную</value>
+    <value>Postavi lokalnu varijablu</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(задайте имя переменной)</value>
+    <value>(postavi ime varijable)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Установить значение {Option} для переменной {Text}</value>
+    <value>Postavi varijablu {Text} na {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Введите имя переменной (например, isInGameMode)</value>
+    <value>Unesi ime varijeable (npr. GameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Уменьшить</value>
+    <value>Smanjivanje</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Увеличить</value>
+    <value>Povećanje</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Установить</value>
+    <value>Postavi</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>или</value>
+    <value>ili</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Когда</value>
+    <value>Kada</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Если локальная переменная правда или ложь</value>
+    <value>Ako je lokalna varijabla istina ili laž</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(введите имя переменной)</value>
+    <value>(unesi ime varijable)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>Переменная {Text} — {Option}</value>
+    <value>Varijabla {Text} je {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Введите имя переменной (например, isInGameMode)</value>
+    <value>Unesi ime varijeable (npr. GameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Obriši</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Uredi</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>Spremi</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Выбрать устройство</value>
+    <value>Odaberi uređaj</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Выбрать программу</value>
+    <value>Odaberi aplikaciju</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Odustani</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Удалить это действие?</value>
+    <value>Obrisati ovu akciju?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Obriši</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Obriši</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Odustani</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Закрыть без сохранения?</value>
+    <value>Izaći bez spremanja?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>Spremi</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Izađi</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Удалить действие</value>
+    <value>Ukloni ovu akciju</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Это действие не может быть отменено.</value>
+    <value>Ovo ne može biti poništeno.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Убрать действие</value>
+    <value>Ukloni akciju</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Ukloni</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Программы выше недавно проигрывали звук.</value>
+    <value>Prikazane aplikacije su nedavno reproducirale zvuk.</value>
   </data>
 </root>
