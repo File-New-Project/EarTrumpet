@@ -18,6 +18,11 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
+        public static string GetFamilyName(bool isPackaged)
+        {
+            return isPackaged ? Package.Current.Id.FamilyName : null;
+        }
+
         public static bool CheckHasIdentity()
         {
 #if VSDEBUG

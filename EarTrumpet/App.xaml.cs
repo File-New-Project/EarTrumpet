@@ -22,6 +22,7 @@ namespace EarTrumpet
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
         public static bool HasDevIdentity { get; private set; }
+        public static string PackageName { get; private set; }
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
@@ -43,6 +44,8 @@ namespace EarTrumpet
             HasIdentity = PackageHelper.CheckHasIdentity();
             HasDevIdentity = PackageHelper.HasDevIdentity();
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
+            PackageName = PackageHelper.GetFamilyName(HasIdentity);
+
             _settings = new AppSettings();
             _errorReporter = new ErrorReporter(_settings);
 
