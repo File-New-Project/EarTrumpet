@@ -101,6 +101,8 @@ namespace EarTrumpet
             _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
             _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
             _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
+            _settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
+            _settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
             _settings.RegisterHotkeys();
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
@@ -250,5 +252,32 @@ namespace EarTrumpet
         }
 
         private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
+
+        private void AbsoluteVolumeIncrement()
+        {
+            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
+            {
+                // in any case this device is not abs muted anymore
+                device.IsAbsMuted = false;
+                device.IncrementVolume(2);
+            }
+        }
+
+        private void AbsoluteVolumeDecrement()
+        {
+            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
+            {
+                // if device is not muted but will be muted by 
+                bool wasMuted = device.IsMuted;
+                // device.IncrementVolume(-2);
+                device.Volume -= 2;
+                // if device is muted by this absolute down
+                // .IsMuted is not already updated
+                if (!wasMuted == (device.Volume <= 0))
+                {
+                    device.IsAbsMuted = true;
+                }
+            }
+        }
     }
 }
