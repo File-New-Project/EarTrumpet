@@ -296,8 +296,6 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Отправить данные об ошибке разработчикам EarTrumpet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>и</value>
   </data>
@@ -639,5 +637,11 @@
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Программы выше недавно проигрывали звук.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Уменьшить громкость для всех устройств</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Увеличить громкость для всех устройств</value>
   </data>
 </root>
