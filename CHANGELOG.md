@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0.0
+- Added hotkeys to control volume of multiple devices at once (thanks @Taknok!)
+- Adjusted how application data is stored to increase reliability
+- Fixed crash that could occur when the flyout Acrylic was toggled on/off in certain scenarios
+- Fixed an issue with the expanded flyout becoming too tall on Windows 11
+- Updated Japanese, Greek, Croatian, and Russian translations (thank you Crowdin contributors!)
+
 ## 2.1.10.0
 - Flyout now remembers if it was expanded/collapsed between launches (thanks @Tester798!)
 - Fixed an issue with the flyout open animation behaving erratically with some mice
