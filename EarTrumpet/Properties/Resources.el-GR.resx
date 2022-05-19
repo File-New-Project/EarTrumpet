@@ -118,530 +118,526 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Выход</value>
+    <value>Έξοδος</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Не найдено устройств воспроизведения</value>
+    <value>Δεν εντοπίστηκαν συσκευές αναπαραγωγής ήχου</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Отправить отзыв</value>
+    <value>Αποστολή σχολίων</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Микшер громкости EarTrumpet</value>
+    <value>Μείκτης έντασης ήχου</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Старый микшер громкости Windows</value>
+    <value>Μείκτης έντασης ήχου</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
+    <value>Φαίνεται να μην έχετε συσκευές αναπαραγωγής ήχου.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: нет устройств воспроизведения</value>
+    <value>EarTrumpet: Δεν υπάρχουν συσκευές αναπαραγωγής</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Устройства воспроизведения</value>
+    <value>Συσκευές αναπαραγωγής</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Записывающие устройства</value>
+    <value>Συσκευές ηχογράφησης</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Параметры EarTrumpet / О приложении</value>
+    <value>Ρυθμίσεις</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Звуки</value>
+    <value>Ήχοι</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Сбор данных для устранения неполадок</value>
+    <value>Συλλογή δεδομένων αντιμετώπισης προβλημάτων</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Ваше сочетание клавиш</value>
+    <value>Η συντόμευσή σας</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Всегда использовать устройство воспроизведения по умолчанию</value>
+    <value>Χρήση πάντα της προεπιλεγμένης συσκευής αναπαραγωγής</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>О приложении</value>
+    <value>Σχετικά με</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Узнать больше</value>
+    <value>Μάθετε περισσότερα</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{Volume} процент громкости - {Name}</value>
+    <value>"{Volume}% ένταση - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Без звука - {Name}</value>
+    <value>"Σε σίγαση - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Приложения</value>
+    <value>Εφαρμογές</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Κλείσιμο</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Свернуть, чтобы показать только устройство воспроизведения по умолчанию</value>
+    <value>Σύμπτυξη για εμφάνιση μόνο της προεπιλεγμένης συσκευής αναπαραγωγής</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Сочетание клавиш по умолчанию</value>
+    <value>Προεπιλεγμένη συντόμευση</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Развернуть, чтобы показать все устройства воспроизведения</value>
+    <value>Ανάπτυξη για εμφάνιση όλων των συσκευών αναπαραγωγής</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Общее</value>
+    <value>Γενικά</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Назначить приложению устройство воспроизведения</value>
+    <value>Αντιστοιχίστε αυτήν την εφαρμογή σε μία συσκευή αναπαραγωγής</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Открыть всплывающее окно EarTrumpet</value>
+    <value>Άνοιγμα από τη γραμμή εργασιών</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Использовать старую иконку EarTrumpet</value>
+    <value>Χρήση του παλαιού εικονιδίου του EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Больше команд</value>
+    <value>Περισσότερες εντολές</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Σε Σίγαση</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Параметры звука</value>
+    <value>Ρυθμίσεις ήχου</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Старое меню Windows</value>
+    <value>Μείκτης των Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>О дополнении {Name}</value>
+    <value>Σχετικά με το πρόσθετο {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Название:</value>
+    <value>Όνομα:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Открыть Параметры Windows</value>
+    <value>Άνοιγμα Ρυθμίσεων Των Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Это дополнение может быть удалено в приложении Параметры Windows.</value>
+    <value>Αυτό το πρόσθετο μπορεί να αφαιρεθεί χρησιμοποιώντας την εφαρμογή Ρυθμίσεις των Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Απεγκατάσταση</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Управление</value>
+    <value>Διαχείριση</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Устаревшие параметры</value>
+    <value>Παλαιές ρυθμίσεις</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Издатель:</value>
+    <value>Εκδότης:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Настроить сочетания клавиш и получить справку</value>
+    <value>Ρύθμιση συντομεύσεων και λήψη βοήθειας</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Параметры EarTrumpet</value>
+    <value>Ρυθμίσεις EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Сочетания клавиш</value>
+    <value>Συντομεύσεις</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Версия:</value>
+    <value>Έκδοση:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Найти параметр</value>
+    <value>Εύρεση ρύθμισης</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Нет результатов</value>
+    <value>Κανένα αποτέλεσμα</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Открыть микшер</value>
+    <value>Άνοιγμα Μείκτη</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Выкл</value>
+    <value>Ανενεργό</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Вкл</value>
+    <value>Ενεργό</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Главная</value>
+    <value>Αρχική σελίδα</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Скоро появится</value>
+    <value>Προσεχώς</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Скоро появится</value>
+    <value>Προσεχώς</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Открыть параметры</value>
+    <value>Άνοιγμα ρυθμίσεων</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Κλείσιμο</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Добро пожаловать в EarTrumpet</value>
+    <value>Καλώς ήλθατε στο EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>Произошла ошибка при запуске EarTrumpet</value>
+    <value>Το EarTrumpet δεν μπόρεσε να ξεκινήσει</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Невозможно запустить EarTrumpet, так как один из шрифтов используемый этой программой повреждён.
+    <value>Μια προβληματική γραμματοσειρά στο σύστημά σας, εμποδίζει το EarTrumpet να ξεκινήσει.
 
-Перейти по ссылке [https://eartrumpet.app/jmp/fixfonts] сейчас?</value>
+Άνοιγμα του [https://eartrumpet.app/jmp/fixfonts] τώρα;</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Εναλλαγή σίγασης</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Политика конфиденциальности</value>
+    <value>Πολιτική απορρήτου</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Отправить данные об ошибке разработчикам EarTrumpet</value>
+    <value>Αποστολή δεδομένων κατάρρευσης στην ομάδα EarTrumpet</value>
   </data>
+
+  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>и</value>
+    <value>και</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Выполнить</value>
+    <value>Κάνε</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Добавить действие</value>
+    <value>Προσθήκη ενέργειας</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Добавить условие</value>
+    <value>Προσθήκη συνθήκης</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Настроить горячие клавиши и автоматизацию</value>
+    <value>Ρύθμιση συντομεύσεων και αυτοματισμών</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Добавить условие</value>
+    <value>Προσθήκη εναύσματος</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Сеанс приложения добавляется, удаляется, начинает воспроизводиться звук, ...</value>
+    <value>Προστέθηκε μια εφαρμογής, αφαιρέθηκε, ξεκινά η αναπαραγωγή ήχου, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} на {Device}</value>
+    <value>{App} {Option} σε {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>добавлен</value>
+    <value>προστέθηκε</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>заглушен</value>
+    <value>είναι σε σίγαση</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>прекращает воспроизведение звука</value>
+    <value>σταματά να παίζει ήχο</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>начинает воспроизведение звука</value>
+    <value>αρχίζει να παίζει ήχο</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>удалено</value>
+    <value>αφαιρέθηκε</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>звук выключен</value>
+    <value>είναι σε μη σίγαση</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>добавлено</value>
+    <value>προστέθηκε</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>стало "по умолчанию"</value>
+    <value>γίνεται προεπιλεγμένη</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>перестало быть "по умолчанию"</value>
+    <value>φεύγει από προεπιλεγμένη</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>удалено</value>
+    <value>αφαιρέθηκε</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>ложь</value>
+    <value>ψευδές</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>правда</value>
+    <value>αληθές</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>это</value>
+    <value>είναι</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>это не</value>
+    <value>δεν είναι</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>и</value>
+    <value>και</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Настройка фильтра является необязательной, но позволяет создавать более продвинутые действия. Все условия должны быть "правдой" перед выполнением действий.</value>
+    <value>Η ρύθμιση ενός φίλτρου είναι προαιρετική, αλλά σας επιτρέπει να δημιουργήσετε πιο προηγμένες ενέργειες. Όλες οι συνθήκες πρέπει να είναι αληθείς πριν από την εκτέλεση των ενεργειών.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Расширенный фильтр</value>
+    <value>Σύνθετο φίλτρο</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Я использую пункт контекстного меню от этого действия</value>
+    <value>Χρησιμοποιώ το σχετικό μενού αυτής της ενέργειας</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Я использую пункт контекстного меню от этого действия</value>
+    <value>Χρησιμοποιώ το σχετικό μενού αυτής της ενέργειας</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Если устройство для воспроизведения по умолчанию является/не является</value>
+    <value>Εάν η προεπιλεγμένη συσκευή αναπαραγωγής είναι ή δεν είναι</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} устройство по умолчанию</value>
+    <value>{Device} {Option} την προεπιλεγμένη συσκευή</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Устройство воспроизведения по умолчанию</value>
+    <value>Προεπιλεγμένη συσκευή αναπαραγωγής</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Аудио устройство добавлено, удалено, установлено по умолчанию, ...</value>
+    <value>Προστέθηκε μια συσκευή ήχου, αφαιρέθηκε, ορίστηκε ως προεπιλογή, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>завершается</value>
+    <value>λήγει</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>запускается</value>
+    <value>ξεκινά</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Επεξεργασία</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>Действия EarTrumpet в формате XML</value>
+    <value>Ενέργειες Xml EarTrumpet</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>Запушен\завершен EarTrumpet</value>
+    <value>EarTrumpet ξεκινά ή τερματίζεται</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Каждая программа</value>
+    <value>Κάθε εφαρμογή</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Экспорт</value>
+    <value>Εξαγωγή</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Сохранить копию ваших действий в файл.</value>
+    <value>Αποθηκεύστε ένα αντίγραφο των ενεργειών σας σε ένα αρχείο.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Активная программа</value>
+    <value>Εφαρμογή προσκηνίου</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Нажато {Hotkey}</value>
+    <value>Όταν πληκτρολογείται μια συντόμευση</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(выберите горячую клавишу)</value>
+    <value>(επιλέξτε ένα πλήκτρο συντόμευσης)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>Нажато {Hotkey}</value>
+    <value>{Hotkey} πληκτρολογήθηκε</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Импорт и экспорт</value>
+    <value>Εισαγωγή και εξαγωγή</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Импорт</value>
+    <value>Εισαγωγή</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Восстановить копию ваших действий из файла.</value>
+    <value>Επαναφορά ενός αντιγράφου των ενεργειών σας από ένα αρχείο.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Без звука</value>
+    <value>Σίγαση</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Вкл/выкл звук</value>
+    <value>Εναλλαγή σίγασης</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Вкл. звук</value>
+    <value>Κατάργηση σίγασης</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Действия</value>
+    <value>Ενέργειες</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Новое действие</value>
+    <value>Νέα ενέργεια</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(необязательно)</value>
+    <value>(προαιρετικό)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Воспроизведение</value>
+    <value>Αναπαραγωγή</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Если процесс запущен или не запущен</value>
+    <value>Εάν μια διεργασία εκτελείται ή όχι</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(введите название процесса)</value>
+    <value>(εισάγετε ένα όνομα διεργασίας)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Когда {Text} - {Option}</value>
+    <value>Όταν {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Название процесса (например notepad)</value>
+    <value>Όνομα διεργασίας (π.χ. σημειωματάριο)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>запускается</value>
+    <value>ξεκινά</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>завершается</value>
+    <value>λήγει</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>не запущено</value>
+    <value>δεν εκτελείται</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>запущено</value>
+    <value>εκτελείται</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Процесс запускается или завершается</value>
+    <value>Μια διεργασία ξεκινά ή τερματίζεται</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(введите название процесса)</value>
+    <value>(εισάγετε ένα όνομα διεργασίας)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Когда {Text} - {Option}</value>
+    <value>Όταν {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Название процесса (например notepad)</value>
+    <value>Όνομα διεργασίας (π.χ. σημειωματάριο)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Запись</value>
+    <value>Εγγραφή</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Αφαίρεση</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(обязательно)</value>
+    <value>(απαιτείται)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Выкл. или вкл. звук программы</value>
+    <value>Σίγαση ή κατάργηση σίγασης μιας εφαρμογής</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} на {Device}</value>
+    <value>{Option} {App} σε {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Установить громкость программы</value>
+    <value>Ορισμός έντασης ήχου μιας εφαρμογής</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Установить устройство воспроизведения по умолчанию</value>
+    <value>Ορισμός της προεπιλεγμένης συσκευής αναπαραγωγής</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Установить {Device} как устройство воспроизведения по умолчанию</value>
+    <value>Ορισμός του {Device} ως προεπιλογή αναπαραγωγής</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Отключить или включить звук устройства</value>
+    <value>Σίγαση ή κατάργηση σίγασης μιας συσκευής</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} на {Device}</value>
+    <value>{Option} σε {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Установить громкость устройства</value>
+    <value>Ορισμός έντασης συσκευής</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} {Device} ένταση στο {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} {Device} ένταση στο {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Установить локальную переменную</value>
+    <value>Ορισμός μιας τοπικής μεταβλητής</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(задайте имя переменной)</value>
+    <value>(ορισμός ονόματος μεταβλητής)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Установить значение {Option} для переменной {Text}</value>
+    <value>Ορίστε τη μεταβλητή {Text} σε {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Введите имя переменной (например, isInGameMode)</value>
+    <value>Εισάγετε ένα όνομα μεταβλητής (π.χ. isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Уменьшить</value>
+    <value>Μείωση</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Увеличить</value>
+    <value>Αύξηση</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Установить</value>
+    <value>Όρισε</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>или</value>
+    <value>ή</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Когда</value>
+    <value>Όταν</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Если локальная переменная правда или ложь</value>
+    <value>Αν μια τοπική μεταβλητή είναι αληθής ή ψευδής</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(введите имя переменной)</value>
+    <value>(εισάγετε ένα όνομα μεταβλητής)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>Переменная {Text} — {Option}</value>
+    <value>Η μεταβλητή {Text} είναι {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Введите имя переменной (например, isInGameMode)</value>
+    <value>Εισάγετε ένα όνομα μεταβλητής (π.χ. isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Редактировать</value>
+    <value>Επεξεργασία</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>Αποθήκευση</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Выбрать устройство</value>
+    <value>Επιλέξτε μία συσκευή</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Выбрать программу</value>
+    <value>Επιλέξτε μια εφαρμογή</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Ακύρωση</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Удалить это действие?</value>
+    <value>Διαγραφή αυτής της ενέργειας;</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Ακύρωση</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Закрыть без сохранения?</value>
+    <value>Έξοδος χωρίς αποθήκευση;</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>Αποθήκευση</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Закрыть</value>
+    <value>Έξοδος</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Удалить действие</value>
+    <value>Διαγραφή αυτής της ενέργειας</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Это действие не может быть отменено.</value>
+    <value>Αυτό δεν μπορεί να αναιρεθεί.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Убрать действие</value>
+    <value>Διαγραφή ενέργειας</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Программы выше недавно проигрывали звук.</value>
-  </data>
-  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
-    <value>Уменьшить громкость для всех устройств</value>
-  </data>
-  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
-    <value>Увеличить громкость для всех устройств</value>
+    <value>Οι εφαρμογές που εμφανίζονται παραπάνω έχουν παίξει ήχο πρόσφατα.</value>
   </data>
 </root>
