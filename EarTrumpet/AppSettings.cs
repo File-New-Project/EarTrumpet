@@ -132,6 +132,12 @@ namespace EarTrumpet
             set => _settings.Set("IsExpanded", value);
         }
 
+        public bool UseGlobalMouseWheelHook
+        {
+            get => _settings.Get("UseGlobalMouseWheelHook", false);
+            set => _settings.Set("UseGlobalMouseWheelHook", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");

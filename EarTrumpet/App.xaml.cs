@@ -108,11 +108,19 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.Scrolled += trayIconScrolled;
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+        }
+
+        private void trayIconScrolled(object _, int wheelDelta)
+        {
+            if (!_settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden)
+            {
+                CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            }
         }
 
         private void DisplayFirstRunExperience()
@@ -227,6 +235,7 @@ namespace EarTrumpet
                 new SettingsPageViewModel[]
                     {
                         new EarTrumpetShortcutsPageViewModel(_settings),
+                        new EarTrumpetMouseSettingsPageViewModel(_settings),
                         new EarTrumpetLegacySettingsPageViewModel(_settings),
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), _settings)
                     });

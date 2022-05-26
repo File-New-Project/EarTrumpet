@@ -347,5 +347,24 @@ namespace EarTrumpet.Interop
         public static extern uint GetGuiResources(
                 IntPtr hProcess,
                 GR_FLAGS uiFlags);
+
+        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int SetWindowsHookEx(
+            int idHook,
+            HookProc lpfn,
+            IntPtr hInstance,
+            int threadId);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int CallNextHookEx(
+            int idHook,
+            int nCode,
+            IntPtr wParam,
+            IntPtr lParam);
     }
 }
