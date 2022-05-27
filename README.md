@@ -4,6 +4,12 @@
 
 ![EarTrumpet Screenshot](./Graphics/hero.gif)
 
+
+## Awards
+
+2022 Winner of the [Microsoft Store Community Choice Awards](https://blogs.windows.com/windowsdeveloper/2022/05/27/announcing-the-microsoft-store-app-awards-winners/#:~:text=open%20platform%20category) (Open Platform)
+> Windows is an open platform for innovation. We know that not every customer uses Windows in the same way — some want to modify different parts of the UI or make some features more accessible for them. These are the apps you said turn Windows into your Windows.
+
 ## Media coverage
 
 > [...] there are third-party solutions out there that do a much better job than what Windows offers by default. One such app is called EarTrumpet [...]
