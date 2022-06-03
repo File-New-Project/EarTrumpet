@@ -280,18 +280,5 @@ namespace EarTrumpet.UI.Helpers
         {
             User32.SetForegroundWindow(WindowsTaskbar.GetHwnd());
         }
-
-        public static double GetPrimaryScreenDPI()
-        {
-            int resHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-            double actualHeight = SystemParameters.PrimaryScreenHeight;
-            double dpi = resHeight / actualHeight;
-            return dpi;
-        }
     }
 }
-
-
-
-
-
