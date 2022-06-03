@@ -342,6 +342,10 @@ namespace EarTrumpet.UI.ViewModels
 
         public void OnDeactivated(object sender, EventArgs e)
         {
+            if (State == FlyoutViewState.Opening)
+            {
+                return;
+            }
             BeginClose(InputType.Command);
         }
 
