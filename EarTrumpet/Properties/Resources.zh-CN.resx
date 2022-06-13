@@ -642,6 +642,6 @@
     <value>降低所有设备的音量</value>
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
-    <value>增加所有设备的音量</value>
+    <value>提高所有设备的音量</value>
   </data>
 </root>
