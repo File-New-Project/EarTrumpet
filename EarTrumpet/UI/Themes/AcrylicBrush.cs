@@ -51,6 +51,11 @@ namespace EarTrumpet.UI.Themes
 
         private static void SuppressAryclic(Window window, DispatcherTimer timer)
         {
+            if (Environment.OSVersion.IsLessThan(OSVersions.Version19H1) || Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+            {
+                // The issue is present on 19H1 - Windows 11
+                return;
+            }
             if (window != null && (HwndSource)PresentationSource.FromVisual(window) != null)
             {
                 if (!timer.IsEnabled)
