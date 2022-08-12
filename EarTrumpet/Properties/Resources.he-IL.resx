@@ -300,7 +300,7 @@
     <value>וגם</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>עשה...</value>
+    <value>עשה</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
     <value>הוסף פעולה</value>
@@ -315,7 +315,7 @@
     <value>הוסף טריגר</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>תהליך של אפליקציה נוסף, הוסר, מתחיל לנגן צליל...</value>
+    <value>תהליך של אפליקציה נוסף, הוסר, מתחיל לנגן צליל, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
     <value>{App} {Option} על {Device}</value>
@@ -378,7 +378,7 @@
     <value>אני משתמש בפריט שבתפריט הפעולות הזה</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>אם מכשיר ההשמעה שהוא ברירת המחדל הוא כן או לא...</value>
+    <value>אם מכשיר ההשמעה שהוא ברירת המחדל הוא כן או לא</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
     <value>{Device} {Option} מכשיר ההשמעה ברירת המחדל</value>
