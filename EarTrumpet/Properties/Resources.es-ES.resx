@@ -145,7 +145,7 @@
     <value>Dispositivos de grabación</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Configuración / Acerca de EarTrumpet</value>
+    <value>Ajustes</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
     <value>Sonidos</value>
@@ -259,7 +259,7 @@
     <value>Apagar</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Encender</value>
+    <value>Activado</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
     <value>Inicio</value>
@@ -296,8 +296,6 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Enviar datos de error al equipo de EarTrumpet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>y</value>
   </data>
@@ -639,5 +637,11 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Las aplicaciones mostradas arriba han reproducido sonido recientemente.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Disminuir volumen para todos los dispositivos</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Aumentar volumen para todos los dispositivos</value>
   </data>
 </root>

@@ -118,530 +118,530 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Quitter</value>
+    <value>צא</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Aucun périphérique de lecture n'a été trouvé</value>
+    <value>לא נמצאו מכשירי השמעה</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Envoyer des commentaires</value>
+    <value>שלח משוב</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mélangeur de volume EarTrumpet</value>
+    <value>מערבל עוצמה</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mélangeur de volume classique</value>
+    <value>מערבל עוצמה</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Il semblerait que vous n’ayez aucun périphérique de lecture.</value>
+    <value>נראה שאין לך שום מכשירי השמעה.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Aucun périphérique de lecture</value>
+    <value>EarTrumpet: אין מכשרי השמעה</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Périphériques de lecture</value>
+    <value>מכשירי השמעה</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Périphériques d'enregistrement</value>
+    <value>מכשירי הקלטה</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>EarTrumpet Paramètres / À propos</value>
+    <value>הגדרות</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Sons</value>
+    <value>צלילים</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Collecter les données de diagnostic</value>
+    <value>ליקוט מידע לפתרון בעיות</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Votre raccourci</value>
+    <value>קיצור הדרך שלך</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Toujours utiliser le périphérique de lecture par défaut</value>
+    <value>תמיד השתמש בברירת המחדל (מכשיר השמעה)</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>À propos</value>
+    <value>אודות</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>En savoir plus</value>
+    <value>למידע נוסף</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>{Volume} pourcent du volume - {Name}</value>
+    <value>" {Name} - עוצמה %{Volume}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Sourdine - {Name}</value>
+    <value>" {Name} - מושתק"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Applications</value>
+    <value>יישומים</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Fermer</value>
+    <value>סגור</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Réduire pour afficher uniquement le périphérique de lecture par défaut</value>
+    <value>מזער והראה רק את מכשיר ההשמעה שהוא ברירת המחדל</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Raccourci par défaut</value>
+    <value>קיצור ברירת המחדל</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Développer pour afficher tous les périphériques de lecture</value>
+    <value>הרחב כדי להראות את כל מכשירי ההשמעה</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Général</value>
+    <value>כללי</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Attribuer cette application à un périphérique de lecture</value>
+    <value>הקצה את האפליקציה הזאת למכשיר השמעה</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Ouvrir le menu déroulant d'EarTrumpet</value>
+    <value>פתח את EarTrumpet</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Utiliser l'icône originale d'EarTrumpet</value>
+    <value>השתמש באייקון היחודי של EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Plus de commandes</value>
+    <value>פקודות נוספות</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>En sourdine</value>
+    <value>מושתק</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Paramètres son</value>
+    <value>הגדרות צלילים</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows Classique</value>
+    <value>Windows המקורי</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>À propos du complèment {Name}</value>
+    <value>לגבי התוספת {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Nom:</value>
+    <value>שם:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Ouvrir les Paramètres Windows</value>
+    <value>פתח הגדרות Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Ce complèment peut être désinstallé avec l'application Paramètres Windows.</value>
+    <value>ניתן להסיר את התוספת הזאת בעזרת אפליקציית ההגדרות של Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Désinstaller</value>
+    <value>הסר התקנה</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Administration</value>
+    <value>ניהול</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Paramètres classiques</value>
+    <value>הגדרות Legacy</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Éditeur:</value>
+    <value>מפרסם:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Configurer les raccourcis et obtenir de l'aide</value>
+    <value>הגדר קיצורי דרך וקבל עזרה</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet</value>
+    <value>הגדרות EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Raccourcis</value>
+    <value>קיצורי דרך</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version:</value>
+    <value>גירסה:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Trouver un paramètre</value>
+    <value>חפש הגדרה</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Aucun résultat</value>
+    <value>אין תוצאות</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Ouvrir le mélangeur</value>
+    <value>פתח מערבל עוצמה</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Désactivé</value>
+    <value>כבוי</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Activé</value>
+    <value>דלוק</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Accueil</value>
+    <value>ראשי</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Bientôt disponible</value>
+    <value>יגיע בקרוב</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Bientôt disponible</value>
+    <value>יגיע בקרוב</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Ouvrir les paramètres</value>
+    <value>פתח הגדרות</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Fermer</value>
+    <value>סגור</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Bienvenue à EarTrumpet</value>
+    <value>ברוך הבא ל- EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet n'a pas pu démarrer</value>
+    <value>EarTrumpet לא הצליח להתחיל</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Une police de caractères défectueuse empêche EarTrumpet de démarrer.
+    <value>גופן (font) שבור במערכת שלך מונע מ EarTrumpet מלהתחיל.
 
-Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
+פתח את [https://eartrumpet.app/jmp/fixfonts] עכשיו?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Activer/désactiver le mode Muet</value>
+    <value>הפעל/כבה השתקה</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Politique de confidentialité</value>
+    <value>מדיניות פרטיות</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Envoyer les données de diagnostic à l'équipe EarTrumpet</value>
+    <value>שלח מידע על קריסה לצוות של EarTrumpet</value>
   </data>
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>et</value>
+    <value>וגם</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Faire</value>
+    <value>עשה...</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Ajouter une action</value>
+    <value>הוסף פעולה</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Ajouter une condition</value>
+    <value>הוסף תנאי</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Configurer les raccourcis clavier et l'automatisation</value>
+    <value>הגדר קיצורי דרך ואוטומציה</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Ajouter un déclencheur</value>
+    <value>הוסף טריגר</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>La session du logiciel a été ajouté, supprimé, commence à jouer des sons, ...</value>
+    <value>תהליך של אפליקציה נוסף, הוסר, מתחיל לנגן צליל...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} sur {Device}</value>
+    <value>{App} {Option} על {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>est ajouté</value>
+    <value>כאשר נוסף</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>est muet</value>
+    <value>כאשר הושתק</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>arrête la lecture du son</value>
+    <value>הפסיק לנגן צליל</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>commence à jouer un son</value>
+    <value>התחיל לנגן צליל</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>est supprimé</value>
+    <value>כאשר הוסר</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>n'est plus muet</value>
+    <value>כאשר Unmuted</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>est ajouté</value>
+    <value>כאשר נוסף</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>devient la valeur par défaut</value>
+    <value>נהיה ברירת המחדל</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>n'est plus la valeur par défaut</value>
+    <value>עוזב את ברירת המחדל</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>est supprimé</value>
+    <value>כאשר הוסר</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>faux</value>
+    <value>(לא נכון) false</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>vrai</value>
+    <value>(נכון) true</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>est</value>
+    <value>הוא</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>n'est pas</value>
+    <value>אינו</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>et</value>
+    <value>וגם</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>La configuration d'un filtre est optionnelle, mais vous permet de construire des actions plus avancées. Toutes les conditions doivent être vraies avant que les actions ne soient réalisées.</value>
+    <value>להגדיר פילטר זה אופציונלי אבל נותן לך לבנות פעולות יותר מתקדמות. כל התנאים חייבים להיות נכונים (true) לפני שפעולות מתבצעות.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Filtre avancé</value>
+    <value>פילטר מתקדם</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>J'utilise cette action de l'élément du menu contextuel</value>
+    <value>אני משתמש בפריט שבתפריט הפעולות הזה</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>J'utilise cette action de l'élément du menu contextuel</value>
+    <value>אני משתמש בפריט שבתפריט הפעולות הזה</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Si le périphérique de lecture par défaut n'est ou n'est pas</value>
+    <value>אם מכשיר ההשמעה שהוא ברירת המחדל הוא כן או לא...</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} appareil par défaut</value>
+    <value>{Device} {Option} מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Appareil de lecture par défaut</value>
+    <value>מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Un périphérique audio est ajouté, retiré, défini par défaut, ...</value>
+    <value>מכשיר השמעה נוסף, הוסר, הוגדר כברירת מחדל...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>se termine</value>
+    <value>מסתיים</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>commence</value>
+    <value>מתחיל</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Modifier</value>
+    <value>ערוך</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>Action XML d'EarTrumpet</value>
+    <value>פעולות XML EarTrumpet</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet démarre ou se termine</value>
+    <value>EarTrumpet התחיל או סיים</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Toutes les applications</value>
+    <value>כל אפליקציה</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Exporter</value>
+    <value>ייצא</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Enregistrez une copie de vos actions dans un fichier.</value>
+    <value>שמור העתק של הפעולות שלך לקובץ.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Application au premier plan</value>
+    <value>אפליקציית רקע</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Un raccourci clavier a été saisi</value>
+    <value>כפתור נלחץ</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(choisir un raccourci)</value>
+    <value>(בחר קיצור דרך)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} a été saisi</value>
+    <value>נלחץ {Hotkey}</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Importer et Exporter</value>
+    <value>יבוא ויצוא</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Importer</value>
+    <value>ייבוא</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Restaurer une copie de vos actions à partir d'un fichier.</value>
+    <value>שחזר העתק של הפעולות שלך מקובץ.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Mettre en sourdine</value>
+    <value>השתק</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Activer/désactiver le mode Muet</value>
+    <value>הפעל/כבה השתקה</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Réactiver le son</value>
+    <value>בטל השתקה</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Actions</value>
+    <value>פעולות</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Nouvelle Action</value>
+    <value>פעולה חדשה</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(Facultatif)</value>
+    <value>(אופציונאלי)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Lecture</value>
+    <value>השמעה</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Si un processus est en cours d'exécution ou non</value>
+    <value>אם תהליך בפעולה או לא</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(Entrez le nom du processus)</value>
+    <value>(הכנס שם תהליך)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Lorsque {Text} {Option}</value>
+    <value>כאשר {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Nom du processus (par exemple: notepad)</value>
+    <value>שם תהליך (לדוג' notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>commence</value>
+    <value>מתחיל</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>fini</value>
+    <value>נגמר</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>n'est pas en cours d'exécution</value>
+    <value>לא מצליח לרוץ</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>exécution en cours</value>
+    <value>הצליח לרוץ</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Un processus commence ou se termine</value>
+    <value>תהליך התחיל או הסתיים</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(Entrez le nom d'un processus)</value>
+    <value>(הכנס שם תהליך)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Lorsque {Text} {Option}</value>
+    <value>כאשר {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Nom du processus (par exemple: notepad)</value>
+    <value>שם תהליך (לדוג' notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Enregistrement en cours</value>
+    <value>מקליט</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>הסר</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(requis)</value>
+    <value>(דרוש)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Couper ou réactiver le son d'une application</value>
+    <value>השתק או בטל השתקה של אפליקציה</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} pour {Device}</value>
+    <value>{Option} {App} על {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Définir le volume d'une application</value>
+    <value>הגדר את עוצמת השמע של אפליקציה</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>Volume de {Volume} sur {Device} pour {Option} {App}</value>
+    <value>{Option} {App} עוצמה ל{Volume} על {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume pour {Volume} sur {Device}</value>
+    <value>{Option} {App} עוצמה על ידי{Volume} על {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Définir le périphérique de lecteur par défaut</value>
+    <value>הגדר את מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Définir {Device} comme lecteur par défaut</value>
+    <value>הגדר את {Device} בתור מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Couper ou réactiver le son de l'appareil</value>
+    <value>השתק או בטל השתקה למכשיר</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} sur {Device}</value>
+    <value>{Option} על {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Définir le volume d'un périphérique</value>
+    <value>הגדר עוצמת קול למכשיר</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volume à {Volume}</value>
+    <value>{Option} {Device} עוצמת קול ל{Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} volume de {Device} par {Volume}</value>
+    <value>{Option} {Device} עוצמת קול על ידי {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Définir une variable locale</value>
+    <value>הגדר משתנה מקומי (לוקאלי)</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(définir le nom de la variable)</value>
+    <value>(הגדר שם משתנה)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Définir la variable {Text} à {Option}</value>
+    <value>הגדר משתנה {Text} ל{Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Entrez un nom de variable (par exemple modeJeuActif)</value>
+    <value>הכנס שם משתנה (לדוג' isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Décrémenter</value>
+    <value>הפחתה</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Incrémenter</value>
+    <value>גידול</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Définir</value>
+    <value>הגדר</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>ou</value>
+    <value>או</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Quand</value>
+    <value>כאשר</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Si une variable locale est vraie ou fausse</value>
+    <value>אם משתנה לוקאלי מוגדר כ- true או false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(entrez un nom de variable)</value>
+    <value>(הכנס שם משתנה)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>La variable {Text} est {Option}</value>
+    <value>המשתנה {Text} הוא {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Entrez un nom de variable (par exemple modeJeuActif)</value>
+    <value>הכנס שם משתנה (לדוג' isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>מחק</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Modifier</value>
+    <value>ערוך</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Enregistrer</value>
+    <value>שמור</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Sélectionnez un périphérique</value>
+    <value>בחר התקן</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Sélectionner une application</value>
+    <value>בחר אפליקציה</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Annuler</value>
+    <value>ביטול</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Supprimer l'action ?</value>
+    <value>מחק את הפעולה הזאת?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>מחק</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>מחק</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Annuler</value>
+    <value>ביטול</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Quitter sans enregistrer ?</value>
+    <value>עזוב בלי לשמור?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Enregistrer</value>
+    <value>שמירה</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Quitter</value>
+    <value>יציאה</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Supprimer l'action</value>
+    <value>הסר פעולה</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Ceci ne peut pas être annulé.</value>
+    <value>פעולה זו אינה הפיכה.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Supprimer l'action</value>
+    <value>הסר פעולה</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>הסר</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Les applications montrées ci-dessus ont récemment joué un son.</value>
+    <value>האפליקציות הנראות למעלה השמיעו קול לאחרונה.</value>
   </data>
   <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
-    <value>Diminuer le volume pour tous les périphériques</value>
+    <value>הנמיך עוצמת קול לכל המכשירים</value>
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
-    <value>Augmenter le volume pour tous les périphériques</value>
+    <value>הגבר עוצמת לקול לכל המכשירים</value>
   </data>
 </root>
