@@ -6,7 +6,7 @@
              xmlns:b="clr-namespace:EarTrumpet.UI.Behaviors"
              xmlns:bcl="clr-namespace:System;assembly=mscorlib"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
-             xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
              xmlns:local="clr-namespace:EarTrumpet"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
@@ -2178,7 +2178,8 @@
                                     Orientation="Vertical">
                             <Image Height="275"
                                    HorizontalAlignment="Left"
-                                   gif:ImageBehavior.AnimatedSource="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif" />
+                                   gif:AnimationBehavior.SourceUri="pack://application:,,,/EarTrumpet;component/Assets/Welcome.gif"
+                                   gif:AnimationBehavior.RepeatBehavior="Forever" />
                             <CheckBox Margin="0,20,12,-6"
                                         HorizontalAlignment="Left"
                                         Content="{x:Static resx:Resources.PrivacyCheckboxText}"
