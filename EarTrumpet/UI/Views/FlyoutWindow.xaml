@@ -49,11 +49,11 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="Theme:Brush.Background" Value="Theme=#20FFFFFF, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
                     <Setter Property="Theme:Brush.Background" Value="Theme=#2FFFFFFF, HighContrast=Highlight" />
-                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationTextDarkTheme, HighContrast=HighlightText" />
+                    <Setter Property="Theme:Brush.Foreground" Value="Theme=ApplicationText{Theme}Theme, HighContrast=HighlightText" />
                 </Trigger>
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
