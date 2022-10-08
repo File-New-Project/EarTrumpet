@@ -34,8 +34,8 @@
                     </Theme:Ref>
                     <Theme:Ref Key="FlyoutThemeTrackRightBackground">
                         <Theme:Ref.Rules>
-                            <Theme:Rule On="UseAccentColor" Value="ControlLightSliderTrackBackgroundRest/0.5" />
-                            <Theme:Rule On="LightTheme" Value="ControlLightSliderTrackBackgroundRest" />
+                            <Theme:Rule On="UseAccentColor" Value="ControlLightBackgroundRest/0.5" />
+                            <Theme:Rule On="LightTheme" Value="#39000000" />
                             <Theme:Rule Value="#39FFFFFF" />
                         </Theme:Ref.Rules>
                     </Theme:Ref>
@@ -389,7 +389,7 @@
                                 <Track Name="PART_Track">
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton Name="SliderLeft"
-                                                      Theme:Brush.Foreground="SystemAccentLight1"
+                                                      Theme:Brush.Foreground="SystemAccent"
                                                       Command="Slider.DecreaseLarge"
                                                       Style="{StaticResource SliderButtonStyle}" />
                                     </Track.DecreaseRepeatButton>
