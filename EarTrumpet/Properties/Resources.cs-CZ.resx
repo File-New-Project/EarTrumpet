@@ -296,8 +296,6 @@ Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Odesílat informace o pádech týmu EarTrumpet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>a</value>
   </data>
@@ -639,5 +637,11 @@ Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Aplikace zobrazené výše nedávno přehrály zvuk.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Snížit hlasitost pro všechna zařízení</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Zvýšit hlasitost pro všechna zařízení</value>
   </data>
 </root>
