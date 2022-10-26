@@ -16,8 +16,14 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
+        public class SecondaryInvokeArgs
+        {
+            public InputType InputType { get; set; }
+            public Point Point { get; set; }
+        }
+
         public event EventHandler<InputType> PrimaryInvoke;
-        public event EventHandler<InputType> SecondaryInvoke;
+        public event EventHandler<SecondaryInvokeArgs> SecondaryInvoke;
         public event EventHandler<InputType> TertiaryInvoke;
         public event EventHandler<int> Scrolled;
 
@@ -187,10 +193,10 @@ namespace EarTrumpet.UI.Helpers
                     TertiaryInvoke?.Invoke(this, InputType.Mouse);
                     break;
                 case User32.WM_CONTEXTMENU:
-                    SecondaryInvoke?.Invoke(this, InputType.Keyboard);
+                    SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Keyboard, msg.WParam));
                     break;
                 case User32.WM_RBUTTONUP:
-                    SecondaryInvoke?.Invoke(this, InputType.Mouse);
+                    SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Mouse, msg.WParam));
                     break;
                 case User32.WM_MOUSEMOVE:
                     OnNotifyIconMouseMove();
@@ -198,6 +204,12 @@ namespace EarTrumpet.UI.Helpers
                     break;
             }
         }
+
+        private SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new SecondaryInvokeArgs
+        {
+            InputType = type,
+            Point = new Point((short)wParam.ToInt32(), wParam.ToInt32() >> 16)
+        };
 
         private void OnNotifyIconMouseMove()
         {
@@ -270,7 +282,7 @@ namespace EarTrumpet.UI.Helpers
             IconSource.CheckForUpdate();
         }
 
-        public void ShowContextMenu(IEnumerable itemsSource)
+        public void ShowContextMenu(IEnumerable itemsSource, Point point)
         {
             if (!_isContextMenuOpen)
             {
@@ -280,8 +292,16 @@ namespace EarTrumpet.UI.Helpers
                 {
                     FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
                     StaysOpen = true,
-                    ItemsSource = itemsSource,
+                    ItemsSource = itemsSource
                 };
+
+                if (point.X > 0 && point.Y > 0)
+                {
+                    contextMenu.Placement = PlacementMode.AbsolutePoint;
+                    contextMenu.HorizontalOffset = point.X;
+                    contextMenu.VerticalOffset = point.Y;
+                }
+
                 Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
                 contextMenu.PreviewKeyDown += (_, e) =>
                 {
