@@ -297,7 +297,9 @@ namespace EarTrumpet.UI.Helpers
 
                 if (point.X > 0 && point.Y > 0)
                 {
-                    contextMenu.Placement = PlacementMode.AbsolutePoint;
+                    contextMenu.Placement = PlacementMode.Top;
+                    contextMenu.PlacementRectangle = Rect.Empty;
+                    contextMenu.PlacementTarget = null;
                     contextMenu.HorizontalOffset = point.X;
                     contextMenu.VerticalOffset = point.Y;
                 }
