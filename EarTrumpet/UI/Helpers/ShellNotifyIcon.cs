@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
@@ -300,8 +301,8 @@ namespace EarTrumpet.UI.Helpers
                     contextMenu.Placement = PlacementMode.Top;
                     contextMenu.PlacementRectangle = Rect.Empty;
                     contextMenu.PlacementTarget = null;
-                    contextMenu.HorizontalOffset = point.X;
-                    contextMenu.VerticalOffset = point.Y;
+                    contextMenu.HorizontalOffset = point.X / (WindowsTaskbar.Dpi / (double)96);
+                    contextMenu.VerticalOffset = point.Y / (WindowsTaskbar.Dpi / (double)96);
                 }
 
                 Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
