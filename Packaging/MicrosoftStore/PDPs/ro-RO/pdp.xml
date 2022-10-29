@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ProductDescription xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Release="" language="en-us" xml:lang="en-us">
+<ProductDescription xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Release="" language="%locale%" xml:lang="%locale%">
   <AppStoreName _locID="App_AppStoreName">
   </AppStoreName>
   <Keywords>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
+  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
 </ProductDescription>
