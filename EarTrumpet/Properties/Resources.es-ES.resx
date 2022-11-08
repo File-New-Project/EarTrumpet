@@ -256,7 +256,7 @@
     <value>Abrir Mezclador</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Apagar</value>
+    <value>Desactivado</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
     <value>Activado</value>
