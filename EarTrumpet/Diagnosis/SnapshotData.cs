@@ -2,6 +2,7 @@
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Themes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -69,7 +70,7 @@ namespace EarTrumpet.Diagnosis
                     { "IsRTL", () => SystemSettings.IsRTL },
                     { "IsTransparencyEnabled", () => SystemSettings.IsTransparencyEnabled },
                     { "UseAccentColor", () => SystemSettings.UseAccentColor },
-                    { "AnimationsEnabled", () => SystemParameters.MenuAnimation },
+                    { "AnimationsEnabled", () => Manager.Current.AnimationsEnabled },
                     { "IsHighContrast", () => SystemParameters.HighContrast },
                     { "HasIdentity", () => EarTrumpet.App.HasIdentity },
                     { "IsShuttingDown", () => EarTrumpet.App.IsShuttingDown },

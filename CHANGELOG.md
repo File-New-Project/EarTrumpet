@@ -3,6 +3,7 @@
 ## 2.2.1.0
 - Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled
 - Fixed appearance of flyout on Windows 10 with light mode enabled (thanks @xmha97)
+- Fixed flyout animation not respecting correct system settings on Windows 10 and Windows 11
 - Upgraded GIF playback library to reduce memory usage (thanks @rocksdanister)
 - Reduced use of a workaround for Acrylic slowdowns for most builds of Windows (thanks @krlvm)
 - Updated translations from Crowdin contributors

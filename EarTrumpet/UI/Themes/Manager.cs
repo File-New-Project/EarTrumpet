@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Windows.UI.ViewManagement;
 
 namespace EarTrumpet.UI.Themes
 {
@@ -17,7 +19,21 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
 
         public List<Ref> References { get; }
-        public bool AnimationsEnabled => SystemParameters.MenuAnimation;
+        public bool AnimationsEnabled {
+            get
+            {
+                if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+                {
+                    return new UISettings().AnimationsEnabled;
+                }
+                else
+                {
+                    // Windows 10 taskbar flyouts are incorrectly tied to [SPI_GETANIMATION]
+                    // ANIMATIONINFO.iMinAnimate
+                    return SystemParameters.MinimizeAnimation;
+                }
+            }
+        }
         public bool IsLightTheme => SystemSettings.IsLightTheme;
         public bool IsSystemLightTheme => SystemSettings.IsSystemLightTheme;
         public bool IsHighContrast => SystemParameters.HighContrast;
