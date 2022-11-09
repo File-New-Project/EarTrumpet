@@ -118,530 +118,530 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Avsluta</value>
+    <value>צא</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Hittade inga uppspelningsenheter</value>
+    <value>לא נמצאו מכשירי השמעה</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Skicka feedback</value>
+    <value>שלח משוב</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>מערבל עוצמה</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>מערבל עוצמה</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
+    <value>נראה שאין לך שום מכשירי השמעה.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Inga uppspelningsenheter</value>
+    <value>EarTrumpet: אין מכשרי השמעה</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Uppspelningsenheter</value>
+    <value>מכשירי השמעה</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Inspelningsenheter</value>
+    <value>מכשירי הקלטה</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Inställningar</value>
+    <value>הגדרות</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Ljud</value>
+    <value>צלילים</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Samla in felsökningsdata</value>
+    <value>ליקוט מידע לפתרון בעיות</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Din genväg</value>
+    <value>קיצור הדרך שלך</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Använd alltid standardenheten för uppspelning</value>
+    <value>תמיד השתמש בברירת המחדל (מכשיר השמעה)</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Om</value>
+    <value>אודות</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Lär dig mer</value>
+    <value>למידע נוסף</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume} % volym - {Name}"</value>
+    <value>" {Name} - עוצמה %{Volume}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>"Ljud av - {Name}"</value>
+    <value>" {Name} - מושתק"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Appar</value>
+    <value>יישומים</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>סגור</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Dra samman för att visa endast standardenheten för uppspelning</value>
+    <value>מזער והראה רק את מכשיר ההשמעה שהוא ברירת המחדל</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Standardgenväg</value>
+    <value>קיצור ברירת המחדל</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Utöka för att visa alla uppspelningsenheter</value>
+    <value>הרחב כדי להראות את כל מכשירי ההשמעה</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Allmänt</value>
+    <value>כללי</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Tilldela denna app till en uppspelningsenhet</value>
+    <value>הקצה את האפליקציה הזאת למכשיר השמעה</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Öppna aktivitetfältsmenyn</value>
+    <value>פתח את EarTrumpet</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Använd den äldre EarTrumpet-ikonen</value>
+    <value>השתמש באייקון היחודי של EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Fler kommandon</value>
+    <value>פקודות נוספות</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Ljud av</value>
+    <value>מושתק</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Ljudinställningar</value>
+    <value>הגדרות צלילים</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Windows-originalinställningar</value>
+    <value>Windows המקורי</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Om tillägget {Name}</value>
+    <value>לגבי התוספת {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Namn:</value>
+    <value>שם:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Öppna Windows-inställningar</value>
+    <value>פתח הגדרות Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Detta tillägg kan tas bort i appen för Windows-inställningar.</value>
+    <value>ניתן להסיר את התוספת הזאת בעזרת אפליקציית ההגדרות של Windows.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Avinstallera</value>
+    <value>הסר התקנה</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Hantering</value>
+    <value>ניהול</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Äldre inställningar</value>
+    <value>הגדרות Legacy</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Utgivare:</value>
+    <value>מפרסם:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Konfigurera genvägar och få hjälp</value>
+    <value>הגדר קיצורי דרך וקבל עזרה</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>EarTrumpet-inställningar</value>
+    <value>הגדרות EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Genvägar</value>
+    <value>קיצורי דרך</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Version:</value>
+    <value>גירסה:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Hitta en inställning</value>
+    <value>חפש הגדרה</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Inga resultat</value>
+    <value>אין תוצאות</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Öppna volymkontroll</value>
+    <value>פתח מערבל עוצמה</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Av</value>
+    <value>כבוי</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>På</value>
+    <value>דלוק</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Hem</value>
+    <value>ראשי</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>יגיע בקרוב</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>Kommer snart</value>
+    <value>יגיע בקרוב</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Öppna inställningar</value>
+    <value>פתח הגדרות</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Stäng</value>
+    <value>סגור</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Välkommen till EarTrumpet</value>
+    <value>ברוך הבא ל- EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>EarTrumpet kunde inte starta</value>
+    <value>EarTrumpet לא הצליח להתחיל</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Ett trasigt teckensnitt på ditt system hindrar EarTrumpet från att starta.
+    <value>גופן (font) שבור במערכת שלך מונע מ EarTrumpet מלהתחיל.
 
-Öppna [https://eartrumpet.app/jmp/fixfonts] nu?</value>
+פתח את [https://eartrumpet.app/jmp/fixfonts] עכשיו?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Ljud av/på</value>
+    <value>הפעל/כבה השתקה</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Integritetspolicy</value>
+    <value>מדיניות פרטיות</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Skicka kraschdata till EarTrumpet-teamet</value>
+    <value>שלח מידע על קריסה לצוות של EarTrumpet</value>
   </data>
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>och</value>
+    <value>וגם</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Gör</value>
+    <value>עשה</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Lägg till åtgärd</value>
+    <value>הוסף פעולה</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Lägg till villkor</value>
+    <value>הוסף תנאי</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Ställ in snabbtangenter och automatisering</value>
+    <value>הגדר קיצורי דרך ואוטומציה</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Lägg till trigger</value>
+    <value>הוסף טריגר</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>En app-session har lagts till, tagits bort, börjar spela upp ljud...</value>
+    <value>תהליך של אפליקציה נוסף, הוסר, מתחיל לנגן צליל, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} på {Device}</value>
+    <value>{App} {Option} על {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>är tillagd</value>
+    <value>כאשר נוסף</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>är tystad</value>
+    <value>כאשר הושתק</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>slutar spela ljud</value>
+    <value>הפסיק לנגן צליל</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>börjar spela upp ljud</value>
+    <value>התחיל לנגן צליל</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>är borttaget</value>
+    <value>כאשר הוסר</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>har ljud på</value>
+    <value>כאשר Unmuted</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>är tillagd</value>
+    <value>כאשר נוסף</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>blir standard</value>
+    <value>נהיה ברירת המחדל</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>lämnar standard</value>
+    <value>עוזב את ברירת המחדל</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>är borttaget</value>
+    <value>כאשר הוסר</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>falsk</value>
+    <value>(לא נכון) false</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>sant</value>
+    <value>(נכון) true</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>är</value>
+    <value>הוא</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>är inte</value>
+    <value>אינו</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>och</value>
+    <value>וגם</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Konfigurera ett filter är valfritt, men det låter dig bygga mer avancerade åtgärder. Alla villkor måste vara sanna innan åtgärder utförs.</value>
+    <value>להגדיר פילטר זה אופציונלי אבל נותן לך לבנות פעולות יותר מתקדמות. כל התנאים חייבים להיות נכונים (true) לפני שפעולות מתבצעות.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Avancerat filter</value>
+    <value>פילטר מתקדם</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Jag använder den här åtgärdens innehållsmenyobjekt</value>
+    <value>אני משתמש בפריט שבתפריט הפעולות הזה</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Jag använder den här åtgärdens innehållsmenyobjekt</value>
+    <value>אני משתמש בפריט שבתפריט הפעולות הזה</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Om standardenheten för uppspelning är eller inte är</value>
+    <value>אם מכשיר ההשמעה שהוא ברירת המחדל הוא כן או לא</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} standardenhet</value>
+    <value>{Device} {Option} מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Standardenhet för uppspelning</value>
+    <value>מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>En ljudenhet har lagts till, tagits bort, ange som standard, ...</value>
+    <value>מכשיר השמעה נוסף, הוסר, הוגדר כברירת מחדל...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>slutar</value>
+    <value>מסתיים</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>börjar</value>
+    <value>מתחיל</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Redigera</value>
+    <value>ערוך</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>EarTrumpet XML-åtgärder</value>
+    <value>פעולות XML EarTrumpet</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet startar eller slutar</value>
+    <value>EarTrumpet התחיל או סיים</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Alla appar</value>
+    <value>כל אפליקציה</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Exportera</value>
+    <value>ייצא</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Spara en kopia av dina åtgärder till en fil.</value>
+    <value>שמור העתק של הפעולות שלך לקובץ.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Förgrundsapp</value>
+    <value>אפליקציית רקע</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>En snabbtangent har tryckts ner</value>
+    <value>כפתור נלחץ</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(välj en snabbtangent)</value>
+    <value>(בחר קיצור דרך)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} har tryckts ner</value>
+    <value>נלחץ {Hotkey}</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Importera och exportera</value>
+    <value>יבוא ויצוא</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Importera</value>
+    <value>ייבוא</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Återställer dina åtgärder från en fil.</value>
+    <value>שחזר העתק של הפעולות שלך מקובץ.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Tyst</value>
+    <value>השתק</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Växla tyst</value>
+    <value>הפעל/כבה השתקה</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Ljud på</value>
+    <value>בטל השתקה</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Åtgärder</value>
+    <value>פעולות</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Ny åtgärd</value>
+    <value>פעולה חדשה</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(valfri)</value>
+    <value>(אופציונאלי)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Uppspelning</value>
+    <value>השמעה</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Om en process körs eller inte</value>
+    <value>אם תהליך בפעולה או לא</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(ange ett processnamn)</value>
+    <value>(הכנס שם תהליך)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>När {Text} {Option}</value>
+    <value>כאשר {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Processnamn (t.ex. anteckningar)</value>
+    <value>שם תהליך (לדוג' notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>börjar</value>
+    <value>מתחיל</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>slutar</value>
+    <value>נגמר</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>körs ej</value>
+    <value>לא מצליח לרוץ</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>körs</value>
+    <value>הצליח לרוץ</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>En process startar eller slutar</value>
+    <value>תהליך התחיל או הסתיים</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(ange ett processnamn)</value>
+    <value>(הכנס שם תהליך)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>När {Text} {Option}</value>
+    <value>כאשר {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Processnamn (t.ex. anteckningar)</value>
+    <value>שם תהליך (לדוג' notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Spelar in</value>
+    <value>מקליט</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Ta bort</value>
+    <value>הסר</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(obligatorisk)</value>
+    <value>(דרוש)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Tysta eller på med ljudet för en app</value>
+    <value>השתק או בטל השתקה של אפליקציה</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} på {Device}</value>
+    <value>{Option} {App} על {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Ange volymen för en app</value>
+    <value>הגדר את עוצמת השמע של אפליקציה</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volym till {Volume} på {Device}</value>
+    <value>{Option} {App} עוצמה ל{Volume} על {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volym av {Volume} på {Device}</value>
+    <value>{Option} {App} עוצמה על ידי{Volume} על {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Ställ in standardenhet för uppspelning</value>
+    <value>הגדר את מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Ange {Device} som standardenhet för uppspelning</value>
+    <value>הגדר את {Device} בתור מכשיר ההשמעה ברירת המחדל</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Tysta eller på med ljudet för en enhet</value>
+    <value>השתק או בטל השתקה למכשיר</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} på {Device}</value>
+    <value>{Option} על {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Ställ in enhetsvolym</value>
+    <value>הגדר עוצמת קול למכשיר</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volym till {Volume}</value>
+    <value>{Option} {Device} עוצמת קול ל{Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volym av {Volume}</value>
+    <value>{Option} {Device} עוצמת קול על ידי {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Ställ in en lokal variabel</value>
+    <value>הגדר משתנה מקומי (לוקאלי)</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(ange variabelnamn)</value>
+    <value>(הגדר שם משתנה)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Ställ in variabel {Text} till {Option}</value>
+    <value>הגדר משתנה {Text} ל{Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Ange ett variabelnamn (t.ex isInGameMode)</value>
+    <value>הכנס שם משתנה (לדוג' isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Minskning</value>
+    <value>הפחתה</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Ökning</value>
+    <value>גידול</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Ange</value>
+    <value>הגדר</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>eller</value>
+    <value>או</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>När</value>
+    <value>כאשר</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Om en lokal variabel är sann eller falskt</value>
+    <value>אם משתנה לוקאלי מוגדר כ- true או false</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(ange ett variabelnamn)</value>
+    <value>(הכנס שם משתנה)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>Variabel {Text} är {Option}</value>
+    <value>המשתנה {Text} הוא {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Ange ett variabelnamn (t.ex isInGameMode)</value>
+    <value>הכנס שם משתנה (לדוג' isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Ta bort</value>
+    <value>מחק</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Redigera</value>
+    <value>ערוך</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Spara</value>
+    <value>שמור</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Välj en enhet</value>
+    <value>בחר התקן</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Välj en app</value>
+    <value>בחר אפליקציה</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Avbryt</value>
+    <value>ביטול</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Ta bort åtgärden?</value>
+    <value>מחק את הפעולה הזאת?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Ta bort</value>
+    <value>מחק</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Ta bort</value>
+    <value>מחק</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Avbryt</value>
+    <value>ביטול</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Lämna utan att spara?</value>
+    <value>עזוב בלי לשמור?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Spara</value>
+    <value>שמירה</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Lämna</value>
+    <value>יציאה</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Ta bort åtgärd</value>
+    <value>הסר פעולה</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Detta kan inte ångras.</value>
+    <value>פעולה זו אינה הפיכה.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Ta bort åtgärd</value>
+    <value>הסר פעולה</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Ta bort</value>
+    <value>הסר</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Appar som visas ovan har spelat upp ljud nyligen.</value>
+    <value>האפליקציות הנראות למעלה השמיעו קול לאחרונה.</value>
   </data>
   <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
-    <value>Minska volymen för alla enheter</value>
+    <value>הנמיך עוצמת קול לכל המכשירים</value>
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
-    <value>Öka volymen för alla enheter</value>
+    <value>הגבר עוצמת לקול לכל המכשירים</value>
   </data>
 </root>

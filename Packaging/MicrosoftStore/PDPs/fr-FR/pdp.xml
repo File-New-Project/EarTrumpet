@@ -4,32 +4,32 @@
   </AppStoreName>
   <Keywords>
     <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
-    <Keyword _locID="App_keyword2">Suono</Keyword>
-    <Keyword _locID="App_keyword3">Mixer</Keyword>
+    <Keyword _locID="App_keyword2">Son</Keyword>
+    <Keyword _locID="App_keyword3">Mélangeur</Keyword>
     <Keyword _locID="App_keyword4">Volume</Keyword>
     <Keyword _locID="App_keyword5">Audio</Keyword>
-    <Keyword _locID="App_keyword6">Controllo</Keyword>
-    <Keyword _locID="App_keyword7">Dispositivo</Keyword>
+    <Keyword _locID="App_keyword6">Contrôle</Keyword>
+    <Keyword _locID="App_keyword7">Périphérique</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet è una potente applicazione per il controllo del volume di Windows</Description>
+  <Description _locID="App_Description">EarTrumpet est une application puissante de contrôle de volume pour Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
   <SortTitle _locID="App_SortTitle"/>
   <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
   <DevStudio _locID="App_DevStudio"/>
-  <ReleaseNotes _locID="App_ReleaseNotes">La lista dei cambiamenti completa disponibile all'indirizzo: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
+  <ReleaseNotes _locID="App_ReleaseNotes">Changelog complet disponible sur : https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
   <ScreenshotCaptions>
     <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
   </ScreenshotCaptions>
   <AdditionalAssets/>
   <Trailers/>
   <AppFeatures>
-    <AppFeature _locID="App_feature1">Controllare il volume delle app classiche e moderne</AppFeature>
-    <AppFeature _locID="App_feature2">Permette di impostare il dispositivo audio predefinito in due click</AppFeature>
-    <AppFeature _locID="App_feature3">Corrisponde all'aspetto e allo stile di Windows</AppFeature>
-    <AppFeature _locID="App_feature4">Supporta lo spostamento delle app tra i dispositivi di riproduzione</AppFeature>
-    <AppFeature _locID="App_feature5">Integrata con Hub di Feedback</AppFeature>
+    <AppFeature _locID="App_feature1">Contrôle le volume des applications classiques et modernes</AppFeature>
+    <AppFeature _locID="App_feature2">Contrôle le périphérique audio par défaut en deux clics</AppFeature>
+    <AppFeature _locID="App_feature3">Correspond à l'apparence de Windows</AppFeature>
+    <AppFeature _locID="App_feature4">Supporte le déplacement des applications entre les périphériques de lecture</AppFeature>
+    <AppFeature _locID="App_feature5">Intégré au Hub de Commentaires</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>

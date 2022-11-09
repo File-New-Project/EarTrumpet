@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Themes;
 using System;
 using System.Windows;
 using System.Windows.Media.Animation;
@@ -23,7 +24,7 @@ namespace EarTrumpet.UI.Helpers
             window.Topmost = false;
             window.Activate();
 
-            if (!SystemParameters.MenuAnimation)
+            if (!Manager.Current.AnimationsEnabled)
             {
                 window.Cloak(false);
                 onCompleted(null, null);
@@ -113,7 +114,7 @@ namespace EarTrumpet.UI.Helpers
 
             window.Topmost = false;
 
-            if (!SystemParameters.MenuAnimation)
+            if (!Manager.Current.AnimationsEnabled)
             {
                 onCompleted(null, null);
                 return;
@@ -192,7 +193,7 @@ namespace EarTrumpet.UI.Helpers
                 completed();
             });
 
-            if (!SystemParameters.MenuAnimation || !SystemSettings.IsTransparencyEnabled)
+            if (!Manager.Current.AnimationsEnabled || !SystemSettings.IsTransparencyEnabled)
             {
                 window.Dispatcher.BeginInvoke((Action)(() =>
                 {
@@ -229,7 +230,7 @@ namespace EarTrumpet.UI.Helpers
                 completed();
             });
 
-            if (!SystemParameters.MenuAnimation)
+            if (!Manager.Current.AnimationsEnabled)
             {
                 window.Cloak(false);
                 onCompleted(null, null);

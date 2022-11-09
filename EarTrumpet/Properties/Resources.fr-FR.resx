@@ -296,8 +296,6 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Envoyer les données de diagnostic à l'équipe EarTrumpet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>et</value>
   </data>
@@ -639,5 +637,11 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Les applications montrées ci-dessus ont récemment joué un son.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Diminuer le volume pour tous les périphériques</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Augmenter le volume pour tous les périphériques</value>
   </data>
 </root>

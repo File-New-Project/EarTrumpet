@@ -296,8 +296,6 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Stuur foutgegevens naar het EarTrumpet-team</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>en</value>
   </data>
@@ -639,5 +637,11 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Onlangs hebben apps die hierboven getoond zijn geluid afgespeeld.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Volume voor alle apparaten verlagen</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Volume voor alle apparaten verhogen</value>
   </data>
 </root>

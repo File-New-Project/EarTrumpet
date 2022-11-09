@@ -172,7 +172,7 @@ namespace EarTrumpet.UI.Views
                 yOffset += 12 * this.DpiY();
             }
 
-            var workingAreaHeight = taskbar.ContainingScreen.WorkingArea.Height - (yOffset * 2);
+            var workingAreaHeight = Math.Abs(adjustedWorkingAreaTop - adjustedWorkingAreaBottom) - (yOffset * 2);
             if (flyoutHeight > workingAreaHeight)
             {
                 flyoutHeight = workingAreaHeight;

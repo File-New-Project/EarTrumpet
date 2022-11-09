@@ -176,6 +176,20 @@ jobs:
           name: sideload
           path: artifacts/sideload
 
+      - name: Fix up PDPs
+        if: matrix.channel == 'Store' && github.event_name != 'pull_request'
+        shell: pwsh
+        run: |
+            Set-Location packaging\MicrosoftStore\PDPs
+            Get-ChildItem | ForEach-Object {
+                $locale = $_.Name
+                $pdp = [xml](Get-Content "$locale\pdp.xml")
+                $pdp.ProductDescription.language = $locale
+                $pdp.ProductDescription.lang = $locale
+                $pdp.ProductDescription
+                $pdp.Save((Resolve-Path "$locale\pdp.xml"))
+            }
+
       - name: Stage msix packaging metadata
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         shell: powershell
