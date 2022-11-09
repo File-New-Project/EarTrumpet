@@ -19,19 +19,25 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
 
         public List<Ref> References { get; }
+
+        private bool? lastAnimationsEnabledValue = null;
         public bool AnimationsEnabled {
             get
             {
-                if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+                if (!lastAnimationsEnabledValue.HasValue)
                 {
-                    return new UISettings().AnimationsEnabled;
+                    if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+                    {
+                        lastAnimationsEnabledValue = new UISettings().AnimationsEnabled;
+                    }
+                    else
+                    {
+                        // Windows 10 taskbar flyouts are incorrectly tied to [SPI_GETANIMATION]
+                        // ANIMATIONINFO.iMinAnimate
+                        lastAnimationsEnabledValue = SystemParameters.MinimizeAnimation;
+                    }
                 }
-                else
-                {
-                    // Windows 10 taskbar flyouts are incorrectly tied to [SPI_GETANIMATION]
-                    // ANIMATIONINFO.iMinAnimate
-                    return SystemParameters.MinimizeAnimation;
-                }
+                return lastAnimationsEnabledValue.Value;
             }
         }
         public bool IsLightTheme => SystemSettings.IsLightTheme;
@@ -91,6 +97,7 @@ namespace EarTrumpet.UI.Themes
                     }
                     else if (settingChanged == "WindowMetrics")
                     {
+                        lastAnimationsEnabledValue = null;
                         RaisePropertyChanged(nameof(AnimationsEnabled));
                     }
                     break;
