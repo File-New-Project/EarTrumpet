@@ -296,4 +296,348 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Pošlji podatke o sesutju programerjem EarTrumpeta</value>
   </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Izvedi</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Dodaj dejanje</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Dodaj pogoj</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Nastavi bližnjične tipke in avtomatizacijo</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Dodaj sprožilec</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Seja aplikacije se doda, odstrani, začne predvajati zvok, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} na {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>je dodana</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>je utišano</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>preneha predvajati zvok</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>začne predvajati zvok</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>je odstranjena</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>je utišana</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>je dodana</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>postane privzeta</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>preneha biti privzeta</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>je odstranjena</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>false</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>true</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>je</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>ni</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Konfiguracija filtra ni obvezna, vendar vam omogoča oblikovanje naprednejših dejanj. Vsi pogoji morajo biti true, preden dejanja izvedejo.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Napredni filter</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Uporabljam element kontekstnega menija tega dejanja</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Uporabljam element kontekstnega menija tega dejanja</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Če privzeta naprava za predvajanje je ali ni</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} privzeta naprava</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Privzeta predvajalna naprava</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Zvočna naprava je dodana, odstranjena, nastavljena na privzeto, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>konča</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>začne</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>Trumpet Dejanja XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet se začne ali konča</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Vsaka aplikacija</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Izvozi</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Shranite kopijo vaših dejanj v datoteko.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Aplikacija v ospredju</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Bližnjična tipka je pritisnjena</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(izberi bližnjično tipko)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} je pritisnjena</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Uvoz in izvoz</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Uvoz</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Shranite kopijo vaših dejanj v datoteko.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Utišaj</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Preklopi za utišanje</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Vklopi zvok</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Dejanja</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Novo dejanje</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(neobvezno)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Predvajanje</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Če proces teče ali ne</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(vnesite ime procesa)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Ko se {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Ime procesa (npr. beležnica)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>začne</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>konča</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>se ne izvaja</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>se izvaja</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Proces začne ali konča</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(vnesite ime procesa)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Ko se {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Ime procesa (npr. beležnica)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Snemanje</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(obvezno)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Vklopi ali izklopi zvok aplikacije</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Nastavi glasnost aplikacije</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} glasnost na {Volume} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} glasnost za {Volume} na {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Nastavi privzeto predvajalno napravo</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Nastavi {Device} za privzeto predvajalno napravo</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Vklopi ali izklopi zvok naprave</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} na {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Nastavi lastnost naprave</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} glasnost na {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} glasnost za {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Nastavite lokalno spremenljivko</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(nastavite ime spremenljivke)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Nastavit spremenljivko {Text} na {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Vnesite ime spremenljivke (npr. isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Zmanjšaj</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Povečaj</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Nastavi</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Ob dejanju</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Ko je lokalna spremenljivka true ali false</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(vnesite ime spremenljivke)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Spremenljivka {Text} je {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Vnesite ime spremenljivke (npr. isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Izberi napravo</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Izberi aplikacijo</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Izbriši to dejanje?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Zapri brez shranjevanja?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Odstrani to dejanje</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>To dejanje ne more biti razveljavljeno.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Odstrani dejanje</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Odstrani</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Zgoraj prikazane aplikacije so pred kratkim predvajale zvok.</value>
+  </data>
 </root>

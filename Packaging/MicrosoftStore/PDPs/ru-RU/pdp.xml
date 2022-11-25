@@ -29,7 +29,7 @@
     <AppFeature _locID="App_feature2">Управляет аудио устройством по-умолчанию в два клика</AppFeature>
     <AppFeature _locID="App_feature3">Соответствует внешнему виду Windows</AppFeature>
     <AppFeature _locID="App_feature4">Поддерживает перемещение приложений между устройствами воспроизведения</AppFeature>
-    <AppFeature _locID="App_feature5">Интегрировано с Feedback Hub</AppFeature>
+    <AppFeature _locID="App_feature5">Интегрирован с центром отзывов Windows 10</AppFeature>
   </AppFeatures>
   <RecommendedHardware/>
   <MinimumHardware/>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
+  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
 </ProductDescription>

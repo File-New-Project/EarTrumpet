@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProductDescription xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Release="" language="en-us" xml:lang="en-us">
+  <AppStoreName _locID="App_AppStoreName">
+  </AppStoreName>
+  <Keywords>
+    <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
+    <Keyword _locID="App_keyword2">Som</Keyword>
+    <Keyword _locID="App_keyword3">Misturador</Keyword>
+    <Keyword _locID="App_keyword4">Volume</Keyword>
+    <Keyword _locID="App_keyword5">Áudio</Keyword>
+    <Keyword _locID="App_keyword6">Controlo</Keyword>
+    <Keyword _locID="App_keyword7">Dispositivo</Keyword>
+  </Keywords>
+  <Description _locID="App_Description">O EarTrumpet é um poderosa aplicação de controlo de volume para Windows</Description>
+  <ShortDescription _locID="App_ShortDescription">
+  </ShortDescription>
+  <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
+  <SortTitle _locID="App_SortTitle"/>
+  <VoiceTitle _locID="App_VoiceTitle">Ear Trumpet</VoiceTitle>
+  <DevStudio _locID="App_DevStudio"/>
+  <ReleaseNotes _locID="App_ReleaseNotes">O registo de alterações completo está disponível em: https://github.com/File-New-Project/EarTrumpet/blob/master/CHANGELOG.md</ReleaseNotes>
+  <ScreenshotCaptions>
+    <Caption DesktopImage="screenshot.png" _locID="App_caption1"/>
+  </ScreenshotCaptions>
+  <AdditionalAssets/>
+  <Trailers/>
+  <AppFeatures>
+    <AppFeature _locID="App_feature1">Controla os volumes de aplicações clássicas e modernas</AppFeature>
+    <AppFeature _locID="App_feature2">Altera o dispositivo de áudio predefinido com dois cliques</AppFeature>
+    <AppFeature _locID="App_feature3">A sua apresentação e navegação assemelha-se à do Windows</AppFeature>
+    <AppFeature _locID="App_feature4">Permite mover aplicações entre os dispositivos de reprodução</AppFeature>
+    <AppFeature _locID="App_feature5">Integrado com Feedback Hub</AppFeature>
+  </AppFeatures>
+  <RecommendedHardware/>
+  <MinimumHardware/>
+  <CopyrightAndTrademark _locID="App_CopyrightandTrademark">File-New-Project</CopyrightAndTrademark>
+  <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
+  <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
+  <SupportContactInfo _locID="App_SupportContactInfo"/>
+  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
+</ProductDescription>

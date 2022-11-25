@@ -22,6 +22,7 @@ namespace EarTrumpet
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
         public static bool HasDevIdentity { get; private set; }
+        public static string PackageName { get; private set; }
         public static Version PackageVersion { get; private set; }
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
@@ -43,6 +44,8 @@ namespace EarTrumpet
             HasIdentity = PackageHelper.CheckHasIdentity();
             HasDevIdentity = PackageHelper.HasDevIdentity();
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
+            PackageName = PackageHelper.GetFamilyName(HasIdentity);
+
             _settings = new AppSettings();
             _errorReporter = new ErrorReporter(_settings);
 
@@ -98,10 +101,12 @@ namespace EarTrumpet
             _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
             _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
             _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
+            _settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
+            _settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
             _settings.RegisterHotkeys();
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
-            _trayIcon.SecondaryInvoke += (_, __) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems());
+            _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
             _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
@@ -252,6 +257,31 @@ namespace EarTrumpet
         {
             _errorReporter.Dispose();
             _trayIcon.Dispose();
+        private void AbsoluteVolumeIncrement()
+        {
+            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
+            {
+                // in any case this device is not abs muted anymore
+                device.IsAbsMuted = false;
+                device.IncrementVolume(2);
+            }
+        }
+
+        private void AbsoluteVolumeDecrement()
+        {
+            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
+            {
+                // if device is not muted but will be muted by 
+                bool wasMuted = device.IsMuted;
+                // device.IncrementVolume(-2);
+                device.Volume -= 2;
+                // if device is muted by this absolute down
+                // .IsMuted is not already updated
+                if (!wasMuted == (device.Volume <= 0))
+                {
+                    device.IsAbsMuted = true;
+                }
+            }
         }
     }
 }

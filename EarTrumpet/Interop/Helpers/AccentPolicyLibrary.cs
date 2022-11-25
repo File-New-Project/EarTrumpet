@@ -52,9 +52,15 @@ namespace EarTrumpet.Interop.Helpers
 
         private static IntPtr HandleFromVisual(Visual visual)
         {
-            return ((HwndSource)PresentationSource.FromVisual(
-                (visual is Popup) ? ((Popup)visual).Child : visual
-                )).Handle;
+            Visual targetVisual = visual;
+
+            // We don't want the parent window showing a popup
+            if (visual is Popup popup && popup.Child != null)
+            {
+                targetVisual = popup;
+            }
+
+            return PresentationSource.FromVisual(targetVisual) is HwndSource source ? source.Handle : IntPtr.Zero;
         }
     }
 }

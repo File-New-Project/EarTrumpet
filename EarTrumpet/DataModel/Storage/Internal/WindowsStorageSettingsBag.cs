@@ -1,12 +1,15 @@
 ﻿using EarTrumpet.Diagnosis;
 using System;
+using Windows.Management.Core;
+using Windows.Storage;
 
 namespace EarTrumpet.DataModel.Storage.Internal
 {
     class WindowsStorageSettingsBag : ISettingsBag
     {
-        public string Namespace => "";
+        private static readonly ApplicationData _appDataManager = ApplicationDataManager.CreateForPackageFamily(App.PackageName);
 
+        public string Namespace => "";
         public event EventHandler<string> SettingChanged;
 
         public bool HasKey(string key)
@@ -14,7 +17,7 @@ namespace EarTrumpet.DataModel.Storage.Internal
             var ret = false;
             try
             {
-                ret = Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
+                ret = _appDataManager.LocalSettings.Values.ContainsKey(key);
             }
             catch (Exception ex)
             {
@@ -63,11 +66,10 @@ namespace EarTrumpet.DataModel.Storage.Internal
             T ret = defaultValue;
             try
             {
-                ret = (T)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key];
+                ret = (T)_appDataManager.LocalSettings.Values[key];
             }
             catch (Exception ex)
             {
-                // Windows Bug: Windows Storage APIs are still unreliable
                 ErrorReporter.LogWarning(ex);
             }
             return ret;
@@ -77,11 +79,10 @@ namespace EarTrumpet.DataModel.Storage.Internal
         {
             try
             {
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values[key] = value;
+                _appDataManager.LocalSettings.Values[key] = value;
             }
             catch (Exception ex)
             {
-                // Windows Bug: Windows Storage APIs are still unreliable
                 ErrorReporter.LogWarning(ex);
             }
         }

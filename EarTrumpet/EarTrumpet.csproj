@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows10.0.17763</TargetFramework>
 		<OutputType>WinExe</OutputType>
@@ -42,7 +42,7 @@
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+		<PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
 	</ItemGroup>
 	<ItemGroup>
 		<Page Remove="UI\Controls\SearchBox.xaml" />

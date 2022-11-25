@@ -1,11 +1,30 @@
 # Changelog
 
+## 2.2.1.0
+- Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled
+- Fixed appearance of flyout on Windows 10 with light mode enabled (thanks @xmha97)
+- Fixed flyout animation not respecting correct system settings on Windows 10 and Windows 11
+- Upgraded GIF playback library to reduce memory usage (thanks @rocksdanister)
+- Reduced use of a workaround for Acrylic slowdowns for most builds of Windows (thanks @krlvm)
+- Updated translations from Crowdin contributors
+- Updated Microsoft Store Product Detail Page metadata to correct localization issues
+
+## 2.2.0.0
+- Added hotkeys to control volume of multiple devices at once (thanks @Taknok!)
+- Adjusted how application data is stored to increase reliability
+- Fixed crash that could occur when the flyout Acrylic was toggled on/off in certain scenarios
+- Fixed an issue with the expanded flyout becoming too tall on Windows 11
+- Updated Japanese, Greek, Croatian, and Russian translations (thank you Crowdin contributors!)
+
 ## 2.1.10.0
 - Flyout now remembers if it was expanded/collapsed between launches (thanks @Tester798!)
+- Fixed an issue with the flyout open animation behaving erratically with some mice
 - Fixed an issue where devices without certain characteristics would interfere with mute and other actions
 - Fixed an issue with device names not appearing correctly if they contained underscores
 - Fixed an issue with the flyout opening outside the working area in additional cases
-- Updated Finnish, German translations
+- Adjusted the flyout position from the edge of the screen to match Windows 11 look and feel
+- Removed solid color plating behind application icons
+- Updated Finnish, German, and other translations
 
 ## 2.1.9.0
 - Added basic support for Windows 11

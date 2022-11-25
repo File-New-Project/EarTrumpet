@@ -4,14 +4,12 @@ on:
     branches:
       - master
       - dev
-      - review/*
-      - experiment/*
-      - ci/*
       - rafael/*
       - dave/*
       - david/*
     paths-ignore:
       - '**/*.md'
+      - '.github/ISSUE_TEMPLATE/*'
       - 'Graphics/*'
   pull_request:
     branches: 
@@ -181,6 +179,20 @@ jobs:
           name: sideload
           path: artifacts/sideload
 
+      - name: Fix up PDPs
+        if: matrix.channel == 'Store' && github.event_name != 'pull_request'
+        shell: pwsh
+        run: |
+            Set-Location packaging\MicrosoftStore\PDPs
+            Get-ChildItem | ForEach-Object {
+                $locale = $_.Name
+                $pdp = [xml](Get-Content "$locale\pdp.xml")
+                $pdp.ProductDescription.language = $locale
+                $pdp.ProductDescription.lang = $locale
+                $pdp.ProductDescription
+                $pdp.Save((Resolve-Path "$locale\pdp.xml"))
+            }
+
       - name: Stage msix packaging metadata
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         shell: powershell
@@ -206,30 +218,44 @@ jobs:
           path: artifacts/chocolatey
   release:
     needs: build
-    runs-on: windows-latest
+    runs-on: windows-2019
     if: github.event_name != 'pull_request'
     strategy:
       matrix:
         channel: [AppInstaller, Store, Chocolatey]
       max-parallel: 3
+    env:
+      AZURE_TENANT_ID: ${{ secrets.azure_tenant_id }}
+      AZURE_CLIENT_ID: ${{ secrets.azure_client_id }}
+      AZURE_CLIENT_SECRET: ${{ secrets.azure_client_secret }}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           path: artifacts
 
-      - name: Install AzureSignTool
-        run: dotnet tool install --tool-path . azuresigntool --version 2.0.17
+      - name: Install NuGet
+        uses: NuGet/setup-nuget@v1
+        with:
+          nuget-version: latest
+          
+      - name: Install Build Tools
+        run: nuget install Microsoft.Windows.SDK.BuildTools
+
+      - name: Install Azure Codesigning
+        shell: pwsh
+        env: 
+          ACS_PACKAGE_URI: ${{ secrets.acs_package_uri }}
+          ACS_METADATA_URI: ${{ secrets.acs_metadata_uri }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+            Invoke-WebRequest $env:ACS_PACKAGE_URI -UseBasicParsing -OutFile package.zip
+            Expand-Archive package.zip -DestinationPath acs
+            Invoke-WebRequest $env:ACS_METADATA_URI -UseBasicParsing -OutFile acs\metadata.json
 
       - name: Sign and repackage Store artifacts
         if: matrix.channel == 'Store'
         shell: pwsh
-        env:
-          KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
-          KEYVAULT_URI: ${{ secrets.keyvault_uri }}
-          KEYVAULT_SECRET: ${{ secrets.keyvault_secret }}
-          KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
-          KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
         run: |
             $MetadataPath = "$env:ARTIFACTS_BASE\Metadata"
             $MsixUploadPath = "$env:ARTIFACTS_BASE\Msixupload"
@@ -264,7 +290,7 @@ jobs:
                 Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
 
                 ### Sign executable image
-                .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
+                & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
 
                 ### Repackage app
                 & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
@@ -285,12 +311,6 @@ jobs:
       - name: Sign AppInstaller artifacts
         if: matrix.channel == 'AppInstaller'
         shell: pwsh
-        env:
-          KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
-          KEYVAULT_URI: ${{ secrets.keyvault_uri }}
-          KEYVAULT_SECRET: ${{ secrets.keyvault_secret }}
-          KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
-          KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
         run: |
             $MetadataPath = "$env:ARTIFACTS_BASE\Metadata"
             $SideloadPath = "$env:ARTIFACTS_BASE\Sideload"
@@ -324,7 +344,7 @@ jobs:
                 Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
 
                 ### Sign executable image
-                .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
+                & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
 
                 ### Repackage app
                 & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
@@ -341,17 +361,11 @@ jobs:
             & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$MsixBundleFilename"
 
             ### Sign appx bundle
-            .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$SignedPath\Bundle\$MsixBundleFilename"
+            & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$SignedPath\Bundle\$MsixBundleFilename"
 
       - name: Sign and repackage Chocolatey artifacts
         if: matrix.channel == 'Chocolatey'
         shell: pwsh
-        env:
-          KEYVAULT_CLIENT_ID: ${{ secrets.keyvault_client_id }}
-          KEYVAULT_URI: ${{ secrets.keyvault_uri }}
-          KEYVAULT_SECRET: ${{ secrets.keyvault_secret }}
-          KEYVAULT_CERTIFICATE_NAME: ${{ secrets.keyvault_certificate_name }}
-          KEYVAULT_SERVICES_TIMESTAMP: ${{ secrets.keyvault_services_timestamp }}
         run: |
           $MetadataPath = "$env:ARTIFACTS_BASE\metadata"
           $Branch = Get-Content "$MetadataPath\branch.txt"
@@ -359,7 +373,7 @@ jobs:
           $LooseFilesPath = "$env:ARTIFACTS_BASE\loose"
           
           ### Sign executable image
-          .\AzureSignTool.exe sign -kvu "$env:KEYVAULT_URI" -fd sha256 -kvi "$env:KEYVAULT_CLIENT_ID" -kvs "$env:KEYVAULT_SECRET" -kvc "$env:KEYVAULT_CERTIFICATE_NAME" -tr "$env:KEYVAULT_SERVICES_TIMESTAMP" "$LooseFilesPath\EarTrumpet.exe"
+          & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$LooseFilesPath\EarTrumpet.exe"
           
           ### Package for release
           Compress-Archive -Path "$LooseFilesPath\*" -DestinationPath "$env:ARTIFACTS_BASE\chocolatey\tools\release.zip" -CompressionLevel Optimal

@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Έξοδος</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Δεν εντοπίστηκαν συσκευές αναπαραγωγής ήχου</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Αποστολή σχολίων</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Μείκτης έντασης ήχου</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Μείκτης έντασης ήχου</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Φαίνεται να μην έχετε συσκευές αναπαραγωγής ήχου.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Δεν υπάρχουν συσκευές αναπαραγωγής</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Συσκευές αναπαραγωγής</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Συσκευές ηχογράφησης</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Ήχοι</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Συλλογή δεδομένων αντιμετώπισης προβλημάτων</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Η συντόμευσή σας</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Χρήση πάντα της προεπιλεγμένης συσκευής αναπαραγωγής</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Σχετικά με</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Μάθετε περισσότερα</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% ένταση - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Σε σίγαση - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Εφαρμογές</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Σύμπτυξη για εμφάνιση μόνο της προεπιλεγμένης συσκευής αναπαραγωγής</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Προεπιλεγμένη συντόμευση</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Ανάπτυξη για εμφάνιση όλων των συσκευών αναπαραγωγής</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Γενικά</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Αντιστοιχίστε αυτήν την εφαρμογή σε μία συσκευή αναπαραγωγής</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Άνοιγμα από τη γραμμή εργασιών</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Χρήση του παλαιού εικονιδίου του EarTrumpet</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Περισσότερες εντολές</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Σε Σίγαση</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Ρυθμίσεις ήχου</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Μείκτης των Windows</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>Σχετικά με το πρόσθετο {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Όνομα:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Άνοιγμα Ρυθμίσεων Των Windows</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Αυτό το πρόσθετο μπορεί να αφαιρεθεί χρησιμοποιώντας την εφαρμογή Ρυθμίσεις των Windows.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Απεγκατάσταση</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Διαχείριση</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Παλαιές ρυθμίσεις</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Εκδότης:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Ρύθμιση συντομεύσεων και λήψη βοήθειας</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Ρυθμίσεις EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Συντομεύσεις</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Έκδοση:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Εύρεση ρύθμισης</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Κανένα αποτέλεσμα</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Άνοιγμα Μείκτη</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Ανενεργό</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Αρχική σελίδα</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Προσεχώς</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Προσεχώς</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Άνοιγμα ρυθμίσεων</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Καλώς ήλθατε στο EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>Το EarTrumpet δεν μπόρεσε να ξεκινήσει</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Μια προβληματική γραμματοσειρά στο σύστημά σας, εμποδίζει το EarTrumpet να ξεκινήσει.
+
+Άνοιγμα του [https://eartrumpet.app/jmp/fixfonts] τώρα;</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Εναλλαγή σίγασης</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Πολιτική απορρήτου</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Αποστολή δεδομένων κατάρρευσης στην ομάδα EarTrumpet</value>
+  </data>
+
+  <!-- Actions add-on -->
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>και</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Κάνε</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Προσθήκη ενέργειας</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Προσθήκη συνθήκης</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Ρύθμιση συντομεύσεων και αυτοματισμών</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Προσθήκη εναύσματος</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Προστέθηκε μια εφαρμογής, αφαιρέθηκε, ξεκινά η αναπαραγωγή ήχου, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} σε {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>προστέθηκε</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>είναι σε σίγαση</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>σταματά να παίζει ήχο</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>αρχίζει να παίζει ήχο</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>αφαιρέθηκε</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>είναι σε μη σίγαση</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>προστέθηκε</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>γίνεται προεπιλεγμένη</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>φεύγει από προεπιλεγμένη</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>αφαιρέθηκε</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>ψευδές</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>αληθές</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>είναι</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>δεν είναι</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>και</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Η ρύθμιση ενός φίλτρου είναι προαιρετική, αλλά σας επιτρέπει να δημιουργήσετε πιο προηγμένες ενέργειες. Όλες οι συνθήκες πρέπει να είναι αληθείς πριν από την εκτέλεση των ενεργειών.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Σύνθετο φίλτρο</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Χρησιμοποιώ το σχετικό μενού αυτής της ενέργειας</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Χρησιμοποιώ το σχετικό μενού αυτής της ενέργειας</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Εάν η προεπιλεγμένη συσκευή αναπαραγωγής είναι ή δεν είναι</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} την προεπιλεγμένη συσκευή</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Προεπιλεγμένη συσκευή αναπαραγωγής</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Προστέθηκε μια συσκευή ήχου, αφαιρέθηκε, ορίστηκε ως προεπιλογή, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>λήγει</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>ξεκινά</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>Ενέργειες Xml EarTrumpet</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet ξεκινά ή τερματίζεται</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Κάθε εφαρμογή</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Αποθηκεύστε ένα αντίγραφο των ενεργειών σας σε ένα αρχείο.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Εφαρμογή προσκηνίου</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Όταν πληκτρολογείται μια συντόμευση</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(επιλέξτε ένα πλήκτρο συντόμευσης)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} πληκτρολογήθηκε</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Εισαγωγή και εξαγωγή</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Επαναφορά ενός αντιγράφου των ενεργειών σας από ένα αρχείο.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Σίγαση</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Εναλλαγή σίγασης</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Κατάργηση σίγασης</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Ενέργειες</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Νέα ενέργεια</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(προαιρετικό)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Αναπαραγωγή</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Εάν μια διεργασία εκτελείται ή όχι</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(εισάγετε ένα όνομα διεργασίας)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Όταν {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Όνομα διεργασίας (π.χ. σημειωματάριο)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>ξεκινά</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>λήγει</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>δεν εκτελείται</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>εκτελείται</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Μια διεργασία ξεκινά ή τερματίζεται</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(εισάγετε ένα όνομα διεργασίας)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Όταν {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Όνομα διεργασίας (π.χ. σημειωματάριο)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Εγγραφή</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(απαιτείται)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Σίγαση ή κατάργηση σίγασης μιας εφαρμογής</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} σε {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Ορισμός έντασης ήχου μιας εφαρμογής</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Ορισμός της προεπιλεγμένης συσκευής αναπαραγωγής</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Ορισμός του {Device} ως προεπιλογή αναπαραγωγής</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Σίγαση ή κατάργηση σίγασης μιας συσκευής</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} σε {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Ορισμός έντασης συσκευής</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} ένταση στο {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} ένταση στο {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Ορισμός μιας τοπικής μεταβλητής</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(ορισμός ονόματος μεταβλητής)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Ορίστε τη μεταβλητή {Text} σε {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Εισάγετε ένα όνομα μεταβλητής (π.χ. isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Μείωση</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Αύξηση</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Όρισε</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>ή</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Όταν</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Αν μια τοπική μεταβλητή είναι αληθής ή ψευδής</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(εισάγετε ένα όνομα μεταβλητής)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Η μεταβλητή {Text} είναι {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Εισάγετε ένα όνομα μεταβλητής (π.χ. isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Επιλέξτε μία συσκευή</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Επιλέξτε μια εφαρμογή</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Διαγραφή αυτής της ενέργειας;</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Έξοδος χωρίς αποθήκευση;</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Έξοδος</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Διαγραφή αυτής της ενέργειας</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Αυτό δεν μπορεί να αναιρεθεί.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Διαγραφή ενέργειας</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Οι εφαρμογές που εμφανίζονται παραπάνω έχουν παίξει ήχο πρόσφατα.</value>
+  </data>
+</root>
