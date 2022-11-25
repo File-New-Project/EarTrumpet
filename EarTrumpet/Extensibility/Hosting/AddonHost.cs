@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+using System.Composition;
 
 namespace EarTrumpet.Extensibility.Hosting
 {
     public class AddonHost
     {
-        [ImportMany(typeof(EarTrumpetAddon))]
+        [ImportMany("EarTrumpet.Extensibility.EarTrumpetAddon")]
         public List<EarTrumpetAddon> Addons { get; set; }
 
         // Optional cast to any of the below:

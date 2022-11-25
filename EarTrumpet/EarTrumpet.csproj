@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows10.0.17763</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<WarningsAsErrors>true</WarningsAsErrors>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -19,6 +19,7 @@
 		<OutputPath>..\Build\$(Configuration)\$(Platform)\</OutputPath>
 		<DefineConstants>TRACE;$(Platform.ToUpper());$(Configuration.ToUpper())</DefineConstants>
 		<RuntimeIdentifier>win-$(Platform.ToLower())</RuntimeIdentifier>
+		<SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition=" $(Configuration.EndsWith('Debug')) ">
 		<SelfContained>true</SelfContained>
@@ -40,8 +41,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
+		<PackageReference Include="System.Composition.AttributedModel" Version="7.0.0" />
+		<PackageReference Include="System.Composition.Runtime" Version="7.0.0" />
 		<PackageReference Include="XamlAnimatedGif" Version="2.1.0" />
 	</ItemGroup>
 	<ItemGroup>
