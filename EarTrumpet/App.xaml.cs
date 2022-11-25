@@ -257,6 +257,8 @@ namespace EarTrumpet
         {
             _errorReporter.Dispose();
             _trayIcon.Dispose();
+        }
+
         private void AbsoluteVolumeIncrement()
         {
             foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))

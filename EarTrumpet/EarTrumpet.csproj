@@ -34,15 +34,15 @@
 		<Resource Include="Assets\Welcome.gif" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Bugsnag" Version="2.2.3" />
+		<PackageReference Include="Bugsnag" Version="3.1.0" />
 		<PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
+		<PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="XamlAnimatedGif" Version="2.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Page Remove="UI\Controls\SearchBox.xaml" />
