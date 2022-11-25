@@ -36,7 +36,7 @@ namespace EarTrumpet.Actions
         }
 
         private readonly string c_actionsSettingKey = "ActionsData";
-        private EarTrumpetAction[] _actions = new EarTrumpetAction[] { };
+        private EarTrumpetAction[] _actions = Array.Empty<EarTrumpetAction>();
         private TriggerManager _triggerManager = new TriggerManager();
 
         public void OnAddonEvent(AddonEventKind evt)
@@ -91,7 +91,7 @@ namespace EarTrumpet.Actions
         private void LoadAndRegister()
         {
             _triggerManager.Clear();
-            _actions = Settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
+            _actions = Settings.Get(c_actionsSettingKey, Array.Empty<EarTrumpetAction>());
             _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 

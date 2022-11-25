@@ -4,7 +4,7 @@ namespace EarTrumpet.Interop.SafeHandles
 {
     public class HMODULE : SafeHandleZeroOrMinusOneIsInvalid
     {
-        private HMODULE() : base(ownsHandle: true)
+        public HMODULE() : base(ownsHandle: true)
         {
         }
 

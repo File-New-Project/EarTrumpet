@@ -127,6 +127,7 @@ namespace EarTrumpet.UI.Themes
         public void Dispose()
         {
             _messageWindow.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }
