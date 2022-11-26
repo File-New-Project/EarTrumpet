@@ -4,6 +4,7 @@ using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
@@ -20,7 +21,7 @@ namespace EarTrumpet.UI.Themes
 
         public List<Ref> References { get; }
 
-        private bool? lastAnimationsEnabledValue = null;
+        private bool? lastAnimationsEnabledValue;
         public bool AnimationsEnabled {
             get
             {
@@ -40,11 +41,11 @@ namespace EarTrumpet.UI.Themes
                 return lastAnimationsEnabledValue.Value;
             }
         }
-        public bool IsLightTheme => SystemSettings.IsLightTheme;
-        public bool IsSystemLightTheme => SystemSettings.IsSystemLightTheme;
-        public bool IsHighContrast => SystemParameters.HighContrast;
-        public bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
-        public bool UseDynamicScrollbars => SystemSettings.UseDynamicScrollbars;
+        public static bool IsLightTheme => SystemSettings.IsLightTheme;
+        public static bool IsSystemLightTheme => SystemSettings.IsSystemLightTheme;
+        public static bool IsHighContrast => SystemParameters.HighContrast;
+        public static bool UseAccentColorOnWindowBorders => SystemSettings.UseAccentColorOnWindowBorders;
+        public static bool UseDynamicScrollbars => SystemSettings.UseDynamicScrollbars;
 
         private DispatcherTimer _themeChangeTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
         private Win32Window _messageWindow;
@@ -64,17 +65,18 @@ namespace EarTrumpet.UI.Themes
             _themeChangeTimer.Tick -= ThemeChangeTimer_Tick;
         }
 
+        [SuppressMessage("Performance", "CA1822:Mark members as static")]
         public void Load()
         {
             // This method needs to be called from App to get us loaded otherwise XAML will lazy-load us.
         }
 
-        public Color ResolveRef(DependencyObject target, string key)
+        public static Color ResolveRef(DependencyObject target, string key)
         {
             return BrushValueParser.Parse(target, key).Color;
         }
 
-        private void WndProc(int msg, IntPtr wParam, IntPtr lParam)
+        private void WndProc(int msg, IntPtr _, IntPtr lParam)
         {
             const int WM_DWMCOLORIZATIONCOLORCHANGED = 0x320;
             const int WM_DWMCOMPOSITIONCHANGED = 0x31E;

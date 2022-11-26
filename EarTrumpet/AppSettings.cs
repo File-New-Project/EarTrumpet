@@ -116,7 +116,7 @@ namespace EarTrumpet
             {
                 // Note: Legacy compat, we used to write string bools.
                 var ret = _settings.Get("UseLegacyIcon", "False");
-                bool.TryParse(ret, out bool isUseLegacyIcon);
+                _ = bool.TryParse(ret, out bool isUseLegacyIcon);
                 return isUseLegacyIcon;
             }
             set
@@ -147,7 +147,7 @@ namespace EarTrumpet
             set => _settings.Set("IsTelemetryEnabled", value);
         }
 
-        private bool IsTelemetryEnabledByDefault()
+        private static bool IsTelemetryEnabledByDefault()
         {
             // Discussion on what to include:
             // https://gist.github.com/henrik/1688572

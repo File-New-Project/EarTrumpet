@@ -74,7 +74,7 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        private void Fill(Dictionary<string, object> dest, Dictionary<string, Func<object>> source)
+        private static void Fill(Dictionary<string, object> dest, Dictionary<string, Func<object>> source)
         {
             foreach (var key in source.Keys)
             {

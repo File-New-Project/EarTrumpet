@@ -2,7 +2,7 @@
 
 namespace EarTrumpet.Interop
 {
-    public static class PropertyKeys
+    internal static class PropertyKeys
     {
         public static PROPERTYKEY PKEY_ItemNameDisplay = new PROPERTYKEY
         {

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media;
+using System.Globalization;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -17,9 +18,9 @@ namespace EarTrumpet.UI.ViewModels
     {
         public class ExeNameComparer : IComparer<IAppItemViewModel>
         {
-            public int Compare(IAppItemViewModel one, IAppItemViewModel two)
+            public int Compare(IAppItemViewModel x, IAppItemViewModel y)
             {
-                return string.Compare(one.ExeName, two.ExeName, StringComparison.Ordinal);
+                return string.Compare(x.ExeName, y.ExeName, StringComparison.Ordinal);
             }
         }
 
@@ -143,6 +144,6 @@ namespace EarTrumpet.UI.ViewModels
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
        public override string ToString() => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
-            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
+            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString(CultureInfo.CurrentCulture));
     }
 }

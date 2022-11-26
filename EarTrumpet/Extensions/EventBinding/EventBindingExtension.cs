@@ -42,7 +42,7 @@ namespace EarTrumpet.Extensions.EventBinding
             target.GetType().GetMethod(functionName).Invoke(target, new object[] { sender, args });
         }
 
-        private object ResolvePropertyPath(object target, string path, out string functionName)
+        private static object ResolvePropertyPath(object target, string path, out string functionName)
         {
             var parts = path.Split('.');
             functionName = parts.Last();

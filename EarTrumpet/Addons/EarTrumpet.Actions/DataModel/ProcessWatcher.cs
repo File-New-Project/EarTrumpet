@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Globalization;
 
 namespace EarTrumpet.Actions.DataModel
 {
@@ -33,7 +34,7 @@ namespace EarTrumpet.Actions.DataModel
         }
 
         // Used only by the condition processor, so we use realtime data only.
-        public bool IsRunning(string procName)
+        public static bool IsRunning(string procName)
         {
             try
             {
@@ -50,11 +51,11 @@ namespace EarTrumpet.Actions.DataModel
         {
             try
             {
-                User32.GetWindowThreadProcessId(hwnd, out uint pid);
+                _ = User32.GetWindowThreadProcessId(hwnd, out uint pid);
 
                 using (var proc = Process.GetProcessById((int)pid))
                 {
-                    if (_info.ContainsKey(proc.ProcessName.ToLower()))
+                    if (_info.ContainsKey(proc.ProcessName.ToLowerInvariant()))
                     {
                         FoundNewRelevantProcess(proc);
                     }
@@ -68,7 +69,7 @@ namespace EarTrumpet.Actions.DataModel
 
         bool FoundNewRelevantProcess(Process proc)
         {
-            var info = _info[proc.ProcessName.ToLower()];
+            var info = _info[proc.ProcessName.ToLowerInvariant()];
 
             if (!info.RunningProcesses.ContainsKey(proc.Id))
             {
@@ -95,7 +96,7 @@ namespace EarTrumpet.Actions.DataModel
         public void RegisterStop(string text, Action callback)
         {
             Trace.WriteLine($"ProcessWatcher RegisterStop {text}");
-            text = text.ToLower();
+            text = text.ToLower(CultureInfo.CurrentCulture);
             WatcherInfo info = _info.ContainsKey(text) ? _info[text] : _info[text] = new WatcherInfo();
             info.StopCallbacks.Add(callback);
 
@@ -116,7 +117,7 @@ namespace EarTrumpet.Actions.DataModel
         public void RegisterStart(string text, Action callback)
         {
             Trace.WriteLine($"ProcessWatcher RegisterStart {text}");
-            text = text.ToLower();
+            text = text.ToLower(CultureInfo.CurrentCulture);
             WatcherInfo info = _info.ContainsKey(text) ? _info[text] : new WatcherInfo();
             info.StartCallbacks.Add(callback);
 

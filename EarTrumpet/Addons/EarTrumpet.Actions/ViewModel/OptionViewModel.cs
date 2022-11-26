@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 
 namespace EarTrumpet.Actions.ViewModel
@@ -47,7 +48,7 @@ namespace EarTrumpet.Actions.ViewModel
         {
             var propType = _target.GetType().GetProperty(_property).PropertyType;
             var resourceName = $"{propType.Name}_{name}";
-            var ret = Properties.Resources.ResourceManager.GetString(resourceName);
+            var ret = Properties.Resources.ResourceManager.GetString(resourceName, CultureInfo.CurrentCulture);
             if (string.IsNullOrWhiteSpace(ret))
             {
                 throw new NotImplementedException(resourceName);

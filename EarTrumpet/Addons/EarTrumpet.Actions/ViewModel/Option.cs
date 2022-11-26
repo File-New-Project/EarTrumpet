@@ -13,9 +13,16 @@ namespace EarTrumpet.Actions.ViewModel
             Value = value;
         }
 
-        public bool Equals(Option other)
+        public override bool Equals(object obj)
         {
-            return other.DisplayName.Equals(DisplayName);
+            return (obj as Option).DisplayName.Equals(DisplayName, StringComparison.Ordinal);
+        }
+
+        public bool Equals(Option other) => Equals(other);
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(DisplayName, Value);
         }
     }
 }

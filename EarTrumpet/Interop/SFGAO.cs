@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EarTrumpet.Interop
 {
     [Flags]
+    [SuppressMessage("Design", "CA1069:Enums values should not be duplicated")]
     enum SFGAO : uint
     {
         /// <summary>Objects can be copied</summary>

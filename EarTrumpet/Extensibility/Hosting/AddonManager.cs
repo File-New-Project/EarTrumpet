@@ -11,9 +11,9 @@ namespace EarTrumpet.Extensibility.Hosting
     {
         public static AddonHost Host { get; } = new AddonHost();
 
-        private static readonly AddonResolver s_resolver = new AddonResolver();
-        private static readonly List<string> s_loadedAddonIds = new List<string>();
-        private static bool s_shouldLoadInternalAddons = false;
+        private static readonly AddonResolver s_resolver = new();
+        private static readonly List<string> s_loadedAddonIds = new();
+        private static bool s_shouldLoadInternalAddons;
 
         public static void Load(bool shouldLoadInternalAddons = false)
         {

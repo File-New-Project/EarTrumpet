@@ -24,7 +24,7 @@ namespace EarTrumpet.Extensions
         public static void Cloak(this Window window, bool hide = true)
         {
             int attributeValue = hide ? 1 : 0;
-            DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
+            _ = DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMA_CLOAK, ref attributeValue, Marshal.SizeOf(attributeValue));
         }
 
         public static void EnableRoundedCornersIfApplicable(this Window window)
@@ -32,7 +32,7 @@ namespace EarTrumpet.Extensions
             if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
             {
                 int attributeValue = (int)DwmApi.DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-                DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMWA_WINDOW_CORNER_PREFERENCE, ref attributeValue, Marshal.SizeOf(attributeValue));
+                _ = DwmApi.DwmSetWindowAttribute(window.GetHandle(), DwmApi.DWMWA_WINDOW_CORNER_PREFERENCE, ref attributeValue, Marshal.SizeOf(attributeValue));
             }
         }
 
@@ -45,7 +45,7 @@ namespace EarTrumpet.Extensions
                 return;
             }
 
-            User32.SetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_STYLE, (currentStyle & ~styleToRemove));
+            _ = User32.SetWindowLongPtr(window.GetHandle(), User32.GWL.GWL_STYLE, (currentStyle & ~styleToRemove));
         }
 
         public static void ApplyExtendedWindowStyle(this Window window, int newExStyle)

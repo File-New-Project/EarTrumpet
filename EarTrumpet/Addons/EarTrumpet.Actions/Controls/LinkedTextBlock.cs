@@ -171,7 +171,7 @@ namespace EarTrumpet.Actions.Controls
             ContextMenu2.VerticalOffset = -1 * ContextMenu2.RenderSize.Height / 2;
         }
 
-        private List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
+        private static List<ContextMenuItem> GetContextMenuFromOptionViewModel(IOptionViewModel options)
         {
             return options.All.Select(item => new ContextMenuItem
             {
@@ -181,7 +181,7 @@ namespace EarTrumpet.Actions.Controls
             }).ToList();
         }
 
-        private void ReadLinksAndText(string text, Action<string, bool> callback)
+        private static void ReadLinksAndText(string text, Action<string, bool> callback)
         {
             int ptr = 0;
             for (int i = 0; i < text.Length; i++)

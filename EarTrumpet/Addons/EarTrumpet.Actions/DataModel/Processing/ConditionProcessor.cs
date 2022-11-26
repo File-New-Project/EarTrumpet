@@ -11,7 +11,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
         {
             if (condition is ProcessCondition)
             {
-                bool isProcessRunning = ProcessWatcher.Current.IsRunning(((ProcessCondition)condition).Text);
+                bool isProcessRunning = ProcessWatcher.IsRunning(((ProcessCondition)condition).Text);
                 switch (((ProcessCondition)condition).Option)
                 {
                     case ProcessStateKind.Running:

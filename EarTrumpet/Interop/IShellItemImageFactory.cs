@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
+    [SuppressMessage("Naming", "CA1712:Do not prefix enum values with type name")]
     enum SIIGBF : int
     {
         SIIGBF_RESIZETOFIT = 0,

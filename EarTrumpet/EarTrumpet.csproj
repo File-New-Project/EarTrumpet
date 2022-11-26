@@ -20,6 +20,7 @@
 		<DefineConstants>TRACE;$(Platform.ToUpper());$(Configuration.ToUpper())</DefineConstants>
 		<RuntimeIdentifier>win-$(Platform.ToLower())</RuntimeIdentifier>
 		<SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
+		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 	<PropertyGroup Condition=" $(Configuration.EndsWith('Debug')) ">
 		<SelfContained>true</SelfContained>

@@ -206,7 +206,7 @@ namespace EarTrumpet.UI.Helpers
             }
         }
 
-        private SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new SecondaryInvokeArgs
+        private static SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new()
         {
             InputType = type,
             Point = new Point((short)wParam.ToInt32(), wParam.ToInt32() >> 16)
@@ -228,7 +228,7 @@ namespace EarTrumpet.UI.Helpers
             }
             else
             {
-                _iconLocation = default(RECT);
+                _iconLocation = default;
             }
         }
 

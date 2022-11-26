@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -189,6 +190,8 @@ namespace EarTrumpet.Interop
             KEYBOARD = 0x07,
         }
 
+        [SuppressMessage("Design", "CA1069:Enums values should not be duplicated")]
+        [SuppressMessage("Naming", "CA1720:Identifier contains type name")]
         public enum HidUsage : ushort
         {
             Undefined = 0x00,
@@ -203,11 +206,13 @@ namespace EarTrumpet.Interop
             Consumer = 0x0C,
         }
 
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
+        [SuppressMessage("Naming", "CA1712:Do not prefix enum values with type name")]
         public enum GWL : int
         {
             // ...
-            GWL_STYLE = (-16),
-            GWL_EXSTYLE = (-20),
+            GWL_STYLE = -16,
+            GWL_EXSTYLE = -20,
             // ...
         }
 
@@ -248,9 +253,11 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true, CharSet = CharSet.Unicode)]
         public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
         public static readonly int MAX_CLASSNAME_LENGTH = 256;
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode, PreserveSig = true)]
+        [SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix")]
         public static extern IntPtr FindWindowEx(
             IntPtr hWndParent,
             IntPtr hWndChildAfter,
@@ -286,6 +293,7 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern uint GetDpiForSystem();
 
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
         public enum SystemMetrics : int
         {
             // ...
@@ -299,6 +307,8 @@ namespace EarTrumpet.Interop
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern int GetSystemMetricsForDpi(SystemMetrics nIndex, uint dpi);
 
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
+        [SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix")]
         public enum LoadImageFlags : uint
         {
             // ...
@@ -313,6 +323,7 @@ namespace EarTrumpet.Interop
         }
 
         [DllImport("user32.dll", PreserveSig = true, SetLastError = true)]
+        [SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix")]
         public static extern IntPtr CreateIconFromResourceEx(
             IntPtr presbits,
             int dwResSize,
@@ -323,6 +334,7 @@ namespace EarTrumpet.Interop
             LoadImageFlags Flags);
 
         [DllImport("user32.dll", PreserveSig = true)]
+        [SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix")]
         public static extern int LookupIconIdFromDirectoryEx(
             IntPtr presbits,
             [MarshalAs(UnmanagedType.Bool)]bool fIcon,
@@ -331,6 +343,7 @@ namespace EarTrumpet.Interop
             LoadImageFlags Flags);
 
         [Flags]
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
         public enum GR_FLAGS : uint
         {
             GR_GDIOBJECTS = 0,
@@ -339,7 +352,8 @@ namespace EarTrumpet.Interop
             GR_USEROBJECTS_PEAK = 4
         }
 
-        public static readonly IntPtr GR_GLOBAL = new IntPtr(-2);
+        [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
+        public static readonly IntPtr GR_GLOBAL = new(-2);
 
         [DllImport("user32.dll", PreserveSig = true)]
         public static extern uint GetGuiResources(

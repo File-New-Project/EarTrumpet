@@ -339,7 +339,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             try
             {
                 var displayName = _session.GetDisplayName();
-                if (displayName.StartsWith("@"))
+                if (displayName.StartsWith("@", StringComparison.Ordinal))
                 {
                     StringBuilder sb = new StringBuilder(512);
                     if (Shlwapi.SHLoadIndirectString(displayName, sb, sb.Capacity, IntPtr.Zero) == 0)

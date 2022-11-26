@@ -81,7 +81,7 @@ namespace EarTrumpet.Actions
                         Glyph = "\xE1CE",
                         IsChecked = true,
                         DisplayName = item.DisplayName,
-                        Command = new RelayCommand(() => EarTrumpetActionsAddon.Current.TriggerAction(item))
+                        Command = new RelayCommand(() => TriggerAction(item))
                     });
                 }
                 return ret;
@@ -120,7 +120,7 @@ namespace EarTrumpet.Actions
             }
         }
 
-        public void TriggerAction(EarTrumpetAction action)
+        public static void TriggerAction(EarTrumpetAction action)
         {
             action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
         }

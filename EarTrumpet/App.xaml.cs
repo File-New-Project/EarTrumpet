@@ -132,13 +132,13 @@ namespace EarTrumpet
             }
         }
 
-        private bool IsCriticalFontLoadFailure(Exception ex)
+        private static bool IsCriticalFontLoadFailure(Exception ex)
         {
             return ex.StackTrace.Contains("MS.Internal.Text.TextInterface.FontFamily.GetFirstMatchingFont") ||
                    ex.StackTrace.Contains("MS.Internal.Text.Line.Format");
         }
 
-        private void OnCriticalFontLoadFailure()
+        private static void OnCriticalFontLoadFailure()
         {
             Trace.WriteLine($"App OnCriticalFontLoadFailure");
 
@@ -227,8 +227,10 @@ namespace EarTrumpet
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), _settings)
                     });
 
-            var allCategories = new List<SettingsCategoryViewModel>();
-            allCategories.Add(defaultCategory);
+            var allCategories = new List<SettingsCategoryViewModel>
+            {
+                defaultCategory
+            };
 
             if (AddonManager.Host.SettingsItems != null)
             {
@@ -239,7 +241,7 @@ namespace EarTrumpet
             return new SettingsWindow { DataContext = viewModel };
         }
 
-        private SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
+        private static SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
         {
             var addon = (EarTrumpetAddon)addonSettingsPage;
             var category = addonSettingsPage.GetSettingsCategory();

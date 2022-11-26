@@ -33,7 +33,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             return $"{MMDEVAPI_TOKEN}{deviceId}{(_flow == EDataFlow.eRender ? DEVINTERFACE_AUDIO_RENDER : DEVINTERFACE_AUDIO_CAPTURE)}";
         }
 
-        private string UnpackDeviceId(string deviceId)
+        private static string UnpackDeviceId(string deviceId)
         {
             if (deviceId.StartsWith(MMDEVAPI_TOKEN)) deviceId = deviceId.Remove(0, MMDEVAPI_TOKEN.Length);
             if (deviceId.EndsWith(DEVINTERFACE_AUDIO_RENDER)) deviceId = deviceId.Remove(deviceId.Length - DEVINTERFACE_AUDIO_RENDER.Length);

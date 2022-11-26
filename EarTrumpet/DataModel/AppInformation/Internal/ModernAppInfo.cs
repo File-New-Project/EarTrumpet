@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -16,12 +17,8 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => false;
 
-        private int _processId;
-
         public ModernAppInfo(int processId, bool trackProcess)
         {
-            _processId = processId;
-
             var appUserModelId = GetAppUserModelIdByPid(processId);
 
             try
@@ -34,7 +31,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
             catch (COMException ex)
             {
-                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed 0x{((uint)ex.HResult).ToString("x")} {appUserModelId}");
+                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed 0x{((uint)ex.HResult).ToString("x", CultureInfo.CurrentCulture)} {appUserModelId}");
             }
             catch (Exception ex)
             {
@@ -66,7 +63,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                     int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
                     var amuidBuffer = new StringBuilder(amuidBufferLength);
 
-                    Kernel32.GetApplicationUserModelId(processHandle, ref amuidBufferLength, amuidBuffer);
+                    _ = Kernel32.GetApplicationUserModelId(processHandle, ref amuidBufferLength, amuidBuffer);
                     appUserModelId = amuidBuffer.ToString();
                 }
                 finally
@@ -86,7 +83,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                     int packageRelativeApplicationIdLength = Kernel32.PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z;
                     var packageRelativeApplicationIdBuilder = new StringBuilder(packageRelativeApplicationIdLength);
 
-                    Kernel32.ParseApplicationUserModelId(
+                    _ = Kernel32.ParseApplicationUserModelId(
                         appUserModelId,
                         ref packageFamilyNameLength,
                         packageFamilyNameBuilder,
@@ -97,7 +94,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
                     int packageCount = 0;
                     int packageNamesBufferLength = 0;
-                    Kernel32.FindPackagesByPackageFamilyInitial(
+                    _ = Kernel32.FindPackagesByPackageFamilyInitial(
                         packageFamilyName,
                         Kernel32.PACKAGE_FILTER_HEAD | Kernel32.PACKAGE_INFORMATION_BASIC,
                         ref packageCount,
@@ -111,7 +108,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                         var pointers = new IntPtr[packageCount];
                         IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength * Kernel32.SIZEOF_WCHAR);
 
-                        Kernel32.FindPackagesByPackageFamily(
+                        _ = Kernel32.FindPackagesByPackageFamily(
                             packageFamilyName,
                             Kernel32.PACKAGE_FILTER_HEAD | Kernel32.PACKAGE_INFORMATION_BASIC,
                             ref packageCount,
@@ -123,18 +120,18 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                         var packageFullName = Marshal.PtrToStringUni(pointers[0]);
                         Marshal.FreeHGlobal(buffer);
 
-                        Kernel32.OpenPackageInfoByFullName(packageFullName, 0, out IntPtr packageInfoReference);
+                        _ = Kernel32.OpenPackageInfoByFullName(packageFullName, 0, out IntPtr packageInfoReference);
 
                         int bufferLength = 0;
-                        Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, IntPtr.Zero, out int appIdCount);
+                        _ = Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, IntPtr.Zero, out int appIdCount);
 
                         buffer = Marshal.AllocHGlobal(bufferLength);
-                        Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, buffer, out appIdCount);
+                        _ = Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, buffer, out appIdCount);
 
                         appUserModelId = Marshal.PtrToStringUni(Marshal.ReadIntPtr(buffer));
                         Marshal.FreeHGlobal(buffer);
 
-                        Kernel32.ClosePackageInfo(packageInfoReference);
+                        _ = Kernel32.ClosePackageInfo(packageInfoReference);
                     }
                 }
             }

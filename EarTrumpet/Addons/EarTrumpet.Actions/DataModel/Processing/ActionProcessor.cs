@@ -118,7 +118,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
         {
             var hWnd = User32.GetForegroundWindow();
             var foregroundClassName = new StringBuilder(User32.MAX_CLASSNAME_LENGTH);
-            User32.GetClassName(hWnd, foregroundClassName, foregroundClassName.Capacity);
+            _ = User32.GetClassName(hWnd, foregroundClassName, foregroundClassName.Capacity);
 
             if (hWnd == IntPtr.Zero)
             {
@@ -138,7 +138,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
                 return null;
             }
 
-            User32.GetWindowThreadProcessId(hWnd, out uint processId);
+            _ = User32.GetWindowThreadProcessId(hWnd, out uint processId);
 
             try
             {

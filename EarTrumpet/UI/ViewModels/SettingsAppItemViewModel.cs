@@ -81,7 +81,7 @@ namespace EarTrumpet.UI.ViewModels
             throw new NotImplementedException();
         }
 
-        public void OpenPopup(FrameworkElement uIElement)
+        public static void OpenPopup(FrameworkElement uIElement)
         {
 
         }

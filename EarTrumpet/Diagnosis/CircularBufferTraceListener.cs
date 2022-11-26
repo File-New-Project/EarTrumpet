@@ -18,13 +18,13 @@ namespace EarTrumpet.Diagnosis
         {
             var threadId = Environment.CurrentManagedThreadId;
             var idText = threadId == 1 ? "UI" : threadId.ToString().PadLeft(2, ' ') + "  ";
-            message = $"{DateTime.Now.ToString("HH:mm:ss.fff")} {idText} {message}";
+            message = $"{DateTime.Now:HH:mm:ss.fff} {idText} {message}";
 
             _log.Enqueue(message + Environment.NewLine);
 
             while (_log.Count > MAX_LOG_LINES)
             {
-                _log.TryDequeue(out var unused);
+                _log.TryDequeue(out var _);
             }
 
             _defaultListener.WriteLine(message);

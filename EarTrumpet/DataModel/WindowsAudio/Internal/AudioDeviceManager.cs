@@ -36,7 +36,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
 
-        private static AutoPolicyConfigClientWin7 s_PolicyConfigClient = null;
+        private static AutoPolicyConfigClientWin7 s_PolicyConfigClient;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _default;

@@ -9,7 +9,7 @@ namespace EarTrumpet.UI.Views
 {
     public partial class DeviceView : UserControl
     {
-        public static string DeviceListItemKey = "DeviceListItem";
+        public const string DeviceListItemKey = "DeviceListItem";
 
         public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
         public static readonly DependencyProperty DeviceProperty =
@@ -37,7 +37,7 @@ namespace EarTrumpet.UI.Views
             RemoveFocusVisual(DeviceListItem);
         }
 
-        private void RemoveFocusVisual(UIElement element)
+        private static void RemoveFocusVisual(UIElement element)
         {
             var adornerLayer = AdornerLayer.GetAdornerLayer(element);
             var adorners = adornerLayer.GetAdorners(element);

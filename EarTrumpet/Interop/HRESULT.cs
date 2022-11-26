@@ -1,5 +1,8 @@
-﻿namespace EarTrumpet.Interop
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace EarTrumpet.Interop
 {
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public enum HRESULT : uint
     {
         S_OK = 0x0,

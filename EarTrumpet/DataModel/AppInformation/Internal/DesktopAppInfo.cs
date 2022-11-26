@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -80,7 +81,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
             catch (COMException ex)
             {
-                Trace.WriteLine($"DesktopAppInfo DisplayName read failed {ExeName} 0x{((uint)ex.HResult).ToString("x")}");
+                Trace.WriteLine($"DesktopAppInfo DisplayName read failed {ExeName} 0x{((uint)ex.HResult).ToString("x", CultureInfo.CurrentCulture)}");
             }
             catch (Exception ex)
             {

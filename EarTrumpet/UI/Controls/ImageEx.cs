@@ -89,7 +89,7 @@ namespace EarTrumpet.UI.Controls
 
                             if (path.Contains(",-"))
                             {
-                                path = path.Remove(path.LastIndexOf(",-"));
+                                path = path.Remove(path.LastIndexOf(",-", StringComparison.Ordinal));
                             }
                             return LoadShellIcon(path, isDesktopApp, (int)(Width * scale), (int)(Height * scale));
                         }

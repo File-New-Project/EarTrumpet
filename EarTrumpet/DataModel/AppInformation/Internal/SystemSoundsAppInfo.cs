@@ -8,7 +8,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
     class SystemSoundsAppInfo : IAppInfo
     {
         public event Action<IAppInfo> Stopped { add { } remove { } }
-        public uint BackgroundColor => 0x000000;
+        public static uint BackgroundColor => 0x000000;
         public string ExeName => "*SystemSounds";
         public string DisplayName => null;
         public string PackageInstallPath => "System.SystemSoundsSession";
@@ -32,7 +32,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             if (Environment.OSVersion.IsAtLeast(OSVersions.RS3))
             {
                 if (Kernel32.IsWow64Process2(Process.GetCurrentProcess().Handle,
-                    out Kernel32.IMAGE_FILE_MACHINE processMachine,
+                    out Kernel32.IMAGE_FILE_MACHINE _,
                     out Kernel32.IMAGE_FILE_MACHINE nativeMachine))
                 {
                     is64bit =

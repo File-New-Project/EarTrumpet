@@ -212,7 +212,7 @@ namespace EarTrumpet.UI.Views
             // Note: Enable when in Opening as well as Open in case we get a theme change during a show cycle.
             if (_viewModel.State == FlyoutViewState.Opening || _viewModel.State == FlyoutViewState.Open)
             {
-                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.Current.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags(taskbar));
+                AccentPolicyLibrary.EnableAcrylic(this, Themes.Manager.ResolveRef(this, "AcrylicColor_Flyout"), GetAccentFlags(taskbar));
             }
             else
             {
@@ -221,25 +221,21 @@ namespace EarTrumpet.UI.Views
             }
         }
 
-        private User32.AccentFlags GetAccentFlags(WindowsTaskbar.State taskbar)
+        private static User32.AccentFlags GetAccentFlags(WindowsTaskbar.State taskbar)
         {
             if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
             {
                 return User32.AccentFlags.DrawAllBorders;
             }
 
-            switch (taskbar.Location)
+            return taskbar.Location switch
             {
-                case WindowsTaskbar.Position.Left:
-                    return User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder;
-                case WindowsTaskbar.Position.Right:
-                    return User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder;
-                case WindowsTaskbar.Position.Top:
-                    return User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder;
-                case WindowsTaskbar.Position.Bottom:
-                    return User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder;
-            }
-            return User32.AccentFlags.None;
+                WindowsTaskbar.Position.Left => User32.AccentFlags.DrawRightBorder | User32.AccentFlags.DrawTopBorder,
+                WindowsTaskbar.Position.Right => User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawTopBorder,
+                WindowsTaskbar.Position.Top => User32.AccentFlags.DrawLeftBorder | User32.AccentFlags.DrawBottomBorder,
+                WindowsTaskbar.Position.Bottom => User32.AccentFlags.DrawTopBorder | User32.AccentFlags.DrawLeftBorder,
+                _ => User32.AccentFlags.None,
+            };
         }
     }
 }

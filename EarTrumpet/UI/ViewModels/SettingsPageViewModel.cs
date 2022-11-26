@@ -53,7 +53,7 @@ namespace EarTrumpet.UI.ViewModels
             Header = new SettingsPageHeaderViewModel(this);
         }
 
-        public void NavigatedTo()
+        public static void NavigatedTo()
         {
 
         }
