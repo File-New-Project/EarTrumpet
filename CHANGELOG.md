@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0.0
+- Migrated EarTrumpet from .NET Framework 4.x to .NET 6.0
+- Dropped support for end-of-life versions of Windows 10
+
 ## 2.2.1.0
 - Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled
 - Fixed appearance of flyout on Windows 10 with light mode enabled (thanks @xmha97)

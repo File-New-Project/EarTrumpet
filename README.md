@@ -55,12 +55,7 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 * [Change Log](./CHANGELOG.md)
 
 ## Supported operating systems
-- Windows 10 1809 (October 2018 Update)
-- Windows 10 1903 (May 2019 Update)
-- Windows 10 1909 (November 2019 Update)
-- Windows 10 2004 (May 2020 Update)
-- Windows 10 20H2 (October 2020 Update)
-- Windows 10 21H1 (May 2021 Update)
+- Windows 10 Enterprise LTSC 2021
 - Windows 10 21H2 (November 2021 Update)
 - Windows 11
 
