@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace EarTrumpet.Interop.Helpers
 {
@@ -69,7 +70,8 @@ namespace EarTrumpet.Interop.Helpers
 
                         if ((rawInput.mouse.usFlags & User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE) == User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE)
                         {
-                            cursorPosition = System.Windows.Forms.Cursor.Position;
+                            cursorPosition.X = rawInput.mouse.lLastX / 65535 * Screen.PrimaryScreen.Bounds.Width;
+                            cursorPosition.Y = rawInput.mouse.lLastY / 65535 * Screen.PrimaryScreen.Bounds.Height;
                         }
                         else
                         {
