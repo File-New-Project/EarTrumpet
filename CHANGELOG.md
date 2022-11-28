@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.2.0
+- Fixed an issue with the volume changing when scrolling in certain scenarios (e.g. virtual reality)
+- Updated Japanese translations
+- Cleaned up old language resources
+
 ## 2.2.1.0
 - Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled
 - Fixed appearance of flyout on Windows 10 with light mode enabled (thanks @xmha97)
