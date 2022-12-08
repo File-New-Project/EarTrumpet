@@ -8,7 +8,7 @@ namespace EarTrumpet.Diagnosis
 {
     class CircularBufferTraceListener : TraceListener
     {
-        private const int MAX_LOG_LINES = 800;
+        private const int MAX_LOG_LINES = 2000;
         private readonly ConcurrentQueue<string> _log = new ConcurrentQueue<string>();
         private readonly DefaultTraceListener _defaultListener = new DefaultTraceListener();
 
