@@ -24,6 +24,10 @@
 >
 > &mdash; [Windows Central (Jun 19, 2018)](https://www.windowscentral.com/eartrumpet-review-best-audio-control-app-windows)
 
+## Sponsors
+
+<!-- sponsors --><!-- sponsors -->
+
 ## Features
 
 * Visualize audio with multi-channel aware peaking
