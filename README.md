@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/CodesAlpha"><img src="https://github.com/CodesAlpha.png" width="60px" alt="" /></a><!-- sponsors -->
 
 ## Features
 
