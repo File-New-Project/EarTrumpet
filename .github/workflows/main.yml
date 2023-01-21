@@ -19,8 +19,51 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 jobs:
+  precheck:
+    name: Precheck
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Hash sources
+        id: hash
+        run: echo "sha=${{ hashFiles(
+            '!.github/**',
+            '!*.md',
+            '**/*'
+            )}}" >> $GITHUB_OUTPUT
+
+      - name: Check cache for usable artifacts (AppInstaller)
+        uses: actions/cache/restore@v3
+        id: appinstaller
+        env:
+          artifact-name: sideload
+        with:
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
+
+      - name: Check cache for usable artifacts (Store)
+        uses: actions/cache/restore@v3
+        id: store
+        env:
+          artifact-name: appxupload
+        with:
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
+
+      - name: Check cache for usable artifacts (AppInstaller)
+        uses: actions/cache/restore@v3
+        id: chocolatey
+        env:
+          artifact-name: chocolatey
+        with:
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
+
   build:
     name: Build
+    needs: precheck
     env:
       build-platform: x86
       build-configuration: Release
@@ -35,6 +78,10 @@ jobs:
             publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
           - channel: Chocolatey
             publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+        exclude:
+          - channel: ${{ needs.precheck.steps.appinstaller.outputs.cache-hit && 'AppInstaller' || '' }}
+          - channel: ${{ needs.precheck.steps.store.outputs.cache-hit && 'Store' || '' }}
+          - channel: ${{ needs.precheck.steps.chocolatey.outputs.cache-hit && 'Chocolatey' || '' }}
       max-parallel: 3
     steps:
       - name: Checkout
@@ -138,7 +185,7 @@ jobs:
         env:
           artifact-name: appxupload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Build EarTrumpet
@@ -152,7 +199,7 @@ jobs:
         env:
           artifact-name: appxupload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Build EarTrumpet appinstaller/sideload package
@@ -177,7 +224,7 @@ jobs:
         env:
           artifact-name: sideload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Fix up PDPs
@@ -205,7 +252,7 @@ jobs:
         env:
           artifact-name: metadata
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Stage chocolatey packaging metadata
@@ -219,6 +266,79 @@ jobs:
         env:
           artifact-name: chocolatey
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ github.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
   
+  pkg-choco:
+    name: Package (Choco)
+    needs: build
+    runs-on: windows-latest
+    env:
+      AZURE_TENANT_ID: ${{ secrets.azure_tenant_id }}
+      AZURE_CLIENT_ID: ${{ secrets.azure_client_id }}
+      AZURE_CLIENT_SECRET: ${{ secrets.azure_client_secret }}
+      artifacts-base: '.\.artifacts'
+    steps:
+      - name: Retrieve artifact
+        uses: actions/cache@v3
+        env:
+          artifact-name: chocolatey
+        with:
+          name: ${{ env.artifact-name }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          path: ${{ env.artifacts-base }}/${{ env.artifact-name }}
+
+      - name: Install NuGet
+        uses: NuGet/setup-nuget@v1
+        with:
+          nuget-version: latest
+          
+      - name: Install Chocolatey
+        if: matrix.channel == 'Chocolatey'
+        shell: powershell
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+      - name: Sign files with Azure Code Signing
+        uses: azure/azure-code-signing-action@v0.2.15
+        with:
+          azure-tenant-id: ${{ secrets.azure_tenant_id }}
+          azure-client-id: ${{ secrets.azure_client_id }}
+          azure-client-secret: ${{ secrets.azure_client_secret }}
+          endpoint: ${{ secrets.acs_endpoint }}
+          code-signing-account-name: ${{ secrets.acs_account_name }}
+          certificate-profile-name: ${{ secrets.acs_certificate_profile_name }}
+          files-folder: ${{ env.artifacts-base }}\loose
+          files-folder-filter: exe,dll
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Repackage chocolatey artifacts
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "$env:artifacts-base\loose\*" -DestinationPath "$env:artifacts-base\chocolatey\tools\release.zip" -CompressionLevel Optimal
+
+      - name: Adjust nuspec
+        shell: pwsh
+        run: |
+          $MetadataPath = "$env:artifacts-base\metadata"
+          $Version = [Version](Get-Content "$MetadataPath\Chocolatey.version.txt")
+          $NuspecPath = "$env:artifacts-base\chocolatey\eartrumpet.nuspec"
+
+          $nuspec = [xml](Get-Content -Path $NuspecPath)
+          $nuspec.package.metadata.version = $Version
+          $nuspec.Save($NuspecPath)
+
+      - name: Create chocolatey package
+        shell: powershell
+        run: |
+          choco pack "$env:artifacts-base\chocolatey\eartrumpet.nuspec" --out "$env:artifacts-base\chocolatey"
+
+      - name: Upload chocolatey artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: chocolatey-package
+          path: artifacts/chocolatey/*.nupkg
