@@ -143,6 +143,7 @@ namespace EarTrumpet.Interop
         {
             MOUSE_MOVE_RELATIVE = 0,
             MOUSE_MOVE_ABSOLUTE = 1,
+            MOUSE_VIRTUAL_DESKTOP = 2,
             // ...
         }
 
@@ -300,7 +301,9 @@ namespace EarTrumpet.Interop
             SM_CXICON = 11,
             SM_CYICON = 12,
             SM_CXSMICON = 49,
-            SM_CYSMICON = 50
+            SM_CYSMICON = 50,
+            SM_CXVIRTUALSCREEN = 78,
+            SM_CYVIRTUALSCREEN = 79,
             // ...
         }
 
