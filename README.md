@@ -1,8 +1,14 @@
 # EarTrumpet
 
-[![GitHub issues](https://img.shields.io/github/issues/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/issues) [![GitHub forks](https://img.shields.io/github/forks/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/network) [![GitHub stars](https://img.shields.io/github/stars/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/stargazers) [![GitHub license](https://img.shields.io/github/license/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE) [![Nuget package](https://img.shields.io/chocolatey/v/eartrumpet?style=flat-square)](https://chocolatey.org/packages/eartrumpet) ![Maintenance status](https://img.shields.io/maintenance/yes/2022?style=flat-square)
+[![GitHub issues](https://img.shields.io/github/issues/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/issues) [![GitHub forks](https://img.shields.io/github/forks/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/network) [![GitHub stars](https://img.shields.io/github/stars/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/stargazers) [![GitHub license](https://img.shields.io/github/license/File-New-Project/EarTrumpet?style=flat-square)](https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE) [![Nuget package](https://img.shields.io/chocolatey/v/eartrumpet?style=flat-square)](https://chocolatey.org/packages/eartrumpet) ![Maintenance status](https://img.shields.io/maintenance/yes/2023?style=flat-square)
 
 ![EarTrumpet Screenshot](./Graphics/hero.gif)
+
+
+## Awards
+
+2022 Winner of the [Microsoft Store Community Choice Awards](https://blogs.windows.com/windowsdeveloper/2022/05/27/announcing-the-microsoft-store-app-awards-winners/#:~:text=open%20platform%20category) (Open Platform)
+> Windows is an open platform for innovation. We know that not every customer uses Windows in the same way — some want to modify different parts of the UI or make some features more accessible for them. These are the apps you said turn Windows into your Windows.
 
 ## Media coverage
 
@@ -17,6 +23,10 @@
 > If you want fine-tuned control of your app and system volume, EarTrumpet is a must.
 >
 > &mdash; [Windows Central (Jun 19, 2018)](https://www.windowscentral.com/eartrumpet-review-best-audio-control-app-windows)
+
+## Sponsors
+
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/CodesAlpha"><img src="https://github.com/CodesAlpha.png" width="60px" alt="" /></a><a href="https://github.com/mattnovelli"><img src="https://github.com/mattnovelli.png" width="60px" alt="Matthew Novelli" /></a><!-- sponsors -->
 
 ## Features
 
@@ -59,12 +69,12 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 21H2 (November 2021 Update)
 - Windows 11
 
-## Known issues
-- SoundCloud audio cannot be adjusted ([#178](https://github.com/File-New-Project/EarTrumpet/issues/178))
-- Error: Windows cannot find "[...] EarTrumpet.exe". Make sure you typed the name correctly, and then try again ([#274](https://github.com/File-New-Project/EarTrumpet/issues/274))
-
 ## Credits
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
 - Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
+
+## Special thanks
+
+"[Horn](https://thenounproject.com/icon/horn-125731/)" icon by Artjom Korman from [the Noun Project](https://thenounproject.com/)
