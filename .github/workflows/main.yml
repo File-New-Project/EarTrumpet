@@ -18,6 +18,7 @@ on:
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
+
 jobs:
   precheck:
     name: Precheck
@@ -40,7 +41,7 @@ jobs:
         env:
           artifact-name: sideload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Check cache for usable artifacts (Store)
@@ -49,7 +50,7 @@ jobs:
         env:
           artifact-name: appxupload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Check cache for usable artifacts (AppInstaller)
@@ -58,7 +59,7 @@ jobs:
         env:
           artifact-name: chocolatey
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
   build:
@@ -185,7 +186,7 @@ jobs:
         env:
           artifact-name: appxupload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Build EarTrumpet
@@ -199,7 +200,7 @@ jobs:
         env:
           artifact-name: appxupload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Build EarTrumpet appinstaller/sideload package
@@ -224,7 +225,7 @@ jobs:
         env:
           artifact-name: sideload
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Fix up PDPs
@@ -252,7 +253,7 @@ jobs:
         env:
           artifact-name: metadata
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
 
       - name: Stage chocolatey packaging metadata
@@ -266,7 +267,7 @@ jobs:
         env:
           artifact-name: chocolatey
         with:
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.runner_temp }}\artifacts\${{ env.artifact-name }}
   
   pkg-choco:
@@ -285,7 +286,7 @@ jobs:
           artifact-name: chocolatey
         with:
           name: ${{ env.artifact-name }}
-          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.sha }}
+          key: ${{ runner.os }}-build-artifacts-${{ env.artifact-name }}-${{ needs.precheck.steps.hash.outputs.sha }}
           path: ${{ env.artifacts-base }}/${{ env.artifact-name }}
 
       - name: Install NuGet
