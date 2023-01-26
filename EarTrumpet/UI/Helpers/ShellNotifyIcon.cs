@@ -263,7 +263,6 @@ namespace EarTrumpet.UI.Helpers
                 IconSource.OnMouseOverChanged(IsMouseOver);
             }
 
-            Trace.WriteLine($"IsCursorWithinNotifyIconBounds {isInBounds}");
             return isInBounds;
         }
 

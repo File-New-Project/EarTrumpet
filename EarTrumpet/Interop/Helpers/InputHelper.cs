@@ -67,7 +67,6 @@ namespace EarTrumpet.Interop.Helpers
                     if (rawInput.header.dwType == User32.RIM_TYPEMOUSE)
                     {
                         isApplicableMouseMessage = true;
-                        Trace.WriteLine($"ProcessMouseInputMessage cursorPosition=>{cursorPosition} (before update)");
 
                         if (rawInput.mouse.usFlags.HasFlag(User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE))
                         {
@@ -91,8 +90,6 @@ namespace EarTrumpet.Interop.Helpers
                             cursorPosition.X += rawInput.mouse.lLastX;
                             cursorPosition.Y += rawInput.mouse.lLastY;
                         }
-
-                        Trace.WriteLine($"ProcessMouseInputMessage cursorPosition=>{cursorPosition} (after update)");
 
                         if ((rawInput.mouse.usButtonFlags & User32.RI_MOUSE_WHEEL) == User32.RI_MOUSE_WHEEL)
                         {
