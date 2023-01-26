@@ -164,16 +164,20 @@ namespace EarTrumpet.UI.Helpers
             {
                 ScheduleDelayedIconInvalidation();
             }
-            else if (msg.Msg == User32.WM_INPUT &&
-                    InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out int wheelDelta) &&
-                    IsCursorWithinNotifyIconBounds() && wheelDelta != 0)
+            else if (msg.Msg == User32.WM_INPUT)
             {
-                Scrolled?.Invoke(this, wheelDelta);
+                _cursorPosition = System.Windows.Forms.Cursor.Position;
+                if (InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out int wheelDelta) &&
+                                IsCursorWithinNotifyIconBounds() && wheelDelta != 0)
+                {
+                    Scrolled?.Invoke(this, wheelDelta);
+                }
             }
         }
 
         private void CallbackMsgWndProc(System.Windows.Forms.Message msg)
         {
+            Trace.WriteLine($"CallbackMsgWndProc {msg.LParam}");
             switch ((int)msg.LParam)
             {
                 case (int)Shell32.NotifyIconNotification.NIN_SELECT:

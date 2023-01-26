@@ -296,4 +296,352 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>障害データをEarTrumpet チームに送信する</value>
   </data>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>かつ</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>動作を追加</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>条件を追加</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>ホットキーと自動化の設定</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>発動条件を追加</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>アプリセッションの追加、削除、音声再生の開始時...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} 上 {App} {Option}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>追加時</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>ミュート時</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>再生中の音声の停止時</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>音声の再生時</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>削除された時</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>ミュート解除時</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>追加時</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>既定になった時</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>既定でなくなった時</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>削除時</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>が</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>が以下ではない</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>かつ</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>フィルターの追加はなくても構いませんが、設定すればより複雑な動作が可能です。動作の実行前に、すべての条件が「はい」になる必要があります。</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>高度なフィルター</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>この動作の右クリックメニュー項目を使用</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>この動作の右クリックメニュー項目を使用</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>既定の再生デバイスか、そうでないか</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} 既定のデバイス</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>既定の再生デバイス</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>オーディオデバイスの追加、削除、既定に設定された時...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>終了時</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>開始時</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet 動作用 XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet の開始または終了時</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>すべてのアプリ</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>作成した動作をファイルに保存する。</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>前面のアプリ</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>ホットキー入力時</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(ホットキーを選択)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} 入力時</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>インポートとエクスポート</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>動作をファイルから復元する。</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>ミュート</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>ミュートのオン・オフ</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>ミュート解除</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>新しい動作</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(任意)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>再生</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>プロセス実行中か、そうでないか</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(プロセス名を入力)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>{Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>プロセス名 (例 notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>開始時</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>終了時</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>が実行中ではない</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>が実行中</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>プロセスの開始または終了時</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(プロセス名を入力)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>{Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>プロセス名 (例 notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>録音</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(必須)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>アプリのミュートまたはミュート解除</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Device} 上 {Option} {App}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>アプリの音量を設定</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Device} 上 {Option} {App} の音量を {Volume} へ</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} volume by {Volume} on {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>既定の再生デバイスを設定</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>{Device}を既定の再生デバイスに設定</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>デバイスのミュートまたはミュート解除</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Device} 上 {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>デバイスの音量を設定</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} の音量を {Volume} へ</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} volume by {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>ローカル変数を設定</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(変数名の設定)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>変数 {Text} を {Option} に設定</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>変数名を入力 (例 isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>減少</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>増加</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>タイミング</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>ローカル変数が「はい」または「いいえ」</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(変数名を入力)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>変数 {Text} が {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>変数名を入力 (例 isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>デバイスを選択</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>アプリを選択</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>この操作を削除しますか ?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>保存せず移動しますか ?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>移動する</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>この操作を削除</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>この操作は元に戻せません。</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>操作の削除</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>上記のアプリが、最近、音声を再生しました。</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>すべてのデバイスの音量を下げる</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>すべてのデバイスの音量を上げる</value>
+  </data>
 </root>
