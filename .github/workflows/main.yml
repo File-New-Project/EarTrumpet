@@ -193,6 +193,10 @@ jobs:
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
           $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.appxbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
+
+          $fragment = [xml]'<AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"><Dependencies><Package Name="Microsoft.VCLibs.140.00" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.30704.0" ProcessorArchitecture="x86" Uri="https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" /></Dependencies></AppInstaller>'
+          $manifest.AppInstaller.InsertAfter($manifest.ImportNode($fragment.AppInstaller.Dependencies, $true), $manifest.AppInstaller.MainBundle)
+
           $manifest.Save($manifestPath)
 
       - name: Upload appinstaller/sideload package artifacts
