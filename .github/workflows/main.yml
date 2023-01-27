@@ -198,6 +198,7 @@ jobs:
           $manifest.AppInstaller.InsertAfter($manifest.ImportNode($fragment.AppInstaller.Dependencies, $true), $manifest.AppInstaller.MainBundle)
 
           $manifest.Save($manifestPath)
+          $manifest.InnerXml
 
       - name: Upload appinstaller/sideload package artifacts
         if:
