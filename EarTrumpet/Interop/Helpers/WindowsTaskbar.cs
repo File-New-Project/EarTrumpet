@@ -13,6 +13,11 @@ namespace EarTrumpet.Interop.Helpers
             public RECT Size;
             public Screen ContainingScreen;
             public bool IsAutoHideEnabled;
+
+            public bool IsHorizontal
+            {
+                get { return Location == Position.Bottom || Location == Position.Top; }
+            }
         }
 
         // Must match AppBarEdge enum
@@ -74,6 +79,6 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
-        private static IntPtr GetHwnd() => User32.FindWindow("Shell_TrayWnd", null);
+        public static IntPtr GetHwnd() => User32.FindWindow("Shell_TrayWnd", null);
     }
 }
