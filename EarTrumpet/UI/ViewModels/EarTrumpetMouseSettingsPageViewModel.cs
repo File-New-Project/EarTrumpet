@@ -4,6 +4,12 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class EarTrumpetMouseSettingsPageViewModel : SettingsPageViewModel
     {
+        public bool UseScrollWheelInTray
+        {
+            get => _settings.UseScrollWheelInTray;
+            set => _settings.UseScrollWheelInTray = value;
+        }
+
         public bool UseGlobalMouseWheelHook
         {
             get => _settings.UseGlobalMouseWheelHook;

@@ -117,7 +117,7 @@ namespace EarTrumpet
 
         private void trayIconScrolled(object _, int wheelDelta)
         {
-            if (!_settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden)
+            if (_settings.UseScrollWheelInTray && (!_settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
             {
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
