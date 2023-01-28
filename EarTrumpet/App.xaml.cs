@@ -3,6 +3,7 @@ using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -108,7 +109,14 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.Scrolled += (_, wheelDelta) =>
+            {
+                CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+
+                IntPtr hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
+                IntPtr hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
+                User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+            };
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
