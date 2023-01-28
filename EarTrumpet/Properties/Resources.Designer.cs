@@ -927,6 +927,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App volume and device preferences.
+        /// </summary>
+        public static string OpenAppsVolume_Windows10_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows10_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume mixer.
+        /// </summary>
+        public static string OpenAppsVolume_Windows11_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows11_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound settings.
         /// </summary>
         public static string OpenSoundSettingsText {
@@ -1314,7 +1332,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Absolute Volume Down.
+        ///   Looks up a localized string similar to Decrease volume for all devices.
         /// </summary>
         public static string SettingsAbsoluteVolumeDownText {
             get {
@@ -1323,7 +1341,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Absolute Volume Up.
+        ///   Looks up a localized string similar to Increase volume for all devices.
         /// </summary>
         public static string SettingsAbsoluteVolumeUpText {
             get {
@@ -1332,7 +1350,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar à General.
+        ///   Looks up a localized string similar to General.
         /// </summary>
         public static string SettingsCategoryTitle {
             get {

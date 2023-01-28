@@ -192,6 +192,10 @@ namespace EarTrumpet
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.RecordingDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("recording")) },
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("sounds")) },
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.OpenSoundSettingsText, Command = new RelayCommand(() => SettingsPageHelper.Open("sound")) },
+                            new ContextMenuItem {
+                                DisplayName = Environment.OSVersion.IsAtLeast(OSVersions.Windows11) ?
+                                    EarTrumpet.Properties.Resources.OpenAppsVolume_Windows11_Text
+                                    : EarTrumpet.Properties.Resources.OpenAppsVolume_Windows10_Text, Command = new RelayCommand(() => SettingsPageHelper.Open("apps-volume")) },
                         },
                     },
                     new ContextMenuSeparator(),
