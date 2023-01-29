@@ -178,33 +178,29 @@ namespace EarTrumpet.UI.Views
                 flyoutHeight = workingAreaHeight;
             }
 
+            double top = 0;
+            double left = 0;
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
-                              adjustedWorkingAreaLeft,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight;
+                    left = adjustedWorkingAreaLeft;
                     break;
                 case WindowsTaskbar.Position.Right:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
-                              adjustedWorkingAreaRight - flyoutWidth,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight;
+                    left = adjustedWorkingAreaRight - flyoutWidth;
                     break;
                 case WindowsTaskbar.Position.Top:
-                    this.SetWindowPos(adjustedWorkingAreaTop + xOffset,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaTop + xOffset;
+                    left = FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset;
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight - yOffset,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight - yOffset;
+                    left = FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset;
                     break;
             }
+            this.SetWindowPos(top, left, flyoutHeight, flyoutWidth);
+            _viewModel.UpdateWindowPos(top, left, flyoutHeight, flyoutWidth);
         }
 
         private void EnableAcrylicIfApplicable(WindowsTaskbar.State taskbar)

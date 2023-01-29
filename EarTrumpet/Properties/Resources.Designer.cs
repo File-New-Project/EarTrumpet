@@ -684,6 +684,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mouse settings.
+        /// </summary>
+        public static string MouseSettingsPageText {
+            get {
+                return ResourceManager.GetString("MouseSettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find a setting.
         /// </summary>
         public static string FindASettingText {
@@ -1404,6 +1413,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while the flyout is open.
+        /// </summary>
+        public static string SettingsUseGlobalMouseWheelHook {
+            get {
+                return ResourceManager.GetString("SettingsUseGlobalMouseWheelHook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
         /// </summary>
         public static string SettingsUseLegacyEarTrumpetIcon {
@@ -1411,6 +1429,15 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
+        /// </summary>
+        public static string SettingsUseScrollWheelInTray {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInTray", resourceCulture);
+            }
+        }        
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.
