@@ -127,10 +127,10 @@
     <value>Enviar comentaris</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mesclador de volum EarTrumpet</value>
+    <value>Mesclador de volum</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mesclador de volum tradicional</value>
+    <value>Mesclador de volum</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Sembla que no tens dispositius de reproducció.</value>
@@ -172,7 +172,7 @@
     <value>"Silenciat - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Aplicacións</value>
+    <value>Aplicacions</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Tancar</value>
