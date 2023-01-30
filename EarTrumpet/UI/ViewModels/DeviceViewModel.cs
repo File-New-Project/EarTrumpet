@@ -2,6 +2,7 @@
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,16 @@ namespace EarTrumpet.UI.ViewModels
 {
     public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     {
+        public class DisplayNameComparer : IComparer<DeviceViewModel>
+        {
+            public int Compare(DeviceViewModel one, DeviceViewModel two)
+            {
+                return string.Compare(one.DisplayName, two.DisplayName, StringComparison.Ordinal);
+            }
+        }
+
+        public static readonly DisplayNameComparer CompareByDisplayName = new DisplayNameComparer();
+
         public enum DeviceIconKind
         {
             Mute,
