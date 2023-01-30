@@ -4,6 +4,7 @@
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
 - Added setting to turn on/off ability to change volume with the scroll wheel when hovering over the EarTrumpet icon (thanks @Tester798!)
 - Added legacy shortcuts to the context menu pointing to [App volume and device preferences] / [Volume mixer]
+- Added ability to use the Windows key in shortcuts (thanks @iamevn!)
 - Fixed an issue where installation of EarTrumpet via AppInstaller would fail if the Visual C++ libs package was not installed
 - Improved the flyout animation (thanks @krlvm!)
 
