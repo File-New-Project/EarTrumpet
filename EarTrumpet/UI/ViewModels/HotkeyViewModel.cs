@@ -80,6 +80,11 @@ namespace EarTrumpet.UI.ViewModels
                     _hotkey.Modifiers |= System.Windows.Forms.Keys.Alt;
                 }
 
+                if (Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin))
+                {
+                    _hotkey.Modifiers |= System.Windows.Forms.Keys.LWin;
+                }
+
                 if (key == Key.LeftShift || key == Key.RightShift ||
                     key == Key.LeftAlt || key == Key.RightAlt ||
                     key == Key.LeftCtrl || key == Key.RightCtrl ||
