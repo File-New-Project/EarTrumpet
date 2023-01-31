@@ -644,4 +644,10 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Aumentar volumen para todos los dispositivos</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Volumen de la aplicación y preferencias del dispositivo</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mezclador de volumen</value>
+  </data>
 </root>

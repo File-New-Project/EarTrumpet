@@ -650,4 +650,13 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
     <value>Volume mixer</value>
   </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Mouse settings</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Use the scroll wheel to change volume while hovering over the EarTrumpet icon</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Use the scroll wheel to change volume while the flyout is open</value>
+  </data>
 </root>

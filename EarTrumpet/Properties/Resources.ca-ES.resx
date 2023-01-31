@@ -127,10 +127,10 @@
     <value>Enviar comentaris</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mesclador de volum EarTrumpet</value>
+    <value>Mesclador de volum</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mesclador de volum tradicional</value>
+    <value>Mesclador de volum</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Sembla que no tens dispositius de reproducció.</value>
@@ -172,7 +172,7 @@
     <value>"Silenciat - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>Aplicacións</value>
+    <value>Aplicacions</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
     <value>Tancar</value>
@@ -295,8 +295,6 @@ Accedir a [https://eartrumpet.app/jmp/fixfonts] ara?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Enviar informació d'errors a l'equip de EarTrumpet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>i</value>
   </data>
@@ -638,5 +636,17 @@ Accedir a [https://eartrumpet.app/jmp/fixfonts] ara?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Les aplicacions mostrades a sobre han reproduït so recentment.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Disminueix el volum per a tots els dispositius</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Augmenta el volum per a tots els dispositius</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Volum de l'aplicació i preferències del dispositiu</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mesclador de volum</value>
   </data>
 </root>
