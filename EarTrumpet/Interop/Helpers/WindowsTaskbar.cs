@@ -80,5 +80,23 @@ namespace EarTrumpet.Interop.Helpers
         }
 
         public static IntPtr GetHwnd() => User32.FindWindow("Shell_TrayWnd", null);
+
+        public static IntPtr GetTrayToolbarWindowHwnd()
+        {
+            IntPtr hWnd = GetHwnd();
+            if (hWnd != IntPtr.Zero)
+            {
+                hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "TrayNotifyWnd", IntPtr.Zero);
+                if (hWnd != IntPtr.Zero)
+                {
+                    hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "SysPager", IntPtr.Zero);
+                    if (hWnd != IntPtr.Zero)
+                    {
+                        hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "ToolbarWindow32", IntPtr.Zero);
+                    }
+                }
+            }
+            return hWnd;
+        }
     }
 }
