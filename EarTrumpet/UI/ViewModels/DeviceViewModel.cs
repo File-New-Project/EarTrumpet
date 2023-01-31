@@ -15,7 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         {
             public int Compare(DeviceViewModel one, DeviceViewModel two)
             {
-                return string.Compare(one.DisplayName, two.DisplayName, StringComparison.Ordinal);
+                return string.Compare(one.DisplayName, two.DisplayName, StringComparison.CurrentCultureIgnoreCase);
             }
         }
 
