@@ -644,4 +644,19 @@
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Увеличить громкость для всех устройств</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Параметры устройств и громкости приложений</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Микшер громкости</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Параметры мыши</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Использовать колесо прокрутки для изменения громкости при наведении на иконку EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Использовать колесо прокрутки для изменения громкости при открытом всплывающем окне</value>
+  </data>
 </root>
