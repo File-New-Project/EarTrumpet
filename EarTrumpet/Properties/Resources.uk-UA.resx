@@ -650,4 +650,13 @@
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
     <value>Мікшер гучності</value>
   </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Параметри миші</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Використовувати колесо прокрутки для зміни гучності при наведенні на значок EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Використовувати колесо прокрутки для зміни гучності при активному випадаючому вікні</value>
+  </data>
 </root>
