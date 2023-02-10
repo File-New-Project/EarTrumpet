@@ -649,4 +649,13 @@ Accedir a [https://eartrumpet.app/jmp/fixfonts] ara?</value>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
     <value>Mesclador de volum</value>
   </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Configuració del ratolí</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Utilitzeu la roda de desplaçament per canviar el volum mentre passeu el cursor per sobre de la icona EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Utilitzeu la roda de desplaçament per canviar el volum mentre el control flotant està obert</value>
+  </data>
 </root>
