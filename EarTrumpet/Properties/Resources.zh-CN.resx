@@ -654,9 +654,9 @@
     <value>鼠标设置</value>
   </data>
   <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
-    <value>鼠标指针放在 EarTrumpet 图标上，滚动滚轮，调节音量</value>
+    <value>鼠标指针悬停在 EarTrumpet 图标上时，使用滚轮调节音量</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
-    <value>浮出控件弹出时，滚动滚轮，调节音量</value>
+    <value>浮出控件打开时，使用滚轮调节音量</value>
   </data>
 </root>
