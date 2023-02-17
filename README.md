@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/mattnovelli"><img src="https://github.com/mattnovelli.png" width="60px" alt="Matthew Novelli" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><!-- sponsors -->
 
 ## Features
 
