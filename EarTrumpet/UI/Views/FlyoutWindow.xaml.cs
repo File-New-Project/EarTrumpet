@@ -65,14 +65,14 @@ namespace EarTrumpet.UI.Views
 
                 case FlyoutViewState.Closing_Stage1:
                     DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();
-
+                
                     if (_viewModel.IsExpandingOrCollapsing)
                     {
                         WindowAnimationLibrary.BeginFlyoutExitanimation(this, () =>
                         {
                             this.Cloak();
                             AccentPolicyLibrary.DisableAcrylic(this);
-
+                
                             // Go directly to ViewState.Hidden to avoid the stage 2 hide delay (debounce for tray clicks),
                             // we want to show again immediately.
                             _viewModel.ChangeState(FlyoutViewState.Hidden);
@@ -83,7 +83,7 @@ namespace EarTrumpet.UI.Views
                         // No animation for normal exit.
                         this.Cloak();
                         AccentPolicyLibrary.DisableAcrylic(this);
-
+                
                         // Prevent de-queueing partially on show and showing stale adnorners.
                         this.WaitForKeyboardVisuals(() =>
                         {
@@ -178,33 +178,29 @@ namespace EarTrumpet.UI.Views
                 flyoutHeight = workingAreaHeight;
             }
 
+            double top = 0;
+            double left = 0;
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
-                              adjustedWorkingAreaLeft,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight;
+                    left = adjustedWorkingAreaLeft;
                     break;
                 case WindowsTaskbar.Position.Right:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight,
-                              adjustedWorkingAreaRight - flyoutWidth,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight;
+                    left = adjustedWorkingAreaRight - flyoutWidth;
                     break;
                 case WindowsTaskbar.Position.Top:
-                    this.SetWindowPos(adjustedWorkingAreaTop + xOffset,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaTop + xOffset;
+                    left = FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset;
                     break;
                 case WindowsTaskbar.Position.Bottom:
-                    this.SetWindowPos(adjustedWorkingAreaBottom - flyoutHeight - yOffset,
-                              FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset,
-                              flyoutHeight,
-                              flyoutWidth);
+                    top = adjustedWorkingAreaBottom - flyoutHeight - yOffset;
+                    left = FlowDirection == FlowDirection.LeftToRight ? adjustedWorkingAreaRight - flyoutWidth - xOffset : adjustedWorkingAreaLeft + xOffset;
                     break;
             }
+            this.SetWindowPos(top, left, flyoutHeight, flyoutWidth);
+            _viewModel.UpdateWindowPos(top, left, flyoutHeight, flyoutWidth);
         }
 
         private void EnableAcrylicIfApplicable(WindowsTaskbar.State taskbar)

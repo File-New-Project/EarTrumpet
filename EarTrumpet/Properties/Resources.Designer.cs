@@ -684,6 +684,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mouse settings.
+        /// </summary>
+        public static string MouseSettingsPageText {
+            get {
+                return ResourceManager.GetString("MouseSettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find a setting.
         /// </summary>
         public static string FindASettingText {
@@ -923,6 +932,24 @@ namespace EarTrumpet.Properties {
         public static string NoDeviceTrayText {
             get {
                 return ResourceManager.GetString("NoDeviceTrayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App volume and device preferences.
+        /// </summary>
+        public static string OpenAppsVolume_Windows10_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows10_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume mixer.
+        /// </summary>
+        public static string OpenAppsVolume_Windows11_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows11_Text", resourceCulture);
             }
         }
         
@@ -1314,7 +1341,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Absolute Volume Down.
+        ///   Looks up a localized string similar to Decrease volume for all devices.
         /// </summary>
         public static string SettingsAbsoluteVolumeDownText {
             get {
@@ -1323,7 +1350,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Absolute Volume Up.
+        ///   Looks up a localized string similar to Increase volume for all devices.
         /// </summary>
         public static string SettingsAbsoluteVolumeUpText {
             get {
@@ -1332,7 +1359,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar à General.
+        ///   Looks up a localized string similar to General.
         /// </summary>
         public static string SettingsCategoryTitle {
             get {
@@ -1386,6 +1413,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while the flyout is open.
+        /// </summary>
+        public static string SettingsUseGlobalMouseWheelHook {
+            get {
+                return ResourceManager.GetString("SettingsUseGlobalMouseWheelHook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
         /// </summary>
         public static string SettingsUseLegacyEarTrumpetIcon {
@@ -1393,6 +1429,15 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
+        /// </summary>
+        public static string SettingsUseScrollWheelInTray {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInTray", resourceCulture);
+            }
+        }        
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.

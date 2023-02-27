@@ -12,5 +12,6 @@ namespace EarTrumpet.UI.ViewModels
         event EventHandler<object> WindowSizeInvalidated;
 
         void ChangeState(FlyoutViewState state);
+        void UpdateWindowPos(double top, double left, double height, double width);
     }
 }

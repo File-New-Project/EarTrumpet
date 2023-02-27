@@ -3,6 +3,7 @@ using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -108,11 +109,23 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += (_, wheelDelta) => CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            _trayIcon.Scrolled += trayIconScrolled;
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+        }
+
+        private void trayIconScrolled(object _, int wheelDelta)
+        {
+            if (_settings.UseScrollWheelInTray && (!_settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
+            {
+                var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
+                var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
+                User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+                
+                CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            }
         }
 
         private void DisplayFirstRunExperience()
@@ -192,6 +205,10 @@ namespace EarTrumpet
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.RecordingDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("recording")) },
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("sounds")) },
                             new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.OpenSoundSettingsText, Command = new RelayCommand(() => SettingsPageHelper.Open("sound")) },
+                            new ContextMenuItem {
+                                DisplayName = Environment.OSVersion.IsAtLeast(OSVersions.Windows11) ?
+                                    EarTrumpet.Properties.Resources.OpenAppsVolume_Windows11_Text
+                                    : EarTrumpet.Properties.Resources.OpenAppsVolume_Windows10_Text, Command = new RelayCommand(() => SettingsPageHelper.Open("apps-volume")) },
                         },
                     },
                     new ContextMenuSeparator(),
@@ -223,6 +240,7 @@ namespace EarTrumpet
                 new SettingsPageViewModel[]
                     {
                         new EarTrumpetShortcutsPageViewModel(_settings),
+                        new EarTrumpetMouseSettingsPageViewModel(_settings),
                         new EarTrumpetLegacySettingsPageViewModel(_settings),
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), _settings)
                     });
