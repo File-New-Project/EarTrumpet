@@ -34,14 +34,12 @@ jobs:
         include:
           - channel: AppInstaller
             publisher:
-              "CN=File-New-Project, O=File-New-Project, L=Purcellville,
-              S=Virginia, C=US"
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
           - channel: Store
             publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
           - channel: Chocolatey
             publisher:
-              "CN=File-New-Project, O=File-New-Project, L=Purcellville,
-              S=Virginia, C=US"
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
       max-parallel: 3
     steps:
       - name: Checkout
@@ -282,14 +280,6 @@ jobs:
           Invoke-WebRequest $env:ACS_PACKAGE_URI -UseBasicParsing -OutFile package.zip
           Expand-Archive package.zip -DestinationPath acs
           Invoke-WebRequest $env:ACS_METADATA_URI -UseBasicParsing -OutFile acs\metadata.json
-
-      - name: Install Chocolatey
-        if: matrix.channel == 'Chocolatey'
-        shell: powershell
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
       - name: Sign and repackage Store artifacts
         if: matrix.channel == 'Store'
