@@ -6,6 +6,7 @@
 - Added legacy shortcuts to the context menu pointing to [App volume and device preferences] / [Volume mixer]
 - Added ability to use the Windows key in shortcuts (thanks @iamevn!)
 - Added linguistic display name sorting for audio devices (thanks @Tester798!)
+- Added a workaround for Windows Search (CortanaUI) showing a default asset (X) icon
 - Fixed an issue where installation of EarTrumpet via AppInstaller would fail if the Visual C++ libs package was not installed
 - Fixed an issue where EarTrumpet tooltips were not updating live while scrolling the mouse wheel on Windows 10 (thanks @krlvm!)
 - Forced EarTrumpet to render in software-only mode to keep it off power hungry GPUs.
