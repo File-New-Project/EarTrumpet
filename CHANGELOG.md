@@ -8,6 +8,7 @@
 - Added linguistic display name sorting for audio devices (thanks @Tester798!)
 - Fixed an issue where installation of EarTrumpet via AppInstaller would fail if the Visual C++ libs package was not installed
 - Fixed an issue where EarTrumpet tooltips were not updating live while scrolling the mouse wheel on Windows 10 (thanks @krlvm!)
+- Forced EarTrumpet to render in software-only mode to keep it off power hungry GPUs.
 - Improved the flyout animation (thanks @krlvm!)
 
 ## 2.2.2.0
