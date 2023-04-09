@@ -118,545 +118,545 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Esci</value>
+    <value>Ieșire</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>Nessun dispositivo di riproduzione disponibile</value>
+    <value>Nu au fost găsite dispozitive de redare</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
-    <value>Invia feedback</value>
+    <value>Trimiteți feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Mixer de volum</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Mixer de volum</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
-    <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
+    <value>Se pare că nu ai nici un dispozitiv de redare.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>EarTrumpet: Nessun dispositivo di riproduzione</value>
+    <value>EarTrumpet: Nu există dispozitive de redare</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
-    <value>Dispositivi di riproduzione</value>
+    <value>Dispozitive de redare</value>
   </data>
   <data name="RecordingDevicesText" xml:space="preserve">
-    <value>Dispositivi di registrazione</value>
+    <value>Dispozitive de înregistrare</value>
   </data>
   <data name="SettingsWindowText" xml:space="preserve">
-    <value>Impostazioni</value>
+    <value>Setări</value>
   </data>
   <data name="SoundsControlPanelText" xml:space="preserve">
-    <value>Suoni</value>
+    <value>Sunete</value>
   </data>
   <data name="TroubleshootEarTrumpetText" xml:space="preserve">
-    <value>Raccogli dati per la risoluzione dei problemi</value>
+    <value>Colectează date de depanare</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>Scorciatoia</value>
+    <value>Comandă rapidă</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
-    <value>Usa sempre il dispositivo di riproduzione predefinito</value>
+    <value>Folosește întotdeauna dispozitivul de redare implicit</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>Info</value>
+    <value>Despre</value>
   </data>
   <data name="WebsiteText" xml:space="preserve">
-    <value>Scopri di più</value>
+    <value>Află mai multe</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume}% volume - {Name}"</value>
+    <value>"{Volume}% volum - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
-    <value>Audio Disattivato - {Name}</value>
+    <value>"Amuțit - {Name}"</value>
   </data>
   <data name="AppsListAccessibleText" xml:space="preserve">
-    <value>App</value>
+    <value>Aplicaţii</value>
   </data>
   <data name="CloseButtonAccessibleText" xml:space="preserve">
-    <value>Chiudi</value>
+    <value>Închide</value>
   </data>
   <data name="CollapseAccessibleText" xml:space="preserve">
-    <value>Riduci per mostrare solamente il dispositivo di riproduzione predefinito</value>
+    <value>Restrânge pentru a afișa doar dispozitivul implicit de redare</value>
   </data>
   <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
-    <value>Scorciatoia predefinita</value>
+    <value>Comanda rapidă implicită</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>Espandi per mostrare tutti i dispositivi di riproduzione</value>
+    <value>Extinde pentru a arăta toate dispozitivele de redare</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
-    <value>Generale</value>
+    <value>General</value>
   </data>
   <data name="MoveButtonAccessibleText" xml:space="preserve">
-    <value>Assegna questa app a un dispositivo di riproduzione</value>
+    <value>Atribuie această aplicație unui dispozitiv de redare</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>Apri riquadro a comparsa nella barra delle applicazioni</value>
+    <value>Deschide bara de activități</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
-    <value>Usa l'icona classica di EarTrumpet</value>
+    <value>Folosește pictograma veche a EarTrumpet</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>Altri comandi</value>
+    <value>Mai multe comenzi</value>
   </data>
   <data name="MutedText" xml:space="preserve">
-    <value>Muto</value>
+    <value>Amuțit</value>
   </data>
   <data name="OpenSoundSettingsText" xml:space="preserve">
-    <value>Impostazioni audio</value>
+    <value>Setări de sunet</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>Vecchio menu di Windows</value>
+    <value>Moştenire Windows</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
-    <value>Informazioni sull'add-on {Name}</value>
+    <value>Despre supliment {Name}</value>
   </data>
   <data name="AddonNameText" xml:space="preserve">
-    <value>Nome:</value>
+    <value>Nume:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>Apri Impostazioni di Windows</value>
+    <value>Deschide setările Windows</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>Questo add-on può essere rimosso dall'app Impostazioni.</value>
+    <value>Acest supliment poate fi eliminat folosind aplicația Windows Settings.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
-    <value>Disinstalla</value>
+    <value>Dezinstalează</value>
   </data>
   <data name="DefaultManagementGroupName" xml:space="preserve">
-    <value>Gestione</value>
+    <value>Administrare</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>Vecchie impostazioni</value>
+    <value>Setări vechi</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
-    <value>Pubblicato da:</value>
+    <value>Producător:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Configura le scorciatoie e ottieni aiuto</value>
+    <value>Configurați comenzi rapide și obțineți ajutor</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Impostazioni EarTrumpet</value>
+    <value>Setări EarTrumpet</value>
   </data>
   <data name="ShortcutsPageText" xml:space="preserve">
-    <value>Scorciatoie</value>
+    <value>Comenzi rapide</value>
   </data>
   <data name="VersionText" xml:space="preserve">
-    <value>Versione:</value>
+    <value>Versiune:</value>
   </data>
   <data name="FindASettingText" xml:space="preserve">
-    <value>Cerca nelle impostazioni</value>
+    <value>Găseşte o setare</value>
   </data>
   <data name="SearchBoxNoResultsText" xml:space="preserve">
-    <value>Nessun risultato</value>
+    <value>Nici un rezultat</value>
   </data>
   <data name="SettingsOpenMixerText" xml:space="preserve">
-    <value>Apri Mixer</value>
+    <value>Deschide Mixer</value>
   </data>
   <data name="ToggleSwitchOffText" xml:space="preserve">
-    <value>Disattivato</value>
+    <value>Oprit</value>
   </data>
   <data name="ToggleSwitchOnText" xml:space="preserve">
-    <value>Attivato</value>
+    <value>Pornit</value>
   </data>
   <data name="HomeButtonText" xml:space="preserve">
-    <value>Home</value>
+    <value>Acasă</value>
   </data>
   <data name="ProjectADescription" xml:space="preserve">
-    <value>In arrivo</value>
+    <value>În curând</value>
   </data>
   <data name="ProjectATitle" xml:space="preserve">
-    <value>In arrivo</value>
+    <value>În curând</value>
   </data>
   <data name="SettingsOpenSettingsText" xml:space="preserve">
-    <value>Apri impostazioni</value>
+    <value>Deschide setările</value>
   </data>
   <data name="CloseButtonText" xml:space="preserve">
-    <value>Chiudi</value>
+    <value>Închide</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>Benvenuto su EarTrumpet</value>
+    <value>Bine ai venit la EarTrumpet</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
-    <value>Avvio di EarTrumpet non riuscito</value>
+    <value>EarTrumpet nu a putut porni</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>Un font corrotto nel tuo sistema impedisce l'avvio di EarTrumpet.
+    <value>Font-ul stricat din sistemul tău împiedică Pornirea EarTrumpet-ului.
 
-Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
+Deschide [https://eartrumpet.app/jmp/fixfonts] acum?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
-    <value>Attiva/disattiva muto</value>
+    <value>Activează/dezactivează mute</value>
   </data>
   <data name="PrivacyPolicyText" xml:space="preserve">
-    <value>Informativa sulla privacy</value>
+    <value>Politica de confidențialitate</value>
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
-    <value>Invia i dati sugli arresti anomali al team EarTrumpet</value>
+    <value>Trimite datele de eroare echipei EarTrumpet</value>
   </data>
   <data name="ActionAdditionalText" xml:space="preserve">
-    <value>e</value>
+    <value>şi</value>
   </data>
   <data name="ActionVerbText" xml:space="preserve">
-    <value>Azioni</value>
+    <value>Acționează</value>
   </data>
   <data name="AddActionText" xml:space="preserve">
-    <value>Aggiungi azione</value>
+    <value>Adaugă acţiune</value>
   </data>
   <data name="AddConditionText" xml:space="preserve">
-    <value>Aggiungi condizione</value>
+    <value>Adauga conditie</value>
   </data>
   <data name="AddonDescriptionText" xml:space="preserve">
-    <value>Configura le scorciatoie da tastiera e l'automazione</value>
+    <value>Configurați tastele rapide și automatizarea</value>
   </data>
   <data name="AddTriggerText" xml:space="preserve">
-    <value>Aggiungi trigger</value>
+    <value>Adăugare declanșator</value>
   </data>
   <data name="AppEventTrigger_AddText" xml:space="preserve">
-    <value>Una sessione di un'applicazione viene aggiunta, rimossa, riproduce un suono, ...</value>
+    <value>O sesiune de aplicații este adăugată, eliminată, începe redarea sunetului, ...</value>
   </data>
   <data name="AppEventTrigger_LinkText" xml:space="preserve">
-    <value>{App} {Option} su {Device}</value>
+    <value>{App} {Option} pe {Device}</value>
   </data>
   <data name="AudioAppEventKind_Added" xml:space="preserve">
-    <value>è aggiunto</value>
+    <value>se adaugă</value>
   </data>
   <data name="AudioAppEventKind_Muted" xml:space="preserve">
-    <value>è silenziato</value>
+    <value>este amuțit</value>
   </data>
   <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
-    <value>smette di riprodurre un suono</value>
+    <value>oprește redarea sunetului</value>
   </data>
   <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
-    <value>inizia a riprodurre un suono</value>
+    <value>începe redarea sunetului</value>
   </data>
   <data name="AudioAppEventKind_Removed" xml:space="preserve">
-    <value>è rimosso</value>
+    <value>se elimină</value>
   </data>
   <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
-    <value>non è più silenziato</value>
+    <value>este neamuțit</value>
   </data>
   <data name="AudioDeviceEventKind_Added" xml:space="preserve">
-    <value>è aggiunto</value>
+    <value>se adaugă</value>
   </data>
   <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
-    <value>diventa il valore predefinito</value>
+    <value>devine implicit</value>
   </data>
   <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
-    <value>non è più il valore predefinito</value>
+    <value>părăsește implicit</value>
   </data>
   <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
-    <value>è rimosso</value>
+    <value>se elimină</value>
   </data>
   <data name="BoolValue_False" xml:space="preserve">
-    <value>falso</value>
+    <value>fals</value>
   </data>
   <data name="BoolValue_True" xml:space="preserve">
-    <value>vero</value>
+    <value>adevărat</value>
   </data>
   <data name="ComparisonBoolKind_Is" xml:space="preserve">
-    <value>è</value>
+    <value>este</value>
   </data>
   <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
-    <value>non è</value>
+    <value>nu este</value>
   </data>
   <data name="ConditionAdditionalText" xml:space="preserve">
-    <value>e</value>
+    <value>şi</value>
   </data>
   <data name="ConditionsHelpText" xml:space="preserve">
-    <value>Configurare un filtro è opzionale, ma permette di costruire azioni più avanzate. Tutte le condizioni devono essere verificate prima che le azioni siano realizzate.</value>
+    <value>Configurarea unui filtru este opțională, dar vă permite să construiți acțiuni mai avansate. Toate condițiile trebuie să fie adevărate înainte ca acțiunile să fie efectuate.</value>
   </data>
   <data name="ConditionVerbText" xml:space="preserve">
-    <value>Filtro avanzato</value>
+    <value>Filtru avansat</value>
   </data>
   <data name="ContextMenuTrigger_AddText" xml:space="preserve">
-    <value>Uso la voce di questa azione dal menu contestuale</value>
+    <value>Folosesc acest element din meniul contextual al acţiunii</value>
   </data>
   <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
-    <value>Uso la voce di questa azione dal menu contestuale</value>
+    <value>Folosesc acest element din meniul contextual al acţiunii</value>
   </data>
   <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
-    <value>Se il dispositivo di riproduzione predefinito è o non è</value>
+    <value>Dacă dispozitivul de redare implicit este sau nu</value>
   </data>
   <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
-    <value>{Device} {Option} il dispositivo predefinito</value>
+    <value>{Device} {Option} dispozitivul implicit</value>
   </data>
   <data name="DefaultPlaybackDeviceText" xml:space="preserve">
-    <value>Dispositivo di riproduzione predefinito</value>
+    <value>Dispozitiv de redare implicit</value>
   </data>
   <data name="DeviceEventTrigger_AddText" xml:space="preserve">
-    <value>Un dispositivo audio viene aggiunto, rimosso, impostato come predefinito, ...</value>
+    <value>Un dispozitiv audio este adăugat, eliminat, setat ca implicit, ...</value>
   </data>
   <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
     <value>{Device} {Option}</value>
   </data>
   <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
-    <value>termina</value>
+    <value>se termină</value>
   </data>
   <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
-    <value>inizia</value>
+    <value>începe</value>
   </data>
   <data name="EditText" xml:space="preserve">
-    <value>Modifica</value>
+    <value>Editează</value>
   </data>
   <data name="EtaXmlFileText" xml:space="preserve">
-    <value>Azioni XML di EarTrumpet</value>
+    <value>Acțiuni EarTrumpet XML</value>
   </data>
   <data name="EventTrigger_AddText" xml:space="preserve">
-    <value>EarTrumpet si avvia o si arresta</value>
+    <value>EarTrumpet începe sau se termină</value>
   </data>
   <data name="EventTrigger_LinkText" xml:space="preserve">
     <value> EarTrumpet {Option}</value>
   </data>
   <data name="EveryAppText" xml:space="preserve">
-    <value>Tutte le app</value>
+    <value>Orice aplicație</value>
   </data>
   <data name="ExportHeaderText" xml:space="preserve">
-    <value>Esporta</value>
+    <value>Exportă</value>
   </data>
   <data name="ExportHelpText" xml:space="preserve">
-    <value>Salva una copia delle tue azioni in un file.</value>
+    <value>Salvați o copie a acțiunilor dvs. într-un fișier.</value>
   </data>
   <data name="ForegroundAppText" xml:space="preserve">
-    <value>Applicazione in primo piano</value>
+    <value>Aplicația din prim-plan</value>
   </data>
   <data name="HotkeyTrigger_AddText" xml:space="preserve">
-    <value>Viene digitata una scorciatoia da tastiera</value>
+    <value>S-a tastat o tastă rapidă</value>
   </data>
   <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
-    <value>(scegli una scorciatoia)</value>
+    <value>(alegeți o tastă rapidă)</value>
   </data>
   <data name="HotkeyTrigger_LinkText" xml:space="preserve">
-    <value>{Hotkey} viene digitato</value>
+    <value>{Hotkey} este tastată</value>
   </data>
   <data name="ImportAndExportTitle" xml:space="preserve">
-    <value>Importa e esporta</value>
+    <value>Import și export</value>
   </data>
   <data name="ImportHeaderText" xml:space="preserve">
-    <value>Importa</value>
+    <value>Importați</value>
   </data>
   <data name="ImportHelpText" xml:space="preserve">
-    <value>Ripristina una copia delle tue azioni da un file.</value>
+    <value>Restaurați o copie a acțiunilor dvs. dintr-un fișier.</value>
   </data>
   <data name="MuteKind_Mute" xml:space="preserve">
-    <value>Disattiva l'audio</value>
+    <value>Dezactivează sunet</value>
   </data>
   <data name="MuteKind_ToggleMute" xml:space="preserve">
-    <value>Attiva/disattiva l'audio</value>
+    <value>Activează/dezactivează sunetul</value>
   </data>
   <data name="MuteKind_Unmute" xml:space="preserve">
-    <value>Attiva l'audio</value>
+    <value>Activați sunetul</value>
   </data>
   <data name="MyActionsText" xml:space="preserve">
-    <value>Azioni</value>
+    <value>Acțiuni</value>
   </data>
   <data name="NewActionText" xml:space="preserve">
-    <value>Nuova azione</value>
+    <value>Acțiune nouă</value>
   </data>
   <data name="OptionalText" xml:space="preserve">
-    <value>(facoltativo)</value>
+    <value>(opțional)</value>
   </data>
   <data name="PlaybackDeviceGroupText" xml:space="preserve">
-    <value>Riproduzione</value>
+    <value>Redare</value>
   </data>
   <data name="ProcessCondition_AddText" xml:space="preserve">
-    <value>Se un processo è o non è in esecuzione</value>
+    <value>Dacă un proces se execută sau nu</value>
   </data>
   <data name="ProcessCondition_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di un processo)</value>
+    <value>(introduceți un nume de proces)</value>
   </data>
   <data name="ProcessCondition_LinkText" xml:space="preserve">
-    <value>Quando {Text} {Option}</value>
+    <value>Când {Text} {Option}</value>
   </data>
   <data name="ProcessCondition_PromptText" xml:space="preserve">
-    <value>Nome del processo (ad esempio: notepad)</value>
+    <value>Nume proces (de ex. notepad)</value>
   </data>
   <data name="ProcessEventKind_Start" xml:space="preserve">
-    <value>viene avviato</value>
+    <value>pornește</value>
   </data>
   <data name="ProcessEventKind_Stop" xml:space="preserve">
-    <value>viene terminato</value>
+    <value>se oprește</value>
   </data>
   <data name="ProcessStateKind_NotRunning" xml:space="preserve">
-    <value>non è in esecuzione</value>
+    <value>nu rulează</value>
   </data>
   <data name="ProcessStateKind_Running" xml:space="preserve">
-    <value>è in esecuzione</value>
+    <value>se execută</value>
   </data>
   <data name="ProcessTrigger_AddText" xml:space="preserve">
-    <value>Un processo si avvia o termina</value>
+    <value>Un proces pornește sau se oprește</value>
   </data>
   <data name="ProcessTrigger_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di un processo)</value>
+    <value>(introduceți un nume de proces)</value>
   </data>
   <data name="ProcessTrigger_LinkText" xml:space="preserve">
-    <value>Quando {Text} {Option}</value>
+    <value>Când {Text} {Option}</value>
   </data>
   <data name="ProcessTrigger_PromptText" xml:space="preserve">
-    <value>Nome del processo (ad esempio: notepad)</value>
+    <value>Nume proces (de ex. notepad)</value>
   </data>
   <data name="RecordingDeviceGroupText" xml:space="preserve">
-    <value>Registrazione</value>
+    <value>Se înregistrează</value>
   </data>
   <data name="RemoveText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Eliminare</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
-    <value>(necessario)</value>
+    <value>(obligatoriu)</value>
   </data>
   <data name="SetAppMuteAction_AddText" xml:space="preserve">
-    <value>Attiva o disattiva il suono di un'applicazione</value>
+    <value>Dezactivați sau activați sunetul unei aplicații</value>
   </data>
   <data name="SetAppMuteAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} su {Device}</value>
+    <value>{Option} {App} pe {Device}</value>
   </data>
   <data name="SetAppVolumeAction_AddText" xml:space="preserve">
-    <value>Imposta il volume di un'applicazione</value>
+    <value>Setați volumul unei aplicații</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} il volume di {App} a {Volume} su {Device}</value>
+    <value>{Option} {App} volum la {Volume} pe {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} il volume di {App} di {Volume} su {Device}</value>
+    <value>{Option} {App} volum de {Volume} pe {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
-    <value>Imposta il dispositivo di riproduzione predefinito</value>
+    <value>Setați dispozitivul implicit de redare</value>
   </data>
   <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
-    <value>Imposta {Device} come dispositivo di riproduzione predefinito</value>
+    <value>Setează {Device} ca implicit pentru redare</value>
   </data>
   <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
-    <value>Attiva o disattiva il suono di un dispositivo</value>
+    <value>Dezactivați sau activați sunetul unui dispozitiv</value>
   </data>
   <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
     <value>{Option} {Device}</value>
   </data>
   <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
-    <value>{Option} su {Device}</value>
+    <value>{Option} pe {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
-    <value>Imposta il volume di un dispositivo</value>
+    <value>Setaţi volumul dispozitivului</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} al {Volume}</value>
+    <value>{Option} {Device} volum la {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} del {Volume}</value>
+    <value>{Option} {Device} volum de {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
-    <value>Imposta una variabile locale</value>
+    <value>Setaţi o variabilă locală</value>
   </data>
   <data name="SetVariableAction_EmptyText" xml:space="preserve">
-    <value>(imposta il nome della variabile)</value>
+    <value>(setează numele variabilei)</value>
   </data>
   <data name="SetVariableAction_LinkText" xml:space="preserve">
-    <value>Imposta la variabile {Text} come {Option}</value>
+    <value>Setează variabila {Text} la {Option}</value>
   </data>
   <data name="SetVariableAction_PromptText" xml:space="preserve">
-    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+    <value>Introduceți un nume de variabilă (de ex. isInGameMode)</value>
   </data>
   <data name="SetVolumeKind_Decrement" xml:space="preserve">
-    <value>Decrementa</value>
+    <value>Decrementare</value>
   </data>
   <data name="SetVolumeKind_Increment" xml:space="preserve">
-    <value>Incrementa</value>
+    <value>Incrementare</value>
   </data>
   <data name="SetVolumeKind_Set" xml:space="preserve">
-    <value>Imposta</value>
+    <value>Setează</value>
   </data>
   <data name="TriggerAdditionalText" xml:space="preserve">
-    <value>o</value>
+    <value>sau</value>
   </data>
   <data name="TriggerVerbText" xml:space="preserve">
-    <value>Quando</value>
+    <value>Când</value>
   </data>
   <data name="VariableCondition_AddText" xml:space="preserve">
-    <value>Se una variabile locale è vera o falsa</value>
+    <value>Dacă o variabilă locală este adevărată sau falsă</value>
   </data>
   <data name="VariableCondition_EmptyText" xml:space="preserve">
-    <value>(inserisci il nome di una variabile)</value>
+    <value>(introduceți un nume de variabilă)</value>
   </data>
   <data name="VariableCondition_LinkText" xml:space="preserve">
-    <value>La variabile {Text} è {Option}</value>
+    <value>Variabila {Text} este {Option}</value>
   </data>
   <data name="VariableCondition_PromptText" xml:space="preserve">
-    <value>Inserisci un nome di variabile (ad esempio: modalitàGiocoAttiva)</value>
+    <value>Introduceți un nume de variabilă (de ex. isInGameMode)</value>
   </data>
   <data name="ToolbarDeleteText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Ștergere</value>
   </data>
   <data name="ToolbarEditText" xml:space="preserve">
-    <value>Modifica</value>
+    <value>Editare</value>
   </data>
   <data name="ToolbarSaveText" xml:space="preserve">
-    <value>Salva</value>
+    <value>Salvare</value>
   </data>
   <data name="ChooseADeviceTitle" xml:space="preserve">
-    <value>Scegli un dispositivo</value>
+    <value>Alegeți un dispozitiv</value>
   </data>
   <data name="ChooseAnAppTitle" xml:space="preserve">
-    <value>Scegli un'applicazione</value>
+    <value>Alegeţi o aplicație</value>
   </data>
   <data name="DeleteActionDialogNoText" xml:space="preserve">
-    <value>Annulla</value>
+    <value>Anulare</value>
   </data>
   <data name="DeleteActionDialogText" xml:space="preserve">
-    <value>Eliminare questa azione?</value>
+    <value>Ștergeți această acțiune?</value>
   </data>
   <data name="DeleteActionDialogTitle" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Ștergere</value>
   </data>
   <data name="DeleteActionDialogYesText" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Ștergere</value>
   </data>
   <data name="LeavingPageDialogNoText" xml:space="preserve">
-    <value>Annulla</value>
+    <value>Anulare</value>
   </data>
   <data name="LeavingPageDialogText" xml:space="preserve">
-    <value>Uscire senza salvare?</value>
+    <value>Ieșiți fără a salva?</value>
   </data>
   <data name="LeavingPageDialogTitle" xml:space="preserve">
-    <value>Salvataggio</value>
+    <value>Salvare</value>
   </data>
   <data name="LeavingPageDialogYesText" xml:space="preserve">
-    <value>Esci</value>
+    <value>Ieșire</value>
   </data>
   <data name="RemoveActionButtonText" xml:space="preserve">
-    <value>Elimina questa azione</value>
+    <value>Eliminați această acțiune</value>
   </data>
   <data name="RemoveActionDescriptionText" xml:space="preserve">
-    <value>Questo non può essere annullato.</value>
+    <value>Această acțiune nu poate fi anulată.</value>
   </data>
   <data name="RemoveActionHeadingText" xml:space="preserve">
-    <value>Elimina azione</value>
+    <value>Eliminați această acțiune</value>
   </data>
   <data name="RemoveButtonAccessibleName" xml:space="preserve">
-    <value>Elimina</value>
+    <value>Eliminare</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
-    <value>Le applicazioni mostrate sopra hanno riprodotto un suono di recente.</value>
+    <value>Aplicaţiile de mai sus au difuzat sunet recent.</value>
   </data>
   <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
-    <value>Diminuisci il volume per tutti i dispositivi</value>
+    <value>Scădere volum pentru toate dispozitivele</value>
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
-    <value>Aumenta il volume per tutti i dispositivi</value>
+    <value>Mărește volumul pentru toate dispozitivele</value>
   </data>
   <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
-    <value>Preferenze del volume dell'app e del dispositivo</value>
+    <value>Volum aplicație și preferințe dispozitiv</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Mixer de volum</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
-    <value>Impostazioni mouse</value>
+    <value>Setări mouse</value>
   </data>
   <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
-    <value>Usa la rotella di scorrimento per cambiare volume al passaggio sull'icona di EarTrumpet</value>
+    <value>Utilizați rotița de derulare pentru a schimba volumul în timp ce planați peste pictograma EarTrumpet</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
-    <value>Usa la rotella di scorrimento per cambiare il volume mentre il riquadro a comparsa è aperto</value>
+    <value>Utilizați rotița de derulare pentru a schimba volumul cât timp este deschis flyout-ul</value>
   </data>
 </root>
