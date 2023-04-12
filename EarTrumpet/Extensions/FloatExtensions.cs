@@ -4,7 +4,7 @@ namespace EarTrumpet.Extensions
 {
     public static class FloatExtensions
     {
-        private const float CURVE_FACTOR = 6.908f;
+        private const float CURVE_FACTOR = 5.757f;
 
         public static int ToVolumeInt(this float val)
         {
