@@ -159,6 +159,12 @@ namespace EarTrumpet
             set => _settings.Set("IsTelemetryEnabled", value);
         }
 
+        public bool UseLogarithmicVolume
+        {
+            get => _settings.Get("UseLogarithmicVolume", false);
+            set => _settings.Set("UseLogarithmicVolume", value);
+        }
+
         private bool IsTelemetryEnabledByDefault()
         {
             // Discussion on what to include:

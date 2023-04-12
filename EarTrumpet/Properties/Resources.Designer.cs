@@ -376,6 +376,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community settings.
+        /// </summary>
+        public static string CommunitySettingsPageText {
+            get {
+                return ResourceManager.GetString("CommunitySettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is.
         /// </summary>
         public static string ComparisonBoolKind_Is {
@@ -684,15 +693,6 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mouse settings.
-        /// </summary>
-        public static string MouseSettingsPageText {
-            get {
-                return ResourceManager.GetString("MouseSettingsPageText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Find a setting.
         /// </summary>
         public static string FindASettingText {
@@ -851,6 +851,15 @@ namespace EarTrumpet.Properties {
         public static string MoreCommandsAccessibleText {
             get {
                 return ResourceManager.GetString("MoreCommandsAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse settings.
+        /// </summary>
+        public static string MouseSettingsPageText {
+            get {
+                return ResourceManager.GetString("MouseSettingsPageText", resourceCulture);
             }
         }
         
@@ -1431,13 +1440,22 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use logarithmic volume scale.
+        /// </summary>
+        public static string SettingsUseLogarithmicVolume {
+            get {
+                return ResourceManager.GetString("SettingsUseLogarithmicVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
         /// </summary>
         public static string SettingsUseScrollWheelInTray {
             get {
                 return ResourceManager.GetString("SettingsUseScrollWheelInTray", resourceCulture);
             }
-        }        
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Settings.

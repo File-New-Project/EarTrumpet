@@ -39,7 +39,7 @@ namespace EarTrumpet
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
-        private AppSettings _settings;
+        public static AppSettings Settings { get; private set; }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
         {
@@ -51,8 +51,8 @@ namespace EarTrumpet
             PackageVersion = PackageHelper.GetVersion(HasIdentity);
             PackageName = PackageHelper.GetFamilyName(HasIdentity);
 
-            _settings = new AppSettings();
-            _errorReporter = new ErrorReporter(_settings);
+            Settings = new AppSettings();
+            _errorReporter = new ErrorReporter(Settings);
 
             if (SingleInstanceAppMutex.TakeExclusivity())
             {
@@ -80,13 +80,13 @@ namespace EarTrumpet
 
             var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             deviceManager.Loaded += (_, __) => CompleteStartup();
-            CollectionViewModel = new DeviceCollectionViewModel(deviceManager, _settings);
+            CollectionViewModel = new DeviceCollectionViewModel(deviceManager, Settings);
 
-            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, _settings));
+            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
             CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
-            _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), _settings);
+            _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
             FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
@@ -103,12 +103,12 @@ namespace EarTrumpet
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
 
-            _settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
-            _settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
-            _settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
-            _settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
-            _settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
-            _settings.RegisterHotkeys();
+            Settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+            Settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
+            Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
+            Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
+            Settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
+            Settings.RegisterHotkeys();
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
@@ -122,7 +122,7 @@ namespace EarTrumpet
 
         private void trayIconScrolled(object _, int wheelDelta)
         {
-            if (_settings.UseScrollWheelInTray && (!_settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
+            if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
             {
                 var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
                 var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
@@ -134,16 +134,16 @@ namespace EarTrumpet
 
         private void DisplayFirstRunExperience()
         {
-            if (!_settings.HasShownFirstRun
+            if (!Settings.HasShownFirstRun
 #if DEBUG
                 || Keyboard.IsKeyDown(Key.LeftCtrl)
 #endif
                 )
             {
                 Trace.WriteLine($"App DisplayFirstRunExperience Showing welcome dialog");
-                _settings.HasShownFirstRun = true;
+                Settings.HasShownFirstRun = true;
 
-                var dialog = new DialogWindow { DataContext = new WelcomeViewModel(_settings) };
+                var dialog = new DialogWindow { DataContext = new WelcomeViewModel(Settings) };
                 dialog.Show();
                 dialog.RaiseWindow();
             }
@@ -243,10 +243,11 @@ namespace EarTrumpet
                 null,
                 new SettingsPageViewModel[]
                     {
-                        new EarTrumpetShortcutsPageViewModel(_settings),
-                        new EarTrumpetMouseSettingsPageViewModel(_settings),
-                        new EarTrumpetLegacySettingsPageViewModel(_settings),
-                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), _settings)
+                        new EarTrumpetShortcutsPageViewModel(Settings),
+                        new EarTrumpetMouseSettingsPageViewModel(Settings),
+                        new EarTrumpetCommunitySettingsPageViewModel(Settings),
+                        new EarTrumpetLegacySettingsPageViewModel(Settings),
+                        new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), Settings)
                     });
 
             var allCategories = new List<SettingsCategoryViewModel>();
