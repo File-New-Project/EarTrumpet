@@ -659,4 +659,13 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Usar a roda do rato para alterar o volume enquanto a lista de opções estiver aberta</value>
   </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Definições da comunidade</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Usar escala de volume logarítmica</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
 </root>
