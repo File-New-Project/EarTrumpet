@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/ScaryGhostBoo"><img src="https://github.com/ScaryGhostBoo.png" width="60px" alt="" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/WhatAStoryMarc"><img src="https://github.com/WhatAStoryMarc.png" width="60px" alt="Marc" /></a><!-- sponsors -->
 
 ## Features
 
