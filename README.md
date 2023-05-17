@@ -73,6 +73,7 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 - Windows 10 20H2 (October 2020 Update)
 - Windows 10 21H1 (May 2021 Update)
 - Windows 10 21H2 (November 2021 Update)
+- Windows 10 22H2 (October 2022 Update)
 - Windows 11
 
 ## Credits
