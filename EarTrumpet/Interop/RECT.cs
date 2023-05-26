@@ -1,7 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace EarTrumpet.Interop
 {
+    [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
     {

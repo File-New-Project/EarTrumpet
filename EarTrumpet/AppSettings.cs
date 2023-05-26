@@ -3,6 +3,7 @@ using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using static EarTrumpet.Interop.User32;
 
 namespace EarTrumpet
 {
@@ -163,6 +164,18 @@ namespace EarTrumpet
         {
             get => _settings.Get("UseLogarithmicVolume", false);
             set => _settings.Set("UseLogarithmicVolume", value);
+        }
+
+        public WINDOWPLACEMENT? FullMixerWindowPlacement
+        {
+            get => _settings.Get("FullMixerWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("FullMixerWindowPlacement", value);
+        }
+
+        public WINDOWPLACEMENT? SettingsWindowPlacement
+        {
+            get => _settings.Get("SettingsWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("SettingsWindowPlacement", value);
         }
 
         private bool IsTelemetryEnabledByDefault()

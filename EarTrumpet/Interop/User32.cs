@@ -218,6 +218,26 @@ namespace EarTrumpet.Interop
             // ...
         }
 
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPLACEMENT
+        {
+            public uint length;
+            public uint flags;
+            public uint showCmd;
+            public POINT ptMinPosition;
+            public POINT ptMaxPosition;
+            public RECT rcNormalPosition;
+        }
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int x;
+            public int y;
+        }
+
         [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool RegisterRawInputDevices(
@@ -371,5 +391,17 @@ namespace EarTrumpet.Interop
             int nCode,
             IntPtr wParam,
             IntPtr lParam);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPlacement(
+            IntPtr hWnd,
+            in WINDOWPLACEMENT lpwndpl);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(
+            IntPtr hWnd,
+            out WINDOWPLACEMENT lpwndpl);
     }
 }
