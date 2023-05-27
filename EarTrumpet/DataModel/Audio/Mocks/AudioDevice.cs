@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.DataModel.WindowsAudio.Internal;
+using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,9 +42,18 @@ namespace EarTrumpet.DataModel.Audio.Mocks
         private float _volume = 1;
         public float Volume
         {
-            get => _volume;
+            get
+            {
+                return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
+            }
+
             set
             {
+                if (App.Settings.UseLogarithmicVolume)
+                {
+                    value = value.ToLogVolume();
+                }
+
                 if (_volume != value)
                 {
                     _volume = value;

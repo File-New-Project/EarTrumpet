@@ -3,6 +3,7 @@ using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using static EarTrumpet.Interop.User32;
 
 namespace EarTrumpet
 {
@@ -132,6 +133,18 @@ namespace EarTrumpet
             set => _settings.Set("IsExpanded", value);
         }
 
+        public bool UseScrollWheelInTray
+        {
+            get => _settings.Get("UseScrollWheelInTray", true);
+            set => _settings.Set("UseScrollWheelInTray", value);
+        }
+
+        public bool UseGlobalMouseWheelHook
+        {
+            get => _settings.Get("UseGlobalMouseWheelHook", false);
+            set => _settings.Set("UseGlobalMouseWheelHook", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");
@@ -147,7 +160,25 @@ namespace EarTrumpet
             set => _settings.Set("IsTelemetryEnabled", value);
         }
 
-        private static bool IsTelemetryEnabledByDefault()
+        public bool UseLogarithmicVolume
+        {
+            get => _settings.Get("UseLogarithmicVolume", false);
+            set => _settings.Set("UseLogarithmicVolume", value);
+        }
+
+        public WINDOWPLACEMENT? FullMixerWindowPlacement
+        {
+            get => _settings.Get("FullMixerWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("FullMixerWindowPlacement", value);
+        }
+
+        public WINDOWPLACEMENT? SettingsWindowPlacement
+        {
+            get => _settings.Get("SettingsWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("SettingsWindowPlacement", value);
+        }
+
+        private bool IsTelemetryEnabledByDefault()
         {
             // Discussion on what to include:
             // https://gist.github.com/henrik/1688572

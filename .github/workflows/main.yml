@@ -8,15 +8,15 @@ on:
       - dave/*
       - david/*
     paths-ignore:
-      - '**/*.md'
-      - '.github/ISSUE_TEMPLATE/*'
-      - '.github/workflows/sponsors.yml'
-      - 'Graphics/*'
+      - "**/*.md"
+      - ".github/ISSUE_TEMPLATE/*"
+      - ".github/workflows/sponsors.yml"
+      - "Graphics/*"
   pull_request:
-    branches: 
+    branches:
       - dev
-    paths-ignore: 
-      - '**/*.md'
+    paths-ignore:
+      - "**/*.md"
       - crowdin.yml
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -33,28 +33,30 @@ jobs:
         channel: [AppInstaller, Store, Chocolatey]
         include:
           - channel: AppInstaller
-            publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+            publisher:
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
           - channel: Store
             publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
           - channel: Chocolatey
-            publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+            publisher:
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
       max-parallel: 3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        
+        uses: actions/checkout@v3
+
       - name: Fetch all history for all tags and branches
         run: git fetch --prune --unshallow
-        
+
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+        uses: gittools/actions/gitversion/setup@v0.9.15
         with:
-          versionSpec: '5.x'
+          versionSpec: "5.x"
           includePrerelease: false
 
       - name: Use GitVersion
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
+        uses: gittools/actions/gitversion/execute@v0.9.15
 
       - name: Create artifact layout
         shell: powershell
@@ -129,7 +131,7 @@ jobs:
             }
           }
           $storeAssociation.Save($storeAssociationPath)
-        
+
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1
           
@@ -140,7 +142,7 @@ jobs:
       
       - name: Upload msixupload artifact
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v3
         with:
           name: msixupload
           path: artifacts/msixupload
@@ -148,11 +150,15 @@ jobs:
       - name: Build EarTrumpet
         if: matrix.channel == 'Chocolatey'
         shell: cmd
-        run: msbuild EarTrumpet/EarTrumpet.csproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:Channel=${{ matrix.channel }} /p:OutputPath=%ARTIFACTS_BASE%\loose\ -maxcpucount
+        run:
+          msbuild EarTrumpet/EarTrumpet.csproj /p:Platform=%BUILD_PLATFORM%
+          /p:Configuration=%BUILD_CONFIGURATION% /p:Channel=${{ matrix.channel
+          }} /p:OutputPath=%ARTIFACTS_BASE%\loose\ -maxcpucount
 
       - name: Upload loose artifacts
-        if: matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v1.0.0
+        if:
+          matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v3
         with:
           name: loose
           path: artifacts/loose
@@ -163,7 +169,9 @@ jobs:
         run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=%BUILD_PLATFORM% /p:Configuration=%BUILD_CONFIGURATION% /p:msixbundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=%ARTIFACTS_BASE%\sideload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir=%ARTIFACTS_BASE%\sideload\ /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
 
       - name: Adjust appinstaller manifest
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
+        if:
+          matrix.channel == 'AppInstaller' && github.event_name !=
+          'pull_request'
         shell: powershell
         run: |
           $manifestPath = "$env:ARTIFACTS_BASE/sideload/EarTrumpet.Package.appinstaller"
@@ -171,11 +179,17 @@ jobs:
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
           $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86_x64_arm64.msixbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
+
+          $fragment = [xml]'<AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"><Dependencies><Package Name="Microsoft.VCLibs.140.00.UWPDesktop" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.30704.0" ProcessorArchitecture="x86" Uri="https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" /></Dependencies></AppInstaller>'
+          $manifest.AppInstaller.InsertAfter($manifest.ImportNode($fragment.AppInstaller.Dependencies, $true), $manifest.AppInstaller.MainBundle)
+
           $manifest.Save($manifestPath)
 
       - name: Upload appinstaller/sideload package artifacts
-        if: matrix.channel == 'AppInstaller' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v1.0.0
+        if:
+          matrix.channel == 'AppInstaller' && github.event_name !=
+          'pull_request'
+        uses: actions/upload-artifact@v3
         with:
           name: sideload
           path: artifacts/sideload
@@ -184,15 +198,15 @@ jobs:
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
         shell: pwsh
         run: |
-            Set-Location packaging\MicrosoftStore\PDPs
-            Get-ChildItem | ForEach-Object {
-                $locale = $_.Name
-                $pdp = [xml](Get-Content "$locale\pdp.xml")
-                $pdp.ProductDescription.language = $locale
-                $pdp.ProductDescription.lang = $locale
-                $pdp.ProductDescription
-                $pdp.Save((Resolve-Path "$locale\pdp.xml"))
-            }
+          Set-Location packaging\MicrosoftStore\PDPs
+          Get-ChildItem | ForEach-Object {
+              $locale = $_.Name
+              $pdp = [xml](Get-Content "$locale\pdp.xml")
+              $pdp.ProductDescription.language = $locale
+              $pdp.ProductDescription.lang = $locale
+              $pdp.ProductDescription
+              $pdp.Save((Resolve-Path "$locale\pdp.xml"))
+          }
 
       - name: Stage msix packaging metadata
         if: matrix.channel == 'Store' && github.event_name != 'pull_request'
@@ -201,19 +215,20 @@ jobs:
           Copy-Item packaging\ -Recurse "$env:ARTIFACTS_BASE\metadata\"
 
       - name: Upload metadata artifacts
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v3
         with:
           name: metadata
           path: artifacts/metadata
 
       - name: Stage chocolatey packaging metadata
-        if: matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
+        if:
+          matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
         shell: powershell
         run: |
           Copy-Item .chocolatey\* -Recurse "$env:ARTIFACTS_BASE\chocolatey\"
-          
+
       - name: Upload chocolatey artifacts
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v3
         with:
           name: chocolatey
           path: artifacts/chocolatey
@@ -231,7 +246,7 @@ jobs:
       AZURE_CLIENT_SECRET: ${{ secrets.azure_client_secret }}
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           path: artifacts
 
@@ -239,13 +254,13 @@ jobs:
         uses: NuGet/setup-nuget@v1
         with:
           nuget-version: latest
-          
+
       - name: Install Build Tools
         run: nuget install Microsoft.Windows.SDK.BuildTools
 
       - name: Install Azure Codesigning
         shell: pwsh
-        env: 
+        env:
           ACS_PACKAGE_URI: ${{ secrets.acs_package_uri }}
           ACS_METADATA_URI: ${{ secrets.acs_metadata_uri }}
           GITHUB_RUN_ID: ${{ github.run_id }}
@@ -372,10 +387,10 @@ jobs:
           $Branch = Get-Content "$MetadataPath\branch.txt"
           $Semver= Get-Content "$MetadataPath\semver.txt"
           $LooseFilesPath = "$env:ARTIFACTS_BASE\loose"
-          
+
           ### Sign executable image
           & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$LooseFilesPath\EarTrumpet.exe"
-          
+
           ### Package for release
           Compress-Archive -Path "$LooseFilesPath\*" -DestinationPath "$env:ARTIFACTS_BASE\chocolatey\tools\release.zip" -CompressionLevel Optimal
 
@@ -399,7 +414,7 @@ jobs:
 
       - name: Upload chocolatey artifact
         if: matrix.channel == 'Chocolatey'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: chocolatey-package
           path: artifacts/chocolatey/*.nupkg
@@ -446,8 +461,6 @@ jobs:
         run: |
           Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
           Install-Module -Name StoreBroker
-
-          $global:SBDisableTelemetry = $true
 
           $Password = ConvertTo-SecureString '${{ secrets.partnercenter_clientkey }}' -AsPlainText -Force
           $Credentials = New-Object System.Management.Automation.PSCredential ('${{ secrets.partnercenter_clientid }}', $Password)

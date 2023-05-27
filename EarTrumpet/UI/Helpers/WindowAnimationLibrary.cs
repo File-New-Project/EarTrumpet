@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Themes;
 using System;
@@ -18,11 +19,13 @@ namespace EarTrumpet.UI.Helpers
             {
                 window.Topmost = true;
                 window.Focus();
+                User32.SetForegroundWindow(window.GetHandle());
                 completed();
             });
 
             window.Topmost = false;
             window.Activate();
+            BringTaskbarToFront();
 
             if (!Manager.Current.AnimationsEnabled)
             {
@@ -33,43 +36,45 @@ namespace EarTrumpet.UI.Helpers
 
             var moveAnimation = new DoubleAnimation
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(266)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(130)),
                 FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+                EasingFunction = new QuinticEase { EasingMode = EasingMode.EaseOut }
             };
 
             var fadeAnimation = new DoubleAnimation
             {
-                Duration = new Duration(TimeSpan.FromMilliseconds(266)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(140)),
                 FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
-                From = 0.5,
+                EasingFunction = new QuinticEase { EasingMode = EasingMode.EaseOut },
+                From = 0.8,
                 To = 1
             };
             fadeAnimation.Completed += (s, e) => { window.Opacity = 1; };
             Storyboard.SetTarget(fadeAnimation, window);
             Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath(Window.OpacityProperty));
 
+            double moveAnimationTo;
             switch (taskbar.Location)
             {
                 case WindowsTaskbar.Position.Left:
-                    moveAnimation.To = window.Left;
+                    moveAnimationTo = window.Left;
                     window.Left -= _animationOffset;
                     break;
                 case WindowsTaskbar.Position.Right:
-                    moveAnimation.To = window.Left;
+                    moveAnimationTo = window.Left;
                     window.Left += _animationOffset;
                     break;
                 case WindowsTaskbar.Position.Top:
-                    moveAnimation.To = window.Top;
+                    moveAnimationTo = window.Top;
                     window.Top -= _animationOffset;
                     break;
                 case WindowsTaskbar.Position.Bottom:
                 default:
-                    moveAnimation.To = window.Top;
+                    moveAnimationTo = window.Top;
                     window.Top += _animationOffset;
                     break;
             }
+            moveAnimation.To = moveAnimationTo;
 
             if (taskbar.Location == WindowsTaskbar.Position.Left || taskbar.Location == WindowsTaskbar.Position.Right)
             {
@@ -86,7 +91,7 @@ namespace EarTrumpet.UI.Helpers
 
             if (SystemSettings.IsTransparencyEnabled)
             {
-                window.Opacity = 0.5;
+                window.Opacity = 0.8;
             }
 
             window.Cloak(false);
@@ -100,7 +105,19 @@ namespace EarTrumpet.UI.Helpers
                 storyboard.Children.Add(fadeAnimation);
             }
 
+            storyboard.Completed += (s, e) =>
+            {
+                if (taskbar.IsHorizontal)
+                {
+                    window.Top = moveAnimationTo;
+                }
+                else
+                {
+                    window.Left = moveAnimationTo;
+                }
+            };
             storyboard.Completed += onCompleted;
+
             storyboard.Begin(window);
         }
 
@@ -124,14 +141,14 @@ namespace EarTrumpet.UI.Helpers
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(150)),
                 FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut }
+                EasingFunction = new QuinticEase { EasingMode = EasingMode.EaseOut }
             };
 
             var fadeAnimation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(150)),
                 FillBehavior = FillBehavior.Stop,
-                EasingFunction = new ExponentialEase { EasingMode = EasingMode.EaseOut },
+                EasingFunction = new QuinticEase { EasingMode = EasingMode.EaseOut },
                 From = 1,
                 To = 0.75,
             };
@@ -258,6 +275,11 @@ namespace EarTrumpet.UI.Helpers
             window.Cloak(false);
 
             storyboard.Begin(window);
+        }
+
+        public static void BringTaskbarToFront()
+        {
+            User32.SetForegroundWindow(WindowsTaskbar.GetHwnd());
         }
     }
 }

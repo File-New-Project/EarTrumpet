@@ -11,7 +11,7 @@
     <Keyword _locID="App_keyword6">Control</Keyword>
     <Keyword _locID="App_keyword7">Dispositiu</Keyword>
   </Keywords>
-  <Description _locID="App_Description">EarTrumpet és una poderosa aplicació per controlar el volum a Windows</Description>
+  <Description _locID="App_Description">L'EarTrumpet és una poderosa aplicació per controlar el volum del Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
@@ -26,7 +26,7 @@
   <Trailers/>
   <AppFeatures>
     <AppFeature _locID="App_feature1">Controla el volum d'aplicacions clàssiques i modernes</AppFeature>
-    <AppFeature _locID="App_feature2">Canvia el dispositiu d'àudio predeterminat en dos clics</AppFeature>
+    <AppFeature _locID="App_feature2">Canvia el dispositiu d'àudio per defecte en dos clics</AppFeature>
     <AppFeature _locID="App_feature3">Concorda amb l'aparença de Windows</AppFeature>
     <AppFeature _locID="App_feature4">Permet moure aplicacions entre dispositius de reproducció</AppFeature>
     <AppFeature _locID="App_feature5">Integrat amb el Centre d'opinions</AppFeature>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
 </ProductDescription>

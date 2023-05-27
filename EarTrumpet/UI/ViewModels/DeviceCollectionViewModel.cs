@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -94,7 +95,7 @@ namespace EarTrumpet.UI.ViewModels
         protected virtual void AddDevice(IAudioDevice device)
         {
             var newDevice = new DeviceViewModel(this, _deviceManager, device);
-            AllDevices.Add(newDevice);
+            AllDevices.AddSorted(newDevice, DeviceViewModel.CompareByDisplayName);
         }
 
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

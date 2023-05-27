@@ -296,4 +296,367 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Надіслати дані помилки команді EarTrumpet</value>
   </data>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>і</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Виконати</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Додати дію</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Додати умову</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Налаштувати гарячі клавіші та автоматизацію</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Додати тригер</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Сесія програми додана, видалена, почне відтворюватись звук, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} на {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>додано</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>заглушено</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>зупиняє відтворення звуку</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>починає відтворення звуку</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>видалено</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>заглушено</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>додано</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>стає типовим</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>лишається типовим</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>видалено</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>хиба</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>істина</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>є</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>не є</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>та</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Налаштування фільтру є необов'язковим, але дозволяє створювати більш просунуті дії. Всі умови повинні бути виконаними до того, як дії будуть виконані.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Розширений фільтр</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Я використовую в контекстному меню дії</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Я використовую в контекстному меню дії</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Якщо пристрій відтворення за замовчуванням або ні</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} пристрій за замовчуванням</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Стандартний пристрій відтворення</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Аудіопристрій додано, видалено, встановлено як типовий...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>завершується</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>запускається</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet Actions XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet запускається або закривається</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Кожна програма</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Експорт</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Збережіть копію ваших дій у файл.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Програма переднього плану</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Натиснуто гарячу клавішу</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(вибрати гарячу клавішу)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} введено</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Імпорт та експорт</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Імпорт</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Відновити копію ваших дій з файлу.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Вимкнути звук</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Вкл/викл звук</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Увімкнути звук</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Дії</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Нова дія</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(необов'язково)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Відтворення</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Якщо процес виконується чи ні</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(введіть назву процесу)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Коли {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Назва процесу (напр. notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>запускається</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>завершується</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>не виконується</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>виконується</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Процес запускається або завершується</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(введіть назву процесу)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Коли {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Ім'я процесу (напр. notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Запис</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(обов'язково)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Вимкнути або увімкнути звук застосунку</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} на {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Встановити гучність програми</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} гучність до {Volume} у {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} гучність {Volume} на {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Встановити стандартний пристрій відтворення</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Встановити {Device} як стандартний пристрій відтворення</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Вимкнути або увімкнути звук пристрою</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} на {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Установити гучність пристрою</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} гучність до {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} гучність на {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Установити локальну змінну</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(задати назву змінної)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Встановити змінну {Text} до {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Введіть ім'я змінної (наприклад isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Зменшити</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Збільшити</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Встановити</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>або</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Коли</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Якщо локальна змінна є істиною або хибною</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(задати назву змінної)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Змінна {Text} є {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Введіть назву змінної (наприклад isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Обрати пристрій</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Вибрати програму</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Видалити цю дію?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Закрити без збереження?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Залишити</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Видалити цю дію</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Цю дію не можна скасувати.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Видалити дію</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Останнім часом показані додатки грали звук.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Зменшити гучність для всіх пристроїв</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Збільшити гучність для всіх пристроїв</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Гучність та налаштування пристроїв</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Мікшер гучності</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Параметри миші</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Використовувати колесо прокрутки для зміни гучності при наведенні на значок EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Використовувати колесо прокрутки для зміни гучності при активному випадаючому вікні</value>
+  </data>
 </root>

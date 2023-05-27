@@ -28,7 +28,31 @@ namespace EarTrumpet.Interop.Helpers
 
         public override string ToString()
         {
-            return (string)(new KeysConverter()).ConvertTo(Modifiers | Key, typeof(string));
+            var converter = new KeysConverter();
+
+            // Discussion about why this looks odd can be found at
+            // https://github.com/File-New-Project/EarTrumpet/pull/1133
+
+            string none = converter.ConvertToString(Keys.None);
+            string modifierKeys = converter.ConvertToString(Modifiers).Replace($"+{none}", String.Empty);
+            string key = converter.ConvertToString(Key);
+
+            if (Key == Keys.None && Modifiers == Keys.None)
+            {
+                return "";
+            }
+            else if (Key == Keys.None)
+            {
+                return modifierKeys;
+            }
+            else if (Modifiers == Keys.None)
+            {
+                return key;
+            }
+            else
+            {
+                return $"{modifierKeys}+{key}";
+            }
         }
 
         public override bool Equals(object obj)
@@ -60,6 +84,10 @@ namespace EarTrumpet.Interop.Helpers
             {
                 ret |= Keys.Shift;
             }
+            if ((modifiers & ModifierKeys.Win) == ModifierKeys.Win)
+            {
+                ret |= Keys.LWin;
+            }
             return ret;
         }
 
@@ -82,6 +110,14 @@ namespace EarTrumpet.Interop.Helpers
             if ((modifiers & Keys.Shift) == Keys.Shift)
             {
                 ret |= ModifierKeys.Shift;
+            }
+            if ((modifiers & Keys.LWin) == Keys.LWin)
+            {
+                ret |= ModifierKeys.Win;
+            }
+            if ((modifiers & Keys.RWin) == Keys.RWin)
+            {
+                ret |= ModifierKeys.Win;
             }
             return ret;
         }

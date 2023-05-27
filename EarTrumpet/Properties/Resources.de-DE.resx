@@ -644,4 +644,19 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Lautstärke für alle Geräte erhöhen</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>App-Lautstärke- und Geräteeinstellungen</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Lautstärkenmixer</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Mauseinstellungen</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Benutze das Scrollrad um die Lautstärke zu ändern, während du mit dem Mausrad über das EarTrumpet-Symbol fährst</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Benutze das Scrollrad um Lautstärke zu ändern, während das Flyout geöffnet ist</value>
+  </data>
 </root>
