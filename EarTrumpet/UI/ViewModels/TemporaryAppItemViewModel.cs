@@ -65,6 +65,7 @@ namespace EarTrumpet.UI.ViewModels
         public string PersistedOutputDevice => ((IAudioDeviceManagerWindowsAudio)_deviceManager).GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
         public IDeviceViewModel Parent { get; }
+        public bool IsHidden { get => _isHidden; set { _isHidden = value; RaisePropertyChanged(nameof(IsHidden)); } }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly WeakReference<DeviceCollectionViewModel> _parent;
@@ -72,6 +73,7 @@ namespace EarTrumpet.UI.ViewModels
         private int[] _processIds;
         private int _volume;
         private bool _isMuted;
+        private bool _isHidden;
 
         internal TemporaryAppItemViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)
         {

@@ -16,10 +16,12 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsManyDevicesMode => AllDevices.Count > SmallDeviceCountLimit;
 
         private readonly DeviceCollectionViewModel _mainViewModel;
+        private readonly AppSettings _settings;
         private WindowViewState _state;
 
-        public FullWindowViewModel(DeviceCollectionViewModel mainViewModel)
+        public FullWindowViewModel(DeviceCollectionViewModel mainViewModel, AppSettings settings)
         {
+            _settings = settings;
             Dialog = new ModalDialogViewModel();
             _mainViewModel = mainViewModel;
             _mainViewModel.OnFullWindowOpened();
@@ -39,7 +41,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (vm is IAppItemViewModel)
             {
-                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
+                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm, _settings);
             }
             else
             {

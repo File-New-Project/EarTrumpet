@@ -15,7 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         public string DisplayName => App.DisplayName;
         public ObservableCollection<object> Addons { get; }
 
-        public FocusedAppItemViewModel(DeviceCollectionViewModel parent, IAppItemViewModel app)
+        public FocusedAppItemViewModel(DeviceCollectionViewModel parent, IAppItemViewModel app, AppSettings settings)
         {
             App = app;
 
@@ -62,6 +62,20 @@ namespace EarTrumpet.UI.ViewModels
                     Menu = new ObservableCollection<ContextMenuItem>(items)
                 });
             }
+
+            Toolbar.Insert(0, new ToolbarItemViewModel
+            {
+                GlyphFontSize = 16,
+                DisplayName = Properties.Resources.HideAppButtonAccessibleText,
+                Glyph = "\uED1A",
+                GlyphFontFamily = "Segoe Fluent Icons",
+                Command = new RelayCommand(() =>
+                {
+                    app.IsHidden = true;
+                    settings.AddHiddenApp(app.AppId, app.IconPath, app.DisplayName, app.Background);
+                    RequestClose.Invoke();
+                })
+            });
 
             var contentItems = AddonManager.Host.AppContentItems;
             if (contentItems != null)

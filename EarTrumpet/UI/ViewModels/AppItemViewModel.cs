@@ -33,6 +33,7 @@ namespace EarTrumpet.UI.ViewModels
         public string IconPath => _session.IconPath;
         public bool IsDesktopApp => _session.IsDesktopApp;
         public bool IsExpanded { get; private set; }
+        public bool IsHidden { get => _isHidden; set { _isHidden = value; RaisePropertyChanged(nameof(IsHidden)); } }
         public int ProcessId => _session.ProcessId;
         public ObservableCollection<IAppItemViewModel> ChildApps { get; private set; }
 
@@ -55,6 +56,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private readonly IAudioDeviceSession _session;
         private readonly WeakReference<DeviceViewModel> _parent;
+        private bool _isHidden;
 
         internal AppItemViewModel(DeviceViewModel parent, IAudioDeviceSession session, bool isChild = false) : base(session)
         {
@@ -77,7 +79,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private void Session_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case nameof(_session.DisplayName):
                     RaisePropertyChanged(nameof(DisplayName));
@@ -142,7 +144,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public bool DoesGroupWith(IAppItemViewModel app) => (AppId == app.AppId);
 
-       public override string ToString() => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
-            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
+        public override string ToString() => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
+             Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
     }
 }

@@ -1,4 +1,5 @@
-﻿using EarTrumpet.DataModel.Audio;
+﻿using Bugsnag.Payload;
+using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
 using System;
@@ -66,36 +67,66 @@ namespace EarTrumpet.UI.ViewModels
         }
 
         protected readonly IAudioDevice _device;
+        private readonly AppSettings _settings;
         protected readonly IAudioDeviceManager _deviceManager;
         protected readonly WeakReference<DeviceCollectionViewModel> _parent;
         private bool _isDisplayNameVisible;
         private DeviceIconKind _iconKind;
 
-        public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)
+        public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device, AppSettings settings) : base(device)
         {
             _deviceManager = deviceManager;
             _device = device;
+            _settings = settings;
             _parent = new WeakReference<DeviceCollectionViewModel>(parent);
             Apps = new ObservableCollection<IAppItemViewModel>();
 
-            _device.PropertyChanged += OnPropertyChanged;
+            _device.PropertyChanged += OnDevicePropertyChanged;
             _device.Groups.CollectionChanged += OnCollectionChanged;
+            _settings.HiddenAppsChanged += OnHiddenAppsChanged;
 
             foreach (var session in _device.Groups)
             {
-                Apps.AddSorted(new AppItemViewModel(this, session), AppItemViewModel.CompareByExeName);
+                var appItemViewModel = new AppItemViewModel(this, session);
+                appItemViewModel.IsHidden = IsAppConfiguredAsHidden(appItemViewModel);
+                appItemViewModel.PropertyChanged += OnAppItemPropertyChanged;
+                Apps.AddSorted(appItemViewModel, AppItemViewModel.CompareByExeName);
             }
 
             UpdateMasterVolumeIcon();
         }
 
+        private void OnHiddenAppsChanged()
+        {
+            foreach(var app in Apps)
+            {
+                app.IsHidden = IsAppConfiguredAsHidden(app);
+            }
+        }
+
+        private bool IsAppConfiguredAsHidden(IAppItemViewModel app)
+        {
+            return _settings.HiddenApps.Any(hiddenApp => hiddenApp.AppId == app.AppId);
+        }
+
         ~DeviceViewModel()
         {
-            _device.PropertyChanged -= OnPropertyChanged;
+            _device.PropertyChanged -= OnDevicePropertyChanged;
             _device.Groups.CollectionChanged -= OnCollectionChanged;
         }
 
-        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnAppItemPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (sender is AppItemViewModel appItem)
+            {
+                if (e.PropertyName == nameof(appItem.IsHidden))
+                {
+                    RaisePropertyChanged(nameof(Apps));
+                }
+            }
+        }
+
+        private void OnDevicePropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_device.IsMuted) ||
                 e.PropertyName == nameof(_device.Volume))
@@ -186,6 +217,8 @@ namespace EarTrumpet.UI.ViewModels
         private void AddSession(IAudioDeviceSession session)
         {
             var newSession = new AppItemViewModel(this, session);
+            newSession.PropertyChanged += OnAppItemPropertyChanged;
+            newSession.IsHidden = IsAppConfiguredAsHidden(newSession);
 
             foreach (var app in Apps)
             {

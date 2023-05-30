@@ -1,8 +1,10 @@
 ﻿using EarTrumpet.DataModel.Storage;
 using EarTrumpet.Interop.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Media;
 using static EarTrumpet.Interop.User32;
 
 namespace EarTrumpet
@@ -10,6 +12,7 @@ namespace EarTrumpet
     public class AppSettings
     {
         public event EventHandler<bool> UseLegacyIconChanged;
+        public event Action HiddenAppsChanged;
         public event Action FlyoutHotkeyTyped;
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
@@ -176,6 +179,43 @@ namespace EarTrumpet
         {
             get => _settings.Get("SettingsWindowPlacement", default(WINDOWPLACEMENT?));
             set => _settings.Set("SettingsWindowPlacement", value);
+        }
+
+        public IReadOnlyList<HiddenApp> HiddenApps
+        {
+            get => GetHiddenApps();
+        }
+
+        private List<HiddenApp> GetHiddenApps()
+        {
+            return _settings.Get("HiddenApps", new List<HiddenApp>());
+        }
+
+        public void AddHiddenApp(string appId, string iconPath, string displayName, Color background)
+        {
+            var apps = GetHiddenApps();
+            if (!apps.Any(a => a.AppId == appId))
+            {
+                apps.Add(new HiddenApp
+                {
+                    AppId = appId,
+                    IconPath = iconPath,
+                    DisplayName = displayName,
+                    Background = background
+                });
+                _settings.Set("HiddenApps", apps);
+                HiddenAppsChanged?.Invoke();
+            }
+        }
+
+        public void RemoveHiddenApp(string appId)
+        {
+            var apps = GetHiddenApps();
+            if (apps.RemoveAll(a =>  a.AppId == appId) > 0)
+            {
+                _settings.Set("HiddenApps", apps);
+                HiddenAppsChanged?.Invoke();
+            }
         }
 
         private bool IsTelemetryEnabledByDefault()

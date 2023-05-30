@@ -1988,7 +1988,7 @@
                                                 <Border Background="{TemplateBinding Background}">
                                                     <TextBlock HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
-                                                               FontFamily="Segoe MDL2 Assets"
+                                                               FontFamily="{Binding GlyphFontFamily}"
                                                                FontSize="{Binding GlyphFontSize}"
                                                                Foreground="{TemplateBinding Foreground}"
                                                                Text="{Binding Glyph}" />
@@ -2060,7 +2060,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
-                                        <Setter Property="Theme:Brush.Background" Value="SystemAccent" />
+                                        <!--<Setter Property="Theme:Brush.Background" Value="SystemAccent" />-->
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -2099,6 +2099,78 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Text="{Binding DisplayName}" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="ExpandedSettingsAppItemViewModelDataTemplate" DataType="{x:Type vm:SettingsAppItemViewModel}">
+                <Grid Margin="6, 12, 6, 12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.RowSpan="2" Width="{DynamicResource Mutable_AppIconSize}"
+                            Height="{DynamicResource Mutable_AppIconSize}"
+                            HorizontalAlignment="Center">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{Binding Background, Mode=OneTime}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
+                                        <!--<Setter Property="Theme:Brush.Background" Value="SystemAccent" />-->
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <ctl:ImageEx x:Name="AppIcon"
+                                         Width="{DynamicResource Mutable_AppIconSize}"
+                                         Height="{DynamicResource Mutable_AppIconSize}"
+                                         SourceEx="{Binding}"
+                                         Stretch="Fill" />
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Source, ElementName=AppIcon}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Theme:Brush.Foreground="Text"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Text="{Binding IconText}"
+                                           TextAlignment="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="0"
+                               Margin="12,2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               Text="{Binding DisplayName}" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="1"
+                               Margin="12,2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               Text="{Binding AppId}" />
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:FocusedAppItemViewModel}">
@@ -2240,6 +2312,43 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:EarTrumpetHiddenAppsSettingsPageViewModel}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HiddenAppsDescriptionText}" />
+                    <ListView x:Name="HiddenAppsListView" Margin="24,12,12,24" ItemsSource="{Binding HiddenApps}">
+                        <ListView.ItemTemplate>
+                            <ItemContainerTemplate>
+                                <Grid Margin="0,0,12,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="1"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        AutomationProperties.Name="{x:Static resx:Resources.RemoveButtonAccessibleName}"
+                                        Command="{Binding Path=DataContext.RemoveApp, Source={x:Reference Name=HiddenAppsListView}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource ToolbarButtonStyle}">
+                                        <TextBlock FontSize="16"
+                                               Style="{StaticResource GlyphTextBlockStyle}"
+                                               Text="&#xE107;" />
+                                    </Button>
+
+
+                                    <ContentControl Theme:Brush.Foreground="Theme=Text" Content="{Binding}">
+                                        <ContentControl.Style>
+                                            <Style TargetType="{x:Type ContentControl}">
+                                                <Setter Property="ContentTemplate" Value="{StaticResource ExpandedSettingsAppItemViewModelDataTemplate}" />
+                                            </Style>
+                                        </ContentControl.Style>
+                                    </ContentControl>
+                                </Grid>
+                            </ItemContainerTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

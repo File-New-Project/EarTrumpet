@@ -154,6 +154,7 @@
     <Compile Include="DataModel\AppInformation\Internal\ZombieProcessException.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDevice.cs" />
     <Compile Include="DataModel\Audio\Mocks\AudioDeviceSession.cs" />
+    <Compile Include="DataModel\Storage\HiddenApp.cs" />
     <Compile Include="DataModel\WindowsAudio\AudioDeviceKind.cs" />
     <Compile Include="DataModel\WindowsAudio\IAudioDeviceManagerWindowsAudio.cs" />
     <Compile Include="DataModel\Audio\IAudioDeviceSessionComparer.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="UI\ViewModels\AdvertisedCategorySettingsViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetAboutPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetLegacySettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\HiddenAppsSettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\HotkeyViewModel.cs" />
     <Compile Include="UI\ViewModels\IFlyoutViewModel.cs" />
     <Compile Include="UI\ViewModels\IPopupHostViewModel.cs" />
@@ -447,6 +449,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="App.manifest" />
+    <Resource Include="Assets\Segoe Fluent Icons.ttf" />
     <None Include="packages.config" />
     <None Include="prebuild.ps1" />
     <None Include="README.md" />

@@ -720,6 +720,33 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WIP: Manage which applications are hidden from all views.
+        /// </summary>
+        public static string HiddenAppsDescriptionText {
+            get {
+                return ResourceManager.GetString("HiddenAppsDescriptionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden apps.
+        /// </summary>
+        public static string HiddenAppsSettingsPageText {
+            get {
+                return ResourceManager.GetString("HiddenAppsSettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WIP: Hide app.
+        /// </summary>
+        public static string HideAppButtonAccessibleText {
+            get {
+                return ResourceManager.GetString("HideAppButtonAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string HomeButtonText {

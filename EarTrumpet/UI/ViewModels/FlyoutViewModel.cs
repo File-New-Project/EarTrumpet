@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -81,6 +82,7 @@ namespace EarTrumpet.UI.ViewModels
             if (IsExpanded || Devices.Count == 0)
             {
                 device.Apps.CollectionChanged += Apps_CollectionChanged;
+                device.PropertyChanged += DevicePropertyChanged;
                 Devices.Insert(0, device);
             }
         }
@@ -107,6 +109,7 @@ namespace EarTrumpet.UI.ViewModels
             if (existing != null)
             {
                 existing.Apps.CollectionChanged -= Apps_CollectionChanged;
+                existing.PropertyChanged -= DevicePropertyChanged;
                 Devices.Remove(existing);
             }
         }
@@ -173,6 +176,7 @@ namespace EarTrumpet.UI.ViewModels
                     // Thus: We are collapsed and can dump the single device in Devices:
                     Devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
+                    foundAllDevice.PropertyChanged += DevicePropertyChanged;
                     Devices.Add(foundAllDevice);
                 }
             }
@@ -201,6 +205,7 @@ namespace EarTrumpet.UI.ViewModels
                     if (!Devices.Contains(device))
                     {
                         device.Apps.CollectionChanged += Apps_CollectionChanged;
+                        device.PropertyChanged += DevicePropertyChanged;
                         Devices.Insert(0, device);
                     }
                 }
@@ -214,6 +219,7 @@ namespace EarTrumpet.UI.ViewModels
                     if (device.Id != _mainViewModel.Default?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
+                        device.PropertyChanged -= DevicePropertyChanged;
                         Devices.Remove(device);
                     }
                 }
@@ -221,6 +227,14 @@ namespace EarTrumpet.UI.ViewModels
 
             UpdateTextVisibility();
             RaiseDevicesChanged();
+        }
+
+        private void DevicePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is DeviceViewModel device && e.PropertyName == nameof(device.Apps))
+            {
+                InvalidateWindowSize();
+            }
         }
 
         private void InvalidateWindowSize()
@@ -293,7 +307,7 @@ namespace EarTrumpet.UI.ViewModels
 
             if (vm is IAppItemViewModel)
             {
-                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
+                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm, _settings);
             }
             else if (vm is DeviceViewModel)
             {

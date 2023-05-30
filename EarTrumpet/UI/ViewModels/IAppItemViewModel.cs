@@ -9,6 +9,7 @@ namespace EarTrumpet.UI.ViewModels
     {
         string Id { get; }
         bool IsMuted { get; set; }
+        bool IsHidden { get; set; }
         int Volume { get; set; }
         Color Background { get; }
         ObservableCollection<IAppItemViewModel> ChildApps { get; }

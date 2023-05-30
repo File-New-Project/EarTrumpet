@@ -245,6 +245,7 @@ namespace EarTrumpet
                     {
                         new EarTrumpetShortcutsPageViewModel(Settings),
                         new EarTrumpetMouseSettingsPageViewModel(Settings),
+                        new EarTrumpetHiddenAppsSettingsPageViewModel(Settings),
                         new EarTrumpetCommunitySettingsPageViewModel(Settings),
                         new EarTrumpetLegacySettingsPageViewModel(Settings),
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), Settings)
@@ -274,7 +275,7 @@ namespace EarTrumpet
             return category;
         }
 
-        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel, Settings) };
 
         private void AbsoluteVolumeIncrement()
         {

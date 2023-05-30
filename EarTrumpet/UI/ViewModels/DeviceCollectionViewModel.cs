@@ -93,7 +93,7 @@ namespace EarTrumpet.UI.ViewModels
 
         protected virtual void AddDevice(IAudioDevice device)
         {
-            var newDevice = new DeviceViewModel(this, _deviceManager, device);
+            var newDevice = new DeviceViewModel(this, _deviceManager, device, _settings);
             AllDevices.AddSorted(newDevice, DeviceViewModel.CompareByDisplayName);
         }
 

@@ -5,6 +5,16 @@
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
              Height="{DynamicResource Mutable_AppItemCellHeight}"
              IsTabStop="False">
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsHidden}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />

@@ -55,8 +55,8 @@ namespace EarTrumpet.UI.ViewModels
         public string PersistedOutputDevice => throw new NotImplementedException();
         public int ProcessId => throw new NotImplementedException();
         public IDeviceViewModel Parent => throw new NotImplementedException();
-
         public ICommand Remove { get; set; }
+        public bool IsHidden { get; set; }
 
         public SettingsAppItemViewModel(IAudioDeviceSession session)
         {
