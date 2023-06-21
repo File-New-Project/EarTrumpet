@@ -659,4 +659,13 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Gebruik het scrollwiel om volume te veranderen wanneer uitklapmenu open is</value>
   </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Gemeenschap instellingen</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Gebruik logaritmische volumeschaal</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
 </root>
