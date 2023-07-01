@@ -177,7 +177,6 @@ namespace EarTrumpet.UI.Helpers
 
         private void CallbackMsgWndProc(System.Windows.Forms.Message msg)
         {
-            Trace.WriteLine($"CallbackMsgWndProc {msg.LParam}");
             switch ((int)msg.LParam)
             {
                 case (int)Shell32.NotifyIconNotification.NIN_SELECT:
