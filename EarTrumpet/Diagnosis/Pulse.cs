@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace EarTrumpet.Diagnosis
@@ -15,7 +16,7 @@ namespace EarTrumpet.Diagnosis
             _http.DefaultRequestHeaders.UserAgent.ParseAdd($"EarTrumpet/{App.PackageVersion}");
 
             _timer = new Timer();
-            _timer.Elapsed += (_, __) => TrySendPulse();
+            _timer.Elapsed += async (_, __) => await TrySendPulseAsync();
             _timer.Interval = TimeSpan.FromMinutes(15).TotalMilliseconds;
         }
 
@@ -24,18 +25,19 @@ namespace EarTrumpet.Diagnosis
             if (!_timer.Enabled)
             {
                 _timer.Start();
-                TrySendPulse();
+                _ = TrySendPulseAsync();
             }
         }
 
-        private void TrySendPulse()
+        private async Task TrySendPulseAsync()
         {
             try
             {
-                _http.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://api.file-new-project.com/eartrumpet/pulse/"));
+                await _http.SendAsync(new HttpRequestMessage(HttpMethod.Head, "https://api.file-new-project.com/eartrumpet/pulse/"));
             }
-            finally
+            catch
             {
+                // Do nothing
             }
         }
     }
