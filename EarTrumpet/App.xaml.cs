@@ -39,6 +39,8 @@ namespace EarTrumpet
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
+        private Pulse _pulse;
+
         public static AppSettings Settings { get; private set; }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
@@ -118,6 +120,13 @@ namespace EarTrumpet
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+            StartPulse();
+        }
+
+        private void StartPulse()
+        {
+            _pulse = new Pulse();
+            _pulse.Start();
         }
 
         private void trayIconScrolled(object _, int wheelDelta)
