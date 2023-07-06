@@ -8,5 +8,6 @@ namespace EarTrumpet.DataModel.Storage
         public string IconPath { get; set; }
         public Color Background { get; set; }
         public string DisplayName { get; set; }
+        public bool IsDesktopApp { get; set; }
     }
 }

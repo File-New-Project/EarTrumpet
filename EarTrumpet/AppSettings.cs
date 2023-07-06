@@ -191,7 +191,7 @@ namespace EarTrumpet
             return _settings.Get("HiddenApps", new List<HiddenApp>());
         }
 
-        public void AddHiddenApp(string appId, string iconPath, string displayName, Color background)
+        public void AddHiddenApp(string appId, string iconPath, string displayName, bool isDesktopApp, Color background)
         {
             var apps = GetHiddenApps();
             if (!apps.Any(a => a.AppId == appId))
@@ -201,7 +201,8 @@ namespace EarTrumpet
                     AppId = appId,
                     IconPath = iconPath,
                     DisplayName = displayName,
-                    Background = background
+                    Background = background,
+                    IsDesktopApp = isDesktopApp
                 });
                 _settings.Set("HiddenApps", apps);
                 HiddenAppsChanged?.Invoke();

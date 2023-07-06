@@ -72,7 +72,7 @@ namespace EarTrumpet.UI.ViewModels
                 Command = new RelayCommand(() =>
                 {
                     app.IsHidden = true;
-                    settings.AddHiddenApp(app.AppId, app.IconPath, app.DisplayName, app.Background);
+                    settings.AddHiddenApp(app.AppId, app.IconPath, app.DisplayName, app.IsDesktopApp, app.Background);
                     RequestClose.Invoke();
                 })
             });

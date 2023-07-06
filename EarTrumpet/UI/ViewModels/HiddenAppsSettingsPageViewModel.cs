@@ -24,7 +24,8 @@ namespace EarTrumpet.UI.ViewModels
                     DisplayName = app.DisplayName,
                     IconText = default,
                     IconPath = app.IconPath,
-                    Background = app.Background
+                    Background = app.Background,
+                    IsDesktopApp = app.IsDesktopApp,
                 })
             );
 

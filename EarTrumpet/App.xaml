@@ -2162,7 +2162,7 @@
                                Margin="12,2"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               FontSize="14"
+                               FontSize="16"
                                Text="{Binding DisplayName}" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
@@ -2315,8 +2315,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:EarTrumpetHiddenAppsSettingsPageViewModel}">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.HiddenAppsDescriptionText}" />
-                    <ListView x:Name="HiddenAppsListView" Margin="24,12,12,24" ItemsSource="{Binding HiddenApps}">
+                    <ListView x:Name="HiddenAppsListView" Margin="8,12,12,24" ItemsSource="{Binding HiddenApps}">
                         <ListView.ItemTemplate>
                             <ItemContainerTemplate>
                                 <Grid Margin="0,0,12,0">
@@ -2335,7 +2334,6 @@
                                                Style="{StaticResource GlyphTextBlockStyle}"
                                                Text="&#xE107;" />
                                     </Button>
-
 
                                     <ContentControl Theme:Brush.Foreground="Theme=Text" Content="{Binding}">
                                         <ContentControl.Style>

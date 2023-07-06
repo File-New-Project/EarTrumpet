@@ -668,10 +668,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="HiddenAppsSettingsPageText" xml:space="preserve">
     <value>Hidden apps</value>
   </data>
-  <data name="HiddenAppsDescriptionText" xml:space="preserve">
-    <value>WIP: Manage which applications are hidden from all views</value>
-  </data>
   <data name="HideAppButtonAccessibleText" xml:space="preserve">
-    <value>WIP: Hide app</value>
+    <value>Hide app</value>
   </data>
 </root>
