@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\GitVersionTask.5.5.1\build\GitVersionTask.props" Condition="Exists('..\packages\GitVersionTask.5.5.1\build\GitVersionTask.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -177,7 +177,6 @@
     <Compile Include="DataModel\Storage\Internal\WindowsStorageSettingsBag.cs" />
     <Compile Include="DebugHelpers.cs" />
     <Compile Include="Diagnosis\ErrorReporter.cs" />
-    <Compile Include="Diagnosis\Pulse.cs" />
     <Compile Include="Diagnosis\SnapshotData.cs" />
     <Compile Include="Extensibility\EarTrumpetAddon.cs" />
     <Compile Include="Extensibility\EarTrumpetAddonManifest.cs" />
