@@ -177,9 +177,9 @@ namespace EarTrumpet.UI.Helpers
 
         private void CallbackMsgWndProc(System.Windows.Forms.Message msg)
         {
-            switch ((int)msg.LParam)
+            switch ((short)msg.LParam)
             {
-                case (int)Shell32.NotifyIconNotification.NIN_SELECT:
+                case (short)Shell32.NotifyIconNotification.NIN_SELECT:
                 case User32.WM_LBUTTONUP:
                     // Observed double WM_CALLBACKMOUSEMSG/WM_LBUTTONUP pairs on Windows 11 22533
                     // Could be a result of XAML island use in Taskbar. Or a bug elsewhere.
@@ -190,7 +190,7 @@ namespace EarTrumpet.UI.Helpers
                         PrimaryInvoke?.Invoke(this, InputType.Mouse);
                     }
                     break;
-                case (int)Shell32.NotifyIconNotification.NIN_KEYSELECT:
+                case (short)Shell32.NotifyIconNotification.NIN_KEYSELECT:
                     PrimaryInvoke?.Invoke(this, InputType.Keyboard);
                     break;
                 case User32.WM_MBUTTONUP:
