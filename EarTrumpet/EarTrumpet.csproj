@@ -193,6 +193,7 @@
     <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplFor21H2.cs" />
     <Compile Include="Interop\Helpers\AudioPolicyConfigFactoryImplForDownlevel.cs" />
     <Compile Include="Interop\Helpers\InputHelper.cs" />
+    <Compile Include="Interop\Helpers\MouseHook.cs" />
     <Compile Include="Interop\Helpers\SettingsPageHelper.cs" />
     <Compile Include="Interop\Helpers\PackageHelper.cs" />
     <Compile Include="Interop\IShellItemImageFactory.cs" />
@@ -231,6 +232,8 @@
     <Compile Include="UI\Themes\ThemeBindingInfo.cs" />
     <Compile Include="UI\Helpers\TaskbarIconSource.cs" />
     <Compile Include="UI\ViewModels\BackstackViewModel.cs" />
+    <Compile Include="UI\ViewModels\EarTrumpetCommunitySettingsPageViewModel.cs" />
+    <Compile Include="UI\ViewModels\EarTrumpetMouseSettingsPageViewModel.cs" />
     <Compile Include="UI\ViewModels\EarTrumpetShortcutsPageViewModel.cs" />
     <Compile Include="Extensibility\IEarTrumpetAddonAppContent.cs" />
     <Compile Include="Extensibility\IEarTrumpetAddonDeviceContent.cs" />
@@ -478,6 +481,7 @@
     <EmbeddedResource Include="Properties\Resources.pl-PL.resx" />
     <EmbeddedResource Include="Properties\Resources.pt-BR.resx" />
     <EmbeddedResource Include="Properties\Resources.pt-PT.resx" />
+    <EmbeddedResource Include="Properties\Resources.ro-RO.resx" />
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
     <EmbeddedResource Include="Properties\Resources.sl-SI.resx" />
     <EmbeddedResource Include="Properties\Resources.sv-SE.resx" />

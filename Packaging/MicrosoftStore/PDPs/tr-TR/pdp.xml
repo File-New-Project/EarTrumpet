@@ -6,7 +6,7 @@
     <Keyword _locID="App_keyword1">EarTrumpet</Keyword>
     <Keyword _locID="App_keyword2">Ses</Keyword>
     <Keyword _locID="App_keyword3">Karıştırıcı</Keyword>
-    <Keyword _locID="App_keyword4">Ses seviyesi</Keyword>
+    <Keyword _locID="App_keyword4">Ses</Keyword>
     <Keyword _locID="App_keyword5">Ses</Keyword>
     <Keyword _locID="App_keyword6">Kontrol</Keyword>
     <Keyword _locID="App_keyword7">Aygıt</Keyword>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
 </ProductDescription>

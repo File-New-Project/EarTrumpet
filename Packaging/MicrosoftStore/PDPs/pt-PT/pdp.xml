@@ -11,7 +11,7 @@
     <Keyword _locID="App_keyword6">Controlo</Keyword>
     <Keyword _locID="App_keyword7">Dispositivo</Keyword>
   </Keywords>
-  <Description _locID="App_Description">O EarTrumpet é um poderosa aplicação de controlo de volume para Windows</Description>
+  <Description _locID="App_Description">O EarTrumpet é uma poderosa aplicação de controlo de volume para Windows</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
 </ProductDescription>

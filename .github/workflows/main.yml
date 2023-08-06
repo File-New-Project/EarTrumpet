@@ -34,14 +34,12 @@ jobs:
         include:
           - channel: AppInstaller
             publisher:
-              "CN=File-New-Project, O=File-New-Project, L=Purcellville,
-              S=Virginia, C=US"
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
           - channel: Store
             publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
           - channel: Chocolatey
             publisher:
-              "CN=File-New-Project, O=File-New-Project, L=Purcellville,
-              S=Virginia, C=US"
+              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
       max-parallel: 3
     steps:
       - name: Checkout
@@ -193,6 +191,10 @@ jobs:
           $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
           $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86.appxbundle"
           $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
+
+          $fragment = [xml]'<AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"><Dependencies><Package Name="Microsoft.VCLibs.140.00.UWPDesktop" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.30704.0" ProcessorArchitecture="x86" Uri="https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" /></Dependencies></AppInstaller>'
+          $manifest.AppInstaller.InsertAfter($manifest.ImportNode($fragment.AppInstaller.Dependencies, $true), $manifest.AppInstaller.MainBundle)
+
           $manifest.Save($manifestPath)
 
       - name: Upload appinstaller/sideload package artifacts
@@ -278,14 +280,6 @@ jobs:
           Invoke-WebRequest $env:ACS_PACKAGE_URI -UseBasicParsing -OutFile package.zip
           Expand-Archive package.zip -DestinationPath acs
           Invoke-WebRequest $env:ACS_METADATA_URI -UseBasicParsing -OutFile acs\metadata.json
-
-      - name: Install Chocolatey
-        if: matrix.channel == 'Chocolatey'
-        shell: powershell
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
       - name: Sign and repackage Store artifacts
         if: matrix.channel == 'Store'

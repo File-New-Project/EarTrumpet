@@ -13,6 +13,11 @@ namespace EarTrumpet.Interop.Helpers
             public RECT Size;
             public Screen ContainingScreen;
             public bool IsAutoHideEnabled;
+
+            public bool IsHorizontal
+            {
+                get { return Location == Position.Bottom || Location == Position.Top; }
+            }
         }
 
         // Must match AppBarEdge enum
@@ -74,6 +79,24 @@ namespace EarTrumpet.Interop.Helpers
             }
         }
 
-        private static IntPtr GetHwnd() => User32.FindWindow("Shell_TrayWnd", null);
+        public static IntPtr GetHwnd() => User32.FindWindow("Shell_TrayWnd", null);
+
+        public static IntPtr GetTrayToolbarWindowHwnd()
+        {
+            IntPtr hWnd = GetHwnd();
+            if (hWnd != IntPtr.Zero)
+            {
+                hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "TrayNotifyWnd", IntPtr.Zero);
+                if (hWnd != IntPtr.Zero)
+                {
+                    hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "SysPager", IntPtr.Zero);
+                    if (hWnd != IntPtr.Zero)
+                    {
+                        hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "ToolbarWindow32", IntPtr.Zero);
+                    }
+                }
+            }
+            return hWnd;
+        }
     }
 }

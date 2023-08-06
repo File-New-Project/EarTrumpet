@@ -1,8 +1,10 @@
 ﻿using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace EarTrumpet.UI.Views
 {
@@ -15,13 +17,26 @@ namespace EarTrumpet.UI.Views
 
             InitializeComponent();
 
-            SourceInitialized += (_, __) =>
+            SourceInitialized += (sender, __) =>
             {
                 this.Cloak();
                 this.EnableRoundedCornersIfApplicable();
+
+                if (App.Settings.SettingsWindowPlacement != null)
+                {
+                    User32.SetWindowPlacement(new WindowInteropHelper((Window)sender).Handle, App.Settings.SettingsWindowPlacement.Value);
+                }
             };
 
             StateChanged += OnWindowStateChanged;
+
+            Closing += (sender, __) =>
+            {
+                if (User32.GetWindowPlacement(new WindowInteropHelper((Window)sender).Handle, out var placement))
+                {
+                    App.Settings.SettingsWindowPlacement = placement;
+                }
+            };
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)

@@ -644,4 +644,28 @@ Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Povećaj glasnoću za sve uređaje</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Postavke glasnoće aplikacije i postavke uređaja</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mješač glasnoće</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Postavke miša</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Koristite kotačić miša za mijenjanje glasnoće prilikom držanja miša iznad EarTrumpet ikone</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Koristite kotačić miša za mijenjanje glasnoće kada je otvorena potpaleta</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Postavke zajednice</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Koristi logaritamsku skalu glasnoće</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
 </root>

@@ -11,7 +11,7 @@
     <Keyword _locID="App_keyword6">שליטה</Keyword>
     <Keyword _locID="App_keyword7">התקן</Keyword>
   </Keywords>
-  <Description _locID="App_Description">חצוצרתאוזן היא תוכנת ווליום עוצמתית לווינדוס</Description>
+  <Description _locID="App_Description">EarTrumpet היא תוכנת ווליום עוצמתית לווינדוס</Description>
   <ShortDescription _locID="App_ShortDescription">
   </ShortDescription>
   <ShortTitle _locID="App_ShortTitle">EarTrumpet</ShortTitle>
@@ -37,5 +37,5 @@
   <AdditionalLicenseTerms _locID="App_AdditionalLicenseTerms"/>
   <WebsiteURL _locID="App_WebsiteURL">https://github.com/File-New-Project/EarTrumpet</WebsiteURL>
   <SupportContactInfo _locID="App_SupportContactInfo"/>
-  <PrivacyPolicyURL _locID="App_PrivacyURL">https://github.com/File-New-Project/EarTrumpet/blob/master/PRIVACY.md</PrivacyPolicyURL>
+  <PrivacyPolicyURL _locID="App_PrivacyURL"/>
 </ProductDescription>

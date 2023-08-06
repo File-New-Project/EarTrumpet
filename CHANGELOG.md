@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.3.0.0
+- Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
+- Added setting to turn on/off ability to change volume with the scroll wheel when hovering over the EarTrumpet icon (thanks @Tester798!)
+- Added new community settings area
+- Added new community setting to turn on/off use of a logarithmic volume scale (thanks @yonatan-mitmit!)
+- Added legacy shortcuts to the context menu pointing to [App volume and device preferences] / [Volume mixer]
+- Added ability to use the Windows key in shortcuts (thanks @iamevn!)
+- Added linguistic display name sorting for audio devices (thanks @Tester798!)
+- Added a workaround for Windows Search (CortanaUI) showing a default asset (X) icon
+- Fixed an issue where installation of EarTrumpet via AppInstaller would fail if the Visual C++ libs package was not installed
+- Fixed an issue where EarTrumpet tooltips were not updating live while scrolling the mouse wheel on Windows 10 (thanks @krlvm!)
+- Forced EarTrumpet to render in software-only mode to keep it off power hungry GPUs.
+- Improved the flyout animation (thanks @krlvm!)
+
 ## 2.2.2.0
 - Fixed an issue with the volume changing when scrolling in certain scenarios (e.g. virtual reality)
 - Updated Japanese translations

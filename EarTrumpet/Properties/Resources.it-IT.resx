@@ -644,4 +644,28 @@ Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Aumenta il volume per tutti i dispositivi</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Preferenze del volume dell'app e del dispositivo</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mixer volume</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Impostazioni mouse</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Usa la rotella di scorrimento per cambiare volume al passaggio sull'icona di EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Usa la rotella di scorrimento per cambiare il volume mentre il riquadro a comparsa è aperto</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Impostazioni della community</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Usa scala di volume logaritmica</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
 </root>

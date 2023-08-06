@@ -161,6 +161,23 @@
                 </Grid>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EarTrumpetMouseSettingsPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
+                          IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" />
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
+                          IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
+                          IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
+            </StackPanel>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <CheckBox HorizontalAlignment="Left"
