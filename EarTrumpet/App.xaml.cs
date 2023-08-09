@@ -121,16 +121,23 @@ namespace EarTrumpet
             DisplayFirstRunExperience();
         }
 
+        private void UpdateTrayTooltip()
+        {
+            _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+
+            var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
+            var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
+            User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+        }
+
         private void trayIconScrolled(object _, int wheelDelta)
         {
             if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
             {
-                var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
-                var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
-                User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
-                
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
+
+            UpdateTrayTooltip();
         }
 
         private void DisplayFirstRunExperience()
