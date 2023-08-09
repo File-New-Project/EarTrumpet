@@ -121,7 +121,7 @@ namespace EarTrumpet
             DisplayFirstRunExperience();
         }
 
-        private void updateTrayTooltip()
+        private void UpdateTrayTooltip()
         {
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
@@ -137,7 +137,7 @@ namespace EarTrumpet
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
 
-            updateTrayTooltip();
+            UpdateTrayTooltip();
         }
 
         private void DisplayFirstRunExperience()
