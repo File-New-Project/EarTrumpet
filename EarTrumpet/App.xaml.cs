@@ -85,7 +85,7 @@ namespace EarTrumpet
 
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+            CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 
             _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
             FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
@@ -136,8 +136,6 @@ namespace EarTrumpet
             {
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
-
-            UpdateTrayTooltip();
         }
 
         private void DisplayFirstRunExperience()
