@@ -659,4 +659,13 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Benutze das Scrollrad um Lautstärke zu ändern, während das Flyout geöffnet ist</value>
   </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Community Einstellungen</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Logarithmische Volumenskala verwenden</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
 </root>
