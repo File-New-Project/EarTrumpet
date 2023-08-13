@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/Cereal56k"><img src="https://github.com/Cereal56k.png" width="60px" alt="" /></a><a href="https://github.com/corndog2000"><img src="https://github.com/corndog2000.png" width="60px" alt="Joe Schroedl" /></a><a href="https://github.com/HKGangster54"><img src="https://github.com/HKGangster54.png" width="60px" alt="ArmenianBot" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/Cereal56k"><img src="https://github.com/Cereal56k.png" width="60px" alt="" /></a><a href="https://github.com/corndog2000"><img src="https://github.com/corndog2000.png" width="60px" alt="Joe Schroedl" /></a><a href="https://github.com/HKGangster54"><img src="https://github.com/HKGangster54.png" width="60px" alt="ArmenianBot" /></a><a href="https://github.com/HeyRobb"><img src="https://github.com/HeyRobb.png" width="60px" alt="" /></a><!-- sponsors -->
 
 ## Features
 
