@@ -85,7 +85,7 @@ namespace EarTrumpet
 
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+            CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 
             _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
             FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
@@ -114,7 +114,7 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += trayIconScrolled;
+            _trayIcon.Scrolled += TrayIconScrolled;
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
@@ -130,14 +130,12 @@ namespace EarTrumpet
             User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
         }
 
-        private void trayIconScrolled(object _, int wheelDelta)
+        private void TrayIconScrolled(object _, int wheelDelta)
         {
             if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
             {
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
-
-            UpdateTrayTooltip();
         }
 
         private void DisplayFirstRunExperience()
