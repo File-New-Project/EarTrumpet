@@ -1,5 +1,8 @@
 # Changelog
 
+## x.x.x.x
+- Fixed an issue where EarTrumpet tooltips were not updating in some scenarios (thanks @Tester798!)
+
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
 - Added setting to turn on/off ability to change volume with the scroll wheel when hovering over the EarTrumpet icon (thanks @Tester798!)
