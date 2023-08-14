@@ -119,6 +119,15 @@ namespace EarTrumpet
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+            ShowFullMixerWindowIfConfigured();
+        }
+
+        private void ShowFullMixerWindowIfConfigured()
+        {
+            if (Settings.ShowFullMixerWindowOnStartup)
+            {
+                _mixerWindow.OpenOrBringToFront();
+            }
         }
 
         private void UpdateTrayTooltip()

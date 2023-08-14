@@ -2,6 +2,7 @@
 
 ## x.x.x.x
 - Fixed an issue where EarTrumpet tooltips were not updating in some scenarios (thanks @Tester798!)
+- Added setting to show the full mixer window on startup
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)

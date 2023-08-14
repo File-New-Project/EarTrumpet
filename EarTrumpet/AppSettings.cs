@@ -178,6 +178,12 @@ namespace EarTrumpet
             set => _settings.Set("SettingsWindowPlacement", value);
         }
 
+        public bool ShowFullMixerWindowOnStartup
+        {
+            get => _settings.Get("ShowFullMixerWindowOnStartup", false);
+            set => _settings.Set("ShowFullMixerWindowOnStartup", value);
+        }
+
         private bool IsTelemetryEnabledByDefault()
         {
             // Discussion on what to include:
