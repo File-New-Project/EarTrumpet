@@ -661,11 +661,11 @@ Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
     <value>Postavke zajednice</value>
-    <comment>Settings area that holds settings for community requested features</comment>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
     <value>Koristi logaritamsku skalu glasnoće</value>
-    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
-</comment>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Prikaži cijeli prozor miksera pri pokretanju</value>
   </data>
 </root>
