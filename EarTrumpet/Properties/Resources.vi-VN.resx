@@ -235,7 +235,7 @@
     <value>Nhà phát hành:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>Cấu hình phím tắt và tìm sự trợ giúp</value>
+    <value>Cấu hình phím tắt và nhận trợ giúp</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>Cài đặt EarTrumpet</value>
@@ -658,5 +658,14 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Cuộn chuột để chỉnh âm lượng khi phần menu mở rộng đang hiển thị</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Cài đặt từ cộng đồng</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Sử dụng thang đo logarit cho thanh âm lượng</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Hiển thị trình phối âm khi thiết bị khởi động</value>
   </data>
 </root>
