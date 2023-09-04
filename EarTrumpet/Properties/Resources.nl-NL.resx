@@ -660,12 +660,12 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
     <value>Gebruik het scrollwiel om volume te veranderen wanneer uitklapmenu open is</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
-    <value>Gemeenschap instellingen</value>
-    <comment>Settings area that holds settings for community requested features</comment>
+    <value>Community instellingen</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
     <value>Gebruik logaritmische volumeschaal</value>
-    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
-</comment>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Toon volledig mengvenster bij opstarten</value>
   </data>
 </root>
