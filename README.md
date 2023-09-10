@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/HKGangster54"><img src="https://github.com/HKGangster54.png" width="60px" alt="ArmenianBot" /></a><a href="https://github.com/HeyRobb"><img src="https://github.com/HeyRobb.png" width="60px" alt="" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/HeyRobb"><img src="https://github.com/HeyRobb.png" width="60px" alt="" /></a><!-- sponsors -->
 
 ## Features
 
