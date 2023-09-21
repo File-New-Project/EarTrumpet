@@ -666,6 +666,6 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
     <value>Gebruik logaritmische volumeschaal</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
-    <value>Toon volledig mengvenster bij opstarten</value>
+    <value>Volledig mengpaneel tonen bij opstarten</value>
   </data>
 </root>
