@@ -3,6 +3,7 @@
 ## x.x.x.x
 - Fixed an issue where EarTrumpet tooltips were not updating in some scenarios (thanks @Tester798!)
 - Added setting to show the full mixer window on startup
+- Added support for adjusting volumes by 10% in one step from the flyout when the `Ctrl` key is pressed in combination with `Right`/`Left` or `+`/`-` (thanks @ryanspain)
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
