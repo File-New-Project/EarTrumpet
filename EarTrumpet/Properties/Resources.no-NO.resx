@@ -296,8 +296,6 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Send krasjdata til EarTrumpet-teamet</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>og</value>
   </data>
@@ -639,5 +637,35 @@
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Apper vist ovenfor har spilt lyd nylig.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Senk volum for alle enheter</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Øk volum for alle enheter</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>App volum og enhetsinnstillinger</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Volum mikser</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Innstillinger for mus</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Bruk rullehjulet til å endre volumet mens du holder musen over EarTrumpet ikonet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Bruk rullehjulet for å endre folum mens flyout er åpen</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Samfunnsetterspurte innstillinger</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Bruk logaritmisk volumskala</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Vis hele mikservinduet ved oppstart</value>
   </data>
 </root>
