@@ -1413,6 +1413,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show full mixer window on startup.
+        /// </summary>
+        public static string SettingsShowFullMixerWindowOnStartup {
+            get {
+                return ResourceManager.GetString("SettingsShowFullMixerWindowOnStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EarTrumpet Settings.
         /// </summary>
         public static string SettingsTitle {

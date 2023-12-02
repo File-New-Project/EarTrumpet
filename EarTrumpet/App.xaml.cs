@@ -39,6 +39,7 @@ namespace EarTrumpet
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
+
         public static AppSettings Settings { get; private set; }
 
         private void OnAppStartup(object sender, StartupEventArgs e)
@@ -84,7 +85,7 @@ namespace EarTrumpet
 
             _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+            CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 
             _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
             FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
@@ -113,21 +114,35 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
-            _trayIcon.Scrolled += trayIconScrolled;
+            _trayIcon.Scrolled += TrayIconScrolled;
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+            ShowFullMixerWindowIfConfigured();
         }
 
-        private void trayIconScrolled(object _, int wheelDelta)
+        private void ShowFullMixerWindowIfConfigured()
+        {
+            if (Settings.ShowFullMixerWindowOnStartup)
+            {
+                _mixerWindow.OpenOrBringToFront();
+            }
+        }
+
+        private void UpdateTrayTooltip()
+        {
+            _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+
+            var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
+            var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
+            User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        private void TrayIconScrolled(object _, int wheelDelta)
         {
             if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
             {
-                var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
-                var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
-                User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
-                
                 CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
         }

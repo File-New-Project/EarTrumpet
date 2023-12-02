@@ -519,7 +519,7 @@
     <value>{Device} 上 {Option} {App} の音量を {Volume} へ</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume by {Volume} on {Device}</value>
+    <value>{Device} {Option} {App} の音量を {Volume} で調整</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>既定の再生デバイスを設定</value>
@@ -543,7 +543,7 @@
     <value>{Option} {Device} の音量を {Volume} へ</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volume by {Volume}</value>
+    <value>{Option} {Device} ボリュームを {Volume} へ</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>ローカル変数を設定</value>
@@ -643,5 +643,29 @@
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>すべてのデバイスの音量を上げる</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>アプリの音量とデバイスの設定</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>音量ミキサー</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>マウスの設定</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>EarTrumpet のアイコン上でホイールを回し音量調整</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>ポップアップ上でホイールを回し音量調整</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>コミュニティ設定</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>対数の音量基準を使用</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>起動時に完全なミキサーウィンドウを表示</value>
   </data>
 </root>

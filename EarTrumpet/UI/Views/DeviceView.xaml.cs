@@ -52,6 +52,25 @@ namespace EarTrumpet.UI.Views
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                switch (e.Key)
+                {
+                    case Key.Right:
+                    case Key.OemPlus:
+                        Device.Volume += 10;
+                        e.Handled = true;
+                        break;
+                    case Key.Left:
+                    case Key.OemMinus:
+                        Device.Volume -= 10;
+                        e.Handled = true;
+                        break;
+                }
+
+                return;
+            }
+
             switch (e.Key)
             {
                 case Key.M:

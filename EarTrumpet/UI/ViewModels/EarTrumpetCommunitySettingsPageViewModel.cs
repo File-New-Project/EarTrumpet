@@ -8,7 +8,13 @@
             get => _settings.UseLogarithmicVolume;
             set => _settings.UseLogarithmicVolume = value;
         }
-        
+
+        public bool ShowFullMixerWindowOnStartup
+        {
+            get => _settings.ShowFullMixerWindowOnStartup;
+            set => _settings.ShowFullMixerWindowOnStartup = value;
+        }
+
         public EarTrumpetCommunitySettingsPageViewModel(AppSettings settings) : base(null)
         {
             _settings = settings;

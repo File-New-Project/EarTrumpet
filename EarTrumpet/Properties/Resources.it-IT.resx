@@ -659,4 +659,13 @@ Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Usa la rotella di scorrimento per cambiare il volume mentre il riquadro a comparsa è aperto</value>
   </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Impostazioni della community</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Usa scala di volume logaritmica</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Mostra finestra completa del mixer all'avvio</value>
+  </data>
 </root>
