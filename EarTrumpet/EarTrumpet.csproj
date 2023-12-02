@@ -44,10 +44,11 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
-		<PackageReference Include="System.Composition.AttributedModel" Version="7.0.0" />
-		<PackageReference Include="System.Composition.Runtime" Version="7.0.0" />
-		<PackageReference Include="XamlAnimatedGif" Version="2.1.1" />
+		<PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
+		<PackageReference Include="System.Composition.AttributedModel" Version="8.0.0" />
+		<PackageReference Include="System.Composition.Runtime" Version="8.0.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="XamlAnimatedGif" Version="2.2.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Page Remove="UI\Controls\SearchBox.xaml" />
