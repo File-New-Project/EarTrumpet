@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<WarningsAsErrors>true</WarningsAsErrors>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -21,6 +21,7 @@
 		<RuntimeIdentifier>win-$(Platform.ToLower())</RuntimeIdentifier>
 		<SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
 		<AnalysisLevel>latest</AnalysisLevel>
+        <SelfContained>true</SelfContained>
 	</PropertyGroup>
 	<PropertyGroup Condition=" $(Configuration.EndsWith('Debug')) ">
 		<SelfContained>true</SelfContained>
