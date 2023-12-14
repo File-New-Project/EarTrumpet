@@ -140,7 +140,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             try
             {
-                var rawDevice = _enumerator.GetDefaultAudioEndpoint(Flow, ERole.eMultimedia);
+                var rawDevice = _enumerator.GetDefaultAudioEndpoint(Flow, eRole);
                 TryFind(rawDevice.GetId(), out var device);
                 return device;
             }
