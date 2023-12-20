@@ -644,4 +644,28 @@
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>提高所有裝置的音量</value>
   </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>應用程式音量與喇叭喜好設定</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>音量混音程式</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>滑鼠設定</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>滑鼠在 EarTrumpet 圖標時使用滑鼠滾輪來變更聲音</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>音效選單開啟時，使用滑鼠滾輪調整音量</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>社群設定</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>使用對數音量刻度</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>啟動時顯示完整的混音視窗</value>
+  </data>
 </root>
