@@ -657,7 +657,7 @@
     <value>EarTrumpet simgesinin üzerindeyken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
-    <value>Açılır menü açıkken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
+    <value>Yüzen kontroller açıkken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
     <value>Topluluk ayarları</value>
