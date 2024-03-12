@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Windows.Input;
 
 namespace EarTrumpet.Diagnosis
 {
@@ -21,6 +23,12 @@ namespace EarTrumpet.Diagnosis
             _settings = settings;
             Trace.Listeners.Clear();
             Trace.Listeners.Add(_listener);
+
+            if (Keyboard.IsKeyDown(Key.LeftAlt))
+            {
+                Trace.Listeners.Add(new TextWriterTraceListener(Path.Combine(Path.GetTempPath(), "EarTrumpetTrace.log")));
+                Trace.AutoFlush = true;
+            }
 
             if (_settings.IsTelemetryEnabled)
             {

@@ -71,9 +71,13 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
             try
             {
+                Trace.WriteLine($"DesktopAppInfo Attempting AppID resolve for pid {processId}");
+
                 var appResolver = (IApplicationResolver)new ApplicationResolver();
                 appResolver.GetAppIDForProcess((uint)processId, out string appId, out _, out _, out _);
                 Marshal.ReleaseComObject(appResolver);
+
+                Trace.WriteLine($"DesktopAppInfo Attempting display name read for AppID {appId}");
 
                 var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appId, typeof(IShellItem2).GUID);
                 DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
