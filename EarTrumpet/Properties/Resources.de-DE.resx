@@ -663,7 +663,7 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Community Einstellungen</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
-    <value>Logarithmische Volumenskala verwenden</value>
+    <value>Logarithmische Lautstärkenskala verwenden</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Zeige volles Mixer-Fenster beim Start</value>
