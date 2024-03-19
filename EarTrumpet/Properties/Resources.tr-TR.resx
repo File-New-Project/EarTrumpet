@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ContextMenuExitTitle" xml:space="preserve">
-    <value>Çıkış</value>
+    <value>Çık</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
     <value>Oynatma aygıtı bulunamadı</value>
@@ -643,5 +643,29 @@
   </data>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Ses seviyesini tüm aygıtlar için yükselt</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Uygulama birimi ve cihaz tercihleri</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Ses karıştırıcısı</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Fare ayarları</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>EarTrumpet simgesinin üzerindeyken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Yüzen kontroller açıkken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Topluluk ayarları</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Logaritmik ölçek kullanın</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Başlangıçta tam karıştırıcı penceresini göster</value>
   </data>
 </root>

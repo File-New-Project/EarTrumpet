@@ -660,12 +660,12 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Benutze das Scrollrad um Lautstärke zu ändern, während das Flyout geöffnet ist</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
-    <value>Community Einstellungen</value>
+    <value>Community-Einstellungen</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
-    <value>Logarithmische Volumenskala verwenden</value>
+    <value>Logarithmische Lautstärkenskala verwenden</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
-    <value>Zeige volles Mixer-Fenster beim Start</value>
+    <value>Zeige den vollständigen Lautstärkenmixer beim Start</value>
   </data>
 </root>
