@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/GR8Dane604"><img src="https://github.com/GR8Dane604.png" width="60px" alt="GR8Dane" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" /></a><a href="https://github.com/GR8Dane604"><img src="https://github.com/GR8Dane604.png" width="60px" alt="GR8Dane" /></a><a href="https://github.com/Spoonman2"><img src="https://github.com/Spoonman2.png" width="60px" alt="" /></a><a href="https://github.com/williamis300"><img src="https://github.com/williamis300.png" width="60px" alt="" /></a><!-- sponsors -->
 
 ## Features
 
