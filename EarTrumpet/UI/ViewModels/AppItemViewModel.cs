@@ -53,6 +53,8 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public string PackageInstallPath => _session.PackageInstallPath;
+
         private readonly IAudioDeviceSession _session;
         private readonly WeakReference<DeviceViewModel> _parent;
 

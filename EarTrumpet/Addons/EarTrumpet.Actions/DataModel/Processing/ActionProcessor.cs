@@ -146,7 +146,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
 
                 foreach(var group in groups)
                 {
-                    if (group.AppId == appInfo.PackageInstallPath)
+                    if (group.AppId == appInfo.PackageInstallPath || group.AppId == appInfo.AppId)
                     {
                         Trace.WriteLine($"ActionProcessor FindForegroundApp: {group.DisplayName}");
                         return group;

@@ -39,9 +39,9 @@ namespace EarTrumpet.Actions.ViewModel
             }
         }
 
-        public void OnInvoked(object sender, IAppItemViewModel vivewModel)
+        public void OnInvoked(object sender, IAppItemViewModel viewModel)
         {
-            _part.App = new AppRef { Id = vivewModel.Id };
+            _part.App = new AppRef { Id = viewModel.Id };
             RaisePropertyChanged("");  // Signal change so ToString will be called.
 
             var popup = ((DependencyObject)sender).FindVisualParent<Popup>();
@@ -51,6 +51,16 @@ namespace EarTrumpet.Actions.ViewModel
         public override string ToString()
         {
             var existing = All.FirstOrDefault(d => d.Id == _part.App?.Id);
+
+            // Fallback to checking against package full path, for compatibility with older actions
+            // that predate changes to how we track packaged applications.
+            // https://github.com/File-New-Project/EarTrumpet/issues/1524
+
+            if (existing == null)
+            {
+                existing = All.FirstOrDefault(d => d.PackageInstallPath == _part.App?.Id);
+            }
+
             if (existing != null)
             {
                 return existing.DisplayName;

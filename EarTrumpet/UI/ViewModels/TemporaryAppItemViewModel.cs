@@ -65,6 +65,7 @@ namespace EarTrumpet.UI.ViewModels
         public string PersistedOutputDevice => ((IAudioDeviceManagerWindowsAudio)_deviceManager).GetDefaultEndPoint(ProcessId);
         public int ProcessId { get; }
         public IDeviceViewModel Parent { get; }
+        public string PackageInstallPath { get; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly WeakReference<DeviceCollectionViewModel> _parent;

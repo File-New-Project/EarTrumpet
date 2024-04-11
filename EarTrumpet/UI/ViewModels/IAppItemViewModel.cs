@@ -15,6 +15,7 @@ namespace EarTrumpet.UI.ViewModels
         string DisplayName { get; }
         string ExeName { get; }
         string AppId { get; }
+        string PackageInstallPath { get; }
         char IconText { get; }
         bool IsExpanded { get; }
         bool IsMovable { get; }

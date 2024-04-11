@@ -14,6 +14,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string PackageInstallPath => "System.SystemSoundsSession";
         public bool IsDesktopApp => true;
         public string SmallLogoPath { get; set; }
+        public string AppId => PackageInstallPath;
 
         public SystemSoundsAppInfo()
         {

@@ -88,7 +88,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         public float PeakValue1 { get; private set; }
         public float PeakValue2 { get; private set; }
         public bool IsDesktopApp => _appInfo.IsDesktopApp;
-        public string AppId => _appInfo.PackageInstallPath;
+        public string AppId => _appInfo.AppId;
 
         public SessionState State
         {
@@ -125,6 +125,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children { get; private set; }
         public IEnumerable<IAudioDeviceSessionChannel> Channels => _channels.Channels;
+        public string PackageInstallPath { get; private set; }
 
         private readonly string _id;
         private readonly IAudioSessionControl _session;
@@ -159,6 +160,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
             _appInfo = AppInformationFactory.CreateForProcess(ProcessId, trackProcess: true);
             _appInfo.Stopped += _ => DisconnectSession();
+            PackageInstallPath = _appInfo.PackageInstallPath;
 
             // NOTE: Ensure that the callbacks won't touch state that isn't initialized yet (i.e. _appInfo must be valid before the first callback)
             _session.RegisterAudioSessionNotification(this);

@@ -4,6 +4,12 @@ namespace EarTrumpet.Interop
 {
     public static class PropertyKeys
     {
+        public static PROPERTYKEY PKEY_AppUserModel_ID = new PROPERTYKEY
+        {
+            fmtid = new Guid("9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3"),
+            pid = new UIntPtr(5)
+        };
+
         public static PROPERTYKEY PKEY_ItemNameDisplay = new PROPERTYKEY
         {
             fmtid = new Guid("{B725F130-47EF-101A-A5F1-02608C9EEBAC}"),

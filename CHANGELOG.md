@@ -1,7 +1,8 @@
 # Changelog
 
 ## x.x.x.x
-- Fixed an issue where EarTrumpet tooltips were not updating in some scenarios (thanks @Tester798!)
+- Fixed an issue with EarTrumpet tooltips not updating in some scenarios (thanks @Tester798!)
+- Fixed an issue with EarTrumpet Actions getting disconnected with updated packaged applications
 - Added setting to show the full mixer window on startup
 - Added support for adjusting volumes by 10% in one step from the flyout when the `Ctrl` key is pressed in combination with `Right`/`Left` or `+`/`-` (thanks @ryanspain)
 

@@ -10,6 +10,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
     {
         public event Action<IAppInfo> Stopped;
 
+        public string AppId { get; }
         public string ExeName { get; }
         public string DisplayName { get; }
         public string PackageInstallPath { get; }
@@ -28,6 +29,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             {
                 var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appUserModelId, typeof(IShellItem2).GUID);
                 PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
+                AppId = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_ID);
                 DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
                 ExeName = PackageInstallPath;
                 SmallLogoPath = appUserModelId;

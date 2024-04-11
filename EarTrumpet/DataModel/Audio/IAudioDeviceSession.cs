@@ -15,6 +15,7 @@ namespace EarTrumpet.DataModel.Audio
         bool IsSystemSoundsSession { get; }
         int ProcessId { get; }
         string AppId { get; }
+        string PackageInstallPath { get; }
         SessionState State { get; }
         ObservableCollection<IAudioDeviceSession> Children { get; }
     }

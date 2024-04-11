@@ -93,7 +93,8 @@ namespace EarTrumpet
                 Guid.NewGuid().ToString(),
                 displayName,
                 appId,
-                Environment.ExpandEnvironmentVariables(iconPath));
+                Environment.ExpandEnvironmentVariables(iconPath),
+                appId);
         }
 
         private static void DebugAddMockDevice()

@@ -77,7 +77,9 @@ namespace EarTrumpet.DataModel.Audio.Mocks
 
         public Guid GroupingParam => Guid.Empty;
 
-        public AudioDeviceSession(IAudioDevice parent, string id, string displayName, string appId, string iconPath)
+        public string PackageInstallPath { get; }
+
+        public AudioDeviceSession(IAudioDevice parent, string id, string displayName, string appId, string iconPath, string packageInstallPath)
         {
             DisplayName = displayName;
             Id = id;
@@ -85,6 +87,7 @@ namespace EarTrumpet.DataModel.Audio.Mocks
             IconPath = iconPath;
             Parent = parent;
             IsDesktopApp = true;
+            PackageInstallPath = packageInstallPath;
         }
 
         public void Hide()

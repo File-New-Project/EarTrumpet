@@ -109,6 +109,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public ObservableCollection<IAudioDeviceSession> Children => _sessions;
 
+        public string PackageInstallPath => _sessions.FirstOrDefault()?.PackageInstallPath;
+
         public void Hide()
         {
             foreach (var session in _sessions.ToArray())

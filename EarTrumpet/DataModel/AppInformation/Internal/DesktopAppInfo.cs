@@ -14,6 +14,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string ExeName { get; }
         public string DisplayName { get; }
         public string PackageInstallPath { get; }
+        public string AppId => PackageInstallPath;
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => true;
 
