@@ -661,11 +661,11 @@
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
     <value>Параметры от сообщества</value>
-    <comment>Settings area that holds settings for community requested features</comment>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
     <value>Использовать логарифмическую шкалу громкости</value>
-    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
-</comment>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Показывать полное окно микшера при старте</value>
   </data>
 </root>
