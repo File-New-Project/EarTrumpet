@@ -659,4 +659,13 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Usar la rueda de desplazamiento para cambiar el volumen mientras el control flotante está abierto</value>
   </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Configuraciones de la comunidad</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Usar escala de volumen logarítmica</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Mostrar la ventana completa del mezclador al iniciar</value>
+  </data>
 </root>
