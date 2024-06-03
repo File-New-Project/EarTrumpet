@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Windows.Win32.Media.Audio;
 
 namespace EarTrumpet.Interop.MMDeviceAPI
 {

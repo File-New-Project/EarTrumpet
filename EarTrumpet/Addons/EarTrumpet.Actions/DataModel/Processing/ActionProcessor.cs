@@ -9,6 +9,7 @@ using System.Text;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.DataModel.AppInformation;
+using Windows.Win32;
 
 namespace EarTrumpet.Actions.DataModel.Processing
 {
@@ -116,33 +117,44 @@ namespace EarTrumpet.Actions.DataModel.Processing
 
         private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
         {
-            var hWnd = User32.GetForegroundWindow();
-            var foregroundClassName = new StringBuilder(User32.MAX_CLASSNAME_LENGTH);
-            _ = User32.GetClassName(hWnd, foregroundClassName, foregroundClassName.Capacity);
-
-            if (hWnd == IntPtr.Zero)
+            var hWnd = PInvoke.GetForegroundWindow();
+            if (hWnd == HWND.Null)
             {
                 Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (1)");
                 return null;
             }
 
-            // ApplicationFrameWindow.exe, find the real hosted process in the child CoreWindow.
-            if (foregroundClassName.ToString() == "ApplicationFrameWindow")
+            var className = string.Empty;
+            unsafe
             {
-                hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "Windows.UI.Core.CoreWindow", IntPtr.Zero);
+                Span<char> classNameBuffer = stackalloc char[(int)PInvoke.MAX_CLASS_NAME_LEN];
+                fixed (char* pClassNameBuffer = classNameBuffer)
+                {
+                    _ = PInvoke.GetClassName(hWnd, pClassNameBuffer, classNameBuffer.Length);
+                    className = new PWSTR(pClassNameBuffer).ToString();
+                }
             }
 
-            if (hWnd == IntPtr.Zero)
+            // ApplicationFrameWindow.exe, find the real hosted process in the child CoreWindow.
+            if (className.ToString() == "ApplicationFrameWindow")
+            {
+                hWnd = PInvoke.FindWindowEx(hWnd, HWND.Null, "Windows.UI.Core.CoreWindow", null);
+            }
+            if (hWnd == HWND.Null)
             {
                 Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (2)");
                 return null;
             }
 
-            _ = User32.GetWindowThreadProcessId(hWnd, out uint processId);
+            var processId = 0U;
+            unsafe
+            {
+                _ = PInvoke.GetWindowThreadProcessId(hWnd, &processId);
+            }
 
             try
             {
-                var appInfo = AppInformationFactory.CreateForProcess((int)processId);
+                var appInfo = AppInformationFactory.CreateForProcess(processId);
 
                 foreach(var group in groups)
                 {

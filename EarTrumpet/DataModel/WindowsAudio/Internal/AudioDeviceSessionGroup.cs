@@ -73,7 +73,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         public float PeakValue1 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue1) : 0;
         public float PeakValue2 => _sessions.Count > 0 ? _sessions.Max(s => s.PeakValue2) : 0;
 
-        public int ProcessId => _sessions.Count > 0 ? _sessions[0].ProcessId : -1;
+        public uint ProcessId => _sessions.Count > 0 ? _sessions[0].ProcessId : unchecked((uint)-1);
 
         public SessionState State
         {

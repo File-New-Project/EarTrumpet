@@ -5,6 +5,9 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Windows.Win32;
+using Windows.Win32.UI.Shell;
+using Windows.Win32.System.Threading;
 
 namespace EarTrumpet.DataModel.AppInformation.Internal
 {
@@ -18,35 +21,41 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => true;
 
-        private int _processId;
+        private readonly uint _processId;
 
-        public DesktopAppInfo(int processId, bool trackProcess)
+        public DesktopAppInfo(uint processId, bool trackProcess)
         {
             _processId = processId;
 
-            var handle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
+            var handle = PInvoke.OpenProcess(PROCESS_ACCESS_RIGHTS.PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_ACCESS_RIGHTS.PROCESS_SYNCHRONIZE, false, processId);
             if (handle != IntPtr.Zero)
             {
                 try
                 {
                     ZombieProcessException.ThrowIfZombie(processId, handle);
 
-                    var fileNameBuilder = new StringBuilder(260);
-                    uint bufferLength = (uint)fileNameBuilder.Capacity;
-                    if (Kernel32.QueryFullProcessImageName(handle, 0, fileNameBuilder, ref bufferLength) != 0)
+                    Span<char> fileName = stackalloc char[260];
+                    unsafe
                     {
-                        if (fileNameBuilder.Length > 0)
+                        fixed (char* fileNamePtr = fileName)
                         {
-                            var processFullPath = fileNameBuilder.ToString();
-                            ExeName = Path.GetFileNameWithoutExtension(processFullPath);
-                            SmallLogoPath = processFullPath;
-                            PackageInstallPath = processFullPath;
+                            var fileNameBufferSize = (uint)fileName.Length;
+                            if (PInvoke.QueryFullProcessImageName(handle, PROCESS_NAME_FORMAT.PROCESS_NAME_WIN32, fileNamePtr, &fileNameBufferSize) != 0)
+                            {
+                                if (fileNameBufferSize > 0)
+                                {
+                                    var processFullPath = new PWSTR(fileNamePtr).ToString();
+                                    ExeName = Path.GetFileNameWithoutExtension(processFullPath);
+                                    SmallLogoPath = processFullPath;
+                                    PackageInstallPath = processFullPath;
+                                }
+                            }
                         }
                     }
                 }
                 finally
                 {
-                    Kernel32.CloseHandle(handle);
+                    PInvoke.CloseHandle(handle);
                 }
             }
             else
@@ -73,11 +82,27 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             try
             {
                 var appResolver = (IApplicationResolver)new ApplicationResolver();
-                appResolver.GetAppIDForProcess((uint)processId, out string appId, out _, out _, out _);
+                appResolver.GetAppIDForProcess((uint)processId, out var appId, out _, out _, out _);
                 Marshal.ReleaseComObject(appResolver);
 
-                var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appId, typeof(IShellItem2).GUID);
-                DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
+                PInvoke.SHCreateItemInKnownFolder(
+                    PInvoke.FOLDERID_AppsFolder,
+                    KNOWN_FOLDER_FLAG.KF_FLAG_DONT_VERIFY,
+                    appId,
+                    typeof(IShellItem2).GUID,
+                    out var rawShellItem);
+
+                var shellItem = (IShellItem2)rawShellItem;
+                if (shellItem != null)
+                {
+                    var pkey = PInvoke.PKEY_ItemNameDisplay;
+                    var displayNamePtr = new PWSTR();
+                    unsafe
+                    {
+                        shellItem.GetString(&pkey, &displayNamePtr);
+                    }
+                    DisplayName = displayNamePtr.ToString();
+                }
             }
             catch (COMException ex)
             {
@@ -92,10 +117,8 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             {
                 try
                 {
-                    using (var proc = Process.GetProcessById(_processId))
-                    {
-                        DisplayName = proc.MainWindowTitle;
-                    }
+                    using var proc = Process.GetProcessById((int)_processId);
+                    DisplayName = proc.MainWindowTitle;
                 }
                 catch (Exception ex)
                 {
@@ -109,16 +132,16 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
         }
 
-        private static bool TryGetExecutableNameViaNtByPid(int processId, out string executableName)
+        private static bool TryGetExecutableNameViaNtByPid(uint processId, out string executableName)
         {
-            bool executableNameRetrieved = false;
+            var executableNameRetrieved = false;
             executableName = "";
 
             var ntstatus = Ntdll.NtQuerySystemInformationInitial(
                 Ntdll.SYSTEM_INFORMATION_CLASS.SystemProcessInformation,
                 IntPtr.Zero,
                 0,
-                out int requiredBufferLength);
+                out var requiredBufferLength);
 
             if (ntstatus == Ntdll.NTSTATUS.STATUS_INFO_LENGTH_MISMATCH)
             {
@@ -132,7 +155,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 if (ntstatus == Ntdll.NTSTATUS.SUCCESS)
                 {
                     Ntdll.SYSTEM_PROCESS_INFORMATION processInfo;
-                    IntPtr entryPtr = buffer;
+                    var entryPtr = buffer;
                     do
                     {
                         processInfo = Marshal.PtrToStructure<Ntdll.SYSTEM_PROCESS_INFORMATION>(entryPtr);

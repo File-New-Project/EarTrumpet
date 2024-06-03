@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Windows.Win32;
+using Windows.Win32.UI.Input.KeyboardAndMouse;
 
 namespace EarTrumpet.Interop.Helpers
 {
@@ -31,7 +33,7 @@ namespace EarTrumpet.Interop.Helpers
 
         private void WndProc(Message msg)
         {
-            if (msg.Msg == User32.WM_HOTKEY)
+            if (msg.Msg == PInvoke.WM_HOTKEY)
             {
                 var hotkey = new HotkeyData(msg);
                 Trace.WriteLine($"HotkeyManager: KeyPressed: {hotkey}");
@@ -54,7 +56,7 @@ namespace EarTrumpet.Interop.Helpers
             else
             {
                 entry = _data[hotkey] = new Entry { Id = ++_lastId, Hotkey = hotkey };
-                User32.RegisterHotKey(_window.Handle, entry.Id, hotkey.GetInteropModifiers(), (uint)hotkey.Key);
+                PInvoke.RegisterHotKey(new HWND(_window.Handle), entry.Id, (HOT_KEY_MODIFIERS)hotkey.GetInteropModifiers(), (uint)hotkey.Key);
             }
 
             entry.RefCount++;
@@ -72,7 +74,7 @@ namespace EarTrumpet.Interop.Helpers
             Trace.WriteLine($"HotkeyManager: Unregister: {hotkey} {entry.RefCount}");
             if (entry.RefCount == 0)
             {
-                User32.UnregisterHotKey(_window.Handle, entry.Id);
+                PInvoke.UnregisterHotKey(new HWND(_window.Handle), entry.Id);
                 _data.Remove(hotkey);
             }
 
@@ -83,7 +85,7 @@ namespace EarTrumpet.Interop.Helpers
             Trace.WriteLine($"HotkeyManager: Pause");
             foreach (var entry in _data.Values)
             {
-                User32.UnregisterHotKey(_window.Handle, entry.Id);
+                PInvoke.UnregisterHotKey(new HWND(_window.Handle), entry.Id);
             }
         }
 
@@ -92,7 +94,7 @@ namespace EarTrumpet.Interop.Helpers
             Trace.WriteLine($"HotkeyManager: Resume");
             foreach (var entry in _data.Values)
             {
-                User32.RegisterHotKey(_window.Handle, entry.Id, entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
+                PInvoke.RegisterHotKey(new HWND(_window.Handle), entry.Id, (HOT_KEY_MODIFIERS)entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
             }
         }
 

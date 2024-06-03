@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -28,16 +30,20 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             {
                 _sessionManager = device.Activate<IAudioSessionManager2>();
                 _sessionManager.RegisterSessionNotification(this);
+                
                 var enumerator = _sessionManager.GetSessionEnumerator();
-                int count = enumerator.GetCount();
-                for (int i = 0; i < count; i++)
+                enumerator.GetCount(out var count);
+
+                for (var i = 0; i < count; i++)
                 {
-                    CreateAndAddSession(enumerator.GetSession(i));
+                    enumerator.GetSession(i, out var session);
+                    CreateAndAddSession(session);
                 }
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"AudioDeviceSessionCollection Create dev={device.GetId()} {ex}");
+                device.GetId(out var deviceId);
+                Trace.WriteLine($"AudioDeviceSessionCollection Create dev={deviceId} {ex}");
             }
         }
 
@@ -125,7 +131,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        internal void UnHideSessionsForProcessId(int processId)
+        internal void UnHideSessionsForProcessId(uint processId)
         {
             foreach (var session in _movedSessions.ToArray())  // Use snapshot since enumeration will be modified.
             {

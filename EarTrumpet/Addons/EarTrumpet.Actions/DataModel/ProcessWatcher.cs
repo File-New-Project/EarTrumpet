@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Globalization;
+using Windows.Win32;
 
 namespace EarTrumpet.Actions.DataModel
 {
@@ -51,14 +52,16 @@ namespace EarTrumpet.Actions.DataModel
         {
             try
             {
-                _ = User32.GetWindowThreadProcessId(hwnd, out uint pid);
-
-                using (var proc = Process.GetProcessById((int)pid))
+                var pid = 0U;
+                unsafe
                 {
-                    if (_info.ContainsKey(proc.ProcessName.ToLowerInvariant()))
-                    {
-                        FoundNewRelevantProcess(proc);
-                    }
+                    _ = PInvoke.GetWindowThreadProcessId(new HWND(hwnd), &pid);
+                }
+
+                using var proc = Process.GetProcessById((int)pid);
+                if (_info.ContainsKey(proc.ProcessName.ToLowerInvariant()))
+                {
+                    FoundNewRelevantProcess(proc);
                 }
             }
             catch (Exception ex)

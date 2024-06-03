@@ -2,104 +2,114 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Windows.Win32;
+using Windows.Win32.UI.WindowsAndMessaging;
+using Windows.Win32.UI.Input;
+using EarTrumpet.Extensions;
 
-namespace EarTrumpet.Interop.Helpers
+namespace EarTrumpet.Interop.Helpers;
+
+class InputHelper
 {
-    class InputHelper
+    public static void RegisterForMouseInput(IntPtr handle)
     {
-        public static void RegisterForMouseInput(IntPtr handle)
+        var data = new RAWINPUTDEVICE
         {
-            var data = new User32.RAWINPUTDEVICE
-            {
-                usUsagePage = User32.HidUsagePage.GENERIC,
-                usUsage = User32.HidUsage.Mouse,
-                dwFlags = User32.RIDEV_INPUTSINK,
-                hwndTarget = handle
-            };
+            usUsagePage = PInvoke.HID_USAGE_PAGE_GENERIC,
+            usUsage = PInvoke.HID_USAGE_GENERIC_MOUSE,
+            dwFlags = RAWINPUTDEVICE_FLAGS.RIDEV_INPUTSINK,
+            hwndTarget = new HWND(handle)
+        };
 
-            if (!RegisterRawInputDevices(data))
-            {
-                Trace.WriteLine($"InputHelper UnregisterForMouseInput: {Marshal.GetLastWin32Error()}");
-            }
+        if (!RegisterRawInputDevices(data))
+        {
+            Trace.WriteLine($"InputHelper RegisterForMouseInput: {Marshal.GetLastWin32Error()}");
+        }
+    }
+
+    public static void UnregisterForMouseInput()
+    {
+        var data = new RAWINPUTDEVICE
+        {
+            usUsagePage = PInvoke.HID_USAGE_PAGE_GENERIC,
+            usUsage = PInvoke.HID_USAGE_GENERIC_MOUSE,
+            dwFlags = RAWINPUTDEVICE_FLAGS.RIDEV_REMOVE
+        };
+
+        if (!RegisterRawInputDevices(data))
+        {
+            Trace.WriteLine($"InputHelper UnregisterForMouseInput: {Marshal.GetLastWin32Error()}");
+        }
+    }
+
+    private static bool RegisterRawInputDevices(RAWINPUTDEVICE data)
+    {
+        return PInvoke.RegisterRawInputDevices([data], (uint)Marshal.SizeOf<RAWINPUTDEVICE>());
+    }
+
+    public static bool ProcessMouseInputMessage(IntPtr lParam, ref System.Drawing.Point cursorPosition, out int wheelDelta)
+    {
+        wheelDelta = 0;
+        var rawInputHandle = new HRAWINPUT(lParam);
+        var isApplicableMouseMessage = false;
+        
+        var headerSize = (uint)Marshal.SizeOf<RAWINPUTHEADER>();
+        uint bufferSize = 0;
+        uint result = 1;
+        unsafe
+        {
+            result = PInvoke.GetRawInputData(rawInputHandle, RAW_INPUT_DATA_COMMAND_FLAGS.RID_INPUT, null, ref bufferSize, headerSize);
         }
 
-        public static void UnregisterForMouseInput()
+        if (result == 0)
         {
-            var data = new User32.RAWINPUTDEVICE
+            Span<byte> dataBuffer = stackalloc byte[(int)bufferSize];
+            var writtenBytes = 0U;
+            unsafe
             {
-                usUsagePage = User32.HidUsagePage.GENERIC,
-                usUsage = User32.HidUsage.Mouse,
-                dwFlags = User32.RIDEV_REMOVE
-            };
-
-            if (!RegisterRawInputDevices(data))
-            {
-                Trace.WriteLine($"InputHelper UnregisterForMouseInput: {Marshal.GetLastWin32Error()}");
-            }
-        }
-
-        private static bool RegisterRawInputDevices(User32.RAWINPUTDEVICE data)
-        {
-            var devicePtr = Marshal.AllocHGlobal(Marshal.SizeOf(data));
-            Marshal.StructureToPtr(data, devicePtr, false);
-            bool ret = User32.RegisterRawInputDevices(devicePtr, 1, (uint)Marshal.SizeOf(data));
-            Marshal.FreeHGlobal(devicePtr);
-            return ret;
-        }
-
-        public static bool ProcessMouseInputMessage(IntPtr lParam, ref System.Drawing.Point cursorPosition, out int wheelDelta)
-        {
-            wheelDelta = 0;
-            bool isApplicableMouseMessage = false;
-
-            var header = new User32.RAWINPUTHEADER();
-            var headerSize = (uint)Marshal.SizeOf(header);
-
-            uint bufferSize = 0;
-            uint res = User32.GetRawInputData(lParam, User32.RID_INPUT, IntPtr.Zero, ref bufferSize, headerSize);
-            if (res == 0)
-            {
-                var dataPtr = Marshal.AllocHGlobal((int)bufferSize);
-                uint writtenBytes = User32.GetRawInputData(lParam, User32.RID_INPUT, dataPtr, ref bufferSize, headerSize);
-                if (writtenBytes == bufferSize)
+                fixed (byte* dataPtr = dataBuffer)
                 {
-                    var rawInput = Marshal.PtrToStructure<User32.RAWINPUT>(dataPtr);
-                    if (rawInput.header.dwType == User32.RIM_TYPEMOUSE)
+                    writtenBytes = PInvoke.GetRawInputData(rawInputHandle, RAW_INPUT_DATA_COMMAND_FLAGS.RID_INPUT, dataPtr, ref bufferSize, headerSize);
+                }
+            }
+            if (writtenBytes == bufferSize)
+            {
+                var rawInput = MemoryMarshal.Read<RAWINPUT>(dataBuffer);
+                if (rawInput.header.dwType == (uint)RID_DEVICE_INFO_TYPE.RIM_TYPEMOUSE)
+                {
+                    isApplicableMouseMessage = true;
+
+                    if (rawInput.data.mouse.usFlags.HasFlag(MOUSE_STATE.MOUSE_MOVE_ABSOLUTE))
                     {
-                        isApplicableMouseMessage = true;
-
-                        if (rawInput.mouse.usFlags.HasFlag(User32.RAWMOUSE_FLAGS.MOUSE_MOVE_ABSOLUTE))
+                        int width, height;
+                        if (rawInput.data.mouse.usFlags.HasFlag(MOUSE_STATE.MOUSE_VIRTUAL_DESKTOP))
                         {
-                            int width, height;
-                            if (rawInput.mouse.usFlags.HasFlag(User32.RAWMOUSE_FLAGS.MOUSE_VIRTUAL_DESKTOP))
-                            {
-                                width = User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CXVIRTUALSCREEN, WindowsTaskbar.Dpi);
-                                height = User32.GetSystemMetricsForDpi(User32.SystemMetrics.SM_CYVIRTUALSCREEN, WindowsTaskbar.Dpi);
-                            }
-                            else
-                            {
-                                width = Screen.PrimaryScreen.Bounds.Width;
-                                height = Screen.PrimaryScreen.Bounds.Height;
-                            }
-
-                            cursorPosition.X = rawInput.mouse.lLastX / 65535 * width;
-                            cursorPosition.Y = rawInput.mouse.lLastY / 65535 * height;
+                            width = PInvoke.GetSystemMetricsForDpi(SYSTEM_METRICS_INDEX.SM_CXVIRTUALSCREEN, WindowsTaskbar.Dpi);
+                            height = PInvoke.GetSystemMetricsForDpi(SYSTEM_METRICS_INDEX.SM_CYVIRTUALSCREEN, WindowsTaskbar.Dpi);
                         }
                         else
                         {
-                            cursorPosition.X += rawInput.mouse.lLastX;
-                            cursorPosition.Y += rawInput.mouse.lLastY;
+                            width = Screen.PrimaryScreen.Bounds.Width;
+                            height = Screen.PrimaryScreen.Bounds.Height;
                         }
 
-                        if ((rawInput.mouse.usButtonFlags & User32.RI_MOUSE_WHEEL) == User32.RI_MOUSE_WHEEL)
-                        {
-                            wheelDelta = rawInput.mouse.usButtonData;
-                        }
+                        cursorPosition.X = rawInput.data.mouse.lLastX / 65535 * width;
+                        cursorPosition.Y = rawInput.data.mouse.lLastY / 65535 * height;
+                    }
+                    else
+                    {
+                        cursorPosition.X += rawInput.data.mouse.lLastX;
+                        cursorPosition.Y += rawInput.data.mouse.lLastY;
+                    }
+
+                    if (rawInput.data.mouse.Anonymous.Anonymous.usButtonFlags.HasFlag(PInvoke.RI_MOUSE_WHEEL))
+                    {
+                        // RI_MOUSE_WHEEL: -/+ wheel delta is stored in usButtonData
+                        wheelDelta = (short)rawInput.data.mouse.Anonymous.Anonymous.usButtonData;
                     }
                 }
-                Marshal.FreeHGlobal(dataPtr);
             }
-            return isApplicableMouseMessage;
         }
+        return isApplicableMouseMessage;
     }
 }

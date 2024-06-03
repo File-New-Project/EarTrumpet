@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Windows.Win32.Media.Audio;
 
-namespace EarTrumpet.Interop.MMDeviceAPI
+namespace EarTrumpet.Interop.MMDeviceAPI;
+
+[ComImport]
+[Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9")]
+public class PolicyConfigClient { }
+
+public class AutoPolicyConfigClientWin7
 {
-    [ComImport]
-    [Guid("870AF99C-171D-4F9E-AF0D-E63DF40C2BC9")]
-    public class PolicyConfigClient { }
+    readonly IPolicyConfigWin7 _policyClient = (IPolicyConfigWin7)new PolicyConfigClient();
 
-    public class AutoPolicyConfigClientWin7
+    public void SetEndpointVisibility(string deviceId, bool isVisible)
     {
-        IPolicyConfigWin7 _policyClient = (IPolicyConfigWin7)new PolicyConfigClient();
+        _policyClient.SetEndpointVisibility(deviceId, isVisible ? (short)1 : (short)0);
+    }
 
-        public void SetEndpointVisibility(string deviceId, bool isVisible)
-        {
-            _policyClient.SetEndpointVisibility(deviceId, isVisible ? (short)1 : (short)0);
-        }
-
-        public void SetDefaultEndpoint(string deviceId, ERole role = ERole.eMultimedia)
-        {
-            _policyClient.SetDefaultEndpoint(deviceId, role);
-        }
+    public void SetDefaultEndpoint(string deviceId, ERole role = ERole.eMultimedia)
+    {
+        _policyClient.SetDefaultEndpoint(deviceId, role);
     }
 }

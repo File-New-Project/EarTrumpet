@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Win32;
 
 namespace EarTrumpet
 {
@@ -135,8 +136,8 @@ namespace EarTrumpet
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
             var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
-            var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
-            User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+            var hWndTooltip = PInvoke.SendMessage(new HWND(hWndTray), PInvoke.TB_GETTOOLTIPS, default, default);
+            PInvoke.SendMessage(new HWND(hWndTooltip), PInvoke.TTM_POPUP, default, default);
         }
 
         private void TrayIconScrolled(object _, int wheelDelta)

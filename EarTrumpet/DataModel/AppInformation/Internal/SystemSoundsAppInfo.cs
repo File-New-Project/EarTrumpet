@@ -1,7 +1,8 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using System;
+﻿using System;
 using System.Diagnostics;
+using EarTrumpet.Extensions;
+using Windows.Win32;
+using Windows.Win32.System.SystemInformation;
 
 namespace EarTrumpet.DataModel.AppInformation.Internal
 {
@@ -28,16 +29,20 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 return true; // Shortcut for AMD64 machines
             }
 
-            bool is64bit = false;
+            var is64bit = false;
+            var nativeMachine = IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_UNKNOWN;
             if (Environment.OSVersion.IsAtLeast(OSVersions.RS3))
             {
-                if (Kernel32.IsWow64Process2(Process.GetCurrentProcess().Handle,
-                    out Kernel32.IMAGE_FILE_MACHINE _,
-                    out Kernel32.IMAGE_FILE_MACHINE nativeMachine))
+                unsafe
                 {
-                    is64bit =
-                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64 ||
-                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64;
+                    if (PInvoke.IsWow64Process2(new HANDLE(Process.GetCurrentProcess().Handle),
+                        null,
+                        &nativeMachine))
+                    {
+                        is64bit =
+                            nativeMachine == IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64 ||
+                            nativeMachine == IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64;
+                    }
                 }
             }
 

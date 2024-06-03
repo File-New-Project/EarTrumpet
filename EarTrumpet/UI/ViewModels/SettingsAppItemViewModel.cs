@@ -53,7 +53,7 @@ namespace EarTrumpet.UI.ViewModels
         public float PeakValue1 => 0;
         public float PeakValue2 => 0;
         public string PersistedOutputDevice => throw new NotImplementedException();
-        public int ProcessId => throw new NotImplementedException();
+        public uint ProcessId => throw new NotImplementedException();
         public IDeviceViewModel Parent => throw new NotImplementedException();
 
         public ICommand Remove { get; set; }

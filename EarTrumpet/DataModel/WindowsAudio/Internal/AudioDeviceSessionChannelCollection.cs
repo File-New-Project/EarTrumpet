@@ -1,21 +1,21 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Threading;
+using Windows.Win32.Media.Audio;
 
-namespace EarTrumpet.DataModel.WindowsAudio.Internal
+namespace EarTrumpet.DataModel.WindowsAudio.Internal;
+
+class AudioDeviceSessionChannelCollection
 {
-    class AudioDeviceSessionChannelCollection
-    {
-        public List<AudioDeviceSessionChannel> Channels { get; }
+    public List<AudioDeviceSessionChannel> Channels { get; }
 
-        public AudioDeviceSessionChannelCollection(IChannelAudioVolume session, Dispatcher dispatcher)
+    public AudioDeviceSessionChannelCollection(IChannelAudioVolume session, Dispatcher dispatcher)
+    {
+        var ret = new List<AudioDeviceSessionChannel>();
+        session.GetChannelCount(out var channelCount);
+        for (uint i = 0; i < channelCount; i++)
         {
-            var ret = new List<AudioDeviceSessionChannel>();
-            for(uint i = 0; i < session.GetChannelCount(); i++)
-            {
-                ret.Add(new AudioDeviceSessionChannel(session, i, dispatcher));
-            }
-            Channels = ret;
+            ret.Add(new AudioDeviceSessionChannel(session, i, dispatcher));
         }
+        Channels = ret;
     }
 }

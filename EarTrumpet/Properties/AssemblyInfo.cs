@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Windows;
 
@@ -9,3 +10,4 @@ using System.Windows;
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: SupportedOSPlatform("windows10.0.17763")]
+[assembly: InternalsVisibleTo("EarTrumpet.Benchmarks")]

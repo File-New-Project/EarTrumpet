@@ -21,7 +21,7 @@ namespace EarTrumpet.UI.ViewModels
         float PeakValue1 { get; }
         float PeakValue2 { get; }
         string PersistedOutputDevice { get; }
-        int ProcessId { get; }
+        uint ProcessId { get; }
         bool DoesGroupWith(IAppItemViewModel app);
         void MoveToDevice(string id, bool hide);
         void UpdatePeakValueForeground();

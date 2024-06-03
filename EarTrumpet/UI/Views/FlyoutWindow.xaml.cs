@@ -5,6 +5,7 @@ using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Windows;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace EarTrumpet.UI.Views
 {
@@ -34,7 +35,7 @@ namespace EarTrumpet.UI.Views
             Show();
             Hide();
             // Prevent showing up in Alt+Tab.
-            this.ApplyExtendedWindowStyle(User32.WS_EX_TOOLWINDOW);
+            this.ApplyExtendedWindowStyle(WINDOW_EX_STYLE.WS_EX_TOOLWINDOW);
 
             _viewModel.ChangeState(FlyoutViewState.Hidden);
         }

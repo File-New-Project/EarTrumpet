@@ -1,14 +1,17 @@
-﻿using EarTrumpet.DataModel.Audio;
-using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using EarTrumpet.DataModel.Audio;
+using EarTrumpet.Extensions;
+using EarTrumpet.Interop.MMDeviceAPI;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.Media.Audio.Endpoints;
+using Windows.Win32.System.Com;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -38,16 +41,19 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             _device = device;
             _deviceManager = new WeakReference<IAudioDeviceManager>(deviceManager);
             _dispatcher = foregroundDispatcher;
-            _id = device.GetId();
+            device.GetId(out var deviceId);
+            _id = deviceId.ToString();
 
             Trace.WriteLine($"AudioDevice Create {_id}");
 
-            if (_device.GetState() == DeviceState.ACTIVE)
+            _device.GetState(out var deviceState);
+            if (deviceState == DEVICE_STATE.DEVICE_STATE_ACTIVE)
             {
                 _deviceVolume = device.Activate<IAudioEndpointVolume>();
                 _deviceVolume.RegisterControlChangeNotify(this);
                 _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
-                _isMuted = _deviceVolume.GetMute() != 0;
+                _deviceVolume.GetMute(out var isMuted);
+                _isMuted = isMuted;
                 _isRegistered = true;
                 _meter = device.Activate<IAudioMeterInformation>();
                 _channels = new AudioDeviceChannelCollection(_deviceVolume, _dispatcher);
@@ -78,13 +84,12 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IAudioEndpointVolumeCallback.OnNotify(IntPtr pNotify)
+        public unsafe void OnNotify(AUDIO_VOLUME_NOTIFICATION_DATA* pNotify)
         {
-            var data = Marshal.PtrToStructure<AUDIO_VOLUME_NOTIFICATION_DATA>(pNotify);
-            _volume = data.fMasterVolume;
-            _isMuted = data.bMuted != 0;
+            _volume = (*pNotify).fMasterVolume;
+            _isMuted = (*pNotify).bMuted != 0;
 
-            _channels.OnNotify(pNotify, data);
+            _channels.OnNotify((nint)pNotify, *pNotify);
 
             _dispatcher.Invoke((Action)(() =>
             {
@@ -95,10 +100,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public float Volume
         {
-            get
-            {
-                return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
-            }
+            get => App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
             set
             {
                 value = value.Bound(0, 1f);
@@ -113,8 +115,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     try
                     {
                         _volume = value;
-                        Guid dummy = Guid.Empty;
-                        _deviceVolume.SetMasterVolumeLevelScalar(value, ref dummy);
+                        _deviceVolume.SetMasterVolumeLevelScalar(value, Guid.Empty);
                     }
                     catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
@@ -138,8 +139,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 {
                     try
                     {
-                        Guid dummy = Guid.Empty;
-                        _deviceVolume.SetMute(value ? 1 : 0, ref dummy);
+                        _deviceVolume.SetMute(value ? new BOOL(1) : new BOOL(0), Guid.Empty);
                     }
                     catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
                     {
@@ -185,7 +185,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        public void UnhideSessionsForProcessId(int processId)
+        public void UnhideSessionsForProcessId(uint processId)
         {
             _sessions.UnHideSessionsForProcessId(processId);
         }
@@ -199,12 +199,12 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             try
             {
-                var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
-                _displayName = propStore.GetValue<string>(PropertyKeys.PKEY_Device_FriendlyName);
-                _iconPath = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceClass_IconPath);
-                _enumeratorName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_EnumeratorName);
-                _interfaceName = propStore.GetValue<string>(PropertyKeys.DEVPKEY_DeviceInterface_FriendlyName);
-                _deviceDescription = propStore.GetValue<string>(PropertyKeys.DEVPKEY_Device_DeviceDesc);
+                _device.OpenPropertyStore(STGM.STGM_READ, out var propStore);
+                _displayName = propStore.GetValue<string>(PInvoke.PKEY_Device_FriendlyName);
+                _iconPath = propStore.GetValue<string>(PInvoke.DEVPKEY_DeviceClass_IconPath);
+                _enumeratorName = propStore.GetValue<string>(PInvoke.DEVPKEY_Device_EnumeratorName);
+                _interfaceName = propStore.GetValue<string>(PInvoke.DEVPKEY_DeviceInterface_FriendlyName);
+                _deviceDescription = propStore.GetValue<string>(PInvoke.DEVPKEY_Device_DeviceDesc);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
@@ -220,10 +220,10 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             try
             {
-                var propStore = _device.OpenPropertyStore(STGM.STGM_READ);
-                var pv = propStore.GetValue(ref PropertyKeys.PKEY_AudioEndpoint_PhysicalSpeakers);
-                _speakerConfig = pv.uintVal;
-                Ole32.PropVariantClear(ref pv);
+                _device.OpenPropertyStore(STGM.STGM_READ, out var propStore);
+                propStore.GetValue(PInvoke.PKEY_AudioEndpoint_PhysicalSpeakers, out var pv);
+                _speakerConfig = pv.Anonymous.Anonymous.Anonymous.uintVal;
+                PInvoke.PropVariantClear(ref pv);
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
             {
