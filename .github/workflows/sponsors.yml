@@ -16,7 +16,7 @@ jobs:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'README.md'
           organization: true
-          template: '<a href="https://github.com/{{{ login }}}"><img src="https://github.com/{{{ login }}}.png" width="60px" alt="{{{ name }}}" /></a> '
+          template: '<a href="https://github.com/{{{ login }}}"><img src="https://github.com/{{{ login }}}.png" width="60px" alt="{{{ name }}}" title="{{{ name }}}" /></a> '
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

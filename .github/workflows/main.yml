@@ -9,6 +9,7 @@ on:
       - "**/*.md"
       - ".github/ISSUE_TEMPLATE/*"
       - ".github/workflows/sponsors.yml"
+      - ".github/workflows/translators.yml"
       - "Graphics/*"
   pull_request:
     branches:
