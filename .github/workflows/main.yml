@@ -1,4 +1,4 @@
-name: EarTrumpet-CI
+name: EarTrumpet
 on:
   push:
     branches:
@@ -6,400 +6,364 @@ on:
       - dev
       - rafael/*
     paths-ignore:
-      - "**/*.md"
-      - ".github/ISSUE_TEMPLATE/*"
-      - ".github/workflows/sponsors.yml"
-      - ".github/workflows/translators.yml"
-      - "Graphics/*"
+      - '**/*.md'
+      - '.github/ISSUE_TEMPLATE/*'
+      - '.github/workflows/sponsors.yml'
+      - '.github/workflows/translators.yml'
+      - 'Graphics/*'
   pull_request:
     branches:
       - dev
     paths-ignore:
-      - "**/*.md"
+      - '**/*.md'
       - crowdin.yml
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
+  GHA_HASH_PATHS: |
+    EarTrumpet/**
+    !EarTrumpet/**/bin/**
+    !EarTrumpet/**/obj/**
+    !EarTrumpet/**/.vs/**
+    EarTrumpet.Package/**
+    !EarTrumpet.Package/**/bin/**
+    !EarTrumpet.Package/**/obj/**
+    !EarTrumpet/**/.vs/**
+    Packaging/**
 
 jobs:
-  build:
+  #
+  # Base build
+  #
+
+  base:
+    name: 🔨 Build Base
     runs-on: windows-latest
-    strategy:
-      matrix:
-        channel: [AppInstaller, Store, Chocolatey]
-        include:
-          - channel: AppInstaller
-            publisher:
-              "CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
-          - channel: Store
-            publisher: CN=6099D0EF-9374-47ED-BDFE-A82136831235
-          - channel: Chocolatey
-            publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
-      max-parallel: 1
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Check for existing base
+        uses: actions/cache/restore@v4
+        id: base-exists
+        with:
+          path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          lookup-only: true
 
       - name: Fetch all history for all tags and branches
         run: git fetch --prune --unshallow
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.15
+        uses: gittools/actions/gitversion/setup@v1.2.0
         with:
-          versionSpec: "5.x"
+          versionSpec: '5.x'
           includePrerelease: false
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
       - name: Use GitVersion
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.15
+        uses: gittools/actions/gitversion/execute@v1.2.0
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
-      - name: Generate versioning metadata
+      - name: Create artifacts folder
         shell: pwsh
-        id: metadata
         run: |
-          if("${{ matrix.channel }}" -eq "Store") {
-            $Version = "Version=${{ steps.gitversion.outputs.majorMinorPatch }}.0"
-          } else {
-            $Version = "Version=${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
-          }
+          New-Item -ItemType Directory -Force -Path .artifacts/
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
-          Write-Output $Version >> $env:GITHUB_OUTPUT
+      - name: Generate versioning artifact
+        shell: pwsh
+        run: |
+          "${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}" |
+            Out-File .artifacts/version_4.txt
+          "${{ steps.gitversion.outputs.majorMinorPatch }}.0" |
+            Out-File .artifacts/version_3.txt
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
       - name: Restore packages
         run: dotnet restore EarTrumpet.sln
-
-      - name: Set Bugsnag API Key
-        shell: pwsh
-        run: |
-          $cfg = Get-Content ".\EarTrumpet\app.config"
-          $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "${{ secrets.bugsnag_api_key }}") } | Set-Content ".\EarTrumpet\app.config"
-
-      - name: Adjust manifest and store association
-        if: matrix.channel == 'Store' || matrix.channel == 'AppInstaller'
-        shell: powershell
-        run: |
-          $manifestPath = ".\EarTrumpet.Package\Package.appxmanifest"
-          $storeAssociationPath = ".\EarTrumpet.Package\Package.StoreAssociation.xml"
-
-          $manifest = [xml](Get-Content $manifestPath)
-          $manifest.Package.Identity.Publisher = "${{ matrix.publisher }}"
-          $manifest.Package.Identity.Version = "${{ steps.metadata.outputs.version }}"
-
-          if("${{ matrix.channel }}" -eq "AppInstaller") {
-            if("${{ steps.gitversion.outputs.branchName }}" -eq "master") {
-              $manifest.Package.Properties.DisplayName = "EarTrumpet"
-              $manifest.Package.Applications.Application.VisualElements.DisplayName = "EarTrumpet"
-            } else {
-              $manifest.Package.Properties.DisplayName = $manifest.Package.Properties.DisplayName + " (${{ steps.gitversion.outputs.branchName }})"
-            $manifest.Package.Applications.Application.VisualElements.DisplayName = "EarTrumpet (${{ steps.gitversion.outputs.branchName }})"
-            }
-          }
-          $manifest.Save($manifestPath)
-
-          $storeAssociation = [xml](Get-Content $storeAssociationPath)
-          $storeAssociation.StoreAssociation.Publisher = "${{ matrix.publisher }}"
-          if("${{ matrix.channel }}" -eq "AppInstaller") {
-            if("${{ steps.gitversion.outputs.branchName }}" -eq "master") {
-              $storeAssociation.StoreAssociation.ProductReservedInfo.ReservedNames.ReservedName = "EarTrumpet"
-            } else {
-              $storeAssociation.StoreAssociation.ProductReservedInfo.ReservedNames.ReservedName = "EarTrumpet (${{ steps.gitversion.outputs.branchName }})"
-            }
-          }
-          $storeAssociation.Save($storeAssociationPath)
-
-      - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1
-          
-      - name: Build EarTrumpet msixupload package
-        if: matrix.channel == 'Store'
         shell: cmd
-        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=x86 /p:Configuration=Release /p:msixbundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=..\.artifacts\msixupload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=CI -maxcpucount
-      
-      - name: Upload msixupload artifact
-        if: matrix.channel == 'Store' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v3
-        with:
-          name: msixupload
-          path: .artifacts/msixupload
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
       - name: Build EarTrumpet
-        if: matrix.channel == 'Chocolatey'
         shell: cmd
-        run: msbuild EarTrumpet/EarTrumpet.csproj /p:Platform=x86 /p:Configuration=Release /p:Channel=${{ matrix.channel }} /p:OutputPath=..\.artifacts\loose\ -maxcpucount
+        run: >
+          dotnet publish
+          /p:PublishProfile=x86
+          /p:Platform=x86
+          EarTrumpet\EarTrumpet.csproj
 
-      - name: Upload loose artifacts
-        if:
-          matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v3
-        with:
-          name: loose
-          path: .artifacts/loose
+          dotnet publish
+          /p:PublishProfile=x64
+          /p:Platform=x64
+          EarTrumpet\EarTrumpet.csproj
 
-      - name: Build EarTrumpet appinstaller/sideload package
-        if: matrix.channel == 'AppInstaller' || matrix.channel == 'Chocolatey'
-        shell: cmd
-        run: msbuild EarTrumpet.Package/EarTrumpet.Package.wapproj /p:Platform=x86 /p:Configuration=Release /p:msixbundle=Always /p:Channel=${{ matrix.channel }} /p:AppxPackageDir=..\.artifacts\sideload\ /p:AppxPackageSigningEnabled=false /p:UapAppxPackageBuildMode=SideloadOnly /p:GenerateAppInstallerFile=true /p:AppxPackageTestDir=..\.artifacts\sideload\ /p:AppInstallerUri="https://install.eartrumpet.app" -maxcpucount
+          dotnet publish
+          /p:PublishProfile=arm64
+          /p:Platform=arm64
+          EarTrumpet\EarTrumpet.csproj
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
-      - name: Adjust appinstaller manifest
-        if:
-          matrix.channel == 'AppInstaller' && github.event_name !=
-          'pull_request'
-        shell: powershell
-        run: |
-          $manifestPath = ".artifacts/sideload/EarTrumpet.Package.appinstaller"
-          $manifest = [xml](Get-Content $manifestPath)
-          $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package.appinstaller"
-          $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{ steps.gitversion.outputs.branchName }}/EarTrumpet.Package_${{ steps.gitversion.outputs.majorMinorPatch }}.${{ steps.gitversion.outputs.commitsSinceVersionSource }}_x86_x64_arm64.msixbundle"
-          $manifest.AppInstaller.MainBundle.Publisher = "${{ matrix.publisher }}"
-
-          $fragment = [xml]'<AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"><Dependencies><Package Name="Microsoft.VCLibs.140.00.UWPDesktop" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" Version="14.0.30704.0" ProcessorArchitecture="x86" Uri="https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" /></Dependencies></AppInstaller>'
-          $manifest.AppInstaller.InsertAfter($manifest.ImportNode($fragment.AppInstaller.Dependencies, $true), $manifest.AppInstaller.MainBundle)
-
-          $manifest.Save($manifestPath)
-
-      - name: Upload appinstaller/sideload package artifacts
-        if:
-          matrix.channel == 'AppInstaller' && github.event_name !=
-          'pull_request'
-        uses: actions/upload-artifact@v3
-        with:
-          name: sideload
-          path: .artifacts/sideload
-
-      - name: Fix up PDPs
-        if: matrix.channel == 'Store' && github.event_name != 'pull_request'
+      - name: Set Bugsnag API key
         shell: pwsh
         run: |
-          Set-Location packaging\MicrosoftStore\PDPs
-          Get-ChildItem | ForEach-Object {
-              $locale = $_.Name
-              $pdp = [xml](Get-Content "$locale\pdp.xml")
-              $pdp.ProductDescription.language = $locale
-              $pdp.ProductDescription.lang = $locale
-              $pdp.ProductDescription
-              $pdp.Save((Resolve-Path "$locale\pdp.xml"))
+          Get-ChildItem .artifacts\base\**\app.config | ForEach-Object {
+            $cfg = Get-Content $_
+            $cfg | ForEach-Object { $_.Replace("{bugsnag.apikey}", "${{ secrets.bugsnag_api_key }}") } | Set-Content $_
           }
+        if: steps.base-exists.outputs.cache-hit != 'true'
 
-      - name: Stage chocolatey packaging metadata
-        if:
-          matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
-        shell: powershell
-        run: |
-          Copy-Item .chocolatey\* -Recurse ".artifacts\chocolatey\"
-          
-      - name: Upload chocolatey artifacts
-        if: matrix.channel == 'Chocolatey' && github.event_name != 'pull_request'
-        uses: actions/upload-artifact@v1.0.0
+      - name: Sign all files
+        uses: azure/trusted-signing-action@v0.3.20
         with:
-          name: chocolatey
-          path: .artifacts/chocolatey
-    outputs:
-        version: ${{ steps.metadata.outputs.version }}
-  release:
-    needs: build
-    runs-on: windows-2019
-    if: github.event_name != 'pull_request'
-    strategy:
-      matrix:
-        channel: [AppInstaller, Store, Chocolatey]
-      max-parallel: 3
+          azure-tenant-id: ${{ secrets.azure_tenant_id }}
+          azure-client-id: ${{ secrets.azure_client_id }}
+          azure-client-secret: ${{ secrets.azure_client_secret }}
+          endpoint: https://wus2.codesigning.azure.net/
+          trusted-signing-account-name: main
+          certificate-profile-name: profileTWN
+          files-catalog: packaging\catalog.txt
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+        if: steps.base-exists.outputs.cache-hit != 'true'
+
+      - name: Add to cache
+        uses: actions/cache/save@v4
+        with:
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          path: .artifacts
+        if: steps.base-exists.outputs.cache-hit != 'true'
+
+  #
+  # Packaging: AppInstaller
+  #
+
+  appinstaller:
+    name: 📦 Package for AppInstaller
+    runs-on: windows-latest
+    needs: base
+
     env:
-      AZURE_TENANT_ID: ${{ secrets.azure_tenant_id }}
-      AZURE_CLIENT_ID: ${{ secrets.azure_client_id }}
-      AZURE_CLIENT_SECRET: ${{ secrets.azure_client_secret }}
+      channel: 'AppInstaller'
+      publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
+
     steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore base
+        uses: actions/cache/restore@v4
         with:
           path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          fail-on-cache-miss: true
 
-      - name: Install NuGet
-        uses: NuGet/setup-nuget@v1
+      - name: Configure manifest
+        uses: ./.github/actions/configure-manifest
         with:
-          nuget-version: latest
+          manifest: EarTrumpet.Package/Package.appxmanifest
+          publisher: ${{ env.publisher }}
+          branch: ${{ github.ref_name }}
+          prefix: 'EarTrumpet'
+          version: .artifacts/version_4.txt
 
-      - name: Install Build Tools
-        run: nuget install Microsoft.Windows.SDK.BuildTools
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
 
-      - name: Install Azure Codesigning
+      - name: Restore packages
         shell: pwsh
-        env:
-          ACS_PACKAGE_URI: ${{ secrets.acs_package_uri }}
-          ACS_METADATA_URI: ${{ secrets.acs_metadata_uri }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-        run: |
-            Invoke-WebRequest $env:ACS_PACKAGE_URI -UseBasicParsing -OutFile package.zip
-            Expand-Archive package.zip -DestinationPath acs
-            Invoke-WebRequest $env:ACS_METADATA_URI -UseBasicParsing -OutFile acs\metadata.json
+        run: >
+          dotnet restore
+          EarTrumpet.sln
 
-      - name: Sign and repackage Store artifacts
-        if: matrix.channel == 'Store'
+      - name: Create msixbundle
         shell: pwsh
-        run: |
-            ls .artifacts\Msixupload
-            $MsixUploadPath = ".artifacts\Msixupload"
-            $ExtractedPath = "$env:TEMP\Extracted"
-            $SignedPath = ".artifacts\Signed"
+        run: >
+          msbuild
+          /p:AppxBundle=Always
+          /p:AppxPackageSigningEnabled=false
+          /p:AppxPackageDir=..\.artifacts\sideload\
+          /p:AppxPackageTestDir=..\.artifacts\sideload\
+          /p:AppInstallerUri="https://install.eartrumpet.app"
+          /p:Configuration=Release
+          /p:Channel=AppInstaller
+          /p:GenerateAppInstallerFile=true
+          /p:Platform=x86
+          /p:UapAppxPackageBuildMode=SideloadOnly
+          /p:WapAlwaysBuildDependentProjects=false
+          "/p:AppxBundlePlatforms=x86|x64|arm64"
+          EarTrumpet.Package/EarTrumpet.Package.wapproj
 
-            $Version = [Version]"${{ needs.build.outputs.version }}"
-            $MsixBundleFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64.msixbundle"
-            $MsixUploadFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64_bundle.msixupload"
-            $MsixUploadFilePath = "$MsixUploadPath\$MsixUploadFilename"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppInstaller
+          path: |
+            .artifacts/sideload/EarTrumpet.Package_*_x86_x64_arm64.msixbundle
+            .artifacts/sideload/EarTrumpet.Package.appinstaller
 
-            ### Prepare output directories
-            New-Item -ItemType Directory "$SignedPath"
-            New-Item -ItemType Directory "$SignedPath\Package"
-            New-Item -ItemType Directory "$SignedPath\Bundle"
-            New-Item -ItemType Directory "$SignedPath\Msixupload"
+  #
+  # Packaging: Chocolatey
+  #
 
-            ### Expand msixupload and msixbundle
-            Expand-Archive $MsixUploadFilePath "$ExtractedPath\msixupload" # Outputs *.appxsym, .msixbundle
-            Expand-Archive "$ExtractedPath\msixupload\$MsixBundleFilename" "$ExtractedPath\bundle" # Outputs arch-specific and neutral *.msix packages
+  chocolatey:
+    name: 📦 Package for Chocolatey
+    runs-on: windows-latest
+    needs: base
+    
+    env:
+      channel: 'Chocolatey'
+      publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
 
-            foreach ($arch in @("x86", "x64", "arm64")) {
-                $ExtractedPathWithArch = "$ExtractedPath\$arch"
-                $AppxSymFilename = "EarTrumpet.Package_${Version}_${arch}.appxsym"
-                $MsixFilename = "EarTrumpet.Package_${Version}_${arch}.msix"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-                ### Expand symbols and app package
-                Expand-Archive "$ExtractedPath\msixupload\$AppxSymFilename" "$ExtractedPathWithArch\Symbols"
-                Expand-Archive "$ExtractedPath\bundle\$MsixFilename" "$ExtractedPathWithArch\Package"
-
-                ### Place symbols next to executable image
-                Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
-
-                ### Sign executable image
-                & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
-
-                ### Repackage app
-                & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
-                Set-ItemProperty "$SignedPath\Package\$MsixFilename" -Name IsReadOnly -Value $true
-            }
-
-            ### Copy remaining neutral packages
-            Copy-Item "$ExtractedPath\bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
-
-            ### Rebundle packages
-            & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\bundle\$MsixBundleFilename"
-
-            ### Recreate msixupload
-            Copy-Item "$ExtractedPath\msixupload\*.appxsym" "$SignedPath\Bundle"
-            Compress-Archive -Path "$SignedPath\Bundle\*" -DestinationPath "$SignedPath\msixupload\$MsixUploadFilename" -CompressionLevel Optimal
-
-
-      - name: Sign AppInstaller artifacts
-        if: matrix.channel == 'AppInstaller'
-        shell: pwsh
-        run: |
-            $SideloadPath = ".artifacts\Sideload"
-            $SignedPath = ".artifacts\Signed"
-
-            $Version = [Version]"${{ needs.build.outputs.version }}"
-            $MsixBundleFilename = "EarTrumpet.Package_${Version}_x86_x64_arm64.msixbundle"
-            $MsixBundleFilePath = "$SideloadPath\$MsixBundleFilename"
-            $AppInstallerFilePath = "$SideloadPath\EarTrumpet.Package.appinstaller"
-            cat $AppInstallerFilePath
-            ### Prepare output directories
-            New-Item -ItemType Directory "$SignedPath"
-            New-Item -ItemType Directory "$SignedPath\Package"
-            New-Item -ItemType Directory "$SignedPath\Bundle"
-            New-Item -ItemType Directory "$SignedPath\Sideload"
-
-            ### Expand msixbundle
-            $ExtractedPath = "$env:TEMP\Extracted"
-            Expand-Archive $MsixBundleFilePath "$ExtractedPath\Bundle"
-
-            foreach ($arch in @("x86", "x64", "arm64")) {
-                $ExtractedPathWithArch = "$ExtractedPath\$arch"
-                $AppxSymFilename = "EarTrumpet.Package_${Version}_${arch}.appxsym"
-                $MsixFilename = "EarTrumpet.Package_${Version}_${arch}.msix"
-
-                ### Expand symbols and app package
-                Expand-Archive "$SideloadPath\$AppxSymFilename" "$ExtractedPathWithArch\Symbols"
-                Expand-Archive "$ExtractedPath\Bundle\$MsixFilename" "$ExtractedPathWithArch\Package"
-
-                ### Place symbols next to executable image
-                Copy-Item "$ExtractedPathWithArch\Symbols\EarTrumpet.pdb" "$ExtractedPathWithArch\Package\EarTrumpet\"
-
-                ### Sign executable image
-                & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$ExtractedPathWithArch\Package\EarTrumpet\EarTrumpet.exe"
-
-                ### Repackage app
-                & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" pack /l /h sha256 /d "$ExtractedPathWithArch\Package" /o /p "$SignedPath\Package\$MsixFilename"
-                Set-ItemProperty "$SignedPath\Package\$MsixFilename" -Name IsReadOnly -Value $true
-            }
-
-            ### Copy remaining neutral packages
-            Copy-Item "$ExtractedPath\bundle\*.msix" "$SignedPath\Package\" -ErrorAction Ignore
-
-            ### Copy appinstaller manifest
-            Copy-Item $AppInstallerFilePath "$SignedPath\Bundle\"
-
-            ### Rebundle packages
-            & "C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x86\makeappx.exe" bundle /d "$SignedPath\Package" /bv $Version /o /p "$SignedPath\Bundle\$MsixBundleFilename"
-
-            ### Sign appx bundle
-            & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$SignedPath\Bundle\$MsixBundleFilename"
-
-      - name: Sign and repackage Chocolatey artifacts
-        if: matrix.channel == 'Chocolatey'
-        shell: pwsh
-        run: |
-          $LooseFilesPath = ".artifacts\loose"
-          
-          ### Sign executable image
-          & (Resolve-Path "Microsoft.Windows.SDK.BuildTools.*\bin\*\x64\signtool.exe") sign /v /fd SHA256 /td SHA256 /tr http://timestamp.acs.microsoft.com /dlib "acs\bin\x64\Azure.CodeSigning.Dlib.dll" /dmdf "acs\metadata.json" "$LooseFilesPath\EarTrumpet.exe"
-
-          ### Package for release
-          Compress-Archive -Path "$LooseFilesPath\*" -DestinationPath ".artifacts\chocolatey\tools\release.zip" -CompressionLevel Optimal
+      - name: Restore base
+        uses: actions/cache/restore@v4
+        with:
+          path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          fail-on-cache-miss: true
 
       - name: Adjust nuspec
-        if: matrix.channel == 'Chocolatey'
+        uses: ./.github/actions/configure-nuspec
+        with:
+          nuspec: Packaging\Chocolatey\eartrumpet.nuspec
+          version: .artifacts/version_4.txt
+
+      - name: Stage packaging
         shell: pwsh
         run: |
-          $Version = [Version]"${{ needs.build.outputs.version }}"
-          $NuspecPath = ".artifacts\chocolatey\eartrumpet.nuspec"
+          Copy-Item Packaging\Chocolatey -Recurse .artifacts
 
-          $nuspec = [xml](Get-Content -Path $NuspecPath)
-          $nuspec.package.metadata.version = $Version
-          $nuspec.Save($NuspecPath)
-
-      - name: Create chocolatey package
-        if: matrix.channel == 'Chocolatey'
-        shell: powershell
+      - name: Create package
+        shell: pwsh
         run: |
           choco pack ".artifacts\chocolatey\eartrumpet.nuspec" --out ".artifacts\chocolatey"
 
-      - name: Upload chocolatey artifact
-        if: matrix.channel == 'Chocolatey'
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: chocolatey-package
-          path: .artifacts/chocolatey/*.nupkg
+          name: Chocolatey
+          path: |
+            .artifacts/chocolatey/eartrumpet.*.nupkg
 
-      - name: Install OpenSSH FOD
-        if: matrix.channel == 'AppInstaller' || matrix.channel == 'Store'
-        shell: powershell
-        run: |
-          Set-Service -Name wuauserv -StartupType Manual
-          Start-Service -Name wuauserv
-          Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+  #
+  # Packaging: Store
+  #
 
-      - name: Push release to Partner Center via StoreBroker
-        if: matrix.channel == 'Store'
-        shell: powershell
-        run: |
-          Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
-          Install-Module -Name StoreBroker
+  store:
+    name: 📦 Package for Microsoft Store
+    runs-on: windows-latest
+    needs: base
 
-          $Password = ConvertTo-SecureString '${{ secrets.partnercenter_clientkey }}' -AsPlainText -Force
-          $Credentials = New-Object System.Management.Automation.PSCredential ('${{ secrets.partnercenter_clientid }}', $Password)
-          Set-StoreBrokerAuthentication -TenantId '${{ secrets.partnercenter_tenantid }}' -Credential $Credentials -Verbose
+    env:
+      channel: 'Store'
+      publisher: 'CN=6099D0EF-9374-47ED-BDFE-A82136831235'
 
-          $SubmissionRoot = "$env:TEMP\Packaging\Submission"
-          $Version = [Version]"${{ needs.build.outputs.version }}"
-          $MsixUpload = "EarTrumpet.Package_${Version}_x86_x64_arm64_bundle.msixupload"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-          New-SubmissionPackage -ConfigPath "Packaging\MicrosoftStore\SBConfig.json" -PDPRootPath "Packaging\MicrosoftStore\PDPs" -ImagesRootPath "Packaging\MicrosoftStore\PDPs" -AppxPath ".artifacts\signed\msixupload\$MsixUpload" -MediaFallbackLanguage en-US -OutPath "$SubmissionRoot" -OutName EarTrumpet -Verbose
-          $submissionId, $submissionUrl = Update-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json" -PackagePath "$SubmissionRoot\EarTrumpet.zip" -AddPackages -UpdateListings -UpdatePublishModeAndVisibility -UpdatePricingAndAvailability -UpdateAppProperties -UpdateNotesForCertification -TargetPublishMode Manual -Force -Verbose
-          Complete-ApplicationSubmission -AppId "${{ secrets.partnercenter_appid }}" -SubmissionId $submissionId -Verbose
+      - name: Restore base
+        uses: actions/cache/restore@v4
+        with:
+          path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          fail-on-cache-miss: true
+
+      - name: Configure manifest
+        uses: ./.github/actions/configure-manifest
+        with:
+          manifest: EarTrumpet.Package/Package.appxmanifest
+          publisher: ${{ env.publisher }}
+          branch: ${{ github.ref_name }}
+          prefix: 'EarTrumpet'
+          version: .artifacts/version_3.txt
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+
+      - name: Restore packages
+        shell: pwsh
+        run: >
+          dotnet restore
+          EarTrumpet.sln
+
+      - name: Create msixbundle
+        shell: pwsh
+        run: >
+          msbuild
+          /p:AppxBundle=Always
+          /p:AppxPackageSigningEnabled=false
+          /p:AppxPackageDir=..\.artifacts\store\
+          /p:Configuration=Release
+          /p:Channel=Store
+          /p:GenerateAppInstallerFile=false
+          /p:Platform=x86
+          /p:UapAppxPackageBuildMode=CI
+          /p:WapAlwaysBuildDependentProjects=false
+          EarTrumpet.Package/EarTrumpet.Package.wapproj
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MicrosoftStore
+          path: |
+            .artifacts/store/EarTrumpet.Package_*_x86_x64_arm64_bundle.msixupload
+
+  #
+  # Deployment: AppInstaller
+  #
+
+  deploy-appinstaller:
+    name: 🚀 Deploy AppInstaller package
+    runs-on: windows-latest
+    needs: appinstaller
+    # if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: AppInstaller
+          path: .
+          #.artifacts/sideload/EarTrumpet.Package_*_x86_x64_arm64.msixbundle
+          #.artifacts/sideload/EarTrumpet.Package.appinstaller
+      
+      - name: Log into Azure
+        uses: azure/login@v2
+        with:
+          creds: '{"clientId":"${{ secrets.azure_storage_client_id }}","clientSecret":"${{ secrets.azure_storage_client_secret }}","subscriptionId":"${{ secrets.azure_storage_subscription_id }}","tenantId":"${{ secrets.azure_tenant_id }}"}'
+          enable-AzPSSession: true 
+
+      - name: Upload blob to Azure Storage
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: "latest"
+          inlineScript: >
+            $context =
+            New-AzStorageContext
+            -StorageAccountName eartrumpetstorage
+            -UseConnectedAccount
+
+            Get-ChildItem
+            -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle |
+            Set-AzStorageBlobContent
+            -Container builds
+            -Context $context
+
+            Set-AzStorageBlobContent
+            -File EarTrumpet.Package.appinstaller
+            -Container builds
+            -Context $context
+            -Force

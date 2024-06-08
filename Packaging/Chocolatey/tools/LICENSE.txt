@@ -1,6 +1,17 @@
 ﻿From: https://github.com/File-New-Project/EarTrumpet/blob/master/LICENSE
 
-LICENSE
+The following legal persons or entities (collectively, the "Excluded Entities") are
+expressly excluded from the licensing terms set forth below and, as such, do not
+have the right to reproduce, distribute, or create derivative works from the
+software or associated documentation files:
+
+    Yellow Elephant Productions
+    Tidal Media Inc.
+
+The Excluded Entities may not exercise any of the rights granted to other users
+under these licensing terms.
+
+---
 
 The MIT License (MIT)
 
@@ -23,3 +34,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+

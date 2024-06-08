@@ -1,8 +1,8 @@
 name: Generate Sponsors
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 12 1-31 * *
+  # schedule:
+  #   - cron: 0 12 1-31 * *
 jobs:
   deploy:
     runs-on: ubuntu-latest

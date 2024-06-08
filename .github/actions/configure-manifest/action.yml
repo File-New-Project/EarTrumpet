@@ -1,0 +1,28 @@
+name: Configure Manifest
+inputs:
+  manifest:
+    required: true
+  publisher:
+    required: true
+  version:
+    required: true
+  prefix:
+    required: true
+  branch:
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Configure manifest
+      shell: powershell
+      run: |
+        $manifestPath = "${{ inputs.manifest }}"
+
+        $manifest = [xml](Get-Content $manifestPath)
+        $manifest.Package.Identity.Publisher = "${{ inputs.publisher }}"
+        $manifest.Package.Identity.Version = [string](Get-Content "${{ inputs.version }}")
+        $manifest.Package.Properties.DisplayName = "${{ inputs.prefix }}"
+        if ("${{ inputs.branch }}" -ne "master") {
+          $manifest.Package.Properties.DisplayName = $manifest.Package.Properties.DisplayName + " (${{ inputs.branch }})"
+        }
+        $manifest.Save($manifestPath)
