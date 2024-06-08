@@ -42,7 +42,12 @@
 
 ## Internationalization
 
-We currently support 20+ languages. Are we missing your language? [Contribute a translation via Crowdin](https://crowdin.com/project/eartrumpet)!
+Thanks to our translators, we currently support 20+ languages. Are we missing your language? [Contribute a translation via Crowdin](https://crowdin.com/project/eartrumpet)!
+
+### Translators
+
+<!-- begin-translators -->
+<!-- end-translators -->
 
 ## Install
 
