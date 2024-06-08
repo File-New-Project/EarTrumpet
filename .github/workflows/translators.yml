@@ -1,0 +1,40 @@
+name: Update Translators List
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly on Sunday at 00:00
+  workflow_dispatch:
+
+jobs:
+  update-translators:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch translators list from CrowdIn
+        id: fetch_translators
+        run: |
+          $headers = @{
+            "Authorization" = "Bearer ${{ secrets.CROWDIN_API_TOKEN }}"
+          }
+          $uri = "https://api.crowdin.com/api/v2/projects/407880/members"
+          $response = Invoke-RestMethod -Uri $uri -Headers $headers
+          echo "::set-output name=translators::$( $response.data )"
+        shell: pwsh
+
+      - name: Update README.md
+        run: |
+          $translators = "${{ steps.fetch_translators.outputs.translators }}" | ConvertFrom-Json
+          $translatorsHtml = $translators | ForEach-Object {
+            $avatarUrl = $_.data.avatarUrl
+            if (-not $avatarUrl) {
+              $avatarUrl = "https://ui-avatars.com/api/?name=$($_.data.fullName)"
+            }
+            "<img src=`"$avatarUrl`" width=`"60`" height=`"60`" alt=`"$($_.data.fullName)`">"
+          } | Sort-Object fullName | ForEach-Object { $_ + "`n" } -join ""
+          
+          $readmeContent = Get-Content -Path .\README.md -Raw
+          $updatedReadmeContent = $readmeContent -replace "<!-- translators -->", $translatorsHtml
+          Set-Content -Path .\README.md -Value $updatedReadmeContent
+        shell: pwsh

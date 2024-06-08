@@ -32,3 +32,9 @@ Before contributing code, we require the following workflow:
     ℹ It is OK for your PR to include a large number of commits. We will squash them on merge.
 
     ℹ It is also OK to create your PR as "[WIP]" before the implementation is done. This can be useful if you'd like to start the feedback process while you finish your implementation. State that this is the case in the initial PR comment.
+
+## Translation Workflow
+
+If you're interested in helping translate EarTrumpet, we'd love your contributions! Here's how you can get involved:
+
+1. Visit our project on CrowdIn at [https://crowdin.com/project/eartrumpet](https://crowdin.com/project/
