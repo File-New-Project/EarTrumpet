@@ -645,7 +645,7 @@
     <value>Ses seviyesini tüm aygıtlar için yükselt</value>
   </data>
   <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
-    <value>Uygulama birimi ve cihaz tercihleri</value>
+    <value>Uygulama ses ve aygıt seçenekleri</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
     <value>Ses karıştırıcısı</value>
@@ -657,7 +657,7 @@
     <value>EarTrumpet simgesinin üzerindeyken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
-    <value>Yüzen kontroller açıkken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
+    <value>Açılır pencere açıkken ses seviyesini değiştirmek için kaydırma tekerleğini kullanın</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
     <value>Topluluk ayarları</value>

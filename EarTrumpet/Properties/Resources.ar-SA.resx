@@ -296,8 +296,6 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>إرسال بيانات تحطم إلى فريق إيرترامبيت</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>و</value>
   </data>
@@ -639,5 +637,35 @@
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>التطبيقات المبينة أعلاه تم تشغيل الصوت مؤخرًا.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>تقليل مستوى الصوت لجميع الأجهزة</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>زيادة مستوى الصوت لجميع الأجهزة</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>صوت التطبيق وتفضيلات الجهاز</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>‎‎خالط مستوى الصوت</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>إعدادات الفأرة</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>استخدم عجلة التمرير لتغيير مستوى الصوت أثناء التنقل فوق أيقونة إيرترامبيت</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>استخدم عجلة التمرير لتغيير مستوى الصوت أثناء فتح مغير مستوى الصوت</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>إعدادات المجتمع</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>استخدام مقياس مستوى الصوت اللوغاريثمي</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>إظهار نافذة المزج الكاملة عند بدء التشغيل</value>
   </data>
 </root>
