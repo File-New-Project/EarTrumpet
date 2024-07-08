@@ -661,11 +661,11 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
   </data>
   <data name="CommunitySettingsPageText" xml:space="preserve">
     <value>Definições da comunidade</value>
-    <comment>Settings area that holds settings for community requested features</comment>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
     <value>Usar escala de volume logarítmica</value>
-    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
-</comment>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Mostrar a janela completa do misturador no arranque</value>
   </data>
 </root>
