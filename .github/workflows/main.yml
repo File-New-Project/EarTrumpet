@@ -117,7 +117,7 @@ jobs:
         if: steps.base-exists.outputs.cache-hit != 'true'
 
       - name: Sign all files
-        uses: azure/trusted-signing-action@v0.3.20
+        uses: azure/trusted-signing-action@v0.5.0
         with:
           azure-tenant-id: ${{ secrets.azure_tenant_id }}
           azure-client-id: ${{ secrets.azure_client_id }}
@@ -154,6 +154,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
 
       - name: Restore base
         uses: actions/cache/restore@v4
@@ -200,6 +203,35 @@ jobs:
           "/p:AppxBundlePlatforms=x86|x64|arm64"
           EarTrumpet.Package/EarTrumpet.Package.wapproj
 
+      - name: Stage AppInstaller manifest
+        shell: pwsh
+        run: >
+          Copy-Item Packaging\AppInstaller\EarTrumpet.Package.appinstaller .artifacts\sideload\
+          -Force
+
+      - name: Configure AppInstaller manifest
+        uses: ./.github/actions/configure-appinstaller
+        with:
+          manifest: .artifacts\sideload\EarTrumpet.Package.appinstaller
+          bundle: 'EarTrumpet.Package_*_x86_x64_arm64.msixbundle'
+          version: .artifacts/version_4.txt
+          branch: ${{ github.ref_name }}
+
+      - name: Sign package
+        uses: azure/trusted-signing-action@v0.5.0
+        with:
+          azure-tenant-id: ${{ secrets.azure_tenant_id }}
+          azure-client-id: ${{ secrets.azure_client_id }}
+          azure-client-secret: ${{ secrets.azure_client_secret }}
+          endpoint: https://wus2.codesigning.azure.net/
+          trusted-signing-account-name: main
+          certificate-profile-name: profileTWN
+          files-folder: .artifacts/sideload/
+          files-folder-filter: msixbundle
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -216,7 +248,7 @@ jobs:
     name: 📦 Package for Chocolatey
     runs-on: windows-latest
     needs: base
-    
+
     env:
       channel: 'Chocolatey'
       publisher: 'CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US'
@@ -243,10 +275,20 @@ jobs:
         run: |
           Copy-Item Packaging\Chocolatey -Recurse .artifacts
 
+      - name: Create release archive
+        shell: pwsh
+        run: >
+          Compress-Archive
+          -Path .artifacts\base\x86\**
+          -DestinationPath .artifacts\chocolatey\tools\release.zip
+          -CompressionLevel Optimal
+
       - name: Create package
         shell: pwsh
-        run: |
-          choco pack ".artifacts\chocolatey\eartrumpet.nuspec" --out ".artifacts\chocolatey"
+        run: >
+          choco
+          pack ".artifacts\chocolatey\eartrumpet.nuspec"
+          --out ".artifacts\chocolatey"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -271,6 +313,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
 
       - name: Restore base
         uses: actions/cache/restore@v4
@@ -312,6 +357,7 @@ jobs:
           /p:Platform=x86
           /p:UapAppxPackageBuildMode=CI
           /p:WapAlwaysBuildDependentProjects=false
+          "/p:AppxBundlePlatforms=x86|x64|arm64"
           EarTrumpet.Package/EarTrumpet.Package.wapproj
 
       - name: Upload artifact
@@ -319,7 +365,50 @@ jobs:
         with:
           name: MicrosoftStore
           path: |
+            .artifacts/store/EarTrumpet.Package_*_x86_x64_arm64.msixbundle
             .artifacts/store/EarTrumpet.Package_*_x86_x64_arm64_bundle.msixupload
+
+  #
+  # Packaging: Loose
+  #
+
+  loose:
+    name: 📦 Package for Loose scenarios
+    runs-on: windows-latest
+    needs: base
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore base
+        uses: actions/cache/restore@v4
+        with:
+          path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          fail-on-cache-miss: true
+
+      - name: Create release archives
+        shell: pwsh
+        run: >
+          New-Item
+          -ItemType Directory
+          -Path .artifacts\loose
+          -Force
+
+          @("x86", "x64", "arm64") | ForEach-Object {
+              Compress-Archive `
+                -Path .artifacts\base\$_\* `
+                -DestinationPath .artifacts\loose\EarTrumpet_$(Get-Content .artifacts/version_4.txt)_$($_).zip `
+                -CompressionLevel Optimal
+          }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Loose
+          path: |
+            .artifacts/loose/*.zip
 
   #
   # Deployment: AppInstaller
@@ -329,7 +418,13 @@ jobs:
     name: 🚀 Deploy AppInstaller package
     runs-on: windows-latest
     needs: appinstaller
-    # if: github.event_name == 'pull_request'
+    if: |
+      github.event_name != 'pull_request' &&
+      (
+        startsWith(github.ref, 'refs/heads/dev') || 
+        startsWith(github.ref, 'refs/heads/master') ||
+        startsWith(github.ref, 'refs/heads/feature')
+      )
 
     steps:
       - name: Download artifact
@@ -337,33 +432,186 @@ jobs:
         with:
           name: AppInstaller
           path: .
-          #.artifacts/sideload/EarTrumpet.Package_*_x86_x64_arm64.msixbundle
-          #.artifacts/sideload/EarTrumpet.Package.appinstaller
-      
+
       - name: Log into Azure
         uses: azure/login@v2
         with:
           creds: '{"clientId":"${{ secrets.azure_storage_client_id }}","clientSecret":"${{ secrets.azure_storage_client_secret }}","subscriptionId":"${{ secrets.azure_storage_subscription_id }}","tenantId":"${{ secrets.azure_tenant_id }}"}'
-          enable-AzPSSession: true 
+          enable-AzPSSession: true
 
       - name: Upload blob to Azure Storage
         uses: azure/powershell@v2
         with:
-          azPSVersion: "latest"
+          azPSVersion: 'latest'
           inlineScript: >
             $context =
             New-AzStorageContext
             -StorageAccountName eartrumpetstorage
             -UseConnectedAccount
 
-            Get-ChildItem
-            -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle |
-            Set-AzStorageBlobContent
-            -Container builds
-            -Context $context
+            Get-ChildItem -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle | ForEach-Object {
+                Set-AzStorageBlobContent `
+                    -File $_.FullName `
+                    -Container builds `
+                    -Blob ('${{ github.ref_name }}/' + $_.Name) `
+                    -Context $context `
+                    -Force
+            }
 
             Set-AzStorageBlobContent
             -File EarTrumpet.Package.appinstaller
+            -Blob '${{ github.ref_name }}/EarTrumpet.Package.appinstaller'
             -Container builds
             -Context $context
             -Force
+
+  #
+  # Deployment: Microsoft Store
+  #
+
+  deploy-store:
+    name: 🚀 Deploy Microsoft Store package
+    runs-on: windows-latest
+    needs: store
+    if: |
+      github.event_name != 'pull_request' &&
+      (
+        startsWith(github.ref, 'refs/heads/master')
+      )
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: MicrosoftStore
+          path: .
+
+      - name: Push to Microsoft Store
+        shell: powershell
+        run: >
+          Set-PSRepository
+          -Name "PSGallery"
+          -InstallationPolicy Trusted
+
+          Install-Module
+          -Name StoreBroker
+
+          $Password = ConvertTo-SecureString '${{ secrets.partnercenter_client_secret }}'
+          -AsPlainText
+          -Force
+
+          $Credentials = New-Object System.Management.Automation.PSCredential ('${{ secrets.partnercenter_client_id }}', $Password)
+          
+          Set-StoreBrokerAuthentication
+          -TenantId '${{ secrets.partnercenter_tenant_id }}'
+          -Credential $Credentials
+          -Verbose
+
+          $SubmissionRoot = "$env:Temp\Packaging\Submission"
+
+          $Bundle = Resolve-Path "EarTrumpet.Package_*_x86_x64_arm64_bundle.msixupload" | Split-Path -Leaf
+
+          New-SubmissionPackage
+          -ConfigPath "Packaging\MicrosoftStore\SBConfig.json"
+          -PDPRootPath "Packaging\MicrosoftStore\PDPs"
+          -ImagesRootPath "Packaging\MicrosoftStore\PDPs"
+          -AppxPath "$Bundle"
+          -MediaFallbackLanguage en-US
+          -OutPath "$SubmissionRoot"
+          -OutName EarTrumpet
+          -Verbose
+
+          $SubmissionId, $SubmissionUrl =
+          Update-ApplicationSubmission
+          -AppId 9NBLGGH516XP
+          -SubmissionDataPath "$SubmissionRoot\EarTrumpet.json"
+          -PackagePath "$SubmissionRoot\EarTrumpet.zip"
+          -AddPackages
+          -UpdateListings
+          -UpdatePublishModeAndVisibility
+          -UpdatePricingAndAvailability
+          -UpdateAppProperties
+          -UpdateNotesForCertification
+          -TargetPublishMode Manual
+          -Force
+          -Verbose
+
+          Complete-ApplicationSubmission
+          -AppId 9NBLGGH516XP
+          -SubmissionId $SubmissionId
+          -Verbose
+
+  #
+  # Deployment: GitHub
+  #
+
+  deploy-github:
+    name: 🚀 Deploy GitHub Release
+    runs-on: windows-latest
+    needs: loose
+    if: |
+      github.event_name != 'pull_request' &&
+      (
+        startsWith(github.ref, 'refs/heads/master')
+      )
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Restore base
+        uses: actions/cache/restore@v4
+        with:
+          path: .artifacts
+          key: base-${{ hashFiles(env.GHA_HASH_PATHS) }}
+          fail-on-cache-miss: true
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Loose
+          path: .artifacts/loose
+
+      - name: Generate changelog
+        id: changelog
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
+        run: >
+          $lastTagRef = git describe --match "[0-9]*.[0-9]*.[0-9]*.[0-9]*" --abbrev=0 --tags HEAD 2>$null
+
+          $lastTagDate = git show -s --format=%aI "$lastTagRef^{commit}"
+
+          $query = (Get-Content ".github/workflows/queries/commits.graphql" -Raw)
+          -replace '%%OWNER%%', '${{ github.repository_owner }}'
+          -replace '%%REPO%%', '${{ github.event.repository.name }}'
+
+          $template = Get-Content ".github/workflows/templates/commits.md" -Raw
+
+          $changelog = gh api graphql
+          --paginate
+          -F query="$query"
+          -F lastTagDate="$lastTagDate"
+          -F ref="HEAD"
+          --template "$template"
+          
+          $changelog | Out-File -FilePath .artifacts/changelog.md
+          
+      - name: Create Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          $version = Get-Content .artifacts/version_4.txt
+
+          gh release create "v$version"
+          --draft
+          --title "$version"
+          --notes-file .artifacts/changelog.md
+          (Get-ChildItem ".artifacts/loose/*.zip").FullName

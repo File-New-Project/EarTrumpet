@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2"
+    Uri="https://install.eartrumpet.app/..."
+    Version="0.0.0.0" >
+
+    <MainBundle
+        Name="40459File-New-Project.EarTrumpet"
+        Version="0.0.0.0"
+        Publisher="CN=File-New-Project, O=File-New-Project, L=Purcellville, S=Virginia, C=US"
+        Uri="https://install.eartrumpet.app/..."
+    />
+
+    <Dependencies>
+        <Package
+            Name="Microsoft.VCLibs.140.00.UWPDesktop"
+            Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+            Version="14.0.30704.0"
+            ProcessorArchitecture="x86"
+            Uri="https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx"
+        />
+        <Package Name="Microsoft.VCLibs.140.00.UWPDesktop"
+            Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+            Version="14.0.30704.0"
+            ProcessorArchitecture="x64"
+            Uri="https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx"
+        />
+        <Package Name="Microsoft.VCLibs.140.00.UWPDesktop"
+            Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+            Version="14.0.30704.0"
+            ProcessorArchitecture="arm64"
+            Uri="https://aka.ms/Microsoft.VCLibs.arm64.14.00.Desktop.appx"
+        />
+    </Dependencies>
+
+    <UpdateSettings>
+        <OnLaunch
+            HoursBetweenUpdateChecks="0"
+        />
+    </UpdateSettings>
+
+</AppInstaller>

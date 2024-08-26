@@ -1,0 +1,26 @@
+name: Configure AppInstaller
+inputs:
+  manifest:
+    required: true
+  bundle:
+    required: true
+  version:
+    required: true
+  branch:
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Configure manifest
+      shell: powershell
+      run: |
+        $manifestPath = "${{ inputs.manifest }}"
+
+        $manifest = [xml](Get-Content $manifestPath)
+        $manifest.AppInstaller.Uri = "https://install.eartrumpet.app/${{inputs.branch}}/EarTrumpet.Package.appinstaller"
+        $manifest.AppInstaller.Version = [string](Get-Content "${{ inputs.version }}")
+
+        $bundleName = "${{inputs.bundle}}".Replace("*", $manifest.AppInstaller.Version)
+        $manifest.AppInstaller.MainBundle.Uri = "https://install.eartrumpet.app/${{inputs.branch}}/$bundleName"
+        $manifest.AppInstaller.MainBundle.Version = [string](Get-Content "${{ inputs.version }}")
+        $manifest.Save($manifestPath)
