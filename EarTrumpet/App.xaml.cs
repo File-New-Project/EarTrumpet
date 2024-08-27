@@ -91,6 +91,7 @@ namespace EarTrumpet
 
             var recordingDeviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Recording);
             RecordingCollectionViewModel = new DeviceCollectionViewModel(recordingDeviceManager, Settings);
+            RecordingCollectionViewModel.TrayPropertyChanged += delegate {};
 
             _flyoutViewModel = new FlyoutViewModel(PlaybackCollectionViewModel, RecordingCollectionViewModel,
                 () => _trayIcon.SetFocus(), Settings);
