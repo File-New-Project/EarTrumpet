@@ -214,3 +214,6 @@ _pkginfo.txt
 .chocolatey/tools/Release.zip
 /artifacts/sideload
 /Tools
+
+# JetBrains idea config
+.idea

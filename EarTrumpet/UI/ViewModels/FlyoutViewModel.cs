@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using EarTrumpet.DataModel.WindowsAudio;
 
 namespace EarTrumpet.UI.ViewModels
 {
@@ -19,15 +20,22 @@ namespace EarTrumpet.UI.ViewModels
         public ModalDialogViewModel Dialog { get; }
         public bool IsExpanded { get; private set; }
         public bool IsExpandingOrCollapsing { get; private set; }
-        public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
-        public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
+        public bool CanExpand => _currentDevicesViewModel.AllDevices.Count > 1;
+        public string DeviceNameText => CurrentDevices.Count > 0 ? CurrentDevices[0].DisplayName : null;
         public FlyoutViewState State { get; private set; }
-        public ObservableCollection<DeviceViewModel> Devices { get; private set; }
+        public ObservableCollection<DeviceViewModel> CurrentDevices { get; private set; }
         public ICommand ExpandCollapse { get; private set; }
         public InputType LastInput { get; private set; }
         public ICommand DisplaySettingsChanged { get; }
+        public AudioDeviceKind ShownDeviceType { get; private set; }
+        public bool ShowDeviceTypeSwitchInFlyout { get; private set; }
+        public ICommand SwitchShownDeviceType { get; private set; }
 
-        private readonly DeviceCollectionViewModel _mainViewModel;
+        private DeviceCollectionViewModel _currentDevicesViewModel;
+        private readonly DeviceCollectionViewModel _playbackViewModel;
+        private readonly DeviceCollectionViewModel _recordingViewModel;
+        private readonly ObservableCollection<DeviceViewModel> _playbackDevices;
+        private readonly ObservableCollection<DeviceViewModel> _recordingDevices;
         private readonly DispatcherTimer _deBounceTimer;
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private readonly Action _returnFocusToTray;
@@ -36,17 +44,28 @@ namespace EarTrumpet.UI.ViewModels
         private MouseHook _mh;
         private Rect _winRect;
 
-        public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray, AppSettings settings)
+        public FlyoutViewModel(DeviceCollectionViewModel playbackViewModel, DeviceCollectionViewModel recordingViewModel, Action returnFocusToTray, AppSettings settings)
         {
             _settings = settings;
             IsExpanded = _settings.IsExpanded;
+            ShowDeviceTypeSwitchInFlyout = _settings.ShowDeviceTypeSwitchInFlyout;
+            _settings.ShowDeviceTypeSwitchInFlyoutChanged += OnShowDeviceTypeSwitchInFlyoutChanged;
             Dialog = new ModalDialogViewModel();
-            Devices = new ObservableCollection<DeviceViewModel>();
             _returnFocusToTray = returnFocusToTray;
-            _mainViewModel = mainViewModel;
-            _mainViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
-            _mainViewModel.AllDevices.CollectionChanged += AllDevices_CollectionChanged;
-            AllDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            _playbackDevices = new ObservableCollection<DeviceViewModel>();
+            _playbackViewModel = playbackViewModel;
+            _playbackViewModel.DefaultChanged += OnDefaultPlaybackDeviceChanged;
+            _playbackViewModel.AllDevices.CollectionChanged += PlaybackDevices_CollectionChanged;
+            PlaybackDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            _recordingDevices = new ObservableCollection<DeviceViewModel>();
+            _recordingViewModel = recordingViewModel;
+            _recordingViewModel.DefaultChanged += OnDefaultRecordingDeviceChanged;
+            _recordingViewModel.AllDevices.CollectionChanged += RecordingDevices_CollectionChanged;
+            RecordingDevices_CollectionChanged(null, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            DoChangeShownDeviceType(AudioDeviceKind.Playback);
 
             // This timer is used to enable clicking on the tray icon while the flyout is open, and not causing a
             // rapid hide and show cycle.  This time represents the minimum time between which the flyout may be opened.
@@ -59,9 +78,26 @@ namespace EarTrumpet.UI.ViewModels
                 BeginClose(LastInput);
             });
             DisplaySettingsChanged = new RelayCommand(() => BeginClose(InputType.Command));
+            SwitchShownDeviceType = new RelayCommand(DoSwitchShownDeviceType);
 
             _mh = new MouseHook();
             _mh.MouseWheelEvent += OnMouseWheelEvent;
+        }
+
+        private void OnShowDeviceTypeSwitchInFlyoutChanged(object sender, bool showDeviceTypeSwitchInFlyout)
+        {
+            ShowDeviceTypeSwitchInFlyout = showDeviceTypeSwitchInFlyout;
+            RaisePropertyChanged(nameof(ShowDeviceTypeSwitchInFlyout));
+
+            if (showDeviceTypeSwitchInFlyout == false && CurrentDevices == _recordingDevices)
+            {
+                DoChangeShownDeviceType(AudioDeviceKind.Playback);
+            }
+            else
+            {
+                UpdateTextVisibility(CurrentDevices);
+                InvalidateWindowSize();
+            }
         }
 
         public void UpdateWindowPos(double top, double left, double height, double width)
@@ -76,12 +112,12 @@ namespace EarTrumpet.UI.ViewModels
             ChangeState(FlyoutViewState.Hidden);
         }
 
-        private void AddDevice(DeviceViewModel device)
+        private void AddDevice(ObservableCollection<DeviceViewModel> devices, DeviceViewModel device)
         {
-            if (IsExpanded || Devices.Count == 0)
+            if (IsExpanded || devices.Count == 0)
             {
                 device.Apps.CollectionChanged += Apps_CollectionChanged;
-                Devices.Insert(0, device);
+                devices.Insert(0, device);
             }
         }
 
@@ -101,47 +137,59 @@ namespace EarTrumpet.UI.ViewModels
             InvalidateWindowSize();
         }
 
-        private void RemoveDevice(string id)
+        private void RemoveDevice(ObservableCollection<DeviceViewModel> devices, string id)
         {
-            var existing = Devices.FirstOrDefault(d => d.Id == id);
+            var existing = devices.FirstOrDefault(d => d.Id == id);
             if (existing != null)
             {
                 existing.Apps.CollectionChanged -= Apps_CollectionChanged;
-                Devices.Remove(existing);
+                devices.Remove(existing);
             }
         }
 
-        private void AllDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void PlaybackDevices_CollectionChanged(object sender,
+            System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Devices_CollectionChanged(sender, _playbackDevices, _playbackViewModel, e);
+        }
+
+        private void RecordingDevices_CollectionChanged(object sender,
+            System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Devices_CollectionChanged(sender, _recordingDevices, _recordingViewModel, e);
+        }
+
+        private void Devices_CollectionChanged(object sender, ObservableCollection<DeviceViewModel> devices, DeviceCollectionViewModel collectionViewModel, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddDevice((DeviceViewModel)e.NewItems[0]);
+                    AddDevice(devices, (DeviceViewModel)e.NewItems[0]);
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveDevice(((DeviceViewModel)e.OldItems[0]).Id);
+                    RemoveDevice(devices, ((DeviceViewModel)e.OldItems[0]).Id);
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    for (int i = Devices.Count - 1; i >= 0; i--)
+                    for (int i = devices.Count - 1; i >= 0; i--)
                     {
-                        RemoveDevice(Devices[i].Id);
+                        RemoveDevice(devices, devices[i].Id);
                     }
 
-                    foreach (var device in _mainViewModel.AllDevices)
+                    foreach (var device in collectionViewModel.AllDevices)
                     {
-                        AddDevice(device);
+                        AddDevice(devices, device);
                     }
 
-                    OnDefaultPlaybackDeviceChanged(null, _mainViewModel.Default);
+                    OnDefaultDeviceChanged(null, devices, collectionViewModel, collectionViewModel.Default);
                     break;
 
                 default:
                     throw new NotImplementedException();
             }
 
-            UpdateTextVisibility();
+            UpdateTextVisibility(devices);
             RaiseDevicesChanged();
         }
 
@@ -150,42 +198,57 @@ namespace EarTrumpet.UI.ViewModels
             RaisePropertyChanged(nameof(IsExpanded));
             RaisePropertyChanged(nameof(CanExpand));
             RaisePropertyChanged(nameof(DeviceNameText));
+            RaisePropertyChanged(nameof(CurrentDevices));
+            RaisePropertyChanged(nameof(ShownDeviceType));
             InvalidateWindowSize();
         }
 
-        private void OnDefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
+        private void OnDefaultPlaybackDeviceChanged(object sender,
+             DeviceViewModel e)
+        {
+            OnDefaultDeviceChanged(sender, _playbackDevices, _playbackViewModel, e);
+        }
+
+        private void OnDefaultRecordingDeviceChanged(object sender,
+             DeviceViewModel e)
+        {
+            OnDefaultDeviceChanged(sender, _recordingDevices, _recordingViewModel, e);
+        }
+
+        private void OnDefaultDeviceChanged(object sender, ObservableCollection<DeviceViewModel> devices, DeviceCollectionViewModel collectionViewModel, DeviceViewModel e)
         {
             // No longer any devices.
             if (e == null) return;
 
-            var foundDevice = Devices.FirstOrDefault(d => d.Id == e.Id);
+            var foundDevice = devices.FirstOrDefault(d => d.Id == e.Id);
             if (foundDevice != null)
             {
                 // Push to bottom.
-                Devices.Move(Devices.IndexOf(foundDevice), Devices.Count - 1);
+                devices.Move(devices.IndexOf(foundDevice), devices.Count - 1);
             }
             else
             {
-                var foundAllDevice = _mainViewModel.AllDevices.FirstOrDefault(d => d.Id == e.Id);
+                var foundAllDevice = collectionViewModel.AllDevices.FirstOrDefault(d => d.Id == e.Id);
                 if (foundAllDevice != null)
                 {
-                    // We found the device in AllDevices which was not in Devices.
-                    // Thus: We are collapsed and can dump the single device in Devices:
-                    Devices.Clear();
+                    // We found the device in `AllDevices` which was not in `devices`.
+                    // Thus: We are collapsed and can dump the single device in `devices`:
+                    devices.Clear();
                     foundAllDevice.Apps.CollectionChanged += Apps_CollectionChanged;
-                    Devices.Add(foundAllDevice);
+                    devices.Add(foundAllDevice);
                 }
             }
-            UpdateTextVisibility();
+            UpdateTextVisibility(devices);
             RaiseDevicesChanged();
         }
 
-        private void UpdateTextVisibility()
+        private void UpdateTextVisibility(ObservableCollection<DeviceViewModel> devices)
         {
             // Show display name on only the "top" device, which handles Expanded and Collapsed.
-            for (var i = 0; i < Devices.Count; i++)
+            for (var i = 0; i < devices.Count; i++)
             {
-                Devices[i].IsDisplayNameVisible = i > 0;
+                devices[i].IsDisplayNameVisible = i > 0;
+                devices[i].IsShouldShowDoubleTitleCellHeight = ShowDeviceTypeSwitchInFlyout && i == 0;
             }
         }
 
@@ -193,33 +256,42 @@ namespace EarTrumpet.UI.ViewModels
         {
             IsExpanded = !IsExpanded;
             _settings.IsExpanded = IsExpanded;
+
+            UpdateCurrentDevicesList();
+        }
+
+        /// <summary>
+        /// Ensures that `CurrentDevices` has correct items according to `IsExpanded` value
+        /// </summary>
+        private void UpdateCurrentDevicesList()
+        {
             if (IsExpanded)
             {
                 // Add any that aren't existing.
-                foreach (var device in _mainViewModel.AllDevices)
+                foreach (var device in _currentDevicesViewModel.AllDevices)
                 {
-                    if (!Devices.Contains(device))
+                    if (!CurrentDevices.Contains(device))
                     {
                         device.Apps.CollectionChanged += Apps_CollectionChanged;
-                        Devices.Insert(0, device);
+                        CurrentDevices.Insert(0, device);
                     }
                 }
             }
             else
             {
                 // Remove all but the default.
-                for (int i = Devices.Count - 1; i >= 0; i--)
+                for (int i = CurrentDevices.Count - 1; i >= 0; i--)
                 {
-                    var device = Devices[i];
-                    if (device.Id != _mainViewModel.Default?.Id)
+                    var device = CurrentDevices[i];
+                    if (device.Id != _currentDevicesViewModel.Default?.Id)
                     {
                         device.Apps.CollectionChanged -= Apps_CollectionChanged;
-                        Devices.Remove(device);
+                        CurrentDevices.Remove(device);
                     }
                 }
             }
 
-            UpdateTextVisibility();
+            UpdateTextVisibility(CurrentDevices);
             RaiseDevicesChanged();
         }
 
@@ -232,6 +304,22 @@ namespace EarTrumpet.UI.ViewModels
             }));
         }
 
+        private void DoChangeShownDeviceType(AudioDeviceKind kind)
+        {
+            ShownDeviceType = kind;
+            CurrentDevices = kind == AudioDeviceKind.Playback ? _playbackDevices : _recordingDevices;
+            _currentDevicesViewModel = kind == AudioDeviceKind.Playback ? _playbackViewModel : _recordingViewModel;
+
+            UpdateCurrentDevicesList();
+        }
+
+        private void DoSwitchShownDeviceType()
+        {
+            DoChangeShownDeviceType(ShownDeviceType == AudioDeviceKind.Playback
+                ? AudioDeviceKind.Recording
+                : AudioDeviceKind.Playback);
+        }
+
         public void ChangeState(FlyoutViewState state)
         {
             Trace.WriteLine($"FlyoutViewModel ChangeState {state}");
@@ -242,7 +330,7 @@ namespace EarTrumpet.UI.ViewModels
             switch (State)
             {
                 case FlyoutViewState.Open:
-                    _mainViewModel.OnTrayFlyoutShown();
+                    _currentDevicesViewModel.OnTrayFlyoutShown();
 
                     if (_closedDuringOpen)
                     {
@@ -251,7 +339,7 @@ namespace EarTrumpet.UI.ViewModels
                     }
                     break;
                 case FlyoutViewState.Closing_Stage1:
-                    _mainViewModel.OnTrayFlyoutHidden();
+                    _currentDevicesViewModel.OnTrayFlyoutHidden();
                     Dialog.IsVisible = false;
 
                     if (LastInput == InputType.Keyboard && !IsExpandingOrCollapsing)
@@ -293,11 +381,11 @@ namespace EarTrumpet.UI.ViewModels
 
             if (vm is IAppItemViewModel)
             {
-                Dialog.Focused = new FocusedAppItemViewModel(_mainViewModel, (IAppItemViewModel)vm);
+                Dialog.Focused = new FocusedAppItemViewModel(_currentDevicesViewModel, (IAppItemViewModel)vm);
             }
             else if (vm is DeviceViewModel)
             {
-                var deviceViewModel = new FocusedDeviceViewModel(_mainViewModel, (DeviceViewModel)vm);
+                var deviceViewModel = new FocusedDeviceViewModel(_currentDevicesViewModel, (DeviceViewModel)vm);
                 if (deviceViewModel.IsApplicable)
                 {
                     Dialog.Focused = deviceViewModel;
@@ -318,7 +406,7 @@ namespace EarTrumpet.UI.ViewModels
 
         private int OnMouseWheelEvent(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            var existing = _mainViewModel.Default;
+            var existing = _currentDevicesViewModel.Default;
             if (existing != null)
             {
                 if (!_winRect.Contains(new Point(e.X, e.Y)))

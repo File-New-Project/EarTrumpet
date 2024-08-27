@@ -176,6 +176,38 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
+
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsShowRecordingDevicesInContextMenu}"
+                          IsChecked="{Binding ShowRecordingDevicesInContextMenu, Mode=TwoWay}" />
+
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsShowDeviceTypeSwitchInFlyout}"
+                          IsChecked="{Binding ShowDeviceTypeSwitchInFlyout, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsToggleShowDeviceTypeSwitchInFlyout}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+                    <TextBlock Grid.Column="1"
+                               Style="{StaticResource BodyText}"
+                               Text="" />
+                    <TextBlock Grid.Row="1"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+                    <ContentControl Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{Binding ToggleShowDeviceTypeSwitchInFlyoutHotkey}"
+                                    IsTabStop="False" />
+                </Grid>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">

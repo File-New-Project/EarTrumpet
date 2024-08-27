@@ -52,6 +52,18 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
+        public bool IsShouldShowDoubleTitleCellHeight
+        {
+            get => _isShouldShowDoubleTitleCellHeight;
+            set
+            {
+                if (_isShouldShowDoubleTitleCellHeight != value)
+                {
+                    _isShouldShowDoubleTitleCellHeight = value;
+                    RaisePropertyChanged(nameof(IsShouldShowDoubleTitleCellHeight));
+                }
+            }
+        }
         public DeviceIconKind IconKind
         {
             get => _iconKind;
@@ -69,6 +81,7 @@ namespace EarTrumpet.UI.ViewModels
         protected readonly IAudioDeviceManager _deviceManager;
         protected readonly WeakReference<DeviceCollectionViewModel> _parent;
         private bool _isDisplayNameVisible;
+        private bool _isShouldShowDoubleTitleCellHeight;
         private DeviceIconKind _iconKind;
 
         public DeviceViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAudioDevice device) : base(device)

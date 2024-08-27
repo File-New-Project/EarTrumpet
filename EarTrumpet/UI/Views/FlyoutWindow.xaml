@@ -8,6 +8,7 @@
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:views="clr-namespace:EarTrumpet.UI.Views"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+        xmlns:windowsAudio="clr-namespace:EarTrumpet.DataModel.WindowsAudio"
         Title="EarTrumpet"
         Width="{StaticResource WindowAndItemSize}"
         Theme:Brush.Foreground="Text"
@@ -28,7 +29,8 @@
         UseLayoutRounding="True"
         WindowStyle="None">
     <Window.Resources>
-        <Style x:Key="ExpandCollapseButtonStyle" TargetType="Button">
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -78,6 +80,13 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="ActionButtonTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource DeviceTitleTextStyle}">
+            <Setter Property="Margin" Value="12,0,32,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Theme:Brush.Foreground" Value="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        </Style>
+
         <Style x:Key="{x:Type ScrollViewer}"
                BasedOn="{StaticResource {x:Type ScrollViewer}}"
                TargetType="{x:Type ScrollViewer}">
@@ -89,6 +98,7 @@
         <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
             <views:DeviceView Width="{StaticResource WindowAndItemSize}"
                               Device="{Binding}"
+                              IsShouldShowDoubleTitleCellHeight="{Binding  IsShouldShowDoubleTitleCellHeight}"
                               IsDisplayNameVisible="{Binding IsDisplayNameVisible}" />
         </DataTemplate>
     </Window.Resources>
@@ -101,7 +111,7 @@
                         <Style TargetType="Border">
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Devices.Count}" Value="0">
+                                <DataTrigger Binding="{Binding CurrentDevices.Count}" Value="0">
                                     <Setter Property="Visibility" Value="Visible" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -110,28 +120,45 @@
                     <TextBlock Margin="{StaticResource NoItemsPaneMargin}"
                                HorizontalAlignment="Center"
                                FontSize="{StaticResource {x:Static SystemFonts.MessageFontSizeKey}}"
-                               Text="{x:Static resx:Resources.NoDevicesPanelContent}"
-                               TextWrapping="Wrap" />
+                               TextWrapping="Wrap">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShownDeviceType}"
+                                                 Value="{x:Static windowsAudio:AudioDeviceKind.Recording}">
+                                        <Setter Property="Text" Value="{x:Static resx:Resources.NoRecordingDevicesPanelContent}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ShownDeviceType}"
+                                                 Value="{x:Static windowsAudio:AudioDeviceKind.Playback}">
+                                        <Setter Property="Text" Value="{x:Static resx:Resources.NoDevicesPanelContent}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Border>
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Devices.Count}" Value="0">
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding CurrentDevices.Count}" Value="0" />
+                                        <Condition Binding="{Binding ShowDeviceTypeSwitchInFlyout}" Value="False" />
+                                    </MultiDataTrigger.Conditions>
                                     <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
+                                </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
                     <ItemsControl Name="DevicesList"
                                   FocusVisualStyle="{x:Null}"
                                   IsTabStop="False"
-                                  ItemsSource="{Binding Devices}" />
-                    <Button Height="{DynamicResource Mutable_DeviceTitleCellHeight}"
-                            Command="{Binding ExpandCollapse}"
+                                  ItemsSource="{Binding CurrentDevices}" />
+                    <Button Command="{Binding ExpandCollapse}"
                             IsEnabled="{Binding CanExpand}">
                         <Button.Style>
-                            <Style BasedOn="{StaticResource ExpandCollapseButtonStyle}" TargetType="{x:Type Button}">
+                            <Style BasedOn="{StaticResource ActionButtonStyle}" TargetType="{x:Type Button}">
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
@@ -152,12 +179,8 @@
                         </Button.Style>
                         <Button.Content>
                             <Grid>
-                                <TextBlock Margin="12,0,32,0"
-                                           HorizontalAlignment="Left"
-                                           Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
-                                           Style="{StaticResource DeviceTitleTextStyle}"
-                                           Text="{Binding DeviceNameText}"
-                                           TextTrimming="CharacterEllipsis" />
+                                <TextBlock Style="{StaticResource ActionButtonTitleStyle}"
+                                           Text="{Binding DeviceNameText}" />
                                 <TextBlock Margin="{StaticResource WindowMargin}"
                                            HorizontalAlignment="Right"
                                            Theme:Brush.Foreground="{Binding (Theme:Brush.Foreground), RelativeSource={RelativeSource AncestorType=Button}}"
@@ -184,6 +207,40 @@
                                     </TextBlock.Style>
                                 </TextBlock>
                             </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding SwitchShownDeviceType}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource ActionButtonStyle}"
+                                   TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="{DynamicResource Mutable_DeviceTypeSwitchMargin}" />
+                                <Setter Property="Visibility" Value="Hidden" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowDeviceTypeSwitchInFlyout}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource ActionButtonTitleStyle}"
+                                           TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShownDeviceType}"
+                                                         Value="{x:Static windowsAudio:AudioDeviceKind.Playback}">
+                                                <Setter Property="Text" Value="{x:Static resx:Resources.SwitchToRecording}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ShownDeviceType}"
+                                                         Value="{x:Static windowsAudio:AudioDeviceKind.Recording}">
+                                                <Setter Property="Text" Value="{x:Static resx:Resources.SwitchToPlayback}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Button.Content>
                     </Button>
                 </Grid>

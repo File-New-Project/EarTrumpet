@@ -19,6 +19,10 @@ namespace EarTrumpet.UI.Views
         public static readonly DependencyProperty IsDisplayNameVisibleProperty =
             DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
 
+        public bool IsShouldShowDoubleTitleCellHeight { get { return (bool)GetValue(IsShouldShowDoubleTitleCellHeightProperty); }  set { SetValue(IsShouldShowDoubleTitleCellHeightProperty, value); }}
+        public static readonly DependencyProperty IsShouldShowDoubleTitleCellHeightProperty =
+            DependencyProperty.Register("IsShouldShowDoubleTitleCellHeight", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
+
         public bool IsAppListVisible { get { return (bool)GetValue(IsAppListVisibleProperty); } set { SetValue(IsAppListVisibleProperty, value); } }
         public static readonly DependencyProperty IsAppListVisibleProperty =
             DependencyProperty.Register("IsAppListVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));

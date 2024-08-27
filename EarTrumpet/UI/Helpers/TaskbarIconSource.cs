@@ -19,6 +19,7 @@ namespace EarTrumpet.UI.Helpers
             SpeakerOneBar,
             SpeakerTwoBars,
             SpeakerThreeBars,
+            Microphone,
             NoDevice,
         }
 
@@ -134,6 +135,8 @@ namespace EarTrumpet.UI.Helpers
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerTwoBars), dpi);
                 case IconKind.SpeakerThreeBars:
                     return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.SpeakerThreeBars), dpi);
+                case IconKind.Microphone:
+                    return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Microphone), dpi);
                 default: throw new NotImplementedException();
             }
         }
@@ -175,6 +178,8 @@ namespace EarTrumpet.UI.Helpers
                         return IconKind.SpeakerTwoBars;
                     case DeviceViewModel.DeviceIconKind.Bar3:
                         return IconKind.SpeakerThreeBars;
+                    case DeviceViewModel.DeviceIconKind.Microphone:
+                        return IconKind.Microphone;
                     default: throw new NotImplementedException();
                 }
             }

@@ -9,6 +9,8 @@
     <win:GridLength x:Key="Mutable_IconCellWidth">65</win:GridLength>
     <win:GridLength x:Key="Mutable_VolumeCellWidth">63</win:GridLength>
     <bcl:Double x:Key="Mutable_DeviceTitleCellHeight">44</bcl:Double>
+    <bcl:Double x:Key="Mutable_DeviceDoubleTitleCellHeight">88</bcl:Double>
+    <Thickness x:Key="Mutable_DeviceTypeSwitchMargin">0,44,0,0</Thickness>
     <bcl:Double x:Key="Mutable_AppItemCellHeight">44</bcl:Double>
     <bcl:Double x:Key="Mutable_DeviceItemCellHeight">54</bcl:Double>
     <bcl:Double x:Key="Mutable_ExpandCollapseButtonGlyphFontSize">12</bcl:Double>

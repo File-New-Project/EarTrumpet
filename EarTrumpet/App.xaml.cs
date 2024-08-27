@@ -30,7 +30,8 @@ namespace EarTrumpet
         public static TimeSpan Duration => s_appTimer.Elapsed;
 
         public FlyoutWindow FlyoutWindow { get; private set; }
-        public DeviceCollectionViewModel CollectionViewModel { get; private set; }
+        public DeviceCollectionViewModel PlaybackCollectionViewModel { get; private set; }
+        public DeviceCollectionViewModel RecordingCollectionViewModel { get; private set; }
 
         private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
         private FlyoutViewModel _flyoutViewModel;
@@ -79,15 +80,20 @@ namespace EarTrumpet
         {
             ((UI.Themes.Manager)Resources["ThemeManager"]).Load();
 
-            var deviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
-            deviceManager.Loaded += (_, __) => CompleteStartup();
-            CollectionViewModel = new DeviceCollectionViewModel(deviceManager, Settings);
+            var playbackDeviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
+            playbackDeviceManager.Loaded += (_, __) => CompleteStartup();
+            PlaybackCollectionViewModel = new DeviceCollectionViewModel(playbackDeviceManager, Settings);
 
-            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
+            _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(PlaybackCollectionViewModel, Settings));
             Exit += (_, __) => _trayIcon.IsVisible = false;
-            CollectionViewModel.TrayPropertyChanged += () => _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+            PlaybackCollectionViewModel.TrayPropertyChanged +=
+                () => _trayIcon.SetTooltip(PlaybackCollectionViewModel.GetTrayToolTip());
 
-            _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
+            var recordingDeviceManager = WindowsAudioFactory.Create(AudioDeviceKind.Recording);
+            RecordingCollectionViewModel = new DeviceCollectionViewModel(recordingDeviceManager, Settings);
+
+            _flyoutViewModel = new FlyoutViewModel(PlaybackCollectionViewModel, RecordingCollectionViewModel,
+                () => _trayIcon.SetFocus(), Settings);
             FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
             // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
             // to be executed, breaking the assumption that startup is complete.
@@ -109,13 +115,14 @@ namespace EarTrumpet
             Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
             Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
             Settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
+            Settings.ToggleShowDeviceTypeSwitchInFlyoutHotkeyTyped += ToggleShowDeviceTypeSwitchInFlyout;
             Settings.RegisterHotkeys();
 
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
-            _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.TertiaryInvoke += (_, __) => PlaybackCollectionViewModel.Default?.ToggleMute.Execute(null);
             _trayIcon.Scrolled += trayIconScrolled;
-            _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
+            _trayIcon.SetTooltip(PlaybackCollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
@@ -128,8 +135,8 @@ namespace EarTrumpet
                 var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
                 var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
                 User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
-                
-                CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+
+                PlaybackCollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
             }
         }
 
@@ -179,14 +186,27 @@ namespace EarTrumpet
             new AutoResetEvent(false).WaitOne();
         }
 
+        private static List<ContextMenuItem> GetTrayContextMenuItemsFromDevices(DeviceCollectionViewModel devices)
+        {
+            return new List<ContextMenuItem>(devices.AllDevices.OrderBy(x => x.DisplayName).Select(dev =>
+                new ContextMenuItem
+                {
+                    DisplayName = dev.DisplayName,
+                    IsChecked = dev.Id == devices.Default?.Id,
+                    Command = new RelayCommand(() => dev.MakeDefaultDevice()),
+                }));
+        }
+
         private IEnumerable<ContextMenuItem> GetTrayContextMenuItems()
         {
-            var ret = new List<ContextMenuItem>(CollectionViewModel.AllDevices.OrderBy(x => x.DisplayName).Select(dev => new ContextMenuItem
+            var ret = GetTrayContextMenuItemsFromDevices(PlaybackCollectionViewModel);
+
+
+            if (Settings.ShowRecordingDevicesInContextMenu && RecordingCollectionViewModel.AllDevices.Count > 0)
             {
-                DisplayName = dev.DisplayName,
-                IsChecked = dev.Id == CollectionViewModel.Default?.Id,
-                Command = new RelayCommand(() => dev.MakeDefaultDevice()),
-            }));
+                ret.Add(new ContextMenuSeparator());
+                ret.AddRange(GetTrayContextMenuItemsFromDevices(RecordingCollectionViewModel));
+            }
 
             if (!ret.Any())
             {
@@ -275,11 +295,11 @@ namespace EarTrumpet
             return category;
         }
 
-        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
+        private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(PlaybackCollectionViewModel) };
 
         private void AbsoluteVolumeIncrement()
         {
-            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
+            foreach (var device in PlaybackCollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
             {
                 // in any case this device is not abs muted anymore
                 device.IsAbsMuted = false;
@@ -289,7 +309,7 @@ namespace EarTrumpet
 
         private void AbsoluteVolumeDecrement()
         {
-            foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
+            foreach (var device in PlaybackCollectionViewModel.AllDevices.Where(d => !d.IsMuted))
             {
                 // if device is not muted but will be muted by 
                 bool wasMuted = device.IsMuted;
@@ -302,6 +322,15 @@ namespace EarTrumpet
                     device.IsAbsMuted = true;
                 }
             }
+        }
+
+        private void ToggleShowDeviceTypeSwitchInFlyout()
+        {
+            bool oldValue = Settings.ShowDeviceTypeSwitchInFlyout;
+            bool newValue = !oldValue;
+            Trace.WriteLine($"App ToggleShowDeviceTypeSwitchInFlyout {oldValue} is set to {newValue}");
+
+            Settings.ShowDeviceTypeSwitchInFlyout = newValue;
         }
     }
 }
