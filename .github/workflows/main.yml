@@ -259,7 +259,7 @@ jobs:
       AZURE_CLIENT_SECRET: ${{ secrets.azure_client_secret }}
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           path: artifacts
 
