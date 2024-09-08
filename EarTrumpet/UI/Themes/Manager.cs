@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Windows.UI.ViewManagement;
 
 namespace EarTrumpet.UI.Themes
 {
@@ -17,7 +19,27 @@ namespace EarTrumpet.UI.Themes
         public event Action ThemeChanged;
 
         public List<Ref> References { get; }
-        public bool AnimationsEnabled => SystemParameters.MenuAnimation;
+
+        private bool? lastAnimationsEnabledValue = null;
+        public bool AnimationsEnabled {
+            get
+            {
+                if (!lastAnimationsEnabledValue.HasValue)
+                {
+                    if (Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
+                    {
+                        lastAnimationsEnabledValue = new UISettings().AnimationsEnabled;
+                    }
+                    else
+                    {
+                        // Windows 10 taskbar flyouts are incorrectly tied to [SPI_GETANIMATION]
+                        // ANIMATIONINFO.iMinAnimate
+                        lastAnimationsEnabledValue = SystemParameters.MinimizeAnimation;
+                    }
+                }
+                return lastAnimationsEnabledValue.Value;
+            }
+        }
         public bool IsLightTheme => SystemSettings.IsLightTheme;
         public bool IsSystemLightTheme => SystemSettings.IsSystemLightTheme;
         public bool IsHighContrast => SystemParameters.HighContrast;
@@ -75,6 +97,7 @@ namespace EarTrumpet.UI.Themes
                     }
                     else if (settingChanged == "WindowMetrics")
                     {
+                        lastAnimationsEnabledValue = null;
                         RaisePropertyChanged(nameof(AnimationsEnabled));
                     }
                     break;

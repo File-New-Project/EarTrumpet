@@ -1,5 +1,40 @@
 # Changelog
 
+## 2.3.0.0
+- Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
+- Added setting to turn on/off ability to change volume with the scroll wheel when hovering over the EarTrumpet icon (thanks @Tester798!)
+- Added new community settings area
+- Added new community setting to turn on/off use of a logarithmic volume scale (thanks @yonatan-mitmit!)
+- Added legacy shortcuts to the context menu pointing to [App volume and device preferences] / [Volume mixer]
+- Added ability to use the Windows key in shortcuts (thanks @iamevn!)
+- Added linguistic display name sorting for audio devices (thanks @Tester798!)
+- Added a workaround for Windows Search (CortanaUI) showing a default asset (X) icon
+- Fixed an issue where installation of EarTrumpet via AppInstaller would fail if the Visual C++ libs package was not installed
+- Fixed an issue where EarTrumpet tooltips were not updating live while scrolling the mouse wheel on Windows 10 (thanks @krlvm!)
+- Forced EarTrumpet to render in software-only mode to keep it off power hungry GPUs.
+- Improved the flyout animation (thanks @krlvm!)
+
+## 2.2.2.0
+- Fixed an issue with the volume changing when scrolling in certain scenarios (e.g. virtual reality)
+- Updated Japanese translations
+- Cleaned up old language resources
+
+## 2.2.1.0
+- Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled
+- Fixed appearance of flyout on Windows 10 with light mode enabled (thanks @xmha97)
+- Fixed flyout animation not respecting correct system settings on Windows 10 and Windows 11
+- Upgraded GIF playback library to reduce memory usage (thanks @rocksdanister)
+- Reduced use of a workaround for Acrylic slowdowns for most builds of Windows (thanks @krlvm)
+- Updated translations from Crowdin contributors
+- Updated Microsoft Store Product Detail Page metadata to correct localization issues
+
+## 2.2.0.0
+- Added hotkeys to control volume of multiple devices at once (thanks @Taknok!)
+- Adjusted how application data is stored to increase reliability
+- Fixed crash that could occur when the flyout Acrylic was toggled on/off in certain scenarios
+- Fixed an issue with the expanded flyout becoming too tall on Windows 11
+- Updated Japanese, Greek, Croatian, and Russian translations (thank you Crowdin contributors!)
+
 ## 2.1.10.0
 - Flyout now remembers if it was expanded/collapsed between launches (thanks @Tester798!)
 - Fixed an issue with the flyout open animation behaving erratically with some mice

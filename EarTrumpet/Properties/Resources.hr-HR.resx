@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>Izlaz</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>Uređaji za reprodukciju nisu pronađeni</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>Pošalji povratnu informaciju</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>Mješač glasnoće</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>Mješač glasnoće</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>Izgleda da nemate uređaje za reprodukciju.</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpet: Nema uređaja za reprodukciju</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>Uređaji za reprodukciju</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>Uređaji za snimanje</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>Zvukovi</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>Sakupljaj podatke za rješavanje problema</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>Vaš prečac</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>Uvijek koristi zadani uređaj za reprodukciju</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>O aplikaciji</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>Saznajte više</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% glasnoća - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"Isključen zvuk - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>Aplikacije</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>Skupi za prikazivanje samo zadanog uređaja za reprodukciju</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>Zadani prečac</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>Proširi za prikazivanje svih uređaja za reprodukciju</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>Općenito</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>Pridruži ovu aplikaciju uređaju za reprodukciju</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>Otvori prozor na traki zadataka</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>Koristi originalnu EarTrumpet ikonu</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>Više naredbi</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>Isključen zvuk</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>Postavke zvuka</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>Postavke Windowsa</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>O dodatku {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>Otvori postavke Windowsa</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>Ovaj dodatak može biti uklonjen koristeći aplikaciju Windows Postavke.</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>Deinstaliraj</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>Upravljanje</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>Postavke baštine</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>Izdavač:</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>Konfiguriraj postavke i potraži pomoć</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Postavke EarTrumpeta</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>Prečaci</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>Verzija:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>Potraži postavku</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>Nema rezultata</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>Otvori mješač</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>Isključeno</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>Uključeno</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>Početna stranica</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>Stiže uskoro</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>Stiže uskoro</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>Otvori postavke</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>Dobrodošli u EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet se nije uspio pokrenuti</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>Pokvaren font na Vašem sistemu onemogućava EarTrumpetu pokretanje.
+
+Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>Isključi zvuk</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>Pravila privatnosti</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>Šalji podatke o padu EarTrumpet timu</value>
+  </data>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>i</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>Čini</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>Dodaj akciju</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>Dodaj uvjet</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>Postavi prečace i automatizaciju</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>Dodaj okidač</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>Sesija aplikacije je dodana, uklonjena, započinje reproducirati zvuk, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} na {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>je dodano</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>je isključen zvuk</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>prestaje reproducirati zvuk</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>počinje reproducirati zvuk</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>je uklonjeno</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>je uključen zvuk</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>je dodano</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>postaje zadano</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>prestaje biti zadano</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>je uklonjeno</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>laž</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>istina</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>je</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>nije</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>i</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>Konfiguracija filtera je opcionalna, ali omogućava naprednije akcije. Svi uvjeti moraju biti ispunjeni kako bi se akcije izvršile.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>Napredni filter</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>Koristim stavku kontekstnog izbornika ove akcije</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>Koristim stavku kontekstnog izbornika ove akcije</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>Zadani uređaj za reprodikciju je ili nije</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} zadani uređaj</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>Zadani uređaj za reprodukciju</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>Audio uređaj je dodan, uklonjen, postavljen kao zadan, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>gasi se</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>je pokrenut</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet XML akcija</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet je pokrenut ili ugašen</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>Svaka aplikacija</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>Izvezi</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>Spremi kopiju Vaših akcija u datoteku.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>Aplikacija u prvom planu</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>Prečac je unesen</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(odaberi prečac)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} je unesen</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>Uvezi i izvezi</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>Uvezi</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>Vrati kopiju Vaših akcija iz datoteke.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>Isključi zvuk</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>Isključi zvuk</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>Uključi zvuk</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>Akcije</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>Nova akcija</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(opcionalno)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>Reprodukcija</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>Ako je proces pokrenut ili ne</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(unesite ime procesa)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>Kada {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>Ime procesa (npr. notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>je pokrenut</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>završava</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>nije pokrenut</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>je pokrenut</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>Proces je pokrenut ili završava</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(unesite ime procesa)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>Kada {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>Ime procesa (npr. notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>Snimanje</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(potrebno)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>Isključi ili uključi zvuk aplkacije</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>Postavi glasnoću aplikacije</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} glasnoća na {Volume} na {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} glasnoća za {Volume} na {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>Postavi zadani uređaj za reprodukciju</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>Postavi {Device} kao zadani uređaj za reprodukciju</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>Uključi ili isključi zvuk uređaja</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} na {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>Postavi glasnoću uređaja</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} glasnoća na {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} glasnoća za {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>Postavi lokalnu varijablu</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(postavi ime varijable)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>Postavi varijablu {Text} na {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>Unesi ime varijeable (npr. GameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>Smanjivanje</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>Povećanje</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>Postavi</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>ili</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>Kada</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>Ako je lokalna varijabla istina ili laž</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(unesi ime varijable)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>Varijabla {Text} je {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>Unesi ime varijeable (npr. GameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>Odaberi uređaj</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>Odaberi aplikaciju</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>Obrisati ovu akciju?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>Izaći bez spremanja?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>Izađi</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>Ukloni ovu akciju</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>Ovo ne može biti poništeno.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>Ukloni akciju</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>Prikazane aplikacije su nedavno reproducirale zvuk.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Smanji glasnoću za sve uređaje</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Povećaj glasnoću za sve uređaje</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Postavke glasnoće aplikacije i postavke uređaja</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mješač glasnoće</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Postavke miša</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Koristite kotačić miša za mijenjanje glasnoće prilikom držanja miša iznad EarTrumpet ikone</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Koristite kotačić miša za mijenjanje glasnoće kada je otvorena potpaleta</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Postavke zajednice</value>
+    <comment>Settings area that holds settings for community requested features</comment>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Koristi logaritamsku skalu glasnoće</value>
+    <comment>Community setting: Changes the volume slider value scale to/from linear and logarithmic scale.
+</comment>
+  </data>
+</root>

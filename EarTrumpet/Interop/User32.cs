@@ -15,6 +15,8 @@ namespace EarTrumpet.Interop
         public const int WM_MBUTTONUP = 0x0208;
         public const int WM_SETTINGCHANGE = 0x001A;
         public const int SPI_SETWORKAREA = 0x002F;
+        public const int TTM_POPUP = 0x422;
+        public const int TB_GETTOOLTIPS = 0x423;
 
         public static uint MAKEWPARAM(ushort low, ushort high) => ((uint)high << 16) | low;
 
@@ -142,6 +144,7 @@ namespace EarTrumpet.Interop
         {
             MOUSE_MOVE_RELATIVE = 0,
             MOUSE_MOVE_ABSOLUTE = 1,
+            MOUSE_VIRTUAL_DESKTOP = 2,
             // ...
         }
 
@@ -213,6 +216,26 @@ namespace EarTrumpet.Interop
             GWL_STYLE = (-16),
             GWL_EXSTYLE = (-20),
             // ...
+        }
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPLACEMENT
+        {
+            public uint length;
+            public uint flags;
+            public uint showCmd;
+            public POINT ptMinPosition;
+            public POINT ptMaxPosition;
+            public RECT rcNormalPosition;
+        }
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int x;
+            public int y;
         }
 
         [DllImport("user32.dll", SetLastError = true, PreserveSig = true)]
@@ -291,7 +314,9 @@ namespace EarTrumpet.Interop
             SM_CXICON = 11,
             SM_CYICON = 12,
             SM_CXSMICON = 49,
-            SM_CYSMICON = 50
+            SM_CYSMICON = 50,
+            SM_CXVIRTUALSCREEN = 78,
+            SM_CYVIRTUALSCREEN = 79,
             // ...
         }
 
@@ -344,5 +369,39 @@ namespace EarTrumpet.Interop
         public static extern uint GetGuiResources(
                 IntPtr hProcess,
                 GR_FLAGS uiFlags);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
+        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int SetWindowsHookEx(
+            int idHook,
+            HookProc lpfn,
+            IntPtr hInstance,
+            int threadId);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        public static extern int CallNextHookEx(
+            int idHook,
+            int nCode,
+            IntPtr wParam,
+            IntPtr lParam);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetWindowPlacement(
+            IntPtr hWnd,
+            in WINDOWPLACEMENT lpwndpl);
+
+        [DllImport("user32.dll", PreserveSig = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(
+            IntPtr hWnd,
+            out WINDOWPLACEMENT lpwndpl);
     }
 }

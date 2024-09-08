@@ -184,7 +184,7 @@
     <value>默认快捷键</value>
   </data>
   <data name="ExpandAccessibleText" xml:space="preserve">
-    <value>展开并显示所有播放设备</value>
+    <value>展开显示所有播放设备</value>
   </data>
   <data name="SettingsCategoryTitle" xml:space="preserve">
     <value>通用</value>
@@ -296,8 +296,6 @@
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>将崩溃数据发送给 EarTrumpet 团队</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>和</value>
   </data>
@@ -521,7 +519,7 @@
     <value>在 {Device} 上将 {App} 的音量 {Option} 为 {Volume}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>在 {Device} 上将 {App} 的音量 {Option} 至 {Volume}</value>
+    <value>在 {Device} 上将 {App} 的音量 {Option} {Volume}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>设置默认播放设备</value>
@@ -545,7 +543,7 @@
     <value>将 {Device} 的音量 {Option} 为 {Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>将 {Device} 的音量 {Option} 至 {Volume}</value>
+    <value>将 {Device} 的音量 {Option} {Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>设置某局部变量</value>
@@ -639,5 +637,26 @@
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>以上应用最近播放过声音。</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>降低所有设备的音量</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>提高所有设备的音量</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>应用音量和设备首选项</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>音量合成器</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>鼠标设置</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>鼠标指针悬停在 EarTrumpet 图标上时，使用滚轮调节音量</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>浮出面板打开时，使用滚轮调节音量</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
 using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using System;
@@ -16,8 +17,14 @@ namespace EarTrumpet.UI.Helpers
 {
     public class ShellNotifyIcon
     {
+        public class SecondaryInvokeArgs
+        {
+            public InputType InputType { get; set; }
+            public Point Point { get; set; }
+        }
+
         public event EventHandler<InputType> PrimaryInvoke;
-        public event EventHandler<InputType> SecondaryInvoke;
+        public event EventHandler<SecondaryInvokeArgs> SecondaryInvoke;
         public event EventHandler<InputType> TertiaryInvoke;
         public event EventHandler<int> Scrolled;
 
@@ -157,19 +164,22 @@ namespace EarTrumpet.UI.Helpers
             {
                 ScheduleDelayedIconInvalidation();
             }
-            else if (msg.Msg == User32.WM_INPUT &&
-                    InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out int wheelDelta) &&
-                    IsCursorWithinNotifyIconBounds() && wheelDelta != 0)
+            else if (msg.Msg == User32.WM_INPUT)
             {
-                Scrolled?.Invoke(this, wheelDelta);
+                _cursorPosition = System.Windows.Forms.Cursor.Position;
+                if (InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out int wheelDelta) &&
+                                IsCursorWithinNotifyIconBounds() && wheelDelta != 0)
+                {
+                    Scrolled?.Invoke(this, wheelDelta);
+                }
             }
         }
 
         private void CallbackMsgWndProc(System.Windows.Forms.Message msg)
         {
-            switch ((int)msg.LParam)
+            switch ((short)msg.LParam)
             {
-                case (int)Shell32.NotifyIconNotification.NIN_SELECT:
+                case (short)Shell32.NotifyIconNotification.NIN_SELECT:
                 case User32.WM_LBUTTONUP:
                     // Observed double WM_CALLBACKMOUSEMSG/WM_LBUTTONUP pairs on Windows 11 22533
                     // Could be a result of XAML island use in Taskbar. Or a bug elsewhere.
@@ -180,17 +190,17 @@ namespace EarTrumpet.UI.Helpers
                         PrimaryInvoke?.Invoke(this, InputType.Mouse);
                     }
                     break;
-                case (int)Shell32.NotifyIconNotification.NIN_KEYSELECT:
+                case (short)Shell32.NotifyIconNotification.NIN_KEYSELECT:
                     PrimaryInvoke?.Invoke(this, InputType.Keyboard);
                     break;
                 case User32.WM_MBUTTONUP:
                     TertiaryInvoke?.Invoke(this, InputType.Mouse);
                     break;
                 case User32.WM_CONTEXTMENU:
-                    SecondaryInvoke?.Invoke(this, InputType.Keyboard);
+                    SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Keyboard, msg.WParam));
                     break;
                 case User32.WM_RBUTTONUP:
-                    SecondaryInvoke?.Invoke(this, InputType.Mouse);
+                    SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Mouse, msg.WParam));
                     break;
                 case User32.WM_MOUSEMOVE:
                     OnNotifyIconMouseMove();
@@ -198,6 +208,12 @@ namespace EarTrumpet.UI.Helpers
                     break;
             }
         }
+
+        private SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new SecondaryInvokeArgs
+        {
+            InputType = type,
+            Point = new Point((short)wParam.ToInt32(), wParam.ToInt32() >> 16)
+        };
 
         private void OnNotifyIconMouseMove()
         {
@@ -270,7 +286,7 @@ namespace EarTrumpet.UI.Helpers
             IconSource.CheckForUpdate();
         }
 
-        public void ShowContextMenu(IEnumerable itemsSource)
+        public void ShowContextMenu(IEnumerable itemsSource, Point point)
         {
             if (!_isContextMenuOpen)
             {
@@ -280,8 +296,18 @@ namespace EarTrumpet.UI.Helpers
                 {
                     FlowDirection = SystemSettings.IsRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
                     StaysOpen = true,
-                    ItemsSource = itemsSource,
+                    ItemsSource = itemsSource
                 };
+
+                if (point.X > 0 && point.Y > 0)
+                {
+                    contextMenu.Placement = PlacementMode.Top;
+                    contextMenu.PlacementRectangle = Rect.Empty;
+                    contextMenu.PlacementTarget = null;
+                    contextMenu.HorizontalOffset = point.X / (WindowsTaskbar.Dpi / (double)96);
+                    contextMenu.VerticalOffset = point.Y / (WindowsTaskbar.Dpi / (double)96);
+                }
+
                 Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);
                 contextMenu.PreviewKeyDown += (_, e) =>
                 {

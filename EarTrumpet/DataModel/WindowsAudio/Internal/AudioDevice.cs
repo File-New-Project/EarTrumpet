@@ -95,10 +95,18 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         public float Volume
         {
-            get => _volume;
+            get
+            {
+                return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
+            }
             set
             {
                 value = value.Bound(0, 1f);
+
+                if (App.Settings.UseLogarithmicVolume)
+                {
+                    value = value.ToLogVolume();
+                }
 
                 if (_volume != value)
                 {
@@ -112,7 +120,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                     {
                         // Expected in some cases.
                     }
-                    IsMuted = _volume.ToVolumeInt() == 0;
+
+                    IsMuted = App.Settings.UseLogarithmicVolume ? _volume <= (1 / 100f).ToLogVolume() : _volume.ToVolumeInt() == 0;
                 }
             }
         }

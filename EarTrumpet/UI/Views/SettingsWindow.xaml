@@ -107,6 +107,75 @@
                                     Content="{Binding OpenSettingsHotkey}"
                                     IsTabStop="False" />
                 </Grid>
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeUpText}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{Binding DefaultSettingsHotKey}" />
+                    <TextBlock Grid.Row="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+                    <ContentControl Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{Binding AbsoluteVolumeUpHotkey}"
+                                    IsTabStop="False" />
+                </Grid>
+                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeDownText}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{Binding DefaultSettingsHotKey}" />
+                    <TextBlock Grid.Row="1"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource BodySubText}"
+                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
+                    <ContentControl Grid.Row="1"
+                                    Grid.Column="1"
+                                    Content="{Binding AbsoluteVolumeDownHotkey}"
+                                    IsTabStop="False" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EarTrumpetMouseSettingsPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
+                          IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" />
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
+                          IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
+            <StackPanel Orientation="Vertical">
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
+                          IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">

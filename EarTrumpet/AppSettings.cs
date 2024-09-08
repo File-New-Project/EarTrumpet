@@ -3,6 +3,7 @@ using EarTrumpet.Interop.Helpers;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using static EarTrumpet.Interop.User32;
 
 namespace EarTrumpet
 {
@@ -12,6 +13,8 @@ namespace EarTrumpet
         public event Action FlyoutHotkeyTyped;
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
+        public event Action AbsoluteVolumeUpHotkeyTyped;
+        public event Action AbsoluteVolumeDownHotkeyTyped;
 
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
@@ -20,6 +23,8 @@ namespace EarTrumpet
             HotkeyManager.Current.Register(FlyoutHotkey);
             HotkeyManager.Current.Register(MixerHotkey);
             HotkeyManager.Current.Register(SettingsHotkey);
+            HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
+            HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
 
             HotkeyManager.Current.KeyPressed += (hotkey) =>
             {
@@ -37,6 +42,16 @@ namespace EarTrumpet
                 {
                     Trace.WriteLine("AppSettings MixerHotkeyTyped");
                     MixerHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(AbsoluteVolumeUpHotkey))
+                {
+                    Trace.WriteLine("AppSettings AbsoluteVolumeUpHotkeyTyped");
+                    AbsoluteVolumeUpHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(AbsoluteVolumeDownHotkey))
+                {
+                    Trace.WriteLine("AppSettings AbsoluteVolumeDownHotkeyTyped");
+                    AbsoluteVolumeDownHotkeyTyped?.Invoke();
                 }
             };
         }
@@ -74,6 +89,28 @@ namespace EarTrumpet
             }
         }
 
+        public HotkeyData AbsoluteVolumeUpHotkey
+        {
+            get => _settings.Get("AbsoluteVolumeUpHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(AbsoluteVolumeUpHotkey);
+                _settings.Set("AbsoluteVolumeUpHotkey", value);
+                HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
+            }
+        }
+
+        public HotkeyData AbsoluteVolumeDownHotkey
+        {
+            get => _settings.Get("AbsoluteVolumeDownHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(AbsoluteVolumeDownHotkey);
+                _settings.Set("AbsoluteVolumeDownHotkey", value);
+                HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
+            }
+        }
+
         public bool UseLegacyIcon
         {
             get
@@ -96,6 +133,18 @@ namespace EarTrumpet
             set => _settings.Set("IsExpanded", value);
         }
 
+        public bool UseScrollWheelInTray
+        {
+            get => _settings.Get("UseScrollWheelInTray", true);
+            set => _settings.Set("UseScrollWheelInTray", value);
+        }
+
+        public bool UseGlobalMouseWheelHook
+        {
+            get => _settings.Get("UseGlobalMouseWheelHook", false);
+            set => _settings.Set("UseGlobalMouseWheelHook", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");
@@ -109,6 +158,24 @@ namespace EarTrumpet
                 return _settings.Get("IsTelemetryEnabled", IsTelemetryEnabledByDefault());
             }
             set => _settings.Set("IsTelemetryEnabled", value);
+        }
+
+        public bool UseLogarithmicVolume
+        {
+            get => _settings.Get("UseLogarithmicVolume", false);
+            set => _settings.Set("UseLogarithmicVolume", value);
+        }
+
+        public WINDOWPLACEMENT? FullMixerWindowPlacement
+        {
+            get => _settings.Get("FullMixerWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("FullMixerWindowPlacement", value);
+        }
+
+        public WINDOWPLACEMENT? SettingsWindowPlacement
+        {
+            get => _settings.Get("SettingsWindowPlacement", default(WINDOWPLACEMENT?));
+            set => _settings.Set("SettingsWindowPlacement", value);
         }
 
         private bool IsTelemetryEnabledByDefault()

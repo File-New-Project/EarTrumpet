@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -372,6 +372,15 @@ namespace EarTrumpet.Properties {
         public static string CollapseAccessibleText {
             get {
                 return ResourceManager.GetString("CollapseAccessibleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community settings.
+        /// </summary>
+        public static string CommunitySettingsPageText {
+            get {
+                return ResourceManager.GetString("CommunitySettingsPageText", resourceCulture);
             }
         }
         
@@ -846,6 +855,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mouse settings.
+        /// </summary>
+        public static string MouseSettingsPageText {
+            get {
+                return ResourceManager.GetString("MouseSettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign this app to a playback device.
         /// </summary>
         public static string MoveButtonAccessibleText {
@@ -923,6 +941,24 @@ namespace EarTrumpet.Properties {
         public static string NoDeviceTrayText {
             get {
                 return ResourceManager.GetString("NoDeviceTrayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App volume and device preferences.
+        /// </summary>
+        public static string OpenAppsVolume_Windows10_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows10_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume mixer.
+        /// </summary>
+        public static string OpenAppsVolume_Windows11_Text {
+            get {
+                return ResourceManager.GetString("OpenAppsVolume_Windows11_Text", resourceCulture);
             }
         }
         
@@ -1314,6 +1350,24 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease volume for all devices.
+        /// </summary>
+        public static string SettingsAbsoluteVolumeDownText {
+            get {
+                return ResourceManager.GetString("SettingsAbsoluteVolumeDownText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase volume for all devices.
+        /// </summary>
+        public static string SettingsAbsoluteVolumeUpText {
+            get {
+                return ResourceManager.GetString("SettingsAbsoluteVolumeUpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         public static string SettingsCategoryTitle {
@@ -1368,11 +1422,38 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while the flyout is open.
+        /// </summary>
+        public static string SettingsUseGlobalMouseWheelHook {
+            get {
+                return ResourceManager.GetString("SettingsUseGlobalMouseWheelHook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use legacy EarTrumpet icon.
         /// </summary>
         public static string SettingsUseLegacyEarTrumpetIcon {
             get {
                 return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use logarithmic volume scale.
+        /// </summary>
+        public static string SettingsUseLogarithmicVolume {
+            get {
+                return ResourceManager.GetString("SettingsUseLogarithmicVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
+        /// </summary>
+        public static string SettingsUseScrollWheelInTray {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInTray", resourceCulture);
             }
         }
         

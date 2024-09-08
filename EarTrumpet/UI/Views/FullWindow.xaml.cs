@@ -3,6 +3,7 @@ using EarTrumpet.Interop;
 using EarTrumpet.UI.ViewModels;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace EarTrumpet.UI.Views
 {
@@ -19,10 +20,23 @@ namespace EarTrumpet.UI.Views
             _windowAndItemSize = (double)App.Current.Resources["WindowAndItemSize"];
 
             InitializeComponent();
-            SourceInitialized += (_, __) =>
+            SourceInitialized += (sender, __) =>
             {
                 this.Cloak();
                 this.EnableRoundedCornersIfApplicable();
+
+                if (App.Settings.FullMixerWindowPlacement != null)
+                {
+                    User32.SetWindowPlacement(new WindowInteropHelper((Window)sender).Handle, App.Settings.FullMixerWindowPlacement.Value);
+                }
+            };
+
+            Closing += (sender, __) =>
+            {
+                if (User32.GetWindowPlacement(new WindowInteropHelper((Window)sender).Handle, out var placement))
+                {
+                    App.Settings.FullMixerWindowPlacement = placement;
+                }
             };
 
             // Auto-size on the first layout pass.

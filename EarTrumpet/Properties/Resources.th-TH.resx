@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ContextMenuExitTitle" xml:space="preserve">
+    <value>ออกจากโปรแกรม</value>
+  </data>
+  <data name="ContextMenuNoDevices" xml:space="preserve">
+    <value>ไม่พบอุปกรณ์เล่นกลับ</value>
+  </data>
+  <data name="ContextMenuSendFeedback" xml:space="preserve">
+    <value>ส่งคำติชม</value>
+  </data>
+  <data name="FullWindowTitleText" xml:space="preserve">
+    <value>วอลลุ่มมิกเซอร์</value>
+  </data>
+  <data name="LegacyVolumeMixerText" xml:space="preserve">
+    <value>วอลลุ่มมิกเซอร์</value>
+  </data>
+  <data name="NoDevicesPanelContent" xml:space="preserve">
+    <value>ดูเหมือนว่าคุณไม่มีอุปกรณ์เล่นกลับ</value>
+  </data>
+  <data name="NoDeviceTrayText" xml:space="preserve">
+    <value>EarTrumpe: ไม่มีอุปกรณ์เล่นกลับ</value>
+  </data>
+  <data name="PlaybackDevicesText" xml:space="preserve">
+    <value>อุปกรณ์เล่นกลับ</value>
+  </data>
+  <data name="RecordingDevicesText" xml:space="preserve">
+    <value>อุปกรณ์บันทึกเสียง</value>
+  </data>
+  <data name="SettingsWindowText" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="SoundsControlPanelText" xml:space="preserve">
+    <value>เสียง</value>
+  </data>
+  <data name="TroubleshootEarTrumpetText" xml:space="preserve">
+    <value>เก็บข้อมูลการแก้ปัญหา</value>
+  </data>
+  <data name="HotkeyDescriptionText" xml:space="preserve">
+    <value>ทางลัดของคุณ</value>
+  </data>
+  <data name="DefaultDeviceText" xml:space="preserve">
+    <value>ใช้อุปกรณ์ค่าเริ่มต้นทุกครั้ง</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="WebsiteText" xml:space="preserve">
+    <value>เรียนรู้เพิ่มเติม</value>
+  </data>
+  <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
+    <value>"{Volume}% เสียง - {Name}"</value>
+  </data>
+  <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
+    <value>"ปิดเสียง - {Name}"</value>
+  </data>
+  <data name="AppsListAccessibleText" xml:space="preserve">
+    <value>แอป</value>
+  </data>
+  <data name="CloseButtonAccessibleText" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="CollapseAccessibleText" xml:space="preserve">
+    <value>ย่อและแสดงอุปกรณ์ค่าเริ่มต้นอย่างเดียว</value>
+  </data>
+  <data name="DefaultHotkeyDescriptionText" xml:space="preserve">
+    <value>ทางลัดค่าเริ่มต้น</value>
+  </data>
+  <data name="ExpandAccessibleText" xml:space="preserve">
+    <value>ขยายและแสดงทุกอุปกรณ์เล่นกลับ</value>
+  </data>
+  <data name="SettingsCategoryTitle" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="MoveButtonAccessibleText" xml:space="preserve">
+    <value>ให้แอปนี้ใช้อุปกรณ์เล่นกลับนั้</value>
+  </data>
+  <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
+    <value>เปิดแถบงานบินออก</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
+    <value>ใช้ไอคอน EarTrumpet แบบเก่า</value>
+  </data>
+  <data name="MoreCommandsAccessibleText" xml:space="preserve">
+    <value>คำสั่งเพิ่มเติม</value>
+  </data>
+  <data name="MutedText" xml:space="preserve">
+    <value>ปิดเสียง</value>
+  </data>
+  <data name="OpenSoundSettingsText" xml:space="preserve">
+    <value>ตั้งค่าเสียง</value>
+  </data>
+  <data name="WindowsLegacyMenuText" xml:space="preserve">
+    <value>วินโดว์เลกาซี่</value>
+  </data>
+  <data name="AboutThisAddonText" xml:space="preserve">
+    <value>เกี่ยวกับส่วนขยาย {Name}</value>
+  </data>
+  <data name="AddonNameText" xml:space="preserve">
+    <value>ชื่อ:</value>
+  </data>
+  <data name="AddonUninstallButtonText" xml:space="preserve">
+    <value>เปิดการตั้งค่าในวินโดว์</value>
+  </data>
+  <data name="AddonUninstallDescriptionText" xml:space="preserve">
+    <value>ส่วนเสริมนี้สามารถลบได้โดยใช้แอปตั้งค่าของวินโดว์</value>
+  </data>
+  <data name="AddonUninstallTitle" xml:space="preserve">
+    <value>ถอนการติดตั้ง</value>
+  </data>
+  <data name="DefaultManagementGroupName" xml:space="preserve">
+    <value>การจัดการ</value>
+  </data>
+  <data name="LegacySettingsPageText" xml:space="preserve">
+    <value>การตั้งค่าเลกาซี่</value>
+  </data>
+  <data name="PublisherText" xml:space="preserve">
+    <value>ผู้เผยแพร่</value>
+  </data>
+  <data name="SettingsDescriptionText" xml:space="preserve">
+    <value>ตั้งค่าทางลัดแลัขอความช่ายเหลือ</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>การตั้งค่า EarTrumpet</value>
+  </data>
+  <data name="ShortcutsPageText" xml:space="preserve">
+    <value>ทางลัด</value>
+  </data>
+  <data name="VersionText" xml:space="preserve">
+    <value>เวอร์ชั่น:</value>
+  </data>
+  <data name="FindASettingText" xml:space="preserve">
+    <value>ค้นหาการตั้งค่า</value>
+  </data>
+  <data name="SearchBoxNoResultsText" xml:space="preserve">
+    <value>ไม่มีผลลัพธ์</value>
+  </data>
+  <data name="SettingsOpenMixerText" xml:space="preserve">
+    <value>เปิด มิกเซอร์</value>
+  </data>
+  <data name="ToggleSwitchOffText" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="ToggleSwitchOnText" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="HomeButtonText" xml:space="preserve">
+    <value>หน้าหลัก</value>
+  </data>
+  <data name="ProjectADescription" xml:space="preserve">
+    <value>เร็วๆ นี้</value>
+  </data>
+  <data name="ProjectATitle" xml:space="preserve">
+    <value>เร็วๆ นี้</value>
+  </data>
+  <data name="SettingsOpenSettingsText" xml:space="preserve">
+    <value>เปิดการตั้งค่า</value>
+  </data>
+  <data name="CloseButtonText" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="WelcomeDialogHeaderText" xml:space="preserve">
+    <value>ขอต้อนัรบสู่ EarTrumpet</value>
+  </data>
+  <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
+    <value>ไม่สามารถเริ่ม EarTrumpet ได้</value>
+  </data>
+  <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
+    <value>มีฟอนต์ที่พังในระบบของคุณที่ทำให้ EarTrumpet ไม่สามารถเริ่มได้
+
+เปิด [https://eartrumpet.app/jmp/fixfonts] ตอนนี้ไหม?</value>
+  </data>
+  <data name="ToggleMuteToolTip" xml:space="preserve">
+    <value>สลับปิดเสียง</value>
+  </data>
+  <data name="PrivacyPolicyText" xml:space="preserve">
+    <value>นโยบายความเป็นส่วนตัว</value>
+  </data>
+  <data name="PrivacyCheckboxText" xml:space="preserve">
+    <value>ส่งข้อมูลการพังของแอปไปที่ทีมของ EarTrumpet</value>
+  </data>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>และ</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>ทำ</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>เพิ่มการกระทำ</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>เพิ่มเงื่อนไข</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>ตั้งค่าปุ่มลัดและระบบอัตโนมัติ</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>เพิ่มตัวกระตุ้น</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>เมื่อแอปเซสชั่นได้เพิ่มเข้า, เอาออก, เริ่มเล่นเสียง, ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{App} {Option} บน {Device}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>ได้เพิ่ม</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>ได้ปิดเสียง</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>หยุดเล่นเสียง</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>เริ่มเล่นเสียง</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>ได้เอาออก</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>ได้เปิดเสียง</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>ได้เพิ่ม</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>ให้เป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>ปล่อยให้เป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>ได้เอาออก</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>ไม่จริง</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>จริง</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>เป็น</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>ไม่ใช่</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>และ</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>ตั้งค่าการกรองมันไม่จำเป็นแต่มันทำให้คุณสร้างการกระทำขั้นสูงได้ เงื่อนไขควรตั้งเป็นจริงก่อนการดำเนินการ</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>ตัวกรองขั้นสูง</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>ฉันใช้การกระทำนี้ในเมนู</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>ฉันใช้การกระทำนี้ในเมนู</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>ถ้าอุปกรณ์เล่นกลับเป็นหรือไม่เป็น</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device} {Option} อุปกรณ์ค่าเริ่มต้น</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>อุปกรณ์เล่นกลับเริ่มต้น</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>อุปกรณ์เสียงได้ถูกเพิ่ม, เอาออก, ตั้งเป็นค่าเริ่มต้น, ...</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>จบ</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>XML การกระทำของ EarTrumpet</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet เริ่มหรือจบ</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>ทุกแอป</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>ส่งออก</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>บันทึกสำเนาการกระทำของคุณไปในไฟล์</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>แอปเบื้องหน้า</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>ปุ่มลัดถูกกด</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(เลือกปุ่มลัด)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey} ถูกกด</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>นำเข้าและส่งออก</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>กู้คืนสำเนาการกระทำของคุณจากไฟล์</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>ปิดเสียง</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>สลับปิดเสียง</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>เปิดเสียง</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>การกระทำ</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>เพิ่มการกระทำ</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(เพิ่มเติม)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>เล่น</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>ถ้ากระบวนการวิ่งหรือไม่</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(ใช่ชื่อของกระบวนการ)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>เมื่อ {Text} {Option}</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>ชื่อกระบวนการ (เช่น notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>เริ่ม</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>จบ</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>ไม่ทำงาน</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>ทำงาน</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>กระบวนการเริ่มหรือจบ</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(ใช่ชื่อของกระบวนการ)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>เมื่อ {Text} {Option}</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>ชื่อกระบวนการ (เช่น notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>กำลังบันทึก</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>เอาออก</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(จำเป็น)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>ปิดหรือเปิดเสียงแอป</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} บน {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>ปรับความดังของแอป</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {App} ปรับเสียงไป {Volume} บน {Device}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {App} ปรับเสียงให้ {Volume} บน {Device}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>ตั้งให้เป็นอุปกรณ์ค่าเริ่มต้น</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>ตั้ง {Device} นี้เป็นตัวเล่นเสียงค่าเริ่มต้น</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>ปิดหรือเปิดเสียงอุปกรณ์</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Option} บน {Device}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>ปรับเสียงของอุปกรณ์</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Option} {Device} ปรับเสียงไป {Volume}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Option} {Device} ปรับเสียงให้ {Volume}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>ตั้งตัวแปรภายใน</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(ตั้งชื่อตัวแปร)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>ตั้งตัวแปร {Text} เป็น {Option}</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>ใส่ชื่อตัวแปร (เช่น โหมดเกมส์)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>ลดลง</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>เพิ่มขึ้น</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>ตั้ง</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>หรือ</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>เมื่อ</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>ถ้าตัวแปรภายในเป็นจริงหรือไม่จริง</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(ใส่ชื่อตัวแปร)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>ตัวแปร {Text} เป็น {Option}</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>ใส่ชื่อตัวแปร (เช่น โหมดเกมส์)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>เลือกอุปกรณ์</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>เลือกแอป</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>ลบการกระทำนี้ไหม?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>ออกโดยไม่บันทึก?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>ออก</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>ลบการกระทำนี้</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>การกระทำนี้ไม่สามารถยกเลิกได้</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>เอาการกระทำออก</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>เอาออก</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>แอปที่แสดงข้างบนได้เล่นเสียงล่าสุด</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>ลดเสียงทุกอุปกรณ์</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>เพิ่มเสียงทุกอุปกรณ์</value>
+  </data>
+</root>

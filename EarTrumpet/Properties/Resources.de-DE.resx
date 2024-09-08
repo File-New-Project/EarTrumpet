@@ -296,8 +296,6 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Informationen zum Absturz an das EarTrumpet-Team senden</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>und</value>
   </data>
@@ -639,5 +637,26 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Die oben angezeigten Apps haben kürzlich Töne abgespielt.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Lautstärke für alle Geräte verringern</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Lautstärke für alle Geräte erhöhen</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>App-Lautstärke- und Geräteeinstellungen</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Lautstärkenmixer</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Mauseinstellungen</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Benutze das Scrollrad um die Lautstärke zu ändern, während du mit dem Mausrad über das EarTrumpet-Symbol fährst</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Benutze das Scrollrad um Lautstärke zu ändern, während das Flyout geöffnet ist</value>
   </data>
 </root>

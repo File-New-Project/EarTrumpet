@@ -15,6 +15,12 @@ namespace EarTrumpet.UI.ViewModels
         public HotkeyViewModel OpenSettingsHotkey { get; }
         public string DefaultSettingsHotKey => s_hotkeyNoneText;
 
+        public HotkeyViewModel AbsoluteVolumeUpHotkey { get; }
+        public string DefaultAbsoluteVolumeUpHotkey => s_hotkeyNoneText;
+
+        public HotkeyViewModel AbsoluteVolumeDownHotkey { get; }
+        public string DefaultAbsoluteVolumeDownHotkey => s_hotkeyNoneText;
+
         public EarTrumpetShortcutsPageViewModel(AppSettings settings) : base(null)
         {
             Title = Properties.Resources.ShortcutsPageText;
@@ -23,6 +29,8 @@ namespace EarTrumpet.UI.ViewModels
             OpenFlyoutHotkey = new HotkeyViewModel(settings.FlyoutHotkey, (newHotkey) => settings.FlyoutHotkey = newHotkey);
             OpenMixerHotkey = new HotkeyViewModel(settings.MixerHotkey, (newHotkey) => settings.MixerHotkey = newHotkey);
             OpenSettingsHotkey = new HotkeyViewModel(settings.SettingsHotkey, (newHotkey) => settings.SettingsHotkey = newHotkey);
+            AbsoluteVolumeUpHotkey = new HotkeyViewModel(settings.AbsoluteVolumeUpHotkey, (newHotkey) => settings.AbsoluteVolumeUpHotkey = newHotkey);
+            AbsoluteVolumeDownHotkey = new HotkeyViewModel(settings.AbsoluteVolumeDownHotkey, (newHotkey) => settings.AbsoluteVolumeDownHotkey = newHotkey);
         }
     }
 }

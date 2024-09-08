@@ -140,6 +140,18 @@ namespace EarTrumpet.UI.Controls
             {
                 path = Path.Combine(_windowsPath, "sysnative", path.Substring(_systemPath.Length + 1));
             }
+
+            //
+            // Microsoft includes garbage CortanaUI app assets (\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\Cortana.UI\Assets\App)
+            // so replace the appid with one that has better (than nothing) assets.
+            //
+            // Ref: https://github.com/File-New-Project/EarTrumpet/issues/1259
+            //
+            if (path.Equals("MicrosoftWindows.Client.CBS_cw5n1h2txyewy!CortanaUI", StringComparison.InvariantCultureIgnoreCase))
+            {
+                path = "MicrosoftWindows.Client.CBS_cw5n1h2txyewy!PackageMetadata";
+            }
+
             return path;
         }
 
