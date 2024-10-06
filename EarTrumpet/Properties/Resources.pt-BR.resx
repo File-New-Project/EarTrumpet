@@ -648,7 +648,7 @@ Deseja abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Preferências do dispositivo e volume do aplicativo</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mixer de Volume</value>
+    <value>Mixer de volume</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Configurações do Mouse</value>
