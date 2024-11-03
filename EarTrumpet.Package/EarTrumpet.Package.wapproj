@@ -136,52 +136,15 @@
         <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     </ItemGroup>
     <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
+
     <!--
-    RR: Do not attempt to re-build dependent projects.
-    This is will overwrite our signed outputs.
+        After the base build is complete, we sign various artifacts.
+        Wapproj will detect the changes and attempt to rebuild
+        the base. This stops that.
     -->
-    <!-- <UsingTask TaskName="GetPublishDir" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" Runtime="CLR4">
-        <ParameterGroup>
-            <Projects ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
-            <PublishDir ParameterType="System.String" Output="true" Required="false" />
-        </ParameterGroup>
-        <Task>
-            <Using Namespace="System" />
-            <Using Namespace="System.IO" />
-            <Using Namespace="System.Linq" />
-            <Code Type="Fragment" Language="cs">
-                // System.Diagnostics.Debugger.Launch();
-
-                PublishDir = Projects
-                .First()
-                .GetMetadata("AdditionalProperties")
-                .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-                .Where(item =&gt; item.StartsWith("PublishDir="))
-                .First()
-                .Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1];
-
-                PublishDir = Path.GetFullPath(PublishDir);
-            </Code>
-        </Task>
-    </UsingTask> -->
-
-    <!-- <Target Name="_BuildDependentProjects">
+    <Target Name="_BuildDependentProjects">
         <ItemGroup>
-            <TargetOutputs Include="FindMe;FindMe2" />
+            <TargetOutputs></TargetOutputs>
         </ItemGroup>
-        <Message Text="*** DEBUG _BuildDependentProjects finished ***" />
-    </Target> -->
-    
-    <!--<Target Name="EarTrumpet_ExpandProjectReferences" DependsOnTargets="_ExpandProjectReferences" BeforeTargets="_GenerateReferenceRecipes">
-        <GetPublishDir Projects="@(ProjectReferenceWithPublishProps)">
-            <Output TaskParameter="PublishDir" PropertyName="_PublishDir" />
-        </GetPublishDir>
-        <ItemGroup>
-            <_FilteredNonWapProjProjectOutput Include="$(_PublishDir)\**\EarTrumpet.resources.dll" />
-        </ItemGroup>
-        <Message Text="*** DEBUG =&gt; $(_PublishDir)">
-        </Message>
-        <Message Text="*** DEBUG =&gt; %(_FilteredNonWapProjProjectOutput.Identity)">
-        </Message>
-    </Target>-->
+    </Target>
 </Project>
