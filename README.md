@@ -26,7 +26,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" title="" /></a><a href="https://github.com/bastien09"><img src="https://github.com/bastien09.png" width="60px" alt="Bastien Auda" title="Bastien Auda" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" title="" /></a><a href="https://github.com/audabas"><img src="https://github.com/audabas.png" width="60px" alt="Bastien Auda" title="Bastien Auda" /></a><!-- sponsors -->
 
 ## Features
 
