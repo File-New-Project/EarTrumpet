@@ -2,6 +2,8 @@ name: Configure Manifest
 inputs:
   manifest:
     required: true
+  store-association:
+    required: true
   publisher:
     required: true
   version:
@@ -17,12 +19,18 @@ runs:
       shell: powershell
       run: |
         $manifestPath = "${{ inputs.manifest }}"
-
+        $associationPath = "${{ inputs.store-association }}"
+        
         $manifest = [xml](Get-Content $manifestPath)
+        $association = [xml](Get-Content $associationPath)
+
         $manifest.Package.Identity.Publisher = "${{ inputs.publisher }}"
         $manifest.Package.Identity.Version = [string](Get-Content "${{ inputs.version }}")
-        $manifest.Package.Properties.DisplayName = "${{ inputs.prefix }}"
         if ("${{ inputs.branch }}" -ne "master") {
           $manifest.Package.Properties.DisplayName = $manifest.Package.Properties.DisplayName + " (${{ inputs.branch }})"
+          $manifest.Package.Applications.Application.VisualElements.DisplayName = $manifest.Package.Properties.DisplayName
+          $manifest.Package.Applications.Application.Extensions.Extension.StartupTask.DisplayName = $manifest.Package.Properties.DisplayName
+          $association.StoreAssociation.ProductReservedInfo.ReservedNames.ReservedName = $manifest.Package.Properties.DisplayName
         }
         $manifest.Save($manifestPath)
+        $association.Save($associationPath)

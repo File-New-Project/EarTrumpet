@@ -169,6 +169,7 @@ jobs:
         uses: ./.github/actions/configure-manifest
         with:
           manifest: EarTrumpet.Package/Package.appxmanifest
+          store-association: EarTrumpet.Package/Package.StoreAssociation.xml
           publisher: ${{ env.publisher }}
           branch: ${{ github.ref_name }}
           prefix: 'EarTrumpet'
@@ -328,6 +329,7 @@ jobs:
         uses: ./.github/actions/configure-manifest
         with:
           manifest: EarTrumpet.Package/Package.appxmanifest
+          store-association: EarTrumpet.Package/Package.StoreAssociation.xml
           publisher: ${{ env.publisher }}
           branch: ${{ github.ref_name }}
           prefix: 'EarTrumpet'
@@ -423,7 +425,8 @@ jobs:
       (
         startsWith(github.ref, 'refs/heads/dev') || 
         startsWith(github.ref, 'refs/heads/master') ||
-        startsWith(github.ref, 'refs/heads/feature')
+        startsWith(github.ref, 'refs/heads/feature') ||
+        startsWith(github.ref, 'refs/heads/rafael')
       )
 
     steps:
@@ -455,6 +458,7 @@ jobs:
                     -Container builds `
                     -Blob ('${{ github.ref_name }}/' + $_.Name) `
                     -Context $context `
+                    -Properties @{ContentType = "application/msixbundle";} `
                     -Force
             }
 
@@ -463,6 +467,7 @@ jobs:
             -Blob '${{ github.ref_name }}/EarTrumpet.Package.appinstaller'
             -Container builds
             -Context $context
+            -Properties @{ContentType = "application/appinstaller";} `
             -Force
 
   #
