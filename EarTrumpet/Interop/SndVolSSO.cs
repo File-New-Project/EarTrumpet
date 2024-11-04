@@ -12,6 +12,7 @@ namespace EarTrumpet.Interop
             SpeakerTwoBars = 123,
             SpeakerThreeBars = 124,
             NoDevice = 125,
+            Microphone = 140,
         }
 
         private static readonly string DllPath = Environment.ExpandEnvironmentVariables(@"%SystemRoot%\System32\SndVolSSO.dll");

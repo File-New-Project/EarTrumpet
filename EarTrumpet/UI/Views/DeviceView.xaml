@@ -32,7 +32,20 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Border Height="{DynamicResource Mutable_DeviceTitleCellHeight}" Margin="{StaticResource WindowMargin}">
+                    <Border Margin="{StaticResource WindowMargin}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                            <Setter Property="Height" Value="{DynamicResource Mutable_DeviceTitleCellHeight}"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsShouldShowDoubleTitleCellHeight}" Value="True">
+                                <Setter Property="Height" Value="{DynamicResource Mutable_DeviceDoubleTitleCellHeight}"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                            </Style>
+
+                        </Border.Style>
                         <TextBlock Text="{Binding Device.DisplayName}" TextTrimming="CharacterEllipsis">
                             <TextBlock.Style>
                                 <Style BasedOn="{StaticResource DeviceTitleTextStyle}" TargetType="TextBlock">

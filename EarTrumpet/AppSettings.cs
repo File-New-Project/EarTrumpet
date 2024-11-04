@@ -10,11 +10,13 @@ namespace EarTrumpet
     public class AppSettings
     {
         public event EventHandler<bool> UseLegacyIconChanged;
+        public event EventHandler<bool> ShowDeviceTypeSwitchInFlyoutChanged;
         public event Action FlyoutHotkeyTyped;
         public event Action MixerHotkeyTyped;
         public event Action SettingsHotkeyTyped;
         public event Action AbsoluteVolumeUpHotkeyTyped;
         public event Action AbsoluteVolumeDownHotkeyTyped;
+        public event Action ToggleShowDeviceTypeSwitchInFlyoutHotkeyTyped;
 
         private ISettingsBag _settings = StorageFactory.GetSettings();
 
@@ -25,6 +27,7 @@ namespace EarTrumpet
             HotkeyManager.Current.Register(SettingsHotkey);
             HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
             HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
+            HotkeyManager.Current.Register(ToggleShowDeviceTypeSwitchInFlyoutHotkey);
 
             HotkeyManager.Current.KeyPressed += (hotkey) =>
             {
@@ -52,6 +55,11 @@ namespace EarTrumpet
                 {
                     Trace.WriteLine("AppSettings AbsoluteVolumeDownHotkeyTyped");
                     AbsoluteVolumeDownHotkeyTyped?.Invoke();
+                }
+                else if (hotkey.Equals(ToggleShowDeviceTypeSwitchInFlyoutHotkey))
+                {
+                    Trace.WriteLine("AppSettings ToggleShowDeviceTypeSwitchInFlyoutHotkeyTyped");
+                    ToggleShowDeviceTypeSwitchInFlyoutHotkeyTyped?.Invoke();
                 }
             };
         }
@@ -111,6 +119,17 @@ namespace EarTrumpet
             }
         }
 
+        public HotkeyData ToggleShowDeviceTypeSwitchInFlyoutHotkey
+        {
+            get => _settings.Get("ToggleShowDeviceTypeSwitchInFlyoutHotkey", new HotkeyData { });
+            set
+            {
+                HotkeyManager.Current.Unregister(ToggleShowDeviceTypeSwitchInFlyoutHotkey);
+                _settings.Set("ToggleShowDeviceTypeSwitchInFlyoutHotkey", value);
+                HotkeyManager.Current.Register(ToggleShowDeviceTypeSwitchInFlyoutHotkey);
+            }
+        }
+
         public bool UseLegacyIcon
         {
             get
@@ -164,6 +183,22 @@ namespace EarTrumpet
         {
             get => _settings.Get("UseLogarithmicVolume", false);
             set => _settings.Set("UseLogarithmicVolume", value);
+        }
+
+        public bool ShowRecordingDevicesInContextMenu
+        {
+            get => _settings.Get("ShowRecordingDevicesInContextMenu", false);
+            set => _settings.Set("ShowRecordingDevicesInContextMenu", value);
+        }
+
+        public bool ShowDeviceTypeSwitchInFlyout
+        {
+            get => _settings.Get("ShowDeviceTypeSwitchInFlyout", false);
+            set
+            {
+                _settings.Set("ShowDeviceTypeSwitchInFlyout", value);
+                ShowDeviceTypeSwitchInFlyoutChanged?.Invoke(null, ShowDeviceTypeSwitchInFlyout);
+            }
         }
 
         public WINDOWPLACEMENT? FullMixerWindowPlacement
