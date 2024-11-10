@@ -36,7 +36,7 @@
   <PropertyGroup>
     <ProjectGuid>ea5510ed-f014-4587-a505-64c59d5b2627</ProjectGuid>
     <TargetPlatformVersion>10.0.22000.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.20348.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>EarTrumpet.Package_StoreKey.pfx</PackageCertificateKeyFile>
     <EntryPointProjectUniqueName>..\EarTrumpet\EarTrumpet.csproj</EntryPointProjectUniqueName>
