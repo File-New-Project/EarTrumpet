@@ -118,7 +118,7 @@ namespace EarTrumpet.Actions.DataModel.Processing
         private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
         {
             var hWnd = PInvoke.GetForegroundWindow();
-            if (hWnd == HWND.Null)
+            if (hWnd == (HWND)null)
             {
                 Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (1)");
                 return null;
@@ -138,9 +138,9 @@ namespace EarTrumpet.Actions.DataModel.Processing
             // ApplicationFrameWindow.exe, find the real hosted process in the child CoreWindow.
             if (className.ToString() == "ApplicationFrameWindow")
             {
-                hWnd = PInvoke.FindWindowEx(hWnd, HWND.Null, "Windows.UI.Core.CoreWindow", null);
+                hWnd = PInvoke.FindWindowEx(hWnd, (HWND)null, "Windows.UI.Core.CoreWindow", null);
             }
-            if (hWnd == HWND.Null)
+            if (hWnd == (HWND)null)
             {
                 Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (2)");
                 return null;

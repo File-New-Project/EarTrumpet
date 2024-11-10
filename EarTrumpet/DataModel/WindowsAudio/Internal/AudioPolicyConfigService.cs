@@ -50,7 +50,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             {
                 EnsurePolicyConfig();
 
-                var hstring = HSTRING.Null;
+                var hstring = (HSTRING)null;
 
                 if (!string.IsNullOrWhiteSpace(deviceId))
                 {

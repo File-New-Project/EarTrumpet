@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+
+    <!-- .wapproj attempts to restore packages with UAP target, resulting in invalid warnings. -->
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
+
+  </PropertyGroup>
+</Project>

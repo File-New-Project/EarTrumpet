@@ -55,7 +55,7 @@ namespace EarTrumpet.Actions.DataModel
                 var pid = 0U;
                 unsafe
                 {
-                    _ = PInvoke.GetWindowThreadProcessId(new HWND(hwnd), &pid);
+                    _ = PInvoke.GetWindowThreadProcessId(new HWND(hwnd.ToPointer()), &pid);
                 }
 
                 using var proc = Process.GetProcessById((int)pid);

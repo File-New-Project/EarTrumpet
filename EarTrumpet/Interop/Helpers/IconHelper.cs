@@ -46,7 +46,7 @@ public class IconHelper
         using var hModule = PInvoke.LoadLibraryEx(path, LOAD_LIBRARY_FLAGS.LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_FLAGS.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
         unsafe
         {
-            var rawModuleHandle = new HMODULE(hModule.DangerousGetHandle());
+            var rawModuleHandle = new HMODULE(hModule.DangerousGetHandle().ToPointer());
             var groupResInfo = PInvoke.FindResource(rawModuleHandle, new PCWSTR((char*)iconOrdinal), PInvoke.RT_GROUP_ICON);
             var groupResData = PInvoke.LockResource(PInvoke.LoadResource(hModule, groupResInfo));
             var iconId = PInvoke.LookupIconIdFromDirectoryEx((byte*)groupResData, true, cx, cy, IMAGE_FLAGS.LR_DEFAULTCOLOR);

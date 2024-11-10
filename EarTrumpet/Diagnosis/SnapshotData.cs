@@ -32,8 +32,8 @@ namespace EarTrumpet.Diagnosis
                     { "runtimeMinutes", () => (int)EarTrumpet.App.Duration.TotalMinutes },
                     { "gdiObjects", () => PInvoke.GetGuiResources(PInvoke.GetCurrentProcess(), GET_GUI_RESOURCES_FLAGS.GR_GDIOBJECTS) },
                     { "userObjects", () => PInvoke.GetGuiResources(PInvoke.GetCurrentProcess(), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
-                    { "globalGdiObjects", () => PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
-                    { "globalUserObjects", () => PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
+                    { "globalGdiObjects", () => { unsafe { return PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL.ToPointer()), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS); } } },
+                    { "globalUserObjects", () => { unsafe { return PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL.ToPointer()), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS); } } },
                     { "handleCount", () => GetProcessHandleCount() },
 #if DEBUG
                     { "releaseStage", () => "development" },

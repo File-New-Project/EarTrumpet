@@ -138,7 +138,7 @@ namespace EarTrumpet.UI.Controls
                 shellItem = (IShellItem2)rawShellItem;
             }
 
-            var bmp = HBITMAP.Null;
+            var bmp = (HBITMAP)null;
             unsafe
             {
                 ((IShellItemImageFactory)shellItem).GetImage(new SIZE { cx = cx, cy = cy }, SIIGBF.SIIGBF_RESIZETOFIT, &bmp);
@@ -151,7 +151,7 @@ namespace EarTrumpet.UI.Controls
             }
             finally
             {
-                PInvoke.DeleteObject(new HGDIOBJ(bmp));
+                unsafe { PInvoke.DeleteObject(new HGDIOBJ(bmp)); }
             }
         }
 
@@ -176,7 +176,16 @@ namespace EarTrumpet.UI.Controls
             return path;
         }
 
-        private uint GetWindowDpi() => PInvoke.GetDpiForWindow(new HWND(((HwndSource)PresentationSource.FromVisual(this)).Handle));
+        private uint GetWindowDpi()
+        {
+            var hwndSource = (HwndSource)PresentationSource.FromVisual(this);
+            unsafe
+            {
+                var hwndSourceHandle = hwndSource.Handle.ToPointer();
+                return PInvoke.GetDpiForWindow(new HWND(hwndSourceHandle));
+            }
+        }
+
         private static void OnSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((ImageEx)d).OnSourceExChanged();
     }
 }

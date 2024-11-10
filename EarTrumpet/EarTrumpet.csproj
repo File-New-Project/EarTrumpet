@@ -74,13 +74,13 @@
 		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.106">
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Windows.SDK.Win32Metadata" Version="60.0.34-preview" />
+		<PackageReference Include="Microsoft.Windows.SDK.Win32Metadata" Version="62.0.23-preview" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.ComponentModel.Composition" Version="8.0.0" />
 		<PackageReference Include="System.Composition.AttributedModel" Version="8.0.0" />
 		<PackageReference Include="System.Composition.Runtime" Version="8.0.0" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
-		<PackageReference Include="XamlAnimatedGif" Version="2.3.0" />
+        <PackageReference Include="XamlAnimatedGif" Version="2.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Page Remove="UI\Controls\SearchBox.xaml" />

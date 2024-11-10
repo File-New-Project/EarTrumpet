@@ -136,8 +136,11 @@ namespace EarTrumpet
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
             var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
-            var hWndTooltip = PInvoke.SendMessage(new HWND(hWndTray), PInvoke.TB_GETTOOLTIPS, default, default);
-            PInvoke.SendMessage(new HWND(hWndTooltip), PInvoke.TTM_POPUP, default, default);
+            unsafe
+            {
+                var hWndTooltip = PInvoke.SendMessage(new HWND(hWndTray.ToPointer()), PInvoke.TB_GETTOOLTIPS, default, default);
+                PInvoke.SendMessage(new HWND(hWndTooltip.Value.ToPointer()), PInvoke.TTM_POPUP, default, default);
+            }
         }
 
         private void TrayIconScrolled(object _, int wheelDelta)

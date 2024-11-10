@@ -13,17 +13,20 @@ class InputHelper
 {
     public static void RegisterForMouseInput(IntPtr handle)
     {
-        var data = new RAWINPUTDEVICE
+        unsafe
         {
-            usUsagePage = PInvoke.HID_USAGE_PAGE_GENERIC,
-            usUsage = PInvoke.HID_USAGE_GENERIC_MOUSE,
-            dwFlags = RAWINPUTDEVICE_FLAGS.RIDEV_INPUTSINK,
-            hwndTarget = new HWND(handle)
-        };
+            var data = new RAWINPUTDEVICE
+            {
+                usUsagePage = PInvoke.HID_USAGE_PAGE_GENERIC,
+                usUsage = PInvoke.HID_USAGE_GENERIC_MOUSE,
+                dwFlags = RAWINPUTDEVICE_FLAGS.RIDEV_INPUTSINK,
+                hwndTarget = new HWND(handle.ToPointer())
+            };
 
-        if (!RegisterRawInputDevices(data))
-        {
-            Trace.WriteLine($"InputHelper RegisterForMouseInput: {Marshal.GetLastWin32Error()}");
+            if (!RegisterRawInputDevices(data))
+            {
+                Trace.WriteLine($"InputHelper RegisterForMouseInput: {Marshal.GetLastWin32Error()}");
+            }
         }
     }
 
@@ -47,10 +50,10 @@ class InputHelper
         return PInvoke.RegisterRawInputDevices([data], (uint)Marshal.SizeOf<RAWINPUTDEVICE>());
     }
 
-    public static bool ProcessMouseInputMessage(IntPtr lParam, ref System.Drawing.Point cursorPosition, out int wheelDelta)
+    public static unsafe bool ProcessMouseInputMessage(IntPtr lParam, ref System.Drawing.Point cursorPosition, out int wheelDelta)
     {
         wheelDelta = 0;
-        var rawInputHandle = new HRAWINPUT(lParam);
+        var rawInputHandle = new HRAWINPUT(lParam.ToPointer());
         var isApplicableMouseMessage = false;
         
         var headerSize = (uint)Marshal.SizeOf<RAWINPUTHEADER>();

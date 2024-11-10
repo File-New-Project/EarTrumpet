@@ -36,7 +36,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             {
                 unsafe
                 {
-                    if (PInvoke.IsWow64Process2(new HANDLE(Process.GetCurrentProcess().Handle),
+                    if (PInvoke.IsWow64Process2(new HANDLE(Process.GetCurrentProcess().Handle.ToPointer()),
                         null,
                         &nativeMachine))
                     {

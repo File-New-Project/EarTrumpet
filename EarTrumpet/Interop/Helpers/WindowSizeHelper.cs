@@ -11,13 +11,16 @@ class WindowSizeHelper
     {
         var hwnd = ((HwndSource)PresentationSource.FromVisual(window)).Handle;
         var workArea = System.Windows.Forms.Screen.FromHandle(hwnd).WorkingArea;
-        PInvoke.SetWindowPos(
-            new HWND(hwnd),
-            HWND.Null,
+        unsafe
+        {
+            PInvoke.SetWindowPos(
+            new HWND(hwnd.ToPointer()),
+            (HWND)null,
             workArea.Left,
             workArea.Top,
             workArea.Width,
             workArea.Height,
             SET_WINDOW_POS_FLAGS.SWP_NOZORDER | SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE);
+        }
     }
 }

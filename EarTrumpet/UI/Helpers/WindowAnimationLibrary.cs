@@ -1,11 +1,10 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
-using EarTrumpet.UI.Themes;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Media.Animation;
+using EarTrumpet.DataModel;
+using EarTrumpet.Extensions;
+using EarTrumpet.Interop.Helpers;
+using EarTrumpet.UI.Themes;
 using Windows.Win32;
 
 namespace EarTrumpet.UI.Helpers
@@ -20,7 +19,10 @@ namespace EarTrumpet.UI.Helpers
             {
                 window.Topmost = true;
                 window.Focus();
-                PInvoke.SetForegroundWindow(new HWND(window.GetHandle()));
+                unsafe
+                {
+                    PInvoke.SetForegroundWindow(new HWND(window.GetHandle().ToPointer()));
+                }
                 completed();
             });
 
@@ -280,7 +282,10 @@ namespace EarTrumpet.UI.Helpers
 
         public static void BringTaskbarToFront()
         {
-            PInvoke.SetForegroundWindow(new HWND(WindowsTaskbar.GetHwnd()));
+            unsafe
+            {
+                PInvoke.SetForegroundWindow(new HWND(WindowsTaskbar.GetHwnd()));
+            }
         }
     }
 }

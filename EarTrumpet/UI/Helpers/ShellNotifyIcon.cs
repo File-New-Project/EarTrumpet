@@ -102,15 +102,15 @@ namespace EarTrumpet.UI.Helpers
             Update();
         }
 
-        private NOTIFYICONDATAW MakeData()
+        private unsafe NOTIFYICONDATAW MakeData()
         {
             return new NOTIFYICONDATAW
             {
                 cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
-                hWnd = new HWND(_window.Handle),
+                hWnd = new HWND(_window.Handle.ToPointer()),
                 uFlags = NOTIFY_ICON_DATA_FLAGS.NIF_MESSAGE | NOTIFY_ICON_DATA_FLAGS.NIF_ICON | NOTIFY_ICON_DATA_FLAGS.NIF_TIP | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP,
                 uCallbackMessage = WM_CALLBACKMOUSEMSG,
-                hIcon = new HICON(IconSource.Current.Handle),
+                hIcon = new HICON(IconSource.Current.Handle.ToPointer()),
                 szTip = _text
             };
         }
@@ -217,12 +217,12 @@ namespace EarTrumpet.UI.Helpers
             Point = new Point((short)wParam.ToInt32(), wParam.ToInt32() >> 16)
         };
 
-        private void OnNotifyIconMouseMove()
+        private unsafe void OnNotifyIconMouseMove()
         {
             var id = new NOTIFYICONIDENTIFIER
             {
                 cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER)),
-                hWnd = new HWND(_window.Handle)
+                hWnd = new HWND(_window.Handle.ToPointer())
             };
 
             if (PInvoke.Shell_NotifyIconGetRect(id, out var location) == 0)
@@ -327,19 +327,25 @@ namespace EarTrumpet.UI.Helpers
                 contextMenu.Opened += (_, __) =>
                 {
                     Trace.WriteLine("ShellNotifyIcon ContextMenu.Opened");
-                // Workaround: The framework expects there to already be a WPF window open and thus fails to take focus.
-                PInvoke.SetForegroundWindow(new HWND(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle));
+                
+                    unsafe
+                    {
+                        // Workaround: The framework expects there to already be a WPF window open and thus fails to take focus.
+                        PInvoke.SetForegroundWindow(new HWND(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle.ToPointer()));
+                    }
+
                     contextMenu.Focus();
                     contextMenu.StaysOpen = false;
-                // Disable only the exit animation.
-                ((Popup)contextMenu.Parent).PopupAnimation = PopupAnimation.None;
-                };
-                contextMenu.Closed += (_, __) =>
-                {
-                    Trace.WriteLine("ShellNotifyIcon ContextMenu.Closed");
-                    _isContextMenuOpen = false;
-                };
-                contextMenu.IsOpen = true;
+
+                    // Disable only the exit animation.
+                    ((Popup)contextMenu.Parent).PopupAnimation = PopupAnimation.None;
+                    };
+                    contextMenu.Closed += (_, __) =>
+                    {
+                        Trace.WriteLine("ShellNotifyIcon ContextMenu.Closed");
+                        _isContextMenuOpen = false;
+                    };
+                    contextMenu.IsOpen = true;
             }
         }
 

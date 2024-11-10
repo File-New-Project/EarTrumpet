@@ -36,7 +36,7 @@ namespace EarTrumpet.Interop.Helpers
             if (!_hookIsSet)
             {
                 _hProc = new HOOKPROC(MouseHookProc);
-                _hHook = PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, _hProc, HINSTANCE.Null, 0);
+                _hHook = PInvoke.SetWindowsHookEx(WINDOWS_HOOK_ID.WH_MOUSE_LL, _hProc, (HINSTANCE)null, 0);
                 _hookIsSet = true;
             }
         }

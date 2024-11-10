@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Windows.Win32;
-using Windows.Win32.Foundation;
 using Windows.Win32.UI.Shell;
 
 namespace EarTrumpet.Interop.Helpers;
@@ -29,54 +28,66 @@ public sealed class WindowsTaskbar
         Bottom = 3
     }
 
-    public static uint Dpi => PInvoke.GetDpiForWindow(new HWND(GetHwnd()));
+    public static uint Dpi
+    {
+        get
+        {
+            unsafe
+            {
+                return PInvoke.GetDpiForWindow(new HWND(GetHwnd()));
+            }
+        }
+    }
 
     public static State Current
     {
         get
         {
-            var hwnd = GetHwnd();
-            var state = new State
+            unsafe
             {
-                ContainingScreen = Screen.FromHandle(hwnd),
-            };
-            var appBarData = new APPBARDATA
-            {
-                cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)),
-                hWnd = new HWND(hwnd)
-            };
-
-            // SHAppBarMessage: Understands Taskbar auto-hide
-            // state (the window is positioned across screens).
-            if (PInvoke.SHAppBarMessage(PInvoke.ABM_GETTASKBARPOS, ref appBarData) != UIntPtr.Zero)
-            {
-                state.Size = appBarData.rc;
-                state.Location = (Position)appBarData.uEdge;
-            }
-            else
-            {
-                PInvoke.GetWindowRect(new HWND(hwnd), out var size);
-                state.Size = (System.Drawing.Rectangle)size;
-
-                if (state.ContainingScreen != null)
+                var hwnd = GetHwnd();
+                var state = new State
                 {
-                    var screen = state.ContainingScreen;
-                    if (state.Size.Bottom == screen.Bounds.Bottom && state.Size.Top == screen.Bounds.Top)
+                    ContainingScreen = Screen.FromHandle(hwnd),
+                };
+                var appBarData = new APPBARDATA
+                {
+                    cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)),
+                    hWnd = new HWND(hwnd)
+                };
+
+                // SHAppBarMessage: Understands Taskbar auto-hide
+                // state (the window is positioned across screens).
+                if (PInvoke.SHAppBarMessage(PInvoke.ABM_GETTASKBARPOS, ref appBarData) != UIntPtr.Zero)
+                {
+                    state.Size = appBarData.rc;
+                    state.Location = (Position)appBarData.uEdge;
+                }
+                else
+                {
+                    PInvoke.GetWindowRect(new HWND(hwnd), out var size);
+                    state.Size = (System.Drawing.Rectangle)size;
+
+                    if (state.ContainingScreen != null)
                     {
-                        state.Location = (state.Size.Left == screen.Bounds.Left) ? Position.Left : Position.Right;
-                    }
-                    if (state.Size.Right == screen.Bounds.Right && state.Size.Left == screen.Bounds.Left)
-                    {
-                        state.Location = (state.Size.Top == screen.Bounds.Top) ? Position.Top : Position.Bottom;
+                        var screen = state.ContainingScreen;
+                        if (state.Size.Bottom == screen.Bounds.Bottom && state.Size.Top == screen.Bounds.Top)
+                        {
+                            state.Location = (state.Size.Left == screen.Bounds.Left) ? Position.Left : Position.Right;
+                        }
+                        if (state.Size.Right == screen.Bounds.Right && state.Size.Left == screen.Bounds.Left)
+                        {
+                            state.Location = (state.Size.Top == screen.Bounds.Top) ? Position.Top : Position.Bottom;
+                        }
                     }
                 }
+
+                var appBarState = PInvoke.SHAppBarMessage(PInvoke.ABM_GETSTATE, ref appBarData);
+                state.IsAutoHideEnabled = (appBarState & PInvoke.ABS_AUTOHIDE) == PInvoke.ABS_AUTOHIDE;
+
+                Trace.WriteLine($"WindowsTaskbar Current: Location={state.Location}, AutoHide={state.IsAutoHideEnabled}, Taskbar={hwnd}, Size={state.Size}, Monitor={state.ContainingScreen}");
+                return state;
             }
-
-            var appBarState = PInvoke.SHAppBarMessage(PInvoke.ABM_GETSTATE, ref appBarData);
-            state.IsAutoHideEnabled = (appBarState & PInvoke.ABS_AUTOHIDE) == PInvoke.ABS_AUTOHIDE;
-
-            Trace.WriteLine($"WindowsTaskbar Current: Location={state.Location}, AutoHide={state.IsAutoHideEnabled}, Taskbar={hwnd}, Size={state.Size}, Monitor={state.ContainingScreen}");
-            return state;
         }
     }
 
@@ -87,13 +98,13 @@ public sealed class WindowsTaskbar
         var hwnd = GetHwnd();
         if (hwnd != IntPtr.Zero)
         {
-            hwnd = PInvoke.FindWindowEx(hwnd, HWND.Null, "TrayNotifyWnd", null);
+            hwnd = PInvoke.FindWindowEx(hwnd, (HWND)null, "TrayNotifyWnd", null);
             if (hwnd != IntPtr.Zero)
             {
-                hwnd = PInvoke.FindWindowEx(hwnd, HWND.Null, "SysPager", null);
+                hwnd = PInvoke.FindWindowEx(hwnd, (HWND)null, "SysPager", null);
                 if (hwnd != IntPtr.Zero)
                 {
-                    hwnd = PInvoke.FindWindowEx(hwnd, HWND.Null, "ToolbarWindow32", null);
+                    hwnd = PInvoke.FindWindowEx(hwnd, (HWND)null, "ToolbarWindow32", null);
                 }
             }
         }

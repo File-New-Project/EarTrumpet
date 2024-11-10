@@ -61,7 +61,7 @@ public class ProcessWatcherService
         EnsureWatcherThreadRunning();
     }
 
-    private static void EnsureWatcherThreadRunning()
+    private static unsafe void EnsureWatcherThreadRunning()
     {
         bool needsNewThread;
         lock (_lock)

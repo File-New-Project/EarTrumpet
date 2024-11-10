@@ -9,9 +9,12 @@ public class ZombieProcessException : Exception
 
     public static void ThrowIfZombie(uint processId, IntPtr handle)
     {
-        if (PInvoke.WaitForSingleObject(new HANDLE(handle), 0) != WAIT_EVENT.WAIT_TIMEOUT)
+        unsafe
         {
-            throw new ZombieProcessException(processId);
+            if (PInvoke.WaitForSingleObject(new HANDLE(handle.ToPointer()), 0) != WAIT_EVENT.WAIT_TIMEOUT)
+            {
+                throw new ZombieProcessException(processId);
+            }
         }
     }
 }
