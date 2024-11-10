@@ -1,9 +1,8 @@
 ﻿using EarTrumpet.UI.ViewModels;
 
-namespace EarTrumpet.Extensibility
+namespace EarTrumpet.Extensibility;
+
+public interface IEarTrumpetAddonSettingsPage
 {
-    public interface IEarTrumpetAddonSettingsPage
-    {
-        SettingsCategoryViewModel GetSettingsCategory();
-    }
+    SettingsCategoryViewModel GetSettingsCategory();
 }

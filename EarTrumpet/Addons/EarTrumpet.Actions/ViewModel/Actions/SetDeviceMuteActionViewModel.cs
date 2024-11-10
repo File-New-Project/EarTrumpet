@@ -1,36 +1,35 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Actions
+namespace EarTrumpet.Actions.ViewModel.Actions;
+
+internal class SetDeviceMuteActionViewModel : PartViewModel
 {
-    class SetDeviceMuteActionViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+    public DeviceListViewModel Device { get; }
+
+    private SetDeviceMuteAction _action;
+
+    public SetDeviceMuteActionViewModel(SetDeviceMuteAction action) : base(action)
     {
-        public OptionViewModel Option { get; }
-        public DeviceListViewModel Device { get; }
+        _action = action;
+        Option = new OptionViewModel(action, nameof(action.Option));
+        Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.Recording | DeviceListViewModel.DeviceListKind.DefaultPlayback);
 
-        private SetDeviceMuteAction _action;
+        Attach(Option);
+        Attach(Device);
+    }
 
-        public SetDeviceMuteActionViewModel(SetDeviceMuteAction action) : base(action)
+    public override string LinkText
+    {
+        get
         {
-            _action = action;
-            Option = new OptionViewModel(action, nameof(action.Option));
-            Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.Recording | DeviceListViewModel.DeviceListKind.DefaultPlayback);
-
-            Attach(Option);
-            Attach(Device);
-        }
-
-        public override string LinkText
-        {
-            get
+            if (_action.Option == DataModel.Enum.MuteKind.ToggleMute)
             {
-                if (_action.Option == DataModel.Enum.MuteKind.ToggleMute)
-                {
-                    return Properties.Resources.SetDeviceMuteAction_LinkTextToggle;
-                }
-                else
-                {
-                    return base.LinkText;
-                }
+                return Properties.Resources.SetDeviceMuteAction_LinkTextToggle;
+            }
+            else
+            {
+                return base.LinkText;
             }
         }
     }

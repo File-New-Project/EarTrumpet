@@ -1,9 +1,8 @@
-﻿namespace EarTrumpet.DataModel.WindowsAudio.Internal
+﻿namespace EarTrumpet.DataModel.WindowsAudio.Internal;
+
+internal interface IAudioDeviceInternal
 {
-    interface IAudioDeviceInternal
-    {
-        void UpdatePeakValue();
-        void MoveHiddenAppsToDevice(string appId, string id);
-        void UnhideSessionsForProcessId(uint processId);
-    }
+    void UpdatePeakValue();
+    void MoveHiddenAppsToDevice(string appId, string id);
+    void UnhideSessionsForProcessId(uint processId);
 }

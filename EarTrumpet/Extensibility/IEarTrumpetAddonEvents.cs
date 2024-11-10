@@ -1,14 +1,13 @@
-﻿namespace EarTrumpet.Extensibility
-{
-    public enum AddonEventKind
-    {
-        InitializeAddon,
-        AddonsInitialized,
-        AppShuttingDown,
-    }
+﻿namespace EarTrumpet.Extensibility;
 
-    public interface IEarTrumpetAddonEvents
-    {
-        void OnAddonEvent(AddonEventKind evt);
-    }
+public enum AddonEventKind
+{
+    InitializeAddon,
+    AddonsInitialized,
+    AppShuttingDown,
+}
+
+public interface IEarTrumpetAddonEvents
+{
+    void OnAddonEvent(AddonEventKind evt);
 }

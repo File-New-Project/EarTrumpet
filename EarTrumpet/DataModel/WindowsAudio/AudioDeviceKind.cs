@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.DataModel.WindowsAudio
+﻿namespace EarTrumpet.DataModel.WindowsAudio;
+
+public enum AudioDeviceKind
 {
-    public enum AudioDeviceKind
-    {
-        Playback,
-        Recording
-    }
+    Playback,
+    Recording
 }

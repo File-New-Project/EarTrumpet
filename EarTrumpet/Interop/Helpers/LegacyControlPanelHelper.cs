@@ -2,39 +2,38 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace EarTrumpet.Interop.Helpers
+namespace EarTrumpet.Interop.Helpers;
+
+internal class LegacyControlPanelHelper
 {
-    class LegacyControlPanelHelper
+    public static void Open(string panel)
     {
-        public static void Open(string panel)
+        try
         {
-            try
-            {
-                var rundllPath = Path.Combine(
-                    Environment.GetEnvironmentVariable("SystemRoot"),
-                    (Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess ? @"sysnative\rundll32.exe" : @"system32\rundll32.exe"));
+            var rundllPath = Path.Combine(
+                Environment.GetEnvironmentVariable("SystemRoot"),
+                (Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess ? @"sysnative\rundll32.exe" : @"system32\rundll32.exe"));
 
-                using (Process.Start(rundllPath, $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
-                { }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"LegacyControlPanelHelper Open Failed: {ex}");
-            }
+            using (Process.Start(rundllPath, $"shell32.dll,Control_RunDLL mmsys.cpl,,{panel}"))
+            { }
         }
-
-        public static void StartLegacyAudioMixer()
+        catch (Exception ex)
         {
-            try
-            {
-                var pos = System.Windows.Forms.Cursor.Position;
-                using (Process.Start("sndvol.exe", $"-a {User32.MAKEWPARAM((ushort)pos.X, (ushort)pos.Y)}"))
-                { }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"LegacyControlPanelHelper StartLegacyAudioMixer Failed: {ex}");
-            }
+            Trace.WriteLine($"LegacyControlPanelHelper Open Failed: {ex}");
+        }
+    }
+
+    public static void StartLegacyAudioMixer()
+    {
+        try
+        {
+            var pos = System.Windows.Forms.Cursor.Position;
+            using (Process.Start("sndvol.exe", $"-a {User32.MAKEWPARAM((ushort)pos.X, (ushort)pos.Y)}"))
+            { }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"LegacyControlPanelHelper StartLegacyAudioMixer Failed: {ex}");
         }
     }
 }

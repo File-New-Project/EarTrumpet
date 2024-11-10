@@ -11,7 +11,7 @@ namespace Windows.Win32
 
 namespace EarTrumpet.Interop
 {
-    class Shell32
+    internal class Shell32
     {
         public static readonly int WM_TASKBARCREATED = (int)PInvoke.RegisterWindowMessage("TaskbarCreated");
     }

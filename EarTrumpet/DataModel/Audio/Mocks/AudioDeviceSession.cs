@@ -6,109 +6,108 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 #if DEBUG
-namespace EarTrumpet.DataModel.Audio.Mocks
+namespace EarTrumpet.DataModel.Audio.Mocks;
+
+internal class AudioDeviceSession : BindableBase, IAudioDeviceSessionInternal
 {
-    class AudioDeviceSession : BindableBase, IAudioDeviceSessionInternal
+    public IEnumerable<IAudioDeviceSessionChannel> Channels => throw new NotImplementedException();
+
+    public IAudioDevice Parent { get; }
+
+    public string DisplayName { get; }
+
+    public string ExeName => AppId;
+
+    public uint BackgroundColor { get; }
+
+    public string IconPath { get; }
+
+    public bool IsDesktopApp { get; }
+
+    public bool IsSystemSoundsSession { get; }
+
+    public uint ProcessId { get; }
+
+    public string AppId { get; }
+
+    public SessionState State { get; private set; }
+
+    public ObservableCollection<IAudioDeviceSession> Children { get; } = [];
+    public string Id { get; }
+
+    private bool _isMuted;
+    public bool IsMuted
     {
-        public IEnumerable<IAudioDeviceSessionChannel> Channels => throw new NotImplementedException();
-
-        public IAudioDevice Parent { get; }
-
-        public string DisplayName { get; }
-
-        public string ExeName => AppId;
-
-        public uint BackgroundColor { get; }
-
-        public string IconPath { get; }
-
-        public bool IsDesktopApp { get; }
-
-        public bool IsSystemSoundsSession { get; }
-
-        public uint ProcessId { get; }
-
-        public string AppId { get; }
-
-        public SessionState State { get; private set; }
-
-        public ObservableCollection<IAudioDeviceSession> Children { get; } = new ObservableCollection<IAudioDeviceSession>();
-        public string Id { get; }
-
-        private bool _isMuted;
-        public bool IsMuted
+        get => _isMuted;
+        set
         {
-            get => _isMuted;
-            set
+            if (_isMuted != value)
             {
-                if (_isMuted != value)
-                {
-                    _isMuted = value;
-                    RaisePropertyChanged(nameof(IsMuted));
-                }
+                _isMuted = value;
+                RaisePropertyChanged(nameof(IsMuted));
             }
         }
-        private float _volume = 1;
-        public float Volume
+    }
+    private float _volume = 1;
+    public float Volume
+    {
+        get
         {
-            get
+            return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
+        }
+
+        set
+        {
+            if (App.Settings.UseLogarithmicVolume)
             {
-                return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
+                value = value.ToLogVolume();
             }
 
-            set
+            if (_volume != value)
             {
-                if (App.Settings.UseLogarithmicVolume)
-                {
-                    value = value.ToLogVolume();
-                }
-
-                if (_volume != value)
-                {
-                    _volume = value;
-                    RaisePropertyChanged(nameof(Volume));
-                }
+                _volume = value;
+                RaisePropertyChanged(nameof(Volume));
             }
         }
+    }
 
-        public float PeakValue1 { get; set; }
+    public float PeakValue1 { get; set; }
 
-        public float PeakValue2 { get; set; }
+    public float PeakValue2 { get; set; }
 
-        public Guid GroupingParam => Guid.Empty;
+    public Guid GroupingParam => Guid.Empty;
 
-        public string PackageInstallPath { get; }
+    public string PackageInstallPath { get; }
 
-        public AudioDeviceSession(IAudioDevice parent, string id, string displayName, string appId, string iconPath, string packageInstallPath)
-        {
-            DisplayName = displayName;
-            Id = id;
-            AppId = appId;
-            IconPath = iconPath;
-            Parent = parent;
-            IsDesktopApp = true;
-            PackageInstallPath = packageInstallPath;
-        }
+    public AudioDeviceSession(IAudioDevice parent, string id, string displayName, string appId, string iconPath, string packageInstallPath)
+    {
+        DisplayName = displayName;
+        Id = id;
+        AppId = appId;
+        IconPath = iconPath;
+        Parent = parent;
+        IsDesktopApp = true;
+        PackageInstallPath = packageInstallPath;
+    }
 
-        public void Hide()
-        {
- 
-        }
+    public void Hide()
+    {
 
-        public void UnHide()
-        {
-    
-        }
+    }
 
-        public void MoveToDevice(string id, bool hide)
-        {
-            throw new NotImplementedException();
-        }
+    public void UnHide()
+    {
 
-        public void UpdatePeakValueBackground()
-        {
+    }
 
-        }
+    public void MoveToDevice(string id, bool hide)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdatePeakValueBackground()
+    {
+
     }
 }
 #endif

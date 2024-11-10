@@ -1,9 +1,8 @@
-﻿namespace EarTrumpet.UI.Helpers
+﻿namespace EarTrumpet.UI.Helpers;
+
+public enum WindowViewState
 {
-    public enum WindowViewState
-    {
-        Open,
-        Closing,
-        CloseReady
-    }
+    Open,
+    Closing,
+    CloseReady
 }

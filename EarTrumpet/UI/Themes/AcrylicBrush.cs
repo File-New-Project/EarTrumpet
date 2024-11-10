@@ -5,99 +5,98 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
 
-namespace EarTrumpet.UI.Themes
+namespace EarTrumpet.UI.Themes;
+
+internal class AcrylicBrush
 {
-    class AcrylicBrush
+    public static string GetBackground(DependencyObject obj) => (string)obj.GetValue(BackgroundProperty);
+    public static void SetBackground(DependencyObject obj, string value) => obj.SetValue(BackgroundProperty, value);
+    public static readonly DependencyProperty BackgroundProperty =
+    DependencyProperty.RegisterAttached("Background", typeof(string), typeof(AcrylicBrush), new PropertyMetadata("", BackgroundChanged));
+
+    public static bool GetIsSuppressed(DependencyObject obj) => (bool)obj.GetValue(IsSuppressedProperty);
+    public static void SetIsSuppressed(DependencyObject obj, bool value) => obj.SetValue(IsSuppressedProperty, value);
+    public static readonly DependencyProperty IsSuppressedProperty =
+    DependencyProperty.RegisterAttached("IsSuppressed", typeof(bool), typeof(AcrylicBrush), new PropertyMetadata(false));
+
+    private static void BackgroundChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
     {
-        public static string GetBackground(DependencyObject obj) => (string)obj.GetValue(BackgroundProperty);
-        public static void SetBackground(DependencyObject obj, string value) => obj.SetValue(BackgroundProperty, value);
-        public static readonly DependencyProperty BackgroundProperty =
-        DependencyProperty.RegisterAttached("Background", typeof(string), typeof(AcrylicBrush), new PropertyMetadata("", BackgroundChanged));
+        var window = (Window)dependencyObject;
+        var suppressAryclicTimer = new DispatcherTimer();
 
-        public static bool GetIsSuppressed(DependencyObject obj) => (bool)obj.GetValue(IsSuppressedProperty);
-        public static void SetIsSuppressed(DependencyObject obj, bool value) => obj.SetValue(IsSuppressedProperty, value);
-        public static readonly DependencyProperty IsSuppressedProperty =
-        DependencyProperty.RegisterAttached("IsSuppressed", typeof(bool), typeof(AcrylicBrush), new PropertyMetadata(false));
+        window.Closed += (_, __) => window = null;
+        window.SourceInitialized += (_, __) => ApplyAcrylicToWindow(window, (string)e.NewValue);
+        window.LocationChanged += (_, __) => SuppressAryclic(window, suppressAryclicTimer);
+        window.SizeChanged += (_, __) => SuppressAryclic(window, suppressAryclicTimer);
 
-        private static void BackgroundChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        suppressAryclicTimer.Interval = TimeSpan.FromMilliseconds(200);
+        suppressAryclicTimer.Tick += (_, __) =>
         {
-            var window = (Window)dependencyObject;
-            var suppressAryclicTimer = new DispatcherTimer();
-
-            window.Closed += (_, __) => window = null;
-            window.SourceInitialized += (_, __) => ApplyAcrylicToWindow(window, (string)e.NewValue);
-            window.LocationChanged += (_, __) => SuppressAryclic(window, suppressAryclicTimer);
-            window.SizeChanged += (_, __) => SuppressAryclic(window, suppressAryclicTimer);
-
-            suppressAryclicTimer.Interval = TimeSpan.FromMilliseconds(200);
-            suppressAryclicTimer.Tick += (_, __) =>
+            suppressAryclicTimer.Stop();
+            if (window != null)
             {
-                suppressAryclicTimer.Stop();
-                if (window != null)
-                {
-                    SetIsSuppressed(window, false);
-                    UpdateWindowAcrylic(window);
-                }
-            };
-
-            Manager.Current.ThemeChanged += () =>
-            {
-                if (window != null)
-                {
-                    ApplyAcrylicToWindow(window, (string)e.NewValue);
-                }
-            };
-        }
-
-        private static void SuppressAryclic(Window window, DispatcherTimer timer)
-        {
-            if (Environment.OSVersion.IsLessThan(OSVersions.Version19H1) || Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
-            {
-                // The issue is present on 19H1 - Windows 11
-                return;
+                SetIsSuppressed(window, false);
+                UpdateWindowAcrylic(window);
             }
-            if (window != null && (HwndSource)PresentationSource.FromVisual(window) != null)
-            {
-                if (!timer.IsEnabled)
-                {
-                    SetIsSuppressed(window, true);
+        };
 
-                    // This works to prevent flicker:
-                    window.InvalidateVisual();
-                    window.UpdateLayout();
-                    Dispatcher.CurrentDispatcher.InvokeAsync(() => {
-                        if (window != null)
-                        {
-                            UpdateWindowAcrylic(window);
-                        }
-                    }, DispatcherPriority.Render);
-                }
-                timer.Stop();
-                timer.Start();
-            }
-        }
-
-        private static void ApplyAcrylicToWindow(Window window, string refValue)
+        Manager.Current.ThemeChanged += () =>
         {
             if (window != null)
             {
-                AccentPolicyLibrary.EnableAcrylic(window,
-                    Manager.ResolveRef(window, refValue),
-                    Interop.User32.AccentFlags.DrawAllBorders);
+                ApplyAcrylicToWindow(window, (string)e.NewValue);
             }
-        }
+        };
+    }
 
-        private static void UpdateWindowAcrylic(Window window)
+    private static void SuppressAryclic(Window window, DispatcherTimer timer)
+    {
+        if (Environment.OSVersion.IsLessThan(OSVersions.Version19H1) || Environment.OSVersion.IsAtLeast(OSVersions.Windows11))
         {
-            var suppressed = GetIsSuppressed(window);
-            if (suppressed)
+            // The issue is present on 19H1 - Windows 11
+            return;
+        }
+        if (window != null && (HwndSource)PresentationSource.FromVisual(window) != null)
+        {
+            if (!timer.IsEnabled)
             {
-                AccentPolicyLibrary.DisableAcrylic(window);
+                SetIsSuppressed(window, true);
+
+                // This works to prevent flicker:
+                window.InvalidateVisual();
+                window.UpdateLayout();
+                Dispatcher.CurrentDispatcher.InvokeAsync(() => {
+                    if (window != null)
+                    {
+                        UpdateWindowAcrylic(window);
+                    }
+                }, DispatcherPriority.Render);
             }
-            else
-            {
-                ApplyAcrylicToWindow(window, GetBackground(window));
-            }
+            timer.Stop();
+            timer.Start();
+        }
+    }
+
+    private static void ApplyAcrylicToWindow(Window window, string refValue)
+    {
+        if (window != null)
+        {
+            AccentPolicyLibrary.EnableAcrylic(window,
+                Manager.ResolveRef(window, refValue),
+                Interop.User32.AccentFlags.DrawAllBorders);
+        }
+    }
+
+    private static void UpdateWindowAcrylic(Window window)
+    {
+        var suppressed = GetIsSuppressed(window);
+        if (suppressed)
+        {
+            AccentPolicyLibrary.DisableAcrylic(window);
+        }
+        else
+        {
+            ApplyAcrylicToWindow(window, GetBackground(window));
         }
     }
 }

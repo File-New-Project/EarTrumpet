@@ -1,19 +1,18 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Triggers
+namespace EarTrumpet.Actions.ViewModel.Triggers;
+
+internal class HotkeyTriggerViewModel : PartViewModel
 {
-    class HotkeyTriggerViewModel : PartViewModel
+    public HotkeyViewModel Hotkey { get; }
+
+    private HotkeyTrigger _trigger;
+
+    public HotkeyTriggerViewModel(HotkeyTrigger trigger) : base(trigger)
     {
-        public HotkeyViewModel Hotkey { get; }
+        _trigger = trigger;
 
-        private HotkeyTrigger _trigger;
-
-        public HotkeyTriggerViewModel(HotkeyTrigger trigger) : base(trigger)
-        {
-            _trigger = trigger;
-
-            Hotkey = new HotkeyViewModel(trigger);
-            Attach(Hotkey);
-        }
+        Hotkey = new HotkeyViewModel(trigger);
+        Attach(Hotkey);
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum AudioDeviceEventKind
 {
-    public enum AudioDeviceEventKind
-    {
-        Added,
-        Removed,
-        BecomingDefault,
-        LeavingDefault,
-    }
+    Added,
+    Removed,
+    BecomingDefault,
+    LeavingDefault,
 }

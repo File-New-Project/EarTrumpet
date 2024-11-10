@@ -1,9 +1,8 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum SetVolumeKind
 {
-    public enum SetVolumeKind
-    {
-        Set,
-        Increment,
-        Decrement,
-    }
+    Set,
+    Increment,
+    Decrement,
 }

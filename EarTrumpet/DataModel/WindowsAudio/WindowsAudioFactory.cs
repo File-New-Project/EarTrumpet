@@ -1,36 +1,35 @@
 ﻿using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio.Internal;
 
-namespace EarTrumpet.DataModel.WindowsAudio
+namespace EarTrumpet.DataModel.WindowsAudio;
+
+public class WindowsAudioFactory
 {
-    public class WindowsAudioFactory
+    private static IAudioDeviceManager s_playbackDevices;
+    private static IAudioDeviceManager s_recordingDevices;
+
+    public static IAudioDeviceManager Create(AudioDeviceKind kind)
     {
-        static IAudioDeviceManager s_playbackDevices;
-        static IAudioDeviceManager s_recordingDevices;
-
-        public static IAudioDeviceManager Create(AudioDeviceKind kind)
+        if (kind == AudioDeviceKind.Playback)
         {
-            if (kind == AudioDeviceKind.Playback)
+            if (s_playbackDevices == null)
             {
-                if (s_playbackDevices == null)
-                {
-                    s_playbackDevices = new AudioDeviceManager(AudioDeviceKind.Playback);
-                }
-                return s_playbackDevices;
+                s_playbackDevices = new AudioDeviceManager(AudioDeviceKind.Playback);
             }
-            else
-            {
-                if (s_recordingDevices == null)
-                {
-                    s_recordingDevices = new AudioDeviceManager(AudioDeviceKind.Recording);
-                }
-                return s_recordingDevices;
-            }
+            return s_playbackDevices;
         }
-
-        public static IAudioDeviceManager CreateNonSharedDeviceManager(AudioDeviceKind kind)
+        else
         {
-            return new AudioDeviceManager(kind);
+            if (s_recordingDevices == null)
+            {
+                s_recordingDevices = new AudioDeviceManager(AudioDeviceKind.Recording);
+            }
+            return s_recordingDevices;
         }
+    }
+
+    public static IAudioDeviceManager CreateNonSharedDeviceManager(AudioDeviceKind kind)
+    {
+        return new AudioDeviceManager(kind);
     }
 }

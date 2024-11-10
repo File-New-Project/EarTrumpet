@@ -17,7 +17,7 @@ using Windows.Win32.Media.Audio.Endpoints;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal;
 
-class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDeviceSession, IAudioDeviceSessionInternal
+internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDeviceSession, IAudioDeviceSessionInternal
 {
     public IAudioDevice Parent
     {

@@ -5,122 +5,121 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace EarTrumpet.UI.Views
+namespace EarTrumpet.UI.Views;
+
+public partial class DeviceView : UserControl
 {
-    public partial class DeviceView : UserControl
+    public const string DeviceListItemKey = "DeviceListItem";
+
+    public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
+    public static readonly DependencyProperty DeviceProperty =
+        DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
+
+    public bool IsDisplayNameVisible { get { return (bool)GetValue(IsDisplayNameVisibleProperty); } set { SetValue(IsDisplayNameVisibleProperty, value); } }
+    public static readonly DependencyProperty IsDisplayNameVisibleProperty =
+        DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
+
+    public bool IsAppListVisible { get { return (bool)GetValue(IsAppListVisibleProperty); } set { SetValue(IsAppListVisibleProperty, value); } }
+    public static readonly DependencyProperty IsAppListVisibleProperty =
+        DependencyProperty.Register("IsAppListVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
+
+    public DeviceView()
     {
-        public const string DeviceListItemKey = "DeviceListItem";
+        InitializeComponent();
 
-        public DeviceViewModel Device { get { return (DeviceViewModel)GetValue(DeviceProperty); } set { SetValue(DeviceProperty, value); } }
-        public static readonly DependencyProperty DeviceProperty =
-            DependencyProperty.Register("Device", typeof(DeviceViewModel), typeof(DeviceView), new PropertyMetadata(new PropertyChangedCallback(DeviceChanged)));
+        DeviceListItem.PreviewKeyDown += OnPreviewKeyDown;
+        DeviceListItem.PreviewMouseRightButtonUp += (_, __) => OpenPopup();
+    }
 
-        public bool IsDisplayNameVisible { get { return (bool)GetValue(IsDisplayNameVisibleProperty); } set { SetValue(IsDisplayNameVisibleProperty, value); } }
-        public static readonly DependencyProperty IsDisplayNameVisibleProperty =
-            DependencyProperty.Register("IsDisplayNameVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
+    public void FocusAndRemoveFocusVisual()
+    {
+        DeviceListItem.Focus();
+        RemoveFocusVisual(DeviceListItem);
+    }
 
-        public bool IsAppListVisible { get { return (bool)GetValue(IsAppListVisibleProperty); } set { SetValue(IsAppListVisibleProperty, value); } }
-        public static readonly DependencyProperty IsAppListVisibleProperty =
-            DependencyProperty.Register("IsAppListVisible", typeof(bool), typeof(DeviceView), new PropertyMetadata(true));
-
-        public DeviceView()
+    private static void RemoveFocusVisual(UIElement element)
+    {
+        var adornerLayer = AdornerLayer.GetAdornerLayer(element);
+        var adorners = adornerLayer.GetAdorners(element);
+        if (adorners != null)
         {
-            InitializeComponent();
-
-            DeviceListItem.PreviewKeyDown += OnPreviewKeyDown;
-            DeviceListItem.PreviewMouseRightButtonUp += (_, __) => OpenPopup();
-        }
-
-        public void FocusAndRemoveFocusVisual()
-        {
-            DeviceListItem.Focus();
-            RemoveFocusVisual(DeviceListItem);
-        }
-
-        private static void RemoveFocusVisual(UIElement element)
-        {
-            var adornerLayer = AdornerLayer.GetAdornerLayer(element);
-            var adorners = adornerLayer.GetAdorners(element);
-            if (adorners != null)
+            foreach (var adorner in adorners)
             {
-                foreach (var adorner in adorners)
-                {
-                    adornerLayer.Remove(adorner);
-                }
+                adornerLayer.Remove(adorner);
             }
         }
+    }
 
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+    private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (Keyboard.Modifiers == ModifierKeys.Control)
         {
-            if (Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                switch (e.Key)
-                {
-                    case Key.Right:
-                    case Key.OemPlus:
-                        Device.Volume += 10;
-                        e.Handled = true;
-                        break;
-                    case Key.Left:
-                    case Key.OemMinus:
-                        Device.Volume -= 10;
-                        e.Handled = true;
-                        break;
-                }
-
-                return;
-            }
-
             switch (e.Key)
             {
-                case Key.M:
-                case Key.OemPeriod:
-                    Device.IsMuted = !Device.IsMuted;
-                    e.Handled = true;
-                    break;
                 case Key.Right:
                 case Key.OemPlus:
-                    Device.Volume++;
+                    Device.Volume += 10;
                     e.Handled = true;
                     break;
                 case Key.Left:
                 case Key.OemMinus:
-                    Device.Volume--;
-                    e.Handled = true;
-                    break;
-                case Key.Space:
-                    OpenPopup();
+                    Device.Volume -= 10;
                     e.Handled = true;
                     break;
             }
+
+            return;
         }
 
-        private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        switch (e.Key)
         {
-            var self = (DeviceView)d;
-            self.GridRoot.DataContext = self;
+            case Key.M:
+            case Key.OemPeriod:
+                Device.IsMuted = !Device.IsMuted;
+                e.Handled = true;
+                break;
+            case Key.Right:
+            case Key.OemPlus:
+                Device.Volume++;
+                e.Handled = true;
+                break;
+            case Key.Left:
+            case Key.OemMinus:
+                Device.Volume--;
+                e.Handled = true;
+                break;
+            case Key.Space:
+                OpenPopup();
+                e.Handled = true;
+                break;
         }
+    }
 
-        private void TouchSlider_TouchUp(object sender, TouchEventArgs e)
+    private static void DeviceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var self = (DeviceView)d;
+        self.GridRoot.DataContext = self;
+    }
+
+    private void TouchSlider_TouchUp(object sender, TouchEventArgs e)
+    {
+        SystemSoundsHelper.PlayBeepSound.Execute(null);
+    }
+
+    private void TouchSlider_MouseUp(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
         {
             SystemSoundsHelper.PlayBeepSound.Execute(null);
         }
+    }
 
-        private void TouchSlider_MouseUp(object sender, MouseButtonEventArgs e)
+    private void OpenPopup()
+    {
+        var viewModel = Window.GetWindow(DeviceListItem).DataContext as IPopupHostViewModel;
+        if (viewModel != null)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                SystemSoundsHelper.PlayBeepSound.Execute(null);
-            }
-        }
-
-        private void OpenPopup()
-        {
-            var viewModel = Window.GetWindow(DeviceListItem).DataContext as IPopupHostViewModel;
-            if (viewModel != null)
-            {
-                viewModel.OpenPopup(Device, DeviceListItem);
-            }
+            viewModel.OpenPopup(Device, DeviceListItem);
         }
     }
 }

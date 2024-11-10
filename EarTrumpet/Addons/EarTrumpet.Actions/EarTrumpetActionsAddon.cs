@@ -12,117 +12,116 @@ using System.Composition;
 using System.IO;
 using System.Linq;
 
-namespace EarTrumpet.Actions
+namespace EarTrumpet.Actions;
+
+[Export(typeof(EarTrumpetAddon))]
+public class EarTrumpetActionsAddon : EarTrumpetAddon, IEarTrumpetAddonEvents, IEarTrumpetAddonSettingsPage, IEarTrumpetAddonNotificationAreaContextMenu
 {
-    [Export(typeof(EarTrumpetAddon))]
-    public class EarTrumpetActionsAddon : EarTrumpetAddon, IEarTrumpetAddonEvents, IEarTrumpetAddonSettingsPage, IEarTrumpetAddonNotificationAreaContextMenu
+    public static EarTrumpetActionsAddon Current { get; private set; }
+    public LocalVariablesContainer LocalVariables { get; private set; }
+
+    public EarTrumpetActionsAddon() : base()
     {
-        public static EarTrumpetActionsAddon Current { get; private set; }
-        public LocalVariablesContainer LocalVariables { get; private set; }
+        DisplayName = Properties.Resources.MyActionsText;
+    }
 
-        public EarTrumpetActionsAddon() : base()
+    public EarTrumpetAction[] Actions
+    {
+        get => _actions;
+        set
         {
-            DisplayName = Properties.Resources.MyActionsText;
+            Settings.Set(c_actionsSettingKey, value);
+            LoadAndRegister();
         }
+    }
 
-        public EarTrumpetAction[] Actions
+    private readonly string c_actionsSettingKey = "ActionsData";
+    private EarTrumpetAction[] _actions = Array.Empty<EarTrumpetAction>();
+    private TriggerManager _triggerManager = new();
+
+    public void OnAddonEvent(AddonEventKind evt)
+    {
+        if (evt == AddonEventKind.AddonsInitialized)
         {
-            get => _actions;
-            set
-            {
-                Settings.Set(c_actionsSettingKey, value);
-                LoadAndRegister();
-            }
+            Current = this;
+            LocalVariables = new LocalVariablesContainer(Settings);
+
+            _triggerManager.Triggered += OnTriggered;
+            LoadAndRegister();
+
+            _triggerManager.OnEvent(AddonEventKind.InitializeAddon);
         }
-
-        private readonly string c_actionsSettingKey = "ActionsData";
-        private EarTrumpetAction[] _actions = Array.Empty<EarTrumpetAction>();
-        private TriggerManager _triggerManager = new TriggerManager();
-
-        public void OnAddonEvent(AddonEventKind evt)
+        else if (evt == AddonEventKind.AppShuttingDown)
         {
-            if (evt == AddonEventKind.AddonsInitialized)
-            {
-                Current = this;
-                LocalVariables = new LocalVariablesContainer(Settings);
-
-                _triggerManager.Triggered += OnTriggered;
-                LoadAndRegister();
-
-                _triggerManager.OnEvent(AddonEventKind.InitializeAddon);
-            }
-            else if (evt == AddonEventKind.AppShuttingDown)
-            {
-                _triggerManager.OnEvent(AddonEventKind.AppShuttingDown);
-            }
+            _triggerManager.OnEvent(AddonEventKind.AppShuttingDown);
         }
+    }
 
-        public SettingsCategoryViewModel GetSettingsCategory()
-        {
-            LoadAddonResources();
-            return new ActionsCategoryViewModel();
-        }
+    public SettingsCategoryViewModel GetSettingsCategory()
+    {
+        LoadAddonResources();
+        return new ActionsCategoryViewModel();
+    }
 
-        public IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems
+    public IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems
+    {
+        get
         {
-            get
+            var ret = new List<ContextMenuItem>();
+
+            if (EarTrumpetActionsAddon.Current == null)
             {
-                var ret = new List<ContextMenuItem>();
-
-                if (EarTrumpetActionsAddon.Current == null)
-                {
-                    return ret;
-                }
-
-                foreach (var item in EarTrumpetActionsAddon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
-                {
-                    ret.Add(new ContextMenuItem
-                    {
-                        Glyph = "\xE1CE",
-                        IsChecked = true,
-                        DisplayName = item.DisplayName,
-                        Command = new RelayCommand(() => TriggerAction(item))
-                    });
-                }
                 return ret;
             }
-        }
 
-        private void LoadAndRegister()
-        {
-            _triggerManager.Clear();
-            _actions = Settings.Get(c_actionsSettingKey, Array.Empty<EarTrumpetAction>());
-            _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
-        }
-
-        public void Import(string fileName)
-        {
-            var imported = Serializer.FromString<EarTrumpetAction[]>(File.ReadAllText(fileName)).ToList();
-            foreach(var imp in imported)
+            foreach (var item in EarTrumpetActionsAddon.Current.Actions.Where(a => a.Triggers.FirstOrDefault(ax => ax is ContextMenuTrigger) != null))
             {
-                imp.Id = Guid.NewGuid();
+                ret.Add(new ContextMenuItem
+                {
+                    Glyph = "\xE1CE",
+                    IsChecked = true,
+                    DisplayName = item.DisplayName,
+                    Command = new RelayCommand(() => TriggerAction(item))
+                });
             }
-            imported.AddRange(Actions);
-            Actions = imported.ToArray();
+            return ret;
         }
+    }
 
-        public string Export()
-        {
-            return Settings.Get(c_actionsSettingKey, "");
-        }
+    private void LoadAndRegister()
+    {
+        _triggerManager.Clear();
+        _actions = Settings.Get(c_actionsSettingKey, Array.Empty<EarTrumpetAction>());
+        _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
+    }
 
-        private void OnTriggered(BaseTrigger trigger)
+    public void Import(string fileName)
+    {
+        var imported = Serializer.FromString<EarTrumpetAction[]>(File.ReadAllText(fileName)).ToList();
+        foreach(var imp in imported)
         {
-            var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));
-            if (action != null && action.Conditions.All(c => ConditionProcessor.IsMet(c)))
-            {
-                TriggerAction(action);
-            }
+            imp.Id = Guid.NewGuid();
         }
+        imported.AddRange(Actions);
+        Actions = [.. imported];
+    }
 
-        public static void TriggerAction(EarTrumpetAction action)
+    public string Export()
+    {
+        return Settings.Get(c_actionsSettingKey, "");
+    }
+
+    private void OnTriggered(BaseTrigger trigger)
+    {
+        var action = Actions.FirstOrDefault(a => a.Triggers.Contains(trigger));
+        if (action != null && action.Conditions.All(c => ConditionProcessor.IsMet(c)))
         {
-            action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
+            TriggerAction(action);
         }
+    }
+
+    public static void TriggerAction(EarTrumpetAction action)
+    {
+        action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
     }
 }

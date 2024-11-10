@@ -5,40 +5,39 @@ using System.Windows.Threading;
 using Windows.Win32.Media.Audio;
 using Windows.Win32.Media.Audio.Endpoints;
 
-namespace EarTrumpet.DataModel.WindowsAudio.Internal
+namespace EarTrumpet.DataModel.WindowsAudio.Internal;
+
+internal class AudioDeviceChannelCollection
 {
-    class AudioDeviceChannelCollection
+    public List<AudioDeviceChannel> Channels { get; }
+
+    private readonly Dispatcher _dispatcher;
+    private readonly int _afChannelVolumesOffset;
+
+    public AudioDeviceChannelCollection(IAudioEndpointVolume deviceVolume, Dispatcher dispatcher)
     {
-        public List<AudioDeviceChannel> Channels { get; }
+        _dispatcher = dispatcher;
 
-        private readonly Dispatcher _dispatcher;
-        private readonly int _afChannelVolumesOffset;
-
-        public AudioDeviceChannelCollection(IAudioEndpointVolume deviceVolume, Dispatcher dispatcher)
+        var ret = new List<AudioDeviceChannel>();
+        deviceVolume.GetChannelCount(out var channelCount);
+        for (uint i = 0; i < channelCount; i++)
         {
-            _dispatcher = dispatcher;
-
-            var ret = new List<AudioDeviceChannel>();
-            deviceVolume.GetChannelCount(out var channelCount);
-            for (uint i = 0; i < channelCount; i++)
-            {
-                ret.Add(new AudioDeviceChannel(deviceVolume, i));
-            }
-            Channels = ret;
-
-            AUDIO_VOLUME_NOTIFICATION_DATA dummy;
-            _afChannelVolumesOffset = Marshal.OffsetOf<AUDIO_VOLUME_NOTIFICATION_DATA>(nameof(dummy.afChannelVolumes)).ToInt32();
+            ret.Add(new AudioDeviceChannel(deviceVolume, i));
         }
+        Channels = ret;
 
-        public void OnNotify(IntPtr pNotify, AUDIO_VOLUME_NOTIFICATION_DATA data)
+        AUDIO_VOLUME_NOTIFICATION_DATA dummy;
+        _afChannelVolumesOffset = Marshal.OffsetOf<AUDIO_VOLUME_NOTIFICATION_DATA>(nameof(dummy.afChannelVolumes)).ToInt32();
+    }
+
+    public void OnNotify(IntPtr pNotify, AUDIO_VOLUME_NOTIFICATION_DATA data)
+    {
+        var channelVolumesValues = new float[data.nChannels];
+        Marshal.Copy(IntPtr.Add(pNotify, _afChannelVolumesOffset), channelVolumesValues, 0, (int)data.nChannels);
+
+        for (var i = 0; i < data.nChannels; i++)
         {
-            var channelVolumesValues = new float[data.nChannels];
-            Marshal.Copy(IntPtr.Add(pNotify, _afChannelVolumesOffset), channelVolumesValues, 0, (int)data.nChannels);
-
-            for (var i = 0; i < data.nChannels; i++)
-            {
-                Channels[i].OnNotify(channelVolumesValues[i]);
-            }
+            Channels[i].OnNotify(channelVolumesValues[i]);
         }
     }
 }

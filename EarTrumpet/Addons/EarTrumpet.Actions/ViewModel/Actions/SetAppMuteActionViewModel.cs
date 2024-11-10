@@ -1,26 +1,25 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Actions
+namespace EarTrumpet.Actions.ViewModel.Actions;
+
+internal class SetAppMuteActionViewModel : PartViewModel
 {
-    class SetAppMuteActionViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+    public DeviceListViewModel Device { get; }
+    public AppListViewModel App { get; }
+
+    private SetAppMuteAction _action;
+
+    public SetAppMuteActionViewModel(SetAppMuteAction action) : base(action)
     {
-        public OptionViewModel Option { get; }
-        public DeviceListViewModel Device { get; }
-        public AppListViewModel App { get; }
+        _action = action;
 
-        private SetAppMuteAction _action;
+        Option = new OptionViewModel(action, nameof(action.Option));
+        App = new AppListViewModel(action, AppListViewModel.AppKind.EveryApp | AppListViewModel.AppKind.ForegroundApp);
+        Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.DefaultPlayback);
 
-        public SetAppMuteActionViewModel(SetAppMuteAction action) : base(action)
-        {
-            _action = action;
-
-            Option = new OptionViewModel(action, nameof(action.Option));
-            App = new AppListViewModel(action, AppListViewModel.AppKind.EveryApp | AppListViewModel.AppKind.ForegroundApp);
-            Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.DefaultPlayback);
-
-            Attach(Option);
-            Attach(App);
-            Attach(Device);
-        }
+        Attach(Option);
+        Attach(App);
+        Attach(Device);
     }
 }

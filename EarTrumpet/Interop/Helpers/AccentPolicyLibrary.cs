@@ -19,10 +19,12 @@ public static class AccentPolicyLibrary
         var accentPtr = Marshal.AllocHGlobal(accentStructSize);
         Marshal.StructureToPtr(policy, accentPtr, false);
 
-        var data = new User32.WindowCompositionAttribData();
-        data.Attribute = User32.WindowCompositionAttribute.WCA_ACCENT_POLICY;
-        data.SizeOfData = accentStructSize;
-        data.Data = accentPtr;
+        var data = new User32.WindowCompositionAttribData
+        {
+            Attribute = User32.WindowCompositionAttribute.WCA_ACCENT_POLICY,
+            SizeOfData = accentStructSize,
+            Data = accentPtr
+        };
 
         var ret = User32.SetWindowCompositionAttribute(handle, ref data);
         Debug.Assert(ret == 0 || ret == 1);
@@ -52,7 +54,7 @@ public static class AccentPolicyLibrary
 
     private static IntPtr HandleFromVisual(Visual visual)
     {
-        Visual targetVisual = visual;
+        var targetVisual = visual;
 
         // We don't want the parent window showing a popup
         if (visual is Popup popup && popup.Child != null)

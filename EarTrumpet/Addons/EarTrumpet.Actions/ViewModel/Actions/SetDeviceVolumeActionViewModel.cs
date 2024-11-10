@@ -1,40 +1,39 @@
 ﻿using EarTrumpet.Actions.DataModel.Enum;
 using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Actions
+namespace EarTrumpet.Actions.ViewModel.Actions;
+
+internal class SetDeviceVolumeActionViewModel : PartViewModel
 {
-    class SetDeviceVolumeActionViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+    public DeviceListViewModel Device { get; }
+    public VolumeViewModel Volume { get; }
+
+    private SetDeviceVolumeAction _action;
+
+    public SetDeviceVolumeActionViewModel(SetDeviceVolumeAction action) : base(action)
     {
-        public OptionViewModel Option { get; }
-        public DeviceListViewModel Device { get; }
-        public VolumeViewModel Volume { get; }
+        _action = action;
+        Option = new OptionViewModel(action, nameof(action.Option));
+        Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.Recording | DeviceListViewModel.DeviceListKind.DefaultPlayback);
+        Volume = new VolumeViewModel(action);
 
-        private SetDeviceVolumeAction _action;
+        Attach(Option);
+        Attach(Device);
+        Attach(Volume);
+    }
 
-        public SetDeviceVolumeActionViewModel(SetDeviceVolumeAction action) : base(action)
+    public override string LinkText
+    {
+        get
         {
-            _action = action;
-            Option = new OptionViewModel(action, nameof(action.Option));
-            Device = new DeviceListViewModel(action, DeviceListViewModel.DeviceListKind.Recording | DeviceListViewModel.DeviceListKind.DefaultPlayback);
-            Volume = new VolumeViewModel(action);
-
-            Attach(Option);
-            Attach(Device);
-            Attach(Volume);
-        }
-
-        public override string LinkText
-        {
-            get
+            if (_action.Option == SetVolumeKind.Set)
             {
-                if (_action.Option == SetVolumeKind.Set)
-                {
-                    return base.LinkText;
-                }
-                else
-                {
-                    return Properties.Resources.SetDeviceVolumeAction_LinkTextIncrement;
-                }
+                return base.LinkText;
+            }
+            else
+            {
+                return Properties.Resources.SetDeviceVolumeAction_LinkTextIncrement;
             }
         }
     }

@@ -1,75 +1,74 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace EarTrumpet.UI.Helpers
+namespace EarTrumpet.UI.Helpers;
+
+public class RelayCommand : ICommand
 {
-    public class RelayCommand : ICommand
+    private Action _actionToExecute;
+
+    public event EventHandler CanExecuteChanged;
+
+    public RelayCommand(Action actionToExecute)
     {
-        private Action _actionToExecute;
-
-        public event EventHandler CanExecuteChanged;
-
-        public RelayCommand(Action actionToExecute)
-        {
-            _actionToExecute = actionToExecute;
-        }
-
-        public bool CanExecute(object parameter = null)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter = null)
-        {
-            if (_actionToExecute == null)
-            {
-                return;
-            }
-
-            _actionToExecute.Invoke();
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged.Invoke(this, null);
-            }
-        }
+        _actionToExecute = actionToExecute;
     }
 
-    public class RelayCommand<T> : ICommand
+    public bool CanExecute(object parameter = null)
     {
-        private Action<T> _actionToExecute;
+        return true;
+    }
 
-        public event EventHandler CanExecuteChanged;
-
-        public RelayCommand(Action<T> actionToExecute)
+    public void Execute(object parameter = null)
+    {
+        if (_actionToExecute == null)
         {
-            _actionToExecute = actionToExecute;
+            return;
         }
 
-        public bool CanExecute(object parameter = null)
+        _actionToExecute.Invoke();
+    }
+
+    public void RaiseCanExecuteChanged()
+    {
+        if (CanExecuteChanged != null)
         {
-            return true;
+            CanExecuteChanged.Invoke(this, null);
+        }
+    }
+}
+
+public class RelayCommand<T> : ICommand
+{
+    private Action<T> _actionToExecute;
+
+    public event EventHandler CanExecuteChanged;
+
+    public RelayCommand(Action<T> actionToExecute)
+    {
+        _actionToExecute = actionToExecute;
+    }
+
+    public bool CanExecute(object parameter = null)
+    {
+        return true;
+    }
+
+    public void Execute(object parameter = null)
+    {
+        if (_actionToExecute == null)
+        {
+            return;
         }
 
-        public void Execute(object parameter = null)
-        {
-            if (_actionToExecute == null)
-            {
-                return;
-            }
+        _actionToExecute.Method.Invoke(_actionToExecute.Target, [parameter]);
+    }
 
-            _actionToExecute.Method.Invoke(_actionToExecute.Target, new object[] { parameter });
-        }
-
-        public void RaiseCanExecuteChanged()
+    public void RaiseCanExecuteChanged()
+    {
+        if (CanExecuteChanged != null)
         {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged.Invoke(this, null);
-            }
+            CanExecuteChanged.Invoke(this, null);
         }
     }
 }

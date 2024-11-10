@@ -5,7 +5,7 @@ using Windows.Win32.Media.Audio;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal;
 
-class AudioDeviceSessionChannel : BindableBase, INotifyPropertyChanged, IAudioDeviceSessionChannel
+internal class AudioDeviceSessionChannel : BindableBase, INotifyPropertyChanged, IAudioDeviceSessionChannel
 {
     public float Level
     {
@@ -15,7 +15,7 @@ class AudioDeviceSessionChannel : BindableBase, INotifyPropertyChanged, IAudioDe
             if (_level != value)
             {
                 _level = value;
-                Guid dummy = Guid.Empty;
+                var dummy = Guid.Empty;
                 unsafe
                 {
                     _session.SetChannelVolume(_index, value, &dummy);

@@ -2,32 +2,31 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace EarTrumpet.Extensibility.Shared
+namespace EarTrumpet.Extensibility.Shared;
+
+public class ResourceLoader
 {
-    public class ResourceLoader
+    private static List<string> _namespaces = [];
+
+    public static void Load(string addonNamespace, bool isInternal)
     {
-        static List<string> _namespaces = new List<string>();
-
-        public static void Load(string addonNamespace, bool isInternal)
+        if (!_namespaces.Contains(addonNamespace))
         {
-            if (!_namespaces.Contains(addonNamespace))
-            {
-                _namespaces.Add(addonNamespace);
+            _namespaces.Add(addonNamespace);
 
-                if (isInternal)
+            if (isInternal)
+            {
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
                 {
-                    Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
-                    {
-                        Source = new Uri($"/EarTrumpet;component/Addons/{addonNamespace}/AddonResources.xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-                else
+                    Source = new Uri($"/EarTrumpet;component/Addons/{addonNamespace}/AddonResources.xaml", UriKind.RelativeOrAbsolute)
+                });
+            }
+            else
+            {
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
                 {
-                    Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
-                    {
-                        Source = new Uri($"/{addonNamespace};component/AddonResources.xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
+                    Source = new Uri($"/{addonNamespace};component/AddonResources.xaml", UriKind.RelativeOrAbsolute)
+                });
             }
         }
     }

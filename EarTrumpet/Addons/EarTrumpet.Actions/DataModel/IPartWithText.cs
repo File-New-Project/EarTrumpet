@@ -1,7 +1,6 @@
-﻿namespace EarTrumpet.Actions.DataModel
+﻿namespace EarTrumpet.Actions.DataModel;
+
+internal interface IPartWithText
 {
-    interface IPartWithText
-    {
-        string Text { get; set; }
-    }
+    string Text { get; set; }
 }

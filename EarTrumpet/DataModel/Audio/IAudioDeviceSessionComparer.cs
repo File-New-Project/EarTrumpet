@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 
-namespace EarTrumpet.DataModel.Audio
+namespace EarTrumpet.DataModel.Audio;
+
+public class IAudioDeviceSessionComparer : IEqualityComparer<IAudioDeviceSession>
 {
-    public class IAudioDeviceSessionComparer : IEqualityComparer<IAudioDeviceSession>
+    public static readonly IAudioDeviceSessionComparer Instance = new();
+
+    public bool Equals(IAudioDeviceSession x, IAudioDeviceSession y)
     {
-        public static readonly IAudioDeviceSessionComparer Instance = new IAudioDeviceSessionComparer();
+        return x.AppId.Equals(y.AppId, System.StringComparison.Ordinal);
+    }
 
-        public bool Equals(IAudioDeviceSession x, IAudioDeviceSession y)
-        {
-            return x.AppId.Equals(y.AppId, System.StringComparison.Ordinal);
-        }
-
-        public int GetHashCode(IAudioDeviceSession obj)
-        {
-            return obj.AppId.GetHashCode();
-        }
+    public int GetHashCode(IAudioDeviceSession obj)
+    {
+        return obj.AppId.GetHashCode();
     }
 }

@@ -1,32 +1,31 @@
 ﻿using System;
 
-namespace EarTrumpet.Extensions
+namespace EarTrumpet.Extensions;
+
+public enum OSVersions : int
 {
-    public enum OSVersions : int
+    RS3 = 16299,
+    RS4 = 17134,
+    RS5_1809 = 17763,
+    Version19H1 = 18362,
+    Version21H2 = 21390,
+    Windows11 = 22000,
+}
+
+public static class OperatingSystemExtensions
+{
+    public static bool IsAtLeast(this OperatingSystem os, OSVersions version)
     {
-        RS3 = 16299,
-        RS4 = 17134,
-        RS5_1809 = 17763,
-        Version19H1 = 18362,
-        Version21H2 = 21390,
-        Windows11 = 22000,
+        return os.Version.Build >= (int)version;
     }
 
-    public static class OperatingSystemExtensions
+    public static bool IsGreaterThan(this OperatingSystem os, OSVersions version)
     {
-        public static bool IsAtLeast(this OperatingSystem os, OSVersions version)
-        {
-            return os.Version.Build >= (int)version;
-        }
+        return os.Version.Build > (int)version;
+    }
 
-        public static bool IsGreaterThan(this OperatingSystem os, OSVersions version)
-        {
-            return os.Version.Build > (int)version;
-        }
-
-        public static bool IsLessThan(this OperatingSystem os, OSVersions version)
-        {
-            return os.Version.Build < (int)version;
-        }
+    public static bool IsLessThan(this OperatingSystem os, OSVersions version)
+    {
+        return os.Version.Build < (int)version;
     }
 }

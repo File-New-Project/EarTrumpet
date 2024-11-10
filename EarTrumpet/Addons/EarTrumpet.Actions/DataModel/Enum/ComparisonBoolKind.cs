@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum ComparisonBoolKind
 {
-    public enum ComparisonBoolKind
-    {
-        Is,
-        IsNot,
-    }
+    Is,
+    IsNot,
 }

@@ -3,10 +3,8 @@ using Windows.Win32;
 
 namespace EarTrumpet.DataModel.AppInformation.Internal;
 
-public class ZombieProcessException : Exception
+public class ZombieProcessException(uint processId) : Exception($"Process is a zombie: {processId}")
 {
-    public ZombieProcessException(uint processId) : base($"Process is a zombie: {processId}") { }
-
     public static void ThrowIfZombie(uint processId, IntPtr handle)
     {
         unsafe

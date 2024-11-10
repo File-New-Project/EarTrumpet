@@ -5,7 +5,7 @@ using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace EarTrumpet.Interop.Helpers;
 
-class WindowSizeHelper
+internal class WindowSizeHelper
 {
     public static void RestrictMaximizedSizeToWorkArea(Window window)
     {

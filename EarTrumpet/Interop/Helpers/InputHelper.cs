@@ -9,7 +9,7 @@ using EarTrumpet.Extensions;
 
 namespace EarTrumpet.Interop.Helpers;
 
-class InputHelper
+internal class InputHelper
 {
     public static void RegisterForMouseInput(IntPtr handle)
     {

@@ -6,7 +6,7 @@ using WinRT;
 
 namespace EarTrumpet.Interop.Helpers;
 
-class AudioPolicyConfigFactoryImplFor21H2 : IAudioPolicyConfigFactory
+internal class AudioPolicyConfigFactoryImplFor21H2 : IAudioPolicyConfigFactory
 {
     private readonly IAudioPolicyConfigFactoryVariantFor21H2 _factory;
 

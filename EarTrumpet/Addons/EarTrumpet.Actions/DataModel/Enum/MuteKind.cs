@@ -1,9 +1,8 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum MuteKind
 {
-    public enum MuteKind
-    {
-        Mute,
-        Unmute,
-        ToggleMute,
-    }
+    Mute,
+    Unmute,
+    ToggleMute,
 }

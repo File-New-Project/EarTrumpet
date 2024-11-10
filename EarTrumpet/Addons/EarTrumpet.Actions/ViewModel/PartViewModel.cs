@@ -5,77 +5,76 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Input;
 
-namespace EarTrumpet.Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel;
+
+public class PartViewModel : BindableBase
 {
-    public class PartViewModel : BindableBase
+    public Part Part { get; }
+    public string AddText => ResolveResource("AddText");
+    public virtual string LinkText => ResolveResource("LinkText");
+
+    private string _additionalText;
+    public string AdditionalText
     {
-        public Part Part { get; }
-        public string AddText => ResolveResource("AddText");
-        public virtual string LinkText => ResolveResource("LinkText");
-
-        private string _additionalText;
-        public string AdditionalText
+        get => _additionalText;
+        set
         {
-            get => _additionalText;
-            set
-            {
-                _additionalText = value;
-                RaisePropertyChanged(nameof(AdditionalText));
-            }
+            _additionalText = value;
+            RaisePropertyChanged(nameof(AdditionalText));
         }
+    }
 
-        public bool IsShowingAdditionalText
+    public bool IsShowingAdditionalText
+    {
+        get => !string.IsNullOrWhiteSpace(_additionalText);
+        set
         {
-            get => !string.IsNullOrWhiteSpace(_additionalText);
-            set
+            if (value)
             {
-                if (value)
+                if (Part is BaseTrigger)
                 {
-                    if (Part is BaseTrigger)
-                    {
-                        AdditionalText = Properties.Resources.TriggerAdditionalText;
-                    }
-                    else if (Part is BaseCondition)
-                    {
-                        AdditionalText = Properties.Resources.ConditionAdditionalText;
-                    }
-                    else
-                    {
-                        AdditionalText = Properties.Resources.ActionAdditionalText;
-                    }
+                    AdditionalText = Properties.Resources.TriggerAdditionalText;
+                }
+                else if (Part is BaseCondition)
+                {
+                    AdditionalText = Properties.Resources.ConditionAdditionalText;
                 }
                 else
                 {
-                    AdditionalText = null;
+                    AdditionalText = Properties.Resources.ActionAdditionalText;
                 }
             }
-        }
-
-        public ICommand Remove { get; set; }
-
-        public PartViewModel(Part part)
-        {
-            Part = part;
-        }
-
-        protected void Attach(INotifyPropertyChanged obj)
-        {
-            obj.PropertyChanged += (s, e) =>
+            else
             {
-                RaisePropertyChanged(e.PropertyName);
-                RaisePropertyChanged(nameof(LinkText));
-            };
-        }
-
-        private string ResolveResource(string suffix)
-        {
-            var res = $"{Part.GetType().Name}_{suffix}";
-            var ret = Properties.Resources.ResourceManager.GetString(res, CultureInfo.CurrentCulture);
-            if (string.IsNullOrWhiteSpace(ret))
-            {
-                throw new NotImplementedException($"Missing resource: {res}");
+                AdditionalText = null;
             }
-            return ret;
         }
+    }
+
+    public ICommand Remove { get; set; }
+
+    public PartViewModel(Part part)
+    {
+        Part = part;
+    }
+
+    protected void Attach(INotifyPropertyChanged obj)
+    {
+        obj.PropertyChanged += (s, e) =>
+        {
+            RaisePropertyChanged(e.PropertyName);
+            RaisePropertyChanged(nameof(LinkText));
+        };
+    }
+
+    private string ResolveResource(string suffix)
+    {
+        var res = $"{Part.GetType().Name}_{suffix}";
+        var ret = Properties.Resources.ResourceManager.GetString(res, CultureInfo.CurrentCulture);
+        if (string.IsNullOrWhiteSpace(ret))
+        {
+            throw new NotImplementedException($"Missing resource: {res}");
+        }
+        return ret;
     }
 }

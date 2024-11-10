@@ -1,24 +1,22 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Triggers
+namespace EarTrumpet.Actions.ViewModel.Triggers;
+internal class AppEventTriggerViewModel : PartViewModel
 {
-    class AppEventTriggerViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+
+    public DeviceListViewModel Device { get; }
+
+    public AppListViewModel App { get; }
+
+    public AppEventTriggerViewModel(AppEventTrigger trigger) : base(trigger)
     {
-        public OptionViewModel Option { get; }
+        Option = new OptionViewModel(trigger, nameof(trigger.Option));
+        Device = new DeviceListViewModel(trigger, DeviceListViewModel.DeviceListKind.DefaultPlayback);
+        App = new AppListViewModel(trigger, AppListViewModel.AppKind.Default | AppListViewModel.AppKind.EveryApp);
 
-        public DeviceListViewModel Device { get; }
-
-        public AppListViewModel App { get; }
-
-        public AppEventTriggerViewModel(AppEventTrigger trigger) : base(trigger)
-        {
-            Option = new OptionViewModel(trigger, nameof(trigger.Option));
-            Device = new DeviceListViewModel(trigger, DeviceListViewModel.DeviceListKind.DefaultPlayback);
-            App = new AppListViewModel(trigger, AppListViewModel.AppKind.Default | AppListViewModel.AppKind.EveryApp);
-
-            Attach(Option);
-            Attach(Device);
-            Attach(App);
-        }
+        Attach(Option);
+        Attach(Device);
+        Attach(App);
     }
 }

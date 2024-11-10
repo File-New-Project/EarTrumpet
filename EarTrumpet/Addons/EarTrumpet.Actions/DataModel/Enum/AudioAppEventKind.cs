@@ -1,12 +1,11 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum AudioAppEventKind
 {
-    public enum AudioAppEventKind
-    {
-        Added,
-        Removed,
-        PlayingSound,
-        NotPlayingSound,
-        Muted,
-        Unmuted,
-    }
+    Added,
+    Removed,
+    PlayingSound,
+    NotPlayingSound,
+    Muted,
+    Unmuted,
 }

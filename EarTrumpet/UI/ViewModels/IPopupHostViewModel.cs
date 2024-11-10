@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 
-namespace EarTrumpet.UI.ViewModels
+namespace EarTrumpet.UI.ViewModels;
+
+public interface IPopupHostViewModel
 {
-    public interface IPopupHostViewModel
-    {
-        void OpenPopup(object vm, FrameworkElement container);
-    }
+    void OpenPopup(object vm, FrameworkElement container);
 }

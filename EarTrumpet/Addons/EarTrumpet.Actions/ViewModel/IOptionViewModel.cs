@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace EarTrumpet.Actions.ViewModel
+namespace EarTrumpet.Actions.ViewModel;
+
+internal interface IOptionViewModel
 {
-    interface IOptionViewModel
-    {
-        ObservableCollection<Option> All { get; }
-        Option Selected { get; set; }
-    }
+    ObservableCollection<Option> All { get; }
+    Option Selected { get; set; }
 }

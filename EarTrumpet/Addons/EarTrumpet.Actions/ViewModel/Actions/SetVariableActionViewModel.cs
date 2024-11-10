@@ -1,19 +1,18 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Actions
+namespace EarTrumpet.Actions.ViewModel.Actions;
+
+internal class SetVariableActionViewModel : PartViewModel
 {
-    class SetVariableActionViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+    public TextViewModel Text { get; }
+
+    public SetVariableActionViewModel(SetVariableAction action) : base(action)
     {
-        public OptionViewModel Option { get; }
-        public TextViewModel Text { get; }
+        Option = new OptionViewModel(action, nameof(action.Value));
+        Text = new TextViewModel(action);
 
-        public SetVariableActionViewModel(SetVariableAction action) : base(action)
-        {
-            Option = new OptionViewModel(action, nameof(action.Value));
-            Text = new TextViewModel(action);
-
-            Attach(Option);
-            Attach(Text);
-        }
+        Attach(Option);
+        Attach(Text);
     }
 }

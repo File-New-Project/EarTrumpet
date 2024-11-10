@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum ProcessEventKind
 {
-    public enum ProcessEventKind
-    {
-        Start,
-        Stop,
-    }
+    Start,
+    Stop,
 }

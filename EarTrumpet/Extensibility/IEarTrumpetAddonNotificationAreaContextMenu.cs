@@ -1,10 +1,9 @@
 ﻿using EarTrumpet.UI.ViewModels;
 using System.Collections.Generic;
 
-namespace EarTrumpet.Extensibility
+namespace EarTrumpet.Extensibility;
+
+public interface IEarTrumpetAddonNotificationAreaContextMenu
 {
-    public interface IEarTrumpetAddonNotificationAreaContextMenu
-    {
-        IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems { get; }
-    }
+    IEnumerable<ContextMenuItem> NotificationAreaContextMenuItems { get; }
 }

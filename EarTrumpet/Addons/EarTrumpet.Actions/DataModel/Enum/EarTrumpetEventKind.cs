@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum EarTrumpetEventKind
 {
-    public enum EarTrumpetEventKind
-    {
-        Startup,
-        Shutdown,
-    };
-}
+    Startup,
+    Shutdown,
+};

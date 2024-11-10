@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Composition;
 
-namespace EarTrumpet.Extensibility.Hosting
-{
-    public class AddonHost
-    {
-        [ImportMany("EarTrumpet.Extensibility.EarTrumpetAddon")]
-        public List<EarTrumpetAddon> Addons { get; set; }
+namespace EarTrumpet.Extensibility.Hosting;
 
-        // Optional cast to any of the below:
-        public List<IEarTrumpetAddonEvents> Events { get; set; }
-        public List<IEarTrumpetAddonNotificationAreaContextMenu> TrayContextMenuItems { get; set; }
-        public List<IEarTrumpetAddonAppContent> AppContentItems { get; set; }
-        public List<IEarTrumpetAddonDeviceContent> DeviceContentItems { get; set; }
-        public List<IEarTrumpetAddonSettingsPage> SettingsItems { get; set; }
-    }
+public class AddonHost
+{
+    [ImportMany("EarTrumpet.Extensibility.EarTrumpetAddon")]
+    public List<EarTrumpetAddon> Addons { get; set; }
+
+    // Optional cast to any of the below:
+    public List<IEarTrumpetAddonEvents> Events { get; set; }
+    public List<IEarTrumpetAddonNotificationAreaContextMenu> TrayContextMenuItems { get; set; }
+    public List<IEarTrumpetAddonAppContent> AppContentItems { get; set; }
+    public List<IEarTrumpetAddonDeviceContent> DeviceContentItems { get; set; }
+    public List<IEarTrumpetAddonSettingsPage> SettingsItems { get; set; }
 }

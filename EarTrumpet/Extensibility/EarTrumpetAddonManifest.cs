@@ -1,10 +1,9 @@
-﻿namespace EarTrumpet.Extensibility
+﻿namespace EarTrumpet.Extensibility;
+
+public class AddonManifest
 {
-    public class AddonManifest
-    {
-        public string Id { get; set; }
-        public string PublisherName { get; set; }
-        public string HelpLink { get; set; }
-        public string Version { get; set; }
-    }
+    public string Id { get; set; }
+    public string PublisherName { get; set; }
+    public string HelpLink { get; set; }
+    public string Version { get; set; }
 }

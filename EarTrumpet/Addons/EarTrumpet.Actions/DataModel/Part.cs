@@ -1,4 +1,3 @@
-﻿namespace EarTrumpet.Actions.DataModel
-{
-    public abstract class Part { }
-}
+﻿namespace EarTrumpet.Actions.DataModel;
+
+public abstract class Part { }

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace EarTrumpet.Interop.Helpers
+namespace EarTrumpet.Interop.Helpers;
+
+internal class SettingsPageHelper
 {
-    class SettingsPageHelper
+    public static void Open(string page)
     {
-        public static void Open(string page)
+        try
         {
-            try
-            {
-                using (Process.Start(new ProcessStartInfo { UseShellExecute = true, FileName = $"ms-settings:{page}" }))
-                { }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine($"SettingsPageHelper Open Failed: {ex}");
-            }
+            using (Process.Start(new ProcessStartInfo { UseShellExecute = true, FileName = $"ms-settings:{page}" }))
+            { }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"SettingsPageHelper Open Failed: {ex}");
         }
     }
 }

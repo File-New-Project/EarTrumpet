@@ -1,9 +1,8 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.DataModel
+namespace EarTrumpet.Actions.DataModel;
+
+public interface IPartWithDevice
 {
-    public interface IPartWithDevice
-    {
-        Device Device { get; set; }
-    }
+    Device Device { get; set; }
 }

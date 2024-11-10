@@ -13,7 +13,7 @@ namespace EarTrumpet.DataModel;
 // Uses a single background thread to monitor N processes for quit.
 public class ProcessWatcherService
 {
-    class ProcessWatcherData
+    private class ProcessWatcherData
     {
         public uint processId;
         public List<Action<uint>> quitActions = [];
@@ -23,7 +23,7 @@ public class ProcessWatcherService
     private static readonly object _lock = new();
 
     // Protected by _lock.
-    private static readonly Dictionary<uint, ProcessWatcherData> s_watchers = new();
+    private static readonly Dictionary<uint, ProcessWatcherData> s_watchers = [];
     // Protected by _lock.
     private static bool _threadRunning;
 
@@ -45,10 +45,10 @@ public class ProcessWatcherService
 
         lock (_lock)
         {
-            if (s_watchers.ContainsKey(processId))
+            if (s_watchers.TryGetValue(processId, out var value))
             {
                 // We lost the race, add our callback and clean up.
-                s_watchers[processId].quitActions.Add(processQuit);
+                value.quitActions.Add(processQuit);
                 PInvoke.CloseHandle(data.processHandle);
             }
             else

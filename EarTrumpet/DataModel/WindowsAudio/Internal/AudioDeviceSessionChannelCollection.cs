@@ -4,7 +4,7 @@ using Windows.Win32.Media.Audio;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal;
 
-class AudioDeviceSessionChannelCollection
+internal class AudioDeviceSessionChannelCollection
 {
     public List<AudioDeviceSessionChannel> Channels { get; }
 

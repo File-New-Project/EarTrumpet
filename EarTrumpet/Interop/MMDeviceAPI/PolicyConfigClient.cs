@@ -10,7 +10,7 @@ public class PolicyConfigClient { }
 
 public class AutoPolicyConfigClientWin7
 {
-    readonly IPolicyConfigWin7 _policyClient = (IPolicyConfigWin7)new PolicyConfigClient();
+    private readonly IPolicyConfigWin7 _policyClient = (IPolicyConfigWin7)new PolicyConfigClient();
 
     public void SetEndpointVisibility(string deviceId, bool isVisible)
     {

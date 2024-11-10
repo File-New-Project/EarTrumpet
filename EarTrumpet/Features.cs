@@ -1,6 +1,5 @@
-﻿namespace EarTrumpet
+﻿namespace EarTrumpet;
+
+public class Features
 {
-    public class Features
-    {
-    }
 }

@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace EarTrumpet.DataModel.WindowsAudio
+namespace EarTrumpet.DataModel.WindowsAudio;
+
+public interface IAudioDeviceChannel : INotifyPropertyChanged
 {
-    public interface IAudioDeviceChannel : INotifyPropertyChanged
-    {
-        float Level { get; set; }
-    }
+    float Level { get; set; }
 }

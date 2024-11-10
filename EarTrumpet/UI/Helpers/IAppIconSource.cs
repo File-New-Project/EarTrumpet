@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.UI.Helpers
+﻿namespace EarTrumpet.UI.Helpers;
+
+public interface IAppIconSource
 {
-    public interface IAppIconSource
-    {
-        bool IsDesktopApp { get; }
-        string IconPath { get; }
-    }
+    bool IsDesktopApp { get; }
+    string IconPath { get; }
 }

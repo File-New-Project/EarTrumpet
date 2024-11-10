@@ -1,11 +1,10 @@
-﻿namespace EarTrumpet.Extensions.EventBinding
+﻿namespace EarTrumpet.Extensions.EventBinding;
+
+// {Event:HandledBinding}
+public class HandledBindingExtension : BindingExtension
 {
-    // {Event:HandledBinding}
-    public class HandledBindingExtension : BindingExtension
+    protected override void OnEvent(object sender, object args)
     {
-        protected override void OnEvent(object sender, object args)
-        {
-            args.GetType().GetProperty("Handled").SetValue(args, true);
-        }
+        args.GetType().GetProperty("Handled").SetValue(args, true);
     }
 }

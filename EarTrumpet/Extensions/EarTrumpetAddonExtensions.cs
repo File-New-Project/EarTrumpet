@@ -1,13 +1,12 @@
 ﻿using EarTrumpet.Actions;
 using EarTrumpet.Extensibility;
 
-namespace EarTrumpet.Extensions
+namespace EarTrumpet.Extensions;
+
+public static class EarTrumpetAddonExtensions
 {
-    public static class EarTrumpetAddonExtensions
+    public static bool IsInternal(this EarTrumpetAddon addon)
     {
-        public static bool IsInternal(this EarTrumpetAddon addon)
-        {
-            return addon is EarTrumpetActionsAddon;
-        }
+        return addon is EarTrumpetActionsAddon;
     }
 }

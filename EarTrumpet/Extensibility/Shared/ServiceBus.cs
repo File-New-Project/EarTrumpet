@@ -1,30 +1,29 @@
 ﻿using System.Collections.Generic;
 
-namespace EarTrumpet.Extensibility.Shared
+namespace EarTrumpet.Extensibility.Shared;
+
+public static class ServiceBus
 {
-    public static class ServiceBus
+    private static Dictionary<string, object> _services = [];
+
+    public static void RegisterMany(string name, object service)
     {
-        static Dictionary<string, object> _services = new Dictionary<string, object>();
-
-        public static void RegisterMany(string name, object service)
+        if (_services.ContainsKey(name))
         {
-            if (_services.ContainsKey(name))
-            {
-                ((List<object>)_services[name]).Add(service);
-                return;
-            }
-
-            _services[name] = new List<object>(new object[] { service });
+            ((List<object>)_services[name]).Add(service);
+            return;
         }
 
-        public static List<object> GetMany(string name)
+        _services[name] = new List<object>(new object[] { service });
+    }
+
+    public static List<object> GetMany(string name)
+    {
+        _services.TryGetValue(name, out var ret);
+        if (ret == null)
         {
-            _services.TryGetValue(name, out var ret);
-            if (ret == null)
-            {
-                ret = new List<object>();
-            }
-            return (List<object>)ret;
+            ret = new List<object>();
         }
+        return (List<object>)ret;
     }
 }

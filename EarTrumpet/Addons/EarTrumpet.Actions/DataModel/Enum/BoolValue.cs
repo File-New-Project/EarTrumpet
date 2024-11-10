@@ -1,8 +1,7 @@
-﻿namespace EarTrumpet.Actions.DataModel.Enum
+﻿namespace EarTrumpet.Actions.DataModel.Enum;
+
+public enum BoolValue
 {
-    public enum BoolValue
-    {
-        True,
-        False,
-    }
+    True,
+    False,
 }

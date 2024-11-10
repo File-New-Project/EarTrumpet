@@ -2,11 +2,10 @@
 using EarTrumpet.UI.ViewModels;
 using System.Collections.Generic;
 
-namespace EarTrumpet.Extensibility
+namespace EarTrumpet.Extensibility;
+
+public interface IEarTrumpetAddonDeviceContent
 {
-    public interface IEarTrumpetAddonDeviceContent
-    {
-        object GetContentForDevice(string deviceId, Action requestClose);
-        IEnumerable<ContextMenuItem> GetContextMenuItemsForDevice(string deviceId);
-    }
+    object GetContentForDevice(string deviceId, Action requestClose);
+    IEnumerable<ContextMenuItem> GetContextMenuItemsForDevice(string deviceId);
 }

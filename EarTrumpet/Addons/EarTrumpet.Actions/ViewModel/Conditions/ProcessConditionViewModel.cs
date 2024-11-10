@@ -1,20 +1,19 @@
 ﻿using EarTrumpet.Actions.DataModel.Serialization;
 
-namespace EarTrumpet.Actions.ViewModel.Conditions
+namespace EarTrumpet.Actions.ViewModel.Conditions;
+
+internal class ProcessConditionViewModel : PartViewModel
 {
-    class ProcessConditionViewModel : PartViewModel
+    public OptionViewModel Option { get; }
+
+    public TextViewModel Text { get; }
+
+    public ProcessConditionViewModel(ProcessCondition condition) : base(condition)
     {
-        public OptionViewModel Option { get; }
+        Option = new OptionViewModel(condition, nameof(condition.Option));
+        Text = new TextViewModel(condition);
 
-        public TextViewModel Text { get; }
-
-        public ProcessConditionViewModel(ProcessCondition condition) : base(condition)
-        {
-            Option = new OptionViewModel(condition, nameof(condition.Option));
-            Text = new TextViewModel(condition);
-
-            Attach(Option);
-            Attach(Text);
-        }
+        Attach(Option);
+        Attach(Text);
     }
 }

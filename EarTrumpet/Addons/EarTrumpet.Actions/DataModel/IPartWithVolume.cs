@@ -1,7 +1,6 @@
-﻿namespace EarTrumpet.Actions.DataModel
+﻿namespace EarTrumpet.Actions.DataModel;
+
+public interface IPartWithVolume
 {
-    public interface IPartWithVolume
-    {
-        double Volume { get; set; }
-    }
+    double Volume { get; set; }
 }

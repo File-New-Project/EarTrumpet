@@ -1,7 +1,6 @@
-﻿namespace EarTrumpet.UI.ViewModels
+﻿namespace EarTrumpet.UI.ViewModels;
+
+public interface IDeviceViewModel
 {
-    public interface IDeviceViewModel
-    {
-        string Id { get; }
-    }
+    string Id { get; }
 }

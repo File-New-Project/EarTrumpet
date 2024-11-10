@@ -4,7 +4,7 @@ using Windows.Win32.Media.Audio.Endpoints;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal;
 
-class Helpers
+internal class Helpers
 {
     public static float[] ReadPeakValues(IAudioMeterInformation meter)
     {

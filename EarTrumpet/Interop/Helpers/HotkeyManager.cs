@@ -5,114 +5,116 @@ using System.Windows.Forms;
 using Windows.Win32;
 using Windows.Win32.UI.Input.KeyboardAndMouse;
 
-namespace EarTrumpet.Interop.Helpers
+namespace EarTrumpet.Interop.Helpers;
+
+public sealed class HotkeyManager : IDisposable
 {
-    public sealed class HotkeyManager : IDisposable
+    private class Entry
     {
-        private class Entry
+        public HotkeyData Hotkey;
+        public int RefCount;
+        public int Id;
+    }
+
+    public static HotkeyManager Current { get; } = new HotkeyManager();
+
+    public event Action<HotkeyData> KeyPressed;
+
+    private readonly Dictionary<HotkeyData, Entry> _data;
+    private readonly Win32Window _window;
+    private int _lastId;
+
+    public HotkeyManager()
+    {
+        _data = [];
+        _window = new Win32Window();
+        _window.Initialize(WndProc);
+    }
+
+    private void WndProc(Message msg)
+    {
+        if (msg.Msg == PInvoke.WM_HOTKEY)
         {
-            public HotkeyData Hotkey;
-            public int RefCount;
-            public int Id;
+            var hotkey = new HotkeyData(msg);
+            Trace.WriteLine($"HotkeyManager: KeyPressed: {hotkey}");
+            KeyPressed?.Invoke(hotkey);
+        }
+    }
+
+    public void Register(HotkeyData hotkey)
+    {
+        if (hotkey.IsEmpty)
+        {
+            return;
         }
 
-        public static HotkeyManager Current { get; } = new HotkeyManager();
-
-        public event Action<HotkeyData> KeyPressed;
-
-        private readonly Dictionary<HotkeyData, Entry> _data;
-        private readonly Win32Window _window;
-        private int _lastId;
-
-        public HotkeyManager()
+        Entry entry;
+        if (_data.TryGetValue(hotkey, out var value))
         {
-            _data = new Dictionary<HotkeyData, Entry>();
-            _window = new Win32Window();
-            _window.Initialize(WndProc);
+            entry = value;
         }
-
-        private void WndProc(Message msg)
+        else
         {
-            if (msg.Msg == PInvoke.WM_HOTKEY)
+            unsafe
             {
-                var hotkey = new HotkeyData(msg);
-                Trace.WriteLine($"HotkeyManager: KeyPressed: {hotkey}");
-                KeyPressed?.Invoke(hotkey);
+                entry = _data[hotkey] = new Entry { Id = ++_lastId, Hotkey = hotkey };
+                PInvoke.RegisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id, (HOT_KEY_MODIFIERS)hotkey.GetInteropModifiers(), (uint)hotkey.Key);
             }
         }
 
-        public void Register(HotkeyData hotkey)
+        entry.RefCount++;
+
+        Trace.WriteLine($"HotkeyManager: Register: {hotkey}");
+    }
+
+    public void Unregister(HotkeyData hotkey)
+    {
+        if (hotkey.IsEmpty)
         {
-            if (hotkey.IsEmpty)
-            {
-                return;
-            }
-
-            Entry entry;
-            if (_data.ContainsKey(hotkey))
-            {
-                entry = _data[hotkey];
-            }
-            else
-            {
-                unsafe
-                {
-                    entry = _data[hotkey] = new Entry { Id = ++_lastId, Hotkey = hotkey };
-                    PInvoke.RegisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id, (HOT_KEY_MODIFIERS)hotkey.GetInteropModifiers(), (uint)hotkey.Key);
-                }
-            }
-
-            entry.RefCount++;
-
-            Trace.WriteLine($"HotkeyManager: Register: {hotkey}");
+            return;
         }
 
-        public void Unregister(HotkeyData hotkey)
+        var entry = _data[hotkey];
+        entry.RefCount--;
+
+        Trace.WriteLine($"HotkeyManager: Unregister: {hotkey} {entry.RefCount}");
+        if (entry.RefCount == 0)
         {
-            if (hotkey.IsEmpty) return;
-
-            var entry = _data[hotkey];
-            entry.RefCount--;
-
-            Trace.WriteLine($"HotkeyManager: Unregister: {hotkey} {entry.RefCount}");
-            if (entry.RefCount == 0)
+            unsafe
             {
-                unsafe
-                {
-                    PInvoke.UnregisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id);
-                    _data.Remove(hotkey);
-                }
-            }
-
-        }
-
-        public void Pause()
-        {
-            Trace.WriteLine($"HotkeyManager: Pause");
-            foreach (var entry in _data.Values)
-            {
-                unsafe
-                {
-                    PInvoke.UnregisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id);
-                }
+                PInvoke.UnregisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id);
+                _data.Remove(hotkey);
             }
         }
 
-        public void Resume()
+    }
+
+    public void Pause()
+    {
+        Trace.WriteLine($"HotkeyManager: Pause");
+        foreach (var entry in _data.Values)
         {
-            Trace.WriteLine($"HotkeyManager: Resume");
-            foreach (var entry in _data.Values)
+            unsafe
             {
-                unsafe
-                {
-                    PInvoke.RegisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id, (HOT_KEY_MODIFIERS)entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
-                }
+                PInvoke.UnregisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id);
             }
         }
+    }
 
-        public void Dispose()
+    public void Resume()
+    {
+        Trace.WriteLine($"HotkeyManager: Resume");
+        foreach (var entry in _data.Values)
         {
-            _window.Dispose();
+            unsafe
+            {
+                PInvoke.RegisterHotKey(new HWND(_window.Handle.ToPointer()), entry.Id, (HOT_KEY_MODIFIERS)entry.Hotkey.GetInteropModifiers(), (uint)entry.Hotkey.Key);
+            }
         }
+    }
+
+    public void Dispose()
+    {
+        _window.Dispose();
     }
 }

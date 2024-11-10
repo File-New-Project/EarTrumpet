@@ -1,17 +1,16 @@
 ﻿using EarTrumpet.UI.Helpers;
 using System;
 
-namespace EarTrumpet.UI.ViewModels
+namespace EarTrumpet.UI.ViewModels;
+
+public interface IFlyoutViewModel
 {
-    public interface IFlyoutViewModel
-    {
-        FlyoutViewState State { get; }
-        bool IsExpandingOrCollapsing { get; }
+    FlyoutViewState State { get; }
+    bool IsExpandingOrCollapsing { get; }
 
-        event EventHandler<object> StateChanged;
-        event EventHandler<object> WindowSizeInvalidated;
+    event EventHandler<object> StateChanged;
+    event EventHandler<object> WindowSizeInvalidated;
 
-        void ChangeState(FlyoutViewState state);
-        void UpdateWindowPos(double top, double left, double height, double width);
-    }
+    void ChangeState(FlyoutViewState state);
+    void UpdateWindowPos(double top, double left, double height, double width);
 }
