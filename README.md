@@ -71,18 +71,21 @@ Want to see what we were working on? Or help us test new features? [Install EarT
 * [Change Log](./CHANGELOG.md)
 
 ## Supported operating systems
-- Windows 10 Enterprise LTSC 2021
+- Windows 10 2004 (May 2020 Update)
+- Windows 10 20H2 (October 2020 Update)
+- Windows 10 21H1 (May 2021 Update)
 - Windows 10 21H2 (November 2021 Update)
-- Windows 10 22H2 (October 2022 Update)
 - Windows 11
+- Windows 11 22H2 (2022 Update)
+- Windows 11 23H2 (2023 Update)
+- Windows 11 24H2 (2024 Update)
 
-## Credits
+## Credits (by last name)
+- Dave Amenta ([@davux](https://www.twitter.com/davux))
 - David Golden ([@GoldenTao](https://www.twitter.com/GoldenTao))
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
-- Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
 
 ## Special thanks
 
 "[Horn](https://thenounproject.com/icon/horn-125731/)" icon by Artjom Korman from [the Noun Project](https://thenounproject.com/)
-
