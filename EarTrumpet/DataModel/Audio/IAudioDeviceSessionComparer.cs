@@ -8,7 +8,7 @@ namespace EarTrumpet.DataModel.Audio
 
         public bool Equals(IAudioDeviceSession x, IAudioDeviceSession y)
         {
-            return x.AppId.Equals(y.AppId);
+            return x.AppId.Equals(y.AppId, System.StringComparison.Ordinal);
         }
 
         public int GetHashCode(IAudioDeviceSession obj)

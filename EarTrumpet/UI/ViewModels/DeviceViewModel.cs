@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace EarTrumpet.UI.ViewModels
@@ -33,7 +34,7 @@ namespace EarTrumpet.UI.ViewModels
 
         public string DisplayName => _device.DisplayName;
         public string AccessibleName => IsMuted ? Properties.Resources.AppOrDeviceMutedFormatAccessibleText.Replace("{Name}", DisplayName) :
-            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString());
+            Properties.Resources.AppOrDeviceFormatAccessibleText.Replace("{Name}", DisplayName).Replace("{Volume}", Volume.ToString(CultureInfo.CurrentCulture));
         public string DeviceDescription => ((IAudioDeviceWindowsAudio)_device).DeviceDescription;
         public string EnumeratorName => ((IAudioDeviceWindowsAudio)_device).EnumeratorName;
         public string InterfaceName => ((IAudioDeviceWindowsAudio)_device).InterfaceName;

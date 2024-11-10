@@ -13,7 +13,7 @@ using System.Windows.Threading;
 
 namespace EarTrumpet.UI.ViewModels
 {
-    public class DeviceCollectionViewModel : BindableBase
+    public class DeviceCollectionViewModel : BindableBase, IDisposable
     {
         private static readonly string DefaultDeviceChangedProperty = "DefaultDeviceChangedProperty";
 
@@ -29,6 +29,7 @@ namespace EarTrumpet.UI.ViewModels
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
         private bool _isFlyoutVisible;
         private bool _isFullWindowVisible;
+        private bool disposedValue;
 
         public DeviceCollectionViewModel(IAudioDeviceManager deviceManager, AppSettings settings)
         {
@@ -270,6 +271,27 @@ namespace EarTrumpet.UI.ViewModels
             {
                 return Properties.Resources.NoDeviceTrayText;
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                _peakMeterTimer.Dispose();
+                disposedValue = true;
+            }
+        }
+
+        ~DeviceCollectionViewModel()
+        {
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

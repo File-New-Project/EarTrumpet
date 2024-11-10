@@ -1,11 +1,11 @@
 ﻿using System;
+using Windows.Win32.Media.Audio;
 
-namespace EarTrumpet.Interop.MMDeviceAPI
+namespace EarTrumpet.Interop.MMDeviceAPI;
+
+public interface IAudioPolicyConfigFactory
 {
-    public interface IAudioPolicyConfigFactory
-    {
-        HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
-        HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, out string deviceId);
-        HRESULT ClearAllPersistedApplicationDefaultEndpoints();
-    }
+    HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId);
+    HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, out string deviceId);
+    HRESULT ClearAllPersistedApplicationDefaultEndpoints();
 }

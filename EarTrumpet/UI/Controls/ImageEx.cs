@@ -1,6 +1,7 @@
 ﻿using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
+using Microsoft.VisualBasic.Devices;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +11,10 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Windows.Win32;
+using Windows.Win32.Graphics.Gdi;
+using Windows.Win32.System.Com;
+using Windows.Win32.UI.Shell;
 
 namespace EarTrumpet.UI.Controls
 {
@@ -65,16 +70,21 @@ namespace EarTrumpet.UI.Controls
                     }
                     else
                     {
-                        var iconPath = new StringBuilder(path);
-                        int iconIndex = Shlwapi.PathParseIconLocationW(iconPath);
+                        var iconIndex = 0;
+                        var iconPath = path.AsSpan();
+                        unsafe
+                        {
+                            fixed (char* iconPathPtr = iconPath)
+                            {
+                                iconIndex = PInvoke.PathParseIconLocation(iconPathPtr);
+                            }
+                        }
 
                         if (iconIndex != 0)
                         {
-                            using (var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale)))
-                            {
-                                Trace.WriteLine($"ImageEx LoadImage {icon?.Size.Width}x{icon?.Size.Height} {path}");
-                                return Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                            }
+                            using var icon = IconHelper.LoadIconResource(iconPath.ToString(), Math.Abs(iconIndex), (int)(Width * scale), (int)(Height * scale));
+                            Trace.WriteLine($"ImageEx LoadImage {icon?.Size.Width}x{icon?.Size.Height} {path}");
+                            return Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                         }
                         else
                         {
@@ -89,7 +99,7 @@ namespace EarTrumpet.UI.Controls
 
                             if (path.Contains(",-"))
                             {
-                                path = path.Remove(path.LastIndexOf(",-"));
+                                path = path.Remove(path.LastIndexOf(",-", StringComparison.Ordinal));
                             }
                             return LoadShellIcon(path, isDesktopApp, (int)(Width * scale), (int)(Height * scale));
                         }
@@ -110,7 +120,13 @@ namespace EarTrumpet.UI.Controls
             IShellItem2 shellItem;
             try
             {
-                shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, path, typeof(IShellItem2).GUID);
+                PInvoke.SHCreateItemInKnownFolder(
+                    PInvoke.FOLDERID_AppsFolder,
+                    KNOWN_FOLDER_FLAG.KF_FLAG_DONT_VERIFY,
+                    path,
+                    typeof(IShellItem2).GUID,
+                    out var rawShellItem).ThrowOnFailure();
+                shellItem = (IShellItem2)rawShellItem;
             }
             catch(Exception)
             {
@@ -118,10 +134,15 @@ namespace EarTrumpet.UI.Controls
                 {
                     Trace.WriteLine($"ImageEx LoadShellIcon SHCreateItemInKnownFolder failed for non-desktop app ({path}).");
                 }
-                shellItem = Shell32.SHCreateItemFromParsingName(path, IntPtr.Zero, typeof(IShellItem2).GUID);
+                PInvoke.SHCreateItemFromParsingName(path, null, typeof(IShellItem2).GUID, out var rawShellItem);
+                shellItem = (IShellItem2)rawShellItem;
             }
 
-            ((IShellItemImageFactory)shellItem).GetImage(new SIZE { cx = cx, cy = cy }, SIIGBF.SIIGBF_RESIZETOFIT, out var bmp);
+            var bmp = HBITMAP.Null;
+            unsafe
+            {
+                ((IShellItemImageFactory)shellItem).GetImage(new SIZE { cx = cx, cy = cy }, SIIGBF.SIIGBF_RESIZETOFIT, &bmp);
+            }
             try
             {
                 var ret = Imaging.CreateBitmapSourceFromHBitmap(bmp, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
@@ -130,7 +151,7 @@ namespace EarTrumpet.UI.Controls
             }
             finally
             {
-                Gdi32.DeleteObject(bmp);
+                PInvoke.DeleteObject(new HGDIOBJ(bmp));
             }
         }
 
@@ -155,7 +176,7 @@ namespace EarTrumpet.UI.Controls
             return path;
         }
 
-        private uint GetWindowDpi() => User32.GetDpiForWindow(((HwndSource)PresentationSource.FromVisual(this)).Handle);
+        private uint GetWindowDpi() => PInvoke.GetDpiForWindow(new HWND(((HwndSource)PresentationSource.FromVisual(this)).Handle));
         private static void OnSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((ImageEx)d).OnSourceExChanged();
     }
 }

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
+using Windows.Win32;
+using Windows.Win32.System.Threading;
 
 namespace EarTrumpet.Diagnosis
 {
@@ -24,18 +26,14 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        public static Dictionary<string, Func<object>> App
+        public static Dictionary<string, Func<object>> App => new()
         {
-            get
-            {
-                return new Dictionary<string, Func<object>>
-                {
                     { "version", () => EarTrumpet.App.PackageVersion.ToString() },
                     { "runtimeMinutes", () => (int)EarTrumpet.App.Duration.TotalMinutes },
-                    { "gdiObjects", () => User32.GetGuiResources(Kernel32.GetCurrentProcess(), User32.GR_FLAGS.GR_GDIOBJECTS) },
-                    { "userObjects", () => User32.GetGuiResources(Kernel32.GetCurrentProcess(), User32.GR_FLAGS.GR_USEROBJECTS) },
-                    { "globalGdiObjects", () => User32.GetGuiResources(User32.GR_GLOBAL, User32.GR_FLAGS.GR_USEROBJECTS) },
-                    { "globalUserObjects", () => User32.GetGuiResources(User32.GR_GLOBAL, User32.GR_FLAGS.GR_USEROBJECTS) },
+                    { "gdiObjects", () => PInvoke.GetGuiResources(PInvoke.GetCurrentProcess(), GET_GUI_RESOURCES_FLAGS.GR_GDIOBJECTS) },
+                    { "userObjects", () => PInvoke.GetGuiResources(PInvoke.GetCurrentProcess(), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
+                    { "globalGdiObjects", () => PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
+                    { "globalUserObjects", () => PInvoke.GetGuiResources(new HANDLE(PInvoke.GR_GLOBAL), GET_GUI_RESOURCES_FLAGS.GR_USEROBJECTS) },
                     { "handleCount", () => GetProcessHandleCount() },
 #if DEBUG
                     { "releaseStage", () => "development" },
@@ -43,8 +41,6 @@ namespace EarTrumpet.Diagnosis
                     { "releaseStage", () => "production" },
 #endif
                 };
-            }
-        }
 
         public static Dictionary<string, Func<object>> Device
         {
@@ -86,7 +82,7 @@ namespace EarTrumpet.Diagnosis
             {
                 return new Dictionary<string, Func<object>>
                 {
-                    { "systemDpi", () => User32.GetDpiForSystem() },
+                    { "systemDpi", () => PInvoke.GetDpiForSystem() },
                     { "taskbarDpi", () => WindowsTaskbar.Dpi },
                     { "addons", () => AddonManager.GetDiagnosticInfo() },
                     { "region", () =>  new RegionInfo(CultureInfo.CurrentCulture.LCID).TwoLetterISORegionName }
@@ -96,7 +92,11 @@ namespace EarTrumpet.Diagnosis
 
         private static uint GetProcessHandleCount()
         {
-            Kernel32.GetProcessHandleCount(Kernel32.GetCurrentProcess(), out uint handleCount);
+            var handleCount = 0U;
+            unsafe
+            {
+                _ = PInvoke.GetProcessHandleCount(PInvoke.GetCurrentProcess(), &handleCount);
+            }
             return handleCount;
         }
     }

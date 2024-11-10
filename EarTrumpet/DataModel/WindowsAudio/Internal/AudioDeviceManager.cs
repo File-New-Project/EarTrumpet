@@ -9,6 +9,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.UI.Shell.PropertiesSystem;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -36,16 +39,16 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         private EDataFlow Flow => _kind == AudioDeviceKind.Playback ? EDataFlow.eRender : EDataFlow.eCapture;
 
-        private static AutoPolicyConfigClientWin7 s_PolicyConfigClient = null;
+        private static AutoPolicyConfigClientWin7 s_PolicyConfigClient;
 
         private IMMDeviceEnumerator _enumerator;
         private IAudioDevice _default;
         private readonly Dispatcher _dispatcher;
         private readonly AudioDeviceKind _kind;
         private readonly AudioPolicyConfig _policyConfigService;
-        private readonly ConcurrentDictionary<string, IAudioDevice> _deviceMap = new ConcurrentDictionary<string, IAudioDevice>();
+        private readonly ConcurrentDictionary<string, IAudioDevice> _deviceMap = new();
         private readonly FilteredCollectionChain<IAudioDevice> _deviceFilter;
-        private readonly ObservableCollection<IAudioDevice> _devices = new ObservableCollection<IAudioDevice>();
+        private readonly ObservableCollection<IAudioDevice> _devices = new();
 
         public AudioDeviceManager(AudioDeviceKind kind)
         {
@@ -63,12 +66,14 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
                 {
                     _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
                     _enumerator.RegisterEndpointNotificationCallback(this);
+                    _enumerator.EnumAudioEndpoints(Flow, DEVICE_STATE.DEVICE_STATE_ACTIVE, out var devices);
+                    devices.GetCount(out var deviceCount);
 
-                    var devices = _enumerator.EnumAudioEndpoints(Flow, DeviceState.ACTIVE);
-                    uint deviceCount = devices.GetCount();
                     for (uint i = 0; i < deviceCount; i++)
                     {
-                        ((IMMNotificationClient)this).OnDeviceAdded(devices.Item(i).GetId());
+                        devices.Item(i, out var device);
+                        device.GetId(out var deviceId);
+                        ((IMMNotificationClient)this).OnDeviceAdded(deviceId);
                     }
 
                     _dispatcher.Invoke((Action)(() =>
@@ -120,10 +125,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             TraceLine($"SetDefaultDevice {device.Id}");
 
-            if (s_PolicyConfigClient == null)
-            {
-                s_PolicyConfigClient = new AutoPolicyConfigClientWin7();
-            }
+            s_PolicyConfigClient ??= new AutoPolicyConfigClientWin7();
 
             // Racing with the system, the device may not be valid anymore.
             try
@@ -140,8 +142,9 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             try
             {
-                var rawDevice = _enumerator.GetDefaultAudioEndpoint(Flow, eRole);
-                TryFind(rawDevice.GetId(), out var device);
+                _enumerator.GetDefaultAudioEndpoint(Flow, ERole.eMultimedia, out var rawDevice);
+                rawDevice.GetId(out var rawDeviceId);
+                TryFind(rawDeviceId.ToString(), out var device);
                 return device;
             }
             catch (Exception ex) when (ex.Is(HRESULT.ERROR_NOT_FOUND))
@@ -159,7 +162,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        public void UnhideSessionsForProcessId(string deviceId, int processId)
+        public void UnhideSessionsForProcessId(string deviceId, uint processId)
         {
             if (TryFind(deviceId, out var device))
             {
@@ -175,24 +178,26 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IMMNotificationClient.OnDeviceAdded(string pwstrDeviceId)
+        void IMMNotificationClient.OnDeviceAdded(PCWSTR pwstrDeviceId)
         {
             TraceLine($"OnDeviceAdded {pwstrDeviceId}");
 
-            if (!TryFind(pwstrDeviceId, out IAudioDevice unused))
+            if (!TryFind(pwstrDeviceId.ToString(), out IAudioDevice unused))
             {
                 try
                 {
-                    var device = _enumerator.GetDevice(pwstrDeviceId);
-                    if (((IMMEndpoint)device).GetDataFlow() == Flow &&
-                        device.GetState() == DeviceState.ACTIVE)
+                    _enumerator.GetDevice(pwstrDeviceId, out var device);
+                    device.GetState(out var deviceState);
+                    ((IMMEndpoint)device).GetDataFlow(out var deviceDataFlow);
+                    if (deviceDataFlow == Flow &&
+                        deviceState == DEVICE_STATE.DEVICE_STATE_ACTIVE)
                     {
                         var newDevice = new AudioDevice(this, device, _dispatcher);
 
                         _dispatcher.Invoke((Action)(() =>
                         {
                             // We must check again on the UI thread to avoid adding a duplicate device.
-                            if (!TryFind(pwstrDeviceId, out IAudioDevice unused1))
+                            if (!TryFind(pwstrDeviceId.ToString(), out IAudioDevice unused1))
                             {
                                 Add(newDevice);
                             }
@@ -208,20 +213,20 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IMMNotificationClient.OnDeviceRemoved(string pwstrDeviceId)
+        void IMMNotificationClient.OnDeviceRemoved(PCWSTR pwstrDeviceId)
         {
             TraceLine($"OnDeviceRemoved {pwstrDeviceId}");
 
             _dispatcher.Invoke((Action)(() =>
             {
-                if (TryFind(pwstrDeviceId, out IAudioDevice dev))
+                if (TryFind(pwstrDeviceId.ToString(), out IAudioDevice dev))
                 {
                     Remove(dev);
                 }
             }));
         }
 
-        void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, string pwstrDefaultDeviceId)
+        void IMMNotificationClient.OnDefaultDeviceChanged(EDataFlow flow, ERole role, PCWSTR pwstrDefaultDeviceId)
         {
             if (flow == Flow)
             {
@@ -234,17 +239,17 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IMMNotificationClient.OnDeviceStateChanged(string pwstrDeviceId, DeviceState dwNewState)
+        void IMMNotificationClient.OnDeviceStateChanged(PCWSTR pwstrDeviceId, DEVICE_STATE dwNewState)
         {
             TraceLine($"OnDeviceStateChanged {pwstrDeviceId} {dwNewState}");
             switch (dwNewState)
             {
-                case DeviceState.ACTIVE:
+                case DEVICE_STATE.DEVICE_STATE_ACTIVE:
                     ((IMMNotificationClient)this).OnDeviceAdded(pwstrDeviceId);
                     break;
-                case DeviceState.DISABLED:
-                case DeviceState.NOTPRESENT:
-                case DeviceState.UNPLUGGED:
+                case DEVICE_STATE.DEVICE_STATE_DISABLED:
+                case DEVICE_STATE.DEVICE_STATE_NOTPRESENT:
+                case DEVICE_STATE.DEVICE_STATE_UNPLUGGED:
                     ((IMMNotificationClient)this).OnDeviceRemoved(pwstrDeviceId);
                     break;
                 default:
@@ -253,17 +258,18 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        void IMMNotificationClient.OnPropertyValueChanged(string pwstrDeviceId, PROPERTYKEY key)
+        void IMMNotificationClient.OnPropertyValueChanged(PCWSTR pwstrDeviceId, PROPERTYKEY key)
         {
             TraceLine($"OnPropertyValueChanged {pwstrDeviceId} {key.fmtid},{key.pid}");
-            if (TryFind(pwstrDeviceId, out IAudioDevice dev))
+            if (TryFind(pwstrDeviceId.ToString(), out var dev))
             {
-                if (PropertyKeys.PKEY_AudioEndPoint_Interface.Equals(key))
+                if (PInvoke.PKEY_AudioEndPoint_Interface.Equals(key))
                 {
                     // We're racing with the system, the device may not be resolvable anymore.
                     try
                     {
-                        ((AudioDevice)dev).DevicePropertiesChanged(_enumerator.GetDevice(dev.Id));
+                        _enumerator.GetDevice(dev.Id, out var device);
+                        ((AudioDevice)dev).DevicePropertiesChanged(device);
                     }
                     catch (Exception ex)
                     {
@@ -273,18 +279,18 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        public void SetDefaultEndPoint(string id, int pid)
+        public void SetDefaultEndPoint(string id, uint processId)
         {
             // Note: We found it unexpected that SetDefaultEndPoint
             // would accept an id for an 'invalid' device and then 
             // no audio will be heard from any device for the given pid.
             if (id == null || TryFind(id, out _))
             {
-                _policyConfigService.SetDefaultEndPoint(id, pid);
+                _policyConfigService.SetDefaultEndPoint(id, processId);
             }
         }
 
-        public string GetDefaultEndPoint(int processId)
+        public string GetDefaultEndPoint(uint processId)
         {
             if (Environment.OSVersion.IsAtLeast(OSVersions.RS4))
             {
@@ -308,7 +314,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
 
         private void Remove(IAudioDevice device)
         {
-            if (_deviceMap.TryRemove(device.Id, out var foundDevice))
+            if (_deviceMap.TryRemove(device.Id, out _))
             {
                 _devices.Remove(device);
             }

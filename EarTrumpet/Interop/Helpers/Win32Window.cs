@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace EarTrumpet.Interop.Helpers
 {
-    public class Win32Window : NativeWindow, IDisposable
+    public sealed class Win32Window : NativeWindow, IDisposable
     {
         Action<Message> _wndProc;
 

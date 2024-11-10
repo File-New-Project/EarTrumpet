@@ -1,27 +1,20 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.System.Com;
+using Windows.Win32.System.Com.StructuredStorage;
 
-namespace EarTrumpet.Interop.MMDeviceAPI
+namespace EarTrumpet.Interop.MMDeviceAPI;
+
+public static class IMMDeviceExtensions
 {
-    [Guid("D666063F-1587-4E43-81F1-B948E807363F")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IMMDevice
+    public static T Activate<T>(this IMMDevice device)
     {
-        void Activate(ref Guid iid, uint dwClsCtx, IntPtr pActivationParams, [MarshalAs(UnmanagedType.Interface)] out object ppInterface);
-        [return: MarshalAs(UnmanagedType.Interface)]
-        IPropertyStore OpenPropertyStore(STGM stgmAccess);
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-        string GetId();
-        DeviceState GetState();
-    }
-
-    public static class IMMDeviceExtensions
-    {
-        public static T Activate<T>(this IMMDevice device)
+        object obj;
+        unsafe
         {
-            Guid iid = typeof(T).GUID;
-            device.Activate(ref iid, (uint)CLSCTX.CLSCTX_INPROC_SERVER, IntPtr.Zero, out object ret);
-            return (T)ret;
+            // Can't pass in null PROPVARIANT https://github.com/microsoft/CsWin32/issues/1081
+            device.Activate(typeof(T).GUID, CLSCTX.CLSCTX_INPROC_SERVER, new PROPVARIANT_unmanaged(), out obj);
         }
+        return (T)obj;
     }
 }

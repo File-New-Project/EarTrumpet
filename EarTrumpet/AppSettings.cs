@@ -117,7 +117,7 @@ namespace EarTrumpet
             {
                 // Note: Legacy compat, we used to write string bools.
                 var ret = _settings.Get("UseLegacyIcon", "False");
-                bool.TryParse(ret, out bool isUseLegacyIcon);
+                _ = bool.TryParse(ret, out bool isUseLegacyIcon);
                 return isUseLegacyIcon;
             }
             set

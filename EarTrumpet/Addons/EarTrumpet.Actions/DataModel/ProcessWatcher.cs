@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Globalization;
+using Windows.Win32;
 
 namespace EarTrumpet.Actions.DataModel
 {
-    public class ProcessWatcher
+    public sealed class ProcessWatcher : IDisposable
     {
         class ProcessInfo
         {
@@ -33,7 +35,7 @@ namespace EarTrumpet.Actions.DataModel
         }
 
         // Used only by the condition processor, so we use realtime data only.
-        public bool IsRunning(string procName)
+        public static bool IsRunning(string procName)
         {
             try
             {
@@ -50,14 +52,16 @@ namespace EarTrumpet.Actions.DataModel
         {
             try
             {
-                User32.GetWindowThreadProcessId(hwnd, out uint pid);
-
-                using (var proc = Process.GetProcessById((int)pid))
+                var pid = 0U;
+                unsafe
                 {
-                    if (_info.ContainsKey(proc.ProcessName.ToLower()))
-                    {
-                        FoundNewRelevantProcess(proc);
-                    }
+                    _ = PInvoke.GetWindowThreadProcessId(new HWND(hwnd), &pid);
+                }
+
+                using var proc = Process.GetProcessById((int)pid);
+                if (_info.ContainsKey(proc.ProcessName.ToLowerInvariant()))
+                {
+                    FoundNewRelevantProcess(proc);
                 }
             }
             catch (Exception ex)
@@ -68,7 +72,7 @@ namespace EarTrumpet.Actions.DataModel
 
         bool FoundNewRelevantProcess(Process proc)
         {
-            var info = _info[proc.ProcessName.ToLower()];
+            var info = _info[proc.ProcessName.ToLowerInvariant()];
 
             if (!info.RunningProcesses.ContainsKey(proc.Id))
             {
@@ -95,7 +99,7 @@ namespace EarTrumpet.Actions.DataModel
         public void RegisterStop(string text, Action callback)
         {
             Trace.WriteLine($"ProcessWatcher RegisterStop {text}");
-            text = text.ToLower();
+            text = text.ToLower(CultureInfo.CurrentCulture);
             WatcherInfo info = _info.ContainsKey(text) ? _info[text] : _info[text] = new WatcherInfo();
             info.StopCallbacks.Add(callback);
 
@@ -116,7 +120,7 @@ namespace EarTrumpet.Actions.DataModel
         public void RegisterStart(string text, Action callback)
         {
             Trace.WriteLine($"ProcessWatcher RegisterStart {text}");
-            text = text.ToLower();
+            text = text.ToLower(CultureInfo.CurrentCulture);
             WatcherInfo info = _info.ContainsKey(text) ? _info[text] : new WatcherInfo();
             info.StartCallbacks.Add(callback);
 
@@ -145,6 +149,11 @@ namespace EarTrumpet.Actions.DataModel
         {
             Trace.WriteLine("ProcessWatcher Clear");
             _info = new Dictionary<string, WatcherInfo>();
+        }
+
+        public void Dispose()
+        {
+            _watcher.Dispose();
         }
     }
 }

@@ -5,12 +5,12 @@ namespace EarTrumpet.Interop
 {
     [ComImport]
     [Guid("660B90C8-73A9-4B58-8CAE-355B7F55341B")]
-    class ApplicationResolver { }
+    internal class ApplicationResolver { }
 
     [ComImport]
     [Guid("DE25675A-72DE-44b4-9373-05170450C140")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IApplicationResolver
+    internal interface IApplicationResolver
     {
         void _();
         void __();

@@ -1,0 +1,20 @@
+query($lastTagDate: GitTimestamp!, $ref: String!) {
+  repository(owner: "%%OWNER%%", name: "%%REPO%%") {
+    object(expression: $ref) {
+      ... on Commit {
+        history(first: 100, since: $lastTagDate) {
+          nodes {
+            messageHeadline
+            oid
+            associatedPullRequests(first: 1) {
+              nodes {
+                title
+                number
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

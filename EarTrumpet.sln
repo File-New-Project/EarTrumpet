@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F56ECD6-00C6-4C4A-AB1F-C01ED14EF53B}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		COMPILING.md = COMPILING.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		GitVersion.yml = GitVersion.yml
+		LICENSE = LICENSE
+		PRIVACY.md = PRIVACY.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EarTrumpet", "EarTrumpet\EarTrumpet.csproj", "{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chocolatey", "Chocolatey", "{EF7F607E-FD43-4BA4-B32B-128EF2944A26}"
+	ProjectSection(SolutionItems) = preProject
+		.chocolatey\tools\chocolateybeforemodify.ps1 = .chocolatey\tools\chocolateybeforemodify.ps1
+		.chocolatey\tools\chocolateyinstall.ps1 = .chocolatey\tools\chocolateyinstall.ps1
+		.chocolatey\tools\chocolateyuninstall.ps1 = .chocolatey\tools\chocolateyuninstall.ps1
+	EndProjectSection
+EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "EarTrumpet.Package", "EarTrumpet.Package\EarTrumpet.Package.wapproj", "{EA5510ED-F014-4587-A505-64C59D5B2627}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		VSDebug|ARM64 = VSDebug|ARM64
+		VSDebug|x64 = VSDebug|x64
+		VSDebug|x86 = VSDebug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|ARM64.Build.0 = Debug|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|x64.ActiveCfg = Debug|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|x64.Build.0 = Debug|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|x86.ActiveCfg = Debug|x86
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Debug|x86.Build.0 = Debug|x86
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|ARM64.ActiveCfg = Release|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|ARM64.Build.0 = Release|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|x64.ActiveCfg = Release|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|x64.Build.0 = Release|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|x86.ActiveCfg = Release|x86
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.Release|x86.Build.0 = Release|x86
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|ARM64.ActiveCfg = VSDebug|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|ARM64.Build.0 = VSDebug|ARM64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|x64.ActiveCfg = VSDebug|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|x64.Build.0 = VSDebug|x64
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|x86.ActiveCfg = VSDebug|x86
+		{DF42BC76-DFB5-41C2-9308-1A1F13A66A38}.VSDebug|x86.Build.0 = VSDebug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|ARM64.Build.0 = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x64.ActiveCfg = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x64.Build.0 = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x64.Deploy.0 = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x86.ActiveCfg = Debug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x86.Build.0 = Debug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Debug|x86.Deploy.0 = Debug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|ARM64.ActiveCfg = Release|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|ARM64.Build.0 = Release|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|ARM64.Deploy.0 = Release|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x64.ActiveCfg = Release|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x64.Build.0 = Release|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x64.Deploy.0 = Release|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x86.ActiveCfg = Release|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x86.Build.0 = Release|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.Release|x86.Deploy.0 = Release|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|ARM64.ActiveCfg = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|ARM64.Build.0 = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|ARM64.Deploy.0 = Debug|ARM64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x64.ActiveCfg = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x64.Build.0 = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x64.Deploy.0 = Debug|x64
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.ActiveCfg = Debug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Build.0 = Debug|x86
+		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Deploy.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF7F607E-FD43-4BA4-B32B-128EF2944A26} = {8F56ECD6-00C6-4C4A-AB1F-C01ED14EF53B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {228AD06A-DAC2-406B-8F21-3E7B980B1B37}
+	EndGlobalSection
+EndGlobal

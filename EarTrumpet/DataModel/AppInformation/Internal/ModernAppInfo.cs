@@ -1,8 +1,13 @@
 ﻿using EarTrumpet.Interop;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+using Windows.Win32;
+using Windows.Win32.UI.Shell;
+using Windows.Win32.System.Threading;
+using Windows.Win32.Storage.Packaging.Appx;
 
 namespace EarTrumpet.DataModel.AppInformation.Internal
 {
@@ -17,26 +22,44 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         public string SmallLogoPath { get; }
         public bool IsDesktopApp => false;
 
-        private int _processId;
-
-        public ModernAppInfo(int processId, bool trackProcess)
+        public ModernAppInfo(uint processId, bool trackProcess)
         {
-            _processId = processId;
-
             var appUserModelId = GetAppUserModelIdByPid(processId);
 
             try
             {
-                var shellItem = Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, appUserModelId, typeof(IShellItem2).GUID);
-                PackageInstallPath = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_PackageInstallPath);
+                PInvoke.SHCreateItemInKnownFolder(
+                    PInvoke.FOLDERID_AppsFolder,
+                    KNOWN_FOLDER_FLAG.KF_FLAG_DONT_VERIFY,
+                    appUserModelId,
+                    typeof(IShellItem2).GUID,
+                    out var rawShellItem);
+
+                var shellItem = (IShellItem2)rawShellItem;
+
                 AppId = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_ID);
-                DisplayName = shellItem.GetString(ref PropertyKeys.PKEY_ItemNameDisplay);
-                ExeName = PackageInstallPath;
+                var pkey = PInvoke.PKEY_AppUserModel_PackageInstallPath;
+                var packageInstallPathPtr = new PWSTR();
+                unsafe
+                {
+                    shellItem.GetString(&pkey, &packageInstallPathPtr);
+                }
+
+                pkey = PInvoke.PKEY_ItemNameDisplay;
+                var displayNamePtr = new PWSTR();
+                unsafe
+                {
+                    shellItem.GetString(&pkey, &displayNamePtr);
+                }
+
+                PackageInstallPath = packageInstallPathPtr.ToString();
+                DisplayName = displayNamePtr.ToString();
+                ExeName = packageInstallPathPtr.ToString();
                 SmallLogoPath = appUserModelId;
             }
             catch (COMException ex)
             {
-                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed 0x{((uint)ex.HResult).ToString("x")} {appUserModelId}");
+                Trace.WriteLine($"ModernAppInfo AppsFolder lookup failed 0x{((uint)ex.HResult).ToString("x", CultureInfo.CurrentCulture)} {appUserModelId}");
             }
             catch (Exception ex)
             {
@@ -54,26 +77,33 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
             }
         }
 
-        private static string GetAppUserModelIdByPid(int processId)
+        private static string GetAppUserModelIdByPid(uint processId)
         {
-            string appUserModelId = string.Empty;
+            var appUserModelId = string.Empty;
 
-            var processHandle = Kernel32.OpenProcess(Kernel32.ProcessFlags.PROCESS_QUERY_LIMITED_INFORMATION | Kernel32.ProcessFlags.SYNCHRONIZE, false, processId);
+            var processHandle = PInvoke.OpenProcess(PROCESS_ACCESS_RIGHTS.PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_ACCESS_RIGHTS.PROCESS_SYNCHRONIZE, false, processId);
             if (processHandle != IntPtr.Zero)
             {
                 try
                 {
                     ZombieProcessException.ThrowIfZombie(processId, processHandle);
 
-                    int amuidBufferLength = Kernel32.MAX_AUMID_LEN;
-                    var amuidBuffer = new StringBuilder(amuidBufferLength);
-
-                    Kernel32.GetApplicationUserModelId(processHandle, ref amuidBufferLength, amuidBuffer);
-                    appUserModelId = amuidBuffer.ToString();
+                    var amuidBufferLength = Kernel32.MAX_AUMID_LEN;
+                    Span<char> amuidBuffer = stackalloc char[(int)amuidBufferLength];
+                    unsafe
+                    {
+                        fixed (char* pAmuidBuffer = amuidBuffer)
+                        {
+                            if (PInvoke.GetApplicationUserModelId(processHandle, &amuidBufferLength, pAmuidBuffer) == WIN32_ERROR.NO_ERROR)
+                            {
+                                appUserModelId = new PWSTR(pAmuidBuffer).ToString();
+                            }
+                        }
+                    }
                 }
                 finally
                 {
-                    Kernel32.CloseHandle(processHandle);
+                    PInvoke.CloseHandle(processHandle);
                 }
 
                 // We may receive an AUMID for an app in a package that doesn't have
@@ -82,61 +112,83 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 // retrieve the metadata we need.
                 if (!CanResolveAppByApplicationUserModelId(appUserModelId))
                 {
-                    int packageFamilyNameLength = Kernel32.PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z;
-                    var packageFamilyNameBuilder = new StringBuilder(packageFamilyNameLength);
+                    Span<char> packageFamilyName = stackalloc char[Kernel32.PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z];
+                    Span<char> packageRelativeApplicationId = stackalloc char[Kernel32.PACKAGE_FAMILY_NAME_MAX_LENGTH_INCL_Z];
+                    var packageFamilyNameLength = (uint)packageFamilyName.Length;
+                    var packageRelativeApplicationIdLength = (uint)packageRelativeApplicationId.Length;
 
-                    int packageRelativeApplicationIdLength = Kernel32.PACKAGE_RELATIVE_APPLICATION_ID_MAX_LENGTH_INCL_Z;
-                    var packageRelativeApplicationIdBuilder = new StringBuilder(packageRelativeApplicationIdLength);
+                    unsafe
+                    {
+                        fixed (char* packageFamilyNamePtr = packageFamilyName)
+                        fixed (char* packageNamePtr = packageRelativeApplicationId)
+                        {
+                            _ = PInvoke.ParseApplicationUserModelId(
+                                appUserModelId,
+                                ref packageFamilyNameLength,
+                                packageFamilyNamePtr,
+                                ref packageRelativeApplicationIdLength,
+                                packageNamePtr);
+                        }
+                    }
 
-                    Kernel32.ParseApplicationUserModelId(
-                        appUserModelId,
-                        ref packageFamilyNameLength,
-                        packageFamilyNameBuilder,
-                        ref packageRelativeApplicationIdLength,
-                        packageRelativeApplicationIdBuilder);
-
-                    string packageFamilyName = packageFamilyNameBuilder.ToString();
-
-                    int packageCount = 0;
-                    int packageNamesBufferLength = 0;
-                    Kernel32.FindPackagesByPackageFamilyInitial(
-                        packageFamilyName,
-                        Kernel32.PACKAGE_FILTER_HEAD | Kernel32.PACKAGE_INFORMATION_BASIC,
-                        ref packageCount,
-                        IntPtr.Zero,
-                        ref packageNamesBufferLength,
-                        IntPtr.Zero,
-                        IntPtr.Zero);
+                    var packageCount = 0U;
+                    var packageNamesBufferLength = 0U;
+                    unsafe
+                    {
+                        fixed (char* packageFamilyNamePtr = packageFamilyName)
+                        {
+                            _ = PInvoke.FindPackagesByPackageFamily(
+                            new PWSTR(packageFamilyNamePtr).ToString(),
+                            PInvoke.PACKAGE_FILTER_HEAD | PInvoke.PACKAGE_INFORMATION_BASIC,
+                            ref packageCount,
+                            null,
+                            ref packageNamesBufferLength,
+                            null,
+                            null);
+                        }
+                    }
 
                     if (packageCount > 0)
                     {
-                        var pointers = new IntPtr[packageCount];
-                        IntPtr buffer = Marshal.AllocHGlobal(packageNamesBufferLength * Kernel32.SIZEOF_WCHAR);
+                        var stringPointers = new PWSTR[packageCount];
+                        unsafe
+                        {
+                            Span<char> stringBuffer = stackalloc char[(int)(packageNamesBufferLength * Kernel32.SIZEOF_WCHAR)];
+                            fixed (char* ptrStringBuffer = stringBuffer)
+                            {
+                                fixed (char* packageFamilyNamePtr = packageFamilyName)
+                                fixed (PWSTR* ptrStringPointers = stringPointers)
+                                {
+                                    _ = PInvoke.FindPackagesByPackageFamily(
+                                        new PWSTR(packageFamilyNamePtr).ToString(),
+                                        PInvoke.PACKAGE_FILTER_HEAD | PInvoke.PACKAGE_INFORMATION_BASIC,
+                                        ref packageCount,
+                                        ptrStringPointers,
+                                        ref packageNamesBufferLength,
+                                        new PWSTR(ptrStringBuffer),
+                                        null);
+                                }
+                            }
+                        }
 
-                        Kernel32.FindPackagesByPackageFamily(
-                            packageFamilyName,
-                            Kernel32.PACKAGE_FILTER_HEAD | Kernel32.PACKAGE_INFORMATION_BASIC,
-                            ref packageCount,
-                            pointers,
-                            ref packageNamesBufferLength,
-                            buffer,
-                            IntPtr.Zero);
+                        var packageFullName = stringPointers[0].ToString();
 
-                        var packageFullName = Marshal.PtrToStringUni(pointers[0]);
-                        Marshal.FreeHGlobal(buffer);
+                        unsafe
+                        {
+                            _ = PInvoke.OpenPackageInfoByFullName(packageFullName, out var packageInfoReference);
 
-                        Kernel32.OpenPackageInfoByFullName(packageFullName, 0, out IntPtr packageInfoReference);
+                            var bufferLength = 0U;
+                            _ = PInvoke.GetPackageApplicationIds(packageInfoReference, &bufferLength);
 
-                        int bufferLength = 0;
-                        Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, IntPtr.Zero, out int appIdCount);
-
-                        buffer = Marshal.AllocHGlobal(bufferLength);
-                        Kernel32.GetPackageApplicationIds(packageInfoReference, ref bufferLength, buffer, out appIdCount);
-
-                        appUserModelId = Marshal.PtrToStringUni(Marshal.ReadIntPtr(buffer));
-                        Marshal.FreeHGlobal(buffer);
-
-                        Kernel32.ClosePackageInfo(packageInfoReference);
+                            Span<char> stringBuffer = stackalloc char[(int)bufferLength];
+                            fixed (char* ptrStringBuffer = stringBuffer)
+                            {
+                                _ = PInvoke.GetPackageApplicationIds(packageInfoReference, &bufferLength, (byte*)ptrStringBuffer);
+                                appUserModelId = new PWSTR(ptrStringBuffer).ToString();
+                            }
+                            
+                            _ = PInvoke.ClosePackageInfo(packageInfoReference);
+                        }
                     }
                 }
             }
@@ -152,7 +204,12 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
         {
             try
             {
-                Shell32.SHCreateItemInKnownFolder(FolderIds.AppsFolder, Shell32.KF_FLAG_DONT_VERIFY, aumid, typeof(IShellItem2).GUID);
+                PInvoke.SHCreateItemInKnownFolder(
+                    PInvoke.FOLDERID_AppsFolder,
+                    KNOWN_FOLDER_FLAG.KF_FLAG_DONT_VERIFY,
+                    aumid,
+                    typeof(IShellItem2).GUID,
+                    out var rawShellItem).ThrowOnFailure();
                 return true;
             }
             catch (Exception ex)

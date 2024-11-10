@@ -1,45 +1,39 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using EarTrumpet.Interop.MMDeviceAPI;
-using System;
-using System.Runtime.InteropServices;
+﻿using System;
+using EarTrumpet.Extensions;
+using Windows.Win32.Media.Audio.Endpoints;
 
-namespace EarTrumpet.DataModel.WindowsAudio.Internal
+namespace EarTrumpet.DataModel.WindowsAudio.Internal;
+
+class Helpers
 {
-    class Helpers
+    public static float[] ReadPeakValues(IAudioMeterInformation meter)
     {
-        public static float[] ReadPeakValues(IAudioMeterInformation meter)
+        var ret = new float[2];
+        try
         {
-            var ret = new float[2];
-            try
+            meter.GetMeteringChannelCount(out var channelCount);
+            if (channelCount > 0)
             {
-                uint chanCount = meter.GetMeteringChannelCount();
-                if (chanCount > 0)
+                var values = new float[(int)channelCount];
+                if (meter.GetChannelsPeakValues(channelCount, values) == HRESULT.S_OK)
                 {
-                    var arrayPtr = Marshal.AllocHGlobal((int)chanCount * 4); // 4 bytes in float
-                    if (meter.GetChannelsPeakValues(chanCount, arrayPtr) == HRESULT.S_OK)
+                    if (channelCount == 1)
                     {
-                        var values = new float[chanCount];
-                        Marshal.Copy(arrayPtr, values, 0, (int)chanCount);
-
-                        if (chanCount == 1)
-                        {
-                            ret[0] = values[0];
-                            ret[1] = values[0];
-                        }
-                        else
-                        {
-                            ret[0] = values[0];
-                            ret[1] = values[1];
-                        }
+                        ret[0] = values[0];
+                        ret[1] = values[0];
+                    }
+                    else
+                    {
+                        ret[0] = values[0];
+                        ret[1] = values[1];
                     }
                 }
             }
-            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
-            {
-                // Expected in some cases.
-            }
-            return ret;
         }
+        catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+        {
+            // Expected in some cases.
+        }
+        return ret;
     }
 }

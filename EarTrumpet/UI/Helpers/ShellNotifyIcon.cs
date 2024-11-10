@@ -1,21 +1,24 @@
-﻿using EarTrumpet.DataModel;
-using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using EarTrumpet.Interop.Helpers;
-using System;
+﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
+using EarTrumpet.DataModel;
+using EarTrumpet.Interop;
+using EarTrumpet.Interop.Helpers;
+using Windows.Win32;
+using Windows.Win32.UI.Shell;
+using Windows.Win32.UI.WindowsAndMessaging;
 
 namespace EarTrumpet.UI.Helpers
 {
-    public class ShellNotifyIcon
+    public sealed class ShellNotifyIcon : IDisposable
     {
         public class SecondaryInvokeArgs
         {
@@ -45,7 +48,8 @@ namespace EarTrumpet.UI.Helpers
             }
         }
 
-        private const int WM_CALLBACKMOUSEMSG = User32.WM_USER + 1024;
+        // Window messages should be int https://github.com/microsoft/win32metadata/pull/1769
+        private const int WM_CALLBACKMOUSEMSG = (int)PInvoke.WM_USER + 1024;
 
         private readonly Win32Window _window;
         private readonly DispatcherTimer _invalidationTimer;
@@ -54,7 +58,7 @@ namespace EarTrumpet.UI.Helpers
         private bool _isListeningForInput;
         private bool _isContextMenuOpen;
         private string _text;
-        private RECT _iconLocation;
+        private Interop.RECT _iconLocation;
         private System.Drawing.Point _cursorPosition;
         private int _remainingTicks;
         private bool _hasAlreadyProcessedButtonUp;
@@ -66,10 +70,7 @@ namespace EarTrumpet.UI.Helpers
                 _hasAlreadyProcessedButtonUp = false;
                 return val;
             }
-            set
-            {
-                _hasAlreadyProcessedButtonUp = value;
-            }
+            set => _hasAlreadyProcessedButtonUp = value;
         }
 
         public ShellNotifyIcon(IShellNotifyIconSource icon)
@@ -88,7 +89,8 @@ namespace EarTrumpet.UI.Helpers
         {
             Trace.WriteLine("ShellNotifyIcon SetFocus");
             var data = MakeData();
-            if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_SETFOCUS, ref data))
+
+            if (!PInvoke.Shell_NotifyIcon(NOTIFY_ICON_MESSAGE.NIM_SETFOCUS, data))
             {
                 Trace.WriteLine($"ShellNotifyIcon NIM_SETFOCUS Failed: {(uint)Marshal.GetLastWin32Error()}");
             }
@@ -104,11 +106,11 @@ namespace EarTrumpet.UI.Helpers
         {
             return new NOTIFYICONDATAW
             {
-                cbSize = Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
-                hWnd = _window.Handle,
-                uFlags = NotifyIconFlags.NIF_MESSAGE | NotifyIconFlags.NIF_ICON | NotifyIconFlags.NIF_TIP | NotifyIconFlags.NIF_SHOWTIP,
+                cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
+                hWnd = new HWND(_window.Handle),
+                uFlags = NOTIFY_ICON_DATA_FLAGS.NIF_MESSAGE | NOTIFY_ICON_DATA_FLAGS.NIF_ICON | NOTIFY_ICON_DATA_FLAGS.NIF_TIP | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP,
                 uCallbackMessage = WM_CALLBACKMOUSEMSG,
-                hIcon = IconSource.Current.Handle,
+                hIcon = new HICON(IconSource.Current.Handle),
                 szTip = _text
             };
         }
@@ -120,7 +122,7 @@ namespace EarTrumpet.UI.Helpers
             {
                 if (_isCreated)
                 {
-                    if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_MODIFY, ref data))
+                    if (!PInvoke.Shell_NotifyIcon(NOTIFY_ICON_MESSAGE.NIM_MODIFY, data))
                     {
                         // Modification will fail when the shell restarts, or if message processing times out
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_MODIFY Failed: {(uint)Marshal.GetLastWin32Error()}");
@@ -130,14 +132,14 @@ namespace EarTrumpet.UI.Helpers
                 }
                 else
                 {
-                    if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_ADD, ref data))
+                    if (!PInvoke.Shell_NotifyIcon(NOTIFY_ICON_MESSAGE.NIM_ADD, data))
                     {
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_ADD Failed {(uint)Marshal.GetLastWin32Error()}");
                     }
 
                     _isCreated = true;
-                    data.uTimeoutOrVersion = Shell32.NOTIFYICON_VERSION_4;
-                    if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_SETVERSION, ref data))
+                    data.Anonymous.uVersion = PInvoke.NOTIFYICON_VERSION_4;
+                    if (!PInvoke.Shell_NotifyIcon(NOTIFY_ICON_MESSAGE.NIM_SETVERSION, data))
                     {
                         Trace.WriteLine($"ShellNotifyIcon Update NIM_SETVERSION Failed: {(uint)Marshal.GetLastWin32Error()}");
                     }
@@ -145,7 +147,7 @@ namespace EarTrumpet.UI.Helpers
             }
             else if (_isCreated)
             {
-                if (!Shell32.Shell_NotifyIconW(Shell32.NotifyIconMessage.NIM_DELETE, ref data))
+                if (!PInvoke.Shell_NotifyIcon(NOTIFY_ICON_MESSAGE.NIM_DELETE, data))
                 {
                     Trace.WriteLine($"ShellNotifyIcon Update NIM_DELETE Failed: {(uint)Marshal.GetLastWin32Error()}");
                 }
@@ -160,14 +162,14 @@ namespace EarTrumpet.UI.Helpers
                 CallbackMsgWndProc(msg);
             }
             else if (msg.Msg == Shell32.WM_TASKBARCREATED ||
-                    (msg.Msg == User32.WM_SETTINGCHANGE && (int)msg.WParam == User32.SPI_SETWORKAREA))
+                    (msg.Msg == PInvoke.WM_SETTINGCHANGE && (int)msg.WParam == (int)SYSTEM_PARAMETERS_INFO_ACTION.SPI_SETWORKAREA))
             {
                 ScheduleDelayedIconInvalidation();
             }
-            else if (msg.Msg == User32.WM_INPUT)
+            else if (msg.Msg == (int)PInvoke.WM_INPUT)
             {
                 _cursorPosition = System.Windows.Forms.Cursor.Position;
-                if (InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out int wheelDelta) &&
+                if (InputHelper.ProcessMouseInputMessage(msg.LParam, ref _cursorPosition, out var wheelDelta) &&
                                 IsCursorWithinNotifyIconBounds() && wheelDelta != 0)
                 {
                     Scrolled?.Invoke(this, wheelDelta);
@@ -179,8 +181,8 @@ namespace EarTrumpet.UI.Helpers
         {
             switch ((short)msg.LParam)
             {
-                case (short)Shell32.NotifyIconNotification.NIN_SELECT:
-                case User32.WM_LBUTTONUP:
+                case (short)PInvoke.NIN_SELECT:
+                case (short)PInvoke.WM_LBUTTONUP:
                     // Observed double WM_CALLBACKMOUSEMSG/WM_LBUTTONUP pairs on Windows 11 22533
                     // Could be a result of XAML island use in Taskbar. Or a bug elsewhere.
                     // For now, swallow the duplicate to improve flyout UX.
@@ -190,26 +192,26 @@ namespace EarTrumpet.UI.Helpers
                         PrimaryInvoke?.Invoke(this, InputType.Mouse);
                     }
                     break;
-                case (short)Shell32.NotifyIconNotification.NIN_KEYSELECT:
+                case PInvoke.NIN_KEYSELECT:
                     PrimaryInvoke?.Invoke(this, InputType.Keyboard);
                     break;
-                case User32.WM_MBUTTONUP:
+                case (short)PInvoke.WM_MBUTTONUP:
                     TertiaryInvoke?.Invoke(this, InputType.Mouse);
                     break;
-                case User32.WM_CONTEXTMENU:
+                case (short)PInvoke.WM_CONTEXTMENU:
                     SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Keyboard, msg.WParam));
                     break;
-                case User32.WM_RBUTTONUP:
+                case (short)PInvoke.WM_RBUTTONUP:
                     SecondaryInvoke?.Invoke(this, CreateSecondaryInvokeArgs(InputType.Mouse, msg.WParam));
                     break;
-                case User32.WM_MOUSEMOVE:
+                case (short)PInvoke.WM_MOUSEMOVE:
                     OnNotifyIconMouseMove();
                     IconSource.CheckForUpdate();
                     break;
             }
         }
 
-        private SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new SecondaryInvokeArgs
+        private static SecondaryInvokeArgs CreateSecondaryInvokeArgs(InputType type, IntPtr wParam) => new()
         {
             InputType = type,
             Point = new Point((short)wParam.ToInt32(), wParam.ToInt32() >> 16)
@@ -219,19 +221,25 @@ namespace EarTrumpet.UI.Helpers
         {
             var id = new NOTIFYICONIDENTIFIER
             {
-                cbSize = Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER)),
-                hWnd = _window.Handle
+                cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER)),
+                hWnd = new HWND(_window.Handle)
             };
 
-            if (Shell32.Shell_NotifyIconGetRect(ref id, out RECT location) == 0)
+            if (PInvoke.Shell_NotifyIconGetRect(id, out var location) == 0)
             {
-                _iconLocation = location;
+                _iconLocation = new() {
+                    Bottom = location.bottom,
+                    Left = location.left,
+                    Right = location.right,
+                    Top = location.top
+                };
+
                 _cursorPosition = System.Windows.Forms.Cursor.Position;
                 IsCursorWithinNotifyIconBounds();
             }
             else
             {
-                _iconLocation = default(RECT);
+                _iconLocation = default;
             }
         }
 
@@ -320,7 +328,7 @@ namespace EarTrumpet.UI.Helpers
                 {
                     Trace.WriteLine("ShellNotifyIcon ContextMenu.Opened");
                 // Workaround: The framework expects there to already be a WPF window open and thus fails to take focus.
-                User32.SetForegroundWindow(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle);
+                PInvoke.SetForegroundWindow(new HWND(((HwndSource)HwndSource.FromVisual(contextMenu)).Handle));
                     contextMenu.Focus();
                     contextMenu.StaysOpen = false;
                 // Disable only the exit animation.
@@ -333,6 +341,11 @@ namespace EarTrumpet.UI.Helpers
                 };
                 contextMenu.IsOpen = true;
             }
+        }
+
+        public void Dispose()
+        {
+            _window.Dispose();
         }
     }
 }

@@ -6,25 +6,25 @@ using System.Threading;
 
 namespace EarTrumpet.Diagnosis
 {
-    class CircularBufferTraceListener : TraceListener
+    internal sealed class CircularBufferTraceListener : TraceListener, IDisposable
     {
         private const int MAX_LOG_LINES = 2000;
-        private readonly ConcurrentQueue<string> _log = new ConcurrentQueue<string>();
-        private readonly DefaultTraceListener _defaultListener = new DefaultTraceListener();
+        private readonly ConcurrentQueue<string> _log = new();
+        private readonly DefaultTraceListener _defaultListener = new();
 
         public override void Write(string message) => Debug.Assert(false);
 
         public override void WriteLine(string message)
         {
-            var threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Environment.CurrentManagedThreadId;
             var idText = threadId == 1 ? "UI" : threadId.ToString().PadLeft(2, ' ') + "  ";
-            message = $"{DateTime.Now.ToString("HH:mm:ss.fff")} {idText} {message}";
+            message = $"{DateTime.Now:HH:mm:ss.fff} {idText} {message}";
 
             _log.Enqueue(message + Environment.NewLine);
 
             while (_log.Count > MAX_LOG_LINES)
             {
-                _log.TryDequeue(out var unused);
+                _log.TryDequeue(out var _);
             }
 
             _defaultListener.WriteLine(message);
@@ -38,6 +38,14 @@ namespace EarTrumpet.Diagnosis
                 ret.Append(line);
             }
             return ret.ToString();
+        }
+
+        public new void Dispose()
+        {
+            _defaultListener.Dispose();
+            GC.SuppressFinalize(this);
+
+            Dispose(true);
         }
     }
 }

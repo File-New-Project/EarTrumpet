@@ -8,10 +8,9 @@ namespace EarTrumpet.DataModel.Storage
     {
         public static T FromString<T>(string data)
         {
-            using (var reader = new StringReader(data))
-            {
-                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
-            }
+            using var reader = new StringReader(data);
+            using var xmlReader = XmlReader.Create(reader, new XmlReaderSettings { DtdProcessing = DtdProcessing.Ignore });
+            return (T)new XmlSerializer(typeof(T)).Deserialize(xmlReader);
         }
 
         public static string ToString<T>(string key, T value)

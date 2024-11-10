@@ -13,7 +13,7 @@ namespace EarTrumpet.DataModel.Audio
         string IconPath { get; }
         bool IsDesktopApp { get; }
         bool IsSystemSoundsSession { get; }
-        int ProcessId { get; }
+        uint ProcessId { get; }
         string AppId { get; }
         string PackageInstallPath { get; }
         SessionState State { get; }

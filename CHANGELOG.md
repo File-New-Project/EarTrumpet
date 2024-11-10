@@ -24,6 +24,8 @@
 - Fixed an issue with the volume changing when scrolling in certain scenarios (e.g. virtual reality)
 - Updated Japanese translations
 - Cleaned up old language resources
+- Migrated EarTrumpet from .NET Framework 4.x to .NET 6.0
+- Dropped support for some end-of-life versions of Windows 10
 
 ## 2.2.1.0
 - Fixed touch context menu behavior on Windows 11 machines with future "ShyTaskbar" enabled

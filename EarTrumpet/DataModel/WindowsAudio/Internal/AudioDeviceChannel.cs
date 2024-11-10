@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using EarTrumpet.Interop.MMDeviceAPI;
+using Windows.Win32.Media.Audio.Endpoints;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -14,7 +14,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         {
             _index = index;
             _deviceVolume = deviceVolume;
-            _level = _deviceVolume.GetChannelVolumeLevelScalar(index);
+            _deviceVolume.GetChannelVolumeLevelScalar(index, out _level);
         }
 
         public float Level
@@ -24,8 +24,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             {
                 if (_level != value)
                 {
-                    Guid dummy = Guid.Empty;
-                    _deviceVolume.SetChannelVolumeLevelScalar(_index, value, ref dummy);
+                    var context = Guid.Empty;
+                    unsafe { _deviceVolume.SetChannelVolumeLevelScalar(_index, value, &context); }
 
                     _level = value;
                     RaisePropertyChanged(nameof(Level));

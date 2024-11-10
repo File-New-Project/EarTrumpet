@@ -1,0 +1,47 @@
+name: Update Translators List
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly on Sunday at 00:00
+  workflow_dispatch:
+
+jobs:
+  update-translators:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Update README.md
+        shell: pwsh
+        run: |
+          $headers = @{
+            "Authorization" = "Bearer ${{ secrets.CROWDIN_API_TOKEN }}"
+          }
+
+          $response = Invoke-RestMethod `
+            -Uri "https://api.crowdin.com/api/v2/projects/407880/members" `
+            -Headers $headers
+          $translators = $response.data.data
+
+          $html = ($translators | Sort-Object -Property @{Expression={ $_.fullName }}, @{Expression={ $_.username }} | ForEach-Object {
+              $translator = $_
+              $translatorName = if ($translator.fullName) { $translator.fullName } else { $translator.username }
+              $avatarUrl = $translator.avatarUrl
+              "<img src=`"$avatarUrl`" width=`"60`" alt=`"$translatorName`" title=`"$translatorName`" />"
+          }) -join " "
+          $html = "<!-- begin-translators -->`n$html`n<!-- end-translators -->"
+
+          $readmeContent = Get-Content -Path .\README.md -Raw
+          $readmeContent -match "(?<sof>[\s\S]*?)<!-- begin-translators -->[\s\S]*?<!-- end-translators -->(?<eof>[\s\S]*)"
+          $readmeContent = $matches["sof"] + $html + $matches["eof"]
+
+          Set-Content -Path .\README.md -Value $readmeContent
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update translators via GitHub Actions" || exit 0
+          git push origin master

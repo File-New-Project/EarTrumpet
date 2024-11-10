@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Windows.Input;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace EarTrumpet.Diagnosis
 {
-    class ErrorReporter
+    class ErrorReporter : IDisposable
     {
         private static ErrorReporter s_instance;
         private readonly Client _bugsnagClient;
@@ -34,8 +34,12 @@ namespace EarTrumpet.Diagnosis
             {
                 try
                 {
-                    _bugsnagClient = new Client(Bugsnag.ConfigurationSection.Configuration.Settings);
-                    _bugsnagClient.BeforeNotify(new Middleware(OnBeforeNotify));
+                    var apikey = XDocument.Load("app.config")?.XPathSelectElement("//bugsnag")?.Attribute("apiKey")?.Value;
+                    if (!string.IsNullOrWhiteSpace(apikey) && apikey != "{bugsnag.apikey}")
+                    {
+                        _bugsnagClient = new Client(apikey);
+                        _bugsnagClient.BeforeNotify(new Middleware(OnBeforeNotify));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -76,12 +80,17 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        private void Fill(Dictionary<string, object> dest, Dictionary<string, Func<object>> source)
+        private static void Fill(Dictionary<string, object> dest, Dictionary<string, Func<object>> source)
         {
             foreach (var key in source.Keys)
             {
                 dest[key] = SnapshotData.InvokeNoThrow(source[key]);
             }
+        }
+
+        public void Dispose()
+        {
+            _listener.Dispose();
         }
     }
 }

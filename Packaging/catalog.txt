@@ -1,0 +1,6 @@
+..\.artifacts\base\x86\EarTrumpet.exe
+..\.artifacts\base\x86\EarTrumpet.dll
+..\.artifacts\base\x64\EarTrumpet.exe
+..\.artifacts\base\x64\EarTrumpet.dll
+..\.artifacts\base\arm64\EarTrumpet.exe
+..\.artifacts\base\arm64\EarTrumpet.dll

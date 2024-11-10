@@ -17,10 +17,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Win32;
 
 namespace EarTrumpet
 {
-    public partial class App
+    public sealed partial class App : IDisposable
     {
         public static bool IsShuttingDown { get; private set; }
         public static bool HasIdentity { get; private set; }
@@ -135,8 +136,8 @@ namespace EarTrumpet
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
 
             var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
-            var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
-            User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+            var hWndTooltip = PInvoke.SendMessage(new HWND(hWndTray), PInvoke.TB_GETTOOLTIPS, default, default);
+            PInvoke.SendMessage(new HWND(hWndTooltip), PInvoke.TTM_POPUP, default, default);
         }
 
         private void TrayIconScrolled(object _, int wheelDelta)
@@ -164,13 +165,13 @@ namespace EarTrumpet
             }
         }
 
-        private bool IsCriticalFontLoadFailure(Exception ex)
+        private static bool IsCriticalFontLoadFailure(Exception ex)
         {
             return ex.StackTrace.Contains("MS.Internal.Text.TextInterface.FontFamily.GetFirstMatchingFont") ||
                    ex.StackTrace.Contains("MS.Internal.Text.Line.Format");
         }
 
-        private void OnCriticalFontLoadFailure()
+        private static void OnCriticalFontLoadFailure()
         {
             Trace.WriteLine($"App OnCriticalFontLoadFailure");
 
@@ -265,8 +266,10 @@ namespace EarTrumpet
                         new EarTrumpetAboutPageViewModel(() => _errorReporter.DisplayDiagnosticData(), Settings)
                     });
 
-            var allCategories = new List<SettingsCategoryViewModel>();
-            allCategories.Add(defaultCategory);
+            var allCategories = new List<SettingsCategoryViewModel>
+            {
+                defaultCategory
+            };
 
             if (AddonManager.Host.SettingsItems != null)
             {
@@ -277,7 +280,7 @@ namespace EarTrumpet
             return new SettingsWindow { DataContext = viewModel };
         }
 
-        private SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
+        private static SettingsCategoryViewModel CreateAddonSettingsPage(IEarTrumpetAddonSettingsPage addonSettingsPage)
         {
             var addon = (EarTrumpetAddon)addonSettingsPage;
             var category = addonSettingsPage.GetSettingsCategory();
@@ -290,6 +293,12 @@ namespace EarTrumpet
         }
 
         private Window CreateMixerExperience() => new FullWindow { DataContext = new FullWindowViewModel(CollectionViewModel) };
+
+        public void Dispose()
+        {
+            _errorReporter.Dispose();
+            _trayIcon.Dispose();
+        }
 
         private void AbsoluteVolumeIncrement()
         {

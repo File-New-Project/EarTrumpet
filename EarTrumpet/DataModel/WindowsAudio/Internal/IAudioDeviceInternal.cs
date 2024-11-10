@@ -4,6 +4,6 @@
     {
         void UpdatePeakValue();
         void MoveHiddenAppsToDevice(string appId, string id);
-        void UnhideSessionsForProcessId(int processId);
+        void UnhideSessionsForProcessId(uint processId);
     }
 }

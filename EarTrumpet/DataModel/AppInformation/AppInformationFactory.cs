@@ -4,7 +4,7 @@ namespace EarTrumpet.DataModel.AppInformation
 {
     public class AppInformationFactory
     {
-        public static IAppInfo CreateForProcess(int processId, bool trackProcess = false)
+        public static IAppInfo CreateForProcess(uint processId, bool trackProcess = false)
         {
             if (processId == 0)
             {

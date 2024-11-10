@@ -85,12 +85,12 @@ namespace EarTrumpet.Diagnosis
             }
         }
 
-        private static bool IsProcessAlive(int processId)
+        private static bool IsProcessAlive(uint processId)
         {
-            bool isAlive = false;
+            var isAlive = false;
             try
             {
-                using (Process.GetProcessById(processId))
+                using (Process.GetProcessById((int)processId))
                 {
                 }
                 isAlive = true;

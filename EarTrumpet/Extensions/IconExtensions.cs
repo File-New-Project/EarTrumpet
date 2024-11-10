@@ -11,9 +11,8 @@ namespace EarTrumpet.Extensions
             // ownership of its wrapped handle so we have to use reflection
             // here.
 
-            // See also: https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Icon.cs,71
-
-            icon.GetType().GetField("ownHandle", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(icon, true);
+            // See also: https://github.com/dotnet/runtime/blob/main/src/libraries/System.Drawing.Common/src/System/Drawing/Icon.Windows.cs#L42
+            icon.GetType().GetField("_ownHandle", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(icon, true);
             return icon;
         }
     }

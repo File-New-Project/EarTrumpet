@@ -47,7 +47,7 @@ namespace EarTrumpet.UI.ViewModels
             if (_selected != null)
             {
                 _selected.IsSelected = true;
-                _selected.NavigatedTo();
+                SettingsPageViewModel.NavigatedTo();
             }
         }
 

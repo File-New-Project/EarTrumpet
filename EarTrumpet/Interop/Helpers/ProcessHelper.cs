@@ -10,7 +10,7 @@ namespace EarTrumpet.Interop.Helpers
             try
             {
                 Trace.WriteLine($"ProcessHelper StartNoThrow {fileName}");
-                using (Process.Start(fileName))
+                using (Process.Start(new ProcessStartInfo(fileName) { UseShellExecute = true }))
                 {
                 }
             }

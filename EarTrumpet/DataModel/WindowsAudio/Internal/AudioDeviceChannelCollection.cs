@@ -1,8 +1,9 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.Media.Audio.Endpoints;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -18,7 +19,8 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             _dispatcher = dispatcher;
 
             var ret = new List<AudioDeviceChannel>();
-            for (uint i = 0; i < deviceVolume.GetChannelCount(); i++)
+            deviceVolume.GetChannelCount(out var channelCount);
+            for (uint i = 0; i < channelCount; i++)
             {
                 ret.Add(new AudioDeviceChannel(deviceVolume, i));
             }

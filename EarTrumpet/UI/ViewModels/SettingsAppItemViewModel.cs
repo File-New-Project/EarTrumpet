@@ -53,7 +53,7 @@ namespace EarTrumpet.UI.ViewModels
         public float PeakValue1 => 0;
         public float PeakValue2 => 0;
         public string PersistedOutputDevice => throw new NotImplementedException();
-        public int ProcessId => throw new NotImplementedException();
+        public uint ProcessId => throw new NotImplementedException();
         public IDeviceViewModel Parent => throw new NotImplementedException();
         public ICommand Remove { get; set; }
         public string PackageInstallPath { get; set; }
@@ -82,7 +82,7 @@ namespace EarTrumpet.UI.ViewModels
             throw new NotImplementedException();
         }
 
-        public void OpenPopup(FrameworkElement uIElement)
+        public static void OpenPopup(FrameworkElement uIElement)
         {
 
         }

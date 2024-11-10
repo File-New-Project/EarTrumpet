@@ -1,4 +1,7 @@
-﻿using EarTrumpet.DataModel.AppInformation;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using EarTrumpet.DataModel.AppInformation;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensibility;
@@ -6,9 +9,7 @@ using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Windows.Win32.Media.Audio;
 
 #if DEBUG
 namespace EarTrumpet
@@ -65,13 +66,19 @@ namespace EarTrumpet
         private static void DebugRemoveAllDevices()
         {
             var devManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
-            var devManagerNotify = (Interop.MMDeviceAPI.IMMNotificationClient)devManager;
+            var devManagerNotify = (IMMNotificationClient)devManager;
             foreach (var dev in devManager.Devices.ToArray())
             {
-                devManagerNotify.OnDeviceRemoved(dev.Id);
+                unsafe
+                {
+                    fixed (char* deviceId = dev.Id)
+                    {
+                        devManagerNotify.OnDeviceRemoved(deviceId);
+                    }
+                }
             }
-            devManagerNotify.OnDefaultDeviceChanged(Interop.MMDeviceAPI.EDataFlow.eRender, Interop.MMDeviceAPI.ERole.eMultimedia, null);
-            devManagerNotify.OnDefaultDeviceChanged(Interop.MMDeviceAPI.EDataFlow.eRender, Interop.MMDeviceAPI.ERole.eConsole, null);
+            devManagerNotify.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eMultimedia, null);
+            devManagerNotify.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eConsole, null);
         }
 
         private static void AddMockApp(IAudioDevice mockDevice, string displayName, string appId, string iconPath)
@@ -101,7 +108,7 @@ namespace EarTrumpet
         {
             var id = Guid.NewGuid().ToString();
             var devManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
-            var devManagerNotify = (Interop.MMDeviceAPI.IMMNotificationClient)devManager;
+            var devManagerNotify = (IMMNotificationClient)devManager;
 
             var mockDevice = new DataModel.Audio.Mocks.AudioDevice(id, devManager);
 

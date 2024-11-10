@@ -26,7 +26,7 @@ namespace EarTrumpet.DataModel.Audio.Mocks
 
         public bool IsSystemSoundsSession { get; }
 
-        public int ProcessId { get; }
+        public uint ProcessId { get; }
 
         public string AppId { get; }
 

@@ -82,7 +82,7 @@ namespace EarTrumpet.UI.Themes
             if (window != null)
             {
                 AccentPolicyLibrary.EnableAcrylic(window,
-                    Manager.Current.ResolveRef(window, refValue),
+                    Manager.ResolveRef(window, refValue),
                     Interop.User32.AccentFlags.DrawAllBorders);
             }
         }

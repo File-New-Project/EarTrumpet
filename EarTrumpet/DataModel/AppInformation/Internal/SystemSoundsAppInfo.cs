@@ -1,14 +1,15 @@
-﻿using EarTrumpet.Extensions;
-using EarTrumpet.Interop;
-using System;
+﻿using System;
 using System.Diagnostics;
+using EarTrumpet.Extensions;
+using Windows.Win32;
+using Windows.Win32.System.SystemInformation;
 
 namespace EarTrumpet.DataModel.AppInformation.Internal
 {
     class SystemSoundsAppInfo : IAppInfo
     {
         public event Action<IAppInfo> Stopped { add { } remove { } }
-        public uint BackgroundColor => 0x000000;
+        public static uint BackgroundColor => 0x000000;
         public string ExeName => "*SystemSounds";
         public string DisplayName => null;
         public string PackageInstallPath => "System.SystemSoundsSession";
@@ -18,7 +19,7 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
         public SystemSoundsAppInfo()
         {
-            SmallLogoPath = Environment.ExpandEnvironmentVariables(Is64BitOperatingSystem() ? 
+            SmallLogoPath = Environment.ExpandEnvironmentVariables(Is64BitOperatingSystem() && !Environment.Is64BitProcess ? 
                 @"%windir%\sysnative\audiosrv.dll,203" : @"%windir%\system32\audiosrv.dll,203");
         }
 
@@ -29,16 +30,20 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                 return true; // Shortcut for AMD64 machines
             }
 
-            bool is64bit = false;
+            var is64bit = false;
+            var nativeMachine = IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_UNKNOWN;
             if (Environment.OSVersion.IsAtLeast(OSVersions.RS3))
             {
-                if (Kernel32.IsWow64Process2(Process.GetCurrentProcess().Handle,
-                    out Kernel32.IMAGE_FILE_MACHINE processMachine,
-                    out Kernel32.IMAGE_FILE_MACHINE nativeMachine))
+                unsafe
                 {
-                    is64bit =
-                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64 ||
-                        nativeMachine == Kernel32.IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64;
+                    if (PInvoke.IsWow64Process2(new HANDLE(Process.GetCurrentProcess().Handle),
+                        null,
+                        &nativeMachine))
+                    {
+                        is64bit =
+                            nativeMachine == IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_AMD64 ||
+                            nativeMachine == IMAGE_FILE_MACHINE.IMAGE_FILE_MACHINE_ARM64;
+                    }
                 }
             }
 

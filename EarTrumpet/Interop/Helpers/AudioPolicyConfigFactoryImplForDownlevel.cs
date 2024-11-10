@@ -1,32 +1,40 @@
-﻿using EarTrumpet.Interop.MMDeviceAPI;
-using System;
+﻿using System;
+using EarTrumpet.Interop.MMDeviceAPI;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using WinRT;
 
-namespace EarTrumpet.Interop.Helpers
+namespace EarTrumpet.Interop.Helpers;
+
+class AudioPolicyConfigFactoryImplForDownlevel : IAudioPolicyConfigFactory
 {
-    class AudioPolicyConfigFactoryImplForDownlevel : IAudioPolicyConfigFactory
+    private readonly IAudioPolicyConfigFactoryVariantForDownlevel _factory;
+
+    internal AudioPolicyConfigFactoryImplForDownlevel()
     {
-        private readonly IAudioPolicyConfigFactoryVariantForDownlevel _factory;
+        var iid = typeof(IAudioPolicyConfigFactoryVariantForDownlevel).GUID;
 
-        internal AudioPolicyConfigFactoryImplForDownlevel()
-        {
-            var iid = typeof(IAudioPolicyConfigFactoryVariantForDownlevel).GUID;
-            Combase.RoGetActivationFactory("Windows.Media.Internal.AudioPolicyConfig", ref iid, out object factory);
-            _factory = (IAudioPolicyConfigFactoryVariantForDownlevel)factory;
-        }
+        var className = "Windows.Media.Internal.AudioPolicyConfig";
+        PInvoke.WindowsCreateString(className, (uint)className.Length, out var classNameString);
+        PInvoke.RoGetActivationFactory(classNameString, iid, out var factory);
 
-        public HRESULT ClearAllPersistedApplicationDefaultEndpoints()
-        {
-            return _factory.ClearAllPersistedApplicationDefaultEndpoints();
-        }
+        _factory = (IAudioPolicyConfigFactoryVariantForDownlevel)factory;
+    }
 
-        public HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, out string deviceId)
-        {
-            return _factory.GetPersistedDefaultAudioEndpoint(processId, flow, role, out deviceId);
-        }
+    public HRESULT ClearAllPersistedApplicationDefaultEndpoints()
+    {
+        return _factory.ClearAllPersistedApplicationDefaultEndpoints();
+    }
 
-        public HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId)
-        {
-            return _factory.SetPersistedDefaultAudioEndpoint(processId, flow, role, deviceId);
-        }
+    public HRESULT GetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, out string deviceId)
+    {
+        var hr = _factory.GetPersistedDefaultAudioEndpoint(processId, flow, role, out var deviceIdPtr);
+        deviceId = MarshalString.FromAbi(deviceIdPtr);
+        return hr;
+    }
+
+    public HRESULT SetPersistedDefaultAudioEndpoint(uint processId, EDataFlow flow, ERole role, IntPtr deviceId)
+    {
+        return _factory.SetPersistedDefaultAudioEndpoint(processId, flow, role, deviceId);
     }
 }

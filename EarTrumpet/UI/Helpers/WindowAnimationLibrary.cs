@@ -6,6 +6,7 @@ using EarTrumpet.UI.Themes;
 using System;
 using System.Windows;
 using System.Windows.Media.Animation;
+using Windows.Win32;
 
 namespace EarTrumpet.UI.Helpers
 {
@@ -19,7 +20,7 @@ namespace EarTrumpet.UI.Helpers
             {
                 window.Topmost = true;
                 window.Focus();
-                User32.SetForegroundWindow(window.GetHandle());
+                PInvoke.SetForegroundWindow(new HWND(window.GetHandle()));
                 completed();
             });
 
@@ -279,7 +280,7 @@ namespace EarTrumpet.UI.Helpers
 
         public static void BringTaskbarToFront()
         {
-            User32.SetForegroundWindow(WindowsTaskbar.GetHwnd());
+            PInvoke.SetForegroundWindow(new HWND(WindowsTaskbar.GetHwnd()));
         }
     }
 }

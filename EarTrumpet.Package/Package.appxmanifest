@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
-  <Identity Name="40459File-New-Project.EarTrumpet" ProcessorArchitecture="x86" Publisher="CN=6099D0EF-9374-47ED-BDFE-A82136831235" Version="2.1.8.173" />
+  <Identity Name="40459File-New-Project.EarTrumpet" ProcessorArchitecture="x86" Publisher="CN=6099D0EF-9374-47ED-BDFE-A82136831235" Version="2.1.9.8" />
   <Properties>
     <DisplayName>EarTrumpet</DisplayName>
     <PublisherDisplayName>File-New-Project</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
-    <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.24123.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.17763.0" />
   </Dependencies>
   <Resources>
     <Resource Language="x-generate" />

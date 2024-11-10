@@ -1,0 +1,11 @@
+{
+    "$schema": "https://aka.ms/CsWin32.schema.json",
+    "emitSingleFile": false,
+    "public": true,
+    "comInterop": {
+        "preserveSigMethods": [
+            "IAudioSessionControl2.GetProcessId",
+            "IAudioMeterInformation.GetChannelsPeakValues"
+        ]
+    }
+}

@@ -7,19 +7,19 @@ namespace EarTrumpet.UI.ViewModels
         private static readonly string s_hotkeyNoneText = new HotkeyData().ToString();
 
         public HotkeyViewModel OpenFlyoutHotkey { get; }
-        public string DefaultHotKey => s_hotkeyNoneText;
+        public static string DefaultHotKey => s_hotkeyNoneText;
 
         public HotkeyViewModel OpenMixerHotkey { get; }
-        public string DefaultMixerHotKey => s_hotkeyNoneText;
+        public static string DefaultMixerHotKey => s_hotkeyNoneText;
 
         public HotkeyViewModel OpenSettingsHotkey { get; }
-        public string DefaultSettingsHotKey => s_hotkeyNoneText;
+        public static string DefaultSettingsHotKey => s_hotkeyNoneText;
 
         public HotkeyViewModel AbsoluteVolumeUpHotkey { get; }
-        public string DefaultAbsoluteVolumeUpHotkey => s_hotkeyNoneText;
+        public static string DefaultAbsoluteVolumeUpHotkey => s_hotkeyNoneText;
 
         public HotkeyViewModel AbsoluteVolumeDownHotkey { get; }
-        public string DefaultAbsoluteVolumeDownHotkey => s_hotkeyNoneText;
+        public static string DefaultAbsoluteVolumeDownHotkey => s_hotkeyNoneText;
 
         public EarTrumpetShortcutsPageViewModel(AppSettings settings) : base(null)
         {

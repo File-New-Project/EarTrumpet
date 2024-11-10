@@ -12,7 +12,7 @@ namespace EarTrumpet.Interop
             /* ... */
         }
 
-        #if X86
+#if X86
         [StructLayout(LayoutKind.Explicit)]
         public struct SYSTEM_PROCESS_INFORMATION
         {
@@ -26,9 +26,23 @@ namespace EarTrumpet.Interop
             public int UniqueProcessId;
             /* ... */
         }
-        #else
-        #error Platform not supported.
-        #endif
+#elif X64 || ARM64
+        [StructLayout(LayoutKind.Explicit)]
+        public struct SYSTEM_PROCESS_INFORMATION
+        {
+            [FieldOffset(0)]
+            public int NextEntryOffset;
+            /* ... */
+            [FieldOffset(56)]
+            public UNICODE_STRING ImageName;
+            /* ... */
+            [FieldOffset(80)]
+            public int UniqueProcessId;
+            /* ... */
+        }
+#else
+#error Platform not supported.
+#endif
 
         [StructLayout(LayoutKind.Explicit, Size = 8)]
         public struct LARGE_INTEGER

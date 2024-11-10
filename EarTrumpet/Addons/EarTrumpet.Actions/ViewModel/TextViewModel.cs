@@ -1,5 +1,6 @@
 ﻿using EarTrumpet.Actions.DataModel;
 using System;
+using System.Globalization;
 
 namespace EarTrumpet.Actions.ViewModel
 {
@@ -39,7 +40,7 @@ namespace EarTrumpet.Actions.ViewModel
         private string ResolveResource(string suffix)
         {
             var res = $"{_part.GetType().Name}_{suffix}";
-            var ret = Properties.Resources.ResourceManager.GetString(res);
+            var ret = Properties.Resources.ResourceManager.GetString(res, CultureInfo.CurrentCulture);
             if (string.IsNullOrWhiteSpace(ret))
             {
                 throw new NotImplementedException($"Missing resource: {res}");

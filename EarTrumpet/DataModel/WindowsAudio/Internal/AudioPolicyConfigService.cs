@@ -1,8 +1,10 @@
-﻿using EarTrumpet.Interop;
+﻿using System;
+using System.Diagnostics;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.Interop.MMDeviceAPI;
-using System;
-using System.Diagnostics;
+using Windows.Win32;
+using Windows.Win32.Media.Audio;
+using Windows.Win32.System.WinRT;
 
 namespace EarTrumpet.DataModel.WindowsAudio.Internal
 {
@@ -13,7 +15,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
         private const string MMDEVAPI_TOKEN = @"\\?\SWD#MMDEVAPI#";
 
         private IAudioPolicyConfigFactory _sharedPolicyConfig;
-        private EDataFlow _flow;
+        private readonly EDataFlow _flow;
 
         public AudioPolicyConfig(EDataFlow flow)
         {
@@ -33,7 +35,7 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             return $"{MMDEVAPI_TOKEN}{deviceId}{(_flow == EDataFlow.eRender ? DEVINTERFACE_AUDIO_RENDER : DEVINTERFACE_AUDIO_CAPTURE)}";
         }
 
-        private string UnpackDeviceId(string deviceId)
+        private static string UnpackDeviceId(string deviceId)
         {
             if (deviceId.StartsWith(MMDEVAPI_TOKEN)) deviceId = deviceId.Remove(0, MMDEVAPI_TOKEN.Length);
             if (deviceId.EndsWith(DEVINTERFACE_AUDIO_RENDER)) deviceId = deviceId.Remove(deviceId.Length - DEVINTERFACE_AUDIO_RENDER.Length);
@@ -41,23 +43,31 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             return deviceId;
         }
 
-        public void SetDefaultEndPoint(string deviceId, int processId)
+        public void SetDefaultEndPoint(string deviceId, uint processId)
         {
             Trace.WriteLine($"AudioPolicyConfigService SetDefaultEndPoint {deviceId} {processId}");
             try
             {
                 EnsurePolicyConfig();
 
-                IntPtr hstring = IntPtr.Zero;
+                var hstring = HSTRING.Null;
 
                 if (!string.IsNullOrWhiteSpace(deviceId))
                 {
                     var str = GenerateDeviceId(deviceId);
-                    Combase.WindowsCreateString(str, (uint)str.Length, out hstring);
+                    unsafe
+                    {
+                        fixed(char* ptr = str)
+                        {
+                            PInvoke.WindowsCreateString(ptr, (uint)str.Length, &hstring);
+                        }
+                    }
                 }
 
-                _sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, _flow, ERole.eMultimedia, hstring);
-                _sharedPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, _flow, ERole.eConsole, hstring);
+                _sharedPolicyConfig.SetPersistedDefaultAudioEndpoint(processId, _flow, ERole.eMultimedia, hstring);
+                _sharedPolicyConfig.SetPersistedDefaultAudioEndpoint(processId, _flow, ERole.eConsole, hstring);
+
+                PInvoke.WindowsDeleteString(hstring);
             }
             catch (Exception ex)
             {
@@ -65,13 +75,13 @@ namespace EarTrumpet.DataModel.WindowsAudio.Internal
             }
         }
 
-        public string GetDefaultEndPoint(int processId)
+        public string GetDefaultEndPoint(uint processId)
         {
             try
             {
                 EnsurePolicyConfig();
 
-                _sharedPolicyConfig.GetPersistedDefaultAudioEndpoint((uint)processId, _flow, ERole.eMultimedia | ERole.eConsole, out string deviceId);
+                _sharedPolicyConfig.GetPersistedDefaultAudioEndpoint(processId, _flow, ERole.eMultimedia | ERole.eConsole, out string deviceId);
                 return UnpackDeviceId(deviceId);
             }
             catch (Exception ex)

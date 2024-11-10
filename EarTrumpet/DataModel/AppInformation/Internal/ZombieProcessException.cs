@@ -1,18 +1,17 @@
-﻿using EarTrumpet.Interop;
-using System;
+﻿using System;
+using Windows.Win32;
 
-namespace EarTrumpet.DataModel.AppInformation.Internal
+namespace EarTrumpet.DataModel.AppInformation.Internal;
+
+public class ZombieProcessException : Exception
 {
-    public class ZombieProcessException : Exception
-    {
-        public ZombieProcessException(int processId) : base($"Process is a zombie: {processId}") { }
+    public ZombieProcessException(uint processId) : base($"Process is a zombie: {processId}") { }
 
-        public static void ThrowIfZombie(int processId, IntPtr handle)
+    public static void ThrowIfZombie(uint processId, IntPtr handle)
+    {
+        if (PInvoke.WaitForSingleObject(new HANDLE(handle), 0) != WAIT_EVENT.WAIT_TIMEOUT)
         {
-            if (Kernel32.WaitForSingleObject(handle, 0) != Kernel32.WAIT_TIMEOUT)
-            {
-                throw new ZombieProcessException(processId);
-            }
+            throw new ZombieProcessException(processId);
         }
     }
 }

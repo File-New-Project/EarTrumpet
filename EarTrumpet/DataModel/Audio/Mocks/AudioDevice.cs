@@ -81,7 +81,7 @@ namespace EarTrumpet.DataModel.Audio.Mocks
         {
         }
 
-        public void UnhideSessionsForProcessId(int processId)
+        public void UnhideSessionsForProcessId(uint processId)
         {
         }
     }

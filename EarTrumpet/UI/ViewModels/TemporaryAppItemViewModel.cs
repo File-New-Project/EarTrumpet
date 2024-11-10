@@ -63,14 +63,14 @@ namespace EarTrumpet.UI.ViewModels
         public float PeakValue1 { get; }
         public float PeakValue2 { get; }
         public string PersistedOutputDevice => ((IAudioDeviceManagerWindowsAudio)_deviceManager).GetDefaultEndPoint(ProcessId);
-        public int ProcessId { get; }
+        public uint ProcessId { get; }
         public IDeviceViewModel Parent { get; }
         public string PackageInstallPath { get; }
 
         private readonly IAudioDeviceManager _deviceManager;
         private readonly WeakReference<DeviceCollectionViewModel> _parent;
         private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
-        private int[] _processIds;
+        private uint[] _processIds;
         private int _volume;
         private bool _isMuted;
 
@@ -112,7 +112,7 @@ namespace EarTrumpet.UI.ViewModels
             }
             else
             {
-                _processIds = new int[] { ProcessId };
+                _processIds = new uint[] { ProcessId };
             }
 
             foreach (var pid in _processIds)

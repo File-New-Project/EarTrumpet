@@ -8,7 +8,7 @@ using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
+using System.Composition;
 using System.IO;
 using System.Linq;
 
@@ -36,7 +36,7 @@ namespace EarTrumpet.Actions
         }
 
         private readonly string c_actionsSettingKey = "ActionsData";
-        private EarTrumpetAction[] _actions = new EarTrumpetAction[] { };
+        private EarTrumpetAction[] _actions = Array.Empty<EarTrumpetAction>();
         private TriggerManager _triggerManager = new TriggerManager();
 
         public void OnAddonEvent(AddonEventKind evt)
@@ -81,7 +81,7 @@ namespace EarTrumpet.Actions
                         Glyph = "\xE1CE",
                         IsChecked = true,
                         DisplayName = item.DisplayName,
-                        Command = new RelayCommand(() => EarTrumpetActionsAddon.Current.TriggerAction(item))
+                        Command = new RelayCommand(() => TriggerAction(item))
                     });
                 }
                 return ret;
@@ -91,7 +91,7 @@ namespace EarTrumpet.Actions
         private void LoadAndRegister()
         {
             _triggerManager.Clear();
-            _actions = Settings.Get(c_actionsSettingKey, new EarTrumpetAction[] { });
+            _actions = Settings.Get(c_actionsSettingKey, Array.Empty<EarTrumpetAction>());
             _actions.SelectMany(a => a.Triggers).ToList().ForEach(t => _triggerManager.Register(t));
         }
 
@@ -120,7 +120,7 @@ namespace EarTrumpet.Actions
             }
         }
 
-        public void TriggerAction(EarTrumpetAction action)
+        public static void TriggerAction(EarTrumpetAction action)
         {
             action.Actions.ToList().ForEach(a => ActionProcessor.Invoke(a));
         }
