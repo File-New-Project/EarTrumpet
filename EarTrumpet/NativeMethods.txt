@@ -110,6 +110,7 @@ PathParseIconLocation
 PKEY_AudioEndpoint_PhysicalSpeakers
 PKEY_Device_FriendlyName
 PKEY_ItemNameDisplay
+PKEY_AppUserModel_ID
 PROPERTYKEY
 PropVariantClear
 QueryFullProcessImageName

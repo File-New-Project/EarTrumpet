@@ -37,7 +37,6 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
 
                 var shellItem = (IShellItem2)rawShellItem;
 
-                AppId = shellItem.GetString(ref PropertyKeys.PKEY_AppUserModel_ID);
                 var pkey = PInvoke.PKEY_AppUserModel_PackageInstallPath;
                 var packageInstallPathPtr = new PWSTR();
                 unsafe
@@ -52,6 +51,14 @@ namespace EarTrumpet.DataModel.AppInformation.Internal
                     shellItem.GetString(&pkey, &displayNamePtr);
                 }
 
+                pkey = PInvoke.PKEY_AppUserModel_PackageInstallPath;
+                var aumidPtr = new PWSTR();
+                unsafe
+                {
+                    shellItem.GetString(&pkey, &aumidPtr);
+                }
+
+                AppId = aumidPtr.ToString();
                 PackageInstallPath = packageInstallPathPtr.ToString();
                 DisplayName = displayNamePtr.ToString();
                 ExeName = packageInstallPathPtr.ToString();
