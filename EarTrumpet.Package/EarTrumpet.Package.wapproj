@@ -155,35 +155,43 @@
         that don't use MRT. So we latch onto the newly generated
         manifest and fix it up ourselves.
     -->
-    <Target Name="EarTrumpet_Hook_GenerateDesktopBridgeAppxManifest" AfterTargets="_GenerateDesktopBridgeAppxManifest">
-        <PropertyGroup>
-            <AppxManifestPath>%(FinalAppxManifest.Identity)</AppxManifestPath>
-        </PropertyGroup>
-
+    <Target Name="EarTrumpet_SetAppxDefaultResourceQualifiers" BeforeTargets="PrepareForBuild">
         <ItemGroup>
-            <ProjectPaths Include="%(ProjectReferenceWithExtraMetadata.RootDir)%(ProjectReferenceWithExtraMetadata.Directory)" />
+            <EarTrumpetProjectPaths Include="%(ProjectReferenceWithExtraMetadata.RootDir)%(ProjectReferenceWithExtraMetadata.Directory)" />
         </ItemGroup>
 
-        <CreateItem Include="%(ProjectPaths.Identity)**\Resources.*.resx">
-            <Output TaskParameter="Include" ItemName="ReferencedResxFiles"/>
+        <CreateItem Include="%(EarTrumpetProjectPaths.Identity)**\Resources.*.resx">
+            <Output TaskParameter="Include" ItemName="EarTrumpetReferencedResxFiles"/>
         </CreateItem>
 
         <ItemGroup>
-            <ReferencedResxFiles>
+            <EarTrumpetReferencedResxFiles>
                 <LanguageTag>$([System.Text.RegularExpressions.Regex]::Match('%(Filename)', 'Resources\.(.+)').Groups[1].Value)</LanguageTag>
-            </ReferencedResxFiles>
+            </EarTrumpetReferencedResxFiles>
         </ItemGroup>
 
+        <Message Importance="high" Text="AppxDefaultResourceQualifiers = $(AppxDefaultResourceQualifiers)" />
+
         <PropertyGroup>
-            <ResourcesContent>
-                &lt;Resource Language="en-us" /&gt;
-                @(ReferencedResxFiles->'&lt;Resource Language="%(LanguageTag)" /&gt;', '')
-            </ResourcesContent>
+            <AppxDefaultResourceQualifiers>Language=en-us;@(EarTrumpetReferencedResxFiles->'%(LanguageTag)', ';')|DXFeatureLevel=DX9|Scale=100|Scale=125|Scale=150|Scale=200|Scale=400|TargetSize=16|TargetSize=24|TargetSize=32|TargetSize=48|TargetSize=256|AlternateForm=UNPLATED|Contrast=standard|HomeRegion=001|LayoutDirection=LTR|Configuration=|Platform=UAP</AppxDefaultResourceQualifiers>
         </PropertyGroup>
 
-        <XmlPoke XmlInputPath="$(AppxManifestPath)"
+        <Message Importance="high" Text="AppxDefaultResourceQualifiers = $(AppxDefaultResourceQualifiers)" />
+    </Target>
+
+    <Target Name="EarTrumpet_GenerateDesktopBridgeAppxManifest" AfterTargets="_GenerateDesktopBridgeAppxManifest" DependsOnTargets="EarTrumpet_SetAppxDefaultResourceQualifiers">
+        <PropertyGroup>
+            <EarTrumpetAppxManifestPath>%(FinalAppxManifest.Identity)</EarTrumpetAppxManifestPath>
+            <EarTrumpetResourcesContent>
+                &lt;Resource Language="en-us" /&gt;
+                @(EarTrumpetReferencedResxFiles->'&lt;Resource Language="%(LanguageTag)" /&gt;', '')
+            </EarTrumpetResourcesContent>
+        </PropertyGroup>
+
+        <XmlPoke XmlInputPath="$(EarTrumpetAppxManifestPath)"
                  Query="//*[local-name()='Package']/*[local-name()='Resources']"
-                 Value="$(ResourcesContent)"
+                 Value="$(EarTrumpetResourcesContent)"
                  Namespaces="&lt;Namespace Prefix='p' Uri='http://schemas.microsoft.com/appx/manifest/foundation/windows10' /&gt;" />
     </Target>
+
 </Project>
