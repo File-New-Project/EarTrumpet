@@ -181,6 +181,20 @@ public class AppSettings
         set => _settings.Set("ShowFullMixerWindowOnStartup", value);
     }
 
+    public Guid TrayIconIdentity
+    {
+        get
+        {
+            var id = _settings.Get("TrayIconId", Guid.Empty);
+            if (id == Guid.Empty)
+            {
+                id = Guid.NewGuid();
+                _settings.Set("TrayIconId", id);
+            }
+            return id;
+        }
+    }
+
     private static bool IsTelemetryEnabledByDefault()
     {
         // Discussion on what to include:

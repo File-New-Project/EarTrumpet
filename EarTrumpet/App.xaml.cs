@@ -109,7 +109,7 @@ public sealed partial class App : IDisposable
         deviceManager.Loaded += (_, __) => CompleteStartup();
         CollectionViewModel = new DeviceCollectionViewModel(deviceManager, Settings);
 
-        _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings));
+        _trayIcon = new ShellNotifyIcon(new TaskbarIconSource(CollectionViewModel, Settings), Settings.TrayIconIdentity);
         Exit += (_, __) => _trayIcon.IsVisible = false;
         CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 

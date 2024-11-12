@@ -61,6 +61,7 @@ public sealed class ShellNotifyIcon : IDisposable
     private System.Drawing.Point _cursorPosition;
     private int _remainingTicks;
     private bool _hasAlreadyProcessedButtonUp;
+    private readonly Guid _iconIdentity;
     private bool HasAlreadyProcessedButtonUp
     {
         get
@@ -72,13 +73,14 @@ public sealed class ShellNotifyIcon : IDisposable
         set => _hasAlreadyProcessedButtonUp = value;
     }
 
-    public ShellNotifyIcon(IShellNotifyIconSource icon)
+    public ShellNotifyIcon(IShellNotifyIconSource icon, Guid iconIdentity)
     {
         IconSource = icon;
         IconSource.Changed += (_) => Update();
         _window = new Win32Window();
         _window.Initialize(WndProc);
         _invalidationTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Normal, (_, __) => OnDelayedIconCheckForUpdate(), Dispatcher.CurrentDispatcher);
+        _iconIdentity = iconIdentity;
 
         Themes.Manager.Current.PropertyChanged += (_, __) => ScheduleDelayedIconInvalidation();
         Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (_, __) => ScheduleDelayedIconInvalidation();
@@ -107,10 +109,15 @@ public sealed class ShellNotifyIcon : IDisposable
         {
             cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONDATAW)),
             hWnd = new HWND(_window.Handle.ToPointer()),
-            uFlags = NOTIFY_ICON_DATA_FLAGS.NIF_MESSAGE | NOTIFY_ICON_DATA_FLAGS.NIF_ICON | NOTIFY_ICON_DATA_FLAGS.NIF_TIP | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP,
+            uFlags = NOTIFY_ICON_DATA_FLAGS.NIF_MESSAGE
+                     | NOTIFY_ICON_DATA_FLAGS.NIF_ICON
+                     | NOTIFY_ICON_DATA_FLAGS.NIF_TIP
+                     | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP
+                     | NOTIFY_ICON_DATA_FLAGS.NIF_GUID,
             uCallbackMessage = WM_CALLBACKMOUSEMSG,
             hIcon = new HICON(IconSource.Current.Handle.ToPointer()),
-            szTip = _text
+            szTip = _text,
+            guidItem = _iconIdentity
         };
     }
 
@@ -221,7 +228,7 @@ public sealed class ShellNotifyIcon : IDisposable
         var id = new NOTIFYICONIDENTIFIER
         {
             cbSize = (uint)Marshal.SizeOf(typeof(NOTIFYICONIDENTIFIER)),
-            hWnd = new HWND(_window.Handle.ToPointer())
+            guidItem = _iconIdentity
         };
 
         if (PInvoke.Shell_NotifyIconGetRect(id, out var location) == 0)
