@@ -6,7 +6,9 @@
 - Added setting to show the full mixer window on startup
 - Added support for adjusting volumes by 10% in one step from the flyout when the `Ctrl` key is pressed in combination with `Right`/`Left` or `+`/`-` (thanks @ryanspain)
 - Migrated EarTrumpet from .NET Framework 4.6.2 to .NET 8.0
+- Fixed an issue with EarTrumpet packaging that affected the languages shown in the Microsoft Store
 - Dropped support for some end-of-life versions of Windows 10
+- Added a help dialog to assist when EarTrumpet can't start automatically due to missing Windows policies
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
