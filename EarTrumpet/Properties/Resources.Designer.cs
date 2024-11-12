@@ -846,6 +846,26 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EarTrumpet.
+        /// </summary>
+        public static string MissingPoliciesDialogHeaderText {
+            get {
+                return ResourceManager.GetString("MissingPoliciesDialogHeaderText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Windows is missing registry entries that are preventing EarTrumpet from launching automatically.
+        ///
+        ///Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?.
+        /// </summary>
+        public static string MissingPoliciesHelpText {
+            get {
+                return ResourceManager.GetString("MissingPoliciesHelpText", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to More commands.
         /// </summary>
         public static string MoreCommandsAccessibleText {
@@ -853,7 +873,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MoreCommandsAccessibleText", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Mouse settings.
         /// </summary>
@@ -871,7 +891,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Muted.
         /// </summary>

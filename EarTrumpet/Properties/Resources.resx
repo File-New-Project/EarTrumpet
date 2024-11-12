@@ -287,6 +287,14 @@
 
 Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows is missing registry entries that are preventing EarTrumpet from launching automatically.
+
+Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
+  </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Toggle mute</value>
   </data>

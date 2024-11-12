@@ -16,21 +16,43 @@ using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
 using EarTrumpet.UI.Views;
+using Microsoft.Win32;
 using Windows.Win32;
 
 namespace EarTrumpet;
 
 public sealed partial class App : IDisposable
 {
-    public static bool IsShuttingDown { get; private set; }
-    public static bool HasIdentity { get; private set; }
-    public static bool HasDevIdentity { get; private set; }
-    public static string PackageName { get; private set; }
-    public static Version PackageVersion { get; private set; }
+    public static bool IsShuttingDown
+    {
+        get; private set;
+    }
+    public static bool HasIdentity
+    {
+        get; private set;
+    }
+    public static bool HasDevIdentity
+    {
+        get; private set;
+    }
+    public static string PackageName
+    {
+        get; private set;
+    }
+    public static Version PackageVersion
+    {
+        get; private set;
+    }
     public static TimeSpan Duration => s_appTimer.Elapsed;
 
-    public FlyoutWindow FlyoutWindow { get; private set; }
-    public DeviceCollectionViewModel CollectionViewModel { get; private set; }
+    public FlyoutWindow FlyoutWindow
+    {
+        get; private set;
+    }
+    public DeviceCollectionViewModel CollectionViewModel
+    {
+        get; private set;
+    }
 
     private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
     private FlyoutViewModel _flyoutViewModel;
@@ -40,7 +62,10 @@ public sealed partial class App : IDisposable
     private WindowHolder _settingsWindow;
     private ErrorReporter _errorReporter;
 
-    public static AppSettings Settings { get; private set; }
+    public static AppSettings Settings
+    {
+        get; private set;
+    }
 
     private void OnAppStartup(object sender, StartupEventArgs e)
     {
@@ -61,6 +86,7 @@ public sealed partial class App : IDisposable
 
             try
             {
+                NotifyOnMissingStartupPolicies();
                 ContinueStartup();
             }
             catch (Exception ex) when (IsCriticalFontLoadFailure(ex))
@@ -194,6 +220,68 @@ public sealed partial class App : IDisposable
 
         // Stop execution because callbacks to the UI thread will likely cause another cascading font error.
         new AutoResetEvent(false).WaitOne();
+    }
+
+    private static bool IsAnyStartupPolicyMissing()
+    {
+        Trace.WriteLine($"App IsAnyStartupPolicyMissing");
+
+        try
+        {
+            var registryPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
+            using var key = Registry.LocalMachine.OpenSubKey(registryPath);
+            if (key == null)
+            {
+                return true;
+            }
+
+            var dwords = new[] {
+                "EnableFullTrustStartupTasks",
+                "EnableUwpStartupTasks",
+                "SupportFullTrustStartupTasks",
+                "SupportUwpStartupTasks"
+            };
+
+            foreach (var dword in dwords)
+            {
+                // Warning: RegistryKey.GetValue returns int for DWORDs
+
+                var value = key.GetValue(dword);
+                if (value == null || value.GetType() != typeof(int))
+                {
+                    Trace.WriteLine($"Missing or invalid: {dword}");
+                    return true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"Exception: {ex}");
+        }
+
+        return false;
+    }
+
+    private static void NotifyOnMissingStartupPolicies()
+    {
+        if (!IsAnyStartupPolicyMissing())
+        {
+            return;
+        }
+
+        new Thread(() =>
+        {
+            if (MessageBox.Show(
+                EarTrumpet.Properties.Resources.MissingPoliciesHelpText,
+                EarTrumpet.Properties.Resources.MissingPoliciesDialogHeaderText,
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Warning,
+                MessageBoxResult.OK) == MessageBoxResult.OK)
+            {
+                Trace.WriteLine($"App NotifyOnMissingStartupPolicies OK");
+                ProcessHelper.StartNoThrow("https://eartrumpet.app/jmp/fixstartup");
+            }
+        }).Start();
     }
 
     private List<ContextMenuItem> GetTrayContextMenuItems()
