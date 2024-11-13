@@ -85,7 +85,7 @@ internal class DesktopAppInfo : IAppInfo
             Trace.WriteLine($"DesktopAppInfo Attempting AppID resolve for pid {processId}");
 
             var appResolver = (IApplicationResolver)new ApplicationResolver();
-            appResolver.GetAppIDForProcess((uint)processId, out var appId, out _, out _, out _);
+            appResolver.GetAppIDForProcess(processId, out var appId, out _, out _, out _);
             Marshal.ReleaseComObject(appResolver);
 
             Trace.WriteLine($"DesktopAppInfo Attempting display name read for AppID {appId}");
@@ -107,6 +107,8 @@ internal class DesktopAppInfo : IAppInfo
                     shellItem.GetString(&pkey, &displayNamePtr);
                 }
                 DisplayName = displayNamePtr.ToString();
+
+                Trace.WriteLine($"DesktopAppInfo Resolved display name using shell item {DisplayName}");
             }
         }
         catch (COMException ex)
@@ -129,6 +131,9 @@ internal class DesktopAppInfo : IAppInfo
             {
                 Trace.WriteLine(ex);
             }
+
+            Trace.WriteLine($"DesktopAppInfo Resolved display name using main window title {DisplayName}");
+
         }
 
         if (trackProcess)
