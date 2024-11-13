@@ -9,6 +9,7 @@
 - Fixed an issue with EarTrumpet packaging that affected the languages shown in the Microsoft Store
 - Dropped support for some end-of-life versions of Windows 10
 - Added a help dialog to assist when EarTrumpet can't start automatically due to missing Windows policies
+- Fixed the duplicate Windows Legacy > Volume Mixer entries that appear on Windows 11
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)

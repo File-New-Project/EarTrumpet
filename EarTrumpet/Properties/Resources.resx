@@ -130,7 +130,7 @@
     <value>Volume Mixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volume Mixer</value>
+    <value>Volume mixer (legacy)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>It doesn't look like you have any playback devices.</value>
@@ -656,7 +656,7 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
     <value>App volume and device preferences</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Volume mixer</value>
+    <value>Volume mixer (Windows Settings)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Mouse settings</value>

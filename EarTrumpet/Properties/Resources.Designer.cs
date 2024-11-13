@@ -837,7 +837,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volume Mixer.
+        ///   Looks up a localized string similar to Volume mixer (legacy).
         /// </summary>
         public static string LegacyVolumeMixerText {
             get {
@@ -853,7 +853,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MissingPoliciesDialogHeaderText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Windows is missing registry entries that are preventing EarTrumpet from launching automatically.
         ///
@@ -864,7 +864,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MissingPoliciesHelpText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to More commands.
         /// </summary>
@@ -873,7 +873,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MoreCommandsAccessibleText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Mouse settings.
         /// </summary>
@@ -891,7 +891,7 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("MoveButtonAccessibleText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Muted.
         /// </summary>
@@ -974,7 +974,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volume mixer.
+        ///   Looks up a localized string similar to Volume mixer (Windows Settings).
         /// </summary>
         public static string OpenAppsVolume_Windows11_Text {
             get {
