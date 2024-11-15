@@ -335,4 +335,33 @@ internal class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, 
     {
         System.Diagnostics.Trace.WriteLine($"AudioDeviceManager-({_kind}) {message}");
     }
+
+    public void RefreshAllDevices()
+    {
+        foreach (var dev in Devices.ToArray())
+        {
+            ((IMMNotificationClient)this).OnDeviceRemoved(dev.Id);
+        }
+        _default = null;
+
+        _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
+        _enumerator.RegisterEndpointNotificationCallback(this);
+
+        _enumerator.EnumAudioEndpoints(Flow, DEVICE_STATE.DEVICE_STATE_ACTIVE, out var devices);
+        devices.GetCount(out var deviceCount);
+        for (uint i = 0; i < deviceCount; i++)
+        {
+            devices.Item(i, out var device);
+            device.GetId(out var deviceId);
+            ((IMMNotificationClient)this).OnDeviceAdded(deviceId);
+        }
+        this.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eMultimedia, null);
+        this.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eConsole, null);
+
+        _dispatcher.Invoke((Action)(() =>
+        {
+            QueryDefaultDevice();
+        }));
+
+    }
 }

@@ -118,6 +118,21 @@ public sealed partial class App : IDisposable
         // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
         // to be executed, breaking the assumption that startup is complete.
         FlyoutWindow.Initialize();
+
+        // listen for user session change
+        // When user come back after user switch, do some workaround for issue of losing audio sessions
+        SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+        Exit += (_, __) => SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
+    }
+
+    private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+    {
+        Trace.WriteLine($"Detected User Session Switch: {e.Reason}");
+        if (e.Reason == SessionSwitchReason.ConsoleConnect)
+        {
+            var devManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
+            devManager.RefreshAllDevices();
+        }
     }
 
     private void CompleteStartup()
