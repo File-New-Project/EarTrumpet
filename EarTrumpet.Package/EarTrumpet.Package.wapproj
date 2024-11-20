@@ -170,11 +170,9 @@
         <LanguageTag>$([System.Text.RegularExpressions.Regex]::Match('%(Filename)', 'Resources\.(.+)').Groups[1].Value)</LanguageTag>
       </EarTrumpetReferencedResxFiles>
     </ItemGroup>
-    <Message Importance="high" Text="AppxDefaultResourceQualifiers = $(AppxDefaultResourceQualifiers)" />
     <PropertyGroup>
       <AppxDefaultResourceQualifiers>Language=en-us;@(EarTrumpetReferencedResxFiles->'%(LanguageTag)', ';')|DXFeatureLevel=DX9|Scale=100|Scale=125|Scale=150|Scale=200|Scale=400|TargetSize=16|TargetSize=24|TargetSize=32|TargetSize=48|TargetSize=256|AlternateForm=UNPLATED|Contrast=standard|HomeRegion=001|LayoutDirection=LTR|Configuration=|Platform=UAP</AppxDefaultResourceQualifiers>
     </PropertyGroup>
-    <Message Importance="high" Text="AppxDefaultResourceQualifiers = $(AppxDefaultResourceQualifiers)" />
   </Target>
   <Target Name="EarTrumpet_GenerateDesktopBridgeAppxManifest" AfterTargets="_GenerateDesktopBridgeAppxManifest" DependsOnTargets="EarTrumpet_SetAppxDefaultResourceQualifiers">
     <PropertyGroup>
