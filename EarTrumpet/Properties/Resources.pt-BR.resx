@@ -130,7 +130,7 @@
     <value>Mixer de Volume</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mixer de Volume</value>
+    <value>Mixer de Volume (Legado)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Não há dispositivo de reprodução disponível.</value>
@@ -286,6 +286,14 @@
     <value>Uma fonte danificada no sistema está impedindo a execução do EarTrumpet.
 
 Deseja abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>O Windows está com entradas de registro ausentes que estão impedindo o EarTrumpet de iniciar automaticamente.
+
+Abrir [https://eartrumpet.app/jmp/fixstartup] para resolver isso?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Ativar/Desativar Som</value>
@@ -648,7 +656,7 @@ Deseja abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Preferências do dispositivo e volume do aplicativo</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mixer de volume</value>
+    <value>Mixer de volume (Configurações do Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Configurações do Mouse</value>
