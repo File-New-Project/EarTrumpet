@@ -130,7 +130,7 @@
     <value>Mješač glasnoće</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mješač glasnoće</value>
+    <value>Mješač glasnoće (original)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Izgleda da nemate uređaje za reprodukciju.</value>
@@ -286,6 +286,14 @@
     <value>Pokvaren font na Vašem sistemu onemogućava EarTrumpetu pokretanje.
 
 Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>U Windows Registry nedostaju unosi koji sprječavaju EarTrumpet u automatskom pokretanju.
+
+Otvorite [https://eartrumpet.app/jmp/fixstartup] za rješavanje problema?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Isključi zvuk</value>
@@ -648,7 +656,7 @@ Otvoriti [https://eartrumpet.app/jmp/fixfonts]?</value>
     <value>Postavke glasnoće aplikacije i postavke uređaja</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mješač glasnoće</value>
+    <value>Mješač glasnoće (Postavke Windowsa)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Postavke miša</value>
