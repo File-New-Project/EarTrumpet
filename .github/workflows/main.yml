@@ -415,9 +415,8 @@ jobs:
   #
   # Deployment: AppInstaller
   #
-
   deploy-appinstaller:
-    name: 🚀 Deploy AppInstaller package
+    name: Deploy AppInstaller package
     runs-on: windows-latest
     needs: appinstaller
     if: |
@@ -436,39 +435,23 @@ jobs:
           name: AppInstaller
           path: .
 
-      - name: Log into Azure
-        uses: azure/login@v2
-        with:
-          creds: '{"clientId":"${{ secrets.azure_storage_client_id }}","clientSecret":"${{ secrets.azure_storage_client_secret }}","subscriptionId":"${{ secrets.azure_storage_subscription_id }}","tenantId":"${{ secrets.azure_tenant_id }}"}'
-          enable-AzPSSession: true
-
-      - name: Upload blob to Azure Storage
-        uses: azure/powershell@v2
-        with:
-          azPSVersion: 'latest'
-          inlineScript: >
-            $context =
-            New-AzStorageContext
-            -StorageAccountName eartrumpetstorage
-            -UseConnectedAccount
-
-            Get-ChildItem -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle | ForEach-Object {
-                Set-AzStorageBlobContent `
-                    -File $_.FullName `
-                    -Container builds `
-                    -Blob ('${{ github.ref_name }}/' + $_.Name) `
-                    -Context $context `
-                    -Properties @{ContentType = "application/msixbundle";} `
-                    -Force
-            }
-
-            Set-AzStorageBlobContent
-            -File EarTrumpet.Package.appinstaller
-            -Blob '${{ github.ref_name }}/EarTrumpet.Package.appinstaller'
-            -Container builds
-            -Context $context
-            -Properties @{ContentType = "application/appinstaller";} `
-            -Force
+      - name: Upload files to Cloudflare
+        shell: pwsh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          # Upload MSIX bundle
+          Get-ChildItem -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle | ForEach-Object {
+            aws s3 cp $_.FullName "s3://${{ secrets.R2_BUCKET_NAME }}/${{ github.ref_name }}/$($_.Name)" `
+              --content-type "application/msixbundle" `
+              --endpoint-url "https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com"
+          }
+          
+          # Upload appinstaller file
+          aws s3 cp EarTrumpet.Package.appinstaller "s3://${{ secrets.R2_BUCKET_NAME }}/${{ github.ref_name }}/EarTrumpet.Package.appinstaller" `
+            --content-type "application/appinstaller" `
+            --endpoint-url "https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com"
 
   #
   # Deployment: Microsoft Store
