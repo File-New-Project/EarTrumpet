@@ -49,7 +49,11 @@ public partial class FlyoutWindow
 
                 Show();
                 EnableAcrylicIfApplicable(taskbar);
+                var prevDpi = this.DpiX();
                 PositionWindowRelativeToTaskbar(taskbar);
+                // Account for DPI changing due to SetWindowPos
+                if (this.DpiX() != prevDpi)
+                    PositionWindowRelativeToTaskbar(taskbar);
 
                 // Focus the first device if available.
                 DevicesList.FindVisualChild<DeviceView>()?.FocusAndRemoveFocusVisual();

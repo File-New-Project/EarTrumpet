@@ -34,7 +34,7 @@ public sealed class WindowsTaskbar
         {
             unsafe
             {
-                return PInvoke.GetDpiForWindow(new HWND(GetHwnd()));
+                return PInvoke.GetDpiForShellUIComponent(SHELL_UI_COMPONENT.SHELL_UI_COMPONENT_NOTIFICATIONAREA);
             }
         }
     }
@@ -53,7 +53,7 @@ public sealed class WindowsTaskbar
                 var appBarData = new APPBARDATA
                 {
                     cbSize = (uint)Marshal.SizeOf(typeof(APPBARDATA)),
-                    hWnd = new HWND(hwnd)
+                    lParam = 0x42 // magic to get active taskbar rect with StartAllBack
                 };
 
                 // SHAppBarMessage: Understands Taskbar auto-hide
@@ -62,6 +62,7 @@ public sealed class WindowsTaskbar
                 {
                     state.Size = appBarData.rc;
                     state.Location = (Position)appBarData.uEdge;
+                    state.ContainingScreen = Screen.FromRectangle((System.Drawing.Rectangle)appBarData.rc);
                 }
                 else
                 {
