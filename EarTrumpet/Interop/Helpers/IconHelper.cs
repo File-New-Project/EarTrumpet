@@ -43,19 +43,12 @@ public class IconHelper
 
     public static Icon LoadIconResource(string path, int iconOrdinal, int cx, int cy)
     {
-        using var hModule = PInvoke.LoadLibraryEx(path, LOAD_LIBRARY_FLAGS.LOAD_LIBRARY_AS_DATAFILE | LOAD_LIBRARY_FLAGS.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
+        using var hModule = PInvoke.LoadLibraryEx(path, LOAD_LIBRARY_FLAGS.DONT_RESOLVE_DLL_REFERENCES);
         unsafe
         {
             var rawModuleHandle = new HMODULE(hModule.DangerousGetHandle().ToPointer());
-            var groupResInfo = PInvoke.FindResource(rawModuleHandle, new PCWSTR((char*)iconOrdinal), PInvoke.RT_GROUP_ICON);
-            var groupResData = PInvoke.LockResource(PInvoke.LoadResource(hModule, groupResInfo));
-            var iconId = PInvoke.LookupIconIdFromDirectoryEx((byte*)groupResData, true, cx, cy, IMAGE_FLAGS.LR_DEFAULTCOLOR);
-
-            var iconResInfo = PInvoke.FindResource(rawModuleHandle, new PCWSTR((char*)iconId), PInvoke.RT_ICON);
-            var iconResData = PInvoke.LockResource(PInvoke.LoadResource(hModule, iconResInfo));
-            var iconResSize = PInvoke.SizeofResource(hModule, iconResInfo);
-            var iconHandle = PInvoke.CreateIconFromResourceEx((byte*)iconResData, iconResSize, true, 0x00030000, cx, cy, IMAGE_FLAGS.LR_DEFAULTCOLOR);
-
+            HICON iconHandle;
+            PInvoke.LoadIconWithScaleDown(rawModuleHandle, new PCWSTR((char*)iconOrdinal), cx, cy, &iconHandle);
             return Icon.FromHandle(iconHandle).AsDisposableIcon();
         }
     }

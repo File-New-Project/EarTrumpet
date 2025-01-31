@@ -11,7 +11,6 @@ CallNextHookEx
 CloseHandle
 ClosePackageInfo
 CLSCTX
-CreateIconFromResourceEx
 DeleteObject
 DEVICE_STATE
 DEVPKEY_Device_DeviceDesc
@@ -24,7 +23,6 @@ DWMWINDOWATTRIBUTE
 EDataFlow
 ERole
 FindPackagesByPackageFamily
-FindResource
 FindWindow
 FindWindowEx
 FOLDERID_AppsFolder
@@ -78,12 +76,9 @@ ISubunit
 IsWow64Process2
 KNOWN_FOLDER_FLAG
 LOAD_LIBRARY_FLAGS
+LoadIconWithScaleDown
 LoadLibraryEx
-LoadResource
-LockResource
 LockSetForegroundWindow
-LookupIconIdFromDirectoryEx
-LookupIconIdFromDirectoryEx
 MAX_CLASS_NAME_LEN
 MMDeviceEnumerator
 MOUSE_STATE
@@ -147,7 +142,6 @@ SHLoadIndirectString
 SIGDN
 SIIGBF
 SIZE
-SizeofResource
 STGM
 SYSTEM_METRICS_INDEX
 SYSTEM_PARAMETERS_INFO_ACTION
