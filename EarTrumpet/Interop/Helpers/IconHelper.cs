@@ -59,23 +59,4 @@ public class IconHelper
             return Icon.FromHandle(iconHandle).AsDisposableIcon();
         }
     }
-
-    public static Icon ColorIcon(Icon originalIcon, double fillPercent, System.Windows.Media.Color newColor)
-    {
-        using var bitmap = originalIcon.ToBitmap();
-        for (var y = 0; y < bitmap.Height; y++)
-        {
-            for (var x = 0; x < bitmap.Width * fillPercent; x++)
-            {
-                var pixel = bitmap.GetPixel(x, y);
-
-                if (pixel.R > 220)
-                {
-                    bitmap.SetPixel(x, y, Color.FromArgb(pixel.A, newColor.R, newColor.G, newColor.B));
-                }
-            }
-        }
-
-        return Icon.FromHandle(bitmap.GetHicon()).AsDisposableIcon();
-    }
 }

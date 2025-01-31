@@ -6,6 +6,7 @@ public interface IShellNotifyIconSource
 {
     event Action<IShellNotifyIconSource> Changed;
     System.Drawing.Icon Current { get; }
+    bool IsWhiteIcon { get; }
     void OnMouseOverChanged(bool isMouseOver);
     void CheckForUpdate();
 }

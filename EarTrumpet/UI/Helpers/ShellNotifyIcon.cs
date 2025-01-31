@@ -113,7 +113,8 @@ public sealed class ShellNotifyIcon : IDisposable
                      | NOTIFY_ICON_DATA_FLAGS.NIF_ICON
                      | NOTIFY_ICON_DATA_FLAGS.NIF_TIP
                      | NOTIFY_ICON_DATA_FLAGS.NIF_SHOWTIP
-                     | NOTIFY_ICON_DATA_FLAGS.NIF_GUID,
+                     | NOTIFY_ICON_DATA_FLAGS.NIF_GUID
+                     | (IconSource.IsWhiteIcon ? (NOTIFY_ICON_DATA_FLAGS)0x100 : 0),
             uCallbackMessage = WM_CALLBACKMOUSEMSG,
             hIcon = new HICON(IconSource.Current.Handle.ToPointer()),
             szTip = _text,

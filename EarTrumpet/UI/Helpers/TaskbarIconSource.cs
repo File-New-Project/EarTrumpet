@@ -13,7 +13,6 @@ public class TaskbarIconSource : IShellNotifyIconSource
     private enum IconKind
     {
         EarTrumpet,
-        EarTrumpet_LightTheme,
         Muted,
         SpeakerZeroBars,
         SpeakerOneBar,
@@ -25,6 +24,7 @@ public class TaskbarIconSource : IShellNotifyIconSource
     public event Action<IShellNotifyIconSource> Changed;
 
     public Icon Current { get; private set; }
+    public bool IsWhiteIcon { get => true; }
 
     private readonly DeviceCollectionViewModel _collection;
     private readonly AppSettings _settings;
@@ -79,31 +79,7 @@ public class TaskbarIconSource : IShellNotifyIconSource
 
         try
         {
-            if (System.Windows.SystemParameters.HighContrast)
-            {
-                using (var icon = LoadIcon(kind))
-                {
-                    return ColorIconForHighContrast(icon, kind, _isMouseOver);
-                }
-            }
-            else if (SystemSettings.IsSystemLightTheme)
-            {
-                if (kind == IconKind.EarTrumpet)
-                {
-                    return LoadIcon(IconKind.EarTrumpet_LightTheme);
-                }
-                else
-                {
-                    using (var icon = LoadIcon(kind))
-                    {
-                        return ColorIconForLightTheme(icon, kind);
-                    }
-                }
-            }
-            else
-            {
-                return LoadIcon(kind);
-            }
+            return LoadIcon(kind);
         }
         // Legacy fallback if SndVolSSD.dll icons are unavailable.
         catch (Exception ex) when (kind != IconKind.EarTrumpet)
@@ -120,8 +96,6 @@ public class TaskbarIconSource : IShellNotifyIconSource
         {
             case IconKind.EarTrumpet:
                 return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconDark"], dpi);
-            case IconKind.EarTrumpet_LightTheme:
-                return IconHelper.LoadIconForTaskbar((string)App.Current.Resources["EarTrumpetIconLight"], dpi);
             case IconKind.Muted:
                 return IconHelper.LoadIconForTaskbar(SndVolSSO.GetPath(SndVolSSO.IconId.Muted), dpi);
             case IconKind.NoDevice:
@@ -140,24 +114,8 @@ public class TaskbarIconSource : IShellNotifyIconSource
 
     private string GetHash() =>
         $"kind={_kind} " +
-        $"{(System.Windows.SystemParameters.HighContrast ? $"hc=true mouse={_isMouseOver} " : "")}" +
         $"dpi={WindowsTaskbar.Dpi} " +
-        $"isSysLight={SystemSettings.IsSystemLightTheme} " +
         $"isLegacy={_settings.UseLegacyIcon}";
-
-    // Only fill part of the icon, so we can preserve the red X.
-    private static double GetIconFillPercent(IconKind kind) => kind == IconKind.NoDevice ? 0.4 : 1;
-
-    private static Icon ColorIconForLightTheme(Icon darkIcon, IconKind kind)
-    {
-        return IconHelper.ColorIcon(darkIcon, GetIconFillPercent(kind), System.Windows.Media.Colors.Black);
-    }
-
-    private static Icon ColorIconForHighContrast(Icon darkIcon, IconKind kind, bool isMouseOver)
-    {
-        return IconHelper.ColorIcon(darkIcon, GetIconFillPercent(kind),
-            isMouseOver ? System.Windows.SystemColors.HighlightTextColor : System.Windows.SystemColors.WindowTextColor);
-    }
 
     private static IconKind IconKindFromDeviceCollection(DeviceCollectionViewModel collectionViewModel)
     {
