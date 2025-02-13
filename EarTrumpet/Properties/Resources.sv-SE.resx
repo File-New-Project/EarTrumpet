@@ -127,10 +127,10 @@
     <value>Skicka feedback</value>
   </data>
   <data name="FullWindowTitleText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Volymkontroll</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volymmixer</value>
+    <value>Volymkontroll (äldre)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Det ser inte ut som att du har några uppspelningsenheter.</value>
@@ -286,6 +286,14 @@
     <value>Ett trasigt teckensnitt på ditt system hindrar EarTrumpet från att starta.
 
 Öppna [https://eartrumpet.app/jmp/fixfonts] nu?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows saknar registerposter som hindrar EarTrumpet från att starta automatiskt.
+
+Öppna [https://eartrumpet.app/jmp/fixstartup] för att lösa problemet?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Ljud av/på</value>
@@ -648,7 +656,7 @@
     <value>Appvolym och enhetsinställningar</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Volymkontroll</value>
+    <value>Volymkontroll (Windows-inställningar)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Musinställningar</value>
