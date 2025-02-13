@@ -12,6 +12,11 @@
 
 ## Media coverage
 
+> [...] there are alternative solutions like EarTrumpet which are great [...]
+>
+> &mdash; [Linus Tech Tips (February 12, 2025)](https://youtu.be/6wgHq9NZru0?t=461)
+
+
 > [...] there are third-party solutions out there that do a much better job than what Windows offers by default. One such app is called EarTrumpet [...]
 >
 > &mdash; [TechQuickie (Jan 11, 2022)](https://www.youtube.com/watch?v=xQvp5HzY9xc)
