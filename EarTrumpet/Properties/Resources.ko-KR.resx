@@ -121,7 +121,7 @@
     <value>종료</value>
   </data>
   <data name="ContextMenuNoDevices" xml:space="preserve">
-    <value>재생 장치 없음</value>
+    <value>재생 장치를 찾을 수 없습니다</value>
   </data>
   <data name="ContextMenuSendFeedback" xml:space="preserve">
     <value>피드백 보내기</value>
@@ -130,13 +130,13 @@
     <value>볼륨 믹서</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>볼륨 믹서</value>
+    <value>볼륨 믹서 (구)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>재생 장치가 없는 것 같습니다.</value>
   </data>
   <data name="NoDeviceTrayText" xml:space="preserve">
-    <value>이어트럼펫: 재생 장치 없음</value>
+    <value>EarTrumpet: 재생 장치 없음</value>
   </data>
   <data name="PlaybackDevicesText" xml:space="preserve">
     <value>재생 장치</value>
@@ -154,7 +154,7 @@
     <value>문제 해결 데이터 수집</value>
   </data>
   <data name="HotkeyDescriptionText" xml:space="preserve">
-    <value>사용자 설정 단축키</value>
+    <value>사용자 지정 단축키</value>
   </data>
   <data name="DefaultDeviceText" xml:space="preserve">
     <value>항상 기본 재생 장치를 사용</value>
@@ -166,7 +166,7 @@
     <value>더 알아보기</value>
   </data>
   <data name="AppOrDeviceFormatAccessibleText" xml:space="preserve">
-    <value>"{Volume}% 볼륨 - {Name}"</value>
+    <value>"음량 {Volume}% - {Name}"</value>
   </data>
   <data name="AppOrDeviceMutedFormatAccessibleText" xml:space="preserve">
     <value>"음소거됨 - {Name}"</value>
@@ -193,13 +193,13 @@
     <value>이 앱을 재생 장치에 할당</value>
   </data>
   <data name="SettingsOpenEarTrumpetText" xml:space="preserve">
-    <value>작업표시줄 플라이아웃 열기</value>
+    <value>작업 표시줄 플라이아웃 열기</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIcon" xml:space="preserve">
     <value>기존 EarTrumpet 아이콘 사용</value>
   </data>
   <data name="MoreCommandsAccessibleText" xml:space="preserve">
-    <value>더 많은 명령</value>
+    <value>더 많은 명령어</value>
   </data>
   <data name="MutedText" xml:space="preserve">
     <value>음소거됨</value>
@@ -208,7 +208,7 @@
     <value>소리 설정</value>
   </data>
   <data name="WindowsLegacyMenuText" xml:space="preserve">
-    <value>윈도우 레거시</value>
+    <value>Windows 설정 메뉴</value>
   </data>
   <data name="AboutThisAddonText" xml:space="preserve">
     <value>추가 기능 {Name} 정보</value>
@@ -217,10 +217,10 @@
     <value>이름:</value>
   </data>
   <data name="AddonUninstallButtonText" xml:space="preserve">
-    <value>윈도우 설정 열기</value>
+    <value>Windows 설정 열기</value>
   </data>
   <data name="AddonUninstallDescriptionText" xml:space="preserve">
-    <value>이 추가 기능은 윈도우 설정 앱을 사용하여 제거할 수 있습니다.</value>
+    <value>이 추가 기능은 Windows 설정 앱을 사용하여 제거할 수 있습니다.</value>
   </data>
   <data name="AddonUninstallTitle" xml:space="preserve">
     <value>제거</value>
@@ -229,13 +229,13 @@
     <value>관리</value>
   </data>
   <data name="LegacySettingsPageText" xml:space="preserve">
-    <value>레거시 설정</value>
+    <value>이전 설정</value>
   </data>
   <data name="PublisherText" xml:space="preserve">
     <value>게시자:</value>
   </data>
   <data name="SettingsDescriptionText" xml:space="preserve">
-    <value>단축키 구성 및 도움 받기</value>
+    <value>단축키를 구성하거나 도움말을 확인합니다.</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
     <value>EarTrumpet 설정</value>
@@ -277,15 +277,23 @@
     <value>닫기</value>
   </data>
   <data name="WelcomeDialogHeaderText" xml:space="preserve">
-    <value>이어트럼펫을 사용해주셔서 감사합니다.</value>
+    <value>EarTrumpet 에 오신 것을 환영합니다</value>
   </data>
   <data name="CriticalFailureDialogHeaderText" xml:space="preserve">
     <value>EarTrumpet을 실행할 수 없습니다</value>
   </data>
   <data name="CriticalFailureFontLookupHelpText" xml:space="preserve">
-    <value>시스템 글꼴이 손상되어 EarTrumpet을 실행할 수 없습니다.
+    <value>시스템 글꼴이 손상되어 EarTrumpet 을 실행할 수 없습니다.
 
-지금 [https://eartrumpet.app/jmp/fixfonts]를 여시겠습니까?</value>
+[https://eartrumpet.app/jmp/fixfonts]에 접속하여 도움말을 확인하시겠습니까?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows 에 EarTrumpet을 자동 시작하기 위한 레지스트리 항목이 없습니다.
+
+이 문제를 해결하기 위해 [https://eartrumpet.app/jmp/fixstartup]을 열어볼까요?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>음소거 전환</value>
@@ -295,5 +303,377 @@
   </data>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>EarTrumpet 팀에게 오류 데이터 전송</value>
+  </data>
+  <data name="ActionAdditionalText" xml:space="preserve">
+    <value>그리고</value>
+  </data>
+  <data name="ActionVerbText" xml:space="preserve">
+    <value>실행</value>
+  </data>
+  <data name="AddActionText" xml:space="preserve">
+    <value>명령 추가</value>
+  </data>
+  <data name="AddConditionText" xml:space="preserve">
+    <value>조건 추가</value>
+  </data>
+  <data name="AddonDescriptionText" xml:space="preserve">
+    <value>단축키 및 자동화를 설정합니다.</value>
+  </data>
+  <data name="AddTriggerText" xml:space="preserve">
+    <value>조건 추가</value>
+  </data>
+  <data name="AppEventTrigger_AddText" xml:space="preserve">
+    <value>앱 세션이 추가되거나 제거되거나 소리 재생중 ...</value>
+  </data>
+  <data name="AppEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device}에(서) {App}이(가) {Option}</value>
+  </data>
+  <data name="AudioAppEventKind_Added" xml:space="preserve">
+    <value>추가될 때</value>
+  </data>
+  <data name="AudioAppEventKind_Muted" xml:space="preserve">
+    <value>음소거될 때</value>
+  </data>
+  <data name="AudioAppEventKind_NotPlayingSound" xml:space="preserve">
+    <value>소리가 재생중이지 않을 때</value>
+  </data>
+  <data name="AudioAppEventKind_PlayingSound" xml:space="preserve">
+    <value>소리가 재생중일 때</value>
+  </data>
+  <data name="AudioAppEventKind_Removed" xml:space="preserve">
+    <value>제거될 때</value>
+  </data>
+  <data name="AudioAppEventKind_Unmuted" xml:space="preserve">
+    <value>음소거가 해제될 때</value>
+  </data>
+  <data name="AudioDeviceEventKind_Added" xml:space="preserve">
+    <value>추가될 때</value>
+  </data>
+  <data name="AudioDeviceEventKind_BecomingDefault" xml:space="preserve">
+    <value>기본 장치로 설정될 때</value>
+  </data>
+  <data name="AudioDeviceEventKind_LeavingDefault" xml:space="preserve">
+    <value>기본 장치 설정이 해제될 때</value>
+  </data>
+  <data name="AudioDeviceEventKind_Removed" xml:space="preserve">
+    <value>제거될 때</value>
+  </data>
+  <data name="BoolValue_False" xml:space="preserve">
+    <value>거짓</value>
+  </data>
+  <data name="BoolValue_True" xml:space="preserve">
+    <value>참</value>
+  </data>
+  <data name="ComparisonBoolKind_Is" xml:space="preserve">
+    <value>입니다</value>
+  </data>
+  <data name="ComparisonBoolKind_IsNot" xml:space="preserve">
+    <value>가 아닙니다</value>
+  </data>
+  <data name="ConditionAdditionalText" xml:space="preserve">
+    <value>그리고</value>
+  </data>
+  <data name="ConditionsHelpText" xml:space="preserve">
+    <value>필터는 선택 사항이지만 더 고품질의 명령을 만들 수 있습니다. 모든 조건이 충족되어야만 동작이 실행됩니다.</value>
+  </data>
+  <data name="ConditionVerbText" xml:space="preserve">
+    <value>고급 필터</value>
+  </data>
+  <data name="ContextMenuTrigger_AddText" xml:space="preserve">
+    <value>이 동작의 메뉴 항목 사용</value>
+  </data>
+  <data name="ContextMenuTrigger_LinkText" xml:space="preserve">
+    <value>이 동작의 메뉴 항목 사용</value>
+  </data>
+  <data name="DefaultDeviceCondition_AddText" xml:space="preserve">
+    <value>기본 재생 장치거나 아닐 때</value>
+  </data>
+  <data name="DefaultDeviceCondition_LinkText" xml:space="preserve">
+    <value>{Device}은(는) 기본 장치 {Option}</value>
+  </data>
+  <data name="DefaultPlaybackDeviceText" xml:space="preserve">
+    <value>기본 재생 장치</value>
+  </data>
+  <data name="DeviceEventTrigger_AddText" xml:space="preserve">
+    <value>오디오 장치가 추가되거나 제거되거나 기본 장치로 설정됐을 때</value>
+  </data>
+  <data name="DeviceEventTrigger_LinkText" xml:space="preserve">
+    <value>{Device} 이(가) {Option}</value>
+  </data>
+  <data name="EarTrumpetEventKind_Shutdown" xml:space="preserve">
+    <value>종료될 때</value>
+  </data>
+  <data name="EarTrumpetEventKind_Startup" xml:space="preserve">
+    <value>시작될 때</value>
+  </data>
+  <data name="EditText" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EtaXmlFileText" xml:space="preserve">
+    <value>EarTrumpet 동작 XML</value>
+  </data>
+  <data name="EventTrigger_AddText" xml:space="preserve">
+    <value>EarTrumpet 이 시작되거나 종료될 때</value>
+  </data>
+  <data name="EventTrigger_LinkText" xml:space="preserve">
+    <value> EarTrumpet 이 {Option}</value>
+  </data>
+  <data name="EveryAppText" xml:space="preserve">
+    <value>모든 앱</value>
+  </data>
+  <data name="ExportHeaderText" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="ExportHelpText" xml:space="preserve">
+    <value>사용자의 동작을 파일로 저장합니다.</value>
+  </data>
+  <data name="ForegroundAppText" xml:space="preserve">
+    <value>포그라운드 앱</value>
+  </data>
+  <data name="HotkeyTrigger_AddText" xml:space="preserve">
+    <value>단축키가 입력됐을 때</value>
+  </data>
+  <data name="HotkeyTrigger_EmptyText" xml:space="preserve">
+    <value>(단축키 선택)</value>
+  </data>
+  <data name="HotkeyTrigger_LinkText" xml:space="preserve">
+    <value>{Hotkey}이(가) 입력됐을 때</value>
+  </data>
+  <data name="ImportAndExportTitle" xml:space="preserve">
+    <value>내보내기 및 가져오기</value>
+  </data>
+  <data name="ImportHeaderText" xml:space="preserve">
+    <value>가져오기</value>
+  </data>
+  <data name="ImportHelpText" xml:space="preserve">
+    <value>사용자의 동작을 파일로 부터 복원합니다.</value>
+  </data>
+  <data name="MuteKind_Mute" xml:space="preserve">
+    <value>음소거</value>
+  </data>
+  <data name="MuteKind_ToggleMute" xml:space="preserve">
+    <value>음소거 전환</value>
+  </data>
+  <data name="MuteKind_Unmute" xml:space="preserve">
+    <value>음소거 해제</value>
+  </data>
+  <data name="MyActionsText" xml:space="preserve">
+    <value>동작</value>
+  </data>
+  <data name="NewActionText" xml:space="preserve">
+    <value>새 동작</value>
+  </data>
+  <data name="OptionalText" xml:space="preserve">
+    <value>(선택 사항)</value>
+  </data>
+  <data name="PlaybackDeviceGroupText" xml:space="preserve">
+    <value>재생</value>
+  </data>
+  <data name="ProcessCondition_AddText" xml:space="preserve">
+    <value>프로세스가 실행 중이거나 아닌 경우</value>
+  </data>
+  <data name="ProcessCondition_EmptyText" xml:space="preserve">
+    <value>(프로세스명 입력)</value>
+  </data>
+  <data name="ProcessCondition_LinkText" xml:space="preserve">
+    <value>{Text}이(가) {Option}일 때</value>
+  </data>
+  <data name="ProcessCondition_PromptText" xml:space="preserve">
+    <value>프로세스명 (예시: notepad)</value>
+  </data>
+  <data name="ProcessEventKind_Start" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="ProcessEventKind_Stop" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="ProcessStateKind_NotRunning" xml:space="preserve">
+    <value>실행 중이지 않을 때</value>
+  </data>
+  <data name="ProcessStateKind_Running" xml:space="preserve">
+    <value>실행 중일 때</value>
+  </data>
+  <data name="ProcessTrigger_AddText" xml:space="preserve">
+    <value>프로세스가 실행되거나 종료될 때</value>
+  </data>
+  <data name="ProcessTrigger_EmptyText" xml:space="preserve">
+    <value>(프로세스명 입력)</value>
+  </data>
+  <data name="ProcessTrigger_LinkText" xml:space="preserve">
+    <value>{Text} 이(가) {Option}될 때</value>
+  </data>
+  <data name="ProcessTrigger_PromptText" xml:space="preserve">
+    <value>프로세스명 (예시: notepad)</value>
+  </data>
+  <data name="RecordingDeviceGroupText" xml:space="preserve">
+    <value>녹음 장치</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(필수)</value>
+  </data>
+  <data name="SetAppMuteAction_AddText" xml:space="preserve">
+    <value>앱 음소거 또는 음소거 해제</value>
+  </data>
+  <data name="SetAppMuteAction_LinkText" xml:space="preserve">
+    <value>{Device} 장치의 {App} 앱을 {Option}</value>
+  </data>
+  <data name="SetAppVolumeAction_AddText" xml:space="preserve">
+    <value>앱 음량 설정</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
+    <value>{Device} 장치의 {App} 앱 음량을 {Volume} (으)로 {Option}</value>
+  </data>
+  <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Device} 장치의 {App} 앱 음량을 {Volume} 만큼 {Option}</value>
+  </data>
+  <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
+    <value>기본 재생 장치 설정</value>
+  </data>
+  <data name="SetDefaultDeviceAction_LinkText" xml:space="preserve">
+    <value>{Device}을(를) 기본 재생 장치로 설정</value>
+  </data>
+  <data name="SetDeviceMuteAction_AddText" xml:space="preserve">
+    <value>장치 음소거 또는 음소거 해제</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkText" xml:space="preserve">
+    <value>{Device} 장치를 {Option}</value>
+  </data>
+  <data name="SetDeviceMuteAction_LinkTextToggle" xml:space="preserve">
+    <value>{Device} 장치의 {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_AddText" xml:space="preserve">
+    <value>장치 음량 설정</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
+    <value>{Device} 장치의 음량을 {Volume} (으)로 {Option}</value>
+  </data>
+  <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
+    <value>{Device} 장치의 음량을 {Volume} 만큼 {Option}</value>
+  </data>
+  <data name="SetVariableAction_AddText" xml:space="preserve">
+    <value>지역 변수 설정</value>
+  </data>
+  <data name="SetVariableAction_EmptyText" xml:space="preserve">
+    <value>(지역 변수명 지정)</value>
+  </data>
+  <data name="SetVariableAction_LinkText" xml:space="preserve">
+    <value>변수 {Text}을(를) {Option}(으)로 설정</value>
+  </data>
+  <data name="SetVariableAction_PromptText" xml:space="preserve">
+    <value>변수명을 입력하세요. (예시: isInGameMode)</value>
+  </data>
+  <data name="SetVolumeKind_Decrement" xml:space="preserve">
+    <value>감소</value>
+  </data>
+  <data name="SetVolumeKind_Increment" xml:space="preserve">
+    <value>증가</value>
+  </data>
+  <data name="SetVolumeKind_Set" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="TriggerAdditionalText" xml:space="preserve">
+    <value>또는</value>
+  </data>
+  <data name="TriggerVerbText" xml:space="preserve">
+    <value>조건</value>
+  </data>
+  <data name="VariableCondition_AddText" xml:space="preserve">
+    <value>지역 변수가 참이거나 거짓인 경우</value>
+  </data>
+  <data name="VariableCondition_EmptyText" xml:space="preserve">
+    <value>(변수명 입력)</value>
+  </data>
+  <data name="VariableCondition_LinkText" xml:space="preserve">
+    <value>변수 {Text} 이(가) {Option} 인 경우</value>
+  </data>
+  <data name="VariableCondition_PromptText" xml:space="preserve">
+    <value>변수명을 입력하세요. (예시: isInGameMode)</value>
+  </data>
+  <data name="ToolbarDeleteText" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="ToolbarEditText" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="ToolbarSaveText" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ChooseADeviceTitle" xml:space="preserve">
+    <value>장치 선택</value>
+  </data>
+  <data name="ChooseAnAppTitle" xml:space="preserve">
+    <value>앱 선택</value>
+  </data>
+  <data name="DeleteActionDialogNoText" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="DeleteActionDialogText" xml:space="preserve">
+    <value>이 동작을 삭제하겠습니까?</value>
+  </data>
+  <data name="DeleteActionDialogTitle" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteActionDialogYesText" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="LeavingPageDialogNoText" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="LeavingPageDialogText" xml:space="preserve">
+    <value>저장하지 않고 종료하겠습니까?</value>
+  </data>
+  <data name="LeavingPageDialogTitle" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="LeavingPageDialogYesText" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="RemoveActionButtonText" xml:space="preserve">
+    <value>이 동작 제거</value>
+  </data>
+  <data name="RemoveActionDescriptionText" xml:space="preserve">
+    <value>이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="RemoveActionHeadingText" xml:space="preserve">
+    <value>동작 제거</value>
+  </data>
+  <data name="RemoveButtonAccessibleName" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="ChooseAnAppHelpText" xml:space="preserve">
+    <value>위에 표시된 앱에서 최근에 소리가 재생되었습니다.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>모든 장치의 볼륨 낮추기</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>모든 장치의 볼륨 올리기</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>앱 볼륨 및 장치 기본 설정</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>볼륨 믹서 (Windows 설정)</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>마우스 설정</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>EarTrumpet 아이콘 위에 마우스 커서를 올린 상태로 스크롤 휠을 돌려 볼륨 변경</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>플라이아웃이 열렸을 때 스크롤 휠을 사용해 볼륨 변경</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>커뮤니티 설정</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>로그 볼륨 스케일 사용</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>시작 시 전체 믹서 창이 표시됩니다</value>
   </data>
 </root>
