@@ -130,7 +130,7 @@
     <value>EarTrumpet Lautstärkemixer</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Alter Lautstärkemixer</value>
+    <value>Lautstärkemixer (Legacy)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Es sind keine Wiedergabegeräte vorhanden.</value>
@@ -286,6 +286,14 @@
     <value>Eine defekte Schriftart in Ihrem System verhindert den Start von EarTrumpet. 
 
 Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>In Windows fehlen Registrierungseinträge, die verhindern, dass EarTrumpet automatisch gestartet wird.
+
+Öffne [https://eartrumpet.app/jmp/fixstartup], um dieses Problem zu beheben?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Stummschaltung</value>
@@ -648,7 +656,7 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>App-Lautstärke- und Geräteeinstellungen</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Lautstärkenmixer</value>
+    <value>Lautstärkenmixer (Windows-Einstellungen)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Mauseinstellungen</value>
