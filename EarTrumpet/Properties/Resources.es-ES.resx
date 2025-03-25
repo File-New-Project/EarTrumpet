@@ -130,7 +130,7 @@
     <value>Mezclador de volumen EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mezclador de volumen tradicional</value>
+    <value>Mezclador de volumen (legado)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Parece que no tienes dispositivos de reproducción.</value>
@@ -286,6 +286,14 @@
     <value>Una fuente rota en tu sistema está previniendo el inicio de EarTrumpet.
 
 Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows carece de entradas en el registro del sistema evitando que EarTrumpet se ejecute automáticamente.
+
+¿Abra [https://eartrumpet.app/jmp/fixstartup] para resolver esto?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Activar/Desactivar sonido</value>
@@ -648,7 +656,7 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
     <value>Volumen de la aplicación y preferencias del dispositivo</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mezclador de volumen</value>
+    <value>Mezclador de volumen (Configuración de Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Ajustes del ratón</value>
