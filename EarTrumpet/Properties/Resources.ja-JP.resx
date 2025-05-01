@@ -130,7 +130,7 @@
     <value>EarTrumpet 音量ミキサー</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>音量ミキサー</value>
+    <value>音量ミキサー (旧式)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>再生デバイスが接続されてないようです。</value>
@@ -286,6 +286,14 @@
     <value>システム上の破損したフォントがEarTrumpet の起動を妨げています。
 
 修正情報のWebページ [https://eartrumpet.app/jmp/fixfonts] を開きますか？</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>EarTrumpetが自動起動しないようにするWindowsのレジストリへの登録がありません
+
+これを解決するために [https://eartrumpet.app/jmp/fixstartup] を開きますか?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>ミュートのオン・オフ</value>
@@ -648,7 +656,7 @@
     <value>アプリの音量とデバイスの設定</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>音量ミキサー</value>
+    <value>音量ミキサー (Windows設定)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>マウスの設定</value>

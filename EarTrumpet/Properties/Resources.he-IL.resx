@@ -130,7 +130,7 @@
     <value>מערבל עוצמה</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>מערבל עוצמה</value>
+    <value>מיקסר עוצמת שמע (מדור קודם)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>נראה שאין לך שום מכשירי השמעה.</value>
@@ -286,6 +286,14 @@
     <value>גופן (font) שבור במערכת שלך מונע מ EarTrumpet מלהתחיל.
 
 פתח את [https://eartrumpet.app/jmp/fixfonts] עכשיו?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>חסרים למערכת ההפעלה ערכי רישום המונעים מ-EarTrumpet להפעיל אוטומטית. 
+
+לפתוח https://eartrumpet.app/jmp/fixstartup כדי לפתור זאת?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>הפעל/כבה השתקה</value>
@@ -648,7 +656,7 @@
     <value>עוצמת הקול של האפליקציה והעדפות המכשיר</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>מערבל עוצמה</value>
+    <value>מכוון עוצמת שמע (הגדרות Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>הגדרות עכבר</value>
