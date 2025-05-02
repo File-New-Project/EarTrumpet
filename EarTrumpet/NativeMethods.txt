@@ -33,6 +33,7 @@ GET_GUI_RESOURCES_FLAGS
 GetApplicationUserModelId
 GetClassName
 GetCurrentProcess
+GetDpiForShellUIComponent
 GetDpiForSystem
 GetDpiForWindow
 GetForegroundWindow
