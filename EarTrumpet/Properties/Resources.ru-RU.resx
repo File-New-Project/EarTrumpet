@@ -130,7 +130,7 @@
     <value>Микшер громкости EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Старый микшер громкости Windows</value>
+    <value>Микшер громкости(старый)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Не похоже, что у вас есть какое-либо устройство воспроизведения.</value>
@@ -286,6 +286,12 @@
     <value>Невозможно запустить EarTrumpet, так как один из шрифтов используемый этой программой повреждён.
 
 Перейти по ссылке [https://eartrumpet.app/jmp/fixfonts] сейчас?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>В реестре Windows отсутствуют записи, препятствующие автоматическому запуску EarTrumpet.</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Без звука</value>
