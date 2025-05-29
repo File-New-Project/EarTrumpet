@@ -78,14 +78,18 @@ public sealed class ProcessWatcher : IDisposable
             var procInfo = new ProcessInfo();
             info.RunningProcesses[proc.Id] = procInfo;
 
+            var procId = proc.Id;
+
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
 
-                var procName = proc.ProcessName;
-                proc.WaitForExit();
+                var actualProc = Process.GetProcessById(procId);
+
+                var procName = actualProc.ProcessName;
+                actualProc.WaitForExit();
                 Trace.WriteLine($"ProcessWatcher STOP {procName}");
-                info.StopCallbacks.ForEach(s => s.Invoke());
+                App.Current.Dispatcher.Invoke(() => info.StopCallbacks.ForEach(s => s.Invoke()));
             }).Start();
 
             Trace.WriteLine($"ProcessWatcher START {proc.ProcessName}");
@@ -120,7 +124,7 @@ public sealed class ProcessWatcher : IDisposable
     {
         Trace.WriteLine($"ProcessWatcher RegisterStart {text}");
         text = text.ToLower(CultureInfo.CurrentCulture);
-        var info = _info.TryGetValue(text, out var value) ? value : new WatcherInfo();
+        var info = _info.TryGetValue(text, out var value) ? value : _info[text] = new WatcherInfo();
         info.StartCallbacks.Add(callback);
 
         try
