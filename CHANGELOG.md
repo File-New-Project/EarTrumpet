@@ -1,15 +1,19 @@
 # Changelog
 
 ## x.x.x.x
+- Added support for StartAllBack multitaskbar notification area (thanks @Simplestas!)
+- Fixed various process lifecycle trigger bugs (thanks @spacechase0!)
 - Fixed an issue with EarTrumpet tooltips not updating in some scenarios (thanks @Tester798!)
 - Fixed an issue with EarTrumpet Actions getting disconnected with updated packaged applications
+- Fixed an issue where volume mixer entries were not properly differentiated
 - Added setting to show the full mixer window on startup
-- Added support for adjusting volumes by 10% in one step from the flyout when the `Ctrl` key is pressed in combination with `Right`/`Left` or `+`/`-` (thanks @ryanspain)
+- Added support for adjusting volumes by 10% in one step from the flyout when the `Ctrl` key is pressed in combination with `Right`/`Left` or `+`/`-` (thanks @ryanspain!)
 - Migrated EarTrumpet from .NET Framework 4.6.2 to .NET 8.0
 - Fixed an issue with EarTrumpet packaging that affected the languages shown in the Microsoft Store
 - Dropped support for some end-of-life versions of Windows 10
 - Added a help dialog to assist when EarTrumpet can't start automatically due to missing Windows policies
 - Fixed the duplicate Windows Legacy > Volume Mixer entries that appear on Windows 11
+- Updated translations for Turkish, Russian, Croatian, German, Portuguese, Japanese, Swedish, Catalan, Korean, Hebrew, and Spanish
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)
@@ -129,7 +133,7 @@
 - Added text to notification area icon tooltip to indicate mute state
 - Re-added flyout window shadow and borders
 - Added additional telemetry points
-- Removed Arabic, Hungarian, Korean, Norwegian Bokm�l, Portuguese, Romanian, and Turkish until we complete localization
+- Removed Arabic, Hungarian, Korean, Norwegian Bokmål, Portuguese, Romanian, and Turkish until we complete localization
 - Additional bugfixes
 
 ## 2.0.8.0
