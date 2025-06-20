@@ -440,6 +440,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
         run: |
           # Upload MSIX bundle
           Get-ChildItem -File EarTrumpet.Package_*_x86_x64_arm64.msixbundle | ForEach-Object {
