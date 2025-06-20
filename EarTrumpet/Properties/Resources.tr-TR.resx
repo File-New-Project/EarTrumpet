@@ -130,7 +130,7 @@
     <value>Ses Karıştırıcısı</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Ses Karıştırıcısı</value>
+    <value>Ses karıştırıcı (eski)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Herhangi bir oynatma aygıtınız yok gibi görünüyor.</value>
@@ -286,6 +286,14 @@
     <value>Sisteminizde bozuk bir yazı tipi eartrumpet'in başlamasını engelliyor.
 
 [https://eartrumpet.app/jmp/fixfonts] açmak ister misiniz?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>EarTrumpet'ın otomatik olarak açılabilmesi için gereken Windows kayıt defteri girdileri eksik.
+
+Çözmek için [https://eartrumpet.app/jmp/fixstartup] açılsın mı?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Sesi kapat</value>
@@ -648,7 +656,7 @@
     <value>Uygulama ses ve aygıt seçenekleri</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Ses karıştırıcısı</value>
+    <value>Ses karıştırıcı (Windows Ayarları)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Fare ayarları</value>
