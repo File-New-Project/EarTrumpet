@@ -291,7 +291,9 @@
     <value>EarTrumpet</value>
   </data>
   <data name="MissingPoliciesHelpText" xml:space="preserve">
-    <value>В реестре Windows отсутствуют необходимые записи, что препятствует автоматическому запуску EarTrumpet. Открыть [https://eartrumpet.app/jmp/fixstartup] чтобы решить эту проблему?</value>
+    <value>В реестре Windows отсутствуют необходимые записи, что препятствует автоматическому запуску EarTrumpet.
+
+Открыть [https://eartrumpet.app/jmp/fixstartup] чтобы решить эту проблему?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Без звука</value>
