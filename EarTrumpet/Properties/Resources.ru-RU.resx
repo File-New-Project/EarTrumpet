@@ -291,7 +291,7 @@
     <value>EarTrumpet</value>
   </data>
   <data name="MissingPoliciesHelpText" xml:space="preserve">
-    <value>В реестре Windows отсутствуют записи, препятствующие автоматическому запуску EarTrumpet.</value>
+    <value>В реестре Windows отсутствуют необходимые записи, что препятствует автоматическому запуску EarTrumpet. Открыть [https://eartrumpet.app/jmp/fixstartup] чтобы решить эту проблему?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Без звука</value>
@@ -654,7 +654,7 @@
     <value>Параметры устройств и громкости приложений</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Микшер громкости</value>
+    <value>Микшер громкости (системный)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Параметры мыши</value>
