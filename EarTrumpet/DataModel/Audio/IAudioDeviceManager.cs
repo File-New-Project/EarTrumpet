@@ -12,4 +12,5 @@ public interface IAudioDeviceManager
     string Kind { get; }
     void UpdatePeakValues();
     void AddFilter(Func<ObservableCollection<IAudioDevice>, ObservableCollection<IAudioDevice>> filter);
+    void RefreshAllDevices();
 }
