@@ -51,7 +51,7 @@ internal class ModernAppInfo : IAppInfo
                 shellItem.GetString(&pkey, &displayNamePtr);
             }
 
-            pkey = PInvoke.PKEY_AppUserModel_PackageInstallPath;
+            pkey = PInvoke.PKEY_AppUserModel_ID;
             var aumidPtr = new PWSTR();
             unsafe
             {
