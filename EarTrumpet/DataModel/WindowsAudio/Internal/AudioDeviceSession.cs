@@ -33,29 +33,32 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
 
     public float Volume
     {
-        get => App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
+        get => App.Settings.UseLogarithmicVolume
+            ? _volume.LinearToLog()
+            : _volume;
         set
         {
-            value = value.Bound(0, 1f);
-
-            if (App.Settings.UseLogarithmicVolume)
+            try
             {
-                value = value.ToLogVolume();
-            }
-
-            if (_volume != value)
-            {
-                try
+                if (App.Settings.UseLogarithmicVolume)
                 {
+                    value = value.Bound(App.Settings.LogarithmicVolumeMindB, 0);
+                    // We must convert manually here because sessions use linear volume.
+                    _simpleVolume.SetMasterVolume(value.LogToLinear(), Guid.Empty);
                     _volume = value;
-                    _simpleVolume.SetMasterVolume(value, Guid.Empty);
+                    IsMuted = false; // Mute is equals to -∞ in dB, so we always unmute when setting volume.
                 }
-                catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+                else
                 {
-                    // Expected in some cases.
+                    value = value.Bound(0, 1f);
+                    _simpleVolume.SetMasterVolume(value, Guid.Empty);
+                    _volume = value;
+                    IsMuted = _volume.ToVolumeInt() == 0;
                 }
-
-                IsMuted = App.Settings.UseLogarithmicVolume ? _volume <= (1 / 100f).ToLogVolume() : _volume.ToVolumeInt() == 0;
+            }
+            catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+            {
+                // Expected in some cases.
             }
         }
     }
@@ -189,6 +192,9 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
                 SyncPersistedEndpoint(parent);
             }
         }
+
+        // Potential memory leak: this class is not IDisposable, so we cannot unregister the event.
+        App.Settings.UseLogarithmicVolumeChanged += (sender, args) => RaisePropertyChanged(nameof(Volume));
     }
 
     ~AudioDeviceSession()
@@ -242,8 +248,16 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
     public void UpdatePeakValueBackground()
     {
         var newValues = Helpers.ReadPeakValues(_meter);
-        PeakValue1 = newValues[0];
-        PeakValue2 = newValues[1];
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            PeakValue1 = newValues[0].LinearToLogNormalized();
+            PeakValue2 = newValues[1].LinearToLogNormalized();
+        }
+        else
+        {
+            PeakValue1 = newValues[0];
+            PeakValue2 = newValues[1];
+        }
     }
 
     private void ChooseDisplayName(string displayNameFromSession)

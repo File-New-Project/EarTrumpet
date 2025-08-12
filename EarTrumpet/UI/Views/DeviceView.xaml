@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:EarTrumpet"
              xmlns:resx="clr-namespace:EarTrumpet.Properties"
              xmlns:views="clr-namespace:EarTrumpet.UI.Views"
+             xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
              IsTabStop="False">
+    <UserControl.Resources>
+        <conv:VolumeToStringConverter x:Key="VolumeToStringConverter"/>
+    </UserControl.Resources>
     <Grid Name="GridRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -124,7 +128,7 @@
                                           Value="{Binding Device.Volume, Mode=TwoWay}" />
                         <TextBlock Grid.Column="2"
                                    Style="{StaticResource DeviceVolumeTextStyle}"
-                                   Text="{Binding Device.Volume, Mode=OneWay}" />
+                                   Text="{Binding Device.Volume, Mode=OneWay, Converter={StaticResource VolumeToStringConverter}}" />
                     </Grid>
                 </Grid>
             </Border>

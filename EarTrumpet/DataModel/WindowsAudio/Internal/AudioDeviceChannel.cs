@@ -14,7 +14,14 @@ internal class AudioDeviceChannel : BindableBase, INotifyPropertyChanged, IAudio
     {
         _index = index;
         _deviceVolume = deviceVolume;
-        _deviceVolume.GetChannelVolumeLevelScalar(index, out _level);
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            _deviceVolume.GetChannelVolumeLevel(index, out _level);
+        }
+        else
+        {
+            _deviceVolume.GetChannelVolumeLevelScalar(index, out _level);
+        }
     }
 
     public float Level
@@ -25,7 +32,17 @@ internal class AudioDeviceChannel : BindableBase, INotifyPropertyChanged, IAudio
             if (_level != value)
             {
                 var context = Guid.Empty;
-                unsafe { _deviceVolume.SetChannelVolumeLevelScalar(_index, value, &context); }
+                unsafe
+                {
+                    if (App.Settings.UseLogarithmicVolume)
+                    {
+                        _deviceVolume.SetChannelVolumeLevel(_index, value, &context);
+                    }
+                    else
+                    {
+                        _deviceVolume.SetChannelVolumeLevelScalar(_index, value, &context);
+                    }
+                }
 
                 _level = value;
                 RaisePropertyChanged(nameof(Level));

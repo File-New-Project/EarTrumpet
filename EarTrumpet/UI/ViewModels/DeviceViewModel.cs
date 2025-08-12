@@ -134,6 +134,25 @@ public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
             {
                 IconKind = DeviceIconKind.Mute;
             }
+            else if (App.Settings.UseLogarithmicVolume)
+            {
+                if (_device.Volume > -6.2f)
+                {
+                    IconKind = DeviceIconKind.Bar3;
+                }
+                else if (_device.Volume > -16.6f)
+                {
+                    IconKind = DeviceIconKind.Bar2;
+                }
+                else if (_device.Volume > -96f)
+                {
+                    IconKind = DeviceIconKind.Bar1;
+                }
+                else
+                {
+                    IconKind = DeviceIconKind.Bar0;
+                }
+            }
             else if (isOnWindows11 && _device.Volume > 0.66f)
             {
                 IconKind = DeviceIconKind.Bar3;

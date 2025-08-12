@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Theme="clr-namespace:EarTrumpet.UI.Themes"
              xmlns:ctl="clr-namespace:EarTrumpet.UI.Controls"
+             xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
              Height="{DynamicResource Mutable_AppItemCellHeight}"
              IsTabStop="False">
+    <UserControl.Resources>
+        <conv:VolumeToStringConverter x:Key="VolumeToStringConverter"/>
+    </UserControl.Resources>
     <Grid Name="GridRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{DynamicResource Mutable_IconCellWidth}" />
@@ -94,7 +98,7 @@
                 </Style>
             </ctl:VolumeSlider.Style>
         </ctl:VolumeSlider>
-        <TextBlock Grid.Column="2" Text="{Binding Volume, Mode=OneWay}">
+        <TextBlock Grid.Column="2" Text="{Binding Volume, Mode=OneWay, Converter={StaticResource VolumeToStringConverter}}">
             <TextBlock.Style>
                 <Style BasedOn="{StaticResource AppVolumeTextStyle}" TargetType="TextBlock">
                     <Style.Triggers>

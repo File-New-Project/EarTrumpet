@@ -176,7 +176,29 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-
+                <!-- Localization required -->
+                <TextBlock VerticalAlignment="Center"
+                            Style="{StaticResource BodyText}"
+                            Text="Minimum dB in logarithmic slider" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom">
+                        <!--
+                            -96 dB is the min volume range of most devices
+                            -12 dB is arbitrarily chosen
+                        -->
+                    <Slider Minimum="-96"
+                            Maximum="-12"
+                            Width="200"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="1"
+                            IsDirectionReversed="True"
+                            Value="{Binding LogarithmicVolumeMindB, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center"
+                                Style="{StaticResource BodyText}"
+                                Text="{Binding LogarithmicVolumeMindB, StringFormat={}{0} dB}" />
+                </StackPanel>
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
                           IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" />

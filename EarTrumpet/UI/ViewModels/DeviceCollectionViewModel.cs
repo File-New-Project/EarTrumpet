@@ -245,7 +245,10 @@ public class DeviceCollectionViewModel : BindableBase, IDisposable
     {
         if (Default != null)
         {
-            var stateText = Default.IsMuted ? Properties.Resources.MutedText : $"{Default.Volume}%";
+            var volumeText = App.Settings.UseLogarithmicVolume
+                ? $"{Default.Volume:0.0} dB"
+                : $"{Default.Volume}%";
+            var stateText = Default.IsMuted ? Properties.Resources.MutedText : volumeText;
             var prefixText = $"EarTrumpet: {stateText} - ";
             var deviceName = $"{Default.DeviceDescription} ({Default.EnumeratorName})";
 

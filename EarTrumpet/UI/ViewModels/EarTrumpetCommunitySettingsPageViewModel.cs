@@ -9,6 +9,19 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
         set => _settings.UseLogarithmicVolume = value;
     }
 
+    public double LogarithmicVolumeMindB
+    {
+        get => _settings.LogarithmicVolumeMindB;
+        set
+        {
+            if (_settings.LogarithmicVolumeMindB != (float)value)
+            {
+                _settings.LogarithmicVolumeMindB = (float)value;
+                RaisePropertyChanged(nameof(LogarithmicVolumeMindB));
+            }
+        }
+    }
+
     public bool ShowFullMixerWindowOnStartup
     {
         get => _settings.ShowFullMixerWindowOnStartup;
