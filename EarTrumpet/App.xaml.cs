@@ -81,19 +81,19 @@ public sealed partial class App : IDisposable
         _errorReporter = new ErrorReporter(Settings);
 
         if (SingleInstanceAppMutex.TakeExclusivity())
-    {
+        {
             Exit += (_, __) => SingleInstanceAppMutex.ReleaseExclusivity();
 
             try
-        {
+            {
                 NotifyOnMissingStartupPolicies();
                 ContinueStartup();
-        }
+            }
             catch (Exception ex) when (IsCriticalFontLoadFailure(ex))
             {
                 ErrorReporter.LogWarning(ex);
                 OnCriticalFontLoadFailure();
-    }
+            }
         }
         else
         {
@@ -126,13 +126,13 @@ public sealed partial class App : IDisposable
     }
 
     private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
-        {
+    {
         Trace.WriteLine($"Detected User Session Switch: {e.Reason}");
         if (e.Reason == SessionSwitchReason.ConsoleConnect)
-            {
+        {
             var devManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             devManager.RefreshAllDevices();
-            }
+        }
     }
 
     private void CompleteStartup()
@@ -256,7 +256,7 @@ public sealed partial class App : IDisposable
                 "EnableUwpStartupTasks",
                 "SupportFullTrustStartupTasks",
                 "SupportUwpStartupTasks"
-        };
+            };
 
             foreach (var dword in dwords)
             {
@@ -267,7 +267,7 @@ public sealed partial class App : IDisposable
                 {
                     Trace.WriteLine($"Missing or invalid: {dword}");
                     return true;
-    }
+                }
             }
         }
         catch (Exception ex)
@@ -283,20 +283,20 @@ public sealed partial class App : IDisposable
         if (!IsAnyStartupPolicyMissing())
         {
             return;
-    }
+        }
 
         new Thread(() =>
-    {
+        {
             if (MessageBox.Show(
                 EarTrumpet.Properties.Resources.MissingPoliciesHelpText,
                 EarTrumpet.Properties.Resources.MissingPoliciesDialogHeaderText,
                 MessageBoxButton.OKCancel,
                 MessageBoxImage.Warning,
                 MessageBoxResult.OK) == MessageBoxResult.OK)
-        {
+            {
                 Trace.WriteLine($"App NotifyOnMissingStartupPolicies OK");
                 ProcessHelper.StartNoThrow("https://eartrumpet.app/jmp/fixstartup");
-        }
+            }
         }).Start();
     }
 
@@ -310,13 +310,13 @@ public sealed partial class App : IDisposable
         }));
 
         if (ret.Count == 0)
-            {
+        {
             ret.Add(new ContextMenuItem
             {
                 DisplayName = EarTrumpet.Properties.Resources.ContextMenuNoDevices,
                 IsEnabled = false,
             });
-            }
+        }
 
         ret.AddRange(
             [
@@ -393,7 +393,7 @@ public sealed partial class App : IDisposable
         if (!addon.IsInternal())
         {
             category.Pages.Add(new AddonAboutPageViewModel(addon));
-    }
+        }
         return category;
     }
 
