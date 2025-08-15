@@ -1,0 +1,43 @@
+name: EarTrumpet (PR Build)
+on:
+  pull_request:
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.md'
+      - crowdin.yml
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  pr-build:
+    name: 🔨 Build Base
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore packages
+        run: dotnet restore EarTrumpet.sln
+        shell: cmd
+
+      - name: Build EarTrumpet (unsigned for PR validation)
+        shell: cmd
+        run: >
+          dotnet publish
+          /p:PublishProfile=x86
+          /p:Platform=x86
+          EarTrumpet\EarTrumpet.csproj
+
+          dotnet publish
+          /p:PublishProfile=x64
+          /p:Platform=x64
+          EarTrumpet\EarTrumpet.csproj
+
+          dotnet publish
+          /p:PublishProfile=arm64
+          /p:Platform=arm64
+          EarTrumpet\EarTrumpet.csproj

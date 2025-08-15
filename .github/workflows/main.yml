@@ -11,12 +11,7 @@ on:
       - '.github/workflows/sponsors.yml'
       - '.github/workflows/translators.yml'
       - 'Graphics/*'
-  pull_request:
-    branches:
-      - dev
-    paths-ignore:
-      - '**/*.md'
-      - crowdin.yml
+
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
