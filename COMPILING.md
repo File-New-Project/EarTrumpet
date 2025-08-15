@@ -5,7 +5,7 @@
 * [Git for Windows](https://git-scm.com/download/win)
 * [Windows 10 November 2021 Update](https://learn.microsoft.com/windows/whats-new/whats-new-windows-10-version-21h2) (or newer)
 * [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-* [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive) (or newer)
+* [Windows SDK for Windows 11 (10.0.26100.4188)](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive) (or newer)
 
 
 ## Step-by-step
