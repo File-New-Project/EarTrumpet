@@ -194,10 +194,10 @@
                             IsSnapToTickEnabled="True"
                             TickFrequency="1"
                             IsDirectionReversed="True"
-                            Value="{Binding LogarithmicVolumeMindB, Mode=TwoWay}" />
+                            Value="{Binding LogarithmicVolumeMinDb, Mode=TwoWay}" />
                     <TextBlock VerticalAlignment="Center"
                                 Style="{StaticResource BodyText}"
-                                Text="{Binding LogarithmicVolumeMindB, StringFormat={}{0} dB}" />
+                                Text="{Binding LogarithmicVolumeMinDb, StringFormat={}{0} dB}" />
                 </StackPanel>
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"

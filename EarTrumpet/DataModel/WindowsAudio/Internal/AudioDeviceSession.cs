@@ -42,7 +42,7 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
             {
                 if (App.Settings.UseLogarithmicVolume)
                 {
-                    value = value.Bound(App.Settings.LogarithmicVolumeMindB, 0);
+                    value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
                     // We must convert manually here because sessions use linear volume.
                     _simpleVolume.SetMasterVolume(value.LogToLinear(), Guid.Empty);
                     _volume = value;

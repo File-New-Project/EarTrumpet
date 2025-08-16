@@ -25,8 +25,8 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
     private readonly WeakReference<IAudioDeviceManager> _deviceManager;
     private readonly string _id;
     private readonly AudioDeviceChannelCollection _channels;
-    private readonly float _deviceVolumeMindB;
-    private readonly float _deviceVolumeMaxdB;
+    private readonly float _deviceVolumeMinDb;
+    private readonly float _deviceVolumeMaxDb;
     private IMMDevice _device;
     private string _displayName;
     private string _iconPath;
@@ -62,7 +62,7 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
                 _deviceVolume.GetMasterVolumeLevelScalar(out _volume);
             }
             _deviceVolume.GetMute(out var isMuted);
-            _deviceVolume.GetVolumeRange(out _deviceVolumeMindB, out _deviceVolumeMaxdB, out _);
+            _deviceVolume.GetVolumeRange(out _deviceVolumeMinDb, out _deviceVolumeMaxDb, out _);
             _isMuted = isMuted;
             _isRegistered = true;
             _meter = device.Activate<IAudioMeterInformation>();
@@ -134,8 +134,8 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
             {
                 if (App.Settings.UseLogarithmicVolume)
                 {
-                    value = value.Bound(App.Settings.LogarithmicVolumeMindB, 0);
-                    value = value.Bound(_deviceVolumeMindB, _deviceVolumeMaxdB);
+                    value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
+                    value = value.Bound(_deviceVolumeMinDb, _deviceVolumeMaxDb);
                     _volume = value;
                     _deviceVolume.SetMasterVolumeLevel(value, Guid.Empty);
                     IsMuted = false; // Mute is equals to -∞ in dB, so we always unmute when setting volume.

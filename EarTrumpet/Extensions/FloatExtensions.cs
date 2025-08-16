@@ -19,7 +19,7 @@ public static class FloatExtensions
     public static float LinearToLogNormalized(this float val) =>
         val == 0
             ? 0
-            : ((float)(20 * Math.Log10(val) / -App.Settings.LogarithmicVolumeMindB + 1))
+            : ((float)(20 * Math.Log10(val) / -App.Settings.LogarithmicVolumeMinDb + 1))
                 .Bound(0, 1f);
 
     public static float LogToLinear(this float val) => (float)Math.Pow(10, val / 20);

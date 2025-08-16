@@ -9,15 +9,15 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
         set => _settings.UseLogarithmicVolume = value;
     }
 
-    public double LogarithmicVolumeMindB
+    public double LogarithmicVolumeMinDb
     {
-        get => _settings.LogarithmicVolumeMindB;
+        get => _settings.LogarithmicVolumeMinDb;
         set
         {
-            if (_settings.LogarithmicVolumeMindB != (float)value)
+            if (_settings.LogarithmicVolumeMinDb != (float)value)
             {
-                _settings.LogarithmicVolumeMindB = (float)value;
-                RaisePropertyChanged(nameof(LogarithmicVolumeMindB));
+                _settings.LogarithmicVolumeMinDb = (float)value;
+                RaisePropertyChanged(nameof(LogarithmicVolumeMinDb));
             }
         }
     }

@@ -168,12 +168,12 @@ public class AppSettings
         }
     }
 
-    public float LogarithmicVolumeMindB
+    public float LogarithmicVolumeMinDb
     {
-        get => _settings.Get("LogarithmicVolumeMindB", -40f);
+        get => _settings.Get("LogarithmicVolumeMinDb", -40f);
         set
         {
-            _settings.Set("LogarithmicVolumeMindB", value);
+            _settings.Set("LogarithmicVolumeMinDb", value);
             UseLogarithmicVolumeChanged?.Invoke(this, UseLogarithmicVolume);
         }
     }

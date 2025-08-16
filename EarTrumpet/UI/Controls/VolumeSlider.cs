@@ -79,7 +79,7 @@ public class VolumeSlider : Slider
     {
         if (App.Settings.UseLogarithmicVolume)
         {
-            Minimum = App.Settings.LogarithmicVolumeMindB;
+            Minimum = App.Settings.LogarithmicVolumeMinDb;
             Maximum = 0f;
             TickFrequency = 0.1;
         }
@@ -199,7 +199,7 @@ public class VolumeSlider : Slider
     {
         var percent = point.X / ActualWidth;
         Value = App.Settings.UseLogarithmicVolume
-            ? (percent - 1) * -App.Settings.LogarithmicVolumeMindB
+            ? (percent - 1) * -App.Settings.LogarithmicVolumeMinDb
             : Bound((Maximum - Minimum) * percent);
     }
 
