@@ -27,8 +27,8 @@ public class SettingsAppItemViewModel : BindableBase, IAppItemViewModel
         }
     }
 
-    private int _volume;
-    public int Volume
+    private float _volume;
+    public float Volume
     {
         get => _volume;
         set
