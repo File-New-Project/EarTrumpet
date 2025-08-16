@@ -41,11 +41,11 @@ public class VolumeSlider : Slider
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
 
-        UseLogarithmicVolumeChangedHandler(null, App.Settings.UseLogarithmicVolume);
+        UseLogarithmicVolumeChangedHandler(null, new EventArgs());
         App.Settings.UseLogarithmicVolumeChanged += UseLogarithmicVolumeChangedHandler;
     }
 
-    private void UseLogarithmicVolumeChangedHandler(object sender, bool value)
+    private void UseLogarithmicVolumeChangedHandler(object sender, EventArgs e)
     {
         UpdateVolumeRange();
         SizeOrVolumeOrPeakValueChanged();

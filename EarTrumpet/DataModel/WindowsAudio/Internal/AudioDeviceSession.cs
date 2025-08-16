@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 using Windows.Win32;
 using Windows.Win32.Media.Audio;
@@ -193,8 +194,15 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
             }
         }
 
-        // Potential memory leak: this class is not IDisposable, so we cannot unregister the event.
-        App.Settings.UseLogarithmicVolumeChanged += (sender, args) => RaisePropertyChanged(nameof(Volume));
+        WeakEventManager<AppSettings, EventArgs>.AddHandler(
+            App.Settings,
+            nameof(AppSettings.UseLogarithmicVolumeChanged),
+            UseLogarithmicVolumeChangedHandler);
+    }
+
+    private void UseLogarithmicVolumeChangedHandler(object sender, EventArgs e)
+    {
+        RaisePropertyChanged(nameof(Volume));
     }
 
     ~AudioDeviceSession()
