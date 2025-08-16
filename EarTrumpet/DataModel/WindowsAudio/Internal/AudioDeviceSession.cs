@@ -46,7 +46,7 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
                     // We must convert manually here because sessions use linear volume.
                     _simpleVolume.SetMasterVolume(value.LogToLinear(), Guid.Empty);
                     _volume = value;
-                    IsMuted = false; // Mute is equals to -∞ in dB, so we always unmute when setting volume.
+                    IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
                 }
                 else
                 {

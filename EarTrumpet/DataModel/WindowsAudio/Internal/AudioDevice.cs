@@ -138,7 +138,7 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
                     value = value.Bound(_deviceVolumeMinDb, _deviceVolumeMaxDb);
                     _volume = value;
                     _deviceVolume.SetMasterVolumeLevel(value, Guid.Empty);
-                    IsMuted = false; // Mute is equals to -∞ in dB, so we always unmute when setting volume.
+                    IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
                 }
                 else
                 {
