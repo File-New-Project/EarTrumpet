@@ -188,7 +188,8 @@ public sealed partial class App : IDisposable
     {
         if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
         {
-            CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            CollectionViewModel.Default?.IncrementVolume(
+                Math.Sign(wheelDelta) * (Settings.UseLogarithmicVolume ? 0.2f : 2.0f));
         }
     }
 

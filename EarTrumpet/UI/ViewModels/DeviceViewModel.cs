@@ -270,6 +270,6 @@ public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     }
 
     public void MakeDefaultDevice() => _deviceManager.Default = _device;
-    public void IncrementVolume(int delta) => Volume += delta;
+    public void IncrementVolume(float delta) => Volume += delta;
     public override string ToString() => AccessibleName;
 }
