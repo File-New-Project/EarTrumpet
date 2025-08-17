@@ -199,7 +199,7 @@ public class VolumeSlider : Slider
     {
         var percent = point.X / ActualWidth;
         Value = App.Settings.UseLogarithmicVolume
-            ? (percent - 1) * -App.Settings.LogarithmicVolumeMinDb
+            ? Math.Round((percent - 1) * -App.Settings.LogarithmicVolumeMinDb, 1)
             : Bound((Maximum - Minimum) * percent);
     }
 

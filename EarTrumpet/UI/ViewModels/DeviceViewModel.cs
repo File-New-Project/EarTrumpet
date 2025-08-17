@@ -136,21 +136,25 @@ public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
             }
             else if (App.Settings.UseLogarithmicVolume)
             {
-                if (_device.Volume > -6.2f)
+                if (isOnWindows11)
                 {
-                    IconKind = DeviceIconKind.Bar3;
-                }
-                else if (_device.Volume > -16.6f)
-                {
-                    IconKind = DeviceIconKind.Bar2;
-                }
-                else if (_device.Volume > -96f)
-                {
-                    IconKind = DeviceIconKind.Bar1;
+                    IconKind = _device.Volume switch
+                    {
+                        >= - 6.1f => DeviceIconKind.Bar3,
+                        >= -16.5f => DeviceIconKind.Bar2,
+                        >  -96.0f => DeviceIconKind.Bar1,
+                        _         => DeviceIconKind.Bar0,
+                    };
                 }
                 else
                 {
-                    IconKind = DeviceIconKind.Bar0;
+                    IconKind = _device.Volume switch
+                    {
+                        >= - 6.4f => DeviceIconKind.Bar3,
+                        >= -17.0f => DeviceIconKind.Bar2,
+                        >  -96.0f => DeviceIconKind.Bar1,
+                        _         => DeviceIconKind.Bar0,
+                    };
                 }
             }
             else if (isOnWindows11 && _device.Volume > 0.66f)
