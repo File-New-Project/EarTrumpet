@@ -130,7 +130,7 @@
     <value>Μείκτης έντασης ήχου</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Μείκτης έντασης ήχου</value>
+    <value>Μίκτης έντασης (παλαιού τύπου)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Φαίνεται να μην έχετε συσκευές αναπαραγωγής ήχου.</value>
@@ -286,6 +286,14 @@
     <value>Μια προβληματική γραμματοσειρά στο σύστημά σας, εμποδίζει το EarTrumpet να ξεκινήσει.
 
 Άνοιγμα του [https://eartrumpet.app/jmp/fixfonts] τώρα;</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Τα Windows δεν έχουν κάποιες καταχωρήσεις στο μητρώο, που εμποδίζουν το EarTrumpet να ξεκινήσει αυτόματα κατά την έναρξη.
+
+Ανοίξτε [https://eartrumpet.app/jmp/fixstartup] για να το επιλύσετε;</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Εναλλαγή σίγασης</value>
@@ -648,7 +656,7 @@
     <value>Ένταση ήχου εφαρμογής και προτιμήσεις συσκευών</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Μείκτης έντασης ήχου</value>
+    <value>Μίκτης ήχου (Ρυθμίσεις Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Ρυθμίσεις ποντικιού</value>
