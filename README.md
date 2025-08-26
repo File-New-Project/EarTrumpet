@@ -31,7 +31,7 @@
 
 ## Sponsors
 
-<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" title="" /></a><a href="https://github.com/audabas"><img src="https://github.com/audabas.png" width="60px" alt="Bastien Auda" title="Bastien Auda" /></a><a href="https://github.com/TomasKS"><img src="https://github.com/TomasKS.png" width="60px" alt="" title="" /></a><!-- sponsors -->
+<!-- sponsors --><a href="https://github.com/PykeMann"><img src="https://github.com/PykeMann.png" width="60px" alt="" title="" /></a><a href="https://github.com/audabas"><img src="https://github.com/audabas.png" width="60px" alt="Bastien Auda" title="Bastien Auda" /></a><!-- sponsors -->
 
 ## Features
 
