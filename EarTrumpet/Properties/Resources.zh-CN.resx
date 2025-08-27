@@ -130,7 +130,7 @@
     <value>音量合成器</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>音量合成器</value>
+    <value>音量合成器（旧版）</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>似乎没有任何播放设备。</value>
@@ -286,6 +286,14 @@
     <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
 
 是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息？</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows缺少Eartrumpet自启动的注册表项目。
+
+打开[https://eartrumpet.app/jmp/fixstartup]以解决这个问题吗？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>静音/取消静音</value>
@@ -648,7 +656,7 @@
     <value>应用音量和设备首选项</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>音量合成器</value>
+    <value>音量合成器（Windows设置）</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>鼠标设置</value>
