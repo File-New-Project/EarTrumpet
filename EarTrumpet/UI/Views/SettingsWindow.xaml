@@ -244,10 +244,25 @@
                                   HorizontalAlignment="Left"
                                   Content="{x:Static resx:Resources.PrivacyCheckboxText}"
                                   IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenPrivacyPolicyCommand}"><Run Text="{x:Static resx:Resources.PrivacyPolicyText}" /></Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
+                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
+                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenFeedbackCommand}">
+                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
+                            </Hyperlink>
+                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}">
+                            <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
+                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -293,7 +308,9 @@
                                Style="{StaticResource BodySubText}"
                                Text="{Binding Version}" />
                 </Grid>
-                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}">
+                        <Run Text="{x:Static resx:Resources.WebsiteText}" />
+                    </Hyperlink></TextBlock>
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AddonUninstallTitle}" />
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
@@ -303,7 +320,7 @@
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid PreviewMouseRightButtonDown="{Event:HandledBinding}">
                 <Grid.Style>
-                    <Style TargetType="{x:Type Grid}">
+                    <Style TargetType="Grid">
                         <Setter Property="Background" Value="Transparent" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsAd}" Value="True">
@@ -317,7 +334,7 @@
                          Theme:Brush.Fill="SystemAccent"
                          Points="0,0 40,0 40,40">
                     <Polygon.Style>
-                        <Style TargetType="{x:Type Polygon}">
+                        <Style TargetType="Polygon">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAd}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -334,7 +351,7 @@
                            FontSize="12"
                            Text="&#xE896;">
                     <TextBlock.Style>
-                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAd}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -360,7 +377,7 @@
                                FontSize="30"
                                Text="{Binding Glyph}">
                         <TextBlock.Style>
-                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
+                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
                                 <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsAd}" Value="True">
