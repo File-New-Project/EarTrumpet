@@ -9,6 +9,7 @@
         xmlns:local="clr-namespace:EarTrumpet"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+        xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
         Name="WindowRoot"
         Title="{Binding Title}"
         Width="800"
@@ -27,6 +28,8 @@
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <conv:NegateConverter x:Key="NegateConverter"/>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
@@ -176,28 +179,30 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-                <!-- Localization required -->
-                <TextBlock VerticalAlignment="Center"
-                            Style="{StaticResource BodyText}"
-                            Text="Minimum dB in logarithmic slider" />
-                <StackPanel Orientation="Horizontal"
-                            Margin="20,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom">
+                <StackPanel Visibility="{Binding UseLogarithmicVolume, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <!-- Localization required -->
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="Minimum dB in logarithmic slider" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom">
                         <!--
                             -96 dB is the min volume range of most devices
                             -12 dB is arbitrarily chosen
+                            NegateConverter is used to flip the slider so that left is -12 and right is -96
                         -->
-                    <Slider Minimum="-96"
-                            Maximum="-12"
-                            Width="200"
-                            IsSnapToTickEnabled="True"
-                            TickFrequency="1"
-                            IsDirectionReversed="True"
-                            Value="{Binding LogarithmicVolumeMinDb, Mode=TwoWay}" />
-                    <TextBlock VerticalAlignment="Center"
-                                Style="{StaticResource BodyText}"
-                                Text="{Binding LogarithmicVolumeMinDb, StringFormat={}{0} dB}" />
+                        <Slider Minimum="12"
+                                Maximum="96"
+                                Width="200"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                    </StackPanel>
                 </StackPanel>
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
@@ -239,25 +244,10 @@
                                   HorizontalAlignment="Left"
                                   Content="{x:Static resx:Resources.PrivacyCheckboxText}"
                                   IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
-                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
-                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenFeedbackCommand}">
-                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
-                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink>
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenPrivacyPolicyCommand}"><Run Text="{x:Static resx:Resources.PrivacyPolicyText}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenFeedbackCommand}"><Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" /></Hyperlink></TextBlock>
+                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenDiagnosticsCommand}"><Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" /></Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -303,9 +293,7 @@
                                Style="{StaticResource BodySubText}"
                                Text="{Binding Version}" />
                 </Grid>
-                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}">
-                        <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                    </Hyperlink></TextBlock>
+                <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenHelpLink}"><Run Text="{x:Static resx:Resources.WebsiteText}" /></Hyperlink></TextBlock>
 
                 <TextBlock Style="{StaticResource HeadingText}" Text="{x:Static resx:Resources.AddonUninstallTitle}" />
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.AddonUninstallDescriptionText}" />
@@ -315,7 +303,7 @@
         <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
             <Grid PreviewMouseRightButtonDown="{Event:HandledBinding}">
                 <Grid.Style>
-                    <Style TargetType="Grid">
+                    <Style TargetType="{x:Type Grid}">
                         <Setter Property="Background" Value="Transparent" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsAd}" Value="True">
@@ -329,7 +317,7 @@
                          Theme:Brush.Fill="SystemAccent"
                          Points="0,0 40,0 40,40">
                     <Polygon.Style>
-                        <Style TargetType="Polygon">
+                        <Style TargetType="{x:Type Polygon}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAd}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -346,7 +334,7 @@
                            FontSize="12"
                            Text="&#xE896;">
                     <TextBlock.Style>
-                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                        <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAd}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed" />
@@ -372,7 +360,7 @@
                                FontSize="30"
                                Text="{Binding Glyph}">
                         <TextBlock.Style>
-                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="TextBlock">
+                            <Style BasedOn="{StaticResource GlyphTextBlockStyle}" TargetType="{x:Type TextBlock}">
                                 <Setter Property="Theme:Brush.Foreground" Value="SystemAccent" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsAd}" Value="True">
