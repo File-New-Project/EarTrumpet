@@ -134,6 +134,29 @@ public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
             {
                 IconKind = DeviceIconKind.Mute;
             }
+            else if (App.Settings.UseLogarithmicVolume)
+            {
+                if (isOnWindows11)
+                {
+                    IconKind = _device.Volume switch
+                    {
+                        >= - 6.1f => DeviceIconKind.Bar3,
+                        >= -16.5f => DeviceIconKind.Bar2,
+                        >  -96.0f => DeviceIconKind.Bar1,
+                        _         => DeviceIconKind.Bar0,
+                    };
+                }
+                else
+                {
+                    IconKind = _device.Volume switch
+                    {
+                        >= - 6.4f => DeviceIconKind.Bar3,
+                        >= -17.0f => DeviceIconKind.Bar2,
+                        >  -96.0f => DeviceIconKind.Bar1,
+                        _         => DeviceIconKind.Bar0,
+                    };
+                }
+            }
             else if (isOnWindows11 && _device.Volume > 0.66f)
             {
                 IconKind = DeviceIconKind.Bar3;
@@ -247,6 +270,6 @@ public class DeviceViewModel : AudioSessionViewModel, IDeviceViewModel
     }
 
     public void MakeDefaultDevice() => _deviceManager.Default = _device;
-    public void IncrementVolume(int delta) => Volume += delta;
+    public void IncrementVolume(float delta) => Volume += delta;
     public override string ToString() => AccessibleName;
 }

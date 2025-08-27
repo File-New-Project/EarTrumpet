@@ -44,10 +44,16 @@ public class AudioSessionViewModel : BindableBase
         set => _isAbsMuted = value;
     }
 
-    public int Volume
+    // For compatibility reasons, we use 0-100 for linear volume,
+    // and negative number for logarithmic volume.
+    public float Volume
     {
-        get => _stream.Volume.ToVolumeInt();
-        set => _stream.Volume = value/100f;
+        get => App.Settings.UseLogarithmicVolume
+            ? _stream.Volume
+            : _stream.Volume.ToVolumeInt();
+        set => _stream.Volume = App.Settings.UseLogarithmicVolume
+            ? value
+            : value / 100f;
     }
     public virtual float PeakValue1 => _stream.PeakValue1;
     public virtual float PeakValue2 => _stream.PeakValue2;

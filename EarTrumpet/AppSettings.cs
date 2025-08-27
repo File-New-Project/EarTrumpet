@@ -10,6 +10,7 @@ namespace EarTrumpet;
 public class AppSettings
 {
     public event EventHandler<bool> UseLegacyIconChanged;
+    public event EventHandler<EventArgs> UseLogarithmicVolumeChanged;
     public event Action FlyoutHotkeyTyped;
     public event Action MixerHotkeyTyped;
     public event Action SettingsHotkeyTyped;
@@ -160,7 +161,21 @@ public class AppSettings
     public bool UseLogarithmicVolume
     {
         get => _settings.Get("UseLogarithmicVolume", false);
-        set => _settings.Set("UseLogarithmicVolume", value);
+        set
+        {
+            _settings.Set("UseLogarithmicVolume", value);
+            UseLogarithmicVolumeChanged?.Invoke(this, new EventArgs());
+        }
+    }
+
+    public float LogarithmicVolumeMinDb
+    {
+        get => _settings.Get("LogarithmicVolumeMinDb", -40f);
+        set
+        {
+            _settings.Set("LogarithmicVolumeMinDb", value);
+            UseLogarithmicVolumeChanged?.Invoke(this, new EventArgs());
+        }
     }
 
     public WINDOWPLACEMENT? FullMixerWindowPlacement

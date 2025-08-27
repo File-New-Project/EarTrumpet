@@ -51,16 +51,12 @@ internal class AudioDeviceSession : BindableBase, IAudioDeviceSessionInternal
     private float _volume = 1;
     public float Volume
     {
-        get
-        {
-            return App.Settings.UseLogarithmicVolume ? _volume.ToDisplayVolume() : _volume;
-        }
-
+        get => _volume;
         set
         {
             if (App.Settings.UseLogarithmicVolume)
             {
-                value = value.ToLogVolume();
+                value = value.LinearToLogNormalized();
             }
 
             if (_volume != value)
