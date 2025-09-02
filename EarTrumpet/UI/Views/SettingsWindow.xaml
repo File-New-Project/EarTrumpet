@@ -179,7 +179,7 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-                <StackPanel Visibility="{Binding UseLogarithmicVolume, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel>
                     <!-- Localization required -->
                     <TextBlock VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
@@ -196,6 +196,7 @@
                         <Slider Minimum="12"
                                 Maximum="96"
                                 Width="200"
+                                IsEnabled="{Binding UseLogarithmicVolume}"
                                 IsSnapToTickEnabled="True"
                                 TickFrequency="1"
                                 Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
