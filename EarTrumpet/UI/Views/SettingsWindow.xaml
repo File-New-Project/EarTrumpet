@@ -183,7 +183,7 @@
                     <!-- Localization required -->
                     <TextBlock VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
-                               Text="Minimum dB in logarithmic slider" />
+                               Text="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}" />
                     <StackPanel Orientation="Horizontal"
                                 Margin="12,0,0,0"
                                 HorizontalAlignment="Left"

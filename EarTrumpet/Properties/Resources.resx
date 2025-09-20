@@ -676,4 +676,7 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Show full mixer window on startup</value>
   </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Logarithmic scale minimum</value>
+  </data>
 </root>

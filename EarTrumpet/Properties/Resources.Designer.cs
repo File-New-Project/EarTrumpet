@@ -1406,6 +1406,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logarithmic scale minimum.
+        /// </summary>
+        public static string SettingsLogarithmicScaleMinimum {
+            get {
+                return ResourceManager.GetString("SettingsLogarithmicScaleMinimum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Taskbar flyout.
         /// </summary>
         public static string SettingsOpenEarTrumpetText {
