@@ -157,7 +157,7 @@ public class ImageEx : Image
 
     private static string CanonicalizePath(string path)
     {
-        if (Path.GetDirectoryName(path).StartsWith(_systemPath, StringComparison.InvariantCultureIgnoreCase))
+        if (!Environment.Is64BitProcess && Path.GetDirectoryName(path).StartsWith(_systemPath, StringComparison.InvariantCultureIgnoreCase))
         {
             path = Path.Combine(_windowsPath, "sysnative", path[(_systemPath.Length + 1)..]);
         }
