@@ -34,7 +34,7 @@ public class TemporaryAppItemViewModel : BindableBase, IAppItemViewModel
             }
         }
     }
-    public int Volume
+    public float Volume
     {
         get => ChildApps != null ? ChildApps[0].Volume : _volume;
         set
@@ -71,7 +71,7 @@ public class TemporaryAppItemViewModel : BindableBase, IAppItemViewModel
     private readonly WeakReference<DeviceCollectionViewModel> _parent;
     private readonly Dispatcher _currentDispatcher = Dispatcher.CurrentDispatcher;
     private uint[] _processIds;
-    private int _volume;
+    private float _volume;
     private bool _isMuted;
 
     internal TemporaryAppItemViewModel(DeviceCollectionViewModel parent, IAudioDeviceManager deviceManager, IAppItemViewModel app, bool isChild = false)

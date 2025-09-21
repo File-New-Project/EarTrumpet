@@ -151,6 +151,7 @@ public sealed partial class App : IDisposable
         Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
         Settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
         Settings.RegisterHotkeys();
+        Settings.UseLogarithmicVolumeChanged += (_, __) => UpdateTrayTooltip();
 
         _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
         _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
@@ -187,7 +188,8 @@ public sealed partial class App : IDisposable
     {
         if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
         {
-            CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            CollectionViewModel.Default?.IncrementVolume(
+                Math.Sign(wheelDelta) * (Settings.UseLogarithmicVolume ? 0.2f : 2.0f));
         }
     }
 

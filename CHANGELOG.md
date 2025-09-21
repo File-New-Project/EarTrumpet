@@ -15,6 +15,9 @@
 - Fixed the duplicate Windows Legacy > Volume Mixer entries that appear on Windows 11
 - Updated translations for Turkish, Russian, Croatian, German, Portuguese, Japanese, Swedish, Catalan, Korean, Hebrew, and Spanish
 - Fixed an issue with EarTrumpet Actions not recording packaged application IDs correctly
+- Added new and improved logarithmic volume implementation (thanks @Dwscdv3!)
+- Added logarithmic peak metering (thanks @Dwscdv3!)
+- Added adjustable logarithmic slider range (thanks @Dwscdv3!)
 
 ## 2.3.0.0
 - Added setting to turn on/off ability to change volume with the scroll wheel anywhere (thanks @Tester798!)

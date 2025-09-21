@@ -6,7 +6,27 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
     public bool UseLogarithmicVolume
     {
         get => _settings.UseLogarithmicVolume;
-        set => _settings.UseLogarithmicVolume = value;
+        set
+        {
+            if (_settings.UseLogarithmicVolume != value)
+            {
+                _settings.UseLogarithmicVolume = value;
+                RaisePropertyChanged(nameof(UseLogarithmicVolume));
+            }
+        }
+    }
+
+    public double LogarithmicVolumeMinDb
+    {
+        get => _settings.LogarithmicVolumeMinDb;
+        set
+        {
+            if (_settings.LogarithmicVolumeMinDb != (float)value)
+            {
+                _settings.LogarithmicVolumeMinDb = (float)value;
+                RaisePropertyChanged(nameof(LogarithmicVolumeMinDb));
+            }
+        }
     }
 
     public bool ShowFullMixerWindowOnStartup

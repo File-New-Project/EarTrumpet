@@ -9,7 +9,7 @@ public interface IAppItemViewModel : IAppIconSource, INotifyPropertyChanged
 {
     string Id { get; }
     bool IsMuted { get; set; }
-    int Volume { get; set; }
+    float Volume { get; set; }
     Color Background { get; }
     ObservableCollection<IAppItemViewModel> ChildApps { get; }
     string DisplayName { get; }

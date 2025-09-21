@@ -9,6 +9,7 @@
         xmlns:local="clr-namespace:EarTrumpet"
         xmlns:resx="clr-namespace:EarTrumpet.Properties"
         xmlns:vm="clr-namespace:EarTrumpet.UI.ViewModels"
+        xmlns:conv="clr-namespace:EarTrumpet.UI.Converters"
         Name="WindowRoot"
         Title="{Binding Title}"
         Width="800"
@@ -27,6 +28,8 @@
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <conv:NegateConverter x:Key="NegateConverter"/>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
@@ -176,7 +179,32 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-
+                <StackPanel>
+                    <!-- Localization required -->
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom">
+                        <!--
+                            -96 dB is the min volume range of most devices
+                            -12 dB is arbitrarily chosen
+                            NegateConverter is used to flip the slider so that left is -12 and right is -96
+                        -->
+                        <Slider Minimum="12"
+                                Maximum="96"
+                                Width="200"
+                                IsEnabled="{Binding UseLogarithmicVolume}"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                    </StackPanel>
+                </StackPanel>
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
                           IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" />

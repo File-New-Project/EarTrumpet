@@ -39,6 +39,16 @@ public class VolumeSlider : Slider
         MouseMove += OnMouseMove;
         MouseWheel += OnMouseWheel;
         Loaded += OnLoaded;
+        Unloaded += OnUnloaded;
+
+        UseLogarithmicVolumeChangedHandler(null, new EventArgs());
+        App.Settings.UseLogarithmicVolumeChanged += UseLogarithmicVolumeChangedHandler;
+    }
+
+    private void UseLogarithmicVolumeChangedHandler(object sender, EventArgs e)
+    {
+        UpdateVolumeRange();
+        SizeOrVolumeOrPeakValueChanged();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -46,6 +56,11 @@ public class VolumeSlider : Slider
         _thumb = (Thumb)GetTemplateChild("SliderThumb");
         _peakMeter1 = (Border)GetTemplateChild("PeakMeter1");
         _peakMeter2 = (Border)GetTemplateChild("PeakMeter2");
+    }
+
+    private void OnUnloaded(object sender, RoutedEventArgs e)
+    {
+        App.Settings.UseLogarithmicVolumeChanged -= UseLogarithmicVolumeChangedHandler;
     }
 
     protected override Size ArrangeOverride(Size arrangeBounds)
@@ -60,16 +75,46 @@ public class VolumeSlider : Slider
         ((VolumeSlider)d).SizeOrVolumeOrPeakValueChanged();
     }
 
+    private void UpdateVolumeRange()
+    {
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            Minimum = App.Settings.LogarithmicVolumeMinDb;
+            Maximum = 0f;
+            TickFrequency = 0.1;
+        }
+        else
+        {
+            Minimum = 0f;
+            Maximum = 100f;
+            TickFrequency = 1;
+        }
+    }
+
     private void SizeOrVolumeOrPeakValueChanged()
     {
         if (_peakMeter1 != null)
         {
-            _peakMeter1.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue1 * (Value / 100f));
+            if (App.Settings.UseLogarithmicVolume)
+            {
+                _peakMeter1.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * (PeakValue1 - Value / Minimum));
+            }
+            else
+            {
+                _peakMeter1.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue1 * (Value / 100f));
+            }
         }
 
         if (_peakMeter2 != null)
         {
-            _peakMeter2.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue2 * (Value / 100f));
+            if (App.Settings.UseLogarithmicVolume)
+            {
+                _peakMeter2.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * (PeakValue2 - Value / Minimum));
+            }
+            else
+            {
+                _peakMeter2.Width = Math.Max(0, (ActualWidth - _thumb.ActualWidth) * PeakValue2 * (Value / 100f));
+            }
         }
     }
 
@@ -145,7 +190,7 @@ public class VolumeSlider : Slider
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        var amount = Math.Sign(e.Delta) * 2.0;
+        var amount = Math.Sign(e.Delta) * (App.Settings.UseLogarithmicVolume ? 0.2 : 2.0);
         ChangePositionByAmount(amount);
         e.Handled = true;
     }
@@ -153,7 +198,9 @@ public class VolumeSlider : Slider
     public void SetPositionByControlPoint(Point point)
     {
         var percent = point.X / ActualWidth;
-        Value = Bound((Maximum - Minimum) * percent);
+        Value = App.Settings.UseLogarithmicVolume
+            ? Math.Round(Minimum + percent * (Maximum - Minimum), 1)
+            : Bound(Minimum + (Maximum - Minimum) * percent);
     }
 
     public void ChangePositionByAmount(double amount)
