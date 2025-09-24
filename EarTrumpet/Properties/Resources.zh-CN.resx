@@ -293,7 +293,7 @@
   <data name="MissingPoliciesHelpText" xml:space="preserve">
     <value>Windows 缺少一些注册表项，导致 EarTrumpet 无法自动启动。
 
-打开 [https://eartrumpet.app/jmp/fixstartup] 查看修复方案？</value>
+是否现在打开 [https://eartrumpet.app/jmp/fixstartup] 以获取相关信息？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>静音/取消静音</value>
