@@ -671,7 +671,7 @@
     <value>社区设置</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
-    <value>使用对数音量刻度</value>
+    <value>使用对数音量比例</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>启动时显示完整音量合成器窗口</value>
