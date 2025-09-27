@@ -291,9 +291,9 @@
     <value>EarTrumpet</value>
   </data>
   <data name="MissingPoliciesHelpText" xml:space="preserve">
-    <value>Windows缺少Eartrumpet自启动的注册表项目。
+    <value>Windows 缺少一些注册表项，导致 EarTrumpet 无法自动启动。
 
-打开[https://eartrumpet.app/jmp/fixstartup]以解决这个问题吗？</value>
+是否现在打开 [https://eartrumpet.app/jmp/fixstartup] 以获取相关信息？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>静音/取消静音</value>
@@ -671,9 +671,12 @@
     <value>社区设置</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
-    <value>使用对数音量缩放</value>
+    <value>使用对数音量比例</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>启动时显示完整音量合成器窗口</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>对数音量刻度最小值</value>
   </data>
 </root>

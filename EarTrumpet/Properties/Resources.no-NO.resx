@@ -130,7 +130,7 @@
     <value>Volumblander</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Volumblander</value>
+    <value>Volum kontroll (forklaring)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Det ser ikke ut som om du har noen avspillingsenheter.</value>
@@ -286,6 +286,14 @@
     <value>En ødelagt font på systemet ditt hindrer EarTrumpet fra å starte.
 
 Åpne [https://eartrumpet.app/jmp/fixfonts] nå?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows mangler register nøkler, dette forhindrer EarTrumpet å starte automatisk.
+
+Gå til [https://eartrumpet.app/jmp/fixstartup] for å reparere dette?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Slå demping av/på</value>
@@ -648,7 +656,7 @@
     <value>App volum og enhetsinnstillinger</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Volum mikser</value>
+    <value>Volum kontroll (Windows Innstillinger)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Innstillinger for mus</value>
@@ -667,5 +675,8 @@
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Vis hele mikservinduet ved oppstart</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Logaritmisk skala minimum</value>
   </data>
 </root>
