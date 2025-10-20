@@ -130,7 +130,7 @@
     <value>音量合成器</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>音量合成器</value>
+    <value>音量合成器（旧版）</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>似乎没有任何播放设备。</value>
@@ -286,6 +286,14 @@
     <value>您的系统上存在损坏的字体，使得 EarTrumpet 无法启动。
 
 是否现在打开 [https://eartrumpet.app/jmp/fixfonts] 以获取相关信息？</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows 缺少一些注册表项，导致 EarTrumpet 无法自动启动。
+
+是否现在打开 [https://eartrumpet.app/jmp/fixstartup] 以获取相关信息？</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>静音/取消静音</value>
@@ -648,7 +656,7 @@
     <value>应用音量和设备首选项</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>音量合成器</value>
+    <value>音量合成器（Windows设置）</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>鼠标设置</value>
@@ -663,9 +671,12 @@
     <value>社区设置</value>
   </data>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
-    <value>使用对数音量缩放</value>
+    <value>使用对数音量比例</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>启动时显示完整音量合成器窗口</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>对数音量刻度最小值</value>
   </data>
 </root>

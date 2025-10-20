@@ -676,4 +676,7 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Zeige den vollständigen Lautstärkenmixer beim Start</value>
   </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Logarithmische Skala Minimum</value>
+  </data>
 </root>
