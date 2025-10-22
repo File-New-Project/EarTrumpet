@@ -24,6 +24,7 @@ public class SetAppVolumeAction : BaseAction, IPartWithVolume, IPartWithDevice, 
     public AppRef App { get; set; }
     public SetVolumeKind Option { get; set; }
     public double Volume { get; set; }
+    public VolumeUnit Unit { get; set; }
 }
 
 public class SetDefaultDeviceAction : BaseAction, IPartWithDevice
@@ -42,6 +43,7 @@ public class SetDeviceVolumeAction : BaseAction, IPartWithDevice, IPartWithVolum
     public Device Device { get; set; }
     public SetVolumeKind Option { get; set; }
     public double Volume { get; set; }
+    public VolumeUnit Unit { get; set; }
 }
 
 public class SetVariableAction : BaseAction, IPartWithText

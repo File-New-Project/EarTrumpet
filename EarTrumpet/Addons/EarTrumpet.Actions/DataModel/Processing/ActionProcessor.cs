@@ -7,6 +7,7 @@ using EarTrumpet.Actions.DataModel.Serialization;
 using EarTrumpet.DataModel.AppInformation;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
+using EarTrumpet.Extensions;
 using Windows.Win32;
 
 namespace EarTrumpet.Actions.DataModel.Processing;
@@ -184,18 +185,41 @@ internal class ActionProcessor
 
     private static void DoAudioAction(SetVolumeKind action, IStreamWithVolumeControl stream, IPartWithVolume part)
     {
-        var vol = (float)(part.Volume / 100f);
-        switch (action)
+        try
         {
-            case SetVolumeKind.Set:
-                stream.Volume = vol;
-                break;
-            case SetVolumeKind.Increment:
-                stream.Volume += vol;
-                break;
-            case SetVolumeKind.Decrement:
-                stream.Volume -= vol;
-                break;
+            switch (part.Unit)
+            {
+                case VolumeUnit.Percentage:
+                    {
+                        var vol = (float)(part.Volume / 100);
+                        var prevVol = stream.GetVolumeScalar();
+                        stream.SetVolumeScalar(action switch {
+                            SetVolumeKind.Set => vol,
+                            SetVolumeKind.Increment => (prevVol + vol).Bound(0, 1),
+                            SetVolumeKind.Decrement => (prevVol - vol).Bound(0, 1),
+                            _ => throw new ArgumentException("Invalid volume action.")
+                        });
+                    }
+                    break;
+                case VolumeUnit.Decibel:
+                    {
+                        var vol = (float)part.Volume;
+                        var prevVol = stream.GetVolumeLogarithmic();
+                        stream.SetVolumeLogarithmic(action switch {
+                            SetVolumeKind.Set => vol,
+                            SetVolumeKind.Increment => (prevVol + vol).Bound(App.Settings.LogarithmicVolumeMinDb, 0),
+                            SetVolumeKind.Decrement => (prevVol - vol).Bound(App.Settings.LogarithmicVolumeMinDb, 0),
+                            _ => throw new ArgumentException("Invalid volume action.")
+                        });
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("Invalid volume unit.");
+            }
+        }
+        catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
+        {
+            // Expected in some cases.
         }
     }
 }

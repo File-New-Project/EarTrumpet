@@ -523,10 +523,10 @@ Voleu obrir [https://eartrumpet.app/jmp/fixstartup] per resoldre-ho?</value>
     <value>Estableix el volum d'una aplicació</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volum a {Volume} a {Device}</value>
+    <value>{Option} {App} volum a {Volume}&#x200B;{Unit} a {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volum per {Volume} a {Device}</value>
+    <value>{Option} {App} volum per {Volume}&#x200B;{Unit} a {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Estableix el dispositiu de reproducció per defecte</value>
@@ -547,10 +547,10 @@ Voleu obrir [https://eartrumpet.app/jmp/fixstartup] per resoldre-ho?</value>
     <value>Estableix el volum del dispositiu</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volum a {Volume}</value>
+    <value>{Option} {Device} volum a {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volum per {Volume}</value>
+    <value>{Option} {Device} volum per {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Estableix una variable local</value>

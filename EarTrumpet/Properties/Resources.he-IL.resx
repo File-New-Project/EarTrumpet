@@ -524,10 +524,10 @@
     <value>הגדר את עוצמת השמע של אפליקציה</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} עוצמה ל{Volume} על {Device}</value>
+    <value>{Option} {App} עוצמה ל{Unit}{Volume} על {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} עוצמה על ידי{Volume} על {Device}</value>
+    <value>{Option} {App} עוצמה על ידי{Unit}{Volume} על {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>הגדר את מכשיר ההשמעה ברירת המחדל</value>
@@ -548,10 +548,10 @@
     <value>הגדר עוצמת קול למכשיר</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} עוצמת קול ל{Volume}</value>
+    <value>{Option} {Device} עוצמת קול ל{Unit}{Volume}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} עוצמת קול על ידי {Volume}</value>
+    <value>{Option} {Device} עוצמת קול על ידי {Unit}{Volume}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>הגדר משתנה מקומי (לוקאלי)</value>

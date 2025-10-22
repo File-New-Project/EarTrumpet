@@ -24,6 +24,16 @@ public class VolumeSlider : Slider
     public static readonly DependencyProperty PeakValue2Property = DependencyProperty.Register(
       "PeakValue2", typeof(float), typeof(VolumeSlider), new PropertyMetadata(0f, new PropertyChangedCallback(PeakValueChanged)));
 
+    public bool UseCustomRange
+    {
+        get { return (bool)this.GetValue(UseCustomRangeProperty); }
+        set { this.SetValue(UseCustomRangeProperty, value); }
+    }
+    public static readonly DependencyProperty UseCustomRangeProperty = DependencyProperty.Register(
+      "UseCustomRange", typeof(bool), typeof(VolumeSlider), new PropertyMetadata(false));
+
+
+
     private Border _peakMeter1;
     private Border _peakMeter2;
     private Thumb _thumb;
@@ -41,7 +51,6 @@ public class VolumeSlider : Slider
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
 
-        UseLogarithmicVolumeChangedHandler(null, new EventArgs());
         App.Settings.UseLogarithmicVolumeChanged += UseLogarithmicVolumeChangedHandler;
     }
 
@@ -56,6 +65,7 @@ public class VolumeSlider : Slider
         _thumb = (Thumb)GetTemplateChild("SliderThumb");
         _peakMeter1 = (Border)GetTemplateChild("PeakMeter1");
         _peakMeter2 = (Border)GetTemplateChild("PeakMeter2");
+        UseLogarithmicVolumeChangedHandler(null, new EventArgs());
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -77,6 +87,8 @@ public class VolumeSlider : Slider
 
     private void UpdateVolumeRange()
     {
+        if (UseCustomRange) return;
+
         if (App.Settings.UseLogarithmicVolume)
         {
             Minimum = App.Settings.LogarithmicVolumeMinDb;
@@ -199,7 +211,7 @@ public class VolumeSlider : Slider
     {
         var percent = point.X / ActualWidth;
         Value = App.Settings.UseLogarithmicVolume
-            ? Math.Round(Minimum + percent * (Maximum - Minimum), 1)
+            ? Bound(Math.Round(Minimum + percent * (Maximum - Minimum), 1))
             : Bound(Minimum + (Maximum - Minimum) * percent);
     }
 

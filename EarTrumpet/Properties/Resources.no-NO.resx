@@ -524,10 +524,10 @@ Gå til [https://eartrumpet.app/jmp/fixstartup] for å reparere dette?</value>
     <value>Sett volumet til en app</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volum til {Volume} på {Device}</value>
+    <value>{Option} {App} volum til {Volume}&#x200B;{Unit} på {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volum med {Volume} på {Device}</value>
+    <value>{Option} {App} volum med {Volume}&#x200B;{Unit} på {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Angi standard avspillingsenhet</value>
@@ -548,10 +548,10 @@ Gå til [https://eartrumpet.app/jmp/fixstartup] for å reparere dette?</value>
     <value>Angi en enhetsvolum</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volum til {Volume}</value>
+    <value>{Option} {Device} volum til {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volum med {Volume}</value>
+    <value>{Option} {Device} volum med {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Angi en lokal variabel</value>

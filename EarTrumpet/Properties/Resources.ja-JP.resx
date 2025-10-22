@@ -524,10 +524,10 @@
     <value>アプリの音量を設定</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Device} 上 {Option} {App} の音量を {Volume} へ</value>
+    <value>{Device} 上 {Option} {App} の音量を {Volume}&#x200B;{Unit} へ</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Device} {Option} {App} の音量を {Volume} で調整</value>
+    <value>{Device} {Option} {App} の音量を {Volume}&#x200B;{Unit} で調整</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>既定の再生デバイスを設定</value>
@@ -548,10 +548,10 @@
     <value>デバイスの音量を設定</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} の音量を {Volume} へ</value>
+    <value>{Option} {Device} の音量を {Volume}&#x200B;{Unit} へ</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} ボリュームを {Volume} へ</value>
+    <value>{Option} {Device} ボリュームを {Volume}&#x200B;{Unit} へ</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>ローカル変数を設定</value>

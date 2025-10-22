@@ -111,6 +111,25 @@ internal class AudioDeviceSessionGroup : BindableBase, IAudioDeviceSession, IAud
 
     public string PackageInstallPath => _sessions.FirstOrDefault()?.PackageInstallPath;
 
+    public float GetVolumeScalar() => _sessions.Count > 0 ? _sessions[0].GetVolumeScalar() : 1;
+    public float GetVolumeLogarithmic() => _sessions.Count > 0 ? _sessions[0].GetVolumeLogarithmic() : 1;
+
+    public void SetVolumeScalar(float value)
+    {
+        foreach (var session in _sessions)
+        {
+            session.SetVolumeScalar(value);
+        }
+    }
+
+    public void SetVolumeLogarithmic(float value)
+    {
+        foreach (var session in _sessions)
+        {
+            session.SetVolumeLogarithmic(value);
+        }
+    }
+
     public void Hide()
     {
         foreach (var session in _sessions.ToArray())

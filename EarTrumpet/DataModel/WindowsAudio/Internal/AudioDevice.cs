@@ -125,6 +125,9 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
         }));
     }
 
+    /// <summary>
+    ///     NOTICE: This value can be either scalar or logarithmic based on App.Settings.UseLogarithmicVolume
+    /// </summary>
     public float Volume
     {
         get => _volume;
@@ -134,18 +137,11 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
             {
                 if (App.Settings.UseLogarithmicVolume)
                 {
-                    value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
-                    value = value.Bound(_deviceVolumeMinDb, _deviceVolumeMaxDb);
-                    _volume = value;
-                    _deviceVolume.SetMasterVolumeLevel(value, Guid.Empty);
-                    IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
+                    SetVolumeLogarithmic(value);
                 }
                 else
                 {
-                    value = value.Bound(0, 1f);
-                    _volume = value;
-                    _deviceVolume.SetMasterVolumeLevelScalar(value, Guid.Empty);
-                    IsMuted = _volume.ToVolumeInt() == 0;
+                    SetVolumeScalar(value);
                 }
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
@@ -201,6 +197,35 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
     }
 
     public IEnumerable<IAudioDeviceChannel> Channels => _channels.Channels;
+
+    public float GetVolumeScalar()
+    {
+        _deviceVolume.GetMasterVolumeLevelScalar(out var volume);
+        return volume;
+    }
+
+    public float GetVolumeLogarithmic()
+    {
+        _deviceVolume.GetMasterVolumeLevel(out var volume);
+        return volume;
+    }
+
+    public void SetVolumeScalar(float value)
+    {
+        value = value.Bound(0, 1f);
+        _volume = value;
+        _deviceVolume.SetMasterVolumeLevelScalar(value, Guid.Empty);
+        IsMuted = _volume.ToVolumeInt() == 0;
+    }
+
+    public void SetVolumeLogarithmic(float value)
+    {
+        value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
+        value = value.Bound(_deviceVolumeMinDb, _deviceVolumeMaxDb);
+        _volume = value;
+        _deviceVolume.SetMasterVolumeLevel(value, Guid.Empty);
+        IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
+    }
 
     public void UpdatePeakValue()
     {

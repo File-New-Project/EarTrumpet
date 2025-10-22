@@ -32,29 +32,25 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
         }
     }
 
+    /// <summary>
+    ///     NOTICE: This value can be either scalar or logarithmic based on App.Settings.UseLogarithmicVolume
+    /// </summary>
     public float Volume
     {
         get => App.Settings.UseLogarithmicVolume
-            ? _volume.LinearToLog()
-            : _volume;
+            ? GetVolumeLogarithmic()
+            : GetVolumeScalar();
         set
         {
             try
             {
                 if (App.Settings.UseLogarithmicVolume)
                 {
-                    value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
-                    // We must convert manually here because sessions use linear volume.
-                    _simpleVolume.SetMasterVolume(value.LogToLinear(), Guid.Empty);
-                    _volume = value;
-                    IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
+                    SetVolumeLogarithmic(value);
                 }
                 else
                 {
-                    value = value.Bound(0, 1f);
-                    _simpleVolume.SetMasterVolume(value, Guid.Empty);
-                    _volume = value;
-                    IsMuted = _volume.ToVolumeInt() == 0;
+                    SetVolumeScalar(value);
                 }
             }
             catch (Exception ex) when (ex.Is(HRESULT.AUDCLNT_E_DEVICE_INVALIDATED))
@@ -218,6 +214,26 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
         {
             Trace.WriteLine($"AudioDeviceSession dtor Failed: {ex}");
         }
+    }
+
+    public float GetVolumeScalar() => _volume;
+    public float GetVolumeLogarithmic() => _volume.LinearToLog();
+
+    public void SetVolumeScalar(float value)
+    {
+        value = value.Bound(0, 1f);
+        _simpleVolume.SetMasterVolume(value, Guid.Empty);
+        _volume = value;
+        IsMuted = _volume.ToVolumeInt() == 0;
+    }
+
+    public void SetVolumeLogarithmic(float value)
+    {
+        value = value.Bound(App.Settings.LogarithmicVolumeMinDb, 0);
+        // We must convert manually here because sessions use linear volume.
+        _simpleVolume.SetMasterVolume(value.LogToLinear(), Guid.Empty);
+        _volume = value;
+        IsMuted = value <= App.Settings.LogarithmicVolumeMinDb;
     }
 
     public void Hide()

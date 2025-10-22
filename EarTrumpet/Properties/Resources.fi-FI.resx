@@ -518,10 +518,10 @@ Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
     <value>Aseta sovelluksen äänenvoimakkuus</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} aseta äänenvoimakkuus {Volume} laitteella {Device}</value>
+    <value>{Option} {App} aseta äänenvoimakkuus {Volume}&#x200B;{Unit} laitteella {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} äänenvoimakkuus {Volume} laitteelta {Device}</value>
+    <value>{Option} {App} äänenvoimakkuus {Volume}&#x200B;{Unit} laitteelta {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Aseta oletussoittolaite</value>
@@ -542,10 +542,10 @@ Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
     <value>Aseta laitteen äänenvoimakkuudeksi</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} äänenvoimakkuus {Volume} saakka</value>
+    <value>{Option} {Device} äänenvoimakkuus {Volume}&#x200B;{Unit} saakka</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} äänenvoimakkuutta {Volume}</value>
+    <value>{Option} {Device} äänenvoimakkuutta {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Aseta paikallinen muuttuja</value>

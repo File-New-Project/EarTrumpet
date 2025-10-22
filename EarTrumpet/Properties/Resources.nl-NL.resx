@@ -516,10 +516,10 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
     <value>Stel het volume van een app in</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volume naar {Volume} op {Device}</value>
+    <value>{Option} {App} volume naar {Volume}&#x200B;{Unit} op {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume met {Volume} op {Device}</value>
+    <value>{Option} {App} volume met {Volume}&#x200B;{Unit} op {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Stel het standaard afspeelapparaat in</value>
@@ -540,10 +540,10 @@ Wil je [https://eartrumpet.app/jmp/fixfonts] openen om het probleem op te lossen
     <value>Apparaatvolume instellen</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volume naar {Volume}</value>
+    <value>{Option} {Device} volume naar {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volume met {Volume}</value>
+    <value>{Option} {Device} volume met {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Stel een lokale variabele in</value>
