@@ -130,7 +130,7 @@
     <value>Mélangeur de volume EarTrumpet</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mélangeur de volume classique</value>
+    <value>Mixeur de volume (legacy)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Il semblerait que vous n’ayez aucun périphérique de lecture.</value>
@@ -286,6 +286,14 @@
     <value>Une police de caractères défectueuse empêche EarTrumpet de démarrer.
 
 Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows manque des entrées de registre qui empêchent EarTrumpet de se lancer automatiquement.
+
+Ouvrez [https://eartrumpet.app/jmp/fixstartup] pour résoudre ce problème.</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Activer/désactiver le mode Muet</value>
@@ -648,7 +656,7 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
     <value>Volume des applications et préférence des appareils</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mélangeur de volume</value>
+    <value>Mixeur de volume (Paramètres Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Paramètres de la souris</value>
@@ -667,5 +675,8 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Afficher le mélangeur entier au démarrage</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Échelle logarithmique minimale</value>
   </data>
 </root>
