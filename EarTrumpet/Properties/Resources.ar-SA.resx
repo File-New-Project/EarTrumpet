@@ -516,10 +516,10 @@
     <value>تعيين مستوى صوت التطبيق</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} حجم {Volume} على {Device}</value>
+    <value>{Option} {App} حجم {Volume}&#x200B;{Unit} على {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} حجم {Volume} على {Device}</value>
+    <value>{Option} {App} حجم {Volume}&#x200B;{Unit} على {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>تعيين جهاز التشغيل الافتراضي</value>
@@ -540,10 +540,10 @@
     <value>ضبط مستوى صوت الجهاز</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} مستوى الصوت إلى {Volume}</value>
+    <value>{Option} {Device} مستوى الصوت إلى {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} مستوى الصوت بواسطة {Volume}</value>
+    <value>{Option} {Device} مستوى الصوت بواسطة {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>تعيين متغير محلي</value>

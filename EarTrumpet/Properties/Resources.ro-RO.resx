@@ -516,10 +516,10 @@ Deschide [https://eartrumpet.app/jmp/fixfonts] acum?</value>
     <value>Setați volumul unei aplicații</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volum la {Volume} pe {Device}</value>
+    <value>{Option} {App} volum la {Volume}&#x200B;{Unit} pe {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volum de {Volume} pe {Device}</value>
+    <value>{Option} {App} volum de {Volume}&#x200B;{Unit} pe {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Setați dispozitivul implicit de redare</value>
@@ -540,10 +540,10 @@ Deschide [https://eartrumpet.app/jmp/fixfonts] acum?</value>
     <value>Setaţi volumul dispozitivului</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volum la {Volume}</value>
+    <value>{Option} {Device} volum la {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volum de {Volume}</value>
+    <value>{Option} {Device} volum de {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Setaţi o variabilă locală</value>

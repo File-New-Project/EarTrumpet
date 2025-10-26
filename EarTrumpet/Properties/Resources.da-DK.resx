@@ -516,10 +516,10 @@
     <value>Indstil lydstyrken for en app</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} lydstyrke til {Volume} på {Device}</value>
+    <value>{Option} {App} lydstyrke til {Volume}&#x200B;{Unit} på {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} lydstyrke med {Volume} på {Device}</value>
+    <value>{Option} {App} lydstyrke med {Volume}&#x200B;{Unit} på {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Indstil standard afspilningsenhed</value>
@@ -540,10 +540,10 @@
     <value>Indstil en enheds lydstyrke</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} lydstyrke til {Volume}</value>
+    <value>{Option} {Device} lydstyrke til {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} lydstyrke med {Volume}</value>
+    <value>{Option} {Device} lydstyrke med {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Angiv lokal variabel</value>

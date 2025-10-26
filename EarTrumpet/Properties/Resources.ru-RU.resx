@@ -524,10 +524,10 @@
     <value>Установить громкость программы</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} громкость {App} на {Volume}&#x200B;{Unit} на {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость {App} на {Volume} на {Device}</value>
+    <value>{Option} громкость {App} на {Volume}&#x200B;{Unit} на {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Установить устройство воспроизведения по умолчанию</value>
@@ -548,10 +548,10 @@
     <value>Установить громкость устройства</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} громкость на {Volume}&#x200B;{Unit} на {Device}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} громкость на {Volume} на {Device}</value>
+    <value>{Option} громкость на {Volume}&#x200B;{Unit} на {Device}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Установить локальную переменную</value>

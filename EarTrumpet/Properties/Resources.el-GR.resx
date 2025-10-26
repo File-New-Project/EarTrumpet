@@ -524,10 +524,10 @@
     <value>Ορισμός έντασης ήχου μιας εφαρμογής</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
+    <value>{Option} {App} ένταση στο {Volume}&#x200B;{Unit} στο {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} ένταση στο {Volume} στο {Device}</value>
+    <value>{Option} {App} ένταση στο {Volume}&#x200B;{Unit} στο {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Ορισμός της προεπιλεγμένης συσκευής αναπαραγωγής</value>
@@ -548,10 +548,10 @@
     <value>Ορισμός έντασης συσκευής</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} ένταση στο {Volume}</value>
+    <value>{Option} {Device} ένταση στο {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} ένταση στο {Volume}</value>
+    <value>{Option} {Device} ένταση στο {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Ορισμός μιας τοπικής μεταβλητής</value>

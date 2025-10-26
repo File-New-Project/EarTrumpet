@@ -516,10 +516,10 @@
     <value>ปรับความดังของแอป</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} ปรับเสียงไป {Volume} บน {Device}</value>
+    <value>{Option} {App} ปรับเสียงไป {Volume}&#x200B;{Unit} บน {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} ปรับเสียงให้ {Volume} บน {Device}</value>
+    <value>{Option} {App} ปรับเสียงให้ {Volume}&#x200B;{Unit} บน {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>ตั้งให้เป็นอุปกรณ์ค่าเริ่มต้น</value>
@@ -540,10 +540,10 @@
     <value>ปรับเสียงของอุปกรณ์</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} ปรับเสียงไป {Volume}</value>
+    <value>{Option} {Device} ปรับเสียงไป {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} ปรับเสียงให้ {Volume}</value>
+    <value>{Option} {Device} ปรับเสียงให้ {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>ตั้งตัวแปรภายใน</value>

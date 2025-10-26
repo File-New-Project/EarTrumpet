@@ -516,10 +516,10 @@
     <value>設置應用程式的音量</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} 音量至 {Volume} 於 {Device}</value>
+    <value>{Option} {App} 音量至 {Volume}&#x200B;{Unit} 於 {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} 音量至 {Volume} 於 {Device}</value>
+    <value>{Option} {App} 音量至 {Volume}&#x200B;{Unit} 於 {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>設定預設播放裝置</value>
@@ -540,10 +540,10 @@
     <value>設定設備音量</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} 音量到 {Volume}</value>
+    <value>{Option} {Device} 音量到 {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} 音量到 {Volume}</value>
+    <value>{Option} {Device} 音量到 {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>設定區域變數</value>

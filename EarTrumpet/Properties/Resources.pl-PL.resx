@@ -516,10 +516,10 @@ Otworzyć [https://eartrumpet.app/jmp/fixfonts] teraz?</value>
     <value>Ustaw poziom głośności aplikacji</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} poziom głośności na {Volume} na {Device}</value>
+    <value>{Option} {App} poziom głośności na {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} poziom głośności o {Volume} na {Device}</value>
+    <value>{Option} {App} poziom głośności o {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Ustaw domyślne urządzenie odtwarzające</value>
@@ -540,10 +540,10 @@ Otworzyć [https://eartrumpet.app/jmp/fixfonts] teraz?</value>
     <value>Ustaw poziom głośności urządzenia</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} poziom głośności na {Volume}</value>
+    <value>{Option} {Device} poziom głośności na {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} poziom głośności o {Volume}</value>
+    <value>{Option} {Device} poziom głośności o {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Ustaw zmienną lokalną</value>

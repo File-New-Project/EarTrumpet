@@ -9,4 +9,10 @@ public interface IStreamWithVolumeControl : INotifyPropertyChanged
     float Volume { get; set; }
     float PeakValue1 { get; }
     float PeakValue2 { get; }
+
+    // Unlike Volume property, these methods are independent of app unit settings.
+    float GetVolumeScalar();
+    float GetVolumeLogarithmic();
+    void SetVolumeScalar(float value);
+    void SetVolumeLogarithmic(float value);
 }

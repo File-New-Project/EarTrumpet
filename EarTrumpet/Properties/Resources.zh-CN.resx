@@ -524,10 +524,10 @@
     <value>调整某应用的音量</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>在 {Device} 上将 {App} 的音量 {Option} 为 {Volume}</value>
+    <value>在 {Device} 上将 {App} 的音量 {Option} 为 {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>在 {Device} 上将 {App} 的音量 {Option} {Volume}</value>
+    <value>在 {Device} 上将 {App} 的音量 {Option} {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>设置默认播放设备</value>
@@ -548,10 +548,10 @@
     <value>调整某设备音量</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>将 {Device} 的音量 {Option} 为 {Volume}</value>
+    <value>将 {Device} 的音量 {Option} 为 {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>将 {Device} 的音量 {Option} {Volume}</value>
+    <value>将 {Device} 的音量 {Option} {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>设置某局部变量</value>

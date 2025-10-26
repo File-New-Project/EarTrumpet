@@ -524,10 +524,10 @@
     <value>Bir uygulamanın sesini ayarla</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} olarak {Option}</value>
+    <value>{App} ses yüksekliğini {Device} aygıtında {Volume}&#x200B;{Unit} olarak {Option}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{App} ses yüksekliğini {Device} aygıtında {Volume} kadar {Option}</value>
+    <value>{App} ses yüksekliğini {Device} aygıtında {Volume}&#x200B;{Unit} kadar {Option}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Varsayılan kayıttan yürütme aygıtını ayarla</value>
@@ -548,10 +548,10 @@
     <value>Bir aygıt ses yüksekliği ayarlayın</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Device} ses seviyesini {Volume} değerine {Option}</value>
+    <value>{Device} ses seviyesini {Volume}&#x200B;{Unit} değerine {Option}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Device} ses seviyesini {Volume} kadar {Option}</value>
+    <value>{Device} ses seviyesini {Volume}&#x200B;{Unit} kadar {Option}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Bir yerel değişken ayarlayın</value>

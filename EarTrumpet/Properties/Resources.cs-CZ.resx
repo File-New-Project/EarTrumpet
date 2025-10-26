@@ -516,10 +516,10 @@ Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
     <value>Nastavit hlasitost aplikace</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} hlasitost k {Volume} na {Device}</value>
+    <value>{Option} {App} hlasitost k {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} hlasitost od {Volume} na {Device}</value>
+    <value>{Option} {App} hlasitost od {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Nastavit výchozí přehrávací zařízení</value>
@@ -540,10 +540,10 @@ Přejete si nyní otevřít [https://eartrumpet.app/jmp/fixfonts]?</value>
     <value>Nastavit hlasitost zařízení</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} hlasitost pro {Volume}</value>
+    <value>{Option} {Device} hlasitost pro {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} hlasitost od {Volume}</value>
+    <value>{Option} {Device} hlasitost od {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Nastavit místní proměnnou</value>

@@ -524,10 +524,10 @@
     <value>앱 음량 설정</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Device} 장치의 {App} 앱 음량을 {Volume} (으)로 {Option}</value>
+    <value>{Device} 장치의 {App} 앱 음량을 {Volume}&#x200B;{Unit} (으)로 {Option}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Device} 장치의 {App} 앱 음량을 {Volume} 만큼 {Option}</value>
+    <value>{Device} 장치의 {App} 앱 음량을 {Volume}&#x200B;{Unit} 만큼 {Option}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>기본 재생 장치 설정</value>
@@ -548,10 +548,10 @@
     <value>장치 음량 설정</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Device} 장치의 음량을 {Volume} (으)로 {Option}</value>
+    <value>{Device} 장치의 음량을 {Volume}&#x200B;{Unit} (으)로 {Option}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Device} 장치의 음량을 {Volume} 만큼 {Option}</value>
+    <value>{Device} 장치의 음량을 {Volume}&#x200B;{Unit} 만큼 {Option}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>지역 변수 설정</value>

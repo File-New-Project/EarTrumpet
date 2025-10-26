@@ -317,8 +317,9 @@
                 <ColumnDefinition Width="{DynamicResource Mutable_VolumeCellWidth}" />
             </Grid.ColumnDefinitions>
             <ctl:VolumeSlider Margin="12"
-                              Maximum="100"
-                              Minimum="0"
+                              UseCustomRange="True"
+                              Maximum="{Binding Maximum, Mode=OneWay}"
+                              Minimum="{Binding Minimum, Mode=OneWay}"
                               Style="{DynamicResource {x:Type Slider}}"
                               Value="{Binding Volume, Mode=TwoWay}" />
             <TextBlock Grid.Column="1"

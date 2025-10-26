@@ -524,10 +524,10 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
     <value>Set the volume of an app</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} volume to {Volume} on {Device}</value>
+    <value>{Option} {App} volume to {Volume}&#x200B;{Unit} on {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume by {Volume} on {Device}</value>
+    <value>{Option} {App} volume by {Volume}&#x200B;{Unit} on {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Set the default playback device</value>
@@ -548,10 +548,10 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
     <value>Set a device volume</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volume to {Volume}</value>
+    <value>{Option} {Device} volume to {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volume by {Volume}</value>
+    <value>{Option} {Device} volume by {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Set a local variable</value>
@@ -678,5 +678,11 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   </data>
   <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
     <value>Logarithmic scale minimum</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>

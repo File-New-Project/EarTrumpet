@@ -516,10 +516,10 @@
     <value>Встановити гучність програми</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} гучність до {Volume} у {Device}</value>
+    <value>{Option} {App} гучність до {Volume}&#x200B;{Unit} у {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} гучність {Volume} на {Device}</value>
+    <value>{Option} {App} гучність {Volume}&#x200B;{Unit} на {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Встановити стандартний пристрій відтворення</value>
@@ -540,10 +540,10 @@
     <value>Установити гучність пристрою</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} гучність до {Volume}</value>
+    <value>{Option} {Device} гучність до {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} гучність на {Volume}</value>
+    <value>{Option} {Device} гучність на {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Установити локальну змінну</value>

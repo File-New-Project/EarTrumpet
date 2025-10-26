@@ -524,10 +524,10 @@ Abrir [https://eartrumpet.app/jmp/fixstartup] para resolver isso?</value>
     <value>Definir o volume de um aplicativo</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} alterar volume para {Volume} no {Device}</value>
+    <value>{Option} {App} alterar volume para {Volume}&#x200B;{Unit} no {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume em {Volume} no {Device}</value>
+    <value>{Option} {App} volume em {Volume}&#x200B;{Unit} no {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Definir o dispositivo de reprodução padrão</value>
@@ -548,10 +548,10 @@ Abrir [https://eartrumpet.app/jmp/fixstartup] para resolver isso?</value>
     <value>Definir volume do dispositivo</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} alterar volume para {Volume}</value>
+    <value>{Option} {Device} alterar volume para {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volume em {Volume}</value>
+    <value>{Option} {Device} volume em {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Selecionar uma variável local</value>

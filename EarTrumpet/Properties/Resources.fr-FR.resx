@@ -516,10 +516,10 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
     <value>Définir le volume d'une application</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>Volume de {Volume} sur {Device} pour {Option} {App}</value>
+    <value>Volume de {Volume}&#x200B;{Unit} sur {Device} pour {Option} {App}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume pour {Volume} sur {Device}</value>
+    <value>{Option} {App} volume pour {Volume}&#x200B;{Unit} sur {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Définir le périphérique de lecteur par défaut</value>
@@ -540,10 +540,10 @@ Voulez-vous ouvrir [https://eartrumpet.app/jmp/fixfonts] maintenant?</value>
     <value>Définir le volume d'un périphérique</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} volume à {Volume}</value>
+    <value>{Option} {Device} volume à {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} volume de {Device} par {Volume}</value>
+    <value>{Option} volume de {Device} par {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Définir une variable locale</value>

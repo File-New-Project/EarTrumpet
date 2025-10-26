@@ -516,10 +516,10 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Đặt âm lượng của ứng dụng</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
+    <value>{Option} âm lượng của {App} thành {Volume}&#x200B;{Unit} ở thiết bị {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} âm lượng của {App} thành {Volume} ở thiết bị {Device}</value>
+    <value>{Option} âm lượng của {App} thành {Volume}&#x200B;{Unit} ở thiết bị {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Đặt thiết bị phát lại mặc định</value>
@@ -540,10 +540,10 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Đật âm lượng cho thiết bị</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} âm lượng của {Device} thành {Volume}</value>
+    <value>{Option} âm lượng của {Device} thành {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} âm lượng của {Device} thành {Volume}</value>
+    <value>{Option} âm lượng của {Device} thành {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Đặt biến cục bộ</value>
