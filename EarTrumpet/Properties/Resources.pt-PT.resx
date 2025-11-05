@@ -130,7 +130,7 @@
     <value>Misturador de Volume</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Misturador de Volume</value>
+    <value>Misturador de volumes (antigo)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Não foram encontrados dispositivos de reprodução ativos.</value>
@@ -286,6 +286,14 @@
     <value>Existe um tipo de letra inválido no sistema que está a impedir o EarTrumpet de iniciar.
 
 Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>O Windows está sem entradas no registo que permitem que o EarTrumpet seja lançado automaticamente.
+
+Abrir [https://eartrumpet.app/jmp/fixstartup] para resolver isso?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Ativar/Desativar Som</value>
@@ -516,10 +524,10 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Definir o volume de uma aplicação</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} alterar volume para {Volume}&#x200B;{Unit} em {Device}</value>
+    <value>{Option} {App} volume para {Volume}&#x200B;{Unit} no {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} volume a {Volume}&#x200B;{Unit} em {Device}</value>
+    <value>{Option} {App} volume por {Volume}&#x200B;{Unit} no {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Predefinir dispositivo de reprodução</value>
@@ -540,10 +548,10 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Definir volume do dispositivo</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} alterar volume para {Volume}&#x200B;{Unit}</value>
+    <value>{Option} {Device} volume para {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} volume a {Volume}&#x200B;{Unit}</value>
+    <value>{Option} {Device} volume por {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Definir uma variável local</value>
@@ -648,7 +656,7 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Volume das aplicações e preferências do dispositivo</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Misturador de volume</value>
+    <value>Misturador de volume (Definições do Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Definições do rato</value>
@@ -666,6 +674,15 @@ Abrir [https://eartrumpet.app/jmp/fixfonts] agora?</value>
     <value>Usar escala de volume logarítmica</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
-    <value>Mostrar a janela completa do misturador no arranque</value>
+    <value>Mostrar janela completa do misturador na inicialização</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Escala logarítmica mínima</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>
