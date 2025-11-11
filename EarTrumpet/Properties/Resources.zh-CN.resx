@@ -679,4 +679,7 @@
   <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
     <value>对数音量刻度最小值</value>
   </data>
+  <data name="SettingsScrollWheelOrHotkeyVolumeChange" xml:space="preserve">
+    <value>滚动滚轮或按下快捷键时的音量变化幅度</value>
+  </data>
 </root>

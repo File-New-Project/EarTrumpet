@@ -180,14 +180,12 @@
                           Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
                           IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
                 <StackPanel>
-                    <!-- Localization required -->
                     <TextBlock VerticalAlignment="Center"
                                Style="{StaticResource BodyText}"
                                Text="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}" />
                     <StackPanel Orientation="Horizontal"
                                 Margin="12,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom">
+                                VerticalAlignment="Center">
                         <!--
                             -96 dB is the min volume range of most devices
                             -12 dB is arbitrarily chosen
@@ -202,7 +200,44 @@
                                 Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
                         <TextBlock VerticalAlignment="Center"
                                    Style="{StaticResource BodyText}"
-                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat={}{0} dB}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{x:Static resx:Resources.SettingsScrollWheelOrHotkeyVolumeChange}" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center">
+                        <Slider Minimum="1"
+                                Maximum="10"
+                                Width="200"
+                                IsEnabled="{Binding UseLogarithmicVolume, Converter={StaticResource NegateConverter}}"
+                                IsSnapToTickEnabled="True"
+                                SmallChange="1"
+                                LargeChange="1"
+                                TickFrequency="1"
+                                Value="{Binding ScrollWheelOrHotkeyVolumeChangePercent, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding ScrollWheelOrHotkeyVolumeChangePercent, StringFormat={}{0}%}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Center">
+                        <Slider Minimum="0.1"
+                                Maximum="5"
+                                Width="200"
+                                IsEnabled="{Binding UseLogarithmicVolume}"
+                                IsSnapToTickEnabled="True"
+                                SmallChange="0.1"
+                                LargeChange="0.5"
+                                TickFrequency="0.1"
+                                Value="{Binding ScrollWheelOrHotkeyVolumeChangeDb, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding ScrollWheelOrHotkeyVolumeChangeDb, StringFormat={}{0:F1} dB}" />
                     </StackPanel>
                 </StackPanel>
                 <CheckBox HorizontalAlignment="Left"

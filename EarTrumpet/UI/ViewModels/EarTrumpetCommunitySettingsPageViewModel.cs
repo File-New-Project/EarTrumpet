@@ -1,4 +1,6 @@
-﻿namespace EarTrumpet.UI.ViewModels;
+﻿using System;
+
+namespace EarTrumpet.UI.ViewModels;
 
 public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
 {
@@ -25,6 +27,32 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
             {
                 _settings.LogarithmicVolumeMinDb = (float)value;
                 RaisePropertyChanged(nameof(LogarithmicVolumeMinDb));
+            }
+        }
+    }
+
+    public double ScrollWheelOrHotkeyVolumeChangePercent
+    {
+        get => _settings.ScrollWheelOrHotkeyVolumeChangePercent;
+        set
+        {
+            if (_settings.ScrollWheelOrHotkeyVolumeChangePercent != (float)value)
+            {
+                _settings.ScrollWheelOrHotkeyVolumeChangePercent = (int)Math.Round(value);
+                RaisePropertyChanged(nameof(ScrollWheelOrHotkeyVolumeChangePercent));
+            }
+        }
+    }
+
+    public double ScrollWheelOrHotkeyVolumeChangeDb
+    {
+        get => _settings.ScrollWheelOrHotkeyVolumeChangeDb;
+        set
+        {
+            if (_settings.ScrollWheelOrHotkeyVolumeChangeDb != (float)value)
+            {
+                _settings.ScrollWheelOrHotkeyVolumeChangeDb = (float)value;
+                RaisePropertyChanged(nameof(ScrollWheelOrHotkeyVolumeChangeDb));
             }
         }
     }
