@@ -19,7 +19,7 @@ namespace EarTrumpet.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1280,7 +1280,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} {App} volume to {Volume} on {Device}.
+        ///   Looks up a localized string similar to {Option} {App} volume to {Volume}​{Unit} on {Device}.
         /// </summary>
         public static string SetAppVolumeAction_LinkText {
             get {
@@ -1289,7 +1289,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} {App} volume by {Volume} on {Device}.
+        ///   Looks up a localized string similar to {Option} {App} volume by {Volume}​{Unit} on {Device}.
         /// </summary>
         public static string SetAppVolumeAction_LinkTextIncrement {
             get {
@@ -1352,7 +1352,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} {Device} volume to {Volume}.
+        ///   Looks up a localized string similar to {Option} {Device} volume to {Volume}​{Unit}.
         /// </summary>
         public static string SetDeviceVolumeAction_LinkText {
             get {
@@ -1361,7 +1361,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {Option} {Device} volume by {Volume}.
+        ///   Looks up a localized string similar to {Option} {Device} volume by {Volume}​{Unit}.
         /// </summary>
         public static string SetDeviceVolumeAction_LinkTextIncrement {
             get {
@@ -1708,6 +1708,24 @@ namespace EarTrumpet.Properties {
         public static string VersionText {
             get {
                 return ResourceManager.GetString("VersionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dB.
+        /// </summary>
+        public static string VolumeUnit_Decibel {
+            get {
+                return ResourceManager.GetString("VolumeUnit_Decibel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %.
+        /// </summary>
+        public static string VolumeUnit_Percentage {
+            get {
+                return ResourceManager.GetString("VolumeUnit_Percentage", resourceCulture);
             }
         }
         

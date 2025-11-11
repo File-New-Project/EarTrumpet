@@ -30,14 +30,17 @@ jobs:
           dotnet publish
           /p:PublishProfile=x86
           /p:Platform=x86
+          /p:DisableGitVersionTask=true
           EarTrumpet\EarTrumpet.csproj
 
           dotnet publish
           /p:PublishProfile=x64
           /p:Platform=x64
+          /p:DisableGitVersionTask=true
           EarTrumpet\EarTrumpet.csproj
 
           dotnet publish
           /p:PublishProfile=arm64
           /p:Platform=arm64
+          /p:DisableGitVersionTask=true
           EarTrumpet\EarTrumpet.csproj
