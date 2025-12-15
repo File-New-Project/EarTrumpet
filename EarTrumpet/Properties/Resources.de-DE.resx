@@ -524,10 +524,10 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Lege das Volumen einer App fest</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} Latustärke auf {Volume}&#x200B;{Unit} von {Device}</value>
+    <value>{Option} {App} Lautstärke auf {Volume}&#x200B;{Unit} von {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} Lautstärke um {Volume}&#x200B;{Unit} von {Device}</value>
+    <value>{Option} {App} Lautstärke ändern um {Volume}&#x200B;{Unit} von {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Lege das Standard-Wiedergabegerät fest</value>
@@ -551,7 +551,7 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>{Option} {Device} Lautstärke auf {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} Lautstärke um {Volume}&#x200B;{Unit}</value>
+    <value>{Option} {Device} Lautstärke ändern um {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Lokale Variable festlegen</value>
