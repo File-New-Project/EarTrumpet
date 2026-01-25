@@ -16,6 +16,12 @@ namespace EarTrumpet.UI.ViewModels
             set => _settings.UseGlobalMouseWheelHook = value;
         }
 
+        public bool UseTaskbarMiddleClickMute
+        {
+            get => _settings.UseTaskbarMiddleClickMute;
+            set => _settings.UseTaskbarMiddleClickMute = value;
+        }
+
         private readonly AppSettings _settings;
 
         public EarTrumpetMouseSettingsPageViewModel(AppSettings settings) : base(null)

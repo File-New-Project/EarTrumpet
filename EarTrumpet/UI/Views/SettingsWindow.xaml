@@ -169,6 +169,9 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
                           IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" />
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseTaskbarMiddleClickMute}"
+                          IsChecked="{Binding UseTaskbarMiddleClickMute, Mode=TwoWay}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
