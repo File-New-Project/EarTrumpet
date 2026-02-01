@@ -648,6 +648,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Middle-click on a taskbar app icon to toggle mute.
+        /// </summary>
+        public static string SettingsUseTaskbarMiddleClickMute {
+            get {
+                return ResourceManager.GetString("SettingsUseTaskbarMiddleClickMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  EarTrumpet {Option}.
         /// </summary>
         public static string EventTrigger_LinkText {
