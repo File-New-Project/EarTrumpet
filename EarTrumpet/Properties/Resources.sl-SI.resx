@@ -130,7 +130,7 @@
     <value>Mešalnik glasnosti</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mešalnik glasnosti</value>
+    <value>Mešalnik glasnosti (zastarelo)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Videti je, da nimate predvajalnih naprav.</value>
@@ -287,6 +287,14 @@
 
 Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>V sistemu Windows manjkajo vnosi v register, ki preprečujejo samodejni zagon aplikacije EarTrumpet.
+
+Želite odpreti [https://eartrumpet.app/jmp/fixstartup], da odpravite to težavo?</value>
+  </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Preklopi izklopljeni zvok</value>
   </data>
@@ -296,8 +304,6 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Pošlji podatke o sesutju programerjem EarTrumpeta</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>in</value>
   </data>
@@ -521,7 +527,7 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
     <value>{Option} {App} glasnost na {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} glasnost za {Volume}&#x200B;{Unit} na {Device}</value>
+    <value>{Option}{App} glasnost za {Volume}&#x200B;{Unit} na {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Nastavi privzeto predvajalno napravo</value>
@@ -542,10 +548,10 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
     <value>Nastavi lastnost naprave</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} glasnost na {Volume}&#x200B;{Unit}</value>
+    <value>{Option}{Device} glasnost na {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} glasnost za {Volume}&#x200B;{Unit}</value>
+    <value>{Option}{Device} glasnost za {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Nastavite lokalno spremenljivko</value>
@@ -639,5 +645,44 @@ Ali želite zdaj odpreti [https://eartrumpet.app/jmp/fixfonts]?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Zgoraj prikazane aplikacije so pred kratkim predvajale zvok.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Zmanjšajte glasnost za vse naprave</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Povečajte glasnost za vse naprave</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Glasnost aplikacije in nastavitve naprave</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Mešalnik glasnosti (Nastavitve sistema Windows)</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Nastavitve miške</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Z miškinim kolescem spremenite glasnost, medtem ko ste z miško nad ikono EarTrumpet</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Z miškinim kolescem spremenite glasnost, ko je pojavni meni odprt</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Nastavitve skupnosti</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Uporabi logaritemsko lestvico glasnosti</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Ob zagonu prikaži celotno okno mešalnika</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Minimum logaritemske lestvice zvoka</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>
