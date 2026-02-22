@@ -665,4 +665,7 @@ Open [https://eartrumpet.app/jmp/fixfonts] now?</value>
   <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
     <value>Use logarithmic volume scale</value>
   </data>
+  <data name="SettingsUseTaskbarMiddleClickMute" xml:space="preserve">
+    <value>Middle-click on a taskbar app icon to toggle mute</value>
+  </data>
 </root>

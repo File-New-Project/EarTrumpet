@@ -26,7 +26,12 @@ namespace EarTrumpet.Interop.Helpers
         public delegate int MouseWheelHandler(object sender, MouseEventArgs e);
         public event MouseWheelHandler MouseWheelEvent;
 
+        public delegate int MiddleClickHandler(object sender, MouseEventArgs e);
+        public event MiddleClickHandler MiddleClickEvent;
+
         private const int WM_MOUSEWHEEL = 0x020A;
+        private const int WM_MBUTTONDOWN = 0x0207;
+        private const int WM_MBUTTONUP = 0x0208;
         private const int WH_MOUSE_LL = 14;
         private User32.HookProc _hProc;
         private int _hHook;
@@ -53,17 +58,34 @@ namespace EarTrumpet.Interop.Helpers
 
         private int MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode < 0 || MouseWheelEvent == null || (Int32)wParam != WM_MOUSEWHEEL)
+            if (nCode < 0)
             {
                 return User32.CallNextHookEx(_hHook, nCode, wParam, lParam);
             }
-            MouseLLHookStruct MyMouseHookStruct = (MouseLLHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseLLHookStruct));
-            int result = MouseWheelEvent(this, new MouseEventArgs(MouseButtons.None, 0, MyMouseHookStruct.pt.x, MyMouseHookStruct.pt.y, MyMouseHookStruct.mouseData >> 16));
-            if (result == 0)
+
+            int msgType = (Int32)wParam;
+
+            if (msgType == WM_MOUSEWHEEL && MouseWheelEvent != null)
             {
-                return User32.CallNextHookEx(_hHook, nCode, wParam, lParam);
+                MouseLLHookStruct MyMouseHookStruct = (MouseLLHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseLLHookStruct));
+                int result = MouseWheelEvent(this, new MouseEventArgs(MouseButtons.None, 0, MyMouseHookStruct.pt.x, MyMouseHookStruct.pt.y, MyMouseHookStruct.mouseData >> 16));
+                if (result != 0)
+                {
+                    return result;
+                }
             }
-            return result;
+
+            if (msgType == WM_MBUTTONDOWN && MiddleClickEvent != null)
+            {
+                MouseLLHookStruct MyMouseHookStruct = (MouseLLHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseLLHookStruct));
+                int result = MiddleClickEvent(this, new MouseEventArgs(MouseButtons.Middle, 1, MyMouseHookStruct.pt.x, MyMouseHookStruct.pt.y, 0));
+                if (result != 0)
+                {
+                    return result;
+                }
+            }
+
+            return User32.CallNextHookEx(_hHook, nCode, wParam, lParam);
         }
     }
 }
