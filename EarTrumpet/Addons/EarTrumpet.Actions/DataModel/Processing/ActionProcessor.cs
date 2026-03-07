@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using EarTrumpet.Actions.DataModel.Enum;
 using EarTrumpet.Actions.DataModel.Serialization;
-using EarTrumpet.DataModel.AppInformation;
 using EarTrumpet.DataModel.Audio;
 using EarTrumpet.DataModel.WindowsAudio;
 using EarTrumpet.Extensions;
-using Windows.Win32;
 
 namespace EarTrumpet.Actions.DataModel.Processing;
 
@@ -41,7 +38,7 @@ internal class ActionProcessor
             {
                 if (setAppVolumeAction.App.Id == AppRef.ForegroundAppId)
                 {
-                    var app = FindForegroundApp(device.Groups);
+                    var app = ForegroundAppResolver.FindForegroundApp(device.Groups);
                     if (app != null)
                     {
                         DoAudioAction(setAppVolumeAction.Option, app, setAppVolumeAction);
@@ -66,7 +63,7 @@ internal class ActionProcessor
             {
                 if (setAppMuteAction.App.Id == AppRef.ForegroundAppId)
                 {
-                    var app = FindForegroundApp(device.Groups);
+                    var app = ForegroundAppResolver.FindForegroundApp(device.Groups);
                     if (app != null)
                     {
                         DoAudioAction(setAppMuteAction.Option, app);
@@ -107,64 +104,6 @@ internal class ActionProcessor
         {
             throw new NotImplementedException();
         }
-    }
-
-    private static IAudioDeviceSession FindForegroundApp(ObservableCollection<IAudioDeviceSession> groups)
-    {
-        var hWnd = PInvoke.GetForegroundWindow();
-        if (hWnd == (HWND)null)
-        {
-            Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (1)");
-            return null;
-        }
-
-        var className = string.Empty;
-        unsafe
-        {
-            Span<char> classNameBuffer = stackalloc char[(int)PInvoke.MAX_CLASS_NAME_LEN];
-            fixed (char* pClassNameBuffer = classNameBuffer)
-            {
-                _ = PInvoke.GetClassName(hWnd, pClassNameBuffer, classNameBuffer.Length);
-                className = new PWSTR(pClassNameBuffer).ToString();
-            }
-        }
-
-        // ApplicationFrameWindow.exe, find the real hosted process in the child CoreWindow.
-        if (className.ToString() == "ApplicationFrameWindow")
-        {
-            hWnd = PInvoke.FindWindowEx(hWnd, (HWND)null, "Windows.UI.Core.CoreWindow", null);
-        }
-        if (hWnd == (HWND)null)
-        {
-            Trace.WriteLine($"ActionProcessor FindForegroundApp: No Window (2)");
-            return null;
-        }
-
-        var processId = 0U;
-        unsafe
-        {
-            _ = PInvoke.GetWindowThreadProcessId(hWnd, &processId);
-        }
-
-        try
-        {
-            var appInfo = AppInformationFactory.CreateForProcess(processId);
-
-            foreach(var group in groups)
-            {
-                if (group.AppId == appInfo.PackageInstallPath || group.AppId == appInfo.AppId)
-                {
-                    Trace.WriteLine($"ActionProcessor FindForegroundApp: {group.DisplayName}");
-                    return group;
-                }
-            }
-        }
-        catch(Exception ex)
-        {
-            Trace.WriteLine(ex);
-        }
-        Trace.WriteLine("ActionProcessor FindForegroundApp Didn't locate foreground app");
-        return null;
     }
 
     private static void DoAudioAction(MuteKind action, IStreamWithVolumeControl stream)
