@@ -39,6 +39,7 @@ namespace EarTrumpet
         private WindowHolder _mixerWindow;
         private WindowHolder _settingsWindow;
         private ErrorReporter _errorReporter;
+        private TaskbarMiddleClickMuteService _taskbarMiddleClickMuteService;
 
         public static AppSettings Settings { get; private set; }
 
@@ -103,6 +104,9 @@ namespace EarTrumpet
 #endif
             _mixerWindow = new WindowHolder(CreateMixerExperience);
             _settingsWindow = new WindowHolder(CreateSettingsExperience);
+
+            _taskbarMiddleClickMuteService = new TaskbarMiddleClickMuteService(CollectionViewModel, Settings);
+            Exit += (_, __) => _taskbarMiddleClickMuteService?.Dispose();
 
             Settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
             Settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();

@@ -145,6 +145,12 @@ namespace EarTrumpet
             set => _settings.Set("UseGlobalMouseWheelHook", value);
         }
 
+        public bool UseTaskbarMiddleClickMute
+        {
+            get => _settings.Get("UseTaskbarMiddleClickMute", false);
+            set => _settings.Set("UseTaskbarMiddleClickMute", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");
