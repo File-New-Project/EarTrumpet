@@ -338,11 +338,22 @@ internal class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, 
 
     public void RefreshAllDevices()
     {
+        TraceLine("RefreshAllDevices");
+
         foreach (var dev in Devices.ToArray())
         {
             ((IMMNotificationClient)this).OnDeviceRemoved(dev.Id);
         }
         _default = null;
+
+        try
+        {
+            _enumerator.UnregisterEndpointNotificationCallback(this);
+        }
+        catch (Exception ex)
+        {
+            TraceLine($"UnregisterEndpointNotificationCallback during refresh: {ex}");
+        }
 
         _enumerator = (IMMDeviceEnumerator)new MMDeviceEnumerator();
         _enumerator.RegisterEndpointNotificationCallback(this);
@@ -355,13 +366,12 @@ internal class AudioDeviceManager : IMMNotificationClient, IAudioDeviceManager, 
             device.GetId(out var deviceId);
             ((IMMNotificationClient)this).OnDeviceAdded(deviceId);
         }
-        this.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eMultimedia, null);
-        this.OnDefaultDeviceChanged(EDataFlow.eRender, ERole.eConsole, null);
+        ((IMMNotificationClient)this).OnDefaultDeviceChanged(Flow, ERole.eMultimedia, default);
+        ((IMMNotificationClient)this).OnDefaultDeviceChanged(Flow, ERole.eConsole, default);
 
         _dispatcher.Invoke((Action)(() =>
         {
             QueryDefaultDevice();
         }));
-
     }
 }

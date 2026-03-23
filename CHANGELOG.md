@@ -1,6 +1,7 @@
 # Changelog
 
 ## x.x.x.x
+- Fix crash after a connection through Microsoft Remote Desktop
 - Added support for StartAllBack multitaskbar notification area (thanks @Simplestas!)
 - Fixed various process lifecycle trigger bugs (thanks @spacechase0!)
 - Fixed an issue with EarTrumpet tooltips not updating in some scenarios (thanks @Tester798!)

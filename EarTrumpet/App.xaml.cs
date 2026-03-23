@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -125,11 +126,15 @@ public sealed partial class App : IDisposable
         Exit += (_, __) => SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
     }
 
-    private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+    private async void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
     {
         Trace.WriteLine($"Detected User Session Switch: {e.Reason}");
         if (e.Reason == SessionSwitchReason.ConsoleConnect)
         {
+            // Give the audio subsystem time to settle after the session switch.
+            // Devices may not be fully available immediately after returning from RDP.
+            await Task.Delay(2000);
+
             var devManager = WindowsAudioFactory.Create(AudioDeviceKind.Playback);
             devManager.RefreshAllDevices();
         }
