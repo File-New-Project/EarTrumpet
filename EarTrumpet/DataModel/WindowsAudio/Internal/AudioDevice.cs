@@ -109,20 +109,27 @@ public class AudioDevice : BindableBase, IAudioEndpointVolumeCallback, IAudioDev
 
     public unsafe void OnNotify(AUDIO_VOLUME_NOTIFICATION_DATA* pNotify)
     {
-        _volume = (*pNotify).fMasterVolume;
-        if (App.Settings.UseLogarithmicVolume)
+        try
         {
-            _deviceVolume.GetMasterVolumeLevel(out _volume);
+            _volume = (*pNotify).fMasterVolume;
+            if (App.Settings.UseLogarithmicVolume)
+            {
+                _deviceVolume.GetMasterVolumeLevel(out _volume);
+            }
+            _isMuted = (*pNotify).bMuted != 0;
+
+            _channels.OnNotify((nint)pNotify, *pNotify);
+
+            _dispatcher.Invoke((Action)(() =>
+            {
+                RaisePropertyChanged(nameof(Volume));
+                RaisePropertyChanged(nameof(IsMuted));
+            }));
         }
-        _isMuted = (*pNotify).bMuted != 0;
-
-        _channels.OnNotify((nint)pNotify, *pNotify);
-
-        _dispatcher.Invoke((Action)(() =>
+        catch (Exception ex)
         {
-            RaisePropertyChanged(nameof(Volume));
-            RaisePropertyChanged(nameof(IsMuted));
-        }));
+            Trace.WriteLine($"AudioDevice OnNotify: {ex}");
+        }
     }
 
     /// <summary>

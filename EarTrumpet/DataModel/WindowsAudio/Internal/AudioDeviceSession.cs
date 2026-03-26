@@ -426,80 +426,146 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
         _isDisconnected = true;
         _dispatcher.BeginInvoke((Action)(() =>
         {
-            RaisePropertyChanged(nameof(State));
+            try
+            {
+                RaisePropertyChanged(nameof(State));
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"AudioDeviceSession DisconnectSession dispatch: {ex}");
+            }
         }));
     }
 
     unsafe void IAudioSessionEvents.OnSimpleVolumeChanged(float NewVolume, BOOL NewMute, Guid* EventContext)
     {
-        _volume = NewVolume;
-        _isMuted = NewMute != 0;
-
-        _dispatcher.BeginInvoke((Action)(() =>
+        try
         {
-            RaisePropertyChanged(nameof(Volume));
-            RaisePropertyChanged(nameof(IsMuted));
-        }));
+            _volume = NewVolume;
+            _isMuted = NewMute != 0;
+
+            _dispatcher.BeginInvoke((Action)(() =>
+            {
+                RaisePropertyChanged(nameof(Volume));
+                RaisePropertyChanged(nameof(IsMuted));
+            }));
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnSimpleVolumeChanged: {ex}");
+        }
     }
 
     unsafe void IAudioSessionEvents.OnGroupingParamChanged(Guid* NewGroupingParam, Guid* EventContext)
     {
-        GroupingParam = *NewGroupingParam;
-        Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {ExeName} {Id}");
-        _dispatcher.BeginInvoke((Action)(() =>
+        try
         {
-            RaisePropertyChanged(nameof(GroupingParam));
-        }));
+            GroupingParam = *NewGroupingParam;
+            Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged {ExeName} {Id}");
+            _dispatcher.BeginInvoke((Action)(() =>
+            {
+                RaisePropertyChanged(nameof(GroupingParam));
+            }));
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnGroupingParamChanged: {ex}");
+        }
     }
 
     void IAudioSessionEvents.OnStateChanged(AudioSessionState NewState)
     {
-        Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {ExeName} {Id}");
-
-        _state = NewState;
-
-        if (_isMoved && NewState == AudioSessionState.AudioSessionStateActive)
+        try
         {
-            _isMoved = false;
+            Trace.WriteLine($"AudioDeviceSession OnStateChanged {NewState} {ExeName} {Id}");
+
+            _state = NewState;
+
+            if (_isMoved && NewState == AudioSessionState.AudioSessionStateActive)
+            {
+                _isMoved = false;
+            }
+            else if (_moveOnInactive && NewState == AudioSessionState.AudioSessionStateInactive)
+            {
+                _isMoved = true;
+                _moveOnInactive = false;
+            }
+
+            _dispatcher.BeginInvoke((Action)(() =>
+            {
+                try
+                {
+                    RaisePropertyChanged(nameof(State));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"AudioDeviceSession OnStateChanged dispatch: {ex}");
+                }
+            }));
         }
-        else if (_moveOnInactive && NewState == AudioSessionState.AudioSessionStateInactive)
+        catch (Exception ex)
         {
-            _isMoved = true;
-            _moveOnInactive = false;
+            Trace.WriteLine($"AudioDeviceSession OnStateChanged: {ex}");
         }
-
-        _dispatcher.BeginInvoke((Action)(() =>
-        {
-            RaisePropertyChanged(nameof(State));
-        }));
     }
 
     unsafe void IAudioSessionEvents.OnDisplayNameChanged(PCWSTR NewDisplayName, Guid* EventContext)
     {
-        ChooseDisplayName(NewDisplayName.ToString());
-
-        _dispatcher.BeginInvoke((Action)(() =>
+        try
         {
-            RaisePropertyChanged(nameof(DisplayName));
-        }));
+            ChooseDisplayName(NewDisplayName.ToString());
+
+            _dispatcher.BeginInvoke((Action)(() =>
+            {
+                RaisePropertyChanged(nameof(DisplayName));
+            }));
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnDisplayNameChanged: {ex}");
+        }
     }
 
-    void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason) => DisconnectSession();
+    void IAudioSessionEvents.OnSessionDisconnected(AudioSessionDisconnectReason DisconnectReason)
+    {
+        try
+        {
+            DisconnectSession();
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnSessionDisconnected: {ex}");
+        }
+    }
 
     unsafe void IAudioSessionEvents.OnChannelVolumeChanged(uint ChannelCount, float[] afNewChannelVolume, uint ChangedChannel, Guid* EventContext)
     {
-        var channelVolumesValues = new float[ChannelCount];
-        Array.Copy(afNewChannelVolume, 0, channelVolumesValues, 0, (int)ChannelCount);
-
-        for (var i = 0; i < ChannelCount; i++)
+        try
         {
-            _channels.Channels[i].SetLevel(channelVolumesValues[i]);
+            var channelVolumesValues = new float[ChannelCount];
+            Array.Copy(afNewChannelVolume, 0, channelVolumesValues, 0, (int)ChannelCount);
+
+            for (var i = 0; i < ChannelCount; i++)
+            {
+                _channels.Channels[i].SetLevel(channelVolumesValues[i]);
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnChannelVolumeChanged: {ex}");
         }
     }
 
     unsafe void IAudioSessionEvents.OnIconPathChanged(PCWSTR NewIconPath, Guid* EventContext)
     {
-        IconPath = NewIconPath.ToString();
-        RaisePropertyChanged(nameof(IconPath));
+        try
+        {
+            IconPath = NewIconPath.ToString();
+            RaisePropertyChanged(nameof(IconPath));
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"AudioDeviceSession OnIconPathChanged: {ex}");
+        }
     }
 }
