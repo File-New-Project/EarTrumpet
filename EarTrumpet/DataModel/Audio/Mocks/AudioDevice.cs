@@ -74,5 +74,10 @@ internal class AudioDevice : BindableBase, IAudioDevice, IAudioDeviceInternal, I
     public void UnhideSessionsForProcessId(uint processId)
     {
     }
+
+    public float GetVolumeScalar() => _volume;
+    public float GetVolumeLogarithmic() => _volume;
+    public void SetVolumeScalar(float value) => Volume = value;
+    public void SetVolumeLogarithmic(float value) => Volume = value;
 }
 #endif
