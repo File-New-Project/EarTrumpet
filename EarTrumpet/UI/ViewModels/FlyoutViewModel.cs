@@ -1,5 +1,4 @@
 ﻿using EarTrumpet.UI.Helpers;
-using EarTrumpet.Interop.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -33,8 +32,6 @@ namespace EarTrumpet.UI.ViewModels
         private readonly Action _returnFocusToTray;
         private readonly AppSettings _settings;
         private bool _closedDuringOpen;
-        private MouseHook _mh;
-        private Rect _winRect;
 
         public FlyoutViewModel(DeviceCollectionViewModel mainViewModel, Action returnFocusToTray, AppSettings settings)
         {
@@ -59,14 +56,10 @@ namespace EarTrumpet.UI.ViewModels
                 BeginClose(LastInput);
             });
             DisplaySettingsChanged = new RelayCommand(() => BeginClose(InputType.Command));
-
-            _mh = new MouseHook();
-            _mh.MouseWheelEvent += OnMouseWheelEvent;
         }
 
         public void UpdateWindowPos(double top, double left, double height, double width)
         {
-            _winRect = new Rect(left, top, width, height);
         }
 
         private void OnDeBounceTimerTick(object sender, EventArgs e)
@@ -316,31 +309,12 @@ namespace EarTrumpet.UI.ViewModels
             }
         }
 
-        private int OnMouseWheelEvent(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            var existing = _mainViewModel.Default;
-            if (existing != null)
-            {
-                if (!_winRect.Contains(new Point(e.X, e.Y)))
-                {
-                    existing.IncrementVolume(Math.Sign(e.Delta) * 2);
-                    return -1;
-                }
-            }
-            return 0;
-        }
-
         public void BeginOpen(InputType inputType)
         {
             if (State == FlyoutViewState.Hidden)
             {
                 LastInput = inputType;
                 ChangeState(FlyoutViewState.Opening);
-            }
-
-            if (_settings.UseGlobalMouseWheelHook)
-            {
-                _mh.SetHook();
             }
         }
 
@@ -355,8 +329,6 @@ namespace EarTrumpet.UI.ViewModels
             {
                 _closedDuringOpen = true;
             }
-
-            _mh.UnHook();
         }
 
         public void OpenFlyout(InputType inputType)
