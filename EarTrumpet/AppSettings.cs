@@ -145,6 +145,12 @@ namespace EarTrumpet
             set => _settings.Set("UseGlobalMouseWheelHook", value);
         }
 
+        public bool UseScrollWheelInSliders
+        {
+            get => _settings.Get("UseScrollWheelInSliders", true);
+            set => _settings.Set("UseScrollWheelInSliders", value);
+        }
+
         public bool HasShownFirstRun
         {
             get => _settings.HasKey("hasShownFirstRun");

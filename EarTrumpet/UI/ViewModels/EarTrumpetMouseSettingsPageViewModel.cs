@@ -16,6 +16,12 @@ namespace EarTrumpet.UI.ViewModels
             set => _settings.UseGlobalMouseWheelHook = value;
         }
 
+        public bool UseScrollWheelInSliders
+        {
+            get => _settings.UseScrollWheelInSliders;
+            set => _settings.UseScrollWheelInSliders = value;
+        }
+
         private readonly AppSettings _settings;
 
         public EarTrumpetMouseSettingsPageViewModel(AppSettings settings) : base(null)

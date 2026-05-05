@@ -37,6 +37,7 @@ namespace EarTrumpet.UI.Controls
             MouseUp += OnMouseUp;
             TouchMove += OnTouchMove;
             MouseMove += OnMouseMove;
+            MouseWheel += OnMouseWheel;
             Loaded += OnLoaded;
         }
 
@@ -139,6 +140,16 @@ namespace EarTrumpet.UI.Controls
             {
                 _lastMousePosition = mousePosition;
                 SetPositionByControlPoint(e.GetPosition(this));
+            }
+        }
+
+        private void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (App.Settings.UseScrollWheelInSliders)
+            {
+                var amount = Math.Sign(e.Delta) * 2.0;
+                ChangePositionByAmount(amount);
+                e.Handled = true;
             }
         }
 

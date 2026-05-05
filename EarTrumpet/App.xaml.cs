@@ -3,6 +3,7 @@ using EarTrumpet.Diagnosis;
 using EarTrumpet.Extensibility;
 using EarTrumpet.Extensibility.Hosting;
 using EarTrumpet.Extensions;
+using EarTrumpet.Interop;
 using EarTrumpet.Interop.Helpers;
 using EarTrumpet.UI.Helpers;
 using EarTrumpet.UI.ViewModels;
@@ -113,10 +114,23 @@ namespace EarTrumpet
             _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
             _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
             _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
+            _trayIcon.Scrolled += trayIconScrolled;
             _trayIcon.SetTooltip(CollectionViewModel.GetTrayToolTip());
             _trayIcon.IsVisible = true;
 
             DisplayFirstRunExperience();
+        }
+
+        private void trayIconScrolled(object _, int wheelDelta)
+        {
+            if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
+            {
+                var hWndTray = WindowsTaskbar.GetTrayToolbarWindowHwnd();
+                var hWndTooltip = User32.SendMessage(hWndTray, User32.TB_GETTOOLTIPS, IntPtr.Zero, IntPtr.Zero);
+                User32.SendMessage(hWndTooltip, User32.TTM_POPUP, IntPtr.Zero, IntPtr.Zero);
+
+                CollectionViewModel.Default?.IncrementVolume(Math.Sign(wheelDelta) * 2);
+            }
         }
 
         private void DisplayFirstRunExperience()

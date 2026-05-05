@@ -214,3 +214,4 @@ _pkginfo.txt
 .chocolatey/tools/Release.zip
 /artifacts/sideload
 /Tools
+nuget.exe
