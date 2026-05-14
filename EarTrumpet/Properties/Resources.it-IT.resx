@@ -130,7 +130,7 @@
     <value>Mixer volume</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Mixer volume (legacy)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Sembra che tu non abbia alcun dispositivo di riproduzione.</value>
@@ -286,6 +286,14 @@
     <value>Un font corrotto nel tuo sistema impedisce l'avvio di EarTrumpet.
 
 Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>A Windows mancano le voci del Registro di sistema necessarie, il che impedisce l'avvio automatico di EarTrumpet.
+
+Aprire [https://eartrumpet.app/jmp/fixstartup] per risolvere il problema?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Attiva/disattiva muto</value>
@@ -540,10 +548,10 @@ Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
     <value>Imposta il volume di un dispositivo</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} al {Volume}&#x200B;{Unit}</value>
+    <value>{Option} il volume di {Device} a {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} del {Volume}&#x200B;{Unit}</value>
+    <value>{Option} il volume di {Device} di {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Imposta una variabile locale</value>
@@ -648,7 +656,7 @@ Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
     <value>Preferenze del volume dell'app e del dispositivo</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Mixer volume</value>
+    <value>Mixer volume (Impostazioni di Windows)</value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Impostazioni mouse</value>
@@ -667,5 +675,14 @@ Aprire [https://eartrumpet.app/jmp/fixfonts] ora?</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Mostra finestra completa del mixer all'avvio</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Scala logaritmica minima</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>

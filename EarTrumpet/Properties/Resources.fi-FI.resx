@@ -130,7 +130,7 @@
     <value>Äänenvoimakkuuden mikseri</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Äänenvoimakkuuden mikseri</value>
+    <value>Äänenvoimakkuuden sekoitin (vanha)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Näyttää siltä, että sinulla ei ole toistolaitteita.</value>
@@ -287,6 +287,14 @@
 
 Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
   </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windowsista puuttuu rekisterimerkintöjä jotka mahdollistavat EarTrumpetin automaattisen käynnistymisen.
+
+Avaa [https://eartrumpet.app/jmp/fixstartup] tämän ratkaisemiseksi?</value>
+  </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Kytke mykistys</value>
   </data>
@@ -296,8 +304,6 @@ Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
   <data name="PrivacyCheckboxText" xml:space="preserve">
     <value>Lähetä kaatumistiedot EarTrumpet tiimille</value>
   </data>
-
-  <!-- Actions add-on -->
   <data name="ActionAdditionalText" xml:space="preserve">
     <value>ja</value>
   </data>
@@ -518,7 +524,7 @@ Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
     <value>Aseta sovelluksen äänenvoimakkuus</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} aseta äänenvoimakkuus {Volume}&#x200B;{Unit} laitteella {Device}</value>
+    <value>{Option} {App} äänenvoimakkuus {Volume}&#x200B;{Unit} laitteella {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
     <value>{Option} {App} äänenvoimakkuus {Volume}&#x200B;{Unit} laitteelta {Device}</value>
@@ -639,5 +645,44 @@ Avaa [https://eartrumpet.app/jmp/fixfonts] nyt?</value>
   </data>
   <data name="ChooseAnAppHelpText" xml:space="preserve">
     <value>Edellä esitetyt sovellukset ovat soittaneet ääntä äskettäin.</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeDownText" xml:space="preserve">
+    <value>Vähennä kaikkien laitteiden äänenvoimakkuutta</value>
+  </data>
+  <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
+    <value>Lisää kaikkien laitteiden äänenvoimakkuutta</value>
+  </data>
+  <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
+    <value>Sovellusten äänenvoimakkuus ja laiteasetukset</value>
+  </data>
+  <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
+    <value>Äänenvoimakkuuden sekoitin (Windows-asetukset)</value>
+  </data>
+  <data name="MouseSettingsPageText" xml:space="preserve">
+    <value>Hiiren asetukset</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
+    <value>Käytä vierityspyörää muuttaa äänenvoimakkuutta kun leijuu yli EarTrumpet-kuvaketta</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
+    <value>Käytä vierityspyörää vaihtaaksesi äänenvoimakkuutta kun esittelypaneeli on näkyvissä</value>
+  </data>
+  <data name="CommunitySettingsPageText" xml:space="preserve">
+    <value>Yhteisön asetukset</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolume" xml:space="preserve">
+    <value>Käytä logaritmisen äänenvoimakkuuden asteikkoa</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
+    <value>Näytä koko mikseriikkuna käynnistettäessä</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Logaritmisen asteikon minimi</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>

@@ -524,10 +524,10 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Lege das Volumen einer App fest</value>
   </data>
   <data name="SetAppVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {App} Lautstärke zu {Volume}&#x200B;{Unit} auf {Device}</value>
+    <value>{Option} {App} Lautstärke auf {Volume}&#x200B;{Unit} von {Device}</value>
   </data>
   <data name="SetAppVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {App} Lautstärke von {Volume}&#x200B;{Unit} auf {Device}</value>
+    <value>{Option} {App} Lautstärke ändern um {Volume}&#x200B;{Unit} von {Device}</value>
   </data>
   <data name="SetDefaultDeviceAction_AddText" xml:space="preserve">
     <value>Lege das Standard-Wiedergabegerät fest</value>
@@ -548,10 +548,10 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Gerätelautstärke festlegen</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkText" xml:space="preserve">
-    <value>{Option} {Device} Lautstärke zu {Volume}&#x200B;{Unit}</value>
+    <value>{Option} {Device} Lautstärke auf {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>{Option} {Device} Lautstärke bis {Volume}&#x200B;{Unit}</value>
+    <value>{Option} {Device} Lautstärke ändern um {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>Lokale Variable festlegen</value>
@@ -677,6 +677,12 @@ Möchten Sie [https://eartrumpet.app/jmp/fixfonts] öffnen?</value>
     <value>Zeige den vollständigen Lautstärkenmixer beim Start</value>
   </data>
   <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
-    <value>Logarithmische Skala Minimum</value>
+    <value>Minimum der logarithmischen Skala</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>

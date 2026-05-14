@@ -551,7 +551,7 @@
     <value>将 {Device} 的音量 {Option} 为 {Volume}&#x200B;{Unit}</value>
   </data>
   <data name="SetDeviceVolumeAction_LinkTextIncrement" xml:space="preserve">
-    <value>将 {Device} 的音量 {Option} {Volume}&#x200B;{Unit}</value>
+    <value/>
   </data>
   <data name="SetVariableAction_AddText" xml:space="preserve">
     <value>设置某局部变量</value>
@@ -677,6 +677,12 @@
     <value>启动时显示完整音量合成器窗口</value>
   </data>
   <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
-    <value>对数音量刻度最小值</value>
+    <value>对数音量比例最小值</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>分贝</value>
   </data>
 </root>
