@@ -1755,5 +1755,32 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("WindowsLegacyMenuText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume step amount.
+        /// </summary>
+        public static string SettingsVolumeStepAmount {
+            get {
+                return ResourceManager.GetString("SettingsVolumeStepAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap scroll wheel to volume step grid.
+        /// </summary>
+        public static string SettingsUseRangeSnapping {
+            get {
+                return ResourceManager.GetString("SettingsUseRangeSnapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap slider to volume steps when dragging.
+        /// </summary>
+        public static string SettingsUseSliderSnap {
+            get {
+                return ResourceManager.GetString("SettingsUseSliderSnap", resourceCulture);
+            }
+        }
     }
 }

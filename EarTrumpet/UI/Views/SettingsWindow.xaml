@@ -208,6 +208,31 @@
                 <CheckBox HorizontalAlignment="Left"
                           Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
                           IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" />
+                <StackPanel>
+                    <TextBlock VerticalAlignment="Center"
+                               Style="{StaticResource BodyText}"
+                               Text="{x:Static resx:Resources.SettingsVolumeStepAmount}" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="12,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom">
+                        <Slider Minimum="1"
+                                Maximum="50"
+                                Width="200"
+                                IsSnapToTickEnabled="True"
+                                TickFrequency="1"
+                                Value="{Binding VolumeStepAmount, Mode=TwoWay}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Style="{StaticResource BodyText}"
+                                   Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
+                    </StackPanel>
+                </StackPanel>
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseRangeSnapping}"
+                          IsChecked="{Binding UseRangeSnapping, Mode=TwoWay}" />
+                <CheckBox HorizontalAlignment="Left"
+                          Content="{x:Static resx:Resources.SettingsUseSliderSnap}"
+                          IsChecked="{Binding UseSliderSnap, Mode=TwoWay}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">

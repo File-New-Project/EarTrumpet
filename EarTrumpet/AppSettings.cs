@@ -178,6 +178,24 @@ public class AppSettings
         }
     }
 
+    public int VolumeStepAmount
+    {
+        get => _settings.Get("VolumeStepAmount", 2);
+        set => _settings.Set("VolumeStepAmount", Math.Max(1, Math.Min(50, value)));
+    }
+
+    public bool UseRangeSnapping
+    {
+        get => _settings.Get("UseRangeSnapping", true);
+        set => _settings.Set("UseRangeSnapping", value);
+    }
+
+    public bool UseSliderSnap
+    {
+        get => _settings.Get("UseSliderSnap", false);
+        set => _settings.Set("UseSliderSnap", value);
+    }
+
     public WINDOWPLACEMENT? FullMixerWindowPlacement
     {
         get => _settings.Get("FullMixerWindowPlacement", default(WINDOWPLACEMENT?));
