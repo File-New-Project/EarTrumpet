@@ -74,14 +74,21 @@ internal class AudioDeviceSessionCollection : IAudioSessionNotification
             var newSession = new AudioDeviceSession(parent, session, _dispatcher);
             _dispatcher.BeginInvoke((Action)(() =>
             {
-                if (newSession.State == SessionState.Moved)
+                try
                 {
-                    _movedSessions.Add(newSession);
-                    newSession.PropertyChanged += MovedSession_PropertyChanged;
+                    if (newSession.State == SessionState.Moved)
+                    {
+                        _movedSessions.Add(newSession);
+                        newSession.PropertyChanged += MovedSession_PropertyChanged;
+                    }
+                    else if (newSession.State != SessionState.Expired)
+                    {
+                        AddSession(newSession);
+                    }
                 }
-                else if (newSession.State != SessionState.Expired)
+                catch (Exception ex)
                 {
-                    AddSession(newSession);
+                    Trace.WriteLine($"AudioDeviceSessionCollection CreateAndAddSession dispatch: {ex}");
                 }
             }));
         }

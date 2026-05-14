@@ -105,5 +105,10 @@ internal class AudioDeviceSession : BindableBase, IAudioDeviceSessionInternal
     {
 
     }
+
+    public float GetVolumeScalar() => _volume;
+    public float GetVolumeLogarithmic() => _volume;
+    public void SetVolumeScalar(float value) => Volume = value;
+    public void SetVolumeLogarithmic(float value) => Volume = value;
 }
 #endif
