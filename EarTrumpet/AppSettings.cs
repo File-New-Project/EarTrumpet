@@ -140,6 +140,18 @@ public class AppSettings
         set => _settings.Set("UseScrollWheelInTray", value);
     }
 
+    public int ScrollWheelOrHotkeyVolumeChangePercent
+    {
+        get => _settings.Get("ScrollWheelOrHotkeyVolumeChangePercent", 2);
+        set => _settings.Set("ScrollWheelOrHotkeyVolumeChangePercent", value);
+    }
+
+    public float ScrollWheelOrHotkeyVolumeChangeDb
+    {
+        get => _settings.Get("ScrollWheelOrHotkeyVolumeChangeDb", 0.5f);
+        set => _settings.Set("ScrollWheelOrHotkeyVolumeChangeDb", value);
+    }
+
     public bool UseGlobalMouseWheelHook
     {
         get => _settings.Get("UseGlobalMouseWheelHook", false);

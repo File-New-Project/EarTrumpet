@@ -189,7 +189,8 @@ public sealed partial class App : IDisposable
         if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
         {
             CollectionViewModel.Default?.IncrementVolume(
-                Math.Sign(wheelDelta) * (Settings.UseLogarithmicVolume ? 0.2f : 2.0f));
+                Math.Sign(wheelDelta) *
+                (Settings.UseLogarithmicVolume ? Settings.ScrollWheelOrHotkeyVolumeChangeDb : Settings.ScrollWheelOrHotkeyVolumeChangePercent));
         }
     }
 
@@ -411,7 +412,7 @@ public sealed partial class App : IDisposable
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
         {
             device.IsAbsMuted = false;
-            device.IncrementVolume(2);
+            device.Volume += Settings.UseLogarithmicVolume ? Settings.ScrollWheelOrHotkeyVolumeChangeDb : Settings.ScrollWheelOrHotkeyVolumeChangePercent;
         }
     }
 
@@ -419,10 +420,9 @@ public sealed partial class App : IDisposable
     {
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
         {
-            var wasMuted = device.IsMuted;
-            device.Volume -= 2;
+            device.Volume -= Settings.UseLogarithmicVolume ? Settings.ScrollWheelOrHotkeyVolumeChangeDb : Settings.ScrollWheelOrHotkeyVolumeChangePercent;
 
-            if (!wasMuted == (device.Volume <= 0))
+            if (device.Volume <= (Settings.UseLogarithmicVolume ? Settings.LogarithmicVolumeMinDb : 0.0f))
             {
                 device.IsAbsMuted = true;
             }
