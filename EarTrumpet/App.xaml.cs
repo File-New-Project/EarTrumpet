@@ -1,3 +1,4 @@
+using EarTrumpet.DataModel.Audio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -57,6 +58,7 @@ public sealed partial class App : IDisposable
     private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
     private FlyoutViewModel _flyoutViewModel;
 
+    private const int c_focusedAppVolumeStep = 2;
     private ShellNotifyIcon _trayIcon;
     private WindowHolder _mixerWindow;
     private WindowHolder _settingsWindow;
@@ -150,6 +152,9 @@ public sealed partial class App : IDisposable
         Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
         Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
         Settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
+        Settings.FocusedAppVolumeUpHotkeyTyped += FocusedAppVolumeIncrement;
+        Settings.FocusedAppVolumeDownHotkeyTyped += FocusedAppVolumeDecrement;
+        Settings.FocusedAppToggleMuteHotkeyTyped += FocusedAppToggleMute;
         Settings.RegisterHotkeys();
         Settings.UseLogarithmicVolumeChanged += (_, __) => UpdateTrayTooltip();
 
@@ -427,5 +432,52 @@ public sealed partial class App : IDisposable
                 device.IsAbsMuted = true;
             }
         }
+    }
+
+    private void FocusedAppVolumeIncrement()
+    {
+        ChangeFocusedAppVolume(c_focusedAppVolumeStep);
+    }
+
+    private void FocusedAppVolumeDecrement()
+    {
+        ChangeFocusedAppVolume(-c_focusedAppVolumeStep);
+    }
+
+    private void ChangeFocusedAppVolume(int delta)
+    {
+        foreach (var app in GetFocusedApps())
+        {
+            app.Volume = Math.Max(0, Math.Min(100, app.Volume + delta));
+        }
+    }
+
+    private void FocusedAppToggleMute()
+    {
+        var apps = GetFocusedApps().ToArray();
+        if (!apps.Any())
+        {
+            return;
+        }
+
+        var shouldMute = apps.Any(app => !app.IsMuted);
+        foreach (var app in apps)
+        {
+            app.IsMuted = shouldMute;
+        }
+    }
+
+    private IEnumerable<IAppItemViewModel> GetFocusedApps()
+    {
+        var foregroundAppIds = ForegroundAppResolver.TryGetForegroundAppIds();
+        if (foregroundAppIds.Count == 0)
+        {
+            return Enumerable.Empty<IAppItemViewModel>();
+        }
+
+        return CollectionViewModel.AllDevices
+            .SelectMany(device => device.Apps)
+            .Where(app => foregroundAppIds.Contains(app.AppId))
+            .ToArray();
     }
 }
