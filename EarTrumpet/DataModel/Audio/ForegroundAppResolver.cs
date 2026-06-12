@@ -1,11 +1,11 @@
 using EarTrumpet.DataModel.AppInformation;
-using EarTrumpet.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using Windows.Win32;
+using Windows.Win32.Foundation;
 
 namespace EarTrumpet.DataModel.Audio
 {
@@ -13,41 +13,55 @@ namespace EarTrumpet.DataModel.Audio
     {
         public static IReadOnlyList<string> TryGetForegroundAppIds()
         {
-            var hWnd = User32.GetForegroundWindow();
-            var foregroundClassName = new StringBuilder(User32.MAX_CLASSNAME_LENGTH);
-            User32.GetClassName(hWnd, foregroundClassName, foregroundClassName.Capacity);
-
-            if (hWnd == IntPtr.Zero)
+            var hWnd = PInvoke.GetForegroundWindow();
+            if (hWnd == (HWND)null)
             {
                 Trace.WriteLine("ForegroundAppResolver: No Window (1)");
                 return Array.Empty<string>();
             }
 
-            if (foregroundClassName.ToString() == "ApplicationFrameWindow")
+            var maxClassNameLength = (int)PInvoke.MAX_CLASS_NAME_LEN;
+            Span<char> foregroundClassNameBuffer = stackalloc char[maxClassNameLength];
+            foregroundClassNameBuffer.Clear();
+            string foregroundClassName;
+            unsafe
             {
-                hWnd = User32.FindWindowEx(hWnd, IntPtr.Zero, "Windows.UI.Core.CoreWindow", IntPtr.Zero);
+                fixed (char* foregroundClassNamePtr = foregroundClassNameBuffer)
+                {
+                    PInvoke.GetClassName(hWnd, foregroundClassNamePtr, maxClassNameLength);
+                    foregroundClassName = new PWSTR(foregroundClassNamePtr).ToString();
+                }
             }
 
-            if (hWnd == IntPtr.Zero)
+            if (foregroundClassName == "ApplicationFrameWindow")
+            {
+                hWnd = PInvoke.FindWindowEx(hWnd, (HWND)null, "Windows.UI.Core.CoreWindow", null);
+            }
+
+            if (hWnd == (HWND)null)
             {
                 Trace.WriteLine("ForegroundAppResolver: No Window (2)");
                 return Array.Empty<string>();
             }
 
-            User32.GetWindowThreadProcessId(hWnd, out uint processId);
+            unsafe
+            {
+                uint processId;
+                PInvoke.GetWindowThreadProcessId(hWnd, &processId);
 
-            try
-            {
-                var appInfo = AppInformationFactory.CreateForProcess((int)processId);
-                return new[] { appInfo.PackageInstallPath, appInfo.AppId }
-                    .Where(value => !string.IsNullOrWhiteSpace(value))
-                    .Distinct()
-                    .ToArray();
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex);
-                return Array.Empty<string>();
+                try
+                {
+                    var appInfo = AppInformationFactory.CreateForProcess(processId);
+                    return new[] { appInfo.PackageInstallPath, appInfo.AppId }
+                        .Where(value => !string.IsNullOrWhiteSpace(value))
+                        .Distinct()
+                        .ToArray();
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex);
+                    return Array.Empty<string>();
+                }
             }
         }
 
