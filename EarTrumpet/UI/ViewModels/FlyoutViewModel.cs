@@ -21,6 +21,7 @@ namespace EarTrumpet.UI.ViewModels
         public bool IsExpandingOrCollapsing { get; private set; }
         public bool CanExpand => _mainViewModel.AllDevices.Count > 1;
         public string DeviceNameText => Devices.Count > 0 ? Devices[0].DisplayName : null;
+        public string DefaultDeviceId => _mainViewModel.Default?.Id;
         public FlyoutViewState State { get; private set; }
         public ObservableCollection<DeviceViewModel> Devices { get; private set; }
         public ICommand ExpandCollapse { get; private set; }
@@ -155,6 +156,8 @@ namespace EarTrumpet.UI.ViewModels
 
         private void OnDefaultPlaybackDeviceChanged(object sender, DeviceViewModel e)
         {
+            RaisePropertyChanged(nameof(DefaultDeviceId));
+
             // No longer any devices.
             if (e == null) return;
 
