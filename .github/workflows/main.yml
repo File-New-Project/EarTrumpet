@@ -120,7 +120,7 @@ jobs:
           azure-client-secret: ${{ secrets.azure_client_secret }}
           endpoint: https://wus2.codesigning.azure.net/
           trusted-signing-account-name: main
-          certificate-profile-name: profileTWN
+          certificate-profile-name: File-New-Project
           files-catalog: packaging\catalog.txt
           file-digest: SHA256
           timestamp-rfc3161: http://timestamp.acs.microsoft.com
@@ -222,7 +222,7 @@ jobs:
           azure-client-secret: ${{ secrets.azure_client_secret }}
           endpoint: https://wus2.codesigning.azure.net/
           trusted-signing-account-name: main
-          certificate-profile-name: profileTWN
+          certificate-profile-name: File-New-Project
           files-folder: .artifacts/sideload/
           files-folder-filter: msixbundle
           file-digest: SHA256
