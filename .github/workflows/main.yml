@@ -11,6 +11,7 @@ on:
       - '.github/workflows/sponsors.yml'
       - '.github/workflows/translators.yml'
       - 'Graphics/*'
+  workflow_dispatch:
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true

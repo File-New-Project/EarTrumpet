@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - '**/*.md'
       - crowdin.yml
+  workflow_dispatch:
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
