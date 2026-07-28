@@ -652,6 +652,15 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="SettingsAbsoluteVolumeUpText" xml:space="preserve">
     <value>Increase volume for all devices</value>
   </data>
+  <data name="SettingsFocusedAppVolumeDownText" xml:space="preserve">
+    <value>Decrease volume for the focused app</value>
+  </data>
+  <data name="SettingsFocusedAppVolumeUpText" xml:space="preserve">
+    <value>Increase volume for the focused app</value>
+  </data>
+  <data name="SettingsFocusedAppToggleMuteText" xml:space="preserve">
+    <value>Toggle mute for the focused app</value>
+  </data>
   <data name="OpenAppsVolume_Windows10_Text" xml:space="preserve">
     <value>App volume and device preferences</value>
   </data>
