@@ -685,4 +685,7 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="VolumeUnit_Decibel" xml:space="preserve">
     <value>dB</value>
   </data>
+  <data name="SettingsScrollWheelOrHotkeyVolumeChange" xml:space="preserve">
+    <value>Volume change amount for each wheel scroll or hotkey press</value>
+  </data>
 </root>
