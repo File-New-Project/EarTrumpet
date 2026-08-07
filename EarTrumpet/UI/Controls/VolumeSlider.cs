@@ -202,17 +202,48 @@ public class VolumeSlider : Slider
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        var amount = Math.Sign(e.Delta) * (App.Settings.UseLogarithmicVolume ? 0.2 : 2.0);
-        ChangePositionByAmount(amount);
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            var amount = Math.Sign(e.Delta) * 0.2;
+            ChangePositionByAmount(amount);
+        }
+        else
+        {
+            var step = App.Settings.VolumeStepAmount;
+            if (App.Settings.UseRangeSnapping)
+            {
+                var newValue = (e.Delta > 0)
+                    ? GetNextSnapPoint(Value, step)
+                    : GetPrevSnapPoint(Value, step);
+                Value = Bound(newValue);
+            }
+            else
+            {
+                ChangePositionByAmount(Math.Sign(e.Delta) * step);
+            }
+        }
         e.Handled = true;
     }
 
     public void SetPositionByControlPoint(Point point)
     {
         var percent = point.X / ActualWidth;
-        Value = App.Settings.UseLogarithmicVolume
-            ? Bound(Math.Round(Minimum + percent * (Maximum - Minimum), 1))
-            : Bound(Minimum + (Maximum - Minimum) * percent);
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            Value = Bound(Math.Round(Minimum + percent * (Maximum - Minimum), 1));
+        }
+        else
+        {
+            var rawValue = (Maximum - Minimum) * percent;
+            if (App.Settings.UseSliderSnap)
+            {
+                Value = Bound(GetNearestSnapPoint(rawValue, App.Settings.VolumeStepAmount));
+            }
+            else
+            {
+                Value = Bound(rawValue);
+            }
+        }
     }
 
     public void ChangePositionByAmount(double amount)
@@ -223,5 +254,27 @@ public class VolumeSlider : Slider
     public double Bound(double val)
     {
         return Math.Max(Minimum, Math.Min(Maximum, val));
+    }
+
+    private static double GetNextSnapPoint(double current, int step)
+    {
+        var target = Math.Floor(current / step) * step + step;
+        return (target > 100) ? 100 : target;
+    }
+
+    private static double GetPrevSnapPoint(double current, int step)
+    {
+        var target = Math.Ceiling(current / step) * step - step;
+        return (target < 0) ? 0 : target;
+    }
+
+    private static double GetNearestSnapPoint(double current, int step)
+    {
+        var snap = Math.Round(current / step) * step;
+        if (Math.Abs(100 - current) < Math.Abs(snap - current))
+        {
+            return 100;
+        }
+        return Math.Min(100, Math.Max(0, snap));
     }
 }
