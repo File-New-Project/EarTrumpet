@@ -130,7 +130,7 @@
     <value>Trình phối âm</value>
   </data>
   <data name="LegacyVolumeMixerText" xml:space="preserve">
-    <value>Trình phối âm</value>
+    <value>Bộ phối trộn âm lượng (cũ)</value>
   </data>
   <data name="NoDevicesPanelContent" xml:space="preserve">
     <value>Có vẻ như bạn không có thiết bị phát lại nào cả.</value>
@@ -286,6 +286,14 @@
     <value>Một phông chữ trên máy bạn đang ngăn cản EarTrumpet khởi chạy.
 
 Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
+  </data>
+  <data name="MissingPoliciesDialogHeaderText" xml:space="preserve">
+    <value>EarTrumpet</value>
+  </data>
+  <data name="MissingPoliciesHelpText" xml:space="preserve">
+    <value>Windows đang mất một số các mục trong đăng ký mà đang ngăn EarTrumpet khởi động tự động.
+
+Mở [https://eartrumpet.app/jmp/fixstartup] để giải quyết việc này không?</value>
   </data>
   <data name="ToggleMuteToolTip" xml:space="preserve">
     <value>Bật tắt âm lượng</value>
@@ -648,7 +656,7 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
     <value>Âm lượng của từng ứng dụng và tùy chọn thiết bị</value>
   </data>
   <data name="OpenAppsVolume_Windows11_Text" xml:space="preserve">
-    <value>Bộ chỉnh âm</value>
+    <value>Bộ phối trộn âm lượng (cài đặt Windows) </value>
   </data>
   <data name="MouseSettingsPageText" xml:space="preserve">
     <value>Cài đặt chuột</value>
@@ -667,5 +675,14 @@ Mở [https://eartrumpet.app/jmp/fixfonts] ngay?</value>
   </data>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Hiển thị trình phối âm khi thiết bị khởi động</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Độ nhỏ tối thiểu của thang đo logarit</value>
+  </data>
+  <data name="VolumeUnit_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="VolumeUnit_Decibel" xml:space="preserve">
+    <value>dB</value>
   </data>
 </root>
