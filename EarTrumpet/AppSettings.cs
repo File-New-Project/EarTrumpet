@@ -178,6 +178,28 @@ public class AppSettings
         }
     }
 
+    public int VolumeStepAmount
+    {
+        // Clamped on the way out as well as in: a value written directly to the registry
+        // would otherwise reach the step maths, where zero divides.
+        get => BoundVolumeStep(_settings.Get("VolumeStepAmount", 2));
+        set => _settings.Set("VolumeStepAmount", BoundVolumeStep(value));
+    }
+
+    private static int BoundVolumeStep(int value) => Math.Max(1, Math.Min(50, value));
+
+    public bool UseRangeSnapping
+    {
+        get => _settings.Get("UseRangeSnapping", true);
+        set => _settings.Set("UseRangeSnapping", value);
+    }
+
+    public bool UseSliderSnap
+    {
+        get => _settings.Get("UseSliderSnap", false);
+        set => _settings.Set("UseSliderSnap", value);
+    }
+
     public WINDOWPLACEMENT? FullMixerWindowPlacement
     {
         get => _settings.Get("FullMixerWindowPlacement", default(WINDOWPLACEMENT?));

@@ -326,7 +326,8 @@ public class FlyoutViewModel : BindableBase, IPopupHostViewModel, IFlyoutViewMod
         {
             if (!_winRect.Contains(new Point(e.X, e.Y)))
             {
-                existing.IncrementVolume(Math.Sign(e.Delta) * 2);
+                existing.Volume = (float)VolumeStepper.Step(
+                    existing.Volume, Math.Sign(e.Delta), VolumeStepper.LogarithmicHotkeyStep);
                 return -1;
             }
         }
