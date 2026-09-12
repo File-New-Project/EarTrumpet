@@ -16,6 +16,9 @@ public class AppSettings
     public event Action SettingsHotkeyTyped;
     public event Action AbsoluteVolumeUpHotkeyTyped;
     public event Action AbsoluteVolumeDownHotkeyTyped;
+    public event Action FocusedAppVolumeUpHotkeyTyped;
+    public event Action FocusedAppVolumeDownHotkeyTyped;
+    public event Action FocusedAppToggleMuteHotkeyTyped;
 
     private readonly ISettingsBag _settings = StorageFactory.GetSettings();
 
@@ -26,6 +29,9 @@ public class AppSettings
         HotkeyManager.Current.Register(SettingsHotkey);
         HotkeyManager.Current.Register(AbsoluteVolumeUpHotkey);
         HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
+        HotkeyManager.Current.Register(FocusedAppVolumeUpHotkey);
+        HotkeyManager.Current.Register(FocusedAppVolumeDownHotkey);
+        HotkeyManager.Current.Register(FocusedAppToggleMuteHotkey);
 
         HotkeyManager.Current.KeyPressed += (hotkey) =>
         {
@@ -53,6 +59,21 @@ public class AppSettings
             {
                 Trace.WriteLine("AppSettings AbsoluteVolumeDownHotkeyTyped");
                 AbsoluteVolumeDownHotkeyTyped?.Invoke();
+            }
+            else if (hotkey.Equals(FocusedAppVolumeUpHotkey))
+            {
+                Trace.WriteLine("AppSettings FocusedAppVolumeUpHotkeyTyped");
+                FocusedAppVolumeUpHotkeyTyped?.Invoke();
+            }
+            else if (hotkey.Equals(FocusedAppVolumeDownHotkey))
+            {
+                Trace.WriteLine("AppSettings FocusedAppVolumeDownHotkeyTyped");
+                FocusedAppVolumeDownHotkeyTyped?.Invoke();
+            }
+            else if (hotkey.Equals(FocusedAppToggleMuteHotkey))
+            {
+                Trace.WriteLine("AppSettings FocusedAppToggleMuteHotkeyTyped");
+                FocusedAppToggleMuteHotkeyTyped?.Invoke();
             }
         };
     }
@@ -109,6 +130,39 @@ public class AppSettings
             HotkeyManager.Current.Unregister(AbsoluteVolumeDownHotkey);
             _settings.Set("AbsoluteVolumeDownHotkey", value);
             HotkeyManager.Current.Register(AbsoluteVolumeDownHotkey);
+        }
+    }
+
+    public HotkeyData FocusedAppVolumeUpHotkey
+    {
+        get => _settings.Get("FocusedAppVolumeUpHotkey", new HotkeyData { });
+        set
+        {
+            HotkeyManager.Current.Unregister(FocusedAppVolumeUpHotkey);
+            _settings.Set("FocusedAppVolumeUpHotkey", value);
+            HotkeyManager.Current.Register(FocusedAppVolumeUpHotkey);
+        }
+    }
+
+    public HotkeyData FocusedAppVolumeDownHotkey
+    {
+        get => _settings.Get("FocusedAppVolumeDownHotkey", new HotkeyData { });
+        set
+        {
+            HotkeyManager.Current.Unregister(FocusedAppVolumeDownHotkey);
+            _settings.Set("FocusedAppVolumeDownHotkey", value);
+            HotkeyManager.Current.Register(FocusedAppVolumeDownHotkey);
+        }
+    }
+
+    public HotkeyData FocusedAppToggleMuteHotkey
+    {
+        get => _settings.Get("FocusedAppToggleMuteHotkey", new HotkeyData { });
+        set
+        {
+            HotkeyManager.Current.Unregister(FocusedAppToggleMuteHotkey);
+            _settings.Set("FocusedAppToggleMuteHotkey", value);
+            HotkeyManager.Current.Register(FocusedAppToggleMuteHotkey);
         }
     }
 

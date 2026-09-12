@@ -45,3 +45,7 @@ jobs:
           /p:Platform=arm64
           /p:DisableGitVersionTask=true
           EarTrumpet\EarTrumpet.csproj
+
+      - name: Test focused app controls
+        shell: cmd
+        run: dotnet run --project EarTrumpet.Tests\EarTrumpet.Tests.csproj -c Release -p:Platform=x64 -p:DisableGitVersionTask=true

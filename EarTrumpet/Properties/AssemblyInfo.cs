@@ -11,3 +11,4 @@ using System.Windows;
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: SupportedOSPlatform("windows10.0.17763")]
 [assembly: InternalsVisibleTo("EarTrumpet.Benchmarks")]
+[assembly: InternalsVisibleTo("EarTrumpet.Tests")]

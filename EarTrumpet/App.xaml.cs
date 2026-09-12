@@ -1,3 +1,4 @@
+using EarTrumpet.DataModel.Audio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -57,6 +58,8 @@ public sealed partial class App : IDisposable
     private static readonly Stopwatch s_appTimer = Stopwatch.StartNew();
     private FlyoutViewModel _flyoutViewModel;
 
+    private const float c_focusedAppLinearVolumeStep = 2f;
+    private const float c_focusedAppLogarithmicVolumeStepDb = 0.5f;
     private ShellNotifyIcon _trayIcon;
     private WindowHolder _mixerWindow;
     private WindowHolder _settingsWindow;
@@ -150,6 +153,9 @@ public sealed partial class App : IDisposable
         Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
         Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
         Settings.AbsoluteVolumeDownHotkeyTyped += AbsoluteVolumeDecrement;
+        Settings.FocusedAppVolumeUpHotkeyTyped += FocusedAppVolumeIncrement;
+        Settings.FocusedAppVolumeDownHotkeyTyped += FocusedAppVolumeDecrement;
+        Settings.FocusedAppToggleMuteHotkeyTyped += FocusedAppToggleMute;
         Settings.RegisterHotkeys();
         Settings.UseLogarithmicVolumeChanged += (_, __) => UpdateTrayTooltip();
 
@@ -427,5 +433,47 @@ public sealed partial class App : IDisposable
                 device.IsAbsMuted = true;
             }
         }
+    }
+
+    private void FocusedAppVolumeIncrement()
+    {
+        ChangeFocusedAppVolume(GetFocusedAppVolumeStep());
+    }
+
+    private void FocusedAppVolumeDecrement()
+    {
+        ChangeFocusedAppVolume(-GetFocusedAppVolumeStep());
+    }
+
+    private static float GetFocusedAppVolumeStep() => Settings.UseLogarithmicVolume
+        ? c_focusedAppLogarithmicVolumeStepDb
+        : c_focusedAppLinearVolumeStep;
+
+    private void ChangeFocusedAppVolume(float delta)
+    {
+        var minimum = Settings.UseLogarithmicVolume ? Settings.LogarithmicVolumeMinDb : 0f;
+        var maximum = Settings.UseLogarithmicVolume ? 0f : 100f;
+
+        FocusedAppAudioControl.ChangeVolume(GetFocusedApps(), delta, minimum, maximum);
+    }
+
+    private void FocusedAppToggleMute()
+    {
+        FocusedAppAudioControl.ToggleMute(GetFocusedApps());
+    }
+
+    private IEnumerable<IAppItemViewModel> GetFocusedApps()
+    {
+        var foregroundAppIds = ForegroundAppResolver.TryGetForegroundAppIds(
+            CollectionViewModel.AllDevices.SelectMany(device => device.AudioSessions));
+        if (foregroundAppIds.Count == 0)
+        {
+            return Enumerable.Empty<IAppItemViewModel>();
+        }
+
+        return CollectionViewModel.AllDevices
+            .SelectMany(device => device.Apps)
+            .Where(app => foregroundAppIds.Contains(app.AppId))
+            .ToArray();
     }
 }

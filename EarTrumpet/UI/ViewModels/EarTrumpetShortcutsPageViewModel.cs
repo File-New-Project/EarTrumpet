@@ -21,6 +21,15 @@ internal class EarTrumpetShortcutsPageViewModel : SettingsPageViewModel
     public HotkeyViewModel AbsoluteVolumeDownHotkey { get; }
     public static string DefaultAbsoluteVolumeDownHotkey => s_hotkeyNoneText;
 
+    public HotkeyViewModel FocusedAppVolumeUpHotkey { get; }
+    public static string DefaultFocusedAppVolumeUpHotkey => s_hotkeyNoneText;
+
+    public HotkeyViewModel FocusedAppVolumeDownHotkey { get; }
+    public static string DefaultFocusedAppVolumeDownHotkey => s_hotkeyNoneText;
+
+    public HotkeyViewModel FocusedAppToggleMuteHotkey { get; }
+    public static string DefaultFocusedAppToggleMuteHotkey => s_hotkeyNoneText;
+
     public EarTrumpetShortcutsPageViewModel(AppSettings settings) : base(null)
     {
         Title = Properties.Resources.ShortcutsPageText;
@@ -31,5 +40,8 @@ internal class EarTrumpetShortcutsPageViewModel : SettingsPageViewModel
         OpenSettingsHotkey = new HotkeyViewModel(settings.SettingsHotkey, (newHotkey) => settings.SettingsHotkey = newHotkey);
         AbsoluteVolumeUpHotkey = new HotkeyViewModel(settings.AbsoluteVolumeUpHotkey, (newHotkey) => settings.AbsoluteVolumeUpHotkey = newHotkey);
         AbsoluteVolumeDownHotkey = new HotkeyViewModel(settings.AbsoluteVolumeDownHotkey, (newHotkey) => settings.AbsoluteVolumeDownHotkey = newHotkey);
+        FocusedAppVolumeUpHotkey = new HotkeyViewModel(settings.FocusedAppVolumeUpHotkey, (newHotkey) => settings.FocusedAppVolumeUpHotkey = newHotkey);
+        FocusedAppVolumeDownHotkey = new HotkeyViewModel(settings.FocusedAppVolumeDownHotkey, (newHotkey) => settings.FocusedAppVolumeDownHotkey = newHotkey);
+        FocusedAppToggleMuteHotkey = new HotkeyViewModel(settings.FocusedAppToggleMuteHotkey, (newHotkey) => settings.FocusedAppToggleMuteHotkey = newHotkey);
     }
 }

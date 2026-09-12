@@ -1386,6 +1386,33 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("SettingsAbsoluteVolumeUpText", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease volume for the focused app.
+        /// </summary>
+        public static string SettingsFocusedAppVolumeDownText {
+            get {
+                return ResourceManager.GetString("SettingsFocusedAppVolumeDownText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Increase volume for the focused app.
+        /// </summary>
+        public static string SettingsFocusedAppVolumeUpText {
+            get {
+                return ResourceManager.GetString("SettingsFocusedAppVolumeUpText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle mute for the focused app.
+        /// </summary>
+        public static string SettingsFocusedAppToggleMuteText {
+            get {
+                return ResourceManager.GetString("SettingsFocusedAppToggleMuteText", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to General.
