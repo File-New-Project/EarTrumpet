@@ -30,6 +30,48 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <conv:NegateConverter x:Key="NegateConverter"/>
+        <Style x:Key="CardToggle" BasedOn="{StaticResource {x:Type CheckBox}}" TargetType="{x:Type CheckBox}">
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style x:Key="CardSectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,20,0,8" />
+        </Style>
+        <Style TargetType="{x:Type ctl:SettingsCard}">
+            <Setter Property="Margin" Value="0,0,0,4" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ctl:SettingsCard}">
+                        <Border Padding="{TemplateBinding Padding}"
+                                Theme:Brush.Background="Light=#B3FFFFFF, Dark=#0DFFFFFF, HighContrast=Window"
+                                Theme:Brush.BorderBrush="Light=#14000000, Dark=#19000000, HighContrast=Text"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock FontSize="14" Text="{TemplateBinding Header}" TextWrapping="Wrap" />
+                                    <TextBlock Margin="0,2,0,0"
+                                               FontSize="12"
+                                               Opacity="0.7"
+                                               Text="{TemplateBinding Description}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                                <ContentPresenter Grid.Column="1"
+                                                  Margin="16,0,0,0"
+                                                  VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
@@ -164,85 +206,61 @@
                 </Grid>
             </StackPanel>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EarTrumpetMouseSettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
-                          IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" />
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
-                          IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" />
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseScrollWheelInSliders}"
-                          IsChecked="{Binding UseScrollWheelInSliders, Mode=TwoWay}" />
-            </StackPanel>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
-                          IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-                <StackPanel>
-                    <!-- Localization required -->
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}" />
-                    <StackPanel Orientation="Horizontal"
-                                Margin="12,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom">
-                        <!--
-                            -96 dB is the min volume range of most devices
-                            -12 dB is arbitrarily chosen
-                            NegateConverter is used to flip the slider so that left is -12 and right is -96
-                        -->
-                        <Slider Minimum="12"
-                                Maximum="96"
-                                Width="200"
-                                IsEnabled="{Binding UseLogarithmicVolume}"
-                                IsSnapToTickEnabled="True"
-                                TickFrequency="1"
+            <StackPanel Margin="12,0,24,24" Orientation="Vertical">
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionVolume}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
+                                  Description="{x:Static resx:Resources.SettingsUseLogarithmicVolumeDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}"
+                                  Description="{x:Static resx:Resources.SettingsLogarithmicScaleMinimumDescription}"
+                                  Visibility="{Binding UseLogarithmicVolume, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Width="180" VerticalAlignment="Center" Minimum="12" Maximum="96" IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                        <TextBlock Width="64" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
                     </StackPanel>
-                </StackPanel>
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
-                          IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" />
-                <StackPanel>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{x:Static resx:Resources.SettingsVolumeStepAmount}" />
-                    <StackPanel Orientation="Horizontal"
-                                Margin="12,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom">
-                        <Slider Minimum="1"
-                                Maximum="50"
-                                Width="200"
-                                IsSnapToTickEnabled="True"
-                                TickFrequency="1"
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsVolumeStepAmount}"
+                                  Description="{x:Static resx:Resources.SettingsVolumeStepAmountDescription}">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Width="180" VerticalAlignment="Center" Minimum="1" Maximum="50" IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding VolumeStepAmount, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
+                        <TextBlock Width="64" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
                     </StackPanel>
-                </StackPanel>
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseRangeSnapping}"
-                          IsChecked="{Binding UseRangeSnapping, Mode=TwoWay}" />
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseSliderSnap}"
-                          IsChecked="{Binding UseSliderSnap, Mode=TwoWay}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseRangeSnapping}"
+                                  Description="{x:Static resx:Resources.SettingsUseRangeSnappingDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseRangeSnapping, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseSliderSnap}"
+                                  Description="{x:Static resx:Resources.SettingsUseSliderSnapDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseSliderSnap, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionMouse}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
+                                  Description="{x:Static resx:Resources.SettingsUseScrollWheelInTrayDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseScrollWheelInSliders}"
+                                  Description="{x:Static resx:Resources.SettingsUseScrollWheelInSlidersDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseScrollWheelInSliders, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
+                                  Description="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHookDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionAppearance}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
+                                  Description="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIconDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionStartup}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
+                                  Description="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartupDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">

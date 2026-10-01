@@ -74,10 +74,34 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
         }
     }
 
+    public bool UseScrollWheelInTray
+    {
+        get => _settings.UseScrollWheelInTray;
+        set => _settings.UseScrollWheelInTray = value;
+    }
+
+    public bool UseGlobalMouseWheelHook
+    {
+        get => _settings.UseGlobalMouseWheelHook;
+        set => _settings.UseGlobalMouseWheelHook = value;
+    }
+
+    public bool UseScrollWheelInSliders
+    {
+        get => _settings.UseScrollWheelInSliders;
+        set => _settings.UseScrollWheelInSliders = value;
+    }
+
+    public bool UseLegacyIcon
+    {
+        get => _settings.UseLegacyIcon;
+        set => _settings.UseLegacyIcon = value;
+    }
+
     public EarTrumpetCommunitySettingsPageViewModel(AppSettings settings) : base(null)
     {
         _settings = settings;
-        Title = Properties.Resources.CommunitySettingsPageText;
+        Title = Properties.Resources.GeneralSettingsPageText;
         Glyph = "\xE902";
     }
 }

@@ -369,9 +369,7 @@ public sealed partial class App : IDisposable
             null,
             [
                 new EarTrumpetShortcutsPageViewModel(Settings),
-                new EarTrumpetMouseSettingsPageViewModel(Settings),
                 new EarTrumpetCommunitySettingsPageViewModel(Settings),
-                new EarTrumpetLegacySettingsPageViewModel(Settings),
                 new EarTrumpetAboutPageViewModel(_errorReporter.DisplayDiagnosticData, Settings)
             ]);
 
