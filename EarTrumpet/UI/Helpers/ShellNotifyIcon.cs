@@ -319,7 +319,9 @@ public sealed class ShellNotifyIcon : IDisposable
                 contextMenu.PlacementRectangle = Rect.Empty;
                 contextMenu.PlacementTarget = null;
                 contextMenu.HorizontalOffset = point.X / (WindowsTaskbar.Dpi / (double)96);
-                contextMenu.VerticalOffset = point.Y / (WindowsTaskbar.Dpi / (double)96);
+                // Keep the menu above the taskbar: Placement.Top anchors its bottom edge at this Y.
+                var workArea = System.Windows.Forms.Screen.FromPoint(new System.Drawing.Point((int)point.X, (int)point.Y)).WorkingArea;
+                contextMenu.VerticalOffset = Math.Min(point.Y, workArea.Bottom) / (WindowsTaskbar.Dpi / (double)96);
             }
 
             Themes.Options.SetSource(contextMenu, Themes.Options.SourceKind.System);

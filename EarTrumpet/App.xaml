@@ -588,9 +588,9 @@
                 <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuSelector}" />
                 <Setter Property="Placement" Value="Mouse" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="True" />
-                <Setter Property="MinWidth" Value="280" />
+                <Setter Property="MinWidth" Value="240" />
                 <Setter Property="HasDropShadow" Value="True" />
-                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontSize" Value="12" />
                 <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=MenuText" />
                 <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow, HighContrast=Menu" />
                 <Setter Property="Theme:Brush.BorderBrush" Value="Light=#1A000000, Dark=#33FFFFFF, HighContrast=ControlText" />
@@ -598,7 +598,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
                             <Border x:Name="Border">
-                                <Border Padding="4"
+                                <Border Padding="2"
                                         Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1"
@@ -648,14 +648,14 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">
                             <Border x:Name="Border"
-                                    Height="36"
+                                    Height="30"
                                     Margin="4,1"
                                     Background="Transparent"
                                     BorderThickness="0"
                                     CornerRadius="4">
                                 <Grid Margin="0,-1,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="36" SharedSizeGroup="Icon" />
+                                        <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>

@@ -45,7 +45,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ctl:SettingsCard}">
-                        <Border Padding="{TemplateBinding Padding}"
+                        <Border x:Name="CardBorder"
+                                Padding="{TemplateBinding Padding}"
                                 Theme:Brush.Background="Light=#B3FFFFFF, Dark=#0DFFFFFF, HighContrast=Window"
                                 Theme:Brush.BorderBrush="Light=#14000000, Dark=#19000000, HighContrast=Text"
                                 BorderThickness="1"
@@ -68,6 +69,11 @@
                                                   VerticalAlignment="Center" />
                             </Grid>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="Theme:Brush.BorderBrush" Value="SystemAccent/0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -456,13 +462,15 @@
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Height" Value="48" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                         <Border x:Name="Bd"
+                                Margin="8,2"
                                 Background="{TemplateBinding Background}"
+                                CornerRadius="4"
                                 SnapsToDevicePixels="true">
                             <ContentPresenter Margin="0"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -476,6 +484,9 @@
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                             </MultiTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="SystemAccent/0.18" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
