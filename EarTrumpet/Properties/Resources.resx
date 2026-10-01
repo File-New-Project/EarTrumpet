@@ -685,4 +685,13 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="VolumeUnit_Decibel" xml:space="preserve">
     <value>dB</value>
   </data>
+  <data name="SettingsVolumeStepAmount" xml:space="preserve">
+    <value>Volume step amount</value>
+  </data>
+  <data name="SettingsUseRangeSnapping" xml:space="preserve">
+    <value>Snap scroll wheel to volume step grid</value>
+  </data>
+  <data name="SettingsUseSliderSnap" xml:space="preserve">
+    <value>Snap slider to volume steps when dragging</value>
+  </data>
 </root>

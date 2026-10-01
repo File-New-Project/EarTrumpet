@@ -188,8 +188,11 @@ public sealed partial class App : IDisposable
     {
         if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
         {
-            CollectionViewModel.Default?.IncrementVolume(
-                Math.Sign(wheelDelta) * (Settings.UseLogarithmicVolume ? 0.2f : 2.0f));
+            var device = CollectionViewModel.Default;
+            if (device != null)
+            {
+                device.Volume = (float)VolumeStepper.Step(device.Volume, Math.Sign(wheelDelta));
+            }
         }
     }
 
@@ -411,7 +414,7 @@ public sealed partial class App : IDisposable
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
         {
             device.IsAbsMuted = false;
-            device.IncrementVolume(2);
+            device.Volume = (float)VolumeStepper.Step(device.Volume, 1, VolumeStepper.LogarithmicHotkeyStep);
         }
     }
 
@@ -420,7 +423,7 @@ public sealed partial class App : IDisposable
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
         {
             var wasMuted = device.IsMuted;
-            device.Volume -= 2;
+            device.Volume = (float)VolumeStepper.Step(device.Volume, -1, VolumeStepper.LogarithmicHotkeyStep);
 
             if (!wasMuted == (device.Volume <= 0))
             {
