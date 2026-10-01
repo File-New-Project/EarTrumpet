@@ -588,20 +588,21 @@
                 <Setter Property="ItemContainerTemplateSelector" Value="{StaticResource MenuSelector}" />
                 <Setter Property="Placement" Value="Mouse" />
                 <Setter Property="Grid.IsSharedSizeScope" Value="True" />
-                <Setter Property="MinWidth" Value="311" />
+                <Setter Property="MinWidth" Value="280" />
                 <Setter Property="HasDropShadow" Value="True" />
-                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontSize" Value="13" />
                 <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseHigh, HighContrast=MenuText" />
                 <Setter Property="Theme:Brush.Background" Value="Theme={Theme}ChromeMediumLow, HighContrast=Menu" />
-                <Setter Property="Theme:Brush.BorderBrush" Value="Light=LightChromeHigh, Dark=ControlDarkAppButtonTextDisabled/0.9, HighContrast=ControlText" />
+                <Setter Property="Theme:Brush.BorderBrush" Value="Light=#1A000000, Dark=#33FFFFFF, HighContrast=ControlText" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
                             <Border x:Name="Border">
-                                <Border Padding="2,8"
+                                <Border Padding="4"
                                         Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="1">
+                                        BorderThickness="1"
+                                        CornerRadius="8">
                                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                     </ScrollViewer>
@@ -611,12 +612,12 @@
                                 <Trigger Property="HasDropShadow" Value="True">
                                     <Setter TargetName="Border" Property="CornerRadius" Value="0" />
                                     <Setter TargetName="Border" Property="Background" Value="Transparent" />
-                                    <Setter TargetName="Border" Property="Padding" Value="0,0,5,5" />
+                                    <Setter TargetName="Border" Property="Padding" Value="0,0,12,12" />
                                     <Setter TargetName="Border" Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="4"
-                                                              Opacity="0.8"
-                                                              ShadowDepth="2" />
+                                            <DropShadowEffect BlurRadius="12"
+                                                              Opacity="0.35"
+                                                              ShadowDepth="3" />
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -626,7 +627,7 @@
                 </Setter>
             </Style>
             <Style TargetType="{x:Type Separator}">
-                <Setter Property="Margin" Value="8,2,8,2" />
+                <Setter Property="Margin" Value="12,3" />
                 <Setter Property="OverridesDefaultStyle" Value="True" />
                 <Setter Property="Theme:Brush.Foreground" Value="Theme={Theme}BaseMediumLow, HighContrast=ControlText" />
                 <Setter Property="Template">
@@ -647,12 +648,14 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type MenuItem}">
                             <Border x:Name="Border"
-                                    Height="32"
+                                    Height="36"
+                                    Margin="4,1"
                                     Background="Transparent"
-                                    BorderThickness="0">
+                                    BorderThickness="0"
+                                    CornerRadius="4">
                                 <Grid Margin="0,-1,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="32" SharedSizeGroup="Icon" />
+                                        <ColumnDefinition Width="36" SharedSizeGroup="Icon" />
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
@@ -662,7 +665,7 @@
                                             BorderThickness="1">
                                         <TextBlock x:Name="CheckMark"
                                                    Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=ControlText"
-                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                                    SnapsToDevicePixels="False"
                                                    Text="{TemplateBinding Tag}"
                                                    Visibility="Hidden" />
@@ -681,7 +684,7 @@
                                             Visibility="Collapsed">
                                         <TextBlock x:Name="GlyphText"
                                                    Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=ControlText"
-                                                   FontFamily="Segoe MDL2 Assets"
+                                                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                                    SnapsToDevicePixels="False"
                                                    Text="&#xE0E3;" />
                                     </Border>
@@ -696,11 +699,17 @@
                                            PopupAnimation="Fade">
 
                                         <Border x:Name="SubmenuBorder"
+                                                Margin="0,0,12,12"
                                                 Theme:Brush.Background="Theme={Theme}ChromeMediumLow, HighContrast=Menu"
-                                                Theme:Brush.BorderBrush="Theme={Theme}ChromeHigh, HighContrast=ControlText"
+                                                Theme:Brush.BorderBrush="Light=#1A000000, Dark=#33FFFFFF, HighContrast=ControlText"
                                                 BorderThickness="1"
+                                                CornerRadius="8"
                                                 SnapsToDevicePixels="True">
-                                            <Border Padding="2,6"
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="12" Opacity="0.35" ShadowDepth="3" />
+                                            </Border.Effect>
+                                            <Border Padding="4"
+                                                    CornerRadius="7"
                                                     Background="{TemplateBinding Background}"
                                                     BorderBrush="{TemplateBinding BorderBrush}"
                                                     BorderThickness="1">

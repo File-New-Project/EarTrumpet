@@ -368,8 +368,8 @@ public sealed partial class App : IDisposable
             EarTrumpet.Properties.Resources.SettingsDescriptionText,
             null,
             [
-                new EarTrumpetShortcutsPageViewModel(Settings),
                 new EarTrumpetCommunitySettingsPageViewModel(Settings),
+                new EarTrumpetShortcutsPageViewModel(Settings),
                 new EarTrumpetAboutPageViewModel(_errorReporter.DisplayDiagnosticData, Settings)
             ]);
 
