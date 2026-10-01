@@ -1487,7 +1487,7 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet volume slider.
         /// </summary>
         public static string SettingsUseScrollWheelInSliders {
             get {
