@@ -664,6 +664,9 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="SettingsUseScrollWheelInTray" xml:space="preserve">
     <value>Use the scroll wheel to change volume while hovering over the EarTrumpet icon</value>
   </data>
+  <data name="SettingsUseScrollWheelInSliders" xml:space="preserve">
+    <value>Use the scroll wheel to change volume while hovering over a volume slider</value>
+  </data>
   <data name="SettingsUseGlobalMouseWheelHook" xml:space="preserve">
     <value>Use the scroll wheel to change volume while the flyout is open</value>
   </data>

@@ -203,6 +203,11 @@ public class VolumeSlider : Slider
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
+        if (!App.Settings.UseScrollWheelInSliders)
+        {
+            return;
+        }
+
         var direction = Math.Sign(e.Delta);
         if (UsesVolumeStepSettings)
         {
