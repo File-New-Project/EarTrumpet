@@ -40,11 +40,10 @@ internal class DebugHelpers
                                     Glyph = "\xE948",
                                     IsChecked = true,
                                 },
-                                new ContextMenuSeparator(),
                                 new() {
-                                    DisplayName = "View colors",
-                                    Command = new RelayCommand(() => ProcessHelper.StartNoThrow("EarTrumpet.ColorTool.exe")),
-                                    Glyph = "\xE790",
+                                    DisplayName = "Restore real devices",
+                                    Command = new RelayCommand(() => WindowsAudioFactory.Create(AudioDeviceKind.Playback).RefreshAllDevices()),
+                                    Glyph = "\xE72C",
                                     IsChecked = true,
                                 },
                             },
@@ -119,7 +118,7 @@ internal class DebugHelpers
         AddMockApp(mockDevice,
             "Chr0me",
             "Chr0me",
-            @"%ProgramFilesx86%\Google\Chrome\Application\chrome.exe");
+            @"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe");
 
         var addInfo = devManager.GetType().GetMethod("Add", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         addInfo.Invoke(devManager, [mockDevice]);
