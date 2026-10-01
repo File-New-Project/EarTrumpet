@@ -79,137 +79,22 @@
             </Setter>
         </Style>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenFlyoutHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenMixerText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultMixerHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenMixerHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenSettingsText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenSettingsHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeUpText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding AbsoluteVolumeUpHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeDownText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding AbsoluteVolumeDownHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
+            <StackPanel Margin="12,12,24,24" Orientation="Vertical">
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenEarTrumpetText}">
+                    <ContentControl Content="{Binding OpenFlyoutHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenMixerText}">
+                    <ContentControl Content="{Binding OpenMixerHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenSettingsText}">
+                    <ContentControl Content="{Binding OpenSettingsHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsAbsoluteVolumeUpText}">
+                    <ContentControl Content="{Binding AbsoluteVolumeUpHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsAbsoluteVolumeDownText}">
+                    <ContentControl Content="{Binding AbsoluteVolumeDownHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
