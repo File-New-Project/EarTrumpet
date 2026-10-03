@@ -725,10 +725,10 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
     <value>Desplaza sobre el icono de la bandeja para cambiar el volumen del dispositivo predeterminado</value>
   </data>
   <data name="SettingsUseGlobalMouseWheelHookDescription" xml:space="preserve">
-    <value>Desplaza en cualquier parte de la pantalla para cambiar el volumen mientras el panel está abierto</value>
+    <value>Desplaza en cualquier parte de la pantalla para cambiar el volumen mientras el control flotante está abierto</value>
   </data>
   <data name="SettingsUseScrollWheelInSlidersDescription" xml:space="preserve">
-    <value>Desplaza sobre un control deslizante del panel o del mezclador para cambiar su volumen</value>
+    <value>Desplaza sobre un control deslizante del control flotante o del mezclador para cambiar su volumen</value>
   </data>
   <data name="SettingsUseLegacyEarTrumpetIconDescription" xml:space="preserve">
     <value>Muestra el icono original de EarTrumpet en la bandeja</value>
@@ -740,6 +740,6 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
     <value>Ventanas translúcidas</value>
   </data>
   <data name="SettingsUseTranslucentWindowsDescription" xml:space="preserve">
-    <value>Difumina el fondo del panel y de la configuración. Desactívalo para ventanas sólidas. También requiere los efectos de transparencia de Windows</value>
+    <value>Difumina el fondo del control flotante y de los ajustes. Desactívalo para ventanas sólidas. También requiere los efectos de transparencia de Windows</value>
   </data>
 </root>

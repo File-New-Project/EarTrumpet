@@ -69,6 +69,15 @@ public sealed partial class App : IDisposable
 
     private void OnAppStartup(object sender, StartupEventArgs e)
     {
+        // es-MX, es-AR, ... have no satellite assembly of their own: use the Spanish (Spain) strings instead of English.
+        var ui = System.Globalization.CultureInfo.CurrentUICulture;
+        if (ui.TwoLetterISOLanguageName == "es" && ui.Name != "es-ES")
+        {
+            var spanish = System.Globalization.CultureInfo.GetCultureInfo("es-ES");
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = spanish;
+            Thread.CurrentThread.CurrentUICulture = spanish;
+        }
+
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
         Exit += (_, __) => IsShuttingDown = true;
@@ -114,7 +123,7 @@ public sealed partial class App : IDisposable
         Exit += (_, __) => _trayIcon.IsVisible = false;
         CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 
-        _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
+        _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, ReturnFocusAfterFlyout, Settings);
         FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
         // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
         // to be executed, breaking the assumption that startup is complete.
@@ -146,7 +155,7 @@ public sealed partial class App : IDisposable
         _mixerWindow = new WindowHolder(CreateMixerExperience);
         _settingsWindow = new WindowHolder(CreateSettingsExperience);
 
-        Settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+        Settings.FlyoutHotkeyTyped += OnFlyoutHotkeyTyped;
         Settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
         Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
         Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
@@ -154,7 +163,11 @@ public sealed partial class App : IDisposable
         Settings.RegisterHotkeys();
         Settings.UseLogarithmicVolumeChanged += (_, __) => UpdateTrayTooltip();
 
-        _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
+        _trayIcon.PrimaryInvoke += (_, type) =>
+        {
+            _windowBeforeHotkey = default;
+            _flyoutViewModel.OpenFlyout(type);
+        };
         _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
         _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
         _trayIcon.Scrolled += TrayIconScrolled;
@@ -163,6 +176,32 @@ public sealed partial class App : IDisposable
 
         DisplayFirstRunExperience();
         ShowFullMixerWindowIfConfigured();
+    }
+
+    // Window that had focus when the flyout hotkey opened the flyout, so closing it can hand focus back (#1751).
+    private HWND _windowBeforeHotkey;
+
+    private void OnFlyoutHotkeyTyped()
+    {
+        if (_flyoutViewModel.State == FlyoutViewState.Hidden)
+        {
+            _windowBeforeHotkey = PInvoke.GetForegroundWindow();
+        }
+        _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+    }
+
+    private void ReturnFocusAfterFlyout()
+    {
+        var previous = _windowBeforeHotkey;
+        _windowBeforeHotkey = default;
+        if (previous != default && PInvoke.IsWindow(previous))
+        {
+            PInvoke.SetForegroundWindow(previous);
+        }
+        else
+        {
+            _trayIcon.SetFocus();
+        }
     }
 
     private void ShowFullMixerWindowIfConfigured()

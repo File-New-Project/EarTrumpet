@@ -40,11 +40,6 @@ public class ActionsCategoryViewModel : SettingsCategoryViewModel
             Glyph = "\xE948",
             GlyphFontSize = 15,
         } ];
-
-        if (Pages.Count == 2)
-        {
-            Toolbar[0].Command.Execute(null);
-        }
     }
 
     internal void ReloadSavedPages()
