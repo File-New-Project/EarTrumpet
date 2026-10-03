@@ -53,23 +53,49 @@
                                 CornerRadius="4">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="GlyphText"
+                                           Margin="0,0,16,0"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="18"
+                                           Text="{TemplateBinding Glyph}" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock FontSize="14" Text="{TemplateBinding Header}" TextWrapping="Wrap" />
-                                    <TextBlock Margin="0,2,0,0"
+                                    <TextBlock x:Name="DescriptionText"
+                                               Margin="0,2,0,0"
                                                FontSize="12"
                                                Opacity="0.7"
                                                Text="{TemplateBinding Description}"
                                                TextWrapping="Wrap" />
                                 </StackPanel>
-                                <ContentPresenter Grid.Column="1"
+                                <ContentPresenter Grid.Column="2"
                                                   Margin="16,0,0,0"
                                                   VerticalAlignment="Center" />
+                                <TextBlock x:Name="Chevron"
+                                           Grid.Column="3"
+                                           Margin="16,0,0,0"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="12"
+                                           Opacity="0.7"
+                                           Text="&#xE76C;" />
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="Description" Value="{x:Null}">
+                                <Setter TargetName="DescriptionText" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Glyph" Value="{x:Null}">
+                                <Setter TargetName="GlyphText" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Command" Value="{x:Null}">
+                                <Setter TargetName="Chevron" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="CardBorder" Property="Theme:Brush.BorderBrush" Value="SystemAccent/0.6" />
                             </Trigger>
@@ -108,17 +134,17 @@
                                   Description="{x:Static resx:Resources.SettingsLogarithmicScaleMinimumDescription}"
                                   Visibility="{Binding UseLogarithmicVolume, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel Orientation="Horizontal">
-                        <Slider Width="180" VerticalAlignment="Center" Minimum="12" Maximum="96" IsSnapToTickEnabled="True" TickFrequency="1"
+                        <Slider Width="140" VerticalAlignment="Center" Minimum="12" Maximum="96" IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
-                        <TextBlock Width="64" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                        <TextBlock Width="48" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
                     </StackPanel>
                 </ctl:SettingsCard>
                 <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsVolumeStepAmount}"
                                   Description="{x:Static resx:Resources.SettingsVolumeStepAmountDescription}">
                     <StackPanel Orientation="Horizontal">
-                        <Slider Width="180" VerticalAlignment="Center" Minimum="1" Maximum="50" IsSnapToTickEnabled="True" TickFrequency="1"
+                        <Slider Width="140" VerticalAlignment="Center" Minimum="1" Maximum="50" IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding VolumeStepAmount, Mode=TwoWay}" />
-                        <TextBlock Width="64" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
+                        <TextBlock Width="48" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
                     </StackPanel>
                 </ctl:SettingsCard>
                 <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseRangeSnapping}"
@@ -155,11 +181,9 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">
-            <StackPanel>
-                <StackPanel Margin="12,24" Orientation="Horizontal">
-                    <Border Width="40"
-                            Height="30"
-                            Margin="0,0,8,0">
+            <StackPanel Margin="12,12,24,24">
+                <StackPanel Margin="4,12,0,20" Orientation="Horizontal">
+                    <Border Width="56" Height="42" Margin="0,0,16,0">
                         <Canvas>
                             <Path Width="40"
                                   Height="30"
@@ -168,41 +192,27 @@
                                   Stretch="Uniform" />
                         </Canvas>
                     </Border>
-                    <TextBlock FontSize="24" Text="EarTrumpet" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel>
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding AboutText}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="© File-New-Project" />
-                        <CheckBox Margin="12,24,12,-6"
-                                  HorizontalAlignment="Left"
-                                  Content="{x:Static resx:Resources.PrivacyCheckboxText}"
-                                  IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
-                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
-                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenFeedbackCommand}">
-                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
-                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink>
-                        </TextBlock>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Text="EarTrumpet" />
+                        <TextBlock Margin="0,2,0,0" Opacity="0.7" Text="{Binding AboutText}" />
+                        <TextBlock Opacity="0.7" Text="&#169; File-New-Project" />
                     </StackPanel>
                 </StackPanel>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.PrivacyCheckboxText}" Glyph="&#xE72E;">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" AutomationProperties.Name="{x:Static resx:Resources.PrivacyCheckboxText}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.PrivacyPolicyText}"
+                                  Command="{Binding OpenPrivacyPolicyCommand}"
+                                  Glyph="&#xE8D7;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.WebsiteText}"
+                                  Command="{Binding OpenAboutCommand}"
+                                  Glyph="&#xE774;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.ContextMenuSendFeedback}"
+                                  Command="{Binding OpenFeedbackCommand}"
+                                  Glyph="&#xED15;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.TroubleshootEarTrumpetText}"
+                                  Command="{Binding OpenDiagnosticsCommand}"
+                                  Glyph="&#xE90F;" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SettingsPageHeaderViewModel}">
