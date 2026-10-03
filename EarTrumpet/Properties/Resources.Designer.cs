@@ -1926,5 +1926,23 @@ namespace EarTrumpet.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Translucent windows.
+        /// </summary>
+        public static string SettingsUseTranslucentWindows {
+            get {
+                return ResourceManager.GetString("SettingsUseTranslucentWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blur the background of the flyout and settings. Turn off for solid windows. Also requires Windows transparency effects.
+        /// </summary>
+        public static string SettingsUseTranslucentWindowsDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseTranslucentWindowsDescription", resourceCulture);
+            }
+        }
+        
     }
 }

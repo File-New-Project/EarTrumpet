@@ -106,6 +106,8 @@ public sealed class Manager : BindableBase, INotifyPropertyChanged, IDisposable
         }
     }
 
+    public void RefreshTheme() => OnThemeColorsChanged();
+
     private void OnThemeColorsChanged()
     {
         if (_themeChangeTimer.IsEnabled)

@@ -169,6 +169,10 @@
                     <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
                 </ctl:SettingsCard>
                 <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionAppearance}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseTranslucentWindows}"
+                                  Description="{x:Static resx:Resources.SettingsUseTranslucentWindowsDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseTranslucentWindows, Mode=TwoWay}" AutomationProperties.Name="{x:Static resx:Resources.SettingsUseTranslucentWindows}" />
+                </ctl:SettingsCard>
                 <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
                                   Description="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIconDescription}">
                     <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />

@@ -78,6 +78,7 @@ public sealed partial class App : IDisposable
         PackageName = PackageHelper.GetFamilyName(HasIdentity);
 
         Settings = new AppSettings();
+        DataModel.SystemSettings.ForceOpaque = !Settings.UseTranslucentWindows;
         _errorReporter = new ErrorReporter(Settings);
 
         if (SingleInstanceAppMutex.TakeExclusivity())

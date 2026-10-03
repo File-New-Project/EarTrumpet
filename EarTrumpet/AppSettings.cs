@@ -152,6 +152,12 @@ public class AppSettings
         set => _settings.Set("UseScrollWheelInSliders", value);
     }
 
+    public bool UseTranslucentWindows
+    {
+        get => _settings.Get("UseTranslucentWindows", true);
+        set => _settings.Set("UseTranslucentWindows", value);
+    }
+
     public bool HasShownFirstRun
     {
         get => _settings.HasKey("hasShownFirstRun");

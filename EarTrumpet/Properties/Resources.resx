@@ -742,4 +742,10 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="SettingsShowFullMixerWindowOnStartupDescription" xml:space="preserve">
     <value>Open the full mixer window every time EarTrumpet starts</value>
   </data>
+  <data name="SettingsUseTranslucentWindows" xml:space="preserve">
+    <value>Translucent windows</value>
+  </data>
+  <data name="SettingsUseTranslucentWindowsDescription" xml:space="preserve">
+    <value>Blur the background of the flyout and settings. Turn off for solid windows. Also requires Windows transparency effects</value>
+  </data>
 </root>

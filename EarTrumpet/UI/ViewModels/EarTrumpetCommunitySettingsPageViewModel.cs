@@ -92,6 +92,18 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
         set => _settings.UseScrollWheelInSliders = value;
     }
 
+    public bool UseTranslucentWindows
+    {
+        get => _settings.UseTranslucentWindows;
+        set
+        {
+            _settings.UseTranslucentWindows = value;
+            DataModel.SystemSettings.ForceOpaque = !value;
+            Themes.Manager.Current?.RefreshTheme();
+            RaisePropertyChanged(nameof(UseTranslucentWindows));
+        }
+    }
+
     public bool UseLegacyIcon
     {
         get => _settings.UseLegacyIcon;

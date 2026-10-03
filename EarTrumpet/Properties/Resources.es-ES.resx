@@ -676,4 +676,70 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   <data name="SettingsShowFullMixerWindowOnStartup" xml:space="preserve">
     <value>Mostrar la ventana completa del mezclador al iniciar</value>
   </data>
+  <data name="GeneralSettingsPageText" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingsSectionVolume" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="SettingsSectionMouse" xml:space="preserve">
+    <value>Ratón</value>
+  </data>
+  <data name="SettingsSectionAppearance" xml:space="preserve">
+    <value>Apariencia</value>
+  </data>
+  <data name="SettingsSectionStartup" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="SettingsUseScrollWheelInSliders" xml:space="preserve">
+    <value>Usar la rueda del ratón para cambiar el volumen sobre un control deslizante</value>
+  </data>
+  <data name="SettingsVolumeStepAmount" xml:space="preserve">
+    <value>Tamaño del paso de volumen</value>
+  </data>
+  <data name="SettingsUseRangeSnapping" xml:space="preserve">
+    <value>Ajustar la rueda a la cuadrícula del paso de volumen</value>
+  </data>
+  <data name="SettingsUseSliderSnap" xml:space="preserve">
+    <value>Ajustar el control deslizante a los pasos al arrastrar</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimum" xml:space="preserve">
+    <value>Mínimo de la escala logarítmica</value>
+  </data>
+  <data name="SettingsUseLogarithmicVolumeDescription" xml:space="preserve">
+    <value>Se ajusta a cómo percibimos el volumen en lugar de una escala lineal de 0 a 100</value>
+  </data>
+  <data name="SettingsLogarithmicScaleMinimumDescription" xml:space="preserve">
+    <value>Nivel más bajo que muestra la escala logarítmica</value>
+  </data>
+  <data name="SettingsVolumeStepAmountDescription" xml:space="preserve">
+    <value>Cuánto cambia el volumen con cada desplazamiento o pulsación de tecla</value>
+  </data>
+  <data name="SettingsUseRangeSnappingDescription" xml:space="preserve">
+    <value>La rueda salta a la cuadrícula de pasos en lugar de sumar al valor actual</value>
+  </data>
+  <data name="SettingsUseSliderSnapDescription" xml:space="preserve">
+    <value>Los controles deslizantes saltan entre pasos al arrastrar</value>
+  </data>
+  <data name="SettingsUseScrollWheelInTrayDescription" xml:space="preserve">
+    <value>Desplaza sobre el icono de la bandeja para cambiar el volumen del dispositivo predeterminado</value>
+  </data>
+  <data name="SettingsUseGlobalMouseWheelHookDescription" xml:space="preserve">
+    <value>Desplaza en cualquier parte de la pantalla para cambiar el volumen mientras el panel está abierto</value>
+  </data>
+  <data name="SettingsUseScrollWheelInSlidersDescription" xml:space="preserve">
+    <value>Desplaza sobre un control deslizante del panel o del mezclador para cambiar su volumen</value>
+  </data>
+  <data name="SettingsUseLegacyEarTrumpetIconDescription" xml:space="preserve">
+    <value>Muestra el icono original de EarTrumpet en la bandeja</value>
+  </data>
+  <data name="SettingsShowFullMixerWindowOnStartupDescription" xml:space="preserve">
+    <value>Abre la ventana completa del mezclador cada vez que se inicia EarTrumpet</value>
+  </data>
+  <data name="SettingsUseTranslucentWindows" xml:space="preserve">
+    <value>Ventanas translúcidas</value>
+  </data>
+  <data name="SettingsUseTranslucentWindowsDescription" xml:space="preserve">
+    <value>Difumina el fondo del panel y de la configuración. Desactívalo para ventanas sólidas. También requiere los efectos de transparencia de Windows</value>
+  </data>
 </root>
