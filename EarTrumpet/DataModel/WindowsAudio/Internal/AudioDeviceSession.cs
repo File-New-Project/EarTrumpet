@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -359,6 +360,14 @@ internal class AudioDeviceSession : BindableBase, IAudioSessionEvents, IAudioDev
         {
             if (parent.Id != persistedDeviceId)
             {
+                // SetDefaultEndPoint ignores devices we do not know (disabled, unplugged, or not enumerated yet at
+                // startup). Hiding the session anyway would leave the app listed on no device at all, so stay put.
+                if (!Parent.Parent.Devices.Any(d => d.Id == persistedDeviceId))
+                {
+                    Trace.WriteLine($"FORCE-MOVE skipped, persisted device unavailable: {persistedDeviceId}");
+                    return;
+                }
+
                 Trace.WriteLine($"FORCE-MOVE: {_state} {parent.Id} -> {persistedDeviceId}");
 
                 MoveToDevice(persistedDeviceId, false);

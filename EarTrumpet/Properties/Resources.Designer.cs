@@ -1944,5 +1944,41 @@ namespace EarTrumpet.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Developer options.
+        /// </summary>
+        public static string DeveloperOptionsMenuText {
+            get {
+                return ResourceManager.GetString("DeveloperOptionsMenuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all devices.
+        /// </summary>
+        public static string DeveloperRemoveAllDevicesText {
+            get {
+                return ResourceManager.GetString("DeveloperRemoveAllDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add mock device.
+        /// </summary>
+        public static string DeveloperAddMockDeviceText {
+            get {
+                return ResourceManager.GetString("DeveloperAddMockDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore real devices.
+        /// </summary>
+        public static string DeveloperRestoreRealDevicesText {
+            get {
+                return ResourceManager.GetString("DeveloperRestoreRealDevicesText", resourceCulture);
+            }
+        }
+        
     }
 }

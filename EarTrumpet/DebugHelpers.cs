@@ -26,23 +26,23 @@ internal class DebugHelpers
                     {
                         new() {
                             Icon = "\xE943",
-                            DisplayName = "Developer options",
+                            DisplayName = Properties.Resources.DeveloperOptionsMenuText,
                             Children = new List<ContextMenuItem>
                             {
                                 new() {
-                                    DisplayName = "Remove all devices",
+                                    DisplayName = Properties.Resources.DeveloperRemoveAllDevicesText,
                                     Command = new RelayCommand(DebugRemoveAllDevices),
                                     Glyph = "\xE894",
                                     IsChecked = true,
                                 },
                                 new() {
-                                    DisplayName = "Add mock device",
+                                    DisplayName = Properties.Resources.DeveloperAddMockDeviceText,
                                     Command = new RelayCommand(DebugAddMockDevice),
                                     Glyph = "\xE948",
                                     IsChecked = true,
                                 },
                                 new() {
-                                    DisplayName = "Restore real devices",
+                                    DisplayName = Properties.Resources.DeveloperRestoreRealDevicesText,
                                     Command = new RelayCommand(() => WindowsAudioFactory.Create(AudioDeviceKind.Playback).RefreshAllDevices()),
                                     Glyph = "\xE72C",
                                     IsChecked = true,

@@ -742,4 +742,16 @@ Deseas abrir [https://eartrumpet.app/jmp/fixfonts] ahora?</value>
   <data name="SettingsUseTranslucentWindowsDescription" xml:space="preserve">
     <value>Difumina el fondo del control flotante y de los ajustes. Desactívalo para ventanas sólidas. También requiere los efectos de transparencia de Windows</value>
   </data>
+  <data name="DeveloperOptionsMenuText" xml:space="preserve">
+    <value>Opciones de desarrollador</value>
+  </data>
+  <data name="DeveloperRemoveAllDevicesText" xml:space="preserve">
+    <value>Quitar todos los dispositivos</value>
+  </data>
+  <data name="DeveloperAddMockDeviceText" xml:space="preserve">
+    <value>Añadir dispositivo de prueba</value>
+  </data>
+  <data name="DeveloperRestoreRealDevicesText" xml:space="preserve">
+    <value>Restaurar dispositivos reales</value>
+  </data>
 </root>

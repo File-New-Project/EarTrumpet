@@ -20,18 +20,29 @@ internal class AudioDeviceSessionCollection : IAudioSessionNotification
     private readonly List<IAudioDeviceSession> _movedSessions = [];
     private IAudioSessionManager2 _sessionManager;
     private WeakReference<IAudioDevice> _parent;
+    private DispatcherTimer _retryTimer;
+    private int _retriesLeft = 5;
 
     public AudioDeviceSessionCollection(IAudioDevice parent, IMMDevice device, Dispatcher foregroundDispatcher)
     {
         _parent = new WeakReference<IAudioDevice>(parent);
         _dispatcher = foregroundDispatcher;
 
+        if (!TryInitialize(device))
+        {
+            ScheduleRetry(device);
+        }
+    }
+
+    private bool TryInitialize(IMMDevice device)
+    {
         try
         {
-            _sessionManager = device.Activate<IAudioSessionManager2>();
-            _sessionManager.RegisterSessionNotification(this);
-            
-            var enumerator = _sessionManager.GetSessionEnumerator();
+            var sessionManager = device.Activate<IAudioSessionManager2>();
+            sessionManager.RegisterSessionNotification(this);
+            _sessionManager = sessionManager;
+
+            var enumerator = sessionManager.GetSessionEnumerator();
             enumerator.GetCount(out var count);
 
             for (var i = 0; i < count; i++)
@@ -39,27 +50,57 @@ internal class AudioDeviceSessionCollection : IAudioSessionNotification
                 enumerator.GetSession(i, out var session);
                 CreateAndAddSession(session);
             }
+            return true;
         }
         catch (Exception ex)
         {
             device.GetId(out var deviceId);
             Trace.WriteLine($"AudioDeviceSessionCollection Create dev={deviceId} {ex}");
+            // Registered but could not enumerate: new sessions still arrive via notifications, do not register twice.
+            return _sessionManager != null;
         }
+    }
+
+    // When EarTrumpet starts with Windows the audio service may not be ready yet; without a retry this device would
+    // stay empty until the app is restarted.
+    private void ScheduleRetry(IMMDevice device)
+    {
+        _dispatcher.BeginInvoke((Action)(() =>
+        {
+            _retryTimer = new DispatcherTimer(DispatcherPriority.Background, _dispatcher) { Interval = TimeSpan.FromSeconds(2) };
+            _retryTimer.Tick += (_, __) =>
+            {
+                if (TryInitialize(device) || --_retriesLeft <= 0)
+                {
+                    _retryTimer.Stop();
+                }
+            };
+            _retryTimer.Start();
+        }));
     }
 
     ~AudioDeviceSessionCollection()
     {
-        foreach (var session in _sessions)
+        // An exception escaping a finalizer terminates the process, and the device may already be invalidated or
+        // activation may have failed (_sessionManager null).
+        try
         {
-            session.PropertyChanged -= Session_PropertyChanged;
-        }
+            foreach (var session in _sessions)
+            {
+                session.PropertyChanged -= Session_PropertyChanged;
+            }
 
-        foreach (var session in _movedSessions)
+            foreach (var session in _movedSessions)
+            {
+                session.PropertyChanged -= MovedSession_PropertyChanged;
+            }
+
+            _sessionManager?.UnregisterSessionNotification(this);
+        }
+        catch (Exception ex)
         {
-            session.PropertyChanged -= MovedSession_PropertyChanged;
+            Trace.WriteLine($"AudioDeviceSessionCollection dtor Failed: {ex}");
         }
-
-        _sessionManager.UnregisterSessionNotification(this);
     }
 
     private void CreateAndAddSession(IAudioSessionControl session)

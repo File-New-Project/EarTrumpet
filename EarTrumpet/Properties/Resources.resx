@@ -748,4 +748,16 @@ Open [https://eartrumpet.app/jmp/fixstartup] to resolve this?</value>
   <data name="SettingsUseTranslucentWindowsDescription" xml:space="preserve">
     <value>Blur the background of the flyout and settings. Turn off for solid windows. Also requires Windows transparency effects</value>
   </data>
+  <data name="DeveloperOptionsMenuText" xml:space="preserve">
+    <value>Developer options</value>
+  </data>
+  <data name="DeveloperRemoveAllDevicesText" xml:space="preserve">
+    <value>Remove all devices</value>
+  </data>
+  <data name="DeveloperAddMockDeviceText" xml:space="preserve">
+    <value>Add mock device</value>
+  </data>
+  <data name="DeveloperRestoreRealDevicesText" xml:space="preserve">
+    <value>Restore real devices</value>
+  </data>
 </root>
