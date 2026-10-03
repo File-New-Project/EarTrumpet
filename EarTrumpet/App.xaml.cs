@@ -69,6 +69,15 @@ public sealed partial class App : IDisposable
 
     private void OnAppStartup(object sender, StartupEventArgs e)
     {
+        // es-MX, es-AR, ... have no satellite assembly of their own: use the Spanish (Spain) strings instead of English.
+        var ui = System.Globalization.CultureInfo.CurrentUICulture;
+        if (ui.TwoLetterISOLanguageName == "es" && ui.Name != "es-ES")
+        {
+            var spanish = System.Globalization.CultureInfo.GetCultureInfo("es-ES");
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = spanish;
+            Thread.CurrentThread.CurrentUICulture = spanish;
+        }
+
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
         Exit += (_, __) => IsShuttingDown = true;
@@ -78,6 +87,7 @@ public sealed partial class App : IDisposable
         PackageName = PackageHelper.GetFamilyName(HasIdentity);
 
         Settings = new AppSettings();
+        DataModel.SystemSettings.ForceOpaque = !Settings.UseTranslucentWindows;
         _errorReporter = new ErrorReporter(Settings);
 
         if (SingleInstanceAppMutex.TakeExclusivity())
@@ -113,7 +123,7 @@ public sealed partial class App : IDisposable
         Exit += (_, __) => _trayIcon.IsVisible = false;
         CollectionViewModel.TrayPropertyChanged += () => UpdateTrayTooltip();
 
-        _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, () => _trayIcon.SetFocus(), Settings);
+        _flyoutViewModel = new FlyoutViewModel(CollectionViewModel, ReturnFocusAfterFlyout, Settings);
         FlyoutWindow = new FlyoutWindow(_flyoutViewModel);
         // Initialize the FlyoutWindow last because its Show/Hide cycle will pump messages, causing UI frames
         // to be executed, breaking the assumption that startup is complete.
@@ -145,7 +155,7 @@ public sealed partial class App : IDisposable
         _mixerWindow = new WindowHolder(CreateMixerExperience);
         _settingsWindow = new WindowHolder(CreateSettingsExperience);
 
-        Settings.FlyoutHotkeyTyped += () => _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+        Settings.FlyoutHotkeyTyped += OnFlyoutHotkeyTyped;
         Settings.MixerHotkeyTyped += () => _mixerWindow.OpenOrClose();
         Settings.SettingsHotkeyTyped += () => _settingsWindow.OpenOrBringToFront();
         Settings.AbsoluteVolumeUpHotkeyTyped += AbsoluteVolumeIncrement;
@@ -153,7 +163,11 @@ public sealed partial class App : IDisposable
         Settings.RegisterHotkeys();
         Settings.UseLogarithmicVolumeChanged += (_, __) => UpdateTrayTooltip();
 
-        _trayIcon.PrimaryInvoke += (_, type) => _flyoutViewModel.OpenFlyout(type);
+        _trayIcon.PrimaryInvoke += (_, type) =>
+        {
+            _windowBeforeHotkey = default;
+            _flyoutViewModel.OpenFlyout(type);
+        };
         _trayIcon.SecondaryInvoke += (_, args) => _trayIcon.ShowContextMenu(GetTrayContextMenuItems(), args.Point);
         _trayIcon.TertiaryInvoke += (_, __) => CollectionViewModel.Default?.ToggleMute.Execute(null);
         _trayIcon.Scrolled += TrayIconScrolled;
@@ -162,6 +176,32 @@ public sealed partial class App : IDisposable
 
         DisplayFirstRunExperience();
         ShowFullMixerWindowIfConfigured();
+    }
+
+    // Window that had focus when the flyout hotkey opened the flyout, so closing it can hand focus back (#1751).
+    private HWND _windowBeforeHotkey;
+
+    private void OnFlyoutHotkeyTyped()
+    {
+        if (_flyoutViewModel.State == FlyoutViewState.Hidden)
+        {
+            _windowBeforeHotkey = PInvoke.GetForegroundWindow();
+        }
+        _flyoutViewModel.OpenFlyout(InputType.Keyboard);
+    }
+
+    private void ReturnFocusAfterFlyout()
+    {
+        var previous = _windowBeforeHotkey;
+        _windowBeforeHotkey = default;
+        if (previous != default && PInvoke.IsWindow(previous))
+        {
+            PInvoke.SetForegroundWindow(previous);
+        }
+        else
+        {
+            _trayIcon.SetFocus();
+        }
     }
 
     private void ShowFullMixerWindowIfConfigured()
@@ -188,8 +228,11 @@ public sealed partial class App : IDisposable
     {
         if (Settings.UseScrollWheelInTray && (!Settings.UseGlobalMouseWheelHook || _flyoutViewModel.State == FlyoutViewState.Hidden))
         {
-            CollectionViewModel.Default?.IncrementVolume(
-                Math.Sign(wheelDelta) * (Settings.UseLogarithmicVolume ? 0.2f : 2.0f));
+            var device = CollectionViewModel.Default;
+            if (device != null)
+            {
+                device.Volume = (float)VolumeStepper.Step(device.Volume, Math.Sign(wheelDelta));
+            }
         }
     }
 
@@ -324,15 +367,17 @@ public sealed partial class App : IDisposable
                 new ContextMenuSeparator(),
                 new ContextMenuItem
                 {
+                    Icon = "\xE7F4",
                     DisplayName = EarTrumpet.Properties.Resources.WindowsLegacyMenuText,
                     Children =
                     [
-                        new() { DisplayName = EarTrumpet.Properties.Resources.LegacyVolumeMixerText, Command =  new RelayCommand(LegacyControlPanelHelper.StartLegacyAudioMixer) },
-                        new() { DisplayName = EarTrumpet.Properties.Resources.PlaybackDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("playback")) },
-                        new() { DisplayName = EarTrumpet.Properties.Resources.RecordingDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("recording")) },
-                        new() { DisplayName = EarTrumpet.Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("sounds")) },
-                        new() { DisplayName = EarTrumpet.Properties.Resources.OpenSoundSettingsText, Command = new RelayCommand(() => SettingsPageHelper.Open("sound")) },
+                        new() { Icon = "\xE767", DisplayName = EarTrumpet.Properties.Resources.LegacyVolumeMixerText, Command =  new RelayCommand(LegacyControlPanelHelper.StartLegacyAudioMixer) },
+                        new() { Icon = "\xE7F5", DisplayName = EarTrumpet.Properties.Resources.PlaybackDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("playback")) },
+                        new() { Icon = "\xE720", DisplayName = EarTrumpet.Properties.Resources.RecordingDevicesText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("recording")) },
+                        new() { Icon = "\xE8D6", DisplayName = EarTrumpet.Properties.Resources.SoundsControlPanelText, Command = new RelayCommand(() => LegacyControlPanelHelper.Open("sounds")) },
+                        new() { Icon = "\xE713", DisplayName = EarTrumpet.Properties.Resources.OpenSoundSettingsText, Command = new RelayCommand(() => SettingsPageHelper.Open("sound")) },
                         new() {
+                            Icon = "\xE9E9",
                             DisplayName = Environment.OSVersion.IsAtLeast(OSVersions.Windows11) ?
                                 EarTrumpet.Properties.Resources.OpenAppsVolume_Windows11_Text
                                 : EarTrumpet.Properties.Resources.OpenAppsVolume_Windows10_Text, Command = new RelayCommand(() => SettingsPageHelper.Open("apps-volume")) },
@@ -350,9 +395,9 @@ public sealed partial class App : IDisposable
 
         ret.AddRange(
             [
-                new() { DisplayName = EarTrumpet.Properties.Resources.FullWindowTitleText, Command = new RelayCommand(_mixerWindow.OpenOrBringToFront) },
-                new() { DisplayName = EarTrumpet.Properties.Resources.SettingsWindowText, Command = new RelayCommand(_settingsWindow.OpenOrBringToFront) },
-                new() { DisplayName = EarTrumpet.Properties.Resources.ContextMenuExitTitle, Command = new RelayCommand(Shutdown) },
+                new() { Icon = "\xE9E9", DisplayName = EarTrumpet.Properties.Resources.FullWindowTitleText, Command = new RelayCommand(_mixerWindow.OpenOrBringToFront) },
+                new() { Icon = "\xE713", DisplayName = EarTrumpet.Properties.Resources.SettingsWindowText, Command = new RelayCommand(_settingsWindow.OpenOrBringToFront) },
+                new() { Icon = "\xE7E8", DisplayName = EarTrumpet.Properties.Resources.ContextMenuExitTitle, Command = new RelayCommand(Shutdown) },
             ]);
         return ret;
     }
@@ -365,10 +410,8 @@ public sealed partial class App : IDisposable
             EarTrumpet.Properties.Resources.SettingsDescriptionText,
             null,
             [
-                new EarTrumpetShortcutsPageViewModel(Settings),
-                new EarTrumpetMouseSettingsPageViewModel(Settings),
                 new EarTrumpetCommunitySettingsPageViewModel(Settings),
-                new EarTrumpetLegacySettingsPageViewModel(Settings),
+                new EarTrumpetShortcutsPageViewModel(Settings),
                 new EarTrumpetAboutPageViewModel(_errorReporter.DisplayDiagnosticData, Settings)
             ]);
 
@@ -411,7 +454,7 @@ public sealed partial class App : IDisposable
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted || d.IsAbsMuted))
         {
             device.IsAbsMuted = false;
-            device.IncrementVolume(2);
+            device.Volume = (float)VolumeStepper.Step(device.Volume, 1, VolumeStepper.LogarithmicHotkeyStep);
         }
     }
 
@@ -420,7 +463,7 @@ public sealed partial class App : IDisposable
         foreach (var device in CollectionViewModel.AllDevices.Where(d => !d.IsMuted))
         {
             var wasMuted = device.IsMuted;
-            device.Volume -= 2;
+            device.Volume = (float)VolumeStepper.Step(device.Volume, -1, VolumeStepper.LogarithmicHotkeyStep);
 
             if (!wasMuted == (device.Volume <= 0))
             {

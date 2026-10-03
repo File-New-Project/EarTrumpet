@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EarTrumpet.UI.Helpers;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -202,17 +203,37 @@ public class VolumeSlider : Slider
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
-        var amount = Math.Sign(e.Delta) * (App.Settings.UseLogarithmicVolume ? 0.2 : 2.0);
-        ChangePositionByAmount(amount);
+        if (!App.Settings.UseScrollWheelInSliders)
+        {
+            return;
+        }
+
+        var direction = Math.Sign(e.Delta);
+        if (UsesVolumeStepSettings)
+        {
+            Value = Bound(VolumeStepper.Step(Value, direction));
+        }
+        else
+        {
+            ChangePositionByAmount(direction * (App.Settings.UseLogarithmicVolume ? 0.2 : 2.0));
+        }
         e.Handled = true;
     }
 
     public void SetPositionByControlPoint(Point point)
     {
         var percent = point.X / ActualWidth;
-        Value = App.Settings.UseLogarithmicVolume
-            ? Bound(Math.Round(Minimum + percent * (Maximum - Minimum), 1))
-            : Bound(Minimum + (Maximum - Minimum) * percent);
+        if (App.Settings.UseLogarithmicVolume)
+        {
+            Value = Bound(Math.Round(Minimum + percent * (Maximum - Minimum), 1));
+        }
+        else
+        {
+            var rawValue = (Maximum - Minimum) * percent;
+            Value = Bound(UsesVolumeStepSettings && App.Settings.UseSliderSnap
+                ? VolumeStepper.NearestSnapPoint(rawValue, App.Settings.VolumeStepAmount)
+                : rawValue);
+        }
     }
 
     public void ChangePositionByAmount(double amount)
@@ -224,4 +245,8 @@ public class VolumeSlider : Slider
     {
         return Math.Max(Minimum, Math.Min(Maximum, val));
     }
+
+    // Action-configuration sliders carry their own units and bounds (they can be decibels), so
+    // the user's percentage-based step and snapping settings do not apply to them.
+    private bool UsesVolumeStepSettings => !UseCustomRange;
 }

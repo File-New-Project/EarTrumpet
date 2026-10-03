@@ -30,199 +30,164 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <conv:NegateConverter x:Key="NegateConverter"/>
+        <Style x:Key="CardToggle" BasedOn="{StaticResource {x:Type CheckBox}}" TargetType="{x:Type CheckBox}">
+            <Setter Property="Margin" Value="0" />
+        </Style>
+        <Style x:Key="CardSectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,20,0,8" />
+        </Style>
+        <Style TargetType="{x:Type ctl:SettingsCard}">
+            <Setter Property="Margin" Value="0,0,0,4" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ctl:SettingsCard}">
+                        <Border x:Name="CardBorder"
+                                Padding="{TemplateBinding Padding}"
+                                Theme:Brush.Background="Light=#B3FFFFFF, Dark=#0DFFFFFF, HighContrast=Window"
+                                Theme:Brush.BorderBrush="Light=#14000000, Dark=#19000000, HighContrast=Text"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="GlyphText"
+                                           Margin="0,0,16,0"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="18"
+                                           Text="{TemplateBinding Glyph}" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock FontSize="14" Text="{TemplateBinding Header}" TextWrapping="Wrap" />
+                                    <TextBlock x:Name="DescriptionText"
+                                               Margin="0,2,0,0"
+                                               FontSize="12"
+                                               Opacity="0.7"
+                                               Text="{TemplateBinding Description}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                                <ContentPresenter Grid.Column="2"
+                                                  Margin="16,0,0,0"
+                                                  VerticalAlignment="Center" />
+                                <TextBlock x:Name="Chevron"
+                                           Grid.Column="3"
+                                           Margin="16,0,0,0"
+                                           VerticalAlignment="Center"
+                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="12"
+                                           Opacity="0.7"
+                                           Text="&#xE76C;" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Description" Value="{x:Null}">
+                                <Setter TargetName="DescriptionText" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Glyph" Value="{x:Null}">
+                                <Setter TargetName="GlyphText" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Command" Value="{x:Null}">
+                                <Setter TargetName="Chevron" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="Theme:Brush.BorderBrush" Value="SystemAccent/0.6" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DataTemplate DataType="{x:Type vm:EarTrumpetShortcutsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenEarTrumpetText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenFlyoutHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenMixerText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultMixerHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenMixerHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsOpenSettingsText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding OpenSettingsHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeUpText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding AbsoluteVolumeUpHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-                <TextBlock Style="{StaticResource BodyText}" Text="{x:Static resx:Resources.SettingsAbsoluteVolumeDownText}" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.DefaultHotkeyDescriptionText}" />
-                    <TextBlock Grid.Column="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{Binding DefaultSettingsHotKey}" />
-                    <TextBlock Grid.Row="1"
-                               VerticalAlignment="Center"
-                               Style="{StaticResource BodySubText}"
-                               Text="{x:Static resx:Resources.HotkeyDescriptionText}" />
-                    <ContentControl Grid.Row="1"
-                                    Grid.Column="1"
-                                    Content="{Binding AbsoluteVolumeDownHotkey}"
-                                    IsTabStop="False" />
-                </Grid>
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EarTrumpetMouseSettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
-                          IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" />
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
-                          IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" />
+            <StackPanel Margin="12,12,24,24" Orientation="Vertical">
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenEarTrumpetText}">
+                    <ContentControl Content="{Binding OpenFlyoutHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenMixerText}">
+                    <ContentControl Content="{Binding OpenMixerHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsOpenSettingsText}">
+                    <ContentControl Content="{Binding OpenSettingsHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsAbsoluteVolumeUpText}">
+                    <ContentControl Content="{Binding AbsoluteVolumeUpHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsAbsoluteVolumeDownText}">
+                    <ContentControl Content="{Binding AbsoluteVolumeDownHotkey}" IsTabStop="False" />
+                </ctl:SettingsCard>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetCommunitySettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
-                          IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" />
-                <StackPanel>
-                    <!-- Localization required -->
-                    <TextBlock VerticalAlignment="Center"
-                               Style="{StaticResource BodyText}"
-                               Text="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}" />
-                    <StackPanel Orientation="Horizontal"
-                                Margin="12,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Bottom">
-                        <!--
-                            -96 dB is the min volume range of most devices
-                            -12 dB is arbitrarily chosen
-                            NegateConverter is used to flip the slider so that left is -12 and right is -96
-                        -->
-                        <Slider Minimum="12"
-                                Maximum="96"
-                                Width="200"
-                                IsEnabled="{Binding UseLogarithmicVolume}"
-                                IsSnapToTickEnabled="True"
-                                TickFrequency="1"
+            <StackPanel Margin="12,0,24,24" Orientation="Vertical">
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionVolume}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseLogarithmicVolume}"
+                                  Description="{x:Static resx:Resources.SettingsUseLogarithmicVolumeDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseLogarithmicVolume, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsLogarithmicScaleMinimum}"
+                                  Description="{x:Static resx:Resources.SettingsLogarithmicScaleMinimumDescription}"
+                                  Visibility="{Binding UseLogarithmicVolume, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Width="140" VerticalAlignment="Center" Minimum="12" Maximum="96" IsSnapToTickEnabled="True" TickFrequency="1"
                                 Value="{Binding LogarithmicVolumeMinDb, Converter={StaticResource NegateConverter}, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
+                        <TextBlock Width="48" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding LogarithmicVolumeMinDb, StringFormat=\{0\} dB}" />
                     </StackPanel>
-                </StackPanel>
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
-                          IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:EarTrumpetLegacySettingsPageViewModel}">
-            <StackPanel Orientation="Vertical">
-                <CheckBox HorizontalAlignment="Left"
-                          Content="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
-                          IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsVolumeStepAmount}"
+                                  Description="{x:Static resx:Resources.SettingsVolumeStepAmountDescription}">
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Width="140" VerticalAlignment="Center" Minimum="1" Maximum="50" IsSnapToTickEnabled="True" TickFrequency="1"
+                                Value="{Binding VolumeStepAmount, Mode=TwoWay}" />
+                        <TextBlock Width="48" Margin="8,0,0,0" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding VolumeStepAmount, StringFormat=\{0\}%}" />
+                    </StackPanel>
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseRangeSnapping}"
+                                  Description="{x:Static resx:Resources.SettingsUseRangeSnappingDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseRangeSnapping, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseSliderSnap}"
+                                  Description="{x:Static resx:Resources.SettingsUseSliderSnapDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseSliderSnap, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionMouse}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseScrollWheelInTray}"
+                                  Description="{x:Static resx:Resources.SettingsUseScrollWheelInTrayDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseScrollWheelInTray, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseScrollWheelInSliders}"
+                                  Description="{x:Static resx:Resources.SettingsUseScrollWheelInSlidersDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseScrollWheelInSliders, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHook}"
+                                  Description="{x:Static resx:Resources.SettingsUseGlobalMouseWheelHookDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseGlobalMouseWheelHook, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionAppearance}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseTranslucentWindows}"
+                                  Description="{x:Static resx:Resources.SettingsUseTranslucentWindowsDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseTranslucentWindows, Mode=TwoWay}" AutomationProperties.Name="{x:Static resx:Resources.SettingsUseTranslucentWindows}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIcon}"
+                                  Description="{x:Static resx:Resources.SettingsUseLegacyEarTrumpetIconDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding UseLegacyIcon, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
+                <TextBlock Style="{StaticResource CardSectionTitle}" Text="{x:Static resx:Resources.SettingsSectionStartup}" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartup}"
+                                  Description="{x:Static resx:Resources.SettingsShowFullMixerWindowOnStartupDescription}">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding ShowFullMixerWindowOnStartup, Mode=TwoWay}" AutomationProperties.Name="{Binding Path=(ctl:SettingsCard.Header), RelativeSource={RelativeSource AncestorType=ctl:SettingsCard}}" />
+                </ctl:SettingsCard>
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EarTrumpetAboutPageViewModel}">
-            <StackPanel>
-                <StackPanel Margin="12,24" Orientation="Horizontal">
-                    <Border Width="40"
-                            Height="30"
-                            Margin="0,0,8,0">
+            <StackPanel Margin="12,12,24,24">
+                <StackPanel Margin="4,12,0,20" Orientation="Horizontal">
+                    <Border Width="56" Height="42" Margin="0,0,16,0">
                         <Canvas>
                             <Path Width="40"
                                   Height="30"
@@ -231,41 +196,27 @@
                                   Stretch="Uniform" />
                         </Canvas>
                     </Border>
-                    <TextBlock FontSize="24" Text="EarTrumpet" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel>
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="{Binding AboutText}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Style="{StaticResource BodyText}"
-                                   Text="© File-New-Project" />
-                        <CheckBox Margin="12,24,12,-6"
-                                  HorizontalAlignment="Left"
-                                  Content="{x:Static resx:Resources.PrivacyCheckboxText}"
-                                  IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" />
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenPrivacyPolicyCommand}">
-                                <Run Text="{x:Static resx:Resources.PrivacyPolicyText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}"><Hyperlink Command="{Binding OpenAboutCommand}">
-                                <Run Text="{x:Static resx:Resources.WebsiteText}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenFeedbackCommand}">
-                                <Run Text="{x:Static resx:Resources.ContextMenuSendFeedback}" />
-                            </Hyperlink>
-                        </TextBlock>
-                        <TextBlock Style="{StaticResource HyperlinkBlock}">
-                            <Hyperlink Command="{Binding OpenDiagnosticsCommand}">
-                                <Run Text="{x:Static resx:Resources.TroubleshootEarTrumpetText}" />
-                            </Hyperlink>
-                        </TextBlock>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Text="EarTrumpet" />
+                        <TextBlock Margin="0,2,0,0" Opacity="0.7" Text="{Binding AboutText}" />
+                        <TextBlock Opacity="0.7" Text="&#169; File-New-Project" />
                     </StackPanel>
                 </StackPanel>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.PrivacyCheckboxText}" Glyph="&#xE72E;">
+                    <CheckBox Style="{StaticResource CardToggle}" IsChecked="{Binding IsTelemetryEnabled, Mode=TwoWay}" AutomationProperties.Name="{x:Static resx:Resources.PrivacyCheckboxText}" />
+                </ctl:SettingsCard>
+                <ctl:SettingsCard Header="{x:Static resx:Resources.PrivacyPolicyText}"
+                                  Command="{Binding OpenPrivacyPolicyCommand}"
+                                  Glyph="&#xE8D7;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.WebsiteText}"
+                                  Command="{Binding OpenAboutCommand}"
+                                  Glyph="&#xE774;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.ContextMenuSendFeedback}"
+                                  Command="{Binding OpenFeedbackCommand}"
+                                  Glyph="&#xED15;" />
+                <ctl:SettingsCard Header="{x:Static resx:Resources.TroubleshootEarTrumpetText}"
+                                  Command="{Binding OpenDiagnosticsCommand}"
+                                  Glyph="&#xE90F;" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SettingsPageHeaderViewModel}">
@@ -410,13 +361,15 @@
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Height" Value="48" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="FocusVisualStyle" Value="{StaticResource Windows10FocusVisualStyle}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                         <Border x:Name="Bd"
+                                Margin="8,2"
                                 Background="{TemplateBinding Background}"
+                                CornerRadius="4"
                                 SnapsToDevicePixels="true">
                             <ContentPresenter Margin="0"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -430,6 +383,9 @@
                                 </MultiTrigger.Conditions>
                                 <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="Theme={Theme}ListLow, HighContrast=Highlight" />
                             </MultiTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Theme:Brush.Background" Value="SystemAccent/0.18" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>

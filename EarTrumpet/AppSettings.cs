@@ -146,6 +146,18 @@ public class AppSettings
         set => _settings.Set("UseGlobalMouseWheelHook", value);
     }
 
+    public bool UseScrollWheelInSliders
+    {
+        get => _settings.Get("UseScrollWheelInSliders", true);
+        set => _settings.Set("UseScrollWheelInSliders", value);
+    }
+
+    public bool UseTranslucentWindows
+    {
+        get => _settings.Get("UseTranslucentWindows", true);
+        set => _settings.Set("UseTranslucentWindows", value);
+    }
+
     public bool HasShownFirstRun
     {
         get => _settings.HasKey("hasShownFirstRun");
@@ -176,6 +188,28 @@ public class AppSettings
             _settings.Set("LogarithmicVolumeMinDb", value);
             UseLogarithmicVolumeChanged?.Invoke(this, new EventArgs());
         }
+    }
+
+    public int VolumeStepAmount
+    {
+        // Clamped on the way out as well as in: a value written directly to the registry
+        // would otherwise reach the step maths, where zero divides.
+        get => BoundVolumeStep(_settings.Get("VolumeStepAmount", 2));
+        set => _settings.Set("VolumeStepAmount", BoundVolumeStep(value));
+    }
+
+    private static int BoundVolumeStep(int value) => Math.Max(1, Math.Min(50, value));
+
+    public bool UseRangeSnapping
+    {
+        get => _settings.Get("UseRangeSnapping", true);
+        set => _settings.Set("UseRangeSnapping", value);
+    }
+
+    public bool UseSliderSnap
+    {
+        get => _settings.Get("UseSliderSnap", false);
+        set => _settings.Set("UseSliderSnap", value);
     }
 
     public WINDOWPLACEMENT? FullMixerWindowPlacement

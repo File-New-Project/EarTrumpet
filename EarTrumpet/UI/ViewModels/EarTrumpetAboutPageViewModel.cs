@@ -29,7 +29,7 @@ internal class EarTrumpetAboutPageViewModel : SettingsPageViewModel
         _openDiagnostics = openDiagnostics;
         Glyph = "\xE946";
         Title = Properties.Resources.AboutTitle;
-        AboutText = $"EarTrumpet {App.PackageVersion}";
+        AboutText = App.PackageVersion.ToString();
 
         OpenAboutCommand = new RelayCommand(OpenAbout);
         OpenDiagnosticsCommand = new RelayCommand(OpenDiagnostics);

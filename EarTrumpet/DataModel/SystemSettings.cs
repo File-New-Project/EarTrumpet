@@ -9,7 +9,9 @@ public static class SystemSettings
 {
     private static readonly string s_PersonalizeKey = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 
-    public static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
+    // App-level override (Settings > Appearance > Translucent windows); Windows' own setting still applies on top.
+    public static bool ForceOpaque { get; set; }
+    public static bool IsTransparencyEnabled => !ForceOpaque && ReadDword(s_PersonalizeKey, "EnableTransparency");
     public static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
     public static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1);
     public static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));

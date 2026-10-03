@@ -35,10 +35,85 @@ public class EarTrumpetCommunitySettingsPageViewModel : SettingsPageViewModel
         set => _settings.ShowFullMixerWindowOnStartup = value;
     }
 
+    public int VolumeStepAmount
+    {
+        get => _settings.VolumeStepAmount;
+        set
+        {
+            if (_settings.VolumeStepAmount != value)
+            {
+                _settings.VolumeStepAmount = value;
+                RaisePropertyChanged(nameof(VolumeStepAmount));
+            }
+        }
+    }
+
+    public bool UseRangeSnapping
+    {
+        get => _settings.UseRangeSnapping;
+        set
+        {
+            if (_settings.UseRangeSnapping != value)
+            {
+                _settings.UseRangeSnapping = value;
+                RaisePropertyChanged(nameof(UseRangeSnapping));
+            }
+        }
+    }
+
+    public bool UseSliderSnap
+    {
+        get => _settings.UseSliderSnap;
+        set
+        {
+            if (_settings.UseSliderSnap != value)
+            {
+                _settings.UseSliderSnap = value;
+                RaisePropertyChanged(nameof(UseSliderSnap));
+            }
+        }
+    }
+
+    public bool UseScrollWheelInTray
+    {
+        get => _settings.UseScrollWheelInTray;
+        set => _settings.UseScrollWheelInTray = value;
+    }
+
+    public bool UseGlobalMouseWheelHook
+    {
+        get => _settings.UseGlobalMouseWheelHook;
+        set => _settings.UseGlobalMouseWheelHook = value;
+    }
+
+    public bool UseScrollWheelInSliders
+    {
+        get => _settings.UseScrollWheelInSliders;
+        set => _settings.UseScrollWheelInSliders = value;
+    }
+
+    public bool UseTranslucentWindows
+    {
+        get => _settings.UseTranslucentWindows;
+        set
+        {
+            _settings.UseTranslucentWindows = value;
+            DataModel.SystemSettings.ForceOpaque = !value;
+            Themes.Manager.Current?.RefreshTheme();
+            RaisePropertyChanged(nameof(UseTranslucentWindows));
+        }
+    }
+
+    public bool UseLegacyIcon
+    {
+        get => _settings.UseLegacyIcon;
+        set => _settings.UseLegacyIcon = value;
+    }
+
     public EarTrumpetCommunitySettingsPageViewModel(AppSettings settings) : base(null)
     {
         _settings = settings;
-        Title = Properties.Resources.CommunitySettingsPageText;
+        Title = Properties.Resources.GeneralSettingsPageText;
         Glyph = "\xE902";
     }
 }

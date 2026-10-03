@@ -69,6 +69,11 @@ internal class SettingsViewModel : BindableBase, ISettingsViewModel
         Title = title;
         Categories = new ObservableCollection<SettingsCategoryViewModel>(categories);
         GoHome = new RelayCommand(() => Selected = null);
+
+        // Open on the first category so the page list is always visible; Home still lists every category.
+        Backstack.IsDisablingUpdates = true;
+        Selected = Categories.Count > 0 ? Categories[0] : null;
+        Backstack.IsDisablingUpdates = false;
     }
 
     public void InvokeSearchResult(SettingsCategoryViewModel cat, SettingsPageViewModel page)

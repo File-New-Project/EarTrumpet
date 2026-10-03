@@ -1487,6 +1487,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet volume slider.
+        /// </summary>
+        public static string SettingsUseScrollWheelInSliders {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInSliders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use the scroll wheel to change volume while hovering over the EarTrumpet icon.
         /// </summary>
         public static string SettingsUseScrollWheelInTray {
@@ -1755,5 +1764,221 @@ namespace EarTrumpet.Properties {
                 return ResourceManager.GetString("WindowsLegacyMenuText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume step amount.
+        /// </summary>
+        public static string SettingsVolumeStepAmount {
+            get {
+                return ResourceManager.GetString("SettingsVolumeStepAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap scroll wheel to volume step grid.
+        /// </summary>
+        public static string SettingsUseRangeSnapping {
+            get {
+                return ResourceManager.GetString("SettingsUseRangeSnapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap slider to volume steps when dragging.
+        /// </summary>
+        public static string SettingsUseSliderSnap {
+            get {
+                return ResourceManager.GetString("SettingsUseSliderSnap", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string GeneralSettingsPageText {
+            get {
+                return ResourceManager.GetString("GeneralSettingsPageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string SettingsSectionVolume {
+            get {
+                return ResourceManager.GetString("SettingsSectionVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse.
+        /// </summary>
+        public static string SettingsSectionMouse {
+            get {
+                return ResourceManager.GetString("SettingsSectionMouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        public static string SettingsSectionAppearance {
+            get {
+                return ResourceManager.GetString("SettingsSectionAppearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup.
+        /// </summary>
+        public static string SettingsSectionStartup {
+            get {
+                return ResourceManager.GetString("SettingsSectionStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match how loudness is perceived instead of a linear 0-100 scale.
+        /// </summary>
+        public static string SettingsUseLogarithmicVolumeDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseLogarithmicVolumeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quietest level shown on the logarithmic scale.
+        /// </summary>
+        public static string SettingsLogarithmicScaleMinimumDescription {
+            get {
+                return ResourceManager.GetString("SettingsLogarithmicScaleMinimumDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How much the volume changes per scroll or key press.
+        /// </summary>
+        public static string SettingsVolumeStepAmountDescription {
+            get {
+                return ResourceManager.GetString("SettingsVolumeStepAmountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scrolling lands on the step grid instead of offsetting from the current value.
+        /// </summary>
+        public static string SettingsUseRangeSnappingDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseRangeSnappingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sliders jump between steps while dragging.
+        /// </summary>
+        public static string SettingsUseSliderSnapDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseSliderSnapDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll over the tray icon to change the default device volume.
+        /// </summary>
+        public static string SettingsUseScrollWheelInTrayDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInTrayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll anywhere on screen to change volume while the flyout is open.
+        /// </summary>
+        public static string SettingsUseGlobalMouseWheelHookDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseGlobalMouseWheelHookDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll over a slider in the flyout or mixer to change its volume.
+        /// </summary>
+        public static string SettingsUseScrollWheelInSlidersDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseScrollWheelInSlidersDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the original EarTrumpet tray icon.
+        /// </summary>
+        public static string SettingsUseLegacyEarTrumpetIconDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseLegacyEarTrumpetIconDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the full mixer window every time EarTrumpet starts.
+        /// </summary>
+        public static string SettingsShowFullMixerWindowOnStartupDescription {
+            get {
+                return ResourceManager.GetString("SettingsShowFullMixerWindowOnStartupDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translucent windows.
+        /// </summary>
+        public static string SettingsUseTranslucentWindows {
+            get {
+                return ResourceManager.GetString("SettingsUseTranslucentWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blur the background of the flyout and settings. Turn off for solid windows. Also requires Windows transparency effects.
+        /// </summary>
+        public static string SettingsUseTranslucentWindowsDescription {
+            get {
+                return ResourceManager.GetString("SettingsUseTranslucentWindowsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer options.
+        /// </summary>
+        public static string DeveloperOptionsMenuText {
+            get {
+                return ResourceManager.GetString("DeveloperOptionsMenuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all devices.
+        /// </summary>
+        public static string DeveloperRemoveAllDevicesText {
+            get {
+                return ResourceManager.GetString("DeveloperRemoveAllDevicesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add mock device.
+        /// </summary>
+        public static string DeveloperAddMockDeviceText {
+            get {
+                return ResourceManager.GetString("DeveloperAddMockDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore real devices.
+        /// </summary>
+        public static string DeveloperRestoreRealDevicesText {
+            get {
+                return ResourceManager.GetString("DeveloperRestoreRealDevicesText", resourceCulture);
+            }
+        }
+        
     }
 }

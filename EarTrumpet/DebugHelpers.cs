@@ -25,26 +25,26 @@ internal class DebugHelpers
                 return new List<ContextMenuItem>
                     {
                         new() {
-                            DisplayName = "Developer options",
+                            Icon = "\xE943",
+                            DisplayName = Properties.Resources.DeveloperOptionsMenuText,
                             Children = new List<ContextMenuItem>
                             {
                                 new() {
-                                    DisplayName = "Remove all devices",
+                                    DisplayName = Properties.Resources.DeveloperRemoveAllDevicesText,
                                     Command = new RelayCommand(DebugRemoveAllDevices),
                                     Glyph = "\xE894",
                                     IsChecked = true,
                                 },
                                 new() {
-                                    DisplayName = "Add mock device",
+                                    DisplayName = Properties.Resources.DeveloperAddMockDeviceText,
                                     Command = new RelayCommand(DebugAddMockDevice),
                                     Glyph = "\xE948",
                                     IsChecked = true,
                                 },
-                                new ContextMenuSeparator(),
                                 new() {
-                                    DisplayName = "View colors",
-                                    Command = new RelayCommand(() => ProcessHelper.StartNoThrow("EarTrumpet.ColorTool.exe")),
-                                    Glyph = "\xE790",
+                                    DisplayName = Properties.Resources.DeveloperRestoreRealDevicesText,
+                                    Command = new RelayCommand(() => WindowsAudioFactory.Create(AudioDeviceKind.Playback).RefreshAllDevices()),
+                                    Glyph = "\xE72C",
                                     IsChecked = true,
                                 },
                             },
@@ -119,7 +119,7 @@ internal class DebugHelpers
         AddMockApp(mockDevice,
             "Chr0me",
             "Chr0me",
-            @"%ProgramFilesx86%\Google\Chrome\Application\chrome.exe");
+            @"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe");
 
         var addInfo = devManager.GetType().GetMethod("Add", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         addInfo.Invoke(devManager, [mockDevice]);

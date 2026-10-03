@@ -35,6 +35,7 @@ GetDpiForShellUIComponent
 GetDpiForSystem
 GetDpiForWindow
 GetForegroundWindow
+IsWindow
 GetGuiResources
 GetPackageApplicationIds
 GetPackageId

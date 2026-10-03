@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chocolatey", "Chocolatey", 
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "EarTrumpet.Package", "EarTrumpet.Package\EarTrumpet.Package.wapproj", "{EA5510ED-F014-4587-A505-64C59D5B2627}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EarTrumpet.Tests", "EarTrumpet.Tests\EarTrumpet.Tests.csproj", "{BA949B87-C0DF-4986-99CB-30458590F3FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -83,6 +85,24 @@ Global
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.ActiveCfg = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Build.0 = Debug|x86
 		{EA5510ED-F014-4587-A505-64C59D5B2627}.VSDebug|x86.Deploy.0 = Debug|x86
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|ARM64.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|ARM64.Build.0 = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|x64.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|x64.Build.0 = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|x86.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Debug|x86.Build.0 = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|ARM64.ActiveCfg = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|ARM64.Build.0 = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|x64.ActiveCfg = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|x64.Build.0 = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|x86.ActiveCfg = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.Release|x86.Build.0 = Release|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|ARM64.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|ARM64.Build.0 = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|x64.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|x64.Build.0 = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|x86.ActiveCfg = Debug|x64
+		{BA949B87-C0DF-4986-99CB-30458590F3FF}.VSDebug|x86.Build.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
