@@ -25,6 +25,7 @@ internal class DebugHelpers
                 return new List<ContextMenuItem>
                     {
                         new() {
+                            Icon = "\xE943",
                             DisplayName = "Developer options",
                             Children = new List<ContextMenuItem>
                             {

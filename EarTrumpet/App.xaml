@@ -670,6 +670,14 @@
                                                    Text="{TemplateBinding Tag}"
                                                    Visibility="Hidden" />
                                     </Border>
+                                    <TextBlock x:Name="IconText"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Theme:Brush.Foreground="Theme={Theme}BaseMedium, HighContrast=ControlText"
+                                               FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                               FontSize="14"
+                                               SnapsToDevicePixels="False"
+                                               Text="{TemplateBinding Icon}" />
                                     <ContentPresenter x:Name="HeaderHost"
                                                       Grid.Column="1"
                                                       Margin="0,0,8,0"
@@ -749,12 +757,14 @@
                           IsCheckable="{Binding IsChecked}"
                           IsChecked="{Binding IsChecked}"
                           IsEnabled="{Binding IsEnabled}"
+                          Icon="{Binding Icon}"
                           Tag="{Binding Glyph}" />
             </DataTemplate>
             <HierarchicalDataTemplate x:Key="ContextMenuSubItemTemplate" ItemsSource="{Binding Children}">
                 <MenuItem Command="{Binding Command}"
                           Header="{Binding DisplayName}"
                           ItemContainerTemplateSelector="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=ItemContainerTemplateSelector}"
+                          Icon="{Binding Icon}"
                           ItemsSource="{Binding Children}"
                           UsesItemContainerTemplate="True" />
             </HierarchicalDataTemplate>
