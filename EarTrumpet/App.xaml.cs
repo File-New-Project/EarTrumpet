@@ -197,6 +197,8 @@ namespace EarTrumpet
                 });
             }
 
+            ret.Add(GetRecordingDevicesMenu());
+
             ret.AddRange(new List<ContextMenuItem>
                 {
                     new ContextMenuSeparator(),
@@ -233,6 +235,59 @@ namespace EarTrumpet
                     new ContextMenuItem { DisplayName = EarTrumpet.Properties.Resources.ContextMenuExitTitle, Command = new RelayCommand(Shutdown) },
                 });
             return ret;
+        }
+
+        private ContextMenuItem GetRecordingDevicesMenu()
+        {
+            // Note: The recording device manager is shared via WindowsAudioFactory; creating it here
+            // must not break startup, so devices are enumerated defensively.
+            try
+            {
+                var recordingManager = WindowsAudioFactory.Create(AudioDeviceKind.Recording);
+                var devices = recordingManager.Devices
+                    .OrderBy(x => x.DisplayName)
+                    .Select(dev => new ContextMenuItem
+                    {
+                        DisplayName = dev.DisplayName,
+                        IsChecked = dev.Id == recordingManager.Default?.Id,
+                        Command = new RelayCommand(() =>
+                        {
+                            try
+                            {
+                                recordingManager.Default = dev;
+                            }
+                            catch (Exception ex)
+                            {
+                                Trace.WriteLine($"App GetRecordingDevicesMenu SetDefault Failed: {ex}");
+                            }
+                        }),
+                    })
+                    .ToList();
+
+                if (!devices.Any())
+                {
+                    return new ContextMenuItem
+                    {
+                        DisplayName = EarTrumpet.Properties.Resources.ContextMenuDefaultRecordingDeviceText,
+                        IsEnabled = false,
+                    };
+                }
+
+                return new ContextMenuItem
+                {
+                    DisplayName = EarTrumpet.Properties.Resources.ContextMenuDefaultRecordingDeviceText,
+                    Children = devices,
+                };
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"App GetRecordingDevicesMenu Failed: {ex}");
+                return new ContextMenuItem
+                {
+                    DisplayName = EarTrumpet.Properties.Resources.ContextMenuDefaultRecordingDeviceText,
+                    IsEnabled = false,
+                };
+            }
         }
 
         private Window CreateSettingsExperience()
