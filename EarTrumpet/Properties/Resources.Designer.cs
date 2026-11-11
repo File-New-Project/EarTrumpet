@@ -430,6 +430,15 @@ namespace EarTrumpet.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default recording device.
+        /// </summary>
+        public static string ContextMenuDefaultRecordingDeviceText {
+            get {
+                return ResourceManager.GetString("ContextMenuDefaultRecordingDeviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string ContextMenuExitTitle {
